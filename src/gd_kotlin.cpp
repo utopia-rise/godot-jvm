@@ -62,8 +62,9 @@ void GDKotlin::init() {
     KtVariant::initMethodArray();
 
     jni::InitArgs args;
-    args.version = JNI_VERSION_1_8;
+    args.version = JNI_VERSION_10;
     args.option("-Xcheck:jni");
+    args.option("-XX:+UseZGC");
     jni::Jvm::init(args);
     print_line("Starting JVM ...");
     auto project_settings = ProjectSettings::get_singleton();

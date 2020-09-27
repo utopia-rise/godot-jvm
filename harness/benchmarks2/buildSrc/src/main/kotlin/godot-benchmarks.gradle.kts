@@ -1,0 +1,2 @@
+apply<godot.benchmarks.BenchmarksPlugin>()
+
