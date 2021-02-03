@@ -51,7 +51,10 @@ class Bootstrap {
                         return@scheduleAtFixedRate
                     }
                     println("Changes detected, reloading classes ...")
-                    registry?.let { unloadClasses(it.classes.toTypedArray()) }
+                    registry?.let {
+                        unloadClasses(it.classes.toTypedArray())
+                        it.classes.clear()
+                    }
 
                     if (File(mainJarPath.toString()).exists()) {
                         doInit(mainJarPath.toUri().toURL())
