@@ -53,7 +53,7 @@ class Bootstrap {
                     println("Changes detected, reloading classes ...")
                     registry?.let { unloadClasses(it.classes.toTypedArray()) }
 
-                    if (File(mainJarPath.toUri().toURL().toString()).exists()) {
+                    if (File(mainJarPath.toString()).exists()) {
                         doInit(mainJarPath.toUri().toURL())
                     }
                 }
