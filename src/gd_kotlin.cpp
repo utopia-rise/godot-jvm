@@ -1,5 +1,6 @@
 #include <core/print_string.h>
 #include <cassert>
+#include <main/main.h>
 #include "gd_kotlin.h"
 #include "core/os/os.h"
 #include "core/project_settings.h"
@@ -106,6 +107,10 @@ void register_engine_types_hook(JNIEnv* p_env, jobject p_this, jobjectArray p_en
 }
 
 void GDKotlin::init() {
+    if (Main::is_project_manager()) {
+        print_verbose("Detected that we're in the project manager. Won't initialize kotlin lang.");
+        return;
+    }
     jni::InitArgs args;
     args.version = JNI_VERSION_1_8;
 #ifdef DEBUG_ENABLED
@@ -202,7 +207,9 @@ void GDKotlin::init() {
     print_line("Starting JVM ...");
     auto project_settings = ProjectSettings::get_singleton();
     scripts_root = "res://src/main/kotlin/";
-    String bootstrap_jar = project_settings->globalize_path("res://build/libs/godot-bootstrap.jar");
+    String bootstrap_jar = OS::get_singleton()->get_executable_path().get_base_dir() + "/godot-bootstrap.jar";
+    CRASH_COND_MSG(!FileAccess::exists(bootstrap_jar), "No godot-bootstrap.jar found! This file needs to stay alongside the godot editor executable!")
+
     print_line(vformat("Loading bootstrap jar: %s", bootstrap_jar));
     jni::Env env{jni::Jvm::current_env()};
     jni::JObject current_thread = get_current_thread(env);

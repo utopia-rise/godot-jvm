@@ -7,6 +7,7 @@ import godot.utils.GodotBuildProperties
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import java.io.File
 
 /**
  * Set's up all configurations and compilations needed for kotlin_jvm to work and defines proper task dependencies between them.
@@ -73,9 +74,26 @@ fun Project.setupConfigurationsAndCompilations(jvm: KotlinJvmProjectExtension) {
     }
 
     tasks {
+        val createBuildLock by creating {
+            doFirst {
+                val libsFolder = File(project.buildDir.resolve("libs").absolutePath)
+                libsFolder.mkdirs()
+                File(libsFolder, "buildLock.lock").createNewFile()
+            }
+        }
+
+        val deleteBuildLock by creating {
+            doLast {
+                val libsFolder = File(project.buildDir.resolve("libs").absolutePath)
+                File(libsFolder, "buildLock.lock").delete()
+            }
+        }
+
         val bootstrapJar by creating(ShadowJar::class) {
             archiveBaseName.set("godot-bootstrap")
             configurations.add(bootstrap)
+
+            dependsOn(createBuildLock)
         }
 
         val shadowJar = named<ShadowJar>("shadowJar") {
@@ -85,6 +103,8 @@ fun Project.setupConfigurationsAndCompilations(jvm: KotlinJvmProjectExtension) {
             configurations.clear()
             configurations.add(gameConfiguration)
             from(gameCompilation.compileDependencyFiles + gameCompilation.output.classesDirs)
+
+            dependsOn(createBuildLock)
         }
 
         /**
@@ -113,6 +133,7 @@ fun Project.setupConfigurationsAndCompilations(jvm: KotlinJvmProjectExtension) {
 
         val build by getting {
             dependsOn(cleanupEntryFiles, bootstrapJar, shadowJar)
+            finalizedBy(deleteBuildLock)
         }
 
         //let the main compilation compile task be finalized by the game compilation compile task to catch possible errors

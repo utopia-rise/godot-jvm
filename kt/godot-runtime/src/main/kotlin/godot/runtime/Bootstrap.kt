@@ -2,6 +2,7 @@ package godot.runtime
 
 import godot.core.KtClass
 import godot.core.TypeManager
+import java.io.File
 import java.net.URL
 import java.net.URLClassLoader
 import java.nio.file.FileSystems
@@ -23,8 +24,10 @@ class Bootstrap {
     fun init(isEditor: Boolean, projectDir: String) {
         val libsDir = Paths.get(projectDir, "build/libs")
         val mainJarPath = libsDir.resolve("main.jar")
-        val mainJarUrl = mainJarPath.toUri().toURL()
-        doInit(mainJarUrl)
+
+        if (File(mainJarPath.toUri().toURL().toString()).exists()) {
+            doInit(mainJarPath.toUri().toURL())
+        }
 
         if (isEditor) {
             watchService = FileSystems.getDefault().newWatchService()
@@ -44,9 +47,15 @@ class Bootstrap {
             executor!!.scheduleAtFixedRate({
                 val events = watchKey.pollEvents()
                 if (events.isNotEmpty()) {
+                    if (File(File(libsDir.toString()), "buildLock.lock").exists()) {
+                        return@scheduleAtFixedRate
+                    }
                     println("Changes detected, reloading classes ...")
                     unloadClasses(registry.classes.toTypedArray())
-                    doInit(mainJarUrl)
+
+                    if (File(mainJarPath.toUri().toURL().toString()).exists()) {
+                        doInit(mainJarPath.toUri().toURL())
+                    }
                 }
             }, 3, 3, TimeUnit.SECONDS)
         }
