@@ -15,7 +15,7 @@ import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
 class Bootstrap {
-    private lateinit var registry: ClassRegistry
+    private var registry: ClassRegistry? = null
     private lateinit var classloader: URLClassLoader
     private lateinit var serviceLoader: ServiceLoader<Entry>
     private var executor: ScheduledExecutorService? = null
@@ -51,7 +51,7 @@ class Bootstrap {
                         return@scheduleAtFixedRate
                     }
                     println("Changes detected, reloading classes ...")
-                    unloadClasses(registry.classes.toTypedArray())
+                    registry?.let { unloadClasses(it.classes.toTypedArray()) }
 
                     if (File(mainJarPath.toUri().toURL().toString()).exists()) {
                         doInit(mainJarPath.toUri().toURL())
@@ -64,8 +64,8 @@ class Bootstrap {
     fun finish() {
         executor?.shutdown()
         watchService?.close()
-        unloadClasses(registry.classes.toTypedArray())
-        registry.classes.clear()
+        registry?.let { unloadClasses(it.classes.toTypedArray()) }
+        registry?.classes?.clear()
     }
 
     /**
@@ -84,16 +84,16 @@ class Bootstrap {
 
         if (entry.isPresent) {
             with(entry.get()) {
-                val context = Entry.Context(registry)
+                val context = Entry.Context(registry!!)
                 context.initEngineTypes()
                 registerManagedEngineTypes(
-                        TypeManager.engineTypeNames.toTypedArray(),
-                        TypeManager.engineTypeMethod.map { it.second }.toTypedArray(),
-                        TypeManager.engineTypeMethod.map { it.first }.toTypedArray()
+                    TypeManager.engineTypeNames.toTypedArray(),
+                    TypeManager.engineTypeMethod.map { it.second }.toTypedArray(),
+                    TypeManager.engineTypeMethod.map { it.first }.toTypedArray()
                 )
                 context.init()
             }
-            loadClasses(registry.classes.toTypedArray())
+            loadClasses(registry!!.classes.toTypedArray())
         } else {
             System.err.println("Unable to find Entry class, no classes will be loaded")
         }
