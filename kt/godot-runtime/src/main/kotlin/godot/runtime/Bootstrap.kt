@@ -25,7 +25,7 @@ class Bootstrap {
         val libsDir = Paths.get(projectDir, "build/libs")
         val mainJarPath = libsDir.resolve("main.jar")
 
-        if (File(mainJarPath.toUri().toURL().toString()).exists()) {
+        if (File(mainJarPath.toString()).exists()) {
             doInit(mainJarPath.toUri().toURL())
         }
 
