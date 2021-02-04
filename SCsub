@@ -23,7 +23,7 @@ if os.name == "nt":
     buildBootstrapJar = Command(
         target = "out",
         source = "kt/gradlew.bat",
-        action = "modules/kotlin_jvm/kt/gradlew.bat :godot-library:shadowJar -p modules/kotlin_jvm/kt"
+        action = "modules\kotlin_jvm\kt\gradlew.bat :godot-library:shadowJar -p modules\kotlin_jvm\kt"
     )
 else:
     buildBootstrapJar = Command(
