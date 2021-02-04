@@ -17,3 +17,29 @@ module_env.add_source_files(module_env.modules_sources, "register_types.cpp")
 module_env.add_source_files(module_env.modules_sources, "src/jni/*.cpp")
 module_env.add_source_files(module_env.modules_sources, "src/bridges/*.cpp")
 module_env.add_source_files(module_env.modules_sources, "src/*.cpp")
+
+
+if os.name == "nt":
+    buildBootstrapJar = Command(
+        target = "out",
+        source = "kt/gradlew.bat",
+        action = "modules/kotlin_jvm/kt/gradlew.bat :godot-library:shadowJar -p modules/kotlin_jvm/kt"
+    )
+else:
+    buildBootstrapJar = Command(
+        target = "out",
+        source = "kt/gradlew",
+        action = "modules/kotlin_jvm/kt/gradlew :godot-library:shadowJar -p modules/kotlin_jvm/kt"
+    )
+
+copyBootstrapJar = Command(
+    "#/bin/godot-bootstrap.jar",
+    "kt/godot-library/build/libs/godot-bootstrap.jar",
+    Copy(
+        "$TARGET",
+        "$SOURCE"
+    )
+)
+
+Depends(copyBootstrapJar, buildBootstrapJar)
+AlwaysBuild(buildBootstrapJar)
