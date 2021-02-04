@@ -158,15 +158,22 @@ PlaceHolderScriptInstance* KotlinScript::placeholder_instance_create(Object* p_t
     };
     List<PropertyInfo> properties;
     Map<StringName, Variant> default_values;
-    get_property_list(&properties);
-    for (int i = 0; i < properties.size(); ++i) {
-        PropertyInfo& info{properties[i]};
-        StringName property_name{info.name};
-        Variant ret;
-        get_property_default_value(property_name, ret);
-        default_values[property_name] = ret;
+//    get_property_list(&properties);
+    KtClass* kotlinClass { get_kotlin_class() };
+    if (kotlinClass) {
+        kotlinClass->get_property_list(&properties);
+        for (int i = 0; i < properties.size(); ++i) {
+            PropertyInfo& info{properties[i]};
+            StringName property_name{info.name};
+            Variant ret;
+            KtProperty* property = kotlinClass->get_property(info.name);
+            property->get_default_value(ret);
+//            get_property_default_value(property_name, ret);
+            default_values[property_name] = ret;
+        }
     }
     placeholder->update(properties, default_values);
+    p_this->set_script_instance(placeholder);
     placeholders.insert(placeholder);
     return placeholder;
 }
