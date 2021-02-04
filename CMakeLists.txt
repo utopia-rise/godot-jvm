@@ -19,3 +19,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${JNI_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME}
         PUBLIC ${GODOT_ROOT_DIR}
 )
+
+# Uncomment to pass auto completion in TOOLS mode
+add_compile_definitions(TOOLS_ENABLED)

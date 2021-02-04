@@ -4,7 +4,15 @@
 #include "gd_kotlin.h"
 
 bool KotlinScript::can_instance() const {
+#ifdef TOOLS_ENABLED
+    if (Engine::get_singleton()->is_editor_hint()) {
+        return false;
+    } else {
+        return true;
+    }
+#else
     return true;
+#endif
 }
 
 Ref<Script> KotlinScript::get_base_script() const {
@@ -142,6 +150,45 @@ Variant KotlinScript::_new(const Variant **p_args, int p_argcount, Variant::Call
         return owner;
     }
 }
+
+#ifdef TOOLS_ENABLED
+PlaceHolderScriptInstance* KotlinScript::placeholder_instance_create(Object* p_this) {
+    PlaceHolderScriptInstance* placeholder{
+        memnew(PlaceHolderScriptInstance(&KotlinLanguage::get_instance(), Ref<Script>(this), p_this))
+    };
+    List<PropertyInfo> properties;
+    Map<StringName, Variant> default_values;
+    get_property_list(&properties);
+    for (int i = 0; i < properties.size(); ++i) {
+        PropertyInfo& info{properties[i]};
+        StringName property_name{info.name};
+        Variant ret;
+        get_property_default_value(property_name, ret);
+        default_values[property_name] = ret;
+    }
+    placeholder->update(properties, default_values);
+    placeholders.insert(placeholder);
+    return placeholder;
+}
+
+bool KotlinScript::is_placeholder_fallback_enabled() const {
+    return true;
+}
+
+void KotlinScript::_placeholder_erased(PlaceHolderScriptInstance* p_placeholder) {
+    placeholders.erase(p_placeholder);
+}
+#endif
+
+#ifdef TOOLS_ENABLED
+KotlinScript::~KotlinScript() {
+    for (Set<PlaceHolderScriptInstance *>::Element *E = placeholders.front(); E; E = E->next()) {
+        memdelete(E->get());
+    }
+
+    placeholders.clear();
+}
+#endif
 
 void KotlinScript::_bind_methods() {
     ClassDB::bind_vararg_method(METHOD_FLAGS_DEFAULT, "new", &KotlinScript::_new, MethodInfo("new"));

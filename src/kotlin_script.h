@@ -12,7 +12,12 @@ private:
 
 public:
     KotlinScript() = default;
+
+#ifdef TOOLS_ENABLED
+    ~KotlinScript() override;
+#else
     ~KotlinScript() override = default;
+#endif
 
     Variant _new(const Variant **p_args, int p_argcount, Variant::CallError &r_error);
 
@@ -53,6 +58,16 @@ public:
     void get_script_method_list(List<MethodInfo>* p_list) const override;
 
     void get_script_property_list(List<PropertyInfo>* p_list) const override;
+
+#ifdef TOOLS_ENABLED
+private:
+    Set<PlaceHolderScriptInstance *> placeholders;
+
+    void _placeholder_erased(PlaceHolderScriptInstance *p_placeholder) override;
+public:
+    PlaceHolderScriptInstance *placeholder_instance_create(Object *p_this) override;
+    bool is_placeholder_fallback_enabled() const override;
+#endif
 
 protected:
     static void _bind_methods();
