@@ -61,12 +61,13 @@ public:
 
 #ifdef TOOLS_ENABLED
 private:
-    Set<PlaceHolderScriptInstance *> placeholders;
+    Set<PlaceHolderScriptInstance*> placeholders;
 
-    void _placeholder_erased(PlaceHolderScriptInstance *p_placeholder) override;
+    void _placeholder_erased(PlaceHolderScriptInstance* p_placeholder) override;
+    void _update_exports(PlaceHolderScriptInstance* placeholder) const;
 public:
-    PlaceHolderScriptInstance *placeholder_instance_create(Object *p_this) override;
-    bool is_placeholder_fallback_enabled() const override;
+    PlaceHolderScriptInstance* placeholder_instance_create(Object *p_this) override;
+    void update_exports() override;
 #endif
 
 protected:

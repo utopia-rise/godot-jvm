@@ -156,30 +156,29 @@ PlaceHolderScriptInstance* KotlinScript::placeholder_instance_create(Object* p_t
     PlaceHolderScriptInstance* placeholder{
         memnew(PlaceHolderScriptInstance(&KotlinLanguage::get_instance(), Ref<Script>(this), p_this))
     };
-    List<PropertyInfo> properties;
-    Map<StringName, Variant> default_values;
-//    get_property_list(&properties);
-    KtClass* kotlinClass { get_kotlin_class() };
-    if (kotlinClass) {
-        kotlinClass->get_property_list(&properties);
-        for (int i = 0; i < properties.size(); ++i) {
-            PropertyInfo& info{properties[i]};
-            StringName property_name{info.name};
-            Variant ret;
-            KtProperty* property = kotlinClass->get_property(info.name);
-            property->get_default_value(ret);
-//            get_property_default_value(property_name, ret);
-            default_values[property_name] = ret;
-        }
-    }
-    placeholder->update(properties, default_values);
     p_this->set_script_instance(placeholder);
     placeholders.insert(placeholder);
+    _update_exports(placeholder);
     return placeholder;
 }
 
-bool KotlinScript::is_placeholder_fallback_enabled() const {
-    return true;
+void KotlinScript::update_exports() {
+    for (Set<PlaceHolderScriptInstance *>::Element *E = placeholders.front(); E; E = E->next()) {
+        _update_exports(E->get());
+    }
+}
+
+void KotlinScript::_update_exports(PlaceHolderScriptInstance* placeholder) const {
+    List<PropertyInfo> properties;
+    Map<StringName, Variant> default_values;
+    get_script_property_list(&properties);
+    for (int i = 0; i < properties.size(); ++i) {
+        StringName property_name{properties[i].name};
+        Variant ret;
+        get_property_default_value(property_name, ret);
+        default_values[property_name] = ret;
+    }
+    placeholder->update(properties, default_values);
 }
 
 void KotlinScript::_placeholder_erased(PlaceHolderScriptInstance* p_placeholder) {
