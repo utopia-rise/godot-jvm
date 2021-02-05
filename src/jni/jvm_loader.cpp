@@ -2,6 +2,7 @@
 
 #include <core/engine.h>
 #include <core/os/os.h>
+#include <core/project_settings.h>
 
 void *jni::JvmLoader::jvmLib = nullptr;
 
@@ -45,38 +46,63 @@ jni::GetCreatedJavaVMs jni::JvmLoader::getGetCreatedJavaVMsFunction() {
 }
 
 String jni::JvmLoader::getJvmLibPath() {
+    if (Engine::get_singleton()->is_editor_hint()) {
+        print_line("Godot-JVM: Editor mode, loading jvm from JAVA_HOME");
+        return getPathToLocallyInstalledJvm();
+    } else {
+        String embeddedJrePath = ProjectSettings::get_singleton()->globalize_path("res://jre/") + getRelativePath();
+        if (!FileAccess::exists(embeddedJrePath)) {
+            WARN_PRINT(vformat("Godot-JVM: No embedded jvm found on path: %s!", embeddedJrePath))
+#ifdef DEBUG_ENABLED
+            WARN_PRINT(vformat("Godot-JVM: You really should embedd a jre in your game with jlink! See the documentation if you don't know how to do that"))
+#endif
+            return getPathToLocallyInstalledJvm();
+        }
+        return embeddedJrePath;
+    }
+}
+
+String jni::JvmLoader::getPathToLocallyInstalledJvm() {
+    String javaHome = getenv("JAVA_HOME");
+
+    if (javaHome.empty()) {
+        ERR_PRINT("JAVA_HOME is not defined! Exiting...")
+        exit(1);
+    }
+
+    String pathToLocallyInstalledJvmLib = javaHome + getFileSeparator() + getRelativePath();
+
+    print_verbose(vformat("Godot-JVM: Trying to use locally installed jdk at %s", pathToLocallyInstalledJvmLib));
+
+    if (!FileAccess::exists(pathToLocallyInstalledJvmLib)) {
+        ERR_PRINT(vformat("Godot-JVM: No jvm found at %s! Exiting...", pathToLocallyInstalledJvmLib))
+        exit(1);
+    }
+    return pathToLocallyInstalledJvmLib;
+}
+
+String jni::JvmLoader::getRelativePath() {
 #ifdef __linux__
-    String relativePath{"lib/server/libjvm.so"};
-    String fileSeparator{"/"};
+    return "lib/server/libjvm.so";
 #elif __APPLE__
     #include <TargetConditionals.h>
     #if TARGET_OS_MAC
-        String relativePath {"lib/server/libjvm.dylib"};
-        String fileSeparator {"/"};
+        return "lib/server/libjvm.dylib";
     #endif
 #elif defined _WIN32 || defined _WIN64
-    String relativePath {"bin\\server\\jvm.dll"};
-    String fileSeparator {"\\"};
+    return "bin\\server\\jvm.dll";
 #endif
+}
 
-    String embeddedJrePath{"jre/"};
-
-    if (Engine::get_singleton()->is_editor_hint()) {
-
-        String message = "No embedded jvm found on path: jre" + fileSeparator + relativePath + "!";
-        String javaHome = getenv("JAVA_HOME");
-
-        if (javaHome.empty()) {
-            ERR_PRINT(message + " And JAVA_HOME is not defined! Exiting...")
-            exit(1);
-        }
-
-        String pathToLocallyInstalledJvmLib = javaHome + fileSeparator + relativePath;
-
-        message += " Trying to use locally installed jdk at " + pathToLocallyInstalledJvmLib;
-        WARN_PRINT(message.utf8().get_data())
-        return pathToLocallyInstalledJvmLib;
-    } else {
-        return embeddedJrePath + relativePath;
-    }
+String jni::JvmLoader::getFileSeparator() {
+#ifdef __linux__
+    return "/";
+#elif __APPLE__
+    #include <TargetConditionals.h>
+    #if TARGET_OS_MAC
+        return "/";
+    #endif
+#elif defined _WIN32 || defined _WIN64
+    return "\\";
+#endif
 }

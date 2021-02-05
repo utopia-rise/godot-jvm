@@ -18,6 +18,9 @@ namespace jni {
         static void *jvmLib;
         static void loadJvmLib();
         static String getJvmLibPath();
+        static String getPathToLocallyInstalledJvm();
+        static String getRelativePath();
+        static String getFileSeparator();
     };
 }
 
