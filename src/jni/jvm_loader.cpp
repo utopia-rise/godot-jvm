@@ -5,7 +5,7 @@
 #include <core/project_settings.h>
 #include <modules/kotlin_jvm/src/logging.h>
 
-void *jni::JvmLoader::jvmLib = nullptr;
+void* jni::JvmLoader::jvmLib = nullptr;
 
 void jni::JvmLoader::loadJvmLib() {
     String libPath = getJvmLibPath();
@@ -26,8 +26,9 @@ jni::CreateJavaVM jni::JvmLoader::getCreateJvmFunction() {
     if (jvmLib == nullptr) {
         loadJvmLib();
     }
-    void *createJavaVMSymbolHandle;
-    if (OS::get_singleton()->get_dynamic_library_symbol_handle(jvmLib, "JNI_CreateJavaVM", createJavaVMSymbolHandle) != OK) {
+    void* createJavaVMSymbolHandle;
+    if (OS::get_singleton()->get_dynamic_library_symbol_handle(jvmLib, "JNI_CreateJavaVM", createJavaVMSymbolHandle) !=
+        OK) {
         logging::error("Failed to get JNI_CreateJavaVM symbol handle");
         exit(1);
     }
@@ -38,8 +39,9 @@ jni::GetCreatedJavaVMs jni::JvmLoader::getGetCreatedJavaVMsFunction() {
     if (jvmLib == nullptr) {
         loadJvmLib();
     }
-    void *getCreatedJavaVMsSymbolHandle;
-    if (OS::get_singleton()->get_dynamic_library_symbol_handle(jvmLib, "JNI_GetCreatedJavaVMs", getCreatedJavaVMsSymbolHandle) != OK) {
+    void* getCreatedJavaVMsSymbolHandle;
+    if (OS::get_singleton()->get_dynamic_library_symbol_handle(jvmLib, "JNI_GetCreatedJavaVMs",
+                                                               getCreatedJavaVMsSymbolHandle) != OK) {
         logging::error("Failed to get JNI_GetCreatedJavaVMs symbol handle");
         exit(1);
     }
@@ -51,7 +53,8 @@ String jni::JvmLoader::getJvmLibPath() {
         logging::info("Godot-JVM: Editor mode, loading jvm from JAVA_HOME");
         return getPathToLocallyInstalledJvm();
     } else {
-        String embeddedJrePath = ProjectSettings::get_singleton()->globalize_path("res://jre/") + LIB_JVM_RELATIVE_PATH;
+        String embeddedJrePath{
+                ProjectSettings::get_singleton()->globalize_path(vformat("res://jre/%s", LIB_JVM_RELATIVE_PATH))};
         if (!FileAccess::exists(embeddedJrePath)) {
             logging::warning(vformat("Godot-JVM: No embedded jvm found on path: %s!", embeddedJrePath));
 #ifdef DEBUG_ENABLED
@@ -64,14 +67,14 @@ String jni::JvmLoader::getJvmLibPath() {
 }
 
 String jni::JvmLoader::getPathToLocallyInstalledJvm() {
-    String javaHome = getenv("JAVA_HOME");
+    String javaHome{getenv("JAVA_HOME")};
 
     if (javaHome.empty()) {
         logging::error("JAVA_HOME is not defined! Exiting...");
         exit(1);
     }
 
-    String pathToLocallyInstalledJvmLib = javaHome + FILE_SEPARATOR + LIB_JVM_RELATIVE_PATH;
+    String pathToLocallyInstalledJvmLib{javaHome + FILE_SEPARATOR + LIB_JVM_RELATIVE_PATH};
 
     logging::verbose(vformat("Godot-JVM: Trying to use locally installed jdk at %s", pathToLocallyInstalledJvmLib));
 
