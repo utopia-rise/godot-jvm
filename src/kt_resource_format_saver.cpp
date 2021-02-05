@@ -20,7 +20,7 @@ Error KtResourceFormatSaver::save(const String& p_path, const RES& p_resource, u
     String source = script->get_source_code();
     Error err;
     FileAccess *file = FileAccess::open(p_path, FileAccess::WRITE, &err);
-    logging::error(err != OK, &err, "Cannot save Kotlin script file '" + p_path + "'.");
+    JVM_ERR_FAIL_COND_V_MSG(err != OK, err, "Cannot save Kotlin script file '" + p_path + "'.")
     file->store_string(source);
 
     if (file->get_error() != OK && file->get_error() != ERR_FILE_EOF) {

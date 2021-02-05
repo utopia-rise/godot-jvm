@@ -8,7 +8,7 @@ Error kt_read_all_file_utf8(const String &p_path, String &r_content) {
     PoolVector<uint8_t> sourcef;
     Error err;
     FileAccess *f = FileAccess::open(p_path, FileAccess::READ, &err);
-    logging::error(err != OK, &err, "Cannot open file '" + p_path + "'.");
+    JVM_ERR_FAIL_COND_V_MSG(err != OK, err, "Cannot open file '" + p_path + "'.")
 
     int len = f->get_len();
     sourcef.resize(len + 1);
@@ -16,7 +16,7 @@ Error kt_read_all_file_utf8(const String &p_path, String &r_content) {
     int r = f->get_buffer(w.ptr(), len);
     f->close();
     memdelete(f);
-    ERR_FAIL_COND_V(r != len, ERR_CANT_OPEN);
+    ERR_FAIL_COND_V(r != len, ERR_CANT_OPEN)
     w[len] = 0;
 
     String source;

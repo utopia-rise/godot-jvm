@@ -31,7 +31,7 @@ KtObject* KtClass::create_instance(jni::Env& env, const Variant** p_args, int p_
             jni::to_jni_arg(p_arg_count)
     };
     jni::JObject j_kt_object{wrapped.call_object_method(env, new_method, args)};
-    logging::verbose(vformat("Instantiated an object of type %s", name));
+    LOG_VERBOSE(vformat("Instantiated an object of type %s", name))
     return new KtObject(j_kt_object, class_loader, name);
 }
 
@@ -80,7 +80,7 @@ void KtClass::fetch_methods(jni::Env& env) {
     for (int i = 0; i < functionsArray.length(env); i++) {
         auto* ktFunction { new KtFunction(functionsArray.get(env, i), GDKotlin::get_instance().get_class_loader()) };
         methods[ktFunction->get_name()] = ktFunction;
-        logging::verbose(vformat("Fetched method %s for class %s", ktFunction->get_name(), name));
+        LOG_VERBOSE(vformat("Fetched method %s for class %s", ktFunction->get_name(), name))
     }
 }
 
@@ -90,7 +90,7 @@ void KtClass::fetch_properties(jni::Env& env) {
     for (int i = 0; i < propertiesArray.length(env); i++) {
         auto* ktProperty { new KtProperty(propertiesArray.get(env, i), GDKotlin::get_instance().get_class_loader()) };
         properties[ktProperty->get_name()] = ktProperty;
-        logging::verbose(vformat("Fetched property %s for class %s", ktProperty->get_name(), name));
+        LOG_VERBOSE(vformat("Fetched property %s for class %s", ktProperty->get_name(), name))
     }
 }
 
@@ -102,7 +102,7 @@ void KtClass::fetch_signals(jni::Env& env) {
             new KtSignalInfo(signal_info_array.get(env, i), GDKotlin::get_instance().get_class_loader())
         };
         signal_infos[kt_signal_info->name] = kt_signal_info;
-        logging::verbose(vformat("Fetched signal %s for class %s", kt_signal_info->name, name));
+        LOG_VERBOSE(vformat("Fetched signal %s for class %s", kt_signal_info->name, name))
     }
 }
 
