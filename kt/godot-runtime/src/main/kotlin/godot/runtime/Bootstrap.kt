@@ -2,6 +2,9 @@ package godot.runtime
 
 import godot.core.KtClass
 import godot.core.TypeManager
+import godot.util.err
+import godot.util.info
+import godot.util.warning
 import java.io.File
 import java.net.URL
 import java.net.URLClassLoader
@@ -27,6 +30,12 @@ class Bootstrap {
 
         if (File(mainJarPath.toString()).exists()) {
             doInit(mainJarPath.toUri().toURL())
+        } else {
+            if (isEditor) {
+                ::warning
+            } else {
+                ::err
+            }.invoke("No main.jar detected. No classes will be loaded. Build the gradle project to load classes")
         }
 
         if (isEditor) {
@@ -50,7 +59,7 @@ class Bootstrap {
                     if (File(File(libsDir.toString()), "buildLock.lock").exists()) {
                         return@scheduleAtFixedRate
                     }
-                    println("Changes detected, reloading classes ...")
+                    info("Changes detected, reloading classes ...")
                     registry?.let {
                         unloadClasses(it.classes.toTypedArray())
                         it.classes.clear()
@@ -58,6 +67,8 @@ class Bootstrap {
 
                     if (File(mainJarPath.toString()).exists()) {
                         doInit(mainJarPath.toUri().toURL())
+                    } else {
+                        warning("No main.jar detected. No classes will be loaded. Build the project to load classes")
                     }
                 }
             }, 3, 3, TimeUnit.SECONDS)
@@ -98,7 +109,7 @@ class Bootstrap {
             }
             loadClasses(registry!!.classes.toTypedArray())
         } else {
-            System.err.println("Unable to find Entry class, no classes will be loaded")
+            err("Unable to find Entry class, no classes will be loaded")
         }
     }
 
