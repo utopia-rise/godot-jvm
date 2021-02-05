@@ -276,6 +276,10 @@ void GDKotlin::init() {
 }
 
 void GDKotlin::finish() {
+    if (Main::is_project_manager()) {
+        LOG_VERBOSE("Detected that we're in the project manager. No cleanup necessary")
+        return;
+    }
     auto env = jni::Jvm::current_env();
 
     delete transfer_context;
