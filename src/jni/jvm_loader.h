@@ -18,7 +18,7 @@
     #endif
 #elif defined _WIN32 || defined _WIN64
 #define FILE_SEPARATOR "\\"
-#define LIB_JVM_RELATIVE_PATH "bin\server\jvm.dll"
+#define LIB_JVM_RELATIVE_PATH "bin\\server\\jvm.dll"
 #endif
 
 namespace jni {
