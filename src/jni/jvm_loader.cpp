@@ -5,10 +5,10 @@
 #include <core/project_settings.h>
 #include <modules/kotlin_jvm/src/logging.h>
 
-void* jni::JvmLoader::jvmLib = nullptr;
+void* jni::JvmLoader::jvmLib{nullptr};
 
 void jni::JvmLoader::loadJvmLib() {
-    String libPath = getJvmLibPath();
+    String libPath{getJvmLibPath()};
 
     if (OS::get_singleton()->open_dynamic_library(libPath, jvmLib) != OK) {
         logging::error(String("Failed to load the jvm dynamic library from path ") + libPath + "!");
