@@ -22,7 +22,7 @@ class Bootstrap {
     private lateinit var classloader: URLClassLoader
     private lateinit var serviceLoader: ServiceLoader<Entry>
     private var executor: ScheduledExecutorService? = null
-    private var watchService: WatchService? = null;
+    private var watchService: WatchService? = null
 
     fun init(isEditor: Boolean, projectDir: String) {
         val libsDir = Paths.get(projectDir, "build/libs")
@@ -40,7 +40,7 @@ class Bootstrap {
 
         if (isEditor) {
             watchService = FileSystems.getDefault().newWatchService()
-            val watchKey = libsDir.register(
+            val watchKey = getBuildLockDir(projectDir).toPath().register(
                 watchService,
                 StandardWatchEventKinds.ENTRY_CREATE,
                 StandardWatchEventKinds.ENTRY_DELETE,
@@ -56,7 +56,7 @@ class Bootstrap {
             executor!!.scheduleAtFixedRate({
                 val events = watchKey.pollEvents()
                 if (events.isNotEmpty()) {
-                    if (File(File(libsDir.toString()), "buildLock.lock").exists()) {
+                    if (File(getBuildLockDir(projectDir), "buildLock.lock").exists()) {
                         return@scheduleAtFixedRate
                     }
                     info("Changes detected, reloading classes ...")
@@ -113,12 +113,26 @@ class Bootstrap {
         }
     }
 
+    private fun getBuildLockDir(projectDir: String): File {
+        val name = "${File(projectDir).name}_buildLockDir" //keep the same in the gradle plugin!
+        val tmpDir = System.getProperty("java.io.tmpdir")
+        val lockDir = File(tmpDir, name)
+
+        return if (lockDir.exists() && lockDir.isDirectory) {
+            lockDir
+        } else {
+            lockDir.delete()
+            lockDir.mkdirs()
+            lockDir
+        }
+    }
+
     private external fun loadClasses(classes: Array<KtClass<*>>)
     private external fun unloadClasses(classes: Array<KtClass<*>>)
 
     private external fun registerManagedEngineTypes(
-            engineTypesNames: Array<String>,
-            engineTypeMethodNames: Array<String>,
-            typeOfMethods: Array<Int>
+        engineTypesNames: Array<String>,
+        engineTypeMethodNames: Array<String>,
+        typeOfMethods: Array<Int>
     )
 }

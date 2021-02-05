@@ -76,16 +76,15 @@ fun Project.setupConfigurationsAndCompilations(jvm: KotlinJvmProjectExtension) {
     tasks {
         val createBuildLock by creating {
             doFirst {
-                val libsFolder = File(project.buildDir.resolve("libs").absolutePath)
-                libsFolder.mkdirs()
-                File(libsFolder, "buildLock.lock").createNewFile()
+                val buildLockDir = getBuildLockDir(projectDir)
+                File(buildLockDir, "buildLock.lock").createNewFile()
             }
         }
 
         val deleteBuildLock by creating {
             doLast {
-                val libsFolder = File(project.buildDir.resolve("libs").absolutePath)
-                File(libsFolder, "buildLock.lock").delete()
+                val buildLockDir = getBuildLockDir(projectDir)
+                File(buildLockDir, "buildLock.lock").delete()
             }
         }
 
@@ -136,8 +135,27 @@ fun Project.setupConfigurationsAndCompilations(jvm: KotlinJvmProjectExtension) {
             finalizedBy(deleteBuildLock)
         }
 
+        val clean by getting {
+            dependsOn(createBuildLock)
+            finalizedBy(deleteBuildLock)
+        }
+
         //let the main compilation compile task be finalized by the game compilation compile task to catch possible errors
         //which would only occur in the game compilation early (ex. errors in the entry file which is not compiled in the main compilation)
         mainCompilation.compileKotlinTask.finalizedBy(gameCompilation.compileKotlinTask)
+    }
+}
+
+private fun getBuildLockDir(projectDir: File): File {
+    val name = "${projectDir.name}_buildLockDir"  //keep the same in the Bootstrap class!
+    val tmpDir = System.getProperty("java.io.tmpdir")
+    val lockDir = File(tmpDir, name)
+
+    return if (lockDir.exists() && lockDir.isDirectory) {
+        lockDir
+    } else {
+        lockDir.delete()
+        lockDir.mkdirs()
+        lockDir
     }
 }
