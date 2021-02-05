@@ -50,7 +50,7 @@ String jni::JvmLoader::getJvmLibPath() {
         print_line("Godot-JVM: Editor mode, loading jvm from JAVA_HOME");
         return getPathToLocallyInstalledJvm();
     } else {
-        String embeddedJrePath = ProjectSettings::get_singleton()->globalize_path("res://jre/") + getRelativePath();
+        String embeddedJrePath = ProjectSettings::get_singleton()->globalize_path("res://jre/") + LIB_JVM_RELATIVE_PATH;
         if (!FileAccess::exists(embeddedJrePath)) {
             WARN_PRINT(vformat("Godot-JVM: No embedded jvm found on path: %s!", embeddedJrePath))
 #ifdef DEBUG_ENABLED
@@ -70,7 +70,7 @@ String jni::JvmLoader::getPathToLocallyInstalledJvm() {
         exit(1);
     }
 
-    String pathToLocallyInstalledJvmLib = javaHome + getFileSeparator() + getRelativePath();
+    String pathToLocallyInstalledJvmLib = javaHome + FILE_SEPARATOR + LIB_JVM_RELATIVE_PATH;
 
     print_verbose(vformat("Godot-JVM: Trying to use locally installed jdk at %s", pathToLocallyInstalledJvmLib));
 
@@ -79,30 +79,4 @@ String jni::JvmLoader::getPathToLocallyInstalledJvm() {
         exit(1);
     }
     return pathToLocallyInstalledJvmLib;
-}
-
-String jni::JvmLoader::getRelativePath() {
-#ifdef __linux__
-    return "lib/server/libjvm.so";
-#elif __APPLE__
-    #include <TargetConditionals.h>
-    #if TARGET_OS_MAC
-        return "lib/server/libjvm.dylib";
-    #endif
-#elif defined _WIN32 || defined _WIN64
-    return "bin\\server\\jvm.dll";
-#endif
-}
-
-String jni::JvmLoader::getFileSeparator() {
-#ifdef __linux__
-    return "/";
-#elif __APPLE__
-    #include <TargetConditionals.h>
-    #if TARGET_OS_MAC
-        return "/";
-    #endif
-#elif defined _WIN32 || defined _WIN64
-    return "\\";
-#endif
 }

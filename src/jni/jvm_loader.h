@@ -7,6 +7,20 @@
 
 #include "jvm.h"
 
+#ifdef __linux__
+#define LIB_JVM_RELATIVE_PATH "lib/server/libjvm.so"
+#define FILE_SEPARATOR "/"
+#elif __APPLE__
+#include <TargetConditionals.h>
+    #if TARGET_OS_MAC
+        #define LIB_JVM_RELATIVE_PATH "lib/server/libjvm.dylib"
+        #define FILE_SEPARATOR "/"
+    #endif
+#elif defined _WIN32 || defined _WIN64
+    #define LIB_JVM_RELATIVE_PATH "bin\server\jvm.dll"
+    #define FILE_SEPARATOR "\\"
+#endif
+
 namespace jni {
     class JvmLoader {
     public:
@@ -19,8 +33,6 @@ namespace jni {
         static void loadJvmLib();
         static String getJvmLibPath();
         static String getPathToLocallyInstalledJvm();
-        static String getRelativePath();
-        static String getFileSeparator();
     };
 }
 
