@@ -7,6 +7,7 @@
 #include "bootstrap.h"
 #include "type_manager.h"
 #include "bridges_manager.h"
+#include "logging.h"
 
 // If changed, remember to change also TransferContext::bufferCapacity on JVM side
 const int DEFAULT_SHARED_BUFFER_SIZE{20'000'000};
@@ -75,15 +76,15 @@ void unload_classes_hook(JNIEnv* p_env, jobject p_this, jobjectArray p_classes) 
 }
 
 void register_engine_types_hook(JNIEnv* p_env, jobject p_this, jobjectArray p_engine_types, jobjectArray p_method_names,
-        jobjectArray p_types_of_methods) {
-    print_verbose("Starting to register managed engine types...");
+                                jobjectArray p_types_of_methods) {
+    logging::verbose("Starting to register managed engine types...");
     jni::Env env(p_env);
     jni::JObjectArray engine_types{p_engine_types};
     for (int i = 0; i < engine_types.length(env); ++i) {
         const String& class_name = env.from_jstring(static_cast<jni::JString>(engine_types.get(env, i)));
         GDKotlin::get_instance().engine_type_names.insert(i, class_name);
         TypeManager::get_instance().JAVA_ENGINE_TYPES_CONSTRUCTORS[class_name] = i;
-        print_verbose(vformat("Registered %s engine type with index %s.", class_name, i));
+        logging::verbose(vformat("Registered %s engine type with index %s.", class_name, i));
     }
     jni::JObjectArray method_names{p_method_names};
     jni::JObjectArray types_of_methods{p_types_of_methods};
@@ -103,12 +104,12 @@ void register_engine_types_hook(JNIEnv* p_env, jobject p_this, jobjectArray p_en
     j_object.delete_local_ref(env);
     engine_types.delete_local_ref(env);
     method_names.delete_local_ref(env);
-    print_verbose("Done registering managed engine types...");
+    logging::verbose("Done registering managed engine types...");
 }
 
 void GDKotlin::init() {
     if (Main::is_project_manager()) {
-        print_verbose("Detected that we're in the project manager. Won't initialize kotlin lang.");
+        logging::verbose("Detected that we're in the project manager. Won't initialize kotlin lang.");
         return;
     }
     jni::InitArgs args;
@@ -162,19 +163,22 @@ void GDKotlin::init() {
             if (split_jvm_debug_argument(cmd_arg, result) == OK) {
                 jvm_to_engine_shared_buffer_size = result.to_int();
                 //TODO: Link to documentation
-                WARN_PRINT(vformat("Warning ! Buffer capacity was changed to %s, this is not a recommended practice",
-                                   result))
+                logging::warning(
+                        vformat("Warning ! Buffer capacity was changed to %s, this is not a recommended practice",
+                                result)
+                );
             }
         } else if (cmd_arg == "--jvm-force-gc") {
             is_gc_force_mode = true;
             //TODO: Link to documentation
-            WARN_PRINT("GC is started in force mode, this should only be done for debugging purpose")
+            logging::warning("GC is started in force mode, this should only be done for debugging purpose");
         } else if (cmd_arg == "--jvm-disable-gc") {
             is_gc_activated = false;
             //TODO: Link to documentation
-            WARN_PRINT("GC thread was disable. --jvm-disable-gc should only be used for debugging purpose")
+            logging::warning("GC thread was disable. --jvm-disable-gc should only be used for debugging purpose");
         } else if (cmd_arg == "--jvm-disable-closing-leaks-warning") {
-            WARN_PRINT("JVM leaked instances will not be displayed in console (see --jvm-disable-closing-leaks-warning)")
+            logging::warning(
+                    "JVM leaked instances will not be displayed in console (see --jvm-disable-closing-leaks-warning)");
             should_display_leaked_jvm_instances_on_close = false;
         }
     }
@@ -186,7 +190,9 @@ void GDKotlin::init() {
             jvm_debug_port = "5005";
         }
 
-        String debug_command{"-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=" + jvm_debug_address + ":" + jvm_debug_port};
+        String debug_command{
+                "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=" + jvm_debug_address + ":" +
+                jvm_debug_port};
         args.option(debug_command.utf8());
     }
 
@@ -200,17 +206,18 @@ void GDKotlin::init() {
         args.option("-Dcom.sun.management.jmxremote.local.only=false");
         args.option("-Dcom.sun.management.jmxremote.authenticate=false");
         args.option("-Dcom.sun.management.jmxremote.ssl=false");
-        print_verbose(vformat("Started JMX on port: %s", jvm_jmx_port));
+        logging::verbose(vformat("Started JMX on port: %s", jvm_jmx_port));
     }
 
     jni::Jvm::init(args);
-    print_line("Starting JVM ...");
+    logging::info("Starting JVM ...");
     auto project_settings = ProjectSettings::get_singleton();
     scripts_root = "res://src/main/kotlin/";
     String bootstrap_jar = OS::get_singleton()->get_executable_path().get_base_dir() + "/godot-bootstrap.jar";
-    CRASH_COND_MSG(!FileAccess::exists(bootstrap_jar), "No godot-bootstrap.jar found! This file needs to stay alongside the godot editor executable!")
+    logging::error(!FileAccess::exists(bootstrap_jar),
+                   "No godot-bootstrap.jar found! This file needs to stay alongside the godot editor executable!");
 
-    print_line(vformat("Loading bootstrap jar: %s", bootstrap_jar));
+    logging::info(vformat("Loading bootstrap jar: %s", bootstrap_jar));
     jni::Env env{jni::Jvm::current_env()};
     jni::JObject current_thread = get_current_thread(env);
     class_loader = create_class_loader(env, bootstrap_jar).new_global_ref<jni::JObject>(env);
@@ -220,7 +227,7 @@ void GDKotlin::init() {
     jni::FieldId transfer_ctx_instance_field = transfer_ctx_cls.get_static_field_id(env, "INSTANCE",
                                                                                     "Lgodot/core/TransferContext;");
     jni::JObject transfer_ctx_instance = transfer_ctx_cls.get_static_object_field(env, transfer_ctx_instance_field);
-    CRASH_COND_MSG(transfer_ctx_instance.isNull(), "Failed to retrieve TransferContext instance")
+    logging::error(transfer_ctx_instance.isNull(), "Failed to retrieve TransferContext instance");
     transfer_context = new TransferContext(transfer_ctx_instance, class_loader);
     if (jvm_to_engine_shared_buffer_size != DEFAULT_SHARED_BUFFER_SIZE) {
         jni::MethodId set_buffer_size_method{transfer_ctx_cls.get_method_id(env, "setBufferSize", "(I)V")};
@@ -235,18 +242,18 @@ void GDKotlin::init() {
     jni::JObject garbage_collector_instance{
             garbage_collector_cls.get_static_object_field(env, garbage_collector_instance_field)
     };
-    CRASH_COND_MSG(garbage_collector_instance.isNull(), "Failed to retrieve GarbageCollector instance")
+    logging::error(garbage_collector_instance.isNull(), "Failed to retrieve GarbageCollector instance");
 
     BridgesManager::get_instance().initialize_bridges(env, class_loader);
 
     if (is_gc_activated) {
         if (is_gc_force_mode) {
-            print_verbose("Starting GC thread with force mode.");
+            logging::verbose("Starting GC thread with force mode.");
         }
         jni::MethodId start_method_id{garbage_collector_cls.get_method_id(env, "start", "(ZJ)V")};
         jvalue start_args[2] = {jni::to_jni_arg(is_gc_force_mode), jni::to_jni_arg(gc_thread_period_interval)};
         garbage_collector_instance.call_void_method(env, start_method_id, start_args);
-        print_verbose("GC thread started.");
+        logging::verbose("GC thread started.");
         is_gc_started = true;
     }
 
@@ -285,14 +292,14 @@ void GDKotlin::finish() {
         jni::JObject garbage_collector_instance{
                 garbage_collector_cls.get_static_object_field(env, garbage_collector_instance_field)
         };
-        CRASH_COND_MSG(garbage_collector_instance.isNull(), "Failed to retrieve GarbageCollector instance")
+        logging::error(garbage_collector_instance.isNull(), "Failed to retrieve GarbageCollector instance");
         jni::MethodId close_method_id{garbage_collector_cls.get_method_id(env, "close", "()V")};
         garbage_collector_instance.call_void_method(env, close_method_id);
         jni::MethodId has_closed_method_id{garbage_collector_cls.get_method_id(env, "isClosed", "()Z")};
         while (!garbage_collector_instance.call_boolean_method(env, has_closed_method_id)) {
             OS::get_singleton()->delay_usec(600000);
         }
-        print_verbose("JVM GC thread was closed");
+        logging::verbose("JVM GC thread was closed");
         jni::MethodId clean_up_method_id{garbage_collector_cls.get_method_id(env, "cleanUp", "()V")};
         garbage_collector_instance.call_void_method(env, clean_up_method_id);
     }
@@ -303,18 +310,18 @@ void GDKotlin::finish() {
     TypeManager::get_instance().JAVA_ENGINE_TYPES_CONSTRUCTORS.clear();
     class_loader.delete_global_ref(env);
     jni::Jvm::destroy();
-    print_line("Shutting down JVM ...");
+    logging::info("Shutting down JVM ...");
 }
 
 void GDKotlin::register_classes(jni::Env& p_env, jni::JObjectArray p_classes) {
 #ifdef DEBUG_ENABLED
-    print_line("Loading classes ...");
+    logging::info("Loading classes ...");
 #endif
     for (auto i = 0; i < p_classes.length(p_env); i++) {
         auto kt_class = new KtClass(p_classes.get(p_env, i), class_loader);
         classes[kt_class->name] = kt_class;
 #ifdef DEBUG_ENABLED
-        print_verbose(vformat("Loaded class %s : %s, as %s", kt_class->name, kt_class->super_class,
+        logging::verbose(vformat("Loaded class %s : %s, as %s", kt_class->name, kt_class->super_class,
                               kt_class->registered_class_name));
 #endif
     }
@@ -322,13 +329,13 @@ void GDKotlin::register_classes(jni::Env& p_env, jni::JObjectArray p_classes) {
 
 void GDKotlin::unregister_classes(jni::Env& p_env, jni::JObjectArray p_classes) {
 #ifdef DEBUG_ENABLED
-    print_line("Unloading classes ...");
+    logging::info("Unloading classes ...");
 #endif
     Map<StringName, KtClass*>::Element* current = classes.front();
     while (current != nullptr) {
         KtClass* kt_class = current->value();
 #ifdef DEBUG_ENABLED
-        print_verbose(vformat("Unloading class %s : %s", kt_class->name, kt_class->super_class));
+        logging::verbose(vformat("Unloading class %s : %s", kt_class->name, kt_class->super_class));
 #endif
         delete kt_class;
         current = current->next();
@@ -338,13 +345,13 @@ void GDKotlin::unregister_classes(jni::Env& p_env, jni::JObjectArray p_classes) 
 
 KtClass* GDKotlin::find_class(const String& p_script_path) {
     StringName class_name = p_script_path.trim_prefix(scripts_root).trim_suffix(".kt").replace("/", ".");
-    ERR_FAIL_COND_V_MSG(!classes.has(class_name), nullptr,
-                        vformat("Failed to find class %s for path: %s", class_name, p_script_path))
+    logging::error(!classes.has(class_name), nullptr,
+                   vformat("Failed to find class %s for path: %s", class_name, p_script_path));
     return classes[class_name];
 }
 
 KtClass* GDKotlin::find_class_by_name(const String& class_name) {
-    ERR_FAIL_COND_V_MSG(!classes.has(class_name), nullptr, vformat("Failed to find class for path: %s", class_name))
+    logging::error(!classes.has(class_name), nullptr, vformat("Failed to find class for path: %s", class_name));
     return classes[class_name];
 }
 

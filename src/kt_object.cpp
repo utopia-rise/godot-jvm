@@ -1,5 +1,4 @@
 #include "kt_object.h"
-#include "kt_class.h"
 
 
 JNI_INIT_STATICS_FOR_CLASS(KtObject)

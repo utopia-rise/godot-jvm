@@ -2,6 +2,7 @@
 #include "kotlin_language.h"
 #include "kotlin_instance.h"
 #include "gd_kotlin.h"
+#include "logging.h"
 
 bool KotlinScript::can_instance() const {
 #ifdef TOOLS_ENABLED
@@ -29,7 +30,7 @@ StringName KotlinScript::get_instance_base_type() const {
 
 ScriptInstance* KotlinScript::instance_create(Object* p_this) {
     KtClass* kt_class { get_kotlin_class() };
-    print_verbose(vformat("Try to create %s instance.", kt_class->name));
+    logging::verbose(vformat("Try to create %s instance.", kt_class->name));
     jni::Env env = jni::Jvm::current_env();
     KtObject *wrapped = kt_class->create_instance(env, nullptr, 0, p_this);
     return memnew(KotlinInstance(wrapped, p_this, kt_class));
