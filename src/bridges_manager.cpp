@@ -31,7 +31,7 @@ BridgesManager::BridgesManager() : memory_bridge(nullptr), variant_array_bridge(
 
 }
 
-BridgesManager::~BridgesManager() {
+void BridgesManager::delete_bridges() {
     delete memory_bridge;
     memory_bridge = nullptr;
 
@@ -67,5 +67,4 @@ BridgesManager::~BridgesManager() {
 
     delete pool_vector3_array_bridge;
     pool_vector3_array_bridge = nullptr;
-
 }

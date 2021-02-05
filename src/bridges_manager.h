@@ -34,7 +34,7 @@ private:
     bridges::PoolVector3ArrayBridge* pool_vector3_array_bridge;
 
     BridgesManager();
-    ~BridgesManager();
+    ~BridgesManager() = default;
 
     template<class T>
     void initialize_bridge(jni::Env& env, jni::JObject class_loader, const char* jvm_class_name, T*& fill) {
@@ -53,6 +53,7 @@ public:
     static BridgesManager& get_instance();
 
     void initialize_bridges(jni::Env& env, jni::JObject class_loader);
+    void delete_bridges();
 };
 
 
