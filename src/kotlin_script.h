@@ -13,11 +13,7 @@ private:
 public:
     KotlinScript() = default;
 
-#ifdef TOOLS_ENABLED
     ~KotlinScript() override;
-#else
-    ~KotlinScript() override = default;
-#endif
 
     Variant _new(const Variant **p_args, int p_argcount, Variant::CallError &r_error);
 
@@ -59,7 +55,8 @@ public:
 
     void get_script_property_list(List<PropertyInfo>* p_list) const override;
 
-#ifdef TOOLS_ENABLED
+
+// This concerns placeholders script instances only
 private:
     Set<PlaceHolderScriptInstance*> placeholders;
 
@@ -68,8 +65,8 @@ private:
 public:
     PlaceHolderScriptInstance* placeholder_instance_create(Object *p_this) override;
     void update_exports() override;
-#endif
 
+// JNI methods
 protected:
     static void _bind_methods();
 };

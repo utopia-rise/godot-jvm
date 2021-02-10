@@ -152,8 +152,8 @@ Variant KotlinScript::_new(const Variant **p_args, int p_argcount, Variant::Call
     }
 }
 
-#ifdef TOOLS_ENABLED
 PlaceHolderScriptInstance* KotlinScript::placeholder_instance_create(Object* p_this) {
+#ifdef TOOLS_ENABLED
     PlaceHolderScriptInstance* placeholder{
         memnew(PlaceHolderScriptInstance(&KotlinLanguage::get_instance(), Ref<Script>(this), p_this))
     };
@@ -161,15 +161,21 @@ PlaceHolderScriptInstance* KotlinScript::placeholder_instance_create(Object* p_t
     placeholders.insert(placeholder);
     _update_exports(placeholder);
     return placeholder;
+#else
+    return nullptr;
+#endif
 }
 
 void KotlinScript::update_exports() {
+#ifdef TOOLS_ENABLED
     for (Set<PlaceHolderScriptInstance *>::Element *E = placeholders.front(); E; E = E->next()) {
         _update_exports(E->get());
     }
+#endif
 }
 
 void KotlinScript::_update_exports(PlaceHolderScriptInstance* placeholder) const {
+#ifdef TOOLS_ENABLED
     List<PropertyInfo> properties;
     Map<StringName, Variant> default_values;
     get_script_property_list(&properties);
@@ -180,22 +186,24 @@ void KotlinScript::_update_exports(PlaceHolderScriptInstance* placeholder) const
         default_values[property_name] = ret;
     }
     placeholder->update(properties, default_values);
+#endif
 }
 
 void KotlinScript::_placeholder_erased(PlaceHolderScriptInstance* p_placeholder) {
-    placeholders.erase(p_placeholder);
-}
-#endif
-
 #ifdef TOOLS_ENABLED
+    placeholders.erase(p_placeholder);
+#endif
+}
+
 KotlinScript::~KotlinScript() {
+#ifdef TOOLS_ENABLED
     for (Set<PlaceHolderScriptInstance *>::Element *E = placeholders.front(); E; E = E->next()) {
         memdelete(E->get());
     }
 
     placeholders.clear();
-}
 #endif
+}
 
 void KotlinScript::_bind_methods() {
     ClassDB::bind_vararg_method(METHOD_FLAGS_DEFAULT, "new", &KotlinScript::_new, MethodInfo("new"));
