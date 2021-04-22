@@ -1,6 +1,7 @@
 
 plugins {
     kotlin("jvm") version "1.5.10"
+    application
     id("com.utopia-rise.godot-kotlin-jvm")
 }
 
@@ -12,6 +13,11 @@ godot {
     //uncomment to test android
 //    isAndroidExportEnabled.set(true)
 //    dxToolPath.set("${System.getenv("ANDROID_SDK_ROOT")}/build-tools/30.0.3/dx")
+}
+
+application {
+    mainClass.set("godot.GraalFakeMainKt")
+    mainClassName = "godot.GraalFakeMainKt"
 }
 
 dependencies {

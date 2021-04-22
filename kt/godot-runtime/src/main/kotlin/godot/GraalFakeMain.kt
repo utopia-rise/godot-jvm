@@ -1,0 +1,5 @@
+package godot
+
+fun main() {
+
+}
