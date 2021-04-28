@@ -25,6 +25,9 @@ namespace jni {
     }
 
     JClass Env::load_class(const char* name, JObject class_loader) {
+#ifdef __GRAAL__
+        return find_class(String(name).replace(".", "/").utf8());
+#else
         static jmethodID loadClassMethodId;
 
         if (loadClassMethodId == nullptr) {
@@ -34,6 +37,7 @@ namespace jni {
         jvalue args[1] = {static_cast<JValue>(new_string(name)).value};
         jni::JObject ret = class_loader.call_object_method(*this, loadClassMethodId, args);
         return JClass((jclass) ret.obj);
+#endif
     }
 
     JObject Env::new_string(const char *str) {

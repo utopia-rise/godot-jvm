@@ -49,6 +49,9 @@ jni::GetCreatedJavaVMs jni::JvmLoader::get_get_created_java_vm_function() {
 }
 
 String jni::JvmLoader::get_jvm_lib_path() {
+#ifdef __GRAAL__
+    return ProjectSettings::get_singleton()->globalize_path("res://build/libs/usercode.dylib");
+#endif
     if (Engine::get_singleton()->is_editor_hint()) {
         LOG_INFO("Godot-JVM: Editor mode, loading jvm from JAVA_HOME")
         return get_path_to_locally_installed_jvm();

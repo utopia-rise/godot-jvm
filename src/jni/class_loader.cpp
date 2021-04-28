@@ -35,6 +35,8 @@ jni::JObject ClassLoader::provide_loader(jni::Env& env, const String& full_jar_p
             jni::to_jni_arg(p_parent_loader)
     };
     return class_loader_cls.new_instance(env, ctor, args);
+#elif defined(__GRAAL__)
+    return jni::JObject();
 #else
     jni::JObject url = to_java_url(env, full_jar_path);
     jni::JClass url_cls = env.find_class("java/net/URL");
@@ -52,6 +54,7 @@ jni::JObject ClassLoader::provide_loader(jni::Env& env, const String& full_jar_p
 }
 
 void ClassLoader::set_default_loader(jni::JObject& p_class_loader) {
+#ifndef __GRAAL__
     jni::Env env{jni::Jvm::current_env()};
     get_instance().class_loader = p_class_loader.new_global_ref<jni::JObject>(env);
 
@@ -64,6 +67,7 @@ void ClassLoader::set_default_loader(jni::JObject& p_class_loader) {
     jvalue args[1] = {jni::to_jni_arg(p_class_loader)};
 
     thread.call_void_method(env, setContextClassLoaderMethod, args);
+#endif
 }
 
 jni::JObject& ClassLoader::get_default_loader() {
@@ -71,8 +75,10 @@ jni::JObject& ClassLoader::get_default_loader() {
 }
 
 void ClassLoader::delete_default_loader(jni::Env& env) {
+#ifndef __GRAAL__
     get_instance().class_loader.delete_global_ref(env);
     get_instance().class_loader = jni::JObject(nullptr);
+#endif
 }
 
 ClassLoader& ClassLoader::get_instance() {

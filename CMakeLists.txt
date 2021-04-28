@@ -27,5 +27,6 @@ add_compile_definitions(DEBUG_ENABLED)
 # platforms
 #add_compile_definitions(WINDOWS_ENABLED)
 #add_compile_definitions(X11_ENABLED)
-#add_compile_definitions(OSX_ENABLED)
-add_compile_definitions(__ANDROID__)
+add_compile_definitions(OSX_ENABLED)
+add_compile_definitions(__GRAAL__)
+#add_compile_definitions(__ANDROID__)

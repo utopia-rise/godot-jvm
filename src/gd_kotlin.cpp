@@ -232,20 +232,20 @@ void GDKotlin::init() {
     }
 
     jni::Jvm::init(args);
+    LOG_INFO("Starting JVM ...")
+    auto project_settings = ProjectSettings::get_singleton();
 
 #ifdef __ANDROID__
     String bootstrap_jar_file{"godot-bootstrap-dex.jar"};
     String main_jar_file{"main-dex.jar"};
-#else
+#elif !defined(__GRAAL__)
     String bootstrap_jar_file{"godot-bootstrap.jar"};
     String main_jar_file{"main.jar"};
 #endif
 
+#ifndef __GRAAL__
     check_and_copy_jar(bootstrap_jar_file);
     check_and_copy_jar(main_jar_file);
-
-    LOG_INFO("Starting JVM ...")
-    auto project_settings = ProjectSettings::get_singleton();
 
 #ifdef TOOLS_ENABLED
     String bootstrap_jar{OS::get_singleton()->get_executable_path().get_base_dir() + "/godot-bootstrap.jar"};
@@ -261,13 +261,18 @@ void GDKotlin::init() {
 #endif
 
     LOG_INFO(vformat("Loading bootstrap jar: %s", bootstrap_jar))
+#endif
     jni::Env env{jni::Jvm::current_env()};
+#ifndef __GRAAL__
 
     jni::JObject class_loader {ClassLoader::provide_loader(env, bootstrap_jar, jni::JObject(nullptr))};
     ClassLoader::set_default_loader(class_loader);
     class_loader.delete_local_ref(env);
 
     class_loader = ClassLoader::get_default_loader();
+#else
+    jni::JObject class_loader;
+#endif
 
     jni::JClass transfer_ctx_cls = env.load_class("godot.core.TransferContext", class_loader);
     jni::FieldId transfer_ctx_instance_field = transfer_ctx_cls.get_static_field_id(env, "INSTANCE",
@@ -331,14 +336,21 @@ void GDKotlin::init() {
 #endif
 
     String project_path{project_settings->globalize_path("res://")};
+
+#ifdef __ANDROID__
     String main_jar{ProjectSettings::get_singleton()->globalize_path(vformat("user://%s", main_jar_file))};
+#endif
 
     bootstrap->init(
             env,
             is_editor,
             project_path,
             jar_path,
+#ifndef __GRAAL__
             main_jar_file,
+#else
+            "graal_usercode",
+#endif
 #ifdef __ANDROID__
             ClassLoader::provide_loader(env, main_jar, class_loader)
 #else
