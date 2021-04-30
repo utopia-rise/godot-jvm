@@ -36,6 +36,12 @@
       { "name" : "format", "parameterTypes" : ["java.lang.String", "java.lang.Object[]"] }
     ]
   },
+  {
+    "name" : "java.lang.Integer",
+    "allPublicConstructors" : true,
+    "allPublicMethods" : true,
+    "allPublicClasses" : true
+  },
 
 
 
