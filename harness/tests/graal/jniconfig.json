@@ -13,20 +13,14 @@
   },
   {
     "name" : "java.lang.ClassLoader",
-    "allDeclaredConstructors" : true,
     "allPublicConstructors" : true,
-    "allDeclaredMethods" : true,
     "allPublicMethods" : true,
-    "allDeclaredClasses" : true,
     "allPublicClasses" : true
   },
   {
     "name" : "java.lang.Object",
-    "allDeclaredConstructors" : true,
     "allPublicConstructors" : true,
-    "allDeclaredMethods" : true,
     "allPublicMethods" : true,
-    "allDeclaredClasses" : true,
     "allPublicClasses" : true
   },
   {
