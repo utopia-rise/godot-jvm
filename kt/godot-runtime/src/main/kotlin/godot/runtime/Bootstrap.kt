@@ -27,51 +27,55 @@ class Bootstrap {
     private var engineTypesRegistered: Boolean = false
 
     fun init(isEditor: Boolean, projectRootDir: String, jarRootDir: String, jarFile: String, loader: ClassLoader?) {
-        val libsDir = Paths.get(jarRootDir)
-        val mainJarPath = libsDir.resolve(jarFile)
-
-        if (File(mainJarPath.toString()).exists()) {
-            doInit(mainJarPath.toUri().toURL(), loader)
+        if (jarFile == "graal_usercode") {
+            doInitGraal()
         } else {
-            if (isEditor) {
-                ::warning
+            val libsDir = Paths.get(jarRootDir)
+            val mainJarPath = libsDir.resolve(jarFile)
+
+            if (File(mainJarPath.toString()).exists()) {
+                doInit(mainJarPath.toUri().toURL(), loader)
             } else {
-                ::err
-            }.invoke("No main.jar detected. No classes will be loaded. Build the gradle project to load classes")
-        }
-
-        if (isEditor) {
-            watchService = FileSystems.getDefault().newWatchService()
-            val watchKey = getBuildLockDir(projectRootDir).toPath().register(
-                watchService,
-                StandardWatchEventKinds.ENTRY_CREATE,
-                StandardWatchEventKinds.ENTRY_DELETE,
-                StandardWatchEventKinds.ENTRY_MODIFY,
-            )
-
-            executor = Executors.newSingleThreadScheduledExecutor { runnable ->
-                val thread = Thread(runnable)
-                thread.isDaemon = true
-                thread
+                if (isEditor) {
+                    ::warning
+                } else {
+                    ::err
+                }.invoke("No main.jar detected. No classes will be loaded. Build the gradle project to load classes")
             }
 
-            executor!!.scheduleAtFixedRate({
-                val events = watchKey.pollEvents()
-                if (events.isNotEmpty()) {
-                    if (File(getBuildLockDir(projectRootDir), "buildLock.lock").exists()) {
-                        info("Build lock present. Not reloading...")
-                        return@scheduleAtFixedRate
-                    }
-                    info("Changes detected, reloading classes ...")
-                    clearClassesCache()
+            if (isEditor) {
+                watchService = FileSystems.getDefault().newWatchService()
+                val watchKey = getBuildLockDir(projectRootDir).toPath().register(
+                    watchService,
+                    StandardWatchEventKinds.ENTRY_CREATE,
+                    StandardWatchEventKinds.ENTRY_DELETE,
+                    StandardWatchEventKinds.ENTRY_MODIFY,
+                )
 
-                    if (File(mainJarPath.toString()).exists()) {
-                        doInit(mainJarPath.toUri().toURL(), null) //no classloader so new main jar get's loaded
-                    } else {
-                        warning("No main.jar detected. No classes will be loaded. Build the project to load classes")
-                    }
+                executor = Executors.newSingleThreadScheduledExecutor { runnable ->
+                    val thread = Thread(runnable)
+                    thread.isDaemon = true
+                    thread
                 }
-            }, 3, 3, TimeUnit.SECONDS)
+
+                executor!!.scheduleAtFixedRate({
+                    val events = watchKey.pollEvents()
+                    if (events.isNotEmpty()) {
+                        if (File(getBuildLockDir(projectRootDir), "buildLock.lock").exists()) {
+                            info("Build lock present. Not reloading...")
+                            return@scheduleAtFixedRate
+                        }
+                        info("Changes detected, reloading classes ...")
+                        clearClassesCache()
+
+                        if (File(mainJarPath.toString()).exists()) {
+                            doInit(mainJarPath.toUri().toURL(), null) //no classloader so new main jar get's loaded
+                        } else {
+                            warning("No main.jar detected. No classes will be loaded. Build the project to load classes")
+                        }
+                    }
+                }, 3, 3, TimeUnit.SECONDS)
+            }
         }
     }
 
@@ -93,6 +97,16 @@ class Bootstrap {
         classloader = classLoader ?: URLClassLoader(arrayOf(mainJar), this::class.java.classLoader)
         Thread.currentThread().contextClassLoader = classloader
         serviceLoader = ServiceLoader.load(Entry::class.java, classloader)
+        initializeUsingEntry()
+    }
+
+    private fun doInitGraal() {
+        registry = ClassRegistry()
+        serviceLoader = ServiceLoader.load(Entry::class.java)
+        initializeUsingEntry()
+    }
+
+    private fun initializeUsingEntry() {
         val entryIterator = serviceLoader.iterator()
         if (entryIterator.hasNext()) {
             with(entryIterator.next()) {

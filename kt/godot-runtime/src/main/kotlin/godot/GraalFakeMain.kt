@@ -1,5 +1,0 @@
-package godot
-
-fun main() {
-
-}

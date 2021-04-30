@@ -339,7 +339,67 @@
       { "name" : "unloadClasses", "parameterTypes" : ["godot.core.KtClass[]"] },
       { "name" : "registerManagedEngineTypes", "parameterTypes" : ["java.lang.String[]", "java.lang.String[]", "java.lang.String[]", "java.lang.Integer[]"] },
       { "name" : "registerUserTypesNames", "parameterTypes" : ["java.lang.String[]"] },
-      { "name" : "registerUserTypesMembers", "parameterTypes" : [] }
+      { "name" : "registerUserTypesMembers", "parameterTypes" : [] },
+      { "name" : "init", "parameterTypes": ["boolean", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.ClassLoader"]}
     ]
+  },
+  {
+    "name" : "godot.runtime.ClassBuilderDsl",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredClasses" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name" : "godot.runtime.ClassRegistrar",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredClasses" : true,
+    "allPublicClasses" : true
+  },
+
+  {
+    "name" : "godot.core.KtConstructor0",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredClasses" : true,
+    "allPublicClasses" : true
+  },
+
+
+
+
+  {
+    "name" : "godot.godot.tests.InvocationRegistrar",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredClasses" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name" : "godot.tests.Invocation",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredClasses" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name" : "godot.tests.TestEnum",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredClasses" : true,
+    "allPublicClasses" : true
   }
 ]
