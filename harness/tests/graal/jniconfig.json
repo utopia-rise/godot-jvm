@@ -12,16 +12,11 @@
     ]
   },
   {
-    "name" : "java.lang.ClassLoader",
-    "allPublicConstructors" : true,
-    "allPublicMethods" : true,
-    "allPublicClasses" : true
-  },
-  {
-    "name" : "java.lang.Object",
-    "allPublicConstructors" : true,
-    "allPublicMethods" : true,
-    "allPublicClasses" : true
+    "name":"java.lang.ClassLoader",
+    "methods":[
+      {"name":"getPlatformClassLoader","parameterTypes":[] },
+      {"name":"loadClass","parameterTypes":["java.lang.String"] }
+    ]
   },
   {
     "name" : "java.lang.String",
@@ -37,10 +32,8 @@
     ]
   },
   {
-    "name" : "java.lang.Integer",
-    "allPublicConstructors" : true,
-    "allPublicMethods" : true,
-    "allPublicClasses" : true
+    "name":"java.lang.Integer",
+    "methods":[{"name":"intValue","parameterTypes":[] }]
   },
 
 
@@ -70,12 +63,13 @@
     ]
   },
   {
-    "name" : "godot.core.GarbageCollector",
-    "fields" : [
-      { "name" : "INSTANCE" }
-    ],
-    "methods" : [
-      { "name" : "start", "parameterTypes" : ["boolean"] }
+    "name":"godot.core.GarbageCollector",
+    "fields":[{"name":"INSTANCE"}],
+    "methods":[
+      {"name":"cleanUp","parameterTypes":[] },
+      {"name":"close","parameterTypes":[] },
+      {"name":"isClosed","parameterTypes":[] },
+      {"name":"start","parameterTypes":["boolean"] }
     ]
   },
   {
@@ -377,6 +371,68 @@
       { "name" : "registerUserTypesNames", "parameterTypes" : ["java.lang.String[]"] },
       { "name" : "registerUserTypesMembers", "parameterTypes" : [] },
       { "name" : "init", "parameterTypes": ["boolean", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.ClassLoader"]}
+    ]
+  },
+  {
+    "name":"godot.core.KtClass",
+    "methods":[
+      {"name":"getBaseGodotClass","parameterTypes":[] },
+      {"name":"getConstructors","parameterTypes":[] },
+      {"name":"getFunctions","parameterTypes":[] },
+      {"name":"getName","parameterTypes":[] },
+      {"name":"getProperties","parameterTypes":[] },
+      {"name":"getRegisteredName","parameterTypes":[] },
+      {"name":"getSignalInfos","parameterTypes":[] },
+      {"name":"getSuperClass","parameterTypes":[] }
+    ]
+  },
+  {
+    "name": "godot.core.KtConstructor",
+    "methods": [
+      {"name": "getParameterCount", "parameterTypes": []}
+    ]
+  },
+  {
+    "name":"godot.core.KtFunction",
+    "methods":[
+      {"name":"getFunctionInfo","parameterTypes":[] },
+      {"name":"getParameterCount","parameterTypes":[] }
+    ]
+  },
+  {
+    "name":"godot.core.KtFunctionInfo",
+    "methods":[
+      {"name":"getArguments","parameterTypes":[] },
+      {"name":"getName","parameterTypes":[] },
+      {"name":"getReturnVal","parameterTypes":[] },
+      {"name":"getRpcModeId","parameterTypes":[] }
+    ]
+  },
+  {
+    "name":"godot.core.KtProperty",
+    "methods":[
+      {"name":"getDefaultValue","parameterTypes":[] },
+      {"name":"getKtPropertyInfo","parameterTypes":[] },
+      {"name":"isRef","parameterTypes":[] }
+    ]
+  },
+  {
+    "name":"godot.core.KtPropertyInfo",
+    "methods":[
+      {"name":"getClassName","parameterTypes":[] },
+      {"name":"getHint","parameterTypes":[] },
+      {"name":"getHintString","parameterTypes":[] },
+      {"name":"getName","parameterTypes":[] },
+      {"name":"getRpcModeId","parameterTypes":[] },
+      {"name":"getType","parameterTypes":[] },
+      {"name":"getVisibleInEditor","parameterTypes":[] }
+    ]
+  },
+  {
+    "name":"godot.core.KtSignalInfo",
+    "methods":[
+      {"name":"getArguments","parameterTypes":[] },
+      {"name":"getName","parameterTypes":[] }
     ]
   }
 ]
