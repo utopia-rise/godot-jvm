@@ -48,7 +48,8 @@
       { "name" : "invokeConstructor", "parameterTypes" : ["int"] },
       { "name" : "getSingleton", "parameterTypes" : ["int"] },
       { "name" : "setScript", "parameterTypes" : ["long", "int", "godot.core.KtObject", "java.lang.ClassLoader"] },
-      { "name" : "freeObject", "parameterTypes" : ["long"] }
+      { "name" : "freeObject", "parameterTypes" : ["long"] },
+      { "name" : "getBuffer", "parameterTypes" : [] }
     ]
   },
   {
@@ -370,7 +371,8 @@
       { "name" : "registerManagedEngineTypes", "parameterTypes" : ["java.lang.String[]", "java.lang.String[]", "java.lang.String[]", "java.lang.Integer[]"] },
       { "name" : "registerUserTypesNames", "parameterTypes" : ["java.lang.String[]"] },
       { "name" : "registerUserTypesMembers", "parameterTypes" : [] },
-      { "name" : "init", "parameterTypes": ["boolean", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.ClassLoader"]}
+      { "name" : "init", "parameterTypes": ["boolean", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.ClassLoader"]},
+      { "name" : "finish", "parameterTypes" : [] }
     ]
   },
   {
@@ -389,14 +391,16 @@
   {
     "name": "godot.core.KtConstructor",
     "methods": [
-      {"name": "getParameterCount", "parameterTypes": []}
+      {"name": "getParameterCount", "parameterTypes": []},
+      {"name": "construct", "parameterTypes": ["long", "long"]}
     ]
   },
   {
     "name":"godot.core.KtFunction",
     "methods":[
       {"name":"getFunctionInfo","parameterTypes":[] },
-      {"name":"getParameterCount","parameterTypes":[] }
+      {"name":"getParameterCount","parameterTypes":[] },
+      {"name":"invoke","parameterTypes":["godot.core.KtObject"] }
     ]
   },
   {
@@ -411,9 +415,12 @@
   {
     "name":"godot.core.KtProperty",
     "methods":[
-      {"name":"getDefaultValue","parameterTypes":[] },
       {"name":"getKtPropertyInfo","parameterTypes":[] },
-      {"name":"isRef","parameterTypes":[] }
+      {"name":"isRef","parameterTypes":[] },
+      {"name":"getDefaultValue","parameterTypes":[] },
+      {"name":"callGet","parameterTypes":["godot.core.KtObject"] },
+      {"name":"callSet","parameterTypes":["godot.core.KtObject"] },
+      {"name":"getDefaultValue","parameterTypes":[] }
     ]
   },
   {
@@ -433,6 +440,12 @@
     "methods":[
       {"name":"getArguments","parameterTypes":[] },
       {"name":"getName","parameterTypes":[] }
+    ]
+  },
+  {
+    "name":"godot.core.KtObject",
+    "methods":[
+      {"name":"_onDestroy","parameterTypes":[] }
     ]
   }
 ]
