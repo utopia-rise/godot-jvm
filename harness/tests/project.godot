@@ -16,6 +16,11 @@ run/main_loop_type="ExportTestMain"
 config/features=PackedStringArray("4.7")
 config/icon="res://icon.png"
 
+[autoload]
+
+KotlinScriptSingleton="*res://src/main/kotlin/godot/tests/runtime/KotlinScriptAutoload.kt"
+KotlinSceneSingleton="*res://test/runtime/fixtures/kotlin_scene_autoload.tscn"
+
 [debug]
 
 settings/stdout/verbose_stdout=true

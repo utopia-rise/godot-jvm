@@ -7,6 +7,8 @@ import generate_templates
 # injected directly into ARGUMENTS instead. setdefault() means an explicit
 # `scons build_profile=...` on the command line still overrides this.
 ARGUMENTS.setdefault("build_profile", "build_profile.json")
+target_path = ARGUMENTS.pop("target_path", None)
+target_name = ARGUMENTS.pop("target_name", "godot.jvm")
 
 env = SConscript("godot-cpp/SConstruct")
 java_home = os.environ["JAVA_HOME"]
@@ -81,8 +83,7 @@ if env["platform"] != "android":
 # (harness/tests/addons/jvm/) picks the library straight up via its .gdextension manifest, so a
 # plain rebuild keeps that test project's extension up to date without a manual copy step.
 default_target_path = "build/android/" if env["platform"] == "android" else "harness/tests/addons/jvm/libs/"
-target_path = ARGUMENTS.pop("target_path", default_target_path)
-target_name = ARGUMENTS.pop("target_name", "godot.jvm")
+target_path = target_path or default_target_path
 env["SHLIBPREFIX"] = ""
 
 if env["platform"] == "android":
