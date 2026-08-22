@@ -121,7 +121,17 @@
   background-color: var(--md-primary-fg-color--dark);
 }
 
+.md-header__button.md-logo {
+  align-items: center;
+  display: flex;
+  height: 2.4rem;
+  margin-block: 0;
+  padding-block: 0.05rem;
+}
+
 .md-header__button.md-logo img {
-  height: 3rem;
-  width: 3rem;
+  filter: drop-shadow(0 0 1px rgb(255 255 255 / 90%));
+  height: 2.3rem;
+  transform: translateY(-0.08rem);
+  width: 2.3rem;
 }
