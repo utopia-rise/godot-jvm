@@ -52,7 +52,7 @@ Key properties:
 
 - `godot.isLibrary = true` switches the plugin into library mode
 - `godot.languages` controls which source-language tasks participate in the initial `classes` pass
-- `godot.javaVersion` defaults to 11 and configures the Java and Kotlin toolchains
+- `godot.javaVersion` defaults to 17 and configures the Java and Kotlin toolchains
 - `godot.kotlinVersion` defaults to the bundled Kotlin version and may be overridden to a newer version
 - `godot.scalaVersion` defaults to the bundled Scala version and may be overridden to a newer version
 - there is no separate pre-scan compile pipeline
@@ -168,7 +168,7 @@ Important behavior:
 
 - `isLibrary` defaults to `false`
 - `languages` defaults to all three built-in languages: Kotlin, Java, and Scala
-- `javaVersion` defaults to 11 and must stay at least 11
+- `javaVersion` defaults to 17 and must stay at least 17
 - `kotlinVersion` defaults to the Kotlin version bundled with this Godot-JVM release
 - `scalaVersion` defaults to the bundled Scala version and must stay at least 3.0.0
 - `godotProjectDirectory` defaults to the Gradle project directory and must contain `project.godot`
@@ -356,9 +356,14 @@ cd D:\Godot\projects\godot-kotlin-3d-demo
 The Android and Graal commands should finish with `Configuration cache entry stored.`.
 The iOS command should also store the configuration cache even if the host environment is missing the full runtime prerequisites for the native-image invocation itself.
 
-For user-facing Gradle settings and examples, the canonical docs page is:
+For user-facing Gradle settings and examples, the canonical docs pages are under
+`docs/src/doc/reference/gradle-plugin/`:
 
-- [docs/src/doc/user-guide/advanced/gradle-plugin-configuration.md](D:/Godot/Module/kotlin/modules/kotlin_jvm/docs/src/doc/user-guide/advanced/gradle-plugin-configuration.md)
+- `index.md` — the `godot { }` block at a glance, Gradle performance settings, wrapper path
+- `languages-and-toolchains.md` — `languages`, `javaVersion`, `kotlinVersion`, `scalaVersion`
+- `registration.md` — `annotationProcessingMode`, `godotProjectDirectory`, `registrationFiles*`, `registrationNameMode`
+- `packaging-and-tasks.md` — `isLibrary`, `isGodotCoroutinesEnabled`, `fastBuild`
+- `export-targets.md` — Android, GraalVM and iOS build inputs
 
 For registrar-generation changes, verify the task pipeline explicitly from a harness project, for example:
 

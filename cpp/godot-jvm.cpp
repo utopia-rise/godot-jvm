@@ -53,7 +53,7 @@ bool GodotJvm::load_dynamic_lib() {
                       false,
                       "Godot Kotlin/JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
                       "No embedded JRE or usable Java installation was found.",
-                      "Make sure a JDK 11+ is available through JAVA_HOME or PATH, or add an embedded JRE to your "
+                      "Make sure a JDK 17+ is available through JAVA_HOME or PATH, or add an embedded JRE to your "
                       "project using jlink."
                     );
 #else
@@ -61,7 +61,7 @@ bool GodotJvm::load_dynamic_lib() {
                       false,
                       "Godot Kotlin/JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
                       "No embedded JRE or usable Java installation was found.",
-                      "Make sure a JDK 11+ is available through JAVA_HOME or PATH, or add an embedded JRE to your "
+                      "Make sure a JDK 17+ is available through JAVA_HOME or PATH, or add an embedded JRE to your "
                       "project using jlink."
                     );
 #endif
@@ -96,7 +96,7 @@ bool GodotJvm::load_dynamic_lib() {
           false,
           "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
           "Failed to load the jvm dynamic library from path: " + path_to_jvm_lib,
-          "Make sure you use a valid JVM 11+ with proper read access."
+          "Make sure you use a valid JVM 17+ with proper read access."
         );
     }
     return true;
@@ -124,7 +124,7 @@ String GodotJvm::get_path_to_java_executable() {
 #ifdef MACOS_ENABLED
     PackedStringArray arguments;
     arguments.push_back("-v");
-    arguments.push_back("11+");
+    arguments.push_back("17+");
     Array output;
     if (OS::get_singleton()->execute("/usr/libexec/java_home", arguments, output, true) == 0 && !output.is_empty()) {
         String macos_java_home = output[0];

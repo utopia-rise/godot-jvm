@@ -45,11 +45,7 @@
 }
 
 .md-sidebar {
-  background: #fbfcfe;
-}
-
-[data-md-color-scheme="slate"] .md-sidebar {
-  background: #14202c;
+  background: var(--md-default-bg-color);
 }
 
 .md-sidebar--primary {

@@ -196,7 +196,7 @@ open class GodotExtension(objects: ObjectFactory) {
     /**
      * JDK/toolchain version to use for Java and Kotlin compilation.
      *
-     * Defaults to the current built-in JDK toolchain version and must be at least 11.
+     * Defaults to the current built-in JDK toolchain version and must be at least 17.
      */
     val javaVersion: Property<Int> = objects.property(Int::class.java)
 

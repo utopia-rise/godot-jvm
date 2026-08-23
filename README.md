@@ -27,14 +27,14 @@ There are two methods for distributing JVM bytecode produced by the Kotlin compi
 
 1.  A classic JAR file: your code will be packed into a `.jar` file, which is then executed by an embedded JVM.
     So the developer does not have to worry about their user installing a JRE. The JVM is already embedded in your game executable.
-2.  Dynamic Library using GraalVM Native Image: please read more about this in our [documentation page](https://godot-jvm.dev/en/stable/user-guide/advanced/graal-vm-native-image/).
+2.  Dynamic Library using GraalVM Native Image: please read more about this in our [documentation page](https://godot-jvm.dev/en/stable/build/export/graalvm-native-image/).
 
 Just write your game scripts like you would for [GDScript](https://docs.godotengine.org/en/4.7/getting_started/scripting/gdscript/gdscript_basics.html)
 or for [C#](https://docs.godotengine.org/en/3.1/getting_started/scripting/c_sharp/) but with all the syntactic sugar of Kotlin.
 
 ## Important Notes
 
-Godot-JVM 1.0.0 is the first stable release. We welcome suggestions for improving the project and its API.
+Godot-JVM 1.0.0 is production-ready. We welcome suggestions and feedback to keep improving the project and its API.
 
 Download the addon archive from the [GitHub releases page](https://github.com/utopia-rise/godot-jvm/releases) and extract it into your project's root directory. The resulting layout must contain `addons/jvm/jvm.gdextension`. Open the project with the release's minimum Godot version or newer.
 
@@ -48,8 +48,8 @@ make it even better!
 Join us on our [Discord](https://discord.gg/zpb5Ru7v9x) server to ask questions and work together
 with a friendly community.
 
-If you want to contribute to the project, please read through the [contribution guidelines](https://godot-jvm.dev/en/stable/contribution/guidelines/)
-and the [setup](https://godot-jvm.dev/en/stable/contribution/setup/) sections.
+If you want to contribute to the project, please read through the [contribution guidelines](https://godot-jvm.dev/en/stable/contribute/)
+and the [setup](https://godot-jvm.dev/en/stable/contribute/build-from-source/) sections.
 
 ## Partners
 

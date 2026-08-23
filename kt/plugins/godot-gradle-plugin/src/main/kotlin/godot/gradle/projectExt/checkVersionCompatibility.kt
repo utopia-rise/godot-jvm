@@ -6,7 +6,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
 
-private const val MINIMUM_JDK_VERSION = 11
+private const val MINIMUM_JDK_VERSION = 17
 private const val MINIMUM_SCALA_VERSION = "3.0.0"
 
 fun Project.checkJdkVersionCompatibility() {

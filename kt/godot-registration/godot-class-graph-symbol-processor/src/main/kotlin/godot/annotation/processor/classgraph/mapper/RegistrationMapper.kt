@@ -369,9 +369,9 @@ class RegistrationMapper(
             }
 
             fun notification(method: LogicalMethod): Int? =
-                policy.findAnnotation(method, Notification::class)
+                (policy.findAnnotation(method, Notification::class)
                     ?.parameterValues
-                    ?.getValue("value") as? Int
+                    ?.getValue("value") as? Long)?.toInt()
 
             fun mapProperty(
                 property: LogicalProperty,

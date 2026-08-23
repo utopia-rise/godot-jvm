@@ -1,19 +1,19 @@
 ---
 hide:
   - navigation
-description: Build Godot games and applications with Kotlin, Java, or Scala using Godot-JVM, a JVM GDExtension binding.
+description: Godot-JVM is a GDExtension binding that lets you build games and applications in Kotlin, Java, or Scala by running a JVM inside the engine.
 ---
 
 
 [![GitHub](https://img.shields.io/github/license/utopia-rise/godot-jvm?style=flat-square)](https://github.com/utopia-rise/godot-jvm/blob/master/LICENSE)
 
-# Godot-JVM: Kotlin, Java, and Scala bindings for Godot
+# Godot-JVM
 
-Godot-JVM is a GDExtension JVM binding that lets you write game or application logic in Kotlin, Java, or Scala. To get started, [set up a Godot-JVM project](getting-started/setting-up.md).
+Godot-JVM is a GDExtension JVM binding that lets you write game or application logic in Kotlin, Java, or Scala. To get started, follow [Start here](start/index.md).
 
 ## State
 
-Godot-JVM 1.0.0 is the first stable release. We welcome suggestions for improving the project and its API.
+Godot-JVM 1.0.0 is production-ready. Suggestions and feedback are always welcome as we continue improving the project and its API.
 
 ## Project templates and demos
 
@@ -31,55 +31,18 @@ For a quick overview on the bindings, watch our presentation "*Godot Game Develo
 !!! info
     This video is vastly outdated. Its setup instructions and code do not reflect the current Godot-JVM project. Follow the current documentation when creating a project or writing code.
 
-### What's not working
+### Current limitations
 
-The items in this list are explicitly mentioned here as these will be implemented in future versions.
-Also consider the [API Differences](user-guide/api-differences.md) section for general differences
-and limitations which will not be or cannot be adressed in the near forseable future or ever.
-
-- No tool mode (you can set it already in the `@Script` annotation but it has no effect yet).
-- No addon support, you cannot use Godot-JVM to write plugins and addons yet (you can however [write libraries](develop-libraries/introduction.md) with godot specific code).
-- Web is currently not supported. See [Supported platforms](#supported-platforms) to see what platforms we currently support
+See [Known limitations](troubleshooting/known-limitations.md) for the supported and unsupported features.
 
 ### Bug reporting and questions
 
 If you find bugs, please report an [issue on GitHub](https://github.com/utopia-rise/godot-jvm/issues) - but check for duplicates first. If you have questions or need help, you can ask on [Discord](https://discord.gg/zpb5Ru7v9x) in the `questions` and `help` channels respectively.
 If you don't have Discord or you don't want to use it, please file an issue on GitHub.
 
-## Supported languages
+## Compatibility
 
-Godot-JVM supports Kotlin, Java, and Scala. Other JVM-based languages are outside the current scope; see [support for other JVM-based languages](contribution/support-for-other-jvm-based-languages.md) if you want to add one.
-
-## Supported platforms
-
-While Kotlin and Godot support a wide range of platforms, Godot-JVM currently supports the following:
-
-- Windows X64
-- Linux X64
-- MacOS X64 / arm64
-- Android (arm64v8, x86_64)
-- iOS (arm64v8)
-
-## Versioning
-
-Godot-JVM uses semantic versioning. Godot is versioned independently as a minimum supported version.
-
-Version: `1.0.0-dev3`
-
-Minimum Godot Version: `4.7.2`
-
-Godot-JVM relies on a Kotlin *compiler plugin* for registering your classes and members with Godot. As the compiler API from Kotlin is not stable yet, each release defines a minimum supported Kotlin version.
-
-The current latest release requires at least Kotlin version `2.3.20`.
-
-!!! info
-    It is possible to use Godot-JVM with other Kotlin versions as well, but we do not provide guarantees for them. Find more information in the [Gradle Plugin configuration](user-guide/advanced/gradle-plugin-configuration.md#kotlinversion) section.
-
-## Install the addon
-
-Download the `godot-jvm-addon-<version>.zip` archive for your release from [GitHub releases](https://github.com/utopia-rise/godot-jvm/releases) and extract it into your project's root directory. The archive provides `addons/jvm`, including the `jvm.gdextension` manifest and native libraries for supported platforms.
-
-Open the project with Godot `4.7.2` or newer. Use the matching official export templates when exporting your project.
+Godot-JVM 1.0.0 supports Godot 4.7.2 and newer. See [Compatibility and versions](reference/compatibility.md) for the supported platforms and language versions.
 
 ## Developer discussion
 

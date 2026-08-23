@@ -13,8 +13,9 @@ Current binding version: `1.0.0` targeting Godot `4.7.2`.
 The `godot-cpp` submodule points at
 [`utopia-rise/godot-cpp`](https://github.com/utopia-rise/godot-cpp), branch
 `godot-jvm` (not upstream `godotengine/godot-cpp` directly, and not the
-fork's `master`). This branch carries patches for bugs found in godot-cpp
-itself that upstream hasn't fixed yet.
+fork's `master`). This branch customizes godot-cpp's generated-binding
+behavior for Godot-JVM's own object-tracking model — it is not a collection
+of upstream bug fixes.
 
 **Every time a commit is added to `godot-jvm` in the `godot-cpp` fork**:
 
@@ -103,7 +104,7 @@ The `harness/tests/` directory is a full Godot project. It requires a built edit
 2. Configure the user project's Gradle repositories to use `mavenLocal()` and use the exact snapshot version you published (e.g. `1.0.0-d68f299-SNAPSHOT`)
 3. Run with the dev build: `./bin/godot.linuxbsd.editor.dev.x86_64.jvm` (or platform equivalent)
 
-Full workflow: `docs/src/doc/contribution/test-change-from-branch.md`
+Full workflow: `docs/src/doc/contribute/test-a-branch.md`
 
 ### Debugging JVM Code
 
@@ -116,9 +117,10 @@ godot --jvm-debug-port=5005
 Debugging the registrar generator (bytecode processing):
 ```bash
 cd kt/
-./gradlew kspKotlin -Dkotlin.daemon.jvm.options="-Xdebug,-Xrunjdwp:transport=dt_socket\,address=8765\,server=y\,suspend=y"
-# Halts compilation until remote debugger attaches at port 8765
-# Note: incremental builds are disabled in debug mode — first compile will be slow
+./gradlew registrarGenerationGenerateFiles --rerun-tasks --no-build-cache -Dorg.gradle.debug=true
+# Halts the build until a remote debugger attaches at localhost:5005
+# Note: --rerun-tasks --no-build-cache is required — the task is cacheable, so without them
+# an unchanged project resolves it as up-to-date and the breakpoint is never reached.
 ```
 
 ## Architecture
@@ -188,7 +190,7 @@ Each Godot object can have two JVM instances:
 
 **`Object` (non-ref-counted):** Simpler — manually freed; binding lifecycle follows the Godot object directly.
 
-Full details: `docs/src/doc/contribution/knowledge-base/memory-management.md`
+Full details: `docs/src/doc/contribute/how-it-works/memory-management.md`
 
 ### JNI Shared Buffer (Performance)
 
@@ -197,17 +199,19 @@ To reduce JNI overhead for frequent calls, a **per-thread 8KB buffer** is used f
 - Each variable: 4-byte type ordinal + type-specific bytes
 - Type ordinals 0–27 cover all Godot variant types (primitives at fixed size, strings up to 512 bytes inline, larger strings via JNI queue)
 
-Details: `docs/src/doc/contribution/knowledge-base/shared-buffer.md`
+Details: `docs/src/doc/contribute/how-it-works/shared-buffer.md`
 
 ### JVM Modes
 
 Configured in Godot project settings:
 - **Embedded JVM** — `jlink`-created JRE bundled with the project (recommended for distribution)
-- **Dynamic JVM** — discovered via `JAVA_HOME` at runtime
+- **Dynamic JVM** — discovered at runtime via a `java` executable on `PATH` first, falling back to
+  `JAVA_HOME` only if nothing usable is found on `PATH` (see `get_path_to_java_executable()` /
+  `get_path_to_environment_jvm()` in `cpp/godot-jvm.cpp`)
 
 ## Key Gotchas
 
-- **Kotlin version** — The compiler plugin requires a specific Kotlin version. Mismatches cause build failures. Override via gradle plugin config; see `docs/src/doc/user-guide/advanced/gradle-plugin-configuration.md`.
+- **Kotlin version** — The compiler plugin requires a specific Kotlin version. Mismatches cause build failures. Override via gradle plugin config; see `docs/src/doc/reference/gradle-plugin/languages-and-toolchains.md`.
 - **Godot API auto-generation** — `kt/godot-library/godot-api-library/` is fully generated. Any manual edits will be overwritten.
 - **Template generation** — Editing `.template` files without running `generate_templates.py` and rebuilding C++ will have no effect.
 - **Adding a new script language** — Requires: `JvmScript` C++ subclass + `ScriptLanguage` subclass + registration in `register_types.cpp` + entry in `JvmResourceFormatLoader`/`Saver`.
@@ -224,13 +228,12 @@ Workflows in `.github/workflows/`. The canonical Godot version and JDK version (
 
 ## Documentation
 
-- Contribution setup: `docs/src/doc/contribution/setup.md`
-- Guidelines: `docs/src/doc/contribution/guidelines.md`
-- Memory management deep dive: `docs/src/doc/contribution/knowledge-base/memory-management.md`
-- Registrar generation: `docs/src/doc/contribution/knowledge-base/registrar-generation.md`
-- JNI shared buffer: `docs/src/doc/contribution/knowledge-base/shared-buffer.md`
-- Testing branch changes: `docs/src/doc/contribution/test-change-from-branch.md`
-- Building with C# (Mono): `docs/src/doc/contribution/build-with-csharp-support.md`
+- Contribution setup: `docs/src/doc/contribute/build-from-source.md`
+- Guidelines: `docs/src/doc/contribute/index.md`
+- Memory management deep dive: `docs/src/doc/contribute/how-it-works/memory-management.md`
+- Registrar generation: `docs/src/doc/contribute/how-it-works/registrar-generation.md`
+- JNI shared buffer: `docs/src/doc/contribute/how-it-works/shared-buffer.md`
+- Testing branch changes: `docs/src/doc/contribute/test-a-branch.md`
 
 Serve docs locally: `cd docs/ && ./run.sh`
 
