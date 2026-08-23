@@ -55,11 +55,12 @@ jobs:
       jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
 
   build-ios:
-    if: ${{ false }}
     name: 🍏 Build iOS
     uses: ./.github/workflows/build_ios.yml
     needs:
       - setup-build-variables
+    with:
+      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
 
   build-linux:
     name: 🐧 Build Linux
@@ -100,7 +101,6 @@ jobs:
       godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
 
   assemble-ios:
-    if: ${{ false }}
     name: 🍏 Assemble ios
     uses: ./.github/workflows/assemble_ios.yml
     needs:
@@ -133,6 +133,7 @@ jobs:
     needs:
       - setup-build-variables
       - assemble-android
+      - assemble-ios
       - build-linux
       - assemble-macos
       - build-windows

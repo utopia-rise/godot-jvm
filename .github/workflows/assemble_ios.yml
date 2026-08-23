@@ -12,8 +12,13 @@ jobs:
       - uses: actions/download-artifact@v7
         with:
           pattern: '*_ios_*'
-          path: package/libraries
+          path: libraries
           merge-multiple: true
+      - name: Assemble iOS libraries
+        shell: bash
+        run: |
+          mkdir -p package/addons
+          cp -R libraries/jvm package/addons/jvm
       # Upload the raw folder rather than a pre-made zip: actions/upload-artifact always wraps
       # whatever it's given in its own zip, so uploading a zip here results in a zip nested inside
       # that zip once a human downloads the artifact.

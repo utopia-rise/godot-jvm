@@ -1,6 +1,10 @@
 name: iOS Builds
 on:
   workflow_call:
+    inputs:
+      jvm-version:
+        type: string
+        required: true
 
 jobs:
   ios-template:
@@ -25,7 +29,7 @@ jobs:
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: ${{ inputs.jvm-version }}
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'

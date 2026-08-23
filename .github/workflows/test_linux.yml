@@ -54,6 +54,16 @@ jobs:
             daemon
             notifications
 
+      - name: Cache desktop Graal build output
+        uses: actions/cache@v4
+        with:
+          path: |
+            harness/tests/.gradle
+            harness/tests/build
+          key: desktop-graal-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.github/workflows/test_linux.yml', 'harness/tests/**', 'harness/third-party-library/**', 'kt/**') }}
+          restore-keys: |
+            desktop-graal-${{ runner.os }}-${{ runner.arch }}-
+
       - name: Download linux editor library
         uses: actions/download-artifact@v7
         with:

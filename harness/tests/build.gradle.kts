@@ -149,6 +149,27 @@ fun registerAndroidExportTask(name: String, exportFlag: String, description: Str
     )
 }
 
+fun registerIOSExportTask(name: String, exportFlag: String, description: String) = tasks.register<Exec>(name) {
+    group = "verification"
+    this.description = description
+    dependsOn("buildIOS")
+
+    environment("JAVA_HOME", System.getProperty("java.home"))
+    workingDir = projectDir
+
+    doFirst {
+        projectDir.resolve("export").ensureEmptyDirectory()
+    }
+
+    commandLine(
+        provideEditorExecutable().absolutePath,
+        "--headless",
+        exportFlag,
+        "iOS",
+        "export/tests.ipa",
+    )
+}
+
 fun registerGraalTestTask(
     name: String,
     description: String,
@@ -198,6 +219,7 @@ tasks {
     val exportDebug = registerExportTask("exportDebug", "--export-debug", "Exports the tests for the current host OS in debug mode")
     val exportRelease = registerExportTask("exportRelease", "--export-release", "Exports the tests for the current host OS in release mode")
     val exportAndroidDebug = registerAndroidExportTask("exportAndroidDebug", "--export-debug", "Exports the tests as an Android debug APK")
+    val exportIOSDebug = registerIOSExportTask("exportIOSDebug", "--export-debug", "Exports the tests as an iOS debug project")
 
     register<Exec>("runGDTests") {
         group = "verification"

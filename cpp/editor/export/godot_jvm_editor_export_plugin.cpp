@@ -18,7 +18,6 @@ using namespace godot;
 
 static constexpr const char* graal_feature {"export-graal-native-image"};
 static constexpr const char* all_jvm_feature {"export-all-jvm"};
-static constexpr const char* ios_jdk_version {"21"};
 
 namespace {
     // Export presets configure their output path as a bare project-root-relative path (e.g.
@@ -211,18 +210,26 @@ void GodotJvmEditorExportPlugin::_export_begin(const PackedStringArray& p_featur
     } else if (is_android_export) {
         _generate_export_configuration_file(jni::JvmType::ART);
     } else if (is_ios_export) {
-        String base_ios_build_dir {String(RES_DIRECTORY).path_join(JVM_DIRECTORY).path_join("ios")};
-        String base_ios_jdk_dir {base_ios_build_dir.path_join("ios-jdk").path_join(ios_jdk_version)};
+        PackedStringArray static_libraries {
+          ProjectSettings::get_singleton()->globalize_path(IOS_JAVA_STATIC_LIBRARY),
+          ProjectSettings::get_singleton()->globalize_path(IOS_JVM_STATIC_LIBRARY),
+          ProjectSettings::get_singleton()->globalize_path(IOS_GRAAL_NATIVE_IMAGE_ARCHIVE),
+        };
+
+        for (const String& static_library : static_libraries) {
+            if (!FileAccess::file_exists(static_library)) {
+                JVM_ERR_FAIL_MSG(
+                  "Missing iOS static library: %s. Run buildIOS or buildIOSRelease before exporting.",
+                  static_library
+                );
+            }
+        }
 
         _generate_export_configuration_file(jni::JvmType::GRAAL_NATIVE_IMAGE);
 
-        add_apple_embedded_platform_project_static_lib(
-          ProjectSettings::get_singleton()->globalize_path(base_ios_jdk_dir.path_join("libjava-release.a"))
-        );
-        add_apple_embedded_platform_project_static_lib(
-          ProjectSettings::get_singleton()->globalize_path(base_ios_jdk_dir.path_join("libjvm-release.a"))
-        );
-        add_apple_embedded_platform_project_static_lib(ProjectSettings::get_singleton()->globalize_path(base_ios_build_dir.path_join(IOS_GRAAL_NATIVE_IMAGE_FILE)));
+        for (const String& static_library : static_libraries) {
+            add_apple_embedded_platform_project_static_lib(static_library);
+        }
     } else {
         JVM_ERR_FAIL_MSG("Godot-JVM doesn't handle this platform");
     }

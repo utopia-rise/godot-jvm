@@ -1,0 +1,104 @@
+name: 🍏 iOS Export Tests
+on:
+  workflow_call:
+    inputs:
+      godot-version:
+        type: string
+        required: true
+      jvm-version:
+        type: string
+        required: true
+
+concurrency:
+  group: ci-${{ github.actor }}-${{ github.head_ref || github.run_number }}-${{ github.ref }}-ios_exports_tests
+  cancel-in-progress: true
+
+jobs:
+  test-ios-exports:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: ./.github/actions/download-godot
+        with:
+          version: ${{ inputs.godot-version }}
+          platform: macos
+          destination: harness/tests/bin
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: ${{ inputs.jvm-version }}
+
+      - name: Set up GraalVM 23.1.3
+        run: |
+          curl --fail --location https://download.oracle.com/graalvm/21/archive/graalvm-jdk-21.0.3_macos-aarch64_bin.tar.gz --output graalvm.tar.gz
+          tar -xzf graalvm.tar.gz
+          graalvm_home="$(find "$PWD" -type f -path '*/bin/native-image' -print -quit | xargs dirname | xargs dirname)"
+          test -n "$graalvm_home"
+          echo "GRAALVM_HOME=$graalvm_home" >> "$GITHUB_ENV"
+
+      - uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: false
+          cache-cleanup: always
+          gradle-home-cache-excludes: |
+            wrapper/dists
+            caches/*/generated-gradle-jars
+            daemon
+            notifications
+
+      - name: Cache iOS native-image output
+        uses: actions/cache@v4
+        with:
+          path: |
+            harness/tests/.gradle
+            harness/tests/build/graal
+            harness/tests/build/libs/ios
+            harness/tests/jvm/ios
+          key: ios-native-image-${{ runner.arch }}-${{ hashFiles('harness/tests/build.gradle.kts', 'harness/tests/gradle.properties', 'harness/tests/graal/**', 'harness/tests/src/**', 'harness/third-party-library/**', 'kt/**') }}
+          restore-keys: |
+            ios-native-image-${{ runner.arch }}-
+
+      - name: Download macOS editor library
+        uses: actions/download-artifact@v7
+        with:
+          name: debug_macos_universal
+          path: harness/tests/addons
+
+      - name: Download iOS GDExtension archives
+        uses: actions/download-artifact@v7
+        with:
+          name: debug_ios_arm64
+          path: harness/tests/addons
+
+      - name: Prepare iOS export template
+        run: |
+          chmod +x harness/tests/bin/godot.*
+          curl --fail --location https://github.com/godotengine/godot-builds/releases/download/${{ inputs.godot-version }}/Godot_v${{ inputs.godot-version }}_export_templates.tpz --output templates.tpz
+          unzip -q templates.tpz -d templates
+          template_version="${{ inputs.godot-version }}"
+          template_version="${template_version//-/.}"
+          template_directory="$HOME/Library/Application Support/Godot/export_templates/$template_version"
+          mkdir -p "$template_directory"
+          mv templates/templates/ios.zip "$template_directory/ios.zip"
+          sed -i '' 's|application/export_project_only=false|application/export_project_only=true|' harness/tests/export_presets.cfg
+
+      - name: Build JVM tests project
+        run: harness/tests/gradlew -p harness/tests/ build
+
+      - name: Export iOS test project
+        run: harness/tests/gradlew -p harness/tests/ exportIOSDebug
+        timeout-minutes: 30
+
+      - name: Link the exported iOS application
+        run: |
+          xcodebuild \
+            -project harness/tests/export/tests.xcodeproj \
+            -scheme tests \
+            -sdk iphoneos \
+            -configuration Debug \
+            -destination 'generic/platform=iOS' \
+            CODE_SIGNING_ALLOWED=NO \
+            build

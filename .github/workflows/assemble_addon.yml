@@ -38,6 +38,10 @@ jobs:
         with:
           name: godot-jvm-gdextension-android-${{ inputs.godot-jvm-version }}
           path: android
+      - uses: actions/download-artifact@v7
+        with:
+          name: godot-jvm-gdextension-ios
+          path: ios
       - name: Assemble addon
         shell: bash
         run: |
@@ -46,6 +50,7 @@ jobs:
           rm -rf package/addons/jvm/libs
           cp -R addon/jvm/libs package/addons/jvm/libs
           cp -R android/addons/jvm/libs/android package/addons/jvm/libs/android
+          cp -R ios/addons/jvm/libs/ios package/addons/jvm/libs/ios
       # Upload the raw "addons" folder rather than a pre-made zip: actions/upload-artifact always
       # wraps whatever it's given in its own zip, so uploading a zip here results in a zip nested
       # inside that zip once a human downloads the artifact. The actual release-asset zip gets made

@@ -135,11 +135,15 @@ jobs:
       jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
 
   build-ios:
-    if: ${{ false }}
     name: 🍏 Build iOS
     uses: ./.github/workflows/build_ios.yml
     needs:
       - setup-build-variables
+      - detect-native-changes
+      - detect-ci-cd-tests-changes
+    if: needs.detect-native-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
+    with:
+      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
 
   build-linux:
     name: 🐧 Build Linux
@@ -189,7 +193,6 @@ jobs:
       godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
 
   assemble-ios:
-    if: ${{ false }}
     name: 🍏 Assemble ios
     uses: ./.github/workflows/assemble_ios.yml
     needs:
@@ -222,7 +225,7 @@ jobs:
     needs:
       - setup-build-variables
       - assemble-android
-      - build-linux
+      - assemble-ios
       - build-linux
       - assemble-macos
       - build-windows
@@ -296,6 +299,17 @@ jobs:
       - setup-build-variables
       - assemble-android
       - build-linux
+    with:
+      godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
+      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+
+  test-ios-exports:
+    name: 🍏 Test iOS Exports
+    uses: ./.github/workflows/test_ios_exports.yml
+    needs:
+      - setup-build-variables
+      - build-ios
+      - assemble-macos # the macOS editor needs the universal library
     with:
       godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
       jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
