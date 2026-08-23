@@ -65,7 +65,7 @@ public:
     ~KtClass();
 
     KtObject* create_instance(jni::Env & env, godot::GodotObject * p_owner);
-    bool can_instantiate() const;
+    bool can_zero_init() const;
 
     KtFunction* get_method(const godot::StringName& methodName);
 

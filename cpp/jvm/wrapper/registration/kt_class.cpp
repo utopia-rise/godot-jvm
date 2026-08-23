@@ -24,10 +24,6 @@ KtClass::~KtClass() {
 }
 
 KtObject* KtClass::create_instance(jni::Env& env, godot::GodotObject* p_owner) {
-#ifdef DEBUG_ENABLED
-    JVM_ERR_FAIL_COND_V_MSG(kt_constructor == nullptr, nullptr, "Cannot find constructor for class %s", registered_class_name);
-#endif
-
     KtObject* jvm_instance {kt_constructor->create_instance(env, p_owner)};
     JVM_DEV_VERBOSE("Instantiated a Jvm script: %s", registered_class_name);
 
@@ -64,8 +60,8 @@ godot::String KtClass::get_source_file_name(jni::Env& env) {
     return env.from_jstring(jni::JString((jstring) ret.obj));
 }
 
-bool KtClass::can_instantiate() const {
-    return !is_abstract && kt_constructor != nullptr;
+bool KtClass::can_zero_init() const {
+    return kt_constructor != nullptr;
 }
 
 godot::StringName KtClass::get_base_godot_class(jni::Env& env) {

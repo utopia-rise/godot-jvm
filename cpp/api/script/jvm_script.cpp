@@ -16,19 +16,12 @@ using namespace godot;
 
 Variant JvmScript::_new() {
     if (GodotObject* obj = _object_create()) { return RawObject(obj).to_variant(); }
-
-    JVM_ERR_FAIL_V_MSG({}, vformat("Cannot instantiate JVM script %s", kotlin_class->registered_class_name));
+    return {};
 }
 
 GodotObject* JvmScript::_object_create() const {
-    JVM_ERR_FAIL_COND_V_MSG(kotlin_class == nullptr, nullptr, "Cannot instantiate JVM script: no KtClass is associated with this script resource.");
 #ifdef DEBUG_ENABLED
-    JVM_ERR_FAIL_COND_V_MSG(
-      !kotlin_class->can_instantiate(),
-      nullptr,
-      "Cannot instantiate JVM script %s: no public zero-argument constructor is registered.",
-      kotlin_class->registered_class_name
-    );
+    if (!validate_instance_creation()) { return nullptr; }
 #endif
 
     // Not godot::ClassDB::instantiate(): that forwards to the script-facing ClassDB singleton, which boxes a RefCounted result in a Ref<RefCounted> inside a Variant — converting that straight to Object* and letting the Variant go out of scope...
@@ -46,25 +39,18 @@ GodotObject* JvmScript::_object_create() const {
 
     // Attaching directly via object_set_script_instance, not owner->set_script(this): set_script() re-enters the engine's can-instantiate/placeholder decision, and _can_instantiate() is unconditionally false in the editor (see below) — that re...
     void* instance {create_jvm_instance(raw_owner)};
-    JVM_ERR_FAIL_COND_V_MSG(
-      instance == nullptr,
-      nullptr,
-      "Cannot instantiate JVM script %s: failed to create script instance.",
-      kotlin_class->registered_class_name
-    );
+    if (instance == nullptr) { return nullptr; }
     internal::gdextension_interface_object_set_script_instance(raw_owner, instance);
     return raw_owner;
 }
 
 bool JvmScript::_can_instantiate() const {
+    if (!_is_valid() || kotlin_class->is_abstract) { return false; }
+
 #ifdef TOOLS_ENABLED
-    if (Engine::get_singleton()->is_editor_hint()) {
-        return false;
-    } else {
-        return _is_valid() && kotlin_class->can_instantiate();
-    }
+    return !Engine::get_singleton()->is_editor_hint();
 #else
-    return _is_valid() && kotlin_class->can_instantiate();
+    return true;
 #endif
 }
 
@@ -106,24 +92,34 @@ StringName JvmScript::_get_global_name() const {
 // that way (see VIRTUAL_RAW_OBJECT_ARGS there), because decoding an Object * would build and permanently register a
 // C++ wrapper for every object a JVM script is ever attached to, only for us to unwrap it again on the next line.
 void* JvmScript::_instance_create(GodotObject* p_for_object) const {
+#ifdef DEBUG_ENABLED
+    if (!validate_instance_creation()) { return nullptr; }
+#endif
     return create_jvm_instance(p_for_object);
 }
 
+#ifdef DEBUG_ENABLED
+bool JvmScript::validate_instance_creation() const {
+    JVM_ERR_FAIL_COND_V_MSG(!_is_valid(), false, "Invalid script %s was attempted to be used. Make sure you have properly built your project.", get_path());
+    JVM_ERR_FAIL_COND_V_MSG(
+      !kotlin_class->can_zero_init(),
+      false,
+      "Cannot instantiate JVM script %s: no public zero-argument constructor is registered.",
+      kotlin_class->registered_class_name
+    );
+    return true;
+}
+#endif
+
 void* JvmScript::create_jvm_instance(GodotObject* p_raw_owner) const {
+    // Assumes validate_instance_creation() has succeeded.
     //TODO: Check if creator when set_script_instance is implemented in engine.
     JvmBindingManager::get_instance_binding(p_raw_owner);
 
-#ifdef DEBUG_ENABLED
-    JVM_ERR_FAIL_COND_V_MSG(!_is_valid(), nullptr, "Invalid script %s was attempted to be used. Make sure you have properly built your project.", get_path());
     JVM_DEV_VERBOSE("Try to create %s instance.", kotlin_class->registered_class_name);
-#endif
 
     jni::Env env = jni::Jvm::current_env();
     KtObject* wrapped = kotlin_class->create_instance(env, p_raw_owner);
-
-#ifdef DEBUG_ENABLED
-    if (unlikely(!wrapped)) { return nullptr; }// Error already throw by create_instance()
-#endif
 
     JvmInstance::JvmInstanceData* instance_data = JvmInstance::create_instance_data(
       env,
@@ -386,7 +382,7 @@ void JvmScript::update_script_exports() const {
     if (!export_dirty_flag) { return; }
 
     exported_members_default_value_cache.clear();
-    if (!_is_valid() || !kotlin_class->can_instantiate()) {
+    if (!_is_valid() || kotlin_class->is_abstract || !kotlin_class->can_zero_init()) {
         export_dirty_flag = false;
         return;
     }

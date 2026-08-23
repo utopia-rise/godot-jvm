@@ -17,6 +17,7 @@ namespace godot {
 
         friend class JvmInstance;
         friend class JvmScriptManager;
+        friend class JvmPlaceHolderInstance;
 
     protected:
         KtClass* kotlin_class;
@@ -24,7 +25,9 @@ namespace godot {
         mutable String source;
 
         GodotObject* _object_create() const;
-        // The raw-pointer implementation behind _instance_create(); see its definition for why they are split.
+#ifdef DEBUG_ENABLED
+        bool validate_instance_creation() const;
+#endif
         void* create_jvm_instance(GodotObject* p_raw_owner) const;
 
     public:

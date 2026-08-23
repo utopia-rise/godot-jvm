@@ -261,6 +261,14 @@ void JvmPlaceHolderInstance::call(
             PackedStringArray packed {};
             packed.append("This script has been modified since the last time you built your project.");
             *result = packed;
+        } else if (script_ref->_is_abstract()) {
+            PackedStringArray packed {};
+            packed.append("This script is abstract, so Godot cannot instantiate it.");
+            *result = packed;
+        } else if (!script_ref->kotlin_class->can_zero_init()) {
+            PackedStringArray packed {};
+            packed.append("This script has no public zero-argument constructor, so Godot cannot instantiate it.");
+            *result = packed;
         } else {
             *result = PackedStringArray();
         }
