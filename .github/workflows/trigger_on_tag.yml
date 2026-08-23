@@ -9,6 +9,11 @@ concurrency:
   group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-trigger_on_tag
   cancel-in-progress: true
 
+env:
+  GODOT_JVM_VERSION: &godot_jvm_version ${{ github.ref_name }}
+  GODOT_VERSION: &godot_version 4.7.2-stable
+  JVM_VERSION: &jvm_version '17'
+
 jobs:
   create-or-update-maintenance-branch:
     name: Create or Update maintenance branch
@@ -33,135 +38,104 @@ jobs:
     uses: ./.github/workflows/deploy_create_draft_release.yml
     secrets: inherit # needed so that this sub workflow can also access github secrets for this workflow
 
-  setup-build-variables:
-    name: 🛠️ Setup build variables
-    runs-on: ubuntu-latest
-    needs:
-      - create-draft-release
-    steps:
-      - run: |
-          echo "Setup done"
-    outputs: # defined here explicitly, so it only needs to be defined here. All other workflows can just reference it
-      godot-jvm-version: ${{ github.ref_name }}
-      godot-version: "4.7.2-stable"
-      jvm-version: "17"
-
   build-android:
     name: 🤖 Build Android
     uses: ./.github/workflows/build_android.yml
-    needs:
-      - setup-build-variables
     with:
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+      jvm-version: *jvm_version
 
   build-ios:
     name: 🍏 Build iOS
     uses: ./.github/workflows/build_ios.yml
-    needs:
-      - setup-build-variables
     with:
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+      jvm-version: *jvm_version
 
   build-linux:
     name: 🐧 Build Linux
     uses: ./.github/workflows/build_linux.yml
-    needs:
-      - setup-build-variables
 
   build-macos:
     name: 🍎 Build macOS
     uses: ./.github/workflows/build_macos.yml
-    needs:
-      - setup-build-variables
 
   build-windows:
     name: 🪟 Build Windows
     uses: ./.github/workflows/build_windows.yml
-    needs:
-      - setup-build-variables
 
   assemble-android:
     name: 🤖 Assemble android
     uses: ./.github/workflows/assemble_android.yml
     needs:
-      - setup-build-variables
       - build-android
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
-      godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
+      godot-version: *godot_version
+      jvm-version: *jvm_version
 
   assemble-macos:
     name: 🍎 Assemble macos
     uses: ./.github/workflows/assemble_macos.yml
     needs:
-      - setup-build-variables
       - build-macos
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
 
   assemble-ios:
     name: 🍏 Assemble ios
     uses: ./.github/workflows/assemble_ios.yml
     needs:
-      - setup-build-variables
       - build-ios
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
 
   assemble-linux:
     name: 🐧 Assemble linux
     uses: ./.github/workflows/assemble_linux.yml
     needs:
-      - setup-build-variables
       - build-linux
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
 
   assemble-windows:
     name: 🪟 Assemble windows
     uses: ./.github/workflows/assemble_windows.yml
     needs:
-      - setup-build-variables
       - build-windows
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
 
   assemble-addon:
-    name: 🤖+🍏+🐧+🍎+🪟 Assemble addon
+    name: 📦 Package addon
     uses: ./.github/workflows/assemble_addon.yml
     needs:
-      - setup-build-variables
       - assemble-android
       - assemble-ios
-      - build-linux
+      - assemble-linux
       - assemble-macos
-      - build-windows
+      - assemble-windows
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
 
   deploy-godot:
     name: 🚀 Deploy godot artifacts to Github
     uses: ./.github/workflows/deploy_godot.yml
     needs:
-      - setup-build-variables
       - assemble-linux
       - assemble-macos
       - assemble-windows
       - assemble-addon
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
     secrets: inherit # needed so that this sub workflow can also access github secrets for this workflow
 
   deploy-jvm:
     name: 🚀 Deploy Jvm artifacts
     uses: ./.github/workflows/deploy_jvm.yml
     needs:
-      - setup-build-variables
       - deploy-godot # we define an explicit dependency on the github upload in case something goes wrong there. Github release purging is easier than from maven central and the likes
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
+      jvm-version: *jvm_version
     secrets: inherit # needed so that this sub workflow can also access github secrets for this workflow
 
   deploy-docs:

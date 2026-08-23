@@ -1,4 +1,4 @@
-name: 🤖 Android Export Tests
+name: 🤖 Android Tests
 on:
   workflow_call:
     inputs:
@@ -8,11 +8,11 @@ on:
         type: string
 
 concurrency:
-  group: ci-${{ github.actor }}-${{ github.head_ref || github.run_number }}-${{ github.ref }}-android_exports_tests
+  group: ci-${{ github.actor }}-${{ github.head_ref || github.run_number }}-${{ github.ref }}-android_tests
   cancel-in-progress: true
 
 jobs:
-  test-android-exports:
+  test-android:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
@@ -52,7 +52,7 @@ jobs:
           path: |
             harness/tests/.gradle
             harness/tests/build
-          key: android-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.github/workflows/test_android_exports.yml', 'harness/tests/**', 'harness/third-party-library/**', 'kt/**') }}
+          key: android-build-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           restore-keys: |
             android-build-${{ runner.os }}-${{ runner.arch }}-
 

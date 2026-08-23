@@ -13,17 +13,20 @@ concurrency:
 
 jobs:
   test-linux:
-    runs-on: ubuntu-22.04 # run tests on oldest ubuntu we still support. See build_linux.yml
+    runs-on: ubuntu-22.04 # Run on the oldest Ubuntu we support. See build_linux.yml.
     name: ${{ matrix.name }}
     strategy:
       matrix:
         include:
-          - name: debug tests
-            extension-target: debug
+          - name: Debug tests
+            variant: debug
             build-task: build
+          - name: Export tests
+            variant: export
+            build-task: buildRelease
 
     steps:
-      - name: Clone Godot JVM module.
+      - name: Clone Godot JVM module
         uses: actions/checkout@v6
 
       - uses: ./.github/actions/download-godot
@@ -31,6 +34,24 @@ jobs:
           version: ${{ inputs.godot-version }}
           platform: linux
           destination: harness/tests/bin
+
+      - name: Download export templates
+        if: matrix.variant == 'export'
+        uses: ./.github/actions/download-godot
+        with:
+          version: ${{ inputs.godot-version }}
+          platform: linux
+          destination: harness/tests/bin
+          template: debug
+
+      - name: Download release export templates
+        if: matrix.variant == 'export'
+        uses: ./.github/actions/download-godot
+        with:
+          version: ${{ inputs.godot-version }}
+          platform: linux
+          destination: harness/tests/bin
+          template: release
 
       - uses: actions/setup-java@v5
         with:
@@ -60,15 +81,28 @@ jobs:
           path: |
             harness/tests/.gradle
             harness/tests/build
-          key: desktop-graal-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.github/workflows/test_linux.yml', 'harness/tests/**', 'harness/third-party-library/**', 'kt/**') }}
+          key: desktop-graal-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           restore-keys: |
             desktop-graal-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Download linux editor library
+      - name: Download Linux editor library
         uses: actions/download-artifact@v7
         with:
-          name: ${{ matrix.extension-target }}_linux_x86_64
-          path: './harness/tests/addons'
+          name: debug_linux_x86_64
+          path: harness/tests/addons
+
+      - name: Download Linux export library
+        if: matrix.variant == 'export'
+        uses: actions/download-artifact@v7
+        with:
+          name: release_linux_x86_64
+          path: harness/tests/addons
+
+      - name: Prepare export
+        if: matrix.variant == 'export'
+        run: |
+          chmod +x harness/tests/bin/godot.*
+          mkdir -p harness/tests/export
 
       - name: Build JVM tests project
         run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
@@ -80,6 +114,7 @@ jobs:
         run: harness/tests/gradlew -p harness/tests/ importResources
 
       - name: Run JVM tests
+        if: matrix.variant == 'debug'
         run: |
           cd harness/tests/
           chmod +x bin/godot.*
@@ -88,7 +123,31 @@ jobs:
         timeout-minutes: 30
 
       - name: Run Graal native-image tests
+        if: matrix.variant == 'debug'
         run: |
           cd harness/tests/
           ./gradlew runGraalGDTests
+        timeout-minutes: 30
+
+      - name: Create JRE for export
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/
+          jlink --add-modules java.base,java.logging --output jvm/jre-amd64-linux
+
+      - name: Export release tests
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/
+          ./gradlew exportRelease
+        timeout-minutes: 30
+
+      - name: Run JVM exported tests
+        if: matrix.variant == 'export'
+        run: cd harness/tests/; ./gradlew runExportedGDTests
+        timeout-minutes: 30
+
+      - name: Run Graal native-image exported tests
+        if: matrix.variant == 'export'
+        run: cd harness/tests/; ./gradlew runExportedGraalGDTests
         timeout-minutes: 30

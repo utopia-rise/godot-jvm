@@ -18,12 +18,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: debug tests
-            extension-target: debug
+          - name: Debug tests
+            variant: debug
             build-task: build
+          - name: Export tests
+            variant: export
+            build-task: buildRelease
 
     steps:
-      - name: Clone Godot JVM module.
+      - name: Clone Godot JVM module
         uses: actions/checkout@v6
 
       - uses: ./.github/actions/download-godot
@@ -31,6 +34,24 @@ jobs:
           version: ${{ inputs.godot-version }}
           platform: windows
           destination: harness/tests/bin
+
+      - name: Download debug export templates
+        if: matrix.variant == 'export'
+        uses: ./.github/actions/download-godot
+        with:
+          version: ${{ inputs.godot-version }}
+          platform: windows
+          destination: harness/tests/bin
+          template: debug
+
+      - name: Download release export templates
+        if: matrix.variant == 'export'
+        uses: ./.github/actions/download-godot
+        with:
+          version: ${{ inputs.godot-version }}
+          platform: windows
+          destination: harness/tests/bin
+          template: release
 
       - uses: actions/setup-java@v5
         with:
@@ -67,15 +88,26 @@ jobs:
           path: |
             harness/tests/.gradle
             harness/tests/build
-          key: desktop-graal-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.github/workflows/test_windows.yml', 'harness/tests/**', 'harness/third-party-library/**', 'kt/**') }}
+          key: desktop-graal-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           restore-keys: |
             desktop-graal-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Download windows editor library
+      - name: Download Windows editor library
         uses: actions/download-artifact@v7
         with:
-          name: ${{ matrix.extension-target }}_windows_x86_64
-          path: './harness/tests/addons'
+          name: debug_windows_x86_64
+          path: harness/tests/addons
+
+      - name: Download Windows export library
+        if: matrix.variant == 'export'
+        uses: actions/download-artifact@v7
+        with:
+          name: release_windows_x86_64
+          path: harness/tests/addons
+
+      - name: Prepare export
+        if: matrix.variant == 'export'
+        run: mkdir -p harness/tests/export
 
       - name: Build JVM tests project
         run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
@@ -87,6 +119,7 @@ jobs:
         run: harness/tests/gradlew -p harness/tests/ importResources
 
       - name: Run JVM tests
+        if: matrix.variant == 'debug'
         run: |
           cd harness/tests/
           jlink --add-modules java.base,java.logging --output jvm/jre-amd64-windows
@@ -94,7 +127,39 @@ jobs:
         timeout-minutes: 30
 
       - name: Run Graal native-image tests
+        if: matrix.variant == 'debug'
         run: |
           cd harness/tests/
           ./gradlew runGraalGDTests
         timeout-minutes: 30
+
+      - name: Create JRE for export
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/
+          jlink --add-modules java.base,java.logging --output jvm/jre-amd64-windows
+
+      - name: Export release tests
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/
+          ./gradlew exportRelease
+        timeout-minutes: 30
+
+      - name: Run JVM exported tests
+        if: matrix.variant == 'export'
+        run: cd harness/tests/; ./gradlew runExportedGDTests
+        timeout-minutes: 30
+
+      - name: Run Graal native-image exported tests
+        if: matrix.variant == 'export'
+        run: cd harness/tests/; ./gradlew runExportedGraalGDTests
+        timeout-minutes: 30
+
+      - name: Upload JVM crash report
+        if: always() && matrix.variant == 'export'
+        uses: actions/upload-artifact@v7
+        with:
+          name: windows-exports-hs-err
+          path: harness/tests/hs_err_pid*.log
+          if-no-files-found: ignore

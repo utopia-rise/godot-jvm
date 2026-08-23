@@ -1,4 +1,4 @@
-name: 🍏 iOS Export Tests
+name: 🍏 iOS Tests
 on:
   workflow_call:
     inputs:
@@ -10,11 +10,11 @@ on:
         required: true
 
 concurrency:
-  group: ci-${{ github.actor }}-${{ github.head_ref || github.run_number }}-${{ github.ref }}-ios_exports_tests
+  group: ci-${{ github.actor }}-${{ github.head_ref || github.run_number }}-${{ github.ref }}-ios_tests
   cancel-in-progress: true
 
 jobs:
-  test-ios-exports:
+  test-ios:
     runs-on: macos-15
     timeout-minutes: 45
     steps:
@@ -57,7 +57,7 @@ jobs:
             harness/tests/build/graal
             harness/tests/build/libs/ios
             harness/tests/jvm/ios
-          key: ios-native-image-${{ runner.arch }}-${{ hashFiles('harness/tests/build.gradle.kts', 'harness/tests/gradle.properties', 'harness/tests/graal/**', 'harness/tests/src/**', 'harness/third-party-library/**', 'kt/**') }}
+          key: ios-native-image-${{ runner.arch }}-${{ github.sha }}
           restore-keys: |
             ios-native-image-${{ runner.arch }}-
 

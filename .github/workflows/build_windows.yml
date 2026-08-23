@@ -7,20 +7,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  setup-matrix:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - id: set-matrix
-        run: |
-          MATRIX='{"include":[
-            {"name":"Build debug","cache-name":"debug_windows_x86_64","target":"editor","should-clean":false,"scons-flags":""},
-            {"name":"Build release","cache-name":"release_windows_x86_64","target":"template_release","should-clean":true,"scons-flags":""}
-          ]}'
-          echo "matrix=$(echo $MATRIX | jq -c '.')" >> $GITHUB_OUTPUT
   build-windows:
-    needs: setup-matrix
     runs-on: windows-latest
     name: ${{ matrix.name }}
     permissions:
@@ -28,7 +15,18 @@ jobs:
       actions: write
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
+      matrix:
+        include:
+          - name: Build debug
+            cache-name: debug_windows_x86_64
+            target: editor
+            should-clean: false
+            scons-flags: ''
+          - name: Build release
+            cache-name: release_windows_x86_64
+            target: template_release
+            should-clean: true
+            scons-flags: ''
     env:
       SCONS_CACHE: ${{ github.workspace }}/.scons-cache
       SCONS_CACHE_MSVC_CONFIG: true

@@ -1,4 +1,4 @@
-name: 🍎 MacOS Tests
+name: 🍎 macOS Tests
 on:
   workflow_call:
     inputs:
@@ -18,12 +18,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: debug tests
-            extension-target: debug
+          - name: Debug tests
+            variant: debug
             build-task: build
+          - name: Export tests
+            variant: export
+            build-task: buildRelease
 
     steps:
-      - name: Clone Godot JVM module.
+      - name: Clone Godot JVM module
         uses: actions/checkout@v6
 
       - uses: ./.github/actions/download-godot
@@ -60,15 +63,35 @@ jobs:
           path: |
             harness/tests/.gradle
             harness/tests/build
-          key: desktop-graal-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.github/workflows/test_macos.yml', 'harness/tests/**', 'harness/third-party-library/**', 'kt/**') }}
+          key: desktop-graal-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           restore-keys: |
             desktop-graal-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Download macos editor library
+      - name: Download macOS editor library
         uses: actions/download-artifact@v7
         with:
-          name: ${{ matrix.extension-target }}_macos_universal
-          path: './harness/tests/addons'
+          name: debug_macos_universal
+          path: harness/tests/addons
+
+      - name: Download macOS export library
+        if: matrix.variant == 'export'
+        uses: actions/download-artifact@v7
+        with:
+          name: release_macos_universal
+          path: harness/tests/addons
+
+      - name: Prepare export
+        if: matrix.variant == 'export'
+        run: |
+          chmod +x harness/tests/bin/godot.*
+          mkdir -p harness/tests/export
+          curl --fail --location https://github.com/godotengine/godot-builds/releases/download/${{ inputs.godot-version }}/Godot_v${{ inputs.godot-version }}_export_templates.tpz --output templates.tpz
+          unzip -q templates.tpz -d templates
+          template_version="${{ inputs.godot-version }}"
+          template_version="${template_version//-/.}"
+          template_directory="$HOME/Library/Application Support/Godot/export_templates/$template_version"
+          mkdir -p "$template_directory"
+          mv templates/templates/macos.zip "$template_directory/macos.zip"
 
       - name: Build JVM tests project
         run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
@@ -80,6 +103,7 @@ jobs:
         run: harness/tests/gradlew -p harness/tests/ importResources
 
       - name: Run JVM tests
+        if: matrix.variant == 'debug'
         run: |
           cd harness/tests/
           chmod +x bin/godot.*
@@ -88,7 +112,41 @@ jobs:
         timeout-minutes: 30
 
       - name: Run Graal native-image tests
+        if: matrix.variant == 'debug'
         run: |
           cd harness/tests/
           ./gradlew runGraalGDTests
+        timeout-minutes: 30
+
+      - name: Create JRE for export
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/
+          jlink --add-modules java.base,java.logging --output jvm/jre-arm64-macos
+          mkdir jvm/jre-amd64-macos # The export requires this directory; tests run on arm64.
+
+      - name: Export release tests
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/
+          ./gradlew exportRelease
+        timeout-minutes: 30
+
+      - name: Extract app from DMG
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/export
+          hdiutil attach tests.dmg
+          cp -a /Volumes/Godot-JVM\ Tests/Godot-JVM\ Tests.app Godot-JVM\ Tests.app
+          hdiutil detach /Volumes/Godot-JVM\ Tests
+          cp -a ../jvm/jre-arm64-macos Godot-JVM\ Tests.app/Contents/PlugIns/
+
+      - name: Run JVM exported tests
+        if: matrix.variant == 'export'
+        run: cd harness/tests/; ./gradlew runExportedGDTests
+        timeout-minutes: 30
+
+      - name: Run Graal native-image exported tests
+        if: matrix.variant == 'export'
+        run: cd harness/tests/; ./gradlew runExportedGraalGDTests
         timeout-minutes: 30

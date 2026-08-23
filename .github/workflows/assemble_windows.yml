@@ -10,40 +10,42 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  create-windows-library-zip:
-    # does not need to run on windows -> only packs a zip
+  assemble-windows:
+    # This only packages already-built libraries.
     runs-on: ubuntu-latest
-    name: ${{ matrix.name }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Create release library zip
-            target: release
-            arch: x86_64
-
-          - name: Create debug library zip
-            target: debug
-            arch: x86_64
     steps:
-      - name: Download ${{ matrix.target }} library
+      - name: Download release library
         uses: actions/download-artifact@v7
         with:
-          name: ${{ matrix.target }}_windows_${{ matrix.arch }}
-          path: godot-jvm-gdextension-windows-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}
+          name: release_windows_x86_64
+          path: libraries/release
 
-      - name: Assemble Windows library
-        run: |
-          mkdir -p package/addons
-          cp -R godot-jvm-gdextension-windows-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}/jvm package/addons/jvm
+      - name: Download debug library
+        uses: actions/download-artifact@v7
+        with:
+          name: debug_windows_x86_64
+          path: libraries/debug
+
+      - name: Assemble Windows libraries
         shell: bash
+        run: |
+          for target in debug release; do
+            mkdir -p "package/$target/addons"
+            cp -R "libraries/$target/jvm" "package/$target/addons/jvm"
+          done
 
       # Upload the raw "addons" folder rather than a pre-made zip: actions/upload-artifact always
       # wraps whatever it's given in its own zip, so uploading a zip here results in a zip nested
       # inside that zip once a human downloads the artifact. The actual release-asset zip gets made
       # once, at the point deploy_godot.yml attaches it to the GitHub release.
-      - name: Upload artifact
+      - name: Upload debug library
         uses: actions/upload-artifact@v7
         with:
-          name: godot-jvm-gdextension-windows-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}
-          path: package
+          name: godot-jvm-gdextension-windows-x86_64-debug-${{ inputs.godot-jvm-version }}
+          path: package/debug
+
+      - name: Upload release library
+        uses: actions/upload-artifact@v7
+        with:
+          name: godot-jvm-gdextension-windows-x86_64-release-${{ inputs.godot-jvm-version }}
+          path: package/release

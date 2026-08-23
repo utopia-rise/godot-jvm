@@ -1,11 +1,18 @@
-name: PR Checks
+name: CI
 on:
   pull_request:
+  schedule:
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 concurrency:
-  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-trigger_on_pull_request
+  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-trigger_ci
   cancel-in-progress: true
+
+env:
+  GODOT_JVM_VERSION: &godot_jvm_version 1.0.0-dev3
+  GODOT_VERSION: &godot_version 4.7.2-stable
+  JVM_VERSION: &jvm_version '17'
 
 jobs:
   # Path-change gates. A pure-doc PR (or one only touching e.g. the api-generator)
@@ -97,29 +104,16 @@ jobs:
             kt/common
             kt/tools-common
 
-  setup-build-variables:
-    # Fake job to define outputs which can be used in the other jobs
-    name: 🛠️ Setup build variables
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          echo "Setup done"
-    outputs: # defined here explicitly, so it only needs to be defined here. All other workflows can just reference it
-      godot-jvm-version: "1.0.0-dev3"
-      godot-version: "4.7.2-stable"
-      jvm-version: "17"
-
   build-jvm:
     name: ☕ Build Jvm
     uses: ./.github/workflows/build_jvm.yml
     needs:
-      - setup-build-variables
       - detect-api-generator-changes
       - detect-ide-plugin-changes
       - detect-ci-cd-tests-changes
     if: needs.detect-api-generator-changes.outputs.changed == 'true' || needs.detect-ide-plugin-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
     with:
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+      jvm-version: *jvm_version
       run-api-generator: ${{ needs.detect-api-generator-changes.outputs.changed == 'true' }}
       run-ide-plugin: ${{ needs.detect-ide-plugin-changes.outputs.changed == 'true' }}
 
@@ -127,29 +121,26 @@ jobs:
     name: 🤖 Build Android
     uses: ./.github/workflows/build_android.yml
     needs:
-      - setup-build-variables
       - detect-native-changes
       - detect-ci-cd-tests-changes
     if: needs.detect-native-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
     with:
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+      jvm-version: *jvm_version
 
   build-ios:
     name: 🍏 Build iOS
     uses: ./.github/workflows/build_ios.yml
     needs:
-      - setup-build-variables
       - detect-native-changes
       - detect-ci-cd-tests-changes
     if: needs.detect-native-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
     with:
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+      jvm-version: *jvm_version
 
   build-linux:
     name: 🐧 Build Linux
     uses: ./.github/workflows/build_linux.yml
     needs:
-      - setup-build-variables
       - detect-native-changes
       - detect-ci-cd-tests-changes
     if: needs.detect-native-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
@@ -158,7 +149,6 @@ jobs:
     name: 🍎 Build macOS
     uses: ./.github/workflows/build_macos.yml
     needs:
-      - setup-build-variables
       - detect-native-changes
       - detect-ci-cd-tests-changes
     if: needs.detect-native-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
@@ -167,149 +157,113 @@ jobs:
     name: 🪟 Build Windows
     uses: ./.github/workflows/build_windows.yml
     needs:
-      - setup-build-variables
       - detect-native-changes
       - detect-ci-cd-tests-changes
     if: needs.detect-native-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
 
   assemble-android:
-    name: 🤖 Assemble android
+    name: 🤖 Assemble Android
     uses: ./.github/workflows/assemble_android.yml
     needs:
-      - setup-build-variables
       - build-android
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
-      godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
-
-  assemble-macos:
-    name: 🍎 Assemble macos
-    uses: ./.github/workflows/assemble_macos.yml
-    needs:
-      - setup-build-variables
-      - build-macos
-    with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
+      godot-version: *godot_version
+      jvm-version: *jvm_version
 
   assemble-ios:
-    name: 🍏 Assemble ios
+    name: 🍏 Assemble iOS
     uses: ./.github/workflows/assemble_ios.yml
     needs:
-      - setup-build-variables
       - build-ios
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
 
   assemble-linux:
-    name: 🐧 Assemble linux
+    name: 🐧 Assemble Linux
     uses: ./.github/workflows/assemble_linux.yml
     needs:
-      - setup-build-variables
       - build-linux
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
+
+  assemble-macos:
+    name: 🍎 Assemble macOS
+    uses: ./.github/workflows/assemble_macos.yml
+    needs:
+      - build-macos
+    with:
+      godot-jvm-version: *godot_jvm_version
 
   assemble-windows:
-    name: 🪟 Assemble windows
+    name: 🪟 Assemble Windows
     uses: ./.github/workflows/assemble_windows.yml
     needs:
-      - setup-build-variables
       - build-windows
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
 
-  assemble-addon:
-    name: 🤖+🍏+🐧+🍎+🪟 Assemble addon
-    uses: ./.github/workflows/assemble_addon.yml
+  test-android:
+    name: 🤖 Test Android
+    uses: ./.github/workflows/test_android.yml
     needs:
-      - setup-build-variables
       - assemble-android
-      - assemble-ios
       - build-linux
-      - assemble-macos
-      - build-windows
     with:
-      godot-jvm-version: ${{ needs.setup-build-variables.outputs['godot-jvm-version'] }}
+      godot-version: *godot_version
+      jvm-version: *jvm_version
+
+  test-ios:
+    name: 🍏 Test iOS
+    uses: ./.github/workflows/test_ios.yml
+    needs:
+      - assemble-ios
+      - build-macos
+    with:
+      godot-version: *godot_version
+      jvm-version: *jvm_version
 
   test-linux:
     name: 🐧 Test Linux
     uses: ./.github/workflows/test_linux.yml
     needs:
-      - setup-build-variables
-      - build-linux
+      - assemble-linux
     with:
-      godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+      godot-version: *godot_version
+      jvm-version: *jvm_version
 
   test-macos:
-    name: 🍎 Test Macos
+    name: 🍎 Test macOS
     uses: ./.github/workflows/test_macos.yml
     needs:
-      - setup-build-variables
-      - assemble-macos # we need the universal binary
+      - assemble-macos
     with:
-      godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+      godot-version: *godot_version
+      jvm-version: *jvm_version
 
   test-windows:
     name: 🪟 Test Windows
     uses: ./.github/workflows/test_windows.yml
     needs:
-      - setup-build-variables
-      - build-windows
+      - assemble-windows
     with:
-      godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+      godot-version: *godot_version
+      jvm-version: *jvm_version
 
-  test-linux-exports:
-    name: 🐧 Test Linux Exports
-    uses: ./.github/workflows/test_linux_exports.yml
+  assemble-addon:
+    name: 📦 Package addon
+    uses: ./.github/workflows/assemble_addon.yml
     needs:
-      - setup-build-variables
-      - build-linux
-    with:
-      godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
-
-  test-macos-exports:
-    name: 🍎 Test Macos Exports
-    uses: ./.github/workflows/test_macos_exports.yml
-    needs:
-      - setup-build-variables
-      - assemble-macos # we need the universal binary
-    with:
-      godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
-
-  test-windows-exports:
-    name: 🪟 Test Windows Exports
-    uses: ./.github/workflows/test_windows_exports.yml
-    needs:
-      - setup-build-variables
-      - build-windows
-    with:
-      godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
-
-  test-android-exports:
-    name: 🤖 Test Android Exports
-    uses: ./.github/workflows/test_android_exports.yml
-    needs:
-      - setup-build-variables
       - assemble-android
-      - build-linux
+      - assemble-ios
+      - assemble-linux
+      - assemble-macos
+      - assemble-windows
+      - test-android
+      - test-ios
+      - test-linux
+      - test-macos
+      - test-windows
     with:
-      godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}
+      godot-jvm-version: *godot_jvm_version
 
-  test-ios-exports:
-    name: 🍏 Test iOS Exports
-    uses: ./.github/workflows/test_ios_exports.yml
-    needs:
-      - setup-build-variables
-      - build-ios
-      - assemble-macos # the macOS editor needs the universal library
-    with:
-      godot-version: ${{ needs.setup-build-variables.outputs['godot-version'] }}
-      jvm-version: ${{ needs.setup-build-variables.outputs['jvm-version'] }}

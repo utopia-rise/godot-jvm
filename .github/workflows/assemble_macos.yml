@@ -10,57 +10,80 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  create-macos-universal-libraries:
+  assemble-macos:
     runs-on: macos-15
-    strategy:
-      matrix:
-        include:
-          - artifact: release
-            target: template_release
-            output: release
-          # Must match build_macos.yml's debug matrix entry, which builds target=editor.
-          - artifact: debug
-            target: editor
-            output: debug
     steps:
-      - uses: actions/download-artifact@v7
+      - name: Download release x86_64 library
+        uses: actions/download-artifact@v7
         with:
-          name: ${{ matrix.artifact }}_macos_x86_64
-          path: x86_64
-      - uses: actions/download-artifact@v7
+          name: release_macos_x86_64
+          path: libraries/release/x86_64
+
+      - name: Download release arm64 library
+        uses: actions/download-artifact@v7
         with:
-          name: ${{ matrix.artifact }}_macos_arm64
-          path: arm64
-      - name: Create universal GDExtension library
+          name: release_macos_arm64
+          path: libraries/release/arm64
+
+      - name: Download debug x86_64 library
+        uses: actions/download-artifact@v7
+        with:
+          name: debug_macos_x86_64
+          path: libraries/debug/x86_64
+
+      - name: Download debug arm64 library
+        uses: actions/download-artifact@v7
+        with:
+          name: debug_macos_arm64
+          path: libraries/debug/arm64
+
+      - name: Create universal GDExtension libraries
         shell: bash
         run: |
-          mkdir -p artifact/addons/jvm/libs/macos
-          cp -R x86_64/jvm/libs/macos/godot.jvm.macos.${{ matrix.target }}.framework artifact/addons/jvm/libs/macos/
-          lipo -create x86_64/jvm/libs/macos/godot.jvm.macos.${{ matrix.target }}.framework/godot.jvm.macos.${{ matrix.target }} arm64/jvm/libs/macos/godot.jvm.macos.${{ matrix.target }}.framework/godot.jvm.macos.${{ matrix.target }} -output artifact/addons/jvm/libs/macos/godot.jvm.macos.${{ matrix.target }}.framework/godot.jvm.macos.${{ matrix.target }}
-      - uses: actions/upload-artifact@v7
-        with:
-          name: ${{ matrix.output }}_macos_universal
-          path: artifact/addons
+          for artifact in debug release; do
+            if [ "$artifact" = debug ]; then
+              target=editor
+            else
+              target=template_release
+            fi
+            framework="godot.jvm.macos.$target.framework"
+            mkdir -p "universal/$artifact/addons/jvm/libs/macos"
+            cp -R "libraries/$artifact/x86_64/jvm/libs/macos/$framework" "universal/$artifact/addons/jvm/libs/macos/"
+            lipo -create               "libraries/$artifact/x86_64/jvm/libs/macos/$framework/godot.jvm.macos.$target"               "libraries/$artifact/arm64/jvm/libs/macos/$framework/godot.jvm.macos.$target"               -output "universal/$artifact/addons/jvm/libs/macos/$framework/godot.jvm.macos.$target"
+          done
 
-  package-macos-libraries:
-    needs: create-macos-universal-libraries
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target: [debug, release]
-    steps:
-      - uses: actions/download-artifact@v7
+      - name: Upload debug universal library
+        uses: actions/upload-artifact@v7
         with:
-          name: ${{ matrix.target }}_macos_universal
-          path: libraries
-      - run: |
-          mkdir -p package/addons
-          cp -R libraries/jvm package/addons/jvm
+          name: debug_macos_universal
+          path: universal/debug/addons
+
+      - name: Upload release universal library
+        uses: actions/upload-artifact@v7
+        with:
+          name: release_macos_universal
+          path: universal/release/addons
+
+      - name: Package macOS libraries
+        shell: bash
+        run: |
+          for target in debug release; do
+            mkdir -p "package/$target"
+            cp -R "universal/$target/addons" "package/$target/addons"
+          done
+
       # Upload the raw "addons" folder rather than a pre-made zip: actions/upload-artifact always
       # wraps whatever it's given in its own zip, so uploading a zip here results in a zip nested
       # inside that zip once a human downloads the artifact. The actual release-asset zip gets made
       # once, at the point deploy_godot.yml attaches it to the GitHub release.
-      - uses: actions/upload-artifact@v7
+      - name: Upload debug package
+        uses: actions/upload-artifact@v7
         with:
-          name: godot-jvm-gdextension-macos-universal-${{ matrix.target }}-${{ inputs.godot-jvm-version }}
-          path: package
+          name: godot-jvm-gdextension-macos-universal-debug-${{ inputs.godot-jvm-version }}
+          path: package/debug
+
+      - name: Upload release package
+        uses: actions/upload-artifact@v7
+        with:
+          name: godot-jvm-gdextension-macos-universal-release-${{ inputs.godot-jvm-version }}
+          path: package/release
