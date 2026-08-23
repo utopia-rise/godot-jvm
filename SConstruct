@@ -107,15 +107,19 @@ elif env["platform"] == "macos":
     )
 elif env["platform"] == "ios":
     if env["ios_simulator"]:
-        library = env.StaticLibrary(
-            "{}{}/{}.{}.{}.simulator.a".format(target_path, env["platform"], target_name, env["platform"], env["target"]),
+        extension_library = env.StaticLibrary(
+            "{}{}/{}.{}.{}.simulator.objects.a".format(target_path, env["platform"], target_name, env["platform"], env["target"]),
             source=sources,
         )
+        output = "{}{}/{}.{}.{}.simulator.a".format(target_path, env["platform"], target_name, env["platform"], env["target"])
     else:
-        library = env.StaticLibrary(
-            "{}{}/{}.{}.{}.a".format(target_path, env["platform"], target_name, env["platform"], env["target"]),
+        extension_library = env.StaticLibrary(
+            "{}{}/{}.{}.{}.objects.a".format(target_path, env["platform"], target_name, env["platform"], env["target"]),
             source=sources,
         )
+        output = "{}{}/{}.{}.{}.a".format(target_path, env["platform"], target_name, env["platform"], env["target"])
+    godot_cpp_library = env.File("godot-cpp/bin/libgodot-cpp{}{}".format(env["suffix"], env["LIBSUFFIX"]))
+    library = env.Command(output, [extension_library, godot_cpp_library], "libtool -static -o $TARGET $SOURCES")
 else:
     library = env.SharedLibrary(
         "{}{}/{}{}{}".format(target_path, env["platform"], target_name, env["suffix"], env["SHLIBSUFFIX"]),

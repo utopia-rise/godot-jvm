@@ -94,6 +94,7 @@ jobs:
 
       - name: Link the exported iOS application
         run: |
+          sudo xcode-select --switch /Applications/Xcode_26.3.app
           xcodebuild \
             -project harness/tests/export/tests.xcodeproj \
             -scheme tests \

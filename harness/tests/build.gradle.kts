@@ -156,6 +156,7 @@ fun registerIOSExportTask(name: String, exportFlag: String, description: String)
 
     environment("JAVA_HOME", System.getProperty("java.home"))
     workingDir = projectDir
+    isIgnoreExitValue = true
 
     doFirst {
         projectDir.resolve("export").ensureEmptyDirectory()
@@ -168,6 +169,14 @@ fun registerIOSExportTask(name: String, exportFlag: String, description: String)
         "iOS",
         "export/tests.ipa",
     )
+
+    doLast {
+        val exportProject = projectDir.resolve("export/tests.xcodeproj/project.pbxproj")
+        val exitValue = executionResult.get().exitValue
+        check(exitValue == 0 || exitValue == 134 && exportProject.isFile) {
+            "Godot failed to export the iOS test project (exit code $exitValue)"
+        }
+    }
 }
 
 fun registerGraalTestTask(
