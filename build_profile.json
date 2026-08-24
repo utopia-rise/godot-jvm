@@ -21,6 +21,7 @@
     "ScriptExtension",
     "ScriptLanguage",
     "ScriptLanguageExtension",
+    "ScriptLanguageExtensionProfilingInfo",
 
     "MultiplayerAPI",
     "MultiplayerPeer",

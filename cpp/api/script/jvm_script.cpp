@@ -98,6 +98,12 @@ void* JvmScript::_instance_create(GodotObject* p_for_object) const {
     return create_jvm_instance(p_for_object);
 }
 
+bool JvmScript::_instance_has(Object* p_object) const {
+    if (p_object == nullptr) { return false; }
+    Ref<Script> script = p_object->get_script();
+    return script.ptr() == this;
+}
+
 #ifdef DEBUG_ENABLED
 bool JvmScript::validate_instance_creation() const {
     JVM_ERR_FAIL_COND_V_MSG(!_is_valid(), false, "Invalid script %s was attempted to be used. Make sure you have properly built your project.", get_path());
@@ -153,6 +159,13 @@ Error JvmScript::_reload(bool p_keep_state) {
 
 bool JvmScript::_has_method(const StringName& p_method) const {
     return _is_valid() && kotlin_class->get_method(p_method) != nullptr;
+}
+
+Variant JvmScript::_get_script_method_argument_count(const StringName& p_method) const {
+    if (!_is_valid()) { return {}; }
+    KtFunction* method = kotlin_class->get_method(p_method);
+    if (method) { return method->get_parameter_count(); }
+    return {};
 }
 
 Dictionary JvmScript::_get_method_info(const StringName& p_method) const {
@@ -254,6 +267,10 @@ TypedArray<Dictionary> JvmScript::_get_script_property_list() const {
     return ret;
 }
 
+int32_t JvmScript::_get_member_line(const StringName&) const {
+    return -1;
+}
+
 TypedArray<StringName> JvmScript::_get_members() const {
     TypedArray<StringName> ret;
 #ifdef TOOLS_ENABLED
@@ -286,39 +303,25 @@ void JvmScript::_update_exports() {
 #endif
 }
 
-#ifdef TOOLS_ENABLED
-
-void JvmScript::get_script_exported_property_list(List<PropertyInfo>* p_list) const {
-    List<PropertyInfo> all_properties;
-    _get_script_property_info_list(&all_properties);
-
-    p_list->push_back(PropertyInfo(Variant::NIL, _get_global_name(), PROPERTY_HINT_NONE, String(), PROPERTY_USAGE_CATEGORY));
-    for (const PropertyInfo& property_info : all_properties) {
-        if (property_info.usage & PropertyUsageFlags::PROPERTY_USAGE_EDITOR) {
-            p_list->push_back(property_info);
-        }
-    }
-}
-
 TypedArray<Dictionary> JvmScript::_get_documentation() const {
     // TODO: Add ability to register documentation to Godot
     return {};
 }
 
-String JvmScript::_get_class_icon_path() const {
-    // TODO: Add ability to register an icon to Godot
-    return {};
-}
-
 StringName JvmScript::_get_doc_class_name() const {
+#ifdef TOOLS_ENABLED
     String class_name = get_global_name();
     if (class_name.is_empty()) {
         return get_path().get_file();
     }
     return class_name;
+#else
+    return {};
+#endif
 }
 
 void* JvmScript::_placeholder_instance_create(GodotObject* p_for_object) const {
+#ifdef TOOLS_ENABLED
     JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder_data = memnew(JvmPlaceHolderInstance::JvmPlaceHolderInstanceData);
     placeholder_data->language = GdjLanguage::get_instance();
     placeholder_data->script = Ref<Script>(this);
@@ -337,6 +340,36 @@ void* JvmScript::_placeholder_instance_create(GodotObject* p_for_object) const {
 
     placeholders.insert(placeholder, placeholder_data);
     return placeholder;
+#else
+    return nullptr;
+#endif
+}
+
+bool JvmScript::_editor_can_reload_from_file() {
+#ifdef TOOLS_ENABLED
+    return true;
+#else
+    return false;
+#endif
+}
+
+#ifdef TOOLS_ENABLED
+
+void JvmScript::get_script_exported_property_list(List<PropertyInfo>* p_list) const {
+    List<PropertyInfo> all_properties;
+    _get_script_property_info_list(&all_properties);
+
+    p_list->push_back(PropertyInfo(Variant::NIL, _get_global_name(), PROPERTY_HINT_NONE, String(), PROPERTY_USAGE_CATEGORY));
+    for (const PropertyInfo& property_info : all_properties) {
+        if (property_info.usage & PropertyUsageFlags::PROPERTY_USAGE_EDITOR) {
+            p_list->push_back(property_info);
+        }
+    }
+}
+
+String JvmScript::_get_class_icon_path() const {
+    // TODO: Add ability to register an icon to Godot
+    return {};
 }
 
 void JvmScript::move_placeholders_to(JvmScript* p_script) {
@@ -372,10 +405,6 @@ void JvmScript::update_source_sync_warning() {
             node->update_configuration_warnings();
         }
     }
-}
-
-bool JvmScript::_editor_can_reload_from_file() {
-    return true;
 }
 
 void JvmScript::update_script_exports() const {

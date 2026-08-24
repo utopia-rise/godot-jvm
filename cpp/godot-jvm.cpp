@@ -390,7 +390,7 @@ bool GodotJvm::load_user_code() {
         JVM_LOG_VERBOSE("Loading usercode file at: %s", user_code_path);
 #ifdef TOOLS_ENABLED
         jar.instantiate();
-        jar->set_path(user_code_path);
+        jar->take_over_path(user_code_path);
 #endif
 
         ClassLoader* user_class_loader = ClassLoader::create_instance(

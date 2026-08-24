@@ -40,12 +40,15 @@ namespace godot {
         Ref<Script> _get_base_script() const override;
         StringName _get_instance_base_type() const override;
         void* _instance_create(GodotObject* p_for_object) const override;
+        void* _placeholder_instance_create(GodotObject* p_for_object) const override;
+        bool _instance_has(Object* p_object) const override;
         bool _has_source_code() const override;
         String _get_source_code() const override;
         void _set_source_code(const String& p_code) override;
         StringName _get_global_name() const override;
         Error _reload(bool p_keep_state) override;
         bool _has_method(const StringName& p_method) const override;
+        Variant _get_script_method_argument_count(const StringName& p_method) const override;
         Dictionary _get_method_info(const StringName& p_method) const override;
         bool _is_tool() const override;
         bool _is_valid() const override;
@@ -57,10 +60,15 @@ namespace godot {
         Variant _get_property_default_value(const StringName& p_property) const override;
         TypedArray<Dictionary> _get_script_method_list() const override;
         TypedArray<Dictionary> _get_script_property_list() const override;
+        int32_t _get_member_line(const StringName& p_member) const override;
         TypedArray<StringName> _get_members() const override;
         Dictionary _get_constants() const override;
         void get_script_exported_property_list(List<PropertyInfo>* p_list) const;
         Variant _get_rpc_config() const override;
+
+        bool _editor_can_reload_from_file() override;
+        TypedArray<Dictionary> _get_documentation() const override;
+        StringName _get_doc_class_name() const override;
 
         // Dummy implementations: no real static-method introspection, and export-list refresh outside the editor is handled by update_script_exports() (TOOLS_ENABLED only, below).
         bool _has_static_method(const StringName& p_method) const override;
@@ -88,16 +96,11 @@ namespace godot {
         void move_placeholders_to(JvmScript* p_script);
 
     public:
-        bool _editor_can_reload_from_file() override;
-        void* _placeholder_instance_create(GodotObject* p_for_object) const override;
         uint64_t get_last_source_modified_time() const;
         void set_last_source_modified_time(uint64_t p_time);
         void update_source_sync_warning();
 
-        TypedArray<Dictionary> _get_documentation() const override;
         String _get_class_icon_path() const override;
-        StringName _get_doc_class_name() const override;
-
         void update_script_exports() const;
 
         void _placeholder_erased(void* p_placeholder) override;

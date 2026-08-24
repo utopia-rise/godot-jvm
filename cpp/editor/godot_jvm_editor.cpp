@@ -227,7 +227,7 @@ void GodotJvmEditor::_notification(int notification) {
 
                 if (GradleTaskRunner::get_instance().is_task_terminated()) {
                     task_dialog_stop(task_dialog);
-                    get_editor_interface()->get_resource_filesystem()->scan();
+                    get_editor_interface()->get_resource_filesystem()->scan_sources();
                     JVM_LOG_INFO("Gradle Task terminated");
                 }
             }

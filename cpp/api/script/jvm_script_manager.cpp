@@ -140,9 +140,12 @@ void JvmScriptManager::initialize_scripts(const Vector<KtClass*>& p_classes) {
 
 #ifdef TOOLS_ENABLED
 void JvmScriptManager::update_all_scripts() {
-    for (const KeyValue<StringName, Ref<JvmScript>>& entry : registered_name_to_script) {
-        entry.value->update_script_exports();
-        entry.value->update_source_sync_warning();
+    for (const KeyValue<StringName, Ref<WeakRef>>& entry : fqdn_to_script) {
+        Ref<JvmScript> script = entry.value->get_ref();
+        if (script.is_null()) { continue; }
+
+        if (script->_is_valid()) { script->update_script_exports(); }
+        script->update_source_sync_warning();
     }
 }
 
