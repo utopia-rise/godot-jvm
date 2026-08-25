@@ -120,12 +120,14 @@ fun registerExportTask(name: String, exportFlag: String, description: String) = 
         projectDir.resolve("export").ensureEmptyDirectory()
     }
 
-    commandLine(
-        provideEditorExecutable().absolutePath,
-        "--headless",
-        exportFlag,
-        currentExportTarget(),
-    )
+    doFirst {
+        commandLine(
+            provideEditorExecutable().absolutePath,
+            "--headless",
+            exportFlag,
+            currentExportTarget(),
+        )
+    }
 }
 
 fun registerAndroidExportTask(name: String, exportFlag: String, description: String) = tasks.register<Exec>(name) {
@@ -140,13 +142,15 @@ fun registerAndroidExportTask(name: String, exportFlag: String, description: Str
         projectDir.resolve("export").ensureEmptyDirectory()
     }
 
-    commandLine(
-        provideEditorExecutable().absolutePath,
-        "--headless",
-        exportFlag,
-        "tests_android",
-        "export/tests.apk",
-    )
+    doFirst {
+        commandLine(
+            provideEditorExecutable().absolutePath,
+            "--headless",
+            exportFlag,
+            "tests_android",
+            "export/tests.apk",
+        )
+    }
 }
 
 fun registerIOSExportTask(name: String, exportFlag: String, description: String) = tasks.register<Exec>(name) {
@@ -162,13 +166,15 @@ fun registerIOSExportTask(name: String, exportFlag: String, description: String)
         projectDir.resolve("export").ensureEmptyDirectory()
     }
 
-    commandLine(
-        provideEditorExecutable().absolutePath,
-        "--headless",
-        exportFlag,
-        "iOS",
-        "export/tests.ipa",
-    )
+    doFirst {
+        commandLine(
+            provideEditorExecutable().absolutePath,
+            "--headless",
+            exportFlag,
+            "iOS",
+            "export/tests.ipa",
+        )
+    }
 
     doLast {
         val exportProject = projectDir.resolve("export/tests.xcodeproj/project.pbxproj")
@@ -209,20 +215,22 @@ tasks {
         environment("JAVA_HOME", System.getProperty("java.home"))
         workingDir = projectDir
 
-        val editorExecutable: String = provideEditorExecutable().absolutePath
+        doFirst {
+            val editorExecutable = provideEditorExecutable().absolutePath
 
-        if (HostManager.hostIsMingw) {
-            commandLine(
-                "cmd",
-                "/c",
-                "$editorExecutable --headless --import",
-            )
-        } else {
-            commandLine(
-                "bash",
-                "-c",
-                "$editorExecutable --headless --import",
-            )
+            if (HostManager.hostIsMingw) {
+                commandLine(
+                    "cmd",
+                    "/c",
+                    "$editorExecutable --headless --import",
+                )
+            } else {
+                commandLine(
+                    "bash",
+                    "-c",
+                    "$editorExecutable --headless --import",
+                )
+            }
         }
     }
     val exportDebug = registerExportTask("exportDebug", "--export-debug", "Exports the tests for the current host OS in debug mode")
