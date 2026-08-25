@@ -22,6 +22,7 @@ var _name: String
 var _test_execution_iteration: int = 0
 var _flaky_test_check := GdUnitSettings.is_test_flaky_check_enabled()
 var _flaky_test_retries := GdUnitSettings.get_flaky_max_retries()
+var _last_error: GdUnitError = null
 
 
 var _settings_snapshot: GdUnitProjectSettingsSnapshot = null
@@ -83,6 +84,10 @@ func dispose_sub_contexts() -> void:
 	for context in _sub_context:
 		context.dispose()
 	_sub_context.clear()
+
+
+func last_sub_context() -> GdUnitExecutionContext:
+	return null if _sub_context.is_empty() else _sub_context[-1]
 
 
 func terminate() -> void:
@@ -167,6 +172,18 @@ func add_report(report: GdUnitReport) -> GdUnitReport:
 
 func reports() -> Array[GdUnitReport]:
 	return _report_collector.reports()
+
+
+func set_error(error: GdUnitError) -> void:
+	_last_error = error
+
+
+func last_error() -> GdUnitError:
+	if  _last_error != null:
+		return _last_error
+
+	var last_report: GdUnitReport = _report_collector.reports()[-1]
+	return last_report._error if last_report != null else _last_error
 
 
 func collect_reports(recursive: bool) -> Array[GdUnitReport]:
@@ -256,34 +273,53 @@ func gc(gc_orphan_check: GC_ORPHANS_CHECK = GC_ORPHANS_CHECK.NONE) -> void:
 	GdUnitThreadManager.get_current_context().clear_assert()
 	await _memory_observer.gc()
 	orphan_monitor_stop()
+	if _orphan_monitor.orphans_count() > 0:
+		# Give the engine time to free resources otherwies we do orphan false detection
+		await test_suite.get_tree().process_frame
 
 	match(gc_orphan_check):
 		GC_ORPHANS_CHECK.SUITE_HOOK_AFTER:
-			_orphan_monitor.collect()
-			var orphan_infos := _orphan_monitor.detected_orphans()
-			if orphan_infos.is_empty():
-				return
-			reports().push_front(GdUnitReport.new() \
-				.create(GdUnitReport.ORPHAN, 1, GdAssertMessages.orphan_detected_on_suite_setup(orphan_infos))
-				.with_current_value(orphan_infos.size()))
+			report_ophans(-1, """
+		func before() -> void:
+			collect_orphan_node_details())
+
+		func after() -> void:
+			collect_orphan_node_details())""")
 
 		GC_ORPHANS_CHECK.TEST_HOOK_AFTER:
-			_orphan_monitor.collect()
-			var orphans := _orphan_monitor.detected_orphans()
-			if not orphans.is_empty():
-				reports().push_front(GdUnitReport.new()\
-					.create(GdUnitReport.ORPHAN, 1, GdAssertMessages.orphan_detected_on_test_setup(orphans))
-					.with_current_value(orphans.size()))
+			report_ophans(-1, """
+		func before_test() -> void:
+			collect_orphan_node_details()
+
+		func after_test() -> void:
+			collect_orphan_node_details()""")
 
 		GC_ORPHANS_CHECK.TEST_CASE:
-			var orphans := _orphan_monitor.detected_orphans()
-			if orphans.is_empty():
-				var orphans_count := _orphan_monitor.orphans_count()
-				if orphans_count > 0:
-					reports().push_front(GdUnitReport.new() \
-							.create(GdUnitReport.ORPHAN, test_case.line_number(), GdAssertMessages.orphan_warning(orphans_count))
-							.with_current_value(orphans_count))
-			else:
-				reports().push_front(GdUnitReport.new()\
-					.create(GdUnitReport.ORPHAN, test_case.line_number(), GdAssertMessages.orphan_detected_on_test(orphans))
-					.with_current_value(orphans.size()))
+			report_ophans(test_case.line_number(),
+			"	collect_orphan_node_details()"
+			)
+
+
+
+func report_ophans(line_number: int, additonal_info := "") -> void:
+	var orphan_infos := _orphan_monitor.detected_orphans()
+	if orphan_infos.is_empty():
+		var orphans_count := _orphan_monitor.orphans_count()
+		if orphans_count > 0:
+			reports().push_back(GdUnitReport.new() \
+					.create(GdUnitReport.ORPHAN, line_number, GdAssertMessages.orphan_warning(orphans_count, additonal_info))
+					.with_current_value(orphans_count))
+	else:
+		reports() \
+			.push_back(GdUnitReport.new()\
+			.create(GdUnitReport.ORPHAN, line_number, GdAssertMessages.orphan_detected(orphan_infos.size())) \
+			.with_current_value(orphan_infos.size()))
+
+		for orphan_info in orphan_infos:
+			var error := GdUnitError.new(
+				GdAssertMessages.orphan_node_info(orphan_info),
+				0,
+				GdUnitStackTrace.new([orphan_info._stack_element]) if orphan_info._stack_element != null else null)
+			reports().push_back(GdUnitReport.new()\
+				.from_error(GdUnitReport.ORPHAN, error)
+				.with_current_value(0))

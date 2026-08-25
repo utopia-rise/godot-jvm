@@ -1,4 +1,4 @@
-package godot.tests.registration
+ package godot.tests.registration
 
 import godot.annotation.ExpEasing
 import godot.annotation.Export

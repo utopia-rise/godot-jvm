@@ -72,14 +72,12 @@ func test_control_set_size_with_defaulted_argument() -> void:
         .is_equal(Vector2(12.5, 34.25))
 
 
-# A parentless Control has no parent rect to recompute offsets against, so Godot zeroes the size when
-# keep_offsets is set. Verified to behave identically in plain GDScript, so this asserts the engine's
-# real answer rather than the size passed in -- what matters here is that passing the trailing
-# argument explicitly still marshals correctly instead of crashing.
+# Passing false still exercises the explicit trailing boolean without asking a parentless Control to
+# recompute offsets from a parent rect.
 func test_control_set_size_with_explicit_argument() -> void:
     assert_that(_call_on_instance("control_set_size_with_explicit_argument"))\
-        .override_failure_message("setSize with an explicit trailing argument should return the engine's size")\
-        .is_equal(Vector2.ZERO)
+        .override_failure_message("setSize with an explicit trailing argument should preserve the requested size")\
+        .is_equal(Vector2(48, 64))
 
 
 func test_control_set_position_with_defaulted_argument() -> void:

@@ -13,6 +13,12 @@ jobs:
   assemble-linux:
     runs-on: ubuntu-latest
     steps:
+      - name: Download editor library
+        uses: actions/download-artifact@v7
+        with:
+          name: editor_linux_x86_64
+          path: libraries/editor
+
       - name: Download release library
         uses: actions/download-artifact@v7
         with:
@@ -30,7 +36,9 @@ jobs:
         run: |
           for target in debug release; do
             mkdir -p "package/$target/addons"
-            cp -R "libraries/$target/jvm" "package/$target/addons/jvm"
+            cp -R "libraries/editor/jvm" "package/$target/addons/jvm"
+            cp -R "libraries/debug/jvm/libs/." "package/$target/addons/jvm/libs/"
+            cp -R "libraries/release/jvm/libs/." "package/$target/addons/jvm/libs/"
           done
 
       # Upload the raw "addons" folder rather than a pre-made zip: actions/upload-artifact always

@@ -39,10 +39,6 @@ func report_error(error: String) -> GdUnitObjectAssert:
 	return self
 
 
-func failure_message() -> String:
-	return _base.failure_message()
-
-
 func override_failure_message(message: String) -> GdUnitObjectAssert:
 	@warning_ignore("return_value_discarded")
 	_base.override_failure_message(message)
@@ -134,6 +130,13 @@ func is_not_inheriting(type: Variant) -> GdUnitObjectAssert:
 	var result := _inherits(current, type)
 	if result.is_success():
 		return report_error("Expected type to not inherit from <%s>" % _extract_class_type(type))
+	return report_success()
+
+
+func is_valid() -> GdUnitObjectAssert:
+	var current: Variant = current_value()
+	if not is_instance_valid(current):
+		return report_error("Expecting the object is a valid unfreed instance.")
 	return report_success()
 
 

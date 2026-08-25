@@ -17,17 +17,25 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - name: Build editor x86_64
+            cache-name: editor_macos_x86_64
+            target: editor
+            scons-flags: arch=x86_64
           - name: Build debug x86_64
             cache-name: debug_macos_x86_64
-            target: editor
+            target: template_debug
             scons-flags: arch=x86_64
           - name: Build release x86_64
             cache-name: release_macos_x86_64
             target: template_release
             scons-flags: arch=x86_64
+          - name: Build editor arm64
+            cache-name: editor_macos_arm64
+            target: editor
+            scons-flags: arch=arm64
           - name: Build debug arm64
             cache-name: debug_macos_arm64
-            target: editor
+            target: template_debug
             scons-flags: arch=arm64
           - name: Build release arm64
             cache-name: release_macos_arm64

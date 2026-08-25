@@ -17,9 +17,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - name: Build editor x86_64
+            cache-name: editor_linux_x86_64
+            target: editor
+            scons-flags: ''
           - name: Build debug x86_64
             cache-name: debug_linux_x86_64
-            target: editor
+            target: template_debug
             scons-flags: ''
           - name: Build release x86_64
             cache-name: release_linux_x86_64

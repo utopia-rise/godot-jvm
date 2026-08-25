@@ -1,6 +1,7 @@
 import godot.gradle.GodotLanguage
 import godot.registrar.generator.RegistrationFileLayoutMode
 import org.jetbrains.kotlin.konan.target.HostManager
+import java.util.concurrent.TimeUnit
 
 plugins {
     // no need to apply kotlin jvm plugin. Our plugin already applies the correct version for you
@@ -133,7 +134,6 @@ fun registerExportTask(name: String, exportFlag: String, description: String) = 
 fun registerAndroidExportTask(name: String, exportFlag: String, description: String) = tasks.register<Exec>(name) {
     group = "verification"
     this.description = description
-    dependsOn("buildAndroid")
 
     environment("JAVA_HOME", System.getProperty("java.home"))
     workingDir = projectDir
@@ -156,7 +156,6 @@ fun registerAndroidExportTask(name: String, exportFlag: String, description: Str
 fun registerIOSExportTask(name: String, exportFlag: String, description: String) = tasks.register<Exec>(name) {
     group = "verification"
     this.description = description
-    dependsOn("buildIOS")
 
     environment("JAVA_HOME", System.getProperty("java.home"))
     workingDir = projectDir
@@ -205,38 +204,54 @@ fun registerGraalTestTask(
 }
 
 tasks {
-    val importResources = register<Exec>("importResources") {
+    register("importResources") {
         group = "verification"
         description = "Imports the Godot project after rebuilding JVM registrations."
         dependsOn(build)
 
-        isIgnoreExitValue = true
+        val javaHome = System.getProperty("java.home")
+        val workingDirectory = projectDir
 
-        environment("JAVA_HOME", System.getProperty("java.home"))
-        workingDir = projectDir
+        doLast {
+            // Godot writes megabytes of verbose output while importing, so send it to a
+            // file rather than a pipe: nothing here drains a pipe while waiting, and a
+            // full pipe buffer would deadlock the editor on its very first prints.
+            val logFile = layout.buildDirectory.file("import-resources.log").get().asFile
+            logFile.parentFile.mkdirs()
 
-        doFirst {
-            val editorExecutable = provideEditorExecutable().absolutePath
+            val process = ProcessBuilder(provideEditorExecutable().absolutePath, "--headless", "--import")
+                .directory(workingDirectory)
+                .redirectErrorStream(true)
+                .redirectOutput(logFile)
+                .apply { environment()["JAVA_HOME"] = javaHome }
+                .start()
 
-            if (HostManager.hostIsMingw) {
-                commandLine(
-                    "cmd",
-                    "/c",
-                    "$editorExecutable --headless --import",
-                )
-            } else {
-                commandLine(
-                    "bash",
-                    "-c",
-                    "$editorExecutable --headless --import",
-                )
+            // Godot sometimes never exits once the import is done, which used to wedge CI
+            // until the job itself timed out. The imported files are already on disk by
+            // then, so stop waiting and kill it instead.
+            val exited = process.waitFor(5, TimeUnit.MINUTES)
+            if (!exited) {
+                process.destroyForcibly()
+                process.waitFor(1, TimeUnit.MINUTES)
+            }
+
+            println(logFile.readText())
+            if (!exited) {
+                logger.warn("Godot did not exit after importing the project, terminating it.")
+            }
+
+            val classCache = workingDirectory.resolve(".godot/global_script_class_cache.cfg")
+            check(classCache.isFile) {
+                "Godot did not finish importing the test project: $classCache is missing."
             }
         }
     }
     val exportDebug = registerExportTask("exportDebug", "--export-debug", "Exports the tests for the current host OS in debug mode")
     val exportRelease = registerExportTask("exportRelease", "--export-release", "Exports the tests for the current host OS in release mode")
     val exportAndroidDebug = registerAndroidExportTask("exportAndroidDebug", "--export-debug", "Exports the tests as an Android debug APK")
+    val exportAndroidRelease = registerAndroidExportTask("exportAndroidRelease", "--export-release", "Exports the tests as an Android release APK")
     val exportIOSDebug = registerIOSExportTask("exportIOSDebug", "--export-debug", "Exports the tests as an iOS debug project")
+    val exportIOSRelease = registerIOSExportTask("exportIOSRelease", "--export-release", "Exports the tests as an iOS release project")
 
     register<Exec>("runGDTests") {
         group = "verification"

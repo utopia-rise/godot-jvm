@@ -102,7 +102,7 @@ class EngineApiCallTest : Node() {
     @Register
     fun controlSetSizeWithExplicitArgument(): Vector2 {
         val control = Control()
-        control.setSize(Vector2(48, 64), true)
+        control.setSize(Vector2(48, 64), false)
         val size = control.getSize()
         control.free()
         return size

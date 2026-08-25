@@ -1,13 +1,10 @@
 # Unit tests for Godot-JVM
 
-## Setup instructions
-### Gradle task
-The simplest way to run the tests is to run them via gradle: `gradlew runTests`
+## Preparing and running tests
 
-The output is written to `test_output.txt`.
+Test and export tasks are deliberately dependency-free. They only run or export the files already present in the test project; they never build, import, create a native image, or create a JRE. Run every prerequisite explicitly, in order.
 
-### In Editor
-Test tasks only run tests; they never build, import, export, or create a native image. Prepare the project explicitly before running one:
+For JVM tests in the editor:
 
 ```shell
 gradlew build
@@ -26,4 +23,33 @@ gradlew buildGraalNativeImage
 gradlew runGraalGDTests
 ```
 
-For exports, run `buildGraalNativeImage`, then `exportDebug` or `exportRelease`, before `runExportedGraalGDTests`. Export presets include both runtimes.
+For a desktop JVM export, also create the bundled JRE before exporting:
+
+```shell
+gradlew build
+gradlew importResources
+jlink --add-modules java.base,java.logging --output jvm/jre-<architecture>-<platform>
+gradlew exportDebug # or: gradlew exportRelease
+gradlew runExportedGDTests
+```
+
+For the GraalVM native-image export, build the native image before the export:
+
+```shell
+gradlew buildGraalNativeImage
+gradlew importResources
+gradlew exportDebug # or: gradlew exportRelease
+gradlew runExportedGraalGDTests
+```
+
+For mobile exports, build the platform artifact explicitly before exporting:
+
+```shell
+gradlew buildAndroid
+gradlew exportAndroidDebug
+
+gradlew buildIOS
+gradlew exportIOSDebug
+```
+
+Use `-Prelease` for the release build, for example `gradlew -Prelease buildAndroid` followed by `gradlew exportAndroidRelease`.

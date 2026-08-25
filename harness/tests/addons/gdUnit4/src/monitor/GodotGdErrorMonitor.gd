@@ -7,7 +7,6 @@ var _logger: GdUnitLogger
 
 class GdUnitLogger extends Logger:
 	var _entries: Array[ErrorLogEntry] = []
-	var _line_number: int
 	var _is_report_push_errors: bool
 	var _is_report_script_errors: bool
 
@@ -38,21 +37,25 @@ class GdUnitLogger extends Logger:
 		error_type: int,
 		script_backtraces: Array[ScriptBacktrace]
 		) -> void:
+
+		var stack_trace := GdUnitStackTrace.from_script_backtraces(script_backtraces)
+		if stack_trace.get_frames().size() == 0:
+			stack_trace = GdUnitStackTrace.new([
+				GdUnitStackTraceElement.new(_file, _line, _function)
+			])
+
 		match error_type:
 			ErrorType.ERROR_TYPE_WARNING:
 				if _is_report_push_errors:
-					var stack_trace := _build_stack_trace(script_backtraces)
-					_entries.append(ErrorLogEntry.of_push_warning(_line_number, message, stack_trace))
+					_entries.append(ErrorLogEntry.of_push_warning(stack_trace.get_line_number(), message, stack_trace))
 
 			ErrorType.ERROR_TYPE_ERROR:
 				if _is_report_push_errors:
-					var stack_trace := _build_stack_trace(script_backtraces)
-					_entries.append(ErrorLogEntry.of_push_error(_line_number, message, stack_trace))
+					_entries.append(ErrorLogEntry.of_push_error(stack_trace.get_line_number(), message, stack_trace))
 
 			ErrorType.ERROR_TYPE_SCRIPT:
 				if _is_report_script_errors:
-					var stack_trace := _build_stack_trace(script_backtraces)
-					_entries.append(ErrorLogEntry.of_script_error(_line_number, message, stack_trace))
+					_entries.append(ErrorLogEntry.of_script_error(stack_trace.get_line_number(), message, stack_trace))
 
 			ErrorType.ERROR_TYPE_SHADER:
 				pass
@@ -62,19 +65,8 @@ class GdUnitLogger extends Logger:
 	func _log_message(_message: String, _error: bool) -> void:
 		pass
 
-	func _build_stack_trace(script_backtraces: Array[ScriptBacktrace]) -> PackedStringArray:
-		for sb in script_backtraces:
-			for frame in sb.get_frame_count():
-				# Find start of test stack
-				if sb.get_frame_file(frame) == "res://addons/gdUnit4/src/core/_TestCase.gd":
-					var stack_trace := PackedStringArray()
-					for test_case_frame in range(0, frame):
-						_line_number = sb.get_frame_line(test_case_frame)
-						stack_trace.append("	at %s:%s" % [sb.get_frame_file(test_case_frame), sb.get_frame_line(test_case_frame)])
-					return stack_trace
-		# if no stack trace collected, we in an await function call
-		var sb := script_backtraces[0]
-		return ["	at %s:%s" % [sb.get_frame_file(0), sb.get_frame_line(0)]]
+
+
 
 
 func _init() -> void:
@@ -107,15 +99,14 @@ func to_reports() -> Array[GdUnitReport]:
 
 
 static func _to_report(errorLog: ErrorLogEntry) -> GdUnitReport:
+
 	var failure := """
 		%s
-		%s %s
-		%s""".dedent().trim_prefix("\n") % [
+		  %s""".dedent().trim_prefix("\n") % [
 		GdAssertMessages._error("Godot Runtime Error !"),
-		GdAssertMessages._error("Error:"),
-		GdAssertMessages._colored_value(errorLog._message),
-		GdAssertMessages._colored(errorLog._details, GdAssertMessages.VALUE_COLOR)]
-	return GdUnitReport.new().create(GdUnitReport.ABORT, errorLog._line, failure)
+		GdAssertMessages._colored_value(errorLog._message)]
+	var error := GdUnitError.new(failure, errorLog._line, errorLog._stack_trace)
+	return GdUnitReport.new().from_error(GdUnitReport.ABORT, error)
 
 
 func clear_logs() -> void:

@@ -5,20 +5,20 @@ android_aar_plugin = true
 
 [libraries]
 windows.editor.x86_64 = "res://addons/jvm/libs/windows/godot.jvm.windows.editor.x86_64.dll"
-windows.debug.x86_64 = "res://addons/jvm/libs/windows/godot.jvm.windows.editor.x86_64.dll"
+windows.debug.x86_64 = "res://addons/jvm/libs/windows/godot.jvm.windows.template_debug.x86_64.dll"
 windows.release.x86_64 = "res://addons/jvm/libs/windows/godot.jvm.windows.template_release.x86_64.dll"
 macos.editor = "res://addons/jvm/libs/macos/godot.jvm.macos.editor.framework"
-macos.debug = "res://addons/jvm/libs/macos/godot.jvm.macos.editor.framework"
+macos.debug = "res://addons/jvm/libs/macos/godot.jvm.macos.template_debug.framework"
 macos.release = "res://addons/jvm/libs/macos/godot.jvm.macos.template_release.framework"
 linux.editor.x86_64 = "res://addons/jvm/libs/linux/godot.jvm.linux.editor.x86_64.so"
-linux.debug.x86_64 = "res://addons/jvm/libs/linux/godot.jvm.linux.editor.x86_64.so"
+linux.debug.x86_64 = "res://addons/jvm/libs/linux/godot.jvm.linux.template_debug.x86_64.so"
 linux.release.x86_64 = "res://addons/jvm/libs/linux/godot.jvm.linux.template_release.x86_64.so"
 android.debug.x86_64 = "res://addons/jvm/libs/android/debug/x86_64/libgodot_jvm.so"
 android.release.x86_64 = "res://addons/jvm/libs/android/release/x86_64/libgodot_jvm.so"
 android.debug.arm64 = "res://addons/jvm/libs/android/debug/arm64-v8a/libgodot_jvm.so"
 android.release.arm64 = "res://addons/jvm/libs/android/release/arm64-v8a/libgodot_jvm.so"
-ios.debug.arm64 = "res://addons/jvm/libs/ios/libgodot.jvm.ios.template_debug.a"
-ios.release.arm64 = "res://addons/jvm/libs/ios/libgodot.jvm.ios.template_release.a"
+ios.debug = "res://addons/jvm/libs/ios/godot.jvm.ios.template_debug.xcframework"
+ios.release = "res://addons/jvm/libs/ios/godot.jvm.ios.template_release.xcframework"
 
 [icons]
 GdjScript = "res://addons/jvm/icons/GdjScript.svg"

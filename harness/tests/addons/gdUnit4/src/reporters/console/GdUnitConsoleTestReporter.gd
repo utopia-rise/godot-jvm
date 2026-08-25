@@ -19,9 +19,6 @@ var _writer: GdUnitMessageWriter
 var _reporter: GdUnitTestReporter = GdUnitTestReporter.new()
 var _status_indent := 86
 var _detailed: bool
-var _text_color: Color = Color.ANTIQUE_WHITE
-var _function_color: Color = Color.ANTIQUE_WHITE
-var _engine_type_color: Color = Color.ANTIQUE_WHITE
 
 
 func _init(writer: GdUnitMessageWriter, detailed := false) -> void:
@@ -30,21 +27,6 @@ func _init(writer: GdUnitMessageWriter, detailed := false) -> void:
 	_detailed = detailed
 	if _detailed:
 		_status_indent = 20
-	init_colors()
-
-
-func init_colors() -> void:
-	if Engine.is_editor_hint():
-		# Avoid a hard EditorInterface reference so this script still compiles in exported runs.
-		var editor_interface: Object = Engine.get_singleton("EditorInterface")
-		if editor_interface == null:
-			return
-		var settings: Object = editor_interface.call("get_editor_settings")
-		if settings == null:
-			return
-		_text_color = settings.get_setting("text_editor/theme/highlighting/text_color")
-		_function_color = settings.get_setting("text_editor/theme/highlighting/function_color")
-		_engine_type_color = settings.get_setting("text_editor/theme/highlighting/engine_type_color")
 
 
 func clear() -> void:
@@ -67,13 +49,14 @@ func on_gdunit_event(event: GdUnitEvent) -> void:
 		GdUnitEvent.TESTSUITE_BEFORE:
 			_reporter.init_statistics()
 			print_message("Run Test Suite: ", Color.DARK_TURQUOISE)
-			println_message(event.resource_path(), _engine_type_color)
+			println_message(event.resource_path(), GdUnitEditorColorTheme.engine_type_color)
 
 		GdUnitEvent.TESTSUITE_AFTER:
 			if not event.reports().is_empty():
-				_writer.indent(1).color(_engine_type_color).print_message(event._suite_name)
+				_writer.indent(1).color(GdUnitEditorColorTheme.engine_type_color).print_message(event._suite_name)
 				print_message(" > ")
-				print_message("finalize()", _function_color)
+				print_message("finalize()", GdUnitEditorColorTheme.function_definition_color)
+				_writer.indent(-1)
 				_print_failure_report(event.reports())
 			_print_statistics(_reporter.build_test_suite_statisitcs(event))
 			_print_status(event)
@@ -94,6 +77,7 @@ func on_gdunit_event(event: GdUnitEvent) -> void:
 				var test := test_session.find_test_by_id(event.guid())
 				_print_test_path(test, event.guid())
 			_print_status(event)
+			_writer.indent(-1)
 			_print_failure_report(event.reports())
 			if _detailed:
 				println_message("")
@@ -102,13 +86,13 @@ func on_gdunit_event(event: GdUnitEvent) -> void:
 func _print_test_path(test: GdUnitTestCase, uid: GdUnitGUID) -> void:
 	if test == null:
 		prints_warning("Can't print full test info, the test by uid: '%s' was not discovered." % uid)
-		_writer.indent(1).color(_engine_type_color).print_message("Test ID: %s" % uid)
+		_writer.indent(1).color(GdUnitEditorColorTheme.engine_type_color).print_message("Test ID: %s" % uid)
 		return
 
 	var suite_name := test.source_file if _detailed else test.suite_name
-	_writer.indent(1).color(_engine_type_color).print_message(suite_name)
+	_writer.indent(1).color(GdUnitEditorColorTheme.engine_type_color).print_message(suite_name)
 	print_message(" > ")
-	print_message(test.display_name, _function_color)
+	print_message(test.display_name, GdUnitEditorColorTheme.function_definition_color)
 
 
 func _print_status(event: GdUnitEvent) -> void:
@@ -137,6 +121,14 @@ func _print_status(event: GdUnitEvent) -> void:
 
 
 func _print_failure_report(reports: Array[GdUnitReport]) -> void:
+	if reports.is_empty():
+		return
+
+	_writer.indent(1) \
+		.color(Color.DARK_TURQUOISE) \
+		.style(GdUnitMessageWriter.BOLD | GdUnitMessageWriter.UNDERLINE) \
+		.println_message("Report:")
+
 	for report in reports:
 		if (
 			report.is_failure()
@@ -146,12 +138,12 @@ func _print_failure_report(reports: Array[GdUnitReport]) -> void:
 			or report.is_orphan()
 		):
 			_writer.indent(1) \
-				.color(Color.DARK_TURQUOISE) \
-				.style(GdUnitMessageWriter.BOLD | GdUnitMessageWriter.UNDERLINE) \
-				.println_message("Report:")
-			var text := str(report)
-			for line in text.split("\n", false):
-				_writer.indent(2).color(Color.DARK_TURQUOISE).println_message(line)
+				.color(GdUnitEditorColorTheme.text_color) \
+				.print_message(report.message()) \
+				.print_stack_trace(report.stack_trace())
+			_writer.indent(-1)
+	_writer.indent(-1)
+
 
 	if not reports.is_empty():
 		println_message("")
@@ -193,11 +185,11 @@ func build_executed_test_case_msg(total_count: int, p_skipped_count: int) -> Str
 	return "Executed test cases : (%d/%d), %d skipped" % [total_count - p_skipped_count, total_count, p_skipped_count]
 
 
-func print_message(message: String, color: Color = _text_color) -> void:
+func print_message(message: String, color: Color = GdUnitEditorColorTheme.text_color) -> void:
 	_writer.color(color).print_message(message)
 
 
-func println_message(message: String, color: Color = _text_color) -> void:
+func println_message(message: String, color: Color = GdUnitEditorColorTheme.text_color) -> void:
 	_writer.color(color).println_message(message)
 
 

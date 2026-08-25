@@ -15,15 +15,26 @@ jobs:
   test-windows:
     runs-on: windows-latest
     name: ${{ matrix.name }}
+    timeout-minutes: 90
     strategy:
       matrix:
         include:
-          - name: Debug tests
-            variant: debug
+          - name: Editor tests
+            variant: editor
             build-task: build
-          - name: Export tests
+            graal-build-task: buildGraalNativeImage
+          - name: Release export tests
             variant: export
             build-task: buildRelease
+            graal-build-task: buildGraalNativeImageRelease
+            export-task: exportRelease
+            export-library: release_windows_x86_64
+          - name: Debug export tests
+            variant: export
+            build-task: build
+            graal-build-task: buildGraalNativeImage
+            export-task: exportDebug
+            export-library: debug_windows_x86_64
 
     steps:
       - name: Clone Godot JVM module
@@ -83,7 +94,7 @@ jobs:
             notifications
 
       - name: Cache desktop Graal build output
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             harness/tests/.gradle
@@ -95,14 +106,14 @@ jobs:
       - name: Download Windows editor library
         uses: actions/download-artifact@v7
         with:
-          name: debug_windows_x86_64
+          name: editor_windows_x86_64
           path: harness/tests/addons
 
       - name: Download Windows export library
         if: matrix.variant == 'export'
         uses: actions/download-artifact@v7
         with:
-          name: release_windows_x86_64
+          name: ${{ matrix.export-library }}
           path: harness/tests/addons
 
       - name: Prepare export
@@ -113,13 +124,16 @@ jobs:
         run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
 
       - name: Build Graal native image
-        run: harness/tests/gradlew -p harness/tests/ buildGraalNativeImage
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.graal-build-task }}
 
       - name: Import test project
         run: harness/tests/gradlew -p harness/tests/ importResources
+        # Longer than the task's own 10 minute wait, so it can terminate a hung
+        # editor itself instead of the step timeout leaving the process orphaned.
+        timeout-minutes: 15
 
       - name: Run JVM tests
-        if: matrix.variant == 'debug'
+        if: matrix.variant == 'editor'
         run: |
           cd harness/tests/
           jlink --add-modules java.base,java.logging --output jvm/jre-amd64-windows
@@ -127,7 +141,7 @@ jobs:
         timeout-minutes: 30
 
       - name: Run Graal native-image tests
-        if: matrix.variant == 'debug'
+        if: matrix.variant == 'editor'
         run: |
           cd harness/tests/
           ./gradlew runGraalGDTests
@@ -139,11 +153,11 @@ jobs:
           cd harness/tests/
           jlink --add-modules java.base,java.logging --output jvm/jre-amd64-windows
 
-      - name: Export release tests
+      - name: Export tests
         if: matrix.variant == 'export'
         run: |
           cd harness/tests/
-          ./gradlew exportRelease
+          ./gradlew ${{ matrix.export-task }}
         timeout-minutes: 30
 
       - name: Run JVM exported tests

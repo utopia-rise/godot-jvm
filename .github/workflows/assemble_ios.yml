@@ -9,14 +9,34 @@ jobs:
   package-ios-libraries:
     runs-on: macos-15
     steps:
-      - uses: actions/download-artifact@v7
+      - name: Download iOS libraries
+        uses: actions/download-artifact@v7
         with:
           pattern: '*_ios_*'
           path: libraries
           merge-multiple: true
+      # Godot's iOS exporter only picks a GDExtension up when the manifest points at an
+      # .xcframework -- a bare .a is silently ignored, and the app then fails at load with a
+      # missing entry symbol.
       - name: Assemble iOS libraries
         shell: bash
         run: |
+          set -euo pipefail
+          ios_libraries=libraries/jvm/libs/ios
+          ls -1 "$ios_libraries"
+          for target in template_debug template_release; do
+            # SCons builds the iOS libraries through env.Command, which does not add the "lib"
+            # prefix that StaticLibrary would, so match on the suffix instead of assuming one.
+            device="$(find "$ios_libraries" -name "*godot.jvm.ios.$target.a" -print -quit)"
+            if [[ -z "$device" ]]; then
+              echo "Missing the iOS library for $target" >&2
+              exit 1
+            fi
+            xcodebuild -create-xcframework \
+              -library "$device" \
+              -output "$ios_libraries/$(basename "${device%.a}").xcframework"
+            rm "$device"
+          done
           mkdir -p package/addons
           cp -R libraries/jvm package/addons/jvm
       # Upload the raw folder rather than a pre-made zip: actions/upload-artifact always wraps

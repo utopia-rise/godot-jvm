@@ -12,9 +12,10 @@ config_version=5
 
 config/name="Godot-JVM Tests"
 run/main_scene="uid://cnqp52df0ln8e"
-run/main_loop_type="ExportTestMain"
 config/features=PackedStringArray("4.7")
 config/icon="res://icon.png"
+run/main_loop_type.export-tests="ExportTestMain"
+run/main_loop_type.export-graal-native-image="ExportTestMain"
 
 [autoload]
 

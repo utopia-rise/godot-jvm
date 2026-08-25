@@ -12,6 +12,10 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/download-artifact@v7
         with:
+          name: editor_linux_x86_64
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
           name: debug_linux_x86_64
           path: addon
       - uses: actions/download-artifact@v7
@@ -20,11 +24,19 @@ jobs:
           path: addon
       - uses: actions/download-artifact@v7
         with:
+          name: editor_windows_x86_64
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
           name: debug_windows_x86_64
           path: addon
       - uses: actions/download-artifact@v7
         with:
           name: release_windows_x86_64
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
+          name: editor_macos_universal
           path: addon
       - uses: actions/download-artifact@v7
         with:

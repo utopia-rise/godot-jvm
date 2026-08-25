@@ -13,6 +13,18 @@ jobs:
   assemble-macos:
     runs-on: macos-15
     steps:
+      - name: Download editor x86_64 library
+        uses: actions/download-artifact@v7
+        with:
+          name: editor_macos_x86_64
+          path: libraries/editor/x86_64
+
+      - name: Download editor arm64 library
+        uses: actions/download-artifact@v7
+        with:
+          name: editor_macos_arm64
+          path: libraries/editor/arm64
+
       - name: Download release x86_64 library
         uses: actions/download-artifact@v7
         with:
@@ -40,12 +52,12 @@ jobs:
       - name: Create universal GDExtension libraries
         shell: bash
         run: |
-          for artifact in debug release; do
-            if [ "$artifact" = debug ]; then
-              target=editor
-            else
-              target=template_release
-            fi
+          for artifact in editor debug release; do
+            case "$artifact" in
+              editor) target=editor ;;
+              debug) target=template_debug ;;
+              release) target=template_release ;;
+            esac
             framework="godot.jvm.macos.$target.framework"
             mkdir -p "universal/$artifact/addons/jvm/libs/macos"
             cp -R "libraries/$artifact/x86_64/jvm/libs/macos/$framework" "universal/$artifact/addons/jvm/libs/macos/"
@@ -58,6 +70,12 @@ jobs:
           name: debug_macos_universal
           path: universal/debug/addons
 
+      - name: Upload editor universal library
+        uses: actions/upload-artifact@v7
+        with:
+          name: editor_macos_universal
+          path: universal/editor/addons
+
       - name: Upload release universal library
         uses: actions/upload-artifact@v7
         with:
@@ -69,7 +87,9 @@ jobs:
         run: |
           for target in debug release; do
             mkdir -p "package/$target"
-            cp -R "universal/$target/addons" "package/$target/addons"
+            cp -R "universal/editor/addons" "package/$target/addons"
+            cp -R "universal/debug/addons/jvm/libs/." "package/$target/addons/jvm/libs/"
+            cp -R "universal/release/addons/jvm/libs/." "package/$target/addons/jvm/libs/"
           done
 
       # Upload the raw "addons" folder rather than a pre-made zip: actions/upload-artifact always

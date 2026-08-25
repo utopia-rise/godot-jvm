@@ -17,9 +17,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - name: Build editor
+            cache-name: editor_windows_x86_64
+            target: editor
+            should-clean: false
+            scons-flags: ''
           - name: Build debug
             cache-name: debug_windows_x86_64
-            target: editor
+            target: template_debug
             should-clean: false
             scons-flags: ''
           - name: Build release

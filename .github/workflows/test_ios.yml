@@ -16,7 +16,22 @@ concurrency:
 jobs:
   test-ios:
     runs-on: macos-15
+    name: ${{ matrix.name }}
     timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Debug export tests
+            build-task: buildIOS
+            export-task: exportIOSDebug
+            xcode-configuration: Debug
+            variant: debug
+          - name: Release export tests
+            build-task: -Prelease buildIOS
+            export-task: exportIOSRelease
+            xcode-configuration: Release
+            variant: release
     steps:
       - uses: actions/checkout@v6
 
@@ -50,28 +65,28 @@ jobs:
             notifications
 
       - name: Cache iOS native-image output
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             harness/tests/.gradle
             harness/tests/build/graal
             harness/tests/build/libs/ios
             harness/tests/jvm/ios
-          key: ios-native-image-${{ runner.arch }}-${{ github.sha }}
+          key: ios-native-image-${{ matrix.variant }}-${{ runner.arch }}-${{ github.sha }}
           restore-keys: |
-            ios-native-image-${{ runner.arch }}-
+            ios-native-image-${{ matrix.variant }}-${{ runner.arch }}-
 
       - name: Download macOS editor library
         uses: actions/download-artifact@v7
         with:
-          name: debug_macos_universal
+          name: editor_macos_universal
           path: harness/tests/addons
 
-      - name: Download iOS GDExtension archives
+      - name: Download the iOS GDExtension addon
         uses: actions/download-artifact@v7
         with:
-          name: debug_ios_arm64
-          path: harness/tests/addons
+          name: godot-jvm-gdextension-ios
+          path: harness/tests
 
       - name: Prepare iOS export template
         run: |
@@ -86,12 +101,14 @@ jobs:
           sed -i '' 's|application/export_project_only=false|application/export_project_only=true|' harness/tests/export_presets.cfg
 
       - name: Build JVM tests project
-        run: harness/tests/gradlew -p harness/tests/ build
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
 
       - name: Export iOS test project
-        run: harness/tests/gradlew -p harness/tests/ exportIOSDebug
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.export-task }}
         timeout-minutes: 30
 
+      # Device build only, so no execution: Godot's official simulator template slice is x86_64
+      # while the GraalVM usercode image is arm64, and the two can never link together.
       - name: Link the exported iOS application
         run: |
           sudo xcode-select --switch /Applications/Xcode_26.3.app
@@ -99,7 +116,8 @@ jobs:
             -project harness/tests/export/tests.xcodeproj \
             -scheme tests \
             -sdk iphoneos \
-            -configuration Debug \
+            -configuration ${{ matrix.xcode-configuration }} \
             -destination 'generic/platform=iOS' \
+            ARCHS=arm64 \
             CODE_SIGNING_ALLOWED=NO \
             build

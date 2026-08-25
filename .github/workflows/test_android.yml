@@ -14,7 +14,20 @@ concurrency:
 jobs:
   test-android:
     runs-on: ubuntu-latest
+    name: ${{ matrix.name }}
     timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Debug export tests
+            build-task: buildAndroid
+            export-task: exportAndroidDebug
+            variant: debug
+          - name: Release export tests
+            build-task: -Prelease buildAndroid
+            export-task: exportAndroidRelease
+            variant: release
     steps:
       - uses: actions/checkout@v6
 
@@ -29,7 +42,7 @@ jobs:
           distribution: temurin
           java-version: ${{ inputs.jvm-version }}
 
-      - uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v4
 
       - name: Install Android build dependencies
         run: |
@@ -47,7 +60,7 @@ jobs:
             notifications
 
       - name: Cache Android build output
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             harness/tests/.gradle
@@ -59,7 +72,7 @@ jobs:
       - name: Download Linux editor library
         uses: actions/download-artifact@v7
         with:
-          name: debug_linux_x86_64
+          name: editor_linux_x86_64
           path: harness/tests/addons
 
       - name: Download Android addon
@@ -81,10 +94,25 @@ jobs:
           touch harness/tests/android/build/build/.gdignore
 
       - name: Build JVM tests project
-        run: harness/tests/gradlew -p harness/tests/ build
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
+
+      - name: Create Android release test key
+        run: |
+          keytool -genkeypair \
+            -keystore "$RUNNER_TEMP/godot-jvm-tests-release.keystore" \
+            -alias godot-jvm-tests \
+            -storepass godot-jvm-tests \
+            -keypass godot-jvm-tests \
+            -dname "CN=Godot-JVM Tests" \
+            -keyalg RSA \
+            -validity 10000 \
+            -noprompt
+          echo "GODOT_ANDROID_KEYSTORE_RELEASE_PATH=$RUNNER_TEMP/godot-jvm-tests-release.keystore" >> "$GITHUB_ENV"
+          echo "GODOT_ANDROID_KEYSTORE_RELEASE_USER=godot-jvm-tests" >> "$GITHUB_ENV"
+          echo "GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD=godot-jvm-tests" >> "$GITHUB_ENV"
 
       - name: Export Android tests
-        run: harness/tests/gradlew -p harness/tests/ exportAndroidDebug
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.export-task }}
         timeout-minutes: 30
 
       - name: Enable KVM
@@ -111,6 +139,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: android-emulator-logs
+          name: android-${{ matrix.variant }}-emulator-logs
           path: android-emulator.log
           if-no-files-found: ignore

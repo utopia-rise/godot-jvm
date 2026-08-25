@@ -218,7 +218,7 @@ jobs:
     uses: ./.github/workflows/test_ios.yml
     needs:
       - assemble-ios
-      - build-macos
+      - assemble-macos
     with:
       godot-version: *godot_version
       jvm-version: *jvm_version

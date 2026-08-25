@@ -18,8 +18,10 @@ jobs:
         include:
           - cache-name: debug_ios_arm64
             target: template_debug
+            scons-flags: arch=arm64
           - cache-name: release_ios_arm64
             target: template_release
+            scons-flags: arch=arm64
     env:
       SCONS_CACHE: ${{ github.workspace }}/.scons-cache
     steps:
@@ -42,7 +44,7 @@ jobs:
         with:
           platform: ios
           target: ${{ matrix.target }}
-          scons-flags: arch=arm64
+          scons-flags: ${{ matrix.scons-flags }}
           target-path: artifact/addons/jvm/libs/
       - uses: ./.github/actions/scons-cache
         if: always()
