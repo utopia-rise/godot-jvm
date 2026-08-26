@@ -1,9 +1,12 @@
 package godot.gradle.tasks
 
 import godot.gradle.tasks.registrar_generation.requireConfiguredGodotProjectDirectory
+import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
 import godot.tools.common.constants.Paths
+import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.file.CopySpec
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.TaskProvider
 import java.io.File
@@ -45,6 +48,10 @@ fun Project.createCopyDesktopJarsTask(
     ) { libsDir ->
         from(File(libsDir, "godot-bootstrap.jar"))
         from(File(libsDir, "main.jar"))
+        from(
+            configurations.getByName(GODOT_SINGLE_CONFIGURATION).filter { it.extension == "jar" },
+            Action<CopySpec> { it.into("external") },
+        )
     }
 }
 
