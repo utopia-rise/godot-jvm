@@ -22,8 +22,7 @@ import godot.gradle.tasks.graal.createGraalNativeImageTask
 import godot.gradle.tasks.graal.ios.copyDefaultGraalIOSConfigsTask
 import godot.gradle.tasks.graal.ios.createIOSGraalNativeImageTask
 import godot.gradle.tasks.graal.ios.createIOSStaticLibraryTask
-import godot.gradle.tasks.graal.ios.downloadIOSCapCacheFiles
-import godot.gradle.tasks.graal.ios.downloadIOSJdkStaticLibraries
+import godot.gradle.tasks.graal.ios.downloadIOSGraalToolchain
 import godot.gradle.tasks.packageBootstrapJarTask
 import godot.gradle.tasks.packageMainJarTask
 import org.gradle.api.GradleException
@@ -272,15 +271,16 @@ private fun Project.setupNativePackagingTasks(
         packageMainJarTask = desktopPackagingTasks.packageMainJarTask,
         packageBootstrapJarTask = desktopPackagingTasks.packageBootstrapJarTask
     )
+    val downloadIOSGraalToolchainTask = downloadIOSGraalToolchain()
     val createIOSGraalNativeImageTask = createIOSGraalNativeImageTask(
         checkNativeImageToolAccessibleTask = checkNativeImageToolAccessibleTask,
         copyDefaultGraalIOSConfigsTask = copyDefaultGraalIOSConfigsTask,
-        downloadIOSCapCacheTask = downloadIOSCapCacheFiles(),
+        downloadIOSGraalToolchainTask = downloadIOSGraalToolchainTask,
         packageMainJarTask = desktopPackagingTasks.packageMainJarTask,
         packageBootstrapJarTask = desktopPackagingTasks.packageBootstrapJarTask
     )
     val createIOSTask = createIOSStaticLibraryTask(
-        downloadStaticJdkLibrariesTask = downloadIOSJdkStaticLibraries(),
+        downloadIOSGraalToolchainTask = downloadIOSGraalToolchainTask,
         createIOSGraalNativeImageTask = createIOSGraalNativeImageTask
     )
 

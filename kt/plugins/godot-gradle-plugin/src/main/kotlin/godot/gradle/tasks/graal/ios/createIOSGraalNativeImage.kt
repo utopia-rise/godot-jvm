@@ -4,8 +4,6 @@ import godot.gradle.projectExt.godotJvmExtension
 import godot.gradle.tasks.graal.iosJniConfig
 import godot.gradle.tasks.graal.iosReflectionConfig
 import godot.gradle.tasks.graal.iosResourceConfig
-import godot.tools.common.IOS_CAP_CACHE_VERSION
-import godot.tools.common.IOS_JDK_VERSION
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -28,6 +26,9 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
 
     @get:InputDirectory
     abstract val graalDirectory: DirectoryProperty
+
+    @get:InputDirectory
+    abstract val capCacheDirectory: DirectoryProperty
 
     @get:InputFile
     abstract val mainJar: RegularFileProperty
@@ -125,12 +126,7 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
             "-Dsvm.targetName=iOS",
             "-Dsvm.targetArch=arm64",
             "-H:+UseCAPCache",
-            "-H:CAPCacheDir=${
-                iosGraalConfigDir
-                    .resolve("capcache")
-                    .resolve("$IOS_CAP_CACHE_VERSION-$IOS_JDK_VERSION")
-                    .absolutePath
-            }",
+            "-H:CAPCacheDir=${capCacheDirectory.get().asFile.absolutePath}",
             "-H:CompilerBackend=lir",
             "-Dsvm.platform=org.graalvm.nativeimage.Platform\$IOS_AARCH64",
             jniConfigurationFilesArgument,
@@ -160,7 +156,7 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
 fun Project.createIOSGraalNativeImageTask(
     checkNativeImageToolAccessibleTask: TaskProvider<out Task>,
     copyDefaultGraalIOSConfigsTask: TaskProvider<out Task>,
-    downloadIOSCapCacheTask: TaskProvider<out Task>,
+    downloadIOSGraalToolchainTask: TaskProvider<out DownloadIOSGraalToolchainTask>,
     packageMainJarTask: TaskProvider<out Task>,
     packageBootstrapJarTask: TaskProvider<out Task>
 ): TaskProvider<out Task> {
@@ -190,13 +186,16 @@ fun Project.createIOSGraalNativeImageTask(
             dependsOn(
                 checkNativeImageToolAccessibleTask,
                 copyDefaultGraalIOSConfigsTask,
-                downloadIOSCapCacheTask,
+                downloadIOSGraalToolchainTask,
                 packageMainJarTask,
                 packageBootstrapJarTask
             )
 
             this.iosNativeImageDirectory.set(iosNativeImageDirectory)
             this.graalDirectory.set(graalDirectory)
+            this.capCacheDirectory.set(
+                downloadIOSGraalToolchainTask.flatMap { task -> task.capCacheDirectory }
+            )
             this.mainJar.set(libsDirectory.map { directory -> directory.file("main.jar") })
             this.bootstrapJar.set(libsDirectory.map { directory -> directory.file("godot-bootstrap.jar") })
             this.graalVmHomeDirectory.set(graalVmHomeDirectory)
