@@ -37,8 +37,8 @@ static constexpr const char* IOS_BOOTSTRAP_FILE {""};
 static constexpr const char* IOS_USER_CODE_FILE {""};
 static constexpr const char* IOS_GRAAL_NATIVE_IMAGE_FILE {"usercode.a"};
 static constexpr const char* IOS_RELATIVE_JVM_LIB_PATH {""};
-static constexpr const char* IOS_JAVA_STATIC_LIBRARY {JVM_DIRECTORY "ios/ios-jdk/21/libjava-release.a"};
-static constexpr const char* IOS_JVM_STATIC_LIBRARY {JVM_DIRECTORY "ios/ios-jdk/21/libjvm-release.a"};
+static constexpr const char* IOS_JAVA_STATIC_LIBRARY {JVM_DIRECTORY "ios/ios-jdk/libjava-release.a"};
+static constexpr const char* IOS_JVM_STATIC_LIBRARY {JVM_DIRECTORY "ios/ios-jdk/libjvm-release.a"};
 static constexpr const char* IOS_GRAAL_NATIVE_IMAGE_ARCHIVE {JVM_DIRECTORY "ios/usercode.a"};
 
 #ifdef LINUX_ENABLED

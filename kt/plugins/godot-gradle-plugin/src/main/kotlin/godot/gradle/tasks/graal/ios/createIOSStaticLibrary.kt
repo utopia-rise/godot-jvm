@@ -48,7 +48,7 @@ abstract class CreateIOSStaticLibraryTask : DefaultTask() {
 }
 
 fun Project.createIOSStaticLibraryTask(
-    downloadStaticJdkLibrariesTask: TaskProvider<out Task>,
+    downloadIOSGraalToolchainTask: TaskProvider<out Task>,
     createIOSGraalNativeImageTask: TaskProvider<out Task>
 ): TaskProvider<out Task> = tasks.register("createIOSStaticLibrary", CreateIOSStaticLibraryTask::class.java) {
     with(it) {
@@ -56,7 +56,7 @@ fun Project.createIOSStaticLibraryTask(
         description = "Pack usercode.o in a static library."
 
         dependsOn(
-            downloadStaticJdkLibrariesTask,
+            downloadIOSGraalToolchainTask,
             createIOSGraalNativeImageTask
         )
 

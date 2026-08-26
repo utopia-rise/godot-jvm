@@ -20,9 +20,7 @@ private lateinit var godotJvmVersion: String
 private lateinit var godotVersion: String
 private lateinit var kotlinVersion: String
 private lateinit var kotlinCoroutineVersion: String
-private lateinit var iosJdkVersion: String
-private lateinit var iosGraalJdkBuildVersion: String
-private lateinit var iosCapCacheVersion: String
+private lateinit var iosGraalNativeImageVersion: String
 
 class VersionInfoPlugin: Plugin<Project> {
     override fun apply(target: Project) {
@@ -33,9 +31,7 @@ class VersionInfoPlugin: Plugin<Project> {
         godotVersion = libs.findVersion("godot").get().requiredVersion
         kotlinVersion = libs.findVersion("kotlin").get().requiredVersion
         kotlinCoroutineVersion = libs.findVersion("kotlinCoroutine").get().requiredVersion
-        iosJdkVersion = libs.findVersion("iosJdk").get().requiredVersion
-        iosGraalJdkBuildVersion = libs.findVersion("iosGraalJdkBuild").get().requiredVersion
-        iosCapCacheVersion = libs.findVersion("iosCapCache").get().requiredVersion
+        iosGraalNativeImageVersion = libs.findVersion("iosGraalNativeImage").get().requiredVersion
 
         target.extensions.create("versionInfo", VersionInfoExtension::class.java, target)
     }
@@ -110,9 +106,7 @@ open class VersionInfoExtension(private val project: Project) {
                 const val KOTLIN_VERSION = "$kotlinVersion"
                 const val KOTLIN_COROUTINE_VERSION = "$kotlinCoroutineVersion"
 
-                const val IOS_JDK_VERSION = "$iosJdkVersion"
-                const val IOS_GRAAL_JDK_BUILD_VERSION = "$iosGraalJdkBuildVersion"
-                const val IOS_CAP_CACHE_VERSION = "$iosCapCacheVersion"
+                const val IOS_GRAAL_NATIVE_IMAGE_VERSION = "$iosGraalNativeImageVersion"
             """.trimIndent() + "\n",
         )
     }
