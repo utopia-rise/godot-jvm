@@ -40,15 +40,38 @@ during export. You never use it directly, and it is not added as a dependency an
 
 ### Overview
 
-The `main.jar` is built when you build your code. It is a shadow JAR containing only your compiled
-code and the generated registrar — `packageMainJarTask` explicitly clears its dependency
-configurations, so none of your declared dependencies end up in it. Those dependencies are instead
-bundled into `godot-bootstrap.jar`.
+The `main.jar` is built when you build your code. It is a shadow JAR containing your compiled code,
+the generated registrar, and dependencies declared with `godotMain`. Ordinary dependencies are
+instead bundled into `godot-bootstrap.jar`.
 
 ### Usage
 
 This JAR is bundled together with the game executable during export and executed through the `godot-bootstrap` during
 runtime. It is nowhere else used.
+
+## Dependency placement
+
+By default, dependencies declared with `implementation` are merged into `godot-bootstrap.jar`.
+Use `godotMain` for a dependency that must be loaded with user code and recreated when `main.jar`
+reloads:
+
+```kotlin
+dependencies {
+    godotMain("org.eclipse.serializer:serializer:4.0.1")
+}
+```
+
+Use `godotSingle` when a dependency must remain an intact JAR, such as a signed JAR. The plugin
+copies its resolved JARs to `res://jvm/external/` and adds them to `main.jar`'s class path:
+
+```kotlin
+dependencies {
+    godotSingle("org.bouncycastle:bcprov-jdk18on:1.79")
+}
+```
+
+Do not declare the same dependency in more than one of `implementation`, `godotMain`, or
+`godotSingle`.
 
 ## usercode
 

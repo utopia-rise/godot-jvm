@@ -4,8 +4,13 @@ import godot.gradle.GodotLanguage
 import godot.tools.common.BUILD_VERSION
 import godot.tools.common.KOTLIN_COROUTINE_VERSION
 import org.gradle.api.Project
+import org.gradle.api.artifacts.Configuration
+import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.compile.JavaCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+const val GODOT_MAIN_CONFIGURATION = "godotMain"
+const val GODOT_SINGLE_CONFIGURATION = "godotSingle"
 
 /**
  * Set's up all configurations and compilations needed for kotlin_jvm to work and defines proper task dependencies between them.
@@ -22,6 +27,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
  * - At runtime, the module uses `godot-bootstrap.jar` together with `main.jar`.
  */
 fun Project.setupConfigurationsAndCompilations() {
+    val godotMain = configurations.create(GODOT_MAIN_CONFIGURATION)
+    val godotSingle = configurations.create(GODOT_SINGLE_CONFIGURATION)
+
+    addGodotDependencyConfigurationsToSourceSets(godotMain, godotSingle)
+
     afterEvaluate {
         // Add all consumer-project main compilation dependencies in one place, after the user's
         // `godot { ... }` configuration has had a chance to override extension defaults.
@@ -77,5 +87,19 @@ fun Project.setupConfigurationsAndCompilations() {
             // add reflection explicitly so it's usable in exported projects as well. See: GH-571
             add(dependencies.create("org.jetbrains.kotlin:kotlin-reflect:$kotlinBuildVersion"))
         }
+    }
+}
+
+private fun Project.addGodotDependencyConfigurationsToSourceSets(
+    godotMain: Configuration,
+    godotSingle: Configuration,
+) {
+    val sourceSets = extensions.getByType(SourceSetContainer::class.java)
+    val main = sourceSets.getByName("main")
+    configurations.getByName(main.compileClasspathConfigurationName).extendsFrom(godotMain, godotSingle)
+
+    sourceSets.findByName("test")?.let { test ->
+        configurations.getByName(test.compileClasspathConfigurationName).extendsFrom(godotMain, godotSingle)
+        configurations.getByName(test.runtimeClasspathConfigurationName).extendsFrom(godotMain, godotSingle)
     }
 }
