@@ -37,6 +37,7 @@ jobs:
               -output "$ios_libraries/$(basename "${device%.a}").xcframework"
             rm "$device"
           done
+          rm "$ios_libraries"/*.objects.a
           mkdir -p package/addons
           cp -R libraries/jvm package/addons/jvm
       # Upload the raw folder rather than a pre-made zip: actions/upload-artifact always wraps
