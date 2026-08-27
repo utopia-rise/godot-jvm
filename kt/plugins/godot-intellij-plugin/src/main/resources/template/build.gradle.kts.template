@@ -41,5 +41,6 @@ godot {
     //additionalGraalReflectionConfigurationFiles.set(arrayOf("my-reflection-configuration-file.json"))
     //additionalGraalResourceConfigurationFiles.set(arrayOf("my-resource-configuration-file.json"))
     //isGraalNativeImageVerboseEnabled.set(true)
+    //isGraalNativeImageStrictImageHeapEnabled.set(true)
     // END_OPTIONAL_GRAAL
 }

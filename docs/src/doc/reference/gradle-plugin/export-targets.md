@@ -145,3 +145,17 @@ godot {
     isGraalNativeImageVerboseEnabled.set(true)
 }
 ```
+
+### `isGraalNativeImageStrictImageHeapEnabled`
+
+Passes `--strict-image-heap` to native-image generation. Reflection based code might need it to build successfully, at the cost of a bigger image and a longer build time.
+
+Default:
+
+- `false`
+
+```kotlin
+godot {
+    isGraalNativeImageStrictImageHeapEnabled.set(true)
+}
+```
