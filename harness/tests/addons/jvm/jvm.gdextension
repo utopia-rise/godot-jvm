@@ -1,6 +1,8 @@
 [configuration]
 entry_symbol = "godot_jvm_library_init"
 compatibility_minimum = 4.7
+compatibility_maximum = "4"
+reloadable = false
 android_aar_plugin = true
 
 [libraries]
