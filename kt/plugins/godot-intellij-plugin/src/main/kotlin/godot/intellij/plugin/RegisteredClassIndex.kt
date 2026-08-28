@@ -38,9 +38,11 @@ class RegisteredClassIndex(
                         when (child) {
                             // whole file removed
                             is KtFile if event.file == null -> psiFileRemoved(child)
-                            // class in file removed (just annotation removed covered in [childrenChanged]
-                            is KtClass -> psiFileChanged(child.containingFile)
-                            is PsiClass -> psiFileChanged(child.containingFile)
+                            // Class in a file removed (just an annotation removed is covered in [childrenChanged]).
+                            // Only drop the names here: re registering resolves annotations, which is forbidden while
+                            // the PSI change is running. [childrenChanged] re registers what is left afterwards.
+                            is KtClass -> psiFileRemoved(child.containingFile)
+                            is PsiClass -> psiFileRemoved(child.containingFile)
                         }
                     }
 

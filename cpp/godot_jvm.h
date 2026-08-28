@@ -52,6 +52,7 @@ namespace godot {
         void* jvm_dynamic_library_handle {nullptr};
         bool load_dynamic_lib();
         void unload_dynamic_lib();
+        godot::String get_path_to_forced_jvm() const;
 #ifdef TOOLS_ENABLED
         static godot::String get_path_to_environment_jvm();
         static godot::String get_path_to_java_executable();

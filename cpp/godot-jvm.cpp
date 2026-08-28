@@ -31,14 +31,24 @@ bool GodotJvm::load_dynamic_lib() {
     String path_to_jvm_lib;
     switch (user_configuration.vm_type) {
         case jni::JvmType::JVM:
-            if (String embedded_jvm = get_path_to_embedded_jvm(); FileAccess::file_exists(embedded_jvm)) {
+            if (String forced_jvm = get_path_to_forced_jvm(); !forced_jvm.is_empty()) {
+                if (!FileAccess::file_exists(forced_jvm)) {
+                    JVM_WARN_FAIL_V_MSG(
+                      false,
+                      "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
+                      "No JVM found for the path provided with " + String(JVM_PATH_CMD_IDENTIFIER) + ": " + user_configuration.jvm_path,
+                      "Provide either a JVM home directory or a JVM dynamic library."
+                    );
+                }
+                path_to_jvm_lib = forced_jvm;
+            } else if (String embedded_jvm = get_path_to_embedded_jvm(); FileAccess::file_exists(embedded_jvm)) {
                 path_to_jvm_lib = embedded_jvm;
             }
 #ifdef TOOLS_ENABLED
             else {
-                String dynamic_jvm = get_path_to_java_executable();
+                String dynamic_jvm = get_path_to_environment_jvm();
                 if (dynamic_jvm.is_empty()) {
-                    dynamic_jvm = get_path_to_environment_jvm();
+                    dynamic_jvm = get_path_to_java_executable();
                 }
 
                 if (!dynamic_jvm.is_empty()) {
@@ -102,6 +112,13 @@ bool GodotJvm::load_dynamic_lib() {
     return true;
 }
 
+String GodotJvm::get_path_to_forced_jvm() const {
+    const String& jvm_path = user_configuration.jvm_path;
+    if (jvm_path.is_empty()) { return {}; }
+
+    return DirAccess::dir_exists_absolute(jvm_path) ? jvm_path.path_join(RELATIVE_JVM_LIB_PATH) : jvm_path;
+}
+
 #ifdef TOOLS_ENABLED
 String GodotJvm::get_path_to_embedded_jvm() {
     String godot_path {String(HOST_EMBEDDED_JRE_DIRECTORY).path_join(RELATIVE_JVM_LIB_PATH)};
@@ -121,18 +138,6 @@ String GodotJvm::get_path_to_environment_jvm() {
 }
 
 String GodotJvm::get_path_to_java_executable() {
-#ifdef MACOS_ENABLED
-    PackedStringArray arguments;
-    arguments.push_back("-v");
-    arguments.push_back("17+");
-    Array output;
-    if (OS::get_singleton()->execute("/usr/libexec/java_home", arguments, output, true) == 0 && !output.is_empty()) {
-        String macos_java_home = output[0];
-        String jvm_library = macos_java_home.strip_edges().path_join(RELATIVE_JVM_LIB_PATH);
-        if (FileAccess::file_exists(jvm_library)) { return jvm_library; }
-    }
-#endif
-
 #ifdef WINDOWS_ENABLED
     constexpr const char* java_executable_name {"java.exe"};
     constexpr const char* path_separator {";"};
@@ -158,6 +163,18 @@ String GodotJvm::get_path_to_java_executable() {
         String jvm_library = java_executable.get_base_dir().get_base_dir().path_join(RELATIVE_JVM_LIB_PATH);
         if (FileAccess::file_exists(jvm_library)) { return jvm_library; }
     }
+
+#ifdef MACOS_ENABLED
+    PackedStringArray arguments;
+    arguments.push_back("-v");
+    arguments.push_back("17+");
+    Array output;
+    if (OS::get_singleton()->execute("/usr/libexec/java_home", arguments, output, true) == 0 && !output.is_empty()) {
+        String macos_java_home = output[0];
+        String jvm_library = macos_java_home.strip_edges().path_join(RELATIVE_JVM_LIB_PATH);
+        if (FileAccess::file_exists(jvm_library)) { return jvm_library; }
+    }
+#endif
 
     return {};
 }

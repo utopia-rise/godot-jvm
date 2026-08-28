@@ -6,7 +6,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiClass
 import godot.annotation.Script
 import godot.intellij.plugin.GodotPluginBundle
-import org.jetbrains.kotlin.asJava.classes.KtUltraLightClass
+import org.jetbrains.kotlin.asJava.classes.KtLightClass
 import org.jetbrains.kotlin.idea.util.addAnnotation
 import org.jetbrains.kotlin.scripting.resolve.classId
 
@@ -21,7 +21,7 @@ class ClassNotRegisteredQuickFix : LocalQuickFix {
         } ?: return
 
         when (psiClass) {
-            is KtUltraLightClass -> psiClass.kotlinOrigin.addAnnotation(Script::class.classId)
+            is KtLightClass -> psiClass.kotlinOrigin?.addAnnotation(Script::class.classId)
             else -> psiClass.modifierList?.addAnnotation(Script::class.qualifiedName!!)
         }
     }

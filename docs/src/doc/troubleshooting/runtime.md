@@ -1,5 +1,5 @@
 ---
-description: Startup and runtime symptoms for Godot-JVM, currently covering the JVM garbage collector, PATH vs JAVA_HOME precedence, and macOS JAVA_HOME visibility.
+description: Startup and runtime symptoms for Godot-JVM, currently covering the JVM garbage collector, JAVA_HOME vs PATH precedence, and macOS JAVA_HOME visibility.
 ---
 
 # Startup and runtime
@@ -13,12 +13,15 @@ reports come in from users.
 **Symptom:** `java -version` on the command line reports one JDK, but Godot appears to be running
 a different one — or a JDK you thought you removed still seems to be in use.
 
-**Explanation:** Godot-JVM checks for a `java` executable on `PATH` before it checks `JAVA_HOME`.
-If both are set and point at different JDKs, the one on `PATH` wins — `JAVA_HOME` is only consulted
-as a fallback when nothing usable is found on `PATH`.
+**Explanation:** Godot-JVM checks `JAVA_HOME` before it looks for a `java` executable on `PATH`.
+If both are set and point at different JDKs, the one in `JAVA_HOME` wins — `PATH` is only consulted
+when `JAVA_HOME` is unset or holds no usable JVM. A JRE embedded in the project under
+`jvm/jre-<arch>-<os>` wins over both.
 
-**Fix:** update `PATH` (not `JAVA_HOME`) to point at the JDK you actually want, or remove the
-unwanted one from `PATH` entirely. See [Install a JDK](../start/install-a-jdk.md).
+**Fix:** update `JAVA_HOME` (not `PATH`) to point at the JDK you actually want, or run Godot with
+`--jvm-path=<jdk home>` to force one for a single run, which also overrides an embedded JRE. See
+[Install a JDK](../start/install-a-jdk.md) and
+[Runtime configuration](../reference/runtime-configuration.md).
 
 ## Memory usage grows without bound after disabling the GC
 
