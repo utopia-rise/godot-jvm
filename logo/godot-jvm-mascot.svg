@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
   <title id="title">Godot-JVM mascot</title>
-  <desc id="desc">A black and blue gear-shaped mascot face with red eyes and red-purple-blue JVM-style steam. The background is transparent.</desc>
+  <desc id="desc">A deep indigo gear-shaped mascot face with dark teal eyes, a purple-to-blue jaw gradient and red-purple-blue JVM-style steam. The background is transparent.</desc>
 
   <defs>
-    <linearGradient id="steam-gradient" x1="0" y1="1" x2="0" y2="0">
+    <linearGradient id="steam-gradient" gradientUnits="userSpaceOnUse" x1="512" y1="400" x2="512" y2="20">
       <stop offset="0" stop-color="#DE3423"/>
       <stop offset="0.5" stop-color="#7F52FF"/>
       <stop offset="1" stop-color="#007396"/>
+    </linearGradient>
+    <linearGradient id="jaw-gradient" gradientUnits="userSpaceOnUse" x1="512" y1="972" x2="512" y2="704">
+      <stop offset="0" stop-color="#2786C8"/>
+      <stop offset="1" stop-color="#7F52FF"/>
+    </linearGradient>
+    <linearGradient id="cup-gradient" gradientUnits="userSpaceOnUse" x1="402" y1="0" x2="622" y2="0">
+      <stop offset="0" stop-color="#A88BFF"/>
+      <stop offset="0.55" stop-color="#7F52FF"/>
+      <stop offset="1" stop-color="#5A34D6"/>
+    </linearGradient>
+    <linearGradient id="rim-fade" gradientUnits="userSpaceOnUse" x1="432.79" y1="0" x2="591.21" y2="0">
+      <stop offset="0" stop-color="#C4B0FF" stop-opacity="0"/>
+      <stop offset="0.25" stop-color="#C4B0FF" stop-opacity="1"/>
+      <stop offset="0.75" stop-color="#C4B0FF" stop-opacity="1"/>
+      <stop offset="1" stop-color="#C4B0FF" stop-opacity="0"/>
     </linearGradient>
     <clipPath id="face-sides">
       <rect x="172" y="0" width="680" height="1024"/>
@@ -15,26 +30,29 @@
   </defs>
 
   <!-- Blue lower jaw, placed behind the face. -->
-  <path fill="#2786C8" d="M172 704 292 716l9 78 132 12 14-78h130l14 78 132-12 9-78 120-12v89c0 108-151 179-340 179S172 901 172 793Z"/>
+  <path fill="url(#jaw-gradient)" d="M172 704 292 716l9 78 132 12 14-78h130l14 78 132-12 9-78 120-12v89c0 108-151 179-340 179S172 901 172 793Z"/>
 
-  <!-- Black gear-shaped upper head. -->
-  <path fill="#202020" d="M172 704V531l-40-38a13 13 0 0 1-2-17l48-67a13 13 0 0 1 17-4l56 37 35-28-28-80a13 13 0 0 1 6-16l75-42a13 13 0 0 1 17 4l52 70c31-14 66-21 104-21s73 7 104 21l52-70a13 13 0 0 1 17-4l75 42a13 13 0 0 1 6 16l-28 80 35 28 56-37a13 13 0 0 1 17 4l48 67a13 13 0 0 1-2 17l-40 38v173l-120 12-9 78-132 12-14-78H447l-14 78-132-12-9-78Z"/>
+  <!-- Gear-shaped upper head. -->
+  <path fill="#17162B" d="M172 704V531l-40-38a13 13 0 0 1-2-17l48-67a13 13 0 0 1 17-4l56 37 35-28-28-80a13 13 0 0 1 6-16l75-42a13 13 0 0 1 17 4l52 70c31-14 66-21 104-21s73 7 104 21l52-70a13 13 0 0 1 17-4l75 42a13 13 0 0 1 6 16l-28 80 35 28 56-37a13 13 0 0 1 17 4l48 67a13 13 0 0 1-2 17l-40 38v173l-120 12-9 78-132 12-14-78H447l-14 78-132-12-9-78Z"/>
 
   <!-- Blue cup-like steam vent. -->
-  <path fill="#2786C8" d="M402 367c0-29 49-48 110-48s110 19 110 48v51c0 21-28 35-62 41l-5 32h-86l-5-32c-34-6-62-20-62-41Z"/>
-  <ellipse cx="512" cy="368" rx="82" ry="25" fill="#202020"/>
+  <path fill="url(#cup-gradient)" d="M402 367c0-29 49-48 110-48s110 19 110 48v51c0 29-49 48-110 48s-110-19-110-48Z"/>
+  <path d="M432.79 361.53A82 25 0 0 1 591.21 361.53" fill="none" stroke="url(#rim-fade)" stroke-width="16" stroke-linecap="round"/>
+  <ellipse cx="512" cy="368" rx="82" ry="25" fill="#100F1F"/>
 
   <!-- Java-style steam ribbons. -->
   <path fill="url(#steam-gradient)" d="M504 327c-27-29-63-71-67-112-5-48 32-79 67-111 33-30 48-66 44-98 22 43 7 91-31 132-31 34-59 58-54 94 4 34 30 65 41 95Z"/>
   <path fill="url(#steam-gradient)" d="M510 381c25-27 43-51 39-82-4-30-36-52-39-83-4-37 31-68 104-74-47 19-70 44-67 76 3 29 33 51 30 83-3 34-36 66-67 80Z"/>
 
   <!-- Eyes and nose. -->
-  <circle cx="344" cy="610" r="82" fill="#fff"/>
-  <circle cx="344" cy="610" r="55" fill="#ED001C"/>
-  <circle cx="680" cy="610" r="82" fill="#fff"/>
-  <circle cx="680" cy="610" r="55" fill="#ED001C"/>
-  <rect x="497" y="610" width="30" height="77" rx="15" fill="#fff"/>
+  <circle cx="344" cy="610" r="82" fill="#EAF6FF"/>
+  <circle cx="344" cy="610" r="55" fill="#0E7490"/>
+  <circle cx="366" cy="590" r="16" fill="#fff" opacity="0.85"/>
+  <circle cx="680" cy="610" r="82" fill="#EAF6FF"/>
+  <circle cx="680" cy="610" r="55" fill="#0E7490"/>
+  <circle cx="702" cy="590" r="16" fill="#fff" opacity="0.85"/>
+  <rect x="497" y="610" width="30" height="77" rx="15" fill="#EAF6FF"/>
 
   <!-- Godot-style angular white mouth line. -->
-  <path d="M152 702 292 716l9 78 132 12 14-78h130l14 78 132-12 9-78 140-14" fill="none" stroke="#fff" stroke-width="18" stroke-linejoin="round" clip-path="url(#face-sides)"/>
+  <path d="M152 702 292 716l9 78 132 12 14-78h130l14 78 132-12 9-78 140-14" fill="none" stroke="#EAF6FF" stroke-width="18" stroke-linejoin="round" clip-path="url(#face-sides)"/>
 </svg>
