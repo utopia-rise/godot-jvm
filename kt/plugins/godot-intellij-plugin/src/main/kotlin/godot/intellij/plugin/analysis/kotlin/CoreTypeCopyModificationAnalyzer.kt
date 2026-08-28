@@ -5,8 +5,6 @@ import godot.annotation.CoreTypeHelper
 import godot.annotation.CoreTypeLocalCopy
 import godot.intellij.plugin.GodotPluginBundle
 import godot.intellij.plugin.analysis.GodotProblem
-import godot.intellij.plugin.analysis.kotlin.CoreTypeCopyModificationAnalyzer.analyzeAssignment
-import godot.intellij.plugin.analysis.kotlin.CoreTypeCopyModificationAnalyzer.analyzeHelperCall
 import org.jetbrains.kotlin.idea.references.mainReference
 import org.jetbrains.kotlin.idea.util.findAnnotation
 import org.jetbrains.kotlin.lexer.KtTokens

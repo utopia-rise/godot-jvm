@@ -8,6 +8,11 @@
 
 ### Added
 
+- Added a `Godot` run configuration type. It runs the editor or the game of the current Godot project with a JDK picked from the ones the IDE knows or
+  detects, so the JVM used by Godot no longer depends on machine wide settings. The selected JDK is passed with `--jvm-path`, which takes priority over an
+  embedded JRE and over the environment.
+- Added a `New | Godot Script` action in the project view. It asks for a name, language, Godot base class, and the lifecycle functions to override, and
+  generates the class with the annotations required by the selected registration mode.
 - Added project-wide selection of the Explicit, Inferred, and Automatic registration modes. Registration inspections follow the selected mode for Kotlin, Java,
   and Scala.
 - Added subtle declaration-line highlighting inside Godot scripts: orange for declarations that cannot be registered, blue for registration candidates, and

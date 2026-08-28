@@ -5,7 +5,8 @@ description: Every Godot-JVM runtime flag, its JSON key in godot_jvm_configurati
 # Runtime configuration and JVM arguments
 
 The following arguments can be either used in the command line or the `godot_jvm_configuration.json` file at the root
-of the project to customize the behaviour of the Godot-JVM binding.
+of the project to customize the behaviour of the Godot-JVM binding. `--jvm-path` is the exception: it is only available
+on the command line.
 
 The binding reads the file from `res://godot_jvm_configuration.json` and writes a fresh one with the current defaults
 if it is missing or out of date.
@@ -28,6 +29,7 @@ if it is missing or out of date.
 | --jvm-jmx-port          | jmx_port            | -1 (disabled) | Defines the jmx port. Accepted values are `-1` to disable it, or `0` to `65535`. **Note:** the module `jdk.management.agent` is needed in the embedded JRE to be able to use jmx                                                                                                                                                | `--jvm-jmx-port=5006` or `"jmx_port": 5006`                                                                |
 | --jvm-max-string-size   | max_string_size     | -1 (auto, 512 bytes) | Maximum size of strings sent through the buffer. When above that value, strings are sent with a slower JNI Call. A bigger size means a bigger buffer. Increase if you need a lot of long strings and don't mind using more memory. One buffer exists for each thread. Set it back to `-1` to restore the built-in default of 512 | `--jvm-max-string-size=1024` or `"max_string_size": 1024`                                                    |
 | --jvm-disable-gc        | disable_gc          | false         | Disables our GC. **Caution:** If you disable our GC you **will** have memory leaks as all `RefCounted` types and Native Types are not Garbage collected anymore                                                                                                         | `--jvm-disable-gc` or `"disable_gc": true`                                                                 |
+| --jvm-path              | *(command line only)* |               | Path to the JVM to load, either a JVM home directory or a JVM dynamic library. It takes priority over every other JVM resolution: the embedded JRE, `PATH` and `JAVA_HOME` are all ignored. Startup fails when no JVM is found at that path, instead of silently falling back. Meant for tooling such as the IntelliJ run configuration; there is deliberately no JSON counterpart, as the JVM to run with is a per run decision | `--jvm-path=/usr/lib/jvm/temurin-17` or `--jvm-path="C:/Program Files/Java/jdk-17/bin/server/jvm.dll"` |
 | --jvm-custom-args       | custom_jvm_args     |               | Allows to set your own arguments for the JVM, make sure they are valid if you don't want the JVM not starting properly. Avoid overlapping with others arguments if you want to set debug or jmx. For command line usage, pass a quoted space-separated list or a comma-separated list. | `--jvm-custom-args="-Xmx4g -Xms4g"` (quoted, space-separated), `--jvm-custom-args=-Xmx4g,-Xms4g` (comma-separated), or `"custom_jvm_args": ["-Xmx4g", "-Xms4g"]` |
 
 ## The configuration file
