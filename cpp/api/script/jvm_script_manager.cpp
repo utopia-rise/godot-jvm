@@ -7,10 +7,13 @@
 #include "api/script/language/scala_script.h"
 #include "jvm/wrapper/memory/type_manager.h"
 
+#include <classes/editor_file_system.hpp>
+#include <classes/editor_interface.hpp>
+#include <classes/engine.hpp>
 #include <classes/file_access.hpp>
 #include <classes/time.hpp>
 #include <variant/utility_functions.hpp>
-#include "engine/utilities.h"
+#include "engine/godot_object.h"
 
 using namespace godot;
 
@@ -61,8 +64,6 @@ Ref<JvmScript> JvmScriptManager::get_script_from_fqdn(const StringName& p_fqdn) 
 }
 
 void JvmScriptManager::set_script_for_fqdn(const StringName& p_fqdn, JvmScript* p_script) {
-    // godot-cpp's WeakRef exposes no set_obj(); UtilityFunctions::weakref() is the only
-    // GDExtension-accessible way to construct a populated WeakRef.
     fqdn_to_script[p_fqdn] = UtilityFunctions::weakref(p_script);
 }
 
@@ -81,12 +82,20 @@ Ref<JvmScript> JvmScriptManager::create_virtual_script(KtClass* p_kotlin_class) 
 
     registered_name_to_script[p_kotlin_class->registered_class_name] = script;
     set_script_for_fqdn(p_kotlin_class->fqdn, script.ptr());
-    JVM_DEV_VERBOSE("JVM Script created: %s", p_kotlin_class->registered_class_name);
+    JVM_DEV_VERBOSE(
+      "Creating virtual JVM script for FQCN %s because no live physical script was found.",
+      p_kotlin_class->fqdn
+    );
     return script;
 }
 
 #ifdef TOOLS_ENABLED
 void JvmScriptManager::update_script(JvmScript* p_script, KtClass* p_kotlin_class) {
+    JVM_DEV_VERBOSE(
+      "Updating live JVM script at %s from JAR class %s.",
+      p_script->get_path(),
+      p_kotlin_class->fqdn
+    );
     p_script->kotlin_class = p_kotlin_class;
     p_script->export_dirty_flag = true;
     registered_name_to_script[p_kotlin_class->registered_class_name] = Ref<JvmScript>(p_script);
@@ -140,12 +149,22 @@ void JvmScriptManager::initialize_scripts(const Vector<KtClass*>& p_classes) {
 
 #ifdef TOOLS_ENABLED
 void JvmScriptManager::update_all_scripts() {
+    EditorFileSystem* filesystem = nullptr;
+    if (Engine::get_singleton()->has_singleton(SNAME("EditorInterface"))) {
+        filesystem = EditorInterface::get_singleton()->get_resource_filesystem();
+    }
     for (const KeyValue<StringName, Ref<WeakRef>>& entry : fqdn_to_script) {
         Ref<JvmScript> script = entry.value->get_ref();
         if (script.is_null()) { continue; }
 
         if (script->_is_valid()) { script->update_script_exports(); }
         script->update_source_sync_warning();
+
+        const String path = script->get_path();
+        if (filesystem && !path.begins_with(GODOT_JVM_VIRTUAL_PATH_PREFIX)) {
+            JVM_DEV_VERBOSE("Refreshing global class cache for JVM script %s.", path);
+            filesystem->update_file(path);
+        }
     }
 }
 
@@ -157,6 +176,12 @@ Ref<JvmScript> JvmScriptManager::create_and_bind_physical_script(const String& p
     if (!p_fqdn.is_empty()) {
         script = get_script_from_fqdn(p_fqdn);
         if (script.is_valid()) {
+            JVM_DEV_VERBOSE(
+              "Binding source script %s to existing JVM script at %s for FQCN %s.",
+              p_path,
+              script->get_path(),
+              p_fqdn
+            );
 #ifdef TOOLS_ENABLED
             const String existing_path = script->get_path();
             if (!existing_path.begins_with(GODOT_JVM_VIRTUAL_PATH_PREFIX) && existing_path != p_path && FileAccess::file_exists(existing_path)) {
@@ -172,7 +197,10 @@ Ref<JvmScript> JvmScriptManager::create_and_bind_physical_script(const String& p
     }
 
 #ifdef TOOLS_ENABLED
-    if (script.is_null()) { script = create_script_for_extension(p_path.get_extension()); }
+    if (script.is_null()) {
+        JVM_DEV_VERBOSE("Creating physical JVM script for source %s and FQCN %s.", p_path, p_fqdn);
+        script = create_script_for_extension(p_path.get_extension());
+    }
     script->last_physical_fqdn = p_fqdn;
     if (!p_fqdn.is_empty()) { set_script_for_fqdn(p_fqdn, script.ptr()); }
 #endif

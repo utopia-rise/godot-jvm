@@ -1,7 +1,7 @@
 #ifndef GODOT_JVM_TASK_DIALOG_H
 #define GODOT_JVM_TASK_DIALOG_H
 
-#include "engine/utilities.h"
+#include "engine/godot_object.h"
 
 #include <classes/accept_dialog.hpp>
 #include <classes/label.hpp>

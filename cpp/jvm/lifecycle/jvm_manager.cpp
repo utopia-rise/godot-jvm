@@ -26,11 +26,18 @@
 
 #include <locale>
 
-#ifdef ANDROID_ENABLED
-#include "jvm/android/android_jvm_context.h"
-#endif
-
 typedef jint(JNICALL* CreateJavaVM)(JavaVM**, void**, void*);
+
+#ifdef ANDROID_ENABLED
+void JvmManager::set_android_jvm(JNIEnv* p_env) {
+    p_env->GetJavaVM(&android_jvm);
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_utopiarise_godotjvm_GodotJvmPlugin_nativeInitialize(JNIEnv* p_env, jobject) {
+    JvmManager::set_android_jvm(p_env);
+}
+#endif
 
 CreateJavaVM get_create_jvm_function(void* lib_handle) {
 #ifdef DYNAMIC_JVM
@@ -82,7 +89,7 @@ bool JvmManager::initialize_or_get_jvm(void* lib_handle, JvmUserConfiguration& u
 
 #elif defined PROVIDED_JVM
     JVM_LOG_VERBOSE("Retrieving existing JVM ...");
-    java_vm = AndroidJvmContext::get_java_vm();
+    java_vm = android_jvm;
     JVM_ERR_FAIL_COND_V_MSG(
       java_vm == nullptr,
       false,

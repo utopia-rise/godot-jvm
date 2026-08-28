@@ -14,7 +14,6 @@ namespace godot{
 
         ~JvmBindingManager() = default;
 
-        // Callbacks required by Godot for instance bindings.
         static GDExtensionInstanceBindingCallbacks _instance_binding_callbacks;
 
         static void* _instance_binding_create_callback(void* p_token, void* p_instance);

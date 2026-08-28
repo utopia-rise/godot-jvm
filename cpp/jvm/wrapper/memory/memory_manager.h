@@ -4,7 +4,6 @@
 #include "api/script/jvm_instance.h"
 #include "jvm/jni/types.h"
 #include "jvm/wrapper/jvm_singleton_wrapper.h"
-#include "jvm/wrapper/registration/kt_object.h"
 
 #include <jni.h>
 
@@ -31,13 +30,6 @@ JVM_SINGLETON_WRAPPER(MemoryManager, "godot.internal.memory.MemoryManager") {
         INIT_NATIVE_METHOD("releaseBinding", "(J)V", MemoryManager::release_binding)
       )
 
-    // std::mutex, not godot::Mutex: the latter is a RefCounted-derived GDExtension proxy class
-    // (only exists so scripts can hold a Mutex object) and requires memnew()/Ref<>::instantiate()
-    // like any other Wrapped-derived class — a bare member here would hit the same "created
-    // without binding callbacks" crash as the JSON bug. This is purely internal C++ state, never
-    // exposed to GDScript, so a plain std::mutex is both correct and lighter-weight. Master's
-    // equivalent uses engine-internal Mutex (core/os/mutex.h) — a different, non-Wrapped type
-    // with the same name, not applicable here.
     std::mutex dead_objects_mutex;
     godot::LocalVector<godot::ObjectID> dead_objects;
 

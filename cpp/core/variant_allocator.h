@@ -39,18 +39,10 @@ class VariantAllocator {
     static_assert(sizeof(BucketLarge) <= 16, "BucketLarge should have at most a size of 16 bytes");
     static_assert(sizeof(BucketSmall) < sizeof(BucketLarge), "BucketLarge should be larger than BucketSmall");
 
-    // Plain eager statics, safe as of the PagedAllocator rework (see engine/paged_allocator.h):
-    // its constructor is now trivial (no ERR_FAIL_COND/interface calls), so these need no CRT
-    // dynamic initializer and can exist in static storage before godot_jvm_library_init() runs.
-    // Must be configured explicitly via VariantAllocator::configure() before first use — see there.
     inline static godot::PagedAllocator<BucketSmall, true> bucket_small;
     inline static godot::PagedAllocator<BucketLarge, true> bucket_large;
 
 public:
-    // Call once from godot_jvm_library_init(), after GDExtensionBinding::InitObject has run.
-    // PagedAllocator::alloc() has no lazy-configure fallback (see its own comment for why), so
-    // skipping this call — or calling it too early — means the first real alloc() call underflows
-    // internal bookkeeping instead of failing cleanly.
     static void configure() {
         bucket_small.configure(4096);
         bucket_large.configure(4096);
@@ -58,7 +50,6 @@ public:
 
     template<typename T>
     static T* alloc(T&& variant) {
-        // Trigger compile-time error if T is larger than 16 bytes
         static_assert(sizeof(T) <= sizeof(BucketLarge), "Variant doesn't fit inside the VariantAllocator");
 
         T* ret;
@@ -73,7 +64,6 @@ public:
 
     template<typename T>
     static void free(T* variant) {
-        // Trigger compile-time error if T is larger than 16 bytes
         static_assert(sizeof(T) <= sizeof(BucketLarge), "Variant doesn't fit inside the VariantAllocator");
 
         variant->~T();

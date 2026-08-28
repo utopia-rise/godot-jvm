@@ -2,7 +2,7 @@
 #define GODOT_JVM_ABOUT_DIALOG_H
 
 #include "editor/strings.h"
-#include "engine/utilities.h"
+#include "engine/godot_object.h"
 
 #include <classes/accept_dialog.hpp>
 #include <classes/check_box.hpp>

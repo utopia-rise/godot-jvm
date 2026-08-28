@@ -89,7 +89,7 @@ class VariantToBuffer {
     }
 
     // Takes the raw engine pointer, never a godot-cpp `Object*`: that parameter type is exactly what used to make
-    // Variant::operator Object*() fire and build a wrapper here (see RawObject::from_variant() in engine/utilities.h).
+    // Variant::operator Object*() fire and build a wrapper here (see RawObject::from_variant() in engine/godot_object.h).
     static void append_object(SharedBuffer* des, godot::GodotObject* p_raw_object) {
         if (p_raw_object == nullptr) {
             des->increment_position(encode_uint32(0, des->get_cursor()));
@@ -112,7 +112,7 @@ class VariantToBuffer {
 
     static void write_object(SharedBuffer* des, const godot::Variant& src) {
         set_variant_type(des, godot::Variant::Type::OBJECT);
-        append_object(des, godot::RawObject::from_variant(src));
+        append_object(des, raw_godot::RawObject::from_variant(src));
     }
 
 
@@ -243,13 +243,13 @@ class BufferToVariant {
     }
 
     static godot::Variant read_object(SharedBuffer* byte_buffer) {
-        return godot::RawObject(to_raw_object(byte_buffer)).to_variant();
+        return raw_godot::RawObject(to_raw_object(byte_buffer)).to_variant();
     }
 
     static godot::Variant read_signal(SharedBuffer* byte_buffer) {
         godot::GodotObject* object {to_raw_object(byte_buffer)};
         const godot::StringName name {*read_pointer<godot::StringName>(byte_buffer)};
-        return godot::RawObject(object).to_signal(name);
+        return raw_godot::RawObject(object).to_signal(name);
     }
 
 public:

@@ -21,7 +21,6 @@ namespace godot {
 
     protected:
         KtClass* kotlin_class;
-        // mutable: written from _set_path_cache(), which the engine (and Resource::_set_path_cache) requires to be const.
         mutable String source;
 
         GodotObject* _object_create() const;
@@ -87,7 +86,7 @@ namespace godot {
         // This concerns placeholders script instances only
 
     private:
-        mutable HashMap<GDExtensionScriptInstancePtr, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*> placeholders;
+        mutable HashMap<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*> placeholders;
         mutable HashMap<StringName, Variant> exported_members_default_value_cache;
         StringName last_physical_fqdn;
         uint64_t last_source_modified_time = 0;

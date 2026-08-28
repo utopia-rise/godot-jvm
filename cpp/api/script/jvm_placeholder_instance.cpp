@@ -4,6 +4,7 @@
 
 #include "engine/internal.h"
 #include "engine/godot_object.h"
+#include "jvm_script.h"
 #include "jvm_script_manager.h"
 
 using namespace godot;
@@ -373,7 +374,11 @@ GDExtensionScriptLanguagePtr JvmPlaceHolderInstance::get_language(GDExtensionScr
 }
 
 void JvmPlaceHolderInstance::free(GDExtensionScriptInstanceDataPtr p_instance) {
-    memdelete(reinterpret_cast<JvmPlaceHolderInstanceData*>(p_instance));
+    auto* instance_data = reinterpret_cast<JvmPlaceHolderInstanceData*>(p_instance);
+    if (auto* script = Object::cast_to<JvmScript>(instance_data->script.ptr())) {
+        script->_placeholder_erased(instance_data);
+    }
+    memdelete(instance_data);
 }
 
 void JvmPlaceHolderInstance::update(
@@ -420,7 +425,7 @@ void JvmPlaceHolderInstance::update(
         to_remove.pop_front();
     }
 
-    RawObject owner {p_instance_data->owner};
+    raw_godot::RawObject owner {p_instance_data->owner};
     if (owner && internal::gdextension_interface_object_get_script_instance(owner, p_instance_data->language->_owner) == p_instance_data) {
         owner.notify_property_list_changed();
     }

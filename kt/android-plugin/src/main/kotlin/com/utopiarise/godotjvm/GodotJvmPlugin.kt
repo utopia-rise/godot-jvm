@@ -5,14 +5,14 @@ import org.godotengine.godot.plugin.GodotPlugin
 
 class GodotJvmPlugin(godot: Godot) : GodotPlugin(godot) {
     init {
-        check(nativeInitialize()) { "Could not pass Android's Java VM to Godot-JVM" }
+        nativeInitialize()
     }
 
     override fun getPluginName() = "GodotJvm"
 
     override fun getPluginGDExtensionLibrariesPaths() = setOf("res://addons/jvm/jvm.gdextension")
 
-    private external fun nativeInitialize(): Boolean
+    private external fun nativeInitialize()
 
     companion object {
         init {

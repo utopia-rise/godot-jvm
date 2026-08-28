@@ -65,9 +65,6 @@ if env["target"] == "editor":
     sources.append(Glob("cpp/editor/ui/*.cpp"))
     sources.append(Glob("cpp/editor/export/*.cpp"))
 
-if env["platform"] == "android":
-    sources.append(Glob("cpp/jvm/android/*.cpp"))
-
 # Android
 if env["platform"] != "android":
     java_include_dirs = [

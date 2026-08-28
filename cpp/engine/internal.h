@@ -1,4 +1,4 @@
-#ifndef GODOT_JVM_INTERNAL_H
+ #ifndef GODOT_JVM_INTERNAL_H
 #define GODOT_JVM_INTERNAL_H
 
 #include "core/object.hpp"

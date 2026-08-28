@@ -8,7 +8,6 @@
 #include "jvm/wrapper/memory/transfer_context.h"
 
 #include <classes/object.hpp>
-#include <core/object.hpp>
 #include <variant/array.hpp>
 
 using namespace bridges;
@@ -22,7 +21,7 @@ uintptr_t CallableBridge::engine_call_constructor_object_string_name(JNIEnv* p_r
     // Callable(Object*, StringName) does — without materializing the wrapper it would only read `_owner` off.
     auto* obj {reinterpret_cast<godot::GodotObject*>(object_ptr)};
     auto* name {reinterpret_cast<godot::StringName*>(method_name_ptr)};
-    return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::RawObject(obj).to_callable(*name)));
+    return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(raw_godot::RawObject(obj).to_callable(*name)));
 }
 
 uintptr_t CallableBridge::engine_call_constructor_lambda_callable(
@@ -59,7 +58,7 @@ void CallableBridge::engine_call_constructor_cancellable(
     )};
 
     // Signal::get_object() materializes a godot-cpp wrapper. The id path stays raw instead.
-    godot::RawObject owner {godot::RawObject::from_instance_id(signal.get_object_id())};
+    raw_godot::RawObject owner {raw_godot::RawObject::from_instance_id(signal.get_object_id())};
     if (owner.is_null()) {
         return;
     }

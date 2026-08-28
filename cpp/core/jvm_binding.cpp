@@ -1,7 +1,6 @@
 #include "jvm/wrapper/memory/type_manager.h"
 #include "jvm_binding.h"
 
-#include <classes/object.hpp>
 #include <godot.hpp>
 
 using namespace godot;

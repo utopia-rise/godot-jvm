@@ -1,7 +1,7 @@
 #include "packed_byte_array_bridge.h"
 
 #include "bridges_utils.h"
-#include "engine/utilities.h"
+#include "engine/godot_object.h"
 
 using namespace bridges;
 

@@ -3,7 +3,7 @@
 
 #include "core/jvm_binding_manager.h"
 #include "engine/internal.h"
-#include "engine/utilities.h"
+#include "engine/godot_object.h"
 #include "jvm/wrapper/jvm_singleton_wrapper.h"
 #include "jvm/wrapper/registration/kt_class.h"
 #include "jvm_script.h"

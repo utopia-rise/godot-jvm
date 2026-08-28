@@ -3,19 +3,19 @@
 #include "engine/godot_object.h"
 
 #include "api/language/gdj_language.h"
+#include "api/language/names.h"
 #include "api/script/jvm_script_manager.h"
 #include "classes/engine.hpp"
 #include "core/jvm_binding_manager.h"
 #include "jvm/wrapper/memory/memory_manager.h"
 #include "jvm_instance.h"
 #include "jvm_placeholder_instance.h"
-#include <classes/node.hpp>
 #include <core/object.hpp>
 
 using namespace godot;
 
 Variant JvmScript::_new() {
-    if (GodotObject* obj = _object_create()) { return RawObject(obj).to_variant(); }
+    if (GodotObject* obj = _object_create()) { return raw_godot::RawObject(obj).to_variant(); }
     return {};
 }
 
@@ -25,7 +25,7 @@ GodotObject* JvmScript::_object_create() const {
 #endif
 
     // Not godot::ClassDB::instantiate(): that forwards to the script-facing ClassDB singleton, which boxes a RefCounted result in a Ref<RefCounted> inside a Variant — converting that straight to Object* and letting the Variant go out of scope...
-    GodotObject* raw_owner {RawObject::instantiate(kotlin_class->base_godot_class)};
+    GodotObject* raw_owner {raw_godot::RawObject::instantiate(kotlin_class->base_godot_class)};
     JVM_ERR_FAIL_COND_V_MSG(
       raw_owner == nullptr,
       nullptr,
@@ -338,7 +338,7 @@ void* JvmScript::_placeholder_instance_create(GodotObject* p_for_object) const {
     get_script_exported_property_list(&exported_properties);
     JvmPlaceHolderInstance::update(placeholder_data, exported_properties, exported_members_default_value_cache);
 
-    placeholders.insert(placeholder, placeholder_data);
+    placeholders.insert(placeholder_data, placeholder_data);
     return placeholder;
 #else
     return nullptr;
@@ -374,7 +374,7 @@ String JvmScript::_get_class_icon_path() const {
 
 void JvmScript::move_placeholders_to(JvmScript* p_script) {
     Vector<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*> current_placeholders;
-    for (const KeyValue<GDExtensionScriptInstancePtr, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& entry : placeholders) {
+    for (const KeyValue<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& entry : placeholders) {
         current_placeholders.append(entry.value);
     }
 
@@ -382,10 +382,10 @@ void JvmScript::move_placeholders_to(JvmScript* p_script) {
         if (!placeholder->owner) { continue; }
 
         HashMap<StringName, Variant> values = placeholder->values;
-        Object* owner {placeholder->owner.to_wrapper()};
-        owner->set_script(Ref<Script>(p_script));
+        raw_godot::RawObject owner {placeholder->owner};
+        owner.set_script(Variant {Ref<Script>(p_script)});
         for (const KeyValue<StringName, Variant>& value : values) {
-            owner->set(value.key, value.value);
+            owner.set(value.key, value.value);
         }
     }
 }
@@ -400,10 +400,9 @@ void JvmScript::set_last_source_modified_time(uint64_t p_time) {
 }
 
 void JvmScript::update_source_sync_warning() {
-    for (const KeyValue<GDExtensionScriptInstancePtr, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
-        if (Node* node = Object::cast_to<Node>(placeholder.value->owner.to_wrapper())) {
-            node->update_configuration_warnings();
-        }
+    for (const KeyValue<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
+        raw_godot::RawObject owner {placeholder.value->owner};
+        if (owner && owner.is_class(SNAME("Node"))) { owner.update_configuration_warnings(); }
     }
 }
 
@@ -444,7 +443,7 @@ void JvmScript::update_script_exports() const {
         exported_members_default_value_cache[property_name] = default_value;
     }
 
-    for (const KeyValue<GDExtensionScriptInstancePtr, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
+    for (const KeyValue<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
         JvmPlaceHolderInstance::update(placeholder.value, exported_properties, exported_members_default_value_cache);
     }
 
@@ -454,14 +453,16 @@ void JvmScript::update_script_exports() const {
 }
 
 void JvmScript::_placeholder_erased(void* p_placeholder) {
-    placeholders.erase(p_placeholder);
+    placeholders.erase(reinterpret_cast<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>(p_placeholder));
 }
 
 void JvmScript::_format_template(const String& p_path) const {}
 
 void JvmScript::_set_path_cache(const String& p_path) const {
+    if (get_path().begins_with(GODOT_JVM_VIRTUAL_PATH_PREFIX) && !p_path.begins_with(GODOT_JVM_VIRTUAL_PATH_PREFIX)) {
+        JVM_DEV_VERBOSE("Promoting virtual JVM script from %s to physical source %s.", get_path(), p_path);
+    }
     Resource::_set_path_cache(p_path);
-    _format_template(p_path);
 }
 
 #endif

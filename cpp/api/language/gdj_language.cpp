@@ -50,11 +50,6 @@ void GdjLanguage::_finish() {
 }
 
 void GdjLanguage::_thread_enter() {
-    // Godot calls this for every thread it spawns (worker-thread-pool workers, importer threads, etc.), for every
-    // registered script language, regardless of whether any JVM script is in use. jni::Jvm::attach() unconditionally
-    // dereferences its singleton instance, which is only set once JVM_STARTED is reached (see
-    // JvmManager::initialize_or_get_jvm -> jni::Jvm::initialize) -- so any thread the engine spawns before that
-    // point, or when the JVM failed to start at all, hits a null-pointer dereference here.
     if (unlikely(GodotJvm::get_instance().state < GodotJvm::State::JVM_STARTED)) { return; }
     jni::Jvm::attach();
 }

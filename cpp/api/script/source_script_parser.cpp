@@ -10,10 +10,6 @@ Error read_source_script_file(const String& p_path, String& r_content) {
     const Ref<FileAccess> file_access {FileAccess::open(p_path, FileAccess::READ)};
     const Error err = FileAccess::get_open_error();
     JVM_ERR_FAIL_COND_V_MSG(err != OK, err, "Cannot open file '" + p_path + "'.");
-
-    // get_as_text() already decodes as UTF-8; godot-cpp exposes no String::is_valid_string()
-    // equivalent to re-validate the result, so that extra check from the engine-module version
-    // is dropped here.
     const String source = file_access->get_as_text();
 
     r_content = source;

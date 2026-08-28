@@ -6,7 +6,6 @@
 
 const int MAX_STACK_SIZE = MAX_FUNCTION_ARG_COUNT * 8;
 
-// Namespace-scope `thread_local` with a non-trivial constructor (godot::Variant's) requires per-thread dynamic initialization, which MSVC wires through a CRT TLS callback run on thread attach — a mechanism that isn't reliably invoked for a...
 struct TransferContextThreadStorage {
     godot::Variant args[MAX_STACK_SIZE];
     const godot::Variant* args_ptr[MAX_STACK_SIZE];

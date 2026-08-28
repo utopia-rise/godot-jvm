@@ -11,35 +11,17 @@ static godot::LocalVector<uint64_t> ids;
 static godot::LocalVector<uintptr_t> pointers;
 static godot::LocalVector<uint32_t> variant_types;
 
-namespace {
-    // Deliberately not godot-cpp's ObjectDB::get_instance(): that goes through
-    // internal::get_object_instance_binding(), i.e. it *creates* a godot-cpp wrapper (and with it godot-cpp's own
-    // instance binding) for the object. Godot never clears instance bindings when it unloads an extension at
-    // shutdown, and several engine-owned objects (the GDExtensionManager singleton, Time, ResourceUID, IP) are
-    // destroyed *after* the library is gone — their ~Object then calls a free callback that lives in unmapped
-    // memory and the process segfaults on exit. Especially perverse in release_binding(), whose whole job is to
-    // *drop* this object's bindings. None of the work below needs a wrapper anyway.
-    godot::GodotObject* raw_instance_from_id(jlong p_instance_id) {
-        return godot::internal::gdextension_interface_object_get_instance_from_id(static_cast<GDObjectInstanceID>(p_instance_id));
-    }
-
-    void unreference_and_destroy(godot::GodotObject* p_object) {
-        if (godot::RawObject(p_object).unreference()) { godot::internal::gdextension_interface_object_destroy(p_object); }
-    }
-} // namespace
-
 bool MemoryManager::check_instance(JNIEnv*, jobject, jlong p_raw_ptr, jlong instance_id) {
-    // p_raw_ptr is the raw engine pointer the JVM was given, so it's directly comparable to what the id resolves to.
-    godot::GodotObject* instance {raw_instance_from_id(instance_id)};
+    godot::GodotObject* instance {raw_godot::RawObject::from_instance_id(instance_id)};
     return instance != nullptr && instance == reinterpret_cast<godot::GodotObject*>(static_cast<uintptr_t>(p_raw_ptr));
 }
 
 void MemoryManager::release_binding(JNIEnv*, jobject, jlong instance_id) {
-    godot::GodotObject* obj {raw_instance_from_id(instance_id)};
+    godot::GodotObject* obj {raw_godot::RawObject::from_instance_id(instance_id)};
     if (obj == nullptr) { return; }
 
     ::godot::JvmBindingManager::free_binding(obj);
-    if (godot::RawObject(obj).is_ref_counted()) { unreference_and_destroy(obj); }
+    if (raw_godot::RawObject(obj).is_ref_counted()) { raw_godot::RawObject(obj).unreference_and_destroy(); }
 }
 
 void MemoryManager::unref_native_core_types(JNIEnv* p_raw_env, jobject, jobject p_ptr_array, jobject p_var_type_array) {
@@ -147,10 +129,10 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
     refs_to_decrement.delete_local_ref(p_env);
 
     for (uint64_t id : ids) {
-        godot::GodotObject* ref {raw_instance_from_id(static_cast<jlong>(id))};
+        godot::GodotObject* ref {raw_godot::RawObject::from_instance_id(id)};
         if (ref == nullptr) { continue; }
         ::godot::JvmBindingManager::free_binding(ref);
-        unreference_and_destroy(ref);
+        raw_godot::RawObject(ref).unreference_and_destroy();
     }
 
     ids.clear();
@@ -188,9 +170,10 @@ void MemoryManager::try_promotion(::godot::JvmInstance::JvmInstanceData* script_
 }
 
 void MemoryManager::direct_object_deletion(jni::Env& p_env, godot::GodotObject* p_obj) {
-    jvalue args[1] = {jni::to_jni_arg(godot::internal::gdextension_interface_object_get_instance_id(p_obj))};
+    raw_godot::RawObject object {p_obj};
+    jvalue args[1] = {jni::to_jni_arg(object.get_instance_id())};
     wrapped.call_void_method(p_env, DELETE_OBJECT, args);
-    godot::internal::gdextension_interface_object_destroy(p_obj);
+    object.destroy();
 }
 
 MemoryManager::~MemoryManager() = default;

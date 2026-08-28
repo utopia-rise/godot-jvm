@@ -7,7 +7,6 @@
 #include <variant/callable.hpp>
 #include <variant/callable_custom.hpp>
 
-// Must match the real Kotlin class exactly: `abstract class LambdaContainer<R>` in godot/core/callback/LambdaCallable.kt, with methods `invoke()`, `invokeWithReturn()`, `cancel()`. There is no Kotlin-side "getReturnVariantType"/"onCancel"/...
 JVM_INSTANCE_WRAPPER(LambdaContainer, "godot.core.LambdaContainer") {
     JVM_CLASS(LambdaContainer)
     // clang-format off

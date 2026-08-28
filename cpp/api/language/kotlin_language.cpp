@@ -192,6 +192,8 @@ TypedArray<Dictionary> KotlinLanguage::_get_built_in_templates(const StringName&
         script_template["name"] = "Default";
         script_template["description"] = "Base template for Node based scripts with default Godot cycle methods";
         script_template["content"] = String(KOTLIN_TEMPLATE).replace(BASE_TEMPLATE, p_object);
+        script_template["id"] = 0;
+        script_template["origin"] = 0; // ScriptLanguage::TEMPLATE_BUILT_IN
         templates.append(script_template);
     }
     return templates;

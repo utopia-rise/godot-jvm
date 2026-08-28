@@ -3,11 +3,6 @@
 // If changed, remember to change also LongStringQueue::stringMaxSize on JVM side  and the StringTest.kt
 uint16_t LongStringQueue::max_string_size = 512;
 
-// Namespace-scope `thread_local` with a non-trivial constructor (godot::List's) requires
-// per-thread dynamic initialization via a CRT TLS callback, which isn't reliably invoked for a
-// DLL loaded dynamically via LoadLibrary (how Godot loads a GDExtension) and can fail the load
-// outright (Windows error 1114). A function-local thread_local static avoids that: its lazy,
-// guard-checked initialization runs as ordinary code at first call, not via the TLS callback table.
 static godot::List<godot::String>& string_queue() {
     thread_local godot::List<godot::String>* queue {nullptr};
     if (unlikely(!queue)) { queue = memnew(godot::List<godot::String>); }

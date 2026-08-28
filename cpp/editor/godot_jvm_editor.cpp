@@ -3,7 +3,7 @@
 #include "editor/build/gradle_task_runner.h"
 #include "editor/export/godot_jvm_editor_export_plugin.h"
 #include "editor/jvm_syntax_highlighter.h"
-#include "engine/utilities.h"
+#include "engine/godot_object.h"
 #include "godot_jvm.h"
 #include "paths.h"
 #include "project/project_generator.h"
@@ -50,7 +50,6 @@ void GodotJvmEditor::on_gradle_task_pressed() {
 void GodotJvmEditor::on_filesystem_change() {
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_SCRIPTS_INITIALIZED) { return; }
 
-    // We check for changes in the file system in case the main.jar has been added (not reloaded, just was not present when the editor started)
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_STARTED) {
         String bootstrap {String(RES_DIRECTORY).path_join(BOOTSTRAP_FILE)};
         if (FileAccess::file_exists(bootstrap)) {

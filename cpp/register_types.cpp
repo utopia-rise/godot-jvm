@@ -25,7 +25,7 @@
 #include "api/script/language/kotlin_script.h"
 #include "api/script/language/scala_script.h"
 #include "core/variant_allocator.h"
-#include "engine/utilities.h"
+#include "engine/godot_object.h"
 #include "godot_jvm.h"
 #include "logging.h"
 #include "register_types.h"
@@ -45,7 +45,7 @@ void initialize_godot_jvm_library(ModuleInitializationLevel p_level) {
         // Configure phase: one-time setup for globals that need godot-cpp's GDExtension interface to be ready (populated by GDExtensionBinding::InitObject, already run by this point — this function is only ever reached via that object's registered...
         configure_logging();
         VariantAllocator::configure();
-        raw_engine::configure_core();
+        raw_godot::configure_core();
 
         GDREGISTER_ABSTRACT_CLASS(JvmScript);
         GDREGISTER_CLASS(GdjScript);
@@ -70,7 +70,7 @@ void initialize_godot_jvm_library(ModuleInitializationLevel p_level) {
 
     // ResourceLoader/ResourceSaver aren't registered as engine singletons yet at SERVERS level (Engine::get_singleton_object("ResourceLoader") returns null there) — SCENE level is the earliest point they're guaranteed to exist for a GDExtension.
     if (p_level == MODULE_INITIALIZATION_LEVEL_SCENE) {
-        raw_engine::configure_scene();
+        raw_godot::configure_scene();
 
         GDREGISTER_INTERNAL_CLASS(JvmResourceFormatLoader);
         GDREGISTER_INTERNAL_CLASS(JvmResourceFormatSaver);

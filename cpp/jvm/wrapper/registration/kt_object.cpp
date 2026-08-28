@@ -21,7 +21,7 @@ void KtObject::script_instance_removed(jni::Env& p_env, uint32_t constructor_ind
 void KtObject::create_native_object(JNIEnv* p_raw_env, jobject p_instance, jint p_class_index, jlong p_script_ptr) {
     const godot::StringName& class_name {TypeManager::get_instance().get_engine_type_for_index(static_cast<int>(p_class_index))};
     // Not godot::ClassDB::instantiate(): that forwards to the script-facing ClassDB singleton, which boxes a RefCounted result in a Ref<RefCounted> inside a Variant — converting that straight to Object* and letting the Variant go out of scope...
-    godot::GodotObject* raw_ptr_value {godot::RawObject::instantiate(class_name)};
+    godot::GodotObject* raw_ptr_value {raw_godot::RawObject::instantiate(class_name)};
 
 #ifdef DEBUG_ENABLED
     JVM_ERR_FAIL_COND_MSG(!raw_ptr_value, "Failed to instantiate class %s", class_name);
@@ -31,7 +31,7 @@ void KtObject::create_native_object(JNIEnv* p_raw_env, jobject p_instance, jint 
 
     // set_instance_binding()/RawObject::is_ref_counted() work directly on the raw pointer — no godot-cpp wrapper is created (or needed) for any of this.
     godot::JvmBindingManager::set_instance_binding(raw_ptr_value);
-    bool is_rc = godot::RawObject(raw_ptr_value).is_ref_counted();
+    bool is_rc = raw_godot::RawObject(raw_ptr_value).is_ref_counted();
 
     if (auto* kotlin_script = bridges::from_uint_to_ptr<godot::JvmScript>(p_script_ptr)) {
         KtObject* kt_object = memnew(KtObject(env, jni::JObject(p_instance), is_rc));
@@ -81,7 +81,7 @@ void KtObject::free_object(JNIEnv*, jobject, jlong p_raw_ptr) {
     auto* raw_ptr_value = reinterpret_cast<godot::GodotObject*>(static_cast<uintptr_t>(p_raw_ptr));
 
 #ifdef DEBUG_ENABLED
-    JVM_ERR_FAIL_COND_MSG(godot::RawObject(raw_ptr_value).is_ref_counted(), "Can't 'free' a RefCounted godot::Object.");
+    JVM_ERR_FAIL_COND_MSG(raw_godot::RawObject(raw_ptr_value).is_ref_counted(), "Can't 'free' a RefCounted godot::Object.");
 #endif
 
     godot::internal::gdextension_interface_object_destroy(raw_ptr_value);
