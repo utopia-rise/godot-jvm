@@ -19,7 +19,7 @@ data class KtClass<T : KtObject>(
     val kClass: KClass<out KtObject>,
     private val _registeredSupertypes: List<String>,
     val constructor: KtConstructor<T>?,
-    private val _properties: Map<String, KtProperty<T, *>>,
+    private val _properties: List<KtProperty<T, *>>,
     private val _functions: Map<String, KtFunction<T, *>>,
     private val _notifications: List<KtNotification<T>>,
     private val _signalInfos: Map<String, KtSignalInfo>,
@@ -31,7 +31,7 @@ data class KtClass<T : KtObject>(
     val functions: Array<KtFunction<T, *>>
         get() = _functions.values.toTypedArray()
     val properties: Array<KtProperty<T, *>>
-        get() = _properties.values.toTypedArray()
+        get() = _properties.toTypedArray()
     val signalInfos: Array<KtSignalInfo>
         get() = _signalInfos.values.toTypedArray()
     val handledNotifications: IntArray

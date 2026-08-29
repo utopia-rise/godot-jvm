@@ -1,6 +1,6 @@
 package godot.tests.registration
 
-import godot.annotation.{ColorNoAlpha, Dir, DoubleRange, ExpEasing, Export, File, FloatRange, IntFlag, IntRange, LongRange, MultilineText, PlaceHolderText, Script, Visible}
+import godot.annotation.{Category, ColorNoAlpha, Dir, DoubleRange, ExpEasing, Export, File, FloatRange, Group, IntFlag, IntRange, LongRange, MultilineText, PlaceHolderText, Script, Subgroup, Visible}
 import godot.api.{Button, NavigationMesh, Node}
 import godot.tests.ScalaEnum
 import godot.core.{AABB, Basis, BitField, Color, Dictionary, NodePath, PackedByteArray, PackedColorArray, PackedFloat32Array, PackedFloat64Array, PackedInt32Array, PackedInt64Array, PackedStringArray, PackedVector2Array, PackedVector3Array, PackedVector4Array, Plane, Projection, Quaternion, RID, Rect2, Rect2i, StringName, Transform2D, Transform3D, VariantArray, Vector2, Vector2i, Vector3, Vector3i, Vector4, Vector4i}
@@ -22,6 +22,34 @@ class ScalaExport extends Node {
   @Export
   @Visible
   var intValue: Int = 1
+
+  @Category(name = "Character")
+  @Group(name = "Movement")
+  @Subgroup(name = "Speeds", prefix = "movementSpeed")
+  var movementSpeedWalk: Double = 4.0
+
+  @Export
+  var movementSpeedRun: Double = 7.0
+
+  @Subgroup(name = "Jumping", prefix = "movementJump")
+  var movementJumpHeight: Double = 2.0
+
+  @Export
+  var movementJumpDuration: Double = 0.5
+
+  @Group(name = "Health")
+  var healthMaximum: Int = 100
+
+  @Export
+  var healthRegeneration: Int = 5
+
+  @Category(name = "Presentation")
+  @Group(name = "Appearance")
+  @Subgroup(name = "Colors", prefix = "appearanceColor")
+  var appearanceColorPrimary: Color = new Color(0.2, 0.5, 1.0, 1.0)
+
+  @Export
+  var appearanceColorSecondary: Color = new Color(1.0, 0.5, 0.2, 1.0)
 
   @Export
   @Visible

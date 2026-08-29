@@ -1,6 +1,5 @@
 package godot.registrar.generator.generator.hint
 
-import godot.core.VariantParser
 import godot.registration.model.RegisteredProperty
 import godot.core.PropertyHint as GodotPropertyHint
 
@@ -29,11 +28,7 @@ internal class DictionaryHintStringGenerator(
             valueHintString,
         ).joinToString(";")
 
-        return if (subHintString.isEmpty()) {
-            VariantParser.DICTIONARY.id.toString()
-        } else {
-            "${VariantParser.DICTIONARY.id}/$subHintString"
-        }
+        return subHintString
     }
 
     override fun generate(): GeneratedPropertyHint = GeneratedPropertyHint(GodotPropertyHint.TYPE_STRING, getHintString())

@@ -13,6 +13,7 @@
 #include <classes/button.hpp>
 #include <classes/editor_file_system.hpp>
 #include <classes/editor_interface.hpp>
+#include <classes/engine.hpp>
 #include <classes/file_access.hpp>
 #include <classes/popup_menu.hpp>
 #include <classes/project_settings.hpp>
@@ -117,6 +118,8 @@ bool GodotJvmEditor::_build() {
 }
 
 void GodotJvmEditor::_notification(int notification) {
+    if (!Engine::get_singleton()->is_editor_hint()) { return; }
+
     Control* editor_base_control = get_editor_interface()->get_base_control();
     ProjectSettings* project_settings = ProjectSettings::get_singleton();
 

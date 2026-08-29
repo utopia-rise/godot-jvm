@@ -4,6 +4,7 @@
 
 #include "api/language/names.h"
 
+#include <classes/engine.hpp>
 #include <classes/editor_interface.hpp>
 #include <classes/editor_settings.hpp>
 #include <classes/script.hpp>
@@ -60,20 +61,23 @@ void JvmStandardSyntaxHighlighter::_update_cache() {
     keywords.clear();
     regions.clear();
 
+    auto* editor_interface = Object::cast_to<EditorInterface>(Engine::get_singleton()->get_singleton(StringName("EditorInterface")));
+    if (editor_interface == nullptr) { return; }
+
     // Fallback palette in case EditorSettings is ever unavailable; overwritten below otherwise.
     keyword_color = Color(0.45f, 0.62f, 0.91f);
     Color comment_color(0.5f, 0.5f, 0.5f);
     Color string_color(0.92f, 0.72f, 0.42f);
     default_color = Color(0.85f, 0.85f, 0.85f);
 
-    if (Ref<EditorSettings> settings = EditorInterface::get_singleton()->get_editor_settings(); settings.is_valid()) {
+    if (Ref<EditorSettings> settings = editor_interface->get_editor_settings(); settings.is_valid()) {
         keyword_color = settings->get_setting("text_editor/theme/highlighting/keyword_color");
         comment_color = settings->get_setting("text_editor/theme/highlighting/comment_color");
         string_color = settings->get_setting("text_editor/theme/highlighting/string_color");
     }
 
     // No `_get_edited_resource()`/`_set_script_language()` in godot-cpp (unlike master's base class), so the currently-focused script tab is the closest available signal for "which language is this highlighter instance highlighting."
-    Ref<Script> script = EditorInterface::get_singleton()->get_script_editor()->get_current_script();
+    Ref<Script> script = editor_interface->get_script_editor()->get_current_script();
     auto* script_ext = script.is_valid() ? Object::cast_to<ScriptExtension>(script.ptr()) : nullptr;
     auto* lang = script_ext ? Object::cast_to<ScriptLanguageExtension>(script_ext->_get_language()) : nullptr;
     if (lang == nullptr) { return; }

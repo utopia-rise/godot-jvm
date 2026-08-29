@@ -4,6 +4,9 @@ import godot.annotation.ColorNoAlpha
 import godot.annotation.Dir
 import godot.annotation.DoubleRange
 import godot.annotation.ExpEasing
+import godot.annotation.Category
+import godot.annotation.Group
+import godot.annotation.Subgroup
 import godot.annotation.File
 import godot.annotation.FloatRange
 import godot.annotation.HintString
@@ -12,6 +15,7 @@ import godot.annotation.IntRange
 import godot.annotation.LongRange
 import godot.annotation.MultilineText
 import godot.annotation.PlaceHolderText
+import godot.common.extensions.convertToSnakeCase
 import godot.registration.model.hint.property.ColorNoAlphaHint
 import godot.registration.model.hint.property.DirHint
 import godot.registration.model.hint.property.ExpEasingHint
@@ -23,10 +27,41 @@ import godot.registration.model.hint.property.PlaceHolderTextHint
 import godot.registration.model.hint.property.PropertyHint
 import godot.registration.model.hint.property.Range
 import godot.registration.model.hint.property.RangeHint
+import godot.registration.model.PropertyGroup
+import godot.registration.model.PropertyGroupKind
 import io.github.classgraph.AnnotationEnumValue
 import io.github.classgraph.AnnotationInfo
 
 object AnnotationMapper {
+    fun toPropertyGroup(annotationInfo: AnnotationInfo): PropertyGroup? =
+        when (annotationInfo.name) {
+            Category::class.java.name -> PropertyGroup(
+                kind = PropertyGroupKind.CATEGORY,
+                name = annotationInfo.parameterValues.getValue("name") as String,
+                prefix = "",
+            )
+
+            Group::class.java.name -> PropertyGroup(
+                kind = PropertyGroupKind.GROUP,
+                name = annotationInfo.parameterValues.getValue("name") as String,
+                prefix = annotationInfo.groupPrefix(),
+            )
+
+            Subgroup::class.java.name -> PropertyGroup(
+                kind = PropertyGroupKind.SUBGROUP,
+                name = annotationInfo.parameterValues.getValue("name") as String,
+                prefix = annotationInfo.groupPrefix(),
+            )
+
+            else -> null
+        }
+
+    private fun AnnotationInfo.groupPrefix(): String {
+        val name = parameterValues.getValue("name") as String
+        val prefix = parameterValues.getValue("prefix") as? String
+        return (prefix?.takeIf { it.isNotEmpty() } ?: name.replaceFirstChar(Char::lowercaseChar)).convertToSnakeCase()
+    }
+
     @Suppress("UNCHECKED_CAST")
     fun toPropertyHint(annotationInfo: AnnotationInfo): PropertyHint? =
         when (annotationInfo.name) {

@@ -21,6 +21,7 @@ data class RegisteredProperty(
     val isOverridee: Boolean = false,
     val isExported: Boolean = false,
     val hints: List<PropertyHint> = emptyList(),
+    val groups: List<PropertyGroup> = emptyList(),
 ) {
     val name: String = fqName.substringAfterLast(".")
 }
