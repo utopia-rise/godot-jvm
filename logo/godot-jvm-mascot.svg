@@ -14,15 +14,15 @@
       <stop offset="1" stop-color="#7F52FF"/>
     </linearGradient>
     <linearGradient id="cup-gradient" gradientUnits="userSpaceOnUse" x1="402" y1="0" x2="622" y2="0">
-      <stop offset="0" stop-color="#A88BFF"/>
-      <stop offset="0.55" stop-color="#7F52FF"/>
-      <stop offset="1" stop-color="#5A34D6"/>
+      <stop offset="0" stop-color="#BBA7FF"/>
+      <stop offset="0.55" stop-color="#9876FF"/>
+      <stop offset="1" stop-color="#7555EF"/>
     </linearGradient>
     <linearGradient id="rim-fade" gradientUnits="userSpaceOnUse" x1="432.79" y1="0" x2="591.21" y2="0">
-      <stop offset="0" stop-color="#C4B0FF" stop-opacity="0"/>
-      <stop offset="0.25" stop-color="#C4B0FF" stop-opacity="1"/>
-      <stop offset="0.75" stop-color="#C4B0FF" stop-opacity="1"/>
-      <stop offset="1" stop-color="#C4B0FF" stop-opacity="0"/>
+      <stop offset="0" stop-color="#D7CAFF" stop-opacity="0"/>
+      <stop offset="0.25" stop-color="#D7CAFF" stop-opacity="1"/>
+      <stop offset="0.75" stop-color="#D7CAFF" stop-opacity="1"/>
+      <stop offset="1" stop-color="#D7CAFF" stop-opacity="0"/>
     </linearGradient>
     <clipPath id="face-sides">
       <rect x="172" y="0" width="680" height="1024"/>
@@ -33,7 +33,7 @@
   <path fill="url(#jaw-gradient)" d="M172 704 292 716l9 78 132 12 14-78h130l14 78 132-12 9-78 120-12v89c0 108-151 179-340 179S172 901 172 793Z"/>
 
   <!-- Gear-shaped upper head. -->
-  <path fill="#17162B" d="M172 704V531l-40-38a13 13 0 0 1-2-17l48-67a13 13 0 0 1 17-4l56 37 35-28-28-80a13 13 0 0 1 6-16l75-42a13 13 0 0 1 17 4l52 70c31-14 66-21 104-21s73 7 104 21l52-70a13 13 0 0 1 17-4l75 42a13 13 0 0 1 6 16l-28 80 35 28 56-37a13 13 0 0 1 17 4l48 67a13 13 0 0 1-2 17l-40 38v173l-120 12-9 78-132 12-14-78H447l-14 78-132-12-9-78Z"/>
+  <path fill="#372A68" d="M172 704V531l-40-38a13 13 0 0 1-2-17l48-67a13 13 0 0 1 17-4l56 37 35-28-28-80a13 13 0 0 1 6-16l75-42a13 13 0 0 1 17 4l52 70c31-14 66-21 104-21s73 7 104 21l52-70a13 13 0 0 1 17-4l75 42a13 13 0 0 1 6 16l-28 80 35 28 56-37a13 13 0 0 1 17 4l48 67a13 13 0 0 1-2 17l-40 38v173l-120 12-9 78-132 12-14-78H447l-14 78-132-12-9-78Z"/>
 
   <!-- Blue cup-like steam vent. -->
   <path fill="url(#cup-gradient)" d="M402 367c0-29 49-48 110-48s110 19 110 48v51c0 29-49 48-110 48s-110-19-110-48Z"/>

@@ -126,7 +126,6 @@
 }
 
 .md-header__button.md-logo img {
-  filter: drop-shadow(0 0 1px rgb(255 255 255 / 90%));
   height: 2.3rem;
   transform: translateY(-0.08rem);
   width: 2.3rem;

@@ -31,7 +31,7 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
-  logo: logo/logo.png
+  logo: logo/logo-outline.png
   font:
     code: JetBrains Mono
   features:
