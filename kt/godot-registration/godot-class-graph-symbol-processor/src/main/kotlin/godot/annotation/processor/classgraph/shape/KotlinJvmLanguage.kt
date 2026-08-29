@@ -42,7 +42,7 @@ class KotlinJvmLanguage : JvmLanguage() {
         methodInfo.parameterInfo.isEmpty() && methodInfo.returnRawDescriptor() != TYPE_VOID ->
             when {
                 methodInfo.name.startsWith("get") && methodInfo.name.length > 3 ->
-                    listOf(PropertyAccessor.Getter(methodInfo.name.removePrefix("get").decapitalized()))
+                    listOf(PropertyAccessor.Getter(propertyName(methodInfo.name.removePrefix("get"), classInfo)))
 
                 methodInfo.name.startsWith("is") && methodInfo.name.length > 2 ->
                     listOf(PropertyAccessor.Getter(methodInfo.name))
@@ -56,7 +56,7 @@ class KotlinJvmLanguage : JvmLanguage() {
             methodInfo.name.length > 3 ->
             methodInfo.name.removePrefix("set").let { suffix ->
                 listOf(
-                    PropertyAccessor.Setter(suffix.decapitalized()),
+                    PropertyAccessor.Setter(propertyName(suffix, classInfo)),
                     PropertyAccessor.Setter("is$suffix"),
                 )
             }
@@ -133,6 +133,11 @@ class KotlinJvmLanguage : JvmLanguage() {
         val methodName = getter.name + "$" + "annotations"
         return index.methodsByName[methodName]?.firstOrNull()?.annotationInfo ?: emptyList()
     }
+
+    private fun propertyName(accessorSuffix: String, classInfo: ClassInfo): String =
+        accessorSuffix.takeIf { propertyName ->
+            classInfo.declaredFieldInfo.orEmpty().any { fieldInfo -> logicalFieldName(fieldInfo) == propertyName }
+        } ?: accessorSuffix.decapitalized()
 }
 
 private const val DELEGATE_SUFFIX = "$" + "delegate"

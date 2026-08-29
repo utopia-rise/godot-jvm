@@ -18,7 +18,9 @@ KtClass::KtClass(jni::Env& p_env, jni::JObject p_wrapped) :
 
 KtClass::~KtClass() {
     delete_members(methods);
-    delete_members(properties);
+    for (KtProperty* property : property_list) {
+        delete property;
+    }
     delete_members(signal_infos);
     delete kt_constructor;
 }
@@ -104,7 +106,10 @@ void KtClass::fetch_properties(jni::Env& env) {
     jni::JObjectArray propertiesArray {wrapped.call_object_method(env, GET_PROPERTIES)};
     for (int i = 0; i < propertiesArray.length(env); i++) {
         auto* ktProperty {new KtProperty(env, propertiesArray.get(env, i))};
-        properties[ktProperty->get_name()] = ktProperty;
+        property_list.append(ktProperty);
+        if (!ktProperty->is_property_list_marker()) {
+            properties[ktProperty->get_name()] = ktProperty;
+        }
         JVM_DEV_VERBOSE("Fetched property %s for class %s", ktProperty->get_name(), registered_class_name);
     }
     propertiesArray.delete_local_ref(env);
@@ -133,7 +138,9 @@ void KtClass::get_method_list(godot::List<godot::MethodInfo>* p_list) {
 }
 
 void KtClass::get_property_list(godot::List<godot::PropertyInfo>* p_list) {
-    get_member_list(p_list, properties);
+    for (KtProperty* property : property_list) {
+        p_list->push_back(property->get_member_info());
+    }
 }
 
 void KtClass::get_signal_list(godot::List<godot::MethodInfo>* p_list) {

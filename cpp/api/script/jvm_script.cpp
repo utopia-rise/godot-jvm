@@ -361,7 +361,7 @@ void JvmScript::get_script_exported_property_list(List<PropertyInfo>* p_list) co
 
     p_list->push_back(PropertyInfo(Variant::NIL, _get_global_name(), PROPERTY_HINT_NONE, String(), PROPERTY_USAGE_CATEGORY));
     for (const PropertyInfo& property_info : all_properties) {
-        if (property_info.usage & PropertyUsageFlags::PROPERTY_USAGE_EDITOR) {
+        if (property_info.usage & (PropertyUsageFlags::PROPERTY_USAGE_EDITOR | PropertyUsageFlags::PROPERTY_USAGE_GROUP | PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP | PropertyUsageFlags::PROPERTY_USAGE_CATEGORY)) {
             p_list->push_back(property_info);
         }
     }

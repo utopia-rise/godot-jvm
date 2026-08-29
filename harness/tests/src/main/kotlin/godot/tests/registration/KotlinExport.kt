@@ -2,6 +2,9 @@
 
 import godot.annotation.ExpEasing
 import godot.annotation.Export
+import godot.annotation.Category
+import godot.annotation.Group
+import godot.annotation.Subgroup
 import godot.annotation.File
 import godot.annotation.FloatRange
 import godot.annotation.IntFlag
@@ -15,6 +18,7 @@ import godot.annotation.ColorNoAlpha
 import godot.annotation.Dir
 import godot.annotation.DoubleRange
 import godot.api.Button
+import godot.api.Camera3D
 import godot.api.NavigationMesh
 import godot.api.Node
 import godot.core.AABB
@@ -112,6 +116,37 @@ class KotlinExport : Node() {
     @Export
     @Visible
     var intValue = 1
+
+    @Export
+    var Camera: Camera3D? = null
+
+    @Category("Character")
+    @Group("Movement")
+    @Subgroup("Speeds", "movementSpeed")
+    var movementSpeedWalk = 4.0
+
+    @Export
+    var movementSpeedRun = 7.0
+
+    @Subgroup("Jumping", "movementJump")
+    var movementJumpHeight = 2.0
+
+    @Export
+    var movementJumpDuration = 0.5
+
+    @Group("Health")
+    var healthMaximum = 100
+
+    @Export
+    var healthRegeneration = 5
+
+    @Category("Presentation")
+    @Group("Appearance")
+    @Subgroup("Colors", "appearanceColor")
+    var appearanceColorPrimary = Color(0.2, 0.5, 1.0)
+
+    @Export
+    var appearanceColorSecondary = Color(1.0, 0.5, 0.2)
 
     @Export
     val lazyIntValue: Int by lazy { 42 }

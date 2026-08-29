@@ -405,6 +405,7 @@ class RegistrationMapper(
                             typeArguments = property.typeArguments(),
                             annotations = property.annotations,
                         ),
+                        groups = property.annotations.mapNotNull(AnnotationMapper::toPropertyGroup),
                     )
                 }
 

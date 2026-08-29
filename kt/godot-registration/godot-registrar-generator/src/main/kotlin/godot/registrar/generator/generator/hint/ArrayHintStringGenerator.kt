@@ -19,7 +19,7 @@ internal class ArrayHintStringGenerator(
         isUntyped = isUntypedProperty(registeredProperty),
     )
 
-    fun getHintString(): String = if (isUntyped) "" else "$prefix${VariantParser.ARRAY.id}${elementHintString.orEmpty()}"
+    fun getHintString(): String = if (isUntyped) "" else "$prefix${elementHintString.orEmpty()}"
 
     override fun generate(): GeneratedPropertyHint = GeneratedPropertyHint(GodotPropertyHint.TYPE_STRING, getHintString())
 

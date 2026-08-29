@@ -32,7 +32,10 @@ godot::PropertyInfo KtPropertyInfo::toPropertyInfo() const {
     info.class_name = class_name;
     info.hint = hint;
     info.hint_string = hint_string;
-    info.usage = usage | godot::PropertyUsageFlags::PROPERTY_USAGE_SCRIPT_VARIABLE;
+    info.usage = usage;
+    if (!(usage & (godot::PropertyUsageFlags::PROPERTY_USAGE_GROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_CATEGORY))) {
+        info.usage = usage | godot::PropertyUsageFlags::PROPERTY_USAGE_SCRIPT_VARIABLE;
+    }
     return info;
 }
 
@@ -46,6 +49,10 @@ KtProperty::~KtProperty() {
 
 godot::StringName KtProperty::get_name() const {
     return propertyInfo->name;
+}
+
+bool KtProperty::is_property_list_marker() const {
+    return propertyInfo->usage & (godot::PropertyUsageFlags::PROPERTY_USAGE_GROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_CATEGORY);
 }
 
 godot::PropertyInfo KtProperty::get_member_info() {
