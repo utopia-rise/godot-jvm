@@ -19,8 +19,8 @@ android.debug.x86_64 = "res://addons/jvm/libs/android/debug/x86_64/libgodot_jvm.
 android.release.x86_64 = "res://addons/jvm/libs/android/release/x86_64/libgodot_jvm.so"
 android.debug.arm64 = "res://addons/jvm/libs/android/debug/arm64-v8a/libgodot_jvm.so"
 android.release.arm64 = "res://addons/jvm/libs/android/release/arm64-v8a/libgodot_jvm.so"
-ios.debug = "res://addons/jvm/libs/ios/godot.jvm.ios.template_debug.xcframework"
-ios.release = "res://addons/jvm/libs/ios/godot.jvm.ios.template_release.xcframework"
+ios.debug = "res://addons/jvm/libs/ios/godot.jvm.ios.template_debug.a"
+ios.release = "res://addons/jvm/libs/ios/godot.jvm.ios.template_release.a"
 
 [icons]
 GdjScript = "res://addons/jvm/icons/GdjScript.svg"
