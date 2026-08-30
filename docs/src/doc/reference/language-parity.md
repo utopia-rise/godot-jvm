@@ -16,7 +16,7 @@ exhaustive list of that Kotlin-only surface as of this writing.
 | Lambda callable | `lambdaCallableN { ... }`, or `.asCallable()` on a lambda you already hold | `LambdaCallableN.create(...)` with explicit JVM classes for the argument and return types |
 | Connecting a method to a signal | `signal.connectMethod(target, Type::method)` | `SignalConnectors.connectMethodN(signal, target, methodStringName)` |
 | Connecting a lambda to a signal | `signal.connectLambda { ... }` | `SignalConnectors.connectLambdaN(signal, ..., lambda)` |
-| Coroutines | `godotCoroutine { ... }` and `signal.await()`, behind the `isGodotCoroutinesEnabled` Gradle flag | None. Write a Kotlin wrapper that exposes a callback-based API and call that from Java or Scala. |
+| Coroutines | `node.launch { ... }` and `signal.await()`, behind the `isGodotCoroutinesEnabled` Gradle flag | None. Write a Kotlin wrapper that exposes a callback-based API and call that from Java or Scala. |
 | Mutating a core-type property in place | `node3D.rotationMutate { y += 10f }` | Read the property, mutate the copy, assign it back: `var v = node.getRotation(); v.setY(v.getY() + 10f); node.setRotation(v);` |
 | Mutating a collection element in place | `array.mutate(index) { it.y += 10f }`, `dictionary.mutate("foo") { it.y += 5f }` | Read the element with `get`, mutate the copy, write it back with `set` |
 
