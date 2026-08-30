@@ -150,7 +150,7 @@ void JvmScriptManager::initialize_scripts(const Vector<KtClass*>& p_classes) {
 #ifdef TOOLS_ENABLED
 void JvmScriptManager::update_all_scripts() {
     EditorFileSystem* filesystem = nullptr;
-    if (Engine::get_singleton()->has_singleton(SNAME("EditorInterface"))) {
+    if (Engine::get_singleton()->is_editor_hint() && Engine::get_singleton()->has_singleton(SNAME("EditorInterface"))) {
         filesystem = EditorInterface::get_singleton()->get_resource_filesystem();
     }
     for (const KeyValue<StringName, Ref<WeakRef>>& entry : fqdn_to_script) {
