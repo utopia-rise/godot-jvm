@@ -6,6 +6,9 @@ import godot.annotation.processor.classgraph.ProcessorSettings
 import godot.annotation.processor.classgraph.constants.BIT_FIELD
 import godot.annotation.processor.classgraph.constants.BIT_FIELD_BASE
 import godot.annotation.processor.classgraph.constants.CORE_TYPE_FQ_NAME
+import godot.annotation.processor.classgraph.constants.GODOT_NODE_FQ_NAME
+import godot.annotation.processor.classgraph.constants.GODOT_RESOURCE_FQ_NAME
+import godot.annotation.processor.classgraph.constants.JAVA_COLLECTION_FQ_NAME
 import godot.registration.model.types.TYPE_JAVA_OBJECT
 import godot.registration.model.types.Type
 import io.github.classgraph.ClassInfo
@@ -66,7 +69,13 @@ fun ClassInfo.superMethodSignatures(): Set<String> {
     return signatures
 }
 
-fun String.isMappableType(context: ProcessorContext): Boolean {
+fun String.isMappableType(context: ProcessorContext): Boolean =
+    isMappable(context, storableGodotClassesOnly = false)
+
+fun String.isMappablePropertyType(context: ProcessorContext): Boolean =
+    isMappable(context, storableGodotClassesOnly = true) || isEnumCollectionDescriptor(context)
+
+private fun String.isMappable(context: ProcessorContext, storableGodotClassesOnly: Boolean): Boolean {
     val rawDescriptor = substringBefore("<")
     if (Type.findPrimitiveType(rawDescriptor) != null) {
         return true
@@ -78,11 +87,23 @@ fun String.isMappableType(context: ProcessorContext): Boolean {
         return true
     }
     val classInfo = context.getClassInfoOrNull(rawDescriptor) ?: return false
+    val godotClassIsSelectable = classInfo.isStandardClass &&
+        classInfo.isGodotCompatibleClass() &&
+        (!storableGodotClassesOnly || classInfo.isProcessorNodeOrResource)
+
     return classInfo.isEnum ||
-        classInfo.isInterface ||
-        (classInfo.isStandardClass && classInfo.isGodotCompatibleClass()) ||
+        godotClassIsSelectable ||
         classInfo.isProcessorCoreType ||
         classInfo.isProcessorBitField
+}
+
+private fun String.isEnumCollectionDescriptor(context: ProcessorContext): Boolean {
+    val classInfo = context.getClassInfoOrNull(substringBefore("<")) ?: return false
+    if (!classInfo.isProcessorCollection) {
+        return false
+    }
+    val elementDescriptor = substringAfter("<", "").substringBeforeLast(">", "").substringBefore(",")
+    return context.getClassInfoOrNull(elementDescriptor.substringBefore("<"))?.isEnum == true
 }
 
 fun ClassInfo.hierarchyMethodSignatures(): Set<String> {
@@ -106,3 +127,11 @@ internal val ClassInfo.isProcessorBitField: Boolean
         superclasses.any { superclass -> superclass.name == BIT_FIELD } ||
         name == BIT_FIELD_BASE ||
         superclasses.any { superclass -> superclass.name == BIT_FIELD_BASE }
+
+internal val ClassInfo.isProcessorCollection: Boolean
+    get() = name == JAVA_COLLECTION_FQ_NAME ||
+        implementsInterface(JAVA_COLLECTION_FQ_NAME) ||
+        runCatching { Collection::class.java.isAssignableFrom(Class.forName(name)) }.getOrDefault(false)
+
+internal val ClassInfo.isProcessorNodeOrResource: Boolean
+    get() = extendsSuperclass(GODOT_NODE_FQ_NAME) || extendsSuperclass(GODOT_RESOURCE_FQ_NAME)

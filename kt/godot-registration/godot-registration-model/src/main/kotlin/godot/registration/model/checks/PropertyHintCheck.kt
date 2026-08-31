@@ -4,8 +4,7 @@ import godot.core.Color
 import godot.core.Dictionary
 import godot.core.VariantArray
 import godot.registration.model.RegisteredProperty
-import godot.registration.model.ext.isJavaCollection
-import godot.registration.model.ext.isKotlinCollection
+import godot.registration.model.ext.isCollection
 import godot.registration.model.hint.property.ColorNoAlphaHint
 import godot.registration.model.hint.property.DirHint
 import godot.registration.model.hint.property.EnumFlagHintStringHint
@@ -69,8 +68,7 @@ class PropertyHintCheck(logger: Logger, registeredClasses: List<ScriptClass>) : 
     }
 
     private fun godot.registration.model.types.Type.supportsEnumListHint(): Boolean =
-        isKotlinCollection() ||
-            isJavaCollection() ||
+        isCollection() ||
             fqName == requireNotNull(VariantArray::class.qualifiedName) ||
             fqName == requireNotNull(Dictionary::class.qualifiedName)
 
