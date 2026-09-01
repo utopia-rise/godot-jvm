@@ -21,6 +21,11 @@ fun generateApiFrom(jsonSource: File, coreDir: File, apiDir: File, extensionDir:
     ConnectorGenerationService.generate(extensionDir)
 }
 
+fun generateApiOnlyFrom(jsonSource: File, apiDir: File) {
+    val apiDescription = ObjectMapper().readValue(jsonSource, object : TypeReference<ApiDescription>() {})
+    ApiGenerationService(apiDescription).generateApiOnly(apiDir)
+}
+
 fun generateCoroutine(outputDir: File) {
     AwaitGenerationService.generate(outputDir)
 }

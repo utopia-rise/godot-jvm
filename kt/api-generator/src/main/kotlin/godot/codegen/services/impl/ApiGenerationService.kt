@@ -41,13 +41,23 @@ class ApiGenerationService(
 
 
     override fun generateApi(coreDir: File, apiDir: File) {
+        generateApi(coreDir, apiDir, includeCore = true)
+    }
+
+    fun generateApiOnly(apiDir: File) {
+        generateApi(null, apiDir, includeCore = false)
+    }
+
+    private fun generateApi(coreDir: File?, apiDir: File, includeCore: Boolean) {
         val context = GenerationContext(api)
 
         ApiTask(coreDir, apiDir).compile(context) {
             rule(::UseConnectFlagRule)
             rule(::EnrichedCoreRule)
             rule(::EnrichedClassRule)
-            rule(::CoreRule)
+            if (includeCore) {
+                rule(::CoreRule)
+            }
             rule(::ApiRule)
             rule(::DocumentationRule)
             subRules(ApiTask::files) {

@@ -12,12 +12,27 @@ import godot.tools.common.KOTLIN_VERSION
 import godot.tools.common.constants.FileExtensions
 import org.gradle.api.Project
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import java.io.File
 
 open class GodotExtension(objects: ObjectFactory) {
+    /**
+     * Generates bindings from [apiJsonFile] and uses them instead of the published Godot API bindings.
+     *
+     * Defaults to `false`.
+     */
+    val isCustomApiEnabled: Property<Boolean> = objects.property(Boolean::class.java)
+
+    /**
+     * Godot extension API JSON used when [isCustomApiEnabled] is enabled.
+     *
+     * Defaults to `api.json` in the root Gradle project.
+     */
+    val apiJsonFile: RegularFileProperty = objects.fileProperty()
+
     /**
      * Marks this Gradle project as a reusable Godot-JVM library rather than a runnable Godot project.
      *
@@ -244,6 +259,8 @@ open class GodotExtension(objects: ObjectFactory) {
             ?.maxByOrNull { it.name }
 
         godotProjectDirectory.convention(target.layout.projectDirectory)
+        isCustomApiEnabled.convention(false)
+        apiJsonFile.convention(target.rootProject.layout.projectDirectory.file("api.json"))
         isLibrary.convention(false)
         disableGdj.convention(false)
         registrationFilesDirectory.convention(godotProjectDirectory.dir(FileExtensions.GodotJvm.registrationFile))

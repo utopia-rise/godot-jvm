@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.ideaSync)
 
     implementation(project(":godot-registration"))
+    implementation("com.utopia-rise:api-generator:$fullBuildVersion")
     implementation("com.utopia-rise:tools-common:$fullBuildVersion")
 }
 

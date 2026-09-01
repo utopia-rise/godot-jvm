@@ -11,6 +11,7 @@ import godot.gradle.tasks.createCopyAndroidArtifactsTask
 import godot.gradle.tasks.createCopyDesktopJarsTask
 import godot.gradle.tasks.createCopyGraalArtifactsTask
 import godot.gradle.tasks.createCopyIOSArtifactsTask
+import godot.gradle.tasks.custom_api.customApiJarTask
 import godot.gradle.tasks.registrarGenerationGenerateFilesTask
 import godot.gradle.tasks.registrarGenerationJarTask
 import godot.gradle.tasks.registrarGenerationSyncRegistrationFilesTask
@@ -72,6 +73,11 @@ fun Project.setupTasks() {
 
     afterEvaluate {
         with(it) {
+            val customApiJarTask = if (godotJvmExtension.isCustomApiEnabled.get()) {
+                customApiJarTask()
+            } else {
+                null
+            }
             if (godotJvmExtension.isLibrary.get()) {
                 val mainSourceSet = extensions
                     .getByType(SourceSetContainer::class.java)
@@ -108,7 +114,7 @@ fun Project.setupTasks() {
 
             val classesTask = tasks.named("classes")
             val registrarGenerationTasks = setupRegistrarGenerationTasks(classesTask)
-            val desktopPackagingTasks = setupDesktopPackagingTasks(classesTask, registrarGenerationTasks)
+            val desktopPackagingTasks = setupDesktopPackagingTasks(classesTask, registrarGenerationTasks, customApiJarTask)
             val androidPackagingTasks = setupAndroidPackagingTasks(desktopPackagingTasks)
             val nativePackagingTasks = setupNativePackagingTasks(desktopPackagingTasks)
             val copyTasks = setupCopyTasks(
@@ -218,8 +224,9 @@ private fun Project.setupRegistrarGenerationTasks(
 private fun Project.setupDesktopPackagingTasks(
     classesTask: TaskProvider<out Task>,
     registrarGenerationTasks: RegistrarGenerationTasks,
+    customApiJarTask: TaskProvider<Jar>?,
 ): DesktopPackagingTasks {
-    val packageBootstrapJarTask = packageBootstrapJarTask()
+    val packageBootstrapJarTask = packageBootstrapJarTask(customApiJarTask)
     val packageMainJarTask = packageMainJarTask(
         generatedRegistrarJarTask = registrarGenerationTasks.generatedRegistrarJarTask,
         updateRegistrationFilesTask = registrarGenerationTasks.updateRegistrationFilesTask,
