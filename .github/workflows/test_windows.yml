@@ -6,8 +6,6 @@ on:
         type: string
       jvm-version:
         type: string
-      build-version:
-        type: string
 
 concurrency:
   group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-windows_tests
@@ -17,43 +15,165 @@ jobs:
   test-windows:
     runs-on: windows-latest
     name: ${{ matrix.name }}
+    timeout-minutes: 90
     strategy:
       matrix:
         include:
-          - name: dev tests
-            target: dev
+          - name: Editor tests
+            variant: editor
             build-task: build
-          - name: release tests
-            target: release
+            graal-build-task: buildGraalNativeImage
+          - name: Release export tests
+            variant: export
             build-task: buildRelease
+            graal-build-task: buildGraalNativeImageRelease
+            export-task: exportRelease
+            export-library: release_windows_x86_64
+          - name: Debug export tests
+            variant: export
+            build-task: build
+            graal-build-task: buildGraalNativeImage
+            export-task: exportDebug
+            export-library: debug_windows_x86_64
 
     steps:
-      - name: Clone Godot JVM module.
-        uses: actions/checkout@v4
+      - name: Clone Godot JVM module
+        uses: actions/checkout@v6
 
-      - uses: actions/setup-java@v4
+      - uses: ./.github/actions/download-godot
+        with:
+          version: ${{ inputs.godot-version }}
+          platform: windows
+          destination: harness/tests/bin
+
+      - name: Download debug export templates
+        if: matrix.variant == 'export'
+        uses: ./.github/actions/download-godot
+        with:
+          version: ${{ inputs.godot-version }}
+          platform: windows
+          destination: harness/tests/bin
+          template: debug
+
+      - name: Download release export templates
+        if: matrix.variant == 'export'
+        uses: ./.github/actions/download-godot
+        with:
+          version: ${{ inputs.godot-version }}
+          platform: windows
+          destination: harness/tests/bin
+          template: release
+
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: ${{ inputs.jvm-version }}
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+      - uses: graalvm/setup-graalvm@v1
         with:
-          cache-read-only: ${{ github.ref != 'refs/heads/master' }}
+          java-version: '21'
+          distribution: graalvm-community
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Download windows editor ${{ matrix.target }}
-        uses: actions/download-artifact@v4
-        with:
-          name: editor_${{ matrix.target }}_windows_x86_64
-          path: './harness/tests/bin'
-
-      - name: Build tests project
+      - name: Locate Visual Studio native-image environment
+        shell: pwsh
         run: |
-          harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
+          $vcVars = Get-ChildItem 'C:\Program Files\Microsoft Visual Studio' -Filter vcvars64.bat -Recurse | Select-Object -First 1
+          if ($null -eq $vcVars) { throw 'Could not find Visual Studio vcvars64.bat' }
+          "VC_VARS_PATH=$($vcVars.FullName)" >> $env:GITHUB_ENV
 
-      - name: Run Tests
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: false
+          cache-cleanup: always
+          gradle-home-cache-excludes: |
+            wrapper/dists
+            caches/*/generated-gradle-jars
+            daemon
+            notifications
+
+      - name: Cache desktop Graal build output
+        uses: actions/cache@v5
+        with:
+          path: |
+            harness/tests/.gradle
+            harness/tests/build
+          key: desktop-graal-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
+          restore-keys: |
+            desktop-graal-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Download Windows editor library
+        uses: actions/download-artifact@v7
+        with:
+          name: editor_windows_x86_64
+          path: harness/tests/addons
+
+      - name: Download Windows export library
+        if: matrix.variant == 'export'
+        uses: actions/download-artifact@v7
+        with:
+          name: ${{ matrix.export-library }}
+          path: harness/tests/addons
+
+      - name: Prepare export
+        if: matrix.variant == 'export'
+        run: mkdir -p harness/tests/export
+
+      - name: Build JVM tests project
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
+
+      - name: Build Graal native image
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.graal-build-task }}
+
+      - name: Import test project
+        run: harness/tests/gradlew -p harness/tests/ importResources
+        # Longer than the task's own 10 minute wait, so it can terminate a hung
+        # editor itself instead of the step timeout leaving the process orphaned.
+        timeout-minutes: 15
+
+      - name: Run JVM tests
+        if: matrix.variant == 'editor'
         run: |
           cd harness/tests/
           jlink --add-modules java.base,java.logging --output jvm/jre-amd64-windows
           ./gradlew runGDTests
         timeout-minutes: 30
+
+      - name: Run Graal native-image tests
+        if: matrix.variant == 'editor'
+        run: |
+          cd harness/tests/
+          ./gradlew runGraalGDTests
+        timeout-minutes: 30
+
+      - name: Create JRE for export
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/
+          jlink --add-modules java.base,java.logging --output jvm/jre-amd64-windows
+
+      - name: Export tests
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/
+          ./gradlew ${{ matrix.export-task }}
+        timeout-minutes: 30
+
+      - name: Run JVM exported tests
+        if: matrix.variant == 'export'
+        run: cd harness/tests/; ./gradlew runExportedGDTests
+        timeout-minutes: 30
+
+      - name: Run Graal native-image exported tests
+        if: matrix.variant == 'export'
+        run: cd harness/tests/; ./gradlew runExportedGraalGDTests
+        timeout-minutes: 30
+
+      - name: Upload JVM crash report
+        if: always() && matrix.variant == 'export'
+        uses: actions/upload-artifact@v7
+        with:
+          name: windows-exports-hs-err
+          path: harness/tests/hs_err_pid*.log
+          if-no-files-found: ignore

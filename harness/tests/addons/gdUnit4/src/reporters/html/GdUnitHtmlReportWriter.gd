@@ -15,10 +15,8 @@ func write(report_path: String, report: GdUnitReportSummary) -> String:
 	DirAccess.make_dir_recursive_absolute(report_path)
 	var html_report_file := "%s/index.html" % report_path
 	FileAccess.open(html_report_file, FileAccess.WRITE).store_string(to_write)
-	var css_source := "res://addons/gdUnit4/src/reporters/html/template/css/"
-	if DirAccess.dir_exists_absolute(css_source):
-		@warning_ignore("return_value_discarded")
-		GdUnitFileAccess.copy_directory(css_source, report_path + "/css")
+	@warning_ignore("return_value_discarded")
+	GdUnitFileAccess.copy_directory("res://addons/gdUnit4/src/reporters/html/template/css/", report_path + "/css")
 	return html_report_file
 
 

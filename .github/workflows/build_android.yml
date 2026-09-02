@@ -1,110 +1,67 @@
-name: 🤖 Android Builds
+name: Android Builds
 on:
   workflow_call:
     inputs:
-      godot-version:
-        type: string
       jvm-version:
         type: string
-      build-version:
-        type: string
-
-concurrency:
-  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-android_build
-  cancel-in-progress: true
 
 jobs:
   android-template:
     runs-on: ubuntu-latest
-    name: ${{ matrix.name }}
+    permissions:
+      contents: read
+      actions: write
     strategy:
       fail-fast: false
       matrix:
         include:
-          - name: Build android debug (arm32)
-            cache-name: export_template_debug_android_arm32
-            target: template_debug
-            scons-flags: arch=arm32
-
-          - name: Build android release (arm32)
-            cache-name: export_template_release_android_arm32
-            target: template_release
-            scons-flags: arch=arm32
-
-          - name: Build android debug (arm64)
-            cache-name: export_template_debug_android_arm64
+          - cache-name: debug_android_arm64
             target: template_debug
             scons-flags: arch=arm64
-
-          - name: Build android release (arm64)
-            cache-name: export_template_release_android_arm64
+          - cache-name: release_android_arm64
             target: template_release
             scons-flags: arch=arm64
-
-          - name: Build android debug (x86_64)
-            cache-name: export_template_debug_android_x86_64
+          - cache-name: debug_android_x86_64
             target: template_debug
             scons-flags: arch=x86_64
-
-          - name: Build android release (x86_64)
-            cache-name: export_template_release_android_x86_64
+          - cache-name: release_android_x86_64
             target: template_release
             scons-flags: arch=x86_64
-
+    env:
+      SCONS_CACHE: ${{ github.workspace }}/.scons-cache
     steps:
-      - name: Maximize build space
-        uses: AdityaGarg8/remove-unwanted-software@v4.1
+      - uses: actions/checkout@v6
         with:
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
-          remove-swapfile: 'true'
-
-      - name: Clone Godot Engine
-        uses: actions/checkout@v4
-        with:
-          repository: godotengine/godot
-          ref: ${{ inputs.godot-version }}
-
-      - name: Clone Godot JVM module.
-        uses: actions/checkout@v4
-        with:
-          path: modules/kotlin_jvm
-
-      - uses: actions/setup-java@v4
+          submodules: recursive
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: ${{ inputs.jvm-version }}
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+      - uses: actions/setup-python@v6
         with:
-          cache-read-only: ${{ github.ref != 'refs/heads/master' }}
-
-      - name: Setup Godot build cache
-        uses: ./modules/kotlin_jvm/.github/actions/scons-cache
-        continue-on-error: true
-
-      - name: Setup python and scons
-        uses: ./.github/actions/godot-deps
-
-      - name: Compilation release (arm32)
-        uses: ./.github/actions/godot-build
+          python-version: '3.11'
+      - uses: android-actions/setup-android@v4
+      - name: Install Android NDK
+        run: |
+          yes | sdkmanager --licenses >/dev/null
+          sdkmanager "ndk;28.1.13356709"
+      - run: python -m pip install scons
+      - uses: ./.github/actions/scons-cache
         with:
-          scons-flags: ${{ env.SCONSFLAGS }} arch=arm32
-          platform: android
-          target: template_release
-
-      - name: Compilation
-        uses: ./.github/actions/godot-build
+          mode: restore
+          cache-name: ${{ matrix.cache-name }}
+      - uses: ./.github/actions/gdextension-build
         with:
-          scons-flags: ${{ matrix.scons-flags }}
           platform: android
           target: ${{ matrix.target }}
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+          scons-flags: ${{ matrix.scons-flags }}
+          target-path: artifact/addons/jvm/bin/
+      - uses: ./.github/actions/scons-cache
+        if: always()
+        with:
+          mode: save
+          cache-name: ${{ matrix.cache-name }}
+      - uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.cache-name }}
-          path: "platform/android/java/lib/libs/*"
+          path: artifact/addons

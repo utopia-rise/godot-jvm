@@ -105,35 +105,75 @@ static func console_log(message: String, on_console := false) -> void:
 		GdUnitSignals.instance().gdunit_message.emit(message)
 
 
-static func filter_tests(method: Dictionary) -> bool:
-	var method_name: String = method["name"]
-	return method_name.begins_with("test_")
-
-
 static func default_discover_sink(test_case: GdUnitTestCase) -> void:
 	GdUnitTestDiscoverSink.discover(test_case)
 
 
 static func discover_tests(source_script: Script, discover_sink := default_discover_sink) -> void:
 	if source_script is GDScript:
-		var test_names := source_script.get_script_method_list()\
-			.filter(filter_tests)\
-			.map(func(method: Dictionary) -> String: return method["name"])
-		# no tests discovered?
-		if test_names.is_empty():
-			return
-
-		var parser := GdScriptParser.new()
-		var fds := parser.get_function_descriptors(source_script as GDScript, test_names)
-		for fd in fds:
-			var resolver := GdFunctionParameterSetResolver.new(fd)
-			for test_case in resolver.resolve_test_cases(source_script as GDScript):
-				discover_sink.call(test_case)
+		for test_case in discover_tests_from_gd_script(source_script as GDScript):
+			discover_sink.call(test_case)
 	elif source_script.get_class() == "CSharpScript":
 		if not GdUnit4CSharpApiLoader.is_api_loaded():
 			return
 		for test_case in GdUnit4CSharpApiLoader.discover_tests(source_script):
 			discover_sink.call(test_case)
+
+
+static func discover_tests_from_gd_script(script: GDScript) -> Array[GdUnitTestCase]:
+	# Filter by test case only
+	var test_names: Array[String] = []
+	for method: Dictionary in script.get_script_method_list():
+		@warning_ignore("unsafe_method_access")
+		if method["name"].begins_with("test_"):
+			test_names.append(method["name"])
+	if test_names.is_empty():
+		return []
+
+	var source: Node = script.new()
+	var fds := GdScriptParser.new().get_function_descriptors(script, test_names)
+	var test_cases: Array[GdUnitTestCase] = []
+	for fd in fds:
+		if fd.is_parameterized():
+			test_cases.append_array(discover_parameterised_tests(source, fd))
+		else:
+			test_cases.append(GdUnitTestCase.from(script.resource_path, fd.source_path(), fd.begin_line(), fd.name()))
+	source.free()
+
+	return test_cases
+
+
+static func discover_parameterised_tests(source: Node, fd: GdFunctionDescriptor) -> Array[GdUnitTestCase]:
+	var fa := GdFunctionArgument.get_parameter_set(fd.args())
+	var parameter_expressions := fa.parameter_sets()
+	var count := parameter_expressions.size()
+
+	# The parameter set is not static we need to preload it to get the amount of test sets
+	if count == 0:
+		var resolver := GdParameterSetResolverFactory.create(fd, source)
+		if resolver == null:
+			return []
+		count = resolver.get_max_index()
+		for i in count:
+			var params := resolver.get_parameters(source, i)
+			# Strip trailing EMPTY_SET added by the resolver; stringify for display name
+			parameter_expressions.append(str(params.slice(0, params.size() - 1)))
+
+	var test_cases: Array[GdUnitTestCase] = []
+	for parameter_index in count:
+		var parameter_expression := parameter_expressions[parameter_index]
+
+		@warning_ignore("return_value_discarded")
+		test_cases.append(
+			GdUnitTestCase.from(
+				fd.source_path(),
+				fd.source_path(),
+				fd.begin_line(),
+				fd.name(),
+				parameter_index,
+				parameter_expression)
+			)
+	return test_cases
 
 
 static func scan_all_test_directories(root: String) -> PackedStringArray:

@@ -20,10 +20,10 @@
     "name": "kotlin.KotlinVersion$Companion[]"
   },
   {
-    "name": "godot.tests.reflection.BaseReflectionTest"
+    "name": "godot.tests.runtime.BaseReflectionTest"
   },
   {
-    "name": "godot.tests.reflection.GH571_ReflectionTest$TestClass",
+    "name": "godot.tests.runtime.GH571_ReflectionTest$TestClass",
     "allPublicMethods": true,
     "allDeclaredFields":true,
     "allDeclaredMethods":true,

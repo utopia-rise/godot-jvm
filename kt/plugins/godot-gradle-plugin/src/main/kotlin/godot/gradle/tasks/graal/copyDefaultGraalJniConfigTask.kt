@@ -8,12 +8,12 @@ import org.jetbrains.kotlin.gradle.internal.ensureParentDirsCreated
 import java.io.InputStream
 
 fun Project.copyDefaultGraalJniConfigTask(): TaskProvider<out Task> {
-    val resourcePath = "godot-kotlin-graal-jni-config.json"
+    val resourcePath = "godot-jvm-graal-jni-config.json"
     val outputFile = layout.buildDirectory.file("graal/$resourcePath")
 
     return tasks.register("createDefaultGraalJniConfig") {
         with(it) {
-            group = "godot-kotlin-jvm"
+            group = "godot-jvm"
             description =
                 "Checks if the default jni config for graalVM native image is present and creates it if it's not"
 

@@ -10,11 +10,17 @@ config_version=5
 
 [application]
 
-config/name="Godot Kotlin Tests"
+config/name="Godot-JVM Tests"
 run/main_scene="uid://cnqp52df0ln8e"
-run/main_loop_type="ExportTestMain"
 config/features=PackedStringArray("4.7")
 config/icon="res://icon.png"
+run/main_loop_type.export-tests="ExportTestMain"
+run/main_loop_type.export-graal-native-image="ExportTestMain"
+
+[autoload]
+
+KotlinScriptSingleton="*res://src/main/kotlin/godot/tests/runtime/KotlinScriptAutoload.kt"
+KotlinSceneSingleton="*res://test/runtime/fixtures/kotlin_scene_autoload.tscn"
 
 [debug]
 
@@ -32,5 +38,7 @@ ui/toolbar/run_overall=true
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 environment/default_environment="res://default_env.tres"

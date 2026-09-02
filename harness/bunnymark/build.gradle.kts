@@ -1,7 +1,7 @@
 import godot.registrar.generator.RegistrationFileLayoutMode
 
 plugins {
-    id("com.utopia-rise.godot-kotlin-jvm")
+    id("com.utopia-rise.godot-jvm")
 }
 
 repositories {

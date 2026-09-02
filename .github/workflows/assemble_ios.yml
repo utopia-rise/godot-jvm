@@ -1,85 +1,49 @@
-name: 🍏 Assemble iOS
+name: Assemble iOS
 on:
   workflow_call:
     inputs:
-      godot-kotlin-jvm-version:
+      godot-jvm-version:
         type: string
-      godot-version:
-        type: string
-      build-version:
-        type: string
-
-concurrency:
-  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-ios_assemble
-  cancel-in-progress: true
 
 jobs:
-  create-ios-export-template-universal:
+  package-ios-libraries:
     runs-on: macos-15
-    name: Assemble iOS export template
     steps:
-      - name: Clone Godot Engine
-        uses: actions/checkout@v4
+      - name: Download iOS libraries
+        uses: actions/download-artifact@v7
         with:
-          repository: godotengine/godot
-          ref: ${{ inputs.godot-version }}
-
-      # Python must be kept below 3.12
-      #https://github.com/KhronosGroup/MoltenVK/blob/3b9e335fe8fc8a72cf6099acbd54128889445c0a/.github/workflows/CI.yml#L44
-      - name: Setup python and scons
-        uses: ./.github/actions/godot-deps
-        with:
-          python-version: 3.11
-
-      - name: Download ios export template binaries debug
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_debug_ios_arm64
-          path: "./"
-
-      - name: Download ios export template binaries release
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_release_ios_arm64
-          path: "./"
-
-      - name: Setup MoltenVK build cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            MoltenVk/Package
-            MoltenVk/External
-            MoltenVk/xcuserdata
-            MoltenVk/project.xcworkspace
-            MoltenVk/*.xccheckout
-            MoltenVk/*.xcscmblueprint
-            MoltenVk/build
-            MoltenVk/*.o
-            MoltenVk/*.a
-          key: assemble_ios_moltenvk_cache
-
-      - name: Clone MoltenVK
-        uses: actions/checkout@v4
-        with:
-          repository: KhronosGroup/MoltenVK
-          path: MoltenVk
-          ref: v1.2.10
-
-      - name: Build MoltenVK
+          pattern: '*_ios_*'
+          path: libraries
+          merge-multiple: true
+      # Godot's iOS exporter only picks a GDExtension up when the manifest points at an
+      # .xcframework -- a bare .a is silently ignored, and the app then fails at load with a
+      # missing entry symbol.
+      - name: Assemble iOS libraries
+        shell: bash
         run: |
-          cd MoltenVK && ./fetchDependencies --ios && make ios
-
-      - name: Create iOS template app
-        run: |
-          cp -r misc/dist/apple_embedded_xcode ios_xcode
-          cp -r MoltenVK/Package/Release/MoltenVK/static/MoltenVK.xcframework ios_xcode/
-          cp libgodot.ios.template_release.arm64.a ios_xcode/libgodot.ios.release.xcframework/ios-arm64/libgodot.a
-          cp libgodot.ios.template_debug.arm64.a ios_xcode/libgodot.ios.debug.xcframework/ios-arm64/libgodot.a
-          mv ios_xcode/ ios/ && cd ios/
-          zip -q -9 -r export_template_all_ios.zip .
-
-      - name: Upload iOS template app
-        uses: actions/upload-artifact@v4
+          set -euo pipefail
+          ios_libraries=libraries/jvm/libs/ios
+          ls -1 "$ios_libraries"
+          for target in template_debug template_release; do
+            # SCons builds the iOS libraries through env.Command, which does not add the "lib"
+            # prefix that StaticLibrary would, so match on the suffix instead of assuming one.
+            device="$(find "$ios_libraries" -name "*godot.jvm.ios.$target.a" -print -quit)"
+            if [[ -z "$device" ]]; then
+              echo "Missing the iOS library for $target" >&2
+              exit 1
+            fi
+            xcodebuild -create-xcframework \
+              -library "$device" \
+              -output "$ios_libraries/$(basename "${device%.a}").xcframework"
+            rm "$device"
+          done
+          rm "$ios_libraries"/*.objects.a
+          mkdir -p package/addons
+          cp -R libraries/jvm package/addons/jvm
+      # Upload the raw folder rather than a pre-made zip: actions/upload-artifact always wraps
+      # whatever it's given in its own zip, so uploading a zip here results in a zip nested inside
+      # that zip once a human downloads the artifact.
+      - uses: actions/upload-artifact@v7
         with:
-          name: export_template_all_ios
-          path: ios/export_template_all_ios.zip
+          name: godot-jvm-gdextension-ios
+          path: package

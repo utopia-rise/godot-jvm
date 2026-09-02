@@ -23,7 +23,7 @@ fun Project.registrarGenerationJarTask(
         "registrarGenerationJar",
         Jar::class.java
     ) { task ->
-        task.group = "godot-kotlin-jvm-internal"
+        task.group = "godot-jvm-internal"
         task.description = "Compiles generated registrar sources into a reusable jar."
 
         task.archiveBaseName.set("registrar-generation")

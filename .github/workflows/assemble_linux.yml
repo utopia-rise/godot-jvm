@@ -2,11 +2,7 @@ name: 🐧 Assemble Linux
 on:
   workflow_call:
     inputs:
-      godot-kotlin-jvm-version:
-        type: string
-      godot-version:
-        type: string
-      build-version:
+      godot-jvm-version:
         type: string
 
 concurrency:
@@ -14,35 +10,49 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  create-linux-editor-zip:
+  assemble-linux:
     runs-on: ubuntu-latest
-    name: ${{ matrix.name }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Create editor zip release
-            target: release
-            arch: x86_64
-
-          - name: Create editor zip debug
-            target: debug
-            arch: x86_64
     steps:
-      - name: Download ${{ matrix.target }} editor
-        uses: actions/download-artifact@v4
+      - name: Download editor library
+        uses: actions/download-artifact@v7
         with:
-          name: editor_${{ matrix.target }}_linux_${{ matrix.arch }}
-          path: godot-kotlin-jvm_editor_linuxbsd_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}
+          name: editor_linux_x86_64
+          path: libraries/editor
 
-      - name: Create linux editor zip
-        run: |
-          cd godot-kotlin-jvm_editor_linuxbsd_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}
-          zip -r godot-kotlin-jvm_editor_linuxbsd_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}.zip *
+      - name: Download release library
+        uses: actions/download-artifact@v7
+        with:
+          name: release_linux_x86_64
+          path: libraries/release
+
+      - name: Download debug library
+        uses: actions/download-artifact@v7
+        with:
+          name: debug_linux_x86_64
+          path: libraries/debug
+
+      - name: Assemble Linux libraries
         shell: bash
+        run: |
+          for target in debug release; do
+            mkdir -p "package/$target/addons"
+            cp -R "libraries/editor/jvm" "package/$target/addons/jvm"
+            cp -R "libraries/debug/jvm/libs/." "package/$target/addons/jvm/libs/"
+            cp -R "libraries/release/jvm/libs/." "package/$target/addons/jvm/libs/"
+          done
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      # Upload the raw "addons" folder rather than a pre-made zip: actions/upload-artifact always
+      # wraps whatever it's given in its own zip, so uploading a zip here results in a zip nested
+      # inside that zip once a human downloads the artifact. The actual release-asset zip gets made
+      # once, at the point deploy_godot.yml attaches it to the GitHub release.
+      - name: Upload debug library
+        uses: actions/upload-artifact@v7
         with:
-          name: godot-kotlin-jvm_editor_linuxbsd_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}.zip
-          path: godot-kotlin-jvm_editor_linuxbsd_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}/godot-kotlin-jvm_editor_linuxbsd_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}.zip
+          name: godot-jvm-gdextension-linuxbsd-x86_64-debug-${{ inputs.godot-jvm-version }}
+          path: package/debug
+
+      - name: Upload release library
+        uses: actions/upload-artifact@v7
+        with:
+          name: godot-jvm-gdextension-linuxbsd-x86_64-release-${{ inputs.godot-jvm-version }}
+          path: package/release

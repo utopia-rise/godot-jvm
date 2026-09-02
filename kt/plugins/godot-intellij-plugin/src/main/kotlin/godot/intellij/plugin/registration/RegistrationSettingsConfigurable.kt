@@ -5,7 +5,7 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.project.Project
 import com.intellij.ui.dsl.builder.panel
-import godot.intellij.plugin.GodotKotlinJvmProjectService
+import godot.intellij.plugin.GodotJvmProjectService
 import javax.swing.JCheckBox
 import javax.swing.JComboBox
 import javax.swing.JComponent
@@ -16,7 +16,7 @@ class RegistrationSettingsConfigurable(
     private val mode = JComboBox(RegistrationMode.entries.toTypedArray())
     private val registrationHighlights = JCheckBox("Show registration highlights")
 
-    override fun getDisplayName(): String = "Godot Kotlin/JVM"
+    override fun getDisplayName(): String = "Godot-JVM"
 
     override fun createComponent(): JComponent =
         panel {
@@ -45,7 +45,7 @@ class RegistrationSettingsConfigurable(
         settings.state.mode = selectedMode
         settings.state.registrationHighlightsEnabled = registrationHighlights.isSelected
         if (modeChanged) {
-            project.service<GodotKotlinJvmProjectService>().refreshRegistrationIndex()
+            project.service<GodotJvmProjectService>().refreshRegistrationIndex()
         }
         DaemonCodeAnalyzer.getInstance(project).settingsChanged()
     }

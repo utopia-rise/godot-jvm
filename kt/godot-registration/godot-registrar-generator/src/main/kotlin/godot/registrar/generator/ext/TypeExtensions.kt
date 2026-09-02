@@ -240,11 +240,12 @@ private object TypeMetadataRegistry {
             godotClassName = if (type.fqName == Any::class.qualifiedName) "" else null,
         )
 
-        TypeKind.OTHER -> parserMetadata(
-            memberName = "OBJECT",
-            godotTypeName = GODOT_OBJECT,
-            godotClassName = null,
+        TypeKind.COLLECTION -> parserMetadata(
+            memberName = "ARRAY",
+            godotTypeName = GODOT_ARRAY,
         )
+
+        TypeKind.OTHER -> error("Unrecognized type ${type.fqName}, it cannot be represented by Godot")
 
         TypeKind.PRIMITIVE,
         TypeKind.CORE_TYPE,
@@ -265,6 +266,8 @@ private fun typeVariantTypeOrdinal(type: Type): Int? = when (type.kind) {
     TypeKind.GODOT_CLASS,
     TypeKind.INTERFACE,
         -> VariantParser.OBJECT.id
+
+    TypeKind.COLLECTION -> VariantParser.ARRAY.id
 }
 
 fun Type.toKtVariantMemberName(): MemberName = TypeMetadataRegistry.metadata(this).variantMember

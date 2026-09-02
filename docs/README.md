@@ -1,4 +1,4 @@
-## Godot Kotlin/JVM documentation
+## Godot-JVM documentation
 
 The bindings documentation is written in markdown files, using [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 

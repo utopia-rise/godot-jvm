@@ -24,7 +24,6 @@ def generate_header_from_files(directory, header_file):
     file_is_binary = []
 
     with open(header_file, 'w') as header:
-        header.write(f'#ifdef TOOLS_ENABLED \n\n')
         header.write(f'// Auto-generated templates from {directory} directory \n\n')
         header.write("#ifndef FILE_CONTENTS_H\n")
         header.write("#define FILE_CONTENTS_H\n\n")
@@ -81,11 +80,9 @@ def generate_header_from_files(directory, header_file):
 
         header.write("#endif // FILE_CONTENTS_H\n\n")
 
-        header.write("#endif// TOOLS_ENABLED\n")
-
     print(f"{header_file} generated successfully.")
 
 if __name__ == "__main__":
     directory = "kt/plugins/godot-intellij-plugin/src/main/resources/template"  # Change this to your relative directory
-    header_file = "src/editor/project/templates.h"  # Output header file name
+    header_file = "cpp/editor/project/templates.h"  # Output header file name
     generate_header_from_files(directory, header_file)

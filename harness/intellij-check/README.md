@@ -1,7 +1,7 @@
 # IntelliJ inspection check project
 
 This project contains a manually reviewable 3x3 inspection matrix. Choose the
-matching value under **Settings | Godot Kotlin/JVM | Annotation processing
+matching value under **Settings | Godot-JVM | Annotation processing
 mode**, then open the corresponding file:
 
 | Language | Explicit                           | Inferred                           | Automatic                           |

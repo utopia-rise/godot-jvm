@@ -11,6 +11,7 @@ import godot.annotation.Visible
 import godot.annotation.processor.classgraph.AnnotationProcessingMode
 import godot.annotation.processor.classgraph.ProcessorContext
 import godot.annotation.processor.classgraph.extensions.isMappable
+import godot.annotation.processor.classgraph.extensions.isMappablePropertyType
 import godot.annotation.processor.classgraph.extensions.isMappableType
 import godot.annotation.processor.classgraph.extensions.metaAnnotations
 import godot.annotation.processor.classgraph.extensions.overridesGodotBaseMethod
@@ -108,19 +109,28 @@ private class AutomaticRegistrationPolicy(
             }
         }
 
-    override fun selectClass(shape: LogicalClassShape): Boolean = true
+    override fun selectClass(shape: LogicalClassShape): Boolean = shape.classInfo.isPublic
 
     override fun selectProperty(property: LogicalProperty): Boolean {
+        if (!property.isPublic) {
+            return false
+        }
         val rawDescriptor = property.getter?.returnRawDescriptor()
             ?: property.fieldInfo?.rawDescriptor()
             ?: return false
-        return rawDescriptor.isMappableType(context)
+        return rawDescriptor.isMappablePropertyType(context)
     }
 
-    override fun selectSignal(signal: LogicalSignal): Boolean = true
+    override fun selectSignal(signal: LogicalSignal): Boolean = signal.isPublic
 
     override fun selectMethod(method: LogicalMethod, owner: ClassInfo): Boolean =
         method.methodInfo.isMappable(context)
 
     override fun isPropertyExported(property: LogicalProperty): Boolean = true
 }
+
+private val LogicalProperty.isPublic: Boolean
+    get() = getter?.isPublic ?: fieldInfo?.isPublic ?: false
+
+private val LogicalSignal.isPublic: Boolean
+    get() = getter?.isPublic ?: fieldInfo?.isPublic ?: false

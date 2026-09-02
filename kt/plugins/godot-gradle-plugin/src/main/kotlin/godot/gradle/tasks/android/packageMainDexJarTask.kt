@@ -10,7 +10,7 @@ fun Project.packageMainDexJarTask(
 ): TaskProvider<out Task> {
     return tasks.register("packageMainDexJar", ShadowJar::class.java) {
         with(it) {
-            group = "godot-kotlin-jvm"
+            group = "godot-jvm"
             description =
                 "Packs the android dex file of main, together with the needed registrar service file into a jar. Needed for android builds only"
 

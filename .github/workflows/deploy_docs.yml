@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Godot JVM module.
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Retreive git tags
         run: |
           git fetch --tags

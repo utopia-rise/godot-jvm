@@ -46,7 +46,7 @@ fun Project.downloadIOSJdkStaticLibraries(): TaskProvider<out Task> {
 
     return tasks.register("downloadIOSJdkStaticLibraries", DownloadIOSJdkStaticLibrariesTask::class.java) {
         with(it) {
-            group = "godot-kotlin-jvm-internal"
+            group = "godot-jvm-internal"
             description = "INTERNAL TASK ! Downloads ios static JDK libraries."
 
             iosJdkDirectory.set(layout.buildDirectory.dir("libs/ios/ios-jdk/$IOS_JDK_VERSION"))

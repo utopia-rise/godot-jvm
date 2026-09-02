@@ -41,6 +41,9 @@ func _process(_delta: float) -> void:
 			GdUnitSignals.instance().gdunit_event.emit(GdUnitSessionStart.new())
 			set_process(false)
 			await _executor.run_and_wait(_test_cases)
+			# Android's emulator renderer can stop presenting before _process runs again.
+			# Report the completed result from this coroutine, without waiting for another frame.
+			print("GODOT_JVM_TEST_RESULT:%s" % ("PASS" if get_exit_code() == RETURN_SUCCESS else "FAIL"))
 			_state = STOP
 			set_process(true)
 			GdUnitSignals.instance().gdunit_event.emit(GdUnitSessionClose.new())
@@ -51,6 +54,10 @@ func _process(_delta: float) -> void:
 
 func quit(code: int) -> void:
 	_state = EXIT
+	write_result(code)
+	# Android's emulator renderer can stop presenting after the tests finish.
+	# Emit the result before awaiting another frame so CI can still observe it.
+	print("GODOT_JVM_TEST_RESULT:%s" % ("PASS" if code == RETURN_SUCCESS else "FAIL"))
 	await get_tree().process_frame
 	await get_tree().physics_frame
 	if _reporter != null:
@@ -61,6 +68,21 @@ func quit(code: int) -> void:
 	GdUnitSingleton.dispose()
 	GdUnitSignals.dispose()
 	await super(code)
+	get_tree().quit(code)
+
+
+func write_result(code: int) -> void:
+	var result_file := FileAccess.open("user://godot-jvm-test-result.txt", FileAccess.WRITE)
+	if result_file == null:
+		push_error("Could not write Godot-JVM test result.")
+		return
+	result_file.store_string("result=%s\ntests=%d\nerrors=%d\nfailures=%d\nskipped=%d\n" % [
+		"PASS" if code == RETURN_SUCCESS else "FAIL",
+		_reporter.total_test_count(),
+		_reporter.total_error_count(),
+		_reporter.total_failure_count(),
+		_reporter.total_skipped_count(),
+	])
 
 
 func _on_gdunit_event(event: GdUnitEvent) -> void:

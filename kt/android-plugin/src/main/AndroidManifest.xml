@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.utopiarise.godotjvm">
+    <application>
+        <meta-data
+            android:name="org.godotengine.plugin.v2.GodotJvm"
+            android:value="com.utopiarise.godotjvm.GodotJvmPlugin" />
+    </application>
+</manifest>

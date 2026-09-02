@@ -1,0 +1,813 @@
+[
+  {
+    "name" : "java.lang.Object",
+    "methods":[
+      {"name":"hashCode","parameterTypes":[] },
+      {"name":"equals","parameterTypes":["java.lang.Object"] }
+    ]
+  },
+  {
+    "name" : "java.lang.Class"
+  },
+  {
+    "name" : "java.net.URL"
+  },
+  {
+    "name" : "java.io.File",
+    "methods" : [
+      { "name" : "<init>", "parameterTypes" : ["java.lang.String"] }
+    ]
+  },
+  {
+    "name":"java.lang.ClassLoader",
+    "methods":[
+      {"name":"getPlatformClassLoader","parameterTypes":[] },
+      {"name":"loadClass","parameterTypes":["java.lang.String"] }
+    ]
+  },
+  {
+    "name":"java.lang.Thread",
+    "methods":[
+      {"name":"currentThread","parameterTypes":[] },
+      {"name":"setContextClassLoader","parameterTypes":["java.lang.ClassLoader"] }
+    ]
+  },
+  {
+    "name" : "java.lang.String",
+    "fields" : [
+      { "name" : "value" },
+      { "name" : "hash" }
+    ],
+    "methods" : [
+      { "name" : "<init>", "parameterTypes" : [] },
+      { "name" : "<init>", "parameterTypes" : ["char[]"] },
+      { "name" : "charAt" },
+      { "name" : "format", "parameterTypes" : ["java.lang.String", "java.lang.Object[]"] }
+    ]
+  },
+  {
+    "name":"java.lang.Integer",
+    "methods":[{"name":"intValue","parameterTypes":[] }]
+  },
+  {
+    "name" : "godot.internal.memory.TransferContext",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "icall", "parameterTypes" : ["long"] },
+      { "name" : "getBuffer", "parameterTypes" : [] }
+
+    ]
+  },
+  {
+    "name" : "godot.internal.reflection.TypeManager",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "getMethodBindPtr", "parameterTypes" : ["java.lang.String", "java.lang.String", "long"] },
+      { "name" : "assignScriptToClass", "parameterTypes" : ["int", "long"] }
+    ]
+  },
+  {
+    "name" : "godot.internal.memory.LongStringQueue",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "queueString", "parameterTypes" : ["java.lang.String"] },
+      { "name" : "setStringMaxSize", "parameterTypes" : ["int"] }
+    ]
+  },
+  {
+    "name":"godot.internal.memory.MemoryManager",
+    "fields":[{"name":"INSTANCE"}],
+    "methods":[
+      { "name" : "syncMemory","parameterTypes" : ["long[]"] },
+      { "name" : "cleanUp","parameterTypes" : [] },
+      { "name" : "deleteObject", "parameterTypes" : ["long"] },
+      { "name" : "checkInstance", "parameterTypes" : ["long", "long"] },
+      { "name" : "releaseBinding", "parameterTypes" : ["long"] },
+      { "name" : "unrefNativeCoreTypes", "parameterTypes" : ["long[]", "int[]"] },
+      { "name" : "querySync", "parameterTypes" : [] }
+    ]
+  },
+  {
+    "name" : "godot.internal.logging.GodotPrint",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "print", "parameterTypes" : ["java.lang.String"] },
+      { "name" : "printRich", "parameterTypes" : ["java.lang.String"] },
+      { "name" : "printVerbose", "parameterTypes" : ["java.lang.String"] },
+      { "name" : "printErr", "parameterTypes" : ["java.lang.String"] },
+      { "name" : "printRaw", "parameterTypes" : ["java.lang.String"] },
+      { "name" : "pushError", "parameterTypes" : ["java.lang.String"] },
+      { "name" : "pushWarning", "parameterTypes" : ["java.lang.String"] },
+      { "name" : "getExceptionStackTrace","parameterTypes" : ["java.lang.Throwable"] },
+      { "name" : "getCurrentStacktrace","parameterTypes" : [] }
+    ]
+  },
+  {
+    "name" : "godot.core.VariantArray$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_typed", "parameterTypes" : [] },
+      { "name" : "engine_call_all", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_any", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_back", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearchCustom", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate_deep", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_erase", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_fill", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_filter", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_front", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_getTypedClassName", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_getTypedScript", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_hash", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_insert", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_isEmpty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_isReadOnly", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_isTyped", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_map", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_max", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_min", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pickRandom", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_popAt", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_popBack", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_popFront", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushBack", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushFront", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reduce", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_removeAt", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_resize", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reverse", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rfind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_shuffle", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_slice", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sortCustom", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_operator_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_operator_get", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.Callable$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+
+      { "name" : "engine_call_constructor_object_string_name", "parameterTypes" : ["long", "long"] },
+      { "name" : "engine_call_constructor_lambda_callable", "parameterTypes" : ["godot.core.LambdaContainer", "int", "int"] },
+      { "name" : "engine_call_constructor_cancellable", "parameterTypes" : ["godot.core.LambdaContainer", "int", "int"] },
+      { "name" : "engine_call_copy_constructor", "parameterTypes" : [] },
+
+      { "name" : "engine_call_bind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_call", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_call_deferred", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get_bound_arguments", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get_bound_arguments_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get_method", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get_object", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get_object_id", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_hash", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_custom", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_null", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_standard", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_valid", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rpc", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rpc_id", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_unbind", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name":"godot.core.LambdaContainer",
+    "methods":[
+      {"name":"invoke","parameterTypes":[] },
+      {"name":"invokeWithReturn","parameterTypes":[] },
+      {"name":"cancel","parameterTypes":[] }
+    ]
+  },
+  {
+    "name" : "godot.core.Dictionary$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate_deep", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_erase", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find_key", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_hasAll", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_hash", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_read_only", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_keys", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_make_read_only", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_merge", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_values", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_operator_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_operator_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_equals", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.NodePath$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_string", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_node_path", "parameterTypes" : [] },
+
+      { "name" : "engine_call_path", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_getAsPropertyPath", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_getName", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_getNameCount", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_getSubname", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_getSubnameCount", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_isAbsolute", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_hash", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_isEmpty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_getConcatenatedNames", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_getConcatenatedSubnames", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_equals", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.StringName$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_copy_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_string", "parameterTypes" : [] },
+
+      { "name" : "engine_call_operator_string", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.PackedByteArray$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_packed_array", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_array", "parameterTypes" : [] },
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_compress", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_double", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_float", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_half", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_s16", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_s32", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_s64", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_s8", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_u16", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_u32", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_u64", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_u8", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_var", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decode_var_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decompress", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_decompress_dynamic", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_double", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_float", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_half", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_s16", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_s32", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_s64", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_s8", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_u16", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_u32", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_u64", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_u8", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_encode_var", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_fill", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get_string_from_ascii", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get_string_from_utf16", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get_string_from_utf32", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get_string_from_utf8", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has_encoded_var", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_hex_encode", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_insert", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reverse", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rfind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushback", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_remove_at", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_resize", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_slice", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_float32_array", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_float64_array", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_int32_array", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_int64_array", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+
+      { "name" : "engine_convert_to_godot", "parameterTypes" : ["byte[]"] },
+      { "name" : "engine_convert_to_jvm", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.PackedColorArray$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_packed_array", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_array", "parameterTypes" : [] },
+
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_fill", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_insert", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reverse", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushback", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_remove_at", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_resize", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rfind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_slice", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_byte_array", "parameterTypes" : ["long"] },
+
+      { "name" : "engine_convert_to_godot", "parameterTypes" : ["float[]"] },
+      { "name" : "engine_convert_to_jvm", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.PackedFloat32Array$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_packed_array", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_array", "parameterTypes" : [] },
+
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_fill", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_insert", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reverse", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushback", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_remove_at", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_resize", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rfind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_slice", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_byte_array", "parameterTypes" : ["long"] },
+
+      { "name" : "engine_convert_to_godot", "parameterTypes" : ["float[]"] },
+      { "name" : "engine_convert_to_jvm", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.PackedFloat64Array$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_packed_array", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_array", "parameterTypes" : [] },
+
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_fill", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_insert", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reverse", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushback", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_remove_at", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_resize", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rfind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_slice", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_byte_array", "parameterTypes" : ["long"] },
+
+      { "name" : "engine_convert_to_godot", "parameterTypes" : ["double[]"] },
+      { "name" : "engine_convert_to_jvm", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.PackedInt32Array$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_packed_array", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_array", "parameterTypes" : [] },
+
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_fill", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_insert", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reverse", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushback", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_remove_at", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_resize", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rfind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_slice", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_byte_array", "parameterTypes" : ["long"] },
+
+      { "name" : "engine_convert_to_godot", "parameterTypes" : ["int[]"] },
+      { "name" : "engine_convert_to_jvm", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.PackedInt64Array$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_packed_array", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_array", "parameterTypes" : [] },
+
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_fill", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_insert", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reverse", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushback", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_remove_at", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_resize", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rfind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_slice", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_byte_array", "parameterTypes" : ["long"] },
+
+      { "name" : "engine_convert_to_godot", "parameterTypes" : ["long[]"] },
+      { "name" : "engine_convert_to_jvm", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.PackedStringArray$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_packed_array", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_array", "parameterTypes" : [] },
+
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_fill", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_insert", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reverse", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushback", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_remove_at", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_resize", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rfind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_slice", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_byte_array", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.PackedVector2Array$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_packed_array", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_array", "parameterTypes" : [] },
+
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_fill", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_insert", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reverse", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushback", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_remove_at", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_resize", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rfind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_slice", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_byte_array", "parameterTypes" : ["long"] },
+
+      { "name" : "engine_convert_to_godot", "parameterTypes" : ["float[]"] },
+      { "name" : "engine_convert_to_jvm", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.PackedVector3Array$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_packed_array", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_array", "parameterTypes" : [] },
+
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_fill", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_insert", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reverse", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushback", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_remove_at", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_resize", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rfind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_slice", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_byte_array", "parameterTypes" : ["long"] },
+
+      { "name" : "engine_convert_to_godot", "parameterTypes" : ["float[]"] },
+      { "name" : "engine_convert_to_jvm", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.PackedVector4Array$Bridge",
+    "fields" : [
+      { "name" : "INSTANCE" }
+    ],
+    "methods" : [
+      { "name" : "engine_call_constructor", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_packed_array", "parameterTypes" : [] },
+      { "name" : "engine_call_constructor_array", "parameterTypes" : [] },
+
+      { "name" : "engine_call_append", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_appendArray", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_bsearch", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_clear", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_count", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_duplicate", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_fill", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_find", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_get", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_has", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_is_empty", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_insert", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_reverse", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_pushback", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_remove_at", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_resize", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_rfind", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_set", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_size", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_slice", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_sort", "parameterTypes" : ["long"] },
+      { "name" : "engine_call_to_byte_array", "parameterTypes" : ["long"] },
+
+      { "name" : "engine_convert_to_godot", "parameterTypes" : ["float[]"] },
+      { "name" : "engine_convert_to_jvm", "parameterTypes" : ["long"] }
+    ]
+  },
+  {
+    "name" : "godot.core.Vector3",
+    "allPublicConstructors" : true,
+    "allPublicMethods" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name" : "godot.core.Vector3i",
+    "allPublicConstructors" : true,
+    "allPublicMethods" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name" : "godot.core.Vector2",
+    "allPublicConstructors" : true,
+    "allPublicMethods" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name" : "godot.core.Vector2i",
+    "allPublicConstructors" : true,
+    "allPublicMethods" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name" : "godot.core.Transform2D",
+    "allPublicConstructors" : true,
+    "allPublicMethods" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name" : "godot.core.Transform3D",
+    "allPublicConstructors" : true,
+    "allPublicMethods" : true,
+    "allPublicClasses" : true
+  },
+
+  {
+    "name" : "godot.runtime.Bootstrap",
+    "methods" : [
+      { "name" : "<init>", "parameterTypes" : [] },
+      { "name" : "loadClasses", "parameterTypes" : ["godot.registration.KtClass[]"] },
+      { "name" : "initializeEngineTypes", "parameterTypes" : [] },
+      { "name" : "registerManagedEngineTypes", "parameterTypes" : ["java.lang.String[]", "java.lang.String[]"] },
+      { "name" : "initJar", "parameterTypes": ["java.lang.ClassLoader"]},
+      { "name" : "initNativeImage", "parameterTypes": []},
+      { "name" : "getVersion", "parameterTypes": []},
+      { "name" : "finish", "parameterTypes" : [] }
+    ]
+  },
+  {
+    "name":"godot.registration.KtClass",
+    "methods":[
+      {"name":"getBaseGodotClass","parameterTypes":[] },
+      {"name":"getFqdn","parameterTypes":[] },
+      {"name":"getSourceFileName","parameterTypes":[] },
+      {"name":"getConstructor","parameterTypes":[] },
+      {"name":"getFunctions","parameterTypes":[] },
+      {"name":"getProperties","parameterTypes":[] },
+      {"name":"getRegisteredName","parameterTypes":[] },
+      {"name":"getSignalInfos","parameterTypes":[] },
+      {"name":"getRegisteredSupertypes","parameterTypes":[] },
+      {"name":"isAbstract","parameterTypes":[] },
+      {"name":"getHandledNotifications","parameterTypes":[] },
+      {"name":"doNotification","parameterTypes": ["godot.core.KtObject"] }
+    ]
+  },
+  {
+    "name": "godot.registration.KtConstructor",
+    "methods": [
+      {"name": "construct", "parameterTypes": ["long", "long"]}
+    ]
+  },
+  {
+    "name":"godot.registration.KtFunction",
+    "methods":[
+      {"name":"getFunctionInfo","parameterTypes":[] },
+      {"name":"invoke","parameterTypes":["godot.core.KtObject"] },
+      {"name":"invokeWithReturn","parameterTypes":["godot.core.KtObject"] }
+    ]
+  },
+  {
+    "name":"godot.registration.KtFunctionInfo",
+    "methods":[
+      {"name":"getArguments","parameterTypes":[] },
+      {"name":"getName","parameterTypes":[] },
+      {"name":"getReturnVal","parameterTypes":[] },
+      {"name":"getRpcConfig","parameterTypes":[] }
+    ]
+  },
+  {
+    "name":"godot.registration.KtProperty",
+    "methods":[
+      {"name":"getKtPropertyInfo","parameterTypes":[] },
+      {"name":"callGet","parameterTypes":["godot.core.KtObject"] },
+      {"name":"callSet","parameterTypes":["godot.core.KtObject"] }
+    ]
+  },
+  {
+    "name":"godot.registration.KtPropertyInfo",
+    "methods":[
+      {"name":"getClassName","parameterTypes":[] },
+      {"name":"getHint","parameterTypes":[] },
+      {"name":"getHintString","parameterTypes":[] },
+      {"name":"getName","parameterTypes":[] },
+      {"name":"getType","parameterTypes":[] },
+      {"name":"getUsage","parameterTypes":[] }
+    ]
+  },
+  {
+    "name":"godot.registration.KtSignalInfo",
+    "methods":[
+      {"name":"getArguments","parameterTypes":[] },
+      {"name":"getName","parameterTypes":[] }
+    ]
+  },
+  {
+    "name":"godot.registration.KtRpcConfig",
+    "methods":[
+      {"name":"getRpcModeId","parameterTypes":[] },
+      {"name":"getRpcCallLocal","parameterTypes":[] },
+      {"name":"getRpcTransferModeId","parameterTypes":[] },
+      {"name":"getRpcChannel","parameterTypes":[] }
+    ]
+  },
+  {
+    "name":"godot.core.KtObject",
+    "methods":[
+      {"name":"_onDestroy","parameterTypes":[] },
+      {"name" : "createNativeObject", "parameterTypes" : ["int", "long"] },
+      {"name" : "getSingleton", "parameterTypes" : ["int"] },
+      {"name" : "freeObject", "parameterTypes" : ["long"] },
+      {"name" : "removeScript", "parameterTypes" : ["int"] }
+    ]
+  }
+]

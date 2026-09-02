@@ -13,7 +13,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
  * ## Overview
  * General overview of what this plugin sets up around the user's regular project compilation:
  * - Configures the normal `main` source set dependencies so Kotlin, Java, and Scala user code compile against the
- *   Godot Kotlin/JVM libraries and Scala runtime.
+ *   Godot-JVM libraries and Scala runtime.
  * - Configures compiler flags that the registrar-generation scan relies on, such as parameter metadata for Java and Kotlin.
  * - Creates a dedicated `bootstrap` configuration used to build `bootstrap.jar`, which contains the glue code for the
  *   `cpp -> jvm -> cpp` communication but no user project classes.

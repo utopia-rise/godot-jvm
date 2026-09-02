@@ -32,10 +32,10 @@ publishing {
         val godotInternalLibraryPublication by creating(MavenPublication::class) {
             pom {
                 name.set("${project.name}-$targetSuffix")
-                description.set("Contains internal utilities for the Godot kotlin libraries")
+                description.set("Contains internal utilities for the Godot-JVM libraries")
             }
             artifactId = "godot-internal-library-$targetSuffix"
-            description = "Contains internal utilities for the Godot kotlin libraries"
+            description = "Contains internal utilities for the Godot-JVM libraries"
 
             from(components["java"])
         }

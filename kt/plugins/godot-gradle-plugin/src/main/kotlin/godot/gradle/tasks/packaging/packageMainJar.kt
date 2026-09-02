@@ -14,7 +14,7 @@ fun Project.packageMainJarTask(
 ): TaskProvider<out Task> {
     return tasks.named("shadowJar", ShadowJar::class.java) {
         with(it) {
-            group = "godot-kotlin-jvm"
+            group = "godot-jvm"
             description = "Creates a fat jar containing game code and all dependencies of it"
 
             archiveBaseName.set("main")

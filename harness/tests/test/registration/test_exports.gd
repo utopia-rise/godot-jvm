@@ -7,9 +7,56 @@ func test_reenabled_core_exports_are_registered_across_languages() -> void:
     var scene: Node = EXPORT_INSPECTOR_SCENE.instantiate()
     add_child(scene)
 
-    _assert_reenabled_exports(scene.get_node(^"KotlinExportNode"), true)
+    var kotlin_export_node := scene.get_node(^"KotlinExportNode")
+    _assert_reenabled_exports(kotlin_export_node, true)
     _assert_reenabled_exports(scene.get_node(^"JavaExportNode"))
     _assert_reenabled_exports(scene.get_node(^"ScalaExportNode"))
+
+    scene.queue_free()
+    await get_tree().process_frame
+
+
+func test_kotlin_object_export_resolves_scene_node() -> void:
+    var scene: Node = EXPORT_INSPECTOR_SCENE.instantiate()
+    add_child(scene)
+
+    var kotlin_export_node := scene.get_node(^"KotlinExportNode")
+    assert_object(kotlin_export_node.get("button"))\
+        .override_failure_message("Expected the Kotlin exported node property to resolve from the scene NodePath")\
+        .is_same(kotlin_export_node.get_node(^"Button"))
+
+    scene.queue_free()
+    await get_tree().process_frame
+
+
+func test_kotlin_node_path_export_retains_scene_path() -> void:
+    var scene: Node = EXPORT_INSPECTOR_SCENE.instantiate()
+    add_child(scene)
+
+    var kotlin_export_node := scene.get_node(^"KotlinExportNode")
+    var node_path: NodePath = kotlin_export_node.get("node_path")
+    assert_that(node_path)\
+        .override_failure_message("Expected the Kotlin NodePath export to retain the scene path")\
+        .is_equal(NodePath("Button"))
+    assert_object(kotlin_export_node.get_node(node_path))\
+        .override_failure_message("Expected the Kotlin NodePath export to resolve to the scene Button")\
+        .is_same(kotlin_export_node.get_node(^"Button"))
+
+    scene.queue_free()
+    await get_tree().process_frame
+
+
+func test_kotlin_resource_export_retains_scene_resource() -> void:
+    var scene: Node = EXPORT_INSPECTOR_SCENE.instantiate()
+    add_child(scene)
+
+    var resource = scene.get_node(^"KotlinExportNode").get("resource_test")
+    assert_bool(resource is NavigationMesh)\
+        .override_failure_message("Expected the Kotlin resource export to retain its NavigationMesh")\
+        .is_true()
+    assert_that(resource.agent_height)\
+        .override_failure_message("Expected the Kotlin resource export to retain its scene value")\
+        .is_equal(2.5)
 
     scene.queue_free()
     await get_tree().process_frame
@@ -39,6 +86,9 @@ func _assert_reenabled_exports(instance: Object, expect_lazy_export := false) ->
 
         _assert_exported_property(property_map, "vector2_alias", TYPE_VECTOR2)
         assert_that(instance.get("vector2_alias")).is_equal(Vector2(3, 4))
+
+        _assert_exported_property(property_map, "node_path", TYPE_NODE_PATH)
+        _assert_exported_property(property_map, "resource_test", TYPE_OBJECT)
 
     _assert_exported_property(property_map, "vector2i", TYPE_VECTOR2I)
     assert_that(instance.get("vector2i")).is_equal(Vector2i(1, 2))

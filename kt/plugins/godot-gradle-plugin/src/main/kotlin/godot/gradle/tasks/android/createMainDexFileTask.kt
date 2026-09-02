@@ -44,30 +44,33 @@ abstract class CreateMainDexFileTask : DefaultTask() {
     fun createMainDexFile() {
         val libsDir = mainJar.get().asFile.parentFile
         val mainDexRules = writeMainDexRules(mainDexRulesFile.get().asFile)
-        val command = buildList {
-            if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows) {
-                add("cmd")
-                add("/c")
-            }
-            add(d8ToolPath.get())
-            add(mainJar.get().asFile.absolutePath)
-            add("--lib")
-            add(androidJarPath.get())
-            add("--classpath")
-            add(bootstrapJar.get().asFile.absolutePath)
-            add("--min-api")
-            add(androidMinApiLevel.get().toString())
-            add("--main-dex-rules")
-            add(mainDexRules.absolutePath)
+        val d8Arguments = listOf(
+            File(d8ToolPath.get()).absolutePath,
+            mainJar.get().asFile.absolutePath,
+            "--lib",
+            androidJarPath.get(),
+            "--classpath",
+            bootstrapJar.get().asFile.absolutePath,
+            "--min-api",
+            androidMinApiLevel.get().toString(),
+            "--main-dex-rules",
+            mainDexRules.absolutePath,
+        )
+        val command = if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows) {
+            listOf("cmd.exe", "/c", "\"${d8Arguments.joinToString(" ") { "\"$it\"" }}\"")
+        } else {
+            d8Arguments
         }
 
         val process = ProcessBuilder(command)
             .directory(libsDir)
-            .inheritIO()
+            .redirectErrorStream(true)
             .start()
+        val output = process.inputStream.bufferedReader().readText()
+        val exitCode = process.waitFor()
 
-        require(process.waitFor() == 0) {
-            "Failed to create the main dex file"
+        require(exitCode == 0) {
+            "Failed to create the main dex file (exit code $exitCode). Command: ${command.joinToString(" ")}\n$output"
         }
     }
 }
@@ -94,7 +97,7 @@ fun Project.createMainDexFileTask(
 
     return tasks.register("createMainDexFile", CreateMainDexFileTask::class.java) {
         with(it) {
-            group = "godot-kotlin-jvm"
+            group = "godot-jvm"
             description = "Converts the main.jar to an android dex file. Needed for android builds only"
 
             dependsOn(

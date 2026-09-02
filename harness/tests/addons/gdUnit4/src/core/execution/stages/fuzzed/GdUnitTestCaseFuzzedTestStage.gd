@@ -33,6 +33,7 @@ func _execute(context :GdUnitExecutionContext) -> void:
 			reports.append(GdUnitReport.new() \
 				.create(GdUnitReport.FAILURE, report.line_number(), GdAssertMessages.fuzzer_interuped(iteration, report.message())))
 			break
+
 	await context.gc(GdUnitExecutionContext.GC_ORPHANS_CHECK.TEST_CASE)
 
 	# unguard on fuzzers
