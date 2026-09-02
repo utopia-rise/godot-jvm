@@ -53,6 +53,11 @@ jobs:
         run: |
           modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :tools-common:publish
 
+      - name: Publish api-generator
+        shell: sh
+        run: |
+          modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :api-generator:publish
+
       - name: Publish godot-registration
         shell: sh
         run: |

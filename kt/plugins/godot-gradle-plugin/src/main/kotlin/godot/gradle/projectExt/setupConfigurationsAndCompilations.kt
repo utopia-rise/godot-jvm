@@ -27,7 +27,9 @@ fun Project.setupConfigurationsAndCompilations() {
         // `godot { ... }` configuration has had a chance to override extension defaults.
         dependencies.add("compileOnly", "com.utopia-rise:common:$BUILD_VERSION")
         dependencies.add("compileOnly", "com.utopia-rise:$godotCoreArtifactName:$BUILD_VERSION")
-        dependencies.add("compileOnly", "com.utopia-rise:$godotApiArtifactName:$BUILD_VERSION")
+        if (!godotJvmExtension.isCustomApiEnabled.get()) {
+            dependencies.add("compileOnly", "com.utopia-rise:$godotApiArtifactName:$BUILD_VERSION")
+        }
         dependencies.add("compileOnly", "com.utopia-rise:$godotExtensionArtifactName:$BUILD_VERSION")
         dependencies.add("compileOnly", "com.utopia-rise:$godotBootstrapArtifactName:$BUILD_VERSION")
         if (isLanguageEnabled(GodotLanguage.SCALA)) {

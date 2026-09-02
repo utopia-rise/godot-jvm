@@ -45,12 +45,20 @@ tasks {
         mustRunAfter(publishCommonToMavenLocal)
     }
 
+    val publishApiGeneratorToMavenLocal by registering(Exec::class) {
+        group = "publishing"
+        description = "Publishes the API generator included build to mavenLocal."
+        workingDir = projectDir
+        commandLine(gradleWrapperCommand("-p", "api-generator", "publishToMavenLocal"))
+        mustRunAfter(publishToolsCommonToMavenLocal)
+    }
+
     val publishMainBuildToMavenLocal by registering(Exec::class) {
         group = "publishing"
         description = "Publishes the main Kotlin/JVM build to mavenLocal."
         workingDir = projectDir
         commandLine(gradleWrapperCommand("publishToMavenLocal"))
-        mustRunAfter(publishToolsCommonToMavenLocal)
+        mustRunAfter(publishApiGeneratorToMavenLocal)
     }
 
     val publishReleaseBuildToMavenLocal by registering(Exec::class) {
@@ -68,6 +76,7 @@ tasks {
         dependsOn(
             publishCommonToMavenLocal,
             publishToolsCommonToMavenLocal,
+            publishApiGeneratorToMavenLocal,
             publishMainBuildToMavenLocal,
             publishReleaseBuildToMavenLocal
         )

@@ -3,8 +3,11 @@ import versioninfo.fullBuildVersion
 plugins {
     alias(libs.plugins.kotlin.jvm)
     `java-gradle-plugin`
+    id("com.utopia-rise.godot-publish")
     id("com.utopia-rise.versioninfo")
 }
+
+version = fullBuildVersion
 
 kotlin {
     jvmToolchain(libs.versions.toolchain.jvm.get().toInt())
