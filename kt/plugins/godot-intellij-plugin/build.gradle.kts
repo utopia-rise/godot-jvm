@@ -1,3 +1,4 @@
+import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
@@ -68,9 +69,11 @@ intellijPlatform {
 
     pluginVerification {
         ides {
+            // The oldest supported IDE, plus the versions the Marketplace verifies against.
             create(IntelliJPlatformType.IntellijIdeaCommunity, "2025.1")
-            create(IntelliJPlatformType.IntellijIdeaCommunity, "2025.2")
-            create(IntelliJPlatformType.IntellijIdea, "2026.1")
+            create(IntelliJPlatformType.IntellijIdea, "2025.2.6.3")
+            create(IntelliJPlatformType.IntellijIdea, "2026.1.5")
+            create(IntelliJPlatformType.IntellijIdea, "2026.2.1")
         }
     }
 }
@@ -124,6 +127,21 @@ tasks {
                 }
                 subList(indexOf(start) + 1, indexOf(end))
             }.joinToString("\n").run { markdownToHTML(this) }
+        )
+
+        // Ship the changelog as the plugin's "What's New". `patchChangelog` turns the [Unreleased] section into a
+        // versioned one, so look for the released version first and fall back to [Unreleased] when it has not run yet.
+        changeNotes.set(
+            provider {
+                with(changelog) {
+                    renderItem(
+                        (getOrNull(project.version.toString()) ?: getUnreleased())
+                            .withHeader(false)
+                            .withEmptySections(false),
+                        Changelog.OutputType.HTML
+                    )
+                }
+            }
         )
     }
 

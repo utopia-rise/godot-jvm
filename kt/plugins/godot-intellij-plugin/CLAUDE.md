@@ -24,6 +24,66 @@ live under `analysis/kotlin/`. Registration-mode decisions belong in
 Keep inspection classes as dispatchers. Do not copy rule logic into the
 language entry points when a shared analyzer can express it cleanly.
 
+## New Script Action
+
+`action/NewGodotScriptAction` adds `New | Godot Script` to the project view.
+It is only visible for directories inside a Godot project.
+
+`NewGodotScriptDialog` collects the class name, language, Godot base class,
+and lifecycle overrides. The base class chooser is an inheritance chooser
+rooted at `KtObject`, and only the lifecycle functions declared by the chosen
+base class can be selected.
+
+`GodotScriptGenerator` builds the source. Annotations follow
+`RegistrationMode`: none in Automatic, `@Script` in Inferred, and `@Script`
+plus `@Register` on every override in Explicit. Its output is covered by
+`GodotScriptGeneratorTest` for Kotlin, Java, and Scala.
+
+## Run Configuration
+
+`run/GodotRunConfigurationType` registers the `Godot` configuration type. Its
+factory is applicable only when the project contains a `project.godot`, which
+`Project.godotRoot` resolves through `GodotProjectScopeService`.
+
+`GodotRunConfiguration.buildCommandLine` is the part worth protecting. It
+passes the chosen JDK with `--jvm-path`, which the binding resolves before the
+embedded JRE and the environment. It also exports `JAVA_HOME` for the tools
+Godot starts itself, such as Gradle, but never touches `PATH` and never falls
+back to either: Godot-JVM builds without that argument are not supported.
+`GodotRunConfigurationTest` covers the editor, game, and JDK cases.
+
+The JDK picker is the platform `SdkComboBox`, so the project SDK, registered
+JDKs, and JDKs detected on the machine are all offered without extra code.
+
+## IDE Compatibility
+
+`pluginVerification.ides` in `build.gradle.kts` lists the oldest supported IDE
+plus the versions the Marketplace verifies against. Keep it in sync with the
+Marketplace, and run it before publishing:
+
+```powershell
+.\gradlew.bat :godot-intellij-plugin:verifyPlugin
+```
+
+Verifying only the IDEs the plugin is built against hides breakage: Kotlin
+plugin internals such as `KtUltraLightClass` disappear in newer builds. Prefer
+public, long lived APIs (`KtLightClass`), and own small helpers rather than
+calling deprecated Kotlin PSI methods.
+
+## Marketplace Metadata
+
+Both descriptions the Marketplace shows are generated at build time by
+`patchPluginXml`; never edit `plugin.xml` for them.
+
+- description: the `<!-- Plugin description -->` block in `README.md`.
+  Keep it current when a user-visible feature is added.
+- what's new: `CHANGELOG.md`. `publishPlugin` depends on `patchChangelog`,
+  which turns `[Unreleased]` into a versioned section, so `changeNotes`
+  reads the released version first and falls back to `[Unreleased]`.
+
+Add every user-visible change to `[Unreleased]` under a Keep a Changelog
+group. It is published, not just internal documentation.
+
 ## Registration Highlighting
 
 Registration highlighting is separate from inspections. It gives declaration

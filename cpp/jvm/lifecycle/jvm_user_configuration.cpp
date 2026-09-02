@@ -4,11 +4,6 @@
 
 bool JvmUserConfiguration::parse_configuration_json(const godot::String& json_string, JvmUserConfiguration& json_config) {
     bool is_invalid = false;
-    // JSON extends Resource (-> RefCounted -> Object -> Wrapped), so it must be created via
-    // memnew() — Ref<>::instantiate() does that internally. A plain stack-local godot::JSON json;
-    // skips that and never registers the object's GDExtension instance-binding callbacks, which
-    // is exactly the "Godot Object created without binding callbacks. Did you forget to use
-    // memnew()?" crash this was causing.
     godot::Ref<godot::JSON> json;
     json.instantiate();
     godot::Error error = json->parse(json_string);
@@ -274,6 +269,13 @@ void JvmUserConfiguration::parse_command_line(const godot::PackedStringArray& ar
             }
         } else if (identifier == DISABLE_GC_CMD_IDENTIFIER) {
             configuration_map[DISABLE_GC_CMD_IDENTIFIER] = get_cmd_bool_or_default(value, TRUE_STRING);
+        } else if (identifier == JVM_PATH_CMD_IDENTIFIER) {
+            godot::String path = value.strip_edges().trim_prefix("\"").trim_suffix("\"");
+            if (!path.is_empty()) {
+                configuration_map[JVM_PATH_CMD_IDENTIFIER] = path;
+            } else {
+                JVM_LOG_WARNING("Empty JVM path in command line arguments. It will be ignored");
+            }
         } else if (identifier == JVM_ARGUMENTS_CMD_IDENTIFIER) {
             godot::Array arr {};
             // Support both comma-separated and space-separated values.
@@ -315,6 +317,7 @@ void JvmUserConfiguration::merge_with_command_line(JvmUserConfiguration& json_co
     replace_json_value_by_cmd_value(cmd_map, json_config.max_string_size, MAX_STRING_SIZE_CMD_IDENTIFIER);
     replace_json_value_by_cmd_value(cmd_map, json_config.disable_gc, DISABLE_GC_CMD_IDENTIFIER);
     replace_json_value_by_cmd_value(cmd_map, json_config.jvm_args, JVM_ARGUMENTS_CMD_IDENTIFIER);
+    replace_json_value_by_cmd_value(cmd_map, json_config.jvm_path, JVM_PATH_CMD_IDENTIFIER);
 }
 
 void JvmUserConfiguration::sanitize_and_log_configuration(JvmUserConfiguration& config) {
@@ -324,6 +327,10 @@ void JvmUserConfiguration::sanitize_and_log_configuration(JvmUserConfiguration& 
           "Be aware that it might impact performance and memory usage. Set to -1 if you want the default size.",
           config.max_string_size
         );
+    }
+
+    if (!config.jvm_path.is_empty()) {
+        JVM_LOG_WARNING("A JVM path is forced through the command line. The embedded JRE and the environment are ignored: %s", config.jvm_path);
     }
 
     if (!config.jvm_args.is_empty()) {

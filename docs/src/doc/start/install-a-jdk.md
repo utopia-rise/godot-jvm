@@ -22,9 +22,9 @@ no `JAVA_HOME` needed. To use `JAVA_HOME` instead, or to check what it's current
 $JAVA_HOME` on macOS and Linux, or `echo $env:JAVA_HOME` in Windows PowerShell.
 
 !!! note "If both are set to different JDKs"
-    `PATH` takes priority over `JAVA_HOME`. If you have an older JDK on `PATH` and a newer one in
-    `JAVA_HOME`, Godot uses the one on `PATH` — update `PATH` rather than `JAVA_HOME` if that's not
-    the JDK you want.
+    `JAVA_HOME` takes priority over `PATH`. If you have an older JDK in `JAVA_HOME` and a newer one
+    on `PATH`, Godot uses the one in `JAVA_HOME` — update `JAVA_HOME` rather than `PATH` if that's
+    not the JDK you want.
 
 ## Mac
 

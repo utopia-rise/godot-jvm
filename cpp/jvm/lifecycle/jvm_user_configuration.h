@@ -29,6 +29,7 @@ static constexpr const char* JMX_PORT_CMD_IDENTIFIER {"--jvm-jmx-port"};
 static constexpr const char* MAX_STRING_SIZE_CMD_IDENTIFIER {"--jvm-max-string-size"};
 static constexpr const char* DISABLE_GC_CMD_IDENTIFIER {"--jvm-disable-gc"};
 static constexpr const char* JVM_ARGUMENTS_CMD_IDENTIFIER {"--jvm-custom-args"};
+static constexpr const char* JVM_PATH_CMD_IDENTIFIER {"--jvm-path"};
 
 // VALUE
 static constexpr const char* AUTO_STRING {"auto"};
@@ -53,7 +54,8 @@ struct JvmUserConfiguration {
     int32_t max_string_size {-1};
 
     bool disable_gc {false};
-
+    
+    godot::String jvm_path;
     godot::Array jvm_args;
 
     JvmUserConfiguration() = default;

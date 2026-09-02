@@ -4,8 +4,8 @@ import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiModifier
 import godot.annotation.Script
-import org.jetbrains.kotlin.analysis.utils.classId
-import org.jetbrains.kotlin.asJava.classes.KtUltraLightClass
+import org.jetbrains.kotlin.asJava.classes.KtLightClass
+import org.jetbrains.kotlin.idea.base.psi.classIdIfNonLocal
 import org.jetbrains.kotlin.idea.util.findAnnotation
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.psi.KtClass
@@ -27,7 +27,7 @@ fun PsiClass.anyFunctionHasAnnotation(annotation: KClass<*>) = this
     }
 
 fun PsiClass.anyPropertyHasAnnotation(annotation: KClass<*>) = when (this) {
-    is KtUltraLightClass -> (this.kotlinOrigin as? KtClass)?.getProperties()
+    is KtLightClass -> (this.kotlinOrigin as? KtClass)?.getProperties()
         ?.any { property -> property.findAnnotation(annotation.classId) != null } == true
 
     else -> this
@@ -42,7 +42,7 @@ val PsiClass.isRegistered: Boolean
 
 
 fun PsiClass.isOrInheritsType(classId: ClassId): Boolean {
-    return this.classId == classId || superTypes.any { superType -> superType.resolve()?.isOrInheritsType(classId) == true }
+    return this.classIdIfNonLocal == classId || superTypes.any { superType -> superType.resolve()?.isOrInheritsType(classId) == true }
 }
 
 
