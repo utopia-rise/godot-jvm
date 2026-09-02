@@ -287,6 +287,28 @@ String GodotJvm::copy_new_file_to_user_dir(const String& file_name) {
     return file_user_path;
 }
 
+void GodotJvm::copy_external_jars_to_user_dir() {
+    String source_directory {String(RES_DIRECTORY) + EXTERNAL_JARS_DIRECTORY};
+    Ref<DirAccess> source {DirAccess::open(source_directory)};
+    if (source.is_null()) { return; }
+
+    Ref<DirAccess> destination {DirAccess::open(USER_DIRECTORY)};
+    destination->make_dir_recursive(EXTERNAL_JARS_DIRECTORY);
+
+    if (source->list_dir_begin() != OK) { return; }
+    for (String entry = source->get_next(); !entry.is_empty(); entry = source->get_next()) {
+        if (source->current_is_dir() || entry.get_extension() != "jar") { continue; }
+
+        String source_file {source_directory.path_join(entry)};
+        String destination_file {String(EXTERNAL_JARS_DIRECTORY).path_join(entry)};
+        if (!FileAccess::file_exists(String(USER_DIRECTORY) + destination_file) ||
+            FileAccess::get_md5(String(USER_DIRECTORY) + destination_file) != FileAccess::get_md5(source_file)) {
+            destination->copy(source_file, destination_file);
+        }
+    }
+    source->list_dir_end();
+}
+
 #endif
 
 bool GodotJvm::load_bootstrap() {
@@ -374,6 +396,7 @@ bool GodotJvm::load_user_code() {
         String user_code_path {String(RES_DIRECTORY).path_join(USER_CODE_FILE)};
 #else
         String user_code_path {copy_new_file_to_user_dir(USER_CODE_FILE)};
+        copy_external_jars_to_user_dir();
 #endif
 
         if (!FileAccess::file_exists(user_code_path)) {

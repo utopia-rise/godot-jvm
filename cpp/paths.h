@@ -12,6 +12,7 @@ static constexpr const char* JVM_CONFIGURATION_PATH {"res://godot_jvm_configurat
 
 static constexpr const char* DESKTOP_BOOTSTRAP_FILE {JVM_DIRECTORY "godot-bootstrap.jar"};
 static constexpr const char* DESKTOP_USER_CODE_FILE {JVM_DIRECTORY "main.jar"};
+static constexpr const char* EXTERNAL_JARS_DIRECTORY {JVM_DIRECTORY "external/"};
 
 static constexpr const char* LINUX_GRAAL_NATIVE_IMAGE_FILE {JVM_DIRECTORY "usercode.so"};
 static constexpr const char* LINUX_EMBEDDED_JRE_ARM_DIRECTORY {JVM_DIRECTORY "jre-arm64-linux"};
