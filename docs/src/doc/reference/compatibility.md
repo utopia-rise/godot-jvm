@@ -17,7 +17,7 @@ Godot-JVM uses its Gradle plugin to compile your project, then scans the resulti
 Godot-JVM 1.0.0 requires at least Kotlin `2.3.20`, Java `17`, and Scala `3.0.0`.
 
 !!! info
-    It is possible to use Godot-JVM with other Kotlin versions as well, but we do not provide guarantees for them. Find more information in the [`kotlinVersion`](gradle-plugin/languages-and-toolchains.md#kotlinversion) section.
+    It is possible to use Godot-JVM with other Kotlin versions as well, but we do not provide guarantees for them. Find more information in the [`toolchain.kotlinVersion`](gradle-plugin/languages-and-toolchains.md#toolchainkotlinversion) section.
 
 ## Supported platforms
 

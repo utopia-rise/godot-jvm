@@ -33,7 +33,7 @@ fun Project.setupConfigurationsAndCompilations() {
         dependencies.add("compileOnly", "com.utopia-rise:$godotExtensionArtifactName:$BUILD_VERSION")
         dependencies.add("compileOnly", "com.utopia-rise:$godotBootstrapArtifactName:$BUILD_VERSION")
         if (isLanguageEnabled(GodotLanguage.SCALA)) {
-            dependencies.add("implementation", "org.scala-lang:scala3-library_3:${godotJvmExtension.scalaVersion.get()}")
+            dependencies.add("implementation", "org.scala-lang:scala3-library_3:${godotJvmExtension.toolchain.scalaVersion.get()}")
         }
 
         if (godotJvmExtension.isGodotCoroutinesEnabled.get()) {

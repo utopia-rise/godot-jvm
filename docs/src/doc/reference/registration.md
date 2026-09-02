@@ -16,7 +16,7 @@ description: Exact registration selection rules for classes, properties, functio
 
 `Inferred` is the default. It is the mode used by the Guide and its examples.
 
-Choose a non-default mode with `annotationProcessingMode`; see [Registration output](gradle-plugin/registration.md) only for that configuration setting and `.gdj` output options.
+Choose a non-default mode with `registration.annotationProcessingMode`; see [Registration output](gradle-plugin/registration.md) only for that configuration setting and `.gdj` output options.
 
 ## What selects each declaration
 

@@ -1,4 +1,3 @@
-import godot.annotation.processor.classgraph.AnnotationProcessingMode
 import godot.gradle.GodotLanguage
 
 plugins {
@@ -10,38 +9,23 @@ repositories {
 }
 
 godot {
-    // --------- Setup ---------
     languages.set(setOf(GODOT_LANGUAGES))
-    annotationProcessingMode.set(AnnotationProcessingMode.Inferred)
-    godotProjectDirectory.set(file(".")) // only change this if the Godot project root is not this Gradle project directory
-    isCustomApiEnabled.set(false)
-    apiJsonFile.set(file("api.json"))
 
-    // Enable to mark this Gradle project as a reusable library rather than a runnable Godot project.
-    //isLibrary.set(true)
-
-    // Enable coroutines integration with Godot signal/lifecycle callbacks.
-    //isGodotCoroutinesEnabled.set(true)
-
-    // --------- Toolchain ---------
-    //javaVersion.set(17)
-    //kotlinVersion.set("2.3.20")
-    //scalaVersion.set("3.6.3")
+    // BEGIN_OPTIONAL_COROUTINES
+    isGodotCoroutinesEnabled.set(true)
+    // END_OPTIONAL_COROUTINES
 
     // BEGIN_OPTIONAL_ANDROID
-    // --------- Android ---------
-    d8ToolPath.set("D8_TOOL_PATH")
-    androidCompileSdkDirectory.set("ANDROID_COMPILE_SDK_DIR")
-    //androidMinApiLevel.set(21)
+    android {
+        d8ToolPath.set("D8_TOOL_PATH")
+        compileSdkDirectory.set("ANDROID_COMPILE_SDK_DIR")
+    }
     // END_OPTIONAL_ANDROID
 
     // BEGIN_OPTIONAL_GRAAL
-    // --------- Graal / iOS ---------
-    graalVmHomeDirectory.set("GRAAL_VM_DIR")
-    windowsDeveloperVcVarsPath.set("WINDOWS_DEVELOPER_VS_VARS_PATH")
-    //additionalGraalJniConfigurationFiles.set(arrayOf("my-jni-configuration-file.json"))
-    //additionalGraalReflectionConfigurationFiles.set(arrayOf("my-reflection-configuration-file.json"))
-    //additionalGraalResourceConfigurationFiles.set(arrayOf("my-resource-configuration-file.json"))
-    //isGraalNativeImageVerboseEnabled.set(true)
+    graal {
+        homeDirectory.set("GRAAL_VM_DIR")
+        windowsDeveloperVcVarsPath.set("WINDOWS_DEVELOPER_VS_VARS_PATH")
+    }
     // END_OPTIONAL_GRAAL
 }

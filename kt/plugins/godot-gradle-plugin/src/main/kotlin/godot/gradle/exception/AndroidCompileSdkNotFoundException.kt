@@ -7,7 +7,7 @@ class AndroidCompileSdkNotFoundException(reason: String? = null) : IllegalArgume
             append(": ")
             append(reason)
         }
-        append(". Set ANDROID_SDK_ROOT to a valid Android SDK, or set godot.androidCompileSdkDirectory to a platform directory that contains android.jar.")
+        append(". Set ANDROID_SDK_ROOT to a valid Android SDK, or set godot.android.compileSdkDirectory to a platform directory that contains android.jar.")
         append(" For more information, visit: https://godot-jvm.dev/en/stable/user-guide/exporting/#android")
     }
 )

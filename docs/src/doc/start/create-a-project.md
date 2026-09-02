@@ -54,6 +54,27 @@ Open IntelliJ IDEA, open **Settings**, select **Plugins**, then select **Marketp
 
     After this action, all required files should be generated, and you can safely import your project in your IDE.
 
+    The generated `build.gradle.kts` keeps the Godot configuration deliberately small:
+
+    ```kotlin
+    import godot.gradle.GodotLanguage
+
+    plugins {
+        id("com.utopia-rise.godot-jvm") version "<godot-jvm-version>"
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    godot {
+        languages.set(setOf(GodotLanguage.KOTLIN, GodotLanguage.JAVA, GodotLanguage.SCALA))
+        isGodotCoroutinesEnabled.set(true)
+    }
+    ```
+
+    All other plugin settings use their defaults. See the [Gradle plugin reference](../reference/gradle-plugin/index.md) for an example with every project-wizard option enabled.
+
     Once the JVM files have been generated, use **Build > Run Gradle** in the Godot editor to build the project. The JVM status indicator changes from yellow to green when the build completes successfully.
 
     ![Run Gradle and JVM status indicator](../assets/img/run-gradle-ready.png)

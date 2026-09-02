@@ -316,7 +316,7 @@ Once a declaration is selected, annotations configure the final model.
 - `@Script(className = "...")` supplies a custom registered name.
 - `@Tool` records editor-time script metadata. Tool mode itself is not implemented yet.
 
-Without a custom name, `registrationNameMode` determines how the default name
+Without a custom name, `registration.nameMode` determines how the default name
 is computed.
 
 ### Property metadata
@@ -508,7 +508,9 @@ The Gradle build mode is configured in `build.gradle.kts`:
 import godot.annotation.processor.classgraph.AnnotationProcessingMode
 
 godot {
-    annotationProcessingMode.set(AnnotationProcessingMode.Inferred)
+    registration {
+        annotationProcessingMode.set(AnnotationProcessingMode.Inferred)
+    }
 }
 ```
 

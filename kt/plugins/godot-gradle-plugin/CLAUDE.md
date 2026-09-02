@@ -177,7 +177,7 @@ Important behavior:
 - `RegisteredNameMode.PROJECT_PREFIX` prefixes only external classes with `sourceProjectName_`
 - `RegistrationFileLayoutMode.FLAT` is the default
 - `RegistrationFileLayoutMode.HIERARCHICAL` mirrors the package path inside each project directory
-- `registrationFilesDirectory` defaults to `<godotProjectDirectory>/gdj`
+- `registration.gdjFilesDirectory` defaults to `<godotProjectDirectory>/gdj`
 - all scanned registered classes are generated through the same registrar pipeline regardless of origin
 
 `.gdj` layout is always project-aware:
@@ -361,7 +361,7 @@ For user-facing Gradle settings and examples, the canonical docs pages are under
 
 - `index.md` — the `godot { }` block at a glance, Gradle performance settings, wrapper path
 - `languages-and-toolchains.md` — `languages`, `javaVersion`, `kotlinVersion`, `scalaVersion`
-- `registration.md` — `annotationProcessingMode`, `godotProjectDirectory`, `registrationFiles*`, `registrationNameMode`
+- `registration.md` — `registration.annotationProcessingMode`, `godotProjectDirectory`, and the `registration.gdjFiles*` settings
 - `packaging-and-tasks.md` — `isLibrary`, `isGodotCoroutinesEnabled`, `fastBuild`
 - `export-targets.md` — Android, GraalVM and iOS build inputs
 

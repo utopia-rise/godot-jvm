@@ -56,7 +56,7 @@ When enabled, the plugin:
 - skips the runnable-project packaging flow
 - leaves a regular library jar as the final artifact
 
-Unlike `disableGdj`, `isLibrary` turns off the whole local runtime-registration pipeline rather than only the `.gdj` part of it.
+Unlike `registration.disableGdj`, `isLibrary` turns off the whole local runtime-registration pipeline rather than only the `.gdj` part of it.
 
 ## Build tasks
 
@@ -80,7 +80,7 @@ Rules:
 - still recompiles the project and rebuilds `main.jar`
 - should not be used after adding, removing, renaming, or structurally changing registered classes, functions, properties, or signals
 
-### `registrarIncrementalFullBuildThreshold`
+### `registration.incrementalFullBuildThreshold`
 
 Maximum number of changed classes for which registrar generation still takes the incremental path. When more classes than this change between two successful builds, the plugin falls back to a full registrar generation run instead of paying the incremental prepass overhead.
 
@@ -92,7 +92,9 @@ Example:
 
 ```kotlin
 godot {
-    registrarIncrementalFullBuildThreshold.set(64)
+    registration {
+        incrementalFullBuildThreshold.set(64)
+    }
 }
 ```
 

@@ -8,7 +8,7 @@ These settings control how classes and members are selected for registration, an
 
 ## Registration selection
 
-### `annotationProcessingMode`
+### `registration.annotationProcessingMode`
 
 Controls how classes and members are selected for registration.
 
@@ -18,7 +18,9 @@ Default: `AnnotationProcessingMode.Inferred`
 import godot.annotation.processor.classgraph.AnnotationProcessingMode
 
 godot {
-    annotationProcessingMode.set(AnnotationProcessingMode.Inferred)
+    registration {
+        annotationProcessingMode.set(AnnotationProcessingMode.Inferred)
+    }
 }
 ```
 
@@ -57,9 +59,11 @@ godot {
 }
 ```
 
-### `registrationFilesDirectory`
+### `registration.gdjFilesDirectory`
 
 Base directory where newly created external-dependency `.gdj` registration files are written. Classes from the current Godot project use their source files directly.
+
+The plugin creates this directory only when it has a generated `.gdj` file to write there.
 
 Default:
 
@@ -69,11 +73,13 @@ Example:
 
 ```kotlin
 godot {
-    registrationFilesDirectory.set(file("custom-gdj"))
+    registration {
+        gdjFilesDirectory.set(file("custom-gdj"))
+    }
 }
 ```
 
-### `disableGdj`
+### `registration.disableGdj`
 
 Disables external-dependency `.gdj` registration file handling while keeping class scanning and registrar generation enabled.
 
@@ -85,7 +91,9 @@ Example:
 
 ```kotlin
 godot {
-    disableGdj.set(true)
+    registration {
+        disableGdj.set(true)
+    }
 }
 ```
 
@@ -97,7 +105,7 @@ When enabled, the plugin:
 - skips staged `.gdj` generation
 - skips copying, replacing, or deleting `.gdj` files in the Godot project
 
-### `registrationFilesLayoutMode`
+### `registration.gdjFilesLayoutMode`
 
 Controls how `.gdj` files are laid out inside each project directory.
 
@@ -116,11 +124,13 @@ Example:
 import godot.registrar.generator.RegistrationFileLayoutMode
 
 godot {
-    registrationFilesLayoutMode.set(RegistrationFileLayoutMode.HIERARCHICAL)
+    registration {
+        gdjFilesLayoutMode.set(RegistrationFileLayoutMode.HIERARCHICAL)
+    }
 }
 ```
 
-### `registrationFilesIndentation`
+### `registration.gdjFilesIndentation`
 
 Controls the indentation used inside generated `.gdj` files.
 
@@ -139,11 +149,13 @@ Example:
 import godot.registrar.generator.RegistrationFileIndentation
 
 godot {
-    registrationFilesIndentation.set(RegistrationFileIndentation.TAB)
+    registration {
+        gdjFilesIndentation.set(RegistrationFileIndentation.TAB)
+    }
 }
 ```
 
-### `registrationNameMode`
+### `registration.nameMode`
 
 Controls how default registered names are computed when `@Script` does not provide a custom name.
 
@@ -163,6 +175,8 @@ Example:
 import godot.registrar.generator.RegisteredNameMode
 
 godot {
-    registrationNameMode.set(RegisteredNameMode.FQ_NAME)
+    registration {
+        nameMode.set(RegisteredNameMode.FQ_NAME)
+    }
 }
 ```
