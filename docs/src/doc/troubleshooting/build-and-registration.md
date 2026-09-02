@@ -65,7 +65,7 @@ registration steps.
 ## The editor and the build disagree
 
 - Check that the IntelliJ **Settings | Godot-JVM | Annotation processing
-  mode** setting matches `annotationProcessingMode` in `build.gradle.kts`
+  mode** setting matches `registration.annotationProcessingMode` in `build.gradle.kts`
   before changing any analyzer or build logic. Gradle decides what actually
   gets registered; the IDE setting only keeps inspections and highlighting
   consistent with it.

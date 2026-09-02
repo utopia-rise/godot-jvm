@@ -56,7 +56,7 @@ abstract class CheckD8ToolAccessibleTask : DefaultTask() {
 }
 
 fun Project.checkD8ToolAccessibleTask(): TaskProvider<out Task> {
-    val d8ToolPath = godotJvmExtension.d8ToolPath
+    val d8ToolPath = godotJvmExtension.android.d8ToolPath
 
     return tasks.register("checkD8ToolAccessible", CheckD8ToolAccessibleTask::class.java) {
         with(it) {

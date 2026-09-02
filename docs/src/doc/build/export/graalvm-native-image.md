@@ -20,8 +20,10 @@ On Windows, also set the `VC_VARS_PATH` environment variable to point to the vcv
 In order to build a native image, configure the Gradle plugin like this and then invoke `buildGraalNativeImage` or `buildGraalNativeImageRelease`:
 ```kotlin
 godot {
-    graalVmHomeDirectory.set(File(System.getenv("GRAALVM_HOME")))
-    windowsDeveloperVcVarsPath.set(File(System.getenv("VC_VARS_PATH")))
+    graal {
+        homeDirectory.set(System.getenv("GRAALVM_HOME"))
+        windowsDeveloperVcVarsPath.set(System.getenv("VC_VARS_PATH"))
+    }
 }
 ```
 
@@ -32,15 +34,16 @@ In order to use the generated native image, you can pass the `--java-vm-type=gra
 GraalVM native image performs AOT compilation. In order to be able to use reflection and JNI, you need to provide an additional configuration file.
 This also applies to any third-party library you use that relies on reflection. You can find documentation on how to easily generate these configuration files [here](https://www.graalvm.org/reference-manual/native-image/Agent/).
 
-Add the generated JSON files to the `graal` folder of your project (it is created the first time you build a GraalVM native image). Then add the `additionalGraalJniConfigurationFiles` and `additionalGraalReflectionConfigurationFiles` parameters like this:
+Add the generated JSON files to the `graal` folder of your project (it is created the first time you build a GraalVM native image). Then configure `graal.additionalJniConfigurationFiles` and `graal.additionalReflectionConfigurationFiles`:
 
 ```kotlin
 godot {
-    graalVmHomeDirectory.set(File(System.getenv("GRAALVM_HOME")))
-    windowsDeveloperVcVarsPath.set(File(System.getenv("VC_VARS_PATH")))
-    
-    additionalGraalJniConfigurationFiles.set(arrayOf("my-jni-configuration-file.json", "another-conf.json"))
-    additionalGraalReflectionConfigurationFiles.set(arrayOf("my-reflection-configuration-file.json", "another-conf.json"))
+    graal {
+        homeDirectory.set(System.getenv("GRAALVM_HOME"))
+        windowsDeveloperVcVarsPath.set(System.getenv("VC_VARS_PATH"))
+        additionalJniConfigurationFiles.set(arrayOf("my-jni-configuration-file.json", "another-conf.json"))
+        additionalReflectionConfigurationFiles.set(arrayOf("my-reflection-configuration-file.json", "another-conf.json"))
+    }
 }
 ```
 
@@ -48,12 +51,13 @@ The same applies to resource files that should be added (basically any files in 
 
 ```kotlin
 godot {
-    graalVmHomeDirectory.set(File(System.getenv("GRAALVM_HOME")))
-    windowsDeveloperVcVarsPath.set(File(System.getenv("VC_VARS_PATH")))
-    
-    additionalGraalJniConfigurationFiles.set(arrayOf("my-jni-configuration-file.json", "another-conf.json"))
-    additionalGraalReflectionConfigurationFiles.set(arrayOf("my-reflection-configuration-file.json", "another-conf.json"))
-    additionalGraalResourceConfigurationFiles.set(arrayOf("my-resource-configuration-file.json", "another-conf.json"))
+    graal {
+        homeDirectory.set(System.getenv("GRAALVM_HOME"))
+        windowsDeveloperVcVarsPath.set(System.getenv("VC_VARS_PATH"))
+        additionalJniConfigurationFiles.set(arrayOf("my-jni-configuration-file.json", "another-conf.json"))
+        additionalReflectionConfigurationFiles.set(arrayOf("my-reflection-configuration-file.json", "another-conf.json"))
+        additionalResourceConfigurationFiles.set(arrayOf("my-resource-configuration-file.json", "another-conf.json"))
+    }
 }
 ```
 

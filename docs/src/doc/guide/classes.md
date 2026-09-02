@@ -55,7 +55,9 @@ We do however provide you with some assistance:
 import godot.registrar.generator.RegisteredNameMode
 
 godot {
-    registrationNameMode.set(RegisteredNameMode.FQ_NAME)
+    registration {
+        nameMode.set(RegisteredNameMode.FQ_NAME)
+    }
 }
 ```
 
