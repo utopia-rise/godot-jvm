@@ -1,4 +1,4 @@
-rootProject.name = "godot-kotlin-tests"
+rootProject.name = "godot-jvm-tests"
 
 includeBuild("../../kt/api-generator") {
     dependencySubstitution {
@@ -43,7 +43,7 @@ pluginManagement {
         google()
     }
     resolutionStrategy.eachPlugin {
-        if (requested.id.id == "com.utopia-rise.godot-kotlin-jvm") {
+        if (requested.id.id == "com.utopia-rise.godot-jvm") {
             useModule("com.utopia-rise:godot-gradle-plugin:${requested.version}")
         }
         if (requested.id.id == "com.utopia-rise.api-generator") {

@@ -1,0 +1,79 @@
+name: Download Godot
+description: Downloads an official Godot editor for GDExtension tests.
+inputs:
+  version:
+    required: true
+  platform:
+    required: true
+  destination:
+    required: true
+  template:
+    description: Export template to install for the selected platform (debug or release).
+    required: false
+    default: ''
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        set -euo pipefail
+        base="https://github.com/godotengine/godot-builds/releases/download/${{ inputs.version }}"
+
+        if [ -n "${{ inputs.template }}" ]; then
+          template_version="${{ inputs.version }}"
+          template_version="${template_version//-/.}"
+
+          case "${{ inputs.platform }}" in
+            linux)
+              template_directory="$HOME/.local/share/godot/export_templates/$template_version"
+              template="linux_${{ inputs.template }}.x86_64"
+              ;;
+            windows)
+              template_directory="${APPDATA:?}/Godot/export_templates/$template_version"
+              template="windows_${{ inputs.template }}_x86_64.exe"
+              ;;
+            macos)
+              template_directory="$HOME/Library/Application Support/Godot/export_templates/$template_version"
+              template="macos.zip"
+              ;;
+            *)
+              echo "Unsupported platform: ${{ inputs.platform }}" >&2
+              exit 1
+              ;;
+          esac
+
+          curl --fail --location "$base/Godot_v${{ inputs.version }}_export_templates.tpz" --output templates.tpz
+          unzip -q templates.tpz "templates/$template"
+          mkdir -p "$template_directory"
+          mv "templates/$template" "$template_directory"
+          exit 0
+        fi
+
+        mkdir -p "${{ inputs.destination }}"
+        case "${{ inputs.platform }}" in
+          linux)
+            archive="Godot_v${{ inputs.version }}_linux.x86_64.zip"
+            output="godot.linuxbsd.editor.x86_64"
+            ;;
+          windows)
+            archive="Godot_v${{ inputs.version }}_win64.exe.zip"
+            output="godot.windows.editor.x86_64.exe"
+            ;;
+          macos)
+            archive="Godot_v${{ inputs.version }}_macos.universal.zip"
+            output="godot.macos.editor.universal"
+            ;;
+          *)
+            echo "Unsupported platform: ${{ inputs.platform }}" >&2
+            exit 1
+            ;;
+        esac
+        curl --fail --location "$base/$archive" --output godot.zip
+        unzip -q godot.zip -d godot-download
+        if [ "${{ inputs.platform }}" = macos ]; then
+          mv godot-download/Godot.app "${{ inputs.destination }}/Godot.app"
+          ln -s Godot.app/Contents/MacOS/Godot "${{ inputs.destination }}/$output"
+        else
+          mv "$(find godot-download -type f -name 'Godot*' | head -n 1)" "${{ inputs.destination }}/$output"
+          chmod +x "${{ inputs.destination }}/$output"
+        fi

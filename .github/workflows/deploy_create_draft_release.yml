@@ -9,19 +9,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Godot JVM module.
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0 # clone whole history -> needed for generation of changelog
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 17
 
+      - name: Validate release tag
+        shell: bash
+        run: |
+          if [[ ! "$GITHUB_REF_NAME" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-dev[1-9][0-9]*)?$ ]]; then
+            echo "Expected x.y.z or x.y.z-devX, where X is a positive integer."
+            exit 1
+          fi
+
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
         with:
-          cache-read-only: ${{ github.ref != 'refs/heads/master' }}
+          cache-read-only: false
+          cache-cleanup: always
+          gradle-home-cache-excludes: |
+            wrapper/dists
+            caches/*/generated-gradle-jars
+            daemon
+            notifications
 
       - name: Create draft release
         id: create_release
@@ -32,31 +46,31 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           draft: true
-          prerelease: false
+          prerelease: ${{ contains(github.ref_name, '-dev') }}
 
       - name: Output release url file
         run: echo "${{ steps.create_release.outputs.upload_url }}" > deploy_release_url.txt
 
       - name: Output supported godot version file
-        run: echo $(echo "$GITHUB_REF" | grep -Po '^(?:refs\/tags\/\d+.\d+.\d+-)\K(\d+.\d+.\d+)((?=-SNAPSHOT$)|$)') > deploy_godot_version.txt
+        run: grep -Po '^godot = "\K[^"]+' kt/gradle/libs.versions.toml > deploy_godot_version.txt
 
-      - name: Output godot kotlin jvm version file
-        run: echo $(echo "$GITHUB_REF" | grep -Po '(\d+\.\d+\.\d+-\d+\.\d+\.\d+(-SNAPSHOT)?)') > deploy_godot_kotlin_jvm_version.txt
+      - name: Output Godot-JVM version file
+        run: echo "$GITHUB_REF_NAME" > deploy_godot_jvm_version.txt
 
       - name: Save Release URL File for publish
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: deploy_release_url
           path: deploy_release_url.txt
 
       - name: Save supported godot version for publish
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: deploy_godot_version
           path: deploy_godot_version.txt
 
-      - name: Save godot kotlin jvm version for publish
-        uses: actions/upload-artifact@v4
+      - name: Save Godot-JVM version for publish
+        uses: actions/upload-artifact@v7
         with:
-          name: deploy_godot_kotlin_jvm_version
-          path: deploy_godot_kotlin_jvm_version.txt
+          name: deploy_godot_jvm_version
+          path: deploy_godot_jvm_version.txt

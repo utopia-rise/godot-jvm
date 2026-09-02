@@ -33,7 +33,7 @@ class Rect2i(
      * **Warning**: Writing position.x = 2 will only modify a copy, not the actual object.
      * To modify it, use [position].
      *
-     * See: [Documentation](https://godot-kotl.in/en/stable/user-guide/api-differences/#core-types)
+     * See: [Documentation](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types)
      * */
     @CoreTypeLocalCopy
     var position
@@ -65,7 +65,7 @@ class Rect2i(
      * **Warning**: Writing size.x = 2 will only modify a copy, not the actual object.
      * To modify it, use [size].
      *
-     * See: [Documentation](https://godot-kotl.in/en/stable/user-guide/api-differences/#core-types)
+     * See: [Documentation](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types)
      * */
     @CoreTypeLocalCopy
     var size

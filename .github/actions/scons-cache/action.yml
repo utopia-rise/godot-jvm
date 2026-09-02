@@ -1,65 +1,55 @@
-# base key setup copied from the godot cache action setup
-# just added some if statements for only restoring the cache when not on master and only saving when on master
-
-name: Setup scons cache
-description: Setup scons build cache.
+name: SCons cache
+description: >
+  Restores this branch/PR's own SCons cache, falling back to master's if this branch has none yet.
+  On save, deletes the branch's previous cache entry first so each branch/PR keeps exactly one
+  cache instead of accumulating a new one per push.
 inputs:
+  mode:
+    description: "'restore' (before the build) or 'save' (after the build)."
+    required: true
   cache-name:
-    description: The cache base name (job name by default).
-    default: "${{github.job}}"
+    description: Cache name for one platform, architecture, and target.
+    default: ${{ github.job }}
   scons-cache:
-    description: The scons cache path.
-    default: "${{github.workspace}}/.scons-cache/"
+    description: SCons cache path.
+    default: ${{ github.workspace }}/.scons-cache
 
 runs:
-  using: "composite"
+  using: composite
   steps:
-    # Upload cache on completion and check it out now
-    - name: Load .scons_cache directory
-      if: ${{ github.ref == 'refs/heads/master' }}
-      uses: actions/cache@v4
+    # A stable per-branch key (no sha/run-id) is what lets "save" replace the same entry every time
+    # instead of accumulating one per commit.
+    - name: Compute cache key
+      id: key
+      shell: bash
+      run: echo "key=scons-${{ inputs.cache-name }}-${{ github.head_ref || github.ref_name }}" >> "$GITHUB_OUTPUT"
+
+    - name: Restore SCons cache
+      if: inputs.mode == 'restore'
+      uses: actions/cache/restore@v6
       with:
-        path: ${{inputs.scons-cache}}
-        key: ${{inputs.cache-name}}-${{env.GODOT_BASE_BRANCH}}-${{github.ref}}-${{github.sha}}
-
-        # We try to match an existing cache to restore from it. Each potential key is checked against
-        # all existing caches as a prefix. E.g. 'linux-template-minimal' would match any cache that
-        # starts with "linux-template-minimal", such as "linux-template-minimal-master-refs/heads/master-6588a4a29af1621086feac0117d5d4d37af957fd".
-        #
-        # We check these prefixes in this order:
-        #
-        #   1. The exact match, including the base branch, the commit reference, and the SHA hash of the commit.
-        #   2. A partial match for the same base branch and the same commit reference.
-        #   3. A partial match for the same base branch and the base branch commit reference.
-        #   4. A partial match for the same base branch only (not ideal, matches any PR with the same base branch).
-
+        path: ${{ inputs.scons-cache }}
+        key: ${{ steps.key.outputs.key }}
         restore-keys: |
-          ${{inputs.cache-name}}-${{env.GODOT_BASE_BRANCH}}-${{github.ref}}-${{github.sha}}
-          ${{inputs.cache-name}}-${{env.GODOT_BASE_BRANCH}}-${{github.ref}}
-          ${{inputs.cache-name}}-${{env.GODOT_BASE_BRANCH}}-refs/heads/${{env.GODOT_BASE_BRANCH}}
-          ${{inputs.cache-name}}-${{env.GODOT_BASE_BRANCH}}
+          scons-${{ inputs.cache-name }}-master
 
-    # Check out cache but do not upload it at the end
-    - name: Load .scons_cache directory
-      if: ${{ github.ref != 'refs/heads/master' }}
-      uses: actions/cache/restore@v4 # only restores the cache but does not upload it
+    # actions/cache/save silently no-ops if a cache with this exact key already exists (keys are
+    # immutable), so the previous entry for this branch has to be deleted first or the cache would
+    # never actually refresh after the first push. Requires the `actions: write` permission; on a
+    # forked PR the token is always read-only and this step fails harmlessly, restore-keys just
+    # keeps serving the older cache next time.
+    - name: Delete this branch's previous cache
+      if: inputs.mode == 'save'
+      shell: bash
+      continue-on-error: true
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        gh api --method DELETE "repos/${{ github.repository }}/actions/caches?key=${{ steps.key.outputs.key }}&ref=${{ github.ref }}" --silent || true
+
+    - name: Save SCons cache
+      if: inputs.mode == 'save'
+      uses: actions/cache/save@v6
       with:
-        path: ${{inputs.scons-cache}}
-        key: ${{inputs.cache-name}}-${{env.GODOT_BASE_BRANCH}}-${{github.ref}}-${{github.sha}}
-
-        # We try to match an existing cache to restore from it. Each potential key is checked against
-        # all existing caches as a prefix. E.g. 'linux-template-minimal' would match any cache that
-        # starts with "linux-template-minimal", such as "linux-template-minimal-master-refs/heads/master-6588a4a29af1621086feac0117d5d4d37af957fd".
-        #
-        # We check these prefixes in this order:
-        #
-        #   1. The exact match, including the base branch, the commit reference, and the SHA hash of the commit.
-        #   2. A partial match for the same base branch and the same commit reference.
-        #   3. A partial match for the same base branch and the base branch commit reference.
-        #   4. A partial match for the same base branch only (not ideal, matches any PR with the same base branch).
-
-        restore-keys: |
-          ${{inputs.cache-name}}-${{env.GODOT_BASE_BRANCH}}-${{github.ref}}-${{github.sha}}
-          ${{inputs.cache-name}}-${{env.GODOT_BASE_BRANCH}}-${{github.ref}}
-          ${{inputs.cache-name}}-${{env.GODOT_BASE_BRANCH}}-refs/heads/${{env.GODOT_BASE_BRANCH}}
-          ${{inputs.cache-name}}-${{env.GODOT_BASE_BRANCH}}
+        path: ${{ inputs.scons-cache }}
+        key: ${{ steps.key.outputs.key }}

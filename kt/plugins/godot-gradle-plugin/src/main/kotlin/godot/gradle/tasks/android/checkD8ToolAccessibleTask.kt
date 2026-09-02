@@ -60,7 +60,7 @@ fun Project.checkD8ToolAccessibleTask(): TaskProvider<out Task> {
 
     return tasks.register("checkD8ToolAccessible", CheckD8ToolAccessibleTask::class.java) {
         with(it) {
-            group = "godot-kotlin-jvm"
+            group = "godot-jvm"
             description = "Checks if the d8 tool is accessible and executable. Needed for android builds only"
 
             this.d8ToolPath.set(d8ToolPath)

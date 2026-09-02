@@ -4,9 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Project Is
 
-**Godot-JVM** is a Godot engine module that enables Kotlin (and Java/Scala) as scripting languages. It is a hybrid C++/JVM project: the C++ side integrates with Godot's module system, and the Kotlin/Gradle side provides the runtime libraries and tooling for user projects.
+**Godot-JVM** is a GDExtension-based JVM binding that enables Kotlin, Java, and Scala as scripting languages. It is a hybrid C++/JVM project: the C++ side integrates with Godot through GDExtension, and the Kotlin/Gradle side provides the runtime libraries and tooling for user projects.
 
-Current binding version: `0.17.1` targeting Godot `4.7.2`.
+Current binding version: `1.0.0` targeting Godot `4.7.2`.
+
+## godot-cpp fork
+
+The `godot-cpp` submodule points at
+[`utopia-rise/godot-cpp`](https://github.com/utopia-rise/godot-cpp), branch
+`godot-jvm` (not upstream `godotengine/godot-cpp` directly, and not the
+fork's `master`). This branch customizes godot-cpp's generated-binding
+behavior for Godot-JVM's own object-tracking model — it is not a collection
+of upstream bug fixes.
+
+**Every time a commit is added to `godot-jvm` in the `godot-cpp` fork**:
+
+1. Push the commit to `utopia-rise/godot-cpp` on the `godot-jvm` branch.
+2. Update the submodule pointer in this repo (`git -C godot-cpp` checkout of
+   the new commit, then `git add godot-cpp`).
+3. Append an entry to [`godot-cpp-divergence.md`](godot-cpp-divergence.md)
+   with the commit hash and a brief explanation of what it does and why.
+4. Re-read this section — it must stay accurate as the fork evolves (e.g. if
+   the branch is ever rebased onto a newer upstream tag, update the tag
+   named above).
 
 ## Engineering Principles
 
@@ -17,7 +37,7 @@ Current binding version: `0.17.1` targeting Godot `4.7.2`.
 
 ## Prerequisites
 
-- **JDK 17+** required for building IDE/Gradle plugins (JDK 11+ for runtime-only builds)
+- **JDK 17+** required for building, running, and developing Godot-JVM projects
 - Use **Adoptium/Eclipse Temurin** JDK — Microsoft JDK causes IDE plugin build failures (known issue [microsoft/openjdk#339](https://github.com/microsoft/openjdk/issues/339)). If you must use Microsoft JDK, manually create the `Packages` folder inside `JAVA_HOME`.
 - `JAVA_HOME` must be set
 - Standard Godot build deps: SCons, Python, C++ compiler
@@ -26,9 +46,9 @@ Current binding version: `0.17.1` targeting Godot `4.7.2`.
 
 The project has two independent build systems that must both be built.
 
-### C++ Module (SCons)
+### Native GDExtension (SCons)
 
-This module lives as a submodule at `modules/kotlin_jvm/` inside the Godot source tree. All SCons commands run from the **Godot source root**.
+Run SCons commands from this repository's root. They build the native GDExtension library.
 
 ```bash
 scons platform=linuxbsd target=editor             # Linux editor
@@ -62,7 +82,7 @@ Run after modifying any `.template` or `.godot_template` files under `kt/plugins
 python generate_templates.py
 ```
 
-This converts templates into base64-encoded C++ headers at `src/editor/project/templates.h` (split into 8KB chunks to avoid C++ header size limits), then rebuild the C++ module.
+This converts templates into base64-encoded C++ headers at `cpp/editor/project/templates.h` (split into 8KB chunks to avoid C++ header size limits), then rebuild the native GDExtension.
 
 ## Testing
 
@@ -81,10 +101,10 @@ The `harness/tests/` directory is a full Godot project. It requires a built edit
 ### Testing Changes from a Feature Branch
 
 1. Publish locally (see above)
-2. Configure the user project's Gradle repositories to use `mavenLocal()` and use the exact snapshot version you published (e.g. `0.17.1-4.7.2-d68f299-SNAPSHOT`)
+2. Configure the user project's Gradle repositories to use `mavenLocal()` and use the exact snapshot version you published (e.g. `1.0.0-d68f299-SNAPSHOT`)
 3. Run with the dev build: `./bin/godot.linuxbsd.editor.dev.x86_64.jvm` (or platform equivalent)
 
-Full workflow: `docs/src/doc/contribution/test-change-from-branch.md`
+Full workflow: `docs/src/doc/contribute/test-a-branch.md`
 
 ### Debugging JVM Code
 
@@ -97,24 +117,25 @@ godot --jvm-debug-port=5005
 Debugging the registrar generator (bytecode processing):
 ```bash
 cd kt/
-./gradlew kspKotlin -Dkotlin.daemon.jvm.options="-Xdebug,-Xrunjdwp:transport=dt_socket\,address=8765\,server=y\,suspend=y"
-# Halts compilation until remote debugger attaches at port 8765
-# Note: incremental builds are disabled in debug mode — first compile will be slow
+./gradlew registrarGenerationGenerateFiles --rerun-tasks --no-build-cache -Dorg.gradle.debug=true
+# Halts the build until a remote debugger attaches at localhost:5005
+# Note: --rerun-tasks --no-build-cache is required — the task is cacheable, so without them
+# an unchanged project resolves it as up-to-date and the breakpoint is never reached.
 ```
 
 ## Architecture
 
-### C++ Layer (`src/`)
+### C++ Layer (`cpp/`)
 
-- **`src/gd_kotlin.h/cpp`** — `GDKotlin` singleton; owns the module state machine (`uninitialized → project_discovered → jvm_started → project_loaded → ...`). Many operations gate on correct state — check here first when debugging startup issues.
-- **`register_types.cpp`** — Module entry point; registers `JvmScript` types, script languages, resource loaders/savers with Godot.
-- **`src/lifecycle/`** — JVM startup (`jvm_manager`), class loader management, project settings parsing.
-- **`src/jvm_wrapper/`** — JNI bridges, type conversion, per-thread shared buffer communication.
-- **`src/script/`** — Script types: `JvmScript` (abstract base), `KotlinScript`, `JavaScriptLanguage`, `GdjScript`, `ScalaScript`.
-- **`src/language/`** — `ScriptLanguage` implementations (`KotlinLanguage`, `JavaLanguage`, etc.) registered as Godot editor language options.
-- **`src/binding/`** — Binding manager; maps Godot objects to JVM instances, synchronizes lifecycle.
-- **`src/editor/`** — Editor plugin, Gradle task dialog, project generation from templates.
-- **`src/resource_format/`** — `JvmResourceFormatLoader`/`Saver` for JAR files.
+- **`cpp/gd_kotlin.h/cpp`** — `GDKotlin` singleton; owns the runtime state machine (`uninitialized → project_discovered → jvm_started → project_loaded → ...`). Many operations gate on correct state — check here first when debugging startup issues.
+- **`register_types.cpp`** — GDExtension entry point; registers `JvmScript` types, script languages, resource loaders/savers with Godot.
+- **`cpp/jvm/lifecycle/`** — JVM startup (`jvm_manager`), class loader management, project settings parsing.
+- **`cpp/jvm/wrapper/`** — JNI bridges, type conversion, per-thread shared buffer communication.
+- **`cpp/api/script/`** — Script types: `JvmScript` (abstract base), `KotlinScript`, `JavaScriptLanguage`, `GdjScript`, `ScalaScript`.
+- **`cpp/api/language/`** — `ScriptLanguage` implementations (`KotlinLanguage`, `JavaLanguage`, etc.) registered as Godot editor language options.
+- **`cpp/core/`** — Binding manager; maps Godot objects to JVM instances, synchronizes lifecycle.
+- **`cpp/editor/`** — Editor plugin, Gradle task dialog, project generation from templates.
+- **`cpp/api/resource_format/`** — `JvmResourceFormatLoader`/`Saver` for JAR files.
 
 ### Kotlin/JVM Layer (`kt/`)
 
@@ -126,21 +147,27 @@ cd kt/
 - **`godot-registration/godot-registration-model/`** — The validated IR shared between processor and generator. Owns the registration model and its sanity checks; an instance existing means it is valid.
 - **`godot-registration/godot-registrar-generator/`** — Back-end: consumes models from the processor and generates registration glue code. No validation.
 - **`api-generator/`** — Reads Godot's `api.json`, generates all Kotlin bindings in `godot-api-library/`. Run in CI when Godot API changes.
-- **`plugins/godot-gradle-plugin/`** — Applied to all user Godot-Kotlin projects; orchestrates compile → symbol processing → registrar generation → JAR packaging.
+- **`plugins/godot-gradle-plugin/`** — Applied to all user Godot-JVM projects; orchestrates compile → symbol processing → registrar generation → JAR packaging.
 - **`plugins/godot-intellij-plugin/`** — IntelliJ IDEA integration (code insight, run configs, templates).
 - **`common/`**, **`tools-common/`** — Shared utilities across subprojects.
+
+### Android plugin (`kt/android-plugin/`)
+
+- Packages the Android native GDExtension libraries and `jvm.gdextension` into debug/release Godot Android v2 plugin AARs.
+- Its Kotlin entry point loads `libgodot_jvm.so` and passes Android's existing `JavaVM` to the native extension through JNI.
+- Build it after all Android ABIs with `./kt/gradlew -p kt :android-plugin:assemble`.
 
 ### Data Flow (User Code → Runtime)
 
 ```
-User writes @Script Kotlin code
+User writes @Script Kotlin, Java, or Scala code
   → Kotlin compiler + ClassGraph bytecode processor
   → registrar-generator produces registration glue
   → godot-gradle-plugin packages godot-bootstrap.jar + main.jar
   → JvmResourceFormatLoader loads JARs in editor
   → C++ jvm_manager starts embedded JVM
   → Bootstrap initializes user classes via JNI reflection
-  → GDKotlin binding manager maps Kotlin objects ↔ Godot nodes
+  → GDKotlin binding manager maps JVM objects ↔ Godot nodes
 ```
 
 ### JAR Artifacts
@@ -163,7 +190,7 @@ Each Godot object can have two JVM instances:
 
 **`Object` (non-ref-counted):** Simpler — manually freed; binding lifecycle follows the Godot object directly.
 
-Full details: `docs/src/doc/contribution/knowledge-base/memory-management.md`
+Full details: `docs/src/doc/contribute/how-it-works/memory-management.md`
 
 ### JNI Shared Buffer (Performance)
 
@@ -172,17 +199,19 @@ To reduce JNI overhead for frequent calls, a **per-thread 8KB buffer** is used f
 - Each variable: 4-byte type ordinal + type-specific bytes
 - Type ordinals 0–27 cover all Godot variant types (primitives at fixed size, strings up to 512 bytes inline, larger strings via JNI queue)
 
-Details: `docs/src/doc/contribution/knowledge-base/shared-buffer.md`
+Details: `docs/src/doc/contribute/how-it-works/shared-buffer.md`
 
 ### JVM Modes
 
 Configured in Godot project settings:
 - **Embedded JVM** — `jlink`-created JRE bundled with the project (recommended for distribution)
-- **Dynamic JVM** — discovered via `JAVA_HOME` at runtime
+- **Dynamic JVM** — discovered at runtime via a `java` executable on `PATH` first, falling back to
+  `JAVA_HOME` only if nothing usable is found on `PATH` (see `get_path_to_java_executable()` /
+  `get_path_to_environment_jvm()` in `cpp/godot-jvm.cpp`)
 
 ## Key Gotchas
 
-- **Kotlin version** — The compiler plugin requires a specific Kotlin version. Mismatches cause build failures. Override via gradle plugin config; see `docs/src/doc/user-guide/advanced/gradle-plugin-configuration.md`.
+- **Kotlin version** — The compiler plugin requires a specific Kotlin version. Mismatches cause build failures. Override via gradle plugin config; see `docs/src/doc/reference/gradle-plugin/languages-and-toolchains.md`.
 - **Godot API auto-generation** — `kt/godot-library/godot-api-library/` is fully generated. Any manual edits will be overwritten.
 - **Template generation** — Editing `.template` files without running `generate_templates.py` and rebuilding C++ will have no effect.
 - **Adding a new script language** — Requires: `JvmScript` C++ subclass + `ScriptLanguage` subclass + registration in `register_types.cpp` + entry in `JvmResourceFormatLoader`/`Saver`.
@@ -199,13 +228,12 @@ Workflows in `.github/workflows/`. The canonical Godot version and JDK version (
 
 ## Documentation
 
-- Contribution setup: `docs/src/doc/contribution/setup.md`
-- Guidelines: `docs/src/doc/contribution/guidelines.md`
-- Memory management deep dive: `docs/src/doc/contribution/knowledge-base/memory-management.md`
-- Registrar generation: `docs/src/doc/contribution/knowledge-base/registrar-generation.md`
-- JNI shared buffer: `docs/src/doc/contribution/knowledge-base/shared-buffer.md`
-- Testing branch changes: `docs/src/doc/contribution/test-change-from-branch.md`
-- Building with C# (Mono): `docs/src/doc/contribution/build-with-csharp-support.md`
+- Contribution setup: `docs/src/doc/contribute/build-from-source.md`
+- Guidelines: `docs/src/doc/contribute/index.md`
+- Memory management deep dive: `docs/src/doc/contribute/how-it-works/memory-management.md`
+- Registrar generation: `docs/src/doc/contribute/how-it-works/registrar-generation.md`
+- JNI shared buffer: `docs/src/doc/contribute/how-it-works/shared-buffer.md`
+- Testing branch changes: `docs/src/doc/contribute/test-a-branch.md`
 
 Serve docs locally: `cd docs/ && ./run.sh`
 

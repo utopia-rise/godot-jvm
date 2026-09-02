@@ -4,6 +4,8 @@ package godot.tests.coroutine
 import godot.api.Object
 import godot.api.PackedScene
 import godot.api.ResourceLoader
+import godot.api.Engine
+import godot.api.SceneTree
 import godot.api.Timer
 import godot.annotation.Script
 import godot.annotation.Register
@@ -19,6 +21,7 @@ import godot.coroutines.awaitMainThread
 import godot.coroutines.awaitPhysicsFrame
 import godot.coroutines.awaitProcessFrame
 import godot.coroutines.godotCoroutine
+import godot.coroutines.GodotDispatchers
 import godot.global.GD
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.async
@@ -141,13 +144,17 @@ class CoroutineTest : Object() {
     @Register
     fun cancelCoroutine() = godotCoroutine {
         val timer = Timer()
-        timer.autostart = true
-        val job = async {
+        awaitMainThread {
+            (Engine.getMainLoop() as SceneTree).root.addChild(timer)
             timer.start(3.0)
+        }
+        val job = async(GodotDispatchers.MainThread) {
             timer.timeout.await()
         }
         delay(1000)
-        timer.queueFree()
+        awaitMainThread {
+            timer.queueFree()
+        }
         delay(1000)
         wasChildCancelled = job.isCancelled
         wasParentCancelled = false

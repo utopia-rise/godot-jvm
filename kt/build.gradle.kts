@@ -74,7 +74,7 @@ tasks {
     }
 
     val buildEngineDebug by registering(Exec::class) {
-        group = "godot-kotlin-jvm"
+        group = "godot-jvm"
 
         workingDir = File(rootProject.projectDir, "../../..")
         environment("JAVA_HOME", System.getProperty("java.home"))
@@ -94,7 +94,7 @@ tasks {
         }
     }
     val buildEngineReleaseDebug by registering(Exec::class) {
-        group = "godot-kotlin-jvm"
+        group = "godot-jvm"
 
         workingDir = File(rootProject.projectDir, "../../..")
         environment("JAVA_HOME", System.getProperty("java.home"))
@@ -114,7 +114,7 @@ tasks {
         }
     }
     val runEngineDebug by registering(Exec::class) {
-        group = "godot-kotlin-jvm"
+        group = "godot-jvm"
 
         workingDir = File(rootProject.projectDir, "../../../bin")
         environment("JAVA_HOME", System.getProperty("java.home"))
@@ -134,7 +134,7 @@ tasks {
         }
     }
     val runEngineReleaseDebug by registering(Exec::class) {
-        group = "godot-kotlin-jvm"
+        group = "godot-jvm"
 
         workingDir = File(rootProject.projectDir, "../../../bin")
         environment("JAVA_HOME", System.getProperty("java.home"))
@@ -155,13 +155,13 @@ tasks {
     }
     @Suppress("UNUSED_VARIABLE")
     val buildAndRunEngineDebug by registering {
-        group = "godot-kotlin-jvm"
+        group = "godot-jvm"
         dependsOn(buildEngineDebug)
         finalizedBy(runEngineDebug)
     }
     @Suppress("UNUSED_VARIABLE")
     val buildAndRunEngineReleaseDebug by registering {
-        group = "godot-kotlin-jvm"
+        group = "godot-jvm"
         dependsOn(buildEngineReleaseDebug)
         finalizedBy(runEngineReleaseDebug)
     }

@@ -1,0 +1,132 @@
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #18344b;
+  --md-primary-fg-color--light: #244963;
+  --md-primary-fg-color--dark: #102638;
+  --md-accent-fg-color: #5145d8;
+  --md-default-bg-color: #f8fafc;
+  --md-default-fg-color: #202a35;
+  --md-default-fg-color--light: #687585;
+  --md-code-bg-color: #eef2f7;
+  --md-code-fg-color: #283442;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #12293c;
+  --md-primary-fg-color--light: #1c3c56;
+  --md-primary-fg-color--dark: #0c1e2d;
+  --md-accent-fg-color: #9b93ff;
+  --md-default-bg-color: #111a24;
+  --md-default-fg-color: #e7edf4;
+  --md-default-fg-color--light: #aebac8;
+  --md-code-bg-color: #182534;
+  --md-code-fg-color: #e1e9f1;
+}
+
+.md-header,
+.md-tabs {
+  background-color: var(--md-primary-fg-color);
+}
+
+.md-header {
+  box-shadow: none;
+}
+
+.md-tabs {
+  border-top: 1px solid rgb(255 255 255 / 10%);
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  color: #fff;
+}
+
+.md-main {
+  background: var(--md-default-bg-color);
+}
+
+.md-sidebar {
+  background: var(--md-default-bg-color);
+}
+
+.md-sidebar--primary {
+  border-right: 1px solid rgb(89 108 130 / 14%);
+}
+
+.md-sidebar--secondary {
+  border-left: 1px solid rgb(89 108 130 / 14%);
+}
+
+.md-nav__link--active,
+.md-nav__link:focus,
+.md-nav__link:hover {
+  color: var(--md-accent-fg-color);
+}
+
+.md-nav__link--active {
+  font-weight: 600;
+}
+
+.md-typeset {
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  color: var(--md-default-fg-color);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.md-typeset h1 {
+  font-size: 2.2rem;
+}
+
+.md-typeset h2 {
+  border-bottom: 1px solid rgb(89 108 130 / 16%);
+  padding-bottom: 0.35em;
+}
+
+.md-typeset a {
+  color: var(--md-accent-fg-color);
+  font-weight: 500;
+}
+
+.md-typeset hr {
+  border-bottom-color: rgb(89 108 130 / 16%);
+}
+
+.md-typeset code {
+  border-radius: 0.25rem;
+}
+
+.md-typeset pre {
+  border: 1px solid rgb(89 108 130 / 18%);
+  border-radius: 0.5rem;
+  box-shadow: none;
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 0.5rem;
+  box-shadow: none;
+}
+
+.md-footer {
+  background-color: var(--md-primary-fg-color--dark);
+}
+
+.md-header__button.md-logo {
+  align-items: center;
+  display: flex;
+  height: 2.4rem;
+  margin-block: 0;
+  padding-block: 0.05rem;
+}
+
+.md-header__button.md-logo img {
+  height: 2.3rem;
+  transform: translateY(-0.08rem);
+  width: 2.3rem;
+}

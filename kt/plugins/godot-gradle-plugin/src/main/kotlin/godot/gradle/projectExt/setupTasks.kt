@@ -65,7 +65,7 @@ private data class CopyTasks(
 
 fun Project.setupTasks() {
     tasks.register("generateEmbeddedJre", GenerateEmbeddedJreTask::class.java) { task ->
-        task.group = "godot-kotlin-jvm"
+        task.group = "godot-jvm"
         task.description = "Generates an embedded jre using jlink"
     }
     registerUserFacingBuildTasks()
@@ -78,8 +78,8 @@ fun Project.setupTasks() {
                     .getByName("main")
 
                 tasks.named("jar", Jar::class.java) { jarTask ->
-                    jarTask.group = "godot-kotlin-jvm"
-                    jarTask.description = "Builds the reusable Godot Kotlin/JVM library jar."
+                    jarTask.group = "godot-jvm"
+                    jarTask.description = "Builds the reusable Godot-JVM library jar."
                     jarTask.archiveBaseName.set(project.name)
                     jarTask.archiveVersion.set("")
                     jarTask.archiveClassifier.set("")

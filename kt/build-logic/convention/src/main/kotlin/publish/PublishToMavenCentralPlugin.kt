@@ -77,26 +77,26 @@ class PublishToMavenCentralPlugin : Plugin<Project> {
                             publication.version = evaluatedProject.version as String
 
                             publication.pom { mavenPom ->
-                                mavenPom.url.set("https://github.com/utopia-rise/godot-kotlin-jvm.git")
+                                mavenPom.url.set("https://github.com/utopia-rise/godot-jvm.git")
 
                                 if (mavenPom.name.getOrElse("").isEmpty()) {
                                     mavenPom.name.set(evaluatedProject.name)
                                 }
                                 if (mavenPom.description.getOrElse("").isEmpty()) {
-                                    mavenPom.description.set(evaluatedProject.description ?: "Godot kotlin jvm module")
+                                    mavenPom.description.set(evaluatedProject.description ?: "Godot-JVM module")
                                 }
 
                                 mavenPom.scm { mavenPomScm ->
-                                    mavenPomScm.connection.set("scm:git:https://github.com/utopia-rise/godot-kotlin-jvm")
-                                    mavenPomScm.developerConnection.set("scm:git:github.com:utopia-rise/godot-kotlin-jvm.git")
+                                    mavenPomScm.connection.set("scm:git:https://github.com/utopia-rise/godot-jvm")
+                                    mavenPomScm.developerConnection.set("scm:git:github.com:utopia-rise/godot-jvm.git")
                                     mavenPomScm.tag.set("master") //FIXME
-                                    mavenPomScm.url.set("https://github.com/utopia-rise/godot-kotlin-jvm")
+                                    mavenPomScm.url.set("https://github.com/utopia-rise/godot-jvm")
                                 }
 
                                 mavenPom.licenses { mavenPomLicenseSpec ->
                                     mavenPomLicenseSpec.license { mavenPomLicense ->
                                         mavenPomLicense.name.set("MIT License")
-                                        mavenPomLicense.url.set("https://github.com/utopia-rise/godot-kotlin-jvm/blob/master/LICENSE")
+                                        mavenPomLicense.url.set("https://github.com/utopia-rise/godot-jvm/blob/master/LICENSE")
                                         mavenPomLicense.distribution.set("repo")
                                     }
                                 }

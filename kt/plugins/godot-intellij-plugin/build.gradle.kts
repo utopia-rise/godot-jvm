@@ -76,6 +76,20 @@ intellijPlatform {
 }
 
 tasks {
+    processResources {
+        val logoDirectory = rootProject.projectDir.parentFile.resolve("logo")
+
+        from(logoDirectory) {
+            include("godot-jvm-mascot.svg")
+            rename("godot-jvm-mascot.svg", "pluginIcon.svg")
+            into("META-INF")
+        }
+        from(logoDirectory) {
+            include("godot-jvm-mascot.svg")
+            rename("godot-jvm-mascot.svg", "pluginIcon_small.svg")
+        }
+    }
+
     runIde {
         jvmArgs("-Xmx2000m")
 
@@ -87,7 +101,13 @@ tasks {
     patchPluginXml {
         if (isSnapshot) {
             val projectVersion = project.version as String
-            this.pluginVersion.set("${projectVersion.removeSuffix("-SNAPSHOT")}-IJ$intellijVersion-SNAPSHOT")
+            this.pluginVersion.set(
+                if (projectVersion.endsWith("-SNAPSHOT")) {
+                    "${projectVersion.removeSuffix("-SNAPSHOT")}-IJ$intellijVersion-SNAPSHOT"
+                } else {
+                    "$projectVersion-IJ$intellijVersion"
+                }
+            )
         } else {
             this.pluginVersion.set("${project.version}-IJ$intellijVersion")
         }
@@ -109,11 +129,10 @@ tasks {
 
     publishPlugin {
         dependsOn("patchChangelog")
-        token.set(System.getenv("GODOT_KOTLIN_INTELLIJ_PLUGIN_PUBLISH"))
+        token.set(System.getenv("GODOT_JVM_INTELLIJ_PLUGIN_PUBLISH"))
         // pluginVersion is based on the SemVer (https://semver.org) and supports pre-release labels, like 2.1.7-alpha.3
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://jetbrains.org/intellij/sdk/docs/tutorials/build_system/deployment.html#specifying-a-release-channel
-        // TODO: change back to commented variant once we're out of alpha/beta
         if (isSnapshot) {
             channels.set(listOf("alpha"))
         } else {

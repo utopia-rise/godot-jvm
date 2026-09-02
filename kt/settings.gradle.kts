@@ -32,7 +32,7 @@ dependencyResolutionManagement {
 
 plugins {
     // to automatically download the toolchain jdk if missing
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.9.0" // https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0" // https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention
 }
 
 includeBuild("api-generator") {
@@ -42,6 +42,7 @@ includeBuild("api-generator") {
 }
 
 include("godot-library")
+include("android-plugin")
 
 subdir("godot-library") {
     include("godot-internal-library")

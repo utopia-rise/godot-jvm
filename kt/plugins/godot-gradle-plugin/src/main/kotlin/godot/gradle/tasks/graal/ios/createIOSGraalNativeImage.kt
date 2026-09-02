@@ -60,7 +60,7 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
 
         val jniConfigurationFilesArgument = buildString {
             append("-H:JNIConfigurationFiles=")
-            append(graalDir.resolve("godot-kotlin-graal-jni-config.json").absolutePath)
+            append(graalDir.resolve("godot-jvm-graal-jni-config.json").absolutePath)
             append(",")
             append(iosGraalConfigDir.resolve(iosJniConfig).absolutePath)
             val additionalFiles = additionalJniConfigurationFiles.get()
@@ -184,7 +184,7 @@ fun Project.createIOSGraalNativeImageTask(
 
     return tasks.register("createIOSGraalNativeImage", CreateIOSGraalNativeImageTask::class.java) {
         with(it) {
-            group = "godot-kotlin-jvm-internal"
+            group = "godot-jvm-internal"
             description = "INTERNAL TASK ! Converts main.jar and bootstrap.jar into a GraalVM ios native image."
 
             dependsOn(

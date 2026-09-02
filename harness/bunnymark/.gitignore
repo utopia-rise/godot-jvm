@@ -5,7 +5,7 @@
 # Ignore Gradle build output directory
 build
 
-graal/godot-kotlin-graal-jni-config.json
+graal/*-graal-jni-config.json
 
 *.log
 /.godot/

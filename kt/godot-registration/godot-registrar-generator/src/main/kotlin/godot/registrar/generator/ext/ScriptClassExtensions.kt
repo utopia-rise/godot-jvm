@@ -65,7 +65,7 @@ fun ScriptClass.provideRegistrationFileRelativePath(settings: Settings): String 
         }
         append(getRegisteredName(settings))
         append(".")
-        append(FileExtensions.GodotKotlinJvm.registrationFile)
+        append(FileExtensions.GodotJvm.registrationFile)
     }
 }
 

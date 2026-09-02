@@ -1,22 +1,23 @@
 ---
 hide:
   - navigation
+description: Godot-JVM is a GDExtension binding that lets you build games and applications in Kotlin, Java, or Scala by running a JVM inside the engine.
 ---
 
 
-[![GitHub](https://img.shields.io/github/license/utopia-rise/godot-kotlin-jvm?style=flat-square)](LICENSE)
+[![GitHub](https://img.shields.io/github/license/utopia-rise/godot-jvm?style=flat-square)](https://github.com/utopia-rise/godot-jvm/blob/master/LICENSE)
 
-**Godot Kotlin/JVM** is a Godot module which allows you to write your game or application logic in Kotlin on the JVM.
+# Godot-JVM
 
-If you are looking for the documentation for Godot Kotlin/Native; you can find it [here](https://godot-kotlin.readthedocs.io/en/latest/).
+Godot-JVM is a GDExtension JVM binding that lets you write game or application logic in Kotlin, Java, or Scala. To get started, follow [Start here](start/index.md).
 
 ## State
 
-This project is in Beta. While you can fully use the binding, please note that there might still be breaking API changes. We welcome any suggestions you have for improving the project and its API.
+Godot-JVM 1.0.0 is production-ready. Suggestions and feedback are always welcome as we continue improving the project and its API.
 
 ## Project templates and demos
 
-This is a minimal list to start off with a new Godot Kotlin/JVM project:
+This is a minimal list to start off with a new Godot-JVM project:
 
 - [Minimal project template](https://github.com/utopia-rise/godot-kotlin-project-template)
 - [GDQuest 3D demo converted to Kotlin](https://github.com/utopia-rise/godot-kotlin-3d-demo)
@@ -28,65 +29,20 @@ For a quick overview on the bindings, watch our presentation "*Godot Game Develo
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Td7JbrGGa8o?si=lsmxnOJZmIiqpVk5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 !!! info
-    Please note that the project is currently under active development. As a result, some code shown in the video may not be functioning, as it may have changed since the video was recorded.
+    This video is vastly outdated. Its setup instructions and code do not reflect the current Godot-JVM project. Follow the current documentation when creating a project or writing code.
 
-### What's not working
+### Current limitations
 
-The items in this list are explicitly mentioned here as these will be implemented in future versions.
-Also consider the [API Differences](user-guide/api-differences.md) section for general differences
-and limitations which will not be or cannot be adressed in the near forseable future or ever.
-
-- A public no-argument constructor is registered when present; constructors
-  with arguments are not exposed to Godot.
-- No tool mode (you can set it already in the `@Script` annotation but it has no effect yet).
-- No addon support, you cannot use Godot Kotlin/JVM to write plugins and addons yet (you can however [write libraries](develop-libraries/introduction.md) with godot specific code).
-- Web is currently not supported. See [Supported platforms](#supported-platforms) to see what platforms we currently support
+See [Known limitations](troubleshooting/known-limitations.md) for the supported and unsupported features.
 
 ### Bug reporting and questions
 
-If you find bugs, please report an [issue on GitHub](https://github.com/utopia-rise/godot-kotlin-jvm/issues) - but check for duplicates first. If you have questions or need help, you can ask on [Discord](https://discord.gg/zpb5Ru7v9x) in the `questions` and `help` channels respectively.
+If you find bugs, please report an [issue on GitHub](https://github.com/utopia-rise/godot-jvm/issues) - but check for duplicates first. If you have questions or need help, you can ask on [Discord](https://discord.gg/zpb5Ru7v9x) in the `questions` and `help` channels respectively.
 If you don't have Discord or you don't want to use it, please file an issue on GitHub.
 
-## Supported languages
+## Compatibility
 
-The main language supported is Kotlin. We do however support Java and Scala experimentally. It should be possible to support other JVM-based languages as well but this is not the focus of this project. If you want to have support for other languages, have a look at [support for other JVM-based languages](contribution/support-for-other-jvm-based-languages.md).
-
-## Supported platforms
-
-While Kotlin and Godot supports a wide range of platforms, this module for the moment only supports the following:
-
-- Windows X64
-- Linux X64
-- MacOS X64 / arm64
-- Android (arm64v8, x86_64)
-- iOS (arm64v8)
-
-## Versioning
-
-The module uses semantic versioning for its own versions but adds a suffix for the supported Godot version:
-
-Full version: `0.17.1-4.7.2`
-
-Module Version: `0.17.1`
-
-Supported Godot Version: `4.7.2`
-
-This module relies on a Kotlin *compiler plugin* for registering your classes and members to Godot. As the compiler API from Kotlin is not stable yet, each release still defines a minimum supported Kotlin version.
-
-The current latest release requires at least Kotlin version `2.3.20`.
-
-!!! info
-    It is possible to use this module with other Kotlin versions as well but we do not provide any guarantees for it. You find more infos in the [Gradle Plugin configuration](user-guide/advanced/gradle-plugin-configuration.md#kotlinversion) section.
-
-## Custom engine builds
-
-Get our pre-built engine builds and export templates from the latest [GitHub releases](https://github.com/utopia-rise/godot-kotlin-jvm/releases).
-
-Contrary to the official binaries, there are two builds of the editor per Platform: debug and release.
-`release` editors are the editors you use normally. `debug` editors provide debug symbols and are intended to provide better stacktraces in case of crashes of the editor. Please use those when submitting bugreports. 
-
-!!! warning
-    This module will NOT work with the official Godot Editor and Export Templates! To be able to use Kotlin, Java and Scala scripts in Godot, you need our Editor and Export Templates builds.
+Godot-JVM 1.0.0 supports Godot 4.7.2 and newer. See [Compatibility and versions](reference/compatibility.md) for the supported platforms and language versions.
 
 ## Developer discussion
 

@@ -28,7 +28,7 @@ var __awaiter := __gdunit_awaiter()
 ### in order to noticeably reduce the loading time of the test suite.
 # We go this hard way to increase the loading performance to avoid reparsing all the used scripts
 # for more detailed info -> https://github.com/godotengine/godot/issues/67400
-func __lazy_load(script_path: String) -> GDScript:
+static func __lazy_load(script_path: String) -> GDScript:
 	return GdUnitAssertions.__lazy_load(script_path)
 
 
@@ -99,7 +99,13 @@ func error_as_string(error_number: int) -> String:
 func auto_free(obj: Variant) -> Variant:
 	var execution_context := GdUnitThreadManager.get_current_context().get_execution_context()
 
-	assert(execution_context != null, "INTERNAL ERROR: The current execution_context is null! Please report this as bug.")
+	# If the execution context is null, we are not in the execution call stack, so we mark the object as “queued free.”
+	if execution_context == null:
+		if obj is Node:
+			@warning_ignore("unsafe_method_access")
+			obj.queue_free()
+		return obj
+
 	return execution_context.register_auto_free(obj)
 
 
@@ -604,7 +610,7 @@ func assert_that(current: Variant) -> GdUnitAssert:
 
 
 ## An assertion tool to verify boolean values.
-func assert_bool(current: Variant) -> GdUnitBoolAssert:
+static func assert_bool(current: Variant) -> GdUnitBoolAssert:
 	return __lazy_load("res://addons/gdUnit4/src/asserts/GdUnitBoolAssertImpl.gd").new(current)
 
 
@@ -719,7 +725,7 @@ func assert_error(current: Callable) -> GdUnitGodotErrorAssert:
 ##     [/codeblock]
 func assert_not_yet_implemented() -> void:
 	@warning_ignore("unsafe_method_access")
-	__gdunit_assert().new(null).do_fail()
+	__gdunit_assert().new(null).do_fail_not_implemented()
 
 
 ## Explicitly fails the current test with a custom error message.[br]
@@ -738,7 +744,7 @@ func assert_not_yet_implemented() -> void:
 ##     [/codeblock]
 func fail(message: String) -> void:
 	@warning_ignore("unsafe_method_access")
-	__gdunit_assert().new(null).report_error(message)
+	__gdunit_assert().new(null).do_fail_with_message(message)
 
 
 # --- internal stuff do not override!!!

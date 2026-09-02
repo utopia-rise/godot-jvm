@@ -19,7 +19,7 @@ import java.io.File
 
 open class GodotExtension(objects: ObjectFactory) {
     /**
-     * Marks this Gradle project as a reusable Godot Kotlin/JVM library rather than a runnable Godot project.
+     * Marks this Gradle project as a reusable Godot-JVM library rather than a runnable Godot project.
      *
      * When enabled, the plugin keeps the compile setup and library dependencies, but skips registrar scanning,
      * registrar generation, `.gdj` generation/synchronization, and the runtime jar packaging/copy pipeline.
@@ -196,14 +196,14 @@ open class GodotExtension(objects: ObjectFactory) {
     /**
      * JDK/toolchain version to use for Java and Kotlin compilation.
      *
-     * Defaults to the current built-in JDK toolchain version and must be at least 11.
+     * Defaults to the current built-in JDK toolchain version and must be at least 17.
      */
     val javaVersion: Property<Int> = objects.property(Int::class.java)
 
     /**
      * Kotlin Gradle plugin version to use for the build.
      *
-     * Defaults to the Kotlin version this Godot Kotlin/JVM release was built with.
+     * Defaults to the Kotlin version this Godot-JVM release was built with.
      * If you override it, it must be at least that version.
      */
     val kotlinVersion: Property<String> = objects.property(String::class.java)
@@ -246,7 +246,7 @@ open class GodotExtension(objects: ObjectFactory) {
         godotProjectDirectory.convention(target.layout.projectDirectory)
         isLibrary.convention(false)
         disableGdj.convention(false)
-        registrationFilesDirectory.convention(godotProjectDirectory.dir(FileExtensions.GodotKotlinJvm.registrationFile))
+        registrationFilesDirectory.convention(godotProjectDirectory.dir(FileExtensions.GodotJvm.registrationFile))
         registrationFilesLayoutMode.convention(RegistrationFileLayoutMode.FLAT)
         registrationFilesIndentation.convention(RegistrationFileIndentation.SPACE)
         registrationNameMode.convention(RegisteredNameMode.SIMPLE_NAME)
