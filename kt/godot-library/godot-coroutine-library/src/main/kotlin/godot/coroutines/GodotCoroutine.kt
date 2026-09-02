@@ -1,20 +1,22 @@
 package godot.coroutines
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-object GodotCoroutine : CoroutineScope {
-    override val coroutineContext = GodotDispatchers.ThreadPool + SupervisorJob()
-}
 
 fun godotCoroutine(
     context: CoroutineContext = EmptyCoroutineContext,
-    start: CoroutineStart = CoroutineStart.DEFAULT,
-    block: suspend CoroutineScope.() -> Unit
-) {
-    GodotCoroutine.launch(context, start, block)
-}
+): CoroutineScope = CoroutineScope(SupervisorJob() + GodotDispatchers.MainThread + context)
+
+/** Runs [block] on Godot's main thread. */
+suspend fun <T> threadSafe(
+    block: suspend CoroutineScope.() -> T,
+): T = withContext(GodotDispatchers.MainThread, block)
+
+/** Runs [block] on Godot's worker thread pool. */
+suspend fun <T> offload(
+    block: suspend CoroutineScope.() -> T,
+): T = withContext(GodotDispatchers.ThreadPool, block)

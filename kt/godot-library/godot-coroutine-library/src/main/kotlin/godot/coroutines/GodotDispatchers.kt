@@ -1,8 +1,5 @@
 package godot.coroutines
 
-import godot.api.Engine
-import godot.api.Object
-import godot.api.SceneTree
 import godot.api.WorkerThreadPool
 import godot.core.asCallable
 import godot.internal.memory.MemoryManager
@@ -21,8 +18,6 @@ object GodotDispatchers {
 
     val MainThread: CoroutineDispatcher = GodotMainThreadCoroutineDispatcher
     val ThreadPool: CoroutineDispatcher = GodotThreadPoolCoroutineDispatcher
-    val ProcessFrame: CoroutineDispatcher = GodotProcessFrameCoroutineDispatcher
-    val PhysicsFrame: CoroutineDispatcher = GodotPhysicsFrameCoroutineDispatcher
 
     private object GodotMainThreadCoroutineDispatcher : CoroutineDispatcher() {
         @Volatile
@@ -116,31 +111,4 @@ object GodotDispatchers {
         }
     }
 
-    private object GodotProcessFrameCoroutineDispatcher : CoroutineDispatcher() {
-        override fun dispatch(context: CoroutineContext, block: Runnable) {
-            sceneTree.processFrame.connectUnsafe(
-                { block.run() }.asCallable(),
-                Object.ConnectFlags.ONE_SHOT
-            )
-        }
-    }
-
-    private object GodotPhysicsFrameCoroutineDispatcher : CoroutineDispatcher() {
-        override fun dispatch(context: CoroutineContext, block: Runnable) {
-            sceneTree.physicsFrame.connectUnsafe(
-                { block.run() }.asCallable(),
-                Object.ConnectFlags.ONE_SHOT
-            )
-        }
-    }
-
-    private val sceneTree by lazy {
-        val tree = Engine.getMainLoop()
-
-        require(tree is SceneTree) {
-            "Your main loop should be a scene tree to use ${GodotProcessFrameCoroutineDispatcher::class}."
-        }
-
-        return@lazy tree
-    }
 }
