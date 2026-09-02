@@ -22,6 +22,7 @@ fun Project.createGraalNativeImageTask(
     val graalVmHomeDirectory = godotJvmExtension.graalVmHomeDirectory
     val windowsDeveloperVcVarsPath = godotJvmExtension.windowsDeveloperVcVarsPath
     val isVerboseEnabled = godotJvmExtension.isGraalNativeImageVerboseEnabled
+    val isStrictImageHeapEnabled = godotJvmExtension.isGraalNativeImageStrictImageHeapEnabled
     val projectBaseDir = projectDir
     val additionalJniConfigurationFiles = godotJvmExtension.additionalGraalJniConfigurationFiles.map { configFiles ->
         configFiles.joinToString(",") { configFile ->
@@ -52,6 +53,7 @@ fun Project.createGraalNativeImageTask(
             inputs.property("graalVmHomeDirectory", graalVmHomeDirectory)
             inputs.property("windowsDeveloperVcVarsPath", windowsDeveloperVcVarsPath.orElse(""))
             inputs.property("isGraalNativeImageVerboseEnabled", isVerboseEnabled)
+            inputs.property("isGraalNativeImageStrictImageHeapEnabled", isStrictImageHeapEnabled)
             inputs.property("additionalGraalJniConfigurationFiles", additionalJniConfigurationFiles)
             inputs.property("additionalGraalReflectionConfigurationFiles", additionalReflectionConfigurationFiles)
             inputs.property("additionalGraalResourceConfigurationFiles", additionalResourceConfigurationFiles)
@@ -149,6 +151,10 @@ fun Project.createGraalNativeImageTask(
 
                 if (resourceConfigFiles.isNotEmpty()) {
                     arguments.add(resourceConfigurationFilesArgument)
+                }
+
+                if (isStrictImageHeapEnabled.get()) {
+                    arguments.add("--strict-image-heap")
                 }
 
                 if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows) {
