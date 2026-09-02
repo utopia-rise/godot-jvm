@@ -19,20 +19,20 @@ fun Project.createGraalNativeImageTask(
 ): TaskProvider<out Task> {
     val libsDirectory = layout.buildDirectory.dir("libs")
     val graalDirectory = layout.buildDirectory.dir("graal")
-    val graalVmHomeDirectory = godotJvmExtension.graalVmHomeDirectory
-    val windowsDeveloperVcVarsPath = godotJvmExtension.windowsDeveloperVcVarsPath
-    val isVerboseEnabled = godotJvmExtension.isGraalNativeImageVerboseEnabled
+    val graalVmHomeDirectory = godotJvmExtension.graal.homeDirectory
+    val windowsDeveloperVcVarsPath = godotJvmExtension.graal.windowsDeveloperVcVarsPath
+    val isVerboseEnabled = godotJvmExtension.graal.verbose
     val projectBaseDir = projectDir
-    val additionalJniConfigurationFiles = godotJvmExtension.additionalGraalJniConfigurationFiles.map { configFiles ->
+    val additionalJniConfigurationFiles = godotJvmExtension.graal.additionalJniConfigurationFiles.map { configFiles ->
         configFiles.joinToString(",") { configFile ->
             projectBaseDir.resolve("graal").resolve(configFile).absolutePath
         }
     }
     val additionalReflectionConfigurationFiles = godotJvmExtension
-        .additionalGraalReflectionConfigurationFiles
+        .graal.additionalReflectionConfigurationFiles
         .map { configFiles -> configFiles.joinToString(",") }
     val additionalResourceConfigurationFiles = godotJvmExtension
-        .additionalGraalResourceConfigurationFiles
+        .graal.additionalResourceConfigurationFiles
         .map { configFiles -> configFiles.joinToString(",") }
 
     return tasks.register("createGraalNativeImage", Exec::class.java) {

@@ -11,10 +11,10 @@ private const val MINIMUM_SCALA_VERSION = "3.0.0"
 
 fun Project.checkJdkVersionCompatibility() {
     afterEvaluate {
-        val configuredJdkVersion = godotJvmExtension.javaVersion.get()
+        val configuredJdkVersion = godotJvmExtension.toolchain.javaVersion.get()
 
         require(configuredJdkVersion >= MINIMUM_JDK_VERSION) {
-            "godot.javaVersion is set to $configuredJdkVersion, but Godot-JVM requires at least JDK $MINIMUM_JDK_VERSION."
+            "godot.toolchain.javaVersion is set to $configuredJdkVersion, but Godot-JVM requires at least JDK $MINIMUM_JDK_VERSION."
         }
 
         extensions.configure(JavaPluginExtension::class.java) { javaExtension ->
@@ -42,16 +42,16 @@ fun Project.checkKotlinVersionCompatibility() {
     }
 
     afterEvaluate {
-        val configuredKotlinVersion = godotJvmExtension.kotlinVersion.get()
+        val configuredKotlinVersion = godotJvmExtension.toolchain.kotlinVersion.get()
         val resolvedKotlinVersion = resolvedKotlinBuildVersion()
 
         require(!isVersionLowerThan(configuredKotlinVersion, KOTLIN_VERSION)) {
-            "godot.kotlinVersion is set to $configuredKotlinVersion, but Godot-JVM requires at least Kotlin $KOTLIN_VERSION."
+            "godot.toolchain.kotlinVersion is set to $configuredKotlinVersion, but Godot-JVM requires at least Kotlin $KOTLIN_VERSION."
         }
 
         if (configuredKotlinVersion != KOTLIN_VERSION && configuredKotlinVersion != resolvedKotlinVersion) {
             throw IllegalArgumentException(
-                "godot.kotlinVersion is set to $configuredKotlinVersion, but the applied Kotlin Gradle plugin version is $resolvedKotlinVersion. " +
+                "godot.toolchain.kotlinVersion is set to $configuredKotlinVersion, but the applied Kotlin Gradle plugin version is $resolvedKotlinVersion. " +
                     "To use a custom Kotlin version, apply `org.jetbrains.kotlin.jvm` explicitly with version $configuredKotlinVersion before `com.utopia-rise.godot-jvm`."
             )
         }
@@ -60,10 +60,10 @@ fun Project.checkKotlinVersionCompatibility() {
 
 fun Project.checkScalaVersionCompatibility() {
     afterEvaluate {
-        val configuredScalaVersion = godotJvmExtension.scalaVersion.get()
+        val configuredScalaVersion = godotJvmExtension.toolchain.scalaVersion.get()
 
         require(!isVersionLowerThan(configuredScalaVersion, MINIMUM_SCALA_VERSION)) {
-            "godot.scalaVersion is set to $configuredScalaVersion, but Godot-JVM requires at least Scala $MINIMUM_SCALA_VERSION."
+            "godot.toolchain.scalaVersion is set to $configuredScalaVersion, but Godot-JVM requires at least Scala $MINIMUM_SCALA_VERSION."
         }
     }
 }

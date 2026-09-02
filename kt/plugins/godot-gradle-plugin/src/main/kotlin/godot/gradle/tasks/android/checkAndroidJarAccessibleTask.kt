@@ -54,13 +54,13 @@ abstract class CheckAndroidJarAccessibleTask : DefaultTask() {
 }
 
 fun Project.checkAndroidJarAccessibleTask(): TaskProvider<out Task> {
-    val androidCompileSdkDirectory = godotJvmExtension.androidCompileSdkDirectory
+    val androidCompileSdkDirectory = godotJvmExtension.android.compileSdkDirectory
 
     return tasks.register("checkAndroidJarAccessible", CheckAndroidJarAccessibleTask::class.java) {
         with(it) {
             group = "godot-jvm"
             description =
-                "Checks if the android.jar is present in the provided androidCompileSdkDirectory. Needed for android builds only"
+                "Checks if android.jar is present in the configured compileSdkDirectory. Needed for Android builds only"
 
             this.androidCompileSdkDirectory.set(androidCompileSdkDirectory)
         }

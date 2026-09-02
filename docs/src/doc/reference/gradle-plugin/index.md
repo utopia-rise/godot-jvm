@@ -11,28 +11,18 @@ This page is the entry point for configuring `com.utopia-rise.godot-jvm`. Most s
 - [Packaging and build tasks](packaging-and-tasks.md)
 - [Android, GraalVM and iOS inputs](export-targets.md)
 
-## Quick example
+## Starter-project example
 
 ```kotlin
-import godot.annotation.processor.classgraph.AnnotationProcessingMode
 import godot.gradle.GodotLanguage
-import godot.registrar.generator.RegisteredNameMode
-import godot.registrar.generator.RegistrationFileLayoutMode
 
 godot {
-    languages.set(setOf(GodotLanguage.KOTLIN))
-    javaVersion.set(17)
-    annotationProcessingMode.set(AnnotationProcessingMode.Inferred)
-
-    godotProjectDirectory.set(file("."))
-    isCustomApiEnabled.set(false)
-    apiJsonFile.set(file("api.json"))
-    disableGdj.set(false)
-    registrationFilesDirectory.set(file("gdj"))
-    registrationFilesLayoutMode.set(RegistrationFileLayoutMode.FLAT)
-    registrationNameMode.set(RegisteredNameMode.SIMPLE_NAME)
+    languages.set(setOf(GodotLanguage.KOTLIN, GodotLanguage.JAVA, GodotLanguage.SCALA))
+    isGodotCoroutinesEnabled.set(true)
 }
 ```
+
+This is the core of a Godot-JVM project with every language and Godot coroutines enabled. Settings not shown here retain their plugin defaults. Configure Android, GraalVM, or iOS only when needed; see [Android, GraalVM and iOS inputs](export-targets.md).
 
 ## Recommended Gradle performance settings
 

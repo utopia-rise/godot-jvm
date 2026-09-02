@@ -30,6 +30,7 @@ class GodotNewProjectWizardStep(parent: NewProjectWizardBaseStep) : AbstractNewP
         ProjectLanguage.JAVA to true,
         ProjectLanguage.SCALA to true,
     )
+    private var isGodotCoroutinesEnabled = false
     private var isAndroidEnabled = false
     private var d8ToolPath = ""
     private var androidCompileSdkDirectory = ""
@@ -59,6 +60,9 @@ class GodotNewProjectWizardStep(parent: NewProjectWizardBaseStep) : AbstractNewP
 
     private fun buildContent(builder: Panel) {
         builder.group(GodotPluginBundle.message("wizard.projectSettings.general.title")) {
+            lateinit var kotlinLanguageCheckBox: Cell<JCheckBox>
+            lateinit var coroutinesCheckBox: JCheckBox
+
             row(GodotPluginBundle.message("wizard.projectSettings.general.groupId")) {
                 textField()
                     .bindText(::group)
@@ -68,16 +72,29 @@ class GodotNewProjectWizardStep(parent: NewProjectWizardBaseStep) : AbstractNewP
                 panel {
                     ProjectLanguage.entries.forEach { language ->
                         row {
-                            checkBox(language.displayName)
+                            val languageCheckBox = checkBox(language.displayName)
                                 .selected(selectedLanguages.getValue(language))
                                 .applyToComponent {
                                     addActionListener {
                                         selectedLanguages[language] = isSelected
+                                        if (language == ProjectLanguage.KOTLIN && !isSelected) {
+                                            isGodotCoroutinesEnabled = false
+                                            coroutinesCheckBox.isSelected = false
+                                        }
                                     }
                                 }
+                            if (language == ProjectLanguage.KOTLIN) {
+                                kotlinLanguageCheckBox = languageCheckBox
+                            }
                         }
                     }
                 }
+            }
+            row {
+                checkBox(GodotPluginBundle.message("wizard.projectSettings.general.enableCoroutines"))
+                    .bindSelected(::isGodotCoroutinesEnabled)
+                    .enabledIf(kotlinLanguageCheckBox.selected)
+                    .applyToComponent { coroutinesCheckBox = this }
             }
         }
 
@@ -242,6 +259,7 @@ class GodotNewProjectWizardStep(parent: NewProjectWizardBaseStep) : AbstractNewP
                 "WINDOWS_DEVELOPER_VS_VARS_PATH",
                 windowsDeveloperVcVarsPath.trim().takeUnless(String::isEmpty) ?: DEFAULT_WINDOWS_DEVELOPER_VC_VARS_PATH
             )
+            .removeOptionalBlock("COROUTINES", isGodotCoroutinesEnabled)
             .removeOptionalBlock("ANDROID", isAndroidEnabled)
             .removeOptionalBlock("GRAAL", isGraalNativeImageEnabled)
     }

@@ -15,8 +15,8 @@ import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.OutputFiles
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
@@ -37,8 +37,10 @@ abstract class ClassGraphUpdateRegistrationFilesTask : DefaultTask() {
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val existingRegistrationFilesIndexFile: RegularFileProperty
 
-    @get:OutputDirectory
-    abstract val registrationFilesOutputDir: DirectoryProperty
+    // The directory itself is not an output: only the files declared below are. This prevents Gradle from
+    // materializing an empty directory when no new registration file targets it.
+    @get:Internal
+    abstract val gdjFilesOutputDir: DirectoryProperty
 
     @get:OutputFiles
     abstract val synchronizedRegistrationFiles: ConfigurableFileCollection
@@ -49,11 +51,9 @@ abstract class ClassGraphUpdateRegistrationFilesTask : DefaultTask() {
         val godotProjectDir = File(godotProjectDirPath.get())
         val existingRegistrationFileIndex = readExistingRegistrationFileIndex(existingRegistrationFilesIndexFile.get().asFile)
         val generatedFilesByFileName = readGeneratedRegistrationFiles(generatedRoot, logger)
-        val targetRoot = registrationFilesOutputDir.get().asFile
+        val targetRoot = gdjFilesOutputDir.get().asFile
         val matchedFileNames = mutableSetOf<String>()
         val candidateEmptyDirs = mutableSetOf<File>()
-
-        targetRoot.mkdirs()
 
         existingRegistrationFileIndex.forEach { indexRegistrar ->
             val existingFile = godotProjectDir.resolve(indexRegistrar.relativePath)
@@ -99,9 +99,10 @@ fun Project.registrarGenerationSyncRegistrationFilesTask(
     indexExistingRegistrationFilesTask: TaskProvider<ClassGraphIndexExistingRegistrationFilesTask>,
 ): TaskProvider<ClassGraphUpdateRegistrationFilesTask> {
     val godotProjectDir = requireConfiguredGodotProjectDirectory()
-    val registrationFilesOutputDirPath = (
+    val gdjFilesOutputDirPath = (
         godotJvmExtension
-            .registrationFilesDirectory
+            .registration
+            .gdjFilesDirectory
             .orNull
             ?.asFile
             ?: projectDir.resolve("gdj")
@@ -111,7 +112,7 @@ fun Project.registrarGenerationSyncRegistrationFilesTask(
         .replace(File.separator, "/")
         .removePrefix("/")
         .removeSuffix("/")
-    val registrationFilesOutputDir = layout.projectDirectory.dir(registrationFilesOutputDirPath)
+    val gdjFilesOutputDir = layout.projectDirectory.dir(gdjFilesOutputDirPath)
 
     return tasks.register(
         "registrarGenerationSyncRegistrationFiles",
@@ -128,7 +129,7 @@ fun Project.registrarGenerationSyncRegistrationFilesTask(
         task.existingRegistrationFilesIndexFile.convention(
             indexExistingRegistrationFilesTask.flatMap { it.existingRegistrationFilesIndexFile }
         )
-        task.registrationFilesOutputDir.convention(registrationFilesOutputDir)
+        task.gdjFilesOutputDir.convention(gdjFilesOutputDir)
         task.synchronizedRegistrationFiles.from(providers.provider {
             val generatedRoot = generateRegistrarFilesTask.get().generatedRegistrationFilesRootDir.get().asFile
             val generatedFilesByFileName = readGeneratedRegistrationFiles(generatedRoot, logger)
@@ -137,7 +138,7 @@ fun Project.registrarGenerationSyncRegistrationFilesTask(
             )
             val matchedFileNames = mutableSetOf<String>()
             val synchronizedFiles = mutableListOf<File>()
-            val targetRoot = registrationFilesOutputDir.asFile
+            val targetRoot = gdjFilesOutputDir.asFile
 
             existingRegistrationFileIndex.forEach { indexRegistrar ->
                 if (generatedFilesByFileName.containsKey(indexRegistrar.registrationFileName)) {

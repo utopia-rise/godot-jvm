@@ -61,11 +61,13 @@ godot {
     // Only needed when the Gradle project directory is not the Godot project root.
     godotProjectDirectory.set(file(".."))
 
-    registrationFilesDirectory.set(<folder>)
+    registration {
+        gdjFilesDirectory.set(<folder>)
+    }
 }
 ```
 
-During the sync step, the Gradle plugin scans the configured Godot project for existing dependency `.gdj` files. Matching files are updated in place, obsolete ones are deleted, and only newly discovered dependency registrations are copied into `registrationFilesDirectory`.
+During the sync step, the Gradle plugin scans the configured Godot project for existing dependency `.gdj` files. Matching files are updated in place, obsolete ones are deleted, and only newly discovered dependency registrations are copied into `gdjFilesDirectory`.
 
 !!! info "Reason"
     JVM languages are compiled. A dependency contributes JAR files rather than source files inside your Godot project, so the Gradle plugin scans its compiled classes and creates `.gdj` files that Godot can attach.
@@ -80,7 +82,7 @@ By default, new dependency registration files are generated flat inside the conf
 - `com.mygame.packageB.ClassB`
 
 ```
-[registrationFilesDirectory]/
+[gdjFilesDirectory]/
 |- ClassA.gdj
 `- ClassB.gdj
 ```
@@ -91,7 +93,9 @@ If you prefer the `.gdj` files to mirror the package hierarchy, you can switch t
 import godot.registrar.generator.RegistrationFileLayoutMode
 
 godot {
-    registrationFilesLayoutMode.set(RegistrationFileLayoutMode.HIERARCHICAL)
+    registration {
+        gdjFilesLayoutMode.set(RegistrationFileLayoutMode.HIERARCHICAL)
+    }
 }
 ```
 
@@ -101,7 +105,7 @@ Which would result in a folder structure like the following:
 - `com.mygame.packageB.ClassB`
 
 ```
-[registrationFilesDirectory]/
+[gdjFilesDirectory]/
 `- com/
    `- mygame/
       |- packageA/
@@ -110,11 +114,11 @@ Which would result in a folder structure like the following:
          `- ClassB.gdj
 ```
 
-When registration files come from external projects, they are always grouped by project name first. For example, if `registrationFilesDirectory` is `scripts` and an external library named `sharedlib` contributes a class, its `.gdj` file is generated under:
+When registration files come from external projects, they are always grouped by project name first. For example, if `gdjFilesDirectory` is `scripts` and an external library named `sharedlib` contributes a class, its `.gdj` file is generated under:
 
 - `scripts/sharedlib/MyExternalClass.gdj` in flat mode
 - `scripts/sharedlib/com/example/MyExternalClass.gdj` in hierarchical mode
 
-The Gradle plugin updates existing `.gdj` files in place wherever they already live inside the configured Godot project. `registrationFilesDirectory` is therefore the default home for new `.gdj` files, not the only directory the sync task considers.
+The Gradle plugin updates existing `.gdj` files in place wherever they already live inside the configured Godot project. `gdjFilesDirectory` is therefore the default home for new `.gdj` files, not the only directory the sync task considers. The directory is created only when the build actually has a new `.gdj` file to place there.
 
 See [Registration output](../reference/gradle-plugin/registration.md) for the full list of Gradle plugin settings that control this behaviour.
