@@ -1,5 +1,5 @@
 ---
-description: Registering properties with @Visible, exporting them to the Inspector with @Export, naming conventions, and where the type-hint annotation reference lives.
+description: Registering properties with @Visible, exporting them to the Inspector with @Export, grouping them with @Group, naming conventions, and where the type-hint annotation reference lives.
 ---
 
 # Properties and the Inspector
@@ -97,6 +97,31 @@ Exported properties can have default values (`2f` in the example above) which wi
 
 !!! danger
     If you set a default value in code and a different value in the Inspector, the value of the latter will override the value in code after `init` and before `_enter_tree`.
+
+## Organising exports
+
+Use `@Category`, `@Group`, and `@Subgroup` on the first property in a section. A category is the top-level section, a group is within a category, and a subgroup is within a group. They create Inspector markers before the annotated property; they do not change its type hint.
+
+| Annotation | Parameters |
+|---|---|
+| `@Category(name)` | `name`: the category label shown in the Inspector. |
+| `@Group(name, prefix = "")` | `name`: the group label. `prefix`: optional filter for following properties whose Godot names start with it; when omitted, it defaults to `name` with its first letter lowercased. |
+| `@Subgroup(name, prefix = "")` | `name`: the subgroup label. `prefix`: optional filter for following properties whose Godot names start with it; when omitted, it defaults to `name` with its first letter lowercased. |
+
+Write `prefix` in the same casing as your source property names. It is converted to the `snake_case` Godot property name automatically; for example, `movementGround` matches `movementGroundSpeed`, which Godot receives as `movement_ground_speed`.
+
+```kotlin
+@Script
+class Player : Node() {
+    @Category("Player")
+    @Group("Movement") // Defaults to the `movement` prefix.
+    @Subgroup("Ground", "movementGround")
+    var movementGroundSpeed: Float = 5f
+
+    @Export
+    var movementGroundAcceleration: Float = 10f
+}
+```
 
 ## Type hint registration
 

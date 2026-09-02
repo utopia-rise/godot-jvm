@@ -20,7 +20,9 @@ class KtClassBuilder<T : KtObject>(
     private val notifications = mutableListOf<KtNotification<T>>()
 
     @PublishedApi
-    internal val properties = mutableMapOf<String, KtProperty<T, *>>()
+    internal val properties = mutableListOf<KtProperty<T, *>>()
+    @PublishedApi
+    internal val propertyNames = mutableSetOf<String>()
 
     private val signals = mutableMapOf<String, KtSignalInfo>()
 
@@ -76,10 +78,10 @@ class KtClassBuilder<T : KtObject>(
         hintString: String = "",
         usage: PropertyUsageFlags
     ) {
-        require(!properties.contains(name)) {
+        require(propertyNames.add(name)) {
             "Found two properties with name $name for class $registeredName"
         }
-        properties[name] = KtProperty(
+        properties += KtProperty(
             KtPropertyInfo(
                 variantType,
                 name,
@@ -101,11 +103,11 @@ class KtClassBuilder<T : KtObject>(
         usage: PropertyUsageFlags,
         hintString: String
     ) {
-        require(!properties.contains(name)) {
+        require(propertyNames.add(name)) {
             "Found two properties with name $name for class $registeredName"
         }
 
-        properties[name] = KtEnumListProperty(
+        properties += KtEnumListProperty(
             KtPropertyInfo(
                 VariantParser.ARRAY,
                 name,
@@ -150,11 +152,11 @@ class KtClassBuilder<T : KtObject>(
         usage: PropertyUsageFlags,
         hintString: String
     ) {
-        require(!properties.contains(name)) {
+        require(propertyNames.add(name)) {
             "Found two properties with name $name for class $registeredName"
         }
 
-        properties[name] = KtBitFieldProperty(
+        properties += KtBitFieldProperty(
             KtPropertyInfo(
                 VariantCaster.INT,
                 name,
@@ -183,6 +185,34 @@ class KtClassBuilder<T : KtObject>(
         usage,
         hintString
     )
+
+    fun group(name: String, prefix: String) {
+        propertyListMarker(name, prefix, PropertyUsageFlags.GROUP)
+    }
+
+    fun subgroup(name: String, prefix: String) {
+        propertyListMarker(name, prefix, PropertyUsageFlags.SUBGROUP)
+    }
+
+    fun category(name: String) {
+        propertyListMarker(name, "", PropertyUsageFlags.CATEGORY)
+    }
+
+    private fun propertyListMarker(name: String, prefix: String, usage: PropertyUsageFlags) {
+        properties += KtProperty(
+            KtPropertyInfo(
+                VariantParser.NIL,
+                name,
+                "",
+                PropertyHint.NONE,
+                prefix,
+                usage.flag,
+            ),
+            { null },
+            null,
+            VariantParser.NIL,
+        )
+    }
 
     @PublishedApi
     internal fun propertyUsage(usage: PropertyUsageFlags, isMutable: Boolean, variantType: VariantConverter): Long {

@@ -10,6 +10,7 @@ description: A quick lookup table matching each registration task to the annotat
 | Give a script class a custom Godot name | `@Script("PlayerCharacter")` |
 | Register a property without showing it in the Inspector | `@Visible` |
 | Show and edit a property in the Inspector | `@Export` |
+| Start an Inspector category, group, or subgroup at a property | `@Category`, `@Group`, or `@Subgroup` |
 | Choose an Inspector control, such as a range or file picker | A property hint such as `@IntRange` |
 | Let Godot call an ordinary function | `@Register` |
 | Configure a remote procedure call | `@Rpc` |

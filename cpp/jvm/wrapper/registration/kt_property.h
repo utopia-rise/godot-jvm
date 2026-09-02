@@ -65,6 +65,8 @@ public:
 
     godot::StringName get_name() const;
 
+    bool is_property_list_marker() const;
+
     godot::PropertyInfo get_member_info();
 
     void call_get(jni::Env & p_env, KtObject * instance, godot::Variant & r_ret);

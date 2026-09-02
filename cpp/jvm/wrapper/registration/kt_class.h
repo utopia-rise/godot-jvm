@@ -12,6 +12,7 @@
 #include <classes/ref_counted.hpp>
 #include <templates/hash_map.hpp>
 #include <templates/hash_set.hpp>
+#include <templates/vector.hpp>
 
 namespace godot {
     class JvmScript;
@@ -88,6 +89,7 @@ public:
 private:
     godot::HashMap<godot::StringName, KtFunction*> methods;
     godot::HashMap<godot::StringName, KtProperty*> properties;
+    godot::Vector<KtProperty*> property_list;
     godot::HashMap<godot::StringName, KtSignalInfo*> signal_infos;
     KtConstructor* kt_constructor;
     godot::HashSet<int> handled_notifications;

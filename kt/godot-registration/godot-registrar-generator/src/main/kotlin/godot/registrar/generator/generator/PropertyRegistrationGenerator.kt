@@ -13,6 +13,7 @@ import godot.registrar.generator.ext.toTypeName
 import godot.registrar.generator.generator.hint.PropertyHintProvider
 import godot.registration.model.RegisteredProperty
 import godot.registration.model.RegisteredPropertyBindingKind
+import godot.registration.model.PropertyGroupKind
 import godot.registration.model.ext.isBitField
 import godot.registration.model.ext.isEnum
 import godot.registration.model.hint.property.EnumListHintStringHint
@@ -24,6 +25,14 @@ fun FunSpec.Builder.addPropertyRegistrations(
     className: ClassName,
 ) {
     registeredClass.effectiveProperties(context).forEach { registeredProperty ->
+        registeredProperty.groups.forEach { group ->
+            when (group.kind) {
+                PropertyGroupKind.CATEGORY -> addStatement("category(%S)", group.name)
+                PropertyGroupKind.GROUP -> addStatement("group(%S, %S)", group.name, group.prefix)
+                PropertyGroupKind.SUBGROUP -> addStatement("subgroup(%S, %S)", group.name, group.prefix)
+            }
+        }
+
         when {
             registeredProperty.type.isBitField() -> registerBitFieldProperty(
                 registeredProperty,
