@@ -6,7 +6,7 @@ import com.intellij.openapi.components.Storage
 import com.intellij.openapi.components.StoragePathMacros
 
 @State(
-    name = "GodotKotlinRegistrationSettings",
+    name = "GodotJvmRegistrationSettings",
     storages = [Storage(StoragePathMacros.WORKSPACE_FILE)]
 )
 class RegistrationSettings : PersistentStateComponent<RegistrationSettings.SettingsState> {

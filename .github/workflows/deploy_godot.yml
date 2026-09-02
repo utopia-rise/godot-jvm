@@ -1,94 +1,80 @@
-name: 🚀 Deploy Godot artifacts
-
+name: Deploy GDExtension artifacts
 on:
   workflow_call:
     inputs:
-      godot-kotlin-jvm-version:
+      godot-jvm-version:
         type: string
 
 jobs:
-  deploy-editors:
+  deploy-addon:
     runs-on: ubuntu-latest
-    name: Deploy ${{ matrix.platform }} ${{ matrix.target }} editor for ${{ matrix.arch }}
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          name: deploy_release_url
+      - id: release_url
+        run: echo "release_url=$(cat deploy_release_url.txt)" >> $GITHUB_OUTPUT
+      - uses: actions/download-artifact@v7
+        with:
+          name: godot-jvm-addon-${{ inputs.godot-jvm-version }}
+          path: package
+      # This is the only point the addon actually needs to exist as a real zip file: release assets
+      # are downloaded as-is, with no extra wrapping layer from GitHub the way workflow artifacts get.
+      - name: Zip addon
+        shell: bash
+        run: cd package && zip -q -9 -r ../godot-jvm-addon-${{ inputs.godot-jvm-version }}.zip addons
+      - uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release_url.outputs.release_url }}
+          asset_path: godot-jvm-addon-${{ inputs.godot-jvm-version }}.zip
+          asset_name: godot-jvm-addon-${{ inputs.godot-jvm-version }}.zip
+          asset_content_type: application/octet-stream
+
+  deploy-libraries:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
           - platform: linuxbsd
-            target: debug
             arch: x86_64
-
+            target: debug
           - platform: linuxbsd
-            target: release
             arch: x86_64
-
+            target: release
           - platform: windows
-            target: debug
             arch: x86_64
-
+            target: debug
           - platform: windows
-            target: release
             arch: x86_64
-
-          - platform: macos
-            target: debug
-            arch: universal
-
-          - platform: macos
             target: release
+          - platform: macos
             arch: universal
+            target: debug
+          - platform: macos
+            arch: universal
+            target: release
     steps:
-      - name: Download deploy_release_url
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v7
         with:
           name: deploy_release_url
-          path: '.'
-
-      - name: Set release url
-        id: release_url
+      - id: release_url
         run: echo "release_url=$(cat deploy_release_url.txt)" >> $GITHUB_OUTPUT
-
-      - name: Download ${{ matrix.platform }} ${{ matrix.target }} editor for ${{ matrix.arch }}
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v7
         with:
-          name: godot-kotlin-jvm_editor_${{ matrix.platform }}_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}.zip
-          path: '.'
-
-      - name: Upload editor to github release
-        uses: actions/upload-release-asset@v1.0.2
+          name: godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}
+          path: package
+      # This is the only point the library actually needs to exist as a real zip file: release assets
+      # are downloaded as-is, with no extra wrapping layer from GitHub the way workflow artifacts get.
+      - name: Zip library
+        shell: bash
+        run: cd package && zip -q -9 -r ../godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}.zip addons
+      - uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.release_url.outputs.release_url }}
-          asset_path: godot-kotlin-jvm_editor_${{ matrix.platform }}_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}.zip
-          asset_name: godot-kotlin-jvm_editor_${{ matrix.platform }}_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}.zip
-          asset_content_type: application/octet-stream
-
-  deploy-export_templates:
-    runs-on: ubuntu-latest
-    name: Deploy export templates
-    steps:
-      - name: Download deploy_release_url
-        uses: actions/download-artifact@v4
-        with:
-          name: deploy_release_url
-          path: '.'
-
-      - name: Set release url
-        id: release_url
-        run: echo "release_url=$(cat deploy_release_url.txt)" >> $GITHUB_OUTPUT
-
-      - name: Download export templates
-        uses: actions/download-artifact@v4
-        with:
-          name: godot-kotlin-jvm_export_templates_${{ inputs.godot-kotlin-jvm-version }}.tpz
-          path: '.'
-
-      - name: Upload export templates to github release
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_url.outputs.release_url }}
-          asset_path: godot-kotlin-jvm_export_templates_${{ inputs.godot-kotlin-jvm-version }}.tpz
-          asset_name: godot-kotlin-jvm_export_templates_${{ inputs.godot-kotlin-jvm-version }}.tpz
+          asset_path: godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}.zip
+          asset_name: godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}.zip
           asset_content_type: application/octet-stream

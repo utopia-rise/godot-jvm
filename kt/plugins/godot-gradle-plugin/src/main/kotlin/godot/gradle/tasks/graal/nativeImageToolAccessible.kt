@@ -72,7 +72,7 @@ fun Project.checkNativeImageToolAccessibleTask(): TaskProvider<out Task> {
 
     return tasks.register("checkNativeImageToolAccessible", CheckNativeImageToolAccessibleTask::class.java) {
         with(it) {
-            group = "godot-kotlin-jvm"
+            group = "godot-jvm"
             description =
                 "Checks if the GraalVM native image tool is accessible and executable. Needed for GraalVM native-image builds only"
 

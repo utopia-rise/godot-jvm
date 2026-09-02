@@ -1,13 +1,9 @@
 package godot.registration.model.checks
 
 import godot.registration.model.ext.isBitField
-import godot.registration.model.ext.isCoreType
 import godot.registration.model.ext.isEnum
-import godot.registration.model.ext.isGodotPrimitive
-import godot.registration.model.ext.isJavaCollection
-import godot.registration.model.ext.isKotlinCollection
-import godot.registration.model.ext.isNodeType
-import godot.registration.model.ext.isRefCounted
+import godot.registration.model.ext.isMappableProperty
+import godot.registration.model.ext.unrepresentableGenericArgument
 import godot.registration.model.logging.Logger
 import godot.registration.model.types.ScriptClass
 
@@ -18,19 +14,19 @@ class PropertyTypeCheck(logger: Logger, registeredClasses: List<ScriptClass>) : 
             .flatMap { it.properties }
             .forEach { exportedProperty ->
                 val type = exportedProperty.type
-                val isAllowed = type.isGodotPrimitive()
-                    || type.isCoreType()
-                    || type.isNodeType()
-                    || type.isRefCounted()
-                    || type.isKotlinCollection()
-                    || type.isJavaCollection()
-                    || type.isEnum()
-                    || type.isBitField()
 
-                if (!isAllowed) {
+                if (!type.isMappableProperty()) {
                     hasIssue = true
                     logger.error(
-                        "Registered property can only be of type primitive, core type, node type or ref counted",
+                        "Registered property can only be Any, a primitive, a core type, a node, a resource, an " +
+                            "enum, a bitfield or a collection of enums",
+                        exportedProperty
+                    )
+                } else if (type.unrepresentableGenericArgument() != null) {
+                    hasIssue = true
+                    logger.error(
+                        "Registered property is of type ${type.fqName} with element type " +
+                            "${type.unrepresentableGenericArgument()?.fqName}, which Godot cannot represent",
                         exportedProperty
                     )
                 } else if (type.isBitField() && type.genericArguments.firstOrNull()?.isEnum() != true) {

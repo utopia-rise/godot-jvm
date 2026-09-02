@@ -16,6 +16,7 @@ extends GdUnitMessageWriter
 
 ## The [RichTextLabel] instance to write formatted messages
 var _output: RichTextLabel
+var _report_formatter: GdUnitReportPanel
 
 ## Tracks current position in characters from line start
 var _current_pos := 0
@@ -26,6 +27,7 @@ var _current_pos := 0
 ## [param output] The [RichTextLabel] used for output.
 func _init(output: RichTextLabel) -> void:
 	_output = output
+	_report_formatter = GdUnitReportPanel.new()
 
 
 ## Applies text style flags by wrapping text in BBCode tags.[br]
@@ -47,6 +49,14 @@ func _apply_flags(message: String, flags: int) -> String:
 	return message
 
 
+## Internal implementation of print_stack_trace.[br]
+## [br]
+## [param stack_trace] The stack trace to print.[br]
+## [param _indent] The indentation level.
+func _print_stack_trace(stack_trace: GdUnitStackTrace, _indent: int) -> void:
+	_report_formatter.add_stack_trace(_output, stack_trace)
+
+
 ## Writes a message with formatting.[br]
 ## [br]
 ## [param message] The text to write.[br]
@@ -54,14 +64,10 @@ func _apply_flags(message: String, flags: int) -> String:
 ## [param _indent] The indentation level.[br]
 ## [param flags] The text style flags to apply.
 func _print_message(message: String, _color: Color, _indent: int, flags: int) -> void:
-	for i in _indent:
-		_output.push_indent(1)
 	_output.push_color(_color)
 	message = _apply_flags(message, flags)
 	_output.append_text(message)
 	_output.pop()
-	for i in _indent:
-		_output.pop()
 	_current_pos += _indent * 2 + message.length()
 
 
@@ -113,3 +119,11 @@ func _print_at(message: String, cursor_pos: int, _color: Color, _effect: GdUnitM
 func clear() -> void:
 	_output.clear()
 	_current_pos = 0
+
+
+func indent(value: int) -> GdUnitMessageWriter:
+	if value < 0:
+		_output.pop()
+	else:
+		_output.push_indent(1)
+	return self

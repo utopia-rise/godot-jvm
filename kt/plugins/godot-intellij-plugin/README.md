@@ -1,9 +1,9 @@
-# Godot Kotlin/Jvm IntelliJ Plugin
+# Godot-JVM IntelliJ Plugin
 
 [![Version](https://img.shields.io/jetbrains/plugin/v/com.utopia-rise.godotjvmideaplugin.svg)](https://plugins.jetbrains.com/plugin/com.utopia-rise.godotjvmideaplugin)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/com.utopia-rise.godotjvmideaplugin.svg)](https://plugins.jetbrains.com/plugin/com.utopia-rise.godotjvmideaplugin)
 
-This module contains the IntelliJ IDEA plugin for Godot Kotlin/JVM.
+This module contains the IntelliJ IDEA plugin for Godot-JVM.
 
 It is intentionally small and Kotlin-first:
 
@@ -17,7 +17,7 @@ Java and Scala support are welcome when they naturally fit the same JVM-facing i
 
 [comment]: <> (To keep everything working, do not remove `<!-- ... -->` sections. These are added to the plugin description through gradle during build)
 <!-- Plugin description -->
-Adds focused K2-only code insight for Godot Kotlin/JVM projects in IntelliJ IDEA.
+Adds focused K2-only code insight for Godot-JVM projects in IntelliJ IDEA.
 
 Features:
 
@@ -26,7 +26,7 @@ Features:
 - validates common callable-reference usage for Godot signal, `call`, and `rpc` patterns
 - detects nested mutation through `@CoreTypeLocalCopy` getter results in simple assignment chains
 - offers quick fixes for common registration and mutability mistakes
-- creates new Godot Kotlin/JVM projects and modules from built-in templates
+- creates new Godot-JVM projects and modules from built-in templates
 
 <!-- Plugin description end -->
 

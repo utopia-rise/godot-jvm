@@ -66,6 +66,7 @@ enum class TypeKind {
     GODOT_CLASS,
     ENUM,
     BITFIELD,
+    COLLECTION,
     OTHER,
 }
 
@@ -274,6 +275,15 @@ open class Type(
         ): Type = knownType(
             fqName = fqName,
             kind = TypeKind.ENUM,
+        ).with(isNullable = isNullable, genericArguments = genericArguments)
+
+        fun getCollection(
+            fqName: String,
+            isNullable: Boolean = false,
+            genericArguments: List<Type> = emptyList(),
+        ): Type = knownType(
+            fqName = fqName,
+            kind = TypeKind.COLLECTION,
         ).with(isNullable = isNullable, genericArguments = genericArguments)
 
         fun getBitField(

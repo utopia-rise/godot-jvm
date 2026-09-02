@@ -25,7 +25,6 @@ val Project.isRelease: Boolean
                 "buildAndroidRelease",
                 "buildGraalNativeImageRelease",
                 "buildIOSRelease",
-                "exportRelease",
             )
         }
 

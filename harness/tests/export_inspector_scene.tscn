@@ -4,10 +4,20 @@
 [ext_resource type="Script" uid="uid://t16ycse3igvm" path="res://src/main/java/godot/tests/registration/JavaExport.java" id="2_java"]
 [ext_resource type="Script" uid="uid://d3gdsgfv4slmo" path="res://src/main/scala/godot/tests/registration/ScalaExport.scala" id="3_scala"]
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_export"]
+agent_height = 2.5
+
 [node name="ExportInspectorScene" type="Node" unique_id=358405828]
 
-[node name="KotlinExportNode" type="Node" parent="." unique_id=1607627643]
+[node name="KotlinExportNode" type="Node" parent="." unique_id=1607627643 node_paths=PackedStringArray("button")]
 script = ExtResource("1_kotlin")
+button = NodePath("Button")
+node_path = NodePath("Button")
+resource_test = SubResource("NavigationMesh_export")
+
+[node name="Button" type="Button" parent="KotlinExportNode" unique_id=198881029]
+offset_right = 8.0
+offset_bottom = 8.0
 
 [node name="JavaExportNode" type="Node" parent="." unique_id=1637651116]
 script = ExtResource("2_java")

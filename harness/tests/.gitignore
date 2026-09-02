@@ -5,10 +5,11 @@
 # Ignore Gradle build output directory
 build
 
-graal/godot-kotlin-graal-jni-config.json
+graal/*-graal-jni-config.json
 
 *.log
 /.godot/
 /test_output.txt
-/jvm/
+**/jvm/
+/addons/jvm/libs/
 /reports

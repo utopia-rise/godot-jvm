@@ -1,100 +1,44 @@
-name: 🤖 Assemble Android
+name: Assemble Android
 on:
   workflow_call:
     inputs:
+      godot-jvm-version:
+        type: string
       godot-version:
         type: string
       jvm-version:
         type: string
 
-concurrency:
-  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-android_assemble
-  cancel-in-progress: true
-
 jobs:
-  create-android-export-template:
+  package-android-libraries:
     runs-on: ubuntu-latest
-    name: ${{ matrix.name }}
     steps:
-      - name: Maximize build space
-        uses: AdityaGarg8/remove-unwanted-software@v4.1
-        with:
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
-          remove-swapfile: 'true'
-
-      - name: Clone Godot Engine
-        uses: actions/checkout@v4
-        with:
-          repository: godotengine/godot
-          ref: ${{ inputs.godot-version }}
-
-      - name: Clone Godot JVM module.
-        uses: actions/checkout@v4
-        with:
-          path: modules/kotlin_jvm
-
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: ${{ inputs.jvm-version }}
-
-      - name: Setup python and scons
-        uses: ./.github/actions/godot-deps
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+      - uses: actions/download-artifact@v7
         with:
-          cache-read-only: ${{ github.ref != 'refs/heads/master' }}
-
-      - name: Download android libs release arm32
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_release_android_arm32
-          path: "platform/android/java/lib/libs/"
-
-      - name: Download android libs debug arm32
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_debug_android_arm32
-          path: "platform/android/java/lib/libs/"
-
-      - name: Download android libs release arm64
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_release_android_arm64
-          path: "platform/android/java/lib/libs/"
-
-      - name: Download android libs debug arm64
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_debug_android_arm64
-          path: "platform/android/java/lib/libs/"
-
-      - name: Download android libs release x86_64
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_release_android_x86_64
-          path: "platform/android/java/lib/libs/"
-
-      - name: Download android libs debug x86_64
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_debug_android_x86_64
-          path: "platform/android/java/lib/libs/"
-
-      - name: Generate Godot templates
+          pattern: '*_android_*'
+          path: native
+          merge-multiple: true
+      - name: Build Android plugin AARs
+        shell: bash
+        env:
+          GODOT_VERSION: ${{ inputs.godot-version }}
         run: |
-          ls -l platform/android/java/lib/libs/
-          cd platform/android/java
-          ./gradlew generateGodotTemplates
-          cd ../../..
-          ls -l bin/
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+          godot_maven_version="${GODOT_VERSION%-stable}.stable"
+          ./kt/gradlew -p kt :android-plugin:assemble \
+            -PgodotVersion="$godot_maven_version" \
+            -PnativeLibrariesDir="$PWD/native/jvm/bin"
+          mkdir -p package/addons/jvm/libs/android/debug package/addons/jvm/libs/android/release
+          cp kt/android-plugin/build/outputs/aar/godot-jvm-debug.aar package/addons/jvm/libs/android/debug/
+          cp kt/android-plugin/build/outputs/aar/godot-jvm-release.aar package/addons/jvm/libs/android/release/
+      # Upload the raw folder rather than a pre-made zip: actions/upload-artifact always wraps
+      # whatever it's given in its own zip, so uploading a zip here results in a zip nested inside
+      # that zip once a human downloads the artifact.
+      - uses: actions/upload-artifact@v7
         with:
-          name: export_template_android_all
-          path: "bin/*"
+          name: godot-jvm-gdextension-android-${{ inputs.godot-jvm-version }}
+          path: package

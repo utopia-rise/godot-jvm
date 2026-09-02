@@ -39,11 +39,11 @@ publishing {
         val godotRegistration by creating(MavenPublication::class) {
             pom {
                 name.set(project.name)
-                description.set("Godot Kotlin registration tooling — bundles the symbol processor, registration model and registrar generator into a single jar.")
+                description.set("Godot-JVM registration tooling — bundles the symbol processor, registration model and registrar generator into a single jar.")
             }
             artifactId = project.name
             description =
-                "Godot Kotlin registration tooling — bundles the symbol processor, registration model and registrar generator into a single jar."
+                "Godot-JVM registration tooling — bundles the symbol processor, registration model and registrar generator into a single jar."
             // Fat jar is self-contained: publish it as the main artifact with no POM dependencies.
             artifact(tasks.shadowJar)
             artifact(tasks.named("sourcesJar"))

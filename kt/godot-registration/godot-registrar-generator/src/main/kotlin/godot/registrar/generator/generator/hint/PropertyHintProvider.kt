@@ -12,7 +12,7 @@ import godot.registration.model.RegisteredProperty
 import godot.registration.model.ext.isCoreType
 import godot.registration.model.ext.isGodotPrimitive
 import godot.registration.model.ext.isNodeType
-import godot.registration.model.ext.isRefCounted
+import godot.registration.model.ext.isResource
 import godot.registration.model.hint.property.ColorNoAlphaHint
 import godot.registration.model.hint.property.EnumHint
 import godot.registration.model.hint.property.ExpEasingHint
@@ -85,7 +85,7 @@ object PropertyHintProvider {
             )
 
             registeredProperty.type.isNodeType() -> NodeTypeHintStringGenerator(registeredProperty, context)
-            registeredProperty.type.isRefCounted() -> ResourceHintStringGenerator(registeredProperty, context)
+            registeredProperty.type.isResource() -> ResourceHintStringGenerator(registeredProperty, context)
             registeredProperty.type.fqName == TYPE_INT && propertyHint is IntFlagHint -> IntFlagHintStringGenerator(registeredProperty, context)
             registeredProperty.type.kind == TypeKind.ENUM || registeredProperty.type.kind == TypeKind.BITFIELD || propertyHint is EnumHint ->
                 EnumHintStringGenerator(registeredProperty, context)
@@ -134,7 +134,7 @@ object PropertyHintProvider {
 
         type.isGodotPrimitive() || type.isCoreType() -> StaticHintGenerator(GodotPropertyHint.NONE, type.getGodotCoreTypeName())
         type.isNodeType() -> StaticHintGenerator(GodotPropertyHint.NODE_TYPE, objectHintString(type, context, useBaseTypeName = true))
-        type.isRefCounted() -> StaticHintGenerator(GodotPropertyHint.RESOURCE_TYPE, objectHintString(type, context, useBaseTypeName = false))
+        type.isResource() -> StaticHintGenerator(GodotPropertyHint.RESOURCE_TYPE, objectHintString(type, context, useBaseTypeName = false))
         else -> StaticHintGenerator(GodotPropertyHint.NONE, "")
     }
 

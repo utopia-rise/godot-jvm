@@ -13,7 +13,7 @@ fun Project.generateGdIgnoreFilesTask(): TaskProvider<Task> {
 
     return tasks.register("generateGdIgnoreFiles") {
         with(it) {
-            group = "godot-kotlin-jvm"
+            group = "godot-jvm"
             description = "Generates .gdignore files to hide gradle files, kotlin build files and jre files from the godot editor."
 
             doFirst {

@@ -43,10 +43,10 @@ publishing {
         val godotBootstrapLibraryPublication by registering(MavenPublication::class) {
             pom {
                 name.set("${project.name}-$targetSuffix")
-                description.set("Contains code needed to bootstrap godot kotlin.")
+                description.set("Contains code needed to bootstrap Godot-JVM.")
             }
             artifactId = "godot-bootstrap-library-$targetSuffix"
-            description = "Contains code needed to bootstrap godot kotlin."
+            description = "Contains code needed to bootstrap Godot-JVM."
 
             from(components["java"])
         }

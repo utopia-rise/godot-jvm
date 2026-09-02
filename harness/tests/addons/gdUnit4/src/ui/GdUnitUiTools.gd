@@ -1,14 +1,54 @@
+@tool
 class_name GdUnitUiTools
 extends RefCounted
 
 
-static var _spinner: AnimatedTexture
+const STATE = GdUnitInspectorTreeConstants.STATE
 
 
 enum ImageFlipMode {
 	HORIZONTAl,
 	VERITCAL
 }
+
+
+static var _spinner: AnimatedTexture
+static var icon_cache: Dictionary[STATE, Texture2D]
+
+
+static func get_state_icon(state: STATE) -> Texture2D:
+	if icon_cache.has(state):
+		return icon_cache.get(state)
+
+	if not Engine.is_editor_hint():
+		return null
+
+	var icon: Texture2D
+	match state:
+		STATE.INITIAL:
+			icon = get_icon("EditorHandleDisabled", GdUnitEditorColorTheme.state_initial)
+		STATE.RUNNING:
+			icon = get_spinner()
+		STATE.SUCCESS:
+			icon = get_icon("ImportCheck", GdUnitEditorColorTheme.state_success)
+		STATE.WARNING:
+			icon = get_icon("ImportCheck", GdUnitEditorColorTheme.state_warning)
+		STATE.FAILED:
+			icon = get_icon("ImportFail", GdUnitEditorColorTheme.state_failure)
+		STATE.ERROR:
+			icon = get_icon("StatusError", GdUnitEditorColorTheme.state_error)
+		STATE.FLAKY:
+			icon = get_icon("CheckBox", GdUnitEditorColorTheme.state_flaky)
+		STATE.SKIPPED:
+			icon = get_icon("EditorHandleDisabled", GdUnitEditorColorTheme.state_skipped)
+		STATE.ORPHAN:
+			icon = get_icon("Unlinked", GdUnitEditorColorTheme.state_orphan)
+
+	if icon == null:
+		push_error("missing icon for state:", STATE.keys()[state])
+
+	icon_cache[state] = icon
+	return icon
 
 
 ## Returns the icon by name, if it exists.
@@ -45,7 +85,7 @@ static func get_spinner() -> AnimatedTexture:
 	return _spinner
 
 
-static func get_color_animated_icon(icon_name :String, from :Color, to :Color) -> AnimatedTexture:
+static func get_color_animated_icon(icon_name: String, from: Color, to: Color) -> AnimatedTexture:
 	if not Engine.is_editor_hint():
 		return null
 	var texture := AnimatedTexture.new()
@@ -53,9 +93,9 @@ static func get_color_animated_icon(icon_name :String, from :Color, to :Color) -
 	texture.speed_scale = 2.5
 	var color := from
 	for frame in texture.frames:
-		color = lerp(color, to, .2)
+		color = lerp(color, to, 0.2)
 		texture.set_frame_texture(frame, get_icon(icon_name, color))
-		texture.set_frame_duration(frame, 0.2)
+		texture.set_frame_duration(frame, .2)
 	return texture
 
 
@@ -64,26 +104,6 @@ static func get_run_overall_icon() -> Texture2D:
 		return null
 	var icon := EditorInterface.get_base_control().get_theme_icon("Play", "EditorIcons")
 	var image := _merge_images(icon.get_image(), Vector2i(-2, 0), icon.get_image(), Vector2i(3, 0))
-	return ImageTexture.create_from_image(image)
-
-
-static func get_GDScript_icon(status: String, color: Color) -> Texture2D:
-	if not Engine.is_editor_hint():
-		return null
-	var icon_a := EditorInterface.get_base_control().get_theme_icon("GDScript", "EditorIcons")
-	var icon_b := EditorInterface.get_base_control().get_theme_icon(status, "EditorIcons")
-	var overlay_image := _modulate_image(icon_b.get_image(), color)
-	var image := _merge_images_scaled(icon_a.get_image(), Vector2i(0, 0), overlay_image, Vector2i(5, 5))
-	return ImageTexture.create_from_image(image)
-
-
-static func get_CSharpScript_icon(status: String, color: Color) -> Texture2D:
-	if not Engine.is_editor_hint():
-		return null
-	var icon_a := EditorInterface.get_base_control().get_theme_icon("CSharpScript", "EditorIcons")
-	var icon_b := EditorInterface.get_base_control().get_theme_icon(status, "EditorIcons")
-	var overlay_image := _modulate_image(icon_b.get_image(), color)
-	var image := _merge_images_scaled(icon_a.get_image(), Vector2i(0, 0), overlay_image, Vector2i(5, 5))
 	return ImageTexture.create_from_image(image)
 
 
@@ -101,7 +121,7 @@ static func _modulate_image(image: Image, color: Color) -> Image:
 		data[pixel + 0] = pixel_a.r8
 		data[pixel + 1] = pixel_a.g8
 		data[pixel + 2] = pixel_a.b8
-		data[pixel + 3] = pixel_a.a8
+		# data[pixel + 3] = 1
 	var output_image := Image.new()
 	output_image.set_data(image.get_width(), image.get_height(), image.has_mipmaps(), image.get_format(), data)
 	return output_image
@@ -113,8 +133,8 @@ static func _merge_images(image1: Image, offset1: Vector2i, image2: Image, offse
 		image1.resize(image2.get_width(), image2.get_height())
 	# Create a new Image for the merged result
 	var merged_image := Image.create(image1.get_width(), image1.get_height(), false, Image.FORMAT_RGBA8)
-	merged_image.blit_rect_mask(image1, image2, Rect2(Vector2.ZERO, image1.get_size()), offset1)
-	merged_image.blit_rect_mask(image1, image2, Rect2(Vector2.ZERO, image2.get_size()), offset2)
+	merged_image.blit_rect(image1, Rect2(Vector2.ZERO, image1.get_size()), offset1)
+	merged_image.blit_rect_mask(image2, image2, Rect2(Vector2.ZERO, image2.get_size()), offset2)
 	return merged_image
 
 
@@ -127,8 +147,8 @@ static func _merge_images_scaled(image1: Image, offset1: Vector2i, image2: Image
 	var merged_image := Image.create(image1.get_width(), image1.get_height(), false, image1.get_format())
 	merged_image.blend_rect(image1, Rect2(Vector2.ZERO, image1.get_size()), offset1)
 	@warning_ignore("narrowing_conversion")
-	image2.resize(image2.get_width()/1.3, image2.get_height()/1.3)
-	merged_image.blend_rect(image2, Rect2(Vector2.ZERO, image2.get_size()), offset2)
+	#image2.resize(image2.get_width()/1.3, image2.get_height()/1.3)
+	merged_image.blit_rect_mask(image2, image2, Rect2(Vector2.ZERO, image2.get_size()), offset2)
 	return merged_image
 
 

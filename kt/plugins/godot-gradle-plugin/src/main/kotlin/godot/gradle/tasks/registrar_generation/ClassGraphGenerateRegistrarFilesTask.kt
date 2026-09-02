@@ -489,7 +489,7 @@ fun Project.registrarGenerationGenerateFilesTask(
         "registrarGenerationGenerateFiles",
         ClassGraphGenerateRegistrarFilesTask::class.java
     ) { task ->
-        task.group = "godot-kotlin-jvm-internal"
+        task.group = "godot-jvm-internal"
         task.description = "Generates registrar sources/resources plus staged .gdj files from compiled user code."
         task.dependsOn(classesTask)
         task.userCodeClassPathRoots.from(mainSourceSet.output.classesDirs)

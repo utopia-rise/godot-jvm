@@ -233,7 +233,7 @@ class GodotNewProjectWizardStep(parent: NewProjectWizardBaseStep) : AbstractNewP
 
     private fun applyBuildTemplateVariables(content: String): String {
         return content
-            .replace("GODOT_KOTLIN_JVM_VERSION", GODOT_JVM_VERSION)
+            .replace("GODOT_JVM_VERSION", GODOT_JVM_VERSION)
             .replace("GODOT_LANGUAGES", getEnabledLanguages().joinToString(", ") { it.gradleLanguagesLiteral })
             .replace("D8_TOOL_PATH", d8ToolPath.trim().takeUnless(String::isEmpty) ?: DEFAULT_D8_TOOL_PATH)
             .replace("ANDROID_COMPILE_SDK_DIR", androidCompileSdkDirectory.trim().takeUnless(String::isEmpty) ?: DEFAULT_ANDROID_COMPILE_SDK_DIR)

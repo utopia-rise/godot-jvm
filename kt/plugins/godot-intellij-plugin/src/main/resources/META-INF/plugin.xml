@@ -1,19 +1,19 @@
 <idea-plugin require-restart="false">
     <id>com.utopia-rise.godotjvmideaplugin</id>
-    <name>Godot Kotlin/Jvm</name>
+    <name>Godot-JVM</name>
     <vendor url="https://github.com/utopia-rise/" email="meisels27@yahoo.fr">Utopia-Rise</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <projectService serviceImplementation="godot.intellij.plugin.GodotKotlinJvmProjectService"/>
+        <projectService serviceImplementation="godot.intellij.plugin.GodotJvmProjectService"/>
         <projectService serviceImplementation="godot.intellij.plugin.GodotProjectScopeService"/>
         <projectService serviceImplementation="godot.intellij.plugin.registration.RegistrationSettings"/>
         <projectConfigurable
                 id="godot.kotlin.jvm.settings"
-                displayName="Godot Kotlin/JVM"
+                displayName="Godot-JVM"
                 instance="godot.intellij.plugin.registration.RegistrationSettingsConfigurable"/>
-        <postStartupActivity implementation="godot.intellij.plugin.GodotKotlinJvmProjectActivity"/>
+        <postStartupActivity implementation="godot.intellij.plugin.GodotJvmProjectActivity"/>
         <newProjectWizard.generator implementation="godot.intellij.plugin.wizard.GodotNewProjectWizard"/>
         <notificationGroup id="Error message" displayType="STICKY_BALLOON" key="notification.group.error" isLogByDefault="true"/>
         <localInspection implementationClass="godot.intellij.plugin.inspection.JavaInspection" language="JAVA"/>

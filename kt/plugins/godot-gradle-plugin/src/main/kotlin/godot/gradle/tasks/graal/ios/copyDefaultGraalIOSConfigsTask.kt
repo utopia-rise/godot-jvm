@@ -52,7 +52,7 @@ fun Project.copyDefaultGraalIOSConfigsTask(
 
     return tasks.register("copyDefaultGraalIOSJniConfig", CopyDefaultGraalIOSConfigsTask::class.java) {
         with(it) {
-            group = "godot-kotlin-jvm"
+            group = "godot-jvm"
             description =
                 "Checks if the default configs for ios graalVM native image are present and creates them if they're not"
 

@@ -1,186 +1,109 @@
-name: 🍎 Assemble macOS
+name: Assemble macOS
 on:
   workflow_call:
     inputs:
-      godot-kotlin-jvm-version:
+      godot-jvm-version:
         type: string
-      godot-version:
-        type: string
-      build-version:
-          type: string
 
 concurrency:
-  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-macos_assemble
+  group: ci-${{ github.actor }}-${{ github.head_ref || github.run_number }}-${{ github.ref }}-macos_assemble
   cancel-in-progress: true
 
 jobs:
-  create-macos-editor-universal:
+  assemble-macos:
     runs-on: macos-15
-    name: ${{ matrix.name }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Create universal editor binary release
-            target: release
-            editor-target-insert: ''
-
-          - name: Create universal editor binary debug
-            target: debug
-            editor-target-insert: ''
-
-          - name: Create universal editor binary dev
-            target: dev
-            editor-target-insert: '.dev'
     steps:
-      - name: Clone Godot JVM module.
-        uses: actions/checkout@v4
-
-      - name: Download ${{ matrix.target }} x86_64 editor
-        uses: actions/download-artifact@v4
+      - name: Download editor x86_64 library
+        uses: actions/download-artifact@v7
         with:
-          name: editor_${{ matrix.target }}_macos_x86_64
-          path: "./"
+          name: editor_macos_x86_64
+          path: libraries/editor/x86_64
 
-      - name: Download ${{ matrix.target }} arm64 editor
-        uses: actions/download-artifact@v4
+      - name: Download editor arm64 library
+        uses: actions/download-artifact@v7
         with:
-          name: editor_${{ matrix.target }}_macos_arm64
-          path: "./"
+          name: editor_macos_arm64
+          path: libraries/editor/arm64
 
-      - name: Create ${{ matrix.target }} OSX universal binary
-        uses: ./.github/actions/create-macos-universal-binary
+      - name: Download release x86_64 library
+        uses: actions/download-artifact@v7
         with:
-          amd-64-binary: godot.macos.editor${{ matrix.editor-target-insert }}.x86_64.jvm.${{ inputs.build-version }}
-          arm-64-binary: godot.macos.editor${{ matrix.editor-target-insert }}.arm64.jvm.${{ inputs.build-version }}
-          universal-output-binary: godot.macos.editor.${{ matrix.target }}.universal
+          name: release_macos_x86_64
+          path: libraries/release/x86_64
 
-      - name: Upload ${{ matrix.target }} macos universal artifact
-        uses: actions/upload-artifact@v4
+      - name: Download release arm64 library
+        uses: actions/download-artifact@v7
         with:
-          name: editor_${{ matrix.target }}_macos_universal
-          path: godot.macos.editor.${{ matrix.target }}.universal
+          name: release_macos_arm64
+          path: libraries/release/arm64
 
-  create-macos-editor-app:
-    needs: [ create-macos-editor-universal ]
-    runs-on: macos-15
-    name: ${{ matrix.name }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Create editor app release
-            target: release
-            arch: universal
-
-          - name: Create editor app debug
-            target: debug
-            arch: universal
-    steps:
-      - name: Clone Godot Engine
-        uses: actions/checkout@v4
+      - name: Download debug x86_64 library
+        uses: actions/download-artifact@v7
         with:
-          repository: godotengine/godot
-          ref: ${{ inputs.godot-version }}
+          name: debug_macos_x86_64
+          path: libraries/debug/x86_64
 
-      - name: Download ${{ matrix.target }} editor
-        uses: actions/download-artifact@v4
+      - name: Download debug arm64 library
+        uses: actions/download-artifact@v7
         with:
-          name: editor_${{ matrix.target }}_macos_universal
-          path: .
+          name: debug_macos_arm64
+          path: libraries/debug/arm64
 
-      - name: Create MacOs editor app
-        run: |
-          cp -r misc/dist/macos_tools.app ./Godot.app
-          mkdir -p Godot.app/Contents/MacOS
-          cp godot.macos.editor.${{ matrix.target }}.universal Godot.app/Contents/MacOS/Godot
-          chmod +x Godot.app/Contents/MacOS/Godot
-          zip -q -9 -r godot-kotlin-jvm_editor_macos_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}.zip Godot.app
+      - name: Create universal GDExtension libraries
         shell: bash
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: godot-kotlin-jvm_editor_macos_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}.zip
-          path: godot-kotlin-jvm_editor_macos_${{ matrix.arch }}_${{ matrix.target }}_${{ inputs.godot-kotlin-jvm-version }}.zip
-
-
-  create-macos-export-template-universal:
-    runs-on: macos-15
-    name: ${{ matrix.name }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Create export template universal binary release
-            target: release
-
-          - name: Create export template universal binary debug
-            target: debug
-    steps:
-      - name: Clone Godot JVM module.
-        uses: actions/checkout@v4
-
-      - name: Download ${{ matrix.target }} x86_64 export_template
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_${{ matrix.target }}_macos_x86_64
-          path: "./"
-
-      - name: Download ${{ matrix.target }} arm64 export_template
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_${{ matrix.target }}_macos_arm64
-          path: "./"
-
-      - name: Create macos universal binary
-        uses: ./.github/actions/create-macos-universal-binary
-        with:
-          amd-64-binary: godot.macos.template_${{ matrix.target }}.x86_64.jvm.${{ inputs.build-version }}
-          arm-64-binary: godot.macos.template_${{ matrix.target }}.arm64.jvm.${{ inputs.build-version }}
-          universal-output-binary: godot.macos.template_${{ matrix.target }}.universal
-
-      - name: Upload ${{ matrix.target }} macos universal artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: export_template_${{ matrix.target }}_macos_universal
-          path: godot.macos.template_${{ matrix.target }}.universal
-
-  create-macos-export-template-app:
-    needs: [ create-macos-export-template-universal ]
-    runs-on: macos-15
-    name: Create macos export template app
-    steps:
-      - name: Clone Godot Engine
-        uses: actions/checkout@v4
-        with:
-          repository: godotengine/godot
-          ref: ${{ inputs.godot-version }}
-
-      - name: Download debug export_template
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_debug_macos_universal
-          path: .
-
-      - name: Download release export_template
-        uses: actions/download-artifact@v4
-        with:
-          name: export_template_release_macos_universal
-          path: .
-
-      - name: Create MacOs template app
         run: |
-          cp -r misc/dist/macos_template.app .
-          mkdir -p macos_template.app/Contents/MacOS
-          cp godot.macos.template_release.universal macos_template.app/Contents/MacOS/godot_macos_release.universal
-          cp godot.macos.template_debug.universal macos_template.app/Contents/MacOS/godot_macos_debug.universal
-          chmod +x macos_template.app/Contents/MacOS/godot_macos*
-          zip -q -9 -r export_template_all_macos.zip macos_template.app
-        shell: bash
+          for artifact in editor debug release; do
+            case "$artifact" in
+              editor) target=editor ;;
+              debug) target=template_debug ;;
+              release) target=template_release ;;
+            esac
+            framework="godot.jvm.macos.$target.framework"
+            mkdir -p "universal/$artifact/addons/jvm/libs/macos"
+            cp -R "libraries/$artifact/x86_64/jvm/libs/macos/$framework" "universal/$artifact/addons/jvm/libs/macos/"
+            lipo -create               "libraries/$artifact/x86_64/jvm/libs/macos/$framework/godot.jvm.macos.$target"               "libraries/$artifact/arm64/jvm/libs/macos/$framework/godot.jvm.macos.$target"               -output "universal/$artifact/addons/jvm/libs/macos/$framework/godot.jvm.macos.$target"
+          done
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload debug universal library
+        uses: actions/upload-artifact@v7
         with:
-          name: export_template_all_macos
-          path: export_template_all_macos.zip
+          name: debug_macos_universal
+          path: universal/debug/addons
+
+      - name: Upload editor universal library
+        uses: actions/upload-artifact@v7
+        with:
+          name: editor_macos_universal
+          path: universal/editor/addons
+
+      - name: Upload release universal library
+        uses: actions/upload-artifact@v7
+        with:
+          name: release_macos_universal
+          path: universal/release/addons
+
+      - name: Package macOS libraries
+        shell: bash
+        run: |
+          for target in debug release; do
+            mkdir -p "package/$target"
+            cp -R "universal/editor/addons" "package/$target/addons"
+            cp -R "universal/debug/addons/jvm/libs/." "package/$target/addons/jvm/libs/"
+            cp -R "universal/release/addons/jvm/libs/." "package/$target/addons/jvm/libs/"
+          done
+
+      # Upload the raw "addons" folder rather than a pre-made zip: actions/upload-artifact always
+      # wraps whatever it's given in its own zip, so uploading a zip here results in a zip nested
+      # inside that zip once a human downloads the artifact. The actual release-asset zip gets made
+      # once, at the point deploy_godot.yml attaches it to the GitHub release.
+      - name: Upload debug package
+        uses: actions/upload-artifact@v7
+        with:
+          name: godot-jvm-gdextension-macos-universal-debug-${{ inputs.godot-jvm-version }}
+          path: package/debug
+
+      - name: Upload release package
+        uses: actions/upload-artifact@v7
+        with:
+          name: godot-jvm-gdextension-macos-universal-release-${{ inputs.godot-jvm-version }}
+          path: package/release

@@ -1,0 +1,18 @@
+name: Build GDExtension
+description: Compiles the native Godot JVM GDExtension.
+inputs:
+  platform:
+    required: true
+  target:
+    required: true
+  scons-flags:
+    default: ''
+  target-path:
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Compile GDExtension
+      shell: bash
+      working-directory: ${{ github.workspace }}
+      run: scons platform=${{ inputs.platform }} target=${{ inputs.target }} target_path=${{ inputs.target-path }} ${{ inputs.scons-flags }}

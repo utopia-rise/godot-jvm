@@ -127,7 +127,7 @@ class Projection(
      * **Warning**: Writing `x.x = 2` will only modify a copy, not the actual object.
      * To modify it, use [x] method.
      *
-     * See: [Documentation](https://godot-kotl.in/en/stable/user-guide/api-differences/#core-types)
+     * See: [Documentation](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types)
      * */
     @CoreTypeLocalCopy
     var x
@@ -155,7 +155,7 @@ class Projection(
      * **Warning**: Writing `y.x = 2` will only modify a copy, not the actual object.
      * To modify it, use [y] method.
      *
-     * See: [Documentation](https://godot-kotl.in/en/stable/user-guide/api-differences/#core-types)
+     * See: [Documentation](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types)
      * */
     @CoreTypeLocalCopy
     var y
@@ -183,7 +183,7 @@ class Projection(
      * **Warning**: Writing `z.x = 2` will only modify a copy, not the actual object.
      * To modify it, use [z] method.
      *
-     * See: [Documentation](https://godot-kotl.in/en/stable/user-guide/api-differences/#core-types)
+     * See: [Documentation](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types)
      * */
     @CoreTypeLocalCopy
     var z
@@ -211,7 +211,7 @@ class Projection(
      * **Warning**: Writing `w.x = 2` will only modify a copy, not the actual object.
      * To modify it, use [w] method.
      *
-     * See: [Documentation](https://godot-kotl.in/en/stable/user-guide/api-differences/#core-types)
+     * See: [Documentation](https://godot-jvm.dev/en/stable/user-guide/api-differences/#core-types)
      * */
     @CoreTypeLocalCopy
     var w

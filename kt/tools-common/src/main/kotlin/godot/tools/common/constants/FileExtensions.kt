@@ -1,8 +1,8 @@
 package godot.tools.common.constants
 
 object FileExtensions {
-    object GodotKotlinJvm {
-        // keep in sync with godotkotlin_defs.h!
+    object GodotJvm {
+        // Keep in sync with src/api/language/names.h.
         val registrationFile = "gdj"
     }
 }

@@ -1,0 +1,91 @@
+name: Detect Path Changes
+description: |
+  Diff the given paths between HEAD and the appropriate base for this trigger
+  event, and output "true"/"false" accordingly.
+
+  For a pull_request "synchronize" push (new commits pushed to an already-open
+  PR), the base is the PR's own previous head (github.event.before) so only
+  the newly-pushed commits are considered -- a PR that's mostly native changes
+  shouldn't force every subsequent doc-only push to rebuild everything. The PR
+  base branch SHA is only used as the diff base on the PR's first run (opened/
+  reopened), where there's no prior push to compare against.
+
+  For events where "did anything change" isn't a meaningful question (schedule,
+  workflow_dispatch) or where no usable base SHA can be resolved (first push
+  of a branch, force-pushed history), this defaults to "true" so callers get a
+  full run instead of silently skipping everything.
+
+  The caller must check out the repo with fetch-depth: 0 before invoking this
+  action.
+
+inputs:
+  paths:
+    description: Newline-separated list of pathspecs (files or directories) to diff.
+    required: true
+
+outputs:
+  changed:
+    description: '"true" if any of the supplied paths changed (or the check was skipped in favor of a full run); "false" otherwise.'
+    value: ${{ steps.diff.outputs.changed }}
+
+runs:
+  using: composite
+  steps:
+    - name: Diff paths against base
+      id: diff
+      shell: bash
+      env:
+        PATHS: ${{ inputs.paths }}
+        EVENT_NAME: ${{ github.event_name }}
+        EVENT_ACTION: ${{ github.event.action }}
+        PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        BEFORE_SHA: ${{ github.event.before }}
+        HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      run: |
+        set -euo pipefail
+
+        mapfile -t PATH_ARGS < <(printf '%s\n' "$PATHS" | awk 'NF')
+
+        if [[ "$EVENT_NAME" == "schedule" || "$EVENT_NAME" == "workflow_dispatch" ]]; then
+          echo "Event is '$EVENT_NAME' - path detection doesn't apply, forcing full run."
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
+        if [[ "$EVENT_NAME" == "pull_request" && "$EVENT_ACTION" == "synchronize" && -n "$BEFORE_SHA" && ! "$BEFORE_SHA" =~ ^0+$ ]]; then
+          # New commits pushed to an already-open PR: only diff what this push added.
+          BASE="$BEFORE_SHA"
+        elif [[ "$EVENT_NAME" == "pull_request" ]]; then
+          # First run for this PR (opened/reopened, or synchronize with no usable
+          # "before"): nothing to compare the push against yet, so diff the whole
+          # PR against its target branch.
+          BASE="$PR_BASE_SHA"
+        else
+          BASE="$BEFORE_SHA"
+        fi
+
+        if [[ -z "$BASE" || "$BASE" =~ ^0+$ ]]; then
+          echo "No usable base SHA for event '$EVENT_NAME' (new branch or first push) - forcing full run."
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
+        git fetch --no-tags --depth=100 origin "$BASE" 2>/dev/null || true
+
+        if ! git cat-file -e "${BASE}^{commit}" 2>/dev/null; then
+          echo "Base SHA $BASE isn't available locally (shallow history or rewritten branch) - forcing full run."
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
+        echo "Base: $BASE"
+        echo "Head: $HEAD_SHA"
+        echo "Paths: ${PATH_ARGS[*]}"
+
+        if git diff --quiet "$BASE" "$HEAD_SHA" -- "${PATH_ARGS[@]}"; then
+          echo "changed=false" >> "$GITHUB_OUTPUT"
+          echo "No changes detected."
+        else
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "Changes detected."
+        fi

@@ -2,4 +2,4 @@ def can_build(env, platform):
     return True
 
 def configure(env):
-    env.add_module_version_string("jvm.0.17.1")
+    env.add_module_version_string("jvm-1.0.0-dev3")

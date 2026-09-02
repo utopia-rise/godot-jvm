@@ -8,6 +8,6 @@ class D8ToolNotFoundException(reason: String? = null) : IllegalArgumentException
             append(reason)
         }
         append(". Set ANDROID_SDK_ROOT to a valid Android SDK, or set godot.d8ToolPath to the d8 executable.")
-        append(" For more information, visit: https://godot-kotl.in/en/stable/user-guide/exporting/#android")
+        append(" For more information, visit: https://godot-jvm.dev/en/stable/user-guide/exporting/#android")
     }
 )

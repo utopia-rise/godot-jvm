@@ -1,12 +1,18 @@
-site_name: Godot Kotlin/JVM
+site_name: Godot-JVM
+site_description: Kotlin, Java, and Scala bindings for the Godot game engine.
+site_author: Utopia Rise
+site_url: !ENV [READTHEDOCS_CANONICAL_URL, 'https://godot-jvm.dev/en/stable/']
 docs_dir: src/doc
+strict: true
+hooks:
+  - logo_assets.py
 
-repo_name: 'utopia-rise/godot-kotlin-jvm'
-repo_url: 'https://github.com/utopia-rise/godot-kotlin-jvm'
+repo_name: 'utopia-rise/godot-jvm'
+repo_url: 'https://github.com/utopia-rise/godot-jvm'
 
 theme:
   name: material
-  favicon: assets/img/favicon.ico
+  favicon: logo/favicon.ico
   palette:
     - media: "(prefers-color-scheme)"
       primary: deep purple
@@ -25,81 +31,126 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
-  logo: assets/img/logo.png
+  logo: logo/logo-outline.png
   font:
     code: JetBrains Mono
   features:
     - navigation.tabs
-    - navigation.expand
+    - navigation.sections
+    - navigation.indexes
     - navigation.top
+    - navigation.footer
     - content.code.copy
-    - toc.integrate
+    - content.tabs.link
+    - toc.follow
 
 extra:
   social:
     - icon: fontawesome/brands/github-alt
       link: https://github.com/utopia-rise
 
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+
 markdown_extensions:
   - pymdownx.highlight:
       linenums: true
   - pymdownx.inlinehilite
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.blocks.tab:
       alternate_style: true
   - pymdownx.details
   - admonition
   - meta
 
-extra_javascript:
-  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js
-  - js/init.js
 extra_css:
-  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css
+  - css/logo.css
 
 nav:
   - Home: index.md
-  - Getting Started:
-      - Requirements: getting-started/requirements.md
-      - Setting-up: getting-started/setting-up.md
-      - Your first class: getting-started/your-first-class.md
-      - Compiling your project: getting-started/compiling-your-project.md
-  - User guide:
-    - API differences: user-guide/api-differences.md
-    - Registration reference: user-guide/advanced/registration-logic.md
-    - Classes: user-guide/classes.md
-    - Properties: user-guide/properties.md
-    - Signals and Callables: user-guide/signals_and_callables.md
-    - Functions: user-guide/functions.md
-    - Coroutines: user-guide/coroutines.md
-    - Exporting: user-guide/exporting.md
-    - Debugging: user-guide/debugging.md
-    - Consuming libraries: user-guide/consuming-libraries.md
-    - Advanced:
-      - Abstract classes: user-guide/advanced/abstract-classes.md
-      - Cleanup operations: user-guide/advanced/cleanup-operations.md
-      - Gradle plugin configuration: user-guide/advanced/gradle-plugin-configuration.md
-      - Command-line and configuration arguments: user-guide/advanced/commandline-args-and-configuration.md
-      - GraalVM Native Image: user-guide/advanced/graal-vm-native-image.md
-  - Develop libraries:
-      - Introduction: develop-libraries/introduction.md
-      - Setup: develop-libraries/setup.md
-      - Publishing: develop-libraries/publishing.md
-  - Contributing:
-    - General: contribution/general.md
-    - Guidelines: contribution/guidelines.md
-    - Setup: contribution/setup.md
-    - Build with C# support: contribution/build-with-csharp-support.md
-    - Support for other JVM-based languages: contribution/support-for-other-jvm-based-languages.md
-    - Test changes from branch: contribution/test-change-from-branch.md
-    - Knowledge base:
-        - Artifact differentiation: contribution/knowledge-base/artifact-differentiation.md
-        - Registration process: contribution/knowledge-base/registration-process.md
-        - JAR and script reloading: contribution/knowledge-base/jar-script-reloading.md
-        - Registrar generation: contribution/knowledge-base/registrar-generation.md
-        - Annotation placement across languages: contribution/knowledge-base/annotation-placement-across-languages.md
-        - Reconstructing shapes from bytecode: contribution/knowledge-base/reconstructing-shapes-from-bytecode.md
-        - Signal and callable generation: contribution/knowledge-base/signals-and-callables-generation.md
-        - Shared buffer: contribution/knowledge-base/shared-buffer.md
-        - Memory management: contribution/knowledge-base/memory-management.md
-        - Update iOS JDK: contribution/knowledge-base/update-ios-jdk.md
+  - Start here:
+      - Start here: start/index.md
+      - Introduction: start/introduction.md
+      - Install a JDK: start/install-a-jdk.md
+      - Install the addon: start/install-the-addon.md
+      - Create a project: start/create-a-project.md
+      - Project layout: start/project-layout.md
+      - Your first script: start/your-first-script.md
+      - Export a test build: start/export-a-test-build.md
+  - Write your game:
+      - Write your game: guide/index.md
+      - Exposing your code to Godot:
+          - Registering your code: guide/registration.md
+          - Classes: guide/classes.md
+          - Properties and the Inspector: guide/properties.md
+          - Enums, bitfields and flags: guide/enums-and-bitfields.md
+          - Functions and notifications: guide/functions.md
+          - Signals and callables: guide/signals-and-callables.md
+          - Abstract classes: guide/abstract-classes.md
+          - Attaching scripts and .gdj files: guide/attaching-scripts.md
+      - Calling into Godot:
+          - Working with Godot types: guide/godot-types.md
+          - Logging and errors: guide/logging-and-errors.md
+      - Runtime behaviour:
+          - Object lifetime and cleanup: guide/object-lifetime.md
+          - Coroutines: guide/coroutines.md
+  - Build & ship:
+      - Build & ship: build/index.md
+      - Build and run:
+          - Building your project: build/building.md
+          - Debugging: build/debugging.md
+      - Dependencies:
+          - Using JVM libraries: build/using-libraries.md
+          - Publishing a Godot-JVM library: build/publishing-a-library.md
+      - Export:
+          - Export overview: build/export/index.md
+          - Desktop: build/export/desktop.md
+          - Android: build/export/android.md
+          - iOS: build/export/ios.md
+          - GraalVM native image: build/export/graalvm-native-image.md
+  - Reference:
+      - Reference: reference/index.md
+      - GDScript to Kotlin, Java and Scala: reference/gdscript-to-jvm.md
+      - Language parity: reference/language-parity.md
+      - Annotations: reference/annotations.md
+      - Property hints: reference/property-hints.md
+      - Registration reference: reference/registration.md
+      - Renamed symbols and global functions: reference/api-mapping.md
+      - Gradle plugin:
+          - The godot { } block at a glance: reference/gradle-plugin/index.md
+          - Languages and toolchains: reference/gradle-plugin/languages-and-toolchains.md
+          - Registration output: reference/gradle-plugin/registration.md
+          - Packaging and build tasks: reference/gradle-plugin/packaging-and-tasks.md
+          - Android, GraalVM and iOS inputs: reference/gradle-plugin/export-targets.md
+      - Runtime configuration and JVM arguments: reference/runtime-configuration.md
+      - IntelliJ IDEA plugin: reference/intellij-plugin.md
+      - Compatibility and versions: reference/compatibility.md
+      - Glossary: reference/glossary.md
+  - Troubleshooting:
+      - Symptom index: troubleshooting/index.md
+      - Build and registration: troubleshooting/build-and-registration.md
+      - Startup and runtime: troubleshooting/runtime.md
+      - Export: troubleshooting/export.md
+      - Known limitations: troubleshooting/known-limitations.md
+  - Contribute:
+      - Contributing: contribute/index.md
+      - Build from source: contribute/build-from-source.md
+      - Build for Android: contribute/build-for-android.md
+      - Run the tests: contribute/running-tests.md
+      - Test a change from a branch: contribute/test-a-branch.md
+      - The godot-cpp fork: contribute/godot-cpp-fork.md
+      - Update the iOS JDK: contribute/update-ios-jdk.md
+      - How it works:
+          - Where to start: contribute/how-it-works/index.md
+          - The three build artifacts: contribute/how-it-works/artifacts.md
+          - Memory management: contribute/how-it-works/memory-management.md
+          - The JNI shared buffer: contribute/how-it-works/shared-buffer.md
+          - Registration pipeline: contribute/how-it-works/registration-pipeline.md
+          - Registrar generation: contribute/how-it-works/registrar-generation.md
+          - Signals and callables: contribute/how-it-works/signals-and-callables.md
+          - JAR and script reloading: contribute/how-it-works/jar-and-script-reloading.md

@@ -117,7 +117,7 @@ fun Project.registrarGenerationSyncRegistrationFilesTask(
         "registrarGenerationSyncRegistrationFiles",
         ClassGraphUpdateRegistrationFilesTask::class.java
     ) { task ->
-        task.group = "godot-kotlin-jvm-internal"
+        task.group = "godot-jvm-internal"
         task.description = "Synchronizes staged generated .gdj files into the Godot project."
         task.dependsOn(generateRegistrarFilesTask)
         task.dependsOn(indexExistingRegistrationFilesTask)

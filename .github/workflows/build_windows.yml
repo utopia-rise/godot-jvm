@@ -1,126 +1,75 @@
-name: 🪟 Windows Builds
+name: Windows Builds
 on:
   workflow_call:
-    inputs:
-      godot-version:
-        type: string
-
-env:
-  SCONS_CACHE_MSVC_CONFIG: true
 
 concurrency:
-  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-windows_build
+  group: ci-${{ github.actor }}-${{ github.head_ref || github.run_number }}-${{ github.ref }}-windows_build
   cancel-in-progress: true
 
 jobs:
-  setup-matrix:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - id: set-matrix
-        run: |
-          MATRIX='{"include":[
-            {"name":"Build editor release (target=editor)","cache-name":"editor_release_windows_x86_64","target":"editor","should-clean":true,"scons-flags":""},
-            {"name":"Build editor debug (target=editor, debug_symbols=true )","cache-name":"editor_debug_windows_x86_64","target":"editor","should-clean":false,"scons-flags":"debug_symbols=true"},
-            {"name":"Build editor dev (target=editor, dev_build=yes, debug_symbols=true )","cache-name":"editor_dev_windows_x86_64","target":"editor","should-clean":false,"scons-flags":"dev_build=yes debug_symbols=true"},
-            {"name":"Build release template","cache-name":"export_template_release_windows_x86_64","target":"template_release","should-clean":true,"scons-flags":""},
-            {"name":"Build debug template","cache-name":"export_template_debug_windows_x86_64","target":"template_debug","should-clean":false,"scons-flags":""}
-          ]}'
-          echo "matrix=$(echo $MATRIX | jq -c '.')" >> $GITHUB_OUTPUT
-
   build-windows:
-    needs: setup-matrix
-    # Windows 10 with latest image
     runs-on: windows-latest
     name: ${{ matrix.name }}
+    permissions:
+      contents: read
+      actions: write
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
-
+      matrix:
+        include:
+          - name: Build editor
+            cache-name: editor_windows_x86_64
+            target: editor
+            should-clean: false
+            scons-flags: ''
+          - name: Build debug
+            cache-name: debug_windows_x86_64
+            target: template_debug
+            should-clean: false
+            scons-flags: ''
+          - name: Build release
+            cache-name: release_windows_x86_64
+            target: template_release
+            should-clean: true
+            scons-flags: ''
+    env:
+      SCONS_CACHE: ${{ github.workspace }}/.scons-cache
+      SCONS_CACHE_MSVC_CONFIG: true
     steps:
-      - name: Clone Godot Engine
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
-          repository: godotengine/godot
-          ref: ${{ inputs.godot-version }}
-
-      - name: Clone Godot JVM module.
-        uses: actions/checkout@v4
+          submodules: recursive
+      - uses: actions/setup-java@v5
         with:
-          path: modules/kotlin_jvm
-
-      - name: Setup Godot build cache
-        uses: ./modules/kotlin_jvm/.github/actions/scons-cache
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-python@v6
         with:
+          python-version: '3.11'
+      - run: python -m pip install scons
+      - uses: ./.github/actions/scons-cache
+        with:
+          mode: restore
           cache-name: ${{ matrix.cache-name }}
-        continue-on-error: true
-
-      - name: Setup python and scons
-        uses: ./.github/actions/godot-deps
-
-      - name: Download Direct3D 12 SDK components
-        shell: sh
-        id: d3d12-sdk
-        run: |
-          if python ./misc/scripts/install_d3d12_sdk_windows.py; then
-            echo "D3D12_ENABLED=yes" >> "$GITHUB_OUTPUT"
-          else
-            echo "::warning::Windows: Direct3D 12 SDK installation failed, building without Direct3D 12 support."
-            echo "D3D12_ENABLED=no" >> "$GITHUB_OUTPUT"
-          fi
-        continue-on-error: true
-
-      - name: Download pre-built ANGLE
-        shell: sh
-        id: angle-sdk
-        run: |
-          if python ./misc/scripts/install_angle.py; then
-            echo "ANGLE_ENABLED=yes" >> "$GITHUB_OUTPUT"
-          else
-            echo "::warning::ANGLE SDK installation failed, building without ANGLE support."
-            echo "ANGLE_ENABLED=no" >> "$GITHUB_OUTPUT"
-          fi
-        continue-on-error: true
-
-      - name: Download WinRT components
-        shell: sh
-        run: python ./misc/scripts/install_winrt.py
-        continue-on-error: true
-
-      - name: Download pre-built AccessKit
-        shell: sh
-        id: accesskit-sdk
-        run: |
-          if python ./misc/scripts/install_accesskit.py; then
-            echo "ACCESSKIT_ENABLED=yes" >> "$GITHUB_OUTPUT"
-          else
-            echo "::warning::AccessKit SDK installation failed, building without AccessKit support."
-            echo "ACCESSKIT_ENABLED=no" >> "$GITHUB_OUTPUT"
-          fi
-        continue-on-error: true
-
-      - name: Setup MSVC problem matcher
-        uses: ammaraskar/msvc-problem-matcher@master
-
-      - name: Compilation
-        uses: ./.github/actions/godot-build
+      - uses: ammaraskar/msvc-problem-matcher@master
+      - uses: ./.github/actions/gdextension-build
         with:
-          scons-flags: ${{ matrix.scons-flags }} d3d12=${{ steps.d3d12-sdk.outputs.D3D12_ENABLED }} accesskit=${{ steps.accesskit-sdk.outputs.ACCESSKIT_ENABLED }} angle=${{ steps.angle-sdk.outputs.ANGLE_ENABLED }}
           platform: windows
           target: ${{ matrix.target }}
-
-      - name: Prepare artifact
-        run: |
-          Remove-Item bin/* -Include *.exp,*.lib -Force
-
+          scons-flags: ${{ matrix.scons-flags }}
+          target-path: artifact/addons/jvm/libs/
+      - uses: ./.github/actions/scons-cache
+        if: always()
+        with:
+          mode: save
+          cache-name: ${{ matrix.cache-name }}
+      - shell: pwsh
+        run: Remove-Item artifact/addons/jvm/libs/windows/*.exp, artifact/addons/jvm/libs/windows/*.lib -Force -ErrorAction SilentlyContinue
       - name: Remove debug symbols
         if: ${{ matrix.should-clean }}
-        run: |
-          Remove-Item bin/* -Include *.pdb -Force
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        shell: pwsh
+        run: Remove-Item artifact/addons/jvm/libs/windows/*.pdb -Force -ErrorAction SilentlyContinue
+      - uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.cache-name }}
-          path: "bin/*"
+          path: artifact/addons

@@ -31,7 +31,7 @@ the custom runner without relying on a `-s ...` command-line override.
 
 ## Required export setting (do not remove)
 
-The test export presets (`tests_linux`, `tests_macos`, `tests_windows` in
+The test export presets (`tests_android`, `tests_linux`, `tests_macos`, `tests_windows` in
 `export_presets.cfg`) must **exclude the gdUnit4 editor scenes**:
 
 ```
@@ -54,6 +54,10 @@ from the command line because the export already boots into `ExportTestMain`.
 
 Exit code: `0` = all tests passed, `100` = failures/errors (see
 `GdUnitTestSessionRunner` return codes).
+
+Android does not expose the game process exit code to the host. The Android CI
+job therefore waits for the runner's `GODOT_JVM_TEST_RESULT:PASS` or `FAIL`
+log marker instead.
 
 ## Output
 

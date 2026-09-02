@@ -1,24 +1,28 @@
-When updating this project's release version or Kotlin version, update these locations:
-- `src/version.h`: `GODOT_KOTLIN_VERSION`.
+When updating this project's release version, minimum Godot version, or Kotlin version, update these locations:
+- `cpp/version.h`: `GODOT_JVM_VERSION` for the binding version only.
+
+- `godot-cpp`: update the submodule reference if the release also bumps the Godot C++ reference. Follow the `godot-cpp` fork update process in `CLAUDE.md` and update `godot-cpp-divergence.md` with the new revision and explanation.
 
 - `kt/gradle/libs.versions.toml`:
-  - `godotJvmVersion` for the module version.
+  - `godotJvm` for the binding version.
+  - `godot` for the minimum supported Godot version. This is not part of the binding version.
   - `kotlin` only if the release intentionally bumps Kotlin too.
   - `kotlinCoroutine` if the release intentionally bumps coroutines too.
   - `androidCompileSdk` and `androidBuildTools` if the preferred Android toolchain defaults/examples should move too.
-- `docs/src/doc/index.md`: in the "Versioning" block, update the Kotlin version text, `Full version`, `Module Version`, and `Supported Godot Version`.
+- `docs/src/doc/index.md`: in the "Versioning" block, update the Kotlin version text, `Version`, and `Minimum Godot Version`.
 - `config.py`: change the module version string to `jvm-x.x.x`.
 
 Also update the GitHub workflow output variables used by CI/release jobs:
-- `.github/workflows/trigger_dev.yml`
 - `.github/workflows/trigger_on_pull_request.yml`
 - `.github/workflows/trigger_on_push_master.yml`
 - `.github/workflows/trigger_on_tag.yml`
 
 For each of those workflow files, update:
-- `godot-kotlin-jvm-version`
-- `godot-version`
+- `godot-jvm-version`
+- `godot-version` (the minimum supported Godot version)
 - `build-version`
+
+Release tags use the binding version only: `x.y.z` or `x.y.z-devX`, where `X` is a positive integer. When bumping the binding version, also update the tag patterns in `trigger_on_tag.yml`.
 
 If you've updated the Kotlin version, ensure the chosen R8 version is compatible with it. Then update the required minimum Android build tool versions by searching for:
 - `android-36`

@@ -2,6 +2,7 @@
   "resources":[
     {"pattern":"META-INF/.*.kotlin_module$"},
     {"pattern":"META-INF/services/.*"},
-    {"pattern":".*.kotlin_builtins"}
+    {"pattern":".*.kotlin_builtins"},
+    {"pattern":"godot/tests/runtime/export_dependency_resource.txt"}
   ]
 }

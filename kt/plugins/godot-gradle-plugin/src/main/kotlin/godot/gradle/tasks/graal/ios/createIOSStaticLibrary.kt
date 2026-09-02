@@ -52,7 +52,7 @@ fun Project.createIOSStaticLibraryTask(
     createIOSGraalNativeImageTask: TaskProvider<out Task>
 ): TaskProvider<out Task> = tasks.register("createIOSStaticLibrary", CreateIOSStaticLibraryTask::class.java) {
     with(it) {
-        group = "godot-kotlin-jvm"
+        group = "godot-jvm"
         description = "Pack usercode.o in a static library."
 
         dependsOn(

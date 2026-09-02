@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://pmnkxrhglak5"]
+[gd_scene load_steps=2 format=3 uid="uid://pmnkxrhglak5"]
 
-[ext_resource type="Script" uid="uid://b6052ah65u6e7" path="res://addons/gdUnit4/src/ui/settings/GdUnitInputCapture.gd" id="1_gki1u"]
+[ext_resource type="Script" path="res://addons/gdUnit4/src/ui/settings/GdUnitInputCapture.gd" id="1_gki1u"]
 
-[node name="GdUnitInputMapper" type="Control" unique_id=2147382376]
+[node name="GdUnitInputMapper" type="Control"]
 modulate = Color(0.929099, 0.929099, 0.929099, 0.936189)
 top_level = true
 layout_mode = 3
@@ -15,9 +15,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_gki1u")
 
-[node name="Label" type="Label" parent="." unique_id=53924884]
+[node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
-self_modulate = Color(0.3783457, 0.3783457, 0.3783457, 0.44839337)
+self_modulate = Color(0.401913, 0.401913, 0.401913, 0.461723)
 top_level = true
 layout_mode = 1
 anchors_preset = 8

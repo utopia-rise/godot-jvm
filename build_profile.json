@@ -1,0 +1,66 @@
+{
+  "enabled_classes": [
+    "Object",
+    "RefCounted",
+    "Node",
+    "Mutex",
+
+    "GlobalConstants",
+
+    "FileAccess",
+    "DirAccess",
+
+    "Resource",
+    "ResourceUID",
+    "ResourceLoader",
+    "ResourceSaver",
+    "ResourceFormatLoader",
+    "ResourceFormatSaver",
+
+    "Script",
+    "ScriptExtension",
+    "ScriptLanguage",
+    "ScriptLanguageExtension",
+    "ScriptLanguageExtensionProfilingInfo",
+
+    "MultiplayerAPI",
+    "MultiplayerPeer",
+
+    "OS",
+    "JSON",
+    "Time",
+    "Engine",
+    "ProjectSettings",
+    "Marshalls",
+
+    "EditorInterface",
+    "EditorPlugin",
+    "EditorSettings",
+    "EditorSyntaxHighlighter",
+    "EditorFileSystem",
+
+    "EditorExportPlatform",
+    "EditorExportPlugin",
+
+    "Button",
+    "AcceptDialog",
+    "PopupMenu",
+    "CheckBox",
+    "Label",
+    "ProgressBar",
+    "ScrollContainer",
+    "VSeparator",
+    "OptionButton",
+    "VBoxContainer",
+    "VScrollBar",
+    "RichTextLabel",
+    "TextEdit",
+    "TextureRect",
+    "Texture2D",
+    "Theme",
+    "TranslationServer",
+    "TranslationDomain",
+    "WeakRef",
+    "ScriptEditor"
+  ]
+}

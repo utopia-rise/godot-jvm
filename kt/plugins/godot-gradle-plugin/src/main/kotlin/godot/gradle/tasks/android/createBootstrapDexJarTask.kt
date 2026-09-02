@@ -15,6 +15,10 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 import java.io.File
+import java.io.FileOutputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.util.zip.ZipOutputStream
 
 abstract class CreateBootstrapDexJarTask : DefaultTask() {
     @get:InputFile
@@ -40,32 +44,62 @@ abstract class CreateBootstrapDexJarTask : DefaultTask() {
     @TaskAction
     fun createBootstrapDexJar() {
         val libsDir = bootstrapJar.get().asFile.parentFile
+        val dexOutputDirectory = libsDir.resolve("godot-bootstrap-dex")
+        val dexOutputJar = bootstrapDexJar.get().asFile
         val mainDexRules = writeMainDexRules(mainDexRulesFile.get().asFile)
-        val command = buildList {
-            if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows) {
-                add("cmd")
-                add("/c")
-            }
-            add(d8ToolPath.get())
-            add(bootstrapJar.get().asFile.absolutePath)
-            add("--output")
-            add(bootstrapDexJar.get().asFile.name)
-            add("--lib")
-            add(androidJarPath.get())
-            add("--min-api")
-            add(androidMinApiLevel.get().toString())
-            add("--main-dex-rules")
-            add(mainDexRules.absolutePath)
+        dexOutputDirectory.deleteRecursively()
+        dexOutputDirectory.mkdirs()
+        val d8Arguments = listOf(
+            File(d8ToolPath.get()).absolutePath,
+            bootstrapJar.get().asFile.absolutePath,
+            "--output",
+            dexOutputDirectory.absolutePath,
+            "--lib",
+            androidJarPath.get(),
+            "--min-api",
+            androidMinApiLevel.get().toString(),
+            "--main-dex-rules",
+            mainDexRules.absolutePath,
+        )
+        val command = if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows) {
+            listOf("cmd.exe", "/c", "\"${d8Arguments.joinToString(" ") { "\"$it\"" }}\"")
+        } else {
+            d8Arguments
         }
 
         val process = ProcessBuilder(command)
             .directory(libsDir)
-            .inheritIO()
+            .redirectErrorStream(true)
             .start()
+        val output = process.inputStream.bufferedReader().readText()
+        val exitCode = process.waitFor()
 
-        require(process.waitFor() == 0) {
-            "Failed to create the bootstrap dex jar"
+        require(exitCode == 0) {
+            "Failed to create the bootstrap dex jar (exit code $exitCode). Command: ${command.joinToString(" ")}\n$output"
         }
+
+        dexOutputJar.delete()
+        ZipOutputStream(FileOutputStream(dexOutputJar)).use { output ->
+            dexOutputDirectory.walkTopDown()
+                .filter(File::isFile)
+                .forEach { file ->
+                    val entryName = file.relativeTo(dexOutputDirectory).invariantSeparatorsPath
+                    output.putNextEntry(ZipEntry(entryName))
+                    file.inputStream().use { it.copyTo(output) }
+                    output.closeEntry()
+                }
+
+            ZipFile(bootstrapJar.get().asFile).use { input ->
+                input.entries().asSequence()
+                    .filter { !it.isDirectory && !it.name.endsWith(".class") && it.name != "META-INF/MANIFEST.MF" }
+                    .forEach { entry ->
+                        output.putNextEntry(ZipEntry(entry.name))
+                        input.getInputStream(entry).use { it.copyTo(output) }
+                        output.closeEntry()
+                    }
+            }
+        }
+        dexOutputDirectory.deleteRecursively()
     }
 }
 
@@ -90,7 +124,7 @@ fun Project.createBootstrapDexJarTask(
 
     return tasks.register("createBootstrapDexJar", CreateBootstrapDexJarTask::class.java) {
         with(it) {
-            group = "godot-kotlin-jvm"
+            group = "godot-jvm"
             description = "Converts the godot-bootstrap.jar to an android compatible version. Needed for android builds only"
 
             dependsOn(checkD8ToolAccessibleTask, checkAndroidJarAccessibleTask, packageBootstrapJarTask)

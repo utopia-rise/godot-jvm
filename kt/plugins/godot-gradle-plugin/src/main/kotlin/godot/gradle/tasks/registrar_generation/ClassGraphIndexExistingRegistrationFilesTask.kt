@@ -94,7 +94,7 @@ internal fun Project.requireConfiguredGodotProjectDirectory(): File {
 }
 
 internal fun Project.godotRegistrationFileTree(rootDir: File) = fileTree(rootDir).matching { patternFilterable ->
-    patternFilterable.include("**/*.${FileExtensions.GodotKotlinJvm.registrationFile}")
+    patternFilterable.include("**/*.${FileExtensions.GodotJvm.registrationFile}")
     patternFilterable.exclude("build/**")
     patternFilterable.exclude("android/**")
     patternFilterable.exclude(".*/**")
@@ -128,7 +128,7 @@ internal fun readGeneratedRegistrationFiles(generatedRoot: File, logger: org.gra
 
     generatedRoot
         .walkTopDown()
-        .filter { it.isFile && it.extension == FileExtensions.GodotKotlinJvm.registrationFile }
+        .filter { it.isFile && it.extension == FileExtensions.GodotJvm.registrationFile }
         .sortedBy { it.relativeTo(generatedRoot).invariantSeparatorsPath }
         .forEach { generatedFile ->
             val registrationFileName = generatedFile.nameWithoutExtension
@@ -157,7 +157,7 @@ fun Project.registrarGenerationIndexExistingRegistrationFilesTask(): TaskProvide
         "registrarGenerationIndexExistingRegistrationFiles",
         ClassGraphIndexExistingRegistrationFilesTask::class.java
     ) { task ->
-        task.group = "godot-kotlin-jvm-internal"
+        task.group = "godot-jvm-internal"
         task.description = "Indexes existing .gdj files across the Godot project."
         task.godotProjectDirPath.convention(godotProjectDir.absolutePath)
         task.existingRegistrationFiles.from(registrationFileTree)

@@ -1,0 +1,73 @@
+name: Assemble addon
+on:
+  workflow_call:
+    inputs:
+      godot-jvm-version:
+        type: string
+
+jobs:
+  package-addon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v7
+        with:
+          name: editor_linux_x86_64
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
+          name: debug_linux_x86_64
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
+          name: release_linux_x86_64
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
+          name: editor_windows_x86_64
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
+          name: debug_windows_x86_64
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
+          name: release_windows_x86_64
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
+          name: editor_macos_universal
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
+          name: debug_macos_universal
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
+          name: release_macos_universal
+          path: addon
+      - uses: actions/download-artifact@v7
+        with:
+          name: godot-jvm-gdextension-android-${{ inputs.godot-jvm-version }}
+          path: android
+      - uses: actions/download-artifact@v7
+        with:
+          name: godot-jvm-gdextension-ios
+          path: ios
+      - name: Assemble addon
+        shell: bash
+        run: |
+          mkdir -p package/addons
+          cp -R harness/tests/addons/jvm package/addons/jvm
+          rm -rf package/addons/jvm/libs
+          cp -R addon/jvm/libs package/addons/jvm/libs
+          cp -R android/addons/jvm/libs/android package/addons/jvm/libs/android
+          cp -R ios/addons/jvm/libs/ios package/addons/jvm/libs/ios
+      # Upload the raw "addons" folder rather than a pre-made zip: actions/upload-artifact always
+      # wraps whatever it's given in its own zip, so uploading a zip here results in a zip nested
+      # inside that zip once a human downloads the artifact. The actual release-asset zip gets made
+      # once, at the point deploy_godot.yml attaches it to the GitHub release.
+      - uses: actions/upload-artifact@v7
+        with:
+          name: godot-jvm-addon-${{ inputs.godot-jvm-version }}
+          path: package

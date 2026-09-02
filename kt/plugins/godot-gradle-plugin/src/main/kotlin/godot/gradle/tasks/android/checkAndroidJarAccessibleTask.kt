@@ -58,7 +58,7 @@ fun Project.checkAndroidJarAccessibleTask(): TaskProvider<out Task> {
 
     return tasks.register("checkAndroidJarAccessible", CheckAndroidJarAccessibleTask::class.java) {
         with(it) {
-            group = "godot-kotlin-jvm"
+            group = "godot-jvm"
             description =
                 "Checks if the android.jar is present in the provided androidCompileSdkDirectory. Needed for android builds only"
 

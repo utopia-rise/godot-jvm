@@ -17,6 +17,7 @@ import godot.annotation.processor.classgraph.extensions.directSuperInterfaces
 import godot.annotation.processor.classgraph.extensions.enumEntryCount
 import godot.annotation.processor.classgraph.extensions.isGodotCompatibleClass
 import godot.annotation.processor.classgraph.extensions.isProcessorBitField
+import godot.annotation.processor.classgraph.extensions.isProcessorCollection
 import godot.annotation.processor.classgraph.extensions.isProcessorCoreType
 import godot.annotation.processor.classgraph.extensions.methodSignature
 import godot.annotation.processor.classgraph.extensions.rawDescriptor
@@ -304,6 +305,9 @@ class RegistrationMapper(
                         classInfo.isProcessorCoreType -> Type.getCoreType(fqName, genericArguments = mappedTypeArguments)
                         classInfo.isEnum -> Type.getEnum(fqName, genericArguments = mappedTypeArguments)
                         classInfo.isProcessorBitField -> Type.getBitField(fqName, genericArguments = mappedTypeArguments)
+                        classInfo.isProcessorCollection ->
+                            Type.getCollection(fqName, genericArguments = mappedTypeArguments)
+
                         classInfo.isStandardClass -> mapClass(classInfo)
                         else -> Type(
                             fqName = fqName,
@@ -369,9 +373,9 @@ class RegistrationMapper(
             }
 
             fun notification(method: LogicalMethod): Int? =
-                policy.findAnnotation(method, Notification::class)
+                (policy.findAnnotation(method, Notification::class)
                     ?.parameterValues
-                    ?.getValue("value") as? Int
+                    ?.getValue("value") as? Long)?.toInt()
 
             fun mapProperty(
                 property: LogicalProperty,

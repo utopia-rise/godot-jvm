@@ -37,7 +37,7 @@ fun Project.createGraalNativeImageTask(
 
     return tasks.register("createGraalNativeImage", Exec::class.java) {
         with(it) {
-            group = "godot-kotlin-jvm"
+            group = "godot-jvm"
             description = "Converts main.jar and bootstrap.jar into a GraalVM native image."
 
             dependsOn(
@@ -50,7 +50,7 @@ fun Project.createGraalNativeImageTask(
             inputs.dir(libsDirectory)
             inputs.dir(graalDirectory)
             inputs.property("graalVmHomeDirectory", graalVmHomeDirectory)
-            inputs.property("windowsDeveloperVcVarsPath", windowsDeveloperVcVarsPath)
+            inputs.property("windowsDeveloperVcVarsPath", windowsDeveloperVcVarsPath.orElse(""))
             inputs.property("isGraalNativeImageVerboseEnabled", isVerboseEnabled)
             inputs.property("additionalGraalJniConfigurationFiles", additionalJniConfigurationFiles)
             inputs.property("additionalGraalReflectionConfigurationFiles", additionalReflectionConfigurationFiles)
@@ -68,7 +68,7 @@ fun Project.createGraalNativeImageTask(
                 val graalBuildDirectory = graalDirectory.get().asFile
 
                 val jniConfigurationFilesArgument = "-H:JNIConfigurationFiles=" +
-                    graalBuildDirectory.resolve("godot-kotlin-graal-jni-config.json").absolutePath + "," +
+                    graalBuildDirectory.resolve("godot-jvm-graal-jni-config.json").absolutePath + "," +
                     additionalJniConfigurationFiles.get()
 
 

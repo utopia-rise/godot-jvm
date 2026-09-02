@@ -1,0 +1,269 @@
+name: CI
+on:
+  pull_request:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-trigger_ci
+  cancel-in-progress: true
+
+env:
+  GODOT_JVM_VERSION: &godot_jvm_version 1.0.0-dev3
+  GODOT_VERSION: &godot_version 4.7.2-stable
+  JVM_VERSION: &jvm_version '17'
+
+jobs:
+  # Path-change gates. A pure-doc PR (or one only touching e.g. the api-generator)
+  # shouldn't trigger the native gdextension build/assemble/test chain, and vice versa.
+  detect-native-changes:
+    name: 🔍 Detect native/Kotlin-library changes
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.detect.outputs.changed }}
+    steps:
+      - name: Clone Godot JVM module.
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Detect changes
+        id: detect
+        uses: ./.github/actions/detect-path-changes
+        with:
+          # Native gdextension source and Kotlin runtime libraries. CI/CD and
+          # Gradle/test-harness changes have their own gate below.
+          paths: |
+            cpp
+            kt/android-plugin
+            godot-cpp
+            SConstruct
+            platform
+            kt/godot-library
+            kt/godot-registration
+            kt/common
+            kt/tools-common
+
+  detect-ci-cd-tests-changes:
+    name: 🔍 Detect CI/CD/tests changes
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.detect.outputs.changed }}
+    steps:
+      - name: Clone Godot JVM module.
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Detect changes
+        id: detect
+        uses: ./.github/actions/detect-path-changes
+        with:
+          paths: |
+            .github
+            kt/gradle
+            kt/settings.gradle.kts
+            kt/build.gradle.kts
+            kt/plugins/godot-gradle-plugin
+            harness/tests
+
+  detect-api-generator-changes:
+    name: 🔍 Detect API generator changes
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.detect.outputs.changed }}
+    steps:
+      - name: Clone Godot JVM module.
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Detect changes
+        id: detect
+        uses: ./.github/actions/detect-path-changes
+        with:
+          paths: |
+            kt/api-generator
+            kt/common
+            kt/tools-common
+
+  detect-ide-plugin-changes:
+    name: 🔍 Detect IDE plugin changes
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.detect.outputs.changed }}
+    steps:
+      - name: Clone Godot JVM module.
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Detect changes
+        id: detect
+        uses: ./.github/actions/detect-path-changes
+        with:
+          paths: |
+            kt/plugins/godot-intellij-plugin
+            kt/common
+            kt/tools-common
+
+  build-jvm:
+    name: ☕ Build Jvm
+    uses: ./.github/workflows/build_jvm.yml
+    needs:
+      - detect-api-generator-changes
+      - detect-ide-plugin-changes
+      - detect-ci-cd-tests-changes
+    if: needs.detect-api-generator-changes.outputs.changed == 'true' || needs.detect-ide-plugin-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
+    with:
+      jvm-version: *jvm_version
+      run-api-generator: ${{ needs.detect-api-generator-changes.outputs.changed == 'true' }}
+      run-ide-plugin: ${{ needs.detect-ide-plugin-changes.outputs.changed == 'true' }}
+
+  build-android:
+    name: 🤖 Build Android
+    uses: ./.github/workflows/build_android.yml
+    needs:
+      - detect-native-changes
+      - detect-ci-cd-tests-changes
+    if: needs.detect-native-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
+    with:
+      jvm-version: *jvm_version
+
+  build-ios:
+    name: 🍏 Build iOS
+    uses: ./.github/workflows/build_ios.yml
+    needs:
+      - detect-native-changes
+      - detect-ci-cd-tests-changes
+    if: needs.detect-native-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
+    with:
+      jvm-version: *jvm_version
+
+  build-linux:
+    name: 🐧 Build Linux
+    uses: ./.github/workflows/build_linux.yml
+    needs:
+      - detect-native-changes
+      - detect-ci-cd-tests-changes
+    if: needs.detect-native-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
+
+  build-macos:
+    name: 🍎 Build macOS
+    uses: ./.github/workflows/build_macos.yml
+    needs:
+      - detect-native-changes
+      - detect-ci-cd-tests-changes
+    if: needs.detect-native-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
+
+  build-windows:
+    name: 🪟 Build Windows
+    uses: ./.github/workflows/build_windows.yml
+    needs:
+      - detect-native-changes
+      - detect-ci-cd-tests-changes
+    if: needs.detect-native-changes.outputs.changed == 'true' || needs.detect-ci-cd-tests-changes.outputs.changed == 'true'
+
+  assemble-android:
+    name: 🤖 Assemble Android
+    uses: ./.github/workflows/assemble_android.yml
+    needs:
+      - build-android
+    with:
+      godot-jvm-version: *godot_jvm_version
+      godot-version: *godot_version
+      jvm-version: *jvm_version
+
+  assemble-ios:
+    name: 🍏 Assemble iOS
+    uses: ./.github/workflows/assemble_ios.yml
+    needs:
+      - build-ios
+    with:
+      godot-jvm-version: *godot_jvm_version
+
+  assemble-linux:
+    name: 🐧 Assemble Linux
+    uses: ./.github/workflows/assemble_linux.yml
+    needs:
+      - build-linux
+    with:
+      godot-jvm-version: *godot_jvm_version
+
+  assemble-macos:
+    name: 🍎 Assemble macOS
+    uses: ./.github/workflows/assemble_macos.yml
+    needs:
+      - build-macos
+    with:
+      godot-jvm-version: *godot_jvm_version
+
+  assemble-windows:
+    name: 🪟 Assemble Windows
+    uses: ./.github/workflows/assemble_windows.yml
+    needs:
+      - build-windows
+    with:
+      godot-jvm-version: *godot_jvm_version
+
+  test-android:
+    name: 🤖 Test Android
+    uses: ./.github/workflows/test_android.yml
+    needs:
+      - assemble-android
+      - build-linux
+    with:
+      godot-version: *godot_version
+      jvm-version: *jvm_version
+
+  test-ios:
+    name: 🍏 Test iOS
+    uses: ./.github/workflows/test_ios.yml
+    needs:
+      - assemble-ios
+      - assemble-macos
+    with:
+      godot-version: *godot_version
+      jvm-version: *jvm_version
+
+  test-linux:
+    name: 🐧 Test Linux
+    uses: ./.github/workflows/test_linux.yml
+    needs:
+      - assemble-linux
+    with:
+      godot-version: *godot_version
+      jvm-version: *jvm_version
+
+  test-macos:
+    name: 🍎 Test macOS
+    uses: ./.github/workflows/test_macos.yml
+    needs:
+      - assemble-macos
+    with:
+      godot-version: *godot_version
+      jvm-version: *jvm_version
+
+  test-windows:
+    name: 🪟 Test Windows
+    uses: ./.github/workflows/test_windows.yml
+    needs:
+      - assemble-windows
+    with:
+      godot-version: *godot_version
+      jvm-version: *jvm_version
+
+  assemble-addon:
+    name: 📦 Package addon
+    uses: ./.github/workflows/assemble_addon.yml
+    needs:
+      - assemble-android
+      - assemble-ios
+      - assemble-linux
+      - assemble-macos
+      - assemble-windows
+      - test-android
+      - test-ios
+      - test-linux
+      - test-macos
+      - test-windows
+    with:
+      godot-jvm-version: *godot_jvm_version
+

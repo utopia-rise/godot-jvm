@@ -16,7 +16,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import java.io.File
 
 private lateinit var grgit: Grgit
-private lateinit var godotKotlinJvmVersion: String
+private lateinit var godotJvmVersion: String
 private lateinit var godotVersion: String
 private lateinit var kotlinVersion: String
 private lateinit var kotlinCoroutineVersion: String
@@ -29,7 +29,7 @@ class VersionInfoPlugin: Plugin<Project> {
         target.plugins.apply(GrgitPlugin::class.java)
         grgit = target.extensions.getByType(Grgit::class.java)
         val libs = target.extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
-        godotKotlinJvmVersion = libs.findVersion("godotKotlinJvm").get().requiredVersion
+        godotJvmVersion = libs.findVersion("godotJvm").get().requiredVersion
         godotVersion = libs.findVersion("godot").get().requiredVersion
         kotlinVersion = libs.findVersion("kotlin").get().requiredVersion
         kotlinCoroutineVersion = libs.findVersion("kotlinCoroutine").get().requiredVersion
@@ -47,17 +47,12 @@ val fullBuildVersion: String by lazy {
     val tagOnCurrentCommit = grgit.tag.list().firstOrNull { tag -> tag.commit.id == currentCommit.id }
     val releaseMode = tagOnCurrentCommit != null
 
-    val isSnapshot = !releaseMode || tagOnCurrentCommit.name.contains("-SNAPSHOT")
+    val isDevBuild = tagOnCurrentCommit?.name?.matches(Regex("${Regex.escape(godotJvmVersion)}-dev[1-9]\\d*")) == true
 
     if (!releaseMode) {
         "$godotJvmVersion-${currentCommit.abbreviatedId}-SNAPSHOT"
     } else {
-        val baseVersion = godotJvmVersion
-        if (isSnapshot) {
-            "$baseVersion-SNAPSHOT"
-        } else {
-            baseVersion
-        }
+        if (isDevBuild) tagOnCurrentCommit.name else godotJvmVersion
     }
 }
 
@@ -67,10 +62,8 @@ val isSnapshot: Boolean by lazy {
     val tagOnCurrentCommit = grgit.tag.list().firstOrNull { tag -> tag.commit.id == currentCommit.id }
     val releaseMode = tagOnCurrentCommit != null
 
-    !releaseMode || tagOnCurrentCommit.name.contains("-SNAPSHOT")
+    !releaseMode || tagOnCurrentCommit.name.matches(Regex("${Regex.escape(godotJvmVersion)}-dev[1-9]\\d*"))
 }
-
-val godotJvmVersion: String by lazy { "$godotKotlinJvmVersion-$godotVersion" }
 
 abstract class GenerateVersionFileTask : DefaultTask() {
     @get:Input
@@ -99,7 +92,7 @@ open class VersionInfoExtension(private val project: Project) {
             content = """
                 package godot.common
 
-                const val GODOT_MODULE_VERSION = "$godotKotlinJvmVersion"
+                const val GODOT_MODULE_VERSION = "$godotJvmVersion"
                 const val GODOT_VERSION = "$godotVersion"
                 const val GODOT_JVM_VERSION = "$godotJvmVersion"
             """.trimIndent() + "\n",
