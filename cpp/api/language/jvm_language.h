@@ -3,6 +3,8 @@
 
 #include "classes/script_language_extension.hpp"
 
+#include <classes/script.hpp>
+
 namespace godot {
     class JvmLanguage : public ScriptLanguageExtension {
         GDCLASS(JvmLanguage, ScriptLanguageExtension);
@@ -44,7 +46,6 @@ namespace godot {
 
         String _auto_indent_code(const String &p_code, int32_t p_from_line, int32_t p_to_line) const override;
 
-        // GdExtension requires these to be explicitly overridden somewhere in the class hierarchy or it fatals ("Required virtual method must be overridden before calling") — GdjLanguage provides real implementations and overrides these again; Kot...
         void _init() override;
         void _frame() override;
         void _finish() override;
@@ -74,7 +75,7 @@ namespace godot {
         int32_t _profiling_get_accumulated_data(ScriptLanguageExtensionProfilingInfo* p_info_array, int32_t p_info_max) override;
         int32_t _profiling_get_frame_data(ScriptLanguageExtensionProfilingInfo* p_info_array, int32_t p_info_max) override;
 
-        // Dummy Implementations (matches master exactly — these are empty no-ops there too).
+        // Empty implementations for unsupported template and documentation features.
         TypedArray<Dictionary> _get_built_in_templates(const StringName& p_object) const override;
         bool _is_using_templates() override;
         TypedArray<Dictionary> _get_public_functions() const override;

@@ -3,11 +3,9 @@
 #include "editor/build/gradle_task_runner.h"
 #include "editor/export/godot_jvm_editor_export_plugin.h"
 #include "editor/jvm_syntax_highlighter.h"
-#include "engine/godot_object.h"
 #include "godot_jvm.h"
 #include "paths.h"
 #include "project/project_generator.h"
-#include "strings.h"
 
 #include <classes/accept_dialog.hpp>
 #include <classes/button.hpp>
@@ -51,7 +49,7 @@ void GodotJvmEditor::on_filesystem_change() {
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_SCRIPTS_INITIALIZED) { return; }
 
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_STARTED) {
-        String bootstrap {String(RES_DIRECTORY).path_join(BOOTSTRAP_FILE)};
+        String bootstrap = String(RES_DIRECTORY).path_join(BOOTSTRAP_FILE);
         if (FileAccess::file_exists(bootstrap)) {
             GodotJvm::get_instance().initialize_up_to(GodotJvm::State::JVM_SCRIPTS_INITIALIZED);
         }

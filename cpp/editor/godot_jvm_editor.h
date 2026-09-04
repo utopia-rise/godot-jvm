@@ -25,8 +25,8 @@ namespace godot {
 
         PopupMenu* about_pop_menu;
         // Built in NOTIFICATION_ENTER_TREE, not the constructor: both read editor_settings/ editor_scale below, which are only populated once this plugin has actually entered the tree — constructing them any earlier crashes on a null editor_settin...
-        AcceptDialog* about_dialog {nullptr};
-        TaskDialogControls task_dialog {};
+        AcceptDialog* about_dialog = nullptr;
+        TaskDialogControls task_dialog = TaskDialogControls();
 
         AcceptDialog* project_dialog;
 
@@ -35,7 +35,7 @@ namespace godot {
         Button* tool_bar_gradle_task_button;
         OptionButton* tool_bar_gradle_task_choice;
 
-        GodotJvm::State displayed_jvm_state {GodotJvm::State::NOT_STARTED};
+        GodotJvm::State displayed_jvm_state = GodotJvm::State::NOT_STARTED;
 
         Ref<GodotJvmEditorExportPlugin> export_plugin;
         Ref<JvmStandardSyntaxHighlighter> syntax_highlighter;

@@ -13,7 +13,6 @@
 #include <classes/file_access.hpp>
 #include <classes/time.hpp>
 #include <variant/utility_functions.hpp>
-#include "engine/godot_object.h"
 
 using namespace godot;
 
@@ -119,7 +118,7 @@ void JvmScriptManager::initialize_scripts(const Vector<KtClass*>& p_classes) {
 #endif
 
     JVM_DEV_LOG("Loading JVM Scripts...");
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
     int class_index = 0;
     for (KtClass* kotlin_class : p_classes) {
         Ref<JvmScript> script;
@@ -220,7 +219,7 @@ void JvmScriptManager::replace_virtual_script(JvmScript* p_physical_script, JvmS
 
     const HashMap<StringName, int>::ConstIterator class_index = fqdn_to_class_index.find(fqdn);
     if (class_index) {
-        jni::Env env {jni::Jvm::current_env()};
+        jni::Env env = jni::Jvm::current_env();
         TypeManager::get_instance().assign_script_to_class(env, class_index->value, Ref<JvmScript>(p_physical_script));
     }
 }
@@ -241,7 +240,7 @@ void JvmScriptManager::update_physical_script(JvmScript* p_script, const StringN
         const HashMap<StringName, int>::ConstIterator class_index = fqdn_to_class_index.find(kotlin_class->fqdn);
         Ref<JvmScript> virtual_script = create_virtual_script(kotlin_class);
         if (class_index) {
-            jni::Env env {jni::Jvm::current_env()};
+            jni::Env env = jni::Jvm::current_env();
             TypeManager::get_instance().assign_script_to_class(env, class_index->value, virtual_script);
         }
     }

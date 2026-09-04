@@ -24,7 +24,7 @@ namespace {
         return is_identifier_start(c) || (c >= '0' && c <= '9');
     }
 
-    // Matches master's own delimiter format: "begin end" (space-separated), or just "begin" for a to-end-of-line region — same parsing EditorStandardSyntaxHighlighter::_update_cache() does.
+    // Delimiters use "begin end" (space-separated), or just "begin" for a to-end-of-line region.
     void parse_delimiters(const PackedStringArray& delimiters, const Color& color, Vector<SyntaxRegion>& out) {
         for (const String& delimiter : delimiters) {
             String begin = delimiter.get_slicec(' ', 0);
@@ -72,7 +72,7 @@ void JvmStandardSyntaxHighlighter::_update_cache() {
         string_color = settings->get_setting("text_editor/theme/highlighting/string_color");
     }
 
-    // No `_get_edited_resource()`/`_set_script_language()` in godot-cpp (unlike master's base class), so the currently-focused script tab is the closest available signal for "which language is this highlighter instance highlighting."
+    // The currently focused script tab identifies the language being highlighted.
     Ref<Script> script = EditorInterface::get_singleton()->get_script_editor()->get_current_script();
     auto* script_ext = script.is_valid() ? Object::cast_to<ScriptExtension>(script.ptr()) : nullptr;
     auto* lang = script_ext ? Object::cast_to<ScriptLanguageExtension>(script_ext->_get_language()) : nullptr;

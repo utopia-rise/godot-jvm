@@ -7,15 +7,15 @@
 KtPropertyInfo::KtPropertyInfo(jni::Env& p_env, jni::JObject p_wrapped) : JvmInstanceWrapper(p_env, p_wrapped) {
     type = static_cast<godot::Variant::Type>(wrapped.call_int_method(p_env, GET_TYPE));
 
-    jni::JString jname {wrapped.call_object_method(p_env, GET_NAME)};
+    jni::JString jname = jni::JString(wrapped.call_object_method(p_env, GET_NAME));
     name = p_env.from_jstring(jname);
 
-    jni::JString jclass_name {wrapped.call_object_method(p_env, GET_CLASS_NAME)};
+    jni::JString jclass_name = jni::JString(wrapped.call_object_method(p_env, GET_CLASS_NAME));
     class_name = p_env.from_jstring(jclass_name);
 
     hint = static_cast<godot::PropertyHint>(wrapped.call_int_method(p_env, GET_HINT));
 
-    jni::JString jhint_string {wrapped.call_object_method(p_env, GET_HINT_STRING)};
+    jni::JString jhint_string = jni::JString(wrapped.call_object_method(p_env, GET_HINT_STRING));
     hint_string = p_env.from_jstring(jhint_string);
 
     usage = static_cast<godot::PropertyUsageFlags>(wrapped.call_long_method(p_env, GET_USAGE));

@@ -3,8 +3,6 @@
 #include "names.h"
 #include "api/script/language/kotlin_script.h"
 
-#include <classes/resource_loader.hpp>
-
 using namespace godot;
 
 constexpr const char* KOTLIN_TEMPLATE = PACKAGE_TEMPLATE
@@ -32,7 +30,7 @@ constexpr const char* KOTLIN_TEMPLATE = PACKAGE_TEMPLATE
   "}\n";
 
 KotlinLanguage* KotlinLanguage::get_instance() {
-    static KotlinLanguage* instance {memnew(KotlinLanguage)};
+    static KotlinLanguage* instance = memnew(KotlinLanguage);
     return instance;
 }
 
@@ -49,14 +47,14 @@ String KotlinLanguage::_get_extension() const {
 }
 
 PackedStringArray KotlinLanguage::_get_recognized_extensions() const {
-    PackedStringArray extensions {
+    PackedStringArray extensions = {
       GODOT_KOTLIN_SCRIPT_EXTENSION
     };
     return extensions;
 }
 
 PackedStringArray KotlinLanguage::_get_reserved_words() const {
-    static PackedStringArray reserved_words {
+    static PackedStringArray reserved_words = {
       // RESERVED KEYWORDS
       "as",
       "as?",
@@ -153,7 +151,7 @@ bool KotlinLanguage::_is_control_flow_keyword(const String& p_keyword) const {
 }
 
 PackedStringArray KotlinLanguage::_get_comment_delimiters() const {
-    static PackedStringArray delimiters {
+    static PackedStringArray delimiters = {
       "//",
       "/* */"
     };
@@ -161,14 +159,14 @@ PackedStringArray KotlinLanguage::_get_comment_delimiters() const {
 }
 
 PackedStringArray KotlinLanguage::_get_doc_comment_delimiters() const {
-    static PackedStringArray delimiters {
+    static PackedStringArray delimiters = {
       "/** */"
     };
     return delimiters;
 }
 
 PackedStringArray KotlinLanguage::_get_string_delimiters() const {
-    static PackedStringArray delimiters {
+    static PackedStringArray delimiters = {
       "' '",
       "\" \""
     };
@@ -178,7 +176,7 @@ PackedStringArray KotlinLanguage::_get_string_delimiters() const {
 Ref<Script> KotlinLanguage::_make_template(const String& p_template, const String& p_class_name, const String& p_base_class_name) const {
     Ref<KotlinScript> kotlin_script;
     kotlin_script.instantiate();
-    String processed_template {p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case())};
+    String processed_template = p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case());
     kotlin_script->set_source_code(processed_template);
     kotlin_script->set_name(p_class_name);
     return kotlin_script;

@@ -3,10 +3,7 @@
 #include "editor/export/godot_jvm_editor_export_plugin.h"
 #include "editor/jvm_syntax_highlighter.h"
 
-#include <classes/editor_export_plugin.hpp>
-#include <classes/editor_interface.hpp>
 #include <classes/editor_plugin_registration.hpp>
-#include <classes/script_editor.hpp>
 #endif
 
 #include "api/language/gdj_language.h"
@@ -31,7 +28,6 @@
 #include "register_types.h"
 
 #include <classes/engine.hpp>
-#include <classes/resource_format_loader.hpp>
 #include <classes/resource_loader.hpp>
 #include <classes/resource_saver.hpp>
 
@@ -108,19 +104,19 @@ void uninitialize_godot_jvm_library(ModuleInitializationLevel p_level) {
     resource_format_loader.unref();
     resource_format_saver.unref();
 
-    JavaLanguage* java_language {JavaLanguage::get_instance()};
+    JavaLanguage* java_language = JavaLanguage::get_instance();
     Engine::get_singleton()->unregister_script_language(java_language);
     memdelete(java_language);
 
-    KotlinLanguage* kotlin_language {KotlinLanguage::get_instance()};
+    KotlinLanguage* kotlin_language = KotlinLanguage::get_instance();
     Engine::get_singleton()->unregister_script_language(kotlin_language);
     memdelete(kotlin_language);
 
-    ScalaLanguage* scala_language {ScalaLanguage::get_instance()};
+    ScalaLanguage* scala_language = ScalaLanguage::get_instance();
     Engine::get_singleton()->unregister_script_language(scala_language);
     memdelete(scala_language);
 
-    JvmLanguage* jvm_language {GdjLanguage::get_instance()};
+    JvmLanguage* jvm_language = GdjLanguage::get_instance();
     Engine::get_singleton()->unregister_script_language(jvm_language);
     memdelete(jvm_language);
 }

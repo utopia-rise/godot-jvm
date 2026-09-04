@@ -104,7 +104,7 @@ bool GodotJvm::load_dynamic_lib() {
 
 #ifdef TOOLS_ENABLED
 String GodotJvm::get_path_to_embedded_jvm() {
-    String godot_path {String(HOST_EMBEDDED_JRE_DIRECTORY).path_join(RELATIVE_JVM_LIB_PATH)};
+    String godot_path = String(HOST_EMBEDDED_JRE_DIRECTORY).path_join(RELATIVE_JVM_LIB_PATH);
     return ProjectSettings::get_singleton()->globalize_path(godot_path);
 }
 
@@ -113,7 +113,7 @@ String GodotJvm::get_path_to_native_image() {
 }
 
 String GodotJvm::get_path_to_environment_jvm() {
-    String javaHome {OS::get_singleton()->get_environment("JAVA_HOME")};
+    String javaHome = OS::get_singleton()->get_environment("JAVA_HOME");
     if (javaHome.is_empty()) { return {}; }
 
     String jvm_library = javaHome.path_join(RELATIVE_JVM_LIB_PATH);
@@ -134,11 +134,11 @@ String GodotJvm::get_path_to_java_executable() {
 #endif
 
 #ifdef WINDOWS_ENABLED
-    constexpr const char* java_executable_name {"java.exe"};
-    constexpr const char* path_separator {";"};
+    constexpr const char* java_executable_name = "java.exe";
+    constexpr const char* path_separator = ";";
 #else
-    constexpr const char* java_executable_name {"java"};
-    constexpr const char* path_separator {":"};
+    constexpr const char* java_executable_name = "java";
+    constexpr const char* path_separator = ":";
 #endif
 
     PackedStringArray path_entries = String(OS::get_singleton()->get_environment("PATH")).split(path_separator, false);
@@ -264,8 +264,8 @@ void GodotJvm::set_jvm_options() {
 #endif
 
 String GodotJvm::copy_new_file_to_user_dir(const String& file_name) {
-    String file_res_path {String(RES_DIRECTORY) + file_name};
-    String file_user_path {String(USER_DIRECTORY) + file_name};
+    String file_res_path = String(RES_DIRECTORY) + file_name;
+    String file_user_path = String(USER_DIRECTORY) + file_name;
 
 #ifndef ANDROID_ENABLED
     if (!FileAccess::file_exists(file_user_path) || FileAccess::get_md5(file_user_path) != FileAccess::get_md5(file_res_path)) {
@@ -274,10 +274,10 @@ String GodotJvm::copy_new_file_to_user_dir(const String& file_name) {
     // as per suggestion of https://developer.android.com/about/versions/14/behavior-changes-14#safer-dynamic-code-loading, we first delete existing files and then copy them again
     // if we don't do this, subsequent app starts where the files already exist, error out
 
-    String file_user_path_global {ProjectSettings::get_singleton()->globalize_path(file_user_path)};
+    String file_user_path_global = ProjectSettings::get_singleton()->globalize_path(file_user_path);
     unlink(file_user_path_global.utf8().get_data()); // we do not really care about errors here
 #endif
-        Ref<DirAccess> dir_access {DirAccess::open(USER_DIRECTORY)};
+        Ref<DirAccess> dir_access = DirAccess::open(USER_DIRECTORY);
         dir_access->make_dir(JVM_DIRECTORY);
         dir_access->copy(file_res_path, file_user_path);
 #ifndef ANDROID_ENABLED
@@ -290,14 +290,14 @@ String GodotJvm::copy_new_file_to_user_dir(const String& file_name) {
 #endif
 
 bool GodotJvm::load_bootstrap() {
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
     if (user_configuration.vm_type != jni::JvmType::GRAAL_NATIVE_IMAGE) { // Bootstrap already part of the image
 #ifdef TOOLS_ENABLED
-        String bootstrap_jar {ProjectSettings::get_singleton()->globalize_path(String(RES_DIRECTORY).path_join(BOOTSTRAP_FILE))};
-        constexpr const char* hint_text {"Make sure to build your gradle project before running the game."};
+        String bootstrap_jar = ProjectSettings::get_singleton()->globalize_path(String(RES_DIRECTORY).path_join(BOOTSTRAP_FILE));
+        constexpr const char* hint_text = "Make sure to build your gradle project before running the game.";
 #else
-        String bootstrap_jar {ProjectSettings::get_singleton()->globalize_path(copy_new_file_to_user_dir(BOOTSTRAP_FILE))};
-        constexpr const char* hint_text {"The export of the project might be invalid."};
+        String bootstrap_jar = ProjectSettings::get_singleton()->globalize_path(copy_new_file_to_user_dir(BOOTSTRAP_FILE));
+        constexpr const char* hint_text = "The export of the project might be invalid.";
 #endif
 
         if (!FileAccess::file_exists(bootstrap_jar)) {
@@ -345,8 +345,8 @@ bool GodotJvm::load_bootstrap() {
 }
 
 bool GodotJvm::initialize_core_library() {
-    callable_middleman = memnew(Object);
-    jni::Env env {jni::Jvm::current_env()};
+    callable_middleman = raw_godot::RawObject::instantiate(SNAME("Object"));
+    jni::Env env = jni::Jvm::current_env();
 
     if (!JvmManager::initialize_jvm_wrappers(env, bootstrap_class_loader)) {
         JVM_WARN_FAIL_V_MSG(
@@ -365,20 +365,20 @@ bool GodotJvm::initialize_core_library() {
 }
 
 bool GodotJvm::load_user_code() {
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
     if (user_configuration.vm_type == jni::JvmType::GRAAL_NATIVE_IMAGE) {
         bootstrap->init_native_image(env);
         return true;
     } else {
 #ifdef TOOLS_ENABLED
-        String user_code_path {String(RES_DIRECTORY).path_join(USER_CODE_FILE)};
+        String user_code_path = String(RES_DIRECTORY).path_join(USER_CODE_FILE);
 #else
-        String user_code_path {copy_new_file_to_user_dir(USER_CODE_FILE)};
+        String user_code_path = copy_new_file_to_user_dir(USER_CODE_FILE);
 #endif
 
         if (!FileAccess::file_exists(user_code_path)) {
-            String message {"No main.jar detected at %s. No classes will be loaded. Build the gradle "
-                            "project to load classes"};
+            String message = "No main.jar detected at %s. No classes will be loaded. Build the gradle "
+                             "project to load classes";
 #ifdef TOOLS_ENABLED
             JVM_LOG_WARNING(message, user_code_path);
             return false;
@@ -409,7 +409,7 @@ bool GodotJvm::load_user_code() {
 }
 
 void GodotJvm::unload_user_code() {
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
 
     // Graal native images include bootstrap directly, so no bootstrap classloader is created.
     if (bootstrap_class_loader != nullptr) {
@@ -421,15 +421,15 @@ void GodotJvm::unload_user_code() {
 }
 
 void GodotJvm::finalize_core_library() {
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
 
     MemoryManager::get_instance().clean_up(env);
 
     JvmScriptManager::finalize();
     JvmManager::finalize_jvm_wrappers(env, bootstrap_class_loader);
 
-    memdelete(callable_middleman);
-    callable_middleman = nullptr;
+    if (callable_middleman) { callable_middleman.destroy(); }
+    callable_middleman = raw_godot::RawObject();
 }
 
 bool GodotJvm::initialize_engine_types() const {
@@ -439,7 +439,7 @@ bool GodotJvm::initialize_engine_types() const {
 }
 
 void GodotJvm::unload_boostrap() {
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
     Bootstrap::finalize(env, bootstrap_class_loader);
     delete bootstrap;
     bootstrap = nullptr;
@@ -508,7 +508,7 @@ void GodotJvm::reload_user_code() {
 }
 #endif
 
-Object* GodotJvm::get_callable_middleman() const {
+raw_godot::RawObject GodotJvm::get_callable_middleman() const {
     return callable_middleman;
 }
 
