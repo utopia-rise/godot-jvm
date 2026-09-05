@@ -11,7 +11,7 @@
 #include <classes/v_scroll_bar.hpp>
 #include <variant/callable_method_pointer.hpp>
 
-// Plain data holder, not a Wrapped-derived class — see about_dialog.h's header comment for why. Pairs the AcceptDialog with the specific children make_appear()/update_state()/stop() below need direct access to.
+// Plain data holder, not a Wrapped-derived class: AcceptDialog is already a registered engine class, so this needs no GDCLASS/GDREGISTER_INTERNAL_CLASS at all. Pairs the AcceptDialog with the specific children make_appear()/update_state()/stop() below need direct access to.
 struct TaskDialogControls {
     godot::AcceptDialog* dialog;
     godot::ScrollContainer* scroll_container;

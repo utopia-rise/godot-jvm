@@ -3,6 +3,7 @@
 #include "editor/build/gradle_task_runner.h"
 #include "editor/export/godot_jvm_editor_export_plugin.h"
 #include "editor/jvm_syntax_highlighter.h"
+#include "editor/strings.h"
 #include "godot_jvm.h"
 #include "paths.h"
 #include "project/project_generator.h"
@@ -20,14 +21,7 @@
 using namespace godot;
 
 void GodotJvmEditor::on_menu_option_pressed(int option_id) {
-    switch (option_id) {
-        case GENERATE_PROJECT:
-            project_dialog->popup_centered();
-            break;
-        case ABOUT:
-            about_dialog->popup_centered();
-            break;
-    }
+    if (option_id == GENERATE_PROJECT) { project_dialog->popup_centered(); }
 }
 
 void GodotJvmEditor::on_generate_project(bool erase_existing) {
@@ -126,10 +120,6 @@ void GodotJvmEditor::_notification(int notification) {
             if (!editor_settings->has_setting(BUILD_BEFORE_START)) { editor_settings->set_setting(BUILD_BEFORE_START, false); }
             editor_settings->set_initial_value(BUILD_BEFORE_START, false, false);
 
-            if (!editor_settings->has_setting(SHOW_INFO_ON_START)) { editor_settings->set_setting(SHOW_INFO_ON_START, true); }
-            editor_settings->set_initial_value(SHOW_INFO_ON_START, true, false);
-
-            about_dialog = create_about_dialog(editor_settings, editor_scale);
             task_dialog = create_task_dialog(editor_scale);
 
             if (!project_settings->has_setting(GRADLE_DIR)) { project_settings->set_setting(GRADLE_DIR, "res://"); }
@@ -154,11 +144,10 @@ void GodotJvmEditor::_notification(int notification) {
               ->connect("pressed", callable_mp(this, &GodotJvmEditor::on_generate_project).bind(true));
             project_dialog->add_cancel_button(generate_nothing);
 
-            about_pop_menu->hide();
-            about_pop_menu->connect(SNAME("id_pressed"), callable_mp(this, &GodotJvmEditor::on_menu_option_pressed));
-            about_pop_menu->add_item("Generate JVM project", GENERATE_PROJECT);
-            about_pop_menu->add_item("About Godot-JVM", ABOUT);
-            add_tool_submenu_item("Kotlin/JVM", about_pop_menu);
+            tool_pop_menu->hide();
+            tool_pop_menu->connect(SNAME("id_pressed"), callable_mp(this, &GodotJvmEditor::on_menu_option_pressed));
+            tool_pop_menu->add_item("Generate JVM project", GENERATE_PROJECT);
+            add_tool_submenu_item("Kotlin/JVM", tool_pop_menu);
 
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, separator);
 
@@ -188,8 +177,6 @@ void GodotJvmEditor::_notification(int notification) {
             update_jvm_status(true);
 
             editor_base_control->add_child(task_dialog.dialog);
-            editor_base_control->add_child(about_dialog);
-            show_about_dialog_if_configured(about_dialog, editor_settings);
             editor_base_control->add_child(project_dialog);
 
             get_editor_interface()->get_resource_filesystem()->connect(
@@ -232,7 +219,6 @@ void GodotJvmEditor::_notification(int notification) {
 
         case NOTIFICATION_EXIT_TREE:
             editor_base_control->remove_child(task_dialog.dialog);
-            editor_base_control->remove_child(about_dialog);
             editor_base_control->remove_child(project_dialog);
             remove_tool_menu_item("Kotlin/JVM");
             remove_control_from_container(CustomControlContainer::CONTAINER_TOOLBAR, jvm_status_light);
@@ -251,7 +237,7 @@ void GodotJvmEditor::_notification(int notification) {
 }
 
 GodotJvmEditor::GodotJvmEditor() :
-  about_pop_menu(memnew(PopupMenu)),
+  tool_pop_menu(memnew(PopupMenu)),
   project_dialog(memnew(AcceptDialog)),
   jvm_status_light(memnew(TextureRect)),
   tool_bar_gradle_task_button(memnew(Button)),
@@ -260,7 +246,6 @@ GodotJvmEditor::GodotJvmEditor() :
 
 GodotJvmEditor::~GodotJvmEditor() {
     GradleTaskRunner::get_instance().cleanup();
-    memdelete(about_dialog);
     memdelete(task_dialog.dialog);
     memdelete(project_dialog);
     memdelete(jvm_status_light);

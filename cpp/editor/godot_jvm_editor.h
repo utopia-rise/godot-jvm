@@ -2,7 +2,6 @@
 #define GODOT_JVM_GODOT_JVM_EDITOR_H
 
 #include "godot_jvm.h"
-#include "ui/about_dialog.h"
 #include "ui/task_dialog.h"
 
 #include <classes/accept_dialog.hpp>
@@ -19,13 +18,11 @@ namespace godot {
     class GodotJvmEditor : public EditorPlugin {
         GDCLASS(GodotJvmEditor, EditorPlugin)
         enum KOTLIN_JVM_MENU_OPTIONS {
-            GENERATE_PROJECT,
-            ABOUT
+            GENERATE_PROJECT
         };
 
-        PopupMenu* about_pop_menu;
-        // Built in NOTIFICATION_ENTER_TREE, not the constructor: both read editor_settings/ editor_scale below, which are only populated once this plugin has actually entered the tree — constructing them any earlier crashes on a null editor_settin...
-        AcceptDialog* about_dialog = nullptr;
+        PopupMenu* tool_pop_menu;
+        // Built in NOTIFICATION_ENTER_TREE, not the constructor: it reads editor_scale below, which is only populated once this plugin has actually entered the tree — constructing it any earlier crashes.
         TaskDialogControls task_dialog = TaskDialogControls();
 
         AcceptDialog* project_dialog;
