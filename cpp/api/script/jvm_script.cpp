@@ -408,6 +408,7 @@ void JvmScript::update_source_sync_warning() {
 
 void JvmScript::update_script_exports() const {
     if (!export_dirty_flag) { return; }
+    if (!Engine::get_singleton()->is_editor_hint()) { return; }
 
     exported_members_default_value_cache.clear();
     if (!_is_valid() || kotlin_class->is_abstract || !kotlin_class->can_zero_init()) {

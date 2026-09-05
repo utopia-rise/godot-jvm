@@ -47,6 +47,11 @@ class SignalKotlinTest : Node() {
     @Visible
     var otherScript = OtherScript()
 
+    init {
+        // Owned by this node so it is freed with it, including the instance the editor creates to read defaults.
+        addChild(otherScript)
+    }
+
     @Visible
     var selfConnectedSignalTriggered = false
 

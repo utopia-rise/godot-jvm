@@ -32,4 +32,3 @@ class KotlinTestClass : Node() {
         notificationTriggered = true
     }
 }
-

@@ -27,12 +27,14 @@ jobs:
             build-task: buildRelease
             graal-build-task: buildGraalNativeImageRelease
             export-task: exportRelease
+            graal-export-task: exportGraalRelease
             export-library: release_macos_universal
           - name: Debug export tests
             variant: export
             build-task: build
             graal-build-task: buildGraalNativeImage
             export-task: exportDebug
+            graal-export-task: exportGraalDebug
             export-library: debug_macos_universal
 
     steps:
@@ -138,7 +140,7 @@ jobs:
           jlink --add-modules java.base,java.logging --output jvm/jre-arm64-macos
           mkdir jvm/jre-amd64-macos # The export requires this directory; tests run on arm64.
 
-      - name: Export tests
+      - name: Export JVM tests
         if: matrix.variant == 'export'
         run: |
           cd harness/tests/
@@ -159,7 +161,22 @@ jobs:
         run: cd harness/tests/; ./gradlew runExportedGDTests
         timeout-minutes: 30
 
+      - name: Export Graal native-image tests
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/
+          ./gradlew ${{ matrix.graal-export-task }}
+        timeout-minutes: 30
+
+      - name: Extract Graal app from DMG
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/export
+          hdiutil attach tests.dmg
+          cp -a /Volumes/Godot-JVM\ Tests/Godot-JVM\ Tests.app Godot-JVM\ Tests.app
+          hdiutil detach /Volumes/Godot-JVM\ Tests
+
       - name: Run Graal native-image exported tests
         if: matrix.variant == 'export'
-        run: cd harness/tests/; ./gradlew runExportedGraalGDTests
+        run: cd harness/tests/; ./gradlew runExportedGDTests
         timeout-minutes: 30

@@ -32,6 +32,19 @@ Add optional modules as needed:
 - `jdk.jdwp.agent` for remote debugging.
 - `jdk.management.agent` for JMX.
 
+## Choose the bundled runtime
+
+Desktop presets have a **Godot Jvm > Runtime** option that selects what the export bundles:
+
+| Value | Bundled | Runtime mode |
+|---|---|---|
+| `JVM` (default) | Embedded JRE, `godot-bootstrap.jar`, `main.jar` | JVM |
+| `Graal` | `usercode` native image | GraalVM native image |
+| `Both` | Everything above | The editor's runtime mode |
+| `No` | Nothing | The export cannot run JVM code |
+
+The export dialog warns when a bundled file is missing: the JRE directory for the preset's OS and architecture, or the native image for its OS.
+
 ## Match the export target
 
 The export copies the JRE matching the preset's OS and architecture from `jvm/jre-<arch>-<os>`. Supported directory values are `amd64` or `arm64` for the architecture, and `linux`, `windows`, or `macos` for the OS.

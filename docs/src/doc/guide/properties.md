@@ -39,6 +39,8 @@ The initial value, `100`, becomes the Inspector default. Supported types are pri
 !!! note "Inspector values take precedence"
     Godot applies saved Inspector values after initialization and before `_enter_tree()`. Read those values once the node enters the tree, rather than during construction.
 
+    The editor also instantiates each script class once, outside any scene, to read the default values of its exported properties. Keep constructors and property initializers free of side effects: a node created there that is neither added as a child nor freed leaks on every rebuild.
+
 ## Register without showing in the Inspector
 
 Use `@Visible` instead of `@Export` when other scripts need access to a property but you do not want it editable in the Inspector.
