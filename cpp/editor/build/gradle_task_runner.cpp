@@ -71,7 +71,8 @@ Error GradleTaskRunner::run_task(int task_id, String& log, bool blocking) {
             String line = output[i];
             log += line + "\n";
         }
-        if (exit_code == -1) { return Error::ERR_BUG; }
+        if (exit_code == -1) { return Error::ERR_CANT_CREATE; }
+        if (exit_code != 0) { return Error::FAILED; }
         return Error::OK;
     }
 
@@ -93,10 +94,14 @@ bool GradleTaskRunner::is_task_started() {
     return pid > -1;
 }
 
-bool GradleTaskRunner::is_task_terminated() {
-    bool ret = !OS::get_singleton()->is_process_running(pid);
-    if (ret) { reset(); }
-    return ret;
+bool GradleTaskRunner::is_task_running() {
+    return OS::get_singleton()->is_process_running(pid);
+}
+
+int GradleTaskRunner::finish_task() {
+    int exit_code = OS::get_singleton()->get_process_exit_code(pid);
+    reset();
+    return exit_code;
 }
 
 void GradleTaskRunner::get_task_output(String& log, String& error) {

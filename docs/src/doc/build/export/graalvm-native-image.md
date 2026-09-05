@@ -32,4 +32,4 @@ Run `buildGraalNativeImage` or `buildGraalNativeImageRelease`. To run the result
 
 `main.jar` and `godot-bootstrap.jar` are compiled into one `usercode` shared library. Desktop exports package it in the PCK and extract it to `user://` at runtime. Include the extracted library in your uninstaller's cleanup.
 
-Add the desktop export feature `export-graal-native-image` to use the native image, or `export-all-jvm` to include both the JVM and native-image builds. Without an override, the export uses the editor's runtime mode. A launch argument can select a different mode.
+Set the preset's **Godot Jvm > Runtime** option to `Graal` to bundle the native image instead of the JRE, or to `Both` to bundle the JVM and native-image builds. With `Both`, the export uses the editor's runtime mode, and a launch argument can select a different mode.

@@ -30,9 +30,7 @@ object AnnotationMapper {
     @Suppress("UNCHECKED_CAST")
     fun toPropertyHint(annotationInfo: AnnotationInfo): PropertyHint? =
         when (annotationInfo.name) {
-            IntFlag::class.java.name -> IntFlagHint(
-                annotationInfo.parameterValues.getValue("values") as? List<String> ?: emptyList()
-            )
+            IntFlag::class.java.name -> IntFlagHint(annotationInfo.stringArrayParameter("names"))
 
             MultilineText::class.java.name -> MultilineTextHint()
             PlaceHolderText::class.java.name -> PlaceHolderTextHint()
@@ -48,7 +46,7 @@ object AnnotationMapper {
             )
 
             File::class.java.name -> FileHint(
-                extensions = annotationInfo.parameterValues.getValue("extensions") as? List<String> ?: emptyList(),
+                extensions = annotationInfo.stringArrayParameter("extensions"),
                 global = annotationInfo.parameterValues.getValue("global") as? Boolean ?: false,
             )
 
@@ -58,6 +56,11 @@ object AnnotationMapper {
 
             else -> null
         }
+
+    // ClassGraph exposes array-valued annotation parameters as Object[], never as a List.
+    @Suppress("UNCHECKED_CAST")
+    private fun AnnotationInfo.stringArrayParameter(name: String): List<String> =
+        (parameterValues.getValue(name) as? Array<String>)?.toList() ?: emptyList()
 
     @Suppress("UNCHECKED_CAST")
     private fun <T : Number> AnnotationInfo.provideRangeHint(stepDefault: T): RangeHint<T> {

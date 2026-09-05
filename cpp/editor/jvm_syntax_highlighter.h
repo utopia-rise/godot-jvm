@@ -25,6 +25,8 @@ namespace godot {
         Vector<SyntaxRegion> regions; // comment and string regions, in match-priority order.
 
         Color keyword_color;
+        Color number_color;
+        Color annotation_color;
         Color default_color;
 
     public:

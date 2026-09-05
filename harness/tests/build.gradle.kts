@@ -73,11 +73,15 @@ fun provideEditorExecutable(): File = System.getenv("GODOT_EDITOR")
         .also { println("Godot executable selected: $it") }
         ?: error("Could not find editor executable")
 
-fun currentExportTarget(): String = when {
-    HostManager.hostIsLinux -> "tests_linux"
-    HostManager.hostIsMac -> "tests_macos"
-    HostManager.hostIsMingw -> "tests_windows"
-    else -> throw IllegalStateException("Unsupported OS for exporting")
+// Every desktop OS has two test presets: "tests_<os>" bundles the JVM, "tests_<os>_graal" the native image.
+fun currentExportTarget(graal: Boolean): String {
+    val os = when {
+        HostManager.hostIsLinux -> "linux"
+        HostManager.hostIsMac -> "macos"
+        HostManager.hostIsMingw -> "windows"
+        else -> throw IllegalStateException("Unsupported OS for exporting")
+    }
+    return if (graal) "tests_${os}_graal" else "tests_$os"
 }
 
 fun File.ensureEmptyDirectory() {
@@ -110,7 +114,7 @@ fun requireExportedExecutable(): File =
     findExportedExecutable()
         ?: error("No exported test executable found in ${projectDir.resolve("export")}. Run exportDebug or exportRelease first.")
 
-fun registerExportTask(name: String, exportFlag: String, description: String) = tasks.register<Exec>(name) {
+fun registerExportTask(name: String, exportFlag: String, graal: Boolean, description: String) = tasks.register<Exec>(name) {
     group = "verification"
     this.description = description
 
@@ -126,7 +130,7 @@ fun registerExportTask(name: String, exportFlag: String, description: String) = 
             provideEditorExecutable().absolutePath,
             "--headless",
             exportFlag,
-            currentExportTarget(),
+            currentExportTarget(graal),
         )
     }
 }
@@ -184,25 +188,6 @@ fun registerIOSExportTask(name: String, exportFlag: String, description: String)
     }
 }
 
-fun registerGraalTestTask(
-    name: String,
-    description: String,
-    executableProvider: () -> File,
-    useProjectPathOverride: Boolean,
-    scriptArgs: List<String>,
-) = tasks.register<Exec>(name) {
-    group = "verification"
-    this.description = description
-
-    setupTestExecution {
-        TestExecutionCommand(
-            executable = executableProvider().absolutePath,
-            useProjectPathOverride = useProjectPathOverride,
-            scriptArgs = scriptArgs,
-        )
-    }
-}
-
 tasks {
     register("importResources") {
         group = "verification"
@@ -246,8 +231,10 @@ tasks {
             }
         }
     }
-    val exportDebug = registerExportTask("exportDebug", "--export-debug", "Exports the tests for the current host OS in debug mode")
-    val exportRelease = registerExportTask("exportRelease", "--export-release", "Exports the tests for the current host OS in release mode")
+    val exportDebug = registerExportTask("exportDebug", "--export-debug", graal = false, "Exports the JVM tests for the current host OS in debug mode")
+    val exportRelease = registerExportTask("exportRelease", "--export-release", graal = false, "Exports the JVM tests for the current host OS in release mode")
+    val exportGraalDebug = registerExportTask("exportGraalDebug", "--export-debug", graal = true, "Exports the Graal native-image tests for the current host OS in debug mode. Requires buildGraalNativeImage first.")
+    val exportGraalRelease = registerExportTask("exportGraalRelease", "--export-release", graal = true, "Exports the Graal native-image tests for the current host OS in release mode. Requires buildGraalNativeImageRelease first.")
     val exportAndroidDebug = registerAndroidExportTask("exportAndroidDebug", "--export-debug", "Exports the tests as an Android debug APK")
     val exportAndroidRelease = registerAndroidExportTask("exportAndroidRelease", "--export-release", "Exports the tests as an Android release APK")
     val exportIOSDebug = registerIOSExportTask("exportIOSDebug", "--export-debug", "Exports the tests as an iOS debug project")
@@ -273,24 +260,30 @@ tasks {
             )
         }
     }
-    registerGraalTestTask(
-        name = "runGraalGDTests",
-        description = "Runs GDUnit tests in the editor using GraalVM Native Image. Requires build, importResources, and buildGraalNativeImage first.",
-        executableProvider = ::provideEditorExecutable,
-        useProjectPathOverride = true,
-        scriptArgs = listOf(
-            "--jvm-vm-type=graal_native_image",
-            "-s",
-            "res://addons/gdUnit4/bin/GdUnitCmdTool.gd",
-            "-a",
-            "test",
-            "-c",
-            "--ignoreHeadlessMode",
-        ),
-    )
+    register<Exec>("runGraalGDTests") {
+        group = "verification"
+        description = "Runs GDUnit tests in the editor using GraalVM Native Image. Requires build, importResources, and buildGraalNativeImage first."
+
+        setupTestExecution {
+            TestExecutionCommand(
+                executable = provideEditorExecutable().absolutePath,
+                useProjectPathOverride = true,
+                scriptArgs = listOf(
+                    "--jvm-vm-type=graal_native_image",
+                    "-s",
+                    "res://addons/gdUnit4/bin/GdUnitCmdTool.gd",
+                    "-a",
+                    "test",
+                    "-c",
+                    "--ignoreHeadlessMode",
+                ),
+            )
+        }
+    }
+    // The exported package carries its own runtime configuration, so the same task runs a JVM export and a Graal export.
     register<Exec>("runExportedGDTests") {
         group = "verification"
-        description = "Runs GDUnit tests from the exported package. Requires exportDebug or exportRelease first."
+        description = "Runs GDUnit tests from the exported package. Requires one of the export tasks first."
 
         setupTestExecution {
             TestExecutionCommand(
@@ -300,13 +293,6 @@ tasks {
             )
         }
     }
-    registerGraalTestTask(
-        name = "runExportedGraalGDTests",
-        description = "Runs GDUnit tests from the exported package using GraalVM Native Image. Requires buildGraalNativeImage and exportDebug or exportRelease first.",
-        executableProvider = ::requireExportedExecutable,
-        useProjectPathOverride = false,
-        scriptArgs = listOf("--jvm-vm-type=graal_native_image"),
-    )
 }
 
 data class TestExecutionCommand(

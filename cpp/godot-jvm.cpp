@@ -42,10 +42,6 @@ bool GodotJvm::load_dynamic_lib() {
                 }
 
                 if (!dynamic_jvm.is_empty()) {
-                    JVM_LOG_WARNING(
-                      "Godot-JVM: You really should embed a JRE in your project with jlink! See the "
-                      "documentation if you don't know how to do that"
-                    );
                     path_to_jvm_lib = dynamic_jvm;
                 } else {
 #ifdef MACOS_ENABLED

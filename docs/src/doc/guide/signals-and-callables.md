@@ -33,6 +33,9 @@ val healthChanged: Signal2[Integer, Integer] =
 
 The Kotlin delegate derives the owner and member name. In Java and Scala, pass the owner and exact member name to `Signal2.create`. Godot-JVM converts `healthChanged` to `health_changed` for Godot.
 
+!!! note "Scala primitives in signal types"
+    Use the boxed Java types (`Integer`, `java.lang.Boolean`, ...) as signal type arguments, as in the example above. Scala compiles a primitive type argument such as `Boolean` to `Object` in the class file, and that is the only type information Godot-JVM can read at build time. A signal declared as `Signal1[Boolean]` still emits and connects normally, but Godot registers its argument as an untyped Variant, so the editor's signal dialog and `get_signal_list()` show no type for it. An import alias such as `import java.lang.{Boolean => JBoolean}` avoids repeating the package name.
+
 `Signal2` accepts two arguments with the declared types. Typed signals catch mismatched argument counts and types at compile time.
 
 ## Emit a signal

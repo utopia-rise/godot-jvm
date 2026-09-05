@@ -157,8 +157,11 @@ void GodotJvmEditor::_notification(int notification) {
             tool_bar_gradle_task_choice->add_item("Build Release", GradleTaskRunner::Task::BUILD_RELEASE);
             tool_bar_gradle_task_choice->add_item("Build Android", GradleTaskRunner::Task::BUILD_ANDROID_DEBUG);
             tool_bar_gradle_task_choice->add_item("Build Android Release", GradleTaskRunner::Task::BUILD_ANDROID_RELEASE);
+#ifdef MACOS_ENABLED
+            // The iOS tasks need Xcode, so they can only succeed on a macOS host.
             tool_bar_gradle_task_choice->add_item("Build iOS", GradleTaskRunner::Task::BUILD_IOS_DEBUG);
             tool_bar_gradle_task_choice->add_item("Build iOS Release", GradleTaskRunner::Task::BUILD_IOS_RELEASE);
+#endif
             tool_bar_gradle_task_choice->add_item("Build Graal Native Image", GradleTaskRunner::Task::BUILD_GRAAL_NATIVE_IMAGE_DEBUG);
             tool_bar_gradle_task_choice->add_item("Build Graal Native Image Release", GradleTaskRunner::Task::BUILD_GRAAL_NATIVE_IMAGE_RELEASE);
             tool_bar_gradle_task_choice->add_item("Generate JRE", GradleTaskRunner::Task::GENERATE_EMBEDDED_JVM);
@@ -198,6 +201,8 @@ void GodotJvmEditor::_notification(int notification) {
             update_jvm_status();
 
             if (GradleTaskRunner::get_instance().is_task_started()) {
+                // Checked before draining the pipes so the lines written right before the process exited are not lost.
+                bool running = GradleTaskRunner::get_instance().is_task_running();
                 String log;
                 String error;
                 GradleTaskRunner::get_instance().get_task_output(log, error);
@@ -207,12 +212,19 @@ void GodotJvmEditor::_notification(int notification) {
                     // We are streaming the output, we use the regular Godot print to avoid spamming the JVM prefix.
                     print_line(log);
                 }
-                if (!error.is_empty()) { JVM_ERR_FAIL_MSG(error); }
+                if (!error.is_empty()) { JVM_ERR_PRINT(error); }
 
-                if (GradleTaskRunner::get_instance().is_task_terminated()) {
+                if (!running) {
+                    int exit_code = GradleTaskRunner::get_instance().finish_task();
                     task_dialog_stop(task_dialog);
                     get_editor_interface()->get_resource_filesystem()->scan_sources();
-                    JVM_LOG_INFO("Gradle Task terminated");
+                    if (exit_code == 0) {
+                        task_dialog_update_state(task_dialog, "Gradle task succeeded.\n");
+                        JVM_LOG_INFO("Gradle task succeeded.");
+                    } else {
+                        task_dialog_update_state(task_dialog, vformat("Gradle task failed with exit code %d.\n", exit_code));
+                        JVM_ERR_PRINT("Gradle task failed with exit code %d.", exit_code);
+                    }
                 }
             }
             break;
