@@ -4,48 +4,34 @@ description: Export your first Godot-JVM desktop build, to prove the whole pipel
 
 # Export a test build
 
-You have a script running in the editor. Before writing more of your game, export one desktop
-build now — it is much cheaper to find an export problem with one class than with a whole project's
-worth of code, and this proves your build, addon, and embedded JRE all work outside the editor too.
+Export your scene for your current desktop platform to check that the addon, compiled code, and bundled runtime work outside the editor.
 
 ## 1. Install export templates
 
-This part is plain Godot, not specific to this project: open **Editor > Manage Export Templates**
-and install the templates matching your editor version. See Godot's own
-[Exporting projects](https://docs.godotengine.org/en/stable/tutorials/export/exporting_projects.html)
-page if you have not done this before.
+Open **Editor > Manage Export Templates** and install the official templates matching your editor version.
 
 ## 2. Create the embedded JRE
 
-This part is Godot-JVM specific. A desktop export bundles a JRE alongside your game, and that JRE
-has to be built once for your host platform:
+A desktop export includes a JRE so players can run the game without installing Java. Generate it from your project root:
 
 ```shell
 ./gradlew generateEmbeddedJre
 ```
 
-This writes a minimal JRE under `jvm/` sized for your current OS. You only need to re-run it if you
-change `JAVA_HOME` or clean the `jvm/` directory — not on every export.
+You can also choose **Generate JRE** in the toolbar drop-down and click **Run Gradle**.
 
-!!! warning "Export from the platform you're targeting"
-    The JRE this task creates is for your **current host OS**. A JRE built on macOS will not run on
-    Windows. If you need to export for multiple desktop platforms, build on each one, or see
-    [Desktop exports](../build/export/desktop.md) for the per-platform `jlink` commands.
+This creates a minimal JRE under `jvm/` for your current platform. Reuse it between exports; regenerate it when you change the JDK or remove the generated directory.
+
+The export needs a JRE matching the preset's OS and architecture. [Desktop](../build/export/desktop.md) explains how to prepare runtimes for other targets.
 
 ## 3. Create an export preset
 
-Also plain Godot: **Project > Export...**, add a preset for your platform, and export. Godot-JVM
-needs nothing extra here — the `addons/jvm` directory, including `jvm.gdextension`, is already part
-of your project from [installing the addon](install-the-addon.md), and Godot includes it
-automatically for the platforms it supports.
+Open **Project > Export...**, add a preset for your platform, and export. Godot includes the addon's native library automatically.
 
 ## 4. Run the exported build
 
-Run the exported executable directly (not through the editor). You should see the same output your
-script produced in the editor. If the window opens and closes immediately, or the log shows a JVM
-startup error, see [Export](../troubleshooting/export.md).
+Launch the exported executable from a terminal so you can see its output. You should see the same greeting as in the editor. If the export reports a missing JRE, run `generateEmbeddedJre` and export again; otherwise check the terminal output.
 
-## What you just proved
+## Next
 
-A successful export means your build, the addon, and the embedded JRE all work outside the editor
-too — not just in the editor's own JVM. The Start here track is complete.
+You now have a script running both in the editor and in an exported game. The next section builds on this project to cover everyday scripting with Godot-JVM.

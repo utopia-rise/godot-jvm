@@ -21,8 +21,8 @@ In `ios-graal-native-image`:
   tree needs `release/graal-vm/25.0`.
 - Update `toolchain.env` (`JDK_VERSION`, `GRAALVM_VERSION`, `JVMCI_VERSION`, `IOS_MIN_VERSION`).
   `GRAALVM_VERSION` must match the labs-openjdk submodule down to the update version, not just the
-  feature release. JNI natives change within a JDK update line — 25.0.3 replaced
-  `java.io.Console.istty` with `ttyStatus` — and native-image builds the image against its own
+  feature release. JNI natives change within a JDK update line: 25.0.3 replaced
+  `java.io.Console.istty` with `ttyStatus`: and native-image builds the image against its own
   class library, so a mismatch only shows up when a game links the archives.
 - Expect to update `labs-openjdk/ios-jdk.patch` and both Xcode projects. Most breakage between JDK
   versions is mechanical: source files added or removed under
@@ -33,7 +33,7 @@ In `ios-graal-native-image`:
   generates from the JVM symbols the JDK's static libraries reference. It goes stale on every JDK
   bump, in both directions: a `JVM_*` entry point added to the new JDK leaves an undefined symbol,
   and one that GraalVM has since implemented itself becomes a duplicate symbol. Neither breaks the
-  toolchain build — they only surface when a game links the archives.
+  toolchain build: they only surface when a game links the archives.
 - Push a tag. The workflow builds everything, verifies the bundle, and creates the release. The tag
   is the release name and the bundle name, so tag `jdk26` publishes `ios-graal-jdk26.zip`.
 

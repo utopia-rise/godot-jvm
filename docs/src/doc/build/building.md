@@ -4,12 +4,11 @@ description: Running a Gradle build from the Godot editor, your IDE, or the comm
 
 # Building your project
 
-To compile your project, run a Gradle build — from the Godot editor's build button, your IDE's Gradle panel, or the command line. See [Your first script](../start/your-first-script.md) for a walkthrough with screenshots.
+Click **Run Gradle** in Godot's toolbar, use your IDE's Gradle panel, or run Gradle in a terminal at the project root.
 
 ## Targets
 
-We have two targets: `debug` and `release`.
-In order to build in release, use the dedicated `buildRelease` task or add the `release` parameter to your Gradle build command.
+The build targets are `debug` (the default) and `release`. For a release build, run `buildRelease` or pass `-Prelease` to `build`.
 
 Example:
 
@@ -27,22 +26,12 @@ gradlew buildRelease
 ```
 ///
 
-Using debug builds is recommended when developing. It adds some sanity checks that are cut off in `release`.
-
-Release builds are recommended when distributing to retail.
+Use `debug` during development for additional runtime checks. Use `release` for distribution; it omits those checks.
 
 ## What a rebuild reloads
 
-After a successful build, the editor automatically reloads `godot-bootstrap.jar` and `main.jar` — you do not have to restart it. This holds no matter what kind of change you made: changing the body of a method needs only a rebuild, and so does adding, removing, or renaming a registered class, property, function, or signal. There is no separate registration step to run either way.
+After a successful build, the editor reloads `godot-bootstrap.jar` and `main.jar` automatically.
 
-`fastBuild` rebuilds `main.jar` while reusing the last generated registration artifacts instead of rescanning your classes:
+Choose **Fast Build** in the toolbar drop-down (or run `./gradlew fastBuild`) after a full build when only method bodies changed. [Packaging and build tasks](../reference/gradle-plugin/packaging-and-tasks.md) covers when a full build is required.
 
-```shell
-./gradlew fastBuild
-```
-
-Use it only when you changed implementation details that don't affect registration, such as a method body. It requires a previous successful full build, and it should not be used right after adding, removing, renaming, or otherwise structurally changing a registered class, function, property, or signal — run a normal `build` for that instead.
-
-GraalVM native image builds are the one exception to all of this: while a native image is in use, nothing can be reloaded, since doing so would require restarting the JVM. See [GraalVM native image export](export/graalvm-native-image.md).
-
-For how the editor reconciles physical scripts, virtual scripts, and JAR registrations behind the scenes, see [JAR and script reloading](../contribute/how-it-works/jar-and-script-reloading.md).
+GraalVM native images cannot reload code. Rebuild and restart to apply changes.

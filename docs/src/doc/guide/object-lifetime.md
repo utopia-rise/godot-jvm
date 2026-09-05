@@ -4,21 +4,18 @@ description: Hooking into instance init and destroy, registering JVM shutdown ca
 
 # Object lifetime and cleanup
 
-## Lifecycle
-
-If you want to be notified when initialization and destruction of your class' instance happens, use the `init` block
-and override the `_onDestroy` function respectively.
+Initialize an instance in its constructor or Kotlin `init` block. Override `_onDestroy()` for cleanup on `Node` and other non-`RefCounted` classes. It is final on `RefCounted`, where reference counting handles destruction:
 
 /// tab | Kotlin
 ```kotlin
 @Script
-class RotatingCube : Node3D() {
+class Player : Node() {
     init {
-        println("Initializing RotatingCube!")
+        GD.print("Initializing Player!")
     }
 
     override fun _onDestroy() {
-        println("Cleaning up RotatingCube!")
+        GD.print("Cleaning up Player!")
     }
 }
 ```
@@ -27,14 +24,14 @@ class RotatingCube : Node3D() {
 /// tab | Java
 ```java
 @Script
-public class RotatingCube extends Node3D {
-    public RotatingCube() {
-        System.out.println("Initializing RotatingCube!");
+public class Player extends Node {
+    public Player() {
+        GD.print("Initializing Player!");
     }
 
     @Override
     public void _onDestroy() {
-        System.out.println("Cleaning up RotatingCube!");
+        GD.print("Cleaning up Player!");
     }
 }
 ```
@@ -43,11 +40,11 @@ public class RotatingCube extends Node3D {
 /// tab | Scala
 ```scala
 @Script
-class RotatingCube extends Node3D {
-  println("Initializing RotatingCube!")
+class Player extends Node {
+  GD.print("Initializing Player!")
 
   override def _onDestroy(): Unit = {
-    println("Cleaning up RotatingCube!")
+    GD.print("Cleaning up Player!")
   }
 }
 ```
@@ -55,15 +52,14 @@ class RotatingCube extends Node3D {
 
 ## Cleanup operations
 
-When running Kotlin/Java/Scala code, the JVM is embedded and managed directly by Godot, which offers little control over the shutdown sequence when the game is closing. This becomes a problem if you use a third-party library whose resources need to be freed or saved, or whose threads need to be closed.
-To that end, we provide a simple method that allows you to register callbacks that will be called when the JVM is shut down.
+Godot manages the embedded JVM's shutdown. Use `GD.callWhenClosing` to release library resources, save pending data, or stop threads when the JVM closes:
 
 /// tab | Kotlin
 ```kotlin
-fun foo() {
-    val resource = AcquireSomeThirdPartyResource()
+fun startWorker() {
+    val worker = java.util.concurrent.Executors.newSingleThreadExecutor()
     GD.callWhenClosing {
-        resource.close()
+        worker.shutdown()
     }
 }
 ```
@@ -71,11 +67,11 @@ fun foo() {
 
 /// tab | Java
 ```java
-void foo() {
-    var resource = AcquireSomeThirdPartyResource();
+void startWorker() {
+    var worker = java.util.concurrent.Executors.newSingleThreadExecutor();
     GD.callWhenClosing(() -> {
-        resource.close();
-        return Unit.INSTANCE;
+        worker.shutdown();
+        return kotlin.Unit.INSTANCE;
     });
 }
 ```
@@ -83,34 +79,27 @@ void foo() {
 
 /// tab | Scala
 ```scala
-def foo(): Unit = {
-  val resource = AcquireSomeThirdPartyResource()
+def startWorker(): Unit = {
+  val worker = java.util.concurrent.Executors.newSingleThreadExecutor()
   GD.callWhenClosing(() => {
-    resource.close()
+    worker.shutdown()
     kotlin.Unit.INSTANCE
   })
 }
 ```
 ///
 
-!!! note
-    `callWhenClosing` takes a Kotlin function type, which compiles to `kotlin.jvm.functions.Function0<kotlin.Unit>`.
-    Java and Scala lambdas must therefore return `kotlin.Unit.INSTANCE` instead of falling off the end of the block.
+Java and Scala lambdas must return `kotlin.Unit.INSTANCE`.
 
 !!! warning
-    Be mindful that this operation happens when Godot has already been partially closed.
-    The SceneTree is no longer present and a part of the Godot API has been unregistered.
-    The order of execution is not guaranteed. Make sure that those callbacks don't depend on each other.
+    These callbacks run after Godot has partly shut down. The scene tree is gone and some Godot APIs are unavailable. Callback order is unspecified, so keep each callback independent.
 
+## Objects held in static fields
 
-Sometimes you need to store some Godot objects or references in a Kotlin singleton.
-This can cause some memory leak warnings when the program ends because they are kept alive by the singleton.
-This issue is fixed by using the method `asStatic()` on singleton properties. Those properties will be freed once the running JVM ends.
-It accepts both `Object` and `RefCounted`: a plain `Object` is freed when the JVM shuts down, while a `RefCounted` is
-returned unchanged because its reference counting already frees it.
+For a Godot `Object` stored in a singleton or static field, use `asStatic()` to free it when the JVM shuts down. Otherwise, the singleton can keep it alive until exit and cause a leak warning. `RefCounted` values are returned unchanged because reference counting already manages them.
 
 !!! warning
-    Only use it on a singleton, otherwise all the properties of all instances are going to be kept alive until the end of the JVM.
+    Use `asStatic()` only for objects intended to live until shutdown. Applying it to ordinary instance properties keeps those objects alive for the entire JVM session.
 
 /// tab | Kotlin
 ```kotlin
@@ -143,11 +132,6 @@ object GodotStatic {
 ```
 ///
 
-!!! note
-    `asStatic()` is Kotlin-only: it is a Kotlin extension function declared in `godot.extension.api`. Java and Scala
-    call it as a static method on `godot.extension.api.ObjectUtils` instead, passing the object as the first argument.
-    Java has no language-level singleton, so the example above uses a final class with static fields and a private
-    constructor; Scala uses its own `object`.
+`asStatic()` is a Kotlin extension in `godot.extension.api`. Java and Scala call `ObjectUtils.asStatic(...)`.
 
-For the reasoning behind `RefCounted` needing no cleanup here, see
-[Memory management](../contribute/how-it-works/memory-management.md).
+[Memory management](../contribute/how-it-works/memory-management.md) explains how Godot-JVM coordinates reference counting and garbage collection.

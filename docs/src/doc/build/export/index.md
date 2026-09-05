@@ -1,24 +1,23 @@
 ---
-description: What happens when you export a Godot-JVM game — jars bundled into the pck, copied to user:// at first run, plus links to per-platform requirements.
+description: What happens when you export a Godot-JVM game: JARs bundled into the PCK, copied to user:// at first run, plus links to per-platform requirements.
 ---
 
 # Export overview
 
-To export your game, use the official export templates that match your Godot editor version. Godot must meet the minimum version required by your Godot-JVM release. Ensure the `addons/jvm` directory, including `jvm.gdextension`, is part of your project before exporting. Godot reads this manifest to include the native JVM library for the selected export target.
+To export your game, use the official export templates that match your Godot editor version. Godot reads `addons/jvm/jvm.gdextension` to include the native JVM library for the selected export target.
 
-After the templates have been installed, you can export your game. Your game `jar` will be included in `pck`.
-On desktop platforms, this also copies the JRE folder of your project in the exported game folder.
+Godot packages the game's JARs in the PCK. Desktop exports also copy the project's JRE into the export directory.
 
-Each export target has its own extra requirements:
+The following chapters cover each target's additional requirements:
 
-- [Desktop](desktop.md) — embedded JRE creation.
-- [Android](android.md) — Godot's Gradle build and the Android SDK build tools.
-- [iOS](ios.md) — static linking with GraalVM-compiled archives.
-- [GraalVM native image](graalvm-native-image.md) — ahead-of-time compilation instead of an embedded JVM.
+- [Desktop](desktop.md): embedded JRE creation.
+- [Android](android.md): Godot's Gradle build and the Android SDK build tools.
+- [iOS](ios.md): static linking with GraalVM-compiled archives.
+- [GraalVM native image](graalvm-native-image.md): ahead-of-time compilation instead of an embedded JVM.
 
-## Specifics
+## Files copied to user://
 
-`godot-bootstrap.jar` and `main.jar` are copied into `pck` during the export process.
-As a real file path is needed to handle them, they are copied on the first game version start
-from `res://` to `user://` (we check if they exist and also check the md5 hash) to only update when needed.
-Don't forget to remove them when writing an uninstaller for your game.
+The JVM needs filesystem paths to load `godot-bootstrap.jar` and `main.jar`. On launch, Godot-JVM copies them from `res://` to `user://` when they are missing or their MD5 hashes differ; on Android it recopies them on every launch. Include these extracted files in your uninstaller's cleanup.
+
+!!! warning "Preserve runtime files"
+    Do not wipe `user://` while the game is installed. It holds the extracted runtime JARs, Android DEX JARs, or native-image library. When clearing game data, delete only files your code created.

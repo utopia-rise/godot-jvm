@@ -4,8 +4,7 @@ description: Exporting to iOS, which requires GraalVM and static linking of the 
 
 # iOS
 
-!!! warning
-    With this export you don't have a choice regarding JVM version you use. Please use [GraalVM for JDK 25.0.2](https://download.oracle.com/graalvm/25/archive/graalvm-jdk-25.0.2_macos-aarch64_bin.tar.gz). The exact update matters: the static libraries come from labs-openjdk 25.0.2, and JDK 25.0.3 replaced the `java.io.Console.istty` native with `ttyStatus`, so a 25.0.3 or newer GraalVM builds an image that fails to link.
+Build for iOS with [GraalVM for JDK 25.0.2](https://download.oracle.com/graalvm/25/archive/graalvm-jdk-25.0.2_macos-aarch64_bin.tar.gz). The exact update matters: the static libraries come from labs-openjdk 25.0.2, and JDK 25.0.3 replaced the `java.io.Console.istty` native with `ttyStatus`, so a 25.0.3 or newer GraalVM builds an image that fails to link. Install the full GraalVM JDK separately.
 
 iOS uses static linking. `buildIOS` produces `jvm/ios/usercode.a` together with the matching
 `libjava-release.a` and `libjvm-release.a`. During export, Godot links these archives with the
@@ -19,7 +18,7 @@ single bundle published by
 `SHA256SUMS` shipped in the bundle, so a truncated download fails the build instead of producing a
 broken archive.
 
-Additionally, to the regular GraalVM configuration mentioned above, add the following in `build.gradle.kts`, then invoke `buildIOS` or `buildIOSRelease`:
+Configure the GraalVM installation and build inputs in `build.gradle.kts` as shown below. [GraalVM native image](graalvm-native-image.md) explains reflection, JNI, and resource configuration, which also applies to iOS.
 
 ```kotlin
 godot {

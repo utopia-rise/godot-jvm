@@ -1,45 +1,43 @@
 ---
-description: A side-by-side lookup of common GDScript syntax against its Kotlin, Java, and Scala equivalent in Godot-JVM, with links to the full guide for each.
+description: Equivalent GDScript, Kotlin, Java, and Scala syntax for common Godot scripting tasks.
 ---
 
 # GDScript to Kotlin, Java and Scala
 
-This page is a lookup table, not a tutorial. Each row links to the guide page that explains the
-full rule; read this page to find the row you need, then follow the link for the details.
+Compare common GDScript patterns with their JVM equivalents. These examples use the default Inferred registration mode.
 
 ## Declaring a script class
 
 /// tab | GDScript
 ```gdscript
-extends Node3D
+extends Node
 
-class_name RotatingCube
+class_name Player
 ```
 ///
 /// tab | Kotlin
 ```kotlin
 @Script
-class RotatingCube : Node3D() {
+class Player : Node() {
 }
 ```
 ///
 /// tab | Java
 ```java
 @Script
-public class RotatingCube extends Node3D {
+public class Player extends Node {
 }
 ```
 ///
 /// tab | Scala
 ```scala
 @Script
-class RotatingCube extends Node3D {
+class Player extends Node {
 }
 ```
 ///
 
-`@Script` is required; there is no implicit registration from extending a Godot class alone. See
-[Classes](../guide/classes.md).
+In Inferred mode, extending a Godot class does not register the script by itself; add `@Script`.
 
 ## Exported properties
 
@@ -67,8 +65,7 @@ var speed: Float = 2f
 ```
 ///
 
-See [Properties and the Inspector](../guide/properties.md) for `@Visible` (registration without an
-Inspector row), and [Property hints](property-hints.md) for range sliders, file pickers, and the rest.
+Use `@Visible` to register a property without showing it in the Inspector. [Property hints](property-hints.md) table lists annotations for sliders, file pickers, and other controls.
 
 ## Functions Godot calls on your script
 
@@ -115,7 +112,6 @@ def announceReady(): Unit = {
 
 Godot's own callbacks (`_ready`, `_process`, `_physics_process`, ...) are recognized from the
 override alone. An ordinary function you want Godot or another script to call needs `@Register`.
-See [Functions and notifications](../guide/functions.md).
 
 ## Signals
 
@@ -145,18 +141,15 @@ fun onHealthChanged(current: Int, max: Int) {
 ///
 /// tab | Java
 ```java
-Signal2<Integer, Integer> healthChanged = Signal2.create(this, "healthChanged");
-
-private static final MethodStringName2<Player, Void, Integer, Integer> ON_HEALTH_CHANGED =
-    new MethodStringName2<>("on_health_changed");
+public final Signal2<Integer, Integer> healthChanged = Signal2.create(this, "healthChanged");
 
 @Override
 public void _ready() {
-    SignalConnectors.connectMethod2(healthChanged, this, ON_HEALTH_CHANGED);
+    SignalConnectors.connectMethod2(healthChanged, this, new MethodStringName2<Player, Void, Integer, Integer>("on_health_changed"));
 }
 
 @Register
-public void onHealthChanged(Integer current, Integer max) {
+public void onHealthChanged(int current, int max) {
 }
 ```
 ///
@@ -164,20 +157,17 @@ public void onHealthChanged(Integer current, Integer max) {
 ```scala
 val healthChanged: Signal2[Integer, Integer] = Signal2.create(this, "healthChanged")
 
-private val onHealthChangedName = new MethodStringName2[Player, Void, Integer, Integer]("on_health_changed")
-
 override def _ready(): Unit = {
-  SignalConnectors.connectMethod2(healthChanged, this, onHealthChangedName)
+  SignalConnectors.connectMethod2(healthChanged, this, new MethodStringName2[Player, Void, Integer, Integer]("on_health_changed"))
 }
 
 @Register
-def onHealthChanged(current: Integer, max: Integer): Unit = {
+def onHealthChanged(current: Int, max: Int): Unit = {
 }
 ```
 ///
 
-GDScript signals are dynamically typed and checked at runtime; Godot-JVM signals carry their arity
-and argument types in the type itself. See [Signals and callables](../guide/signals-and-callables.md).
+The typed JVM signal carries its argument count and types, allowing the compiler to check calls to `emit`.
 
 ## Naming: camelCase in your code, snake_case in Godot
 
@@ -188,13 +178,33 @@ func take_damage(amount):
     pass
 ```
 ///
-/// tab | Kotlin / Java / Scala
+/// tab | Kotlin
 ```kotlin
 @Export
 var moveSpeed: Float = 0f
 
 @Register
 fun takeDamage(amount: Int) {
+}
+```
+///
+/// tab | Java
+```java
+@Export
+public float moveSpeed = 0f;
+
+@Register
+public void takeDamage(int amount) {
+}
+```
+///
+/// tab | Scala
+```scala
+@Export
+var moveSpeed: Float = 0f
+
+@Register
+def takeDamage(amount: Int): Unit = {
 }
 ```
 ///
@@ -235,24 +245,32 @@ parent match {
 ```
 ///
 
-See [Working with Godot types](../guide/godot-types.md#instance-checks).
+These checks also work with your own Godot subclasses.
 
 ## Instantiating a script class
 
 /// tab | GDScript
 ```gdscript
-var instance = MyScript.new()
+var instance = Player.new()
 ```
 ///
-/// tab | Kotlin / Java / Scala
+/// tab | Kotlin
 ```kotlin
-val instance = MyScriptClass()
+val instance = Player()
+```
+///
+/// tab | Java
+```java
+Player instance = new Player();
+```
+///
+/// tab | Scala
+```scala
+val instance = new Player()
 ```
 ///
 
-Works the same from GDScript calling into a JVM class, provided the JVM class has a public
-zero-argument constructor — Godot cannot call a constructor that takes arguments. See
-[Constructors](../guide/classes.md#constructors).
+GDScript can instantiate the JVM class when it has a public no-argument constructor. Constructors with arguments remain available only from JVM code.
 
 ## Enums
 
@@ -290,7 +308,6 @@ var element: Element = Element.FIRE
 ///
 
 An exported enum-typed property becomes an Inspector dropdown automatically in all three languages.
-See [Enums, bitfields and flags](../guide/enums-and-bitfields.md).
 
 ## Loading resources
 
@@ -300,18 +317,20 @@ var scene = preload("res://player.tscn")
 var other = load("res://other.tscn")
 ```
 ///
-/// tab | Kotlin / Java / Scala
+/// tab | Kotlin
 ```kotlin
-val other = GD.load("res://other.tscn")
+val other = GD.load<PackedScene>("res://other.tscn")
+```
+///
+/// tab | Java
+```java
+PackedScene other = GD.load("res://other.tscn");
+```
+///
+/// tab | Scala
+```scala
+val other = GD.load[PackedScene]("res://other.tscn")
 ```
 ///
 
-`load()` is available through the `GD` singleton; `preload()` has no equivalent, since it depends
-on GDScript's compile-time constant folding. See [Renamed symbols and global functions](api-mapping.md#global-functions).
-
-## What this table leaves out
-
-Node and scene-tree access (`$NodePath`, `get_node()`, the `@onready` pattern) is not covered here
-yet — that needs its own guide rather than a table row. Multiplayer RPCs and calling GDScript from
-a JVM class and back are likewise short on dedicated guide coverage today; see
-[Remote procedure calls](../guide/functions.md#remote-procedure-calls) for what exists so far.
+`GD.load()` loads a resource at runtime. GDScript's compile-time `preload()` has no JVM equivalent.

@@ -4,9 +4,7 @@ description: Where Kotlin, Java, and Scala source files live in a Godot-JVM proj
 
 # Project layout
 
-A Godot-JVM project is normally a single directory that is both the Godot
-project root and the Gradle project root — the same `build.gradle.kts` and
-`src/` tree sit next to your `project.godot` file:
+The Godot and Gradle projects normally share one root directory. Your build files and `src/` directory sit alongside `project.godot`:
 
 ```text
 MyGameProject/
@@ -22,8 +20,13 @@ MyGameProject/
 ├── settings.gradle.kts
 ├── gradlew / gradlew.bat
 ├── gradle/                     # Gradle wrapper files
-└── project.godot
+├── project.godot
+├── jvm/                        # JARs and embedded JRE
+├── gdj/                        # dependency registration files
+├── godot_jvm_configuration.json # runtime settings, written on first editor launch
+└── build/                      # Gradle output, excluded from exports
 ```
 
-`addons/jvm/` comes from [installing the addon](install-the-addon.md); everything else is created
-by whichever route you used in [Create a project](create-a-project.md).
+Write your scripts under `src/main/` in the folder for their language. Keep the addon in `addons/jvm/`, and run Gradle commands from the root directory containing `gradlew` and `gradlew.bat`.
+
+The build and first editor launch create the generated files shown here. `gdj/` appears only when dependencies contribute registered classes.

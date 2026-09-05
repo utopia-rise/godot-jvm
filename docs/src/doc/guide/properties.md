@@ -1,137 +1,58 @@
 ---
-description: Registering properties with @Visible, exporting them to the Inspector with @Export, grouping them with @Group, naming conventions, and where the type-hint annotation reference lives.
+description: Export properties to the Inspector, register values for scripts, and choose property hints.
 ---
 
 # Properties and the Inspector
 
-Any property of a registered class can be registered as long as it is public
-and can be converted to a `Variant`. Use `@Visible` when the property only
-needs to be registered. More specific annotations such as `@Export` and the
-property hints already imply that registration.
+Add `@Export` to make a property editable in the Inspector. For the `Player` script, start with health:
 
 /// tab | Kotlin
-```kotlin
-@Script
-class RotatingCube : Node3D() {
-    @Visible
-    var someString: String = "Hello there :-)"
-
-    @Visible
-    var propertyWithDefaultValue: Float = 2f
-}
-```
-///
-
-/// tab | Java
-```java
-@Script
-public class RotatingCube extends Node3D {
-    @Visible
-    public String someString = "Hello there :-)";
-
-    @Visible
-    public float propertyWithDefaultValue = 2f;
-}
-```
-///
-
-/// tab | Scala
-```scala
-@Script
-class RotatingCube extends Node3D {
-  @Visible
-  var someString: String = "Hello there :-)"
-
-  @Visible
-  var propertyWithDefaultValue: Float = 2f
-}
-```
-///
-
-## Naming
-
-Property names should follow the usual style of the language you use. For consistency with Godot's style,
-your properties are actually registered as `snake_case`. So a property `someFlag` is usable in GDScript as `some_flag`.
-
-## Core type specifics
-
-Godot core type always need to have a value. Hence you cannot register properties of core types (like `Vector3`) with lateinit.
-
-## Exporting properties
-
-A registered property can be exported (a.k.a make it visible in the Godot editor) by annotating it with `@Export`.
-A property can be exported if it is a core type, a primitive, or inherits from `godot.api.Node` or
-`godot.api.RefCounted`.
-
-/// tab | Kotlin
-```kotlin
-@Script
-class RotatingCube : Node3D() {
-    @Export
-    var speed: Float = 2f
-}
-```
-///
-
-/// tab | Java
-```java
-@Script
-public class RotatingCube extends Node3D {
-    @Export
-    public float speed = 2f;
-}
-```
-///
-
-/// tab | Scala
-```scala
-@Script
-class RotatingCube extends Node3D {
-  @Export
-  var speed: Float = 2f
-}
-```
-///
-
-Exported properties can have default values (`2f` in the example above) which will be used as a default value in the Inspector.
-
-!!! danger
-    If you set a default value in code and a different value in the Inspector, the value of the latter will override the value in code after `init` and before `_enter_tree`.
-
-## Organising exports
-
-Use `@Category`, `@Group`, and `@Subgroup` on the first property in a section. A category is the top-level section, a group is within a category, and a subgroup is within a group. They create Inspector markers before the annotated property; they do not change its type hint.
-
-| Annotation | Parameters |
-|---|---|
-| `@Category(name)` | `name`: the category label shown in the Inspector. |
-| `@Group(name, prefix = "")` | `name`: the group label. `prefix`: optional filter for following properties whose Godot names start with it; when omitted, it defaults to `name` with its first letter lowercased. |
-| `@Subgroup(name, prefix = "")` | `name`: the subgroup label. `prefix`: optional filter for following properties whose Godot names start with it; when omitted, it defaults to `name` with its first letter lowercased. |
-
-Write `prefix` in the same casing as your source property names. It is converted to the `snake_case` Godot property name automatically; for example, `movementGround` matches `movementGroundSpeed`, which Godot receives as `movement_ground_speed`.
-
 ```kotlin
 @Script
 class Player : Node() {
-    @Category("Player")
-    @Group("Movement") // Defaults to the `movement` prefix.
-    @Subgroup("Ground", "movementGround")
-    var movementGroundSpeed: Float = 5f
-
     @Export
-    var movementGroundAcceleration: Float = 10f
+    var health: Int = 100
 }
 ```
+///
+/// tab | Java
+```java
+@Script
+public class Player extends Node {
+    @Export
+    public int health = 100;
+}
+```
+///
+/// tab | Scala
+```scala
+@Script
+class Player extends Node {
+  @Export
+  var health: Int = 100
+}
+```
+///
 
-## Type hint registration
+The initial value, `100`, becomes the Inspector default. Supported types are primitives and strings, Godot core types, `Node` and `Resource` subclasses, enums, `BitField`, collections of enums, and `Any`.
 
-This binding provides a plethora of annotations for defining property type hints.
-These annotations control how Godot displays the property in the Inspector.
-Each property hint annotation can only be added to certain types of properties.
-Using the wrong annotation will make the compilation fail. A hint annotation already implies
-`@Export` — you do not need to add `@Export` separately alongside it.
+!!! note "Inspector values take precedence"
+    Godot applies saved Inspector values after initialization and before `_enter_tree()`. Read those values once the node enters the tree, rather than during construction.
 
-!!! note
-    If you are using IntelliJ IDEA and have our plugin installed, you will get a warning about wrong annotation usages.
+## Register without showing in the Inspector
 
-See the [property hints reference](../reference/property-hints.md) for the full list of annotations, their arguments, and the shared range arguments.
+Use `@Visible` instead of `@Export` when other scripts need access to a property but you do not want it editable in the Inspector.
+
+## Naming
+
+Use your language's usual naming style. Godot-JVM registers properties in `snake_case`, so `maxHealth` becomes `max_health` in GDScript.
+
+## Initialize core types
+
+Initialize properties of Godot core types, such as `Vector3`, with a value. They cannot use Kotlin's `lateinit`.
+
+## Choosing the Inspector control
+
+Property hints select controls such as a numeric range or file picker. A hint implies `@Export`, so use the hint annotation alone. An incompatible hint fails the build; the IntelliJ plugin also highlights incompatible annotations while you edit.
+
+[Property hints](../reference/property-hints.md) lists every hint, its supported types, and its arguments.
