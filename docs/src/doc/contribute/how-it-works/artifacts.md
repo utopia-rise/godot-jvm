@@ -27,3 +27,7 @@ bundled into `godot-bootstrap.jar`.
 `usercode` combines the code from `main.jar` and `godot-bootstrap.jar` in a GraalVM native artifact: a shared library on desktop or a static archive on iOS.
 
 Native-image mode uses `usercode` in place of both JARs. Select it through runtime configuration or launch arguments. Code changes require rebuilding the image and restarting the process.
+
+## Extracting export artifacts
+
+The JVM requires filesystem paths for loading JARs and cannot load them directly from the PCK. At startup the binding extracts `godot-bootstrap.jar` and `main.jar` to `user://`, comparing MD5 hashes to avoid unnecessary copies on desktop. Android recopies its runtime artifacts on each launch. Desktop native images are likewise extracted as shared libraries before loading.

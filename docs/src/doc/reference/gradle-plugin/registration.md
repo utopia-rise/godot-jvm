@@ -2,7 +2,7 @@
 description: The godot { } properties that select the annotation-processing mode and control where .gdj registration files are written.
 ---
 
-# Registration output
+# Registration settings
 
 Use these settings to select registered declarations, locate the Godot project, and control dependency registration files.
 
@@ -22,15 +22,7 @@ godot {
 }
 ```
 
-The available modes are:
-
-- `Explicit`: only direct selection annotations count.
-- `Inferred`: direct annotations and recursively implied annotations count;
-  signals and compatible Godot overrides are also discovered.
-- `Automatic`: all compatible declarations in Godot classes are selected;
-  annotations remain useful as configuration.
-
-In IntelliJ IDEA, choose the same mode under **Settings > Godot-JVM > Annotation processing mode**. Gradle determines what is registered; the IDE setting keeps inspections consistent with the build.
+Accepted values: `Explicit`, `Inferred`, `Automatic`. See [Registration modes](../registration/index.md) for exact selection and export behavior. The IDE's inspection mode is configured [separately](../intellij-plugin.md#annotation-processing-mode).
 
 ## Godot project layout and registration output
 
@@ -140,7 +132,7 @@ godot {
 
 ### `registrationNameMode`
 
-Controls how default registered names are computed when `@Script` does not provide a custom name.
+Controls the prefix policy for registered class names. The base name is the nonblank `@Script.className`, or the simple JVM class name. Custom names still receive the selected prefix; dots and hyphens are then replaced with underscores. See [registered class names](../registration/script-files.md#registered-class-names).
 
 Values:
 

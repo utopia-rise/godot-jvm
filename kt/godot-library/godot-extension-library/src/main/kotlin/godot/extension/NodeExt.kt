@@ -1,6 +1,6 @@
 @file:JvmName("NodeUtils")
 
-package godot.extension.api
+package godot.extension
 
 import godot.api.Node
 import godot.core.NodePath

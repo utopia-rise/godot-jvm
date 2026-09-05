@@ -1,0 +1,26 @@
+{#-
+  Overrides Material's source partial to add license and Discord links next to the
+  repository link.
+-#}
+<a href="{{ config.repo_url }}/blob/master/LICENSE" title="MIT license" class="md-source md-source--extra">
+  <div class="md-source__icon md-icon">
+    {% include ".icons/material/scale-balance.svg" %}
+  </div>
+  <div class="md-source__repository md-source__repository--extra">
+    MIT
+  </div>
+</a>
+<a href="https://discord.gg/zpb5Ru7v9x" title="Discord" class="md-source md-source--extra">
+  <div class="md-source__icon md-icon">
+    {% include ".icons/fontawesome/brands/discord.svg" %}
+  </div>
+</a>
+<a href="{{ config.repo_url }}" title="{{ lang.t('source') }}" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    {% set icon = config.theme.icon.repo or "fontawesome/brands/git-alt" %}
+    {% include ".icons/" ~ icon ~ ".svg" %}
+  </div>
+  <div class="md-source__repository">
+    {{ config.repo_name }}
+  </div>
+</a>

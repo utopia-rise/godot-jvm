@@ -124,7 +124,7 @@ jobs:
           modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-gradle-plugin:publish :godot-gradle-plugin:publishPlugins -Pgradle.publish.key=$GRADLE_PUBLISH_KEY -Pgradle.publish.secret=$GRADLE_PUBLISH_SECRET
 
       - name: Deploy IntelliJ plugin
-        if: ${{ !contains(inputs.godot-jvm-version, '-dev') }}
+        if: ${{ !contains(inputs.godot-jvm-version, '-dev') && !contains(inputs.godot-jvm-version, '-rc') }}
         shell: sh
         run: |
           modules/kotlin_jvm/kt/gradlew -p modules/kotlin_jvm/kt/ :godot-intellij-plugin:publishPlugin

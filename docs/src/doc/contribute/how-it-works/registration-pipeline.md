@@ -510,3 +510,7 @@ responsibility:
 
 When changing behavior, update the narrowest owner and add coverage across
 Kotlin, Java, Scala, and all three registration modes where applicable.
+
+## Editor default instances
+
+The editor instantiates each concrete script class outside a scene to read exported property defaults. Constructors and field initializers therefore also run during registration reloads. A node allocated there without scene ownership or explicit freeing can leak on each rebuild. Saved Inspector values are applied later to scene instances; constructors only see the initial defaults.

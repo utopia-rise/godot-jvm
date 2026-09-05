@@ -1,44 +1,45 @@
 ---
-description: Register a script class, choose a unique Godot name, and make it constructible from Godot.
+description: Extend a Godot node class and give the script a unique name and a public no-argument constructor.
 ---
 
 # Classes
 
-Extend `godot.api.Object` or one of its subclasses and add `@Script` to register a class:
+Extend a Godot base class and give the script a unique name and a public no-argument constructor. This guide uses [Node](https://docs.godotengine.org/en/stable/classes/class_node.html) as its example base class.
 
 /// tab | Kotlin
+
 ```kotlin
 @Script
 class Player : Node()
 ```
+
 ///
+
 /// tab | Java
+
 ```java
 @Script
 public class Player extends Node {}
 ```
+
 ///
+
 /// tab | Scala
+
 ```scala
 @Script
 class Player extends Node
 ```
+
 ///
 
-## Naming
+Keep the class name unique across the project, including classes supplied by libraries. Use the same name for the source file: `Player.kt`, `Player.java`, or `Player.scala`.
 
-Each script needs a unique Godot name. Godot does not see packages, so two classes named `Player` in different packages clash. Use `@Script(className = "GamePlayer")` to give one a different registered name.
+Godot needs a public no-argument constructor to instantiate the script; all three examples supply one.
 
-Keep JVM class names distinct from GDScript and C# class names too; build checks cover JVM classes only.
+!!! warning "Wait for the scene tree"
+    Constructors and field initializers can perform ordinary JVM initialization. Wait until `_enterTree()` or `_ready()` before creating nodes or accessing the scene tree.
 
-To change how default names are generated, use `registrationNameMode`. [Registration output](../reference/gradle-plugin/registration.md) lists its modes.
+An abstract base class can hold `@Export` properties and `@Register` functions. Concrete children inherit these registered members.
 
-## Constructors
-
-Godot registers a public no-argument constructor when one exists. Constructors with arguments remain available to JVM code, but Godot cannot call them. A class without a public no-argument constructor can still be registered as a base for a concrete script.
-
-With a public no-argument constructor, you can create the class from GDScript:
-
-```gdscript
-var player := Player.new()
-```
+`@Tool` is not implemented; see the [FAQ](../faq.md#known-limitations).

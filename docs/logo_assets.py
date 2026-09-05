@@ -5,7 +5,7 @@ from mkdocs.structure.files import File
 
 def on_files(files, config):
     repository_root = Path(config.config_file_path).resolve().parent.parent
-    for name in ("logo-32.png", "logo-1024-outline.png"):
+    for name in ("logo-64.png", "logo-512.png"):
         files.append(
             File(
                 f"logo/{name}",

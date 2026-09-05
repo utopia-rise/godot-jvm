@@ -15,8 +15,8 @@ import godot.core.PackedStringArray
 import godot.core.PackedVector2Array
 import godot.core.PackedVector3Array
 import godot.internal.memory.MemoryManager
-import godot.extension.api.asStatic
-import godot.extension.api.loadAs
+import godot.extension.asStatic
+import godot.extension.loadAs
 import godot.common.interop.nullptr
 import godot.common.util.DB2NEPER
 import godot.common.util.NEPER2DB

@@ -6,7 +6,7 @@ description: Where Godot-JVM contributors discuss work, how issues get claimed, 
 
 Contributions are welcome, from documentation fixes to binding improvements. You don't need to know the whole codebase to get started; discuss the change in an issue and we can help you find the relevant code.
 
-## In this section
+## How to Build
 
 - [Build from source](build-from-source.md): compile the native extension and Kotlin/Gradle side yourself.
 - [Build for Android](build-for-android.md): cross-compile the native library for every Android ABI.
@@ -14,6 +14,9 @@ Contributions are welcome, from documentation fixes to binding improvements. You
 - [Test a change from a branch](test-a-branch.md): try an unreleased branch from a real Godot-JVM project.
 - [The godot-cpp fork](godot-cpp-fork.md): why Godot-JVM tracks a fork of godot-cpp, and how to keep it in sync.
 - [Update the iOS JDK](update-ios-jdk.md): moving Godot-JVM to a newer iOS JDK.
+
+## How it works
+
 - [Where to start](how-it-works/index.md): the engineering reasoning behind Godot-JVM's internals.
 
 ## Discussions

@@ -1,20 +1,48 @@
 ---
-description: What the Godot-JVM IntelliJ IDEA plugin adds, how to install it from the Marketplace, and which setting must match your Gradle build.
+description: Godot editor build settings and IntelliJ registration inspection settings and actions.
 ---
 
-# IntelliJ IDEA plugin
+# Editor and IDE settings
 
-IntelliJ IDEA is the supported IDE for Godot-JVM development. Other editors can edit the source and run Gradle, but do not receive the same dedicated integration. The built-in Godot script editor is not supported for JVM code.
+## Godot project settings
 
-The [Godot-JVM plugin](https://plugins.jetbrains.com/plugin/16505-godot-jvm) adds registration inspections, code helpers, and a project wizard.
+### `kotlin_jvm/gradle/gradle_wrapper_dir` { #gradle-wrapper-directory }
 
-## Install and create a project
+Type: directory path. Default: `res://`.
 
-After installing the plugin and restarting the IDE, find the wizard under **New Project > Godot-JVM**.
+Directory containing `gradlew`/`gradlew.bat`, resolved through Godot's project paths. Used by the editor's Gradle runner. Configure it when the wrapper is outside the Godot project root.
 
-## Keeping IDE and Gradle settings in sync
+## Godot editor settings
 
-The plugin's inspections and highlighting need to agree with how your Gradle build registers classes. If you set a
-non-default `annotationProcessingMode` in `build.gradle.kts`, set the
-same mode in the IDE under **Settings > Godot-JVM > Annotation processing mode**. Gradle controls the actual build;
-the IDE setting keeps inspections and highlighting accurate.
+### `kotlin_jvm/editor/build_gradle_before_start` { #build-before-start }
+
+Type: boolean. Default: `false`.
+
+When true, the editor builds the Gradle project before starting the game. This is an editor setting, not a project setting or a JVM launch flag.
+
+## IntelliJ settings
+
+Location: **Settings > Godot-JVM**. Settings are stored per project.
+
+### Annotation processing mode { #annotation-processing-mode }
+
+Default: `Inferred`. Values: `Inferred`, `Explicit`, `Automatic`.
+
+Controls registration inspections and highlighting. It does not change Gradle's registration mode. Match [`annotationProcessingMode`](gradle-plugin/registration.md#annotationprocessingmode) to keep IDE feedback consistent with the build.
+
+### Registration highlighting
+
+Type: boolean. Default: enabled. Controls registration-aware editor highlighting.
+
+## Actions and scope
+
+| Location/action | Effect |
+|---|---|
+| **New Project > Godot-JVM** | Creates a project with the selected JVM languages |
+| Godot **Run Gradle** toolbar | Runs the selected build task |
+| Godot **Fast Build** | Rebuilds JVM code using existing registration |
+| Godot **Project > Tools > Kotlin/JVM > Generate JVM project** | Generates Gradle/project scaffolding |
+
+The IntelliJ plugin provides registration inspections, code helpers, and project/script templates. The Godot built-in script editor does not provide JVM source editing support. Other editors can edit sources and run Gradle.
+
+Installation and project creation are covered in [Create a project](../start/create-a-project.md#option-2-intellij-idea-wizard).

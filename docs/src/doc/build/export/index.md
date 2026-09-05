@@ -1,23 +1,37 @@
 ---
-description: What happens when you export a Godot-JVM game: JARs bundled into the PCK, copied to user:// at first run, plus links to per-platform requirements.
+description: Build release artifacts and bundle the runtime needed by your export target.
 ---
 
-# Export overview
+# Export your game
 
-To export your game, use the official export templates that match your Godot editor version. Godot reads `addons/jvm/jvm.gdextension` to include the native JVM library for the selected export target.
+## 1. Install export templates
 
-Godot packages the game's JARs in the PCK. Desktop exports also copy the project's JRE into the export directory.
+Open **Editor > Manage Export Templates** and install the official templates matching the editor version, to supply Godot's platform executables. The addon supplies the JVM GDExtension; no custom Godot templates are needed.
 
-The following chapters cover each target's additional requirements:
+## 2. Build your project
 
-- [Desktop](desktop.md): embedded JRE creation.
-- [Android](android.md): Godot's Gradle build and the Android SDK build tools.
-- [iOS](ios.md): static linking with GraalVM-compiled archives.
-- [GraalVM native image](graalvm-native-image.md): ahead-of-time compilation instead of an embedded JVM.
+Select **Build Release** in Godot's toolbar and click **Run Gradle**, to prepare desktop release JARs. For another target, use the platform build action in its page below.
 
-## Files copied to user://
+## 3. Prepare the runtime
 
-The JVM needs filesystem paths to load `godot-bootstrap.jar` and `main.jar`. On launch, Godot-JVM copies them from `res://` to `user://` when they are missing or their MD5 hashes differ; on Android it recopies them on every launch. Include these extracted files in your uninstaller's cleanup.
+Follow the target page so the exported game can execute your code:
+
+- [Desktop](desktop.md): bundle an embedded JRE.
+- [Android](android.md): use ART and prepare Android artifacts.
+- [GraalVM native image](graalvm-native-image.md): compile a native image for desktop.
+- [iOS](ios.md): build the native image required by iOS.
+
+## 4. Create a preset and export
+
+Open **Project > Export**, add an [export preset](https://docs.godotengine.org/en/stable/tutorials/export/exporting_projects.html) for your platform, and resolve missing-file warnings so all runtime artifacts are included. Click **Export Project** and choose a destination.
+
+## 5. Run the exported build
+
+Launch the exported executable to verify the same behavior as in the editor. Run it from a terminal if you need to inspect startup output. For a missing runtime warning, prepare the runtime for the preset's OS and architecture and export again.
 
 !!! warning "Preserve runtime files"
-    Do not wipe `user://` while the game is installed. It holds the extracted runtime JARs, Android DEX JARs, or native-image library. When clearing game data, delete only files your code created.
+    Do not wipe `user://` while the game is installed. It holds extracted runtime files. When clearing game data, delete only files your code created.
+
+Details: [Reference](../../reference/gradle-plugin/export-targets.md).
+
+Next: [Desktop](desktop.md).

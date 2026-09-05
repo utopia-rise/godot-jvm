@@ -2,7 +2,7 @@
 description: The godot { } packaging and coroutine switches, plus fastBuild and the registrar threshold for incremental builds.
 ---
 
-# Packaging and build tasks
+# Packaging options
 
 These options control library packaging, optional coroutine support, and incremental builds.
 
@@ -53,23 +53,7 @@ godot {
 
 Use these tasks and settings to control incremental builds.
 
-### `fastBuild`
-
-Builds fresh desktop JARs while reusing the last generated registrar artifacts instead of rescanning registered classes and regenerating `.gdj` files.
-
-Use this when you only changed implementation details that do not affect registration structure, for example method bodies.
-
-Example:
-
-```shell
-./gradlew fastBuild
-```
-
-Rules:
-
-- requires a previous successful full build so the generated registrar JAR already exists
-- still recompiles the project and rebuilds `main.jar`
-- should not be used after adding, removing, renaming, or structurally changing registered classes, functions, properties, or signals
+The [`fastBuild`](tasks.md#fastbuild) task reuses the previous registration artifacts.
 
 ### `registrarIncrementalFullBuildThreshold`
 

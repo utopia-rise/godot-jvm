@@ -1,37 +1,29 @@
 ---
-description: Running a Gradle build from the Godot editor, your IDE, or the command line, choosing between the debug and release targets, and what a rebuild reloads.
+description: Build your JVM code from IntelliJ IDEA or Godot before running the game.
 ---
 
 # Building your project
 
-Click **Run Gradle** in Godot's toolbar, use your IDE's Gradle panel, or run Gradle in a terminal at the project root.
+In IntelliJ IDEA, open **Run > Edit Configurations**, add a **Gradle** configuration for your project, and enter `build` as the task. Select that configuration and click **Run** after editing scripts.
 
-## Targets
-
-The build targets are `debug` (the default) and `release`. For a release build, run `buildRelease` or pass `-Prelease` to `build`.
-
-Example:
-
-/// tab | Windows
-```shell
-gradlew build -Prelease
-gradlew buildRelease
-```
-///
-
-/// tab | Unix
-```bash
-./gradlew build -Prelease
-./gradlew buildRelease
-```
-///
-
-Use `debug` during development for additional runtime checks. Use `release` for distribution; it omits those checks.
+In Godot, select **Build** in the toolbar drop-down and click **Run Gradle**. Run the scene with **Run Current Scene** (F6), or the project with **Run Project** (F5), following Godot's [scene workflow](https://docs.godotengine.org/en/stable/getting_started/step_by_step/nodes_and_scenes.html).
 
 ## What a rebuild reloads
 
-After a successful build, the editor reloads `godot-bootstrap.jar` and `main.jar` automatically.
+After a successful build, the editor reloads `godot-bootstrap.jar` and `main.jar`, making the compiled classes and their registration available. Restart a running game to use the new build.
 
-Choose **Fast Build** in the toolbar drop-down (or run `./gradlew fastBuild`) after a full build when only method bodies changed. [Packaging and build tasks](../reference/gradle-plugin/packaging-and-tasks.md) covers when a full build is required.
+Select **Fast Build** only after a successful full build and only when method bodies changed. Use **Build** after changing registered classes, members, signatures, annotations, or dependencies.
 
-GraalVM native images cannot reload code. Rebuild and restart to apply changes.
+Native images cannot reload code. Rebuild and restart to apply changes.
+
+## Release builds
+
+Select **Build Release** and click **Run Gradle** for distribution. **Build** selects debug runtime artifacts with additional checks; **Build Release** selects release artifacts.
+
+The equivalent IntelliJ Gradle tasks are `build`, `fastBuild`, and `buildRelease`. The `build` task also accepts `-Prelease`.
+
+To build automatically before playing, enable **Editor > Editor Settings > Kotlin Jvm > Editor > Build Gradle Before Start**. If the wrapper is outside the Godot project, set **Project > Project Settings > Kotlin Jvm > Gradle > Gradle Wrapper Dir** to its directory.
+
+Details: [Reference](../reference/gradle-plugin/tasks.md).
+
+Next: [Debugging](debugging.md).

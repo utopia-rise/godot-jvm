@@ -1,44 +1,55 @@
 ---
-description: Add JVM libraries to your project and publish your own Godot-JVM library with isLibrary.
+description: Add JVM dependencies or publish a library of reusable Godot scripts.
 ---
 
 # Libraries
 
-## Add a library
+## Add a dependency
 
-Add a library like any Gradle dependency in `build.gradle.kts`:
+Add the library's coordinates to `build.gradle.kts`, click **Load Gradle Changes** in IntelliJ IDEA, then build:
 
-```kotlin
+```kotlin title="build.gradle.kts"
 dependencies {
     implementation("some.library:some-artifact:<version>")
 }
 ```
 
-If the library contains registered Godot classes, the build also generates registration files under `gdj/<library>/`. Attach those files to nodes in the Godot editor.
+Replace the placeholder with the library's group, artifact, and version. If it supplies Godot scripts, attach the generated [registration files (.gdj)](../guide/registration-files.md).
 
-## Platform caveats
+Choose Android-compatible libraries for Android. Dependencies using reflection, JNI, or classpath resources may need [native-image configuration](export/graalvm-native-image.md).
 
-- **Android:** choose libraries that support Android's runtime.
-- **GraalVM native image:** libraries that use reflection, JNI, or classpath resources need native-image configuration.
+## Publish a Godot-JVM library
 
-[GraalVM native image](export/graalvm-native-image.md) explains the configuration files needed for those dependencies.
+Keep registration annotations on the library's classes and enable library mode in `build.gradle.kts`:
 
-## Publish your own library
+```kotlin title="build.gradle.kts"
+plugins {
+    `maven-publish`
+    // Keep the existing Godot-JVM plugin declaration.
+}
 
-A Godot-JVM library shares registered Godot classes with other Godot-JVM projects.
+group = "com.example"
+version = "1.0.0"
 
-If your library does not register Godot classes, publish it as a regular JVM library without the Godot-JVM plugin.
-
-To build a reusable Godot-JVM library, enable library mode:
-
-```kotlin
 godot {
     isLibrary.set(true)
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("library") {
+            from(components["java"])
+        }
+    }
+}
 ```
 
-Library mode keeps language compilation and Godot dependencies, and produces a JAR named after the Gradle project. It skips registration generation, `.gdj` files, and application packaging.
+Merge these blocks into the existing build file. Library mode produces a JAR named after the Gradle project and skips application packaging. The consuming project registers the library's scripts and generates their registration files (.gdj).
 
-Keep registration annotations on the library's classes. The consuming project scans them and generates the registrar code and `.gdj` files.
+In IntelliJ's Gradle panel, run **publishing > publishToMavenLocal**. To test it in another project, add `mavenLocal()` to that project's `repositories` block and an `implementation("com.example:<library-project-name>:1.0.0")` dependency. For remote distribution, configure your Maven repository in `publishing.repositories` and run **publishing > publish**.
 
-Publish the resulting JAR with your usual Maven publishing setup, or share the project locally through a Gradle composite build.
+A library with no Godot scripts can use ordinary JVM publishing without the Godot-JVM plugin.
+
+Details: [Reference](../reference/gradle-plugin/packaging-and-tasks.md).
+
+Next: [Export your game](export/index.md).

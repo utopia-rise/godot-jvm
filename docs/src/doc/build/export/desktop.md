@@ -1,36 +1,12 @@
 ---
-description: Generate an embedded JRE and provide runtimes matching each desktop export's OS and architecture.
+description: Bundle an embedded JRE matching the desktop export's operating system and architecture.
 ---
 
 # Desktop
 
-Create an embedded JRE from your project's root before exporting:
+Select **Generate JRE** in Godot's toolbar and click **Run Gradle**. It runs `generateEmbeddedJre` and creates `jvm/jre-<arch>-<os>` for the current machine. Reuse the embedded JRE between exports; regenerate it after changing the JDK or required modules.
 
-```shell
-./gradlew generateEmbeddedJre
-```
-
-The task builds a JRE for your current machine. To customize it, configure `GenerateEmbeddedJreTask` in `build.gradle.kts`:
-
-```kotlin
-import godot.gradle.tasks.GenerateEmbeddedJreTask
-
-tasks.withType<GenerateEmbeddedJreTask> {
-    javaHome = System.getenv("JAVA_HOME") ?: System.getProperty("java.home")
-    modules = arrayOf("java.base", "java.logging", "jdk.jdwp.agent")
-    arguments = arrayOf("--strip-debug", "--no-header-files", "--no-man-pages")
-}
-```
-
-Use `javaHome` to choose the JDK containing `jlink`, `modules` to select Java modules, and `arguments` for other `jlink` options. `outputDir` changes the destination.
-
-!!! warning
-    The task replaces `outputDir` before generating the JRE. Point it only at a generated runtime directory.
-
-Add optional modules as needed:
-
-- `jdk.jdwp.agent` for remote debugging.
-- `jdk.management.agent` for JMX.
+The default modules are `java.base` and `java.logging`. Include modules required by your dependencies; add `jdk.jdwp.agent` for remote debugging or `jdk.management.agent` for JMX. See [task customization](../../reference/gradle-plugin/tasks.md#generateembeddedjre) for the module list and JDK selection.
 
 ## Choose the bundled runtime
 
@@ -49,10 +25,16 @@ The export dialog warns when a bundled file is missing: the JRE directory for th
 
 The export copies the JRE matching the preset's OS and architecture from `jvm/jre-<arch>-<os>`. Supported directory values are `amd64` or `arm64` for the architecture, and `linux`, `windows`, or `macos` for the OS.
 
-For another target, run `jlink` with a JDK of that platform into the matching directory. For example, using a Linux amd64 JDK:
+For another target, generate an embedded JRE using a JDK for that platform and place it in the matching directory. For example, using a Linux amd64 JDK:
 
 ```shell
 jlink --add-modules java.base,java.logging --output jvm/jre-amd64-linux
 ```
 
 The export host does not determine which JRE is copied. A universal macOS export needs both `jre-arm64-macos` and `jre-amd64-macos`. On an arm64 Mac, an amd64 JDK running through Rosetta can generate the amd64 JRE.
+
+Open **Project > Export** and select your desktop [export preset](https://docs.godotengine.org/en/stable/tutorials/export/exporting_projects.html). Leave **Godot Jvm > Runtime** on **JVM**, resolve missing-file warnings, and click **Export Project**. Launch the exported executable to finish the desktop workflow.
+
+Details: [Reference](../../reference/gradle-plugin/tasks.md).
+
+Next: [Android (optional target)](android.md).
