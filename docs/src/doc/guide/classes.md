@@ -1,90 +1,44 @@
 ---
-description: Marking a class with @Script, choosing a unique Godot registration name, and how public no-argument constructors let Godot instantiate a class.
+description: Register a script class, choose a unique Godot name, and make it constructible from Godot.
 ---
 
 # Classes
 
-To expose a class written in Kotlin, Java, or Scala, it needs to extend `godot.api.Object` (or any of its subtype) and must be annotated with `@Script`.
+Extend `godot.api.Object` or one of its subclasses and add `@Script` to register a class:
 
 /// tab | Kotlin
 ```kotlin
 @Script
-class RotatingCube : Node3D() {
-    // ...
-}
+class Player : Node()
 ```
 ///
-
 /// tab | Java
 ```java
 @Script
-public class RotatingCube extends Node3D {
-    // ...
-}
+public class Player extends Node {}
 ```
 ///
-
 /// tab | Scala
 ```scala
 @Script
-class RotatingCube extends Node3D {
-  // ...
-}
+class Player extends Node
 ```
 ///
 
 ## Naming
 
-Classes need to be registered with a unique name as Godot does not support namespaces (or packages in this case) for script classes.
+Each script needs a unique Godot name. Godot does not see packages, so two classes named `Player` in different packages clash. Use `@Script(className = "GamePlayer")` to give one a different registered name.
 
-By default, classes are registered with their simple Kotlin class name. This is enough in many cases, but it can lead to conflicts if different packages contain classes with the same name. For example:
+Keep JVM class names distinct from GDScript and C# class names too; build checks cover JVM classes only.
 
-- `com.package.a.MyClass`
-- `com.package.b.MyClass`
-
-Both would be registered as `MyClass`.
-
-So you are responsible for making sure that classes have a unique name.
-We do however provide you with some assistance:
-
-- We have compile time checks in place which should let the *build fail* if classes would end up having the same name.
-- The `@Script` annotation lets you define a custom registration name: `@Script("CustomRegistrationName")`.
-- You can configure how default registration names are computed:
-
-```kotlin
-import godot.registrar.generator.RegisteredNameMode
-
-godot {
-    registrationNameMode.set(RegisteredNameMode.FQ_NAME)
-}
-```
-
-The available modes are:
-
-- `RegisteredNameMode.SIMPLE_NAME`: default. Uses the custom name if present, otherwise the Kotlin class name.
-- `RegisteredNameMode.FQ_NAME`: uses the custom name if present, otherwise the fully qualified class name.
-- `RegisteredNameMode.PROJECT_PREFIX`: uses the custom name if present, otherwise the Kotlin class name. Classes from external projects are prefixed with their source project name.
-
-!!! warning "Class names from other languages"
-    Even with all these checks and helpers in place, we cannot check the names of classes from other languages like GDScript or C#. It's your responsibility to make sure there are no naming conflicts. Installing our IntelliJ plugin is also recommended, since it shows duplicated registered class names in the editor as an error.
+To change how default names are generated, use `registrationNameMode`. [Registration output](../reference/gradle-plugin/registration.md) lists its modes.
 
 ## Constructors
 
-A script class does not need a default constructor to be registered. If it has
-a public constructor with no arguments, Godot registers that constructor for
-you. Godot does not register constructors with arguments, although you can use
-them normally from Kotlin, Java, or Scala.
+Godot registers a public no-argument constructor when one exists. Constructors with arguments remain available to JVM code, but Godot cannot call them. A class without a public no-argument constructor can still be registered as a base for a concrete script.
 
-### Instantiate script classes in GDScript
-
-From GDScript, you can create an instance only when the registered JVM class
-has a public constructor with no arguments:
+With a public no-argument constructor, you can create the class from GDScript:
 
 ```gdscript
-var instance := YourJvmClass.new()
+var player := Player.new()
 ```
-
-Godot cannot call constructors with arguments. If a script has no public
-no-argument constructor, it is still registered, but Godot cannot instantiate
-it as a script. A concrete subclass with a public no-argument constructor can
-be instantiated normally.

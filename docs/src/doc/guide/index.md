@@ -1,35 +1,28 @@
 ---
-description: How this section is organized — exposing your code to Godot, calling into the Godot API from your code, and the runtime behaviour to know about.
+description: How this section is organized: registering your code to Godot, calling into the Godot API from your code, and the runtime behavior to know about.
 ---
 
 # Write your game
 
-This section covers day-to-day work writing a Godot-JVM game once your
-project is set up. It is split into three parts: **Exposing your code to
-Godot** covers making your Kotlin, Java, or Scala classes something Godot can
-see and call — registration, classes, properties, enums, functions, signals and callables,
-abstract classes, and attaching scripts. **Calling into Godot** covers using the Godot API from
-your own code — Godot's types and logging. **Runtime behaviour**
-covers how your code behaves once it is running — object lifetime and
-coroutines.
+With your project running, you can start building its behavior. These chapters first explain how to register classes and members to Godot, then how to use the Godot API and manage object lifetimes. Read them in order. The examples use the default settings; other registration modes are covered in the reference.
 
-## Exposing your code to Godot
+## Registering your code to Godot
 
 - [Registering your code](registration.md)
 - [Classes](classes.md)
-- [Properties](properties.md)
-- [Enums and bitfields](enums-and-bitfields.md)
-- [Functions](functions.md)
+- [Properties and the Inspector](properties.md)
+- [Enums, bitfields and flags](enums-and-bitfields.md)
+- [Functions and notifications](functions.md)
 - [Signals and callables](signals-and-callables.md)
 - [Abstract classes](abstract-classes.md)
 - [Attaching scripts and .gdj files](attaching-scripts.md)
 
 ## Calling into Godot
 
-- [Godot types](godot-types.md)
+- [Working with Godot types](godot-types.md)
 - [Logging and errors](logging-and-errors.md)
 
-## Runtime behaviour
+## Runtime behavior
 
-- [Object lifetime](object-lifetime.md)
+- [Object lifetime and cleanup](object-lifetime.md)
 - [Coroutines](coroutines.md)

@@ -1,131 +1,96 @@
 ---
-description: Defining abstract Godot base classes in Kotlin, Java and Scala, which members they can register, and why Godot never sees the abstract type itself.
+description: Share registered members through an abstract Character class and implement it in an Enemy script.
 ---
 
 # Abstract classes
 
-You can define and derive from any abstract class you define, as long as any of your superclasses is a Godot class.
-
-This allows you to define default functions for your inheriting classes and override them in some, but not all subclasses if you want.
-
-You can define an abstract class and register its members the same way as you do for normal classes.
-
-Under the hood, we only register your normal classes, and let them register all members your abstract class defines.
-
-!!! info
-    For this reason, the `@Script` annotation is optional for abstract classes.
-
-!!! warning
-    As in Kotlin, Java, and Scala, you cannot instantiate abstract classes directly from any other scripting language like GDScript! In fact, godot does not even know (or care) that your abstract class exists.
-
-## Example
-
-Abstract class definition:
+Use an abstract class to share members between scripts. `@Script` is optional on abstract classes, and Godot never instantiates them. Concrete subclasses inherit their registered members.
 
 /// tab | Kotlin
 ```kotlin
-// register class annotation is optional for abstract classes
-abstract class AbstractClassInheritanceParent: Node() {
-
+abstract class Character : Node() {
     @Export
-    var registeredExportedPropertyInAbstractClass = false
+    var health: Int = 100
 
-    @Emit("message")
-    val signalInAbstractClass by signal1<String>()
+    @Emit("current", "max")
+    val healthChanged by signal2<Int, Int>()
 
     @Register
-    fun functionInAbstractClassWithDefaultImplementation() {
-        // some implementation
+    fun heal(amount: Int) {
+        health = (health + amount).coerceAtMost(100)
+        healthChanged.emit(health, 100)
     }
 
     @Register
-    abstract fun abstractFunction()
+    abstract fun attack()
+}
+
+@Script
+class Enemy : Character() {
+    override fun attack() {
+        GD.print("Enemy attacks")
+    }
 }
 ```
 ///
-
 /// tab | Java
 ```java
-// register class annotation is optional for abstract classes
-public abstract class AbstractClassInheritanceParent extends Node {
-
+public abstract class Character extends Node {
     @Export
-    public boolean registeredExportedPropertyInAbstractClass = false;
+    public int health = 100;
 
-    @Emit(parameters = {"message"})
-    public final Signal1<String> signalInAbstractClass =
-            Signal1.create(this, "signalInAbstractClass");
+    @Emit(parameters = {"current", "max"})
+    public final Signal2<Integer, Integer> healthChanged =
+        Signal2.create(this, "healthChanged");
 
     @Register
-    public void functionInAbstractClassWithDefaultImplementation() {
-        // some implementation
+    public void heal(int amount) {
+        health = Math.min(health + amount, 100);
+        healthChanged.emit(health, 100);
     }
 
     @Register
-    public abstract void abstractFunction();
+    public abstract void attack();
 }
-```
-///
 
-/// tab | Scala
-```scala
-// register class annotation is optional for abstract classes
-abstract class AbstractClassInheritanceParent extends Node {
-
-  @Export
-  var registeredExportedPropertyInAbstractClass: Boolean = false
-
-  @Emit(parameters = Array("message"))
-  val signalInAbstractClass: Signal1[String] =
-    Signal1.create(this, "signalInAbstractClass")
-
-  @Register
-  def functionInAbstractClassWithDefaultImplementation(): Unit = {
-    // some implementation
-  }
-
-  @Register
-  def abstractFunction(): Unit
-}
-```
-///
-
-Child class definition:
-
-/// tab | Kotlin
-```kotlin
 @Script
-class AbstractClassInheritanceChild: AbstractClassInheritanceParent() {
-    override fun abstractFunction() {
-        // some implementation
-    }
-}
-```
-///
-
-/// tab | Java
-```java
-@Script
-public class AbstractClassInheritanceChild extends AbstractClassInheritanceParent {
+public class Enemy extends Character {
     @Override
-    public void abstractFunction() {
-        // some implementation
+    public void attack() {
+        GD.print("Enemy attacks");
     }
 }
 ```
 ///
-
 /// tab | Scala
 ```scala
+abstract class Character extends Node {
+  @Export
+  var health: Int = 100
+
+  @Emit(parameters = Array("current", "max"))
+  val healthChanged: Signal2[Integer, Integer] =
+    Signal2.create(this, "healthChanged")
+
+  @Register
+  def heal(amount: Int): Unit = {
+    health = Math.min(health + amount, 100)
+    healthChanged.emit(health, 100)
+  }
+
+  @Register
+  def attack(): Unit
+}
+
 @Script
-class AbstractClassInheritanceChild extends AbstractClassInheritanceParent {
-  override def abstractFunction(): Unit = {
-    // some implementation
+class Enemy extends Character {
+  override def attack(): Unit = {
+    GD.print("Enemy attacks")
   }
 }
 ```
 ///
 
-!!! warning "Overridden members"
-    Overriding a parent member changes its behavior.
-    If the child should also be exposed differently, add the annotation again on the child declaration.
+Put the classes in separate source files and attach `Enemy` to a node.
+
+An override without annotations keeps the parent declaration's registration, and Godot calls the override. To change the registered settings, such as an RPC configuration, annotate the override and keep its parameter list: the annotated override replaces the parent's entry.

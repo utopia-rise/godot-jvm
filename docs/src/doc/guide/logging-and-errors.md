@@ -1,27 +1,51 @@
 ---
-description: Printing to both the CLI and the Godot editor output panel with the GD singleton, instead of the JVM's own print functions.
+description: Print messages and report errors or warnings through Godot's GD singleton.
 ---
 
 # Logging and errors
 
-If you want logs to appear both in CLI and in the Godot editor you will have to use the print functions inside the `GD` singleton like:
+Use `GD` to send messages to both the terminal and Godot's Output panel:
 
 /// tab | Kotlin
 ```kotlin
-GD.print("Hello There!")
+GD.print("Player is ready")
 ```
 ///
 
 /// tab | Java
 ```java
-GD.print("Hello There!");
+GD.print("Player is ready");
 ```
 ///
 
 /// tab | Scala
 ```scala
-GD.print("Hello There!")
+GD.print("Player is ready")
 ```
 ///
 
-The JVM's own print functions — Kotlin's and Scala's `println`, Java's `System.out.println` — only write to the CLI. They never appear in the Godot editor's output panel.
+Kotlin and Scala's `println` and Java's `System.out.println` write to standard output only. Use `GD.print` when you also want to see the message in the editor.
+
+Use `GD.printErr` for error output, or `GD.pushError` and `GD.pushWarning` to report a diagnostic to Godot's debugger:
+
+/// tab | Kotlin
+```kotlin
+GD.printErr("Could not read the save file")
+GD.pushError("Player spawn point is missing")
+GD.pushWarning("Using the default player name")
+```
+///
+/// tab | Java
+```java
+GD.printErr("Could not read the save file");
+GD.pushError("Player spawn point is missing");
+GD.pushWarning("Using the default player name");
+```
+///
+/// tab | Scala
+```scala
+GD.printErr("Could not read the save file")
+GD.pushError("Player spawn point is missing")
+GD.pushWarning("Using the default player name")
+```
+///

@@ -4,9 +4,9 @@ description: Instantiating Godot types and singletons, checking instance types, 
 
 # Working with Godot types
 
-## Instance types and singletons
+## Creating Godot objects
 
-Creating a new instance of a Godot type can be done like any JVM object.
+Construct Godot types as you would other JVM objects:
 
 /// tab | Kotlin
 ```kotlin
@@ -29,7 +29,7 @@ val vec = new Vector3()
 ```
 ///
 
-Godot's singletons are exposed as static access points.
+Access Godot's singletons through static methods.
 
 /// tab | Kotlin
 ```kotlin
@@ -49,16 +49,15 @@ PhysicsServer2D.areaGetTransform(area)
 ```
 ///
 
-## Instance checks
+## Checking a node's type
 
-Checking if an object is an instance of a particular type can be done via the `is` operator.
+Use your language's type-checking syntax to test an object's type:
 
 /// tab | Kotlin
 ```kotlin
 override fun _ready() {
     val parent = getParent()
     if (parent is CollisionShape3D) {
-        // smart cast works!
         parent.setShape(BoxShape3D())
     } else {
         throw AssertionError("Unexpected parent!")
@@ -96,21 +95,20 @@ override def _ready(): Unit = {
 
 This also works for any type you define.
 
-!!! info
-    If you are sure that an object is always an instance of some type, then you can take advantage of Kotlin's [contracts](https://kotlinlang.org/docs/reference/whatsnew13.html#contracts) feature. This allows you to avoid having nested `if`s.
+!!! tip
+    In Kotlin, `require` can establish a type check for the code that follows. It throws if the check fails:
 
     ```kotlin
     override fun _ready() {
         val parent = getParent()
         require(parent is CollisionShape3D)
-        // Smart Cast works here as well!
         parent.setShape(BoxShape3D())
     }
     ```
 
-## Core types
+## Value types are copies
 
-Godot's built-in types are passed by value (except for `Dictionary` and `VariantArray` - more on this later), so the following snippet won't work as expected.
+Value types such as `Vector3` are copied when read from Godot properties. This changes a copy and does nothing:
 
 /// tab | Kotlin
 ```kotlin
@@ -133,7 +131,7 @@ node3D.getRotation.setY(node3D.getRotation.getY + 10f)
 ```
 ///
 
-You are *actually mutating a copy* of the `rotation` property, not a reference to it. To get the desired behaviour you have to re-assign the copy back.
+To update `rotation`, change the copy and assign it back to the property:
 
 /// tab | Kotlin
 ```kotlin
@@ -159,7 +157,7 @@ node3D.setRotation(rotation)
 ```
 ///
 
-This approach introduces a lot of boilerplate, so this binding provides a concise way of achieving the same behaviour. The mutating helpers are Kotlin-only, because they rely on Kotlin's trailing-lambda syntax; in Java and Scala, keep using the read-modify-write form shown above.
+Kotlin's mutation helpers combine these steps. In Java and Scala, use the read-modify-write form above.
 
 ```kotlin
 node3D.rotationMutate {
@@ -167,11 +165,11 @@ node3D.rotationMutate {
 }
 ```
 
-The snippet above is functionally equivalent to the previous one.
+The helper writes the changed value back automatically.
 
-## Collection types
+## Collections share storage
 
-While `VariantArray` and `Dictionary` are passed by reference, the value returned by the retrieval methods (`VariantArray.get(...)` and `Dictionary.get(...)`) are not.
+`VariantArray` and `Dictionary` share their contents with Godot. Reading a value-type element, such as a `Vector3`, still returns a copy:
 
 /// tab | Kotlin
 ```kotlin
@@ -194,7 +192,7 @@ dictionary.get("foo").setY(dictionary.get("foo").getY + 5f)
 ```
 ///
 
-To get the desired behaviour, you can re-assign the copy back. In Kotlin, `VariantArray.mutate` and `Dictionary.mutate` do that for you; the Java and Scala tabs below show the equivalent manual read-modify-write.
+Write the changed element back into the collection. Kotlin provides `mutate` helpers; Java and Scala use `get` and `set`:
 
 /// tab | Kotlin
 ```kotlin
@@ -234,54 +232,53 @@ dictionary.set("foo", dictionaryValue)
 
 ## StringName and NodePath
 
-Several Godot functions take `StringName` or `NodePath` as a parameter.
-It's often more convenient to directly use a String and convert it.
-
-This kind of operation can be costly so we provide extension functions which cache the result of the conversion for later calls:
+When a Godot function expects a `StringName` or `NodePath`, you can convert a string with these helpers. The cached versions reuse the converted value on later calls:
 
 /// tab | Kotlin
 ```kotlin
-    val stringName = "myString".asCachedStringName() // Cache the string for faster future calls.
-    val nodePath = "myNode/myChildNode".asCachedNodePath() // Cache the string for faster future calls.
-    val snakeCaseStringName = "myString".toGodotName() // Convert the string to snake_case and cache it for faster future calls.
+val stringName = "myString".asCachedStringName()
+val nodePath = "myNode/myChildNode".asCachedNodePath()
+val snakeCaseStringName = "myString".toGodotName()
 ```
 ///
 
 /// tab | Java
 ```java
-    StringName stringName = StringNames.asCachedStringName("myString");
-    NodePath nodePath = NodePaths.asCachedNodePath("myNode/myChildNode");
-    StringName snakeCaseStringName = StringNames.toGodotName("myString");
+StringName stringName = StringNames.asCachedStringName("myString");
+NodePath nodePath = NodePaths.asCachedNodePath("myNode/myChildNode");
+StringName snakeCaseStringName = StringNames.toGodotName("myString");
 ```
 ///
 
 /// tab | Scala
 ```scala
-    val stringName = StringNames.asCachedStringName("myString")
-    val nodePath = NodePaths.asCachedNodePath("myNode/myChildNode")
-    val snakeCaseStringName = StringNames.toGodotName("myString")
+val stringName = StringNames.asCachedStringName("myString")
+val nodePath = NodePaths.asCachedNodePath("myNode/myChildNode")
+val snakeCaseStringName = StringNames.toGodotName("myString")
 ```
 ///
 
-You can also use the non-cached version of them if you simply want ease of conversion:
+`toGodotName()` also converts the name to `snake_case`.
+
+For a one-off conversion, use the non-cached helpers:
 
 /// tab | Kotlin
 ```kotlin
-    val stringName = "myString".asStringName()
-    val nodePath = "myNode/myChildNode".asNodePath()
+val stringName = "myString".asStringName()
+val nodePath = "myNode/myChildNode".asNodePath()
 ```
 ///
 
 /// tab | Java
 ```java
-    StringName stringName = StringNames.asStringName("myString");
-    NodePath nodePath = NodePaths.asNodePath("myNode/myChildNode");
+StringName stringName = StringNames.asStringName("myString");
+NodePath nodePath = NodePaths.asNodePath("myNode/myChildNode");
 ```
 ///
 
 /// tab | Scala
 ```scala
-    val stringName = StringNames.asStringName("myString")
-    val nodePath = NodePaths.asNodePath("myNode/myChildNode")
+val stringName = StringNames.asStringName("myString")
+val nodePath = NodePaths.asNodePath("myNode/myChildNode")
 ```
 ///

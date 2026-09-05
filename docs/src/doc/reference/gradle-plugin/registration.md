@@ -4,7 +4,7 @@ description: The godot { } properties that select the annotation-processing mode
 
 # Registration output
 
-These settings control how classes and members are selected for registration, and where the plugin looks for the Godot project and writes `.gdj` registration files for external dependencies.
+Use these settings to select registered declarations, locate the Godot project, and control dependency registration files.
 
 ## Registration selection
 
@@ -30,16 +30,11 @@ The available modes are:
 - `Automatic`: all compatible declarations in Godot classes are selected;
   annotations remain useful as configuration.
 
-For the complete selection rules, see the
-[registration reference](../registration.md). If you use the IntelliJ
-plugin, select the same mode under
-**Settings | Godot-JVM | Annotation processing mode** so its
-inspections and highlighting match the Gradle build — see the
-[IntelliJ IDEA plugin](../intellij-plugin.md) page.
+In IntelliJ IDEA, choose the same mode under **Settings > Godot-JVM > Annotation processing mode**. Gradle determines what is registered; the IDE setting keeps inspections consistent with the build.
 
 ## Godot project layout and registration output
 
-These settings control where the plugin looks for the Godot project and where it writes `.gdj` registration files for external dependencies.
+Project classes use source files. These settings locate the Godot project and control generated `.gdj` files for dependency classes.
 
 ### `godotProjectDirectory`
 
@@ -99,11 +94,11 @@ When enabled, the plugin:
 
 ### `registrationFilesLayoutMode`
 
-Controls how `.gdj` files are laid out inside each project directory.
+Controls how `.gdj` files are laid out inside each library's directory under `registrationFilesDirectory`.
 
 Values:
 
-- `RegistrationFileLayoutMode.FLAT`: write `.gdj` files directly into the project directory
+- `RegistrationFileLayoutMode.FLAT`: write `.gdj` files directly into the library's directory
 - `RegistrationFileLayoutMode.HIERARCHICAL`: mirror the package hierarchy before the `.gdj` file
 
 Default:

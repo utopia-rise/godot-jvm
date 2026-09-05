@@ -4,71 +4,41 @@ description: Registering ordinary functions with @Register, overriding Godot vir
 
 # Functions and notifications
 
-Any Kotlin, Java, or Scala function can be registered as long as its
-parameters and return type can be converted to a `Variant`. Annotate ordinary
-project functions with `@Register`. Compatible overrides of Godot functions
-are recognized from the base class.
+Add `@Register` to a public, non-generic function that Godot needs to call. Its parameters and return value must convert to Godot `Variant` values. Overrides of Godot callbacks are recognized automatically.
+
+Add this method to `Player` alongside its `health` property and `healthChanged` signal:
 
 /// tab | Kotlin
 ```kotlin
-import godot.global.GD
-
-@Script
-class RotatingCube : Node3D() {
-    @Register
-    fun announceReady() {
-        GD.print("I am ready!")
-    }
-
-    override fun _ready() {
-        announceReady()
-    }
+@Register
+fun heal(amount: Int) {
+    health = (health + amount).coerceAtMost(100)
+    healthChanged.emit(health, 100)
 }
 ```
 ///
-
 /// tab | Java
 ```java
-import godot.global.GD;
-
-@Script
-public class RotatingCube extends Node3D {
-    @Register
-    public void announceReady() {
-        GD.print("I am ready!");
-    }
-
-    @Override
-    public void _ready() {
-        announceReady();
-    }
+@Register
+public void heal(int amount) {
+    health = Math.min(health + amount, 100);
+    healthChanged.emit(health, 100);
 }
 ```
 ///
-
 /// tab | Scala
 ```scala
-import godot.global.GD
-
-@Script
-class RotatingCube extends Node3D {
-  @Register
-  def announceReady(): Unit = {
-    GD.print("I am ready!")
-  }
-
-  override def _ready(): Unit = {
-    announceReady()
-  }
+@Register
+def heal(amount: Int): Unit = {
+  health = Math.min(health + amount, 100)
+  healthChanged.emit(health, 100)
 }
 ```
 ///
 
 ## Naming
 
-Function names should follow the usual style of the language you use. For consistency with Godot's style,
-your functions are actually registered as `snake_case`.
-Therefore, a function called `doSomething()` is usable in GDScript as `do_something()`.
+Write function names in your language's usual style. Godot-JVM registers `heal()` as `heal()` and `takeDamage()` as `take_damage()` in GDScript.
 
 ## Virtual functions and Godot overrides
 
@@ -105,16 +75,10 @@ override def _process(delta: Double): Unit = {
 
 ## Notifications
 
-Register notification handlers with `@Notification`.
-
-Unlike GDScript and C++, you do not override
-[_notification](https://docs.godotengine.org/en/stable/classes/class_object.html#class-object-private-method-notification)
-directly. Instead, each handled notification is a regular zero-argument method annotated with the notification
-number it handles.
+Godot exposes notifications through the overridable `_notification` method. Godot-JVM instead uses custom, zero-argument methods annotated with `@Notification` and the notification number they handle.
 
 If several methods in the class hierarchy handle the same notification, they are all called. Normal notification
-delivery follows Godot's inheritance order, from parent to child. Reversed notification delivery calls them from
-child to parent.
+delivery follows Godot's inheritance order, from parent to child. For teardown notifications such as `NOTIFICATION_EXIT_TREE`, Godot reverses the order: the most-derived class's handler runs first.
 
 /// tab | Kotlin
 ```kotlin
@@ -152,28 +116,20 @@ def onReadyNotification(): Unit = {
 ```
 ///
 
-Notification handlers are not registered as callable Godot methods. In explicit and inferred registration modes,
-`@Notification` is enough to select the method. In automatic mode, a method only becomes a notification handler when
-the annotation is present.
+## Argument limit
 
-## Arguments count
-
-Registered functions are limited to `16` arguments. If you want to pass more than 16 parameters in
-a function, you need to wrap them in a container (like a custom container class or a `VariantArray`
-or `Dictionary`).
+Registered functions accept at most 16 arguments. Group additional values in a Godot-compatible container, such as a `VariantArray` or `Dictionary`.
 
 ## Remote procedure calls
 
-`@Rpc` selects a function for multiplayer replication in the same way `@Register` selects an ordinary function, while
-also configuring its networking behavior. Documenting `@Rpc`'s full set of options is out of scope for this page, but
-the annotation is used the same way as `@Register`:
+Use `@Rpc` to register a remote procedure call and configure its networking behavior. In the default registration mode, it also registers the function:
 
 /// tab | Kotlin
 ```kotlin
 import godot.annotation.Rpc
 
 @Rpc
-fun setHealth(value: Int) {
+fun synchronizeHealth(value: Int) {
     health = value
 }
 ```
@@ -184,7 +140,7 @@ fun setHealth(value: Int) {
 import godot.annotation.Rpc;
 
 @Rpc
-public void setHealth(int value) {
+public void synchronizeHealth(int value) {
     health = value;
 }
 ```
@@ -195,10 +151,8 @@ public void setHealth(int value) {
 import godot.annotation.Rpc
 
 @Rpc
-def setHealth(value: Int): Unit = {
+def synchronizeHealth(value: Int): Unit = {
   health = value
 }
 ```
 ///
-
-See the [registration reference](../reference/registration.md) for how function selection changes between modes.

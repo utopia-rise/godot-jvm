@@ -1,65 +1,35 @@
 ---
-description: Building and exporting a GraalVM native image instead of an embedded JVM, including reflection, JNI, and resource configuration, and export feature flags.
+description: Compile JVM code into a GraalVM native image, configure reflection and JNI, and select it for desktop exports.
 ---
 
 # GraalVM native image
 
-!!! danger
-    If you intend to use GraalVM native image for your project, it should be considered from the beginning of your project and the configurations tested regularly! Adding GraalVM native image after the fact can be very hard to do! 
+Compile your JVM code into a native library with [GraalVM native image](https://www.graalvm.org/reference-manual/native-image/). Install GraalVM and its `native-image` tool, then set `GRAALVM_HOME` to the installation directory.
 
-!!! warning
-    Reloading code changes in the editor is not possible with native image, as it would require reloading the JVM itself.
+Test native-image builds early. Dependencies that use reflection, JNI, or classpath resources may need extra configuration. Native images cannot reload code in the editor; rebuild and restart to apply changes.
 
-!!! warning
-    GraalVM native image is an advanced feature and requires a lot of work to support, especially if you rely on many third-party libraries.
+On Windows, also set `VC_VARS_PATH` to Visual Studio's `vcvars64.bat` file so the build can initialize the compiler tools.
 
-On desktop platform, you can choose to build a [GraalVM native image](https://www.graalvm.org/reference-manual/native-image/). You first need to install GraalVM and its native-image tool. Then, set the `GRAALVM_HOME` environment variable to point to GraalVM's home folder.
+## Configure the build
 
-On Windows, also set the `VC_VARS_PATH` environment variable to point to the vcvars bat file. This is mandatory so that Visual Studio's build tools can be initialized. (Example: `C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat`)
+Use GraalVM's [tracing agent](https://www.graalvm.org/reference-manual/native-image/Agent/) to generate configuration for reflection, JNI, and resources. Run the agent against a JVM build, then create a `graal/` directory at your project root and put the JNI configuration there; `additionalGraalJniConfigurationFiles` is resolved relative to that directory. Reflection and resource files are passed to native-image as written, so give absolute paths (the example uses `file(...).absolutePath`).
 
-In order to build a native image, configure the Gradle plugin like this and then invoke `buildGraalNativeImage` or `buildGraalNativeImageRelease`:
-```kotlin
-godot {
-    graalVmHomeDirectory.set(File(System.getenv("GRAALVM_HOME")))
-    windowsDeveloperVcVarsPath.set(File(System.getenv("VC_VARS_PATH")))
-}
-```
-
-In order to use the generated native image, you can pass the `--java-vm-type=graal` argument to the engine, or simply change `godot_jvm_configuration.json` to set `vm_type` to `graal_native_image`.
-
-## Reflection, libraries and JNI with native image
-
-GraalVM native image performs AOT compilation. In order to be able to use reflection and JNI, you need to provide an additional configuration file.
-This also applies to any third-party library you use that relies on reflection. You can find documentation on how to easily generate these configuration files [here](https://www.graalvm.org/reference-manual/native-image/Agent/).
-
-Add the generated JSON files to the `graal` folder of your project (it is created the first time you build a GraalVM native image). Then add the `additionalGraalJniConfigurationFiles` and `additionalGraalReflectionConfigurationFiles` parameters like this:
+This complete example includes path overrides and additional configuration files. The path settings are only needed to override `GRAALVM_HOME` and `VC_VARS_PATH`; omit configuration entries your project does not need.
 
 ```kotlin
 godot {
-    graalVmHomeDirectory.set(File(System.getenv("GRAALVM_HOME")))
-    windowsDeveloperVcVarsPath.set(File(System.getenv("VC_VARS_PATH")))
-    
-    additionalGraalJniConfigurationFiles.set(arrayOf("my-jni-configuration-file.json", "another-conf.json"))
-    additionalGraalReflectionConfigurationFiles.set(arrayOf("my-reflection-configuration-file.json", "another-conf.json"))
+    graalVmHomeDirectory.set("/path/to/graalvm")
+    windowsDeveloperVcVarsPath.set("C:/path/to/VC/Auxiliary/Build/vcvars64.bat")
+    additionalGraalJniConfigurationFiles.set(arrayOf("jni-config.json"))
+    additionalGraalReflectionConfigurationFiles.set(arrayOf(file("graal/reflect-config.json").absolutePath))
+    additionalGraalResourceConfigurationFiles.set(arrayOf(file("graal/resource-config.json").absolutePath))
 }
 ```
 
-The same applies to resource files that should be added (basically any files in the `res` folder of your project or a dependency of it):
-
-```kotlin
-godot {
-    graalVmHomeDirectory.set(File(System.getenv("GRAALVM_HOME")))
-    windowsDeveloperVcVarsPath.set(File(System.getenv("VC_VARS_PATH")))
-    
-    additionalGraalJniConfigurationFiles.set(arrayOf("my-jni-configuration-file.json", "another-conf.json"))
-    additionalGraalReflectionConfigurationFiles.set(arrayOf("my-reflection-configuration-file.json", "another-conf.json"))
-    additionalGraalResourceConfigurationFiles.set(arrayOf("my-resource-configuration-file.json", "another-conf.json"))
-}
-```
+Run `buildGraalNativeImage` or `buildGraalNativeImageRelease`. To run the result in the editor, pass `--jvm-vm-type=graal_native_image` or set `vm_type` to `graal_native_image` in `godot_jvm_configuration.json`.
 
 ## Exporting with a native image
 
-The `main.jar` and `godot-bootstrap.jar` are compiled into a single `usercode` shared library, which is copied into `pck` during the export process. Similar to the regular export versions, the `usercode` shared library is copied to the `user://` dir. Don't forget to delete it when creating an uninstaller.
+`main.jar` and `godot-bootstrap.jar` are compiled into one `usercode` shared library. Desktop exports package it in the PCK and extract it to `user://` at runtime. Include the extracted library in your uninstaller's cleanup.
 
-On desktop, you can add the feature `export-graal-native-image` to make your game run on GraalVM native image.
-You can also use `export-all-jvm` to export both the JVM and the Native Image. By default, your export will use the same mode as the one used by the editor that exported it, but you can easily override this by using a command-line argument when launching.
+Add the desktop export feature `export-graal-native-image` to use the native image, or `export-all-jvm` to include both the JVM and native-image builds. Without an override, the export uses the editor's runtime mode. A launch argument can select a different mode.

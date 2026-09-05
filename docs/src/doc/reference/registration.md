@@ -4,7 +4,7 @@ description: Exact registration selection rules for classes, properties, functio
 
 # Registration reference
 
-[Registering your code](../guide/registration.md) covers the normal workflow. This page is the reference for the selection rules that apply when a declaration does not behave as expected or when you intentionally choose a non-default mode.
+Registration mode determines which compatible classes and members Godot-JVM exposes. The tables below separate declaration selection from the requirements that apply in every mode.
 
 ## Modes
 
@@ -12,27 +12,27 @@ description: Exact registration selection rules for classes, properties, functio
 |---|---|---|
 | `Inferred` | Direct and implied annotations, compatible Godot overrides, and `SignalN` members | Almost every project |
 | `Explicit` | Direct selection annotations only | Every Godot-facing declaration should be marked deliberately |
-| `Automatic` | Compatible declarations on Godot classes | Public compatible members should be exposed by default |
+| `Automatic` | Public compatible declarations on public Godot subclasses | Public compatible members should be exposed by default |
 
-`Inferred` is the default. It is the mode used by the Guide and its examples.
+`Inferred` is the default.
 
-Choose a non-default mode with `annotationProcessingMode`; see [Registration output](gradle-plugin/registration.md) only for that configuration setting and `.gdj` output options.
+Set the mode with `annotationProcessingMode` in the `godot { ... }` block. [Registration output](gradle-plugin/registration.md) gives the configuration syntax and file-output options.
 
 ## What selects each declaration
 
 | Declaration | Inferred | Explicit | Automatic |
 |---|---|---|---|
-| Script class | `@Script` | Direct `@Script` | Compatible Godot subclass |
+| Script class | `@Script` | Direct `@Script` | Public compatible Godot subclass |
 | Property | `@Visible`, `@Export`, or a property hint | Direct `@Visible`; add `@Export` to show it in the Inspector | Compatible public property |
-| Ordinary function | `@Register` or `@Rpc` | Direct `@Register` or `@Rpc` | Compatible public function |
-| Godot override | Matching override is recognized | Matching override is recognized | Matching override is recognized |
+| Ordinary function | `@Register` or `@Rpc` | Direct `@Register`; add `@Rpc` for RPC configuration | Compatible public function |
+| Godot override | Matching override is recognized | Direct `@Register` | Matching override is recognized |
 | Signal | `SignalN` member; `@Emit` optionally names arguments | Direct `@Emit` on the `SignalN` member | Compatible `SignalN` member |
 | Notification handler | `@Notification(...)` | Direct `@Notification(...)` | `@Notification(...)` |
 
 In Explicit mode, annotations do not imply one another. An Inspector property therefore needs both `@Visible` and `@Export`; a property hint only chooses the Inspector control.
 
 !!! note
-    In Automatic mode, the source filename must match the registered class name when a file has no `@Script` annotation. Use `@Script` when that rule does not fit the file.
+    Without `@Script`, a source filename must match the class's simple JVM name. This matters in Automatic mode, which can select classes without the annotation.
 
 ## Requirements shared by every mode
 
@@ -42,10 +42,4 @@ In Explicit mode, annotations do not imply one another. An Inspector property th
 - A script can be registered without a public no-argument constructor, but Godot can instantiate it only when one exists.
 - Godot-facing names are converted to `snake_case` unless a particular API documents otherwise.
 
-Build again after adding, removing, renaming, or changing a script, exposed property, signal, or callable Godot function. Changing only a method body does not require a registration change.
-
-## Related reference
-
-- [Annotations](annotations.md) for the annotation lookup table
-- [Property hints](property-hints.md) for Inspector controls and their arguments
-- [Build and registration troubleshooting](../troubleshooting/build-and-registration.md) when a declaration is missing after a build
+A normal build updates registration and compiled code together. For method-body changes alone, `fastBuild` can reuse the existing registration output.

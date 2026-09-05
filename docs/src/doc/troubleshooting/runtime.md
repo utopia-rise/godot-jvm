@@ -1,24 +1,19 @@
 ---
-description: Startup and runtime symptoms for Godot-JVM, currently covering the JVM garbage collector, PATH vs JAVA_HOME precedence, and macOS JAVA_HOME visibility.
+description: Diagnose JVM startup, JDK selection, macOS editor launch, garbage collection, and GraalVM code reloading problems.
 ---
 
 # Startup and runtime
 
-This page is intentionally short. It covers the concrete runtime
-symptoms we currently have documented; it will grow as more troubleshooting
-reports come in from users.
+Check these symptoms when the JVM fails to start, uses an unexpected JDK, or stops releasing memory.
 
 ## The editor uses a different JDK than the one you expect
 
 **Symptom:** `java -version` on the command line reports one JDK, but Godot appears to be running
-a different one — or a JDK you thought you removed still seems to be in use.
+a different one, or a JDK you thought you removed still seems to be in use.
 
-**Explanation:** Godot-JVM checks for a `java` executable on `PATH` before it checks `JAVA_HOME`.
-If both are set and point at different JDKs, the one on `PATH` wins — `JAVA_HOME` is only consulted
-as a fallback when nothing usable is found on `PATH`.
+**Explanation:** The editor looks for a JVM in this order: the embedded JRE under `jvm/`, on macOS the JDK reported by `/usr/libexec/java_home -v 17+`, the first usable `java` on `PATH`, then `JAVA_HOME`. Exported games use only the embedded JRE.
 
-**Fix:** update `PATH` (not `JAVA_HOME`) to point at the JDK you actually want, or remove the
-unwanted one from `PATH` entirely. See [Install a JDK](../start/install-a-jdk.md).
+**Fix:** update `PATH` to select the intended JDK, or remove the unwanted JDK from it.
 
 ## Memory usage grows without bound after disabling the GC
 
@@ -28,23 +23,25 @@ are never freed.
 **Explanation:** the `--jvm-disable-gc` flag (or `disable_gc` in the JSON
 configuration) turns off Godot-JVM's own garbage collector. With it
 disabled, `RefCounted` types and native types are no longer garbage
-collected at all. See [Memory management](../contribute/how-it-works/memory-management.md)
-for how Godot-JVM reconciles object bindings with the JVM garbage collector
-in normal operation.
+collected at all.
 
 **Fix:** leave the GC enabled unless you have a specific reason to disable
 it, and re-enable it if you see unbounded memory growth.
 
-## The JVM won't start when the game is launched from the Dock/Finder on macOS
+## The JVM does not start when the editor is launched from the Dock or Finder on macOS
 
-**Symptom:** the project runs fine from a terminal, but fails to find the
-JDK (or the JVM does not start at all) when launched as a GUI app on macOS.
+**Symptom:** the editor runs fine from a terminal, but fails to find the JDK when launched as a GUI app on macOS.
 
-**Explanation:** on macOS, apps started from the GUI do not inherit
-environment variables set in `.bashrc`/`.zshrc` — only command-line
-processes see them. If `JAVA_HOME` was only ever set that way, the GUI
-process never sees it.
+**Explanation:** apps started from Finder or the Dock do not inherit variables from `.bashrc` or `.zshrc`. A `JAVA_HOME` set only in those files is unavailable to them. This affects the editor only; exported games use the embedded JRE.
 
 **Fix:** set `JAVA_HOME` with `launchctl setenv JAVA_HOME <path-to-your-jdk>`
-so GUI-launched processes can see it too. See
-[Install a JDK](../start/install-a-jdk.md) for the full setup.
+so GUI-launched processes can see it too.
+
+## GraalVM native image does not reload code changes
+
+**Symptom:** editing a script while running a GraalVM native-image build has
+no effect, even after rebuilding.
+
+**Explanation:** a native image is compiled ahead of time and cannot reload classes.
+
+**Fix:** rebuild and restart the native-image application. Use an embedded or system JVM during development if you need editor code reloading.

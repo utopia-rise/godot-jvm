@@ -4,15 +4,14 @@ description: Exporting to iOS, which requires GraalVM and static linking of the 
 
 # iOS
 
-!!! warning
-    With this export you don't have a choice regarding JVM version you use. Please use [GraalVM 23.1.3](https://download.oracle.com/graalvm/21/latest/graalvm-jdk-21_macos-aarch64_bin.tar.gz).
+Build for iOS with GraalVM for JDK 21, build 23.1.3. The build downloads matching static libraries from the [v23.1.3-21-b33 release](https://github.com/utopia-rise/ios-graal-jdk-21/releases/tag/v23.1.3-21-b33); install the full GraalVM JDK separately.
 
 iOS uses static linking. `buildIOS` produces `jvm/ios/usercode.a` together with the matching
 `libjava-release.a` and `libjvm-release.a`. During export, Godot links these archives with the
 Godot-JVM iOS GDExtension archive into the application executable; they are not loaded at runtime.
 Run `buildIOS` (or `buildIOSRelease`) before exporting the Godot project.
 
-Additionally, to the regular GraalVM configuration mentioned above, add the following in `build.gradle.kts`, then invoke `buildIOS` or `buildIOSRelease`:
+Configure the GraalVM installation and build inputs in `build.gradle.kts` as shown below. [GraalVM native image](graalvm-native-image.md) explains reflection, JNI, and resource configuration, which also applies to iOS.
 
 ```kotlin
 godot {

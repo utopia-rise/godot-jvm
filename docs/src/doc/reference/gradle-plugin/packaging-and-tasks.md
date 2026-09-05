@@ -1,12 +1,12 @@
 ---
-description: The godot { } library-packaging switch, plus the fastBuild, registrar-threshold, and coroutine build tasks the plugin adds to Gradle.
+description: The godot { } packaging and coroutine switches, plus fastBuild and the registrar threshold for incremental builds.
 ---
 
 # Packaging and build tasks
 
-These settings affect how the project is packaged, which optional runtime helpers are added, and which higher-level tasks the plugin adds on top of the normal Gradle lifecycle.
+These options control library packaging, optional coroutine support, and incremental builds.
 
-## Packaging and optional runtime features
+## Packaging and optional features
 
 ### `isLibrary`
 
@@ -29,49 +29,9 @@ When enabled, the plugin:
 - keeps compile setup and Godot dependencies
 - skips registrar scanning and `.gdj` generation for the local project
 - skips the runnable-project packaging flow
-- leaves a regular library jar as the final artifact
+- leaves a regular library JAR as the final artifact
 
 Unlike `disableGdj`, `isLibrary` turns off the whole local runtime-registration pipeline rather than only the `.gdj` part of it.
-
-## Build tasks
-
-The plugin adds a few higher-level tasks on top of the normal Gradle lifecycle.
-
-### `fastBuild`
-
-Builds fresh desktop jars while reusing the last generated registrar artifacts instead of rescanning registered classes and regenerating `.gdj` files.
-
-Use this when you only changed implementation details that do not affect registration structure, for example method bodies.
-
-Example:
-
-```shell
-./gradlew fastBuild
-```
-
-Rules:
-
-- requires a previous successful full build so the generated registrar jar already exists
-- still recompiles the project and rebuilds `main.jar`
-- should not be used after adding, removing, renaming, or structurally changing registered classes, functions, properties, or signals
-
-### `registrarIncrementalFullBuildThreshold`
-
-Maximum number of changed classes for which registrar generation still takes the incremental path. When more classes than this change between two successful builds, the plugin falls back to a full registrar generation run instead of paying the incremental prepass overhead.
-
-Default:
-
-- `32`
-
-Example:
-
-```kotlin
-godot {
-    registrarIncrementalFullBuildThreshold.set(64)
-}
-```
-
-Registrar generation also falls back to a full run when there is no previous manifest, when the previous outputs are incomplete, or when the runtime classpath changed.
 
 ### `isGodotCoroutinesEnabled`
 
@@ -88,3 +48,43 @@ godot {
     isGodotCoroutinesEnabled.set(true)
 }
 ```
+
+## Incremental builds
+
+Use these tasks and settings to control incremental builds.
+
+### `fastBuild`
+
+Builds fresh desktop JARs while reusing the last generated registrar artifacts instead of rescanning registered classes and regenerating `.gdj` files.
+
+Use this when you only changed implementation details that do not affect registration structure, for example method bodies.
+
+Example:
+
+```shell
+./gradlew fastBuild
+```
+
+Rules:
+
+- requires a previous successful full build so the generated registrar JAR already exists
+- still recompiles the project and rebuilds `main.jar`
+- should not be used after adding, removing, renaming, or structurally changing registered classes, functions, properties, or signals
+
+### `registrarIncrementalFullBuildThreshold`
+
+Maximum number of changed classes handled by incremental registrar generation. Above this threshold, the plugin regenerates all registrars to avoid the overhead of incremental analysis.
+
+Default:
+
+- `32`
+
+Example:
+
+```kotlin
+godot {
+    registrarIncrementalFullBuildThreshold.set(64)
+}
+```
+
+Registrar generation also falls back to a full run when there is no previous manifest, when the previous outputs are incomplete, or when the runtime classpath changed.

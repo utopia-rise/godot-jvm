@@ -4,16 +4,10 @@ description: Current Godot-JVM limitations that are not implemented yet or not p
 
 # Known limitations
 
-- **No tool mode.** `@Tool` can already be set on a `@Script` class, but it
-  currently has no effect.
+- **No tool mode.** `@Tool` exists and implies `@Script`, but has no effect yet.
 - **No addon support.** You cannot use Godot-JVM to write Godot plugins or
-  addons yet. You can still [write libraries](../build/using-libraries.md)
-  that contain Godot-specific code for use from a regular Godot-JVM project.
-- **Web export is not supported.** See the list of currently supported
-  platforms for what is available.
-- **GraalVM native image cannot reload code changes.** Because native image
-  is ahead-of-time compiled, picking up an edited script would require
-  reloading the JVM itself, which native image does not support.
+  addons yet. You can share Godot-specific code through JVM libraries consumed by Godot-JVM projects.
+- **Web export is not supported.** The supported targets are Windows, Linux, macOS, Android, and iOS.
+- **GraalVM native image cannot reload code changes.** Rebuild and restart to apply script changes.
 - **Functions are limited to 16 parameters.** This is a Godot-JVM limitation, not
-  a Godot engine one. Pass more values by wrapping them in a container, such as
-  a custom container class, a `VariantArray`, or a `Dictionary`.
+  a Godot engine one. Group additional values in a Godot-compatible container such as a `VariantArray` or `Dictionary`.

@@ -4,20 +4,13 @@ description: Registering single enums, BitField flag sets, and enum lists as Ins
 
 # Enums, bitfields and flags
 
-Enums and flags are registered **from the property type** — you usually don't need any hint annotation.
-
+For an exported enum or flag property, Godot-JVM chooses the Inspector control from its type. No additional hint annotation is needed.
 
 | Property type            | Inspector widget                       |
 |--------------------------|----------------------------------------|
 | `MyEnum`                 | a dropdown to pick a single value      |
 | `BitField<MyEnum>`       | a checkbox grid (bitmask / flags)      |
 | any `Collection<MyEnum>` | a resizable list of enum dropdowns     |
-
-This works the same in Kotlin, Java and Scala.
-
-!!! warning "Scala enums"
-    Plain Scala 3 `enum` types are not recognized.
-    For registration and `BitField`, use a Scala enum that extends `java.lang.Enum[YourEnum]`.
 
 ## Single enum (dropdown)
 
@@ -28,7 +21,7 @@ Declare a property whose type is an enum:
 enum class Element { FIRE, WATER, EARTH }
 
 @Script
-class Spell : Node() {
+class Player : Node() {
     @Export
     var element = Element.FIRE
 }
@@ -39,20 +32,24 @@ class Spell : Node() {
 public enum Element { FIRE, WATER, EARTH }
 
 @Script
-public class Spell extends Node {
+public class Player extends Node {
     @Export
     public Element element = Element.FIRE;
 }
 ```
 ///
 /// tab | Scala
+!!! warning "Scala enums"
+    Plain Scala 3 `enum` types are not recognized.
+    For registration and `BitField`, use a Scala enum that extends `java.lang.Enum[YourEnum]`.
+
 ```scala
 enum Element extends java.lang.Enum[Element] {
   case FIRE, WATER, EARTH
 }
 
 @Script
-class Spell extends Node {
+class Player extends Node {
   @Export
   var element: Element = Element.FIRE
 }
@@ -82,11 +79,11 @@ var elements: BitField[Element] = BitField.of(Element.FIRE, Element.WATER)
 ```
 ///
 
-Regular enums use `1 shl ordinal`. A [`GodotEnum`](#custom-values) uses its explicit value as the mask.
+For regular enums, each constant gets the bit at its ordinal (`1 shl ordinal`).
 
 ## List of enums
 
-Any `Collection<MyEnum>` (`List`, `Set`, …) becomes a resizable list where each element is a dropdown:
+Any `Collection<MyEnum>`, such as `List` or `Set`, becomes a resizable list where each element is a dropdown:
 
 /// tab | Kotlin
 ```kotlin
@@ -109,8 +106,8 @@ var elements: java.util.List[Element] = new java.util.ArrayList(java.util.List.o
 
 ## Custom values
 
-By default an enum constant's Inspector value is its ordinal. To control the exact integers — to match a
-Godot engine enum, or to choose specific flag bits — implement `GodotEnum` (from `godot.core`):
+By default an enum constant's Inspector value is its ordinal. To control the exact integers, to match a
+Godot engine enum or choose specific flag bits, implement `GodotEnum` (from `godot.core`):
 
 /// tab | Kotlin
 ```kotlin
@@ -149,4 +146,4 @@ enum Element(val v: Long) extends java.lang.Enum[Element], GodotEnum {
 ```
 ///
 
-The dropdown, enum list, and `BitField` then use those exact values.
+The Inspector dropdowns and `BitField` masks use the values you supply.
