@@ -158,7 +158,7 @@ class KtClassBuilder<T : KtObject>(
             KtPropertyInfo(
                 VariantCaster.INT,
                 name,
-                "Int",
+                "int",
                 PropertyHint.FLAGS,
                 hintString,
                 propertyUsage(usage, setter != null, VariantCaster.INT),

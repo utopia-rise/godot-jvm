@@ -1,16 +1,12 @@
 ---
-description: How @Script, @Export, @Register and @Rpc expose your Kotlin, Java or Scala classes to Godot, and when you need to rebuild after changing them.
+description: Register a Player script with an Inspector property, a callable method, and a two-argument signal.
 ---
 
 # Registering your code
 
-Before Godot can use a JVM class as a script, the class and the members you
-want to expose must be registered. In most projects, this only means adding a
-few annotations and building the project.
+Register your script classes and the members Godot needs to use by adding annotations and building the project.
 
-Godot-JVM registers members in **Inferred** mode by default, and the rest of
-this documentation assumes it. Read this page top to bottom and you have the
-whole of the everyday workflow.
+The default **Inferred** mode recognizes common declarations and keeps the required annotations to a minimum. The guides use this mode throughout.
 
 ## The usual workflow
 
@@ -26,26 +22,26 @@ For example:
 /// tab | Kotlin
 
 ```kotlin
-package com.example.game
+package com.yourcompany.game
 
 import godot.annotation.Export
 import godot.annotation.Register
 import godot.annotation.Script
 import godot.api.Node
-import godot.core.signal1
+import godot.core.signal2
 import godot.global.GD
 
 @Script
 class Player : Node() {
     @Export
-    var health = 100
+    var health: Int = 100
 
-    val healthChanged by signal1<Int>()
+    val healthChanged by signal2<Int, Int>()
 
     @Register
     fun heal(amount: Int) {
         health = (health + amount).coerceAtMost(100)
-        healthChanged.emit(health)
+        healthChanged.emit(health, 100)
     }
 
     override fun _ready() {
@@ -59,13 +55,13 @@ class Player : Node() {
 /// tab | Java
 
 ```java
-package com.example.game;
+package com.yourcompany.game;
 
 import godot.annotation.Export;
 import godot.annotation.Register;
 import godot.annotation.Script;
 import godot.api.Node;
-import godot.core.Signal1;
+import godot.core.Signal2;
 import godot.global.GD;
 
 @Script
@@ -73,13 +69,13 @@ public class Player extends Node {
     @Export
     public int health = 100;
 
-    public final Signal1<Integer> healthChanged =
-        Signal1.create(this, "healthChanged");
+    public final Signal2<Integer, Integer> healthChanged =
+        Signal2.create(this, "healthChanged");
 
     @Register
     public void heal(int amount) {
         health = Math.min(health + amount, 100);
-        healthChanged.emit(health);
+        healthChanged.emit(health, 100);
     }
 
     @Override
@@ -94,11 +90,11 @@ public class Player extends Node {
 /// tab | Scala
 
 ```scala
-package com.example.game
+package com.yourcompany.game
 
 import godot.annotation.{Export, Register, Script}
 import godot.api.Node
-import godot.core.Signal1
+import godot.core.Signal2
 import godot.global.GD
 
 @Script
@@ -106,13 +102,13 @@ class Player extends Node {
   @Export
   var health: Int = 100
 
-  val healthChanged: Signal1[Integer] =
-    Signal1.create(this, "healthChanged")
+  val healthChanged: Signal2[Integer, Integer] =
+    Signal2.create(this, "healthChanged")
 
   @Register
   def heal(amount: Int): Unit = {
     health = Math.min(health + amount, 100)
-    healthChanged.emit(health)
+    healthChanged.emit(health, 100)
   }
 
   override def _ready(): Unit = {
@@ -128,6 +124,4 @@ editor in the same way that you would attach another script. The `health`
 property is available in the Inspector, `heal` is available to Godot, and
 `healthChanged` is available as a signal.
 
-That is the normal Inferred-mode workflow. The following Guide pages explain each kind of Godot-facing declaration in detail.
-
-For exact selection rules, non-default modes, and shared requirements, see the [Registration reference](../reference/registration.md). If a declaration does not appear after a build, use [Build and registration troubleshooting](../troubleshooting/build-and-registration.md).
+The following chapters explain each declaration in turn: classes, properties, functions, and signals. Other modes and their selection rules are covered in [Registration reference](../reference/registration.md).

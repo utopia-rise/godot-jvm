@@ -15,11 +15,11 @@ void KotlinScript::_format_template(const String& p_path) const {
         return;
     }
 
-    String package {p_path.replace("src/main/kotlin/", "")
+    String package = p_path.replace("src/main/kotlin/", "")
                       .trim_prefix("res://")
                       .trim_suffix(get_name() + "." + KotlinLanguage::get_instance()->_get_extension())
                       .trim_suffix("/")
-                      .replace("/", ".")};
+                      .replace("/", ".");
 
     if (!package.is_empty()) { package = "package " + package; }
 

@@ -43,18 +43,23 @@ Error JvmResourceFormatSaver::_save(const Ref<Resource>& p_resource, const Strin
                         "time you build.");
     }
 
+    const String source_code = jvm_script->get_source_code();
+    // The editor saves every open script on play and on quit. Rewriting an unchanged source file would only
+    // bump its modification time, which the JVM build and the source-sync warning both key on.
+    if (FileAccess::file_exists(p_path) && FileAccess::get_file_as_string(p_path) == source_code) { return OK; }
+
     {
-        Ref<FileAccess> file {FileAccess::open(p_path, FileAccess::WRITE)};
+        Ref<FileAccess> file = FileAccess::open(p_path, FileAccess::WRITE);
         Error err = FileAccess::get_open_error();
         JVM_ERR_FAIL_COND_V_MSG(err != OK, err, "Cannot save Script file '" + p_path + "'.");
-        file->store_string(jvm_script->get_source_code());
+        file->store_string(source_code);
 
         if (file->get_error() != OK && file->get_error() != ERR_FILE_EOF) { return ERR_CANT_CREATE; }
     }
 
 #ifdef TOOLS_ENABLED
     if (is_source_script) {
-        const StringName fqdn = parse_source_script_fqname(jvm_script->get_source_code(), p_path);
+        const StringName fqdn = parse_source_script_fqname(source_code, p_path);
         JvmScriptManager::get_instance()->update_physical_script(jvm_script.ptr(), fqdn);
         jvm_script->set_last_source_modified_time(FileAccess::get_modified_time(p_path));
     }

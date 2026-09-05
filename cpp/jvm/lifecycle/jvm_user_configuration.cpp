@@ -126,7 +126,7 @@ bool JvmUserConfiguration::parse_configuration_json(const godot::String& json_st
     }
 
     if (json_dict.has(VERSION_JSON_IDENTIFIER)) {
-        godot::String version {json_dict[VERSION_JSON_IDENTIFIER]};
+        godot::String version = json_dict[VERSION_JSON_IDENTIFIER];
         JVM_DEV_VERBOSE("Value for json argument: %s -> %s", VERSION_JSON_IDENTIFIER, version);
         if (version != JSON_ARGUMENT_VERSION) {
             JVM_LOG_WARNING("Your existing jvm json configuration file was made for an older version of this binding. A "
@@ -275,7 +275,7 @@ void JvmUserConfiguration::parse_command_line(const godot::PackedStringArray& ar
         } else if (identifier == DISABLE_GC_CMD_IDENTIFIER) {
             configuration_map[DISABLE_GC_CMD_IDENTIFIER] = get_cmd_bool_or_default(value, TRUE_STRING);
         } else if (identifier == JVM_ARGUMENTS_CMD_IDENTIFIER) {
-            godot::Array arr {};
+            godot::Array arr = godot::Array();
             // Support both comma-separated and space-separated values.
             // Space separation requires quoting at shell level, e.g.:
             // --jvm-custom-args="-Xmx4g -Xms4g"

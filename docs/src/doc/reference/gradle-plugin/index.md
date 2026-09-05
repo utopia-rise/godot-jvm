@@ -4,7 +4,7 @@ description: A quick-start example of the godot { } Gradle block, recommended Gr
 
 # The godot { } block at a glance
 
-This page is the entry point for configuring `com.utopia-rise.godot-jvm`. Most settings live in the `godot { ... }` block in `build.gradle.kts`; the full property reference is split across the other pages in this section:
+Configure `com.utopia-rise.godot-jvm` in the `godot { ... }` block in `build.gradle.kts`. The following pages list each property's purpose, default, and usage:
 
 - [Languages and toolchains](languages-and-toolchains.md)
 - [Registration output](registration.md)
@@ -34,14 +34,12 @@ godot {
 
 ## Recommended Gradle performance settings
 
-For day-to-day project builds, these Gradle properties are a good default:
+Set these properties in `gradle.properties` to enable parallel task execution and the configuration cache:
 
 ```properties
 org.gradle.parallel=true
 org.gradle.configuration-cache=true
 ```
-
-These are regular Gradle settings, so they belong in `gradle.properties`, not in the `godot { ... }` block.
 
 ## Related Gradle and editor configuration
 
@@ -57,8 +55,6 @@ kotlin.sourceSets.main {
 }
 ```
 
-This is standard Gradle/Kotlin source-set configuration.
-
 ### Gradle wrapper path in the Godot editor
 
 Sometimes the Godot project is nested inside a larger repository and the Gradle wrapper lives in a parent directory:
@@ -67,6 +63,6 @@ Sometimes the Godot project is nested inside a larger repository and the Gradle 
 
 In that case, the Godot editor may not find the wrapper automatically because it only looks inside the Godot project directory.
 
-To support that layout, set the Gradle wrapper path from the Godot project settings:
+Set `kotlin_jvm/gradle/gradle_wrapper_dir` in Godot's project settings to the wrapper directory so the editor can run builds. The screenshot shows an older editor layout:
 
 ![Example project setup](../../assets/img/change_gradle_wrapper_path.png)

@@ -1,14 +1,22 @@
 ---
-description: Checklist for diagnosing why a script, property, function, or signal fails to register, or why the editor and Gradle build disagree.
+description: Fix editor Gradle launch failures, missing registered declarations, and disagreements between the editor and the build.
 ---
 
 # Build and registration
 
-Work through the checklist that matches your symptom before changing any
-code. See [Registration reference](../reference/registration.md) for the
-annotation and mode selection rules, and
-[Registration pipeline](../contribute/how-it-works/registration-pipeline.md)
-for why registration is structured this way.
+Start with a successful full `build`, then check the missing declaration below. Registration checks run on compiled classes, so `fastBuild` cannot pick up a new or changed registration.
+
+## Building from the editor fails with "Could not create child process: .../gradlew"
+
+On Linux or macOS, the build can fail if `gradlew` is not executable:
+```shell
+ERROR: Godot-JVM: Could not create child process: /Users/username/projectname/gradlew
+```
+
+Run this command from the project root, then build again:
+```shell
+chmod +x gradlew
+```
 
 ## Before you build
 
@@ -17,7 +25,7 @@ for why registration is structured this way.
   Godot can only instantiate a script through a public parameterless
   constructor; constructors with parameters are never exposed to Godot.
 - Does every registered script have a unique Godot name? Use
-  `@Script("AUniqueName")` if two classes share the same simple name.
+  `@Script(className = "AUniqueName")` if two classes share the same simple name.
 - Do exposed properties and function parameters use Godot-supported types?
 - Are the registered classes and functions non-generic?
 
@@ -32,40 +40,37 @@ registration steps.
 - Was its source language identified? Godot-JVM recognizes `.kt`, `.java`,
   and `.scala` source files; an unrecognized extension is skipped.
 - Does the current registration mode select it?
-- In Explicit or Inferred mode, is the required direct or effective
-  `@Script` present?
+- In Explicit mode, is `@Script` directly present? In Inferred mode, is it present directly or through a meta-annotation?
 - Does its registered name collide with another class?
 
 ## A property is missing
 
-- Was it reconstructed as one logical property? A field and its accessors
-  must line up consistently for the language adapter to merge them.
+- Do the field and accessors have consistent names and types? The processor must recognize them as one property.
 - Is its field or accessor public?
 - Does the current registration mode select it?
 - Is its type mappable to Godot?
-- Is it an accessor-shaped method that was intentionally registered as a
-  function instead (`@Register` without property intent)?
+- Is it a getter/setter-style method that was intentionally registered as a
+  function instead (`@Register` without being annotated as a property with `@Visible`)?
 
 ## A function is missing
 
 - Is it public and declared directly on the class (not only inherited)?
 - Does the current registration mode select it?
-- Is it an accessor-shaped method without an explicit function intent? Such
+- Is it an accessor-shaped method not annotated as a function (`@Register`)? Such
   a method stays a property unless `@Register` marks it as a function too.
 - Are all parameter and return types mappable to Godot?
 - Does it exceed the 16-parameter limit?
 
 ## A signal is missing
 
-- Was the source declaration reconstructed as a logical signal?
+- Is the signal declared as a member of the script class?
 - Does it use a `SignalN` type?
 - In Explicit mode, does it have a direct `@Emit`?
 - Is its containing class selected for registration?
 
 ## The editor and the build disagree
 
-- Check that the IntelliJ **Settings | Godot-JVM | Annotation processing
-  mode** setting matches `annotationProcessingMode` in `build.gradle.kts`
-  before changing any analyzer or build logic. Gradle decides what actually
+- Check that the IntelliJ **Settings > Godot-JVM > Annotation processing mode** setting matches `annotationProcessingMode` in `build.gradle.kts`
+  before changing your code. Gradle decides what actually
   gets registered; the IDE setting only keeps inspections and highlighting
   consistent with it.

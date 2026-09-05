@@ -89,7 +89,7 @@ void JvmSingletonWrapper<Derived, FqName>::finalize(jni::Env& p_env, ClassLoader
 }
 
 template<class Derived, const char* FqName>
-Derived* JvmSingletonWrapper<Derived, FqName>::_instance {nullptr};
+Derived* JvmSingletonWrapper<Derived, FqName>::_instance = nullptr;
 
 template<class Derived, const char* FqName>
 Derived& JvmSingletonWrapper<Derived, FqName>::get_instance() {

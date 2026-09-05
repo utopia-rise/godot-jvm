@@ -105,6 +105,12 @@ func _assert_reenabled_exports(instance: Object, expect_lazy_export := false) ->
     _assert_exported_property(property_map, "packed_vector4_array", TYPE_PACKED_VECTOR4_ARRAY)
     assert_that(instance.get("packed_vector4_array").size()).is_equal(0)
 
+    _assert_property_hint(property_map, "int_flag_value", PROPERTY_HINT_FLAGS, "Player,Enemy,Npc")
+    _assert_property_hint(property_map, "file_path_value", PROPERTY_HINT_FILE, "*.gd,*.gdj")
+    assert_that(property_map["enum_flag_value"]["class_name"])\
+        .override_failure_message("Expected the enum flag property to report Godot's int class name")\
+        .is_equal(property_map["int_flag_value"]["class_name"])
+
 
 func _assert_kotlin_delegate_property(property_map: Dictionary, instance: Object, property_name: String, initial_value: int, assigned_value: int, is_exported: bool) -> void:
     _assert_registered_property(property_map, property_name, TYPE_INT, is_exported)
@@ -122,6 +128,16 @@ func _property_map(instance: Object) -> Dictionary:
 
 func _assert_exported_property(property_map: Dictionary, property_name: String, variant_type: int) -> void:
     _assert_registered_property(property_map, property_name, variant_type, true)
+
+
+func _assert_property_hint(property_map: Dictionary, property_name: String, hint: int, hint_string: String) -> void:
+    var property: Dictionary = property_map[property_name]
+    assert_that(property["hint"])\
+        .override_failure_message("Expected property '%s' to keep its property hint" % property_name)\
+        .is_equal(hint)
+    assert_that(property["hint_string"])\
+        .override_failure_message("Expected property '%s' to keep its hint string" % property_name)\
+        .is_equal(hint_string)
 
 
 func _assert_registered_property(property_map: Dictionary, property_name: String, variant_type: int, is_exported: bool) -> void:

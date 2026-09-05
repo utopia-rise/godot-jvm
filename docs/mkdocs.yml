@@ -12,7 +12,7 @@ repo_url: 'https://github.com/utopia-rise/godot-jvm'
 
 theme:
   name: material
-  favicon: logo/favicon.ico
+  favicon: logo/logo-32.png
   palette:
     - media: "(prefers-color-scheme)"
       primary: deep purple
@@ -31,7 +31,7 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
-  logo: logo/logo-outline.png
+  logo: logo/logo-1024-outline.png
   font:
     code: JetBrains Mono
   features:
@@ -76,8 +76,7 @@ nav:
   - Start here:
       - Start here: start/index.md
       - Introduction: start/introduction.md
-      - Install a JDK: start/install-a-jdk.md
-      - Install the addon: start/install-the-addon.md
+      - Install: start/install.md
       - Create a project: start/create-a-project.md
       - Project layout: start/project-layout.md
       - Your first script: start/your-first-script.md
@@ -104,9 +103,7 @@ nav:
       - Build and run:
           - Building your project: build/building.md
           - Debugging: build/debugging.md
-      - Dependencies:
-          - Using JVM libraries: build/using-libraries.md
-          - Publishing a Godot-JVM library: build/publishing-a-library.md
+          - Libraries: build/libraries.md
       - Export:
           - Export overview: build/export/index.md
           - Desktop: build/export/desktop.md

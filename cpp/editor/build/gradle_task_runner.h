@@ -40,7 +40,8 @@ public:
 
     godot::Error run_task(int task_id, godot::String& log, bool blocking);
     bool is_task_started();
-    bool is_task_terminated();
+    bool is_task_running();
+    int finish_task();
     void get_task_output(godot::String& log, godot::String& error);
 };
 

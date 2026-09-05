@@ -4,16 +4,9 @@ description: Landing page for Godot-JVM troubleshooting, linking to symptom-orie
 
 # Symptom index
 
-Start here when something is not working. Each page below is organized by
-symptom rather than by feature, so you can jump straight to the section that
-matches what you are seeing.
+Find the symptom you're seeing, then work through its checks or fix. Each page focuses on a different stage of building and running a project.
 
-- [Build and registration](build-and-registration.md) — a script, property,
-  function, or signal you registered does not show up in Godot, or the
-  editor and the build disagree about what is registered.
-- [Startup and runtime](runtime.md) — the JVM fails to start, or behaves
-  unexpectedly once the game is running.
-- [Export](export.md) — problems that only appear when exporting to desktop,
-  Android, iOS, or a GraalVM native image.
-- [Known limitations](known-limitations.md) — things that do not work yet by
-  design, not by mistake.
+- [Build and registration](build-and-registration.md): Gradle fails to launch, declarations are missing, or the editor and build disagree.
+- [Startup and runtime](runtime.md): JVM startup, memory usage, or GraalVM code reloading problems.
+- [Export](export.md): missing target JREs, Android AARs, or runtime files in exported games.
+- [Known limitations](known-limitations.md): unsupported features and runtime constraints.

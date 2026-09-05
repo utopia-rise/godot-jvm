@@ -1,4 +1,5 @@
 [configuration]
+author = "Utopia Rise - Pierre-Thomas Meisels (piiertho), Tristan Grespinet (CedNaru), Cedric Hippmann (chippmann), Ranie Jade Ramiso (raniejade)"
 entry_symbol = "godot_jvm_library_init"
 compatibility_minimum = 4.7
 compatibility_maximum = "4"

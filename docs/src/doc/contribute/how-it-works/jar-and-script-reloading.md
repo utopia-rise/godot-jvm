@@ -4,8 +4,7 @@ description: How the editor reconciles physical script resources with classes fr
 
 # JAR and script reloading
 
-This page describes editor-time reloading of JVM scripts. Exported games do not
-reload source files or JAR registrations this way.
+The editor reloads compiled classes after a build and reconciles them with existing script resources. This process applies to editor sessions; exported games do not reload source files or JAR registrations.
 
 ## Mental model
 
@@ -20,7 +19,7 @@ A `JvmScript` can start from either side of the integration:
 
 The fully qualified class name (FQCN) is the identity that joins them. A
 physical and virtual script with the same FQCN represent one script, never two.
-When they meet, the physical resource becomes canonical because Godot owns it.
+When both exist, the physical resource becomes the canonical script because Godot owns that resource.
 
 The manager maintains two different views:
 
@@ -91,7 +90,7 @@ of which one Godot processes first.
 
 ## Reload order
 
-The order does not matter:
+Both reload orders resolve to the same physical resource:
 
 - **Source first:** the physical script enters the FQCN map; the next JAR
   reload binds the new `KtClass` to it.

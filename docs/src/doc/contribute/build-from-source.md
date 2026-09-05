@@ -6,16 +6,11 @@ description: Building the Godot-JVM GDExtension and its Kotlin artifacts from so
 
 To build the Godot-JVM GDExtension, install the standard native build dependencies for your platform: SCons, Python, a C++ compiler, and a JDK. You do not need a Godot source checkout to build or test the extension.
 
-Make sure Java is installed and that `JAVA_HOME` is set (**JDK 17 or newer is required for project development**).
+Use JDK 17 or newer and set `JAVA_HOME` to its installation directory.
+
+Check the value with `echo $JAVA_HOME` in a Unix shell or `echo $env:JAVA_HOME` in PowerShell.
 
 !!! note
-    To check whether `JAVA_HOME` is set, open a terminal and run:
-
-    ```bash
-    echo $JAVA_HOME
-    ```
-
-!!! warning
     The Microsoft JDK is known to cause issues when building the IDE plugin on Windows. Use [Adoptium Temurin](https://adoptium.net/temurin/releases/) or create the `Packages` directory in `JAVA_HOME`, for example `C:\Program Files\Microsoft\jdk-21.0.6.7-hotspot\Packages`.
 
 ## Build the native library
@@ -42,4 +37,4 @@ Make sure Java is installed and that `JAVA_HOME` is set (**JDK 17 or newer is re
     ./gradlew build
     ```
 
-For an Android build, see [Build for Android](build-for-android.md). To run the test project against the library you just built, see [Run the tests](running-tests.md).
+The next chapters cover Android builds and running the test harness with these artifacts.

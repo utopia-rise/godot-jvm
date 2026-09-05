@@ -41,18 +41,21 @@ class VersionInfoPlugin: Plugin<Project> {
     }
 }
 
+// Dev builds (x.y.z-devN) and release candidates (x.y.z-rcN) are pre-releases: they publish under their tag name.
+private val preReleaseTagRegex: Regex by lazy { Regex("${Regex.escape(godotJvmVersion)}-(dev|rc)[1-9]\\d*") }
+
 val fullBuildVersion: String by lazy {
     val currentCommit: Commit = grgit.head()
     // check if the current commit is tagged
     val tagOnCurrentCommit = grgit.tag.list().firstOrNull { tag -> tag.commit.id == currentCommit.id }
     val releaseMode = tagOnCurrentCommit != null
 
-    val isDevBuild = tagOnCurrentCommit?.name?.matches(Regex("${Regex.escape(godotJvmVersion)}-dev[1-9]\\d*")) == true
+    val isPreRelease = tagOnCurrentCommit?.name?.matches(preReleaseTagRegex) == true
 
     if (!releaseMode) {
         "$godotJvmVersion-${currentCommit.abbreviatedId}-SNAPSHOT"
     } else {
-        if (isDevBuild) tagOnCurrentCommit.name else godotJvmVersion
+        if (isPreRelease) tagOnCurrentCommit.name else godotJvmVersion
     }
 }
 
@@ -62,7 +65,7 @@ val isSnapshot: Boolean by lazy {
     val tagOnCurrentCommit = grgit.tag.list().firstOrNull { tag -> tag.commit.id == currentCommit.id }
     val releaseMode = tagOnCurrentCommit != null
 
-    !releaseMode || tagOnCurrentCommit.name.matches(Regex("${Regex.escape(godotJvmVersion)}-dev[1-9]\\d*"))
+    !releaseMode || tagOnCurrentCommit.name.matches(preReleaseTagRegex)
 }
 
 abstract class GenerateVersionFileTask : DefaultTask() {

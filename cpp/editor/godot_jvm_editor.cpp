@@ -3,11 +3,10 @@
 #include "editor/build/gradle_task_runner.h"
 #include "editor/export/godot_jvm_editor_export_plugin.h"
 #include "editor/jvm_syntax_highlighter.h"
-#include "engine/godot_object.h"
+#include "editor/strings.h"
 #include "godot_jvm.h"
 #include "paths.h"
 #include "project/project_generator.h"
-#include "strings.h"
 
 #include <classes/accept_dialog.hpp>
 #include <classes/button.hpp>
@@ -22,14 +21,7 @@
 using namespace godot;
 
 void GodotJvmEditor::on_menu_option_pressed(int option_id) {
-    switch (option_id) {
-        case GENERATE_PROJECT:
-            project_dialog->popup_centered();
-            break;
-        case ABOUT:
-            about_dialog->popup_centered();
-            break;
-    }
+    if (option_id == GENERATE_PROJECT) { project_dialog->popup_centered(); }
 }
 
 void GodotJvmEditor::on_generate_project(bool erase_existing) {
@@ -51,7 +43,7 @@ void GodotJvmEditor::on_filesystem_change() {
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_SCRIPTS_INITIALIZED) { return; }
 
     if (GodotJvm::get_instance().state == GodotJvm::State::JVM_STARTED) {
-        String bootstrap {String(RES_DIRECTORY).path_join(BOOTSTRAP_FILE)};
+        String bootstrap = String(RES_DIRECTORY).path_join(BOOTSTRAP_FILE);
         if (FileAccess::file_exists(bootstrap)) {
             GodotJvm::get_instance().initialize_up_to(GodotJvm::State::JVM_SCRIPTS_INITIALIZED);
         }
@@ -128,10 +120,6 @@ void GodotJvmEditor::_notification(int notification) {
             if (!editor_settings->has_setting(BUILD_BEFORE_START)) { editor_settings->set_setting(BUILD_BEFORE_START, false); }
             editor_settings->set_initial_value(BUILD_BEFORE_START, false, false);
 
-            if (!editor_settings->has_setting(SHOW_INFO_ON_START)) { editor_settings->set_setting(SHOW_INFO_ON_START, true); }
-            editor_settings->set_initial_value(SHOW_INFO_ON_START, true, false);
-
-            about_dialog = create_about_dialog(editor_settings, editor_scale);
             task_dialog = create_task_dialog(editor_scale);
 
             if (!project_settings->has_setting(GRADLE_DIR)) { project_settings->set_setting(GRADLE_DIR, "res://"); }
@@ -156,11 +144,10 @@ void GodotJvmEditor::_notification(int notification) {
               ->connect("pressed", callable_mp(this, &GodotJvmEditor::on_generate_project).bind(true));
             project_dialog->add_cancel_button(generate_nothing);
 
-            about_pop_menu->hide();
-            about_pop_menu->connect(SNAME("id_pressed"), callable_mp(this, &GodotJvmEditor::on_menu_option_pressed));
-            about_pop_menu->add_item("Generate JVM project", GENERATE_PROJECT);
-            about_pop_menu->add_item("About Godot-JVM", ABOUT);
-            add_tool_submenu_item("Kotlin/JVM", about_pop_menu);
+            tool_pop_menu->hide();
+            tool_pop_menu->connect(SNAME("id_pressed"), callable_mp(this, &GodotJvmEditor::on_menu_option_pressed));
+            tool_pop_menu->add_item("Generate JVM project", GENERATE_PROJECT);
+            add_tool_submenu_item("Kotlin/JVM", tool_pop_menu);
 
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, separator);
 
@@ -170,8 +157,11 @@ void GodotJvmEditor::_notification(int notification) {
             tool_bar_gradle_task_choice->add_item("Build Release", GradleTaskRunner::Task::BUILD_RELEASE);
             tool_bar_gradle_task_choice->add_item("Build Android", GradleTaskRunner::Task::BUILD_ANDROID_DEBUG);
             tool_bar_gradle_task_choice->add_item("Build Android Release", GradleTaskRunner::Task::BUILD_ANDROID_RELEASE);
+#ifdef MACOS_ENABLED
+            // The iOS tasks need Xcode, so they can only succeed on a macOS host.
             tool_bar_gradle_task_choice->add_item("Build iOS", GradleTaskRunner::Task::BUILD_IOS_DEBUG);
             tool_bar_gradle_task_choice->add_item("Build iOS Release", GradleTaskRunner::Task::BUILD_IOS_RELEASE);
+#endif
             tool_bar_gradle_task_choice->add_item("Build Graal Native Image", GradleTaskRunner::Task::BUILD_GRAAL_NATIVE_IMAGE_DEBUG);
             tool_bar_gradle_task_choice->add_item("Build Graal Native Image Release", GradleTaskRunner::Task::BUILD_GRAAL_NATIVE_IMAGE_RELEASE);
             tool_bar_gradle_task_choice->add_item("Generate JRE", GradleTaskRunner::Task::GENERATE_EMBEDDED_JVM);
@@ -190,8 +180,6 @@ void GodotJvmEditor::_notification(int notification) {
             update_jvm_status(true);
 
             editor_base_control->add_child(task_dialog.dialog);
-            editor_base_control->add_child(about_dialog);
-            show_about_dialog_if_configured(about_dialog, editor_settings);
             editor_base_control->add_child(project_dialog);
 
             get_editor_interface()->get_resource_filesystem()->connect(
@@ -213,6 +201,8 @@ void GodotJvmEditor::_notification(int notification) {
             update_jvm_status();
 
             if (GradleTaskRunner::get_instance().is_task_started()) {
+                // Checked before draining the pipes so the lines written right before the process exited are not lost.
+                bool running = GradleTaskRunner::get_instance().is_task_running();
                 String log;
                 String error;
                 GradleTaskRunner::get_instance().get_task_output(log, error);
@@ -222,19 +212,25 @@ void GodotJvmEditor::_notification(int notification) {
                     // We are streaming the output, we use the regular Godot print to avoid spamming the JVM prefix.
                     print_line(log);
                 }
-                if (!error.is_empty()) { JVM_ERR_FAIL_MSG(error); }
+                if (!error.is_empty()) { JVM_ERR_PRINT(error); }
 
-                if (GradleTaskRunner::get_instance().is_task_terminated()) {
+                if (!running) {
+                    int exit_code = GradleTaskRunner::get_instance().finish_task();
                     task_dialog_stop(task_dialog);
                     get_editor_interface()->get_resource_filesystem()->scan_sources();
-                    JVM_LOG_INFO("Gradle Task terminated");
+                    if (exit_code == 0) {
+                        task_dialog_update_state(task_dialog, "Gradle task succeeded.\n");
+                        JVM_LOG_INFO("Gradle task succeeded.");
+                    } else {
+                        task_dialog_update_state(task_dialog, vformat("Gradle task failed with exit code %d.\n", exit_code));
+                        JVM_ERR_PRINT("Gradle task failed with exit code %d.", exit_code);
+                    }
                 }
             }
             break;
 
         case NOTIFICATION_EXIT_TREE:
             editor_base_control->remove_child(task_dialog.dialog);
-            editor_base_control->remove_child(about_dialog);
             editor_base_control->remove_child(project_dialog);
             remove_tool_menu_item("Kotlin/JVM");
             remove_control_from_container(CustomControlContainer::CONTAINER_TOOLBAR, jvm_status_light);
@@ -253,7 +249,7 @@ void GodotJvmEditor::_notification(int notification) {
 }
 
 GodotJvmEditor::GodotJvmEditor() :
-  about_pop_menu(memnew(PopupMenu)),
+  tool_pop_menu(memnew(PopupMenu)),
   project_dialog(memnew(AcceptDialog)),
   jvm_status_light(memnew(TextureRect)),
   tool_bar_gradle_task_button(memnew(Button)),
@@ -262,7 +258,6 @@ GodotJvmEditor::GodotJvmEditor() :
 
 GodotJvmEditor::~GodotJvmEditor() {
     GradleTaskRunner::get_instance().cleanup();
-    memdelete(about_dialog);
     memdelete(task_dialog.dialog);
     memdelete(project_dialog);
     memdelete(jvm_status_light);

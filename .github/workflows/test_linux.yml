@@ -27,12 +27,14 @@ jobs:
             build-task: buildRelease
             graal-build-task: buildGraalNativeImageRelease
             export-task: exportRelease
+            graal-export-task: exportGraalRelease
             export-library: release_linux_x86_64
           - name: Debug export tests
             variant: export
             build-task: build
             graal-build-task: buildGraalNativeImage
             export-task: exportDebug
+            graal-export-task: exportGraalDebug
             export-library: debug_linux_x86_64
 
     steps:
@@ -148,7 +150,7 @@ jobs:
           cd harness/tests/
           jlink --add-modules java.base,java.logging --output jvm/jre-amd64-linux
 
-      - name: Export tests
+      - name: Export JVM tests
         if: matrix.variant == 'export'
         run: |
           cd harness/tests/
@@ -160,7 +162,14 @@ jobs:
         run: cd harness/tests/; ./gradlew runExportedGDTests
         timeout-minutes: 30
 
+      - name: Export Graal native-image tests
+        if: matrix.variant == 'export'
+        run: |
+          cd harness/tests/
+          ./gradlew ${{ matrix.graal-export-task }}
+        timeout-minutes: 30
+
       - name: Run Graal native-image exported tests
         if: matrix.variant == 'export'
-        run: cd harness/tests/; ./gradlew runExportedGraalGDTests
+        run: cd harness/tests/; ./gradlew runExportedGDTests
         timeout-minutes: 30

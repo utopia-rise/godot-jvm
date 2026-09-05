@@ -220,7 +220,7 @@ class KotlinExport : Node() {
 
     @Export
     @Visible
-    @File("gd", "gdj")
+    @File("*.gd", "*.gdj")
     var filePathValue = "res://test/core/test_core.gd"
 
     @Export

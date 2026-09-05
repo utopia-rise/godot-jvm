@@ -12,19 +12,19 @@ GDExtensionBool JvmInstance::set(GDExtensionScriptInstanceDataPtr p_instance, GD
     KtObject* kt_object = instance_data->kt_object;
 
     jni::LocalFrame localFrame(1000);
-    jni::Env env {jni::Jvm::current_env()};
-    Variant value {p_value};
+    jni::Env env = jni::Jvm::current_env();
+    Variant value = Variant(p_value);
 
-    if (KtProperty* ktProperty {kt_class->get_property(*reinterpret_cast<const StringName*>(p_name))}) {
+    if (KtProperty* ktProperty = kt_class->get_property(*reinterpret_cast<const StringName*>(p_name))) {
         ktProperty->call_set(env, kt_object, value);
         return true;
     }
 
-    if (KtFunction* function {kt_class->get_method(SNAME("_set"))}) {
+    if (KtFunction* function = kt_class->get_method(SNAME("_set"))) {
         Variant ret;
         const int arg_count = 2;
-        Variant name {*reinterpret_cast<const StringName*>(p_name)};
-        const Variant* args[arg_count] {&name, &value};
+        Variant name = *reinterpret_cast<const StringName*>(p_name);
+        const Variant* args[arg_count] = {&name, &value};
         function->invoke(env, kt_object, args, arg_count, ret);
         return true;
     }
@@ -42,21 +42,21 @@ GDExtensionBool JvmInstance::get(GDExtensionScriptInstanceDataPtr p_instance, GD
 
 
     jni::LocalFrame localFrame(1000);
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
 
-    KtProperty* ktProperty {kt_class->get_property(parameter_name)};
+    KtProperty* ktProperty = kt_class->get_property(parameter_name);
     if (ktProperty) {
         ktProperty->call_get(env, kt_object, r_return);
         return true;
     }
 
-    KtSignalInfo* kt_signal {kt_class->get_signal(parameter_name)};
+    KtSignalInfo* kt_signal = kt_class->get_signal(parameter_name);
     if (kt_signal) {
         r_return = raw_godot::RawObject(owner).to_signal(parameter_name);
         return true;
     }
 
-    if (KtFunction* function {kt_class->get_method(SNAME("_get"))}) {
+    if (KtFunction* function = kt_class->get_method(SNAME("_get"))) {
         const int arg_count = 1;
         Variant name = parameter_name;
         const Variant* args[arg_count] = {&name};
@@ -75,9 +75,9 @@ const GDExtensionPropertyInfo* JvmInstance::get_property_list(GDExtensionScriptI
     // The property-list bridge owns this freshly allocated list and frees it later.
     List<PropertyInfo>* properties = memnew(List<PropertyInfo>);
     kt_class->get_property_list(properties);
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
 
-    if (KtFunction* function {kt_class->get_method(SNAME("_get_property_list"))}) {
+    if (KtFunction* function = kt_class->get_method(SNAME("_get_property_list"))) {
         Variant ret_var;
         function->invoke(env, kt_object, {}, 0, ret_var);
         Array ret_array = ret_var;
@@ -103,9 +103,9 @@ GDExtensionBool JvmInstance::property_can_revert(GDExtensionScriptInstanceDataPt
     KtObject* kt_object = instance_data->kt_object;
     const StringName& property_name = *reinterpret_cast<const StringName*>(p_name);
 
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
 
-    if (KtFunction* function {kt_class->get_method(SNAME("_property_can_revert"))}) {
+    if (KtFunction* function = kt_class->get_method(SNAME("_property_can_revert"))) {
         const int arg_count = 1;
         Variant ret;
         Variant name = property_name;
@@ -123,9 +123,9 @@ GDExtensionBool JvmInstance::property_get_revert(GDExtensionScriptInstanceDataPt
     KtObject* kt_object = instance_data->kt_object;
     Variant& r_return = *reinterpret_cast<Variant*>(r_ret);
 
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
 
-    if (KtFunction* function {kt_class->get_method(SNAME("_property_get_revert"))}) {
+    if (KtFunction* function = kt_class->get_method(SNAME("_property_get_revert"))) {
         const int arg_count = 1;
         Variant name = p_name;
         const Variant* args[arg_count] = {&name};
@@ -195,9 +195,9 @@ GDExtensionBool JvmInstance::validate_property(GDExtensionScriptInstanceDataPtr 
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = instance_data->kt_object;
 
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
 
-    if (KtFunction* function {kt_class->get_method(SNAME("_validate_property"))}) {
+    if (KtFunction* function = kt_class->get_method(SNAME("_validate_property"))) {
         Variant ret_var;
         PropertyInfo converted;
         converted.type = (Variant::Type) p_property->type;
@@ -207,7 +207,7 @@ GDExtensionBool JvmInstance::validate_property(GDExtensionScriptInstanceDataPtr 
         converted.hint_string = *reinterpret_cast<String*>(p_property->hint_string);
         converted.usage = p_property->usage;
         Variant property_arg = (Dictionary) converted;
-        const int arg_count {1};
+        const int arg_count = 1;
         const Variant* args[arg_count] = {&property_arg};
         function->invoke(env, kt_object, args, arg_count, ret_var);
         internal::convert_property_to_c(PropertyInfo::from_dict(property_arg), p_property);
@@ -249,9 +249,9 @@ void JvmInstance::call(
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = instance_data->kt_object;
 
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
 
-    if (KtFunction* function {kt_class->get_method(*reinterpret_cast<const StringName*>(p_method))}) {
+    if (KtFunction* function = kt_class->get_method(*reinterpret_cast<const StringName*>(p_method))) {
         auto* arguments = reinterpret_cast<const Variant* const*>(p_args);
         Variant& r_ret = *reinterpret_cast<Variant*>(r_return);
         function->invoke(env, kt_object, const_cast<const Variant**>(arguments), static_cast<int>(p_argument_count), r_ret);
@@ -267,7 +267,7 @@ void JvmInstance::notification(GDExtensionScriptInstanceDataPtr p_instance, int3
 
     if (p_what == Object::NOTIFICATION_PREDELETE) { instance_data->delete_flag = false; }
 
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
     kt_class->do_notification(env, instance_data->kt_object, p_what, p_reversed);
 }
 
@@ -276,9 +276,9 @@ void JvmInstance::to_string(GDExtensionScriptInstanceDataPtr p_instance, GDExten
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = instance_data->kt_object;
 
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
 
-    if (KtFunction* function {kt_class->get_method(SNAME("_to_string"))}) {
+    if (KtFunction* function = kt_class->get_method(SNAME("_to_string"))) {
         const int arg_count = 0;
         Variant ret;
         function->invoke(env, kt_object, nullptr, arg_count, ret);
@@ -342,7 +342,7 @@ void JvmInstance::free(GDExtensionScriptInstanceDataPtr p_instance) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtObject* kt_object = instance_data->kt_object;
 
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
     if (instance_data->delete_flag) {
         kt_object->script_instance_removed(
           env,
@@ -360,7 +360,7 @@ void JvmInstance::promote_reference(JvmInstance::JvmInstanceData* instance_data)
     KtObject* kt_object = instance_data->kt_object;
 
     if (kt_object->is_ref_weak()) {
-        jni::Env env {jni::Jvm::current_env()};
+        jni::Env env = jni::Jvm::current_env();
         kt_object->swap_to_strong_unsafe(env);
     }
 }
@@ -371,7 +371,7 @@ void JvmInstance::demote_reference(JvmInstance::JvmInstanceData* instance_data) 
     KtObject* kt_object = instance_data->kt_object;
 
     if (refcount == 1 && !kt_object->is_ref_weak()) {
-        jni::Env env {jni::Jvm::current_env()};
+        jni::Env env = jni::Jvm::current_env();
         kt_object->swap_to_weak_unsafe(env);
     }
 
@@ -402,9 +402,9 @@ JvmInstance::JvmInstanceData* JvmInstance::create_instance_data(jni::Env& p_env,
 #ifdef TOOLS_ENABLED
 bool JvmInstance::get_or_default(JvmInstance::JvmInstanceData* instance_data, const StringName& p_name, Variant& r_ret) {
     jni::LocalFrame localFrame(1000);
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
 
-    KtProperty* ktProperty {instance_data->kt_class->get_property(p_name)};
+    KtProperty* ktProperty = instance_data->kt_class->get_property(p_name);
     if (ktProperty) {
         ktProperty->call_get(env, instance_data->kt_object, r_ret);
         return true;
