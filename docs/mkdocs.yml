@@ -4,6 +4,9 @@ site_author: Utopia Rise
 site_url: !ENV [READTHEDOCS_CANONICAL_URL, 'https://godot-jvm.dev/en/stable/']
 docs_dir: src/doc
 strict: true
+validation:
+  links:
+    anchors: warn
 hooks:
   - logo_assets.py
 
@@ -12,7 +15,8 @@ repo_url: 'https://github.com/utopia-rise/godot-jvm'
 
 theme:
   name: material
-  favicon: logo/logo-32.png
+  custom_dir: src/overrides
+  favicon: logo/logo-64.png
   palette:
     - media: "(prefers-color-scheme)"
       primary: deep purple
@@ -31,7 +35,7 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
-  logo: logo/logo-1024-outline.png
+  logo: logo/logo-64.png
   font:
     code: JetBrains Mono
   features:
@@ -50,6 +54,21 @@ extra:
       link: https://github.com/utopia-rise
 
 plugins:
+  - redirects:
+      redirect_maps:
+        guide/enums-and-bitfields.md: reference/binding/types.md#enums-and-bitfields
+        guide/abstract-classes.md: reference/registration/classes.md#abstract-classes
+        guide/attaching-scripts.md: guide/registration-files.md
+        reference/registration.md: reference/registration/index.md
+        reference/property-hints.md: reference/annotations.md#property-hints
+        reference/language-parity.md: reference/index.md
+        reference/compatibility.md: start/compatibility.md
+        build/index.md: guide/index.md#build-and-run
+        troubleshooting/index.md: faq.md
+        troubleshooting/build-and-registration.md: faq.md#build-and-registration
+        troubleshooting/runtime.md: faq.md#startup-and-runtime
+        troubleshooting/export.md: faq.md#export
+        troubleshooting/known-limitations.md: faq.md#known-limitations
   - search:
       separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
 
@@ -66,6 +85,11 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.details
   - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - meta
 
 extra_css:
@@ -76,72 +100,69 @@ nav:
   - Start here:
       - Start here: start/index.md
       - Introduction: start/introduction.md
+      - Compatibility and requirements: start/compatibility.md
       - Install: start/install.md
       - Create a project: start/create-a-project.md
-      - Project layout: start/project-layout.md
       - Your first script: start/your-first-script.md
-      - Export a test build: start/export-a-test-build.md
-  - Write your game:
-      - Write your game: guide/index.md
-      - Exposing your code to Godot:
+  - User guide:
+      - User guide: guide/index.md
+      - Write your game:
           - Registering your code: guide/registration.md
           - Classes: guide/classes.md
-          - Properties and the Inspector: guide/properties.md
-          - Enums, bitfields and flags: guide/enums-and-bitfields.md
-          - Functions and notifications: guide/functions.md
+          - Properties and functions: guide/properties-and-functions.md
           - Signals and callables: guide/signals-and-callables.md
-          - Abstract classes: guide/abstract-classes.md
-          - Attaching scripts and .gdj files: guide/attaching-scripts.md
-      - Calling into Godot:
           - Working with Godot types: guide/godot-types.md
+          - Object lifetime: guide/object-lifetime.md
+          - Registration files (.gdj): guide/registration-files.md
           - Logging and errors: guide/logging-and-errors.md
-      - Runtime behaviour:
-          - Object lifetime and cleanup: guide/object-lifetime.md
           - Coroutines: guide/coroutines.md
-  - Build & ship:
-      - Build & ship: build/index.md
       - Build and run:
           - Building your project: build/building.md
           - Debugging: build/debugging.md
           - Libraries: build/libraries.md
       - Export:
-          - Export overview: build/export/index.md
+          - Export your game: build/export/index.md
           - Desktop: build/export/desktop.md
           - Android: build/export/android.md
-          - iOS: build/export/ios.md
           - GraalVM native image: build/export/graalvm-native-image.md
+          - iOS: build/export/ios.md
   - Reference:
-      - Reference: reference/index.md
-      - GDScript to Kotlin, Java and Scala: reference/gdscript-to-jvm.md
-      - Language parity: reference/language-parity.md
-      - Annotations: reference/annotations.md
-      - Property hints: reference/property-hints.md
-      - Registration reference: reference/registration.md
-      - Renamed symbols and global functions: reference/api-mapping.md
-      - Gradle plugin:
-          - The godot { } block at a glance: reference/gradle-plugin/index.md
+      - Index: reference/index.md
+      - Binding API:
+          - Engine API and naming: reference/api-mapping.md
+          - Types and conversions: reference/binding/types.md
+          - Objects and lifetime: reference/binding/objects.md
+          - Signals: reference/binding/signals.md
+          - Callables: reference/binding/callables.md
+          - Global functions and helpers: reference/binding/globals.md
+          - Coroutines: reference/binding/coroutines.md
+      - Registration:
+          - Modes: reference/registration/index.md
+          - Classes and inheritance: reference/registration/classes.md
+          - Properties: reference/registration/properties.md
+          - Functions, notifications and RPC: reference/registration/functions.md
+          - Signals: reference/registration/signals.md
+          - Script files and registered names: reference/registration/script-files.md
+          - Annotations: reference/annotations.md
+      - GDScript differences: reference/gdscript-to-jvm.md
+      - Configuration and tools:
+          - Gradle options index: reference/gradle-plugin/index.md
           - Languages and toolchains: reference/gradle-plugin/languages-and-toolchains.md
-          - Registration output: reference/gradle-plugin/registration.md
-          - Packaging and build tasks: reference/gradle-plugin/packaging-and-tasks.md
-          - Android, GraalVM and iOS inputs: reference/gradle-plugin/export-targets.md
-      - Runtime configuration and JVM arguments: reference/runtime-configuration.md
-      - IntelliJ IDEA plugin: reference/intellij-plugin.md
-      - Compatibility and versions: reference/compatibility.md
-      - Glossary: reference/glossary.md
-  - Troubleshooting:
-      - Symptom index: troubleshooting/index.md
-      - Build and registration: troubleshooting/build-and-registration.md
-      - Startup and runtime: troubleshooting/runtime.md
-      - Export: troubleshooting/export.md
-      - Known limitations: troubleshooting/known-limitations.md
+          - Registration settings: reference/gradle-plugin/registration.md
+          - Packaging options: reference/gradle-plugin/packaging-and-tasks.md
+          - Export options: reference/gradle-plugin/export-targets.md
+          - Gradle tasks: reference/gradle-plugin/tasks.md
+          - Runtime settings and JVM arguments: reference/runtime-configuration.md
+          - Editor and IDE settings: reference/intellij-plugin.md
   - Contribute:
       - Contributing: contribute/index.md
-      - Build from source: contribute/build-from-source.md
-      - Build for Android: contribute/build-for-android.md
-      - Run the tests: contribute/running-tests.md
-      - Test a change from a branch: contribute/test-a-branch.md
-      - The godot-cpp fork: contribute/godot-cpp-fork.md
-      - Update the iOS JDK: contribute/update-ios-jdk.md
+      - How to Build:
+          - Build from source: contribute/build-from-source.md
+          - Build for Android: contribute/build-for-android.md
+          - Run the tests: contribute/running-tests.md
+          - Test a change from a branch: contribute/test-a-branch.md
+          - The godot-cpp fork: contribute/godot-cpp-fork.md
+          - Update the iOS JDK: contribute/update-ios-jdk.md
       - How it works:
           - Where to start: contribute/how-it-works/index.md
           - The three build artifacts: contribute/how-it-works/artifacts.md
@@ -151,3 +172,4 @@ nav:
           - Registrar generation: contribute/how-it-works/registrar-generation.md
           - Signals and callables: contribute/how-it-works/signals-and-callables.md
           - JAR and script reloading: contribute/how-it-works/jar-and-script-reloading.md
+  - FAQ: faq.md

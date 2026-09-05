@@ -1,60 +1,81 @@
 ---
-description: A quick-start example of the godot { } Gradle block, recommended Gradle performance settings, and related Gradle/editor configuration.
+description: Alphabetical index of every godot block option, plus task and editor settings references.
 ---
 
-# The godot { } block at a glance
+# Gradle options index
 
-Configure `com.utopia-rise.godot-jvm` in the `godot { ... }` block in `build.gradle.kts`. The following pages list each property's purpose, default, and usage:
+Plugin ID: `com.utopia-rise.godot-jvm`. Options below belong to the `godot { ... }` block in **`build.gradle.kts`**, independently of the language used for gameplay scripts. Paths are resolved as specified by each option.
 
-- [Languages and toolchains](languages-and-toolchains.md)
-- [Registration output](registration.md)
-- [Packaging and build tasks](packaging-and-tasks.md)
-- [Android, GraalVM and iOS inputs](export-targets.md)
+## Options
 
-## Starter-project example
+| Option | Reference |
+|---|---|
+| [`android.compileSdkDirectory`](export-targets.md#androidcompilesdkdirectory) | Export options |
+| [`android.d8ToolPath`](export-targets.md#androidd8toolpath) | Export options |
+| [`android.minApiLevel`](export-targets.md#androidminapilevel) | Export options |
+| [`apiJsonFile`](packaging-and-tasks.md#custom-godot-api-bindings) | Packaging options |
+| [`godotProjectDirectory`](registration.md#godotprojectdirectory) | Registration settings |
+| [`graal.additionalJniConfigurationFiles`](export-targets.md#graaladditionaljniconfigurationfiles) | Export options |
+| [`graal.additionalReflectionConfigurationFiles`](export-targets.md#graaladditionalreflectionconfigurationfiles) | Export options |
+| [`graal.additionalResourceConfigurationFiles`](export-targets.md#graaladditionalresourceconfigurationfiles) | Export options |
+| [`graal.homeDirectory`](export-targets.md#graalhomedirectory) | Export options |
+| [`graal.strictImageHeapEnabled`](export-targets.md#graalstrictimageheapenabled) | Export options |
+| [`graal.verbose`](export-targets.md#graalverbose) | Export options |
+| [`graal.windowsDeveloperVcVarsPath`](export-targets.md#graalwindowsdevelopervcvarspath) | Export options |
+| [`isCustomApiEnabled`](packaging-and-tasks.md#custom-godot-api-bindings) | Packaging options |
+| [`isGodotCoroutinesEnabled`](packaging-and-tasks.md#isgodotcoroutinesenabled) | Packaging options |
+| [`isLibrary`](packaging-and-tasks.md#islibrary) | Packaging options |
+| [`languages`](languages-and-toolchains.md#languages) | Languages and toolchains |
+| [`registration.annotationProcessingMode`](registration.md#registrationannotationprocessingmode) | Registration settings |
+| [`registration.disableGdj`](registration.md#registrationdisablegdj) | Registration settings |
+| [`registration.gdjFilesDirectory`](registration.md#registrationgdjfilesdirectory) | Registration settings |
+| [`registration.gdjFilesIndentation`](registration.md#registrationgdjfilesindentation) | Registration settings |
+| [`registration.gdjFilesLayoutMode`](registration.md#registrationgdjfileslayoutmode) | Registration settings |
+| [`registration.incrementalFullBuildThreshold`](packaging-and-tasks.md#registrationincrementalfullbuildthreshold) | Packaging options |
+| [`registration.nameMode`](registration.md#registrationnamemode) | Registration settings |
+| [`toolchain.javaVersion`](languages-and-toolchains.md#toolchainjavaversion) | Languages and toolchains |
+| [`toolchain.kotlinVersion`](languages-and-toolchains.md#toolchainkotlinversion) | Languages and toolchains |
+| [`toolchain.scalaVersion`](languages-and-toolchains.md#toolchainscalaversion) | Languages and toolchains |
 
+## Tasks and related settings
+
+- [Gradle tasks](tasks.md): public build targets, outputs, and embedded JRE generation.
+- [Editor and IDE settings](../intellij-plugin.md): editor build behavior and annotation inspections.
+- [Runtime settings](../runtime-configuration.md): JVM launch arguments and JSON configuration.
+
+## Debug build constant
+
+
+Guard development-only code with the generated `GodotJvmBuildConfig.DEBUG` constant. Release builds remove the guarded code and its condition check.
+
+Example:
+
+/// tab | Kotlin
 ```kotlin
-import godot.gradle.GodotLanguage
+import kotlincompile.definitions.GodotJvmBuildConfig
 
-godot {
-    languages.set(setOf(GodotLanguage.KOTLIN, GodotLanguage.JAVA, GodotLanguage.SCALA))
-    isGodotCoroutinesEnabled.set(true)
+if (GodotJvmBuildConfig.DEBUG) {
+    // ...
 }
 ```
+///
 
-This is the core of a Godot-JVM project with every language and Godot coroutines enabled. Settings not shown here retain their plugin defaults. Configure Android, GraalVM, or iOS only when needed; see [Android, GraalVM and iOS inputs](export-targets.md).
+/// tab | Java
+```java
+import kotlincompile.definitions.GodotJvmBuildConfig;
 
-## Recommended Gradle performance settings
-
-Set these properties in `gradle.properties` to enable parallel task execution and the configuration cache:
-
-```properties
-org.gradle.parallel=true
-org.gradle.configuration-cache=true
-```
-
-## Related Gradle and editor configuration
-
-These are often configured together with the plugin, but they are not `godot { ... }` properties.
-
-### Custom source directories
-
-If you want Gradle to compile sources from a non-default Kotlin source directory, configure the regular Kotlin source set:
-
-```kotlin
-kotlin.sourceSets.main {
-    kotlin.srcDirs("scripts")
+if (GodotJvmBuildConfig.DEBUG) {
+    // ...
 }
 ```
+///
 
-### Gradle wrapper path in the Godot editor
+/// tab | Scala
+```scala
+import kotlincompile.definitions.GodotJvmBuildConfig
 
-Sometimes the Godot project is nested inside a larger repository and the Gradle wrapper lives in a parent directory:
-
-![Example project setup](../../assets/img/custom_gradle_wrapper_path_example_project_setup.png)
-
-In that case, the Godot editor may not find the wrapper automatically because it only looks inside the Godot project directory.
-
-Set `kotlin_jvm/gradle/gradle_wrapper_dir` in Godot's project settings to the wrapper directory so the editor can run builds. The screenshot shows an older editor layout:
-
-![Example project setup](../../assets/img/change_gradle_wrapper_path.png)
+if (GodotJvmBuildConfig.DEBUG) {
+  // ...
+}
+```
+///

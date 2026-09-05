@@ -2,11 +2,36 @@
 description: The godot { } packaging and coroutine switches, plus fastBuild and the registrar threshold for incremental builds.
 ---
 
-# Packaging and build tasks
+# Packaging options
 
 These options control library packaging, optional coroutine support, and incremental builds.
 
 ## Packaging and optional features
+
+### Custom Godot API bindings
+
+By default, the plugin uses the Godot API library published with the selected Godot-JVM release. Enable custom API generation when the project uses a newer Godot build, additional engine modules, or GDExtensions that expose extra API classes:
+
+```kotlin
+godot {
+    isCustomApiEnabled.set(true)
+}
+```
+
+The plugin reads `api.json` from the root Gradle project by default. Set `apiJsonFile` when the file is elsewhere; it has no effect while `isCustomApiEnabled` is `false`:
+
+```kotlin
+godot {
+    isCustomApiEnabled.set(true)
+    apiJsonFile.set(file("godot-api/custom-api.json"))
+}
+```
+
+When enabled, the plugin generates and compiles a local binding jar, compiles user code against it, and adds it to `godot-bootstrap.jar` instead of the published API library. The maintained core and runtime libraries remain published dependencies.
+
+Custom generation only produces the API-layer classes. The maintained core types and helpers, including `Object`, `RefCounted`, signals, callables, connectors, and coroutine support, remain the published versions. `generateCustomGodotApi`, its compilation, and `customGodotApiJar` use declared Gradle inputs and outputs. An unchanged `api.json` is therefore up to date and can be restored from the Gradle build cache. `packageBootstrapJar` also remains up to date while its binding jar and other inputs are unchanged.
+
+This consumer task is separate from the API generator plugin's existing `generateAPI` task used by Godot-JVM maintainers to regenerate the published libraries.
 
 ### `isLibrary`
 
@@ -31,7 +56,7 @@ When enabled, the plugin:
 - skips the runnable-project packaging flow
 - leaves a regular library JAR as the final artifact
 
-Unlike `disableGdj`, `isLibrary` turns off the whole local runtime-registration pipeline rather than only the `.gdj` part of it.
+Unlike `registration.disableGdj`, `isLibrary` turns off the whole local runtime-registration pipeline rather than only the `.gdj` part of it.
 
 ### `isGodotCoroutinesEnabled`
 
@@ -49,29 +74,33 @@ godot {
 }
 ```
 
+### `godotMain` and `godotSingle` dependencies
+
+Dependencies declared with `implementation` are merged into `godot-bootstrap.jar`. Two additional
+dependency configurations control different packaging requirements:
+
+```kotlin
+dependencies {
+    godotMain("org.eclipse.serializer:serializer:4.0.1")
+    godotSingle("org.bouncycastle:bcprov-jdk18on:1.79")
+}
+```
+
+- `godotMain` merges the dependency into `main.jar`. Use it when the library must load user-code
+  classes or be recreated with editor reloads.
+- `godotSingle` preserves the dependency as a separate JAR in `res://jvm/external/`. Use it for
+  signed JARs or libraries that cannot be merged safely.
+
+Both configurations are available while compiling and testing, but neither is merged into
+`godot-bootstrap.jar`.
+
 ## Incremental builds
 
 Use these tasks and settings to control incremental builds.
 
-### `fastBuild`
+The [`fastBuild`](tasks.md#fastbuild) task reuses the previous registration artifacts.
 
-Builds fresh desktop JARs while reusing the last generated registrar artifacts instead of rescanning registered classes and regenerating `.gdj` files.
-
-Use this when you only changed implementation details that do not affect registration structure, for example method bodies.
-
-Example:
-
-```shell
-./gradlew fastBuild
-```
-
-Rules:
-
-- requires a previous successful full build so the generated registrar JAR already exists
-- still recompiles the project and rebuilds `main.jar`
-- should not be used after adding, removing, renaming, or structurally changing registered classes, functions, properties, or signals
-
-### `registrarIncrementalFullBuildThreshold`
+### `registration.incrementalFullBuildThreshold`
 
 Maximum number of changed classes handled by incremental registrar generation. Above this threshold, the plugin regenerates all registrars to avoid the overhead of incremental analysis.
 
@@ -83,7 +112,7 @@ Example:
 
 ```kotlin
 godot {
-    registrarIncrementalFullBuildThreshold.set(64)
+    registration.incrementalFullBuildThreshold.set(64)
 }
 ```
 

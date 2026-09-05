@@ -19,7 +19,7 @@ with tempfile.TemporaryDirectory(prefix='godot-jvm-logo-') as temporary:
     subprocess.run([inkscape, str(directory / 'logo-reference.svg'),
                     f'--export-filename={rendered}', '--export-width=2048'], check=True)
     master = Image.open(rendered).convert('RGBA')
-    sizes = (32, 64, 128, 256, 512, 1024)
+    sizes = (128, 256, 512, 1024)
     for size in sizes:
         master.resize((size, size), Image.Resampling.LANCZOS).save(directory / f'logo-{size}.png')
 

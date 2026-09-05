@@ -117,16 +117,150 @@
   background-color: var(--md-primary-fg-color--dark);
 }
 
+/*
+ * Pixel-perfect header logo. logo-64.png is pixel art, so it is only ever
+ * drawn at an integer multiple of its 64 device pixels: width = 64 * k / dpr.
+ * k is the largest multiple that keeps the logo at or under ~52 CSS px; at
+ * 1x the smallest possible size is 64 CSS px, and the header grows to fit.
+ */
 .md-header__button.md-logo {
   align-items: center;
   display: flex;
-  height: 2.4rem;
+  height: auto;
   margin-block: 0;
-  padding-block: 0.05rem;
+  padding-block: 0.2rem;
 }
 
 .md-header__button.md-logo img {
-  height: 2.3rem;
-  transform: translateY(-0.08rem);
-  width: 2.3rem;
+  height: 64px;
+  image-rendering: pixelated;
+  width: 64px;
+}
+
+@media (min-resolution: 1.25dppx) and (max-resolution: 1.49dppx) {
+  .md-header__button.md-logo img {
+    height: 51.2px;
+    width: 51.2px;
+  }
+}
+
+@media (min-resolution: 1.5dppx) and (max-resolution: 1.74dppx) {
+  .md-header__button.md-logo img {
+    height: 42.6667px;
+    width: 42.6667px;
+  }
+}
+
+@media (min-resolution: 1.75dppx) and (max-resolution: 1.99dppx) {
+  .md-header__button.md-logo img {
+    height: 36.5714px;
+    width: 36.5714px;
+  }
+}
+
+@media (min-resolution: 2dppx) and (max-resolution: 2.49dppx) {
+  .md-header__button.md-logo img {
+    height: 32px;
+    width: 32px;
+  }
+}
+
+@media (min-resolution: 2.5dppx) and (max-resolution: 2.99dppx) {
+  .md-header__button.md-logo img {
+    height: 51.2px;
+    width: 51.2px;
+  }
+}
+
+@media (min-resolution: 3dppx) and (max-resolution: 3.99dppx) {
+  .md-header__button.md-logo img {
+    height: 42.6667px;
+    width: 42.6667px;
+  }
+}
+
+@media (min-resolution: 4dppx) {
+  .md-header__button.md-logo img {
+    height: 64px;
+    width: 64px;
+  }
+}
+
+/* Download card in the home page's right sidebar (src/overrides/home.html). */
+.md-sidebar--home {
+  border-left: 0;
+}
+
+.home-panel {
+  background: rgb(89 108 130 / 8%);
+  border: 1px solid rgb(89 108 130 / 18%);
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  margin-top: 1.2rem;
+  padding: 0.8rem;
+}
+
+.home-panel__title {
+  color: var(--md-default-fg-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+}
+
+.home-panel__meta {
+  color: var(--md-default-fg-color--light);
+  margin: 0 0 0.8rem;
+}
+
+.home-panel.md-typeset .md-button {
+  background: rgb(89 108 130 / 12%);
+  border: 1px solid rgb(89 108 130 / 25%);
+  color: var(--md-default-fg-color);
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  text-align: center;
+  transition: background 125ms, border-color 125ms;
+}
+
+.home-panel.md-typeset .md-button--primary {
+  border-color: var(--md-accent-fg-color);
+}
+
+.home-panel.md-typeset .md-button:hover,
+.home-panel.md-typeset .md-button:focus {
+  background: rgb(89 108 130 / 22%);
+  border-color: var(--md-accent-fg-color);
+  color: var(--md-default-fg-color);
+}
+
+/* Centered title and logo at the top of the home page. */
+.md-typeset .home-hero {
+  text-align: center;
+}
+
+.md-typeset .home-hero h1 {
+  margin-bottom: 0.4em;
+}
+
+/* License and Discord links added to the header (src/overrides/partials/source.html). */
+.md-header__source {
+  align-items: center;
+  display: flex;
+  width: auto;
+}
+
+.md-source--extra {
+  margin-right: 0.4rem;
+}
+
+.md-source--extra .md-source__icon {
+  margin-left: 0;
+}
+
+.md-source__repository--extra {
+  margin-left: 0.4rem;
+  max-width: none;
+  overflow: visible;
 }

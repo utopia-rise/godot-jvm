@@ -3,7 +3,8 @@ on:
   push:
     tags:
       - '1.0.0'
-      - '1.0.0-dev3'
+      - '1.0.0-dev*'
+      - '1.0.0-rc*'
 
 concurrency:
   group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-trigger_on_tag
@@ -25,12 +26,14 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
+      # Releases and release candidates both move the minor maintenance branch (e.g. 1.0) to the tagged
+      # commit. Read the Docs builds the "1.x" documentation from that branch, so every rc rebuilds it.
       - name: Update minor maintenance branch
         if: ${{ !contains(github.ref_name, '-dev') && !contains(github.ref_name, '-snapshot') }}
         shell: bash
         run: |
           maintenance_branch="${GITHUB_REF_NAME%.*}"
-          git push origin "HEAD:refs/heads/$maintenance_branch"
+          git push --force origin "HEAD:refs/heads/$maintenance_branch"
 
   create-draft-release:
     name: 📝 Create draft release
@@ -138,9 +141,10 @@ jobs:
       jvm-version: *jvm_version
     secrets: inherit # needed so that this sub workflow can also access github secrets for this workflow
 
+  # Moves the "stable" docs to this tag. Release candidates only update the maintenance branch above.
   deploy-docs:
     name: 🚀 Deploy Docs
-    if: ${{ !contains(github.ref_name, '-dev') }}
+    if: ${{ !contains(github.ref_name, '-dev') && !contains(github.ref_name, '-rc') }}
     uses: ./.github/workflows/deploy_docs.yml
     needs: # only if all deployments are successful we want to deploy the docs
       - deploy-godot

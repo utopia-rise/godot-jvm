@@ -15,7 +15,7 @@ Used by:
 
 The Android export tasks are compatible with configuration cache, so `buildAndroid` and lower-level Android packaging tasks can be run with `--configuration-cache`.
 
-### `d8ToolPath`
+### `android.d8ToolPath`
 
 Path to the `d8` executable used for dex generation, as a string.
 
@@ -25,11 +25,11 @@ Default:
 
 ```kotlin
 godot {
-    d8ToolPath.set("${System.getenv("ANDROID_SDK_ROOT")}/build-tools/36.0.0/d8")
+    android.d8ToolPath.set("${System.getenv("ANDROID_SDK_ROOT")}/build-tools/36.0.0/d8")
 }
 ```
 
-### `androidCompileSdkDirectory`
+### `android.compileSdkDirectory`
 
 Path to the Android platform directory used for compilation, as a string.
 
@@ -39,11 +39,11 @@ Default:
 
 ```kotlin
 godot {
-    androidCompileSdkDirectory.set("${System.getenv("ANDROID_SDK_ROOT")}/platforms/android-36")
+    android.compileSdkDirectory.set("${System.getenv("ANDROID_SDK_ROOT")}/platforms/android-36")
 }
 ```
 
-### `androidMinApiLevel`
+### `android.minApiLevel`
 
 Minimum Android API level passed to `d8`.
 
@@ -53,7 +53,7 @@ Default:
 
 ```kotlin
 godot {
-    androidMinApiLevel.set(21)
+    android.minApiLevel.set(21)
 }
 ```
 
@@ -68,7 +68,7 @@ Used by:
 
 The desktop GraalVM and iOS export tasks are also compatible with configuration cache.
 
-### `graalVmHomeDirectory`
+### `graal.homeDirectory`
 
 Path to the GraalVM home directory, as a string. It is used to locate the `native-image` executable.
 
@@ -78,11 +78,11 @@ Default:
 
 ```kotlin
 godot {
-    graalVmHomeDirectory.set(System.getenv("GRAALVM_HOME"))
+    graal.homeDirectory.set(System.getenv("GRAALVM_HOME"))
 }
 ```
 
-### `windowsDeveloperVcVarsPath`
+### `graal.windowsDeveloperVcVarsPath`
 
 Windows-only path to the Visual Studio VCVARS script used by native-image builds, as a string.
 
@@ -92,47 +92,47 @@ Default:
 
 ```kotlin
 godot {
-    windowsDeveloperVcVarsPath.set(System.getenv("VC_VARS_PATH"))
+    graal.windowsDeveloperVcVarsPath.set(System.getenv("VC_VARS_PATH"))
 }
 ```
 
-### `additionalGraalJniConfigurationFiles`
+### `graal.additionalJniConfigurationFiles`
 
 Additional JNI configuration files, resolved relative to the project's `graal/` directory.
 
 ```kotlin
 godot {
-    additionalGraalJniConfigurationFiles.set(
+    graal.additionalJniConfigurationFiles.set(
         arrayOf("jni-config.json")
     )
 }
 ```
 
-### `additionalGraalReflectionConfigurationFiles`
+### `graal.additionalReflectionConfigurationFiles`
 
 Additional reflection configuration files passed directly to native-image. Use absolute paths so they resolve regardless of the build's working directory.
 
 ```kotlin
 godot {
-    additionalGraalReflectionConfigurationFiles.set(
+    graal.additionalReflectionConfigurationFiles.set(
         arrayOf(file("graal/reflect-config.json").absolutePath)
     )
 }
 ```
 
-### `additionalGraalResourceConfigurationFiles`
+### `graal.additionalResourceConfigurationFiles`
 
 Additional resource configuration files passed directly to native-image. Use absolute paths so they resolve regardless of the build's working directory.
 
 ```kotlin
 godot {
-    additionalGraalResourceConfigurationFiles.set(
+    graal.additionalResourceConfigurationFiles.set(
         arrayOf(file("graal/resource-config.json").absolutePath)
     )
 }
 ```
 
-### `isGraalNativeImageVerboseEnabled`
+### `graal.verbose`
 
 Turns on verbose mode for native-image generation.
 
@@ -142,6 +142,22 @@ Default:
 
 ```kotlin
 godot {
-    isGraalNativeImageVerboseEnabled.set(true)
+    graal.verbose.set(true)
+}
+```
+
+### `graal.strictImageHeapEnabled`
+
+Passes `--strict-image-heap` to native-image generation. Reflection based code might need it to build successfully, at the cost of a bigger image and a longer build time.
+
+Default:
+
+- `false`
+
+```kotlin
+godot {
+    graal {
+        strictImageHeapEnabled.set(true)
+    }
 }
 ```

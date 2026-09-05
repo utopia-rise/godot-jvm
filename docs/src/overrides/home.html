@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+
+{% block site_nav %}
+  <div class="md-sidebar md-sidebar--secondary md-sidebar--home" data-md-component="sidebar" data-md-type="toc">
+    <div class="md-sidebar__scrollwrap">
+      <div class="md-sidebar__inner">
+        <div class="home-panel md-typeset">
+          <p class="home-panel__title">Get Godot-JVM</p>
+          <p class="home-panel__meta">Version 1.0.0<br>Godot 4.7.2+ and JDK 17+</p>
+          <a class="md-button md-button--primary" href="https://github.com/utopia-rise/godot-jvm/releases">Download the addon</a>
+          <a class="md-button" href="{{ 'start/' | url }}">Get started</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

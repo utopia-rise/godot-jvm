@@ -112,12 +112,13 @@ namespace {
         if (p_path.begins_with(String(BUILD_DIRECTORY) + "/")) { return true; }
         if (p_path.begins_with(String(RES_DIRECTORY) + JVM_DIRECTORY)) {
             // res://jvm/ holds the artifacts of every platform: desktop and Android jars, native images and
-            // embedded JREs. Only the two jars the target platform loads at runtime belong in the pck; the
-            // native image is added explicitly by _export_begin and everything else must stay out.
+            // embedded JREs. Desktop JVM exports need their runtime jars and intact external dependencies;
+            // the native image is added explicitly by _export_begin and everything else must stay out.
             if (p_features.has("ios") || !p_export_jvm) { return true; }
             bool android = p_features.has("android");
             String bootstrap = String(RES_DIRECTORY) + (android ? ANDROID_BOOTSTRAP_FILE : DESKTOP_BOOTSTRAP_FILE);
             String user_code = String(RES_DIRECTORY) + (android ? ANDROID_USER_CODE_FILE : DESKTOP_USER_CODE_FILE);
+            if (!android && p_path.begins_with(String(RES_DIRECTORY) + EXTERNAL_JARS_DIRECTORY)) { return false; }
             return p_path != bootstrap && p_path != user_code;
         }
         return false;

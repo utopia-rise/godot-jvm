@@ -1,6 +1,6 @@
 @file:JvmName("ObjectUtils")
 
-package godot.extension.api
+package godot.extension
 
 import godot.api.Object
 import godot.api.RefCounted
@@ -38,4 +38,3 @@ fun <T : Object?> T.asStatic(): T {
     }
     return this
 }
-

@@ -32,7 +32,7 @@ flowchart LR
     end
 
     jar ==> addon
-    src -. "com.yourcompany.game.Player" .-> node
+    src -. "com.example.game.Player" .-> node
 ```
 
 The solid arrows follow compiled code. The dotted arrow shows how the attached source file identifies a class: Godot reads its package and class name, then resolves that fully qualified name to the compiled class in `main.jar`.

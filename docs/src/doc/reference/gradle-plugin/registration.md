@@ -2,7 +2,7 @@
 description: The godot { } properties that select the annotation-processing mode and control where .gdj registration files are written.
 ---
 
-# Registration output
+# Registration settings
 
 Use these settings to select registered declarations, locate the Godot project, and control dependency registration files.
 
@@ -18,21 +18,11 @@ Default: `AnnotationProcessingMode.Inferred`
 import godot.annotation.processor.classgraph.AnnotationProcessingMode
 
 godot {
-    registration {
-        annotationProcessingMode.set(AnnotationProcessingMode.Inferred)
-    }
+    registration.annotationProcessingMode.set(AnnotationProcessingMode.Inferred)
 }
 ```
 
-The available modes are:
-
-- `Explicit`: only direct selection annotations count.
-- `Inferred`: direct annotations and recursively implied annotations count;
-  signals and compatible Godot overrides are also discovered.
-- `Automatic`: all compatible declarations in Godot classes are selected;
-  annotations remain useful as configuration.
-
-In IntelliJ IDEA, choose the same mode under **Settings > Godot-JVM > Annotation processing mode**. Gradle determines what is registered; the IDE setting keeps inspections consistent with the build.
+Accepted values: `Explicit`, `Inferred`, `Automatic`. See [Registration modes](../registration/index.md) for exact selection and export behavior. The IDE's inspection mode is configured [separately](../intellij-plugin.md#annotation-processing-mode).
 
 ## Godot project layout and registration output
 
@@ -56,9 +46,7 @@ godot {
 
 ### `registration.gdjFilesDirectory`
 
-Base directory where newly created external-dependency `.gdj` registration files are written. Classes from the current Godot project use their source files directly.
-
-The plugin creates this directory only when it has a generated `.gdj` file to write there.
+Base directory where newly created external-dependency `.gdj` registration files are written. The directory is created only when there is a new `.gdj` file to place there. Classes from the current Godot project use their source files directly.
 
 Default:
 
@@ -68,9 +56,7 @@ Example:
 
 ```kotlin
 godot {
-    registration {
-        gdjFilesDirectory.set(file("custom-gdj"))
-    }
+    registration.gdjFilesDirectory.set(file("custom-gdj"))
 }
 ```
 
@@ -86,9 +72,7 @@ Example:
 
 ```kotlin
 godot {
-    registration {
-        disableGdj.set(true)
-    }
+    registration.disableGdj.set(true)
 }
 ```
 
@@ -102,7 +86,7 @@ When enabled, the plugin:
 
 ### `registration.gdjFilesLayoutMode`
 
-Controls how `.gdj` files are laid out inside each library's directory under `registrationFilesDirectory`.
+Controls how `.gdj` files are laid out inside each library's directory under `registration.gdjFilesDirectory`.
 
 Values:
 
@@ -119,9 +103,7 @@ Example:
 import godot.registrar.generator.RegistrationFileLayoutMode
 
 godot {
-    registration {
-        gdjFilesLayoutMode.set(RegistrationFileLayoutMode.HIERARCHICAL)
-    }
+    registration.gdjFilesLayoutMode.set(RegistrationFileLayoutMode.HIERARCHICAL)
 }
 ```
 
@@ -144,15 +126,13 @@ Example:
 import godot.registrar.generator.RegistrationFileIndentation
 
 godot {
-    registration {
-        gdjFilesIndentation.set(RegistrationFileIndentation.TAB)
-    }
+    registration.gdjFilesIndentation.set(RegistrationFileIndentation.TAB)
 }
 ```
 
 ### `registration.nameMode`
 
-Controls how default registered names are computed when `@Script` does not provide a custom name.
+Controls the prefix policy for registered class names. The base name is the nonblank `@Script.className`, or the simple JVM class name. Custom names still receive the selected prefix; dots and hyphens are then replaced with underscores. See [registered class names](../registration/script-files.md#registered-class-names).
 
 Values:
 
@@ -170,8 +150,6 @@ Example:
 import godot.registrar.generator.RegisteredNameMode
 
 godot {
-    registration {
-        nameMode.set(RegisteredNameMode.FQ_NAME)
-    }
+    registration.nameMode.set(RegisteredNameMode.FQ_NAME)
 }
 ```

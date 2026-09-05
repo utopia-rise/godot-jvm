@@ -33,7 +33,7 @@ Effect:
 - `compileScala` only runs when `SCALA` is enabled
 - The Scala plugin and runtime are added only when `SCALA` is enabled
 
-## `javaVersion`
+## `toolchain.javaVersion`
 
 Configures the Java and Kotlin toolchains used for compilation.
 
@@ -45,7 +45,7 @@ Example:
 
 ```kotlin
 godot {
-    javaVersion.set(21)
+    toolchain.javaVersion.set(21)
 }
 ```
 
@@ -54,7 +54,7 @@ Rules:
 - the plugin rejects any value below JDK `17`
 - the value is applied to both the Java toolchain and the Kotlin JVM toolchain
 
-## `kotlinVersion`
+## `toolchain.kotlinVersion`
 
 Expected Kotlin Gradle plugin version for the build.
 
@@ -66,7 +66,7 @@ Example:
 
 ```kotlin
 godot {
-    kotlinVersion.set("2.3.20")
+    toolchain.kotlinVersion.set("2.3.20")
 }
 ```
 
@@ -74,7 +74,7 @@ Rules:
 
 - must be at least `2.3.20` for the current Godot-JVM release
 - if no Kotlin JVM plugin is declared, Godot-JVM applies Kotlin `2.3.20` automatically
-- an explicitly declared higher version is accepted when `kotlinVersion` keeps its default
+- an explicitly declared higher version is accepted when `toolchain.kotlinVersion` keeps its default
 - if you override it, you must also apply `org.jetbrains.kotlin.jvm` explicitly with the same version before `com.utopia-rise.godot-jvm`, otherwise the build fails with a version mismatch
 
 Example with explicit override:
@@ -86,11 +86,11 @@ plugins {
 }
 
 godot {
-    kotlinVersion.set("YOUR_KOTLIN_VERSION")
+    toolchain.kotlinVersion.set("YOUR_KOTLIN_VERSION")
 }
 ```
 
-## `scalaVersion`
+## `toolchain.scalaVersion`
 
 Scala version used when Scala support is enabled.
 
@@ -102,7 +102,7 @@ Example:
 
 ```kotlin
 godot {
-    scalaVersion.set("3.6.3")
+    toolchain.scalaVersion.set("3.6.3")
 }
 ```
 

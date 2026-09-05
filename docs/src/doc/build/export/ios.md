@@ -1,29 +1,18 @@
 ---
-description: Exporting to iOS, which requires GraalVM and static linking of the compiled usercode archive into the application executable.
+description: iOS cannot run a JVM, so it uses a native image.
 ---
 
 # iOS
 
-Build for iOS with [GraalVM for JDK 25.0.2](https://download.oracle.com/graalvm/25/archive/graalvm-jdk-25.0.2_macos-aarch64_bin.tar.gz). The exact update matters: the static libraries come from labs-openjdk 25.0.2, and JDK 25.0.3 replaced the `java.io.Console.istty` native with `ttyStatus`, so a 25.0.3 or newer GraalVM builds an image that fails to link. Install the full GraalVM JDK separately.
+Use [GraalVM for JDK 25.0.2](https://download.oracle.com/graalvm/25/archive/graalvm-jdk-25.0.2_macos-aarch64_bin.tar.gz), and exactly that update. The static libraries come from labs-openjdk 25.0.2, and JDK 25.0.3 renamed a native the image links against, so a newer GraalVM builds an image that fails to link. Install the full GraalVM JDK; the build downloads its matching static libraries and CAP cache as one bundle from [ios-graal-native-image](https://github.com/utopia-rise/ios-graal-native-image).
 
-iOS uses static linking. `buildIOS` produces `jvm/ios/usercode.a` together with the matching
-`libjava-release.a` and `libjvm-release.a`. During export, Godot links these archives with the
-Godot-JVM iOS GDExtension archive into the application executable; they are not loaded at runtime.
-Run `buildIOS` (or `buildIOSRelease`) before exporting the Godot project.
+1. Prepare the macOS/Xcode toolchain described in [Godot's iOS export documentation](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_ios.html).
+2. Set `GRAALVM_HOME` to your GraalVM installation. Apply the dependency configuration from [GraalVM native image](graalvm-native-image.md).
+3. Select **Build iOS Release** in Godot's toolbar and click **Run Gradle** (`buildIOSRelease` in IntelliJ). Use **Build iOS** for debug builds.
+4. Export with an iOS preset, build the exported Xcode project, and run it on your device.
 
-The static libraries and the CAP cache the native-image build needs are downloaded together, as a
-single bundle published by
-[ios-graal-native-image](https://github.com/utopia-rise/ios-graal-native-image), and cached under
-`build/libs/ios/ios-jdk` and `build/graal/ios/capcache`. Each file is checked against the
-`SHA256SUMS` shipped in the bundle, so a truncated download fails the build instead of producing a
-broken archive.
+The JVM build produces `jvm/ios/usercode.a`, `libjava-release.a`, and `libjvm-release.a`. The export links these with the Godot-JVM iOS extension into the application.
 
-Configure the GraalVM installation and build inputs in `build.gradle.kts` as shown below. [GraalVM native image](graalvm-native-image.md) explains reflection, JNI, and resource configuration, which also applies to iOS.
+Details: [Reference](../../reference/gradle-plugin/export-targets.md).
 
-```kotlin
-godot {
-    graal {
-        homeDirectory.set("Path to your GraalVM install") // or set up GRAALVM_HOME.
-    }
-}
-```
+Next: run the exported game on your device.

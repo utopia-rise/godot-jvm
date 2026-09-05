@@ -21,8 +21,8 @@ jobs:
       - name: Validate release tag
         shell: bash
         run: |
-          if [[ ! "$GITHUB_REF_NAME" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-dev[1-9][0-9]*)?$ ]]; then
-            echo "Expected x.y.z or x.y.z-devX, where X is a positive integer."
+          if [[ ! "$GITHUB_REF_NAME" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-(dev|rc)[1-9][0-9]*)?$ ]]; then
+            echo "Expected x.y.z, x.y.z-devX or x.y.z-rcX, where X is a positive integer."
             exit 1
           fi
 
@@ -46,7 +46,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           draft: true
-          prerelease: ${{ contains(github.ref_name, '-dev') }}
+          prerelease: ${{ contains(github.ref_name, '-dev') || contains(github.ref_name, '-rc') }}
 
       - name: Output release url file
         run: echo "${{ steps.create_release.outputs.upload_url }}" > deploy_release_url.txt

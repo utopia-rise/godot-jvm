@@ -70,3 +70,13 @@ Type tags follow Godot's `Variant::Type` ordinals. The table below describes C++
 | Packed arrays | 29 to 38 | 8-byte native pointer |
 
 Mathematical values use their native component layout. Integer components are 4 bytes; real-valued components follow the build's precision. The JVM and native converters must agree on that layout.
+
+## Value copies
+
+Mathematical values such as `Vector3` are serialized as components in the shared buffer and reconstructed as JVM values. A getter does not return a view into the native property. Changing those components affects only the reconstructed value until a setter transfers them back. Container wrappers instead carry native pointers and share storage, while value-type elements retrieved from them still cross the buffer by value.
+
+## Exceptions at the JNI boundary
+
+Registered function and property wrappers catch `Throwable` on the JVM side. `KtFunction.invokeWithReturn()` and `KtProperty.callGet()` log the stack trace and write a nil Variant into the return buffer on failure; setters and void calls log the failure without a return value.
+
+For exceptions that reach JNI, JNI leaves a pending throwable when JVM code throws across a native call. `jni::Env::handle_exception()` obtains and clears it, then invokes the handler installed by `JvmManager`. `GodotPrintBridge::print_exception_stacktrace()` asks the JVM for the formatted stack trace and reports it through Godot. The exception does not unwind Godot's C++ stack; the boundary returns its default result and engine execution continues. Before the handler is installed, JNI describes and clears the exception directly.

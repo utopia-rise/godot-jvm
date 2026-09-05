@@ -4,11 +4,13 @@ description: Attach IntelliJ IDEA's remote JVM debugger to Godot and keep develo
 
 # Debugging
 
-Attach IntelliJ IDEA's remote JVM debugger to set breakpoints and inspect your running game. An embedded JRE needs the `jdk.jdwp.agent` module; a full system JDK includes it. [Desktop](export/desktop.md) explains how to add runtime modules.
+Attach IntelliJ IDEA's remote JVM debugger to set breakpoints and inspect your running game.
+
+An embedded JRE needs the `jdk.jdwp.agent` module; a full system JDK includes it. [Desktop](export/desktop.md) explains how to add runtime modules.
 
 ## In Godot
 
-Open **Debug > Customize Run Instances** and add `--jvm-debug-port=5005` to **Main Run Args**.
+Open Godot's [run-instance settings](https://docs.godotengine.org/en/stable/tutorials/scripting/debug/overview_of_debugging_tools.html) with **Debug > Customize Run Instances** and add `--jvm-debug-port=5005` to **Main Run Args**.
 
 ![Customize Run Instances menu](../assets/img/remote_debug_configuration_godot_menu.png)
 
@@ -27,38 +29,8 @@ The game waits for a debugger when you set a debug port or address. Add `--jvm-w
 
 Execution pauses at the breakpoint so you can inspect variables and step through the code.
 
-## Write debug code
+`godot_jvm_configuration.json` in the project root stores persistent runtime settings. See the Reference below for its keys and all JVM flags.
 
-Guard development-only code with the generated `GodotJvmBuildConfig.DEBUG` constant. Release builds remove the guarded code and its condition check.
+Details: [Reference](../reference/runtime-configuration.md).
 
-Example:
-
-/// tab | Kotlin
-```kotlin
-import kotlincompile.definitions.GodotJvmBuildConfig
-
-if (GodotJvmBuildConfig.DEBUG) {
-    // ...
-}
-```
-///
-
-/// tab | Java
-```java
-import kotlincompile.definitions.GodotJvmBuildConfig;
-
-if (GodotJvmBuildConfig.DEBUG) {
-    // ...
-}
-```
-///
-
-/// tab | Scala
-```scala
-import kotlincompile.definitions.GodotJvmBuildConfig
-
-if (GodotJvmBuildConfig.DEBUG) {
-  // ...
-}
-```
-///
+Next: [Libraries](libraries.md).
