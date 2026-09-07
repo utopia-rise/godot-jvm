@@ -15,6 +15,6 @@ The **Start here** track owns the installation and project-wizard steps. Follow 
 ## Keeping IDE and Gradle settings in sync
 
 The plugin's inspections and highlighting need to agree with how your Gradle build registers classes. If you set a
-non-default [`annotationProcessingMode`](gradle-plugin/registration.md) in `build.gradle.kts`, set the
+non-default [`registration.annotationProcessingMode`](gradle-plugin/registration.md) in `build.gradle.kts`, set the
 same mode in the IDE under **Settings | Godot-JVM | Annotation processing mode**. Gradle controls the actual build;
 the IDE setting keeps inspections and highlighting accurate.

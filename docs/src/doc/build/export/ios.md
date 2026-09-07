@@ -16,6 +16,8 @@ Additionally, to the regular GraalVM configuration mentioned above, add the foll
 
 ```kotlin
 godot {
-    graalVmHomeDirectory.set("Path to your GraalVM install") // or set up GRAALVM_HOME.
+    graal {
+        homeDirectory.set("Path to your GraalVM install") // or set up GRAALVM_HOME.
+    }
 }
 ```

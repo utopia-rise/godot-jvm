@@ -190,7 +190,7 @@ private fun Project.setupRegistrarGenerationTasks(
         task.onlyIf { !fastBuildRequested }
     }
 
-    val updateRegistrationFilesTask = if (godotJvmExtension.disableGdj.get()) {
+    val updateRegistrationFilesTask = if (godotJvmExtension.registration.disableGdj.get()) {
         generateRegistrarFilesTask
     } else {
         val indexExistingRegistrationFilesTask = registrarGenerationIndexExistingRegistrationFilesTask()

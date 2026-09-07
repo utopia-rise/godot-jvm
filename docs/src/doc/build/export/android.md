@@ -25,24 +25,30 @@ During export, Godot adds `addons/jvm/libs/android/debug/godot-jvm-debug.aar` or
 ## Configuration
 When automatic discovery is not appropriate, configure the Android SDK inputs explicitly:
 
-- Setting the `d8` tool:
+- Setting the `android.d8ToolPath` tool:
     ```kotlin
     godot {
-        d8ToolPath.set("${System.getenv("ANDROID_SDK_ROOT")}/build-tools/36.0.0/d8")
+        android {
+            d8ToolPath.set("${System.getenv("ANDROID_SDK_ROOT")}/build-tools/36.0.0/d8")
+        }
     }
     ```
 
-- Setting the `androidCompileSdkDirectory` to your target SDK version (most of the time, you want to set it to the newest version available):
+- Setting `android.compileSdkDirectory` to your target SDK version (most of the time, you want to set it to the newest version available):
     ```kotlin
     godot {
-        androidCompileSdkDirectory.set("${System.getenv("ANDROID_SDK_ROOT")}/platforms/android-36")
+        android {
+            compileSdkDirectory.set("${System.getenv("ANDROID_SDK_ROOT")}/platforms/android-36")
+        }
     }
     ```
 
-- Setting the `androidMinApiLevel` (equivalent to the `--min-api` argument of `d8`), default is `21`:
+- Setting `android.minApiLevel` (equivalent to the `--min-api` argument of `d8`), default is `21`:
     ```kotlin
     godot {
-        androidMinApiLevel.set(22)
+        android {
+            minApiLevel.set(22)
+        }
     }
     ```
 

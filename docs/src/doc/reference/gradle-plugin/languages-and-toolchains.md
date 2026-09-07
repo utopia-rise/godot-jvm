@@ -35,7 +35,7 @@ Effect:
 - `compileScala` only runs when `SCALA` is enabled
 - Scala plugin/runtime wiring is only added when `SCALA` is enabled
 
-### `javaVersion`
+### `toolchain.javaVersion`
 
 Configures the Java and Kotlin toolchains used for compilation.
 
@@ -47,7 +47,9 @@ Example:
 
 ```kotlin
 godot {
-    javaVersion.set(21)
+    toolchain {
+        javaVersion.set(21)
+    }
 }
 ```
 
@@ -56,7 +58,7 @@ Rules:
 - the plugin rejects any value below JDK `17`
 - the value is applied to both the Java toolchain and the Kotlin JVM toolchain
 
-### `kotlinVersion`
+### `toolchain.kotlinVersion`
 
 Expected Kotlin Gradle plugin version for the build.
 
@@ -68,7 +70,9 @@ Example:
 
 ```kotlin
 godot {
-    kotlinVersion.set("2.3.20")
+    toolchain {
+        kotlinVersion.set("2.3.20")
+    }
 }
 ```
 
@@ -87,11 +91,13 @@ plugins {
 }
 
 godot {
-    kotlinVersion.set("YOUR_KOTLIN_VERSION")
+    toolchain {
+        kotlinVersion.set("YOUR_KOTLIN_VERSION")
+    }
 }
 ```
 
-### `scalaVersion`
+### `toolchain.scalaVersion`
 
 Scala version used when Scala support is enabled.
 
@@ -103,7 +109,9 @@ Example:
 
 ```kotlin
 godot {
-    scalaVersion.set("3.6.3")
+    toolchain {
+        scalaVersion.set("3.6.3")
+    }
 }
 ```
 
