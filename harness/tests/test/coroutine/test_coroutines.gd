@@ -1,7 +1,8 @@
 extends GdUnitTestSuite
 
 func test_coroutine_await():
-    var test_script: Object = CoroutineTest.new()
+    var test_script: Node = CoroutineTest.new()
+    add_child(test_script)
 
     assert_that(test_script.step).override_failure_message("Property should be 0 at first.").is_equal(0)
 
@@ -44,6 +45,14 @@ func test_coroutine_await():
     test_script.start_coroutine_with_process_frame()
     await get_tree().process_frame
     assert_that(test_script.step).override_failure_message("Property should be 12 when coroutine is resumed.").is_equal(12)
+
+    test_script.start_coroutine_with_flow()
+    await get_tree().create_timer(1).timeout
+    assert_that(test_script.step).override_failure_message("Property should be 13 while the flow is waiting.").is_equal(13)
+
+    test_script.signal_with_one_parameter.emit(14)
+    await get_tree().create_timer(1).timeout
+    assert_that(test_script.step).override_failure_message("Property should be 14 when the flow receives a signal.").is_equal(14)
 
     test_script.run_on_main_thread_from_background_thread()
     var run_on_main_thread_from_background_thread_success = await test_script.run_on_main_thread_from_background_thread_finished

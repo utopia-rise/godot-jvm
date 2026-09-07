@@ -19,13 +19,9 @@ suspend inline fun ResourceLoader.awaitLoad(
     typeHint: String = "",
     cacheMode: CacheMode = CacheMode.REUSE,
 ): Resource? {
-    // early return in case the resource is already loaded
-    if (hasCached(path)) {
-        return load(path)
-    }
-
     // Switch to the worker thread pool so the load doesn't block the caller's thread
-    // (especially important when the caller is on the main thread).
+    // (especially important when the caller is on the main thread). This also makes
+    // cached and uncached loads complete asynchronously.
     return withContext(GodotDispatchers.ThreadPool) {
         load(path, typeHint, cacheMode)
     }
