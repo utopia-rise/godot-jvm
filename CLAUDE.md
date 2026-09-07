@@ -205,9 +205,10 @@ Details: `docs/src/doc/contribute/how-it-works/shared-buffer.md`
 
 Configured in Godot project settings:
 - **Embedded JVM** — `jlink`-created JRE bundled with the project (recommended for distribution)
-- **Dynamic JVM** — discovered at runtime via a `java` executable on `PATH` first, falling back to
-  `JAVA_HOME` only if nothing usable is found on `PATH` (see `get_path_to_java_executable()` /
-  `get_path_to_environment_jvm()` in `cpp/godot-jvm.cpp`)
+- **Dynamic JVM** — discovered at runtime from `JAVA_HOME` first, then from a `java` executable on
+  `PATH`, and on macOS from `/usr/libexec/java_home` last (see `get_path_to_environment_jvm()` /
+  `get_path_to_java_executable()` in `cpp/godot-jvm.cpp`). `--jvm-path` overrides all of it, including
+  the embedded JRE.
 
 ## Key Gotchas
 

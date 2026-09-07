@@ -17,16 +17,24 @@ Java and Scala support are welcome when they naturally fit the same JVM-facing i
 
 [comment]: <> (To keep everything working, do not remove `<!-- ... -->` sections. These are added to the plugin description through gradle during build)
 <!-- Plugin description -->
-Adds focused K2-only code insight for Godot-JVM projects in IntelliJ IDEA.
+Godot-JVM support for IntelliJ IDEA: write Godot scripts in Kotlin, Java, or Scala with registration-aware code insight.
+
+Requires the K2 Kotlin mode.
 
 Features:
 
+- creates Godot-JVM projects and modules, with optional Android and iOS/GraalVM build setup
+- creates Godot script classes from the project view: pick the language, the Godot base class, and the lifecycle functions to override
+- runs the Godot editor or game from a `Godot` run configuration, with a JDK picked from the ones the IDE knows or detects
 - validates `@Script`, `@Visible`, `@Register`, `@Emit`, `@Export`, and `@Rpc` usage
-- highlights Godot script declarations as ineligible, candidates, or registered
-- validates common callable-reference usage for Godot signal, `call`, and `rpc` patterns
-- detects nested mutation through `@CoreTypeLocalCopy` getter results in simple assignment chains
+- follows the registration mode selected for the project: Explicit, Inferred, or Automatic
+- highlights script declarations as ineligible, registration candidates, or registered
+- reports duplicate registered class names on both declarations
+- validates callable references used in Godot signal, `call`, and `rpc` patterns
+- detects nested mutation of `@CoreTypeLocalCopy` getter results
 - offers quick fixes for common registration and mutability mistakes
-- creates new Godot-JVM projects and modules from built-in templates
+
+Checks only run inside Godot projects, so the rest of your code is left untouched.
 
 <!-- Plugin description end -->
 
@@ -56,6 +64,11 @@ The code is split into a few small layers:
     - source edits for common fixes
 - `wizard/`:
     - project/module creation flow
+- `run/`:
+    - Godot run configuration
+- `action/`:
+    - project view actions
+    - new Godot script creation
 
 That split is meant to keep each file easy to scan:
 
@@ -162,6 +175,45 @@ Examples:
 - remove invalid RPC channel arguments
 - navigate to already-registered classes
 
+### Godot script action
+
+`New | Godot Script` in the project view creates a Godot script class, comparable to attaching a script from the Godot editor.
+
+Current behavior:
+
+- only visible for directories inside a Godot project
+- asks for the class name, language, and Godot base class
+- the base class chooser is limited to Godot types
+- offers only the lifecycle functions the chosen base class actually declares, with `_ready` preselected
+- emits `@Script` and `@Register` only where the project's registration mode requires them
+
+Relevant files:
+
+- [NewGodotScriptAction.kt](src/main/kotlin/godot/intellij/plugin/action/NewGodotScriptAction.kt)
+- [NewGodotScriptDialog.kt](src/main/kotlin/godot/intellij/plugin/action/NewGodotScriptDialog.kt)
+- [GodotScriptGenerator.kt](src/main/kotlin/godot/intellij/plugin/action/GodotScriptGenerator.kt)
+
+### Run configuration
+
+A `Godot` run configuration type runs the current Godot project. It exists so the JVM Godot uses is chosen per project instead of through machine wide
+settings.
+
+Current behavior:
+
+- offered only for projects that contain a `project.godot`
+- asks for the Godot executable and a JDK, and whether to launch the editor
+- the JDK list contains the project SDK, the JDKs the IDE knows, and the JDKs detected on the machine
+- runs the executable with `--path <godot project>`, plus `--editor` when the editor is requested
+- passes the selected JDK with `--jvm-path`, which Godot-JVM resolves before the embedded JRE and the environment, so it needs a Godot-JVM build that
+  supports that argument
+- exports the same JDK as `JAVA_HOME`, for the tools Godot starts itself such as Gradle. `PATH` is left untouched
+
+Relevant files:
+
+- [GodotRunConfigurationType.kt](src/main/kotlin/godot/intellij/plugin/run/GodotRunConfigurationType.kt)
+- [GodotRunConfiguration.kt](src/main/kotlin/godot/intellij/plugin/run/GodotRunConfiguration.kt)
+- [GodotRunConfigurationEditor.kt](src/main/kotlin/godot/intellij/plugin/run/GodotRunConfigurationEditor.kt)
+
 ### Wizard
 
 The wizard uses IntelliJ's current New Project Wizard API and writes minimal starter templates.
@@ -240,6 +292,8 @@ Recommended checks after `runIde`:
 - nested copy mutation such as `position.x += 1` or `transform.basis.x.x = 1.0`
 - helper-call copy mutation such as `transform.basis.x { y = 1.0 }`
 - wizard generation for Kotlin, Java, and Scala
+- `New | Godot Script` for Kotlin, Java, and Scala in each registration mode
+- a `Godot` run configuration against a real Godot binary, with a JDK that differs from the system default
 
 ## Development Notes
 
