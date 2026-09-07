@@ -1,5 +1,5 @@
 ---
-description: The godot { } library-packaging switch, plus the fastBuild, registrar-threshold, and coroutine build tasks the plugin adds to Gradle.
+description: Custom Godot API generation, library packaging, fastBuild, registrar thresholds, and coroutine support in the Gradle plugin.
 ---
 
 # Packaging and build tasks
@@ -7,6 +7,31 @@ description: The godot { } library-packaging switch, plus the fastBuild, registr
 These settings affect how the project is packaged, which optional runtime helpers are added, and which higher-level tasks the plugin adds on top of the normal Gradle lifecycle.
 
 ## Packaging and optional runtime features
+
+### Custom Godot API bindings
+
+By default, the plugin uses the Godot API library published with the selected Godot-JVM release. Enable custom API generation when the project uses a newer Godot build, additional engine modules, or GDExtensions that expose extra API classes:
+
+```kotlin
+godot {
+    isCustomApiEnabled.set(true)
+}
+```
+
+The plugin reads `api.json` from the root Gradle project by default. Set `apiJsonFile` when the file is elsewhere; it has no effect while `isCustomApiEnabled` is `false`:
+
+```kotlin
+godot {
+    isCustomApiEnabled.set(true)
+    apiJsonFile.set(file("godot-api/custom-api.json"))
+}
+```
+
+When enabled, the plugin generates and compiles a local binding jar, compiles user code against it, and adds it to `godot-bootstrap.jar` instead of the published API library. The maintained core and runtime libraries remain published dependencies.
+
+Custom generation only produces the API-layer classes. The maintained core types and helpers, including `Object`, `RefCounted`, signals, callables, connectors, and coroutine support, remain the published versions. `generateCustomGodotApi`, its compilation, and `customGodotApiJar` use declared Gradle inputs and outputs. An unchanged `api.json` is therefore up to date and can be restored from the Gradle build cache. `packageBootstrapJar` also remains up to date while its binding jar and other inputs are unchanged.
+
+This consumer task is separate from the API generator plugin's existing `generateAPI` task used by Godot-JVM maintainers to regenerate the published libraries.
 
 ### `isLibrary`
 

@@ -4,12 +4,12 @@ import java.io.File
 
 
 class ApiTask(
-    coreDir: File,
+    coreDir: File?,
     apiDir: File
 ) : GenerationTask<Unit>() {
 
     val coreFiles = subTask<FileTask, _> { output ->
-        output.writeTo(coreDir)
+        coreDir?.let(output::writeTo)
     }
 
     val apiFiles = subTask<FileTask, _> { output ->

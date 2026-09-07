@@ -25,6 +25,8 @@ godot {
     annotationProcessingMode.set(AnnotationProcessingMode.Inferred)
 
     godotProjectDirectory.set(file("."))
+    isCustomApiEnabled.set(false)
+    apiJsonFile.set(file("api.json"))
     disableGdj.set(false)
     registrationFilesDirectory.set(file("gdj"))
     registrationFilesLayoutMode.set(RegistrationFileLayoutMode.FLAT)
