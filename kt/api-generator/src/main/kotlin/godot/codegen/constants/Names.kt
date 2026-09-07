@@ -47,6 +47,7 @@ object Core {
     const val signalsFileName = "Signals"
     const val signalConnectorsFileName = "SignalConnectors"
     const val bindMethodName = "bind"
+    val asCallable = MemberName(godotCorePackage, "asCallable")
     const val callMethodName = "call"
     const val callDeferredMethodName = "callDeferred"
     const val connectMethodName = "connect"
@@ -172,10 +173,15 @@ object VariantConverter {
 
 object Coroutines {
     const val awaitMethodName = "await"
+    const val asFlowMethodName = "asFlow"
     val await = ClassName(godotCoroutinePackage, "Await")
+    val flow = ClassName(godotCoroutinePackage, "Flow")
     val promise = MemberName(godotExtensionPackage, "promise")
     val resume = MemberName(kotlinCoroutinePackage, "resume")
     val suspendCancellableCoroutine = MemberName(kotlinxCoroutinePackage, "suspendCancellableCoroutine")
+    val callbackFlow = MemberName("kotlinx.coroutines.flow", "callbackFlow")
+    val flowType = ClassName("kotlinx.coroutines.flow", "Flow")
+    val awaitClose = MemberName("kotlinx.coroutines.channels", "awaitClose")
     val cancellableContinuation = ClassName(kotlinxCoroutinePackage, "CancellableContinuation")
     const val cancel = "cancel"
 }
