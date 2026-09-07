@@ -46,6 +46,7 @@ namespace godot {
 
 #ifndef TOOLS_ENABLED
         static String copy_new_file_to_user_dir(const String& file_name);
+        static void copy_external_jars_to_user_dir();
 #endif
 
 #ifdef DYNAMIC_JVM

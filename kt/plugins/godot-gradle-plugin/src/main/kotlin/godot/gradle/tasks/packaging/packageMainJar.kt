@@ -1,6 +1,8 @@
 package godot.gradle.tasks
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import godot.gradle.projectExt.GODOT_MAIN_CONFIGURATION
+import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -21,6 +23,18 @@ fun Project.packageMainJarTask(
             archiveVersion.set("")
             archiveClassifier.set("")
             configurations.clear()
+            configurations.add(this@packageMainJarTask.configurations.getByName(GODOT_MAIN_CONFIGURATION))
+
+            val godotSingle = this@packageMainJarTask.configurations.getByName(GODOT_SINGLE_CONFIGURATION)
+            // Keep godotSingle dependencies as intact JARs while making them visible to the main URLClassLoader.
+            manifest.attributes[
+                "Class-Path"
+            ] = provider {
+                godotSingle.files
+                    .filter { it.extension == "jar" }
+                    .sortedBy { it.name }
+                    .joinToString(" ") { "external/${it.name}" }
+            }
 
             dependsOn(userClassesTask)
             dependsOn(generatedRegistrarJarTask)

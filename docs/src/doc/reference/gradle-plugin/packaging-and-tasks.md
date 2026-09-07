@@ -33,6 +33,26 @@ When enabled, the plugin:
 
 Unlike `disableGdj`, `isLibrary` turns off the whole local runtime-registration pipeline rather than only the `.gdj` part of it.
 
+### `godotMain` and `godotSingle` dependencies
+
+Dependencies declared with `implementation` are merged into `godot-bootstrap.jar`. Two additional
+dependency configurations control different packaging requirements:
+
+```kotlin
+dependencies {
+    godotMain("org.eclipse.serializer:serializer:4.0.1")
+    godotSingle("org.bouncycastle:bcprov-jdk18on:1.79")
+}
+```
+
+- `godotMain` merges the dependency into `main.jar`. Use it when the library must load user-code
+  classes or be recreated with editor reloads.
+- `godotSingle` preserves the dependency as a separate JAR in `res://jvm/external/`. Use it for
+  signed JARs or libraries that cannot be merged safely.
+
+Both configurations are available while compiling and testing, but neither is merged into
+`godot-bootstrap.jar`.
+
 ## Build tasks
 
 The plugin adds a few higher-level tasks on top of the normal Gradle lifecycle.
