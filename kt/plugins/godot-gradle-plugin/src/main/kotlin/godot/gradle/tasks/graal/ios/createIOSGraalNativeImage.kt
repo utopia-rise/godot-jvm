@@ -51,6 +51,9 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
     @get:Input
     abstract val verboseEnabled: Property<Boolean>
 
+    @get:Input
+    abstract val strictImageHeapEnabled: Property<Boolean>
+
     @TaskAction
     fun createIOSGraalNativeImage() {
         val libsDir = mainJar.get().asFile.parentFile
@@ -144,6 +147,10 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
             command.add("--verbose")
         }
 
+        if (strictImageHeapEnabled.get()) {
+            command.add("--strict-image-heap")
+        }
+
         println(command.joinToString(" "))
 
         val process = ProcessBuilder(command)
@@ -169,6 +176,7 @@ fun Project.createIOSGraalNativeImageTask(
     val graalDirectory = layout.buildDirectory.dir("graal")
     val graalVmHomeDirectory = godotJvmExtension.graalVmHomeDirectory
     val isVerboseEnabled = godotJvmExtension.isGraalNativeImageVerboseEnabled
+    val isStrictImageHeapEnabled = godotJvmExtension.isGraalNativeImageStrictImageHeapEnabled
     val projectBaseDir = projectDir
     val additionalJniConfigurationFiles = godotJvmExtension.additionalGraalJniConfigurationFiles.map { configFiles ->
         configFiles.joinToString(",") { configFile ->
@@ -204,6 +212,7 @@ fun Project.createIOSGraalNativeImageTask(
             this.additionalReflectionConfigurationFiles.set(additionalReflectionConfigurationFiles)
             this.additionalResourceConfigurationFiles.set(additionalResourceConfigurationFiles)
             this.verboseEnabled.set(isVerboseEnabled)
+            this.strictImageHeapEnabled.set(isStrictImageHeapEnabled)
         }
     }
 }

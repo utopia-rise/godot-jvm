@@ -185,6 +185,14 @@ open class GodotExtension(objects: ObjectFactory) {
      */
     val isGraalNativeImageVerboseEnabled: Property<Boolean> = objects.property(Boolean::class.java)
 
+    /**
+     * Enable strict image heap on native image generation.
+     *
+     * If set to true, `--strict-image-heap` is passed to the native-image tool. This is needed by some reflection
+     * based code to build successfully, at the cost of a bigger image and a longer build time.
+     */
+    val isGraalNativeImageStrictImageHeapEnabled: Property<Boolean> = objects.property(Boolean::class.java)
+
 
     /**
      * Enables the use of coroutines in the context of Godot lifecycle callbacks (signals).
@@ -269,6 +277,7 @@ open class GodotExtension(objects: ObjectFactory) {
         additionalGraalReflectionConfigurationFiles.convention(arrayOf())
         additionalGraalResourceConfigurationFiles.convention(arrayOf())
         isGraalNativeImageVerboseEnabled.convention(false)
+        isGraalNativeImageStrictImageHeapEnabled.convention(false)
 
         isGodotCoroutinesEnabled.convention(false)
 
