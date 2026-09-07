@@ -2,6 +2,9 @@ package godot.tests.registration;
 
 import godot.annotation.ExpEasing;
 import godot.annotation.Export;
+import godot.annotation.Category;
+import godot.annotation.Group;
+import godot.annotation.Subgroup;
 import godot.annotation.File;
 import godot.annotation.FloatRange;
 import godot.annotation.IntFlag;
@@ -72,6 +75,34 @@ public class JavaExport extends Node {
     @Export
     @Visible
     public int intValue = 1;
+
+    @Category(name = "Character")
+    @Group(name = "Movement")
+    @Subgroup(name = "Speeds", prefix = "movementSpeed")
+    public double movementSpeedWalk = 4.0;
+
+    @Export
+    public double movementSpeedRun = 7.0;
+
+    @Subgroup(name = "Jumping", prefix = "movementJump")
+    public double movementJumpHeight = 2.0;
+
+    @Export
+    public double movementJumpDuration = 0.5;
+
+    @Group(name = "Health")
+    public int healthMaximum = 100;
+
+    @Export
+    public int healthRegeneration = 5;
+
+    @Category(name = "Presentation")
+    @Group(name = "Appearance")
+    @Subgroup(name = "Colors", prefix = "appearanceColor")
+    public Color appearanceColorPrimary = new Color(0.2, 0.5, 1.0, 1.0);
+
+    @Export
+    public Color appearanceColorSecondary = new Color(1.0, 0.5, 0.2, 1.0);
 
     @Export
     @Visible

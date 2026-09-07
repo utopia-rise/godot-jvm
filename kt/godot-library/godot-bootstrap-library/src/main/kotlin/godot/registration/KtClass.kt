@@ -17,29 +17,16 @@ data class KtClass<T : KtObject>(
     val fqdn: String,
     val sourceFileName: String,
     val kClass: KClass<out KtObject>,
-    private val _registeredSupertypes: List<String>,
+    val registeredSupertypes: Array<String>,
     val constructor: KtConstructor<T>?,
-    private val _properties: Map<String, KtProperty<T, *>>,
-    private val _functions: Map<String, KtFunction<T, *>>,
+    val properties: Array<KtProperty<T, *>>,
+    val functions: Array<KtFunction<T, *>>,
     private val _notifications: List<KtNotification<T>>,
-    private val _signalInfos: Map<String, KtSignalInfo>,
+    val signalInfos: Array<KtSignalInfo>,
+    val handledNotifications: IntArray,
     val baseGodotClass: String,
     val isAbstract: Boolean,
 ) {
-    val registeredSupertypes: Array<String>
-        get() = _registeredSupertypes.toTypedArray()
-    val functions: Array<KtFunction<T, *>>
-        get() = _functions.values.toTypedArray()
-    val properties: Array<KtProperty<T, *>>
-        get() = _properties.values.toTypedArray()
-    val signalInfos: Array<KtSignalInfo>
-        get() = _signalInfos.values.toTypedArray()
-    val handledNotifications: IntArray
-        get() = _notifications
-            .map { registeredNotification -> registeredNotification.notification }
-            .distinct()
-            .toIntArray()
-
     fun doNotification(instance: T) {
         val parameters = arrayOfNulls<Any>(2)
         TransferContext.readArguments(

@@ -62,12 +62,61 @@ func test_kotlin_resource_export_retains_scene_resource() -> void:
     await get_tree().process_frame
 
 
+func test_kotlin_export_groups_are_listed_in_declaration_order() -> void:
+    var scene: Node = EXPORT_INSPECTOR_SCENE.instantiate()
+    add_child(scene)
+
+    _assert_export_group_order(scene.get_node(^"KotlinExportNode"))
+    _assert_export_group_order(scene.get_node(^"JavaExportNode"))
+    _assert_export_group_order(scene.get_node(^"ScalaExportNode"))
+
+    scene.queue_free()
+    await get_tree().process_frame
+
+
+func _assert_export_group_order(instance: Object) -> void:
+    var properties: Array[Dictionary] = instance.get_property_list()
+    var expected_order := [
+        "Character",
+        "Movement",
+        "Speeds",
+        "movement_speed_walk",
+        "movement_speed_run",
+        "Jumping",
+        "movement_jump_height",
+        "movement_jump_duration",
+        "Health",
+        "health_maximum",
+        "health_regeneration",
+        "Presentation",
+        "Appearance",
+        "Colors",
+        "appearance_color_primary",
+        "appearance_color_secondary",
+    ]
+    var previous_index := -1
+    for property_name in expected_order:
+        var property_index := _property_index(properties, property_name)
+        assert_that(property_index).is_greater(previous_index)
+        previous_index = property_index
+
+    _assert_property_list_marker(properties, "Character", PROPERTY_USAGE_CATEGORY)
+    _assert_property_list_marker(properties, "Movement", PROPERTY_USAGE_GROUP, "movement")
+    _assert_property_list_marker(properties, "Speeds", PROPERTY_USAGE_SUBGROUP, "movement_speed")
+    _assert_property_list_marker(properties, "Jumping", PROPERTY_USAGE_SUBGROUP, "movement_jump")
+    _assert_property_list_marker(properties, "Health", PROPERTY_USAGE_GROUP, "health")
+    _assert_property_list_marker(properties, "Presentation", PROPERTY_USAGE_CATEGORY)
+    _assert_property_list_marker(properties, "Appearance", PROPERTY_USAGE_GROUP, "appearance")
+    _assert_property_list_marker(properties, "Colors", PROPERTY_USAGE_SUBGROUP, "appearance_color")
+
 func _assert_reenabled_exports(instance: Object, expect_lazy_export := false) -> void:
     var property_map := _property_map(instance)
 
     if expect_lazy_export:
         _assert_exported_property(property_map, "lazy_int_value", TYPE_INT)
         assert_that(instance.get("lazy_int_value")).is_equal(42)
+
+        _assert_exported_property(property_map, "camera", TYPE_OBJECT)
 
         _assert_kotlin_delegate_property(property_map, instance, "observable_visible_int_value", 110, 111, false)
         _assert_kotlin_delegate_property(property_map, instance, "observable_export_int_value", 10, 11, true)
@@ -105,6 +154,11 @@ func _assert_reenabled_exports(instance: Object, expect_lazy_export := false) ->
     _assert_exported_property(property_map, "packed_vector4_array", TYPE_PACKED_VECTOR4_ARRAY)
     assert_that(instance.get("packed_vector4_array").size()).is_equal(0)
 
+    _assert_container_hint(property_map, "string_array", "4:String")
+    _assert_container_hint(property_map, "nav_meshes", "24/17:NavigationMesh")
+    _assert_container_hint(property_map, "string_to_int_dictionary", "4:String;2:int")
+    _assert_container_hint(property_map, "nav_meshes_dictionary", "4:String;24/17:NavigationMesh")
+
 
 func _assert_kotlin_delegate_property(property_map: Dictionary, instance: Object, property_name: String, initial_value: int, assigned_value: int, is_exported: bool) -> void:
     _assert_registered_property(property_map, property_name, TYPE_INT, is_exported)
@@ -120,8 +174,31 @@ func _property_map(instance: Object) -> Dictionary:
     return properties
 
 
+func _property_index(properties: Array[Dictionary], property_name: String) -> int:
+    for index in properties.size():
+        if properties[index]["name"] == property_name:
+            return index
+    return -1
+
+
+func _assert_property_list_marker(properties: Array[Dictionary], property_name: String, usage: int, hint_string := "") -> void:
+    var property_index := _property_index(properties, property_name)
+    assert_that(property_index).is_greater_equal(0)
+
+    var property: Dictionary = properties[property_index]
+    assert_that(property["type"]).is_equal(TYPE_NIL)
+    assert_that(property["hint_string"]).is_equal(hint_string)
+    assert_bool((property["usage"] & usage) != 0).is_true()
+
+
 func _assert_exported_property(property_map: Dictionary, property_name: String, variant_type: int) -> void:
     _assert_registered_property(property_map, property_name, variant_type, true)
+
+
+func _assert_container_hint(property_map: Dictionary, property_name: String, hint_string: String) -> void:
+    var property: Dictionary = property_map[property_name]
+    assert_that(property["hint"]).is_equal(PROPERTY_HINT_TYPE_STRING)
+    assert_that(property["hint_string"]).is_equal(hint_string)
 
 
 func _assert_registered_property(property_map: Dictionary, property_name: String, variant_type: int, is_exported: bool) -> void:
