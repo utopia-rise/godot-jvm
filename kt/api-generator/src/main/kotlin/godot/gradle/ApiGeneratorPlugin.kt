@@ -6,8 +6,11 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.model.ObjectFactory
+import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 
 open class ApiGeneratorPluginExtension(objects: ObjectFactory) {
@@ -18,20 +21,22 @@ open class ApiGeneratorPluginExtension(objects: ObjectFactory) {
     var coroutineOutputDir = objects.directoryProperty()
 }
 
-open class GenerateAPI : DefaultTask() {
-    @InputFile
+@CacheableTask
+abstract class GenerateAPI : DefaultTask() {
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     val sourceJson = project.objects.fileProperty()
 
-    @OutputDirectory
+    @get:OutputDirectory
     val coreOutputDir = project.objects.directoryProperty()
 
-    @OutputDirectory
+    @get:OutputDirectory
     val apiOutputDir = project.objects.directoryProperty()
 
-    @OutputDirectory
+    @get:OutputDirectory
     val extensionOutputDir = project.objects.directoryProperty()
 
-    @OutputDirectory
+    @get:OutputDirectory
     val coroutineOutputDir = project.objects.directoryProperty()
 
     @TaskAction
