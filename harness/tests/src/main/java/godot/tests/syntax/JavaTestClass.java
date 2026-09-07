@@ -35,4 +35,3 @@ public class JavaTestClass extends Node {
         notificationTriggered = true;
     }
 }
-

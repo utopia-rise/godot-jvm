@@ -1,34 +1,108 @@
 ---
-description: Every Godot-JVM runtime flag, its JSON key in godot_jvm_configuration.json, its default and accepted values, from VM type to debugging and custom JVM arguments.
+description: Every runtime flag and JSON key, defaults, precedence, accepted values, and launch examples.
 ---
 
-# Runtime configuration and JVM arguments
+# Runtime settings and JVM arguments
 
-The following arguments can be either used in the command line or the `godot_jvm_configuration.json` file at the root
-of the project to customize the behaviour of the Godot-JVM binding.
+Configure the runtime with launch arguments or `godot_jvm_configuration.json` in the project root. The table lists the corresponding names, defaults, and accepted values.
 
 The binding reads the file from `res://godot_jvm_configuration.json` and writes a fresh one with the current defaults
 if it is missing or out of date.
 
-!!! info
-    Note that in case the same argument is used in both JSON and command-line, the command-line argument got the priority.
+Command-line arguments override values in the JSON file.
 
-!!! tip
-    The boolean flags (`--jvm-use-debug`, `--jvm-wait-for-debugger`, `--jvm-disable-gc`) can be passed bare, in which
-    case they mean `true`. Pass `=true` or `=false` explicitly to be unambiguous. In the JSON file they are regular
-    JSON booleans.
+The boolean flags (`--jvm-use-debug`, `--jvm-wait-for-debugger`, `--jvm-disable-gc`) can be passed bare, in which
+case they mean `true`. Pass `=true` or `=false` explicitly to be unambiguous. In the JSON file they are regular
+JSON booleans.
 
-| Command-line            | Configuration  json | Default value | Description                                                                                                                                                                                                                                                          | Example                                                                                                 |
-|-------------------------|---------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| --jvm-vm-type           | vm_type             | auto          | Defines the VM to run on. Possible values are `auto`, `jvm`, `graal_native_image` and `art`. When set to `graal_native_image` it uses Graal native image. `auto` resolves to `jvm` on desktop, `art` on Android and `graal_native_image` on iOS; on Android and iOS any other value is overridden.                                                                    | `--jvm-vm-type=jvm` or `"vm_type": "jvm"`                                                                    |
-| --jvm-use-debug         | use_debug           | false         | Defines if the jvm debug server should be started.                                                                                                                                                                                                                   | `--jvm-use-debug` or `"use_debug": true`                                                                   |
-| --jvm-debug-port        | debug_port          | 5005          | Defines the port to which you can attach a remote debugger. Accepted values are `0` to `65535`. **Note:** the module `jdk.jdwp.agent` is needed in the embedded JRE if you want to debug your application. If you need `jmx`, also the module `jdk.management.agent` is needed                           | `--jvm-debug-port=5005` or `"debug_port": 5005`                                                            |
-| --jvm-debug-address     | debug_address       | `*` (any address) | Defines which addresses are allowed for debugging. On the command line only a valid IP address is accepted; in the JSON file you can also use `*` to accept any address                                                                                             | `--jvm-debug-address=127.0.0.1` or `"debug_address": "*"`                                            |
-| --jvm-wait-for-debugger | wait_for_debugger   | true          | Accepted values: `true` or `false`. Defines if the jvm should suspend execution until a remote debugger is attached. Only effective when debugging is enabled; passing `--jvm-debug-port`, `--jvm-debug-address` or `--jvm-wait-for-debugger` on the command line enables it implicitly                                                                     | `--jvm-wait-for-debugger` or `"wait_for_debugger": true`                                                   |
-| --jvm-jmx-port          | jmx_port            | -1 (disabled) | Defines the jmx port. Accepted values are `-1` to disable it, or `0` to `65535`. **Note:** the module `jdk.management.agent` is needed in the embedded JRE to be able to use jmx                                                                                                                                                | `--jvm-jmx-port=5006` or `"jmx_port": 5006`                                                                |
-| --jvm-max-string-size   | max_string_size     | -1 (auto, 512 bytes) | Maximum size of strings sent through the buffer. When above that value, strings are sent with a slower JNI Call. A bigger size means a bigger buffer. Increase if you need a lot of long strings and don't mind using more memory. One buffer exists for each thread. Set it back to `-1` to restore the built-in default of 512 | `--jvm-max-string-size=1024` or `"max_string_size": 1024`                                                    |
-| --jvm-disable-gc        | disable_gc          | false         | Disables our GC. **Caution:** If you disable our GC you **will** have memory leaks as all `RefCounted` types and Native Types are not Garbage collected anymore                                                                                                         | `--jvm-disable-gc` or `"disable_gc": true`                                                                 |
-| --jvm-custom-args       | custom_jvm_args     |               | Allows to set your own arguments for the JVM, make sure they are valid if you don't want the JVM not starting properly. Avoid overlapping with others arguments if you want to set debug or jmx. For command line usage, pass a quoted space-separated list or a comma-separated list. | `--jvm-custom-args="-Xmx4g -Xms4g"` (quoted, space-separated), `--jvm-custom-args=-Xmx4g,-Xms4g` (comma-separated), or `"custom_jvm_args": ["-Xmx4g", "-Xms4g"]` |
+## Settings index
+
+| Argument | JSON key | Default |
+|---|---|---|
+| [`--jvm-vm-type`](#jvm-vm-type) | `vm_type` | auto |
+| [`--jvm-use-debug`](#jvm-use-debug) | `use_debug` | false |
+| [`--jvm-debug-port`](#jvm-debug-port) | `debug_port` | 5005 |
+| [`--jvm-debug-address`](#jvm-debug-address) | `debug_address` | `*` (any address) |
+| [`--jvm-wait-for-debugger`](#jvm-wait-for-debugger) | `wait_for_debugger` | true |
+| [`--jvm-jmx-port`](#jvm-jmx-port) | `jmx_port` | -1 (disabled) |
+| [`--jvm-max-string-size`](#jvm-max-string-size) | `max_string_size` | -1 (auto, 512 bytes) |
+| [`--jvm-disable-gc`](#jvm-disable-gc) | `disable_gc` | false |
+| [`--jvm-custom-args`](#jvm-custom-args) | `custom_jvm_args` |  |
+
+## `--jvm-vm-type` { #jvm-vm-type }
+
+JSON key: `vm_type`. Default: auto.
+
+Select `auto`, `jvm`, `graal_native_image`, or `art`; `auto` uses `jvm` on desktop, while Android always uses `art` and iOS always uses `graal_native_image`. On other platforms, requesting `art` falls back to `jvm`.
+
+Example: `--jvm-vm-type=jvm` or `"vm_type": "jvm"`
+
+## `--jvm-use-debug` { #jvm-use-debug }
+
+JSON key: `use_debug`. Default: false.
+
+Starts the JVM debug server.
+
+Example: `--jvm-use-debug` or `"use_debug": true`
+
+## `--jvm-debug-port` { #jvm-debug-port }
+
+JSON key: `debug_port`. Default: 5005.
+
+Port for remote debugger connections. Accepted values are `0` to `65535`.
+
+Example: `--jvm-debug-port=5005` or `"debug_port": 5005`
+
+## `--jvm-debug-address` { #jvm-debug-address }
+
+JSON key: `debug_address`. Default: `*` (any address).
+
+Address used for debugger connections. On the command line only a valid IP address is accepted; in the JSON file you can also use `*` to accept any address
+
+Example: `--jvm-debug-address=127.0.0.1` or `"debug_address": "*"`
+
+## `--jvm-wait-for-debugger` { #jvm-wait-for-debugger }
+
+JSON key: `wait_for_debugger`. Default: true.
+
+Waits for a remote debugger before running the game when debugging is enabled (`true` or `false`). Passing `--jvm-debug-port`, `--jvm-debug-address`, or `--jvm-wait-for-debugger` on the command line enables debugging implicitly.
+
+Example: `--jvm-wait-for-debugger` or `"wait_for_debugger": true`
+
+## `--jvm-jmx-port` { #jvm-jmx-port }
+
+JSON key: `jmx_port`. Default: -1 (disabled).
+
+Port for JMX connections. Accepted values are `-1` to disable it, or `0` to `65535`.
+
+Example: `--jvm-jmx-port=5006` or `"jmx_port": 5006`
+
+## `--jvm-max-string-size` { #jvm-max-string-size }
+
+JSON key: `max_string_size`. Default: -1 (auto, 512 bytes).
+
+Maximum inline string size in bytes; larger strings use JNI directly, and `-1` restores the 512-byte default. Increasing this value increases each thread's buffer size.
+
+Example: `--jvm-max-string-size=1024` or `"max_string_size": 1024`
+
+## `--jvm-disable-gc` { #jvm-disable-gc }
+
+JSON key: `disable_gc`. Default: false.
+
+Disables Godot-JVM's cleanup of collected wrappers. **This causes leaks of `RefCounted` and native types.**
+
+Example: `--jvm-disable-gc` or `"disable_gc": true`
+
+## `--jvm-custom-args` { #jvm-custom-args }
+
+JSON key: `custom_jvm_args`. Default: .
+
+Additional JVM arguments, supplied as a quoted space-separated or comma-separated list on the command line. Invalid arguments can prevent startup; use the dedicated settings for debugging and JMX.
+
+Example: `--jvm-custom-args="-Xmx4g -Xms4g"` (quoted, space-separated), `--jvm-custom-args=-Xmx4g,-Xms4g` (comma-separated), or `"custom_jvm_args": ["-Xmx4g", "-Xms4g"]`
+
+!!! note "Embedded JRE modules"
+    Remote debugging requires `jdk.jdwp.agent`; JMX requires `jdk.management.agent` in the embedded JRE.
 
 ## The configuration file
 
@@ -49,4 +123,8 @@ if it is missing or out of date.
 }
 ```
 
-`auto` resolves to `jvm` on desktop, `art` on Android, and `graal_native_image` on iOS. `art` is only meaningful on Android; requesting it on any other platform falls back to `jvm`.
+## Exported runtime files
+
+
+
+On launch, Godot-JVM copies them from `res://` to `user://` when they are missing or their MD5 hashes differ; on Android it recopies them on every launch. Include these extracted files in your uninstaller's cleanup.

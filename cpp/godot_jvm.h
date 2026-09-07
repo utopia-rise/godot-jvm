@@ -2,6 +2,7 @@
 #define GODOT_JVM_GODOT_JVM_H
 
 #include "api/resource_format/java_archive.h"
+#include "engine/godot_object.h"
 #include "jvm/lifecycle/class_loader.h"
 #include "jvm/lifecycle/jvm_manager.h"
 #include "jvm/lifecycle/jvm_options.h"
@@ -31,15 +32,15 @@ namespace godot {
         };
 
     private:
-        State state {State::NOT_STARTED};
+        State state = State::NOT_STARTED;
 
         JvmUserConfiguration user_configuration;
         JvmOptions jvm_options;
 
-        ClassLoader* bootstrap_class_loader {nullptr};
-        Bootstrap* bootstrap {nullptr};
+        ClassLoader* bootstrap_class_loader = nullptr;
+        Bootstrap* bootstrap = nullptr;
         godot::Ref<JavaArchive> jar; // We keep a Reference to the jar in memory because the Godot editor require a resource to be in cache to reload.
-        godot::Object* callable_middleman {nullptr}; // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved
+        raw_godot::RawObject callable_middleman; // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved
 
         void fetch_user_configuration();
         void set_jvm_options();
@@ -49,7 +50,7 @@ namespace godot {
 #endif
 
 #ifdef DYNAMIC_JVM
-        void* jvm_dynamic_library_handle {nullptr};
+        void* jvm_dynamic_library_handle = nullptr;
         bool load_dynamic_lib();
         void unload_dynamic_lib();
 #ifdef TOOLS_ENABLED
@@ -88,7 +89,7 @@ namespace godot {
 #endif
 
         // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved
-        Object* get_callable_middleman() const;
+        raw_godot::RawObject get_callable_middleman() const;
     };
 } // namespace godot
 #endif // GODOT_JVM_GODOT_JVM_H

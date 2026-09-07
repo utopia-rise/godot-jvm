@@ -4,13 +4,12 @@ description: Testing an unreleased Godot-JVM branch in your own game by publishi
 
 # Test a change from a branch
 
-To test a branch in your own project, build its Gradle artifacts locally and replace the native library in the project's Godot-JVM addon.
+Test an unreleased branch in your game by publishing its Gradle artifacts locally and building its native library into your addon. Use artifacts from the same branch for both sides.
 
 !!! warning
     Back up your project before testing unreleased changes.
 
-!!! warning
-    If you republish changes locally under the same snapshot version, Gradle may keep using cached plugin artifacts. Rerun your project build with `--refresh-dependencies` (for example, `./gradlew --refresh-dependencies build`) to use the republished artifacts.
+After republishing the same snapshot version, run `./gradlew --refresh-dependencies build` in your game project so Gradle uses the updated artifacts.
 
 1. Ensure `JAVA_HOME` is set. JDK 17 or newer is required.
 2. Download the Godot-JVM addon release for the branch's minimum supported Godot version and extract it into your project's root. Confirm that `addons/jvm/jvm.gdextension` exists.
@@ -54,15 +53,6 @@ To test a branch in your own project, build its Gradle artifacts locally and rep
 8. Build the project, then open or run it with the official Godot editor version supported by the branch.
 
 ## Test an Android export
-
-Android ships the GDExtension as a Godot Android v2 plugin AAR. The native library is built first for each Android ABI, then the Kotlin plugin, libraries, and `jvm.gdextension` configuration are packaged together in the AAR:
-
-```text
-C++ → libgodot_jvm.so (debug/release × ABI)
-Kotlin + .so files + jvm.gdextension → godot-jvm-<variant>.aar
-AAR → your-project/addons/jvm/libs/android/<variant>/
-Godot Gradle export → APK
-```
 
 From the Godot-JVM repository root, build the Android native libraries. The default output is the local staging directory `build/android/`:
 

@@ -38,7 +38,7 @@ namespace jni {
         static inline void (*exception_handler)(Env, JThrowable) = nullptr;
 
     public:
-        explicit Env(JNIEnv*);
+        Env(JNIEnv*);
 
         Env(const Env&) = default;
         Env& operator=(const Env&) = default;

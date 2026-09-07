@@ -1,78 +1,87 @@
 ---
-description: A side-by-side lookup of common GDScript syntax against its Kotlin, Java, and Scala equivalent in Godot-JVM, with links to the full guide for each.
+description: Equivalent GDScript, Kotlin, Java, and Scala syntax for common Godot scripting tasks.
 ---
 
-# GDScript to Kotlin, Java and Scala
+# GDScript differences
 
-This page is a lookup table, not a tutorial. Each row links to the guide page that explains the
-full rule; read this page to find the row you need, then follow the link for the details.
+Lookup by GDScript construct. GDScript stays visible above the selected JVM language. Examples use **Inferred** registration unless another mode is stated. Full contracts are linked from each entry. Member snippets belong inside a registered script class; `Player` denotes that class.
 
 ## Declaring a script class
 
-/// tab | GDScript
 ```gdscript
-extends Node3D
+extends Node
 
-class_name RotatingCube
+class_name Player
 ```
-///
+
 /// tab | Kotlin
 ```kotlin
+import godot.annotation.Script
+import godot.api.Node
+
 @Script
-class RotatingCube : Node3D() {
+class Player : Node() {
 }
 ```
 ///
 /// tab | Java
 ```java
+import godot.annotation.Script;
+import godot.api.Node;
+
 @Script
-public class RotatingCube extends Node3D {
+public class Player extends Node {
 }
 ```
 ///
 /// tab | Scala
 ```scala
+import godot.annotation.Script
+import godot.api.Node
+
 @Script
-class RotatingCube extends Node3D {
+class Player extends Node {
 }
 ```
 ///
 
-`@Script` is required; there is no implicit registration from extending a Godot class alone. See
-[Classes](../guide/classes.md).
+In Inferred mode, extending a Godot class does not register the script by itself; add `@Script`.
 
 ## Exported properties
 
-/// tab | GDScript
 ```gdscript
 @export var speed: float = 2.0
 ```
-///
+
 /// tab | Kotlin
 ```kotlin
+import godot.annotation.Export
+
 @Export
 var speed: Float = 2f
 ```
 ///
 /// tab | Java
 ```java
+import godot.annotation.Export;
+
 @Export
 public float speed = 2f;
 ```
 ///
 /// tab | Scala
 ```scala
+import godot.annotation.Export
+
 @Export
 var speed: Float = 2f
 ```
 ///
 
-See [Properties and the Inspector](../guide/properties.md) for `@Visible` (registration without an
-Inspector row), and [Property hints](property-hints.md) for range sliders, file pickers, and the rest.
+Use `@Visible` to register a property without showing it in the Inspector. [Property hints](annotations.md#property-hints) table lists annotations for sliders, file pickers, and other controls.
 
 ## Functions Godot calls on your script
 
-/// tab | GDScript
 ```gdscript
 func _ready():
     pass
@@ -80,9 +89,11 @@ func _ready():
 func announce_ready():
     pass
 ```
-///
+
 /// tab | Kotlin
 ```kotlin
+import godot.annotation.Register
+
 override fun _ready() {
 }
 
@@ -93,6 +104,8 @@ fun announceReady() {
 ///
 /// tab | Java
 ```java
+import godot.annotation.Register;
+
 @Override
 public void _ready() {
 }
@@ -104,6 +117,8 @@ public void announceReady() {
 ///
 /// tab | Scala
 ```scala
+import godot.annotation.Register
+
 override def _ready(): Unit = {
 }
 
@@ -115,11 +130,9 @@ def announceReady(): Unit = {
 
 Godot's own callbacks (`_ready`, `_process`, `_physics_process`, ...) are recognized from the
 override alone. An ordinary function you want Godot or another script to call needs `@Register`.
-See [Functions and notifications](../guide/functions.md).
 
 ## Signals
 
-/// tab | GDScript
 ```gdscript
 signal health_changed(current, max)
 
@@ -129,9 +142,12 @@ func _ready():
 func _on_health_changed(current, max):
     pass
 ```
-///
+
 /// tab | Kotlin
 ```kotlin
+import godot.annotation.Register
+import godot.core.signal2
+
 val healthChanged by signal2<Int, Int>()
 
 override fun _ready() {
@@ -145,56 +161,92 @@ fun onHealthChanged(current: Int, max: Int) {
 ///
 /// tab | Java
 ```java
-Signal2<Integer, Integer> healthChanged = Signal2.create(this, "healthChanged");
+import godot.annotation.Register;
+import godot.core.Signal2;
+import godot.core.MethodStringName2;
+import godot.extension.SignalConnectors;
 
-private static final MethodStringName2<Player, Void, Integer, Integer> ON_HEALTH_CHANGED =
-    new MethodStringName2<>("on_health_changed");
+public final Signal2<Integer, Integer> healthChanged = Signal2.create(this, "healthChanged");
 
 @Override
 public void _ready() {
-    SignalConnectors.connectMethod2(healthChanged, this, ON_HEALTH_CHANGED);
+    var onHealthChangedName =
+        new MethodStringName2<Player, Void, Integer, Integer>("on_health_changed");
+    SignalConnectors.connectMethod2(healthChanged, this, onHealthChangedName);
 }
 
 @Register
-public void onHealthChanged(Integer current, Integer max) {
+public void onHealthChanged(int current, int max) {
 }
 ```
 ///
 /// tab | Scala
 ```scala
+import godot.annotation.Register
+import godot.core.Signal2
+import godot.core.MethodStringName2
+import godot.extension.SignalConnectors
+
 val healthChanged: Signal2[Integer, Integer] = Signal2.create(this, "healthChanged")
 
-private val onHealthChangedName = new MethodStringName2[Player, Void, Integer, Integer]("on_health_changed")
-
 override def _ready(): Unit = {
+  val onHealthChangedName =
+    new MethodStringName2[Player, Void, Integer, Integer]("on_health_changed")
   SignalConnectors.connectMethod2(healthChanged, this, onHealthChangedName)
 }
 
 @Register
-def onHealthChanged(current: Integer, max: Integer): Unit = {
+def onHealthChanged(current: Int, max: Int): Unit = {
 }
 ```
 ///
 
-GDScript signals are dynamically typed and checked at runtime; Godot-JVM signals carry their arity
-and argument types in the type itself. See [Signals and callables](../guide/signals-and-callables.md).
+The typed JVM signal carries its argument count and types, allowing the compiler to check calls to `emit`.
 
 ## Naming: camelCase in your code, snake_case in Godot
 
-/// tab | GDScript
 ```gdscript
 @export var move_speed: float
 func take_damage(amount):
     pass
 ```
-///
-/// tab | Kotlin / Java / Scala
+
+/// tab | Kotlin
 ```kotlin
+import godot.annotation.Export
+import godot.annotation.Register
+
 @Export
 var moveSpeed: Float = 0f
 
 @Register
 fun takeDamage(amount: Int) {
+}
+```
+///
+/// tab | Java
+```java
+import godot.annotation.Export;
+import godot.annotation.Register;
+
+@Export
+public float moveSpeed = 0f;
+
+@Register
+public void takeDamage(int amount) {
+}
+```
+///
+/// tab | Scala
+```scala
+import godot.annotation.Export
+import godot.annotation.Register
+
+@Export
+var moveSpeed: Float = 0f
+
+@Register
+def takeDamage(amount: Int): Unit = {
 }
 ```
 ///
@@ -205,21 +257,26 @@ This applies uniformly to properties, functions, and signals.
 
 ## Type checks
 
-/// tab | GDScript
 ```gdscript
 if parent is CollisionShape3D:
     parent.shape = BoxShape3D.new()
 ```
-///
+
 /// tab | Kotlin
 ```kotlin
+import godot.api.CollisionShape3D
+import godot.api.BoxShape3D
+
 if (parent is CollisionShape3D) {
-    parent.setShape(BoxShape3D())
+    parent.shape = BoxShape3D()
 }
 ```
 ///
 /// tab | Java
 ```java
+import godot.api.CollisionShape3D;
+import godot.api.BoxShape3D;
+
 if (parent instanceof CollisionShape3D collisionShape) {
     collisionShape.setShape(new BoxShape3D());
 }
@@ -227,6 +284,9 @@ if (parent instanceof CollisionShape3D collisionShape) {
 ///
 /// tab | Scala
 ```scala
+import godot.api.CollisionShape3D
+import godot.api.BoxShape3D
+
 parent match {
   case collisionShape: CollisionShape3D =>
     collisionShape.setShape(new BoxShape3D())
@@ -235,35 +295,54 @@ parent match {
 ```
 ///
 
-See [Working with Godot types](../guide/godot-types.md#instance-checks).
+These checks also work with your own Godot subclasses.
+
+/// tab | Kotlin
+
+`require` establishes a type check for subsequent code and throws if it fails:
+
+```kotlin
+require(parent is CollisionShape3D)
+parent.shape = BoxShape3D()
+```
+
+///
 
 ## Instantiating a script class
 
-/// tab | GDScript
 ```gdscript
-var instance = MyScript.new()
+var instance = Player.new()
+```
+
+/// tab | Kotlin
+```kotlin
+val instance = Player()
 ```
 ///
-/// tab | Kotlin / Java / Scala
-```kotlin
-val instance = MyScriptClass()
+/// tab | Java
+```java
+Player instance = new Player();
+```
+///
+/// tab | Scala
+```scala
+val instance = new Player()
 ```
 ///
 
-Works the same from GDScript calling into a JVM class, provided the JVM class has a public
-zero-argument constructor — Godot cannot call a constructor that takes arguments. See
-[Constructors](../guide/classes.md#constructors).
+GDScript can instantiate the JVM class when it has a public no-argument constructor. Constructors with arguments remain available only from JVM code.
 
 ## Enums
 
-/// tab | GDScript
 ```gdscript
 enum Element { FIRE, WATER, EARTH }
 @export var element: Element = Element.FIRE
 ```
-///
+
 /// tab | Kotlin
 ```kotlin
+import godot.annotation.Export
+
 enum class Element { FIRE, WATER, EARTH }
 
 @Export
@@ -272,6 +351,8 @@ var element = Element.FIRE
 ///
 /// tab | Java
 ```java
+import godot.annotation.Export;
+
 public enum Element { FIRE, WATER, EARTH }
 
 @Export
@@ -280,6 +361,8 @@ public Element element = Element.FIRE;
 ///
 /// tab | Scala
 ```scala
+import godot.annotation.Export
+
 enum Element extends java.lang.Enum[Element] {
   case FIRE, WATER, EARTH
 }
@@ -290,28 +373,229 @@ var element: Element = Element.FIRE
 ///
 
 An exported enum-typed property becomes an Inspector dropdown automatically in all three languages.
-See [Enums, bitfields and flags](../guide/enums-and-bitfields.md).
 
 ## Loading resources
 
-/// tab | GDScript
 ```gdscript
 var scene = preload("res://player.tscn")
 var other = load("res://other.tscn")
 ```
-///
-/// tab | Kotlin / Java / Scala
+
+/// tab | Kotlin
 ```kotlin
-val other = GD.load("res://other.tscn")
+import godot.api.PackedScene
+import godot.global.GD
+
+val other = GD.load<PackedScene>("res://other.tscn")
+```
+///
+/// tab | Java
+```java
+import godot.api.PackedScene;
+import godot.global.GD;
+
+PackedScene other = GD.load("res://other.tscn");
+```
+///
+/// tab | Scala
+```scala
+import godot.api.PackedScene
+import godot.global.GD
+
+val other = GD.load[PackedScene]("res://other.tscn")
 ```
 ///
 
-`load()` is available through the `GD` singleton; `preload()` has no equivalent, since it depends
-on GDScript's compile-time constant folding. See [Renamed symbols and global functions](api-mapping.md#global-functions).
+`GD.load()` loads a resource at runtime and may return null on failure. GDScript's compile-time `preload()` has no JVM equivalent.
 
-## What this table leaves out
 
-Node and scene-tree access (`$NodePath`, `get_node()`, the `@onready` pattern) is not covered here
-yet — that needs its own guide rather than a table row. Multiplayer RPCs and calling GDScript from
-a JVM class and back are likewise short on dedicated guide coverage today; see
-[Remote procedure calls](../guide/functions.md#remote-procedure-calls) for what exists so far.
+## `@rpc`
+
+```gdscript
+@rpc("any_peer")
+func receive_score(score: int):
+    pass
+```
+
+/// tab | Kotlin
+
+```kotlin
+@godot.annotation.Rpc(rpcMode = godot.annotation.RpcMode.ANY)
+fun receiveScore(score: Int) {}
+```
+
+///
+
+/// tab | Java
+
+```java
+@godot.annotation.Rpc(rpcMode = godot.annotation.RpcMode.ANY)
+public void receiveScore(int score) {}
+```
+
+///
+
+/// tab | Scala
+
+```scala
+@godot.annotation.Rpc(rpcMode = godot.annotation.RpcMode.ANY)
+def receiveScore(score: Int): Unit = {}
+```
+
+///
+
+Explicit mode additionally requires `@Register`. JVM calls are local; remote calls use Godot RPC operations. See [`@Rpc`](annotations.md#rpc).
+
+## `@tool`
+
+`@Tool` exists, but JVM editor-time tool execution is not implemented. Its class-selection effect depends on the registration mode. See [`@Tool`](annotations.md#tool).
+
+## `Variant`, `Array`, and `Dictionary`
+
+```gdscript
+var value: Variant = 10
+var values: Array[int] = []
+var labels: Dictionary = {}
+```
+
+/// tab | Kotlin
+
+```kotlin
+import godot.core.VariantArray
+import godot.core.Dictionary
+
+var value: Any = 10
+val values = VariantArray<Int>()
+val labels = Dictionary<String, String>()
+```
+
+///
+
+/// tab | Java
+
+```java
+import godot.core.VariantArray;
+import godot.core.Dictionary;
+
+java.lang.Object value = 10;
+var values = new VariantArray<Integer>(Integer.class);
+var labels = new Dictionary<String, String>(String.class, String.class);
+```
+
+///
+
+/// tab | Scala
+
+```scala
+import godot.core.{VariantArray, Dictionary}
+
+var value: Any = 10
+val values = new VariantArray[Integer](classOf[Integer])
+val labels = new Dictionary[String, String](classOf[String], classOf[String])
+```
+
+///
+
+A dynamic Variant carrier accepts values Godot can represent, not arbitrary JVM objects. JVM arrays/collections are not general substitutes for Godot containers. See [types and conversions](binding/types.md#registered-signatures).
+
+## `StringName` and `NodePath`
+
+```gdscript
+var member = &"take_damage"
+var path = ^"Player/Camera"
+```
+
+/// tab | Kotlin
+
+```kotlin
+import godot.core.asCachedStringName
+import godot.core.asCachedNodePath
+
+val member = "take_damage".asCachedStringName()
+val path = "Player/Camera".asCachedNodePath()
+```
+
+///
+
+/// tab | Java
+
+```java
+import godot.core.StringNames;
+import godot.core.NodePaths;
+
+var member = StringNames.asCachedStringName("take_damage");
+var path = NodePaths.asCachedNodePath("Player/Camera");
+```
+
+///
+
+/// tab | Scala
+
+```scala
+import godot.core.{StringNames, NodePaths}
+
+val member = StringNames.asCachedStringName("take_damage")
+val path = NodePaths.asCachedNodePath("Player/Camera")
+```
+
+///
+
+These helpers preserve spelling. `toGodotName` converts camelCase member names; [conversion reference](binding/types.md#stringname-and-nodepath).
+
+## `Callable`
+
+GDScript method references become typed JVM method callables; JVM lambdas become lambda callables. Method callables require a Godot-visible method. A JVM lambda does not need a registered script function. See [Callables](binding/callables.md) for each language's construction and binding signatures.
+
+## `await`
+
+GDScript's `await signal` has a Kotlin coroutine equivalent, `signal.await()`, inside a coroutine. Java and Scala use callbacks through signal connections; there is no corresponding language-level suspend operation supplied by the binding. See [Coroutines](binding/coroutines.md#availability) and [signal connections](binding/signals.md#lambda-connections).
+
+## Value-type property mutation
+
+A value such as `Vector3` read from Godot is a copy. Mutating the copy does not update its original property. Assign it back; see [copy and shared-storage rules](binding/types.md#copies-and-shared-storage). JVM container wrappers can share their storage with Godot while individual value-type elements are copied.
+
+## `free`, `queue_free`, and validity
+
+The binding exposes `free()`, `queueFree()`, and `GD.isInstanceValid(...)`. A non-null JVM reference may point to an already freed native object. JVM garbage collection does not replace scene ownership or explicit cleanup of ordinary Godot objects. See [Objects and lifetime](binding/objects.md).
+
+## Script files and reloading
+
+Project scripts attach through `.kt`, `.java`, or `.scala`; dependency scripts use `.gdj`. Registration changes require a full build. `fastBuild` reuses registration for implementation-only edits. GraalVM native images cannot reload classes. See [script files](registration/script-files.md) and [Gradle tasks](gradle-plugin/tasks.md).
+
+## Calling GDScript from JVM code
+
+Use dynamic `call` and `get` with Godot member names on a node with a GDScript attached. These snippets belong inside a node method; the child `Other` defines `heal(amount)` and `health`.
+
+/// tab | Kotlin
+
+```kotlin
+val other = getNode(godot.core.NodePath("Other"))
+other?.call(godot.core.StringName("heal"), 10)
+val health = other?.get(godot.core.StringName("health"))
+```
+
+///
+
+/// tab | Java
+
+```java
+Node other = getNode(new godot.core.NodePath("Other"));
+if (other != null) {
+    other.call(new godot.core.StringName("heal"), 10);
+    java.lang.Object health = other.get(new godot.core.StringName("health"));
+}
+```
+
+///
+
+/// tab | Scala
+
+```scala
+val other = getNode(new godot.core.NodePath("Other"))
+if (other != null) {
+  other.call(new godot.core.StringName("heal"), 10)
+  val health = other.get(new godot.core.StringName("health"))
+}
+```
+
+///

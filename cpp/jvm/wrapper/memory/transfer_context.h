@@ -14,7 +14,7 @@ JVM_SINGLETON_WRAPPER(TransferContext, "godot.internal.memory.TransferContext") 
     INIT_JNI_BINDINGS(
         INIT_JNI_METHOD(GET_BUFFER, "getBuffer", "()Ljava/nio/ByteBuffer;")
         // Must match the real Kotlin declaration exactly: `private external fun icall(methodPtr:
-        // VoidPtr)` in TransferContext.kt — a single Long, unchanged from master. The receiver
+        // VoidPtr)` in TransferContext.kt — a single Long. The receiver
         // pointer/ID are written directly into the shared buffer by Kotlin's
         // writeMethodArguments() before this is called, not passed as extra native arguments; an
         // earlier version of this binding declared "(JJI)V" (extra jlong + jint), which doesn't
@@ -36,7 +36,7 @@ private:
     SharedBuffer* get_and_rewind_buffer(jni::Env& p_env);
 
     _FORCE_INLINE_ static uint32_t read_args_size(SharedBuffer* buffer) {
-        uint32_t args_size {decode_uint32(buffer->get_cursor())};
+        uint32_t args_size = decode_uint32(buffer->get_cursor());
         buffer->increment_position(4);
         return args_size;
     }

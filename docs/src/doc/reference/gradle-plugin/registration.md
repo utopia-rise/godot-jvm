@@ -2,9 +2,9 @@
 description: The godot { } properties that select the annotation-processing mode and control where .gdj registration files are written.
 ---
 
-# Registration output
+# Registration settings
 
-These settings control how classes and members are selected for registration, and where the plugin looks for the Godot project and writes `.gdj` registration files for external dependencies.
+Use these settings to select registered declarations, locate the Godot project, and control dependency registration files.
 
 ## Registration selection
 
@@ -22,24 +22,11 @@ godot {
 }
 ```
 
-The available modes are:
-
-- `Explicit`: only direct selection annotations count.
-- `Inferred`: direct annotations and recursively implied annotations count;
-  signals and compatible Godot overrides are also discovered.
-- `Automatic`: all compatible declarations in Godot classes are selected;
-  annotations remain useful as configuration.
-
-For the complete selection rules, see the
-[registration reference](../registration.md). If you use the IntelliJ
-plugin, select the same mode under
-**Settings | Godot-JVM | Annotation processing mode** so its
-inspections and highlighting match the Gradle build — see the
-[IntelliJ IDEA plugin](../intellij-plugin.md) page.
+Accepted values: `Explicit`, `Inferred`, `Automatic`. See [Registration modes](../registration/index.md) for exact selection and export behavior. The IDE's inspection mode is configured [separately](../intellij-plugin.md#annotation-processing-mode).
 
 ## Godot project layout and registration output
 
-These settings control where the plugin looks for the Godot project and where it writes `.gdj` registration files for external dependencies.
+Project classes use source files. These settings locate the Godot project and control generated `.gdj` files for dependency classes.
 
 ### `godotProjectDirectory`
 
@@ -99,11 +86,11 @@ When enabled, the plugin:
 
 ### `registrationFilesLayoutMode`
 
-Controls how `.gdj` files are laid out inside each project directory.
+Controls how `.gdj` files are laid out inside each library's directory under `registrationFilesDirectory`.
 
 Values:
 
-- `RegistrationFileLayoutMode.FLAT`: write `.gdj` files directly into the project directory
+- `RegistrationFileLayoutMode.FLAT`: write `.gdj` files directly into the library's directory
 - `RegistrationFileLayoutMode.HIERARCHICAL`: mirror the package hierarchy before the `.gdj` file
 
 Default:
@@ -145,7 +132,7 @@ godot {
 
 ### `registrationNameMode`
 
-Controls how default registered names are computed when `@Script` does not provide a custom name.
+Controls the prefix policy for registered class names. The base name is the nonblank `@Script.className`, or the simple JVM class name. Custom names still receive the selected prefix; dots and hyphens are then replaced with underscores. See [registered class names](../registration/script-files.md#registered-class-names).
 
 Values:
 

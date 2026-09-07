@@ -6,8 +6,10 @@ import godot.core.{MethodCallable1, MethodCallable2, MethodStringName1, MethodSt
 
 @Script
 class SignalScalaTest extends Node {
+  // Boxed on purpose: Scala erases `Boolean` type arguments to `Object` in the class file, which would
+  // leave the signal argument untyped in Godot.
   @Emit
-  val readySignal: Signal1[Boolean] = Signal1.create(this, "readySignal")
+  val readySignal: Signal1[java.lang.Boolean] = Signal1.create(this, "readySignal")
 
   @Emit
   val payloadSignal: Signal2[String, Integer] = Signal2.create(this, "payloadSignal")
@@ -28,7 +30,7 @@ class SignalScalaTest extends Node {
   override def _ready(): Unit = {
     readySignal.connect(MethodCallable1.create(
       this,
-      new MethodStringName1[SignalScalaTest, Void, Boolean]("on_ready_signal")
+      new MethodStringName1[SignalScalaTest, Void, java.lang.Boolean]("on_ready_signal")
     ))
     payloadSignal.connect(MethodCallable2.create(
       this,

@@ -1,12 +1,10 @@
 #include "jvm_manager.h"
 
 #include "engine/dynamic_library.h"
-#include "jvm/wrapper/bootstrap.h"
 #include "jvm/wrapper/bridge/callable_bridge.h"
 #include "jvm/wrapper/bridge/dictionary_bridge.h"
 #include "jvm/wrapper/bridge/godot_print_bridge.h"
 #include "jvm/wrapper/bridge/node_path_bridge.h"
-#include "jvm/wrapper/bridge/packed_array_bridge.h"
 #include "jvm/wrapper/bridge/packed_byte_array_bridge.h"
 #include "jvm/wrapper/bridge/packed_color_array_bridge.h"
 #include "jvm/wrapper/bridge/packed_float_32_array_bridge.h"
@@ -56,10 +54,10 @@ CreateJavaVM get_create_jvm_function(void* lib_handle) {
 }
 
 bool JvmManager::initialize_or_get_jvm(void* lib_handle, JvmUserConfiguration& user_configuration, JvmOptions& jvm_options) {
-    JavaVM* java_vm {nullptr};
+    JavaVM* java_vm = nullptr;
 
 #if defined DYNAMIC_JVM || defined STATIC_JVM
-    uint32_t nOptions {jvm_options.options.size()};
+    uint32_t nOptions = jvm_options.options.size();
     auto* options = new JavaVMOption[nOptions];
     JavaVMInitArgs args;
     args.version = jvm_options.version;
@@ -74,11 +72,11 @@ bool JvmManager::initialize_or_get_jvm(void* lib_handle, JvmUserConfiguration& u
     std::locale global;
 
     JVM_LOG_VERBOSE("Starting JVM ...");
-    JNIEnv* jni_env {nullptr};
+    JNIEnv* jni_env = nullptr;
 
-    CreateJavaVM func {get_create_jvm_function(lib_handle)};
+    CreateJavaVM func = get_create_jvm_function(lib_handle);
     JVM_ERR_FAIL_COND_V_MSG(func == nullptr, false, "Failed to obtain JNI_CreateJavaVM symbol!");
-    jint result {func(&java_vm, reinterpret_cast<void**>(&jni_env), &args)};
+    jint result = func(&java_vm, reinterpret_cast<void**>(&jni_env), &args);
 
     // Set std::local::global to value it was before creating JVM. See https://github.com/utopia-rise/godot-jvm/issues/166 and https://github.com/utopia-rise/godot-jvm/issues/170
 

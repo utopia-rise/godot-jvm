@@ -43,8 +43,9 @@ JvmBinding* JvmBindingManager::set_instance_binding(GodotObject* p_object) {
     }
 
     // Attach via the growable get_instance_binding mechanism, not the engine's raw one-shot object_set_instance_binding: that one asserts if binding slot 0 is already occupied, which it always is once godot-cpp's own wrapper binding exists for...
-    JvmBinding* binding =
-      reinterpret_cast<JvmBinding*>(internal::gdextension_interface_object_get_instance_binding(p_object, &GodotJvm::get_instance(), &_instance_binding_callbacks));
+    JvmBinding* binding = reinterpret_cast<JvmBinding*>(
+      raw_object.get_instance_binding(&GodotJvm::get_instance(), &_instance_binding_callbacks)
+    );
 
     if (is_rc) { binding->test_and_set_incremented(); }
 
@@ -53,10 +54,10 @@ JvmBinding* JvmBindingManager::set_instance_binding(GodotObject* p_object) {
 
 JvmBinding* JvmBindingManager::get_instance_binding(GodotObject* p_object) {
     // Godot being weird but this is how you create a binding if it doesn't exist already, otherwise just retrieve it. Use this function to bind an existing object to the JVM, the callbacks provided will handle the creation of the binding.
-    JvmBinding* binding =
-      reinterpret_cast<JvmBinding*>(internal::gdextension_interface_object_get_instance_binding(p_object, &GodotJvm::get_instance(), &_instance_binding_callbacks));
-
     raw_godot::RawObject raw_object = raw_godot::RawObject(p_object);
+    JvmBinding* binding = reinterpret_cast<JvmBinding*>(
+      raw_object.get_instance_binding(&GodotJvm::get_instance(), &_instance_binding_callbacks)
+    );
     if (raw_object.is_ref_counted() && !binding->test_and_set_incremented()) {
         raw_object.reference();
     }
@@ -64,5 +65,5 @@ JvmBinding* JvmBindingManager::get_instance_binding(GodotObject* p_object) {
 }
 
 void JvmBindingManager::free_binding(GodotObject* p_ref) {
-    internal::gdextension_interface_object_free_instance_binding(p_ref, &GodotJvm::get_instance());
+    raw_godot::RawObject(p_ref).free_instance_binding(&GodotJvm::get_instance());
 }

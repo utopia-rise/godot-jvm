@@ -10,8 +10,7 @@ system. It answers two different questions:
 1. **Which classes and members should Godot know about?**
 2. **How should each selected class or member behave in Godot?**
 
-Keeping those questions separate is the most useful mental model for
-understanding the system.
+Selection and configuration are separate responsibilities.
 
 An annotation can participate in either question:
 
@@ -56,11 +55,7 @@ Kotlin / Java / Scala source
  Godot loads classes and members
 ```
 
-The important consequence is that the registrar does not process source text
-directly. Kotlin, Java, and Scala all compile to JVM bytecode, but they encode
-properties, annotations, accessors, and synthetic helpers differently. The
-front end first reconstructs a small language-neutral view before applying
-registration policy.
+Kotlin, Java, and Scala encode properties, annotations, and accessors differently, so the front end first reconstructs a language-neutral view.
 
 ## Stage 1: compiling user code
 
@@ -71,9 +66,7 @@ languages, that can include:
 - `compileJava`
 - `compileScala`
 
-Registration therefore sees compiled classes, not declarations that only
-exist in an unsaved editor buffer. Newly created or changed scripts become
-available to Godot after a successful build.
+Registration reads the completed compilation output. New or changed declarations become available after a successful build.
 
 The registration task receives:
 
@@ -106,16 +99,7 @@ An unknown language is skipped with a warning because the processor cannot
 safely guess how its bytecode maps back to source-level properties and
 signals.
 
-For a project class, Godot associates the source resource with its compiled class by fully
-qualified name: `parse_source_script_fqname` (`cpp/api/script/source_script_parser.cpp`) looks for
-a `@Script` annotation in the source and takes whichever class is declared right after it,
-combined with the package declaration. The file name plays no part in this branch — a
-`@Script`-annotated class resolves regardless of what the file is called. Only when a file has
-**no** `@Script` annotation at all does the parser fall back to searching for a class whose simple
-name matches the file name; this fallback is what makes file naming matter under `Automatic` mode,
-where a class can be selected for registration without `@Script` being present. The registrar
-itself does not reconstruct or store a source path — this association happens on the editor side,
-not in the registrar.
+The editor associates a source resource with a compiled class by fully qualified name. `parse_source_script_fqname` in `cpp/api/script/source_script_parser.cpp` combines the package with the class following `@Script`. Without that annotation, it looks for a class whose simple name matches the filename. The registrar does not reconstruct source paths.
 
 ## Stage 3: reconstructing a logical class
 
@@ -176,10 +160,10 @@ enter the registration model.
 
 | Declaration | Explicit | Inferred | Automatic |
 |---|---|---|---|
-| Class | direct `@Script` | effective `@Script` | every Godot-compatible candidate |
-| Property | direct `@Visible` | effective `@Visible` | every mappable logical property |
+| Class | direct `@Script` | effective `@Script` | every public Godot-compatible candidate |
+| Property | direct `@Visible` | effective `@Visible` | every public mappable logical property |
 | Signal | direct `@Emit` | every logical signal | every logical signal |
-| Method | direct `@Register` or `@Notification` | effective `@Register`, or a mappable Godot override | every mappable logical method |
+| Method | direct `@Register` or `@Notification` | effective `@Register`, or a mappable Godot override | every public mappable logical method |
 | Property exported | direct `@Export` | effective `@Export` | yes, by default |
 
 "Effective" means the annotation may be present directly or reached
@@ -271,10 +255,10 @@ meta-annotated with the built-in annotations.
 
 Automatic mode selects compatible declarations by shape and type:
 
-- all candidate Godot classes
-- all mappable properties
+- all public candidate Godot classes
+- all public mappable properties
 - all logical signals
-- all mappable methods
+- all public mappable methods
 
 Properties are exported by default.
 
@@ -394,7 +378,7 @@ supported Godot-facing type, including:
 
 - supported primitives and strings
 - Godot core types
-- Godot node and ref-counted types
+- Godot `Node` and `Resource` types
 - supported Kotlin and Java collections
 - enums
 - `BitField<Enum>`
@@ -465,24 +449,9 @@ the user project artifacts. At runtime:
 The registration mode is a build-time selection policy. Runtime code consumes
 the resulting registrar and does not re-evaluate the annotations.
 
-In the editor, scripts loaded from `.kt`, `.java`, `.scala`, or `.gdj` files are
-tracked as physical resources without keeping them alive. Each source resource
-caches its last parsed FQCN and file modification time. A JAR reload checks all
-live physical resources but rereads and reparses only sources whose modification
-time changed.
+The next chapter covers the registrar generator's input model and how to debug its Gradle task.
 
-The reload first removes the previous `KtClass` from every physical script and
-builds temporary FQCN and registered-name maps from their current contents. Each
-new JAR class then claims the matching physical script, reuses a script with the
-same registered name, or creates a virtual `jvm://` script. The persistent FQCN
-map therefore describes the current JAR assignment, while parsed source FQCNs
-remain local cache values. Scripts absent from the new JAR are retained by the
-registered-name map only while a node, placeholder, or another owner still
-references them.
-
-This allows an attached empty or invalid source file to become associated after
-valid source is written and the project is built, regardless of whether the
-source or JAR reload happens first.
+In the editor, JAR registrations and physical script resources are reconciled by fully qualified class name. The [JAR and script reloading](jar-and-script-reloading.md) chapter later covers resource ownership, placeholders, and reload order.
 
 ## Inheritance behavior
 
@@ -493,7 +462,7 @@ Expected behavior:
 
 - exposed parent members remain available to children
 - a child override supplies the child behavior
-- the closest declaration controls an overridden member
+- an un-annotated override keeps the parent's registration; an annotated override with the same parameter list replaces it
 - interfaces and abstract script classes participate in the registered type
   family
 - only locally declared members are reconstructed in a class's logical shape
@@ -524,7 +493,7 @@ Both default to `Inferred`.
 
 ## Diagnosing unexpected registration
 
-Use [Build and registration troubleshooting](../../troubleshooting/build-and-registration.md) for the symptom checklist. It follows the pipeline order above, from class discovery through registration-mode selection and type validation.
+Trace a missing declaration through class discovery, language reconstruction, mode selection, and model validation. Inspect the first stage that excludes it. If the build and IDE disagree, compare their registration modes before changing policy.
 
 ## Ownership boundaries
 
@@ -542,8 +511,6 @@ responsibility:
 When changing behavior, update the narrowest owner and add coverage across
 Kotlin, Java, Scala, and all three registration modes where applicable.
 
-## Related documents
+## Editor default instances
 
-- [Registrar generation](registrar-generation.md)
-- [Registration guide](../../guide/registration.md)
-- [Gradle plugin configuration](../../reference/gradle-plugin/index.md)
+The editor instantiates each concrete script class outside a scene to read exported property defaults. Constructors and field initializers therefore also run during registration reloads. A node allocated there without scene ownership or explicit freeing can leak on each rebuild. Saved Inspector values are applied later to scene instances; constructors only see the initial defaults.

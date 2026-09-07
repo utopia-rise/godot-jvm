@@ -121,7 +121,7 @@ public class JavaExport extends Node {
 
     @Export
     @Visible
-    @File(extensions = {"gd", "gdj"})
+    @File(extensions = {"*.gd", "*.gdj"})
     public String filePathValue = "res://test/core/test_core.gd";
 
     @Export

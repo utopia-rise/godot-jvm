@@ -1,29 +1,18 @@
 ---
-description: Reference pages for language parity, annotations, property hints, registration rules, API renames, the Gradle plugin, runtime configuration, and compatibility.
+description: Reference documentation for Godot-JVM binding APIs, registration, annotations, and configuration.
 ---
 
 # Reference
 
-Lookup material for details the guides only touch in passing.
+Exact signatures, supported declarations, defaults, and restrictions. Select **Kotlin**, **Java**, or **Scala** in any language tab; matching tabs use the same selection throughout the site.
 
-- [GDScript to Kotlin, Java and Scala](gdscript-to-jvm.md) — a side-by-side syntax lookup, linking back to the full guide for each row
-- [Language parity](language-parity.md) — the exhaustive list of Kotlin-only surface, with the Java/Scala equivalent
-- [Annotations](annotations.md) — what each registration annotation is for
-- [Property hints](property-hints.md) — every Inspector hint annotation and its arguments
-- [Registration reference](registration.md) — selection rules and the `Inferred`, `Explicit`, and `Automatic` modes
-- [Renamed symbols and global functions](api-mapping.md) — enums, renamed symbols, `GD` globals, and extension functions
+## Topics
 
-## Gradle plugin
+| Subject | Entries |
+|---|---|
+| Binding API | [Engine naming](api-mapping.md), [types and conversions](binding/types.md), [objects](binding/objects.md), [signals](binding/signals.md), [callables](binding/callables.md), [globals](binding/globals.md), [coroutines](binding/coroutines.md) |
+| Registration | [Modes](registration/index.md), [classes](registration/classes.md), [properties](registration/properties.md), [functions and RPC](registration/functions.md), [signals](registration/signals.md), [script files and names](registration/script-files.md), [annotations and hints](annotations.md) |
+| GDScript | [Syntax equivalents and behavior differences](gdscript-to-jvm.md) |
+| Configuration | [Gradle options](gradle-plugin/index.md), [languages and toolchains](gradle-plugin/languages-and-toolchains.md), [registration settings](gradle-plugin/registration.md), [packaging](gradle-plugin/packaging-and-tasks.md), [export options](gradle-plugin/export-targets.md), [tasks](gradle-plugin/tasks.md), [runtime arguments](runtime-configuration.md), [editor and IDE settings](intellij-plugin.md) |
 
-- [Overview](gradle-plugin/index.md)
-- [Languages and toolchains](gradle-plugin/languages-and-toolchains.md)
-- [Registration](gradle-plugin/registration.md)
-- [Packaging and tasks](gradle-plugin/packaging-and-tasks.md)
-- [Export targets](gradle-plugin/export-targets.md)
-
-## More reference
-
-- [Runtime configuration](runtime-configuration.md)
-- [IntelliJ plugin](intellij-plugin.md)
-- [Compatibility](compatibility.md)
-- [Glossary](glossary.md)
+Version and platform requirements are under [Start here / Compatibility](../start/compatibility.md). Workflows and introductory examples are in the [User guide](../guide/index.md).

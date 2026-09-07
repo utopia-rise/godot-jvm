@@ -1,31 +1,35 @@
 ---
-description: Godot-JVM coroutine support is Kotlin-only, adding a Godot coroutine scope and suspending signal awaits through an opt-in Gradle flag.
+description: Use Kotlin-only coroutine helpers to wait for a signal without blocking the game.
 ---
 
 # Coroutines
 
-!!! info
-    Coroutine support in Godot-JVM is Kotlin-only. The helpers documented on this page are Kotlin `suspend`/`inline` functions, so there is no Java or Scala equivalent; Java and Scala code can still use them indirectly by calling a Kotlin wrapper that you write yourself.
+Enable coroutine support in `build.gradle.kts`, then reload the Gradle project in IntelliJ IDEA:
 
-Coroutines are an opt-in feature that require an additional import in Kotlin. 
-We follow the same logic and keep them separated from the main library. 
-
-To use it, you need to add the following to your build.gradle:
-
-```kotlin
+```kotlin title="build.gradle.kts"
 godot {
     isGodotCoroutinesEnabled.set(true)
 }
 ```
 
-It will automatically import our coroutine library and `kotlinx.coroutines` as a dependency.
-That library adds a Godot specific coroutine scope and extensions to signals. 
-To use them, you simply need to write the following:
+!!! warning "Use the main thread for node access"
+    Coroutines run on a worker pool by default. Use `GodotDispatchers.MainThread` or `awaitMainThread` before touching nodes; follow Godot's [thread-safety rules](https://docs.godotengine.org/en/stable/tutorials/performance/thread_safe_apis.html).
+
+/// tab | Kotlin
+
+The following `Player` method waits for the next `healthChanged` emission. It can be invoked from `_ready()`.
 
 ```kotlin
-fun myMethod() = godotCoroutine {
-    doSomething()
-    mySignal.await() // the current coroutine will suspend until that signal is emitted.
-    doSomething2()
+import godot.coroutines.GodotDispatchers
+import godot.coroutines.await
+import godot.coroutines.godotCoroutine
+
+fun watchHealth() = godotCoroutine(GodotDispatchers.MainThread) {
+    val (current, max) = healthChanged.await()
+    GD.print("Health changed to $current / $max")
 }
 ```
+
+///
+
+These coroutine helpers are Kotlin-only. Java and Scala use normal signal connections instead.

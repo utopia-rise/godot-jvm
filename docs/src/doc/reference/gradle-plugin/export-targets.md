@@ -4,11 +4,11 @@ description: The godot { } inputs that configure Android d8/SDK paths, minimum A
 
 # Android, GraalVM and iOS inputs
 
-These settings only matter when you invoke the platform-specific export tasks described below.
+These properties supply SDK paths and native-image configuration to the platform build tasks.
 
 ## Android build inputs
 
-These settings matter when you invoke:
+Used by:
 
 - `buildAndroid`
 - `buildAndroidRelease`
@@ -59,7 +59,7 @@ godot {
 
 ## GraalVM and iOS build inputs
 
-These settings matter when you invoke:
+Used by:
 
 - `buildGraalNativeImage`
 - `buildGraalNativeImageRelease`
@@ -98,36 +98,36 @@ godot {
 
 ### `additionalGraalJniConfigurationFiles`
 
-Additional JNI configuration files passed to native-image.
+Additional JNI configuration files, resolved relative to the project's `graal/` directory.
 
 ```kotlin
 godot {
     additionalGraalJniConfigurationFiles.set(
-        arrayOf("graal/jni-config.json")
+        arrayOf("jni-config.json")
     )
 }
 ```
 
 ### `additionalGraalReflectionConfigurationFiles`
 
-Additional reflection configuration files passed to native-image.
+Additional reflection configuration files passed directly to native-image. Use absolute paths so they resolve regardless of the build's working directory.
 
 ```kotlin
 godot {
     additionalGraalReflectionConfigurationFiles.set(
-        arrayOf("graal/reflect-config.json")
+        arrayOf(file("graal/reflect-config.json").absolutePath)
     )
 }
 ```
 
 ### `additionalGraalResourceConfigurationFiles`
 
-Additional resource configuration files passed to native-image.
+Additional resource configuration files passed directly to native-image. Use absolute paths so they resolve regardless of the build's working directory.
 
 ```kotlin
 godot {
     additionalGraalResourceConfigurationFiles.set(
-        arrayOf("graal/resource-config.json")
+        arrayOf(file("graal/resource-config.json").absolutePath)
     )
 }
 ```

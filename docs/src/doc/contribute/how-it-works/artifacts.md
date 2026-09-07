@@ -4,61 +4,30 @@ description: godot-library, godot-bootstrap, main.jar and the GraalVM usercode i
 
 # The three build artifacts
 
-This document describes what the individual artifacts are for and how they are used.
-
-## godot-library
-
-### Overview
-
-The `godot-library` contains the Godot APIs as Kotlin classes as well as registration code.
-It is automatically added as a dependency to your code by the `godot-gradle-plugin`.
-Hence, it is deployed to `mavenCentral`. It is also used as a dependency by `godot-bootstrap` and
-thus present in the `godot-bootstrap.jar` which gets shipped alongside the engine.
-
-### Usage
-
-The `godot-library` is primarily used implicitly. You do not add it manually, instead, the `godot-gradle-plugin`
-performs this task. Meanwhile, the `godot-bootstrap.jar` also utilizes it for initial loading and editor usage.
-It's crucial to note that during runtime, only the version added to your code via the `godot-gradle-plugin` is used.
-The version within the `godot-bootstrap` is exclusively for the editor.
+The build separates the bindings, bootstrap runtime, and user code. GraalVM combines them into a native artifact for ahead-of-time execution.
 
 ## godot-bootstrap
 
-### Overview
-
-The `godot-bootstrap` is a "shadow JAR" (also known as [fat JAR](https://jenkov.com/tutorials/maven/maven-build-fat-jar.html))
-which contains the `godot-library`, runtime code to reload usercode in the editor after rebuilds,
-and every dependency you declared, recursively. `packageBootstrapJarTask` builds it from the
+`godot-bootstrap.jar` bundles `godot-library` (the Godot API bindings, published to Maven Central and compiled against by user code), startup and editor-reloading code, and the project's transitive dependencies. `packageBootstrapJar` builds it from the
 project's runtime classpath configuration, alongside the plugin's own `bootstrap` configuration.
 
-### Usage
-
-The `godot-bootstrap` is shipped alongside the engine for editor use and is bundled together with the game executable
-during export. You never use it directly, and it is not added as a dependency anywhere.
+Godot loads this JAR in the editor and includes it in exports. User projects do not declare it as a build dependency.
 
 ## main
 
-### Overview
-
 The `main.jar` is built when you build your code. It is a shadow JAR containing only your compiled
-code and the generated registrar — `packageMainJarTask` explicitly clears its dependency
+code and the generated registrar. The configured `shadowJar` task clears its dependency
 configurations, so none of your declared dependencies end up in it. Those dependencies are instead
 bundled into `godot-bootstrap.jar`.
 
-### Usage
-
-This JAR is bundled together with the game executable during export and executed through the `godot-bootstrap` during
-runtime. It is nowhere else used.
+`godot-bootstrap.jar` loads and executes the code in `main.jar`. Both JARs are included in JVM exports.
 
 ## usercode
 
-### Overview
+`usercode` combines the code from `main.jar` and `godot-bootstrap.jar` in a GraalVM native artifact: a shared library on desktop or a static archive on iOS.
 
-The `usercode` artifact is a shared library which is only used on GraalVM native image builds. It contains all code from
-the `main.jar` and the `godot-bootstrap.jar`.
+Native-image mode uses `usercode` in place of both JARs. Select it through runtime configuration or launch arguments. Code changes require rebuilding the image and restarting the process.
 
-### Usage
+## Extracting export artifacts
 
-It replaces the `godot-bootstrap.jar` and the `main.jar` when the game is exported. It is only used when configured
-either as a command line argument or through the configuration file (see [GraalVM documentation](../../build/export/graalvm-native-image.md) for more information).
-While it is used (either in game or editor) no usercode can be reloaded.
+The JVM requires filesystem paths for loading JARs and cannot load them directly from the PCK. At startup the binding extracts `godot-bootstrap.jar` and `main.jar` to `user://`, comparing MD5 hashes to avoid unnecessary copies on desktop. Android recopies its runtime artifacts on each launch. Desktop native images are likewise extracted as shared libraries before loading.

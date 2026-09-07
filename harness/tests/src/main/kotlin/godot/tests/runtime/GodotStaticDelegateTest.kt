@@ -5,7 +5,7 @@ import godot.annotation.Visible
 import godot.api.Node
 import godot.api.PackedScene
 import godot.api.ResourceLoader
-import godot.extension.api.asStatic
+import godot.extension.asStatic
 
 @Script
 class GodotStaticDelegateTest : Node() {

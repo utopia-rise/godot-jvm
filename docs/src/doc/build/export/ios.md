@@ -1,21 +1,18 @@
 ---
-description: Exporting to iOS, which requires GraalVM and static linking of the compiled usercode archive into the application executable.
+description: iOS cannot run a JVM, so it uses a native image.
 ---
 
 # iOS
 
-!!! warning
-    With this export you don't have a choice regarding JVM version you use. Please use [GraalVM 23.1.3](https://download.oracle.com/graalvm/21/latest/graalvm-jdk-21_macos-aarch64_bin.tar.gz).
+Use GraalVM for JDK 21, build 23.1.3. Install the full GraalVM JDK separately; the build downloads its matching static libraries from the [v23.1.3-21-b33 release](https://github.com/utopia-rise/ios-graal-jdk-21/releases/tag/v23.1.3-21-b33).
 
-iOS uses static linking. `buildIOS` produces `jvm/ios/usercode.a` together with the matching
-`libjava-release.a` and `libjvm-release.a`. During export, Godot links these archives with the
-Godot-JVM iOS GDExtension archive into the application executable; they are not loaded at runtime.
-Run `buildIOS` (or `buildIOSRelease`) before exporting the Godot project.
+1. Prepare the macOS/Xcode toolchain described in [Godot's iOS export documentation](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_ios.html).
+2. Set `GRAALVM_HOME` to your GraalVM installation. Apply the dependency configuration from [GraalVM native image](graalvm-native-image.md).
+3. Select **Build iOS Release** in Godot's toolbar and click **Run Gradle** (`buildIOSRelease` in IntelliJ). Use **Build iOS** for debug builds.
+4. Export with an iOS preset, build the exported Xcode project, and run it on your device.
 
-Additionally, to the regular GraalVM configuration mentioned above, add the following in `build.gradle.kts`, then invoke `buildIOS` or `buildIOSRelease`:
+The JVM build produces `jvm/ios/usercode.a`, `libjava-release.a`, and `libjvm-release.a`. The export links these with the Godot-JVM iOS extension into the application.
 
-```kotlin
-godot {
-    graalVmHomeDirectory.set("Path to your GraalVM install") // or set up GRAALVM_HOME.
-}
-```
+Details: [Reference](../../reference/gradle-plugin/export-targets.md).
+
+Next: run the exported game on your device.

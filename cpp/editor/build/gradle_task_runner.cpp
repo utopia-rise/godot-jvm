@@ -8,25 +8,25 @@ using namespace godot;
 
 String get_build_gradle_path() {
     ProjectSettings* project_settings = ProjectSettings::get_singleton();
-    String gradle_wrapper_path {project_settings->globalize_path(project_settings->get_setting(GRADLE_DIR))};
+    String gradle_wrapper_path = project_settings->globalize_path(project_settings->get_setting(GRADLE_DIR));
     return gradle_wrapper_path.path_join("build.gradle.kts");
 }
 
 String get_gradlew_path() {
 #if defined _WIN32 || defined _WIN64
-    String gradle_wrapper {"gradlew.bat"};
+    String gradle_wrapper = "gradlew.bat";
 #else
-    String gradle_wrapper {"gradlew"};
+    String gradle_wrapper = "gradlew";
 #endif
     ProjectSettings* project_settings = ProjectSettings::get_singleton();
-    String gradle_wrapper_path {project_settings->globalize_path(project_settings->get_setting(GRADLE_DIR))};
+    String gradle_wrapper_path = project_settings->globalize_path(project_settings->get_setting(GRADLE_DIR));
     return gradle_wrapper_path.path_join(gradle_wrapper);
 }
 
 Error GradleTaskRunner::run_task(int task_id, String& log, bool blocking) {
     JVM_ERR_FAIL_COND_V_MSG(!FileAccess::file_exists(get_build_gradle_path()), Error::ERR_FILE_NOT_FOUND, missing_gradle_project);
 
-    PackedStringArray args {};
+    PackedStringArray args = PackedStringArray();
     switch (task_id) {
         case Task::BUILD_DEBUG:
             args.push_back("build");
@@ -71,7 +71,8 @@ Error GradleTaskRunner::run_task(int task_id, String& log, bool blocking) {
             String line = output[i];
             log += line + "\n";
         }
-        if (exit_code == -1) { return Error::ERR_BUG; }
+        if (exit_code == -1) { return Error::ERR_CANT_CREATE; }
+        if (exit_code != 0) { return Error::FAILED; }
         return Error::OK;
     }
 
@@ -93,10 +94,14 @@ bool GradleTaskRunner::is_task_started() {
     return pid > -1;
 }
 
-bool GradleTaskRunner::is_task_terminated() {
-    bool ret = !OS::get_singleton()->is_process_running(pid);
-    if (ret) { reset(); }
-    return ret;
+bool GradleTaskRunner::is_task_running() {
+    return OS::get_singleton()->is_process_running(pid);
+}
+
+int GradleTaskRunner::finish_task() {
+    int exit_code = OS::get_singleton()->get_process_exit_code(pid);
+    reset();
+    return exit_code;
 }
 
 void GradleTaskRunner::get_task_output(String& log, String& error) {

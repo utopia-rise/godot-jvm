@@ -71,7 +71,7 @@ class ScalaExport extends Node {
 
   @Export
   @Visible
-  @File(extensions = Array("gd", "gdj"))
+  @File(extensions = Array("*.gd", "*.gdj"))
   var filePathValue: String = "res://test/core/test_core.gd"
 
   @Export

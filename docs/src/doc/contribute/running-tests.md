@@ -1,24 +1,29 @@
 ---
-description: Creating an embedded JRE for the harness Godot project and running its GUT-based integration test suite with runGDTests.
+description: Run Kotlin unit tests and the gdUnit4-based integration harness with the supported Godot editor.
 ---
 
 # Run the tests
 
-The harness is an ordinary Godot project. Its addon is located at `harness/tests/addons/jvm` and its `jvm.gdextension` manifest loads the library built in [Build from source](build-from-source.md).
+Run Kotlin unit tests from `kt/` with `./gradlew test`. For integration tests, use the gdUnit4-based Godot project in `harness/tests`; its addon manifest loads the native library you built.
 
-1. Download the official Godot editor version supported by the branch and place it in `harness/tests/bin`.
-2. Create an embedded JRE for the host platform:
+1. Download the official Godot editor version supported by the branch. Place it in `harness/tests/bin` or set `GODOT_EDITOR` to its executable path.
+2. Create the harness's embedded JRE:
 
     ```bash
     cd harness/tests
-    jlink --add-modules java.base,java.logging --output jvm/jre-amd64-linux
+    ./gradlew generateEmbeddedJre
     ```
 
-3. Build and run the tests:
+3. Build the harness and import its resources:
 
     ```bash
-    ./gradlew build
+    ./gradlew importResources
+    ```
+
+4. Run the integration tests:
+
+    ```bash
     ./gradlew runGDTests
     ```
 
-Use the official Godot editor to open the harness project when testing in the editor.
+For interactive testing, open `harness/tests/project.godot` with the matching official Godot editor.

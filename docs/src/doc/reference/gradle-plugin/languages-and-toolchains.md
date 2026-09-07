@@ -4,11 +4,9 @@ description: The godot { } properties that control which JVM languages compile a
 
 # Languages and toolchains
 
-These settings control which JVM languages participate in the initial compilation pass, and which Java/Kotlin/Scala versions are used for the build. See [the block at a glance](index.md) for a full example.
+These properties select the source languages and Java, Kotlin, and Scala versions used by the build.
 
-## Build languages and toolchains
-
-### `languages`
+## `languages`
 
 Controls which JVM source languages participate in the initial `classes` compilation pass.
 
@@ -33,9 +31,9 @@ Effect:
 - `compileKotlin` only runs when `KOTLIN` is enabled
 - `compileJava` only runs when `JAVA` is enabled
 - `compileScala` only runs when `SCALA` is enabled
-- Scala plugin/runtime wiring is only added when `SCALA` is enabled
+- The Scala plugin and runtime are added only when `SCALA` is enabled
 
-### `javaVersion`
+## `javaVersion`
 
 Configures the Java and Kotlin toolchains used for compilation.
 
@@ -56,7 +54,7 @@ Rules:
 - the plugin rejects any value below JDK `17`
 - the value is applied to both the Java toolchain and the Kotlin JVM toolchain
 
-### `kotlinVersion`
+## `kotlinVersion`
 
 Expected Kotlin Gradle plugin version for the build.
 
@@ -75,7 +73,8 @@ godot {
 Rules:
 
 - must be at least `2.3.20` for the current Godot-JVM release
-- if you keep the default, the Godot plugin applies Kotlin `2.3.20` automatically
+- if no Kotlin JVM plugin is declared, Godot-JVM applies Kotlin `2.3.20` automatically
+- an explicitly declared higher version is accepted when `kotlinVersion` keeps its default
 - if you override it, you must also apply `org.jetbrains.kotlin.jvm` explicitly with the same version before `com.utopia-rise.godot-jvm`, otherwise the build fails with a version mismatch
 
 Example with explicit override:
@@ -91,7 +90,7 @@ godot {
 }
 ```
 
-### `scalaVersion`
+## `scalaVersion`
 
 Scala version used when Scala support is enabled.
 
