@@ -324,12 +324,16 @@ class KtClassBuilder<T : KtObject>(
             fqdn = fqdn,
             sourceFileName = sourceFileName,
             kClass = kClassField,
-            _registeredSupertypes = registeredSupertypes,
+            registeredSupertypes = registeredSupertypes.toTypedArray(),
             constructor = constructorField,
-            _properties = properties,
-            _functions = functions,
+            properties = properties.toTypedArray(),
+            functions = functions.values.toTypedArray(),
             _notifications = notifications,
-            _signalInfos = signals,
+            signalInfos = signals.values.toTypedArray(),
+            handledNotifications = notifications
+                .map { notification -> notification.notification }
+                .distinct()
+                .toIntArray(),
             baseGodotClass = baseGodotClass,
             isAbstract = isAbstract,
         )
