@@ -1,5 +1,6 @@
 package godot.intellij.plugin.project
 
+import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.module.ModuleUtilCore
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
@@ -19,6 +20,10 @@ private data class GodotRootCacheEntry(
     val filePath: String,
     val root: GodotRoot?
 )
+
+/** The Godot project a project contains, if any. Godot-JVM projects hold a single Godot project. */
+val Project.godotRoot: GodotRoot?
+    get() = ModuleManager.getInstance(this).modules.firstNotNullOfOrNull { module -> module.godotRoot }
 
 fun VirtualFile.isInGodotRoot(project: Project): Boolean = getGodotRoot(project) != null
 
