@@ -14,28 +14,34 @@ repositories {
 }
 
 godot {
-    registrationFilesDirectory.set(projectDir.resolve("scripts").also { it.mkdirs() })
-    registrationFilesLayoutMode.set(RegistrationFileLayoutMode.HIERARCHICAL)
+    registration {
+        gdjFilesDirectory.set(projectDir.resolve("scripts"))
+        gdjFilesLayoutMode.set(RegistrationFileLayoutMode.HIERARCHICAL)
+    }
     isGodotCoroutinesEnabled.set(true)
 
 
     val androidSdkRoot = System.getenv("ANDROID_SDK_ROOT")
     val d8Executable = if (HostManager.hostIsMingw) "d8.bat" else "d8"
-    d8ToolPath.set(System.getenv("ANDROID_D8") ?: "$androidSdkRoot/build-tools/37.0.0/$d8Executable")
-    androidCompileSdkDirectory.set(System.getenv("ANDROID_COMPILE_SDK_DIRECTORY") ?: "$androidSdkRoot/platforms/android-36.1/")
+    android {
+        d8ToolPath.set(System.getenv("ANDROID_D8") ?: "$androidSdkRoot/build-tools/37.0.0/$d8Executable")
+        compileSdkDirectory.set(System.getenv("ANDROID_COMPILE_SDK_DIRECTORY") ?: "$androidSdkRoot/platforms/android-36.1/")
+    }
 
-    graalVmHomeDirectory.set(System.getenv("GRAALVM_HOME"))
-    additionalGraalResourceConfigurationFiles.set(
-        arrayOf(
-            projectDir.resolve("graal").resolve("resource-config.json").absolutePath,
-         )
-    )
-    additionalGraalReflectionConfigurationFiles.set(
-        arrayOf(
-            projectDir.resolve("graal").resolve("reflect-config.json").absolutePath,
+    graal {
+        homeDirectory.set(System.getenv("GRAALVM_HOME"))
+        additionalResourceConfigurationFiles.set(
+            arrayOf(
+                projectDir.resolve("graal").resolve("resource-config.json").absolutePath,
+            )
         )
-    )
-    windowsDeveloperVcVarsPath.set(System.getenv("VC_VARS_PATH"))
+        additionalReflectionConfigurationFiles.set(
+            arrayOf(
+                projectDir.resolve("graal").resolve("reflect-config.json").absolutePath,
+            )
+        )
+        windowsDeveloperVcVarsPath.set(System.getenv("VC_VARS_PATH"))
+    }
 
 }
 

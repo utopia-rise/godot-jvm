@@ -498,15 +498,15 @@ fun Project.registrarGenerationGenerateFilesTask(
         })
         task.runtimeClassPathFiles.from(mainSourceSet.compileClasspath)
         task.runtimeClassPathFiles.from(mainSourceSet.output.classesDirs)
-        task.registeredNameMode.convention(godotJvmExtension.registrationNameMode)
+        task.registeredNameMode.convention(godotJvmExtension.registration.nameMode)
         task.projectName.convention(
             providers.provider { project.name.replace(" ", "_") }
         )
-        task.registrationFileLayoutMode.convention(godotJvmExtension.registrationFilesLayoutMode)
-        task.registrationFileIndentation.convention(godotJvmExtension.registrationFilesIndentation)
-        task.disableGdj.convention(godotJvmExtension.disableGdj)
-        task.fullRebuildThreshold.convention(godotJvmExtension.registrarIncrementalFullBuildThreshold)
-        task.annotationProcessingMode.convention(godotJvmExtension.annotationProcessingMode)
+        task.registrationFileLayoutMode.convention(godotJvmExtension.registration.gdjFilesLayoutMode)
+        task.registrationFileIndentation.convention(godotJvmExtension.registration.gdjFilesIndentation)
+        task.disableGdj.convention(godotJvmExtension.registration.disableGdj)
+        task.fullRebuildThreshold.convention(godotJvmExtension.registration.incrementalFullBuildThreshold)
+        task.annotationProcessingMode.convention(godotJvmExtension.registration.annotationProcessingMode)
         task.generatedSourceRootDir.convention(generatedSourceRootDir)
         task.generatedRegistrationFilesRootDir.convention(generatedRegistrationRootDir)
         task.generatedRegistrarManifestFile.convention(

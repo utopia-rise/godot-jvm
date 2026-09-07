@@ -25,6 +25,12 @@ void remove_optional_block(String& content, const String& name) {
     }
 }
 
+void remove_optional_markers(String& content, const String& name) {
+    content = content
+        .replace("// BEGIN_OPTIONAL_" + name, "")
+        .replace("// END_OPTIONAL_" + name, "");
+}
+
 void ProjectGenerator::generate_jvm_files(bool erase_existing) {
     JVM_LOG_INFO("Generating JVM project files...");
 
@@ -58,6 +64,7 @@ void ProjectGenerator::generate_jvm_files(bool erase_existing) {
                     .replace("GODOT_LANGUAGES", "GodotLanguage.KOTLIN, GodotLanguage.JAVA, GodotLanguage.SCALA");
                 remove_optional_block(file_content, "ANDROID");
                 remove_optional_block(file_content, "GRAAL");
+                remove_optional_markers(file_content, "COROUTINES");
                 file->store_string(file_content);
             }
         }

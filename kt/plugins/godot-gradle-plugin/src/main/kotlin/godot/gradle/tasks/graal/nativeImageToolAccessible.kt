@@ -58,7 +58,7 @@ abstract class CheckNativeImageToolAccessibleTask : DefaultTask() {
 }
 
 fun Project.checkNativeImageToolAccessibleTask(): TaskProvider<out Task> {
-    val nativeImageExecutablePath = godotJvmExtension.graalVmHomeDirectory.map { graalVmHomeDirectory ->
+    val nativeImageExecutablePath = godotJvmExtension.graal.homeDirectory.map { graalVmHomeDirectory ->
         if (graalVmHomeDirectory.isBlank()) {
             return@map ""
         }

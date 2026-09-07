@@ -118,9 +118,9 @@ fun Project.createBootstrapDexJarTask(
     packageBootstrapJarTask: TaskProvider<out Task>
 ): TaskProvider<out Task> {
     val libsDirectory = layout.buildDirectory.dir("libs")
-    val d8ToolPath = godotJvmExtension.d8ToolPath
-    val androidCompileSdkDirectory = godotJvmExtension.androidCompileSdkDirectory
-    val androidMinApiLevel = godotJvmExtension.androidMinApiLevel
+    val d8ToolPath = godotJvmExtension.android.d8ToolPath
+    val androidCompileSdkDirectory = godotJvmExtension.android.compileSdkDirectory
+    val androidMinApiLevel = godotJvmExtension.android.minApiLevel
 
     return tasks.register("createBootstrapDexJar", CreateBootstrapDexJarTask::class.java) {
         with(it) {

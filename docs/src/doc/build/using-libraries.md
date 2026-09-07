@@ -34,7 +34,7 @@ These registration files for those libraries are grouped by the source project n
 configured root directory for registration files:
 
 ```
-[registrationFilesDirectory]/
+[gdjFilesDirectory]/
 ├── libraryA/
 │   └── ClassFromLibraryA.gdj
 ├── libraryB/
@@ -47,4 +47,4 @@ The folder structure configuration is the same as you configured for your own pr
 ## Dependency caveats
 
 - **Android** — only depend on libraries that are actually compatible with Android; the exported jars are converted to `.dex` format, and a dependency that assumes a full desktop JVM stack can fail there. See [Android export](export/android.md).
-- **GraalVM native image** — AOT compilation means any dependency that relies on reflection or JNI needs its own GraalVM configuration, supplied through `additionalGraalJniConfigurationFiles`, `additionalGraalReflectionConfigurationFiles`, or `additionalGraalResourceConfigurationFiles`. See [GraalVM native image export](export/graalvm-native-image.md).
+- **GraalVM native image** — AOT compilation means any dependency that relies on reflection or JNI needs its own GraalVM configuration, supplied through `graal.additionalJniConfigurationFiles`, `graal.additionalReflectionConfigurationFiles`, or `graal.additionalResourceConfigurationFiles`. See [GraalVM native image export](export/graalvm-native-image.md).
