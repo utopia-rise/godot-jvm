@@ -7,8 +7,10 @@
 #include "core/jvm_binding_manager.h"
 #include "engine/godot_object.h"
 #include "jvm/wrapper/memory/memory_manager.h"
+#include "jvm/wrapper/registration/kt_object.h"
 #include "jvm_instance.h"
 #include "jvm_placeholder_instance.h"
+#include "logging.h"
 
 #include <core/object.hpp>
 

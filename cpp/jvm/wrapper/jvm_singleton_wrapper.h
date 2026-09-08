@@ -2,6 +2,7 @@
 #define GODOT_JVM_JVM_SINGLETON_WRAPPER_H
 
 #include "jvm_instance_wrapper.h"
+#include "logging.h"
 
 #define JVM_SINGLETON_WRAPPER(NAME, FQNAME)               \
     inline constexpr char NAME##QualifiedName[] = FQNAME; \

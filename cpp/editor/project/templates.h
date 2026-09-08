@@ -4,6 +4,8 @@
 #ifndef FILE_CONTENTS_H
 #define FILE_CONTENTS_H
 
+namespace godot {
+
 constexpr const char* _gitattributes_file_name = R"(.gitattributes)";
 constexpr const char* _gitattributes_file_content = "IwojIGh0dHBzOi8vaGVscC5naXRodWIuY29tL2FydGljbGVzL2RlYWxpbmctd2l0aC1saW5lLWVuZGluZ3MvCiMKIyBUaGVzZSBhcmUgZXhwbGljaXRseSB3aW5kb3dzIGZpbGVzIGFuZCBzaG91bGQgdXNlIGNybGYKKi5iYXQgICAgICAgICAgIHRleHQgZW9sPWNybGYKCg==";
 
@@ -41,6 +43,8 @@ constexpr const int number_of_files = 11;
 constexpr const bool file_is_binary[] = {false, false, false, false, false, false, false, false, true, false, false};
 constexpr const char* file_names[] = {_gitattributes_file_name, _gitignore_file_name, build_gradle_kts_file_name, gradle_properties_file_name, gradlew_bat_file_name, gradlew_file_name, settings_gradle_kts_file_name, gradle_gdignore_file_name, gradle_wrapper_gradle_wrapper_jar_file_name, gradle_wrapper_gradle_wrapper_properties_file_name, src_main_kotlin_godot_HelloGodot_kt_file_name};
 constexpr const char* file_contents[] = {_gitattributes_file_content, _gitignore_file_content, build_gradle_kts_file_content, gradle_properties_file_content, gradlew_bat_file_content, gradlew_file_content, settings_gradle_kts_file_content, gradle_gdignore_file_content, gradle_wrapper_gradle_wrapper_jar_file_content, gradle_wrapper_gradle_wrapper_properties_file_content, src_main_kotlin_godot_HelloGodot_kt_file_content};
+
+} // namespace godot
 
 #endif // FILE_CONTENTS_H
 

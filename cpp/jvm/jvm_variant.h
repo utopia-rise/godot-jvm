@@ -7,8 +7,6 @@
 #include "engine/marshalls.h"
 #include "jvm/jni/wrapper.h"
 #include "jvm/wrapper/memory/long_string_queue.h"
-#include "jvm/wrapper/memory/type_manager.h"
-#include "logging.h"
 #include "shared_buffer.h"
 
 #include <classes/os.hpp>

@@ -4,8 +4,6 @@
 #include "godot_jvm.h"
 #include "jvm/wrapper/memory/memory_manager.h"
 
-#include <core/error_macros.hpp>
-
 using namespace godot;
 
 GDExtensionInstanceBindingCallbacks JvmBindingManager::_instance_binding_callbacks = {

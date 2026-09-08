@@ -1,6 +1,8 @@
 #include "transfer_context.h"
 
 #include "api/script/jvm_instance.h"
+#include "constraints.h"
+#include "logging.h"
 
 #include <core/object.hpp>
 

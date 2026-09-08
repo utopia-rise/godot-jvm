@@ -1,11 +1,8 @@
 #ifndef GODOT_JVM_JVM_INSTANCE_H
 #define GODOT_JVM_JVM_INSTANCE_H
 
-#include "core/jvm_binding_manager.h"
-#include "engine/godot_object.h"
-#include "engine/internal.h"
-#include "jvm/wrapper/jvm_singleton_wrapper.h"
 #include "jvm/wrapper/registration/kt_class.h"
+#include "jvm/wrapper/registration/kt_object.h"
 #include "jvm_script.h"
 
 namespace godot {

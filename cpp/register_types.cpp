@@ -30,6 +30,7 @@
 #include <classes/engine.hpp>
 #include <classes/resource_loader.hpp>
 #include <classes/resource_saver.hpp>
+#include <core/class_db.hpp>
 
 Ref<JvmResourceFormatLoader> resource_format_loader;
 Ref<JvmResourceFormatSaver> resource_format_saver;

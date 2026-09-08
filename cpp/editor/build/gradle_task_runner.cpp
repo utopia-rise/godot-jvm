@@ -3,6 +3,7 @@
 #include "editor/strings.h"
 #include "logging.h"
 
+#include <classes/os.hpp>
 #include <classes/project_settings.hpp>
 
 using namespace godot;

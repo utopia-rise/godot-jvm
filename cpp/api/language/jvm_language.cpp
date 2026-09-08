@@ -4,6 +4,7 @@
 #include "engine/ustring.h"
 
 #include <classes/resource_loader.hpp>
+#include <classes/script_language_extension.hpp>
 
 using namespace godot;
 

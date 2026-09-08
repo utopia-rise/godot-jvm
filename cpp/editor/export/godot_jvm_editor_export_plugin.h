@@ -1,7 +1,6 @@
 #ifndef GODOT_JVM_EDITOR_EXPORT_PLUGIN_H
 #define GODOT_JVM_EDITOR_EXPORT_PLUGIN_H
 
-#include <classes/dir_access.hpp>
 #include <classes/editor_export_platform.hpp>
 #include <classes/editor_export_plugin.hpp>
 #include <templates/hash_map.hpp>

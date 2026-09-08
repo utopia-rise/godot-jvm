@@ -1,9 +1,7 @@
 #ifndef GODOT_JVM_JAVA_ARCHIVE_LOADER_H
 #define GODOT_JVM_JAVA_ARCHIVE_LOADER_H
 
-#include <classes/resource.hpp>
 #include <classes/resource_format_loader.hpp>
-#include <templates/list.hpp>
 #include <variant/string.hpp>
 
 namespace godot {

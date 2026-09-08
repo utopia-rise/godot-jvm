@@ -6,6 +6,7 @@
 #include "engine/godot_object.h"
 #include "jvm/wrapper/kotlin_callable_custom.h"
 #include "jvm/wrapper/memory/transfer_context.h"
+#include "logging.h"
 
 #include <classes/object.hpp>
 #include <variant/array.hpp>

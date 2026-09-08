@@ -9,6 +9,7 @@
 #include "paths.h"
 
 #include <classes/resource_uid.hpp>
+#include <templates/list.hpp>
 
 using namespace godot;
 

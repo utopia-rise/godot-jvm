@@ -1,7 +1,12 @@
 #include "jvm_instance.h"
 
+#include "core/jvm_binding_manager.h"
 #include "engine/godot_object.h"
+#include "engine/internal.h"
+#include "jvm/wrapper/jvm_singleton_wrapper.h"
 #include "jvm/wrapper/memory/memory_manager.h"
+#include "jvm/wrapper/registration/kt_object.h"
+#include "logging.h"
 
 using namespace godot;
 

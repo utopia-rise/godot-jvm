@@ -1,8 +1,6 @@
 #ifndef GODOT_LOADER_INIT_ARGS_H
 #define GODOT_LOADER_INIT_ARGS_H
 
-#include "jvm_user_configuration.h"
-
 #include <jni.h>
 
 #include <templates/local_vector.hpp>

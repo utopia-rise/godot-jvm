@@ -4,10 +4,9 @@
 #include "engine/godot_object.h"
 #include "jvm/wrapper/registration/kt_class.h"
 #include "jvm_placeholder_instance.h"
-#include "templates/hash_set.hpp"
 
 #include <classes/script_extension.hpp>
-#include <classes/script_language_extension.hpp>
+#include <classes/script_language.hpp>
 
 namespace godot {
 

@@ -3,9 +3,9 @@
 #include "api/script/jvm_script.h"
 #include "api/script/jvm_script_manager.h"
 #include "bridges_utils.h"
-#include "constraints.h"
 #include "core/variant_allocator.h"
 #include "jvm/wrapper/memory/transfer_context.h"
+#include "jvm/wrapper/memory/type_manager.h"
 
 using namespace bridges;
 

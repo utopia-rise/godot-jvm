@@ -32,7 +32,6 @@
 
 #pragma once
 
-#include <classes/ref_counted.hpp>
 #include <variant/variant.hpp>
 
 // uintr_t is only for pairing with real_t, and we only need it in here.

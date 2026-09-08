@@ -1,5 +1,6 @@
 #include "env.h"
 
+#include "logging.h"
 #include "types.h"
 
 using namespace godot;

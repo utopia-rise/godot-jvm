@@ -2,6 +2,7 @@
 
 #include "engine/godot_object.h"
 #include "jvm/wrapper/memory/transfer_context.h"
+#include "jvm/wrapper/registration/kt_object.h"
 
 KtConstructor::KtConstructor(jni::Env& p_env, jni::JObject p_wrapped) : JvmInstanceWrapper(p_env, p_wrapped) {}
 

@@ -1,10 +1,9 @@
 #ifndef GODOT_JVM_INTERNAL_H
 #define GODOT_JVM_INTERNAL_H
 
-#include "core/object.hpp"
-
 #include <gdextension_interface.h>
 
+#include <core/object.hpp>
 #include <templates/list.hpp>
 
 namespace godot::internal {

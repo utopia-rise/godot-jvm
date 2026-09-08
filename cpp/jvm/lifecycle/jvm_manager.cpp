@@ -18,7 +18,12 @@
 #include "jvm/wrapper/bridge/string_name_bridge.h"
 #include "jvm/wrapper/bridge/variant_array_bridge.h"
 #include "jvm/wrapper/kotlin_callable_custom.h"
+#include "jvm/wrapper/memory/long_string_queue.h"
 #include "jvm/wrapper/memory/memory_manager.h"
+#include "jvm/wrapper/memory/transfer_context.h"
+#include "jvm/wrapper/memory/type_manager.h"
+#include "jvm/wrapper/registration/kt_object.h"
+#include "logging.h"
 
 #include <jni.h>
 

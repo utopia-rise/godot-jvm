@@ -1,8 +1,6 @@
 #ifndef GODOT_JVM_JVM_BINDING_H
 #define GODOT_JVM_JVM_BINDING_H
 
-#include "jvm/wrapper/registration/kt_object.h"
-
 #include <atomic>
 #include <classes/wrapped.hpp>
 

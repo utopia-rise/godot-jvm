@@ -45,9 +45,9 @@ static constexpr const char* override_options[] = {debug_override_option, memory
 
 struct ConfigurationOption {
     Category category;
-    const char* key;    // Field in godot_jvm_configuration.json.
+    const char* key; // Field in godot_jvm_configuration.json.
     const char* option; // Preset option name.
-    const char* range;  // Range hint for integer fields.
+    const char* range; // Range hint for integer fields.
 };
 
 static constexpr ConfigurationOption configuration_options[] = {
@@ -60,92 +60,90 @@ static constexpr ConfigurationOption configuration_options[] = {
     {CATEGORY_MEMORY, DISABLE_GC_JSON_IDENTIFIER, disable_gc_option, nullptr},
 };
 
-namespace {
-    Dictionary export_option(
-        const char* p_name,
-        Variant::Type p_type,
-        const Variant& p_default,
-        PropertyHint p_hint,
-        const char* p_hint_string,
-        bool p_update_visibility
-    ) {
-        Dictionary property_info;
-        property_info["name"] = p_name;
-        property_info["type"] = p_type;
-        property_info["hint"] = p_hint;
-        property_info["hint_string"] = p_hint_string;
-        Dictionary option;
-        option["option"] = property_info;
-        option["default_value"] = p_default;
-        option["update_visibility"] = p_update_visibility;
-        return option;
+static Dictionary export_option(
+    const char* p_name,
+    Variant::Type p_type,
+    const Variant& p_default,
+    PropertyHint p_hint,
+    const char* p_hint_string,
+    bool p_update_visibility
+) {
+    Dictionary property_info;
+    property_info["name"] = p_name;
+    property_info["type"] = p_type;
+    property_info["hint"] = p_hint;
+    property_info["hint_string"] = p_hint_string;
+    Dictionary option;
+    option["option"] = property_info;
+    option["default_value"] = p_default;
+    option["update_visibility"] = p_update_visibility;
+    return option;
+}
+
+// Walk the tree with DirAccess's exposed list_dir_begin/get_next/copy/make_dir_recursive API.
+static Error copy_directory_recursive(const String& from, const String& to) {
+    Ref<DirAccess> dir_access = DirAccess::open(from);
+    if (dir_access.is_null()) { return DirAccess::get_open_error(); }
+
+    Error error = dir_access->make_dir_recursive(to);
+    if (error != OK) { return error; }
+
+    error = dir_access->list_dir_begin();
+    if (error != OK) { return error; }
+
+    for (String entry = dir_access->get_next(); !entry.is_empty(); entry = dir_access->get_next()) {
+        if (entry == "." || entry == "..") { continue; }
+        String from_entry = from.path_join(entry);
+        String to_entry = to.path_join(entry);
+        error = dir_access->current_is_dir() ? copy_directory_recursive(from_entry, to_entry)
+                                             : dir_access->copy(from_entry, to_entry);
+        if (error != OK) { break; }
     }
+    dir_access->list_dir_end();
+    return error;
+}
 
-    // Walk the tree with DirAccess's exposed list_dir_begin/get_next/copy/make_dir_recursive API.
-    Error copy_directory_recursive(const String& from, const String& to) {
-        Ref<DirAccess> dir_access = DirAccess::open(from);
-        if (dir_access.is_null()) { return DirAccess::get_open_error(); }
+// Where the desktop runtimes live in the project, per Godot OS name. Null for non-desktop platforms.
+struct DesktopRuntimeFiles {
+    const char* arm64_jre_directory;
+    const char* x86_64_jre_directory;
+    const char* native_image_file;
+};
 
-        Error error = dir_access->make_dir_recursive(to);
-        if (error != OK) { return error; }
-
-        error = dir_access->list_dir_begin();
-        if (error != OK) { return error; }
-
-        for (String entry = dir_access->get_next(); !entry.is_empty(); entry = dir_access->get_next()) {
-            if (entry == "." || entry == "..") { continue; }
-            String from_entry = from.path_join(entry);
-            String to_entry = to.path_join(entry);
-            error = dir_access->current_is_dir() ? copy_directory_recursive(from_entry, to_entry)
-                                                 : dir_access->copy(from_entry, to_entry);
-            if (error != OK) { break; }
-        }
-        dir_access->list_dir_end();
-        return error;
-    }
-
-    // Where the desktop runtimes live in the project, per Godot OS name. Null for non-desktop platforms.
-    struct DesktopRuntimeFiles {
-        const char* arm64_jre_directory;
-        const char* x86_64_jre_directory;
-        const char* native_image_file;
+static const DesktopRuntimeFiles* desktop_runtime_files(const String& p_os_name) {
+    static constexpr DesktopRuntimeFiles windows = {
+        WINDOWS_EMBEDDED_JRE_ARM_DIRECTORY,
+        WINDOWS_EMBEDDED_JRE_AMD_DIRECTORY,
+        WINDOWS_GRAAL_NATIVE_IMAGE_FILE
     };
+    static constexpr DesktopRuntimeFiles linux = {
+        LINUX_EMBEDDED_JRE_ARM_DIRECTORY,
+        LINUX_EMBEDDED_JRE_AMD_DIRECTORY,
+        LINUX_GRAAL_NATIVE_IMAGE_FILE
+    };
+    static constexpr DesktopRuntimeFiles macos = {
+        MACOS_EMBEDDED_JRE_ARM_DIRECTORY,
+        MACOS_EMBEDDED_JRE_AMD_DIRECTORY,
+        MACOS_GRAAL_NATIVE_IMAGE_FILE
+    };
+    if (p_os_name == "Windows") { return &windows; }
+    if (p_os_name == "Linux") { return &linux; }
+    if (p_os_name == "macOS") { return &macos; }
+    return nullptr;
+}
 
-    const DesktopRuntimeFiles* desktop_runtime_files(const String& p_os_name) {
-        static constexpr DesktopRuntimeFiles windows = {
-            WINDOWS_EMBEDDED_JRE_ARM_DIRECTORY,
-            WINDOWS_EMBEDDED_JRE_AMD_DIRECTORY,
-            WINDOWS_GRAAL_NATIVE_IMAGE_FILE
-        };
-        static constexpr DesktopRuntimeFiles linux = {
-            LINUX_EMBEDDED_JRE_ARM_DIRECTORY,
-            LINUX_EMBEDDED_JRE_AMD_DIRECTORY,
-            LINUX_GRAAL_NATIVE_IMAGE_FILE
-        };
-        static constexpr DesktopRuntimeFiles macos = {
-            MACOS_EMBEDDED_JRE_ARM_DIRECTORY,
-            MACOS_EMBEDDED_JRE_AMD_DIRECTORY,
-            MACOS_GRAAL_NATIVE_IMAGE_FILE
-        };
-        if (p_os_name == "Windows") { return &windows; }
-        if (p_os_name == "Linux") { return &linux; }
-        if (p_os_name == "macOS") { return &macos; }
-        return nullptr;
-    }
+// res:// paths of the embedded JREs an export needs, one per exported architecture.
+static PackedStringArray embedded_jre_directories(const DesktopRuntimeFiles& p_files, bool p_arm64, bool p_x86_64) {
+    PackedStringArray directories;
+    if (p_arm64) { directories.push_back(String(RES_DIRECTORY) + p_files.arm64_jre_directory); }
+    if (p_x86_64) { directories.push_back(String(RES_DIRECTORY) + p_files.x86_64_jre_directory); }
+    return directories;
+}
 
-    // res:// paths of the embedded JREs an export needs, one per exported architecture.
-    PackedStringArray embedded_jre_directories(const DesktopRuntimeFiles& p_files, bool p_arm64, bool p_x86_64) {
-        PackedStringArray directories;
-        if (p_arm64) { directories.push_back(String(RES_DIRECTORY) + p_files.arm64_jre_directory); }
-        if (p_x86_64) { directories.push_back(String(RES_DIRECTORY) + p_files.x86_64_jre_directory); }
-        return directories;
-    }
-
-    // res:// paths of the jars every desktop JVM export bundles.
-    PackedStringArray desktop_jars() {
-        return {String(RES_DIRECTORY) + DESKTOP_BOOTSTRAP_FILE, String(RES_DIRECTORY) + DESKTOP_USER_CODE_FILE};
-    }
-} // namespace
+// res:// paths of the jars every desktop JVM export bundles.
+static PackedStringArray desktop_jars() {
+    return {String(RES_DIRECTORY) + DESKTOP_BOOTSTRAP_FILE, String(RES_DIRECTORY) + DESKTOP_USER_CODE_FILE};
+}
 
 bool GodotJvmEditorExportPlugin::_supports_platform(const Ref<EditorExportPlatform>& p_platform) const {
     // Godot only asks supporting plugins for export options, warnings and Android libraries.
@@ -214,7 +212,8 @@ bool GodotJvmEditorExportPlugin::_get_export_option_visibility(
         if (selected_runtime() == RUNTIME_GRAAL) { return false; }
         if (p_option == debug_override_option) { return true; }
         if (!bool(get_option(debug_override_option))) { return false; }
-        return p_option == enable_debugger_option || p_option == jmx_port_option
+        return p_option == enable_debugger_option
+            || p_option == jmx_port_option
             || bool(get_option(enable_debugger_option));
     }
     if (p_option.begins_with(memory_options_prefix)) {
@@ -236,7 +235,7 @@ String GodotJvmEditorExportPlugin::_get_export_option_warning(
 ) const {
     if (p_option == debug_address_option) {
         return _get_export_option_visibility(p_platform, p_option)
-                && !JvmUserConfiguration::is_valid_debug_address(get_option(p_option))
+                    && !JvmUserConfiguration::is_valid_debug_address(get_option(p_option))
                  ? "Debug Address must be an IP address or * to listen on every address."
                  : String();
     }
@@ -481,8 +480,9 @@ void GodotJvmEditorExportPlugin::_export_file(
         String bootstrap = String(RES_DIRECTORY) + (android ? ANDROID_BOOTSTRAP_FILE : DESKTOP_BOOTSTRAP_FILE);
         String user_code = String(RES_DIRECTORY) + (android ? ANDROID_USER_CODE_FILE : DESKTOP_USER_CODE_FILE);
         bool external_jar = !android && p_path.begins_with(String(RES_DIRECTORY) + EXTERNAL_JARS_DIRECTORY);
-        excluded = p_features.has("ios") || !exporting_jvm_runtime
-            || (!external_jar && p_path != bootstrap && p_path != user_code);
+        excluded = p_features.has("ios")
+                || !exporting_jvm_runtime
+                || (!external_jar && p_path != bootstrap && p_path != user_code);
     }
     if (excluded) {
         skip();

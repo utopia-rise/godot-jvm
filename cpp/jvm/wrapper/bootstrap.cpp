@@ -3,6 +3,7 @@
 #include "api/script/jvm_script_manager.h"
 #include "jvm/wrapper/memory/type_manager.h"
 #include "jvm/wrapper/registration/kt_class.h"
+#include "logging.h"
 
 void Bootstrap::load_classes(JNIEnv* p_env, jobject p_this, jobjectArray p_classes) {
     jni::Env env(p_env);

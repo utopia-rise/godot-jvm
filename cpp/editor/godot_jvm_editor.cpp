@@ -5,6 +5,7 @@
 #include "editor/jvm_syntax_highlighter.h"
 #include "editor/strings.h"
 #include "godot_jvm.h"
+#include "logging.h"
 #include "paths.h"
 #include "project/project_generator.h"
 

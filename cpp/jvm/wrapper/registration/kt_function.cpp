@@ -1,6 +1,7 @@
 #include "kt_function.h"
 
 #include "jvm/wrapper/memory/transfer_context.h"
+#include "jvm/wrapper/registration/kt_object.h"
 
 #include <classes/global_constants.hpp>
 

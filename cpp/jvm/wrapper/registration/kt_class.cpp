@@ -1,6 +1,7 @@
 #include "kt_class.h"
 
 #include "jvm/wrapper/memory/transfer_context.h"
+#include "jvm/wrapper/registration/kt_object.h"
 #include "logging.h"
 
 KtClass::KtClass(jni::Env& p_env, jni::JObject p_wrapped) :

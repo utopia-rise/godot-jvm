@@ -6,12 +6,14 @@
 #include "jvm/wrapper/memory/long_string_queue.h"
 #include "jvm/wrapper/memory/memory_manager.h"
 #include "jvm/wrapper/memory/type_manager.h"
+#include "logging.h"
 #include "paths.h"
 #include "version.h"
 
 #include <classes/dir_access.hpp>
 #include <classes/engine.hpp>
 #include <classes/file_access.hpp>
+#include <classes/os.hpp>
 #include <classes/project_settings.hpp>
 #include <classes/resource_loader.hpp>
 

@@ -1,5 +1,7 @@
 #include "types.h"
 
+#include "logging.h"
+
 namespace jni {
 
     JValue::JValue(JObject obj) {

@@ -4,8 +4,6 @@
 #include "jvm/wrapper/jvm_instance_wrapper.h"
 #include "kt_property.h"
 
-#include <classes/object.hpp>
-
 JVM_INSTANCE_WRAPPER(KtSignalInfo, "godot.registration.KtSignalInfo") {
     JVM_CLASS(KtSignalInfo)
 

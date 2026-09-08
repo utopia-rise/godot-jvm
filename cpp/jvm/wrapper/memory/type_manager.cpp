@@ -1,5 +1,7 @@
 #include "type_manager.h"
 
+#include "logging.h"
+
 #include <godot.hpp>
 
 void TypeManager::clear() {

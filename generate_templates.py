@@ -28,6 +28,7 @@ def generate_header_from_files(directory, header_file):
         header.write(f'// Auto-generated from the {directory} directory. Do not edit by hand.\n\n')
         header.write("#ifndef FILE_CONTENTS_H\n")
         header.write("#define FILE_CONTENTS_H\n\n")
+        header.write("namespace godot {\n\n")
 
         for root, dirs, files in os.walk(directory):
             dirs.sort()
@@ -79,6 +80,7 @@ def generate_header_from_files(directory, header_file):
         header.write(', '.join(file_contents))
         header.write('};\n\n')
 
+        header.write("} // namespace godot\n\n")
         header.write("#endif // FILE_CONTENTS_H\n\n")
 
     print(f"{header_file} generated successfully.")

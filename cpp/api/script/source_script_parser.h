@@ -1,7 +1,9 @@
 #ifndef GODOT_JVM_SOURCE_SCRIPT_PARSER_H
 #define GODOT_JVM_SOURCE_SCRIPT_PARSER_H
 
-#include <classes/file_access.hpp>
+#include <classes/global_constants.hpp>
+#include <variant/string.hpp>
+#include <variant/string_name.hpp>
 
 namespace godot {
     Error read_source_script_file(const String& p_path, String& r_content);

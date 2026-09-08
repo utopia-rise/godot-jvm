@@ -5,7 +5,10 @@
 #include "engine/godot_object.h"
 #include "jvm/wrapper/bridge/bridges_utils.h"
 #include "jvm/wrapper/memory/transfer_context.h"
+#include "jvm/wrapper/memory/type_manager.h"
+#include "logging.h"
 
+#include <classes/ref_counted.hpp>
 #include <core/object.hpp>
 #include <variant/string_name.hpp>
 

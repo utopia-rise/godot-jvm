@@ -1,5 +1,7 @@
 #include "jvm_user_configuration.h"
 
+#include "logging.h"
+
 #include <classes/json.hpp>
 
 bool JvmUserConfiguration::is_valid_debug_address(const godot::String& address) {

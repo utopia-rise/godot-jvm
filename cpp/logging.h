@@ -1,7 +1,8 @@
 #ifndef GODOT_JVM_LOGGING_H
 #define GODOT_JVM_LOGGING_H
 
-#include <classes/os.hpp>
+#include <core/error_macros.hpp>
+#include <core/print_string.hpp>
 #include <variant/string.hpp>
 #include <variant/variant.hpp>
 

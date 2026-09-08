@@ -3,6 +3,7 @@
 #include "api/script/jvm_script_manager.h"
 #include "bridges_utils.h"
 #include "jvm/wrapper/memory/transfer_context.h"
+#include "jvm/wrapper/memory/type_manager.h"
 
 using namespace bridges;
 

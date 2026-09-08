@@ -1,6 +1,8 @@
 #include "project_generator.h"
 
 #include "editor/strings.h"
+#include "logging.h"
+#include "templates.h"
 #include "version.h"
 
 #include <classes/dir_access.hpp>

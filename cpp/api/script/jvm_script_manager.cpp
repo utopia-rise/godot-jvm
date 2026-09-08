@@ -6,6 +6,7 @@
 #include "api/script/language/kotlin_script.h"
 #include "api/script/language/scala_script.h"
 #include "jvm/wrapper/memory/type_manager.h"
+#include "logging.h"
 
 #include <classes/editor_file_system.hpp>
 #include <classes/editor_interface.hpp>
@@ -18,31 +19,29 @@ using namespace godot;
 
 JvmScriptManager* JvmScriptManager::singleton = nullptr;
 
-namespace {
-    Ref<JvmScript> create_script_for_extension(const String& p_extension) {
-        const String extension = p_extension.to_lower();
-        if (extension == GODOT_KOTLIN_SCRIPT_EXTENSION) {
-            Ref<KotlinScript> script;
-            script.instantiate();
-            return script;
-        } else if (extension == GODOT_JAVA_SCRIPT_EXTENSION) {
-            Ref<JavaScript> script;
-            script.instantiate();
-            return script;
-        } else if (extension == GODOT_SCALA_SCRIPT_EXTENSION) {
-            Ref<ScalaScript> script;
-            script.instantiate();
-            return script;
-        } else if (extension == GODOT_JVM_REGISTRATION_FILE_EXTENSION) {
-            Ref<GdjScript> script;
-            script.instantiate();
-            return script;
-        } else {
-            JVM_ERR_FAIL_V_MSG(Ref<JvmScript>(), vformat("Unsupported JVM script extension: %s", extension));
-        }
-        return Ref<JvmScript>();
+static Ref<JvmScript> create_script_for_extension(const String& p_extension) {
+    const String extension = p_extension.to_lower();
+    if (extension == GODOT_KOTLIN_SCRIPT_EXTENSION) {
+        Ref<KotlinScript> script;
+        script.instantiate();
+        return script;
+    } else if (extension == GODOT_JAVA_SCRIPT_EXTENSION) {
+        Ref<JavaScript> script;
+        script.instantiate();
+        return script;
+    } else if (extension == GODOT_SCALA_SCRIPT_EXTENSION) {
+        Ref<ScalaScript> script;
+        script.instantiate();
+        return script;
+    } else if (extension == GODOT_JVM_REGISTRATION_FILE_EXTENSION) {
+        Ref<GdjScript> script;
+        script.instantiate();
+        return script;
+    } else {
+        JVM_ERR_FAIL_V_MSG(Ref<JvmScript>(), vformat("Unsupported JVM script extension: %s", extension));
     }
-} // namespace
+    return Ref<JvmScript>();
+}
 
 JvmScriptManager* JvmScriptManager::get_instance() {
     if (!singleton) { singleton = memnew(JvmScriptManager); }

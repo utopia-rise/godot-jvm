@@ -1,5 +1,7 @@
 #include "jvm_options.h"
 
+#include "logging.h"
+
 #include <variant/variant.hpp>
 
 void JvmOptions::add_jni_checks() {

@@ -16,36 +16,30 @@
 
 using namespace godot;
 
-namespace {
-    inline bool is_identifier_start(char32_t c) {
-        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
-    }
+static bool is_identifier_start(char32_t c) {
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+}
 
-    inline bool is_digit(char32_t c) {
-        return c >= '0' && c <= '9';
-    }
+static bool is_identifier_char(char32_t c) {
+    return is_identifier_start(c) || is_digit(c);
+}
 
-    inline bool is_identifier_char(char32_t c) {
-        return is_identifier_start(c) || is_digit(c);
+// Delimiters use "begin end" (space-separated), or just "begin" for a to-end-of-line region.
+static void parse_delimiters(const PackedStringArray& delimiters, const Color& color, Vector<SyntaxRegion>& out) {
+    for (const String& delimiter : delimiters) {
+        String begin = delimiter.get_slicec(' ', 0);
+        String end = delimiter.get_slice_count(" ") > 1 ? delimiter.get_slicec(' ', 1) : String();
+        out.push_back({begin, end, end.is_empty(), color});
     }
+}
 
-    // Delimiters use "begin end" (space-separated), or just "begin" for a to-end-of-line region.
-    void parse_delimiters(const PackedStringArray& delimiters, const Color& color, Vector<SyntaxRegion>& out) {
-        for (const String& delimiter : delimiters) {
-            String begin = delimiter.get_slicec(' ', 0);
-            String end = delimiter.get_slice_count(" ") > 1 ? delimiter.get_slicec(' ', 1) : String();
-            out.push_back({begin, end, end.is_empty(), color});
-        }
+// Returns the first region (in priority order) whose begin marker matches the line at p_index.
+const SyntaxRegion* match_region(const Vector<SyntaxRegion>& regions, const String& line, int64_t p_index) {
+    for (const SyntaxRegion& region : regions) {
+        if (line.substr(p_index, region.begin.length()) == region.begin) { return &region; }
     }
-
-    // Returns the first region (in priority order) whose begin marker matches the line at p_index.
-    const SyntaxRegion* match_region(const Vector<SyntaxRegion>& regions, const String& line, int64_t p_index) {
-        for (const SyntaxRegion& region : regions) {
-            if (line.substr(p_index, region.begin.length()) == region.begin) { return &region; }
-        }
-        return nullptr;
-    }
-} // namespace
+    return nullptr;
+}
 
 String JvmStandardSyntaxHighlighter::_get_name() const {
     return "Godot-JVM";

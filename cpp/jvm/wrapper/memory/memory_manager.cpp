@@ -4,6 +4,7 @@
 #include "core/jvm_binding_manager.h"
 #include "core/variant_allocator.h"
 #include "engine/godot_object.h"
+#include "logging.h"
 
 #include <core/object.hpp>
 

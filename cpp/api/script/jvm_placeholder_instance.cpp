@@ -7,6 +7,8 @@
 #include "jvm_script.h"
 #include "jvm_script_manager.h"
 
+#include <templates/hash_set.hpp>
+
 using namespace godot;
 
 static bool is_placeholder_fallback_enabled(const Ref<Script>& p_script) {

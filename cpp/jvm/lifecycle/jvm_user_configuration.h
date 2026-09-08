@@ -64,7 +64,6 @@ struct JvmUserConfiguration {
     godot::Dictionary to_dictionary() const;
     static bool is_valid_debug_address(const godot::String& address);
 
-
     static void parse_command_line(
         const godot::PackedStringArray& args,
         godot::HashMap<godot::String, godot::Variant>& configuration_map

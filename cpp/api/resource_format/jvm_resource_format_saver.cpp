@@ -4,6 +4,7 @@
 #include "api/script/jvm_script.h"
 #include "api/script/jvm_script_manager.h"
 #include "api/script/source_script_parser.h"
+#include "logging.h"
 
 #include <classes/file_access.hpp>
 
