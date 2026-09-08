@@ -1,0 +1,10 @@
+{#-
+  Download card of the home page. Rendered twice by home.html: in the right sidebar on desktop and inline at the end
+  of the content on narrow screens, where Material hides the sidebar. CSS in css/logo.css shows exactly one of them.
+-#}
+<div class="home-panel md-typeset {{ extra_class }}">
+  <p class="home-panel__title">Get Godot-JVM</p>
+  <p class="home-panel__meta">Version 1.0.0<br>Godot 4.7.2+ and JDK 17+</p>
+  <a class="md-button md-button--primary" href="https://github.com/utopia-rise/godot-jvm/releases">Download the addon</a>
+  <a class="md-button" href="{{ 'start/' | url }}">Get started</a>
+</div>

@@ -186,9 +186,29 @@
   }
 }
 
-/* Download card in the home page's right sidebar (src/overrides/home.html). */
+/* Download card of the home page (src/overrides/partials/home-panel.html): in the right sidebar on desktop, inline
+   after the content below Material's 76.25em breakpoint, where the sidebar is hidden. */
 .md-sidebar--home {
   border-left: 0;
+}
+
+/* The home page shows no navigation sidebar on desktop; below the breakpoint the same element is the drawer. */
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--home-nav {
+    display: none;
+  }
+}
+
+.home-panel--inline {
+  display: none;
+}
+
+@media screen and (max-width: 76.1875em) {
+  .home-panel--inline {
+    display: block;
+    margin: 2.4rem auto 0;
+    max-width: 24rem;
+  }
 }
 
 .home-panel {
@@ -244,15 +264,36 @@
   margin-bottom: 0.4em;
 }
 
-/* License and Discord links added to the header (src/overrides/partials/source.html). */
-.md-header__source {
-  align-items: center;
-  display: flex;
-  width: auto;
+/* License and Discord links added to the header (src/overrides/partials/source.html). Material only shows the header
+   source links from 60em up and moves them into the navigation drawer below; keep that so they cannot widen the page. */
+@media screen and (min-width: 60em) {
+  .md-header__inner {
+    position: relative;
+  }
+
+  /* Centered in the header, between the logo and title on the left and the theme switch and search on the right. */
+  .md-header__inner .md-header__source {
+    align-items: center;
+    display: flex;
+    left: 50%;
+    margin: 0;
+    max-width: none;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    width: max-content;
+  }
 }
 
 .md-source--extra {
   margin-right: 0.4rem;
+}
+
+/* In the mobile drawer, list the sections first and the license, Discord and repository links after them. */
+@media screen and (max-width: 76.1875em) {
+  .md-nav--primary .md-nav__source {
+    order: 1;
+  }
 }
 
 .md-source--extra .md-source__icon {

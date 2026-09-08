@@ -1,7 +1,5 @@
 ---
 template: home.html
-hide:
-  - navigation
 description: Build Godot games in Kotlin, Java, or Scala with the Godot-JVM GDExtension addon.
 ---
 
