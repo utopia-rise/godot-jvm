@@ -132,7 +132,7 @@ namespace raw_godot {
             RawObject object = internal::gdextension_interface_classdb_construct_object2(
               reinterpret_cast<GDExtensionConstStringNamePtr>(p_class_name._native_ptr())
             );
-            if (unlikely(object.is_null())) { return {}; }
+            if (unlikely(object.is_null())) { return RawObject(); }
 
             object.notification(Object::NOTIFICATION_POSTINITIALIZE);
             return object;

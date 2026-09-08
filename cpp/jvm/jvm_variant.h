@@ -208,7 +208,7 @@ class BufferToVariant {
     }
 
     static godot::Variant read_nil(SharedBuffer*) {
-        return {};
+        return godot::Variant();
     }
 
     static godot::Variant read_bool(SharedBuffer* byte_buffer) {

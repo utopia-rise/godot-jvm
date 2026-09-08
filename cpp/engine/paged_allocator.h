@@ -79,6 +79,7 @@ namespace godot {
             allocs_available--;
             T* alloc = available_pool[allocs_available >> page_shift][allocs_available & page_mask];
             if constexpr (thread_safe) { spin_lock.unlock(); }
+            // Braces required: memnew_placement expands to sizeof(m_class), and sizeof(T()) names a function type.
             memnew_placement(alloc, T {p_args...});
             return alloc;
         }

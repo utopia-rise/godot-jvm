@@ -27,7 +27,7 @@ void KtObject::create_native_object(JNIEnv* p_raw_env, jobject p_instance, jint 
     JVM_ERR_FAIL_COND_MSG(!raw_ptr_value, "Failed to instantiate class %s", class_name);
 #endif
 
-    jni::Env env = p_raw_env;
+    jni::Env env(p_raw_env);
 
     // set_instance_binding()/RawObject::is_ref_counted() work directly on the raw pointer — no godot-cpp wrapper is created (or needed) for any of this.
     godot::JvmBindingManager::set_instance_binding(raw_ptr_value);
@@ -65,7 +65,7 @@ void KtObject::get_singleton(JNIEnv* p_raw_env, jobject, jint p_class_index) {
     JVM_ERR_FAIL_COND_MSG(!raw_singleton, "Failed to retrieve engine singleton %s", singleton_name);
 #endif
 
-    jni::Env env = p_raw_env;
+    jni::Env env(p_raw_env);
     TransferContext::get_instance().write_object_data(
       env,
       reinterpret_cast<uintptr_t>(raw_singleton.ptr()),

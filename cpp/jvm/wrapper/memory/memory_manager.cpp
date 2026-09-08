@@ -25,9 +25,9 @@ void MemoryManager::release_binding(JNIEnv*, jobject, jlong instance_id) {
 }
 
 void MemoryManager::unref_native_core_types(JNIEnv* p_raw_env, jobject, jobject p_ptr_array, jobject p_var_type_array) {
-    jni::Env env = p_raw_env;
-    jni::JLongArray ptr_array = jni::JLongArray(p_ptr_array);
-    jni::JIntArray var_type_array = jni::JIntArray(p_var_type_array);
+    jni::Env env(p_raw_env);
+    jni::JLongArray ptr_array(p_ptr_array);
+    jni::JIntArray var_type_array(p_var_type_array);
 
     jint size = ptr_array.length(env);
     pointers.resize(size);
@@ -97,7 +97,7 @@ void MemoryManager::unref_native_core_types(JNIEnv* p_raw_env, jobject, jobject 
 }
 
 void MemoryManager::query_sync(JNIEnv* p_raw_env, jobject) {
-    jni::Env env = p_raw_env;
+    jni::Env env(p_raw_env);
     MemoryManager::get_instance().sync_memory(env);
 }
 
@@ -113,14 +113,14 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
     // Read the list of dead objects and copy them to the JVM.
     dead_objects_mutex.lock();
     jint size = static_cast<jsize>(dead_objects.size());
-    jni::JLongArray arr = jni::JLongArray(p_env, size);
+    jni::JLongArray arr(p_env, size);
     arr.set_array_elements(p_env, reinterpret_cast<const jlong*>(dead_objects.ptr()), size);
     dead_objects.clear();
     dead_objects_mutex.unlock();
 
     // Call the JVM side sending all the list of all dead objects and receiving the list of references to decrement
     jvalue args[1] = {jni::to_jni_arg(arr)};
-    jni::JLongArray refs_to_decrement = jni::JLongArray(wrapped.call_object_method(p_env, SYNC_MEMORY, args));
+    jni::JLongArray refs_to_decrement(wrapped.call_object_method(p_env, SYNC_MEMORY, args));
     arr.delete_local_ref(p_env);
 
     size = refs_to_decrement.length(p_env);

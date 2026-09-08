@@ -52,7 +52,7 @@ ClassLoader* ClassLoader::create_instance(jni::Env& env, const godot::String& fu
 #else
     jni::JObject url = to_java_url(env, full_jar_path);
     jni::JClass url_cls = env.find_class("java/net/URL");
-    jni::JObjectArray urls = url_cls.new_object_array(env, 1, {url});
+    jni::JObjectArray urls = url_cls.new_object_array(env, 1, url);
     jni::JClass class_loader_cls = env.find_class("java/net/URLClassLoader");
     jni::MethodID ctor = class_loader_cls.get_constructor_method_id(env, "([Ljava/net/URL;Ljava/lang/ClassLoader;)V");
 

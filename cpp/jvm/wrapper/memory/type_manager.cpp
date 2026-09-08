@@ -55,7 +55,7 @@ void TypeManager::assign_script_to_class(jni::Env& p_env, int p_index, const god
 }
 
 uintptr_t TypeManager::get_method_bind_ptr(JNIEnv* p_raw_env, jobject, jstring p_class_name, jstring p_method_name, jlong hash) {
-    jni::Env env = p_raw_env;
+    jni::Env env(p_raw_env);
     godot::StringName class_name = env.from_jstring(jni::JString(p_class_name));
     godot::StringName method_name = env.from_jstring(jni::JString(p_method_name));
 

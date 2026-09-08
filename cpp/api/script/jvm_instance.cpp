@@ -79,7 +79,7 @@ const GDExtensionPropertyInfo* JvmInstance::get_property_list(GDExtensionScriptI
 
     if (KtFunction* function = kt_class->get_method(SNAME("_get_property_list"))) {
         Variant ret_var;
-        function->invoke(env, kt_object, {}, 0, ret_var);
+        function->invoke(env, kt_object, nullptr, 0, ret_var);
         Array ret_array = ret_var;
         for (int i = 0; i < ret_array.size(); ++i) {
             properties->push_back(PropertyInfo::from_dict(ret_array.get(i)));

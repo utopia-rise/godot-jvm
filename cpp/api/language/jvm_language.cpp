@@ -37,7 +37,7 @@ String JvmLanguage::_validate_path(const String& p_path) const {
 
 Dictionary JvmLanguage::_get_global_class_name(const String& p_path) const {
     Ref<JvmScript> script = ResourceLoader::get_singleton()->load(p_path);
-    if (script.is_null() || !script->_is_valid()) { return {}; }
+    if (script.is_null() || !script->_is_valid()) { return Dictionary(); }
 
     Dictionary result;
     Ref<Script> base_script = script->_get_base_script();
@@ -66,7 +66,7 @@ ScriptLanguage::ScriptNameCasing JvmLanguage::_preferred_file_name_casing() cons
 
 bool JvmLanguage::_can_inherit_from_file() const { return false; }
 int32_t JvmLanguage::_find_function(const String&, const String&) const { return -1; }
-String JvmLanguage::_make_function(const String&, const String&, const PackedStringArray&) const { return {}; }
+String JvmLanguage::_make_function(const String&, const String&, const PackedStringArray&) const { return String(); }
 bool JvmLanguage::_can_make_function() const { return false; }
 Dictionary JvmLanguage::_complete_code(const String&, const String&, Object*) const {
     Dictionary result;
@@ -92,17 +92,17 @@ void JvmLanguage::_frame() {}
 void JvmLanguage::_finish() {}
 void JvmLanguage::_thread_enter() {}
 void JvmLanguage::_thread_exit() {}
-TypedArray<Dictionary> JvmLanguage::_debug_get_current_stack_info() { return {}; }
-String JvmLanguage::_debug_get_error() const { return {}; }
+TypedArray<Dictionary> JvmLanguage::_debug_get_current_stack_info() { return TypedArray<Dictionary>(); }
+String JvmLanguage::_debug_get_error() const { return String(); }
 int32_t JvmLanguage::_debug_get_stack_level_count() const { return 0; }
 int32_t JvmLanguage::_debug_get_stack_level_line(int32_t) const { return 0; }
-String JvmLanguage::_debug_get_stack_level_function(int32_t) const { return {}; }
-String JvmLanguage::_debug_get_stack_level_source(int32_t) const { return {}; }
-Dictionary JvmLanguage::_debug_get_stack_level_locals(int32_t, int32_t, int32_t) { return {}; }
-Dictionary JvmLanguage::_debug_get_stack_level_members(int32_t, int32_t, int32_t) { return {}; }
+String JvmLanguage::_debug_get_stack_level_function(int32_t) const { return String(); }
+String JvmLanguage::_debug_get_stack_level_source(int32_t) const { return String(); }
+Dictionary JvmLanguage::_debug_get_stack_level_locals(int32_t, int32_t, int32_t) { return Dictionary(); }
+Dictionary JvmLanguage::_debug_get_stack_level_members(int32_t, int32_t, int32_t) { return Dictionary(); }
 void* JvmLanguage::_debug_get_stack_level_instance(int32_t) { return nullptr; }
-Dictionary JvmLanguage::_debug_get_globals(int32_t, int32_t) { return {}; }
-String JvmLanguage::_debug_parse_stack_level_expression(int32_t, const String&, int32_t, int32_t) { return {}; }
+Dictionary JvmLanguage::_debug_get_globals(int32_t, int32_t) { return Dictionary(); }
+String JvmLanguage::_debug_parse_stack_level_expression(int32_t, const String&, int32_t, int32_t) { return String(); }
 void JvmLanguage::_reload_all_scripts() {}
 void JvmLanguage::_reload_scripts(const Array&, bool) {}
 void JvmLanguage::_reload_tool_script(const Ref<Script>&, bool) {}
@@ -114,11 +114,11 @@ void JvmLanguage::_profiling_stop() {}
 void JvmLanguage::_profiling_set_save_native_calls(bool) {}
 int32_t JvmLanguage::_profiling_get_accumulated_data(ScriptLanguageExtensionProfilingInfo*, int32_t) { return 0; }
 int32_t JvmLanguage::_profiling_get_frame_data(ScriptLanguageExtensionProfilingInfo*, int32_t) { return 0; }
-TypedArray<Dictionary> JvmLanguage::_get_built_in_templates(const StringName&) const { return {}; }
+TypedArray<Dictionary> JvmLanguage::_get_built_in_templates(const StringName&) const { return TypedArray<Dictionary>(); }
 bool JvmLanguage::_is_using_templates() { return false; }
-TypedArray<Dictionary> JvmLanguage::_get_public_functions() const { return {}; }
-Dictionary JvmLanguage::_get_public_constants() const { return {}; }
-TypedArray<Dictionary> JvmLanguage::_get_public_annotations() const { return {}; }
+TypedArray<Dictionary> JvmLanguage::_get_public_functions() const { return TypedArray<Dictionary>(); }
+Dictionary JvmLanguage::_get_public_constants() const { return Dictionary(); }
+TypedArray<Dictionary> JvmLanguage::_get_public_annotations() const { return TypedArray<Dictionary>(); }
 
 // TODO: Dummy to make reloading work again because of https://github.com/godotengine/godot/issues/104540. Should still be truly implemented at some point
 bool JvmLanguage::_supports_documentation() const {

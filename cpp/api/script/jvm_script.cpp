@@ -16,19 +16,19 @@ using namespace godot;
 
 Variant JvmScript::_new() {
     if (raw_godot::RawObject object = _object_create()) { return object.to_variant(); }
-    return {};
+    return Variant();
 }
 
 raw_godot::RawObject JvmScript::_object_create() const {
 #ifdef DEBUG_ENABLED
-    if (!validate_instance_creation()) { return {}; }
+    if (!validate_instance_creation()) { return raw_godot::RawObject(); }
 #endif
 
     // Not godot::ClassDB::instantiate(): that forwards to the script-facing ClassDB singleton, which boxes a RefCounted result in a Ref<RefCounted> inside a Variant — converting that straight to Object* and letting the Variant go out of scope...
     raw_godot::RawObject owner = raw_godot::RawObject::instantiate(kotlin_class->base_godot_class);
     JVM_ERR_FAIL_COND_V_MSG(
       !owner,
-      {},
+      raw_godot::RawObject(),
       "Cannot instantiate JVM script %s: failed to instantiate base Godot class %s.",
       kotlin_class->registered_class_name,
       kotlin_class->base_godot_class
@@ -39,7 +39,7 @@ raw_godot::RawObject JvmScript::_object_create() const {
 
     // Attaching directly via object_set_script_instance, not owner->set_script(this): set_script() re-enters the engine's can-instantiate/placeholder decision, and _can_instantiate() is unconditionally false in the editor (see below) — that re...
     void* instance = create_jvm_instance(owner);
-    if (instance == nullptr) { return {}; }
+    if (instance == nullptr) { return raw_godot::RawObject(); }
     owner.set_script_instance(instance);
     return owner;
 }
@@ -73,7 +73,7 @@ bool JvmScript::_inherits_script(const Ref<Script>& p_script) const {
 }
 
 Ref<Script> JvmScript::_get_base_script() const {
-    if (!_is_valid() || kotlin_class->registered_supertypes.size() == 0) { return {}; }
+    if (!_is_valid() || kotlin_class->registered_supertypes.size() == 0) { return Ref<Script>(); }
     StringName parent_name = kotlin_class->registered_supertypes[0];
     return JvmScriptManager::get_instance()->get_script_from_registered_name(parent_name);
 }
@@ -81,7 +81,7 @@ Ref<Script> JvmScript::_get_base_script() const {
 StringName JvmScript::_get_instance_base_type() const {
     if (_is_valid()) { return kotlin_class->base_godot_class; }
     // not found
-    return {};
+    return StringName();
 }
 
 StringName JvmScript::_get_global_name() const {
@@ -162,10 +162,10 @@ bool JvmScript::_has_method(const StringName& p_method) const {
 }
 
 Variant JvmScript::_get_script_method_argument_count(const StringName& p_method) const {
-    if (!_is_valid()) { return {}; }
+    if (!_is_valid()) { return Variant(); }
     KtFunction* method = kotlin_class->get_method(p_method);
     if (method) { return method->get_parameter_count(); }
-    return {};
+    return Variant();
 }
 
 Dictionary JvmScript::_get_method_info(const StringName& p_method) const {
@@ -174,7 +174,7 @@ Dictionary JvmScript::_get_method_info(const StringName& p_method) const {
             return method->get_member_info();
         }
     }
-    return {};
+    return Dictionary();
 }
 
 bool JvmScript::_is_tool() const {
@@ -229,7 +229,7 @@ Variant JvmScript::_get_property_default_value(const StringName& p_property) con
     }
 #endif
 
-    return {};
+    return Variant();
 }
 
 TypedArray<Dictionary> JvmScript::_get_script_method_list() const {
@@ -284,7 +284,7 @@ TypedArray<StringName> JvmScript::_get_members() const {
 }
 
 Dictionary JvmScript::_get_constants() const {
-    return {};
+    return Dictionary();
 }
 
 // Variant is of type Dictionary
@@ -305,7 +305,7 @@ void JvmScript::_update_exports() {
 
 TypedArray<Dictionary> JvmScript::_get_documentation() const {
     // TODO: Add ability to register documentation to Godot
-    return {};
+    return TypedArray<Dictionary>();
 }
 
 StringName JvmScript::_get_doc_class_name() const {
@@ -316,7 +316,7 @@ StringName JvmScript::_get_doc_class_name() const {
     }
     return class_name;
 #else
-    return {};
+    return StringName();
 #endif
 }
 
@@ -369,7 +369,7 @@ void JvmScript::get_script_exported_property_list(List<PropertyInfo>* p_list) co
 
 String JvmScript::_get_class_icon_path() const {
     // TODO: Add ability to register an icon to Godot
-    return {};
+    return String();
 }
 
 void JvmScript::move_placeholders_to(JvmScript* p_script) {
@@ -383,7 +383,7 @@ void JvmScript::move_placeholders_to(JvmScript* p_script) {
 
         HashMap<StringName, Variant> values = placeholder->values;
         raw_godot::RawObject owner = placeholder->owner;
-        owner.set_script(Variant {Ref<Script>(p_script)});
+        owner.set_script(Variant(Ref<Script>(p_script)));
         for (const KeyValue<StringName, Variant>& value : values) {
             owner.set(value.key, value.value);
         }
@@ -515,7 +515,7 @@ StringName SourceScript::parse_source_to_fqdn(const String& p_path, String& r_so
     int64_t register_class_index =  source.find(register_class_annotation, register_class_search_start) ;
 
     if (register_class_index == -1) {
-        return {};
+        return StringName();
     }
 
     int64_t class_search_start_index = register_class_index + register_class_annotation_size - 1;
@@ -545,7 +545,7 @@ StringName SourceScript::parse_source_to_fqdn(const String& p_path, String& r_so
 
     if (class_keyword_index == -1) {
         JVM_LOG_WARNING(vformat("Cannot find class declaration in %s", p_path));
-        return {};
+        return StringName();
     }
 
     int64_t class_start_index = class_keyword_index + class_keyword_size - 1;
@@ -576,7 +576,7 @@ StringName SourceScript::get_functional_name() const {
 
 
 StringName SourceScript::_get_global_name() const {
-    return {};
+    return StringName();
 }
 //
 bool SourceScript::is_whitespace_or_linebreak(char32_t character) {

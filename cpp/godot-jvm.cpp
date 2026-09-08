@@ -110,7 +110,7 @@ bool GodotJvm::load_dynamic_lib() {
 
 String GodotJvm::get_path_to_forced_jvm() const {
     const String& jvm_path = user_configuration.jvm_path;
-    if (jvm_path.is_empty()) { return {}; }
+    if (jvm_path.is_empty()) { return String(); }
 
     return DirAccess::dir_exists_absolute(jvm_path) ? jvm_path.path_join(RELATIVE_JVM_LIB_PATH) : jvm_path;
 }
@@ -127,10 +127,10 @@ String GodotJvm::get_path_to_native_image() {
 
 String GodotJvm::get_path_to_environment_jvm() {
     String javaHome = OS::get_singleton()->get_environment("JAVA_HOME");
-    if (javaHome.is_empty()) { return {}; }
+    if (javaHome.is_empty()) { return String(); }
 
     String jvm_library = javaHome.path_join(RELATIVE_JVM_LIB_PATH);
-    return FileAccess::file_exists(jvm_library) ? jvm_library : String {};
+    return FileAccess::file_exists(jvm_library) ? jvm_library : String();
 }
 
 String GodotJvm::get_path_to_java_executable() {
@@ -172,7 +172,7 @@ String GodotJvm::get_path_to_java_executable() {
     }
 #endif
 
-    return {};
+    return String();
 }
 #else
 
@@ -301,19 +301,19 @@ String GodotJvm::copy_new_file_to_user_dir(const String& file_name) {
 }
 
 void GodotJvm::copy_external_jars_to_user_dir() {
-    String source_directory {String(RES_DIRECTORY) + EXTERNAL_JARS_DIRECTORY};
-    Ref<DirAccess> source {DirAccess::open(source_directory)};
+    String source_directory = String(RES_DIRECTORY) + EXTERNAL_JARS_DIRECTORY;
+    Ref<DirAccess> source = DirAccess::open(source_directory);
     if (source.is_null()) { return; }
 
-    Ref<DirAccess> destination {DirAccess::open(USER_DIRECTORY)};
+    Ref<DirAccess> destination = DirAccess::open(USER_DIRECTORY);
     destination->make_dir_recursive(EXTERNAL_JARS_DIRECTORY);
 
     if (source->list_dir_begin() != OK) { return; }
     for (String entry = source->get_next(); !entry.is_empty(); entry = source->get_next()) {
         if (source->current_is_dir() || entry.get_extension() != "jar") { continue; }
 
-        String source_file {source_directory.path_join(entry)};
-        String destination_file {String(EXTERNAL_JARS_DIRECTORY).path_join(entry)};
+        String source_file = source_directory.path_join(entry);
+        String destination_file = String(EXTERNAL_JARS_DIRECTORY).path_join(entry);
         if (!FileAccess::file_exists(String(USER_DIRECTORY) + destination_file) ||
             FileAccess::get_md5(String(USER_DIRECTORY) + destination_file) != FileAccess::get_md5(source_file)) {
             destination->copy(source_file, destination_file);

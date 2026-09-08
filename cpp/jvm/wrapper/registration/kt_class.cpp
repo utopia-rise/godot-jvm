@@ -67,11 +67,11 @@ bool KtClass::can_zero_init() const {
 
 godot::StringName KtClass::get_base_godot_class(jni::Env& env) {
     jni::JObject ret = wrapped.call_object_method(env, GET_BASE_GODOT_CLASS);
-    return {env.from_jstring(jni::JString((jstring) ret.obj))};
+    return godot::StringName(env.from_jstring(jni::JString((jstring) ret.obj)));
 }
 
 void KtClass::fetch_handled_notifications(jni::Env& env) {
-    jni::JIntArray notifications = jni::JIntArray(wrapped.call_object_method(env, GET_HANDLED_NOTIFICATIONS));
+    jni::JIntArray notifications(wrapped.call_object_method(env, GET_HANDLED_NOTIFICATIONS));
     const int count = notifications.length(env);
     godot::Vector<jint> values;
     values.resize(count);
@@ -81,7 +81,7 @@ void KtClass::fetch_handled_notifications(jni::Env& env) {
 }
 
 void KtClass::fetch_registered_supertypes(jni::Env& env) {
-    jni::JObjectArray classesArray = jni::JObjectArray(wrapped.call_object_method(env, GET_REGISTERED_SUPERTYPES));
+    jni::JObjectArray classesArray(wrapped.call_object_method(env, GET_REGISTERED_SUPERTYPES));
     for (int i = 0; i < classesArray.length(env); i++) {
         godot::StringName parent_name = godot::StringName(env.from_jstring(jni::JString(classesArray.get(env, i))));
         registered_supertypes.append(parent_name);
@@ -91,7 +91,7 @@ void KtClass::fetch_registered_supertypes(jni::Env& env) {
 }
 
 void KtClass::fetch_methods(jni::Env& env) {
-    jni::JObjectArray functionsArray = jni::JObjectArray(wrapped.call_object_method(env, GET_FUNCTIONS));
+    jni::JObjectArray functionsArray(wrapped.call_object_method(env, GET_FUNCTIONS));
     for (int i = 0; i < functionsArray.length(env); i++) {
         jni::JObject object = functionsArray.get(env, i);
         auto* ktFunction = new KtFunction(env, object);
@@ -102,7 +102,7 @@ void KtClass::fetch_methods(jni::Env& env) {
 }
 
 void KtClass::fetch_properties(jni::Env& env) {
-    jni::JObjectArray propertiesArray = jni::JObjectArray(wrapped.call_object_method(env, GET_PROPERTIES));
+    jni::JObjectArray propertiesArray(wrapped.call_object_method(env, GET_PROPERTIES));
     for (int i = 0; i < propertiesArray.length(env); i++) {
         auto* ktProperty = new KtProperty(env, propertiesArray.get(env, i));
         property_list.append(ktProperty);
@@ -115,7 +115,7 @@ void KtClass::fetch_properties(jni::Env& env) {
 }
 
 void KtClass::fetch_signals(jni::Env& env) {
-    jni::JObjectArray signal_info_array = jni::JObjectArray(wrapped.call_object_method(env, GET_SIGNAL_INFOS));
+    jni::JObjectArray signal_info_array(wrapped.call_object_method(env, GET_SIGNAL_INFOS));
     for (int i = 0; i < signal_info_array.length(env); i++) {
         auto* kt_signal_info = new KtSignalInfo(env, signal_info_array.get(env, i));
         signal_infos[kt_signal_info->name] = kt_signal_info;

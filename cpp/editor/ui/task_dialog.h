@@ -35,7 +35,7 @@ inline TaskDialogControls create_task_dialog(float editor_scale) {
     dialog->add_child(vertical_container);
 
     ScrollContainer* scroll_container = memnew(ScrollContainer);
-    scroll_container->set_custom_minimum_size(Size2 {600, 400} * editor_scale);
+    scroll_container->set_custom_minimum_size(Size2(600, 400) * editor_scale);
     vertical_container->add_child(scroll_container);
 
     Label* log_label = memnew(Label);

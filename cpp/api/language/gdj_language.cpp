@@ -58,11 +58,11 @@ void GdjLanguage::_thread_exit() {
 }
 
 TypedArray<Dictionary> GdjLanguage::_debug_get_current_stack_info() {
-    if (unlikely(GodotJvm::get_instance().state < GodotJvm::State::CORE_LIBRARY_INITIALIZED)) { return {}; }
+    if (unlikely(GodotJvm::get_instance().state < GodotJvm::State::CORE_LIBRARY_INITIALIZED)) { return TypedArray<Dictionary>(); }
 
     // Guards against the recursion this is otherwise prone to: an error hit while building the stacktrace ends up back in Godot's error-printing path, which asks for the current stack info again to attach it to that very error.
     thread_local bool is_capturing_stacktrace = false;
-    if (is_capturing_stacktrace) { return {}; }
+    if (is_capturing_stacktrace) { return TypedArray<Dictionary>(); }
 
     is_capturing_stacktrace = true;
     jni::Env env = jni::Jvm::current_env();
@@ -136,9 +136,9 @@ PackedStringArray GdjLanguage::_get_comment_delimiters() const {
     return delimiters;
 }
 
-PackedStringArray GdjLanguage::_get_doc_comment_delimiters() const { return {}; }
+PackedStringArray GdjLanguage::_get_doc_comment_delimiters() const { return PackedStringArray(); }
 
-PackedStringArray GdjLanguage::_get_string_delimiters() const { return {}; }
+PackedStringArray GdjLanguage::_get_string_delimiters() const { return PackedStringArray(); }
 
 Ref<Script> GdjLanguage::_make_template(const String& p_template, const String& p_class_name, const String& p_base_class_name) const {
     Ref<GdjScript> gdj_script;

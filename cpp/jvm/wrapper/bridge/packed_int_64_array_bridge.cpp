@@ -6,8 +6,8 @@
 using namespace bridges;
 
 uintptr_t PackedInt64ArrayBridge::engine_convert_to_godot(JNIEnv* p_raw_env, jobject, jlongArray p_array) {
-    jni::Env env = p_raw_env;
-    jni::JLongArray arr = p_array;
+    jni::Env env(p_raw_env);
+    jni::JLongArray arr(p_array);
 
     jint size = arr.length(env);
 
@@ -22,8 +22,8 @@ jlongArray PackedInt64ArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, jobj
     godot::PackedInt64Array* packed = from_uint_to_ptr<godot::PackedInt64Array>(p_raw_ptr);
     auto size = static_cast<int>(packed->size());
 
-    jni::Env env = p_raw_env;
-    jni::JLongArray arr = jni::JLongArray(env, size);
+    jni::Env env(p_raw_env);
+    jni::JLongArray arr(env, size);
     arr.set_array_elements(env, reinterpret_cast<const jlong*>(packed->ptr()), size);
     return reinterpret_cast<jlongArray>(arr.get_wrapped());
 }

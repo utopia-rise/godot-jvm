@@ -157,9 +157,9 @@ int GodotJvmEditorExportPlugin::selected_runtime() const {
 }
 
 String GodotJvmEditorExportPlugin::_get_export_option_warning(const Ref<EditorExportPlatform>& p_platform, const String& p_option) const {
-    if (p_option != runtime_option) { return {}; }
+    if (p_option != runtime_option) { return String(); }
     const DesktopRuntimeFiles* files = desktop_runtime_files(p_platform->get_os_name());
-    if (files == nullptr) { return {}; }
+    if (files == nullptr) { return String(); }
     int runtime = selected_runtime();
 
     PackedStringArray warnings;

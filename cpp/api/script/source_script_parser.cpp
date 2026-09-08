@@ -29,7 +29,7 @@ StringName get_gdj_fq_name(const String& source) {
         const String fq_name = line.substr(separator + 1).strip_edges();
         return fq_name.is_empty() ? StringName() : StringName(fq_name);
     }
-    return {};
+    return StringName();
 }
 
 _FORCE_INLINE_ bool is_end_of_source(const String& source, int index) {
@@ -236,7 +236,7 @@ String find_class_name(const String& source, int search_start, const String& exp
     while (class_keyword_index != -1) {
         int class_index = class_keyword_index + class_keyword.length();
         skip_non_code(source, class_index);
-        if (is_end_of_source(source, class_index)) { return {}; }
+        if (is_end_of_source(source, class_index)) { return String(); }
 
         int class_end_index = class_index;
         while (!is_end_of_source(source, class_end_index) && !is_class_name_end(source[class_end_index])) {
@@ -247,13 +247,13 @@ String find_class_name(const String& source, int search_start, const String& exp
         if (expected_name.is_empty() || class_name == expected_name) { return class_name; }
         class_keyword_index = find_token(source, class_keyword_index + class_keyword.length(), class_keyword, true);
     }
-    return {};
+    return String();
 }
 } // namespace
 
 #ifdef TOOLS_ENABLED
 StringName parse_source_script_fqname(const String& p_source_code, const String& p_source_path) {
-    if (p_source_code.is_empty()) { return {}; }
+    if (p_source_code.is_empty()) { return StringName(); }
     if (p_source_path.get_extension().to_lower() == GODOT_JVM_REGISTRATION_FILE_EXTENSION) {
         return get_gdj_fq_name(p_source_code);
     }
@@ -277,7 +277,7 @@ StringName parse_source_script_fqname(const String& p_source_code, const String&
         }
     }
 
-    if (class_name.is_empty()) { return {}; }
+    if (class_name.is_empty()) { return StringName(); }
 
     const String fq_name = package_name.is_empty()
                              ? class_name
@@ -286,7 +286,7 @@ StringName parse_source_script_fqname(const String& p_source_code, const String&
 }
 #else
 StringName parse_source_script_fqname(const String& p_source_code, const String& p_source_path) {
-    if (p_source_code.is_empty()) { return {}; }
+    if (p_source_code.is_empty()) { return StringName(); }
 
     (void)p_source_path;
     const String fq_name = p_source_code.strip_edges();

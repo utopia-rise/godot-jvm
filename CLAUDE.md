@@ -34,7 +34,7 @@ of upstream bug fixes.
 - **KISS** — Prefer the simplest design that clearly solves the current problem.
 - **YAGNI** — Do not add behavior or abstractions for requirements that do not exist yet.
 - **DRY** — Keep each piece of knowledge and behavior in one authoritative place.
-- **C++ initialization** — When declaration and initialization happen together, use `Type value = expression;`. Reserve braces for genuine initializer lists/aggregates and temporary rvalues; do not use direct-list declarations such as `Type value {expression};`.
+- **C++ initialization** — Use `=` for scalar values and expressions already of the declared type (`int count = 0;`, `String name = get_name();`). Use direct `()` initialization whenever an object is constructed, whether its constructor is explicit or implicit: `Type value(expr);`, never `Type value = Type(expr);`. This includes JNI wrappers built from raw handles or call results: `jni::Env env(p_raw_env);`, `jni::JLongArray array(p_raw_array);`, `jni::JObject result(wrapped.call_object_method(...));`. Use `()` for constructor calls with several arguments (`Vector3 pos(1, 2, 3);`), `{}` only for arrays, aggregates, `std::initializer_list` parameters, and returned/passed temporary aggregates (`return {ptr, size};`). Member initializer lists use `()`, default member initializers use `=`. Never `Type value{expr};`, never `Type value();`, never `Foo f{};` on a class type (write `Foo f;`); zero PODs with `= {}`.
 
 ## Prerequisites
 
@@ -238,4 +238,3 @@ Workflows in `.github/workflows/`. The canonical Godot version and JDK version (
 - Testing branch changes: `docs/src/doc/contribute/test-a-branch.md`
 
 Serve docs locally: `cd docs/ && ./run.sh`
-

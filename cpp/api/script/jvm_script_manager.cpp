@@ -38,9 +38,9 @@ Ref<JvmScript> create_script_for_extension(const String& p_extension) {
         script.instantiate();
         return script;
     } else {
-        JVM_ERR_FAIL_V_MSG({}, vformat("Unsupported JVM script extension: %s", extension));
+        JVM_ERR_FAIL_V_MSG(Ref<JvmScript>(), vformat("Unsupported JVM script extension: %s", extension));
     }
-    return {};
+    return Ref<JvmScript>();
 }
 } // namespace
 
@@ -59,7 +59,7 @@ Ref<JvmScript> JvmScriptManager::get_script_from_fqdn(const StringName& p_fqdn) 
     if (const HashMap<StringName, Ref<WeakRef>>::ConstIterator script = fqdn_to_script.find(p_fqdn)) {
         return script->value->get_ref();
     }
-    return {};
+    return Ref<JvmScript>();
 }
 
 void JvmScriptManager::set_script_for_fqdn(const StringName& p_fqdn, JvmScript* p_script) {
@@ -184,7 +184,7 @@ Ref<JvmScript> JvmScriptManager::create_and_bind_physical_script(const String& p
 #ifdef TOOLS_ENABLED
             const String existing_path = script->get_path();
             if (!existing_path.begins_with(GODOT_JVM_VIRTUAL_PATH_PREFIX) && existing_path != p_path && FileAccess::file_exists(existing_path)) {
-                JVM_ERR_FAIL_V_MSG({}, vformat(
+                JVM_ERR_FAIL_V_MSG(Ref<JvmScript>(), vformat(
                   "JVM script %s is already associated with physical file %s and cannot also use %s.",
                   p_fqdn,
                   existing_path,

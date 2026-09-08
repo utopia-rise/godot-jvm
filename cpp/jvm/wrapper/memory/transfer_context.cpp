@@ -29,9 +29,9 @@ SharedBuffer* TransferContext::get_and_rewind_buffer(jni::Env& p_env) {
         JVM_DEV_ASSERT(!buffer.is_null(), "Buffer is null");
         auto* address = static_cast<uint8_t*>(p_env.get_direct_buffer_address(buffer));
 #ifdef DEBUG_ENABLED
-        shared_buffer = SharedBuffer {address, 0, p_env.get_direct_buffer_capacity(buffer)};
+        shared_buffer = SharedBuffer(address, 0, p_env.get_direct_buffer_capacity(buffer));
 #else
-        shared_buffer = SharedBuffer {address, 0};
+        shared_buffer = SharedBuffer(address, 0);
 #endif
     }
     shared_buffer.rewind();
@@ -80,7 +80,7 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
         storage.stack_offset = 0;
     }
 
-    jni::Env env = rawEnv;
+    jni::Env env(rawEnv);
 
     SharedBuffer* buffer = get_instance().get_and_rewind_buffer(env);
 
