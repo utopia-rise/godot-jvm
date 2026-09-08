@@ -24,17 +24,28 @@ Godot-JVM 1.0.0 is production-ready and released under the MIT license. Begin wi
 - **Feels like GDScript, compiles like the JVM.** Annotate a class with `@Script`, extend a Godot node, override `_ready()` or `_process()`, and attach it to a node. Exported properties appear in the Inspector, signals connect in the editor, and enums, bitfields, and property hints all carry over.
 - **Fast iteration.** Build from the Godot editor, IntelliJ IDEA, or the command line. After a successful build the editor reloads your code automatically, without a restart.
 - **The JVM ecosystem at your fingertips.** Add any Maven or Gradle dependency, share code between projects as a Godot-JVM library, and use Kotlin coroutines to suspend until a signal fires.
-- **Ships everywhere Godot ships.** Export to Windows, Linux, macOS, Android, and iOS with an embedded runtime. On desktop, you can also compile your code to a GraalVM native image and ship it in place of a bundled JRE.
+- **Ships to desktop and mobile.** Export to Windows, Linux, macOS, Android, and iOS with an embedded runtime, so players never install Java. On desktop, you can also compile your code to a GraalVM native image and ship it in place of a bundled JRE, for a smaller memory footprint and no JIT compiler at runtime.
 
 ## A script in each language
+
+Kotlin, Java, and Scala share the same annotations and the same Godot API, so anything you can write in one you can write in the others. Pick the language you know and write complete Godot scripts in it, from exported properties to signals and callable functions.
 
 /// tab | Kotlin
 
 ```kotlin
 @Script
 class Player : Node() {
-    override fun _ready() {
-        GD.print("Hello from Kotlin")
+    @Export
+    var health: Int = 100
+
+    @Emit("health")
+    val healthChanged by signal1<Int>()
+
+    @Register
+    fun takeDamage(amount: Int) {
+        health = (health - amount).coerceAtLeast(0)
+        healthChanged.emit(health)
+        if (health == 0) queueFree()
     }
 }
 ```
@@ -46,9 +57,17 @@ class Player : Node() {
 ```java
 @Script
 public class Player extends Node {
-    @Override
-    public void _ready() {
-        GD.print("Hello from Java");
+    @Export
+    public int health = 100;
+
+    @Emit(parameters = {"health"})
+    public final Signal1<Integer> healthChanged = Signal1.create(this, "healthChanged");
+
+    @Register
+    public void takeDamage(int amount) {
+        health = Math.max(health - amount, 0);
+        healthChanged.emit(health);
+        if (health == 0) queueFree();
     }
 }
 ```
@@ -60,8 +79,17 @@ public class Player extends Node {
 ```scala
 @Script
 class Player extends Node {
-  override def _ready(): Unit = {
-    GD.print("Hello from Scala")
+  @Export
+  var health: Int = 100
+
+  @Emit(parameters = Array("health"))
+  val healthChanged = Signal1.create[Integer](this, "healthChanged")
+
+  @Register
+  def takeDamage(amount: Int): Unit = {
+    health = Math.max(health - amount, 0)
+    healthChanged.emit(health)
+    if (health == 0) queueFree()
   }
 }
 ```
