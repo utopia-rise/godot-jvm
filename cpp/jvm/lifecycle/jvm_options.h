@@ -18,9 +18,9 @@ class JvmOptions {
     friend class godot::GodotJvm;
 
 #ifdef ANDROID_ENABLED
-    int version {JNI_VERSION_1_6};
+    int version = JNI_VERSION_1_6;
 #else
-    int version {JNI_VERSION_1_8};
+    int version = JNI_VERSION_1_8;
 #endif
 
     godot::LocalVector<godot::CharString> options;

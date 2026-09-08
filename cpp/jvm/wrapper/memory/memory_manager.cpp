@@ -12,12 +12,12 @@ static godot::LocalVector<uintptr_t> pointers;
 static godot::LocalVector<uint32_t> variant_types;
 
 bool MemoryManager::check_instance(JNIEnv*, jobject, jlong p_raw_ptr, jlong instance_id) {
-    godot::GodotObject* instance {raw_godot::RawObject::from_instance_id(instance_id)};
+    godot::GodotObject* instance = raw_godot::RawObject::from_instance_id(instance_id);
     return instance != nullptr && instance == reinterpret_cast<godot::GodotObject*>(static_cast<uintptr_t>(p_raw_ptr));
 }
 
 void MemoryManager::release_binding(JNIEnv*, jobject, jlong instance_id) {
-    godot::GodotObject* obj {raw_godot::RawObject::from_instance_id(instance_id)};
+    godot::GodotObject* obj = raw_godot::RawObject::from_instance_id(instance_id);
     if (obj == nullptr) { return; }
 
     ::godot::JvmBindingManager::free_binding(obj);
@@ -25,9 +25,9 @@ void MemoryManager::release_binding(JNIEnv*, jobject, jlong instance_id) {
 }
 
 void MemoryManager::unref_native_core_types(JNIEnv* p_raw_env, jobject, jobject p_ptr_array, jobject p_var_type_array) {
-    jni::Env env {p_raw_env};
-    jni::JLongArray ptr_array {p_ptr_array};
-    jni::JIntArray var_type_array {p_var_type_array};
+    jni::Env env = p_raw_env;
+    jni::JLongArray ptr_array = jni::JLongArray(p_ptr_array);
+    jni::JIntArray var_type_array = jni::JIntArray(p_var_type_array);
 
     jint size = ptr_array.length(env);
     pointers.resize(size);
@@ -40,7 +40,7 @@ void MemoryManager::unref_native_core_types(JNIEnv* p_raw_env, jobject, jobject 
         uintptr_t p_raw_ptr = pointers[i];
         uint32_t var_type = variant_types[i];
 
-        godot::Variant::Type variant_type {static_cast<godot::Variant::Type>(var_type)};
+        godot::Variant::Type variant_type = static_cast<godot::Variant::Type>(var_type);
         switch (variant_type) {
             case godot::Variant::CALLABLE:
                 VariantAllocator::free(reinterpret_cast<godot::Callable*>(p_raw_ptr));
@@ -97,7 +97,7 @@ void MemoryManager::unref_native_core_types(JNIEnv* p_raw_env, jobject, jobject 
 }
 
 void MemoryManager::query_sync(JNIEnv* p_raw_env, jobject) {
-    jni::Env env {p_raw_env};
+    jni::Env env = p_raw_env;
     MemoryManager::get_instance().sync_memory(env);
 }
 
@@ -113,14 +113,14 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
     // Read the list of dead objects and copy them to the JVM.
     dead_objects_mutex.lock();
     jint size = static_cast<jsize>(dead_objects.size());
-    jni::JLongArray arr {p_env, size};
+    jni::JLongArray arr = jni::JLongArray(p_env, size);
     arr.set_array_elements(p_env, reinterpret_cast<const jlong*>(dead_objects.ptr()), size);
     dead_objects.clear();
     dead_objects_mutex.unlock();
 
     // Call the JVM side sending all the list of all dead objects and receiving the list of references to decrement
     jvalue args[1] = {jni::to_jni_arg(arr)};
-    jni::JLongArray refs_to_decrement {wrapped.call_object_method(p_env, SYNC_MEMORY, args)};
+    jni::JLongArray refs_to_decrement = jni::JLongArray(wrapped.call_object_method(p_env, SYNC_MEMORY, args));
     arr.delete_local_ref(p_env);
 
     size = refs_to_decrement.length(p_env);
@@ -129,7 +129,7 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
     refs_to_decrement.delete_local_ref(p_env);
 
     for (uint64_t id : ids) {
-        godot::GodotObject* ref {raw_godot::RawObject::from_instance_id(id)};
+        godot::GodotObject* ref = raw_godot::RawObject::from_instance_id(id);
         if (ref == nullptr) { continue; }
         ::godot::JvmBindingManager::free_binding(ref);
         raw_godot::RawObject(ref).unreference_and_destroy();
@@ -170,7 +170,7 @@ void MemoryManager::try_promotion(::godot::JvmInstance::JvmInstanceData* script_
 }
 
 void MemoryManager::direct_object_deletion(jni::Env& p_env, godot::GodotObject* p_obj) {
-    raw_godot::RawObject object {p_obj};
+    raw_godot::RawObject object = p_obj;
     jvalue args[1] = {jni::to_jni_arg(object.get_instance_id())};
     wrapped.call_void_method(p_env, DELETE_OBJECT, args);
     object.destroy();

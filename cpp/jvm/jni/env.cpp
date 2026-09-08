@@ -37,7 +37,7 @@ namespace jni {
     }
 
     void Env::throw_new(const char* message) {
-        jclass exception_class {env->FindClass("java/lang/RuntimeException")};
+        jclass exception_class = env->FindClass("java/lang/RuntimeException");
         if (exception_class == nullptr) { return; }
 
         env->ThrowNew(exception_class, message);

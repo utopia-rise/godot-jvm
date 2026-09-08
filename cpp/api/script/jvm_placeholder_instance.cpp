@@ -254,20 +254,20 @@ void JvmPlaceHolderInstance::call(
         // get_script() returns a raw ABI pointer; Ref needs the stored godot-cpp wrapper.
         Ref<JvmScript> script_ref = reinterpret_cast<JvmPlaceHolderInstanceData*>(p_instance)->script;
         if (!script_ref->_is_valid()) {
-            PackedStringArray packed {};
+            PackedStringArray packed = PackedStringArray();
             packed.append("This script can't be found in your JVM project. Don't forget to build it and use a valid "
                           "gdj/kt/java file.");
             *result = packed;
         } else if (script_ref->get_last_source_modified_time() > JvmScriptManager::get_instance()->get_last_jar_modified_time()) {
-            PackedStringArray packed {};
+            PackedStringArray packed = PackedStringArray();
             packed.append("This script has been modified since the last time you built your project.");
             *result = packed;
         } else if (script_ref->_is_abstract()) {
-            PackedStringArray packed {};
+            PackedStringArray packed = PackedStringArray();
             packed.append("This script is abstract, so Godot cannot instantiate it.");
             *result = packed;
         } else if (!script_ref->kotlin_class->can_zero_init()) {
-            PackedStringArray packed {};
+            PackedStringArray packed = PackedStringArray();
             packed.append("This script has no public zero-argument constructor, so Godot cannot instantiate it.");
             *result = packed;
         } else {
@@ -328,8 +328,9 @@ GDExtensionBool JvmPlaceHolderInstance::set_fallback(GDExtensionScriptInstanceDa
         }
         if (!found) {
             PropertyHint hint = PROPERTY_HINT_NONE;
-            const Object *obj = parameter_value.get_validated_object();
-            if (obj && obj->is_class("Node")) {
+            uint64_t object_id = raw_godot::RawObject::get_instance_id_from_variant(parameter_value);
+            raw_godot::RawObject object = raw_godot::RawObject::from_instance_id(object_id);
+            if (object && object.is_class(SNAME("Node"))) {
                 hint = PROPERTY_HINT_NODE_TYPE;
             }
             properties.push_back(PropertyInfo(parameter_value.get_type(), parameter_name, hint, "", PROPERTY_USAGE_NO_EDITOR | PROPERTY_USAGE_SCRIPT_VARIABLE));
@@ -425,8 +426,8 @@ void JvmPlaceHolderInstance::update(
         to_remove.pop_front();
     }
 
-    raw_godot::RawObject owner {p_instance_data->owner};
-    if (owner && internal::gdextension_interface_object_get_script_instance(owner, p_instance_data->language->_owner) == p_instance_data) {
+    raw_godot::RawObject owner = p_instance_data->owner;
+    if (owner && owner.get_script_instance(p_instance_data->language->_owner) == p_instance_data) {
         owner.notify_property_list_changed();
     }
     //change notify

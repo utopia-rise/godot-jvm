@@ -15,33 +15,33 @@
 using namespace godot;
 
 Variant JvmScript::_new() {
-    if (GodotObject* obj = _object_create()) { return raw_godot::RawObject(obj).to_variant(); }
+    if (raw_godot::RawObject object = _object_create()) { return object.to_variant(); }
     return {};
 }
 
-GodotObject* JvmScript::_object_create() const {
+raw_godot::RawObject JvmScript::_object_create() const {
 #ifdef DEBUG_ENABLED
-    if (!validate_instance_creation()) { return nullptr; }
+    if (!validate_instance_creation()) { return {}; }
 #endif
 
     // Not godot::ClassDB::instantiate(): that forwards to the script-facing ClassDB singleton, which boxes a RefCounted result in a Ref<RefCounted> inside a Variant — converting that straight to Object* and letting the Variant go out of scope...
-    GodotObject* raw_owner {raw_godot::RawObject::instantiate(kotlin_class->base_godot_class)};
+    raw_godot::RawObject owner = raw_godot::RawObject::instantiate(kotlin_class->base_godot_class);
     JVM_ERR_FAIL_COND_V_MSG(
-      raw_owner == nullptr,
-      nullptr,
+      !owner,
+      {},
       "Cannot instantiate JVM script %s: failed to instantiate base Godot class %s.",
       kotlin_class->registered_class_name,
       kotlin_class->base_godot_class
     );
 
     // Establishes the object's real refcount (if any) and our own binding before anything else touches it — see JvmBindingManager::set_instance_binding()'s own comment.
-    JvmBindingManager::set_instance_binding(raw_owner);
+    JvmBindingManager::set_instance_binding(owner);
 
     // Attaching directly via object_set_script_instance, not owner->set_script(this): set_script() re-enters the engine's can-instantiate/placeholder decision, and _can_instantiate() is unconditionally false in the editor (see below) — that re...
-    void* instance {create_jvm_instance(raw_owner)};
-    if (instance == nullptr) { return nullptr; }
-    internal::gdextension_interface_object_set_script_instance(raw_owner, instance);
-    return raw_owner;
+    void* instance = create_jvm_instance(owner);
+    if (instance == nullptr) { return {}; }
+    owner.set_script_instance(instance);
+    return owner;
 }
 
 bool JvmScript::_can_instantiate() const {
@@ -55,16 +55,16 @@ bool JvmScript::_can_instantiate() const {
 }
 
 bool JvmScript::_inherits_script(const Ref<Script>& p_script) const {
-    Ref<JvmScript> kotlin_script {p_script};
+    Ref<JvmScript> kotlin_script = p_script;
     if (kotlin_script.is_null()) { return false; }
     if (!_is_valid() || !kotlin_script->_is_valid()) { return false; }
 
-    KtClass* parent_class {kotlin_script->kotlin_class};
+    KtClass* parent_class = kotlin_script->kotlin_class;
     if (kotlin_class == parent_class) { return true; }
 
     Ref<Script> current = _get_base_script();
     while (current.is_valid()) {
-        Ref<JvmScript> current_script {current};
+        Ref<JvmScript> current_script = current;
         if (current_script.is_null() || !current_script->_is_valid()) { return false; }
         if (current_script->kotlin_class == parent_class) { return true; }
         current = current_script->_get_base_script();
@@ -170,7 +170,7 @@ Variant JvmScript::_get_script_method_argument_count(const StringName& p_method)
 
 Dictionary JvmScript::_get_method_info(const StringName& p_method) const {
     if (_is_valid()) {
-        if (KtFunction * method {kotlin_class->get_method(p_method)}) {
+        if (KtFunction * method = kotlin_class->get_method(p_method)) {
             return method->get_member_info();
         }
     }
@@ -223,7 +223,7 @@ bool JvmScript::_has_property_default_value(const StringName& p_property) const 
 
 Variant JvmScript::_get_property_default_value(const StringName& p_property) const {
 #ifdef TOOLS_ENABLED
-    HashMap<StringName, Variant>::ConstIterator it {exported_members_default_value_cache.find(p_property)};
+    HashMap<StringName, Variant>::ConstIterator it = exported_members_default_value_cache.find(p_property);
     if (it) {
         return it->value;
     }
@@ -382,7 +382,7 @@ void JvmScript::move_placeholders_to(JvmScript* p_script) {
         if (!placeholder->owner) { continue; }
 
         HashMap<StringName, Variant> values = placeholder->values;
-        raw_godot::RawObject owner {placeholder->owner};
+        raw_godot::RawObject owner = placeholder->owner;
         owner.set_script(Variant {Ref<Script>(p_script)});
         for (const KeyValue<StringName, Variant>& value : values) {
             owner.set(value.key, value.value);
@@ -401,7 +401,7 @@ void JvmScript::set_last_source_modified_time(uint64_t p_time) {
 
 void JvmScript::update_source_sync_warning() {
     for (const KeyValue<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
-        raw_godot::RawObject owner {placeholder.value->owner};
+        raw_godot::RawObject owner = placeholder.value->owner;
         if (owner && owner.is_class(SNAME("Node"))) { owner.update_configuration_warnings(); }
     }
 }
@@ -415,13 +415,10 @@ void JvmScript::update_script_exports() const {
         return;
     }
 
-    GodotObject* tmp_object = _object_create();
-    ERR_FAIL_NULL(tmp_object);
+    raw_godot::RawObject tmp_object = _object_create();
+    ERR_FAIL_COND(!tmp_object);
     auto* instance_data = reinterpret_cast<JvmInstance::JvmInstanceData*>(
-      internal::gdextension_interface_object_get_script_instance(
-        tmp_object,
-        _get_language()->_owner
-      )
+      tmp_object.get_script_instance(_get_language()->_owner)
     );
 
     List<PropertyInfo> exported_properties;
@@ -429,7 +426,7 @@ void JvmScript::update_script_exports() const {
 
     for (auto& exported_property : exported_properties) {
         Variant default_value;
-        const String& property_name {exported_property.name};
+        const String& property_name = exported_property.name;
 
         if (exported_property.type != Variant::OBJECT) {
             JvmInstance::get_or_default(instance_data, property_name, default_value);
@@ -485,13 +482,13 @@ StringName SourceScript::parse_source_to_fqdn(const String& p_path, String& r_so
     r_source = source;
 
 #ifdef TOOLS_ENABLED
-    static String package_keyword { PACKAGE_KEYWORD };
-    static int64_t package_keyword_size { package_keyword.length() };
+    static String package_keyword =  PACKAGE_KEYWORD ;
+    static int64_t package_keyword_size =  package_keyword.length() ;
 
     int64_t initial_start_index = 0;
     while (skip_comments(source, p_path, initial_start_index) || skip_spaces_and_newlines(source, initial_start_index)) {}
 
-    int64_t package_keyword_index { source.find(package_keyword, initial_start_index) };
+    int64_t package_keyword_index =  source.find(package_keyword, initial_start_index) ;
 
     String package_name;
     if (package_keyword_index != -1) {
@@ -508,13 +505,13 @@ StringName SourceScript::parse_source_to_fqdn(const String& p_path, String& r_so
         package_name = source.substr(package_start_index, package_end_index - package_start_index);
     }
 
-    static String register_class_annotation { REGISTER_CLASS_ANNOTATION };
-    static int64_t register_class_annotation_size { register_class_annotation.length() };
+    static String register_class_annotation =  REGISTER_CLASS_ANNOTATION ;
+    static int64_t register_class_annotation_size =  register_class_annotation.length() ;
     int64_t register_class_search_start = package_keyword_index == -1 ? 0 : package_keyword_index;
 
     while (skip_comments(source, p_path, register_class_search_start) || skip_spaces_and_newlines(source, register_class_search_start)) {}
 
-    int64_t register_class_index { source.find(register_class_annotation, register_class_search_start) };
+    int64_t register_class_index =  source.find(register_class_annotation, register_class_search_start) ;
 
     if (register_class_index == -1) {
         return {};
@@ -541,9 +538,9 @@ StringName SourceScript::parse_source_to_fqdn(const String& p_path, String& r_so
 
     while (skip_comments(source, p_path, class_search_start_index) || skip_spaces_and_newlines(source, class_search_start_index)) {}
 
-    static String class_keyword { CLASS_KEYWORD };
-    static int64_t class_keyword_size { class_keyword.length() };
-    int64_t class_keyword_index { source.find(class_keyword, class_search_start_index) };
+    static String class_keyword =  CLASS_KEYWORD ;
+    static int64_t class_keyword_size =  class_keyword.length() ;
+    int64_t class_keyword_index =  source.find(class_keyword, class_search_start_index) ;
 
     if (class_keyword_index == -1) {
         JVM_LOG_WARNING(vformat("Cannot find class declaration in %s", p_path));
@@ -560,7 +557,7 @@ StringName SourceScript::parse_source_to_fqdn(const String& p_path, String& r_so
         next_character = source[++class_end_index];
     }
 
-    String class_name { source.substr(class_start_index, class_end_index - class_start_index) };
+    String class_name =  source.substr(class_start_index, class_end_index - class_start_index) ;
 
     if (package_name.is_empty()) {
         return class_name;

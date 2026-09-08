@@ -2,6 +2,7 @@
 #define GODOT_JVM_JVM_RESOURCE_FORMAT_SAVER_H
 
 #include <classes/resource_format_saver.hpp>
+#include <classes/resource.hpp>
 
 namespace godot {
     class JvmResourceFormatSaver : public ResourceFormatSaver {

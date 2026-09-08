@@ -3,8 +3,6 @@
 #include "names.h"
 #include "api/script/language/scala_script.h"
 
-#include <classes/resource_loader.hpp>
-
 using namespace godot;
 
 constexpr const char* SCALA_TEMPLATE = PACKAGE_TEMPLATE
@@ -32,7 +30,7 @@ constexpr const char* SCALA_TEMPLATE = PACKAGE_TEMPLATE
                                       "}\n";
 
 ScalaLanguage* ScalaLanguage::get_instance() {
-    static ScalaLanguage* instance {memnew(ScalaLanguage)};
+    static ScalaLanguage* instance = memnew(ScalaLanguage);
     return instance;
 }
 
@@ -49,14 +47,14 @@ String ScalaLanguage::_get_extension() const {
 }
 
 PackedStringArray ScalaLanguage::_get_recognized_extensions() const {
-    static PackedStringArray extensions {
+    static PackedStringArray extensions = {
       GODOT_SCALA_SCRIPT_EXTENSION
     };
     return extensions;
 }
 
 PackedStringArray ScalaLanguage::_get_reserved_words() const {
-    static PackedStringArray reserved_words {
+    static PackedStringArray reserved_words = {
       "abstract",
       "case",
       "catch",
@@ -108,7 +106,7 @@ bool ScalaLanguage::_is_control_flow_keyword(const String& p_keyword) const {
 }
 
 PackedStringArray ScalaLanguage::_get_comment_delimiters() const {
-    static PackedStringArray delimiters {
+    static PackedStringArray delimiters = {
       "//",
       "/* */"
     };
@@ -116,14 +114,14 @@ PackedStringArray ScalaLanguage::_get_comment_delimiters() const {
 }
 
 PackedStringArray ScalaLanguage::_get_doc_comment_delimiters() const {
-    static PackedStringArray delimiters {
+    static PackedStringArray delimiters = {
       "/** */"
     };
     return delimiters;
 }
 
 PackedStringArray ScalaLanguage::_get_string_delimiters() const {
-    static PackedStringArray delimiters {
+    static PackedStringArray delimiters = {
       "' '",
       "\" \"",
       R"(""" """)"
@@ -134,7 +132,7 @@ PackedStringArray ScalaLanguage::_get_string_delimiters() const {
 Ref<Script> ScalaLanguage::_make_template(const String& p_template, const String& p_class_name, const String& p_base_class_name) const {
     Ref<ScalaScript> scala_script;
     scala_script.instantiate();
-    String processed_template {p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case())};
+    String processed_template = p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case());
     scala_script->set_source_code(processed_template);
     scala_script->set_name(p_class_name);
     return scala_script;

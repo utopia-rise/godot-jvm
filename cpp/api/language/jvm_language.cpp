@@ -23,7 +23,7 @@ Dictionary JvmLanguage::_validate(
 String JvmLanguage::_validate_path(const String& p_path) const {
     PackedStringArray keywords = _get_reserved_words();
     if (keywords.find(p_path.get_file().get_basename()) != -1) {
-        String alert {"Please don't use reserved keywords as file name."};
+        String alert = "Please don't use reserved keywords as file name.";
         return
 #ifdef TOOLS_ENABLED
           TTR(alert)

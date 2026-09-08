@@ -16,8 +16,8 @@
 
 using namespace godot;
 
-static constexpr const char* graal_feature {"export-graal-native-image"};
-static constexpr const char* all_jvm_feature {"export-all-jvm"};
+static constexpr const char* graal_feature = "export-graal-native-image";
+static constexpr const char* all_jvm_feature = "export-all-jvm";
 
 namespace {
     // Export presets configure their output path as a bare project-root-relative path (e.g.
@@ -33,11 +33,9 @@ namespace {
         return ProjectSettings::get_singleton()->globalize_path(String(RES_DIRECTORY) + p_path.trim_prefix("./"));
     }
 
-    // godot-cpp's DirAccess exposes no recursive-copy equivalent to the engine-internal
-    // DirAccess::copy_dir master relied on, so we walk the tree ourselves with the exposed
-    // list_dir_begin/get_next/copy/make_dir_recursive API.
+    // Walk the tree with DirAccess's exposed list_dir_begin/get_next/copy/make_dir_recursive API.
     Error copy_directory_recursive(const String& from, const String& to) {
-        Ref<DirAccess> dir_access {DirAccess::open(from)};
+        Ref<DirAccess> dir_access = DirAccess::open(from);
         if (dir_access.is_null()) { return DirAccess::get_open_error(); }
 
         Error error = dir_access->make_dir_recursive(to);
@@ -49,8 +47,8 @@ namespace {
         for (String entry = dir_access->get_next(); !entry.is_empty(); entry = dir_access->get_next()) {
             if (entry == "." || entry == "..") { continue; }
 
-            String from_entry {from.path_join(entry)};
-            String to_entry {to.path_join(entry)};
+            String from_entry = from.path_join(entry);
+            String to_entry = to.path_join(entry);
 
             Error sub_error;
             if (dir_access->current_is_dir()) {
@@ -68,10 +66,7 @@ namespace {
         return OK;
     }
 
-    // godot-cpp's EditorExportPreset exposes get_exclude_filter() but no setter, so master's approach
-    // of registering these paths in the preset's exclude filter isn't reachable from a GDExtension.
-    // We get the same functional result (these paths never end up in the exported pck) by skipping
-    // them from within _export_file instead.
+    // EditorExportPreset exposes no exclude-filter setter, so skip these paths in _export_file.
     bool should_skip_export(const String& p_path, const PackedStringArray& p_features) {
         if (p_path == JVM_CONFIGURATION_PATH) { return true; }
         // Android loads this descriptor from the Godot-JVM AAR. Exporting the project copy as
@@ -100,20 +95,20 @@ void GodotJvmEditorExportPlugin::_export_begin(const PackedStringArray& p_featur
     // Add mandatory jars to pck
     Vector<String> files_to_add;
 
-    bool is_windows_export {p_features.has("windows")};
-    bool is_linux_export {p_features.has("linux")};
-    bool is_macos_export {p_features.has("macos")};
-    bool is_desktop_export {is_windows_export || is_linux_export || is_macos_export};
-    bool is_android_export {p_features.has("android")};
-    bool is_ios_export {p_features.has("ios")};
+    bool is_windows_export = p_features.has("windows");
+    bool is_linux_export = p_features.has("linux");
+    bool is_macos_export = p_features.has("macos");
+    bool is_desktop_export = is_windows_export || is_linux_export || is_macos_export;
+    bool is_android_export = p_features.has("android");
+    bool is_ios_export = p_features.has("ios");
 
-    bool is_universal {p_features.has("universal")};
-    bool is_arm64 {p_features.has("arm64") || is_universal};
-    bool is_x64 {p_features.has("x86_64") || is_universal};
+    bool is_universal = p_features.has("universal");
+    bool is_arm64 = p_features.has("arm64") || is_universal;
+    bool is_x64 = p_features.has("x86_64") || is_universal;
 
-    bool export_all {p_features.has(all_jvm_feature)};
-    bool export_graal {p_features.has(graal_feature) || export_all};
-    bool export_jvm {!p_features.has(graal_feature) || export_all};
+    bool export_all = p_features.has(all_jvm_feature);
+    bool export_graal = p_features.has(graal_feature) || export_all;
+    bool export_jvm = !p_features.has(graal_feature) || export_all;
 
     if (is_desktop_export) {
         if (export_jvm) {
@@ -121,14 +116,14 @@ void GodotJvmEditorExportPlugin::_export_begin(const PackedStringArray& p_featur
             if (is_macos_export) {
                 // on macos the embedded jre needs to be added as a plugin file
                 if (is_arm64) {
-                    String jre_path {String(RES_DIRECTORY).path_join(MACOS_EMBEDDED_JRE_ARM_DIRECTORY)};
+                    String jre_path = String(RES_DIRECTORY).path_join(MACOS_EMBEDDED_JRE_ARM_DIRECTORY);
                     if (!DirAccess::dir_exists_absolute(jre_path)) {
                         JVM_ERR_FAIL_MSG("JRE does not exist at %s! make sure you've created an embedded JRE using jlink!", jre_path);
                     }
                     add_macos_plugin_file(jre_path);
                 }
                 if (is_x64) {
-                    String jre_path {String(RES_DIRECTORY).path_join(MACOS_EMBEDDED_JRE_AMD_DIRECTORY)};
+                    String jre_path = String(RES_DIRECTORY).path_join(MACOS_EMBEDDED_JRE_AMD_DIRECTORY);
                     if (!DirAccess::dir_exists_absolute(jre_path)) {
                         JVM_ERR_FAIL_MSG("JRE does not exist at %s! make sure you've created an embedded JRE using jlink!", jre_path);
                     }
@@ -141,8 +136,8 @@ void GodotJvmEditorExportPlugin::_export_begin(const PackedStringArray& p_featur
                 }
             } else if (is_linux_export || is_windows_export) {
                 // on windows and linux the embedded jre can be added as a normal export dir
-                String jre_dir {RES_DIRECTORY};
-                String target_dir {to_absolute_path(p_path.get_base_dir())};
+                String jre_dir = RES_DIRECTORY;
+                String target_dir = to_absolute_path(p_path.get_base_dir());
 
                 if (is_arm64) {
                     if (is_linux_export) {
@@ -210,7 +205,7 @@ void GodotJvmEditorExportPlugin::_export_begin(const PackedStringArray& p_featur
     } else if (is_android_export) {
         _generate_export_configuration_file(jni::JvmType::ART);
     } else if (is_ios_export) {
-        PackedStringArray static_libraries {
+        PackedStringArray static_libraries = {
           ProjectSettings::get_singleton()->globalize_path(IOS_JAVA_STATIC_LIBRARY),
           ProjectSettings::get_singleton()->globalize_path(IOS_JVM_STATIC_LIBRARY),
           ProjectSettings::get_singleton()->globalize_path(IOS_GRAAL_NATIVE_IMAGE_ARCHIVE),

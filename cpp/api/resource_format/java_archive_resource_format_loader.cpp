@@ -2,7 +2,6 @@
 #include "java_archive_resource_format_loader.h"
 
 #include "engine/ustring.h"
-#include "engine/godot_object.h"
 #include "godot_jvm.h"
 #include "hash.h"
 #include "java_archive.h"

@@ -7,7 +7,7 @@
 
 namespace godot {
 Error read_source_script_file(const String& p_path, String& r_content) {
-    const Ref<FileAccess> file_access {FileAccess::open(p_path, FileAccess::READ)};
+    const Ref<FileAccess> file_access = FileAccess::open(p_path, FileAccess::READ);
     const Error err = FileAccess::get_open_error();
     JVM_ERR_FAIL_COND_V_MSG(err != OK, err, "Cannot open file '" + p_path + "'.");
     const String source = file_access->get_as_text();
@@ -170,7 +170,7 @@ int find_token(const String& source, int start_index, const String& token, bool 
 }
 
 String get_package_name(const String& source, int& r_register_class_search_start) {
-    static String package_keyword {PACKAGE_KEYWORD};
+    static String package_keyword = PACKAGE_KEYWORD;
     int package_keyword_index = find_token(source, 0, package_keyword, true);
     if (package_keyword_index == -1) {
         r_register_class_search_start = 0;
@@ -230,8 +230,8 @@ void skip_annotation_arguments(const String& source, int annotation_index, const
     r_class_search_index = current_index;
 }
 
-String find_class_name(const String& source, int search_start, const String& expected_name = {}) {
-    static String class_keyword {CLASS_KEYWORD};
+String find_class_name(const String& source, int search_start, const String& expected_name = String()) {
+    static String class_keyword = CLASS_KEYWORD;
     int class_keyword_index = find_token(source, search_start, class_keyword, true);
     while (class_keyword_index != -1) {
         int class_index = class_keyword_index + class_keyword.length();
@@ -260,7 +260,7 @@ StringName parse_source_script_fqname(const String& p_source_code, const String&
 
     int class_search_start = 0;
     String package_name = get_package_name(p_source_code, class_search_start);
-    static String script_annotation {SCRIPT_ANNOTATION};
+    static String script_annotation = SCRIPT_ANNOTATION;
 
     String class_name;
     const int annotation_index = find_token(p_source_code, class_search_start, script_annotation, true);
@@ -295,4 +295,3 @@ StringName parse_source_script_fqname(const String& p_source_code, const String&
 #endif
 
 } // namespace godot
-

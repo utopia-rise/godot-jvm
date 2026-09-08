@@ -4,7 +4,6 @@
 #include "api/script/jvm_script.h"
 #include "api/script/jvm_script_manager.h"
 #include "engine/ustring.h"
-#include "engine/godot_object.h"
 #include "hash.h"
 #include "api/script/source_script_parser.h"
 

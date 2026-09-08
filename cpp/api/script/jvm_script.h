@@ -1,6 +1,7 @@
 #ifndef GODOT_JVM_JVM_SCRIPT_H
 #define GODOT_JVM_JVM_SCRIPT_H
 
+#include "engine/godot_object.h"
 #include "jvm/wrapper/registration/kt_class.h"
 #include "jvm_placeholder_instance.h"
 #include "templates/hash_set.hpp"
@@ -23,7 +24,7 @@ namespace godot {
         KtClass* kotlin_class;
         mutable String source;
 
-        GodotObject* _object_create() const;
+        raw_godot::RawObject _object_create() const;
 #ifdef DEBUG_ENABLED
         bool validate_instance_creation() const;
 #endif
@@ -105,7 +106,6 @@ namespace godot {
         void _placeholder_erased(void* p_placeholder) override;
         virtual void _format_template(const String& p_path) const;
 
-        // Real Resource virtual, invoked by the engine whenever this resource's path is assigned/cached (mirrors master's per-language Script::set_path() override trigger point, which GDExtension's ScriptExtension has no direct equivalent for).
         void _set_path_cache(const String& p_path) const override;
 #endif
 

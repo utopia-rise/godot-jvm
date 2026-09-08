@@ -14,11 +14,11 @@ void ScalaScript::_format_template(const String& p_path) const {
         return;
     }
 
-    String package {p_path.replace("src/main/scala/", "")
+    String package = p_path.replace("src/main/scala/", "")
                       .trim_prefix("res://")
                       .trim_suffix(get_name() + "." + ScalaLanguage::get_instance()->_get_extension())
                       .trim_suffix("/")
-                      .replace("/", ".")};
+                      .replace("/", ".");
 
     if (!package.is_empty()) { package = "package " + package + ";";}
 

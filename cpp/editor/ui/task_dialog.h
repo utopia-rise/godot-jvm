@@ -28,21 +28,21 @@ namespace {
 inline TaskDialogControls create_task_dialog(float editor_scale) {
     using namespace godot;
 
-    AcceptDialog* dialog {memnew(AcceptDialog)};
+    AcceptDialog* dialog = memnew(AcceptDialog);
     dialog->set_title("Gradle Task Runner");
 
-    VBoxContainer* vertical_container {memnew(VBoxContainer)};
+    VBoxContainer* vertical_container = memnew(VBoxContainer);
     dialog->add_child(vertical_container);
 
-    ScrollContainer* scroll_container {memnew(ScrollContainer)};
+    ScrollContainer* scroll_container = memnew(ScrollContainer);
     scroll_container->set_custom_minimum_size(Size2 {600, 400} * editor_scale);
     vertical_container->add_child(scroll_container);
 
-    Label* log_label {memnew(Label)};
+    Label* log_label = memnew(Label);
     log_label->set_h_size_flags(Control::SizeFlags::SIZE_EXPAND_FILL);
     scroll_container->add_child(log_label);
 
-    ProgressBar* progress_bar {memnew(ProgressBar)};
+    ProgressBar* progress_bar = memnew(ProgressBar);
     progress_bar->set_editor_preview_indeterminate(true);
     progress_bar->set_indeterminate(true);
     vertical_container->add_child(progress_bar);

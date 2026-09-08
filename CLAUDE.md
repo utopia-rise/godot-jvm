@@ -34,6 +34,7 @@ of upstream bug fixes.
 - **KISS** — Prefer the simplest design that clearly solves the current problem.
 - **YAGNI** — Do not add behavior or abstractions for requirements that do not exist yet.
 - **DRY** — Keep each piece of knowledge and behavior in one authoritative place.
+- **C++ initialization** — When declaration and initialization happen together, use `Type value = expression;`. Reserve braces for genuine initializer lists/aggregates and temporary rvalues; do not use direct-list declarations such as `Type value {expression};`.
 
 ## Prerequisites
 

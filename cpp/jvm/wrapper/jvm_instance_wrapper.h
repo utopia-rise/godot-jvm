@@ -120,7 +120,7 @@ void JvmInstanceWrapper<Derived, FqName>::finalize(jni::Env& p_env, ClassLoader*
 
 template<class Derived, const char* FqName>
 JvmInstanceWrapper<Derived, FqName>::~JvmInstanceWrapper() {
-    jni::Env env {jni::Jvm::current_env()};
+    jni::Env env = jni::Jvm::current_env();
     if (is_weak) {
         wrapped.delete_weak_ref(env);
     } else {

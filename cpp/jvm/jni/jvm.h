@@ -20,8 +20,8 @@ namespace jni {
         static Jvm* _instance;
 
         JavaVM* vm = nullptr;
-        jint version {0};
-        JvmType vm_type {JvmType::NONE};
+        jint version = 0;
+        JvmType vm_type = JvmType::NONE;
 
         Jvm(JavaVM* vm, JvmType vm_type, jint version);
         ~Jvm() = default;

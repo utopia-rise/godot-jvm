@@ -28,13 +28,13 @@ namespace {
 inline godot::AcceptDialog* create_about_dialog(const godot::Ref<godot::EditorSettings>& editor_settings, float editor_scale) {
     using namespace godot;
 
-    AcceptDialog* dialog {memnew(AcceptDialog)};
+    AcceptDialog* dialog = memnew(AcceptDialog);
     dialog->set_title("About Godot-JVM");
 
-    VBoxContainer* about_vbox {memnew(VBoxContainer)};
+    VBoxContainer* about_vbox = memnew(VBoxContainer);
     dialog->add_child(about_vbox);
 
-    RichTextLabel* about_label {memnew(RichTextLabel)};
+    RichTextLabel* about_label = memnew(RichTextLabel);
     about_label->set_custom_minimum_size(Size2 {600, 150} * editor_scale);
     about_label->set_v_size_flags(Control::SizeFlags::SIZE_EXPAND_FILL);
     about_label->set_text(about_text);
@@ -43,7 +43,7 @@ inline godot::AcceptDialog* create_about_dialog(const godot::Ref<godot::EditorSe
     about_label->connect(SNAME("meta_clicked"), callable_mp_static(&on_about_url_clicked));
     about_vbox->add_child(about_label);
 
-    CheckBox* about_dialog_check_box {memnew(CheckBox)};
+    CheckBox* about_dialog_check_box = memnew(CheckBox);
     about_dialog_check_box->set_text("Show this info when starting the editor");
     about_dialog_check_box->set_h_size_flags(Control::SizeFlags::SIZE_SHRINK_CENTER);
     about_dialog_check_box->connect(SNAME("toggled"), callable_mp_static(&on_about_checkbox_toggled).bind(editor_settings));

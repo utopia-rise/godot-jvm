@@ -5,9 +5,9 @@
 #include "jvm/wrapper/registration/kt_class.h"
 
 void Bootstrap::load_classes(JNIEnv* p_env, jobject p_this, jobjectArray p_classes) {
-    jni::Env env(p_env);
-    jni::JObjectArray jni_classes {p_classes};
-    jni::JObject j_object {p_this};
+    jni::Env env = p_env;
+    jni::JObjectArray jni_classes = p_classes;
+    jni::JObject j_object = p_this;
 
     godot::Vector<KtClass*> classes;
     for (auto i = 0; i < jni_classes.length(env); i++) {
@@ -27,15 +27,15 @@ void Bootstrap::register_engine_type(JNIEnv* p_env, jobject p_this, jobjectArray
 #ifdef DEV_ENABLED
     JVM_LOG_VERBOSE("Starting to register managed engine types...");
 #endif
-    jni::Env env(p_env);
+    jni::Env env = p_env;
 
-    jni::JObjectArray engine_types {p_classes_names};
+    jni::JObjectArray engine_types = p_classes_names;
     TypeManager::get_instance().register_engine_types(env, engine_types);
 
-    jni::JObjectArray singleton_names {p_singleton_names};
+    jni::JObjectArray singleton_names = p_singleton_names;
     TypeManager::get_instance().register_engine_singletons(env, singleton_names);
 
-    jni::JObject j_object {p_this};
+    jni::JObject j_object = p_this;
     j_object.delete_local_ref(env);
     engine_types.delete_local_ref(env);
     singleton_names.delete_local_ref(env);
@@ -60,8 +60,8 @@ void Bootstrap::init_native_image(jni::Env& p_env) {
 }
 
 godot::String Bootstrap::get_version(jni::Env& p_env) {
-    jni::JString str {wrapped.call_object_method(p_env, GET_VERSION)};
-    godot::String ret {p_env.from_jstring(str)};
+    jni::JString str = jni::JString(wrapped.call_object_method(p_env, GET_VERSION));
+    godot::String ret = p_env.from_jstring(str);
     str.delete_local_ref(p_env);
     return ret;
 }

@@ -3,8 +3,6 @@
 #include "names.h"
 #include "api/script/language/java_script.h"
 
-#include <classes/resource_loader.hpp>
-
 using namespace godot;
 
 constexpr const char* JAVA_TEMPLATE = PACKAGE_TEMPLATE
@@ -34,7 +32,7 @@ constexpr const char* JAVA_TEMPLATE = PACKAGE_TEMPLATE
   "}\n";
 
 JavaLanguage* JavaLanguage::get_instance() {
-    static JavaLanguage* instance {memnew(JavaLanguage)};
+    static JavaLanguage* instance = memnew(JavaLanguage);
     return instance;
 }
 
@@ -51,14 +49,14 @@ String JavaLanguage::_get_extension() const {
 }
 
 PackedStringArray JavaLanguage::_get_recognized_extensions() const {
-    static PackedStringArray extensions {
+    static PackedStringArray extensions = {
       GODOT_JAVA_SCRIPT_EXTENSION
     };
     return extensions;
 }
 
 PackedStringArray JavaLanguage::_get_reserved_words() const {
-    static PackedStringArray reserved_words {
+    static PackedStringArray reserved_words = {
         "abstract",
         "assert",
         "boolean",
@@ -119,7 +117,7 @@ bool JavaLanguage::_is_control_flow_keyword(const String& p_keyword) const {
 }
 
 PackedStringArray JavaLanguage::_get_comment_delimiters() const {
-    static PackedStringArray delimiters {
+    static PackedStringArray delimiters = {
       "//",
       "/* */"
     };
@@ -127,14 +125,14 @@ PackedStringArray JavaLanguage::_get_comment_delimiters() const {
 }
 
 PackedStringArray JavaLanguage::_get_doc_comment_delimiters() const {
-    PackedStringArray delimiters {
+    PackedStringArray delimiters = {
       "/** */"
     };
     return delimiters;
 }
 
 PackedStringArray JavaLanguage::_get_string_delimiters() const {
-    PackedStringArray delimiters {
+    PackedStringArray delimiters = {
       "' '",
       "\" \""
     };
@@ -144,7 +142,7 @@ PackedStringArray JavaLanguage::_get_string_delimiters() const {
 Ref<Script> JavaLanguage::_make_template(const String& p_template, const String& p_class_name, const String& p_base_class_name) const {
     Ref<JavaScript> java_script;
     java_script.instantiate();
-    String processed_template {p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case())};
+    String processed_template = p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case());
     java_script->set_source_code(processed_template);
     java_script->set_name(p_class_name);
     return java_script;

@@ -2,6 +2,7 @@
 #define GODOT_JVM_JVM_VARIANT_H
 
 #include "core/jvm_binding_manager.h"
+#include "engine/marshalls.h"
 #include "engine/godot_object.h"
 #include "jvm/jni/wrapper.h"
 #include "jvm/wrapper/memory/long_string_queue.h"
@@ -56,8 +57,8 @@ class VariantToBuffer {
     }
 
     static void write_string(SharedBuffer* des, const godot::Variant& src) {
-        godot::String str {src};
-        const godot::CharString& char_string {str.utf8()};
+        godot::String str = src;
+        const godot::CharString& char_string = str.utf8();
         set_variant_type(des, godot::Variant::Type::STRING);
         if (int size = char_string.size(); unlikely(size > LongStringQueue::max_string_size)) {
             des->increment_position(encode_uint32(true, des->get_cursor()));
@@ -105,9 +106,7 @@ class VariantToBuffer {
         // The JVM only ever deals in raw engine pointers, never godot-cpp's wrapper pointers (see to_raw_object() below, and JvmBindingManager, for the other side of this contract).
         des->increment_position(encode_uint32(constructorID, des->get_cursor()));
         des->increment_position(encode_uint64(reinterpret_cast<uintptr_t>(p_raw_object), des->get_cursor()));
-        des->increment_position(
-          encode_uint64(godot::internal::gdextension_interface_object_get_instance_id(p_raw_object), des->get_cursor())
-        );
+        des->increment_position(encode_uint64(raw_godot::RawObject(p_raw_object).get_instance_id(), des->get_cursor()));
     }
 
     static void write_object(SharedBuffer* des, const godot::Variant& src) {
@@ -117,13 +116,13 @@ class VariantToBuffer {
 
 
     static void write_signal(SharedBuffer* des, const godot::Variant& src) {
-        godot::Signal signal {src.operator godot::Signal()};
+        godot::Signal signal = src.operator godot::Signal();
         set_variant_type(des, godot::Variant::Type::SIGNAL);
         // get_object_id() rather than get_object(): the latter returns a godot-cpp wrapper.
-        const int64_t object_id {signal.get_object_id()};
+        const int64_t object_id = signal.get_object_id();
         append_object(
           des,
-          object_id != 0 ? godot::internal::gdextension_interface_object_get_instance_from_id(object_id) : nullptr
+          object_id != 0 ? raw_godot::RawObject::from_instance_id(object_id) : raw_godot::RawObject()
         );
         write_pointer<godot::StringName>(des, signal.get_name());
     }
@@ -191,14 +190,14 @@ public:
 class BufferToVariant {
     template<class T>
     static godot::Variant read_core_type(SharedBuffer* byte_buffer) {
-        T* result {reinterpret_cast<T*>(byte_buffer->get_cursor())};
+        T* result = reinterpret_cast<T*>(byte_buffer->get_cursor());
         byte_buffer->increment_position(sizeof(T));
         return *result;
     }
 
     template<class T>
     static inline T* read_pointer(SharedBuffer* byte_buffer) {
-        auto ptr {static_cast<uintptr_t>(decode_uint64(byte_buffer->get_cursor()))};
+        auto ptr = static_cast<uintptr_t>(decode_uint64(byte_buffer->get_cursor()));
         byte_buffer->increment_position(PTR_SIZE);
         return reinterpret_cast<T*>(ptr);
     }
@@ -213,19 +212,19 @@ class BufferToVariant {
     }
 
     static godot::Variant read_bool(SharedBuffer* byte_buffer) {
-        bool b {static_cast<bool>(decode_uint32(byte_buffer->get_cursor()))};
+        bool b = static_cast<bool>(decode_uint32(byte_buffer->get_cursor()));
         byte_buffer->increment_position(BOOL_SIZE);
         return b;
     }
 
     static godot::Variant read_string(SharedBuffer* byte_buffer) {
-        bool is_long {static_cast<bool>(decode_uint32(byte_buffer->get_cursor()))};
+        bool is_long = static_cast<bool>(decode_uint32(byte_buffer->get_cursor()));
         byte_buffer->increment_position(BOOL_SIZE);
         if (unlikely(is_long)) {
             godot::String str = LongStringQueue::get_instance().poll_string();
             return str;
         } else {
-            uint32_t size {decode_uint32(byte_buffer->get_cursor())};
+            uint32_t size = decode_uint32(byte_buffer->get_cursor());
             byte_buffer->increment_position(INT_SIZE);
             godot::String str = godot::String::utf8(reinterpret_cast<const char*>(byte_buffer->get_cursor()), size);
             byte_buffer->increment_position(size);
@@ -237,7 +236,7 @@ class BufferToVariant {
     // it via get_object_instance_binding() only to have Variant/Signal read `_owner` off the wrapper again would
     // attach a permanent godot-cpp instance binding for nothing.
     static inline godot::GodotObject* to_raw_object(SharedBuffer* byte_buffer) {
-        auto ptr {static_cast<uintptr_t>(decode_uint64(byte_buffer->get_cursor()))};
+        auto ptr = static_cast<uintptr_t>(decode_uint64(byte_buffer->get_cursor()));
         byte_buffer->increment_position(PTR_SIZE);
         return reinterpret_cast<godot::GodotObject*>(ptr);
     }
@@ -247,8 +246,8 @@ class BufferToVariant {
     }
 
     static godot::Variant read_signal(SharedBuffer* byte_buffer) {
-        godot::GodotObject* object {to_raw_object(byte_buffer)};
-        const godot::StringName name {*read_pointer<godot::StringName>(byte_buffer)};
+        godot::GodotObject* object = to_raw_object(byte_buffer);
+        const godot::StringName name = *read_pointer<godot::StringName>(byte_buffer);
         return raw_godot::RawObject(object).to_signal(name);
     }
 
@@ -305,7 +304,7 @@ public:
           &BufferToVariant::read_native_core_type<godot::PackedVector4Array>
         };
 
-        uint32_t variant_type_int {decode_uint32(byte_buffer->get_cursor())};
+        uint32_t variant_type_int = decode_uint32(byte_buffer->get_cursor());
         byte_buffer->increment_position(4);
         res = variant_readers[variant_type_int](byte_buffer);
     }

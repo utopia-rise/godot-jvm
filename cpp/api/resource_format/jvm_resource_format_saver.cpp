@@ -44,7 +44,7 @@ Error JvmResourceFormatSaver::_save(const Ref<Resource>& p_resource, const Strin
     }
 
     {
-        Ref<FileAccess> file {FileAccess::open(p_path, FileAccess::WRITE)};
+        Ref<FileAccess> file = FileAccess::open(p_path, FileAccess::WRITE);
         Error err = FileAccess::get_open_error();
         JVM_ERR_FAIL_COND_V_MSG(err != OK, err, "Cannot save Script file '" + p_path + "'.");
         file->store_string(jvm_script->get_source_code());

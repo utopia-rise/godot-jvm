@@ -6,10 +6,10 @@
 using namespace bridges;
 
 uintptr_t PackedInt64ArrayBridge::engine_convert_to_godot(JNIEnv* p_raw_env, jobject, jlongArray p_array) {
-    jni::Env env {p_raw_env};
-    jni::JLongArray arr {p_array};
+    jni::Env env = p_raw_env;
+    jni::JLongArray arr = p_array;
 
-    jint size {arr.length(env)};
+    jint size = arr.length(env);
 
     godot::PackedInt64Array vec;
     vec.resize(size);
@@ -19,11 +19,11 @@ uintptr_t PackedInt64ArrayBridge::engine_convert_to_godot(JNIEnv* p_raw_env, job
 }
 
 jlongArray PackedInt64ArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
-    godot::PackedInt64Array* packed {from_uint_to_ptr<godot::PackedInt64Array>(p_raw_ptr)};
-    auto size {static_cast<int>(packed->size())};
+    godot::PackedInt64Array* packed = from_uint_to_ptr<godot::PackedInt64Array>(p_raw_ptr);
+    auto size = static_cast<int>(packed->size());
 
-    jni::Env env {p_raw_env};
-    jni::JLongArray arr {env, size};
+    jni::Env env = p_raw_env;
+    jni::JLongArray arr = jni::JLongArray(env, size);
     arr.set_array_elements(env, reinterpret_cast<const jlong*>(packed->ptr()), size);
     return reinterpret_cast<jlongArray>(arr.get_wrapped());
 }

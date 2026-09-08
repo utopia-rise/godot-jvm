@@ -27,7 +27,7 @@ public:
 
 private:
 #ifdef ANDROID_ENABLED
-    inline static JavaVM* android_jvm {nullptr};
+    inline static JavaVM* android_jvm = nullptr;
 #endif
 };
 

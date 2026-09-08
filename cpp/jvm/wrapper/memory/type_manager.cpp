@@ -40,7 +40,7 @@ void TypeManager::register_engine_types(jni::Env& p_env, jni::JObjectArray& p_en
 void TypeManager::register_engine_singletons(jni::Env& p_env, jni::JObjectArray& p_singletons) {
     for (int i = 0; i < p_singletons.length(p_env); ++i) {
         jni::JObject name = p_singletons.get(p_env, i);
-        const godot::String& singleton_name {p_env.from_jstring(static_cast<jni::JString>(name))};
+        const godot::String& singleton_name = p_env.from_jstring(static_cast<jni::JString>(name));
         engine_singleton_names.insert(i, singleton_name);
         name.delete_local_ref(p_env);
     }
@@ -55,9 +55,9 @@ void TypeManager::assign_script_to_class(jni::Env& p_env, int p_index, const god
 }
 
 uintptr_t TypeManager::get_method_bind_ptr(JNIEnv* p_raw_env, jobject, jstring p_class_name, jstring p_method_name, jlong hash) {
-    jni::Env env {p_raw_env};
-    godot::StringName class_name {env.from_jstring(jni::JString(p_class_name))};
-    godot::StringName method_name {env.from_jstring(jni::JString(p_method_name))};
+    jni::Env env = p_raw_env;
+    godot::StringName class_name = env.from_jstring(jni::JString(p_class_name));
+    godot::StringName method_name = env.from_jstring(jni::JString(p_method_name));
 
     GDExtensionMethodBindPtr bind =
       godot::internal::gdextension_interface_classdb_get_method_bind(class_name._native_ptr(), method_name._native_ptr(), hash);

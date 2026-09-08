@@ -15,11 +15,11 @@ void JavaScript::_format_template(const String& p_path) const {
         return;
     }
 
-    String package {p_path.replace("src/main/java/", "")
+    String package = p_path.replace("src/main/java/", "")
                       .trim_prefix("res://")
                       .trim_suffix(get_name() + "." + JavaLanguage::get_instance()->_get_extension())
                       .trim_suffix("/")
-                      .replace("/", ".")};
+                      .replace("/", ".");
 
     if (!package.is_empty()) { package = "package " + package + ";";}
 

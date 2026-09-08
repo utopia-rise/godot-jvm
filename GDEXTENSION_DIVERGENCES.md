@@ -242,17 +242,21 @@ notes. Two items are still open decisions, not yet acted on — see "Open follow
   (`src/engine/utilities.h`) instead of `reinterpret_cast<RefCounted*>(owner)->get_reference_count()`;
   `is_ref_counted()` has no `Object*` overload at all, so a caller holding a wrapper must spell out
   `->_owner`. `JvmScript::_instance_create(Object*)` stays as godot-cpp's virtual but only unwraps
-  once and delegates to `create_jvm_instance(GodotObject*)`; `_object_create()` returns a raw pointer
-  and `_new()` builds its `Variant` with `make_object_variant()`. This removed the last wrapper
+  once and delegates to `create_jvm_instance(GodotObject*)`; `_object_create()` returns a `RawObject`
+  and `_new()` builds its `Variant` directly from it. This removed the last wrapper
   materialization for JVM-created objects — they now carry only our own `JvmBinding`.
   Two helpers exist because godot-cpp's constructors take a wrapper purely to read `_owner` off it
   (`variant.cpp:189`, `signal.cpp:105`): `make_object_variant()` and `make_signal()` issue the same
   engine constructor with the raw pointer.
-  Deliberately still wrapper-based, all editor-only: `JvmPlaceHolderInstanceData::owner` (it really
-  calls `notify_property_list_changed()`), the two `Object::cast_to<ScriptExtension>`, and
-  `jvm_script.cpp`'s `cast_to<Node>`. Note `Variant::get_validated_object()` is
-  `ObjectDB::get_instance()` under the hood (`variant.cpp:516`) and so creates a binding too — the one
-  use, in `jvm_placeholder_instance.cpp`, is editor-only.
+  The callable identity middleman is also a `RawObject`: it only needs to stay alive and provide an
+  `ObjectID`, so a godot-cpp wrapper serves no purpose. Placeholder fallback type detection avoids
+  `Variant::get_validated_object()` too — that method is `ObjectDB::get_instance()` under the hood
+  (`variant.cpp:516`) and creates a binding. It now reads the variant's `ObjectID`, validates it via
+  `RawObject::from_instance_id()`, and performs the class check on the raw pointer.
+  Remaining `Object *` occurrences in our sources are godot-cpp virtual boundaries (`_instance_has`,
+  code completion/lookup, and script creation) or extension-owned skeleton objects. The
+  `Object::cast_to<...>` calls operate on wrappers already held as `Ref<Script>`/editor objects; they
+  do not resolve a raw engine pointer and therefore do not materialize an additional binding.
   The shared-buffer marshalling is included: `append_object()` used to take a `godot::Object*`, which
   is what made `Variant::operator Object*()` fire implicitly — it resolves the raw pointer, discards
   it, and builds a wrapper (`variant.cpp:439`) that `append_object` then unwrapped again via
