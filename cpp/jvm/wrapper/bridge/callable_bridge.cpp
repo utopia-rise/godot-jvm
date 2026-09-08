@@ -82,13 +82,9 @@ void CallableBridge::engine_call_bind(JNIEnv* p_raw_env, jobject p_instance, jlo
     godot::Variant args[MAX_FUNCTION_ARG_COUNT];
     uint32_t args_size {TransferContext::get_instance().read_args(env, args)};
 
-    // godot-cpp exposes no pointer-array bindp(); build an Array and go through bindv() instead.
-    godot::Array bind_args;
-    for (uint32_t i = 0; i < args_size; ++i) {
-        bind_args.push_back(args[i]);
-    }
-
-    godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->bindv(bind_args);
+    const godot::Callable& callable = *from_uint_to_ptr<godot::Callable>(p_raw_ptr);
+    godot::Variant result;
+    CALL_VARIADIC(args_size, args, result = callable.bind);
     TransferContext::get_instance().write_return_value(env, result);
 }
 
@@ -98,13 +94,9 @@ void CallableBridge::engine_call_call(JNIEnv* p_raw_env, jobject p_instance, jlo
     godot::Variant args[MAX_FUNCTION_ARG_COUNT];
     uint32_t args_size {TransferContext::get_instance().read_args(env, args)};
 
-    // godot-cpp exposes no pointer-array callp()/Callable::CallError; build an Array and go through callv() instead, which reports failures internally rather than via an out-param.
-    godot::Array call_args;
-    for (uint32_t i = 0; i < args_size; ++i) {
-        call_args.push_back(args[i]);
-    }
-
-    godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->callv(call_args);
+    const godot::Callable& callable = *from_uint_to_ptr<godot::Callable>(p_raw_ptr);
+    godot::Variant result;
+    CALL_VARIADIC(args_size, args, result = callable.call);
     TransferContext::get_instance().write_return_value(env, result);
 }
 
@@ -114,28 +106,8 @@ void CallableBridge::engine_call_call_deferred(JNIEnv* p_raw_env, jobject p_inst
     godot::Variant args[MAX_FUNCTION_ARG_COUNT];
     uint32_t args_size {TransferContext::get_instance().read_args(env, args)};
 
-    // godot-cpp's call_deferred() is a variadic template with no pointer-array/Array overload, so the runtime argument count has to be unpacked by hand.
     const godot::Callable& callable = *from_uint_to_ptr<godot::Callable>(p_raw_ptr);
-    switch (args_size) {
-        case 0: callable.call_deferred(); break;
-        case 1: callable.call_deferred(args[0]); break;
-        case 2: callable.call_deferred(args[0], args[1]); break;
-        case 3: callable.call_deferred(args[0], args[1], args[2]); break;
-        case 4: callable.call_deferred(args[0], args[1], args[2], args[3]); break;
-        case 5: callable.call_deferred(args[0], args[1], args[2], args[3], args[4]); break;
-        case 6: callable.call_deferred(args[0], args[1], args[2], args[3], args[4], args[5]); break;
-        case 7: callable.call_deferred(args[0], args[1], args[2], args[3], args[4], args[5], args[6]); break;
-        case 8: callable.call_deferred(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7]); break;
-        case 9: callable.call_deferred(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8]); break;
-        case 10: callable.call_deferred(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9]); break;
-        case 11: callable.call_deferred(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10]); break;
-        case 12: callable.call_deferred(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11]); break;
-        case 13: callable.call_deferred(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12]); break;
-        case 14: callable.call_deferred(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12], args[13]); break;
-        case 15: callable.call_deferred(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12], args[13], args[14]); break;
-        case 16: callable.call_deferred(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12], args[13], args[14], args[15]); break;
-        default: JVM_ERR_FAIL_MSG("call_deferred: too many arguments"); break;
-    }
+    CALL_VARIADIC(args_size, args, callable.call_deferred);
 }
 
 void CallableBridge::engine_call_get_bound_arguments(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
@@ -214,14 +186,8 @@ void CallableBridge::engine_call_rpc(JNIEnv* p_raw_env, jobject p_instance, jlon
     godot::Variant args[MAX_FUNCTION_ARG_COUNT];
     uint32_t args_size {TransferContext::get_instance().read_args(env, args)};
 
-    const godot::Variant* args_ptr[MAX_FUNCTION_ARG_COUNT];
-    for (uint32_t i = 0; i < args_size; ++i) {
-        args_ptr[i] = &args[i];
-    }
-    godot::Variant instance = *from_uint_to_ptr<godot::Callable>(p_raw_ptr);
-    godot::Variant result;
-    GDExtensionCallError error;
-    instance.callp(SNAME("rpc"), args_ptr, static_cast<int>(args_size), result, error);
+    const godot::Callable& callable = *from_uint_to_ptr<godot::Callable>(p_raw_ptr);
+    CALL_VARIADIC(args_size, args, callable.rpc);
 }
 
 void CallableBridge::engine_call_rpc_id(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
@@ -230,15 +196,9 @@ void CallableBridge::engine_call_rpc_id(JNIEnv* p_raw_env, jobject p_instance, j
     godot::Variant args[MAX_FUNCTION_ARG_COUNT];
     uint32_t args_size {TransferContext::get_instance().read_args(env, args)};
 
-    const godot::Variant* args_ptr[MAX_FUNCTION_ARG_COUNT];
-    for (uint32_t i = 0; i < args_size; ++i) {
-        args_ptr[i] = &args[i];
-    }
-
-    godot::Variant instance = *from_uint_to_ptr<godot::Callable>(p_raw_ptr);
-    godot::Variant result;
-    GDExtensionCallError error;
-    instance.callp(SNAME("rpc_id"), args_ptr, static_cast<int>(args_size), result, error);
+    const godot::Callable& callable = *from_uint_to_ptr<godot::Callable>(p_raw_ptr);
+    // args[0] is the peer id (Variant converts to int64_t implicitly); the rest are the RPC arguments.
+    CALL_VARIADIC_OR(args_size, args, callable.rpc_id, JVM_ERR_FAIL_MSG("rpc_id: missing peer id"));
 }
 
 void CallableBridge::engine_call_unbind(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
