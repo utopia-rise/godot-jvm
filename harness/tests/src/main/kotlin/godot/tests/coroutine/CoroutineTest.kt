@@ -11,10 +11,12 @@ import godot.api.Timer
 import godot.core.Vector2
 import godot.core.signal0
 import godot.core.signal1
+import godot.core.signal2
 import godot.core.signal4
 import godot.coroutines.GodotDispatchers
 import godot.coroutines.asFlow
 import godot.coroutines.await
+import godot.coroutines.awaitLoad
 import godot.coroutines.awaitLoadAs
 import godot.coroutines.awaitNextPhysicsProcess
 import godot.coroutines.awaitNextProcess
@@ -127,14 +129,38 @@ class CoroutineTest : Node() {
         }
     }
 
-    @Emit("is_test_successful")
-    val asyncLoadResourceFinished by signal1<Boolean>()
+    @Emit("is_loaded", "was_cached")
+    val asyncLoadUncachedResourceFinished by signal2<Boolean, Boolean>()
 
+    /** Loads a resource that no other test touches, so the load really runs on the worker pool. */
     @Register
-    fun asyncLoadResource() {
+    fun asyncLoadUncachedResource() {
+        val path = "res://test/coroutine/fixtures/uncached_load.tres"
+        val wasCached = ResourceLoader.hasCached(path)
         launch {
-            val resource = ResourceLoader.awaitLoadAs<PackedScene>("res://Spatial.tscn")
-            asyncLoadResourceFinished.emit(resource != null)
+            val resource = ResourceLoader.awaitLoad(path)
+            // The load may complete without suspending, so wait a frame to let the GDScript caller reach its await.
+            awaitNextProcess()
+            asyncLoadUncachedResourceFinished.emit(resource != null, wasCached)
+        }
+    }
+
+    @Emit("is_loaded", "was_cached")
+    val asyncLoadCachedResourceFinished by signal2<Boolean, Boolean>()
+
+    private var cachedResourceKeepAlive: PackedScene? = null
+
+    /** Loads a scene synchronously first and keeps it referenced, so the awaited load hits the cache. */
+    @Register
+    fun asyncLoadCachedResource() {
+        val path = "res://Spatial.tscn"
+        cachedResourceKeepAlive = ResourceLoader.load(path) as PackedScene?
+        val wasCached = ResourceLoader.hasCached(path)
+        launch {
+            val resource = ResourceLoader.awaitLoadAs<PackedScene>(path)
+            // A cached load returns immediately, so wait a frame to let the GDScript caller reach its await.
+            awaitNextProcess()
+            asyncLoadCachedResourceFinished.emit(resource != null, wasCached)
         }
     }
 

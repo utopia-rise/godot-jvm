@@ -6,7 +6,7 @@ import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import godot.annotation.RpcMode
 import godot.annotation.Sync
-import godot.api.MultiplayerPeer
+import godot.annotation.TransferMode
 import godot.registrar.generator.GeneratorContext
 import godot.registrar.generator.ext.asEnumName
 import godot.registrar.generator.ext.effectiveFunctions
@@ -16,6 +16,7 @@ import godot.registrar.generator.ext.toKtVariantMemberName
 import godot.registration.model.RegisteredFunction
 import godot.registration.model.ext.isEnum
 import godot.registration.model.types.ScriptClass
+import godot.registration.model.types.Type
 
 fun FunSpec.Builder.addNotificationRegistrations(
     registeredClass: ScriptClass,
@@ -68,8 +69,10 @@ private fun getFunctionTemplateString(registeredFunction: RegisteredFunction) = 
 
     append("function(%L, rpc(%M, %L, %M, %L), returns($variantType, %S)")
 
-    if (registeredFunction.parameters.isNotEmpty()) {
-        registeredFunction.parameters.forEach { _ ->
+    registeredFunction.parameters.forEach { valueParameter ->
+        if (valueParameter.type.isEnum()) {
+            append(", argument(%M(%T.entries.toTypedArray()), %S, %S)")
+        } else {
             append(", argument(%M, %S, %S)")
         }
     }
@@ -84,10 +87,7 @@ private fun getTemplateArgs(
 ): List<Any> {
     val returnType = registeredFunction.returnType.toGodotClassName(context)
     val typeClassName = if (registeredFunction.returnType.isEnum()) {
-        ClassName(
-            registeredFunction.returnType.fqName.substringBeforeLast("."),
-            registeredFunction.returnType.fqName.substringAfterLast("."),
-        )
+        registeredFunction.returnType.toEnumClassName()
     } else {
         null
     }
@@ -110,6 +110,9 @@ private fun getTemplateArgs(
 
         registeredFunction.parameters.forEach { valueParameter ->
             add(valueParameter.type.toKtVariantMemberName())
+            if (valueParameter.type.isEnum()) {
+                add(valueParameter.type.toEnumClassName())
+            }
             add(valueParameter.type.toGodotClassName(context))
             add(valueParameter.name)
         }
@@ -124,7 +127,7 @@ private fun getRpcModeEnum(registeredFunction: RegisteredFunction) =
     registeredFunction.rpcConfig?.rpcMode?.asEnumName() ?: RpcMode.DISABLED.asEnumName()
 
 private fun getRpcTransferModeEnum(registeredFunction: RegisteredFunction) =
-    registeredFunction.rpcConfig?.transferMode?.asEnumName() ?: MultiplayerPeer.TransferMode.RELIABLE.asEnumName()
+    registeredFunction.rpcConfig?.transferMode?.asEnumName() ?: TransferMode.RELIABLE.asEnumName()
 
 private fun getRpcCallLocal(registeredFunction: RegisteredFunction): Boolean =
     when (registeredFunction.rpcConfig?.sync) {
@@ -135,3 +138,8 @@ private fun getRpcCallLocal(registeredFunction: RegisteredFunction): Boolean =
 
 private fun getRpcChannel(registeredFunction: RegisteredFunction): Int =
     registeredFunction.rpcConfig?.transferChannel ?: 0
+
+private fun Type.toEnumClassName() = ClassName(
+    fqName.substringBeforeLast("."),
+    fqName.substringAfterLast("."),
+)

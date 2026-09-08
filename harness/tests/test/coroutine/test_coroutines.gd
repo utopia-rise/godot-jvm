@@ -58,9 +58,15 @@ func test_coroutine_await():
     var run_on_main_thread_from_background_thread_success = await test_script.run_on_main_thread_from_background_thread_finished
     assert_bool(run_on_main_thread_from_background_thread_success).override_failure_message("Code should be executed on the correct threads").is_true()
 
-    test_script.async_load_resource()
-    var async_load_resource_success = await test_script.async_load_resource_finished
-    assert_bool(async_load_resource_success).override_failure_message("Resource should be loaded").is_true()
+    test_script.async_load_uncached_resource()
+    var uncached_load = await test_script.async_load_uncached_resource_finished
+    assert_bool(uncached_load[1]).override_failure_message("The uncached fixture must not be in the cache before the load").is_false()
+    assert_bool(uncached_load[0]).override_failure_message("Uncached resource should be loaded").is_true()
+
+    test_script.async_load_cached_resource()
+    var cached_load = await test_script.async_load_cached_resource_finished
+    assert_bool(cached_load[1]).override_failure_message("Spatial.tscn should already be cached before the load").is_true()
+    assert_bool(cached_load[0]).override_failure_message("Cached resource should be loaded").is_true()
     
     test_script.cancel_coroutine()
     await get_tree().create_timer(4).timeout

@@ -159,7 +159,43 @@ class PackedArrayTest : Node() {
         val kotlinArr = arr.toVector4Array()
         return kotlinArr[index];
     }
+
+    @Register
+    fun encodeSignedIntegers(): PackedByteArray {
+        val bytes = PackedByteArray(ByteArray(15))
+        bytes.encodeS8(0, -7)
+        bytes.encodeS16(1, -1234)
+        bytes.encodeS32(3, -123456)
+        bytes.encodeS64(7, -1234567890123L)
+        return bytes
+    }
+
+    @Register
+    fun encodeUnsignedIntegers(): PackedByteArray {
+        val bytes = PackedByteArray(ByteArray(15))
+        bytes.encodeU8(0, 250)
+        bytes.encodeU16(1, 65000)
+        bytes.encodeU32(3, 2000000000)
+        bytes.encodeU64(7, 1234567890123L)
+        return bytes
+    }
+
+    @Register
+    fun encodeFloatingPointNumbers(): PackedByteArray {
+        val bytes = PackedByteArray(ByteArray(14))
+        bytes.encodeHalf(0, 1.5f)
+        bytes.encodeFloat(2, 3.25f)
+        bytes.encodeDouble(6, 6.125)
+        return bytes
+    }
+
+    @Register
+    fun encodeVariant(value: String): PackedByteArray {
+        val bytes = PackedByteArray(ByteArray(64))
+        bytes.encodeVar(0, value)
+        return bytes
+    }
+
+    @Register
+    fun decodeVariantSize(bytes: PackedByteArray): Int = bytes.decodeVarSize(0)
 }
-
-
-
