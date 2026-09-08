@@ -32,18 +32,5 @@ done
 
 timeout 30s adb logcat -d -v brief || true
 adb shell dumpsys activity activities | tail -n 80 || true
-
-# The run is stuck, most likely on a JVM or engine thread. Dump the test process's Java and
-# native stacks so the hang can be diagnosed from the job log.
-pid="$(adb shell pidof com.utopiarise.godotjvm.tests | tr -d '\r' || true)"
-if [[ -n "$pid" ]]; then
-    echo "Test process $pid is still running, dumping its threads." >&2
-    adb root >/dev/null 2>&1 && adb wait-for-device
-    adb shell rm -f '/data/anr/*' 2>/dev/null || true
-    adb shell kill -3 "$pid" || true
-    sleep 5
-    adb shell 'cat /data/anr/*' 2>/dev/null || true
-    adb shell debuggerd -b "$pid" 2>/dev/null || true
-fi
 echo "Timed out waiting for the exported test result after 3 minutes." >&2
 exit 1
