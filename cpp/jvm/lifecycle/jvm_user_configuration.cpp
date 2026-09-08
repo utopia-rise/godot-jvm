@@ -93,7 +93,7 @@ bool JvmUserConfiguration::parse_configuration_json(const godot::String& json_st
     if (json_dict.has(MAX_STRING_SIZE_JSON_IDENTIFIER)) {
         int32_t size = json_dict[MAX_STRING_SIZE_JSON_IDENTIFIER];
         JVM_DEV_VERBOSE("Value for json argument: %s -> %s", MAX_STRING_SIZE_JSON_IDENTIFIER, size);
-        if (size >= -1) {
+        if (size >= -1 && size <= MAX_STRING_SIZE_LIMIT) {
             json_config.max_string_size = size;
         } else {
             is_invalid = true;
@@ -138,7 +138,6 @@ bool JvmUserConfiguration::parse_configuration_json(const godot::String& json_st
         godot::Array keys = json_dict.keys();
         for (int i = 0; i < keys.size(); i++) {
             godot::String key = keys[i];
-            godot::String value = json_dict[key];
             JVM_LOG_WARNING("Invalid json configuration argument name: %s", key);
         }
         is_invalid = true;
@@ -234,7 +233,7 @@ void JvmUserConfiguration::parse_command_line(const godot::PackedStringArray& ar
                 JVM_LOG_WARNING("Wrong JVM type in command line arguments: %s. It will be ignored", value);
             }
         } else if (identifier == USE_DEBUG_CMD_IDENTIFIER) {
-            configuration_map[USE_DEBUG_CMD_IDENTIFIER] = get_cmd_bool_or_default(value, TRUE_STRING);
+            configuration_map[USE_DEBUG_CMD_IDENTIFIER] = get_cmd_bool_or_default(value, true);
         } else if (identifier == DEBUG_PORT_CMD_IDENTIFIER) {
             int64_t port = -1;
             if (value.is_valid_int()) { port = value.to_int(); }
@@ -250,11 +249,11 @@ void JvmUserConfiguration::parse_command_line(const godot::PackedStringArray& ar
                 JVM_LOG_WARNING("Invalid JVM address value command line arguments: %s. It will be ignored", value);
             }
         } else if (identifier == WAIT_FOR_DEBUGGER_CMD_IDENTIFIER) {
-            configuration_map[WAIT_FOR_DEBUGGER_CMD_IDENTIFIER] = get_cmd_bool_or_default(value, TRUE_STRING);
+            configuration_map[WAIT_FOR_DEBUGGER_CMD_IDENTIFIER] = get_cmd_bool_or_default(value, true);
         } else if (identifier == JMX_PORT_CMD_IDENTIFIER) {
-            int64_t port = -1;
+            int64_t port = -2;
             if (value.is_valid_int()) { port = value.to_int(); }
-            if (port >= 0 && port <= 65535) {
+            if (port >= -1 && port <= 65535) {
                 configuration_map[JMX_PORT_CMD_IDENTIFIER] = port;
             } else {
                 JVM_LOG_WARNING("Invalid JMX port value command line arguments: %s. It will be ignored", port);
@@ -262,13 +261,13 @@ void JvmUserConfiguration::parse_command_line(const godot::PackedStringArray& ar
         } else if (identifier == MAX_STRING_SIZE_CMD_IDENTIFIER) {
             int64_t size = -1;
             if (value.is_valid_int()) { size = value.to_int(); }
-            if (value.is_valid_int() && size >= -1) {
+            if (value.is_valid_int() && size >= -1 && size <= MAX_STRING_SIZE_LIMIT) {
                 configuration_map[MAX_STRING_SIZE_CMD_IDENTIFIER] = size;
             } else {
-                JVM_LOG_WARNING("Invalid Maximum String Size value in configuration file: %s. It will be ignored", size);
+                JVM_LOG_WARNING("Invalid Maximum String Size value in command line arguments: %s. It will be ignored", size);
             }
         } else if (identifier == DISABLE_GC_CMD_IDENTIFIER) {
-            configuration_map[DISABLE_GC_CMD_IDENTIFIER] = get_cmd_bool_or_default(value, TRUE_STRING);
+            configuration_map[DISABLE_GC_CMD_IDENTIFIER] = get_cmd_bool_or_default(value, true);
         } else if (identifier == JVM_PATH_CMD_IDENTIFIER) {
             godot::String path = value.strip_edges().trim_prefix("\"").trim_suffix("\"");
             if (!path.is_empty()) {

@@ -26,6 +26,10 @@ const JvmUserConfiguration& GodotJvm::get_configuration() {
     return user_configuration;
 }
 
+const JvmUserConfiguration& GodotJvm::get_file_configuration() {
+    return file_configuration;
+}
+
 #ifdef DYNAMIC_JVM
 bool GodotJvm::load_dynamic_lib() {
     String path_to_jvm_lib;
@@ -231,6 +235,8 @@ void GodotJvm::fetch_user_configuration() {
         file_access->store_string(json);
     }
 #endif
+
+    file_configuration = user_configuration;
 
     HashMap<String, Variant> cmd_argument_map;
     JVM_LOG_VERBOSE("Parsing commandline arguments...");

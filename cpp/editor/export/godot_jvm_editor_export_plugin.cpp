@@ -275,10 +275,10 @@ void GodotJvmEditorExportPlugin::_export_begin(const PackedStringArray& p_featur
             JVM_LOG_INFO("Exporting %s", native_image);
         }
 
-        // With both runtimes bundled, the editor's own runtime mode picks which one starts; a launch
-        // argument can still override it.
+        // With both runtimes bundled, the project's configuration file picks which one starts; a launch
+        // argument of the exported game can still override it.
         if (runtime == RUNTIME_BOTH) {
-            _generate_export_configuration_file(GodotJvm::get_instance().get_configuration().vm_type);
+            _generate_export_configuration_file(GodotJvm::get_instance().get_file_configuration().vm_type);
         } else if (runtime == RUNTIME_JVM) {
             _generate_export_configuration_file(jni::JvmType::JVM);
         } else if (runtime == RUNTIME_GRAAL) {
@@ -315,7 +315,9 @@ void GodotJvmEditorExportPlugin::_export_begin(const PackedStringArray& p_featur
 }
 
 void GodotJvmEditorExportPlugin::_generate_export_configuration_file(jni::JvmType vm_type) {
-    JvmUserConfiguration configuration = GodotJvm::get_instance().get_configuration(); // Copy
+    // Start from the configuration file as it is on disk, not the live one, so the editor's own command line
+    // arguments never leak into the exported configuration.
+    JvmUserConfiguration configuration = GodotJvm::get_instance().get_file_configuration(); // Copy
     configuration.vm_type = vm_type; // We only need to change the vm type
 
     add_file(JVM_CONFIGURATION_PATH, JvmUserConfiguration::export_configuration_to_json(configuration).to_utf8_buffer(), false);

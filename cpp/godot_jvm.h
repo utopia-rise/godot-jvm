@@ -35,12 +35,14 @@ namespace godot {
         State state = State::NOT_STARTED;
 
         JvmUserConfiguration user_configuration;
+        JvmUserConfiguration file_configuration;
         JvmOptions jvm_options;
 
         ClassLoader* bootstrap_class_loader = nullptr;
         Bootstrap* bootstrap = nullptr;
         godot::Ref<JavaArchive> jar; // We keep a Reference to the jar in memory because the Godot editor require a resource to be in cache to reload.
-        raw_godot::RawObject callable_middleman; // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved
+        // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved
+        raw_godot::RawObject callable_middleman;
 
         void fetch_user_configuration();
         void set_jvm_options();
@@ -81,9 +83,10 @@ namespace godot {
 
         static GodotJvm& get_instance();
         const JvmUserConfiguration& get_configuration();
+        const JvmUserConfiguration& get_file_configuration();
 
         void initialize_up_to(State target_state);
-        void finalize_down_to(State target_state);;
+        void finalize_down_to(State target_state);
         void validate_state();
 
 #ifdef TOOLS_ENABLED

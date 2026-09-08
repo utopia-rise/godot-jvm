@@ -27,6 +27,7 @@ static constexpr const char* DEBUG_ADDRESS_CMD_IDENTIFIER = "--jvm-debug-address
 static constexpr const char* WAIT_FOR_DEBUGGER_CMD_IDENTIFIER = "--jvm-wait-for-debugger";
 static constexpr const char* JMX_PORT_CMD_IDENTIFIER = "--jvm-jmx-port";
 static constexpr const char* MAX_STRING_SIZE_CMD_IDENTIFIER = "--jvm-max-string-size";
+static constexpr int32_t MAX_STRING_SIZE_LIMIT = 65535;
 static constexpr const char* DISABLE_GC_CMD_IDENTIFIER = "--jvm-disable-gc";
 static constexpr const char* JVM_ARGUMENTS_CMD_IDENTIFIER = "--jvm-custom-args";
 static constexpr const char* JVM_PATH_CMD_IDENTIFIER = "--jvm-path";
@@ -51,6 +52,7 @@ struct JvmUserConfiguration {
     int32_t jvm_jmx_port = -1;
 
     // -1 means "auto" and leaves LongStringQueue::max_string_size unchanged.
+    // Bounded by MAX_STRING_SIZE_LIMIT because LongStringQueue stores it as uint16_t.
     int32_t max_string_size = -1;
 
     bool disable_gc = false;

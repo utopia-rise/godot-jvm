@@ -1,64 +1,101 @@
+# Godot-JVM C++ style.
+#
+# Goal: a hard 120-column limit with Kotlin-like wrapping. When a call, declaration or initializer list does not
+# fit, it is chopped down: one argument per line, indented one level, closing bracket on its own line.
 ---
+Language: Cpp
+Standard: c++20
 BasedOnStyle: LLVM
+ColumnLimit: 120
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 4
+ConstructorInitializerIndentWidth: 4
 AccessModifierOffset: -4
+IndentAccessModifiers: false
+IndentCaseLabels: true
+IndentPPDirectives: None
+IndentWrappedFunctionNames: false
+LambdaBodyIndentation: Signature
+NamespaceIndentation: All
+
+# Line breaking
 AlignAfterOpenBracket: BlockIndent
 AlignEscapedNewlines: Left
 AlignOperands: AlignAfterOperator
 AlignTrailingComments: false
-
-#Allow
 AllowAllArgumentsOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: Always
-AllowShortFunctionsOnASingleLine: Inline
-AllowShortIfStatementsOnASingleLine: Always
-AllowShortLambdasOnASingleLine: All
+AllowShortCaseLabelsOnASingleLine: false
 AllowShortEnumsOnASingleLine: false
-
-AlwaysBreakAfterDefinitionReturnType: None
-AlwaysBreakAfterReturnType: None
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLambdasOnASingleLine: All
+AllowShortLoopsOnASingleLine: false
 AlwaysBreakBeforeMultilineStrings: false
-AlwaysBreakTemplateDeclarations: Yes
-
 BinPackArguments: false
-BinPackParameters: false
+BinPackParameters: OnePerLine
+BreakAfterReturnType: Automatic
+BreakBeforeBinaryOperators: NonAssignment
+BreakBinaryOperations: OnePerLine
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: AfterColon
+BreakInheritanceList: AfterComma
+BreakStringLiterals: true
+BreakTemplateDeclarations: Yes
+PackConstructorInitializers: CurrentLine
+ReflowComments: Always
 
-#Brace`
+# Penalties. The column limit is hard (PenaltyExcessCharacter keeps its huge default). Chopping a call's
+# arguments is the cheapest break; splitting an assignment or a return type from its declaration is costly.
+PenaltyBreakAssignment: 100
+PenaltyBreakBeforeFirstCallParameter: 0
+PenaltyBreakOpenParenthesis: 0
+PenaltyBreakComment: 300
+PenaltyBreakFirstLessLess: 120
+PenaltyBreakString: 1000
+PenaltyBreakTemplateDeclaration: 10
+PenaltyIndentedWhitespace: 0
+PenaltyReturnTypeOnItsOwnLine: 1000
+
+# Braces
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterCaseLabel: false
   AfterClass: false
   AfterControlStatement: Never
   AfterEnum: false
+  AfterExternBlock: false
   AfterFunction: false
   AfterNamespace: false
   AfterStruct: false
   AfterUnion: false
-  AfterExternBlock: false
   BeforeCatch: false
   BeforeElse: false
+  BeforeLambdaBody: false
   BeforeWhile: false
   IndentBraces: false
   SplitEmptyFunction: false
-  SplitEmptyRecord: false
   SplitEmptyNamespace: false
-
-BreakBeforeBinaryOperators: NonAssignment
-BreakBeforeTernaryOperators: true
-BreakConstructorInitializers: AfterColon
-BreakInheritanceList: AfterComma
-BreakStringLiterals: true
-ColumnLimit: 120
-CompactNamespaces: false
-ConstructorInitializerIndentWidth: 2
-ContinuationIndentWidth: 2
+  SplitEmptyRecord: false
 Cpp11BracedListStyle: true
-DerivePointerAlignment: false
-DisableFormat: false
+
+# Blank lines and blocks
+CompactNamespaces: false
 EmptyLineAfterAccessModifier: Never
 EmptyLineBeforeAccessModifier: Always
-ExperimentalAutoDetectBinPacking: false
 FixNamespaceComments: true
+InsertNewlineAtEOF: true
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+SeparateDefinitionBlocks: Always
+ShortNamespaceLines: 0
+
+# Includes: project headers first, then system C headers, then everything else
 IncludeBlocks: Regroup
 IncludeCategories:
   - Regex: '".*"'
@@ -67,37 +104,13 @@ IncludeCategories:
     Priority: 2
   - Regex: '^<.*'
     Priority: 3
-IndentAccessModifiers: false
-IndentCaseLabels: true
-IndentPPDirectives: None
-IndentWidth: 4
-IndentWrappedFunctionNames: false
-KeepEmptyLinesAtTheStartOfBlocks: false
-MaxEmptyLinesToKeep: 1
-NamespaceIndentation: All
-PackConstructorInitializers: CurrentLine
-
-#Penalty
-PenaltyBreakAssignment: 40
-PenaltyBreakBeforeFirstCallParameter: 0
-PenaltyBreakComment: 100
-PenaltyBreakFirstLessLess: 0
-PenaltyBreakOpenParenthesis: 0
-PenaltyBreakString: 100
-PenaltyBreakTemplateDeclaration: 0
-PenaltyExcessCharacter: 1
-PenaltyIndentedWhitespace: 0
-PenaltyReturnTypeOnItsOwnLine: 10000
-
-PointerAlignment: Left
-ReferenceAlignment: Left
-ReflowComments: true
-SeparateDefinitionBlocks: Always
-ShortNamespaceLines: 0
 SortIncludes: CaseInsensitive
 SortUsingDeclarations: false
 
-#Space
+# Pointers and spaces
+DerivePointerAlignment: false
+PointerAlignment: Left
+ReferenceAlignment: Left
 SpaceAfterCStyleCast: true
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: false
@@ -107,21 +120,12 @@ SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
 SpaceBeforeParens: ControlStatements
 SpaceBeforeRangeBasedForLoopColon: true
-SpaceInEmptyParentheses: false
 SpacesBeforeTrailingComments: 1
-SpacesInAngles: false
-SpacesInCStyleCastParentheses: false
+SpacesInAngles: Never
 SpacesInContainerLiterals: false
 SpacesInLineCommentPrefix:
   Minimum: 1
   Maximum: 1
-SpacesInParentheses: false
+SpacesInParens: Never
 SpacesInSquareBrackets: false
-
-#Tab
-TabWidth: 4
-UseTab: Never
----
-Language: Cpp
-Standard: c++17
 ...

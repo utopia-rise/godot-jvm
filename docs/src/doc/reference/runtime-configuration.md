@@ -82,7 +82,7 @@ Example: `--jvm-jmx-port=5006` or `"jmx_port": 5006`
 
 JSON key: `max_string_size`. Default: -1 (auto, 512 bytes).
 
-Maximum inline string size in bytes; larger strings use JNI directly, and `-1` restores the 512-byte default. Increasing this value increases each thread's buffer size.
+Maximum inline string size in bytes, up to 65535; larger strings use JNI directly, and `-1` restores the 512-byte default. Increasing this value increases each thread's buffer size.
 
 Example: `--jvm-max-string-size=1024` or `"max_string_size": 1024`
 
@@ -96,7 +96,7 @@ Example: `--jvm-disable-gc` or `"disable_gc": true`
 
 ## `--jvm-path` { #jvm-path }
 
-Path to a JVM home directory or its dynamic library. Overrides the embedded JRE, `JAVA_HOME`, and `PATH`; startup fails if the explicit path is unusable. Tooling such as the IntelliJ run configuration uses it to choose a JVM for one run, so there is deliberately no JSON setting.
+Path, absolute or relative to the working directory, to a JVM home directory or its dynamic library. Overrides the embedded JRE, `JAVA_HOME`, and `PATH`; startup fails if the explicit path is unusable. Tooling such as the IntelliJ run configuration uses it to choose a JVM for one run, so there is deliberately no JSON setting.
 
 Examples: `--jvm-path=/usr/lib/jvm/temurin-17` or `--jvm-path="C:/Program Files/Java/jdk-17/bin/server/jvm.dll"`.
 
@@ -113,7 +113,7 @@ Example: `--jvm-custom-args="-Xmx4g -Xms4g"` (quoted, space-separated), `--jvm-c
 
 ## The configuration file
 
-`godot_jvm_configuration.json` lives at the root of the project, at `res://godot_jvm_configuration.json`. A minimal file only needs the keys you want to override; a complete one looks like this:
+`godot_jvm_configuration.json` lives at the root of the project, at `res://godot_jvm_configuration.json`. The `version` key is mandatory; every other key is optional and falls back to its default when absent. The editor rewrites the file when `version` is missing or outdated, when a key is unknown, or when a value is invalid, keeping the valid values and dropping the rest. A complete file looks like this:
 
 ```json
 {
@@ -132,6 +132,10 @@ Example: `--jvm-custom-args="-Xmx4g -Xms4g"` (quoted, space-separated), `--jvm-c
 
 ## Exported runtime files
 
+A JVM export packs these files under `res://jvm/`:
 
+- `godot-bootstrap.jar` and `main.jar` (`godot-bootstrap-dex.jar` and `main-dex.jar` on Android)
+- `usercode.so`, `usercode.dll`, or `usercode.dylib` for native-image exports
+- `external/` with the intact JARs declared through `godotSingle`
 
-On launch, Godot-JVM copies them from `res://` to `user://` when they are missing or their MD5 hashes differ; on Android it recopies them on every launch. Include these extracted files in your uninstaller's cleanup.
+The embedded JRE is not packed; the export places it next to the executable (inside `PlugIns/` in a macOS bundle). On launch, Godot-JVM copies the files above from `res://` to `user://` when they are missing or their MD5 hashes differ; on Android it recopies them on every launch. Include these extracted files in your uninstaller's cleanup.
