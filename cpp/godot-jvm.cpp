@@ -326,10 +326,11 @@ void GodotJvm::copy_external_jars_to_user_dir() {
     for (String entry = source->get_next(); !entry.is_empty(); entry = source->get_next()) {
         if (source->current_is_dir() || entry.get_extension() != "jar") { continue; }
 
+        // main.jar's manifest lists these jars relative to its own location, so they must sit next to it in user://.
         String source_file = source_directory.path_join(entry);
-        String destination_file = String(EXTERNAL_JARS_DIRECTORY).path_join(entry);
-        if (!FileAccess::file_exists(String(USER_DIRECTORY) + destination_file)
-            || FileAccess::get_md5(String(USER_DIRECTORY) + destination_file) != FileAccess::get_md5(source_file)) {
+        String destination_file = String(USER_DIRECTORY) + EXTERNAL_JARS_DIRECTORY + entry;
+        if (!FileAccess::file_exists(destination_file)
+            || FileAccess::get_md5(destination_file) != FileAccess::get_md5(source_file)) {
             destination->copy(source_file, destination_file);
         }
     }

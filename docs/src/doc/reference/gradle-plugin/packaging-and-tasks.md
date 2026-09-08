@@ -89,7 +89,9 @@ dependencies {
 - `godotMain` merges the dependency into `main.jar`. Use it when the library must load user-code
   classes or be recreated with editor reloads.
 - `godotSingle` preserves the dependency as a separate JAR in `res://jvm/external/`. Use it for
-  signed JARs or libraries that cannot be merged safely.
+  signed JARs or libraries that cannot be merged safely. Only desktop JVM runs keep the JAR intact:
+  native images compile it into `usercode` and Android dexes it into `main-dex.jar`, because
+  neither runtime can load a JAR.
 
 Both configurations are available while compiling and testing, but neither is merged into
 `godot-bootstrap.jar`.

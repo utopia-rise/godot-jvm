@@ -53,4 +53,4 @@ Native-image mode uses `usercode` in place of both JARs. Select it through runti
 
 The JVM requires filesystem paths for loading JARs and cannot load them directly from the PCK. At startup the binding extracts `godot-bootstrap.jar` and `main.jar` to `user://`, comparing MD5 hashes to avoid unnecessary copies on desktop. Android recopies its runtime artifacts on each launch. Desktop native images are likewise extracted as shared libraries before loading.
 
-Separate JARs from `godotSingle` are also copied from `res://jvm/external/` to `user://jvm/external/` for runtime loading.
+Separate JARs from `godotSingle` are also copied from `res://jvm/external/` to `user://jvm/external/`, where the class path in the manifest of `main.jar` expects them. Native images and Android builds do not ship them: the native image compiles them in and `main-dex.jar` dexes them.
