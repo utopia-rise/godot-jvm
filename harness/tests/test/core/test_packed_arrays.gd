@@ -168,3 +168,50 @@ func test_large_packed_string_array_conversion() -> void:
     assert_that(packed[3]).override_failure_message("Large PackedStringArray payloads should preserve the last string").is_equal("This is the fourth long packed string payload")
 
     script.free()
+
+
+func test_packed_byte_array_encode_signed_integers() -> void:
+    var script := PackedArrayTest.new()
+    var bytes: PackedByteArray = script.encode_signed_integers()
+
+    assert_that(bytes.decode_s8(0)).is_equal(-7)
+    assert_that(bytes.decode_s16(1)).is_equal(-1234)
+    assert_that(bytes.decode_s32(3)).is_equal(-123456)
+    assert_that(bytes.decode_s64(7)).is_equal(-1234567890123)
+
+    script.free()
+
+
+func test_packed_byte_array_encode_unsigned_integers() -> void:
+    var script := PackedArrayTest.new()
+    var bytes: PackedByteArray = script.encode_unsigned_integers()
+
+    assert_that(bytes.decode_u8(0)).is_equal(250)
+    assert_that(bytes.decode_u16(1)).is_equal(65000)
+    assert_that(bytes.decode_u32(3)).is_equal(2000000000)
+    assert_that(bytes.decode_u64(7)).is_equal(1234567890123)
+
+    script.free()
+
+
+func test_packed_byte_array_encode_floating_point_numbers() -> void:
+    var script := PackedArrayTest.new()
+    var bytes: PackedByteArray = script.encode_floating_point_numbers()
+
+    assert_that(bytes.decode_half(0)).is_equal(1.5)
+    assert_that(bytes.decode_float(2)).is_equal(3.25)
+    assert_that(bytes.decode_double(6)).is_equal(6.125)
+
+    script.free()
+
+
+func test_packed_byte_array_encode_and_size_variant() -> void:
+    var script := PackedArrayTest.new()
+    var expected := var_to_bytes("wrench")
+    var bytes: PackedByteArray = script.encode_variant("wrench")
+
+    assert_that(bytes.decode_var(0)).is_equal("wrench")
+    assert_that(bytes.slice(0, expected.size())).override_failure_message("encode_var must write the same bytes as var_to_bytes").is_equal(expected)
+    assert_that(script.decode_variant_size(expected)).override_failure_message("decode_var_size must return the encoded size, not the value").is_equal(expected.size())
+
+    script.free()

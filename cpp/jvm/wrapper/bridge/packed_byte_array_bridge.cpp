@@ -192,6 +192,7 @@ void PackedByteArrayBridge::engine_call_encode_double(JNIEnv* p_raw_env, jobject
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
     instance.call(SNAME("encode_double"), args[0], args[1]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_encode_float(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -200,6 +201,7 @@ void PackedByteArrayBridge::engine_call_encode_float(JNIEnv* p_raw_env, jobject,
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
     instance.call(SNAME("encode_float"), args[0], args[1]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_encode_half(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -208,6 +210,7 @@ void PackedByteArrayBridge::engine_call_encode_half(JNIEnv* p_raw_env, jobject, 
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
     instance.call(SNAME("encode_half"), args[0], args[1]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_encode_s16(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -216,6 +219,7 @@ void PackedByteArrayBridge::engine_call_encode_s16(JNIEnv* p_raw_env, jobject, j
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
     instance.call(SNAME("encode_s16"), args[0], args[1]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_encode_s32(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -224,6 +228,7 @@ void PackedByteArrayBridge::engine_call_encode_s32(JNIEnv* p_raw_env, jobject, j
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
     instance.call(SNAME("encode_s32"), args[0], args[1]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_encode_s64(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -232,6 +237,7 @@ void PackedByteArrayBridge::engine_call_encode_s64(JNIEnv* p_raw_env, jobject, j
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
     instance.call(SNAME("encode_s64"), args[0], args[1]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_encode_s8(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -240,6 +246,7 @@ void PackedByteArrayBridge::engine_call_encode_s8(JNIEnv* p_raw_env, jobject, jl
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
     instance.call(SNAME("encode_s8"), args[0], args[1]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_encode_u16(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -248,6 +255,7 @@ void PackedByteArrayBridge::engine_call_encode_u16(JNIEnv* p_raw_env, jobject, j
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
     instance.call(SNAME("encode_u16"), args[0], args[1]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_encode_u32(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -256,6 +264,7 @@ void PackedByteArrayBridge::engine_call_encode_u32(JNIEnv* p_raw_env, jobject, j
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
     instance.call(SNAME("encode_u32"), args[0], args[1]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_encode_u64(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -264,6 +273,7 @@ void PackedByteArrayBridge::engine_call_encode_u64(JNIEnv* p_raw_env, jobject, j
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
     instance.call(SNAME("encode_u64"), args[0], args[1]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_encode_u8(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -272,6 +282,7 @@ void PackedByteArrayBridge::engine_call_encode_u8(JNIEnv* p_raw_env, jobject, jl
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
     instance.call(SNAME("encode_u8"), args[0], args[1]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_encode_var(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -279,7 +290,8 @@ void PackedByteArrayBridge::engine_call_encode_var(JNIEnv* p_raw_env, jobject, j
     godot::Variant args[3] = {};
     TransferContext::get_instance().read_args(env, args);
     godot::Variant instance = *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr);
-    instance.call(SNAME("encode_u8"), args[0], args[1], args[2]);
+    instance.call(SNAME("encode_var"), args[0], args[1], args[2]);
+    *from_uint_to_ptr<godot::PackedByteArray>(p_raw_ptr) = instance;
 }
 
 void PackedByteArrayBridge::engine_call_get_string_from_ascii(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {

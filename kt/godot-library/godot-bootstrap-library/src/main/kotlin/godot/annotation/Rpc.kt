@@ -19,7 +19,6 @@ annotation class Rpc(
     val transferChannel: Int = 0
 )
 
-val test = RpcMode.DISABLED.ordinal
 // the reason for not using the generated enums for RPCMode or TransferMode directly is the naming is inconsistent with the one, users are used to from GDScript and thus the documentation
 /**
  * Defines the targets for rpc calls

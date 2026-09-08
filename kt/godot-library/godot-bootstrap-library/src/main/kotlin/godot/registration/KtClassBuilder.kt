@@ -1,5 +1,7 @@
 package godot.registration
 
+import godot.annotation.RpcMode
+import godot.annotation.TransferMode
 import godot.common.extensions.convertToSnakeCase
 import godot.common.interop.VariantConverter
 import godot.core.*
@@ -42,11 +44,24 @@ class KtClassBuilder<T : KtObject>(
     ): KtPropertyInfo = KtPropertyInfo(type, className)
 
     fun rpc(
-        rpcMode: Enum<*>,
+        rpcMode: RpcMode,
         callLocal: Boolean,
-        transferMode: Enum<*>,
+        transferMode: TransferMode,
         channel: Int,
-    ): KtRpcConfig = KtRpcConfig(rpcMode.ordinal, callLocal, transferMode.ordinal, channel)
+    ): KtRpcConfig = KtRpcConfig(rpcMode.toEngineValue(), callLocal, transferMode.toEngineValue(), channel)
+
+    // The annotation enums are ordered like the GDScript documentation, not like the engine enums they map to.
+    private fun RpcMode.toEngineValue(): Int = when (this) {
+        RpcMode.DISABLED -> 0
+        RpcMode.ANY -> 1
+        RpcMode.AUTHORITY -> 2
+    }
+
+    private fun TransferMode.toEngineValue(): Int = when (this) {
+        TransferMode.UNRELIABLE -> 0
+        TransferMode.UNRELIABLE_ORDERED -> 1
+        TransferMode.RELIABLE -> 2
+    }
 
     fun <P : Any?> property(
         kProperty: KProperty1<T, P>,

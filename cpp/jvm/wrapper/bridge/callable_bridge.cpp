@@ -219,7 +219,9 @@ void CallableBridge::engine_call_rpc(JNIEnv* p_raw_env, jobject p_instance, jlon
         args_ptr[i] = &args[i];
     }
     godot::Variant instance = *from_uint_to_ptr<godot::Callable>(p_raw_ptr);
-    instance.call(SNAME("rpc"), args_ptr);
+    godot::Variant result;
+    GDExtensionCallError error;
+    instance.callp(SNAME("rpc"), args_ptr, static_cast<int>(args_size), result, error);
 }
 
 void CallableBridge::engine_call_rpc_id(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
@@ -234,7 +236,9 @@ void CallableBridge::engine_call_rpc_id(JNIEnv* p_raw_env, jobject p_instance, j
     }
 
     godot::Variant instance = *from_uint_to_ptr<godot::Callable>(p_raw_ptr);
-    instance.call(SNAME("rpc_id"), args_ptr);
+    godot::Variant result;
+    GDExtensionCallError error;
+    instance.callp(SNAME("rpc_id"), args_ptr, static_cast<int>(args_size), result, error);
 }
 
 void CallableBridge::engine_call_unbind(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
