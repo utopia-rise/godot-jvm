@@ -12,7 +12,7 @@ godot {
 }
 ```
 
-`Node.launch` starts on Godot's main thread and cancels its child coroutines when the node exits the scene tree. Start it in `_ready()` or later, while the node is inside the tree.
+`Node.launch` starts on Godot's main thread and cancels its child coroutines when the node exits the scene tree. Start it in `_ready()` or later, while the node is inside the tree. The body runs immediately, until it first suspends, so a coroutine that never suspends finishes before `launch` returns; see the reference's "Threads" section before emitting signals that other scripts await.
 
 /// tab | Kotlin
 

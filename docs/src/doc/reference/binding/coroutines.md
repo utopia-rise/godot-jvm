@@ -106,7 +106,28 @@ val player = bodyEntered.asFlow<Node3D>()
 
 ## Threads
 
-`GodotDispatchers.MainThread` runs immediately on the main thread, otherwise through a deferred callable. `GodotDispatchers.ThreadPool` uses Godot's worker thread pool. `threadSafe` and `offload` are suspend functions that return their block's result.
+`GodotDispatchers.MainThread` runs immediately on the main thread, otherwise through a deferred callable. `GodotDispatchers.MainThreadDeferred` always goes through the deferred callable, even from the main thread. `GodotDispatchers.ThreadPool` uses Godot's worker thread pool. `threadSafe` and `offload` are suspend functions that return their block's result.
+
+`MainThread` is the default of `Node.launch`, `Node.async`, and `godotCoroutine()`. It is immediate so that coroutine latency stays below the frame rate: a body launched from the main thread runs inline until its first real suspension. A `suspend` function does not have to suspend. `awaitLoad` on a cached resource, `Signal.await()` on a signal that fires during `connect`, or `withContext` whose block finishes before the caller checks its result all return without suspending. A coroutine that never suspends therefore completes inside the call that launched it, and any signal it emits fires before that call returns.
+
+This matters when another script awaits those signals. The GDScript below hangs if `start_work()` completes without suspending, because `work_finished` was emitted before the `await` existed:
+
+```gdscript
+kotlin_node.start_work()
+var result = await kotlin_node.work_finished
+```
+
+Either suspend at least once before emitting, for example with `awaitNextProcess()`, or launch the coroutine with `GodotDispatchers.MainThreadDeferred`, which starts the body at the next message queue flush and defers every resumption the same way:
+
+```kotlin
+@Register
+fun startWork() {
+    launch(GodotDispatchers.MainThreadDeferred) {
+        val result = doWork()
+        workFinished.emit(result)
+    }
+}
+```
 
 
 `Node.launch` and `godotCoroutine()` begin on Godot's main thread. A signal or frame wait also resumes there, so regular scene-tree work can remain direct and readable.
@@ -226,4 +247,4 @@ The encounter's two coroutines are both owned by the `Encounter` node. If the en
 
 ## Resource loading
 
-`ResourceLoader.awaitLoad(path, typeHint = "", cacheMode = REUSE)` returns `Resource?`. Both cached and uncached loads run on the worker thread pool. `awaitLoadAs<R>` supplies a typed result; a load failure returns null.
+`ResourceLoader.awaitLoad(path, typeHint = "", cacheMode = REUSE)` returns `Resource?`. An uncached load runs on the worker thread pool; a resource already in the cache is returned immediately, without suspending. `awaitLoadAs<R>` supplies a typed result; a load failure returns null.

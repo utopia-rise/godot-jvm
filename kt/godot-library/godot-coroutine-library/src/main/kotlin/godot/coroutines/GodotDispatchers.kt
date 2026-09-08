@@ -14,10 +14,49 @@ private const val TASKS_INITIAL_CAPACITY = 16
 private val taskLock = ReentrantLock()
 private val finishedTaskIds = ArrayDeque<Long>(TASKS_INITIAL_CAPACITY)
 
+/**
+ * Dispatchers that run coroutines on Godot's threads.
+ *
+ * [MainThread] is the default of every Godot-JVM scope and is *immediate*: when the current thread already is
+ * Godot's main thread, a launched body or a resumption runs right away, inline, without waiting for the next
+ * frame. This keeps coroutine latency below the frame rate, but it also means a coroutine that never suspends
+ * completes inside the call that launched it. Signals it emits therefore fire before that call returns, so a
+ * GDScript caller that does `start_work()` followed by `await work_finished` misses the emission and waits
+ * forever. When a coroutine hands results back through signals, either suspend at least once before emitting
+ * (for example with `awaitNextProcess()`) or launch it with [MainThreadDeferred].
+ */
 object GodotDispatchers {
 
+    /**
+     * Runs on Godot's main thread, immediately when already there. Equivalent to `Dispatchers.Main.immediate`.
+     *
+     * Because a launched body starts inline, a coroutine that completes without suspending, for example one whose
+     * awaited resource is already cached, finishes inside the call that launched it. See [GodotDispatchers] for
+     * the consequence on signals awaited by the caller.
+     */
     val MainThread: CoroutineDispatcher = GodotMainThreadCoroutineDispatcher
+
+    /**
+     * Runs on Godot's main thread, always through Godot's deferred call queue. Equivalent to `Dispatchers.Main`.
+     *
+     * A launched body starts at the next message queue flush, after the call that launched it has returned, and
+     * every resumption is deferred the same way. Use it when the caller must observe the coroutine's effects,
+     * typically a GDScript caller awaiting a signal the coroutine emits. The price is one deferred hop per resume,
+     * so prefer [MainThread] for frame-rate sensitive work.
+     */
+    val MainThreadDeferred: CoroutineDispatcher = GodotMainThreadDeferredCoroutineDispatcher
+
+    /**
+     * Runs on Godot's [WorkerThreadPool]. Blocks are posted as low-priority tasks, so on small pools only one of
+     * them runs at a time. Do not touch nodes or the scene tree from it; switch back with [threadSafe].
+     */
     val ThreadPool: CoroutineDispatcher = GodotThreadPoolCoroutineDispatcher
+
+    private object GodotMainThreadDeferredCoroutineDispatcher : CoroutineDispatcher() {
+        override fun dispatch(context: CoroutineContext, block: Runnable) {
+            GodotMainThreadCoroutineDispatcher.dispatch(context, block)
+        }
+    }
 
     private object GodotMainThreadCoroutineDispatcher : CoroutineDispatcher() {
         @Volatile

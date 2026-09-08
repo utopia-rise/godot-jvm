@@ -14,6 +14,14 @@ import java.util.IdentityHashMap
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
+/**
+ * The coroutine scope owned by a [Node]. It is cancelled when the node exits the scene tree.
+ *
+ * Its dispatcher is [GodotDispatchers.MainThread], which is immediate: a body launched from the main thread runs
+ * inline until its first real suspension, and a body that never suspends completes before [Node.launch] returns.
+ * Signals emitted by such a body fire before the caller can await them. Suspend once before emitting, or pass
+ * [GodotDispatchers.MainThreadDeferred] as the launch context, when the caller relies on those signals.
+ */
 class NodeScope internal constructor(
     internal val node: Node,
 ) : CoroutineScope {
@@ -48,6 +56,13 @@ fun Node.nodeScope(): NodeScope {
     }
 }
 
+/**
+ * Launches [block] in this node's [NodeScope]. Valid only while the node is inside the scene tree.
+ *
+ * The block starts immediately on the main thread and runs until it first suspends; see [NodeScope] for what that
+ * implies when the block emits signals the caller awaits. Pass [GodotDispatchers.MainThreadDeferred] as [context]
+ * to start it at the next frame's message queue flush instead.
+ */
 fun Node.launch(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
@@ -57,6 +72,10 @@ fun Node.launch(
     return scope.coroutineLaunch(context, start) { scope.block() }
 }
 
+/**
+ * Starts [block] in this node's [NodeScope] and returns its result as a [Deferred]. Same start semantics as
+ * [Node.launch].
+ */
 fun <T> Node.async(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
