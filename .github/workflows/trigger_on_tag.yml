@@ -2,9 +2,11 @@ name: Deploy release
 on:
   push:
     tags:
-      - '1.0.0'
-      - '1.0.0-dev*'
-      - '1.0.0-rc*'
+      # Any x.y.z release, or a dev / release-candidate pre-release of one. The minor maintenance branch
+      # (x.y) is derived from the tag below, so 1.0.1 moves 1.0 and 1.1.0 creates 1.1.
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-dev*'
+      - '[0-9]+.[0-9]+.[0-9]+-rc*'
 
 concurrency:
   group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-trigger_on_tag
