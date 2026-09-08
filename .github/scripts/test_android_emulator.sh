@@ -35,7 +35,7 @@ adb shell dumpsys activity activities | tail -n 80 || true
 
 # The run is stuck, most likely on a JVM or engine thread. Dump the test process's Java and
 # native stacks so the hang can be diagnosed from the job log.
-pid="$(adb shell pidof com.utopiarise.godotjvm.tests | tr -d '' || true)"
+pid="$(adb shell pidof com.utopiarise.godotjvm.tests | tr -d '\r' || true)"
 if [[ -n "$pid" ]]; then
     echo "Test process $pid is still running, dumping its threads." >&2
     adb root >/dev/null 2>&1 && adb wait-for-device
