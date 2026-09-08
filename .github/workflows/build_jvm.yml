@@ -57,7 +57,10 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: jvm_api-generator
-          path: kt/api-generator/build/libs/api-generator.jar
+          path: |
+            kt/api-generator/build/libs/api-generator-*.jar
+            !kt/api-generator/build/libs/api-generator-*-sources.jar
+            !kt/api-generator/build/libs/api-generator-*-javadoc.jar
 
   build-ide-plugin:
     runs-on: ubuntu-latest
