@@ -10,7 +10,7 @@ An embedded JRE needs the `jdk.jdwp.agent` module; a full system JDK includes it
 
 ## In Godot
 
-Open Godot's [run-instance settings](https://docs.godotengine.org/en/stable/tutorials/scripting/debug/overview_of_debugging_tools.html) with **Debug > Customize Run Instances** and add `--jvm-debug-port=5005` to **Main Run Args**.
+Open Godot's [run-instance settings](https://docs.godotengine.org/en/stable/tutorials/scripting/debug/overview_of_debugging_tools.html) with **Debug > Customize Run Instances** and add `--jvm-use-debug --jvm-debug-port=5005` to **Main Run Args**.
 
 ![Customize Run Instances menu](../assets/img/remote_debug_configuration_godot_menu.png)
 

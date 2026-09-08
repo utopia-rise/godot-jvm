@@ -277,7 +277,7 @@ tasks {
                 executable = provideEditorExecutable().absolutePath,
                 useProjectPathOverride = true,
                 scriptArgs = listOf(
-                    "--jvm-vm-type=graal_native_image",
+                    "--jvm-use-native-image",
                     "-s",
                     "res://addons/gdUnit4/bin/GdUnitCmdTool.gd",
                     "-a",

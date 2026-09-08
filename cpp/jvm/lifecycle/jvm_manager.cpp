@@ -63,10 +63,11 @@ bool JvmManager::initialize_or_get_jvm(
 #if defined DYNAMIC_JVM || defined STATIC_JVM
     uint32_t nOptions = jvm_options.options.size();
     auto* options = new JavaVMOption[nOptions];
-    JavaVMInitArgs args;
+    JavaVMInitArgs args = {};
     args.version = jvm_options.version;
     args.nOptions = static_cast<jint>(nOptions);
     args.options = options;
+    args.ignoreUnrecognized = JNI_FALSE;
 
     for (auto i = 0; i < static_cast<int>(nOptions); i++) {
         args.options[i].optionString = jvm_options.options[i].ptrw();

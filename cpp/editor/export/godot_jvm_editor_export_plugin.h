@@ -1,8 +1,6 @@
 #ifndef GODOT_JVM_EDITOR_EXPORT_PLUGIN_H
 #define GODOT_JVM_EDITOR_EXPORT_PLUGIN_H
 
-#include "jvm/jni/jvm.h"
-
 #include <classes/dir_access.hpp>
 #include <classes/editor_export_platform.hpp>
 #include <classes/editor_export_plugin.hpp>
@@ -21,13 +19,17 @@ namespace godot {
             const Ref<EditorExportPlatform>& p_platform,
             bool p_debug
         ) const override;
-        // The "Runtime" preset option; its warning is what the export dialog shows when a bundled runtime is missing.
+        // Platform-specific packaging and configuration overrides for each preset.
         TypedArray<Dictionary> _get_export_options(const Ref<EditorExportPlatform>& p_platform) const override;
         String _get_export_option_warning(
             const Ref<EditorExportPlatform>& p_platform,
             const String& p_option
         ) const override;
         bool _should_update_export_options(const Ref<EditorExportPlatform>& p_platform) const override;
+        bool _get_export_option_visibility(
+            const Ref<EditorExportPlatform>& p_platform,
+            const String& p_option
+        ) const override;
         void _export_begin(
             const PackedStringArray& p_features,
             bool p_is_debug,
@@ -47,7 +49,6 @@ namespace godot {
         bool exporting_jvm_runtime = true;
 
         int selected_runtime() const;
-        void _generate_export_configuration_file(jni::JvmType vm_type);
     };
 } // namespace godot
 #endif // GODOT_JVM_EDITOR_EXPORT_PLUGIN_H

@@ -35,7 +35,6 @@ namespace godot {
         State state = State::NOT_STARTED;
 
         JvmUserConfiguration user_configuration;
-        JvmUserConfiguration file_configuration;
         JvmOptions jvm_options;
 
         ClassLoader* bootstrap_class_loader = nullptr;
@@ -84,7 +83,6 @@ namespace godot {
 
         static GodotJvm& get_instance();
         const JvmUserConfiguration& get_configuration();
-        const JvmUserConfiguration& get_file_configuration();
 
         void initialize_up_to(State target_state);
         void finalize_down_to(State target_state);

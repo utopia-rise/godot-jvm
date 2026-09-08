@@ -5,11 +5,10 @@
 
 #include <templates/hash_map.hpp>
 #include <variant/packed_string_array.hpp>
-#include <variant/typed_array.hpp>
 
 // JSON IDENTIFIER
 static constexpr const char* VERSION_JSON_IDENTIFIER = "version";
-static constexpr const char* VM_TYPE_JSON_IDENTIFIER = "vm_type";
+static constexpr const char* USE_NATIVE_IMAGE_JSON_IDENTIFIER = "useNativeImage";
 static constexpr const char* USE_DEBUG_JSON_IDENTIFIER = "use_debug";
 static constexpr const char* DEBUG_PORT_JSON_IDENTIFIER = "debug_port";
 static constexpr const char* DEBUG_ADDRESS_JSON_IDENTIFIER = "debug_address";
@@ -20,7 +19,7 @@ static constexpr const char* DISABLE_GC_JSON_IDENTIFIER = "disable_gc";
 static constexpr const char* JVM_ARGUMENTS_JSON_IDENTIFIER = "custom_jvm_args";
 
 // COMMAND LINE IDENTIFIER
-static constexpr const char* VM_TYPE_CMD_IDENTIFIER = "--jvm-vm-type";
+static constexpr const char* USE_NATIVE_IMAGE_CMD_IDENTIFIER = "--jvm-use-native-image";
 static constexpr const char* USE_DEBUG_CMD_IDENTIFIER = "--jvm-use-debug";
 static constexpr const char* DEBUG_PORT_CMD_IDENTIFIER = "--jvm-debug-port";
 static constexpr const char* DEBUG_ADDRESS_CMD_IDENTIFIER = "--jvm-debug-address";
@@ -33,16 +32,13 @@ static constexpr const char* JVM_ARGUMENTS_CMD_IDENTIFIER = "--jvm-custom-args";
 static constexpr const char* JVM_PATH_CMD_IDENTIFIER = "--jvm-path";
 
 // VALUE
-static constexpr const char* AUTO_STRING = "auto";
-static constexpr const char* JVM_STRING = "jvm";
-static constexpr const char* GRAAL_NATIVE_IMAGE_STRING = "graal_native_image";
-static constexpr const char* ART_STRING = "art";
 static constexpr const char* TRUE_STRING = "true";
 static constexpr const char* FALSE_STRING = "false";
-static constexpr const char* JSON_ARGUMENT_VERSION = "2.0";
+static constexpr const char* JSON_ARGUMENT_VERSION = "3.0";
 
 struct JvmUserConfiguration {
-    jni::JvmType vm_type = jni::JvmType::NONE;
+    jni::JvmType vm_type = jni::JvmType::JVM;
+    bool use_native_image = false;
 
     bool use_debug = false;
     int32_t jvm_debug_port = 5005;
@@ -65,6 +61,9 @@ struct JvmUserConfiguration {
 
     static bool parse_configuration_json(const godot::String& json_string, JvmUserConfiguration& json_config);
     static godot::String export_configuration_to_json(const JvmUserConfiguration& configuration);
+    godot::Dictionary to_dictionary() const;
+    static bool is_valid_debug_address(const godot::String& address);
+
 
     static void parse_command_line(
         const godot::PackedStringArray& args,

@@ -15,6 +15,11 @@
 #include <classes/project_settings.hpp>
 #include <classes/resource_loader.hpp>
 
+#if defined(ANDROID_ENABLED) && !defined(TOOLS_ENABLED)
+// POSIX unlink() removes the previously extracted runtime file before Android recopies it.
+#include <unistd.h>
+#endif
+
 using namespace godot;
 
 GodotJvm& GodotJvm::get_instance() {
@@ -24,10 +29,6 @@ GodotJvm& GodotJvm::get_instance() {
 
 const JvmUserConfiguration& GodotJvm::get_configuration() {
     return user_configuration;
-}
-
-const JvmUserConfiguration& GodotJvm::get_file_configuration() {
-    return file_configuration;
 }
 
 #ifdef DYNAMIC_JVM
@@ -211,17 +212,20 @@ void GodotJvm::unload_dynamic_lib() {
 #endif
 
 void GodotJvm::fetch_user_configuration() {
+    JvmUserConfiguration file_configuration;
+    bool is_editor = Engine::get_singleton()->is_editor_hint();
     bool invalid_file_content = false;
     bool configuration_file_exist = FileAccess::file_exists(JVM_CONFIGURATION_PATH);
 
     if (configuration_file_exist) {
         Ref<FileAccess> file_access = FileAccess::open(JVM_CONFIGURATION_PATH, FileAccess::READ);
+        JVM_ERR_FAIL_COND_MSG(file_access.is_null(), "Cannot read JVM configuration file");
         String content = file_access->get_as_text();
 
         // The function is going to mutate the provided configuration with the valid values found in the file.
         // If some of the values parsed in the file are invalid, it will return true;
         JVM_LOG_VERBOSE("Parsing JSON configuration file...");
-        invalid_file_content = JvmUserConfiguration::parse_configuration_json(content, user_configuration);
+        invalid_file_content = JvmUserConfiguration::parse_configuration_json(content, file_configuration);
         if (invalid_file_content) {
             JVM_LOG_WARNING("Configuration file is malformed. One or several settings might not be applied.");
         }
@@ -231,44 +235,46 @@ void GodotJvm::fetch_user_configuration() {
     }
 
 #ifdef TOOLS_ENABLED
-    // If configuration is missing or malformed, then we write a new one.
-    // Valid values from the json file should be in the instance already, so they won't be lost when writing to disk.
+    // Tools builds repair the file even when running the game directly, preserving valid JSON values.
     if (invalid_file_content || !configuration_file_exist) {
         Ref<FileAccess> file_access = FileAccess::open(JVM_CONFIGURATION_PATH, FileAccess::WRITE);
-        String json = JvmUserConfiguration::export_configuration_to_json(user_configuration);
+        JVM_ERR_FAIL_COND_MSG(file_access.is_null(), "Cannot write JVM configuration file");
+        String json = JvmUserConfiguration::export_configuration_to_json(file_configuration);
         JVM_LOG_INFO("Writing a new configuration file to disk at %s", JVM_CONFIGURATION_PATH);
         file_access->store_string(json);
     }
 #endif
 
-    file_configuration = user_configuration;
-
     HashMap<String, Variant> cmd_argument_map;
     JVM_LOG_VERBOSE("Parsing commandline arguments...");
     JvmUserConfiguration::parse_command_line(OS::get_singleton()->get_cmdline_args(), cmd_argument_map);
-    JVM_LOG_VERBOSE("Creating final JVM Configuration...");
+    // The editor validates the file but only applies command-line settings to its own defaults.
+    user_configuration = is_editor ? JvmUserConfiguration() : file_configuration;
     JvmUserConfiguration::merge_with_command_line(user_configuration, cmd_argument_map);
     JvmUserConfiguration::sanitize_and_log_configuration(user_configuration);
 }
 
 void GodotJvm::set_jvm_options() {
+    if (user_configuration.vm_type == jni::JvmType::ART) { return; }
+    if (user_configuration.vm_type == jni::JvmType::JVM) {
 #ifdef DEV_ENABLED
-    jvm_options.add_jni_checks();
+        jvm_options.add_jni_checks();
 #endif
 
 #ifdef DEBUG_ENABLED
-    if (user_configuration.use_debug) {
-        jvm_options.add_debug_options(
-            user_configuration.jvm_debug_port,
-            user_configuration.jvm_debug_address,
-            user_configuration.wait_for_debugger
-        );
-    }
+        if (user_configuration.use_debug) {
+            jvm_options.add_debug_options(
+                user_configuration.jvm_debug_port,
+                user_configuration.jvm_debug_address,
+                user_configuration.wait_for_debugger
+            );
+        }
 #endif
 
-    if (user_configuration.jvm_jmx_port >= 0) { jvm_options.add_jmx_option(user_configuration.jvm_jmx_port); }
+        if (user_configuration.jvm_jmx_port >= 0) { jvm_options.add_jmx_option(user_configuration.jvm_jmx_port); }
+    }
 
-    if (!Engine::get_singleton()->is_editor_hint() && !user_configuration.jvm_args.is_empty()) {
+    if (!user_configuration.jvm_args.is_empty()) {
         JVM_LOG_WARNING(
             "You are using custom arguments for the JVM. Make sure they are valid or you risk the JVM to "
             "not launch properly"
@@ -280,12 +286,6 @@ void GodotJvm::set_jvm_options() {
 }
 
 #ifndef TOOLS_ENABLED
-
-#include <classes/dir_access.hpp>
-
-#ifdef ANDROID_ENABLED
-#include <unistd.h>
-#endif
 
 String GodotJvm::copy_new_file_to_user_dir(const String& file_name) {
     String file_res_path = String(RES_DIRECTORY) + file_name;

@@ -34,6 +34,7 @@ of upstream bug fixes.
 - **KISS** — Prefer the simplest design that clearly solves the current problem.
 - **YAGNI** — Do not add behavior or abstractions for requirements that do not exist yet.
 - **DRY** — Keep each piece of knowledge and behavior in one authoritative place.
+- **Lambdas** — Not banned, but use one only when strictly necessary (a callback API) or when the code would be markedly more complex without it. Prefer a plain loop, a file-local function, or a data table over a local lambda that merely groups a few lines.
 - **C++ initialization** — Use `=` for scalar values and expressions already of the declared type (`int count = 0;`, `String name = get_name();`). Use direct `()` initialization whenever an object is constructed, whether its constructor is explicit or implicit: `Type value(expr);`, never `Type value = Type(expr);`. This includes JNI wrappers built from raw handles or call results: `jni::Env env(p_raw_env);`, `jni::JLongArray array(p_raw_array);`, `jni::JObject result(wrapped.call_object_method(...));`. Use `()` for constructor calls with several arguments (`Vector3 pos(1, 2, 3);`), `{}` only for arrays, aggregates, `std::initializer_list` parameters, and returned/passed temporary aggregates (`return {ptr, size};`). Member initializer lists use `()`, default member initializers use `=`. Never `Type value{expr};`, never `Type value();`, never `Foo f{};` on a class type (write `Foo f;`); zero PODs with `= {}`.
 
 ## Prerequisites
@@ -109,7 +110,7 @@ Full workflow: `docs/src/doc/contribute/test-a-branch.md`
 
 ```bash
 # Start Godot with debug port
-godot --jvm-debug-port=5005
+godot --jvm-use-debug --jvm-debug-port=5005
 # Then attach a remote debugger in IntelliJ IDEA to localhost:5005
 ```
 
@@ -207,18 +208,20 @@ Details: `docs/src/doc/contribute/how-it-works/shared-buffer.md`
 
 ### Runtime configuration
 
-All JVM options live in `res://godot_jvm_configuration.json` (schema `version` `"2.0"`) and have `--jvm-*` command-line equivalents; precedence is defaults → JSON → command line (`cpp/jvm/lifecycle/jvm_user_configuration.*`, `GodotJvm::fetch_user_configuration`). The editor rewrites the file when it is missing or malformed, dropping unknown keys and replacing invalid values with defaults. Command-line values are never written back. Reference: `docs/src/doc/reference/runtime-configuration.md`.
+Game settings live in `res://godot_jvm_configuration.json` (schema `version` `"3.0"`) and have `--jvm-*` command-line equivalents; precedence is defaults → JSON → command line (`cpp/jvm/lifecycle/jvm_user_configuration.*`, `GodotJvm::fetch_user_configuration`). The editor validates and repairs the file, but applies only command-line settings to its own defaults. `--jvm-use-native-image` works in the editor but disables script reloading. Command-line values are never written back. Reference: `docs/src/doc/reference/runtime-configuration.md`.
 
 Behaviour that is easy to miss in the code:
-- `use_debug`, `debug_port`, `debug_address`, `wait_for_debugger` are applied only in `DEBUG_ENABLED` builds (`GodotJvm::set_jvm_options`); `jmx_port` has no such guard.
-- `custom_jvm_args` is ignored when running inside the editor.
+- `use_debug`, `debug_port`, `debug_address`, `wait_for_debugger` apply only to desktop JVM games in `DEBUG_ENABLED` builds (`GodotJvm::set_jvm_options`); `jmx_port` also applies in release builds. These dedicated options are ignored by native images and mobile runtimes.
+- `custom_jvm_args` applies to desktop JVM runs and supported native-image runtime options on desktop and iOS. The editor accepts custom arguments through the command line only; Android ignores them.
 - On Android the extension attaches to the existing ART VM, so no `JvmOptions` (debug, JMX, custom args) or `--jvm-path` apply.
 - `max_string_size` is capped at 65535 because `LongStringQueue::max_string_size` is a `uint16_t`.
-- The export plugin serializes the configuration as loaded from disk (`GodotJvm::get_file_configuration()`), only changing `vm_type`; the editor's own command-line overrides never reach the exported JSON.
+- The export plugin reads the JSON at export time, applies enabled preset override categories (debug, memory) and a nonempty custom-argument override, then packs only platform-relevant keys. Desktop JVM/Graal presets force `useNativeImage` false/true. Editor command-line overrides never reach the exported JSON.
+- Field definitions, JSON/command-line parsing, and validation belong to `JvmUserConfiguration`. Everything export related (preset options and their names, override categories, option visibility and warnings, platform filtering of the packed JSON) lives in `GodotJvmEditorExportPlugin`.
 
 ### JVM Modes
 
-Selected by `vm_type` (`auto`, `jvm`, `graal_native_image`, `art`):
+Desktop games select JVM or native image with `useNativeImage` (default false), or `--jvm-use-native-image`.
+Android always uses ART; iOS always uses native image. The internal `JvmType` is resolved at startup, not serialized.
 - **Embedded JVM** — `jlink`-created JRE bundled with the project (recommended for distribution)
 - **Dynamic JVM** — discovered at runtime from `JAVA_HOME` first, then from a `java` executable on
   `PATH`, and on macOS from `/usr/libexec/java_home -v 17+` last (see `get_path_to_environment_jvm()` /
