@@ -10,25 +10,24 @@
 
 using namespace godot;
 
-constexpr const int permissions = FileAccess::UnixPermissionFlags::UNIX_READ_OTHER | FileAccess::UnixPermissionFlags::UNIX_WRITE_OTHER
-                                  | FileAccess::UnixPermissionFlags::UNIX_READ_GROUP | FileAccess::UnixPermissionFlags::UNIX_WRITE_GROUP
-                                  | FileAccess::UnixPermissionFlags::UNIX_READ_OWNER | FileAccess::UnixPermissionFlags::UNIX_WRITE_OWNER
-                                  | FileAccess::UnixPermissionFlags::UNIX_EXECUTE_OWNER;
+constexpr const int permissions = FileAccess::UnixPermissionFlags::UNIX_READ_OTHER
+                                | FileAccess::UnixPermissionFlags::UNIX_WRITE_OTHER
+                                | FileAccess::UnixPermissionFlags::UNIX_READ_GROUP
+                                | FileAccess::UnixPermissionFlags::UNIX_WRITE_GROUP
+                                | FileAccess::UnixPermissionFlags::UNIX_READ_OWNER
+                                | FileAccess::UnixPermissionFlags::UNIX_WRITE_OWNER
+                                | FileAccess::UnixPermissionFlags::UNIX_EXECUTE_OWNER;
 
 void remove_optional_block(String& content, const String& name) {
     const String begin_marker = "// BEGIN_OPTIONAL_" + name;
     const String end_marker = "// END_OPTIONAL_" + name;
     const int begin = content.find(begin_marker);
     const int end = content.find(end_marker, begin);
-    if (begin != -1 && end != -1) {
-        content = content.left(begin) + content.substr(end + end_marker.length());
-    }
+    if (begin != -1 && end != -1) { content = content.left(begin) + content.substr(end + end_marker.length()); }
 }
 
 void remove_optional_markers(String& content, const String& name) {
-    content = content
-        .replace("// BEGIN_OPTIONAL_" + name, "")
-        .replace("// END_OPTIONAL_" + name, "");
+    content = content.replace("// BEGIN_OPTIONAL_" + name, "").replace("// END_OPTIONAL_" + name, "");
 }
 
 void ProjectGenerator::generate_jvm_files(bool erase_existing) {
@@ -58,10 +57,13 @@ void ProjectGenerator::generate_jvm_files(bool erase_existing) {
                 file->store_buffer(file_content);
             } else {
                 String file_content =
-                  marshall->base64_to_utf8(file_contents[i])
-                    .replace(VERSION_TEMPLATE, GODOT_JVM_VERSION)
-                    .replace(PROJECT_NAME_TEMPLATE, ProjectSettings::get_singleton()->get_setting("application/config/name"))
-                    .replace("GODOT_LANGUAGES", "GodotLanguage.KOTLIN, GodotLanguage.JAVA, GodotLanguage.SCALA");
+                    marshall->base64_to_utf8(file_contents[i])
+                        .replace(VERSION_TEMPLATE, GODOT_JVM_VERSION)
+                        .replace(
+                            PROJECT_NAME_TEMPLATE,
+                            ProjectSettings::get_singleton()->get_setting("application/config/name")
+                        )
+                        .replace("GODOT_LANGUAGES", "GodotLanguage.KOTLIN, GodotLanguage.JAVA, GodotLanguage.SCALA");
                 remove_optional_block(file_content, "ANDROID");
                 remove_optional_block(file_content, "GRAAL");
                 remove_optional_markers(file_content, "COROUTINES");

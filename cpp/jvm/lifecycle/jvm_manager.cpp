@@ -31,8 +31,7 @@ void JvmManager::set_android_jvm(JNIEnv* p_env) {
     p_env->GetJavaVM(&android_jvm);
 }
 
-extern "C" JNIEXPORT void JNICALL
-Java_com_utopiarise_godotjvm_GodotJvmPlugin_nativeInitialize(JNIEnv* p_env, jobject) {
+extern "C" JNIEXPORT void JNICALL Java_com_utopiarise_godotjvm_GodotJvmPlugin_nativeInitialize(JNIEnv* p_env, jobject) {
     JvmManager::set_android_jvm(p_env);
 }
 #endif
@@ -40,7 +39,8 @@ Java_com_utopiarise_godotjvm_GodotJvmPlugin_nativeInitialize(JNIEnv* p_env, jobj
 CreateJavaVM get_create_jvm_function(void* lib_handle) {
 #ifdef DYNAMIC_JVM
     void* createJavaVMSymbolHandle;
-    if (godot_jvm_native::get_dynamic_library_symbol_handle(lib_handle, "JNI_CreateJavaVM", createJavaVMSymbolHandle) != godot::OK) {
+    if (godot_jvm_native::get_dynamic_library_symbol_handle(lib_handle, "JNI_CreateJavaVM", createJavaVMSymbolHandle)
+        != godot::OK) {
         return nullptr;
     }
     return reinterpret_cast<CreateJavaVM>(createJavaVMSymbolHandle);
@@ -53,7 +53,11 @@ CreateJavaVM get_create_jvm_function(void* lib_handle) {
 #endif
 }
 
-bool JvmManager::initialize_or_get_jvm(void* lib_handle, JvmUserConfiguration& user_configuration, JvmOptions& jvm_options) {
+bool JvmManager::initialize_or_get_jvm(
+    void* lib_handle,
+    JvmUserConfiguration& user_configuration,
+    JvmOptions& jvm_options
+) {
     JavaVM* java_vm = nullptr;
 
 #if defined DYNAMIC_JVM || defined STATIC_JVM
@@ -78,7 +82,8 @@ bool JvmManager::initialize_or_get_jvm(void* lib_handle, JvmUserConfiguration& u
     JVM_ERR_FAIL_COND_V_MSG(func == nullptr, false, "Failed to obtain JNI_CreateJavaVM symbol!");
     jint result = func(&java_vm, reinterpret_cast<void**>(&jni_env), &args);
 
-    // Set std::local::global to value it was before creating JVM. See https://github.com/utopia-rise/godot-jvm/issues/166 and https://github.com/utopia-rise/godot-jvm/issues/170
+    // Set std::local::global to value it was before creating JVM. See
+    // https://github.com/utopia-rise/godot-jvm/issues/166 and https://github.com/utopia-rise/godot-jvm/issues/170
 
     std::locale::global(global);
 
@@ -89,9 +94,9 @@ bool JvmManager::initialize_or_get_jvm(void* lib_handle, JvmUserConfiguration& u
     JVM_LOG_VERBOSE("Retrieving existing JVM ...");
     java_vm = android_jvm;
     JVM_ERR_FAIL_COND_V_MSG(
-      java_vm == nullptr,
-      false,
-      "Android JVM context was not provided. Make sure the Godot-JVM Android plugin AAR is enabled."
+        java_vm == nullptr,
+        false,
+        "Android JVM context was not provided. Make sure the Godot-JVM Android plugin AAR is enabled."
     );
 #else
     // Sanity check in case we mess up preprocessors
@@ -103,7 +108,6 @@ bool JvmManager::initialize_or_get_jvm(void* lib_handle, JvmUserConfiguration& u
 }
 
 bool JvmManager::initialize_jvm_wrappers(jni::Env& p_env, ClassLoader* class_loader) {
-
     bool ret = KtObject::initialize(p_env, class_loader)
             && KtPropertyInfo::initialize(p_env, class_loader)
             && KtProperty::initialize(p_env, class_loader)

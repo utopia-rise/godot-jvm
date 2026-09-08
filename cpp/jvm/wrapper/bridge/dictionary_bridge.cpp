@@ -46,7 +46,14 @@ uintptr_t DictionaryBridge::engine_call_constructor_typed(JNIEnv* p_raw_env, job
         value_base_class_name = TypeManager::get_instance().get_engine_type_for_index(value_engine_type_index);
     }
 
-    ret->set_typed(key_variant_type, key_base_class_name, key_script, value_variant_type, value_base_class_name, value_script);
+    ret->set_typed(
+        key_variant_type,
+        key_base_class_name,
+        key_script,
+        value_variant_type,
+        value_base_class_name,
+        value_script
+    );
     return reinterpret_cast<uintptr_t>(ret);
 }
 
@@ -61,7 +68,6 @@ void DictionaryBridge::engine_call_duplicate(JNIEnv* p_raw_env, jobject p_instan
     godot::Variant variant = from_uint_to_ptr<godot::Dictionary>(p_raw_ptr)->duplicate(args[0].operator bool());
     TransferContext::get_instance().write_return_value(env, variant);
 }
-
 
 void DictionaryBridge::engine_call_duplicate_deep(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
@@ -88,7 +94,7 @@ void DictionaryBridge::engine_call_find_key(JNIEnv* p_raw_env, jobject p_instanc
     jni::Env env(p_raw_env);
     godot::Variant args[1];
     TransferContext::get_instance().read_args(env, args);
-    godot::Variant ret  = from_uint_to_ptr<godot::Dictionary>(p_raw_ptr)->find_key(args[0]);
+    godot::Variant ret = from_uint_to_ptr<godot::Dictionary>(p_raw_ptr)->find_key(args[0]);
     TransferContext::get_instance().write_return_value(env, ret);
 }
 

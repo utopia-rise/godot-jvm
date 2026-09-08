@@ -4,6 +4,7 @@
 #include "api/script/jvm_script.h"
 #include "api/script/jvm_script_manager.h"
 #include "api/script/source_script_parser.h"
+
 #include <classes/file_access.hpp>
 
 using namespace godot;
@@ -28,19 +29,19 @@ Error JvmResourceFormatSaver::_save(const Ref<Resource>& p_resource, const Strin
     const String extension = p_path.get_extension();
 #ifdef TOOLS_ENABLED
     const bool is_source_script = extension == GODOT_KOTLIN_SCRIPT_EXTENSION
-                                  || extension == GODOT_JAVA_SCRIPT_EXTENSION
-                                  || extension == GODOT_SCALA_SCRIPT_EXTENSION;
-    if (is_source_script) {
-        jvm_script->_format_template(p_path);
-    }
+                               || extension == GODOT_JAVA_SCRIPT_EXTENSION
+                               || extension == GODOT_SCALA_SCRIPT_EXTENSION;
+    if (is_source_script) { jvm_script->_format_template(p_path); }
 #endif
 
     if (!FileAccess::file_exists(p_path) && extension == GODOT_JVM_REGISTRATION_FILE_EXTENSION) {
-        JVM_LOG_WARNING("It's not recommended to create .gdj files directly as they are generated automatically from "
-                        "jvm source files "
-                        "when building your project.\n"
-                        "Register a class with a matching name if you don't want this file to get deleted the next "
-                        "time you build.");
+        JVM_LOG_WARNING(
+            "It's not recommended to create .gdj files directly as they are generated automatically from "
+            "jvm source files "
+            "when building your project.\n"
+            "Register a class with a matching name if you don't want this file to get deleted the next "
+            "time you build."
+        );
     }
 
     const String source_code = jvm_script->get_source_code();

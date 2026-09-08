@@ -93,4 +93,4 @@ static constexpr const char* RELATIVE_JVM_LIB_PATH = IOS_RELATIVE_JVM_LIB_PATH;
 
 #endif
 
-#endif// GODOT_JVM_PATHS_H
+#endif // GODOT_JVM_PATHS_H

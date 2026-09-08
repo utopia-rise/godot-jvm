@@ -3,15 +3,16 @@
 
 #include "jvm_user_configuration.h"
 
-#include <variant/string.hpp>
-#include <templates/local_vector.hpp>
 #include <jni.h>
 
+#include <templates/local_vector.hpp>
+#include <variant/string.hpp>
+
 class JvmManager;
+
 namespace godot {
     class GodotJvm;
-}
-
+} // namespace godot
 
 class JvmOptions {
     friend class JvmManager;
@@ -34,4 +35,4 @@ public:
     JvmOptions() = default;
 };
 
-#endif// GODOT_LOADER_INIT_ARGS_H
+#endif // GODOT_LOADER_INIT_ARGS_H

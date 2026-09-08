@@ -7,19 +7,19 @@
     inline constexpr char NAME##QualifiedName[] = FQNAME; \
     class NAME : public JvmSingletonWrapper<NAME, NAME##QualifiedName>
 
-#define SINGLETON_CLASS(NAME)                                             \
-    friend class JvmSingletonWrapper<NAME, NAME##QualifiedName>;          \
-    JVM_CLASS(NAME)                                                       \
-                                                                          \
-public:                                                                   \
-    NAME(const NAME&) = delete;                                           \
-    void operator=(const NAME&) = delete;                                 \
-    NAME& operator=(NAME&&) noexcept = delete;                            \
-    NAME(NAME&&) noexcept = delete;                                       \
-                                                                          \
-protected:                                                                \
-    explicit NAME(jni::Env& p_env, jni::JObject p_wrapped) :              \
-      JvmSingletonWrapper<NAME, NAME##QualifiedName>(p_env, p_wrapped) {} \
+#define SINGLETON_CLASS(NAME)                                               \
+    friend class JvmSingletonWrapper<NAME, NAME##QualifiedName>;            \
+    JVM_CLASS(NAME)                                                         \
+                                                                            \
+public:                                                                     \
+    NAME(const NAME&) = delete;                                             \
+    void operator=(const NAME&) = delete;                                   \
+    NAME& operator=(NAME&&) noexcept = delete;                              \
+    NAME(NAME&&) noexcept = delete;                                         \
+                                                                            \
+protected:                                                                  \
+    explicit NAME(jni::Env& p_env, jni::JObject p_wrapped) :                \
+        JvmSingletonWrapper<NAME, NAME##QualifiedName>(p_env, p_wrapped) {} \
     ~NAME();
 
 /**
@@ -62,11 +62,18 @@ bool JvmSingletonWrapper<Derived, FqName>::initialize(jni::Env& p_env, ClassLoad
     } else {
         singleton_cls = p_env.find_class(FqName);
     }
-    jni::FieldID singleton_instance_field =
-      singleton_cls.get_static_field_id(p_env, "INSTANCE", godot::vformat("L%s;", FqName).replace(".", "/").utf8().ptr());
+    jni::FieldID singleton_instance_field = singleton_cls.get_static_field_id(
+        p_env,
+        "INSTANCE",
+        godot::vformat("L%s;", FqName).replace(".", "/").utf8().ptr()
+    );
     jni::JObject singleton_instance = singleton_cls.get_static_object_field(p_env, singleton_instance_field);
 
-    JVM_ERR_FAIL_COND_V_MSG(singleton_instance.is_null(), false, godot::String("Failed to retrieve ") + godot::String(FqName) + godot::String(" singleton"));
+    JVM_ERR_FAIL_COND_V_MSG(
+        singleton_instance.is_null(),
+        false,
+        godot::String("Failed to retrieve ") + godot::String(FqName) + godot::String(" singleton")
+    );
 
     _instance = new Derived(p_env, singleton_instance);
 
@@ -99,6 +106,6 @@ Derived& JvmSingletonWrapper<Derived, FqName>::get_instance() {
 
 template<class Derived, const char* FqName>
 JvmSingletonWrapper<Derived, FqName>::JvmSingletonWrapper(jni::Env& p_env, jni::JObject p_wrapped) :
-  JvmInstanceWrapper<Derived, FqName>(p_env, p_wrapped) {}
+    JvmInstanceWrapper<Derived, FqName>(p_env, p_wrapped) {}
 
 #endif // GODOT_JVM_JVM_SINGLETON_WRAPPER_H

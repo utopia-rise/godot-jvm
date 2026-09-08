@@ -3,9 +3,9 @@
 #include "api/language/names.h"
 #include "api/script/jvm_script.h"
 #include "api/script/jvm_script_manager.h"
+#include "api/script/source_script_parser.h"
 #include "engine/ustring.h"
 #include "hash.h"
-#include "api/script/source_script_parser.h"
 
 #include <classes/file_access.hpp>
 #include <classes/resource_uid.hpp>
@@ -38,15 +38,22 @@ String JvmResourceFormatLoader::_get_resource_type(const String& p_path) const {
 
 bool JvmResourceFormatLoader::_handles_type(const StringName& p_type) const {
     return p_type == SNAME("Script")
-           || p_type == SNAME(GODOT_JVM_SCRIPT_NAME)
-           || p_type == SNAME(GODOT_KOTLIN_SCRIPT_NAME)
-           || p_type == SNAME(GODOT_JAVA_SCRIPT_NAME)
-           || p_type == SNAME(GODOT_SCALA_SCRIPT_NAME);
+        || p_type == SNAME(GODOT_JVM_SCRIPT_NAME)
+        || p_type == SNAME(GODOT_KOTLIN_SCRIPT_NAME)
+        || p_type == SNAME(GODOT_JAVA_SCRIPT_NAME)
+        || p_type == SNAME(GODOT_SCALA_SCRIPT_NAME);
 }
 
-Variant JvmResourceFormatLoader::_load(const String& p_path, const String& p_original_path, bool p_use_sub_threads, int32_t p_cache_mode) const {
+Variant JvmResourceFormatLoader::_load(
+    const String& p_path,
+    const String& p_original_path,
+    bool p_use_sub_threads,
+    int32_t p_cache_mode
+) const {
     if (p_path.begins_with(GODOT_JVM_VIRTUAL_PATH_PREFIX)) {
-        Ref<JvmScript> virtual_script = JvmScriptManager::get_instance()->get_script_from_registered_name(JvmScript::get_script_file_name(p_path));
+        Ref<JvmScript> virtual_script = JvmScriptManager::get_instance()->get_script_from_registered_name(
+            JvmScript::get_script_file_name(p_path)
+        );
         if (virtual_script.is_null()) { return (int64_t) ERR_FILE_NOT_FOUND; }
         return virtual_script;
     }
@@ -72,16 +79,18 @@ Variant JvmResourceFormatLoader::_load(const String& p_path, const String& p_ori
 int64_t JvmResourceFormatLoader::_get_resource_uid(const String& p_path) const {
     String extension = p_path.get_extension();
     int64_t id = ResourceUID::INVALID_ID;
-    if (extension == GODOT_JVM_REGISTRATION_FILE_EXTENSION || extension == GODOT_KOTLIN_SCRIPT_EXTENSION
-        || extension == GODOT_JAVA_SCRIPT_EXTENSION || extension == GODOT_SCALA_SCRIPT_EXTENSION) {
+    if (extension == GODOT_JVM_REGISTRATION_FILE_EXTENSION
+        || extension == GODOT_KOTLIN_SCRIPT_EXTENSION
+        || extension == GODOT_JAVA_SCRIPT_EXTENSION
+        || extension == GODOT_SCALA_SCRIPT_EXTENSION) {
         String source_code;
         if (read_source_script_file(p_path, source_code) != OK) { return id; }
         const StringName fqdn = parse_source_script_fqname(source_code, p_path);
         if (fqdn.is_empty()) { return id; }
         String seed = extension == GODOT_JVM_REGISTRATION_FILE_EXTENSION ? GDJ_UUID_HASH_SEED
-          : extension == GODOT_JAVA_SCRIPT_EXTENSION ? JAVA_UUID_HASH_SEED
-          : extension == GODOT_SCALA_SCRIPT_EXTENSION ? SCALA_UUID_HASH_SEED
-          : KOTLIN_UUID_HASH_SEED;
+                    : extension == GODOT_JAVA_SCRIPT_EXTENSION           ? JAVA_UUID_HASH_SEED
+                    : extension == GODOT_SCALA_SCRIPT_EXTENSION          ? SCALA_UUID_HASH_SEED
+                                                                         : KOTLIN_UUID_HASH_SEED;
         id = (int64_t) hash64(String(fqdn) + seed);
         id &= 0x7FFFFFFFFFFFFFFF;
     }

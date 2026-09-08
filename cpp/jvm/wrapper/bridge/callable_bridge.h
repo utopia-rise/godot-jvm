@@ -36,22 +36,27 @@ namespace bridges {
     public:
         static uintptr_t engine_call_constructor(JNIEnv * p_raw_env, jobject p_instance);
 
-        static uintptr_t engine_call_constructor_object_string_name(JNIEnv * p_raw_env, jobject p_instance, jlong object_ptr, jlong method_name_ptr);
+        static uintptr_t engine_call_constructor_object_string_name(
+            JNIEnv * p_raw_env,
+            jobject p_instance,
+            jlong object_ptr,
+            jlong method_name_ptr
+        );
 
         static uintptr_t engine_call_constructor_lambda_callable(
-          JNIEnv * p_raw_env,
-          jobject p_instance,
-          jobject p_lambda_container,
-          jint p_variant_type_ordinal,
-          jint p_hash_code
+            JNIEnv * p_raw_env,
+            jobject p_instance,
+            jobject p_lambda_container,
+            jint p_variant_type_ordinal,
+            jint p_hash_code
         );
 
         static void engine_call_constructor_cancellable(
-          JNIEnv * p_raw_env,
-          jobject p_instance,
-          jobject p_kt_custom_callable_instance,
-          jint p_variant_type_ordinal,
-          jint p_hash_code
+            JNIEnv * p_raw_env,
+            jobject p_instance,
+            jobject p_kt_custom_callable_instance,
+            jint p_variant_type_ordinal,
+            jint p_hash_code
         );
 
         static uintptr_t engine_call_copy_constructor(JNIEnv * p_raw_env, jobject p_instance);

@@ -1,5 +1,6 @@
-#include <variant/variant.hpp>
 #include "jvm_options.h"
+
+#include <variant/variant.hpp>
 
 void JvmOptions::add_jni_checks() {
     options.push_back("-Xcheck:jni");
@@ -8,11 +9,14 @@ void JvmOptions::add_jni_checks() {
 void JvmOptions::add_debug_options(uint16_t p_port, godot::String& p_address, bool p_wait) {
     godot::String jvm_debug_port = godot::String::num_int64(p_port);
 
-    godot::String suspend =  p_wait ? "y" : "n" ;
+    godot::String suspend = p_wait ? "y" : "n";
 
-    godot::String debug_command =
-      vformat("-agentlib:jdwp=transport=dt_socket,server=y,suspend=%s,address=%s:%s", suspend, p_address, jvm_debug_port)
-    ;
+    godot::String debug_command = vformat(
+        "-agentlib:jdwp=transport=dt_socket,server=y,suspend=%s,address=%s:%s",
+        suspend,
+        p_address,
+        jvm_debug_port
+    );
     options.push_back(debug_command.utf8());
 }
 

@@ -70,7 +70,8 @@ namespace godot {
         TypedArray<Dictionary> _get_documentation() const override;
         StringName _get_doc_class_name() const override;
 
-        // Dummy implementations: no real static-method introspection, and export-list refresh outside the editor is handled by update_script_exports() (TOOLS_ENABLED only, below).
+        // Dummy implementations: no real static-method introspection, and export-list refresh outside the editor is
+        // handled by update_script_exports() (TOOLS_ENABLED only, below).
         bool _has_static_method(const StringName& p_method) const override;
         void _update_exports() override;
 
@@ -78,7 +79,6 @@ namespace godot {
         void _get_script_property_info_list(List<PropertyInfo>* p_list) const;
 
     public:
-
         _FORCE_INLINE_ static String get_script_file_name(const String& path) {
             return path.get_file().trim_suffix(path.get_extension()).trim_suffix(".");
         }
@@ -87,7 +87,10 @@ namespace godot {
         // This concerns placeholders script instances only
 
     private:
-        mutable HashMap<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*> placeholders;
+        mutable HashMap<
+            JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
+            JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>
+            placeholders;
         mutable HashMap<StringName, Variant> exported_members_default_value_cache;
         StringName last_physical_fqdn;
         uint64_t last_source_modified_time = 0;

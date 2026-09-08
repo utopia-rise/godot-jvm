@@ -28,7 +28,7 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-//https://github.com/godotengine/godot/blob/1f787b63a54b74a5238653883fe1a531200b675e/core/templates/paged_allocator.h
+// https://github.com/godotengine/godot/blob/1f787b63a54b74a5238653883fe1a531200b675e/core/templates/paged_allocator.h
 #pragma once
 
 #include <core/error_macros.hpp>

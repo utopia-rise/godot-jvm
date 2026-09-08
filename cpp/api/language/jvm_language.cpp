@@ -1,19 +1,19 @@
 #include "jvm_language.h"
 
-#include "engine/ustring.h"
 #include "api/script/jvm_script.h"
+#include "engine/ustring.h"
 
 #include <classes/resource_loader.hpp>
 
 using namespace godot;
 
 Dictionary JvmLanguage::_validate(
-  const String &p_script,
-  const String &p_path,
-  bool p_validate_functions,
-  bool p_validate_errors,
-  bool p_validate_warnings,
-  bool p_validate_safe_lines
+    const String& p_script,
+    const String& p_path,
+    bool p_validate_functions,
+    bool p_validate_errors,
+    bool p_validate_warnings,
+    bool p_validate_safe_lines
 ) const {
     Dictionary ret;
     ret["valid"] = true;
@@ -26,11 +26,11 @@ String JvmLanguage::_validate_path(const String& p_path) const {
         String alert = "Please don't use reserved keywords as file name.";
         return
 #ifdef TOOLS_ENABLED
-          TTR(alert)
+            TTR(alert)
 #else
-          RTR(alert)
+            RTR(alert)
 #endif
-            ;
+                ;
     }
     return "";
 }
@@ -50,7 +50,9 @@ Dictionary JvmLanguage::_get_global_class_name(const String& p_path) const {
 
 // Dummy Implementations
 
-bool JvmLanguage::_has_named_classes() const { return true; }
+bool JvmLanguage::_has_named_classes() const {
+    return true;
+}
 
 Error JvmLanguage::_open_in_external_editor(const Ref<Script>& p_script, int p_line, int p_col) {
     return Error::ERR_UNAVAILABLE;
@@ -64,10 +66,22 @@ ScriptLanguage::ScriptNameCasing JvmLanguage::_preferred_file_name_casing() cons
     return ScriptLanguage::SCRIPT_NAME_CASING_PASCAL_CASE;
 }
 
-bool JvmLanguage::_can_inherit_from_file() const { return false; }
-int32_t JvmLanguage::_find_function(const String&, const String&) const { return -1; }
-String JvmLanguage::_make_function(const String&, const String&, const PackedStringArray&) const { return String(); }
-bool JvmLanguage::_can_make_function() const { return false; }
+bool JvmLanguage::_can_inherit_from_file() const {
+    return false;
+}
+
+int32_t JvmLanguage::_find_function(const String&, const String&) const {
+    return -1;
+}
+
+String JvmLanguage::_make_function(const String&, const String&, const PackedStringArray&) const {
+    return String();
+}
+
+bool JvmLanguage::_can_make_function() const {
+    return false;
+}
+
 Dictionary JvmLanguage::_complete_code(const String&, const String&, Object*) const {
     Dictionary result;
     result["result"] = Error::ERR_UNAVAILABLE;
@@ -83,44 +97,112 @@ Dictionary JvmLanguage::_lookup_code(const String&, const String&, const String&
     return result;
 }
 
-String JvmLanguage::_auto_indent_code(const String &p_code, int32_t p_from_line, int32_t p_to_line) const {
+String JvmLanguage::_auto_indent_code(const String& p_code, int32_t p_from_line, int32_t p_to_line) const {
     return p_code;
 }
 
 void JvmLanguage::_init() {}
-void JvmLanguage::_frame() {}
-void JvmLanguage::_finish() {}
-void JvmLanguage::_thread_enter() {}
-void JvmLanguage::_thread_exit() {}
-TypedArray<Dictionary> JvmLanguage::_debug_get_current_stack_info() { return TypedArray<Dictionary>(); }
-String JvmLanguage::_debug_get_error() const { return String(); }
-int32_t JvmLanguage::_debug_get_stack_level_count() const { return 0; }
-int32_t JvmLanguage::_debug_get_stack_level_line(int32_t) const { return 0; }
-String JvmLanguage::_debug_get_stack_level_function(int32_t) const { return String(); }
-String JvmLanguage::_debug_get_stack_level_source(int32_t) const { return String(); }
-Dictionary JvmLanguage::_debug_get_stack_level_locals(int32_t, int32_t, int32_t) { return Dictionary(); }
-Dictionary JvmLanguage::_debug_get_stack_level_members(int32_t, int32_t, int32_t) { return Dictionary(); }
-void* JvmLanguage::_debug_get_stack_level_instance(int32_t) { return nullptr; }
-Dictionary JvmLanguage::_debug_get_globals(int32_t, int32_t) { return Dictionary(); }
-String JvmLanguage::_debug_parse_stack_level_expression(int32_t, const String&, int32_t, int32_t) { return String(); }
-void JvmLanguage::_reload_all_scripts() {}
-void JvmLanguage::_reload_scripts(const Array&, bool) {}
-void JvmLanguage::_reload_tool_script(const Ref<Script>&, bool) {}
-void JvmLanguage::_add_global_constant(const StringName&, const Variant&) {}
-void JvmLanguage::_add_named_global_constant(const StringName&, const Variant&) {}
-void JvmLanguage::_remove_named_global_constant(const StringName&) {}
-void JvmLanguage::_profiling_start() {}
-void JvmLanguage::_profiling_stop() {}
-void JvmLanguage::_profiling_set_save_native_calls(bool) {}
-int32_t JvmLanguage::_profiling_get_accumulated_data(ScriptLanguageExtensionProfilingInfo*, int32_t) { return 0; }
-int32_t JvmLanguage::_profiling_get_frame_data(ScriptLanguageExtensionProfilingInfo*, int32_t) { return 0; }
-TypedArray<Dictionary> JvmLanguage::_get_built_in_templates(const StringName&) const { return TypedArray<Dictionary>(); }
-bool JvmLanguage::_is_using_templates() { return false; }
-TypedArray<Dictionary> JvmLanguage::_get_public_functions() const { return TypedArray<Dictionary>(); }
-Dictionary JvmLanguage::_get_public_constants() const { return Dictionary(); }
-TypedArray<Dictionary> JvmLanguage::_get_public_annotations() const { return TypedArray<Dictionary>(); }
 
-// TODO: Dummy to make reloading work again because of https://github.com/godotengine/godot/issues/104540. Should still be truly implemented at some point
+void JvmLanguage::_frame() {}
+
+void JvmLanguage::_finish() {}
+
+void JvmLanguage::_thread_enter() {}
+
+void JvmLanguage::_thread_exit() {}
+
+TypedArray<Dictionary> JvmLanguage::_debug_get_current_stack_info() {
+    return TypedArray<Dictionary>();
+}
+
+String JvmLanguage::_debug_get_error() const {
+    return String();
+}
+
+int32_t JvmLanguage::_debug_get_stack_level_count() const {
+    return 0;
+}
+
+int32_t JvmLanguage::_debug_get_stack_level_line(int32_t) const {
+    return 0;
+}
+
+String JvmLanguage::_debug_get_stack_level_function(int32_t) const {
+    return String();
+}
+
+String JvmLanguage::_debug_get_stack_level_source(int32_t) const {
+    return String();
+}
+
+Dictionary JvmLanguage::_debug_get_stack_level_locals(int32_t, int32_t, int32_t) {
+    return Dictionary();
+}
+
+Dictionary JvmLanguage::_debug_get_stack_level_members(int32_t, int32_t, int32_t) {
+    return Dictionary();
+}
+
+void* JvmLanguage::_debug_get_stack_level_instance(int32_t) {
+    return nullptr;
+}
+
+Dictionary JvmLanguage::_debug_get_globals(int32_t, int32_t) {
+    return Dictionary();
+}
+
+String JvmLanguage::_debug_parse_stack_level_expression(int32_t, const String&, int32_t, int32_t) {
+    return String();
+}
+
+void JvmLanguage::_reload_all_scripts() {}
+
+void JvmLanguage::_reload_scripts(const Array&, bool) {}
+
+void JvmLanguage::_reload_tool_script(const Ref<Script>&, bool) {}
+
+void JvmLanguage::_add_global_constant(const StringName&, const Variant&) {}
+
+void JvmLanguage::_add_named_global_constant(const StringName&, const Variant&) {}
+
+void JvmLanguage::_remove_named_global_constant(const StringName&) {}
+
+void JvmLanguage::_profiling_start() {}
+
+void JvmLanguage::_profiling_stop() {}
+
+void JvmLanguage::_profiling_set_save_native_calls(bool) {}
+
+int32_t JvmLanguage::_profiling_get_accumulated_data(ScriptLanguageExtensionProfilingInfo*, int32_t) {
+    return 0;
+}
+
+int32_t JvmLanguage::_profiling_get_frame_data(ScriptLanguageExtensionProfilingInfo*, int32_t) {
+    return 0;
+}
+
+TypedArray<Dictionary> JvmLanguage::_get_built_in_templates(const StringName&) const {
+    return TypedArray<Dictionary>();
+}
+
+bool JvmLanguage::_is_using_templates() {
+    return false;
+}
+
+TypedArray<Dictionary> JvmLanguage::_get_public_functions() const {
+    return TypedArray<Dictionary>();
+}
+
+Dictionary JvmLanguage::_get_public_constants() const {
+    return Dictionary();
+}
+
+TypedArray<Dictionary> JvmLanguage::_get_public_annotations() const {
+    return TypedArray<Dictionary>();
+}
+
+// TODO: Dummy to make reloading work again because of https://github.com/godotengine/godot/issues/104540. Should still
+// be truly implemented at some point
 bool JvmLanguage::_supports_documentation() const {
     return true;
 }

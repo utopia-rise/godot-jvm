@@ -78,7 +78,7 @@ namespace bridges {
         static void engine_call_bsearchCustom(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
         static void engine_call_count(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
         static void engine_call_duplicate(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_duplicate_deep(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr);
+        static void engine_call_duplicate_deep(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
         static void engine_call_erase(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
         static void engine_call_find(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
         static void engine_call_front(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);

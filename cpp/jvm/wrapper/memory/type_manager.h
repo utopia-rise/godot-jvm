@@ -41,4 +41,4 @@ private:
 };
 
 // clang-format on
-#endif// GODOT_JVM_TYPE_MANAGER_H
+#endif // GODOT_JVM_TYPE_MANAGER_H

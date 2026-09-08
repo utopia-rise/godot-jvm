@@ -40,7 +40,8 @@ namespace godot {
 
         ClassLoader* bootstrap_class_loader = nullptr;
         Bootstrap* bootstrap = nullptr;
-        godot::Ref<JavaArchive> jar; // We keep a Reference to the jar in memory because the Godot editor require a resource to be in cache to reload.
+        godot::Ref<JavaArchive> jar; // We keep a Reference to the jar in memory because the Godot editor require a
+                                     // resource to be in cache to reload.
         // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved
         raw_godot::RawObject callable_middleman;
 

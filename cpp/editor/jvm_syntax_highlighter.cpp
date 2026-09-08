@@ -4,9 +4,9 @@
 
 #include "api/language/names.h"
 
-#include <classes/engine.hpp>
 #include <classes/editor_interface.hpp>
 #include <classes/editor_settings.hpp>
+#include <classes/engine.hpp>
 #include <classes/script.hpp>
 #include <classes/script_editor.hpp>
 #include <classes/script_extension.hpp>
@@ -45,7 +45,7 @@ namespace {
         }
         return nullptr;
     }
-}
+} // namespace
 
 String JvmStandardSyntaxHighlighter::_get_name() const {
     return "Godot-JVM";
@@ -65,7 +65,9 @@ void JvmStandardSyntaxHighlighter::_update_cache() {
     keywords.clear();
     regions.clear();
 
-    auto* editor_interface = Object::cast_to<EditorInterface>(Engine::get_singleton()->get_singleton(StringName("EditorInterface")));
+    auto* editor_interface = Object::cast_to<EditorInterface>(
+        Engine::get_singleton()->get_singleton(StringName("EditorInterface"))
+    );
     if (editor_interface == nullptr) { return; }
 
     // Fallback palette in case EditorSettings is ever unavailable; overwritten below otherwise.

@@ -23,7 +23,12 @@ void Bootstrap::load_classes(JNIEnv* p_env, jobject p_this, jobjectArray p_class
     godot::JvmScriptManager::get_instance()->initialize_scripts(classes);
 }
 
-void Bootstrap::register_engine_type(JNIEnv* p_env, jobject p_this, jobjectArray p_classes_names, jobjectArray p_singleton_names) {
+void Bootstrap::register_engine_type(
+    JNIEnv* p_env,
+    jobject p_this,
+    jobjectArray p_classes_names,
+    jobjectArray p_singleton_names
+) {
 #ifdef DEV_ENABLED
     JVM_LOG_VERBOSE("Starting to register managed engine types...");
 #endif

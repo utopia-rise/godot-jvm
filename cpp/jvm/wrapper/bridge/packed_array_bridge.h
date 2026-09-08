@@ -18,54 +18,67 @@
 #include <variant/typed_array.hpp>
 
 namespace bridges {
-    // Variant only has conversions to/from the concrete Packed*Array types, not godot-cpp's generic Vector<T> — map each bridge's element type to its real backing Packed*Array type.
+    // Variant only has conversions to/from the concrete Packed*Array types, not godot-cpp's generic Vector<T> — map
+    // each bridge's element type to its real backing Packed*Array type.
     template<typename T>
     struct PackedArrayTypeTrait;
+
     template<>
     struct PackedArrayTypeTrait<uint8_t> {
         using type = godot::PackedByteArray;
     };
+
     template<>
     struct PackedArrayTypeTrait<godot::Color> {
         using type = godot::PackedColorArray;
     };
+
     template<>
     struct PackedArrayTypeTrait<float> {
         using type = godot::PackedFloat32Array;
     };
+
     template<>
     struct PackedArrayTypeTrait<double> {
         using type = godot::PackedFloat64Array;
     };
+
     template<>
     struct PackedArrayTypeTrait<int> {
         using type = godot::PackedInt32Array;
     };
+
     template<>
     struct PackedArrayTypeTrait<int64_t> {
         using type = godot::PackedInt64Array;
     };
+
     template<>
     struct PackedArrayTypeTrait<godot::String> {
         using type = godot::PackedStringArray;
     };
+
     template<>
     struct PackedArrayTypeTrait<godot::Vector2> {
         using type = godot::PackedVector2Array;
     };
+
     template<>
     struct PackedArrayTypeTrait<godot::Vector3> {
         using type = godot::PackedVector3Array;
     };
+
     template<>
     struct PackedArrayTypeTrait<godot::Vector4> {
         using type = godot::PackedVector4Array;
     };
 
-    // PackedByteArray has no to_byte_array() of its own (it already is bytes); every other Packed*Array type exposes one returning a real PackedByteArray copy.
+    // PackedByteArray has no to_byte_array() of its own (it already is bytes); every other Packed*Array type exposes
+    // one returning a real PackedByteArray copy.
     inline godot::PackedByteArray packed_array_to_byte_array(const godot::PackedByteArray& p_array) {
         return p_array;
     }
+
     template<typename PackedType>
     godot::PackedByteArray packed_array_to_byte_array(const PackedType& p_array) {
         return p_array.to_byte_array();
@@ -76,20 +89,20 @@ namespace bridges {
     inline static constexpr const char NAME##QualifiedName[] = FQNAME; \
     class NAME : public PackedArrayBridge<NAME, ELEMENT_TYPE, NAME##QualifiedName>
 
-#define PACKED_ARRAY_BRIDGE_CLASS(NAME, ELEMENT_TYPE)                                 \
-    friend class PackedArrayBridge<NAME, ELEMENT_TYPE, NAME##QualifiedName>;          \
-    friend class JvmSingletonWrapper<NAME, NAME##QualifiedName>;                      \
-    JVM_CLASS(NAME)                                                                   \
-                                                                                      \
-public:                                                                               \
-    NAME(const NAME&) = delete;                                                       \
-    void operator=(const NAME&) = delete;                                             \
-    NAME& operator=(NAME&&) noexcept = delete;                                        \
-    NAME(NAME&&) noexcept = delete;                                                   \
-                                                                                      \
-protected:                                                                            \
-    explicit NAME(jni::Env& p_env, jni::JObject p_wrapped) :                          \
-      PackedArrayBridge<NAME, ELEMENT_TYPE, NAME##QualifiedName>(p_env, p_wrapped) {} \
+#define PACKED_ARRAY_BRIDGE_CLASS(NAME, ELEMENT_TYPE)                                   \
+    friend class PackedArrayBridge<NAME, ELEMENT_TYPE, NAME##QualifiedName>;            \
+    friend class JvmSingletonWrapper<NAME, NAME##QualifiedName>;                        \
+    JVM_CLASS(NAME)                                                                     \
+                                                                                        \
+public:                                                                                 \
+    NAME(const NAME&) = delete;                                                         \
+    void operator=(const NAME&) = delete;                                               \
+    NAME& operator=(NAME&&) noexcept = delete;                                          \
+    NAME(NAME&&) noexcept = delete;                                                     \
+                                                                                        \
+protected:                                                                              \
+    explicit NAME(jni::Env& p_env, jni::JObject p_wrapped) :                            \
+        PackedArrayBridge<NAME, ELEMENT_TYPE, NAME##QualifiedName>(p_env, p_wrapped) {} \
     ~NAME();
 
 namespace bridges {
@@ -222,7 +235,8 @@ namespace bridges {
         jni::Env env(p_raw_env);
         godot::Variant args[2];
         TransferContext::get_instance().read_args(env, args);
-        godot::Variant ret = from_uint_to_ptr<PackedType>(p_raw_ptr)->bsearch(args[0].operator T(), args[1].operator bool());
+        godot::Variant ret =
+            from_uint_to_ptr<PackedType>(p_raw_ptr)->bsearch(args[0].operator T(), args[1].operator bool());
         TransferContext::get_instance().write_return_value(env, ret);
     }
 
@@ -309,7 +323,8 @@ namespace bridges {
         godot::Variant args[2];
         TransferContext::get_instance().read_args(env, args);
 
-        godot::Variant ret = from_uint_to_ptr<PackedType>(p_raw_ptr)->rfind(args[0].operator T(), args[1].operator int());
+        godot::Variant ret =
+            from_uint_to_ptr<PackedType>(p_raw_ptr)->rfind(args[0].operator T(), args[1].operator int());
         TransferContext::get_instance().write_return_value(env, ret);
     }
 
@@ -358,7 +373,8 @@ namespace bridges {
         godot::Variant args[2];
         TransferContext::get_instance().read_args(env, args);
 
-        godot::Variant ret = from_uint_to_ptr<PackedType>(p_raw_ptr)->slice(args[0].operator int(), args[1].operator int());
+        godot::Variant ret =
+            from_uint_to_ptr<PackedType>(p_raw_ptr)->slice(args[0].operator int(), args[1].operator int());
         TransferContext::get_instance().write_return_value(env, ret);
     }
 
@@ -368,7 +384,11 @@ namespace bridges {
     }
 
     template<class Derived, class T, const char* fq_name>
-    void PackedArrayBridge<Derived, T, fq_name>::engine_call_to_byte_array(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
+    void PackedArrayBridge<Derived, T, fq_name>::engine_call_to_byte_array(
+        JNIEnv* p_raw_env,
+        jobject,
+        jlong p_raw_ptr
+    ) {
         jni::Env env(p_raw_env);
         godot::Variant ret = packed_array_to_byte_array(*from_uint_to_ptr<PackedType>(p_raw_ptr));
         TransferContext::get_instance().write_return_value(env, ret);
@@ -376,7 +396,7 @@ namespace bridges {
 
     template<class Derived, class T, const char* fq_name>
     PackedArrayBridge<Derived, T, fq_name>::PackedArrayBridge(jni::Env& p_env, jni::JObject p_wrapped) :
-      JvmSingletonWrapper<Derived, fq_name>(p_env, p_wrapped) {}
+        JvmSingletonWrapper<Derived, fq_name>(p_env, p_wrapped) {}
 } // namespace bridges
 
 #endif // GODOT_JVM_PACKED_ARRAY_BRIDGE_H

@@ -2,7 +2,10 @@
 
 #include <classes/json.hpp>
 
-bool JvmUserConfiguration::parse_configuration_json(const godot::String& json_string, JvmUserConfiguration& json_config) {
+bool JvmUserConfiguration::parse_configuration_json(
+    const godot::String& json_string,
+    JvmUserConfiguration& json_config
+) {
     bool is_invalid = false;
     godot::Ref<godot::JSON> json;
     json.instantiate();
@@ -75,7 +78,10 @@ bool JvmUserConfiguration::parse_configuration_json(const godot::String& json_st
             json_config.wait_for_debugger = false;
         } else {
             is_invalid = true;
-            JVM_LOG_WARNING("Invalid Waiting for Debugger value in configuration file: %s. It will be ignored", boolean);
+            JVM_LOG_WARNING(
+                "Invalid Waiting for Debugger value in configuration file: %s. It will be ignored",
+                boolean
+            );
         }
         json_dict.erase(WAIT_FOR_DEBUGGER_JSON_IDENTIFIER);
     }
@@ -124,8 +130,10 @@ bool JvmUserConfiguration::parse_configuration_json(const godot::String& json_st
         godot::String version = json_dict[VERSION_JSON_IDENTIFIER];
         JVM_DEV_VERBOSE("Value for json argument: %s -> %s", VERSION_JSON_IDENTIFIER, version);
         if (version != JSON_ARGUMENT_VERSION) {
-            JVM_LOG_WARNING("Your existing jvm json configuration file was made for an older version of this binding. A "
-                        "new will one will be created. Your previous settings should remain if compatible.");
+            JVM_LOG_WARNING(
+                "Your existing jvm json configuration file was made for an older version of this binding. A "
+                "new will one will be created. Your previous settings should remain if compatible."
+            );
             is_invalid = true;
         }
         json_dict.erase(VERSION_JSON_IDENTIFIER);
@@ -205,11 +213,18 @@ bool get_cmd_bool_or_default(const godot::String& value, bool default_if_empty) 
     } else if (value == FALSE_STRING) {
         return false;
     } else {
-        JVM_ERR_FAIL_V_MSG(false, "Command line argument can't be parsed as a boolean value: %s. It will be treated as false", value);
+        JVM_ERR_FAIL_V_MSG(
+            false,
+            "Command line argument can't be parsed as a boolean value: %s. It will be treated as false",
+            value
+        );
     }
 }
 
-void JvmUserConfiguration::parse_command_line(const godot::PackedStringArray& args, godot::HashMap<godot::String, godot::Variant>& configuration_map) {
+void JvmUserConfiguration::parse_command_line(
+    const godot::PackedStringArray& args,
+    godot::HashMap<godot::String, godot::Variant>& configuration_map
+) {
     // We use a HashMap instead of JvmUserConfiguration so we can still make the difference between a
     // JvmUserConfiguration default value and the absence of the matching command line argument. Knowing this is
     // essential when merging with the json configuration later.
@@ -264,7 +279,10 @@ void JvmUserConfiguration::parse_command_line(const godot::PackedStringArray& ar
             if (value.is_valid_int() && size >= -1 && size <= MAX_STRING_SIZE_LIMIT) {
                 configuration_map[MAX_STRING_SIZE_CMD_IDENTIFIER] = size;
             } else {
-                JVM_LOG_WARNING("Invalid Maximum String Size value in command line arguments: %s. It will be ignored", size);
+                JVM_LOG_WARNING(
+                    "Invalid Maximum String Size value in command line arguments: %s. It will be ignored",
+                    size
+                );
             }
         } else if (identifier == DISABLE_GC_CMD_IDENTIFIER) {
             configuration_map[DISABLE_GC_CMD_IDENTIFIER] = get_cmd_bool_or_default(value, true);
@@ -282,9 +300,7 @@ void JvmUserConfiguration::parse_command_line(const godot::PackedStringArray& ar
             // --jvm-custom-args="-Xmx4g -Xms4g"
             for (godot::String jvm_arg : value.replace(",", " ").split(" ", false)) {
                 godot::String stripped_jvm_arg = jvm_arg.strip_edges();
-                if (!stripped_jvm_arg.is_empty()) {
-                    arr.append(stripped_jvm_arg);
-                }
+                if (!stripped_jvm_arg.is_empty()) { arr.append(stripped_jvm_arg); }
             }
             configuration_map[JVM_ARGUMENTS_CMD_IDENTIFIER] = arr;
         }
@@ -296,17 +312,26 @@ void JvmUserConfiguration::parse_command_line(const godot::PackedStringArray& ar
 }
 
 template<typename T>
-void replace_json_value_by_cmd_value(const godot::HashMap<godot::String, godot::Variant>& map, T& json_value, const godot::String& cmd_key) {
+void replace_json_value_by_cmd_value(
+    const godot::HashMap<godot::String, godot::Variant>& map,
+    T& json_value,
+    const godot::String& cmd_key
+) {
     if (map.has(cmd_key)) { json_value = godot::VariantCaster<T>::cast(map[cmd_key]); }
 }
 
-void JvmUserConfiguration::merge_with_command_line(JvmUserConfiguration& json_config, const godot::HashMap<godot::String, godot::Variant>& cmd_map) {
+void JvmUserConfiguration::merge_with_command_line(
+    JvmUserConfiguration& json_config,
+    const godot::HashMap<godot::String, godot::Variant>& cmd_map
+) {
     replace_json_value_by_cmd_value(cmd_map, json_config.vm_type, VM_TYPE_CMD_IDENTIFIER);
     replace_json_value_by_cmd_value(cmd_map, json_config.jvm_debug_port, DEBUG_PORT_CMD_IDENTIFIER);
     replace_json_value_by_cmd_value(cmd_map, json_config.jvm_debug_address, DEBUG_ADDRESS_CMD_IDENTIFIER);
     replace_json_value_by_cmd_value(cmd_map, json_config.wait_for_debugger, WAIT_FOR_DEBUGGER_CMD_IDENTIFIER);
 
-    if (cmd_map.has(DEBUG_PORT_CMD_IDENTIFIER) || cmd_map.has(DEBUG_ADDRESS_CMD_IDENTIFIER) || cmd_map.has(WAIT_FOR_DEBUGGER_CMD_IDENTIFIER)) {
+    if (cmd_map.has(DEBUG_PORT_CMD_IDENTIFIER)
+        || cmd_map.has(DEBUG_ADDRESS_CMD_IDENTIFIER)
+        || cmd_map.has(WAIT_FOR_DEBUGGER_CMD_IDENTIFIER)) {
         // Set use debug to true if any of the 3 previous arguments are used.
         // Will be overridden if the actual argument is used.
         json_config.use_debug = true;
@@ -322,18 +347,24 @@ void JvmUserConfiguration::merge_with_command_line(JvmUserConfiguration& json_co
 void JvmUserConfiguration::sanitize_and_log_configuration(JvmUserConfiguration& config) {
     if (config.max_string_size != -1) {
         JVM_LOG_WARNING(
-          "The max string size was changed to %s which can modify the size of the shared buffer."
-          "Be aware that it might impact performance and memory usage. Set to -1 if you want the default size.",
-          config.max_string_size
+            "The max string size was changed to %s which can modify the size of the shared buffer."
+            "Be aware that it might impact performance and memory usage. Set to -1 if you want the default size.",
+            config.max_string_size
         );
     }
 
     if (!config.jvm_path.is_empty()) {
-        JVM_LOG_WARNING("A JVM path is forced through the command line. The embedded JRE and the environment are ignored: %s", config.jvm_path);
+        JVM_LOG_WARNING(
+            "A JVM path is forced through the command line. The embedded JRE and the environment are ignored: %s",
+            config.jvm_path
+        );
     }
 
     if (!config.jvm_args.is_empty()) {
-        JVM_LOG_WARNING("Custom JVM arguments are provided, they can causes the JVM to not properly start if invalid: %s", config.jvm_args);
+        JVM_LOG_WARNING(
+            "Custom JVM arguments are provided, they can causes the JVM to not properly start if invalid: %s",
+            config.jvm_args
+        );
     }
 
 #ifdef ANDROID_ENABLED

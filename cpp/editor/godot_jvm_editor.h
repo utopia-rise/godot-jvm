@@ -17,12 +17,14 @@ namespace godot {
 
     class GodotJvmEditor : public EditorPlugin {
         GDCLASS(GodotJvmEditor, EditorPlugin)
+
         enum KOTLIN_JVM_MENU_OPTIONS {
             GENERATE_PROJECT
         };
 
         PopupMenu* tool_pop_menu;
-        // Built in NOTIFICATION_ENTER_TREE, not the constructor: it reads editor_scale below, which is only populated once this plugin has actually entered the tree — constructing it any earlier crashes.
+        // Built in NOTIFICATION_ENTER_TREE, not the constructor: it reads editor_scale below, which is only populated
+        // once this plugin has actually entered the tree — constructing it any earlier crashes.
         TaskDialogControls task_dialog = TaskDialogControls();
 
         AcceptDialog* project_dialog;

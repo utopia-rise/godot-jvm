@@ -1,6 +1,7 @@
 #ifndef GODOT_JVM_GODOT_OBJECT_H
 #define GODOT_JVM_GODOT_OBJECT_H
 
+#include <array>
 #include <classes/object.hpp>
 #include <classes/ref_counted.hpp>
 #include <core/builtin_ptrcall.hpp>
@@ -12,17 +13,19 @@
 #include <variant/string_name.hpp>
 #include <variant/variant.hpp>
 
-#include <array>
-
 // The engine's SNAME without its `p_static` flag: that flag promises the name outlives the process, which is false
 // for a static inside an unloadable library and makes Godot report "Unreferenced static string" for it at exit.
-#define SNAME(m_arg) ([]() -> const godot::StringName & { static godot::StringName sname = godot::StringName(m_arg); return sname; })()
+#define SNAME(m_arg)                                               \
+    ([]() -> const godot::StringName& {                            \
+        static godot::StringName sname = godot::StringName(m_arg); \
+        return sname;                                              \
+    })()
 
-#define RAW_GODOT_METHOD_BIND(m_class, m_method, m_hash) \
+#define RAW_GODOT_METHOD_BIND(m_class, m_method, m_hash)            \
     godot::internal::gdextension_interface_classdb_get_method_bind( \
-      godot::StringName(m_class)._native_ptr(), \
-      godot::StringName(m_method)._native_ptr(), \
-      m_hash \
+        godot::StringName(m_class)._native_ptr(),                   \
+        godot::StringName(m_method)._native_ptr(),                  \
+        m_hash                                                      \
     )
 
 // Engine entry points the JVM hot path uses, resolved once by configure() into plain globals. Function-local statics
@@ -55,11 +58,17 @@ namespace raw_godot {
         is_class_bind = RAW_GODOT_METHOD_BIND("Object", "is_class", 3927539163);
         set_bind = RAW_GODOT_METHOD_BIND("Object", "set", 3776071444);
         set_script_bind = RAW_GODOT_METHOD_BIND("Object", "set_script", 1114965689);
-        variant_from_object = godot::internal::gdextension_interface_get_variant_from_type_constructor(GDEXTENSION_VARIANT_TYPE_OBJECT);
-        object_from_variant = godot::internal::gdextension_interface_get_variant_to_type_constructor(GDEXTENSION_VARIANT_TYPE_OBJECT);
+        variant_from_object = godot::internal::gdextension_interface_get_variant_from_type_constructor(
+            GDEXTENSION_VARIANT_TYPE_OBJECT
+        );
+        object_from_variant = godot::internal::gdextension_interface_get_variant_to_type_constructor(
+            GDEXTENSION_VARIANT_TYPE_OBJECT
+        );
         // Index 2 is the (Object, StringName) constructor of each — godot-cpp caches the same one as `constructor_2`.
-        signal_constructor = godot::internal::gdextension_interface_variant_get_ptr_constructor(GDEXTENSION_VARIANT_TYPE_SIGNAL, 2);
-        callable_constructor = godot::internal::gdextension_interface_variant_get_ptr_constructor(GDEXTENSION_VARIANT_TYPE_CALLABLE, 2);
+        signal_constructor =
+            godot::internal::gdextension_interface_variant_get_ptr_constructor(GDEXTENSION_VARIANT_TYPE_SIGNAL, 2);
+        callable_constructor =
+            godot::internal::gdextension_interface_variant_get_ptr_constructor(GDEXTENSION_VARIANT_TYPE_CALLABLE, 2);
 
         ERR_FAIL_NULL_MSG(init_ref_bind, "Failed to resolve RefCounted::init_ref.");
         ERR_FAIL_NULL_MSG(reference_bind, "Failed to resolve RefCounted::reference.");
@@ -100,14 +109,19 @@ namespace raw_godot {
 
     public:
         RawObject() = default;
+
         RawObject(GodotObject* p_ptr) : _ptr(p_ptr) {}
 
         operator GodotObject*() const { return _ptr; }
+
         _ALWAYS_INLINE_ GodotObject* ptr() const { return _ptr; }
+
         _ALWAYS_INLINE_ explicit operator bool() const { return _ptr != nullptr; }
+
         _ALWAYS_INLINE_ bool is_null() const { return _ptr == nullptr; }
 
         _ALWAYS_INLINE_ bool operator==(const RawObject& p_other) const { return _ptr == p_other._ptr; }
+
         _ALWAYS_INLINE_ bool operator!=(const RawObject& p_other) const { return _ptr != p_other._ptr; }
 
         // --- creation and lookup -------------------------------------------------------------------------------
@@ -130,7 +144,7 @@ namespace raw_godot {
         // though the engine implements it, so there is no gdextension_interface_classdb_construct_object3 to call.
         _ALWAYS_INLINE_ static RawObject instantiate(const StringName& p_class_name) {
             RawObject object = internal::gdextension_interface_classdb_construct_object2(
-              reinterpret_cast<GDExtensionConstStringNamePtr>(p_class_name._native_ptr())
+                reinterpret_cast<GDExtensionConstStringNamePtr>(p_class_name._native_ptr())
             );
             if (unlikely(object.is_null())) { return RawObject(); }
 
@@ -143,7 +157,9 @@ namespace raw_godot {
         // objects afterwards; their free callback would then point into unmapped extension memory. None of this raw
         // API needs a wrapper.
         _ALWAYS_INLINE_ static RawObject from_instance_id(uint64_t p_instance_id) {
-            return internal::gdextension_interface_object_get_instance_from_id(static_cast<GDObjectInstanceID>(p_instance_id));
+            return internal::gdextension_interface_object_get_instance_from_id(
+                static_cast<GDObjectInstanceID>(p_instance_id)
+            );
         }
 
         // The first half of Variant::operator Object*(), without the wrapper it then builds.
@@ -176,17 +192,15 @@ namespace raw_godot {
         _ALWAYS_INLINE_ StringName get_class_name() const {
             StringName class_name;
             internal::gdextension_interface_object_get_class_name(
-              _ptr,
-              internal::library,
-              static_cast<GDExtensionUninitializedStringNamePtr>(class_name._native_ptr())
+                _ptr,
+                internal::library,
+                static_cast<GDExtensionUninitializedStringNamePtr>(class_name._native_ptr())
             );
             return class_name;
         }
 
         // An ObjectID's high bit flags a RefCounted.
-        _ALWAYS_INLINE_ bool is_ref_counted() const {
-            return (get_instance_id() & (uint64_t(1) << 63)) != 0;
-        }
+        _ALWAYS_INLINE_ bool is_ref_counted() const { return (get_instance_id() & (uint64_t(1) << 63)) != 0; }
 
         _ALWAYS_INLINE_ bool is_class(const StringName& p_class_name) const {
             String class_name = p_class_name;
@@ -225,7 +239,10 @@ namespace raw_godot {
             return internal::gdextension_interface_object_get_script_instance(_ptr, p_language);
         }
 
-        _ALWAYS_INLINE_ void* get_instance_binding(void* p_token, const GDExtensionInstanceBindingCallbacks* p_callbacks) const {
+        _ALWAYS_INLINE_ void* get_instance_binding(
+            void* p_token,
+            const GDExtensionInstanceBindingCallbacks* p_callbacks
+        ) const {
             return internal::gdextension_interface_object_get_instance_binding(_ptr, p_token, p_callbacks);
         }
 
@@ -234,25 +251,29 @@ namespace raw_godot {
         }
 
         _ALWAYS_INLINE_ void call_method_bind(
-          GDExtensionMethodBindPtr p_method_bind,
-          const GDExtensionConstVariantPtr* p_args,
-          GDExtensionInt p_arg_count,
-          GDExtensionVariantPtr r_return,
-          GDExtensionCallError* r_error
+            GDExtensionMethodBindPtr p_method_bind,
+            const GDExtensionConstVariantPtr* p_args,
+            GDExtensionInt p_arg_count,
+            GDExtensionVariantPtr r_return,
+            GDExtensionCallError* r_error
         ) const {
             internal::gdextension_interface_object_method_bind_call(
-              p_method_bind,
-              _ptr,
-              p_args,
-              p_arg_count,
-              r_return,
-              r_error
+                p_method_bind,
+                _ptr,
+                p_args,
+                p_arg_count,
+                r_return,
+                r_error
             );
         }
 
     private:
-        template <typename... Args>
-        _ALWAYS_INLINE_ void call_vararg(GDExtensionMethodBindPtr p_bind, const StringName& p_method, const Args&... p_args) const {
+        template<typename... Args>
+        _ALWAYS_INLINE_ void call_vararg(
+            GDExtensionMethodBindPtr p_bind,
+            const StringName& p_method,
+            const Args&... p_args
+        ) const {
             Variant args[] = {p_method, p_args...};
             std::array<GDExtensionConstVariantPtr, sizeof...(Args) + 1> args_ptr;
             for (size_t i = 0; i < args_ptr.size(); ++i) {
@@ -260,28 +281,18 @@ namespace raw_godot {
             }
             Variant result;
             GDExtensionCallError error;
-            call_method_bind(
-              p_bind,
-              args_ptr.data(),
-              args_ptr.size(),
-              result._native_ptr(),
-              &error
-            );
+            call_method_bind(p_bind, args_ptr.data(), args_ptr.size(), result._native_ptr(), &error);
         }
 
     public:
-        template <typename... Args>
+        template<typename... Args>
         _ALWAYS_INLINE_ void call_thread_safe(const StringName& p_method, const Args&... p_args) const {
             call_vararg(call_thread_safe_bind, p_method, p_args...);
         }
 
-        _ALWAYS_INLINE_ bool init_ref() const {
-            return internal::_call_native_mb_ret<int8_t>(init_ref_bind, _ptr);
-        }
+        _ALWAYS_INLINE_ bool init_ref() const { return internal::_call_native_mb_ret<int8_t>(init_ref_bind, _ptr); }
 
-        _ALWAYS_INLINE_ bool reference() const {
-            return internal::_call_native_mb_ret<int8_t>(reference_bind, _ptr);
-        }
+        _ALWAYS_INLINE_ bool reference() const { return internal::_call_native_mb_ret<int8_t>(reference_bind, _ptr); }
 
         _ALWAYS_INLINE_ bool unreference() const {
             return internal::_call_native_mb_ret<int8_t>(unreference_bind, _ptr);

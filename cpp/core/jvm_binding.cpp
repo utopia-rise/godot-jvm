@@ -1,5 +1,6 @@
-#include "jvm/wrapper/memory/type_manager.h"
 #include "jvm_binding.h"
+
+#include "jvm/wrapper/memory/type_manager.h"
 
 #include <godot.hpp>
 
@@ -27,7 +28,7 @@ void JvmBinding::init(GodotObject* p_engine_object) {
     init_from_class_name(id, class_name);
 }
 
-int JvmBinding::get_constructor_id() const{
+int JvmBinding::get_constructor_id() const {
     return constructor_id;
 }
 

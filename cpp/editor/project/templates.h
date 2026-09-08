@@ -1,4 +1,5 @@
-// Auto-generated templates from kt/plugins/godot-intellij-plugin/src/main/resources/template directory 
+// clang-format off
+// Auto-generated from the kt/plugins/godot-intellij-plugin/src/main/resources/template directory. Do not edit by hand.
 
 #ifndef FILE_CONTENTS_H
 #define FILE_CONTENTS_H

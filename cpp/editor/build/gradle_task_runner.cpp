@@ -1,5 +1,6 @@
-#include "editor/strings.h"
 #include "gradle_task_runner.h"
+
+#include "editor/strings.h"
 #include "logging.h"
 
 #include <classes/project_settings.hpp>
@@ -24,7 +25,11 @@ String get_gradlew_path() {
 }
 
 Error GradleTaskRunner::run_task(int task_id, String& log, bool blocking) {
-    JVM_ERR_FAIL_COND_V_MSG(!FileAccess::file_exists(get_build_gradle_path()), Error::ERR_FILE_NOT_FOUND, missing_gradle_project);
+    JVM_ERR_FAIL_COND_V_MSG(
+        !FileAccess::file_exists(get_build_gradle_path()),
+        Error::ERR_FILE_NOT_FOUND,
+        missing_gradle_project
+    );
 
     PackedStringArray args = PackedStringArray();
     switch (task_id) {

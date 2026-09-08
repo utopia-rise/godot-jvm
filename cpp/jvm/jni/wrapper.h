@@ -3,8 +3,8 @@
 
 #include "env.h"
 #include "jvm.h"
-#include "types.h"
 #include "local_frame.h"
+#include "types.h"
 
 namespace jni {
 
@@ -48,6 +48,6 @@ namespace jni {
         return static_cast<JValue>(static_cast<jboolean>(b)).value;
     }
 
-}// namespace jni
+} // namespace jni
 
-#endif// GODOT_JVM_WRAPPER_H
+#endif // GODOT_JVM_WRAPPER_H

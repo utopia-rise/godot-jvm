@@ -41,7 +41,7 @@ BinPackArguments: false
 BinPackParameters: OnePerLine
 BreakAfterReturnType: Automatic
 BreakBeforeBinaryOperators: NonAssignment
-BreakBinaryOperations: OnePerLine
+BreakBinaryOperations: RespectPrecedence
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: AfterColon
 BreakInheritanceList: AfterComma

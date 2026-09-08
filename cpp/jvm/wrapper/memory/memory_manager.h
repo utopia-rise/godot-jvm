@@ -7,10 +7,9 @@
 
 #include <jni.h>
 
+#include <mutex>
 #include <templates/hash_set.hpp>
 #include <templates/local_vector.hpp>
-
-#include <mutex>
 
 // clang-format off
 JVM_SINGLETON_WRAPPER(MemoryManager, "godot.internal.memory.MemoryManager") {

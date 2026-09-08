@@ -113,9 +113,8 @@ void VariantArrayBridge::engine_call_bsearchCustom(JNIEnv* p_raw_env, jobject, j
     godot::Variant args[3];
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
-    godot::Variant variant =
-      from_uint_to_ptr<godot::Array>(p_raw_ptr)->bsearch_custom(args[0], args[1].operator godot::Callable(), args[2].operator bool())
-    ;
+    godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)
+                                 ->bsearch_custom(args[0], args[1].operator godot::Callable(), args[2].operator bool());
     transfer_context.write_return_value(env, variant);
 }
 
@@ -234,10 +233,12 @@ void VariantArrayBridge::engine_call_slice(JNIEnv* p_raw_env, jobject, jlong p_r
     godot::Variant args[4];
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
-    godot::Variant variant =
-      from_uint_to_ptr<godot::Array>(p_raw_ptr)
-        ->slice(args[0].operator int64_t(), args[1].operator int64_t(), args[2].operator int64_t(), args[3].operator bool())
-    ;
+    godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->slice(
+        args[0].operator int64_t(),
+        args[1].operator int64_t(),
+        args[2].operator int64_t(),
+        args[3].operator bool()
+    );
     transfer_context.write_return_value(env, variant);
 }
 

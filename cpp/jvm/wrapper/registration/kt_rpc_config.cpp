@@ -5,7 +5,9 @@ KtRpcConfig::KtRpcConfig(jni::Env& p_env, jni::JObject p_wrapped) : JvmInstanceW
 
     rpc_mode = static_cast<godot::MultiplayerAPI::RPCMode>(wrapped.call_int_method(env, GET_RPC_MODE_ID));
     rpc_call_local = wrapped.call_boolean_method(env, GET_RPC_CALL_LOCAL);
-    rpc_transfer_mode = static_cast<godot::MultiplayerPeer::TransferMode>(wrapped.call_int_method(env, GET_RPC_TRANSFER_MODE_ID));
+    rpc_transfer_mode = static_cast<godot::MultiplayerPeer::TransferMode>(
+        wrapped.call_int_method(env, GET_RPC_TRANSFER_MODE_ID)
+    );
     rpc_channel = wrapped.call_int_method(env, GET_RPC_CHANNEL);
 }
 

@@ -4,8 +4,8 @@
 #include "logging.h"
 
 KtClass::KtClass(jni::Env& p_env, jni::JObject p_wrapped) :
-  JvmInstanceWrapper(p_env, p_wrapped),
-  kt_constructor(nullptr) {
+    JvmInstanceWrapper(p_env, p_wrapped),
+    kt_constructor(nullptr) {
     LOCAL_FRAME(5);
     registered_class_name = get_registered_name(p_env);
     fqdn = get_fqdn(p_env);
@@ -76,7 +76,9 @@ void KtClass::fetch_handled_notifications(jni::Env& env) {
     godot::Vector<jint> values;
     values.resize(count);
     notifications.get_array_elements(env, values.ptrw(), count);
-    for (int i = 0; i < count; ++i) { handled_notifications.insert(values[i]); }
+    for (int i = 0; i < count; ++i) {
+        handled_notifications.insert(values[i]);
+    }
     notifications.delete_local_ref(env);
 }
 
@@ -106,9 +108,7 @@ void KtClass::fetch_properties(jni::Env& env) {
     for (int i = 0; i < propertiesArray.length(env); i++) {
         auto* ktProperty = new KtProperty(env, propertiesArray.get(env, i));
         property_list.append(ktProperty);
-        if (!ktProperty->is_property_list_marker()) {
-            properties[ktProperty->get_name()] = ktProperty;
-        }
+        if (!ktProperty->is_property_list_marker()) { properties[ktProperty->get_name()] = ktProperty; }
         JVM_DEV_VERBOSE("Fetched property %s for class %s", ktProperty->get_name(), registered_class_name);
     }
     propertiesArray.delete_local_ref(env);

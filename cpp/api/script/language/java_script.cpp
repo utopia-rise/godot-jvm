@@ -11,17 +11,15 @@ ScriptLanguage* JavaScript::_get_language() const {
 
 #ifdef TOOLS_ENABLED
 void JavaScript::_format_template(const String& p_path) const {
-    if (!source.contains(PACKAGE_TEMPLATE)) {
-        return;
-    }
+    if (!source.contains(PACKAGE_TEMPLATE)) { return; }
 
     String package = p_path.replace("src/main/java/", "")
-                      .trim_prefix("res://")
-                      .trim_suffix(get_name() + "." + JavaLanguage::get_instance()->_get_extension())
-                      .trim_suffix("/")
-                      .replace("/", ".");
+                         .trim_prefix("res://")
+                         .trim_suffix(get_name() + "." + JavaLanguage::get_instance()->_get_extension())
+                         .trim_suffix("/")
+                         .replace("/", ".");
 
-    if (!package.is_empty()) { package = "package " + package + ";";}
+    if (!package.is_empty()) { package = "package " + package + ";"; }
 
     source = source.replace(PACKAGE_TEMPLATE, package).strip_edges(true, false);
 }

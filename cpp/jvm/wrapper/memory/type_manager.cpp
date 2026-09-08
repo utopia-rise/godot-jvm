@@ -46,28 +46,38 @@ void TypeManager::register_engine_singletons(jni::Env& p_env, jni::JObjectArray&
     }
 }
 
-void TypeManager::assign_script_to_class(jni::Env& p_env, int p_index, const godot::Ref<godot::JvmScript>& p_script) const {
-    jvalue args[2] = {
-      jni::to_jni_arg(p_index),
-      jni::to_jni_arg(p_script.ptr())
-    };
+void TypeManager::assign_script_to_class(
+    jni::Env& p_env,
+    int p_index,
+    const godot::Ref<godot::JvmScript>& p_script
+) const {
+    jvalue args[2] = {jni::to_jni_arg(p_index), jni::to_jni_arg(p_script.ptr())};
     wrapped.call_void_method(p_env, ASSIGN_SCRIPT_TO_CLASS, args);
 }
 
-uintptr_t TypeManager::get_method_bind_ptr(JNIEnv* p_raw_env, jobject, jstring p_class_name, jstring p_method_name, jlong hash) {
+uintptr_t TypeManager::get_method_bind_ptr(
+    JNIEnv* p_raw_env,
+    jobject,
+    jstring p_class_name,
+    jstring p_method_name,
+    jlong hash
+) {
     jni::Env env(p_raw_env);
     godot::StringName class_name = env.from_jstring(jni::JString(p_class_name));
     godot::StringName method_name = env.from_jstring(jni::JString(p_method_name));
 
-    GDExtensionMethodBindPtr bind =
-      godot::internal::gdextension_interface_classdb_get_method_bind(class_name._native_ptr(), method_name._native_ptr(), hash);
+    GDExtensionMethodBindPtr bind = godot::internal::gdextension_interface_classdb_get_method_bind(
+        class_name._native_ptr(),
+        method_name._native_ptr(),
+        hash
+    );
 
     JVM_ERR_FAIL_COND_V_MSG(
-      !bind,
-      0,
-      "Method %s from Class %s doesn't exist. Check that your Godot-JVM library matches this Godot version.",
-      method_name,
-      class_name
+        !bind,
+        0,
+        "Method %s from Class %s doesn't exist. Check that your Godot-JVM library matches this Godot version.",
+        method_name,
+        class_name
     );
 
     return reinterpret_cast<uintptr_t>(bind);

@@ -58,9 +58,12 @@ void GdjLanguage::_thread_exit() {
 }
 
 TypedArray<Dictionary> GdjLanguage::_debug_get_current_stack_info() {
-    if (unlikely(GodotJvm::get_instance().state < GodotJvm::State::CORE_LIBRARY_INITIALIZED)) { return TypedArray<Dictionary>(); }
+    if (unlikely(GodotJvm::get_instance().state < GodotJvm::State::CORE_LIBRARY_INITIALIZED)) {
+        return TypedArray<Dictionary>();
+    }
 
-    // Guards against the recursion this is otherwise prone to: an error hit while building the stacktrace ends up back in Godot's error-printing path, which asks for the current stack info again to attach it to that very error.
+    // Guards against the recursion this is otherwise prone to: an error hit while building the stacktrace ends up back
+    // in Godot's error-printing path, which asks for the current stack info again to attach it to that very error.
     thread_local bool is_capturing_stacktrace = false;
     if (is_capturing_stacktrace) { return TypedArray<Dictionary>(); }
 
@@ -113,14 +116,14 @@ bool GdjLanguage::_supports_builtin_mode() const {
 
 PackedStringArray GdjLanguage::_get_reserved_words() const {
     static PackedStringArray reserved_words = {
-      "registeredName",
-      "fqName",
-      "relativeSourcePath ",
-      "baseType ",
-      "supertypes",
-      "signals",
-      "properties",
-      "functions"
+        "registeredName",
+        "fqName",
+        "relativeSourcePath ",
+        "baseType ",
+        "supertypes",
+        "signals",
+        "properties",
+        "functions"
     };
     return reserved_words;
 }
@@ -130,22 +133,28 @@ bool GdjLanguage::_is_control_flow_keyword(const String& p_keyword) const {
 }
 
 PackedStringArray GdjLanguage::_get_comment_delimiters() const {
-    static PackedStringArray delimiters = {
-      "//"
-    };
+    static PackedStringArray delimiters = {"//"};
     return delimiters;
 }
 
-PackedStringArray GdjLanguage::_get_doc_comment_delimiters() const { return PackedStringArray(); }
+PackedStringArray GdjLanguage::_get_doc_comment_delimiters() const {
+    return PackedStringArray();
+}
 
-PackedStringArray GdjLanguage::_get_string_delimiters() const { return PackedStringArray(); }
+PackedStringArray GdjLanguage::_get_string_delimiters() const {
+    return PackedStringArray();
+}
 
-Ref<Script> GdjLanguage::_make_template(const String& p_template, const String& p_class_name, const String& p_base_class_name) const {
+Ref<Script> GdjLanguage::_make_template(
+    const String& p_template,
+    const String& p_class_name,
+    const String& p_base_class_name
+) const {
     Ref<GdjScript> gdj_script;
     gdj_script.instantiate();
-    String processed_template =
-      String(GDJ_TEMPLATE).replace(BASE_TEMPLATE, p_base_class_name).replace(CLASS_TEMPLATE, p_class_name.to_pascal_case())
-    ;
+    String processed_template = String(GDJ_TEMPLATE)
+                                    .replace(BASE_TEMPLATE, p_base_class_name)
+                                    .replace(CLASS_TEMPLATE, p_class_name.to_pascal_case());
     gdj_script->set_source_code(processed_template);
     gdj_script->set_name(p_class_name);
     return gdj_script;

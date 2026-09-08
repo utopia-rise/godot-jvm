@@ -17,12 +17,14 @@ using namespace godot;
 
 // Desktop preset option selecting which runtime(s) the export bundles. Shown as "Godot Jvm > Runtime".
 static constexpr const char* runtime_option = "godot_jvm/runtime";
+
 enum Runtime {
     RUNTIME_NONE,
     RUNTIME_JVM,
     RUNTIME_GRAAL,
     RUNTIME_BOTH,
 };
+
 static constexpr const char* runtime_option_values = "No,JVM,Graal,Both";
 
 namespace {
@@ -80,9 +82,21 @@ namespace {
     };
 
     const DesktopRuntimeFiles* desktop_runtime_files(const String& p_os_name) {
-        static constexpr DesktopRuntimeFiles windows = {WINDOWS_EMBEDDED_JRE_ARM_DIRECTORY, WINDOWS_EMBEDDED_JRE_AMD_DIRECTORY, WINDOWS_GRAAL_NATIVE_IMAGE_FILE};
-        static constexpr DesktopRuntimeFiles linux = {LINUX_EMBEDDED_JRE_ARM_DIRECTORY, LINUX_EMBEDDED_JRE_AMD_DIRECTORY, LINUX_GRAAL_NATIVE_IMAGE_FILE};
-        static constexpr DesktopRuntimeFiles macos = {MACOS_EMBEDDED_JRE_ARM_DIRECTORY, MACOS_EMBEDDED_JRE_AMD_DIRECTORY, MACOS_GRAAL_NATIVE_IMAGE_FILE};
+        static constexpr DesktopRuntimeFiles windows = {
+            WINDOWS_EMBEDDED_JRE_ARM_DIRECTORY,
+            WINDOWS_EMBEDDED_JRE_AMD_DIRECTORY,
+            WINDOWS_GRAAL_NATIVE_IMAGE_FILE
+        };
+        static constexpr DesktopRuntimeFiles linux = {
+            LINUX_EMBEDDED_JRE_ARM_DIRECTORY,
+            LINUX_EMBEDDED_JRE_AMD_DIRECTORY,
+            LINUX_GRAAL_NATIVE_IMAGE_FILE
+        };
+        static constexpr DesktopRuntimeFiles macos = {
+            MACOS_EMBEDDED_JRE_ARM_DIRECTORY,
+            MACOS_EMBEDDED_JRE_AMD_DIRECTORY,
+            MACOS_GRAAL_NATIVE_IMAGE_FILE
+        };
         if (p_os_name == "Windows") { return &windows; }
         if (p_os_name == "Linux") { return &linux; }
         if (p_os_name == "macOS") { return &macos; }
@@ -127,14 +141,20 @@ namespace {
 
 bool GodotJvmEditorExportPlugin::_supports_platform(const Ref<EditorExportPlatform>& p_platform) const {
     // Godot only asks supporting plugins for export options, warnings and Android libraries.
-    return p_platform.is_valid() && (p_platform->get_os_name() == "Android" || desktop_runtime_files(p_platform->get_os_name()) != nullptr);
+    return p_platform.is_valid()
+        && (p_platform->get_os_name() == "Android" || desktop_runtime_files(p_platform->get_os_name()) != nullptr);
 }
 
-PackedStringArray GodotJvmEditorExportPlugin::_get_android_libraries(const Ref<EditorExportPlatform>&, bool p_debug) const {
+PackedStringArray GodotJvmEditorExportPlugin::_get_android_libraries(
+    const Ref<EditorExportPlatform>&,
+    bool p_debug
+) const {
     return {p_debug ? "jvm/libs/android/debug/godot-jvm-debug.aar" : "jvm/libs/android/release/godot-jvm-release.aar"};
 }
 
-TypedArray<Dictionary> GodotJvmEditorExportPlugin::_get_export_options(const Ref<EditorExportPlatform>& p_platform) const {
+TypedArray<Dictionary> GodotJvmEditorExportPlugin::_get_export_options(
+    const Ref<EditorExportPlatform>& p_platform
+) const {
     TypedArray<Dictionary> options;
     if (desktop_runtime_files(p_platform->get_os_name()) == nullptr) { return options; }
 
@@ -156,7 +176,10 @@ int GodotJvmEditorExportPlugin::selected_runtime() const {
     return runtime.get_type() == Variant::NIL ? RUNTIME_JVM : int(runtime);
 }
 
-String GodotJvmEditorExportPlugin::_get_export_option_warning(const Ref<EditorExportPlatform>& p_platform, const String& p_option) const {
+String GodotJvmEditorExportPlugin::_get_export_option_warning(
+    const Ref<EditorExportPlatform>& p_platform,
+    const String& p_option
+) const {
     if (p_option != runtime_option) { return String(); }
     const DesktopRuntimeFiles* files = desktop_runtime_files(p_platform->get_os_name());
     if (files == nullptr) { return String(); }
@@ -167,24 +190,37 @@ String GodotJvmEditorExportPlugin::_get_export_option_warning(const Ref<EditorEx
         String architecture = get_option("binary_format/architecture");
         bool universal = architecture == "universal";
         PackedStringArray missing;
-        for (const String& jre_directory : embedded_jre_directories(*files, universal || architecture == "arm64", universal || architecture == "x86_64")) {
+        for (const String& jre_directory : embedded_jre_directories(
+                 *files,
+                 universal || architecture == "arm64",
+                 universal || architecture == "x86_64"
+             )) {
             if (!DirAccess::dir_exists_absolute(jre_directory)) { missing.push_back(jre_directory); }
         }
         if (!missing.is_empty()) {
-            warnings.push_back(vformat("No embedded JRE at %s. Run the \"Generate JRE\" Gradle task or jlink before exporting.", String(", ").join(missing)));
+            warnings.push_back(vformat(
+                "No embedded JRE at %s. Run the \"Generate JRE\" Gradle task or jlink before exporting.",
+                String(", ").join(missing)
+            ));
         }
         missing.clear();
         for (const String& jar : desktop_jars()) {
             if (!FileAccess::file_exists(jar)) { missing.push_back(jar); }
         }
         if (!missing.is_empty()) {
-            warnings.push_back(vformat("No JVM build at %s. Run the \"Build\" Gradle task before exporting.", String(", ").join(missing)));
+            warnings.push_back(vformat(
+                "No JVM build at %s. Run the \"Build\" Gradle task before exporting.",
+                String(", ").join(missing)
+            ));
         }
     }
     if (runtime == RUNTIME_GRAAL || runtime == RUNTIME_BOTH) {
         String native_image = String(RES_DIRECTORY) + files->native_image_file;
         if (!FileAccess::file_exists(native_image)) {
-            warnings.push_back(vformat("No Graal native image at %s. Run the \"Build Graal Native Image\" Gradle task before exporting.", native_image));
+            warnings.push_back(vformat(
+                "No Graal native image at %s. Run the \"Build Graal Native Image\" Gradle task before exporting.",
+                native_image
+            ));
         }
     }
     return String("\n").join(warnings);
@@ -214,11 +250,19 @@ bool GodotJvmEditorExportPlugin::_should_update_export_options(const Ref<EditorE
     return true;
 }
 
-void GodotJvmEditorExportPlugin::_export_begin(const PackedStringArray& p_features, bool p_debug, const String& p_path, uint32_t p_flags) {
+void GodotJvmEditorExportPlugin::_export_begin(
+    const PackedStringArray& p_features,
+    bool p_debug,
+    const String& p_path,
+    uint32_t p_flags
+) {
     JVM_LOG_INFO("Beginning Godot-Jvm specific exports.");
 
     // Features carry the platform in lower case; the runtime file table is keyed by Godot's OS name.
-    String os_name = p_features.has("windows") ? "Windows" : p_features.has("linux") ? "Linux" : p_features.has("macos") ? "macOS" : String();
+    String os_name = p_features.has("windows") ? "Windows"
+                   : p_features.has("linux")   ? "Linux"
+                   : p_features.has("macos")   ? "macOS"
+                                               : String();
     const DesktopRuntimeFiles* desktop_files = desktop_runtime_files(os_name);
 
     int runtime = desktop_files != nullptr ? selected_runtime() : RUNTIME_JVM;
@@ -232,20 +276,28 @@ void GodotJvmEditorExportPlugin::_export_begin(const PackedStringArray& p_featur
             bool arm64 = universal || p_features.has("arm64");
             bool x86_64 = universal || p_features.has("x86_64");
             if (!arm64 && !x86_64) {
-                JVM_ERR_FAIL_MSG("This desktop architecture is not supported for export. Only arm64 and x86_64 are "
-                                 "supported by Godot-JVM!");
+                JVM_ERR_FAIL_MSG(
+                    "This desktop architecture is not supported for export. Only arm64 and x86_64 are "
+                    "supported by Godot-JVM!"
+                );
             }
 
             // Godot exports the jars itself as regular resources; only their presence has to be checked here.
             for (const String& jar : desktop_jars()) {
                 if (!FileAccess::file_exists(jar)) {
-                    JVM_ERR_FAIL_MSG("JVM build does not exist at %s! Run the \"Build\" Gradle task before exporting.", jar);
+                    JVM_ERR_FAIL_MSG(
+                        "JVM build does not exist at %s! Run the \"Build\" Gradle task before exporting.",
+                        jar
+                    );
                 }
             }
 
             for (const String& jre_directory : embedded_jre_directories(*desktop_files, arm64, x86_64)) {
                 if (!DirAccess::dir_exists_absolute(jre_directory)) {
-                    JVM_ERR_FAIL_MSG("JRE does not exist at %s! make sure you've created an embedded JRE using jlink!", jre_directory);
+                    JVM_ERR_FAIL_MSG(
+                        "JRE does not exist at %s! make sure you've created an embedded JRE using jlink!",
+                        jre_directory
+                    );
                 }
 
                 if (os_name == "macOS") {
@@ -253,12 +305,14 @@ void GodotJvmEditorExportPlugin::_export_begin(const PackedStringArray& p_featur
                     add_macos_plugin_file(jre_directory);
                 } else {
                     // on windows and linux the embedded jre is copied next to the exported executable
-                    String target_directory = to_absolute_path(p_path.get_base_dir()).path_join(jre_directory.trim_prefix(RES_DIRECTORY));
+                    String target_directory =
+                        to_absolute_path(p_path.get_base_dir()).path_join(jre_directory.trim_prefix(RES_DIRECTORY));
                     if (copy_directory_recursive(jre_directory, target_directory) != OK) {
                         JVM_ERR_FAIL_MSG(
-                          "Cannot copy %s folder to export folder, please make sure you created a JRE directory at the "
-                          "root of your project using jlink for the platform you want to export.",
-                          jre_directory
+                            "Cannot copy %s folder to export folder, please make sure you created a JRE directory at "
+                            "the "
+                            "root of your project using jlink for the platform you want to export.",
+                            jre_directory
                         );
                     }
                 }
@@ -288,16 +342,16 @@ void GodotJvmEditorExportPlugin::_export_begin(const PackedStringArray& p_featur
         _generate_export_configuration_file(jni::JvmType::ART);
     } else if (p_features.has("ios")) {
         PackedStringArray static_libraries = {
-          ProjectSettings::get_singleton()->globalize_path(IOS_JAVA_STATIC_LIBRARY),
-          ProjectSettings::get_singleton()->globalize_path(IOS_JVM_STATIC_LIBRARY),
-          ProjectSettings::get_singleton()->globalize_path(IOS_GRAAL_NATIVE_IMAGE_ARCHIVE),
+            ProjectSettings::get_singleton()->globalize_path(IOS_JAVA_STATIC_LIBRARY),
+            ProjectSettings::get_singleton()->globalize_path(IOS_JVM_STATIC_LIBRARY),
+            ProjectSettings::get_singleton()->globalize_path(IOS_GRAAL_NATIVE_IMAGE_ARCHIVE),
         };
 
         for (const String& static_library : static_libraries) {
             if (!FileAccess::file_exists(static_library)) {
                 JVM_ERR_FAIL_MSG(
-                  "Missing iOS static library: %s. Run buildIOS or buildIOSRelease before exporting.",
-                  static_library
+                    "Missing iOS static library: %s. Run buildIOS or buildIOSRelease before exporting.",
+                    static_library
                 );
             }
         }
@@ -320,22 +374,32 @@ void GodotJvmEditorExportPlugin::_generate_export_configuration_file(jni::JvmTyp
     JvmUserConfiguration configuration = GodotJvm::get_instance().get_file_configuration(); // Copy
     configuration.vm_type = vm_type; // We only need to change the vm type
 
-    add_file(JVM_CONFIGURATION_PATH, JvmUserConfiguration::export_configuration_to_json(configuration).to_utf8_buffer(), false);
+    add_file(
+        JVM_CONFIGURATION_PATH,
+        JvmUserConfiguration::export_configuration_to_json(configuration).to_utf8_buffer(),
+        false
+    );
 }
 
 String GodotJvmEditorExportPlugin::_get_name() const {
     return "Godot-JVM";
 }
 
-void GodotJvmEditorExportPlugin::_export_file(const String& p_path, const String& p_type, const PackedStringArray& p_features) {
+void GodotJvmEditorExportPlugin::_export_file(
+    const String& p_path,
+    const String& p_type,
+    const PackedStringArray& p_features
+) {
     if (should_skip_export(p_path, p_features, exporting_jvm_runtime)) {
         skip();
         return;
     }
 
     String ext = p_path.get_extension();
-    if (ext == GODOT_KOTLIN_SCRIPT_EXTENSION || ext == GODOT_JAVA_SCRIPT_EXTENSION
-        || ext == GODOT_SCALA_SCRIPT_EXTENSION || ext == GODOT_JVM_REGISTRATION_FILE_EXTENSION) {
+    if (ext == GODOT_KOTLIN_SCRIPT_EXTENSION
+        || ext == GODOT_JAVA_SCRIPT_EXTENSION
+        || ext == GODOT_SCALA_SCRIPT_EXTENSION
+        || ext == GODOT_JVM_REGISTRATION_FILE_EXTENSION) {
         // We replace the original script with another with the same path and name but with fqname content.
         // The remap boolean ensures that the original file is not kept for the export.
 

@@ -40,7 +40,7 @@ namespace jni {
 
     JObject::JObject(jobject obj) : obj(obj) {}
 
-    jobject JObject::get_wrapped() const{
+    jobject JObject::get_wrapped() const {
         return obj;
     }
 
@@ -56,7 +56,7 @@ namespace jni {
         p_env.env->DeleteLocalRef(obj);
     }
 
-    bool JObject::is_null() const{
+    bool JObject::is_null() const {
         return obj == nullptr;
     }
 
@@ -241,4 +241,4 @@ namespace jni {
         env.env->SetDoubleArrayRegion((jdoubleArray) obj, 0, size, arr);
     }
 
-}// namespace jni
+} // namespace jni

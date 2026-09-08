@@ -8,7 +8,7 @@
 #include <classes/wrapped.hpp>
 #include <cstdint>
 
-namespace godot{
+namespace godot {
     class JvmBindingManager {
         JvmBindingManager() = default;
 
@@ -25,7 +25,9 @@ namespace godot{
 
         JvmBindingManager& operator=(const JvmBindingManager&) = delete;
 
-        // For instance bindings, they are to bind native Godot objects to their JVM wrappers, not for the scripts. Takes the raw engine pointer directly — no godot-cpp wrapper is needed (or created) for any of this; see jvm_binding_manager.cpp for...
+        // For instance bindings, they are to bind native Godot objects to their JVM wrappers, not for the scripts.
+        // Takes the raw engine pointer directly — no godot-cpp wrapper is needed (or created) for any of this; see
+        // jvm_binding_manager.cpp for...
         static JvmBinding* set_instance_binding(GodotObject* p_object);
 
         // Doesn't set the KtObject as it doesn't exist yet, bind_object has be used later.
@@ -33,6 +35,6 @@ namespace godot{
 
         static void free_binding(GodotObject* p_ref);
     };
-}
+} // namespace godot
 
 #endif // GODOT_JVM_JVM_BINDING_MANAGER_H

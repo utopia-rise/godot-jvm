@@ -120,13 +120,17 @@ void GodotJvmEditor::_notification(int notification) {
             editor_scale = get_editor_interface()->get_editor_scale();
             editor_settings = get_editor_interface()->get_editor_settings();
 
-            if (!editor_settings->has_setting(BUILD_BEFORE_START)) { editor_settings->set_setting(BUILD_BEFORE_START, false); }
+            if (!editor_settings->has_setting(BUILD_BEFORE_START)) {
+                editor_settings->set_setting(BUILD_BEFORE_START, false);
+            }
             editor_settings->set_initial_value(BUILD_BEFORE_START, false, false);
 
             task_dialog = create_task_dialog(editor_scale);
 
             if (!project_settings->has_setting(GRADLE_DIR)) { project_settings->set_setting(GRADLE_DIR, "res://"); }
-            // Not PropertyInfo's own operator Dictionary(): that always includes a "usage" key, which add_property_info() explicitly doesn't support (ProjectSettings::_add_property_info_bind warns and ignores it otherwise) — build the dictionary with...
+            // Not PropertyInfo's own operator Dictionary(): that always includes a "usage" key, which
+            // add_property_info() explicitly doesn't support (ProjectSettings::_add_property_info_bind warns and
+            // ignores it otherwise) — build the dictionary with...
             {
                 Dictionary gradle_dir_property_info;
                 gradle_dir_property_info["name"] = GRADLE_DIR;
@@ -142,9 +146,12 @@ void GodotJvmEditor::_notification(int notification) {
             project_dialog->set_text(generate_project);
 
             project_dialog->get_ok_button()->set_text(generate_missing);
-            project_dialog->get_ok_button()->connect("pressed", callable_mp(this, &GodotJvmEditor::on_generate_project).bind(false));
+            project_dialog->get_ok_button()->connect(
+                "pressed",
+                callable_mp(this, &GodotJvmEditor::on_generate_project).bind(false)
+            );
             project_dialog->add_button(generate_all)
-              ->connect("pressed", callable_mp(this, &GodotJvmEditor::on_generate_project).bind(true));
+                ->connect("pressed", callable_mp(this, &GodotJvmEditor::on_generate_project).bind(true));
             project_dialog->add_cancel_button(generate_nothing);
 
             tool_pop_menu->hide();
@@ -159,14 +166,23 @@ void GodotJvmEditor::_notification(int notification) {
             tool_bar_gradle_task_choice->add_item("Fast Build", GradleTaskRunner::Task::FAST_BUILD);
             tool_bar_gradle_task_choice->add_item("Build Release", GradleTaskRunner::Task::BUILD_RELEASE);
             tool_bar_gradle_task_choice->add_item("Build Android", GradleTaskRunner::Task::BUILD_ANDROID_DEBUG);
-            tool_bar_gradle_task_choice->add_item("Build Android Release", GradleTaskRunner::Task::BUILD_ANDROID_RELEASE);
+            tool_bar_gradle_task_choice->add_item(
+                "Build Android Release",
+                GradleTaskRunner::Task::BUILD_ANDROID_RELEASE
+            );
 #ifdef MACOS_ENABLED
             // The iOS tasks need Xcode, so they can only succeed on a macOS host.
             tool_bar_gradle_task_choice->add_item("Build iOS", GradleTaskRunner::Task::BUILD_IOS_DEBUG);
             tool_bar_gradle_task_choice->add_item("Build iOS Release", GradleTaskRunner::Task::BUILD_IOS_RELEASE);
 #endif
-            tool_bar_gradle_task_choice->add_item("Build Graal Native Image", GradleTaskRunner::Task::BUILD_GRAAL_NATIVE_IMAGE_DEBUG);
-            tool_bar_gradle_task_choice->add_item("Build Graal Native Image Release", GradleTaskRunner::Task::BUILD_GRAAL_NATIVE_IMAGE_RELEASE);
+            tool_bar_gradle_task_choice->add_item(
+                "Build Graal Native Image",
+                GradleTaskRunner::Task::BUILD_GRAAL_NATIVE_IMAGE_DEBUG
+            );
+            tool_bar_gradle_task_choice->add_item(
+                "Build Graal Native Image Release",
+                GradleTaskRunner::Task::BUILD_GRAAL_NATIVE_IMAGE_RELEASE
+            );
             tool_bar_gradle_task_choice->add_item("Generate JRE", GradleTaskRunner::Task::GENERATE_EMBEDDED_JVM);
             tool_bar_gradle_task_choice->select(GradleTaskRunner::Task::BUILD_DEBUG);
             tool_bar_gradle_task_choice->set_fit_to_longest_item(false);
@@ -175,7 +191,10 @@ void GodotJvmEditor::_notification(int notification) {
             tool_bar_gradle_task_button->set_text("Run Gradle");
             tool_bar_gradle_task_button->set_tooltip_text("Run the selected Gradle task");
             tool_bar_gradle_task_button->set_focus_mode(Control::FOCUS_NONE);
-            tool_bar_gradle_task_button->connect(SNAME("pressed"), callable_mp(this, &GodotJvmEditor::on_gradle_task_pressed));
+            tool_bar_gradle_task_button->connect(
+                SNAME("pressed"),
+                callable_mp(this, &GodotJvmEditor::on_gradle_task_pressed)
+            );
             add_control_to_container(CustomControlContainer::CONTAINER_TOOLBAR, tool_bar_gradle_task_button);
 
             jvm_status_light->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
@@ -186,12 +205,14 @@ void GodotJvmEditor::_notification(int notification) {
             editor_base_control->add_child(project_dialog);
 
             get_editor_interface()->get_resource_filesystem()->connect(
-              SNAME("filesystem_changed"),
-              callable_mp(this, &GodotJvmEditor::on_filesystem_change)
+                SNAME("filesystem_changed"),
+                callable_mp(this, &GodotJvmEditor::on_filesystem_change)
             );
             set_process(true);
 
-            // Instantiating these at NOTIFICATION_ENTER_TREE (once the engine has actually added this plugin to the tree) rather than eagerly during static extension registration — constructing UI-adjacent Wrapped objects that early crashes, since the...
+            // Instantiating these at NOTIFICATION_ENTER_TREE (once the engine has actually added this plugin to the
+            // tree) rather than eagerly during static extension registration — constructing UI-adjacent Wrapped objects
+            // that early crashes, since the...
             export_plugin.instantiate();
             add_export_plugin(export_plugin);
 
@@ -225,7 +246,10 @@ void GodotJvmEditor::_notification(int notification) {
                         task_dialog_update_state(task_dialog, "Gradle task succeeded.\n");
                         JVM_LOG_INFO("Gradle task succeeded.");
                     } else {
-                        task_dialog_update_state(task_dialog, vformat("Gradle task failed with exit code %d.\n", exit_code));
+                        task_dialog_update_state(
+                            task_dialog,
+                            vformat("Gradle task failed with exit code %d.\n", exit_code)
+                        );
                         JVM_ERR_PRINT("Gradle task failed with exit code %d.", exit_code);
                     }
                 }
@@ -252,12 +276,12 @@ void GodotJvmEditor::_notification(int notification) {
 }
 
 GodotJvmEditor::GodotJvmEditor() :
-  tool_pop_menu(memnew(PopupMenu)),
-  project_dialog(memnew(AcceptDialog)),
-  jvm_status_light(memnew(TextureRect)),
-  tool_bar_gradle_task_button(memnew(Button)),
-  tool_bar_gradle_task_choice(memnew(OptionButton)),
-  separator(memnew(VSeparator)) {}
+    tool_pop_menu(memnew(PopupMenu)),
+    project_dialog(memnew(AcceptDialog)),
+    jvm_status_light(memnew(TextureRect)),
+    tool_bar_gradle_task_button(memnew(Button)),
+    tool_bar_gradle_task_choice(memnew(OptionButton)),
+    separator(memnew(VSeparator)) {}
 
 GodotJvmEditor::~GodotJvmEditor() {
     GradleTaskRunner::get_instance().cleanup();

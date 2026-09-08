@@ -33,7 +33,10 @@ godot::PropertyInfo KtPropertyInfo::toPropertyInfo() const {
     info.hint = hint;
     info.hint_string = hint_string;
     info.usage = usage;
-    if (!(usage & (godot::PropertyUsageFlags::PROPERTY_USAGE_GROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_CATEGORY))) {
+    if (!(usage
+          & (godot::PropertyUsageFlags::PROPERTY_USAGE_GROUP
+             | godot::PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP
+             | godot::PropertyUsageFlags::PROPERTY_USAGE_CATEGORY))) {
         info.usage = usage | godot::PropertyUsageFlags::PROPERTY_USAGE_SCRIPT_VARIABLE;
     }
     return info;
@@ -52,7 +55,10 @@ godot::StringName KtProperty::get_name() const {
 }
 
 bool KtProperty::is_property_list_marker() const {
-    return propertyInfo->usage & (godot::PropertyUsageFlags::PROPERTY_USAGE_GROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_CATEGORY);
+    return propertyInfo->usage
+         & (godot::PropertyUsageFlags::PROPERTY_USAGE_GROUP
+            | godot::PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP
+            | godot::PropertyUsageFlags::PROPERTY_USAGE_CATEGORY);
 }
 
 godot::PropertyInfo KtProperty::get_member_info() {

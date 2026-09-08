@@ -3,9 +3,9 @@
 
 #include "jvm/jni/jvm.h"
 
-#include <variant/typed_array.hpp>
-#include <variant/packed_string_array.hpp>
 #include <templates/hash_map.hpp>
+#include <variant/packed_string_array.hpp>
+#include <variant/typed_array.hpp>
 
 // JSON IDENTIFIER
 static constexpr const char* VERSION_JSON_IDENTIFIER = "version";
@@ -56,7 +56,7 @@ struct JvmUserConfiguration {
     int32_t max_string_size = -1;
 
     bool disable_gc = false;
-    
+
     godot::String jvm_path;
     godot::Array jvm_args;
 
@@ -66,9 +66,15 @@ struct JvmUserConfiguration {
     static bool parse_configuration_json(const godot::String& json_string, JvmUserConfiguration& json_config);
     static godot::String export_configuration_to_json(const JvmUserConfiguration& configuration);
 
-    static void parse_command_line(const godot::PackedStringArray& args, godot::HashMap<godot::String, godot::Variant>& configuration_map);
+    static void parse_command_line(
+        const godot::PackedStringArray& args,
+        godot::HashMap<godot::String, godot::Variant>& configuration_map
+    );
 
-    static void merge_with_command_line(JvmUserConfiguration& json_config, const godot::HashMap<godot::String, godot::Variant>& cmd_map);
+    static void merge_with_command_line(
+        JvmUserConfiguration& json_config,
+        const godot::HashMap<godot::String, godot::Variant>& cmd_map
+    );
     static void sanitize_and_log_configuration(JvmUserConfiguration& config);
 };
 

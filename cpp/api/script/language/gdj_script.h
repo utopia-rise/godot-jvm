@@ -4,8 +4,8 @@
 #include "api/script/jvm_script.h"
 
 namespace godot {
-class GdjScript : public JvmScript {
-    GDCLASS(GdjScript, JvmScript);
+    class GdjScript : public JvmScript {
+        GDCLASS(GdjScript, JvmScript);
 
     public:
         GdjScript() = default;
@@ -17,5 +17,5 @@ class GdjScript : public JvmScript {
     protected:
         static void _bind_methods();
     };
-}
-#endif// GODOT_JVM_GDJ_SCRIPT_H
+} // namespace godot
+#endif // GODOT_JVM_GDJ_SCRIPT_H

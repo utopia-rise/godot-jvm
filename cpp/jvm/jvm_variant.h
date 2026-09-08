@@ -2,14 +2,14 @@
 #define GODOT_JVM_JVM_VARIANT_H
 
 #include "core/jvm_binding_manager.h"
-#include "engine/marshalls.h"
+#include "core/variant_allocator.h"
 #include "engine/godot_object.h"
+#include "engine/marshalls.h"
 #include "jvm/jni/wrapper.h"
 #include "jvm/wrapper/memory/long_string_queue.h"
 #include "jvm/wrapper/memory/type_manager.h"
 #include "logging.h"
 #include "shared_buffer.h"
-#include "core/variant_allocator.h"
 
 #include <classes/os.hpp>
 #include <classes/wrapped.hpp>
@@ -32,12 +32,16 @@ class VariantToBuffer {
 
     template<class TNativeCoreType>
     inline static void write_pointer(SharedBuffer* des, TNativeCoreType native_core_type) {
-        des->increment_position(
-          encode_uint64(reinterpret_cast<uintptr_t>(VariantAllocator::alloc(TNativeCoreType(native_core_type))), des->get_cursor())
-        );
+        des->increment_position(encode_uint64(
+            reinterpret_cast<uintptr_t>(VariantAllocator::alloc(TNativeCoreType(native_core_type))),
+            des->get_cursor()
+        ));
     }
 
-    template<godot::Variant::Type variantType, class TNativeCoreType, TNativeCoreType (godot::Variant::* converter)() const>
+    template<
+        godot::Variant::Type variantType,
+        class TNativeCoreType,
+        TNativeCoreType (godot::Variant::*converter)() const>
     static void write_native_core_type(SharedBuffer* des, const godot::Variant& src) {
         set_variant_type(des, variantType);
         write_pointer(des, (src.*converter)());
@@ -67,7 +71,9 @@ class VariantToBuffer {
         } else {
             des->increment_position(encode_uint32(false, des->get_cursor()));
             des->increment_position(encode_uint32(char_string.size(), des->get_cursor()));
-            if (likely(size > 0)) { des->increment_position(encode_cstring(char_string.get_data(), des->get_cursor())); }
+            if (likely(size > 0)) {
+                des->increment_position(encode_cstring(char_string.get_data(), des->get_cursor()));
+            }
         }
     }
 
@@ -75,7 +81,9 @@ class VariantToBuffer {
         godot::Array arr = src.operator godot::Array();
         uint64_t type = arr.get_typed_builtin();
         set_variant_type(des, godot::Variant::Type::ARRAY);
-        des->increment_position(encode_uint64(reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Array(arr))), des->get_cursor()));
+        des->increment_position(
+            encode_uint64(reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Array(arr))), des->get_cursor())
+        );
         des->increment_position(encode_uint64(type, des->get_cursor()));
     }
 
@@ -84,13 +92,17 @@ class VariantToBuffer {
         uint64_t key_type = dict.get_typed_key_builtin();
         uint64_t value_type = dict.get_typed_value_builtin();
         set_variant_type(des, godot::Variant::Type::DICTIONARY);
-        des->increment_position(encode_uint64(reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Dictionary(dict))), des->get_cursor()));
+        des->increment_position(encode_uint64(
+            reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Dictionary(dict))),
+            des->get_cursor()
+        ));
         des->increment_position(encode_uint64(key_type, des->get_cursor()));
         des->increment_position(encode_uint64(value_type, des->get_cursor()));
     }
 
     // Takes the raw engine pointer, never a godot-cpp `Object*`: that parameter type is exactly what used to make
-    // Variant::operator Object*() fire and build a wrapper here (see RawObject::from_variant() in engine/godot_object.h).
+    // Variant::operator Object*() fire and build a wrapper here (see RawObject::from_variant() in
+    // engine/godot_object.h).
     static void append_object(SharedBuffer* des, godot::GodotObject* p_raw_object) {
         if (p_raw_object == nullptr) {
             des->increment_position(encode_uint32(0, des->get_cursor()));
@@ -103,7 +115,8 @@ class VariantToBuffer {
         godot::JvmBinding* binding = godot::JvmBindingManager::get_instance_binding(p_raw_object);
         int constructorID = binding->get_constructor_id();
 
-        // The JVM only ever deals in raw engine pointers, never godot-cpp's wrapper pointers (see to_raw_object() below, and JvmBindingManager, for the other side of this contract).
+        // The JVM only ever deals in raw engine pointers, never godot-cpp's wrapper pointers (see to_raw_object()
+        // below, and JvmBindingManager, for the other side of this contract).
         des->increment_position(encode_uint32(constructorID, des->get_cursor()));
         des->increment_position(encode_uint64(reinterpret_cast<uintptr_t>(p_raw_object), des->get_cursor()));
         des->increment_position(encode_uint64(raw_godot::RawObject(p_raw_object).get_instance_id(), des->get_cursor()));
@@ -114,21 +127,16 @@ class VariantToBuffer {
         append_object(des, raw_godot::RawObject::from_variant(src));
     }
 
-
     static void write_signal(SharedBuffer* des, const godot::Variant& src) {
         godot::Signal signal = src.operator godot::Signal();
         set_variant_type(des, godot::Variant::Type::SIGNAL);
         // get_object_id() rather than get_object(): the latter returns a godot-cpp wrapper.
         const int64_t object_id = signal.get_object_id();
-        append_object(
-          des,
-          object_id != 0 ? raw_godot::RawObject::from_instance_id(object_id) : raw_godot::RawObject()
-        );
+        append_object(des, object_id != 0 ? raw_godot::RawObject::from_instance_id(object_id) : raw_godot::RawObject());
         write_pointer<godot::StringName>(des, signal.get_name());
     }
 
 public:
-
     static void write_variant(const godot::Variant& variant, SharedBuffer* byte_buffer) {
         // must match the value order of godot_variant_type
         static void (*variant_writers[godot::Variant::VARIANT_MAX])(SharedBuffer*, const godot::Variant&) = {
@@ -186,7 +194,6 @@ public:
     }
 };
 
-
 class BufferToVariant {
     template<class T>
     static godot::Variant read_core_type(SharedBuffer* byte_buffer) {
@@ -207,9 +214,7 @@ class BufferToVariant {
         return *read_pointer<T>(byte_buffer);
     }
 
-    static godot::Variant read_nil(SharedBuffer*) {
-        return godot::Variant();
-    }
+    static godot::Variant read_nil(SharedBuffer*) { return godot::Variant(); }
 
     static godot::Variant read_bool(SharedBuffer* byte_buffer) {
         bool b = static_cast<bool>(decode_uint32(byte_buffer->get_cursor()));
@@ -252,56 +257,55 @@ class BufferToVariant {
     }
 
 public:
-
     static void read_variant(SharedBuffer* byte_buffer, godot::Variant& res) {
         static godot::Variant (*variant_readers[godot::Variant::VARIANT_MAX])(SharedBuffer*) = {
-          &BufferToVariant::read_nil,
+            &BufferToVariant::read_nil,
 
-          // atomic types
-          &BufferToVariant::read_bool,
-          &BufferToVariant::read_core_type<uint64_t>,
-          &BufferToVariant::read_core_type<double>,
-          &BufferToVariant::read_string,
+            // atomic types
+            &BufferToVariant::read_bool,
+            &BufferToVariant::read_core_type<uint64_t>,
+            &BufferToVariant::read_core_type<double>,
+            &BufferToVariant::read_string,
 
-          // math types
-          &BufferToVariant::read_core_type<godot::Vector2>,
-          &BufferToVariant::read_core_type<godot::Vector2i>,
-          &BufferToVariant::read_core_type<godot::Rect2>,
-          &BufferToVariant::read_core_type<godot::Rect2i>,
-          &BufferToVariant::read_core_type<godot::Vector3>,
-          &BufferToVariant::read_core_type<godot::Vector3i>,
-          &BufferToVariant::read_core_type<godot::Transform2D>,
-          &BufferToVariant::read_core_type<godot::Vector4>,
-          &BufferToVariant::read_core_type<godot::Vector4i>,
-          &BufferToVariant::read_core_type<godot::Plane>,
-          &BufferToVariant::read_core_type<godot::Quaternion>,
-          &BufferToVariant::read_core_type<godot::AABB>,
-          &BufferToVariant::read_core_type<godot::Basis>,
-          &BufferToVariant::read_core_type<godot::Transform3D>,
-          &BufferToVariant::read_core_type<godot::Projection>,
+            // math types
+            &BufferToVariant::read_core_type<godot::Vector2>,
+            &BufferToVariant::read_core_type<godot::Vector2i>,
+            &BufferToVariant::read_core_type<godot::Rect2>,
+            &BufferToVariant::read_core_type<godot::Rect2i>,
+            &BufferToVariant::read_core_type<godot::Vector3>,
+            &BufferToVariant::read_core_type<godot::Vector3i>,
+            &BufferToVariant::read_core_type<godot::Transform2D>,
+            &BufferToVariant::read_core_type<godot::Vector4>,
+            &BufferToVariant::read_core_type<godot::Vector4i>,
+            &BufferToVariant::read_core_type<godot::Plane>,
+            &BufferToVariant::read_core_type<godot::Quaternion>,
+            &BufferToVariant::read_core_type<godot::AABB>,
+            &BufferToVariant::read_core_type<godot::Basis>,
+            &BufferToVariant::read_core_type<godot::Transform3D>,
+            &BufferToVariant::read_core_type<godot::Projection>,
 
-          // misc types
-          &BufferToVariant::read_core_type<godot::Color>,
-          &BufferToVariant::read_native_core_type<godot::StringName>,
-          &BufferToVariant::read_native_core_type<godot::NodePath>,
-          &BufferToVariant::read_core_type<godot::RID>,
-          &BufferToVariant::read_object,
-          &BufferToVariant::read_native_core_type<godot::Callable>,
-          &BufferToVariant::read_signal,
-          &BufferToVariant::read_native_core_type<godot::Dictionary>,
-          &BufferToVariant::read_native_core_type<godot::Array>,
+            // misc types
+            &BufferToVariant::read_core_type<godot::Color>,
+            &BufferToVariant::read_native_core_type<godot::StringName>,
+            &BufferToVariant::read_native_core_type<godot::NodePath>,
+            &BufferToVariant::read_core_type<godot::RID>,
+            &BufferToVariant::read_object,
+            &BufferToVariant::read_native_core_type<godot::Callable>,
+            &BufferToVariant::read_signal,
+            &BufferToVariant::read_native_core_type<godot::Dictionary>,
+            &BufferToVariant::read_native_core_type<godot::Array>,
 
-          // typed arrays
-          &BufferToVariant::read_native_core_type<godot::PackedByteArray>,
-          &BufferToVariant::read_native_core_type<godot::PackedInt32Array>,
-          &BufferToVariant::read_native_core_type<godot::PackedInt64Array>,
-          &BufferToVariant::read_native_core_type<godot::PackedFloat32Array>,
-          &BufferToVariant::read_native_core_type<godot::PackedFloat64Array>,
-          &BufferToVariant::read_native_core_type<godot::PackedStringArray>,
-          &BufferToVariant::read_native_core_type<godot::PackedVector2Array>,
-          &BufferToVariant::read_native_core_type<godot::PackedVector3Array>,
-          &BufferToVariant::read_native_core_type<godot::PackedColorArray>,
-          &BufferToVariant::read_native_core_type<godot::PackedVector4Array>
+            // typed arrays
+            &BufferToVariant::read_native_core_type<godot::PackedByteArray>,
+            &BufferToVariant::read_native_core_type<godot::PackedInt32Array>,
+            &BufferToVariant::read_native_core_type<godot::PackedInt64Array>,
+            &BufferToVariant::read_native_core_type<godot::PackedFloat32Array>,
+            &BufferToVariant::read_native_core_type<godot::PackedFloat64Array>,
+            &BufferToVariant::read_native_core_type<godot::PackedStringArray>,
+            &BufferToVariant::read_native_core_type<godot::PackedVector2Array>,
+            &BufferToVariant::read_native_core_type<godot::PackedVector3Array>,
+            &BufferToVariant::read_native_core_type<godot::PackedColorArray>,
+            &BufferToVariant::read_native_core_type<godot::PackedVector4Array>
         };
 
         uint32_t variant_type_int = decode_uint32(byte_buffer->get_cursor());

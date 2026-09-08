@@ -1,7 +1,7 @@
 #include "api/script/jvm_script_manager.h"
+#include "engine/dynamic_library.h"
 #include "godot_jvm.h"
 #include "jvm/jni/env.h"
-#include "engine/dynamic_library.h"
 #include "jvm/lifecycle/jvm_manager.h"
 #include "jvm/wrapper/memory/long_string_queue.h"
 #include "jvm/wrapper/memory/memory_manager.h"
@@ -9,8 +9,8 @@
 #include "paths.h"
 #include "version.h"
 
-#include <classes/engine.hpp>
 #include <classes/dir_access.hpp>
+#include <classes/engine.hpp>
 #include <classes/file_access.hpp>
 #include <classes/project_settings.hpp>
 #include <classes/resource_loader.hpp>
@@ -38,10 +38,13 @@ bool GodotJvm::load_dynamic_lib() {
             if (String forced_jvm = get_path_to_forced_jvm(); !forced_jvm.is_empty()) {
                 if (!FileAccess::file_exists(forced_jvm)) {
                     JVM_WARN_FAIL_V_MSG(
-                      false,
-                      "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
-                      "No JVM found for the path provided with " + String(JVM_PATH_CMD_IDENTIFIER) + ": " + user_configuration.jvm_path,
-                      "Provide either a JVM home directory or a JVM dynamic library."
+                        false,
+                        "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
+                        "No JVM found for the path provided with "
+                            + String(JVM_PATH_CMD_IDENTIFIER)
+                            + ": "
+                            + user_configuration.jvm_path,
+                        "Provide either a JVM home directory or a JVM dynamic library."
                     );
                 }
                 path_to_jvm_lib = forced_jvm;
@@ -51,28 +54,26 @@ bool GodotJvm::load_dynamic_lib() {
 #ifdef TOOLS_ENABLED
             else {
                 String dynamic_jvm = get_path_to_environment_jvm();
-                if (dynamic_jvm.is_empty()) {
-                    dynamic_jvm = get_path_to_java_executable();
-                }
+                if (dynamic_jvm.is_empty()) { dynamic_jvm = get_path_to_java_executable(); }
 
                 if (!dynamic_jvm.is_empty()) {
                     path_to_jvm_lib = dynamic_jvm;
                 } else {
 #ifdef MACOS_ENABLED
                     JVM_WARN_FAIL_V_MSG(
-                      false,
-                      "Godot Kotlin/JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
-                      "No embedded JRE or usable Java installation was found.",
-                      "Make sure a JDK 17+ is available through JAVA_HOME or PATH, or add an embedded JRE to your "
-                      "project using jlink."
+                        false,
+                        "Godot Kotlin/JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
+                        "No embedded JRE or usable Java installation was found.",
+                        "Make sure a JDK 17+ is available through JAVA_HOME or PATH, or add an embedded JRE to your "
+                        "project using jlink."
                     );
 #else
                     JVM_WARN_FAIL_V_MSG(
-                      false,
-                      "Godot Kotlin/JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
-                      "No embedded JRE or usable Java installation was found.",
-                      "Make sure a JDK 17+ is available through JAVA_HOME or PATH, or add an embedded JRE to your "
-                      "project using jlink."
+                        false,
+                        "Godot Kotlin/JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
+                        "No embedded JRE or usable Java installation was found.",
+                        "Make sure a JDK 17+ is available through JAVA_HOME or PATH, or add an embedded JRE to your "
+                        "project using jlink."
                     );
 #endif
                 }
@@ -89,10 +90,10 @@ bool GodotJvm::load_dynamic_lib() {
                 path_to_jvm_lib = native_jvm;
             } else {
                 JVM_WARN_FAIL_V_MSG(
-                  false,
-                  "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
-                  "Couldn't open Graal Native Image.",
-                  "Make sure you have built your JVM project with Graal native image enabled in your gradle build."
+                    false,
+                    "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
+                    "Couldn't open Graal Native Image.",
+                    "Make sure you have built your JVM project with Graal native image enabled in your gradle build."
                 );
             }
             break;
@@ -103,10 +104,10 @@ bool GodotJvm::load_dynamic_lib() {
 
     if (godot_jvm_native::open_dynamic_library(path_to_jvm_lib, jvm_dynamic_library_handle) != OK) {
         JVM_WARN_FAIL_V_MSG(
-          false,
-          "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
-          "Failed to load the jvm dynamic library from path: " + path_to_jvm_lib,
-          "Make sure you use a valid JVM 17+ with proper read access."
+            false,
+            "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
+            "Failed to load the jvm dynamic library from path: " + path_to_jvm_lib,
+            "Make sure you use a valid JVM 17+ with proper read access."
         );
     }
     return true;
@@ -148,7 +149,9 @@ String GodotJvm::get_path_to_java_executable() {
 
     PackedStringArray path_entries = String(OS::get_singleton()->get_environment("PATH")).split(path_separator, false);
     for (const String& path_entry : path_entries) {
-        String java_executable = path_entry.strip_edges().trim_prefix("\"").trim_suffix("\"").path_join(java_executable_name);
+        String java_executable = path_entry.strip_edges().trim_prefix("\"").trim_suffix("\"").path_join(
+            java_executable_name
+        );
         if (!FileAccess::file_exists(java_executable)) { continue; }
 
         Ref<DirAccess> dir_access = DirAccess::open(java_executable.get_base_dir());
@@ -156,8 +159,8 @@ String GodotJvm::get_path_to_java_executable() {
         while (dir_access->is_link(java_executable)) {
             String link_target = dir_access->read_link(java_executable);
             java_executable = link_target.is_absolute_path()
-                              ? link_target
-                              : java_executable.get_base_dir().path_join(link_target).simplify_path();
+                                ? link_target
+                                : java_executable.get_base_dir().path_join(link_target).simplify_path();
         }
 
         String jvm_library = java_executable.get_base_dir().get_base_dir().path_join(RELATIVE_JVM_LIB_PATH);
@@ -182,15 +185,17 @@ String GodotJvm::get_path_to_java_executable() {
 
 String GodotJvm::get_path_to_embedded_jvm() {
     return OS::get_singleton()
-      ->get_executable_path()
-      .get_base_dir()
+        ->get_executable_path()
+        .get_base_dir()
 #if defined(MACOS_ENABLED)
-      .path_join("../PlugIns/")
-      .path_join(String(HOST_EMBEDDED_JRE_DIRECTORY).get_file()) // Only use the last subdir, as the export doesn't keep the relative path
+        .path_join("../PlugIns/")
+        .path_join(
+            String(HOST_EMBEDDED_JRE_DIRECTORY).get_file()
+        ) // Only use the last subdir, as the export doesn't keep the relative path
 #else
-      .path_join(HOST_EMBEDDED_JRE_DIRECTORY)
+        .path_join(HOST_EMBEDDED_JRE_DIRECTORY)
 #endif
-      .path_join(RELATIVE_JVM_LIB_PATH);
+        .path_join(RELATIVE_JVM_LIB_PATH);
 }
 
 String GodotJvm::get_path_to_native_image() {
@@ -254,9 +259,9 @@ void GodotJvm::set_jvm_options() {
 #ifdef DEBUG_ENABLED
     if (user_configuration.use_debug) {
         jvm_options.add_debug_options(
-          user_configuration.jvm_debug_port,
-          user_configuration.jvm_debug_address,
-          user_configuration.wait_for_debugger
+            user_configuration.jvm_debug_port,
+            user_configuration.jvm_debug_address,
+            user_configuration.wait_for_debugger
         );
     }
 #endif
@@ -265,8 +270,8 @@ void GodotJvm::set_jvm_options() {
 
     if (!Engine::get_singleton()->is_editor_hint() && !user_configuration.jvm_args.is_empty()) {
         JVM_LOG_WARNING(
-          "You are using custom arguments for the JVM. Make sure they are valid or you risk the JVM to "
-          "not launch properly"
+            "You are using custom arguments for the JVM. Make sure they are valid or you risk the JVM to "
+            "not launch properly"
         );
         for (String jvm_arg : user_configuration.jvm_args) {
             jvm_options.add_custom_options(jvm_arg);
@@ -287,11 +292,14 @@ String GodotJvm::copy_new_file_to_user_dir(const String& file_name) {
     String file_user_path = String(USER_DIRECTORY) + file_name;
 
 #ifndef ANDROID_ENABLED
-    if (!FileAccess::file_exists(file_user_path) || FileAccess::get_md5(file_user_path) != FileAccess::get_md5(file_res_path)) {
+    if (!FileAccess::file_exists(file_user_path)
+        || FileAccess::get_md5(file_user_path) != FileAccess::get_md5(file_res_path)) {
         JVM_LOG_VERBOSE("%s file has changed. Copying it from %s to %s.", file_name, file_res_path, file_user_path);
 #else
-    // as per suggestion of https://developer.android.com/about/versions/14/behavior-changes-14#safer-dynamic-code-loading, we first delete existing files and then copy them again
-    // if we don't do this, subsequent app starts where the files already exist, error out
+    // as per suggestion of
+    // https://developer.android.com/about/versions/14/behavior-changes-14#safer-dynamic-code-loading, we first delete
+    // existing files and then copy them again if we don't do this, subsequent app starts where the files already exist,
+    // error out
 
     String file_user_path_global = ProjectSettings::get_singleton()->globalize_path(file_user_path);
     unlink(file_user_path_global.utf8().get_data()); // we do not really care about errors here
@@ -320,8 +328,8 @@ void GodotJvm::copy_external_jars_to_user_dir() {
 
         String source_file = source_directory.path_join(entry);
         String destination_file = String(EXTERNAL_JARS_DIRECTORY).path_join(entry);
-        if (!FileAccess::file_exists(String(USER_DIRECTORY) + destination_file) ||
-            FileAccess::get_md5(String(USER_DIRECTORY) + destination_file) != FileAccess::get_md5(source_file)) {
+        if (!FileAccess::file_exists(String(USER_DIRECTORY) + destination_file)
+            || FileAccess::get_md5(String(USER_DIRECTORY) + destination_file) != FileAccess::get_md5(source_file)) {
             destination->copy(source_file, destination_file);
         }
     }
@@ -334,24 +342,29 @@ bool GodotJvm::load_bootstrap() {
     jni::Env env = jni::Jvm::current_env();
     if (user_configuration.vm_type != jni::JvmType::GRAAL_NATIVE_IMAGE) { // Bootstrap already part of the image
 #ifdef TOOLS_ENABLED
-        String bootstrap_jar = ProjectSettings::get_singleton()->globalize_path(String(RES_DIRECTORY).path_join(BOOTSTRAP_FILE));
+        String bootstrap_jar = ProjectSettings::get_singleton()->globalize_path(
+            String(RES_DIRECTORY).path_join(BOOTSTRAP_FILE)
+        );
         constexpr const char* hint_text = "Make sure to build your gradle project before running the game.";
 #else
-        String bootstrap_jar = ProjectSettings::get_singleton()->globalize_path(copy_new_file_to_user_dir(BOOTSTRAP_FILE));
+        String bootstrap_jar = ProjectSettings::get_singleton()->globalize_path(
+            copy_new_file_to_user_dir(BOOTSTRAP_FILE)
+        );
         constexpr const char* hint_text = "The export of the project might be invalid.";
 #endif
 
         if (!FileAccess::file_exists(bootstrap_jar)) {
             if (Engine::get_singleton()->is_editor_hint()) {
-                // Most likely when starting a new project, there is no need to log it as an error or warning as long as the users doesn't run the game.
-                // We already have node warning if they try to attach a JVM script without building.
+                // Most likely when starting a new project, there is no need to log it as an error or warning as long as
+                // the users doesn't run the game. We already have node warning if they try to attach a JVM script
+                // without building.
                 return false;
             }
             JVM_WARN_FAIL_V_MSG(
-              false,
-              "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
-              "No godot-bootstrap.jar found!",
-              hint_text
+                false,
+                "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
+                "No godot-bootstrap.jar found!",
+                hint_text
             );
         }
 
@@ -367,18 +380,18 @@ bool GodotJvm::load_bootstrap() {
         String version = bootstrap->get_version(env);
         if (version != String(GODOT_JVM_VERSION)) {
             JVM_ERR_FAIL_V_MSG(
-              false,
-              "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
-              vformat("Version mismatch! C++ module is : %s / Jar is : %s.", GODOT_JVM_VERSION, version),
-              "Check if your build.gradle file use the same version as the editor."
+                false,
+                "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
+                vformat("Version mismatch! C++ module is : %s / Jar is : %s.", GODOT_JVM_VERSION, version),
+                "Check if your build.gradle file use the same version as the editor."
             );
         }
     } else {
         JVM_WARN_FAIL_V_MSG(
-          false,
-          "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
-          "The boostrap.jar is invalid and can't be loaded.",
-          "Check if your build.gradle file use the same version as the editor."
+            false,
+            "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
+            "The boostrap.jar is invalid and can't be loaded.",
+            "Check if your build.gradle file use the same version as the editor."
         );
     }
 
@@ -391,10 +404,10 @@ bool GodotJvm::initialize_core_library() {
 
     if (!JvmManager::initialize_jvm_wrappers(env, bootstrap_class_loader)) {
         JVM_WARN_FAIL_V_MSG(
-          false,
-          "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
-          "The boostrap.jar is invalid and can't be loaded.",
-          "Check if your build.gradle file use the same version as the editor."
+            false,
+            "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
+            "The boostrap.jar is invalid and can't be loaded.",
+            "Check if your build.gradle file use the same version as the editor."
         );
     }
 
@@ -436,9 +449,9 @@ bool GodotJvm::load_user_code() {
 #endif
 
         ClassLoader* user_class_loader = ClassLoader::create_instance(
-          env,
-          ProjectSettings::get_singleton()->globalize_path(user_code_path),
-          bootstrap_class_loader->get_wrapped()
+            env,
+            ProjectSettings::get_singleton()->globalize_path(user_code_path),
+            bootstrap_class_loader->get_wrapped()
         );
 
         // update context classloader to use usercode jar
@@ -454,9 +467,7 @@ void GodotJvm::unload_user_code() {
     jni::Env env = jni::Jvm::current_env();
 
     // Graal native images include bootstrap directly, so no bootstrap classloader is created.
-    if (bootstrap_class_loader != nullptr) {
-        bootstrap_class_loader->set_as_context_loader(env);
-    }
+    if (bootstrap_class_loader != nullptr) { bootstrap_class_loader->set_as_context_loader(env); }
 
     bootstrap->finish(env);
     jar.unref();
@@ -504,9 +515,17 @@ void GodotJvm::initialize_up_to(State target_state) {
 
 #ifdef DYNAMIC_JVM
     SET_LOADING_STATE(load_dynamic_lib(), JVM_LIBRARY_LOADED, target_state)
-    SET_LOADING_STATE(JvmManager::initialize_or_get_jvm(jvm_dynamic_library_handle, user_configuration, jvm_options), JVM_STARTED, target_state)
+    SET_LOADING_STATE(
+        JvmManager::initialize_or_get_jvm(jvm_dynamic_library_handle, user_configuration, jvm_options),
+        JVM_STARTED,
+        target_state
+    )
 #else
-    SET_LOADING_STATE(JvmManager::initialize_or_get_jvm(nullptr, user_configuration, jvm_options), JVM_STARTED, target_state)
+    SET_LOADING_STATE(
+        JvmManager::initialize_or_get_jvm(nullptr, user_configuration, jvm_options),
+        JVM_STARTED,
+        target_state
+    )
 #endif
     SET_LOADING_STATE(load_bootstrap(), BOOTSTRAP_LOADED, target_state)
     SET_LOADING_STATE(initialize_core_library(), CORE_LIBRARY_INITIALIZED, target_state)

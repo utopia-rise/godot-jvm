@@ -14,6 +14,6 @@ namespace godot {
 
     // https://github.com/godotengine/godot/blob/841596cae4ddf97d67dc253021347bc01863f00f/core/string/ustring.cpp#L5926
     String RTR(const String& p_text, const String& p_context = "");
-}
+} // namespace godot
 
 #endif // GODOT_JVM_USTRING_H

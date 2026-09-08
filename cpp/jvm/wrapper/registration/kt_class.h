@@ -16,7 +16,7 @@
 
 namespace godot {
     class JvmScript;
-}
+} // namespace godot
 
 JVM_INSTANCE_WRAPPER(KtClass, "godot.registration.KtClass") {
     JVM_CLASS(KtClass)

@@ -18,7 +18,7 @@ constexpr const char* generate_missing = "Only generate missing files";
 constexpr const char* generate_nothing = "Don't generate anything";
 
 constexpr const char* missing_gradle_project =
-  "Gradle project can't be found. Make sure to create one before building.\n"
-  "You can use Project/Tools/Kotlin/JVM/Generate JVM project in the Godot editor or use our Intellij plugin.";
+    "Gradle project can't be found. Make sure to create one before building.\n"
+    "You can use Project/Tools/Kotlin/JVM/Generate JVM project in the Godot editor or use our Intellij plugin.";
 
 #endif // GODOT_JVM_STRINGS_H

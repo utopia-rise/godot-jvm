@@ -1,33 +1,33 @@
 #include "scala_language.h"
 
-#include "names.h"
 #include "api/script/language/scala_script.h"
+#include "names.h"
 
 using namespace godot;
 
 constexpr const char* SCALA_TEMPLATE = PACKAGE_TEMPLATE
-                                      "\n"
-                                      "\n"
-                                      "import " GODOT_KOTLIN_PACKAGE "." BASE_TEMPLATE "\n"
-                                      "import godot.annotation.Script\n"
-                                      "\n"
-                                      "@Script\n"
-                                      "class " CLASS_TEMPLATE " extends " BASE_TEMPLATE " {\n"
-                                      "\n"
-                                      "    // Declare member variables here. Examples:\n"
-                                      "    // val a: Int = 2;\n"
-                                      "    // val b: String = \"text\";\n"
-                                      "\n"
-                                      "    // Called when the node enters the scene tree for the first time.\n"
-                                      "    override def _ready(): Unit = {\n"
-                                      "        \n"
-                                      "    }\n"
-                                      "\n"
-                                      "    // Called every frame. 'delta' is the elapsed time since the previous frame.\n"
-                                      "    override def _process(delta: Double): Unit = {\n"
-                                      "        \n"
-                                      "    }\n"
-                                      "}\n";
+    "\n"
+    "\n"
+    "import " GODOT_KOTLIN_PACKAGE "." BASE_TEMPLATE "\n"
+    "import godot.annotation.Script\n"
+    "\n"
+    "@Script\n"
+    "class " CLASS_TEMPLATE " extends " BASE_TEMPLATE " {\n"
+    "\n"
+    "    // Declare member variables here. Examples:\n"
+    "    // val a: Int = 2;\n"
+    "    // val b: String = \"text\";\n"
+    "\n"
+    "    // Called when the node enters the scene tree for the first time.\n"
+    "    override def _ready(): Unit = {\n"
+    "        \n"
+    "    }\n"
+    "\n"
+    "    // Called every frame. 'delta' is the elapsed time since the previous frame.\n"
+    "    override def _process(delta: Double): Unit = {\n"
+    "        \n"
+    "    }\n"
+    "}\n";
 
 ScalaLanguage* ScalaLanguage::get_instance() {
     static ScalaLanguage* instance = memnew(ScalaLanguage);
@@ -47,89 +47,58 @@ String ScalaLanguage::_get_extension() const {
 }
 
 PackedStringArray ScalaLanguage::_get_recognized_extensions() const {
-    static PackedStringArray extensions = {
-      GODOT_SCALA_SCRIPT_EXTENSION
-    };
+    static PackedStringArray extensions = {GODOT_SCALA_SCRIPT_EXTENSION};
     return extensions;
 }
 
 PackedStringArray ScalaLanguage::_get_reserved_words() const {
     static PackedStringArray reserved_words = {
-      "abstract",
-      "case",
-      "catch",
-      "class",
-      "def",
-      "do",
-      "else",
-      "extends",
-      "false",
-      "final",
-      "finally",
-      "for",
-      "forSome",
-      "if",
-      "implicit",
-      "import",
-      "lazy",
-      "match",
-      "new",
-      "null",
-      "object",
-      "override",
-      "package",
-      "private",
-      "protected",
-      "return",
-      "sealed",
-      "super",
-      "this",
-      "throw",
-      "trait",
-      "try",
-      "true",
-      "type",
-      "val",
-      "var",
-      "while",
-      "with",
-      "yield"
+        "abstract", "case",     "catch",   "class",   "def",       "do",     "else",   "extends", "false", "final",
+        "finally",  "for",      "forSome", "if",      "implicit",  "import", "lazy",   "match",   "new",   "null",
+        "object",   "override", "package", "private", "protected", "return", "sealed", "super",   "this",  "throw",
+        "trait",    "try",      "true",    "type",    "val",       "var",    "while",  "with",    "yield"
     };
 
     return reserved_words;
 }
 
 bool ScalaLanguage::_is_control_flow_keyword(const String& p_keyword) const {
-    return p_keyword == "break" || p_keyword == "catch" || p_keyword == "continue" || p_keyword == "do"
-           || p_keyword == "else" || p_keyword == "finally" || p_keyword == "for" || p_keyword == "if" || p_keyword == "return"
-           || p_keyword == "match" || p_keyword == "throw" || p_keyword == "try" || p_keyword == "while" || p_keyword == "yield";
+    return p_keyword == "break"
+        || p_keyword == "catch"
+        || p_keyword == "continue"
+        || p_keyword == "do"
+        || p_keyword == "else"
+        || p_keyword == "finally"
+        || p_keyword == "for"
+        || p_keyword == "if"
+        || p_keyword == "return"
+        || p_keyword == "match"
+        || p_keyword == "throw"
+        || p_keyword == "try"
+        || p_keyword == "while"
+        || p_keyword == "yield";
 }
 
 PackedStringArray ScalaLanguage::_get_comment_delimiters() const {
-    static PackedStringArray delimiters = {
-      "//",
-      "/* */"
-    };
+    static PackedStringArray delimiters = {"//", "/* */"};
     return delimiters;
 }
 
 PackedStringArray ScalaLanguage::_get_doc_comment_delimiters() const {
-    static PackedStringArray delimiters = {
-      "/** */"
-    };
+    static PackedStringArray delimiters = {"/** */"};
     return delimiters;
 }
 
 PackedStringArray ScalaLanguage::_get_string_delimiters() const {
-    static PackedStringArray delimiters = {
-      "' '",
-      "\" \"",
-      R"(""" """)"
-    };
+    static PackedStringArray delimiters = {"' '", "\" \"", R"(""" """)"};
     return delimiters;
 }
 
-Ref<Script> ScalaLanguage::_make_template(const String& p_template, const String& p_class_name, const String& p_base_class_name) const {
+Ref<Script> ScalaLanguage::_make_template(
+    const String& p_template,
+    const String& p_class_name,
+    const String& p_base_class_name
+) const {
     Ref<ScalaScript> scala_script;
     scala_script.instantiate();
     String processed_template = p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case());

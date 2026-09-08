@@ -102,7 +102,8 @@ void MemoryManager::query_sync(JNIEnv* p_raw_env, jobject) {
 }
 
 void MemoryManager::sync_memory(jni::Env& p_env) {
-    // Read the list of references to demote, we do it at the end of a frame instead of the constant ping-pong happening each call.
+    // Read the list of references to demote, we do it at the end of a frame instead of the constant ping-pong happening
+    // each call.
     to_demote_mutex.lock();
     for (::godot::JvmInstance::JvmInstanceData* script_instance : to_demote_objects) {
         ::godot::JvmInstance::demote_reference(script_instance);

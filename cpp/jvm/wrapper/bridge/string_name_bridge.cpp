@@ -16,7 +16,9 @@ uintptr_t StringNameBridge::engine_call_copy_constructor(JNIEnv* p_raw_env, jobj
     jni::Env env(p_raw_env);
     godot::Variant args[1];
     TransferContext::get_instance().read_args(env, args);
-    return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::StringName(args[0].operator godot::StringName())));
+    return reinterpret_cast<uintptr_t>(
+        VariantAllocator::alloc(godot::StringName(args[0].operator godot::StringName()))
+    );
 }
 
 uintptr_t StringNameBridge::engine_call_constructor_string(JNIEnv* p_raw_env, jobject) {

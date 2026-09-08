@@ -73,7 +73,8 @@ void TransferContext::write_object_data(jni::Env& p_env, uintptr_t ptr, godot::O
 void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
     TransferContextThreadStorage& storage = get_thread_storage();
     if (unlikely(storage.stack_offset == -1)) {
-        // The only place variant_args()'s guard-checked thread_local init actually runs, once per thread — everything below this block reads the cached variant_args_base instead.
+        // The only place variant_args()'s guard-checked thread_local init actually runs, once per thread — everything
+        // below this block reads the cached variant_args_base instead.
         for (int i = 0; i < MAX_STACK_SIZE; i++) {
             storage.args_ptr[i] = &storage.args[i];
         }
@@ -96,7 +97,9 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
 
     uint32_t args_size = read_args_size(buffer);
 
-    GDExtensionMethodBindPtr method_bind = reinterpret_cast<GDExtensionMethodBindPtr>(static_cast<uintptr_t>(j_method_ptr));
+    GDExtensionMethodBindPtr method_bind = reinterpret_cast<GDExtensionMethodBindPtr>(
+        static_cast<uintptr_t>(j_method_ptr)
+    );
     raw_godot::RawObject receiver = ptr;
 
 #ifdef DEBUG_ENABLED
@@ -113,10 +116,10 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
 
     // A GDExtensionMethodBindPtr is an opaque engine handle with no exposed name or class accessors.
     JVM_DEV_ASSERT(
-      args_size <= MAX_FUNCTION_ARG_COUNT,
-      "Cannot have more than %s arguments for a method call but tried to call with %s args",
-      MAX_FUNCTION_ARG_COUNT,
-      args_size
+        args_size <= MAX_FUNCTION_ARG_COUNT,
+        "Cannot have more than %s arguments for a method call but tried to call with %s args",
+        MAX_FUNCTION_ARG_COUNT,
+        args_size
     );
 
     GDExtensionCallError r_error = {GDExtensionCallErrorType::GDEXTENSION_CALL_OK, 0, 0};
@@ -132,11 +135,11 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
 
         godot::Variant ret_value;
         receiver.call_method_bind(
-          method_bind,
-          reinterpret_cast<GDExtensionConstVariantPtr*>(args_ptr),
-          args_size,
-          &ret_value,
-          &r_error
+            method_bind,
+            reinterpret_cast<GDExtensionConstVariantPtr*>(args_ptr),
+            args_size,
+            &ret_value,
+            &r_error
         );
 
         buffer->rewind();
@@ -150,11 +153,11 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
         storage.stack_offset += args_size;
         godot::Variant ret_value;
         receiver.call_method_bind(
-          method_bind,
-          reinterpret_cast<GDExtensionConstVariantPtr*>(args_ptr),
-          args_size,
-          &ret_value,
-          &r_error
+            method_bind,
+            reinterpret_cast<GDExtensionConstVariantPtr*>(args_ptr),
+            args_size,
+            &ret_value,
+            &r_error
         );
         // Remove Variants so memory can be freed immediately after method call.
         for (uint32_t i = 0; i < args_size; i++) {
@@ -168,9 +171,9 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
 
 #ifdef DEBUG_ENABLED
     JVM_ERR_FAIL_COND_MSG(
-      r_error.error != GDExtensionCallErrorType::GDEXTENSION_CALL_OK,
-      "Call to method bind failed with error %s.",
-      static_cast<int>(r_error.error)
+        r_error.error != GDExtensionCallErrorType::GDEXTENSION_CALL_OK,
+        "Call to method bind failed with error %s.",
+        static_cast<int>(r_error.error)
     );
 #endif
 }
