@@ -1,6 +1,6 @@
 [versions]
 
-godotJvm = "1.0.0-dev3"
+godotJvm = "1.0.0-rc1"
 godot = "4.7.2"
 kotlin = "2.3.20" # https://kotlinlang.org/docs/releases.html#release-details
 kotlinCoroutine = "1.10.1" # https://github.com/Kotlin/kotlinx.coroutines/releases
