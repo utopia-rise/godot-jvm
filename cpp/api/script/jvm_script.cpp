@@ -1,47 +1,54 @@
 #include "jvm_script.h"
 
-#include "engine/godot_object.h"
-
 #include "api/language/gdj_language.h"
 #include "api/language/names.h"
 #include "api/script/jvm_script_manager.h"
 #include "classes/engine.hpp"
 #include "core/jvm_binding_manager.h"
+#include "engine/godot_object.h"
 #include "jvm/wrapper/memory/memory_manager.h"
+#include "jvm/wrapper/registration/kt_object.h"
 #include "jvm_instance.h"
 #include "jvm_placeholder_instance.h"
+#include "logging.h"
+
 #include <core/object.hpp>
 
 using namespace godot;
 
 Variant JvmScript::_new() {
-    if (GodotObject* obj = _object_create()) { return raw_godot::RawObject(obj).to_variant(); }
-    return {};
+    if (raw_godot::RawObject object = _object_create()) { return object.to_variant(); }
+    return Variant();
 }
 
-GodotObject* JvmScript::_object_create() const {
+raw_godot::RawObject JvmScript::_object_create() const {
 #ifdef DEBUG_ENABLED
-    if (!validate_instance_creation()) { return nullptr; }
+    if (!validate_instance_creation()) { return raw_godot::RawObject(); }
 #endif
 
-    // Not godot::ClassDB::instantiate(): that forwards to the script-facing ClassDB singleton, which boxes a RefCounted result in a Ref<RefCounted> inside a Variant — converting that straight to Object* and letting the Variant go out of scope...
-    GodotObject* raw_owner {raw_godot::RawObject::instantiate(kotlin_class->base_godot_class)};
+    // Not godot::ClassDB::instantiate(): that forwards to the script-facing ClassDB singleton, which boxes a RefCounted
+    // result in a Ref<RefCounted> inside a Variant — converting that straight to Object* and letting the Variant go out
+    // of scope...
+    raw_godot::RawObject owner = raw_godot::RawObject::instantiate(kotlin_class->base_godot_class);
     JVM_ERR_FAIL_COND_V_MSG(
-      raw_owner == nullptr,
-      nullptr,
-      "Cannot instantiate JVM script %s: failed to instantiate base Godot class %s.",
-      kotlin_class->registered_class_name,
-      kotlin_class->base_godot_class
+        !owner,
+        raw_godot::RawObject(),
+        "Cannot instantiate JVM script %s: failed to instantiate base Godot class %s.",
+        kotlin_class->registered_class_name,
+        kotlin_class->base_godot_class
     );
 
-    // Establishes the object's real refcount (if any) and our own binding before anything else touches it — see JvmBindingManager::set_instance_binding()'s own comment.
-    JvmBindingManager::set_instance_binding(raw_owner);
+    // Establishes the object's real refcount (if any) and our own binding before anything else touches it — see
+    // JvmBindingManager::set_instance_binding()'s own comment.
+    JvmBindingManager::set_instance_binding(owner);
 
-    // Attaching directly via object_set_script_instance, not owner->set_script(this): set_script() re-enters the engine's can-instantiate/placeholder decision, and _can_instantiate() is unconditionally false in the editor (see below) — that re...
-    void* instance {create_jvm_instance(raw_owner)};
-    if (instance == nullptr) { return nullptr; }
-    internal::gdextension_interface_object_set_script_instance(raw_owner, instance);
-    return raw_owner;
+    // Attaching directly via object_set_script_instance, not owner->set_script(this): set_script() re-enters the
+    // engine's can-instantiate/placeholder decision, and _can_instantiate() is unconditionally false in the editor (see
+    // below) — that re...
+    void* instance = create_jvm_instance(owner);
+    if (instance == nullptr) { return raw_godot::RawObject(); }
+    owner.set_script_instance(instance);
+    return owner;
 }
 
 bool JvmScript::_can_instantiate() const {
@@ -55,16 +62,16 @@ bool JvmScript::_can_instantiate() const {
 }
 
 bool JvmScript::_inherits_script(const Ref<Script>& p_script) const {
-    Ref<JvmScript> kotlin_script {p_script};
+    Ref<JvmScript> kotlin_script = p_script;
     if (kotlin_script.is_null()) { return false; }
     if (!_is_valid() || !kotlin_script->_is_valid()) { return false; }
 
-    KtClass* parent_class {kotlin_script->kotlin_class};
+    KtClass* parent_class = kotlin_script->kotlin_class;
     if (kotlin_class == parent_class) { return true; }
 
     Ref<Script> current = _get_base_script();
     while (current.is_valid()) {
-        Ref<JvmScript> current_script {current};
+        Ref<JvmScript> current_script = current;
         if (current_script.is_null() || !current_script->_is_valid()) { return false; }
         if (current_script->kotlin_class == parent_class) { return true; }
         current = current_script->_get_base_script();
@@ -73,7 +80,7 @@ bool JvmScript::_inherits_script(const Ref<Script>& p_script) const {
 }
 
 Ref<Script> JvmScript::_get_base_script() const {
-    if (!_is_valid() || kotlin_class->registered_supertypes.size() == 0) { return {}; }
+    if (!_is_valid() || kotlin_class->registered_supertypes.size() == 0) { return Ref<Script>(); }
     StringName parent_name = kotlin_class->registered_supertypes[0];
     return JvmScriptManager::get_instance()->get_script_from_registered_name(parent_name);
 }
@@ -81,7 +88,7 @@ Ref<Script> JvmScript::_get_base_script() const {
 StringName JvmScript::_get_instance_base_type() const {
     if (_is_valid()) { return kotlin_class->base_godot_class; }
     // not found
-    return {};
+    return StringName();
 }
 
 StringName JvmScript::_get_global_name() const {
@@ -106,12 +113,17 @@ bool JvmScript::_instance_has(Object* p_object) const {
 
 #ifdef DEBUG_ENABLED
 bool JvmScript::validate_instance_creation() const {
-    JVM_ERR_FAIL_COND_V_MSG(!_is_valid(), false, "Invalid script %s was attempted to be used. Make sure you have properly built your project.", get_path());
     JVM_ERR_FAIL_COND_V_MSG(
-      !kotlin_class->can_zero_init(),
-      false,
-      "Cannot instantiate JVM script %s: no public zero-argument constructor is registered.",
-      kotlin_class->registered_class_name
+        !_is_valid(),
+        false,
+        "Invalid script %s was attempted to be used. Make sure you have properly built your project.",
+        get_path()
+    );
+    JVM_ERR_FAIL_COND_V_MSG(
+        !kotlin_class->can_zero_init(),
+        false,
+        "Cannot instantiate JVM script %s: no public zero-argument constructor is registered.",
+        kotlin_class->registered_class_name
     );
     return true;
 }
@@ -119,7 +131,7 @@ bool JvmScript::validate_instance_creation() const {
 
 void* JvmScript::create_jvm_instance(GodotObject* p_raw_owner) const {
     // Assumes validate_instance_creation() has succeeded.
-    //TODO: Check if creator when set_script_instance is implemented in engine.
+    // TODO: Check if creator when set_script_instance is implemented in engine.
     JvmBindingManager::get_instance_binding(p_raw_owner);
 
     JVM_DEV_VERBOSE("Try to create %s instance.", kotlin_class->registered_class_name);
@@ -127,16 +139,11 @@ void* JvmScript::create_jvm_instance(GodotObject* p_raw_owner) const {
     jni::Env env = jni::Jvm::current_env();
     KtObject* wrapped = kotlin_class->create_instance(env, p_raw_owner);
 
-    JvmInstance::JvmInstanceData* instance_data = JvmInstance::create_instance_data(
-      env,
-      p_raw_owner,
-      wrapped,
-      this
-    );
+    JvmInstance::JvmInstanceData* instance_data = JvmInstance::create_instance_data(env, p_raw_owner, wrapped, this);
 
     return internal::gdextension_interface_script_instance_create3(
-      &JvmInstance::jvm_script_instance_info,
-      instance_data
+        &JvmInstance::jvm_script_instance_info,
+        instance_data
     );
 }
 
@@ -162,19 +169,17 @@ bool JvmScript::_has_method(const StringName& p_method) const {
 }
 
 Variant JvmScript::_get_script_method_argument_count(const StringName& p_method) const {
-    if (!_is_valid()) { return {}; }
+    if (!_is_valid()) { return Variant(); }
     KtFunction* method = kotlin_class->get_method(p_method);
     if (method) { return method->get_parameter_count(); }
-    return {};
+    return Variant();
 }
 
 Dictionary JvmScript::_get_method_info(const StringName& p_method) const {
     if (_is_valid()) {
-        if (KtFunction * method {kotlin_class->get_method(p_method)}) {
-            return method->get_member_info();
-        }
+        if (KtFunction* method = kotlin_class->get_method(p_method)) { return method->get_member_info(); }
     }
-    return {};
+    return Dictionary();
 }
 
 bool JvmScript::_is_tool() const {
@@ -223,13 +228,11 @@ bool JvmScript::_has_property_default_value(const StringName& p_property) const 
 
 Variant JvmScript::_get_property_default_value(const StringName& p_property) const {
 #ifdef TOOLS_ENABLED
-    HashMap<StringName, Variant>::ConstIterator it {exported_members_default_value_cache.find(p_property)};
-    if (it) {
-        return it->value;
-    }
+    HashMap<StringName, Variant>::ConstIterator it = exported_members_default_value_cache.find(p_property);
+    if (it) { return it->value; }
 #endif
 
-    return {};
+    return Variant();
 }
 
 TypedArray<Dictionary> JvmScript::_get_script_method_list() const {
@@ -248,9 +251,7 @@ TypedArray<Dictionary> JvmScript::_get_script_method_list() const {
 }
 
 void JvmScript::_get_script_property_info_list(List<PropertyInfo>* p_list) const {
-    if (_is_valid()) {
-        kotlin_class->get_property_list(p_list);
-    }
+    if (_is_valid()) { kotlin_class->get_property_list(p_list); }
 }
 
 TypedArray<Dictionary> JvmScript::_get_script_property_list() const {
@@ -284,7 +285,7 @@ TypedArray<StringName> JvmScript::_get_members() const {
 }
 
 Dictionary JvmScript::_get_constants() const {
-    return {};
+    return Dictionary();
 }
 
 // Variant is of type Dictionary
@@ -305,34 +306,35 @@ void JvmScript::_update_exports() {
 
 TypedArray<Dictionary> JvmScript::_get_documentation() const {
     // TODO: Add ability to register documentation to Godot
-    return {};
+    return TypedArray<Dictionary>();
 }
 
 StringName JvmScript::_get_doc_class_name() const {
 #ifdef TOOLS_ENABLED
     String class_name = get_global_name();
-    if (class_name.is_empty()) {
-        return get_path().get_file();
-    }
+    if (class_name.is_empty()) { return get_path().get_file(); }
     return class_name;
 #else
-    return {};
+    return StringName();
 #endif
 }
 
 void* JvmScript::_placeholder_instance_create(GodotObject* p_for_object) const {
 #ifdef TOOLS_ENABLED
-    JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder_data = memnew(JvmPlaceHolderInstance::JvmPlaceHolderInstanceData);
+    JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder_data = memnew(
+        JvmPlaceHolderInstance::JvmPlaceHolderInstanceData
+    );
     placeholder_data->language = GdjLanguage::get_instance();
     placeholder_data->script = Ref<Script>(this);
     placeholder_data->owner = p_for_object;
 
     GDExtensionScriptInstancePtr placeholder = internal::gdextension_interface_script_instance_create3(
-      &JvmPlaceHolderInstance::jvm_placeholder_script_instance_info,
-      placeholder_data
+        &JvmPlaceHolderInstance::jvm_placeholder_script_instance_info,
+        placeholder_data
     );
 
-    update_script_exports();// Update in case this method is called between the (re)loading and the delayed update_script_exports().
+    update_script_exports(); // Update in case this method is called between the (re)loading and the delayed
+                             // update_script_exports().
 
     List<PropertyInfo> exported_properties;
     get_script_exported_property_list(&exported_properties);
@@ -359,9 +361,15 @@ void JvmScript::get_script_exported_property_list(List<PropertyInfo>* p_list) co
     List<PropertyInfo> all_properties;
     _get_script_property_info_list(&all_properties);
 
-    p_list->push_back(PropertyInfo(Variant::NIL, _get_global_name(), PROPERTY_HINT_NONE, String(), PROPERTY_USAGE_CATEGORY));
+    p_list->push_back(
+        PropertyInfo(Variant::NIL, _get_global_name(), PROPERTY_HINT_NONE, String(), PROPERTY_USAGE_CATEGORY)
+    );
     for (const PropertyInfo& property_info : all_properties) {
-        if (property_info.usage & (PropertyUsageFlags::PROPERTY_USAGE_EDITOR | PropertyUsageFlags::PROPERTY_USAGE_GROUP | PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP | PropertyUsageFlags::PROPERTY_USAGE_CATEGORY)) {
+        if (property_info.usage
+            & (PropertyUsageFlags::PROPERTY_USAGE_EDITOR
+               | PropertyUsageFlags::PROPERTY_USAGE_GROUP
+               | PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP
+               | PropertyUsageFlags::PROPERTY_USAGE_CATEGORY)) {
             p_list->push_back(property_info);
         }
     }
@@ -369,12 +377,14 @@ void JvmScript::get_script_exported_property_list(List<PropertyInfo>* p_list) co
 
 String JvmScript::_get_class_icon_path() const {
     // TODO: Add ability to register an icon to Godot
-    return {};
+    return String();
 }
 
 void JvmScript::move_placeholders_to(JvmScript* p_script) {
     Vector<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*> current_placeholders;
-    for (const KeyValue<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& entry : placeholders) {
+    for (const KeyValue<
+             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
+             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& entry : placeholders) {
         current_placeholders.append(entry.value);
     }
 
@@ -382,8 +392,8 @@ void JvmScript::move_placeholders_to(JvmScript* p_script) {
         if (!placeholder->owner) { continue; }
 
         HashMap<StringName, Variant> values = placeholder->values;
-        raw_godot::RawObject owner {placeholder->owner};
-        owner.set_script(Variant {Ref<Script>(p_script)});
+        raw_godot::RawObject owner = placeholder->owner;
+        owner.set_script(Variant(Ref<Script>(p_script)));
         for (const KeyValue<StringName, Variant>& value : values) {
             owner.set(value.key, value.value);
         }
@@ -400,14 +410,17 @@ void JvmScript::set_last_source_modified_time(uint64_t p_time) {
 }
 
 void JvmScript::update_source_sync_warning() {
-    for (const KeyValue<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
-        raw_godot::RawObject owner {placeholder.value->owner};
+    for (const KeyValue<
+             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
+             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
+        raw_godot::RawObject owner = placeholder.value->owner;
         if (owner && owner.is_class(SNAME("Node"))) { owner.update_configuration_warnings(); }
     }
 }
 
 void JvmScript::update_script_exports() const {
     if (!export_dirty_flag) { return; }
+    if (!Engine::get_singleton()->is_editor_hint()) { return; }
 
     exported_members_default_value_cache.clear();
     if (!_is_valid() || kotlin_class->is_abstract || !kotlin_class->can_zero_init()) {
@@ -415,13 +428,10 @@ void JvmScript::update_script_exports() const {
         return;
     }
 
-    GodotObject* tmp_object = _object_create();
-    ERR_FAIL_NULL(tmp_object);
+    raw_godot::RawObject tmp_object = _object_create();
+    ERR_FAIL_COND(!tmp_object);
     auto* instance_data = reinterpret_cast<JvmInstance::JvmInstanceData*>(
-      internal::gdextension_interface_object_get_script_instance(
-        tmp_object,
-        _get_language()->_owner
-      )
+        tmp_object.get_script_instance(_get_language()->_owner)
     );
 
     List<PropertyInfo> exported_properties;
@@ -429,21 +439,23 @@ void JvmScript::update_script_exports() const {
 
     for (auto& exported_property : exported_properties) {
         Variant default_value;
-        const String& property_name {exported_property.name};
+        const String& property_name = exported_property.name;
 
         if (exported_property.type != Variant::OBJECT) {
             JvmInstance::get_or_default(instance_data, property_name, default_value);
             JVM_DEV_VERBOSE(
-              "Get default value for %s property from %s: %s",
-              exported_property.name,
-              kotlin_class->registered_class_name,
-              default_value.stringify()
+                "Get default value for %s property from %s: %s",
+                exported_property.name,
+                kotlin_class->registered_class_name,
+                default_value.stringify()
             );
         }
         exported_members_default_value_cache[property_name] = default_value;
     }
 
-    for (const KeyValue<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
+    for (const KeyValue<
+             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
+             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
         JvmPlaceHolderInstance::update(placeholder.value, exported_properties, exported_members_default_value_cache);
     }
 
@@ -485,13 +497,13 @@ StringName SourceScript::parse_source_to_fqdn(const String& p_path, String& r_so
     r_source = source;
 
 #ifdef TOOLS_ENABLED
-    static String package_keyword { PACKAGE_KEYWORD };
-    static int64_t package_keyword_size { package_keyword.length() };
+    static String package_keyword =  PACKAGE_KEYWORD ;
+    static int64_t package_keyword_size =  package_keyword.length() ;
 
     int64_t initial_start_index = 0;
     while (skip_comments(source, p_path, initial_start_index) || skip_spaces_and_newlines(source, initial_start_index)) {}
 
-    int64_t package_keyword_index { source.find(package_keyword, initial_start_index) };
+    int64_t package_keyword_index =  source.find(package_keyword, initial_start_index) ;
 
     String package_name;
     if (package_keyword_index != -1) {
@@ -508,16 +520,16 @@ StringName SourceScript::parse_source_to_fqdn(const String& p_path, String& r_so
         package_name = source.substr(package_start_index, package_end_index - package_start_index);
     }
 
-    static String register_class_annotation { REGISTER_CLASS_ANNOTATION };
-    static int64_t register_class_annotation_size { register_class_annotation.length() };
+    static String register_class_annotation =  REGISTER_CLASS_ANNOTATION ;
+    static int64_t register_class_annotation_size =  register_class_annotation.length() ;
     int64_t register_class_search_start = package_keyword_index == -1 ? 0 : package_keyword_index;
 
     while (skip_comments(source, p_path, register_class_search_start) || skip_spaces_and_newlines(source, register_class_search_start)) {}
 
-    int64_t register_class_index { source.find(register_class_annotation, register_class_search_start) };
+    int64_t register_class_index =  source.find(register_class_annotation, register_class_search_start) ;
 
     if (register_class_index == -1) {
-        return {};
+        return StringName();
     }
 
     int64_t class_search_start_index = register_class_index + register_class_annotation_size - 1;
@@ -541,13 +553,13 @@ StringName SourceScript::parse_source_to_fqdn(const String& p_path, String& r_so
 
     while (skip_comments(source, p_path, class_search_start_index) || skip_spaces_and_newlines(source, class_search_start_index)) {}
 
-    static String class_keyword { CLASS_KEYWORD };
-    static int64_t class_keyword_size { class_keyword.length() };
-    int64_t class_keyword_index { source.find(class_keyword, class_search_start_index) };
+    static String class_keyword =  CLASS_KEYWORD ;
+    static int64_t class_keyword_size =  class_keyword.length() ;
+    int64_t class_keyword_index =  source.find(class_keyword, class_search_start_index) ;
 
     if (class_keyword_index == -1) {
         JVM_LOG_WARNING(vformat("Cannot find class declaration in %s", p_path));
-        return {};
+        return StringName();
     }
 
     int64_t class_start_index = class_keyword_index + class_keyword_size - 1;
@@ -560,7 +572,7 @@ StringName SourceScript::parse_source_to_fqdn(const String& p_path, String& r_so
         next_character = source[++class_end_index];
     }
 
-    String class_name { source.substr(class_start_index, class_end_index - class_start_index) };
+    String class_name =  source.substr(class_start_index, class_end_index - class_start_index) ;
 
     if (package_name.is_empty()) {
         return class_name;
@@ -578,7 +590,7 @@ StringName SourceScript::get_functional_name() const {
 
 
 StringName SourceScript::_get_global_name() const {
-    return {};
+    return StringName();
 }
 //
 bool SourceScript::is_whitespace_or_linebreak(char32_t character) {

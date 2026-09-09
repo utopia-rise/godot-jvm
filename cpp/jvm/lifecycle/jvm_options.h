@@ -1,26 +1,25 @@
 #ifndef GODOT_LOADER_INIT_ARGS_H
 #define GODOT_LOADER_INIT_ARGS_H
 
-#include "jvm_user_configuration.h"
-
-#include <variant/string.hpp>
-#include <templates/local_vector.hpp>
 #include <jni.h>
 
+#include <templates/local_vector.hpp>
+#include <variant/string.hpp>
+
 class JvmManager;
+
 namespace godot {
     class GodotJvm;
-}
-
+} // namespace godot
 
 class JvmOptions {
     friend class JvmManager;
     friend class godot::GodotJvm;
 
 #ifdef ANDROID_ENABLED
-    int version {JNI_VERSION_1_6};
+    int version = JNI_VERSION_1_6;
 #else
-    int version {JNI_VERSION_1_8};
+    int version = JNI_VERSION_1_8;
 #endif
 
     godot::LocalVector<godot::CharString> options;
@@ -34,4 +33,4 @@ public:
     JvmOptions() = default;
 };
 
-#endif// GODOT_LOADER_INIT_ARGS_H
+#endif // GODOT_LOADER_INIT_ARGS_H

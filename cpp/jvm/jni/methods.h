@@ -33,6 +33,6 @@ namespace jni {
     struct ObjectMethodID {
         jmethodID methodId = nullptr;
     };
-}// namespace jni
+} // namespace jni
 
-#endif// GODOT_JVM_METHODS_H
+#endif // GODOT_JVM_METHODS_H

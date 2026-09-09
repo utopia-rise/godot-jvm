@@ -26,7 +26,8 @@ JVM_INSTANCE_WRAPPER(Bootstrap, "godot.runtime.Bootstrap") {
 
 public:
     static void load_classes(JNIEnv * p_env, jobject p_this, jobjectArray p_classes);
-    static void register_engine_type(JNIEnv * p_env, jobject p_this, jobjectArray p_classes_names, jobjectArray p_singleton_names);
+    static void
+    register_engine_type(JNIEnv * p_env, jobject p_this, jobjectArray p_classes_names, jobjectArray p_singleton_names);
 
     Bootstrap(jni::Env & p_env, jni::JObject p_wrapped);
     ~Bootstrap() = default;

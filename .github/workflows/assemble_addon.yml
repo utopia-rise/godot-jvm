@@ -59,6 +59,7 @@ jobs:
         run: |
           mkdir -p package/addons
           cp -R harness/tests/addons/jvm package/addons/jvm
+          cp README.md LICENSE package/addons/jvm/
           rm -rf package/addons/jvm/libs
           cp -R addon/jvm/libs package/addons/jvm/libs
           cp -R android/addons/jvm/libs/android package/addons/jvm/libs/android

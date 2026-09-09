@@ -11,7 +11,6 @@
 #include <variant/string.hpp>
 
 namespace godot {
-    // NOTE: master's version subclassed the engine-internal `EditorStandardSyntaxHighlighter`, which has no GDExtension equivalent and internally wraps a `CodeHighlighter`. A standalone `CodeHighlighter` can't substitute for it here: `set_text...
     struct SyntaxRegion {
         String begin;
         String end;
@@ -26,6 +25,8 @@ namespace godot {
         Vector<SyntaxRegion> regions; // comment and string regions, in match-priority order.
 
         Color keyword_color;
+        Color number_color;
+        Color annotation_color;
         Color default_color;
 
     public:

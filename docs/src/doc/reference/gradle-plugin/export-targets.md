@@ -4,11 +4,11 @@ description: The godot { } inputs that configure Android d8/SDK paths, minimum A
 
 # Android, GraalVM and iOS inputs
 
-These settings only matter when you invoke the platform-specific export tasks described below.
+These properties supply SDK paths and native-image configuration to the platform build tasks.
 
 ## Android build inputs
 
-These settings matter when you invoke:
+Used by:
 
 - `buildAndroid`
 - `buildAndroidRelease`
@@ -25,9 +25,7 @@ Default:
 
 ```kotlin
 godot {
-    android {
-        d8ToolPath.set("${System.getenv("ANDROID_SDK_ROOT")}/build-tools/36.0.0/d8")
-    }
+    android.d8ToolPath.set("${System.getenv("ANDROID_SDK_ROOT")}/build-tools/36.0.0/d8")
 }
 ```
 
@@ -41,9 +39,7 @@ Default:
 
 ```kotlin
 godot {
-    android {
-        compileSdkDirectory.set("${System.getenv("ANDROID_SDK_ROOT")}/platforms/android-36")
-    }
+    android.compileSdkDirectory.set("${System.getenv("ANDROID_SDK_ROOT")}/platforms/android-36")
 }
 ```
 
@@ -57,15 +53,13 @@ Default:
 
 ```kotlin
 godot {
-    android {
-        minApiLevel.set(21)
-    }
+    android.minApiLevel.set(21)
 }
 ```
 
 ## GraalVM and iOS build inputs
 
-These settings matter when you invoke:
+Used by:
 
 - `buildGraalNativeImage`
 - `buildGraalNativeImageRelease`
@@ -84,9 +78,7 @@ Default:
 
 ```kotlin
 godot {
-    graal {
-        homeDirectory.set(System.getenv("GRAALVM_HOME"))
-    }
+    graal.homeDirectory.set(System.getenv("GRAALVM_HOME"))
 }
 ```
 
@@ -100,51 +92,43 @@ Default:
 
 ```kotlin
 godot {
-    graal {
-        windowsDeveloperVcVarsPath.set(System.getenv("VC_VARS_PATH"))
-    }
+    graal.windowsDeveloperVcVarsPath.set(System.getenv("VC_VARS_PATH"))
 }
 ```
 
 ### `graal.additionalJniConfigurationFiles`
 
-Additional JNI configuration files passed to native-image.
+Additional JNI configuration files, resolved relative to the project's `graal/` directory.
 
 ```kotlin
 godot {
-    graal {
-        additionalJniConfigurationFiles.set(
-            arrayOf("graal/jni-config.json")
-        )
-    }
+    graal.additionalJniConfigurationFiles.set(
+        arrayOf("jni-config.json")
+    )
 }
 ```
 
 ### `graal.additionalReflectionConfigurationFiles`
 
-Additional reflection configuration files passed to native-image.
+Additional reflection configuration files passed directly to native-image. Use absolute paths so they resolve regardless of the build's working directory.
 
 ```kotlin
 godot {
-    graal {
-        additionalReflectionConfigurationFiles.set(
-            arrayOf("graal/reflect-config.json")
-        )
-    }
+    graal.additionalReflectionConfigurationFiles.set(
+        arrayOf(file("graal/reflect-config.json").absolutePath)
+    )
 }
 ```
 
 ### `graal.additionalResourceConfigurationFiles`
 
-Additional resource configuration files passed to native-image.
+Additional resource configuration files passed directly to native-image. Use absolute paths so they resolve regardless of the build's working directory.
 
 ```kotlin
 godot {
-    graal {
-        additionalResourceConfigurationFiles.set(
-            arrayOf("graal/resource-config.json")
-        )
-    }
+    graal.additionalResourceConfigurationFiles.set(
+        arrayOf(file("graal/resource-config.json").absolutePath)
+    )
 }
 ```
 
@@ -158,9 +142,7 @@ Default:
 
 ```kotlin
 godot {
-    graal {
-        verbose.set(true)
-    }
+    graal.verbose.set(true)
 }
 ```
 

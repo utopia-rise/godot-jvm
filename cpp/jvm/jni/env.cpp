@@ -1,14 +1,14 @@
 #include "env.h"
 
+#include "logging.h"
 #include "types.h"
 
 using namespace godot;
 
 namespace jni {
 
-
     void Env::set_exception_handler(void (*p_exception_handler)(Env, JThrowable)) {
-      exception_handler = p_exception_handler;
+        exception_handler = p_exception_handler;
     }
 
     Env::Env(JNIEnv* env) {
@@ -28,7 +28,7 @@ namespace jni {
         return env != nullptr;
     }
 
-    //Support fully qualified class names with "a/b/c" and "a.b.c" format
+    // Support fully qualified class names with "a/b/c" and "a.b.c" format
     JClass Env::find_class(const char* name) {
         jclass cls = env->FindClass(String(name).replace(".", "/").utf8().get_data());
         JVM_DEV_ASSERT(cls, "Class not found: %s", name);
@@ -37,7 +37,7 @@ namespace jni {
     }
 
     void Env::throw_new(const char* message) {
-        jclass exception_class {env->FindClass("java/lang/RuntimeException")};
+        jclass exception_class = env->FindClass("java/lang/RuntimeException");
         if (exception_class == nullptr) { return; }
 
         env->ThrowNew(exception_class, message);
@@ -62,7 +62,7 @@ namespace jni {
 
     void Env::handle_exception() {
         if (unlikely(exception_check())) {
-            if(exception_handler) {
+            if (exception_handler) {
                 JThrowable throwable = exception_occurred();
                 exception_clear();
                 exception_handler(*this, throwable);
@@ -109,4 +109,4 @@ namespace jni {
         env->GetJavaVM(&jvm);
         return jvm;
     }
-}// namespace jni
+} // namespace jni

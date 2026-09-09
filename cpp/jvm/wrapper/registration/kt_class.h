@@ -1,7 +1,6 @@
 #ifndef GODOT_JVM_KTCLASS_H
 #define GODOT_JVM_KTCLASS_H
 
-#include "constraints.h"
 #include "jvm/jni/wrapper.h"
 #include "jvm/wrapper/jvm_instance_wrapper.h"
 #include "kt_constructor.h"
@@ -9,14 +8,13 @@
 #include "kt_object.h"
 #include "kt_signal_info.h"
 
-#include <classes/ref_counted.hpp>
 #include <templates/hash_map.hpp>
 #include <templates/hash_set.hpp>
 #include <templates/vector.hpp>
 
 namespace godot {
     class JvmScript;
-}
+} // namespace godot
 
 JVM_INSTANCE_WRAPPER(KtClass, "godot.registration.KtClass") {
     JVM_CLASS(KtClass)

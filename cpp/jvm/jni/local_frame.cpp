@@ -11,4 +11,4 @@ namespace jni {
         jni::Jvm::current_env().pop_local_frame();
     }
 
-}// namespace jni
+} // namespace jni

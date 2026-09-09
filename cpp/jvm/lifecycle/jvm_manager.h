@@ -20,15 +20,19 @@ public:
     static void set_android_jvm(JNIEnv* p_env);
 #endif
 
-    static bool initialize_or_get_jvm(void* lib_handle, JvmUserConfiguration& user_configuration, JvmOptions& jvm_options);
+    static bool initialize_or_get_jvm(
+        void* lib_handle,
+        JvmUserConfiguration& user_configuration,
+        JvmOptions& jvm_options
+    );
     static bool initialize_jvm_wrappers(jni::Env& p_env, ClassLoader* class_loader);
     static void finalize_jvm_wrappers(jni::Env& p_env, ClassLoader* class_loader);
     static bool close_jvm();
 
 private:
 #ifdef ANDROID_ENABLED
-    inline static JavaVM* android_jvm {nullptr};
+    inline static JavaVM* android_jvm = nullptr;
 #endif
 };
 
-#endif// GODOT_JVM_JVM_MANAGER_H
+#endif // GODOT_JVM_JVM_MANAGER_H

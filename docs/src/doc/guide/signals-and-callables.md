@@ -1,471 +1,339 @@
 ---
-description: Declaring typed signals and callable targets, then emitting, calling, and connecting them in Kotlin, Java, and Scala.
+description: Connect signals to react to events and pass callables to Godot APIs.
 ---
 
 # Signals and callables
 
-A signal represents an event, and a callable supplies the method or lambda that handles it.
+Connect [signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) to react to events and pass callables to Godot APIs.
 
-## Dynamic and typed APIs
+## Connect a built-in signal
 
-GDScript `Signal` and `Callable` values are typeless and arityless: they do not record an argument count or argument types. Godot therefore checks a connection or call only at runtime:
-
-```gdscript
-signal health_changed(current, maximum)
-
-func _ready():
-    health_changed.connect(_on_health_changed)
-
-func _on_health_changed(current, maximum):
-    print(current, "/", maximum)
-```
-
-As a result, a wrong argument count or type is discovered only when the signal emits or the callable runs.
-
-Godot-JVM provides the unsafe equivalent through its typeless, arityless base `Signal` and `Callable` types. Their `Unsafe` methods have the same runtime-only validation as GDScript:
-
-- `Signal.emitUnsafe(...)` and `Signal.connectUnsafe(...)`
-- `Callable.callUnsafe(...)`, `Callable.callDeferredUnsafe(...)`, and `Callable.bindUnsafe(...)`
-
-They take a `vararg Any?` argument list and defer validation to runtime. These APIs are unsafe and are not recommended for normal JVM code; use them only when a value arriving from Godot genuinely has no known JVM signature.
-
-The recommended API is the typed `Signal0` through `Signal16` and `Callable0` through `Callable16` families. Their arity and generic parameter types are part of the type itself:
-
-- `emit(...)` replaces `emitUnsafe(...)`
-- `connect(...)` replaces `connectUnsafe(...)`
-- `call(...)`, `invoke(...)`, and typed `bind(...)` replace their unsafe counterparts
-
-A `Signal2<Int, Int>` can emit exactly two `Int` values and connect only to a matching two-argument callable. The compiler catches a mismatched argument count or type before the call reaches Godot.
-
-!!! warning "Signal parameter count"
-    Typed signals and callables currently support zero through sixteen parameters.
-
-Kotlin provides delegate, method-reference, and lambda helpers such as `signal2`, `methodCallable2`, and `connectMethod`. They rely on Kotlin language features. Java and Scala use the same typed runtime families, but construct `SignalN`, `MethodCallableN`, and `LambdaCallableN` explicitly.
-
-## Signals
-
-### Declaring signals
-
-The cross-language baseline is a plain field holding a `SignalN`.
-Java and Scala build it with the static factory `SignalN.create(...)`.
-That factory is generated for the JVM only, so Kotlin uses the matching `SignalN(...)` builder on the enclosing object instead:
+The following `Player` example creates a `Timer` in `_ready()` and connects its `timeout` signal to a lambda. The callback calls `heal(1)` every second.
 
 /// tab | Kotlin
+
 ```kotlin
-val ready = Signal0("ready")
-val healthChanged = Signal2<Int, Int>("healthChanged")
+import godot.api.Timer
+import godot.extension.connectLambda
+
+override fun _ready() {
+    val timer = Timer()
+    addChild(timer)
+    timer.timeout.connectLambda { heal(1) }
+    timer.start(1.0)
+}
 ```
 
 ///
 
 /// tab | Java
+
 ```java
-Signal0 ready = Signal0.create(this, "ready");
-Signal2<Integer, Integer> healthChanged = Signal2.create(this, "healthChanged");
+import godot.api.Timer;
+import godot.extension.SignalConnectors;
+
+@Override
+public void _ready() {
+    Timer timer = new Timer();
+    addChild(timer);
+    SignalConnectors.connectLambda0(timer.getTimeout(), () -> heal(1));
+    timer.start(1.0);
+}
 ```
 
 ///
 
 /// tab | Scala
+
 ```scala
-val ready: Signal0 = Signal0.create(this, "ready")
-val healthChanged: Signal2[Integer, Integer] = Signal2.create(this, "healthChanged")
-```
-///
+import godot.api.Timer
+import godot.extension.SignalConnectors
 
-All three snippets are written inside a class extending a Godot `Object`, since the signal needs an owner.
-For Java and Scala, this is also the normal declaration style.
-Make sure the variable name and the string passed to the builder are the same.
-Use the source-language name such as `healthChanged`, not a manually converted `snake_case` version.
-The signal is registered to Godot from the variable itself, but the signal instance also needs to carry its own name so Godot can identify it correctly.
-The conversion to Godot's `snake_case` name happens automatically.
-
-Kotlin also provides a delegate syntax, which is usually the recommended form for Kotlin classes:
-
-```kotlin
-@Script
-class Player : Node() {
-    @Emit("current", "max")
-    val healthChanged by signal2<Int, Int>()
+override def _ready(): Unit = {
+  val timer = new Timer()
+  addChild(timer)
+  SignalConnectors.connectLambda0(timer.getTimeout(), () => heal(1))
+  timer.start(1.0)
 }
 ```
 
-This is lightweight.
-The delegate does not store a dedicated `Signal2` instance on the object.
-It recreates a wrapper on access from the owning object and the property name.
+///
 
-The delegate factories are `signal0()` through `signal16()`.
-That syntax is Kotlin-only: Java and Scala have no equivalent and must use `SignalN.create(...)`.
+## Declare a signal
 
-### Emitting signals
-
-Typed signals expose a typed `emit` function:
+The signal is registered without `@Emit`. This optional annotation names the parameters shown in Godot; here they are `current` and `max`. Import `Emit` from `godot.annotation` and `signal2` (Kotlin) or `Signal2` (Java and Scala) from `godot.core`.
 
 /// tab | Kotlin
+
 ```kotlin
-healthChanged.emit(24, 100)
+@Emit("current", "max")
+val healthChanged by signal2<Int, Int>()
 ```
 
 ///
 
 /// tab | Java
+
 ```java
-healthChanged.emit(24, 100);
+@Emit(parameters = {"current", "max"})
+public final Signal2<Integer, Integer> healthChanged =
+    Signal2.create(this, "healthChanged");
 ```
 
 ///
 
 /// tab | Scala
+
 ```scala
-healthChanged.emit(24, 100)
+@Emit(parameters = Array("current", "max"))
+val healthChanged: Signal2[Integer, Integer] =
+  Signal2.create(this, "healthChanged")
 ```
+
 ///
 
-## Callables
+The Kotlin delegate derives the owner and member name. In Java and Scala, pass the owner and exact member name to `Signal2.create`. Godot-JVM converts `healthChanged` to `health_changed` for Godot.
 
-A callable represents a method, a JVM lambda, or a native Godot callable. Construct one when you need to call code indirectly or connect a signal.
+`Signal2` accepts two arguments with the declared types. Typed signals catch mismatched argument counts and types at compile time.
 
-### Method callables
+## Emit a signal
 
-Use a method callable when the callback is an existing registered Godot method.
-
-Kotlin and Java/Scala reach that goal differently:
-
-- Kotlin usually uses method references, so `methodCallableN(target, Type::method)` is the most natural form. `methodCallableN` is Kotlin-only, since it relies on Kotlin reflection to read the method name off the reference.
-- Java and Scala create a `MethodCallableN` explicitly from a typed method name, with `MethodCallableN.create(target, methodStringName)`.
-- For built-in Godot API methods, Java and Scala should prefer the pre-made `MethodStringNameN` fields exposed by engine classes.
-
-For a method you registered yourself:
+This emits the current and maximum health:
 
 /// tab | Kotlin
-```kotlin
-@Script
-class UiController : Node() {
-    @Register
-    fun onHealthChanged(current: Int, max: Int) {
-        println("UI update: $current / $max")
-    }
-}
 
-val controller = UiController()
-val callableFromReference: MethodCallable2<Unit, Int, Int> =
-    methodCallable2(controller, UiController::onHealthChanged)
+```kotlin
+healthChanged.emit(health, 100)
 ```
 
 ///
 
 /// tab | Java
-```java
-@Script
-public class UiController extends Node {
-    @Register
-    public void onHealthChanged(Integer current, Integer max) {
-        System.out.println("UI update: " + current + " / " + max);
-    }
-}
 
-UiController controller = new UiController();
-MethodCallable2<Void, Integer, Integer> callableFromName = MethodCallable2.create(
-    controller,
-    new MethodStringName2<UiController, Void, Integer, Integer>("on_health_changed")
-);
+```java
+healthChanged.emit(health, 100);
 ```
 
 ///
 
 /// tab | Scala
-```scala
-@Script
-class UiController extends Node {
-  @Register
-  def onHealthChanged(current: Integer, max: Integer): Unit = {
-    println(s"UI update: $current / $max")
-  }
-}
 
-val controller = new UiController()
-val callableFromName: MethodCallable2[Void, Integer, Integer] = MethodCallable2.create(
-  controller,
-  new MethodStringName2[UiController, Void, Integer, Integer]("on_health_changed")
-)
+```scala
+healthChanged.emit(health, 100)
 ```
+
 ///
 
-!!! warning "MethodStringNameN takes the Godot name"
-    Unlike `SignalN.create(...)`, the `MethodStringNameN(...)` constructor does not convert the string for you. Pass the `snake_case` name Godot knows the method by, so `on_health_changed` and not `onHealthChanged`.
+## Connect your signal
 
-For built-in Godot API methods, use the pre-made typed method-name fields exposed by engine classes.
+The following connections are made in `_ready()`.
+
+### Connect a lambda
+
+Import `SignalConnector` from `godot.extension` when naming the return type. For inline subscriptions, Kotlin provides `connectLambda`, and Java and Scala use `SignalConnectors.connectLambdaN(...)`.
 
 /// tab | Kotlin
+
 ```kotlin
-val sprite = AnimatedSprite2D()
-
-val pauseCallable: MethodCallable0<Unit> = methodCallable0(sprite, AnimatedSprite2D::pause)
-```
-
-///
-
-/// tab | Java
-```java
-AnimatedSprite2D sprite = new AnimatedSprite2D();
-
-var pauseCallable = MethodCallable0.create(sprite, AnimatedSprite2D.pauseName);
-var playCallable = MethodCallable3.create(sprite, AnimatedSprite2D.playName);
-```
-
-///
-
-/// tab | Scala
-```scala
-val sprite = new AnimatedSprite2D()
-
-val pauseCallable = MethodCallable0.create(sprite, AnimatedSprite2D.pauseName)
-val playCallable = MethodCallable3.create(sprite, AnimatedSprite2D.playName)
-```
-///
-
-Those pre-made fields carry the return type declared by the Kotlin API, so a Godot method returning nothing yields a `MethodCallableN<kotlin.Unit, ...>` rather than a `MethodCallableN<Void, ...>`. Letting the compiler infer the callable type, as above, avoids having to spell that out in Java or Scala.
-
-The fallback `MethodCallableN.createUnsafe(target, "methodName")` form still exists, but it drops back to string-based runtime checks. Use it only when you cannot express the callable with a typed helper.
-
-### Lambda callables
-
-Use a lambda callable when the callback only exists on the JVM side and is not a registered Godot method.
-
-- Kotlin usually uses `lambdaCallableN { ... }` or `.asCallable()`. Both are Kotlin-only, since they read the argument and return types from Kotlin's reified generics.
-- Java and Scala use `LambdaCallableN.create(...)` and provide explicit JVM classes for arguments and return values.
-
-For a callable with a return value:
-
-/// tab | Kotlin
-```kotlin
-val format = lambdaCallable2<String, Int, String> { amount, unit ->
-    "$amount $unit"
+val connector = healthChanged.connectLambda { current, max ->
+    GD.print("Health changed to $current / $max")
 }
 ```
 
 ///
 
 /// tab | Java
+
 ```java
-LambdaCallable2<String, Integer, String> format = LambdaCallable2.create(
-    String.class,
+SignalConnector connector = SignalConnectors.connectLambda2(
+    healthChanged,
     Integer.class,
-    String.class,
-    (amount, unit) -> amount + " " + unit
+    Integer.class,
+    (current, max) -> GD.print("Health changed to " + current + " / " + max)
 );
 ```
 
 ///
 
 /// tab | Scala
+
 ```scala
-val format = LambdaCallable2.create(
-  classOf[String],
+val connector = SignalConnectors.connectLambda2(
+  healthChanged,
   classOf[Integer],
-  classOf[String],
-  (amount: Integer, unit: String) => s"$amount $unit"
-)
-```
-///
-
-Kotlin can also turn a lambda it already holds into a callable with `asCallable()`. This helper is Kotlin-only; Java and Scala have to go back through `LambdaCallableN.create(...)`.
-
-```kotlin
-val printHealth = { current: Int, max: Int ->
-    println("Lambda saw $current / $max")
-}.asCallable()
-```
-
-If you expose one of those Java or Scala callables as a registered property, prefer the base `Callable` type for the property itself. The stored value can still be a `LambdaCallableN`, but the property surface should currently stay at `Callable`.
-
-### Variant callables
-
-`VariantCallable` is the native, fully dynamic callable wrapper. It is useful when a callable comes from Godot itself and not from the typed APIs shown above. In user code, prefer the typed families when you know the signature.
-
-### Calling and binding typed callables
-
-Each typed callable exposes `call(...)`, `invoke(...)`, `callDeferred(...)`, and `bind(...)`. Reuse the `format` callable from the examples above:
-
-/// tab | Kotlin
-```kotlin
-val result = format(24, "HP")
-val fixedUnit = format.bind("HP")
-
-println(result)        // 24 HP
-println(fixedUnit(10)) // 10 HP
-```
-
-///
-
-/// tab | Java
-```java
-String result = format.call(24, "HP");
-Callable1<String, Integer> fixedUnit = format.bind("HP");
-
-System.out.println(result);             // 24 HP
-System.out.println(fixedUnit.call(10)); // 10 HP
-```
-
-///
-
-/// tab | Scala
-```scala
-val result = format.call(24, "HP")
-val fixedUnit = format.bind("HP")
-
-println(result)             // 24 HP
-println(fixedUnit.call(10)) // 10 HP
-```
-///
-
-`bind(...)` always binds arguments from the right and returns a callable with a smaller arity.
-
-## Connecting signals and callables
-
-Connect a signal to a callable with a matching signature.
-
-/// tab | Kotlin
-```kotlin
-val callable: Callable2<Unit, Int, Int> = ...
-
-healthChanged.connect(
-    callable
+  classOf[Integer],
+  (current: Integer, max: Integer) => GD.print(s"Health changed to $current / $max")
 )
 ```
 
 ///
 
-/// tab | Java
-```java
-Callable2<Void, Integer, Integer> callable = ...;
-
-healthChanged.connect(
-    callable
-);
-```
-
-///
-
-/// tab | Scala
-```scala
-val callable: Callable2[Void, Integer, Integer] = ...
-
-healthChanged.connect(
-  callable
-)
-```
-///
-
-## SignalConnector
-
-`SignalConnector` is a small helper around one `Signal` plus one `Callable`.
-
-It exists for the cases where you want a reusable connection handle instead of just calling `signal.connect(callable)` directly.
-That makes it easy to:
-
-- `connect()`
-- `disconnect()`
-- `isConnected()`
-- `isValid()`
-
-### Create one from a method
-
-Kotlin provides `connectMethod`, which creates the callable, connects it immediately, and returns a `SignalConnector`.
-`connectMethod` is Kotlin-only, since it takes a method reference.
-Java and Scala reach the same result through the arity-specific `SignalConnectors.connectMethodN(...)` with a pre-made typed method name:
+Keep the returned connector to check or disconnect the subscription. Store it in a field when its lifetime spans several methods. To end the subscription:
 
 /// tab | Kotlin
+
 ```kotlin
-val finished = Signal0("finished")
-val sprite = AnimatedSprite2D()
-
-val connector = finished.connectMethod(sprite, AnimatedSprite2D::pause)
-
-connector.isConnected()
 connector.disconnect()
 ```
 
 ///
 
 /// tab | Java
+
 ```java
-Signal0 finished = Signal0.create(this, "finished");
-AnimatedSprite2D sprite = new AnimatedSprite2D();
-
-SignalConnector connector = SignalConnectors.connectMethod0(
-    finished,
-    sprite,
-    AnimatedSprite2D.pauseName
-);
-
-connector.isConnected();
 connector.disconnect();
 ```
 
 ///
 
 /// tab | Scala
+
 ```scala
-val finished: Signal0 = Signal0.create(this, "finished")
-val sprite = new AnimatedSprite2D()
-
-val connector = SignalConnectors.connectMethod0(
-  finished,
-  sprite,
-  AnimatedSprite2D.pauseName
-)
-
-connector.isConnected()
 connector.disconnect()
 ```
+
 ///
 
-### Create one from a lambda
+### Connect a registered method
 
-For inline subscriptions, Kotlin provides `connectLambda`, and Java and Scala use `SignalConnectors.connectLambdaN(...)`.
-Under the hood both create a typed `LambdaCallableN`, connect it, and return a `SignalConnector`.
+The following `Player` handler connects in `_ready()`. The target is the current scene instance, `this`. Kotlin uses `connectMethod` from `godot.extension`; Java and Scala use `MethodStringName2` from `godot.core`.
 
 /// tab | Kotlin
+
 ```kotlin
-val connector = healthChanged.connectLambda { current, max ->
-    println("Health changed to $current / $max")
+@Register
+fun onHealthChanged(current: Int, max: Int) {
+    GD.print("Health: $current / $max")
+}
+
+override fun _ready() {
+    healthChanged.connectMethod(this, Player::onHealthChanged)
 }
 ```
 
 ///
 
 /// tab | Java
+
+!!! warning "MethodStringNameN takes the Godot name"
+    `SignalN.create(...)` converts to `snake_case`; `MethodStringNameN(...)` does not. In Java and Scala, pass `on_health_changed`, the name Godot knows.
+
 ```java
-SignalConnector connector = SignalConnectors.connectLambda2(
-    healthChanged,
-    Integer.class,
-    Integer.class,
-    (current, max) -> System.out.println("Health changed to " + current + " / " + max)
-);
+@Register
+public void onHealthChanged(int current, int max) {
+    GD.print("Health: " + current + " / " + max);
+}
+
+private final MethodStringName2<Player, Void, Integer, Integer> onHealthChangedName =
+    new MethodStringName2<>("on_health_changed");
+
+@Override
+public void _ready() {
+    SignalConnectors.connectMethod2(
+        healthChanged,
+        this,
+        onHealthChangedName
+    );
+}
 ```
 
 ///
 
 /// tab | Scala
+
 ```scala
-val connector = SignalConnectors.connectLambda2(
-  healthChanged,
-  classOf[Integer],
-  classOf[Integer],
-  (current: Integer, max: Integer) => println(s"Health changed to $current / $max")
-)
+@Register
+def onHealthChanged(current: Int, max: Int): Unit = {
+  GD.print(s"Health: $current / $max")
+}
+
+private val onHealthChangedName =
+  new MethodStringName2[Player, Void, Integer, Integer]("on_health_changed")
+
+override def _ready(): Unit = {
+  SignalConnectors.connectMethod2(
+    healthChanged,
+    this,
+    onHealthChangedName
+  )
+}
 ```
+
 ///
 
-This avoids having to rebuild the same callable manually later or keep the raw signal/callable pair around yourself.
+Kotlin's `connectMethod` takes a method reference. Java and Scala use `SignalConnectors.connectMethod2` with a typed method name. Declare that name once for a script method. Generated Godot base-class methods already provide `...Name` fields, such as `Node.queueFreeName`.
 
-## Naming
+## Pass a callable to Godot
 
-For consistency with Godot, signals are registered to Godot in `snake_case`.
-For example, a property named `healthChanged` is exposed to Godot as `health_changed`.
-When you create a signal wrapper manually with `SignalN.create(...)` in Java or Scala, or with `SignalN(...)` in Kotlin, pass the original property name.
-The wrapper converts it to the Godot name automatically.
+The following `recoverLater()` method schedules a registered method with a [Tween](https://docs.godotengine.org/en/stable/classes/class_tween.html).
 
-For the handwritten runtime layer underneath these typed families, and how the generated arities are produced, see
-[Signals and callables internals](../contribute/how-it-works/signals-and-callables.md).
+/// tab | Kotlin
+
+```kotlin
+import godot.core.methodCallable0
+
+@Register
+fun announceRecovery() {
+    GD.print("Recovery complete")
+}
+
+fun recoverLater() {
+    val tween = createTween()
+    tween.tweenInterval(1.0)
+    tween.tweenCallback(methodCallable0(this, Player::announceRecovery))
+}
+```
+
+///
+
+/// tab | Java
+
+```java
+import godot.core.MethodCallable0;
+import godot.core.MethodStringName0;
+
+@Register
+public void announceRecovery() {
+    GD.print("Recovery complete");
+}
+
+private final MethodStringName0<Player, Void> announceRecoveryName =
+    new MethodStringName0<>("announce_recovery");
+
+public void recoverLater() {
+    var tween = createTween();
+    tween.tweenInterval(1.0);
+    tween.tweenCallback(MethodCallable0.create(
+        this, announceRecoveryName
+    ));
+}
+```
+
+///
+
+/// tab | Scala
+
+```scala
+import godot.core.{MethodCallable0, MethodStringName0}
+
+@Register
+def announceRecovery(): Unit = {
+  GD.print("Recovery complete")
+}
+
+private val announceRecoveryName =
+  new MethodStringName0[Player, Void]("announce_recovery")
+
+def recoverLater(): Unit = {
+  val tween = createTween()
+  tween.tweenInterval(1.0)
+  tween.tweenCallback(MethodCallable0.create(
+    this, announceRecoveryName
+  ))
+}
+```
+
+///
+
+!!! note "Scala signal types"
+    Use boxed Java types such as `Integer` and `java.lang.Boolean` as signal type arguments. Primitive Scala type arguments may register as untyped Variants.

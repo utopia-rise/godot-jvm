@@ -27,4 +27,3 @@ class ScalaTestClass extends Node {
   def onNotification(): Unit =
     notificationTriggered = true
 }
-

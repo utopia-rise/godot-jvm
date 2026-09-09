@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+
+{#-
+  Home page: the primary sidebar is kept for the mobile drawer and hidden on desktop by CSS, the table of contents is
+  replaced by the download card, and the card is repeated inline after the content where the sidebar is hidden.
+-#}
+{% block site_nav %}
+  <div class="md-sidebar md-sidebar--primary md-sidebar--home-nav" data-md-component="sidebar" data-md-type="navigation">
+    <div class="md-sidebar__scrollwrap">
+      <div class="md-sidebar__inner">
+        {% include "partials/nav.html" %}
+      </div>
+    </div>
+  </div>
+  <div class="md-sidebar md-sidebar--secondary md-sidebar--home" data-md-component="sidebar" data-md-type="toc">
+    <div class="md-sidebar__scrollwrap">
+      <div class="md-sidebar__inner">
+        {% with extra_class = "" %}{% include "partials/home-panel.html" %}{% endwith %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {{ super() }}
+  {% with extra_class = "home-panel--inline" %}{% include "partials/home-panel.html" %}{% endwith %}
+{% endblock %}

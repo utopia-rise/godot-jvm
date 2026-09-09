@@ -20,5 +20,5 @@ namespace godot {
     protected:
         static void _bind_methods();
     };
-}
-#endif// GODOT_JVM_KOTLIN_SCRIPT_H
+} // namespace godot
+#endif // GODOT_JVM_KOTLIN_SCRIPT_H

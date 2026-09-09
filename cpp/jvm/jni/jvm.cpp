@@ -3,10 +3,10 @@
 #include "logging.h"
 
 namespace jni {
-    static thread_local Env* env {nullptr};
-    Jvm* Jvm::_instance {nullptr};
+    static thread_local Env* env = nullptr;
+    Jvm* Jvm::_instance = nullptr;
 
-    Jvm::Jvm(JavaVM* vm, JvmType vm_type, jint version) : vm {vm}, version {version}, vm_type {vm_type} {}
+    Jvm::Jvm(JavaVM* vm, JvmType vm_type, jint version) : vm(vm), version(version), vm_type(vm_type) {}
 
     void Jvm::initialize(JavaVM* p_vm, JvmType p_type, jint p_version) {
         _instance = new Jvm(p_vm, p_type, p_version);

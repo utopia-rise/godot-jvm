@@ -4,64 +4,46 @@ description: Where Godot-JVM contributors discuss work, how issues get claimed, 
 
 # Contributing
 
-We encourage you to contribute to the project if you want. Even if you don't have any idea how
-the project works or if it seems overwhelming at first, we're here to help you getting started.
+Contributions are welcome, from documentation fixes to binding improvements. You don't need to know the whole codebase to get started; discuss the change in an issue and we can help you find the relevant code.
 
-## In this section
+## How to Build
 
-- [Build from source](build-from-source.md) — compile the native extension and Kotlin/Gradle side yourself.
-- [Build for Android](build-for-android.md) — cross-compile the native library for every Android ABI.
-- [Run the tests](running-tests.md) — the Kotlin unit tests and the GUT-based integration harness.
-- [Test a change from a branch](test-a-branch.md) — try an unreleased branch from a real Godot-JVM project.
-- [The godot-cpp fork](godot-cpp-fork.md) — why Godot-JVM tracks a fork of godot-cpp, and how to keep it in sync.
-- [Update the iOS JDK](update-ios-jdk.md) — moving Godot-JVM to a newer iOS JDK.
-- [How it works](how-it-works/index.md) — the engineering reasoning behind Godot-JVM's internals.
+- [Build from source](build-from-source.md): compile the native extension and Kotlin/Gradle side yourself.
+- [Build for Android](build-for-android.md): cross-compile the native library for every Android ABI.
+- [Run the tests](running-tests.md): the Kotlin unit tests and the gdUnit4-based integration harness.
+- [Test a change from a branch](test-a-branch.md): try an unreleased branch from a real Godot-JVM project.
+- [The godot-cpp fork](godot-cpp-fork.md): why Godot-JVM tracks a fork of godot-cpp, and how to keep it in sync.
+- [Update the iOS JDK](update-ios-jdk.md): moving Godot-JVM to a newer iOS JDK.
 
-## Keywords
+## How it works
 
-The following keywords are used throughout the contribution documentation:
-
-- `godot-root`: root dir in which the godot engine is cloned into
-- `project-dir`: repository root
+- [Where to start](how-it-works/index.md): the engineering reasoning behind Godot-JVM's internals.
 
 ## Discussions
 
-Most of our discussions are happening on Discord. So, if you have Discord or don't mind starting using it,
-feel free to [join](https://discord.gg/zpb5Ru7v9x) our server. But don't worry if you don't have or want to use Discord.
-Then the discussions are just in the corresponding issue. If you discuss on Discord though: don't forget to document all
-relevant outcome in the corresponding issue.
+Discuss changes in the relevant GitHub issue or on [Discord](https://discord.gg/zpb5Ru7v9x). If a decision is made on Discord, record it in the issue so everyone can follow the outcome.
 
-If you have critique or an opinion on a discussed topic, please be kind and give valuable feedback. If you are on the
-receiving end of the critique: don't take it personally. Many people are no native english speaker and it can happen that
-something which is not rude at all in the language of the writer, might sound rude in english.
+Keep feedback specific and respectful. Contributors have different backgrounds and levels of English fluency; ask for clarification when a comment's intent is unclear.
 
 ## Code ownership
 
-We are working with the Code Owners feature of GitHub. This means each piece of code in this project has a maintainer who
-is the "Owner" of said code.
-This maintainer is usually the one who implemented it or has the most knowledge about that particular part of the project.
-General code may not have a specific "Owner". In this case the fallback is: all Maintainers.
+GitHub Code Owners identifies the maintainers responsible for each part of the codebase. They review changes in their areas. Code without a specific owner falls to the maintainer team.
 
 ## Before contributing
 
-Before you start to invest your precious time in writing code that you want to contribute, consider following these guidelines.
-They are here to make the lives of all people involved easier.
+Coordinate work through issues before starting a substantial change:
 
-- If you have an idea or a bug you want to fix, first look if an issue already exists that describes this Feature/Bug.
-- If such a issue exists, and a person is already assigned, it means the assigned person is working on it. But don't go away yet! Maybe this person could need your help, or you have some valuable input for the topic.
-- If the issue exists, but no one is assigned. You are free to state your interest in implementing/fixing the issue. But don't just start working. To prevent multiple people working on the same issue, we need to know you're working on it. Write in the issue, so we can assign it to you.
-- If the issue does not yet exist, open one and describe as best as you can, what your idea/what the bug is you want to tackle. The provided templates are a good starting point.
+- Search for an existing issue describing the bug or feature.
+- If someone is assigned, ask whether they need help or share your findings.
+- If the issue is unassigned, comment that you'd like to work on it so a maintainer can assign it to you.
+- If no issue exists, open one using the relevant template and describe the problem or proposed change.
 
 ## Code style
 
-We enforce the code style to match the official Kotlin [coding conventions](https://kotlinlang.org/docs/reference/coding-conventions.html).
-Read there on how to set those up for your IDE. We will enforce this later on through CI and linting.
+Follow Kotlin's official [coding conventions](https://kotlinlang.org/docs/reference/coding-conventions.html) and configure your IDE accordingly.
 
-For the native side, the repository root ships a `.clang-format` and a `.clang-tidy` file. `.clang-format` is an LLVM-based
-style adjusted for this codebase, and `.clang-tidy` enables a small set of `clang-analyzer`, `cppcoreguidelines`,
-`modernize`, and `readability` checks. Point your IDE or editor at those files, or run `clang-format` and `clang-tidy`
-from the repository root, so C++ changes in `cpp/` come out consistent with the surrounding code.
+For C++, use the repository's `.clang-format` and `.clang-tidy` settings. They define formatting and a focused set of static checks. Configure your editor to use them, or run the tools from the repository root.
 
 ## Branching
 
-We do branching like described in `git-flow`.
+The project follows the `git-flow` branching model.

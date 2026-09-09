@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GODOT_JVM_VERSION: &godot_jvm_version 1.0.0-dev3
+  GODOT_JVM_VERSION: &godot_jvm_version ${{ github.sha }}
   GODOT_VERSION: &godot_version 4.7.2-stable
   JVM_VERSION: &jvm_version '17'
 

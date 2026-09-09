@@ -4,8 +4,8 @@
 #include "api/script/jvm_script.h"
 
 namespace godot {
-class JavaScript : public JvmScript {
-    GDCLASS(JavaScript, JvmScript);
+    class JavaScript : public JvmScript {
+        GDCLASS(JavaScript, JvmScript);
 
     public:
         JavaScript() = default;

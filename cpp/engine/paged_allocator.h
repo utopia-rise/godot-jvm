@@ -28,7 +28,7 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-//https://github.com/godotengine/godot/blob/1f787b63a54b74a5238653883fe1a531200b675e/core/templates/paged_allocator.h
+// https://github.com/godotengine/godot/blob/1f787b63a54b74a5238653883fe1a531200b675e/core/templates/paged_allocator.h
 #pragma once
 
 #include <core/error_macros.hpp>
@@ -79,7 +79,8 @@ namespace godot {
             allocs_available--;
             T* alloc = available_pool[allocs_available >> page_shift][allocs_available & page_mask];
             if constexpr (thread_safe) { spin_lock.unlock(); }
-            memnew_placement(alloc, T{p_args...});
+            // Braces required: memnew_placement expands to sizeof(m_class), and sizeof(T()) names a function type.
+            memnew_placement(alloc, T {p_args...});
             return alloc;
         }
 
@@ -151,11 +152,9 @@ namespace godot {
 
         // Trivial on purpose: every member already has a constant (zero/nullptr) default member
         // initializer above, so a defaulted constructor needs no CRT dynamic initializer at all —
-        // safe to exist in static/global storage before any code has run, including before a
-        // GDExtension's own entry point. The original upstream engine copy this is based on
-        // (see file header) instead configures unconditionally in its constructor, which is fine
-        // there since engine core statics never race extension load order — but doing the same
-        // here as an eager GDExtension global crashes the DLL load (the constructor's
+        // safe to exist in static/global storage before any code has run, including before the
+        // GDExtension entry point. Configuring an eager global here crashes the DLL load:
+        // the constructor's
         // ERR_FAIL_COND calls into godot-cpp interface function pointers that don't exist yet).
         // Callers using this as an eager GDExtension global must call configure() explicitly
         // once — e.g. from the extension's own initializer, after GDExtensionBinding::InitObject

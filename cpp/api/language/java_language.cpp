@@ -1,40 +1,38 @@
 #include "java_language.h"
 
-#include "names.h"
 #include "api/script/language/java_script.h"
-
-#include <classes/resource_loader.hpp>
+#include "names.h"
 
 using namespace godot;
 
 constexpr const char* JAVA_TEMPLATE = PACKAGE_TEMPLATE
-  "\n"
-  "\n"
-  "import " GODOT_KOTLIN_PACKAGE "." BASE_TEMPLATE ";\n"
-  "import godot.annotation.Script;\n"
-  "\n"
-  "@Script\n"
-  "public class " CLASS_TEMPLATE " extends " BASE_TEMPLATE " {\n"
-  "\n"
-  "    // Declare member variables here. Examples:\n"
-  "    // private int a = 2;\n"
-  "    // private String b = \"text\";\n"
-  "\n"
-  "    // Called when the node enters the scene tree for the first time.\n"
-  "    @Override\n"
-  "    public void _ready() {\n"
-  "        \n"
-  "    }\n"
-  "\n"
-  "    // Called every frame. 'delta' is the elapsed time since the previous frame.\n"
-  "    @Override\n"
-  "    public void _process(double delta) {\n"
-  "        \n"
-  "    }\n"
-  "}\n";
+    "\n"
+    "\n"
+    "import " GODOT_KOTLIN_PACKAGE "." BASE_TEMPLATE ";\n"
+    "import godot.annotation.Script;\n"
+    "\n"
+    "@Script\n"
+    "public class " CLASS_TEMPLATE " extends " BASE_TEMPLATE " {\n"
+    "\n"
+    "    // Declare member variables here. Examples:\n"
+    "    // private int a = 2;\n"
+    "    // private String b = \"text\";\n"
+    "\n"
+    "    // Called when the node enters the scene tree for the first time.\n"
+    "    @Override\n"
+    "    public void _ready() {\n"
+    "        \n"
+    "    }\n"
+    "\n"
+    "    // Called every frame. 'delta' is the elapsed time since the previous frame.\n"
+    "    @Override\n"
+    "    public void _process(double delta) {\n"
+    "        \n"
+    "    }\n"
+    "}\n";
 
 JavaLanguage* JavaLanguage::get_instance() {
-    static JavaLanguage* instance {memnew(JavaLanguage)};
+    static JavaLanguage* instance = memnew(JavaLanguage);
     return instance;
 }
 
@@ -51,100 +49,62 @@ String JavaLanguage::_get_extension() const {
 }
 
 PackedStringArray JavaLanguage::_get_recognized_extensions() const {
-    static PackedStringArray extensions {
-      GODOT_JAVA_SCRIPT_EXTENSION
-    };
+    static PackedStringArray extensions = {GODOT_JAVA_SCRIPT_EXTENSION};
     return extensions;
 }
 
 PackedStringArray JavaLanguage::_get_reserved_words() const {
-    static PackedStringArray reserved_words {
-        "abstract",
-        "assert",
-        "boolean",
-        "break",
-        "byte",
-        "case",
-        "catch",
-        "char",
-        "class",
-        "const",
-        "continue",
-        "default",
-        "do",
-        "double",
-        "else",
-        "enum",
-        "extends",
-        "final",
-        "finally",
-        "float",
-        "for",
-        "if",
-        "implements",
-        "import",
-        "instanceof",
-        "int",
-        "interface",
-        "long",
-        "native",
-        "new",
-        "package",
-        "private",
-        "protected",
-        "public",
-        "return",
-        "short",
-        "static",
-        "strictfp",
-        "super",
-        "switch",
-        "synchronized",
-        "this",
-        "throw",
-        "throws",
-        "transient",
-        "try",
-        "void",
-        "volatile",
-        "while"
+    static PackedStringArray reserved_words = {
+        "abstract", "assert",     "boolean",   "break",      "byte",      "case",         "catch",
+        "char",     "class",      "const",     "continue",   "default",   "do",           "double",
+        "else",     "enum",       "extends",   "final",      "finally",   "float",        "for",
+        "if",       "implements", "import",    "instanceof", "int",       "interface",    "long",
+        "native",   "new",        "package",   "private",    "protected", "public",       "return",
+        "short",    "static",     "strictfp",  "super",      "switch",    "synchronized", "this",
+        "throw",    "throws",     "transient", "try",        "void",      "volatile",     "while"
     };
     return reserved_words;
 }
 
 bool JavaLanguage::_is_control_flow_keyword(const String& p_keyword) const {
-    return p_keyword == "break" || p_keyword == "catch" || p_keyword == "continue" || p_keyword == "do"
-        || p_keyword == "else" || p_keyword == "finally" || p_keyword == "for" || p_keyword == "if" || p_keyword == "return"
-        || p_keyword == "when" || p_keyword == "throw" || p_keyword == "try" || p_keyword == "while";
+    return p_keyword == "break"
+        || p_keyword == "catch"
+        || p_keyword == "continue"
+        || p_keyword == "do"
+        || p_keyword == "else"
+        || p_keyword == "finally"
+        || p_keyword == "for"
+        || p_keyword == "if"
+        || p_keyword == "return"
+        || p_keyword == "when"
+        || p_keyword == "throw"
+        || p_keyword == "try"
+        || p_keyword == "while";
 }
 
 PackedStringArray JavaLanguage::_get_comment_delimiters() const {
-    static PackedStringArray delimiters {
-      "//",
-      "/* */"
-    };
+    static PackedStringArray delimiters = {"//", "/* */"};
     return delimiters;
 }
 
 PackedStringArray JavaLanguage::_get_doc_comment_delimiters() const {
-    PackedStringArray delimiters {
-      "/** */"
-    };
+    PackedStringArray delimiters = {"/** */"};
     return delimiters;
 }
 
 PackedStringArray JavaLanguage::_get_string_delimiters() const {
-    PackedStringArray delimiters {
-      "' '",
-      "\" \""
-    };
+    PackedStringArray delimiters = {"' '", "\" \""};
     return delimiters;
 }
 
-Ref<Script> JavaLanguage::_make_template(const String& p_template, const String& p_class_name, const String& p_base_class_name) const {
+Ref<Script> JavaLanguage::_make_template(
+    const String& p_template,
+    const String& p_class_name,
+    const String& p_base_class_name
+) const {
     Ref<JavaScript> java_script;
     java_script.instantiate();
-    String processed_template {p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case())};
+    String processed_template = p_template.replace(CLASS_TEMPLATE, p_class_name.to_pascal_case());
     java_script->set_source_code(processed_template);
     java_script->set_name(p_class_name);
     return java_script;

@@ -26,4 +26,4 @@
 #define BASE_TEMPLATE "%BASE%"
 #define CLASS_TEMPLATE "%CLASS%"
 
-#endif// GODOT_JVM_NAMES_H
+#endif // GODOT_JVM_NAMES_H

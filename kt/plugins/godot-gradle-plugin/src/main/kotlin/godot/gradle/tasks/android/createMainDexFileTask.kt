@@ -1,14 +1,17 @@
 package godot.gradle.tasks.android
 
 import godot.gradle.GodotPlugin
+import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
@@ -22,6 +25,10 @@ abstract class CreateMainDexFileTask : DefaultTask() {
 
     @get:InputFile
     abstract val bootstrapJar: RegularFileProperty
+
+    // ART cannot load plain jars, so godotSingle dependencies are dexed together with main.jar.
+    @get:InputFiles
+    abstract val godotSingleJars: ConfigurableFileCollection
 
     @get:OutputFile
     abstract val mainDexRulesFile: RegularFileProperty
@@ -44,18 +51,19 @@ abstract class CreateMainDexFileTask : DefaultTask() {
     fun createMainDexFile() {
         val libsDir = mainJar.get().asFile.parentFile
         val mainDexRules = writeMainDexRules(mainDexRulesFile.get().asFile)
-        val d8Arguments = listOf(
-            File(d8ToolPath.get()).absolutePath,
-            mainJar.get().asFile.absolutePath,
-            "--lib",
-            androidJarPath.get(),
-            "--classpath",
-            bootstrapJar.get().asFile.absolutePath,
-            "--min-api",
-            androidMinApiLevel.get().toString(),
-            "--main-dex-rules",
-            mainDexRules.absolutePath,
-        )
+        val inputJars = listOf(mainJar.get().asFile) + godotSingleJars.files.sortedBy { file -> file.name }
+        val d8Arguments = listOf(File(d8ToolPath.get()).absolutePath) +
+            inputJars.map { file -> file.absolutePath } +
+            listOf(
+                "--lib",
+                androidJarPath.get(),
+                "--classpath",
+                bootstrapJar.get().asFile.absolutePath,
+                "--min-api",
+                androidMinApiLevel.get().toString(),
+                "--main-dex-rules",
+                mainDexRules.absolutePath,
+            )
         val command = if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows) {
             listOf("cmd.exe", "/c", "\"${d8Arguments.joinToString(" ") { "\"$it\"" }}\"")
         } else {
@@ -109,6 +117,9 @@ fun Project.createMainDexFileTask(
 
             this.mainJar.set(libsDirectory.map { directory -> directory.file("main.jar") })
             this.bootstrapJar.set(libsDirectory.map { directory -> directory.file("godot-bootstrap.jar") })
+            this.godotSingleJars.from(
+                configurations.getByName(GODOT_SINGLE_CONFIGURATION).filter { file -> file.extension == "jar" }
+            )
             this.mainDexRulesFile.set(layout.buildDirectory.file("main-dex-rules.proguard"))
             this.mainDexFile.set(libsDirectory.map { directory -> directory.file("classes.dex") })
             this.d8ToolPath.set(d8ToolPath)

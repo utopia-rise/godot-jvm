@@ -14,7 +14,7 @@ namespace jni {
 
     class JValue {
     public:
-        jvalue value{};
+        jvalue value = jvalue();
 
         JValue(JObject obj);
 
@@ -41,7 +41,7 @@ namespace jni {
 
     class JObject {
     public:
-        jobject obj {nullptr};
+        jobject obj = nullptr;
 
         JObject() = default;
         JObject(jobject);
@@ -64,25 +64,25 @@ namespace jni {
         void delete_local_ref(Env& p_env);
 
         template<bool CHECK_EXCEPTION = true>
-        void call_void_method(Env& p_env, VoidMethodID method, jvalue* args = {}) const;
+        void call_void_method(Env& p_env, VoidMethodID method, jvalue* args = nullptr) const;
 
         template<bool CHECK_EXCEPTION = true>
-        jboolean call_boolean_method(Env& p_env, BooleanMethodID method, jvalue* args = {}) const;
+        jboolean call_boolean_method(Env& p_env, BooleanMethodID method, jvalue* args = nullptr) const;
 
         template<bool CHECK_EXCEPTION = true>
-        jint call_int_method(Env& p_env, IntMethodID method, jvalue* args = {}) const;
+        jint call_int_method(Env& p_env, IntMethodID method, jvalue* args = nullptr) const;
 
         template<bool CHECK_EXCEPTION = true>
-        jlong call_long_method(Env& p_env, LongMethodID method, jvalue* args = {}) const;
+        jlong call_long_method(Env& p_env, LongMethodID method, jvalue* args = nullptr) const;
 
         template<bool CHECK_EXCEPTION = true>
-        jdouble call_float_method(Env& p_env, FloatMethodID method, jvalue* args = {}) const;
+        jdouble call_float_method(Env& p_env, FloatMethodID method, jvalue* args = nullptr) const;
 
         template<bool CHECK_EXCEPTION = true>
-        jdouble call_double_method(Env& p_env, DoubleMethodID method, jvalue* args = {}) const;
+        jdouble call_double_method(Env& p_env, DoubleMethodID method, jvalue* args = nullptr) const;
 
         template<bool CHECK_EXCEPTION = true>
-        JObject call_object_method(Env& p_env, ObjectMethodID method, jvalue* args = {}) const;
+        JObject call_object_method(Env& p_env, ObjectMethodID method, jvalue* args = nullptr) const;
 
         bool is_null() const;
 
@@ -196,7 +196,7 @@ namespace jni {
         JIntArray() = default;
         JIntArray(Env& env, jsize size = 0);
 
-        JIntArray(jbyteArray array) : JArray(array) {}
+        JIntArray(jintArray array) : JArray(array) {}
 
         explicit JIntArray(JObject jObject) : JArray(jObject) {};
 
@@ -209,7 +209,7 @@ namespace jni {
         JLongArray() = default;
         JLongArray(Env& env, jsize size = 0);
 
-        JLongArray(jbyteArray array) : JArray(array) {}
+        JLongArray(jlongArray array) : JArray(array) {}
 
         explicit JLongArray(JObject jObject) : JArray(jObject) {};
 
@@ -222,7 +222,7 @@ namespace jni {
         JFloatArray() = default;
         JFloatArray(Env& env, jsize size = 0);
 
-        JFloatArray(jbyteArray array) : JArray(array) {}
+        JFloatArray(jfloatArray array) : JArray(array) {}
 
         explicit JFloatArray(JObject jObject) : JArray(jObject) {};
 
@@ -235,7 +235,7 @@ namespace jni {
         JDoubleArray() = default;
         JDoubleArray(Env& env, jsize size = 0);
 
-        JDoubleArray(jbyteArray array) : JArray(array) {}
+        JDoubleArray(jdoubleArray array) : JArray(array) {}
 
         explicit JDoubleArray(JObject jObject) : JArray(jObject) {};
 
@@ -252,9 +252,9 @@ namespace jni {
 
         explicit JClass(JObject jObject) : JObject(jObject) {};
 
-        JObject new_instance(Env& env, MethodID ctor, jvalue* args = {});
+        JObject new_instance(Env& env, MethodID ctor, jvalue* args = nullptr);
 
-        JObjectArray new_object_array(Env& env, int size, JObject initial = {});
+        JObjectArray new_object_array(Env& env, int size, JObject initial = JObject());
 
         MethodID get_constructor_method_id(Env& env, const char* signature);
 
@@ -268,7 +268,7 @@ namespace jni {
 
         void unregister_natives(Env& env);
 
-        JObject call_static_object_method(Env& env, MethodID method, jvalue* args = {});
+        JObject call_static_object_method(Env& env, MethodID method, jvalue* args = nullptr);
 
         JObject get_static_object_field(Env& env, FieldID field);
 
