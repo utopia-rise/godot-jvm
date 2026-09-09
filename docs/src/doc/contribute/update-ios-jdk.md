@@ -21,8 +21,8 @@ In `ios-graal-native-image`:
   tree needs `release/graal-vm/25.0`.
 - Update `toolchain.env` (`JDK_VERSION`, `GRAALVM_VERSION`, `JVMCI_VERSION`, `IOS_MIN_VERSION`).
   `GRAALVM_VERSION` must match the labs-openjdk submodule down to the update version, not just the
-  feature release. JNI natives change within a JDK update line: 25.0.3 replaced
-  `java.io.Console.istty` with `ttyStatus`: and native-image builds the image against its own
+  feature release. JNI natives change within a JDK update line (25.0.3 replaced
+  `java.io.Console.istty` with `ttyStatus`), and native-image builds the image against its own
   class library, so a mismatch only shows up when a game links the archives.
 - Expect to update `labs-openjdk/ios-jdk.patch` and both Xcode projects. Most breakage between JDK
   versions is mechanical: source files added or removed under
