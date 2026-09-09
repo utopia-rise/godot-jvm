@@ -57,7 +57,6 @@ func test_kotlin_signals() -> void:
     assert_that(script.reconnect_payload_value).override_failure_message("Reconnect signal should update the latest payload after reconnect").is_equal("after-reconnect")
 
     get_tree().root.remove_child(script)
-    script.other_script.free()
     script.free()
 
 
@@ -77,6 +76,7 @@ func test_java_signals() -> void:
 func test_scala_signals() -> void:
     var script := SignalScalaTest.new()
     get_tree().root.add_child(script)
+    _assert_signal_argument_type(script, "ready_signal", TYPE_BOOL)
 
     assert_bool(script.method_signal_triggered).override_failure_message("Scala method-connected signal should have fired").is_true()
     assert_bool(script.lambda_signal_triggered).override_failure_message("Scala payload signal should have fired").is_true()
@@ -85,3 +85,12 @@ func test_scala_signals() -> void:
 
     get_tree().root.remove_child(script)
     script.free()
+
+
+func _assert_signal_argument_type(instance: Object, signal_name: String, variant_type: int) -> void:
+    var found := false
+    for signal_info: Dictionary in instance.get_signal_list():
+        if signal_info["name"] == signal_name:
+            found = true
+            assert_that(signal_info["args"][0]["type"]).override_failure_message("Signal '%s' should keep its argument type" % signal_name).is_equal(variant_type)
+    assert_bool(found).override_failure_message("Signal '%s' should be registered" % signal_name).is_true()

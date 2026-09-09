@@ -22,7 +22,11 @@ public:
     jni::JClass load_class(jni::Env& env, const char* name);
     void set_as_context_loader(jni::Env& env);
 
-    static ClassLoader* create_instance(jni::Env& env, const godot::String& full_jar_path, const jni::JObject& p_parent_loader);
+    static ClassLoader* create_instance(
+        jni::Env& env,
+        const godot::String& full_jar_path,
+        const jni::JObject& p_parent_loader
+    );
 };
 
-#endif// GODOT_JVM_CLASS_LOADER_H
+#endif // GODOT_JVM_CLASS_LOADER_H

@@ -160,6 +160,13 @@ func _assert_reenabled_exports(instance: Object, expect_lazy_export := false) ->
     _assert_container_hint(property_map, "nav_meshes_dictionary", "4:String;24/17:NavigationMesh")
 
 
+    _assert_property_hint(property_map, "int_flag_value", PROPERTY_HINT_FLAGS, "Player,Enemy,Npc")
+    _assert_property_hint(property_map, "file_path_value", PROPERTY_HINT_FILE, "*.gd,*.gdj")
+    assert_that(property_map["enum_flag_value"]["class_name"])\
+        .override_failure_message("Expected the enum flag property to report Godot's int class name")\
+        .is_equal(property_map["int_flag_value"]["class_name"])
+
+
 func _assert_kotlin_delegate_property(property_map: Dictionary, instance: Object, property_name: String, initial_value: int, assigned_value: int, is_exported: bool) -> void:
     _assert_registered_property(property_map, property_name, TYPE_INT, is_exported)
     assert_that(instance.get(property_name)).is_equal(initial_value)
@@ -199,6 +206,16 @@ func _assert_container_hint(property_map: Dictionary, property_name: String, hin
     var property: Dictionary = property_map[property_name]
     assert_that(property["hint"]).is_equal(PROPERTY_HINT_TYPE_STRING)
     assert_that(property["hint_string"]).is_equal(hint_string)
+
+
+func _assert_property_hint(property_map: Dictionary, property_name: String, hint: int, hint_string: String) -> void:
+    var property: Dictionary = property_map[property_name]
+    assert_that(property["hint"])\
+        .override_failure_message("Expected property '%s' to keep its property hint" % property_name)\
+        .is_equal(hint)
+    assert_that(property["hint_string"])\
+        .override_failure_message("Expected property '%s' to keep its hint string" % property_name)\
+        .is_equal(hint_string)
 
 
 func _assert_registered_property(property_map: Dictionary, property_name: String, variant_type: int, is_exported: bool) -> void:

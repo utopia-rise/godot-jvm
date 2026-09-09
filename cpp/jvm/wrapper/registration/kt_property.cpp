@@ -1,21 +1,22 @@
 #include "kt_property.h"
 
 #include "jvm/wrapper/memory/transfer_context.h"
+#include "jvm/wrapper/registration/kt_object.h"
 
 #include <classes/global_constants.hpp>
 
 KtPropertyInfo::KtPropertyInfo(jni::Env& p_env, jni::JObject p_wrapped) : JvmInstanceWrapper(p_env, p_wrapped) {
     type = static_cast<godot::Variant::Type>(wrapped.call_int_method(p_env, GET_TYPE));
 
-    jni::JString jname {wrapped.call_object_method(p_env, GET_NAME)};
+    jni::JString jname(wrapped.call_object_method(p_env, GET_NAME));
     name = p_env.from_jstring(jname);
 
-    jni::JString jclass_name {wrapped.call_object_method(p_env, GET_CLASS_NAME)};
+    jni::JString jclass_name(wrapped.call_object_method(p_env, GET_CLASS_NAME));
     class_name = p_env.from_jstring(jclass_name);
 
     hint = static_cast<godot::PropertyHint>(wrapped.call_int_method(p_env, GET_HINT));
 
-    jni::JString jhint_string {wrapped.call_object_method(p_env, GET_HINT_STRING)};
+    jni::JString jhint_string(wrapped.call_object_method(p_env, GET_HINT_STRING));
     hint_string = p_env.from_jstring(jhint_string);
 
     usage = static_cast<godot::PropertyUsageFlags>(wrapped.call_long_method(p_env, GET_USAGE));
@@ -33,7 +34,10 @@ godot::PropertyInfo KtPropertyInfo::toPropertyInfo() const {
     info.hint = hint;
     info.hint_string = hint_string;
     info.usage = usage;
-    if (!(usage & (godot::PropertyUsageFlags::PROPERTY_USAGE_GROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_CATEGORY))) {
+    if (!(usage
+          & (godot::PropertyUsageFlags::PROPERTY_USAGE_GROUP
+             | godot::PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP
+             | godot::PropertyUsageFlags::PROPERTY_USAGE_CATEGORY))) {
         info.usage = usage | godot::PropertyUsageFlags::PROPERTY_USAGE_SCRIPT_VARIABLE;
     }
     return info;
@@ -52,7 +56,10 @@ godot::StringName KtProperty::get_name() const {
 }
 
 bool KtProperty::is_property_list_marker() const {
-    return propertyInfo->usage & (godot::PropertyUsageFlags::PROPERTY_USAGE_GROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP | godot::PropertyUsageFlags::PROPERTY_USAGE_CATEGORY);
+    return propertyInfo->usage
+         & (godot::PropertyUsageFlags::PROPERTY_USAGE_GROUP
+            | godot::PropertyUsageFlags::PROPERTY_USAGE_SUBGROUP
+            | godot::PropertyUsageFlags::PROPERTY_USAGE_CATEGORY);
 }
 
 godot::PropertyInfo KtProperty::get_member_info() {

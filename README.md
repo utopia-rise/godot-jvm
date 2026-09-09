@@ -2,7 +2,7 @@
 ## JVM binding for the Godot Game Engine
 
 <p align="center">
-<img src="logo/logo.png" width="30%" height="30%">
+<img src="logo/logo-1024.png" width="30%" height="30%">
 </p>
 
 [![GitHub](https://img.shields.io/github/license/utopia-rise/godot-jvm?style=for-the-badge)](LICENSE)
@@ -11,39 +11,30 @@
 
 ## Overview
 
-This is a JVM language binding for the [**Godot**](https://godotengine.org/) game engine. It supports [**Kotlin**](https://kotlinlang.org), Java, and Scala.
-It is distributed as a GDExtension addon. Install the addon in a Godot project to use these languages with the official Godot editor and export templates.
+Godot-JVM lets you write [Godot](https://godotengine.org/) game and application logic in Kotlin, Java, or Scala. Install the GDExtension addon to use the JVM bindings with the official Godot editor and export templates.
 
-The binding provides Godot APIs for Kotlin, Java, and Scala, so you can write your game logic in the JVM language that fits your project.
+Explore these example projects:
 
-You can find project examples in those repositories:
-
-- [Minimal project template](https://github.com/utopia-rise/godot-kotlin-project-template)
-- [GDQuest 3D demo converted to Kotlin](https://github.com/utopia-rise/godot-kotlin-3d-demo)
+- [Godot-JVM project template](https://github.com/utopia-rise/godot-kotlin-project-template)
+- [Godot-JVM 3D demo](https://github.com/utopia-rise/godot-kotlin-3d-demo)
 
 ### Code Distribution
 
-There are two methods for distributing JVM bytecode produced by the Kotlin compiler:
+Distribute desktop games as JARs with an embedded JRE, so players do not need to install Java. Alternatively, compile your JVM code into a native library with the [GraalVM native-image workflow](https://godot-jvm.dev/en/stable/build/export/graalvm-native-image/).
 
-1.  A classic JAR file: your code will be packed into a `.jar` file, which is then executed by an embedded JVM.
-    So the developer does not have to worry about their user installing a JRE. The JVM is already embedded in your game executable.
-2.  Dynamic Library using GraalVM Native Image: please read more about this in our [documentation page](https://godot-jvm.dev/en/stable/build/export/graalvm-native-image/).
-
-Just write your game scripts like you would for [GDScript](https://docs.godotengine.org/en/4.7/getting_started/scripting/gdscript/gdscript_basics.html)
-or for [C#](https://docs.godotengine.org/en/3.1/getting_started/scripting/c_sharp/) but with all the syntactic sugar of Kotlin.
-
-## Important Notes
+## Status
 
 Godot-JVM 1.0.0 is production-ready. We welcome suggestions and feedback to keep improving the project and its API.
 
-Download the addon archive from the [GitHub releases page](https://github.com/utopia-rise/godot-jvm/releases) and extract it into your project's root directory. The resulting layout must contain `addons/jvm/jvm.gdextension`. Open the project with the release's minimum Godot version or newer.
+## Install
+
+Use Godot 4.7.2 or newer and JDK 17 or newer. Download the addon archive from the [GitHub releases page](https://github.com/utopia-rise/godot-jvm/releases) and extract it into your project's root directory. The resulting layout must contain `addons/jvm/jvm.gdextension`. Open the project with the release's minimum Godot version or newer.
 
 ## Documentation
 
-The documentation can be found [here](https://godot-jvm.dev). It's a work in progress, and we would love your input to
-make it even better!
+Follow [Start here](https://godot-jvm.dev/en/stable/start/) to set up a project and run your first script. Continue through the guides for everyday development and the reference for detailed rules and settings.
 
-## Developer Discussion & Contribution
+## Community and contributing
 
 Join us on our [Discord](https://discord.gg/zpb5Ru7v9x) server to ask questions and work together
 with a friendly community.
@@ -53,8 +44,7 @@ and the [setup](https://godot-jvm.dev/en/stable/contribute/build-from-source/) s
 
 ## Partners
 
-JetBrains is helping us to develop this project by providing development tools to maintainers.
-Intellij IDEA is our IDE of choice for Kotlin development and we strongly recommend using it.
+JetBrains supports the project by providing development tools to maintainers. IntelliJ IDEA is the supported IDE for Godot-JVM development.
 
 <a href="https://jetbrains.com">
     <img width="256" alt="JetBrains logo" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.png" />
@@ -62,5 +52,4 @@ Intellij IDEA is our IDE of choice for Kotlin development and we strongly recomm
 
 ## Special thanks
 
-We'd like to give a special thanks to [MOE](https://multi-os-engine.org/) community. They helped us a lot to get iOS
-platform working. If you intend to create a multi platform mobile app (not game), check out their project.
+Thanks to the [MOE](https://multi-os-engine.org/) community for helping bring Godot-JVM to iOS.

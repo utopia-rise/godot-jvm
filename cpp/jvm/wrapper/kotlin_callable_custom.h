@@ -4,6 +4,7 @@
 #include "jvm/wrapper/jvm_instance_wrapper.h"
 
 #include <gdextension_interface.h>
+
 #include <variant/callable.hpp>
 #include <variant/callable_custom.hpp>
 
@@ -29,7 +30,13 @@ public:
     int get_hash_code() const;
     bool equals(const LambdaContainer& other) const;
 
-    LambdaContainer(jni::Env & p_env, jni::JObject p_wrapped, godot::Variant::Type return_type, int p_hash_code, bool p_has_on_cancel);
+    LambdaContainer(
+        jni::Env & p_env,
+        jni::JObject p_wrapped,
+        godot::Variant::Type return_type,
+        int p_hash_code,
+        bool p_has_on_cancel
+    );
 
 private:
     int hash_code;
@@ -40,7 +47,12 @@ private:
 
 class KotlinCallableCustom : public godot::CallableCustom {
 public:
-    void call(const godot::Variant** p_arguments, int p_argcount, godot::Variant& r_return_value, GDExtensionCallError& r_call_error) const override;
+    void call(
+        const godot::Variant** p_arguments,
+        int p_argcount,
+        godot::Variant& r_return_value,
+        GDExtensionCallError& r_call_error
+    ) const override;
 
     uint32_t hash() const override;
     godot::String get_as_text() const override;
@@ -48,7 +60,13 @@ public:
     CompareLessFunc get_compare_less_func() const override;
     godot::ObjectID get_object() const override;
 
-    KotlinCallableCustom(jni::Env& p_env, jni::JObject p_wrapped, godot::Variant::Type return_type, int p_hash_code, bool p_has_on_destroy);
+    KotlinCallableCustom(
+        jni::Env& p_env,
+        jni::JObject p_wrapped,
+        godot::Variant::Type return_type,
+        int p_hash_code,
+        bool p_has_on_destroy
+    );
     ~KotlinCallableCustom();
 
 private:

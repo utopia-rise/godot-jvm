@@ -4,9 +4,9 @@
 
 #include "api/language/names.h"
 
-#include <classes/engine.hpp>
 #include <classes/editor_interface.hpp>
 #include <classes/editor_settings.hpp>
+#include <classes/engine.hpp>
 #include <classes/script.hpp>
 #include <classes/script_editor.hpp>
 #include <classes/script_extension.hpp>
@@ -16,31 +16,29 @@
 
 using namespace godot;
 
-namespace {
-    inline bool is_identifier_start(char32_t c) {
-        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
-    }
+static bool is_identifier_start(char32_t c) {
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+}
 
-    inline bool is_identifier_char(char32_t c) {
-        return is_identifier_start(c) || (c >= '0' && c <= '9');
-    }
+static bool is_identifier_char(char32_t c) {
+    return is_identifier_start(c) || is_digit(c);
+}
 
-    // Matches master's own delimiter format: "begin end" (space-separated), or just "begin" for a to-end-of-line region — same parsing EditorStandardSyntaxHighlighter::_update_cache() does.
-    void parse_delimiters(const PackedStringArray& delimiters, const Color& color, Vector<SyntaxRegion>& out) {
-        for (const String& delimiter : delimiters) {
-            String begin = delimiter.get_slicec(' ', 0);
-            String end = delimiter.get_slice_count(" ") > 1 ? delimiter.get_slicec(' ', 1) : String();
-            out.push_back({begin, end, end.is_empty(), color});
-        }
+// Delimiters use "begin end" (space-separated), or just "begin" for a to-end-of-line region.
+static void parse_delimiters(const PackedStringArray& delimiters, const Color& color, Vector<SyntaxRegion>& out) {
+    for (const String& delimiter : delimiters) {
+        String begin = delimiter.get_slicec(' ', 0);
+        String end = delimiter.get_slice_count(" ") > 1 ? delimiter.get_slicec(' ', 1) : String();
+        out.push_back({begin, end, end.is_empty(), color});
     }
+}
 
-    // Returns the first region (in priority order) whose begin marker matches the line at p_index.
-    const SyntaxRegion* match_region(const Vector<SyntaxRegion>& regions, const String& line, int64_t p_index) {
-        for (const SyntaxRegion& region : regions) {
-            if (line.substr(p_index, region.begin.length()) == region.begin) { return &region; }
-        }
-        return nullptr;
+// Returns the first region (in priority order) whose begin marker matches the line at p_index.
+const SyntaxRegion* match_region(const Vector<SyntaxRegion>& regions, const String& line, int64_t p_index) {
+    for (const SyntaxRegion& region : regions) {
+        if (line.substr(p_index, region.begin.length()) == region.begin) { return &region; }
     }
+    return nullptr;
 }
 
 String JvmStandardSyntaxHighlighter::_get_name() const {
@@ -61,22 +59,28 @@ void JvmStandardSyntaxHighlighter::_update_cache() {
     keywords.clear();
     regions.clear();
 
-    auto* editor_interface = Object::cast_to<EditorInterface>(Engine::get_singleton()->get_singleton(StringName("EditorInterface")));
+    auto* editor_interface = Object::cast_to<EditorInterface>(
+        Engine::get_singleton()->get_singleton(StringName("EditorInterface"))
+    );
     if (editor_interface == nullptr) { return; }
 
     // Fallback palette in case EditorSettings is ever unavailable; overwritten below otherwise.
     keyword_color = Color(0.45f, 0.62f, 0.91f);
+    number_color = Color(0.92f, 0.58f, 0.2f);
+    annotation_color = Color(1.0f, 0.7f, 0.45f);
     Color comment_color(0.5f, 0.5f, 0.5f);
     Color string_color(0.92f, 0.72f, 0.42f);
     default_color = Color(0.85f, 0.85f, 0.85f);
 
     if (Ref<EditorSettings> settings = editor_interface->get_editor_settings(); settings.is_valid()) {
         keyword_color = settings->get_setting("text_editor/theme/highlighting/keyword_color");
+        number_color = settings->get_setting("text_editor/theme/highlighting/number_color");
+        annotation_color = settings->get_setting("text_editor/theme/highlighting/gdscript/annotation_color");
         comment_color = settings->get_setting("text_editor/theme/highlighting/comment_color");
         string_color = settings->get_setting("text_editor/theme/highlighting/string_color");
     }
 
-    // No `_get_edited_resource()`/`_set_script_language()` in godot-cpp (unlike master's base class), so the currently-focused script tab is the closest available signal for "which language is this highlighter instance highlighting."
+    // The currently focused script tab identifies the language being highlighted.
     Ref<Script> script = editor_interface->get_script_editor()->get_current_script();
     auto* script_ext = script.is_valid() ? Object::cast_to<ScriptExtension>(script.ptr()) : nullptr;
     auto* lang = script_ext ? Object::cast_to<ScriptLanguageExtension>(script_ext->_get_language()) : nullptr;
@@ -122,10 +126,36 @@ Dictionary JvmStandardSyntaxHighlighter::_get_line_syntax_highlighting(int32_t p
             while (j < length && is_identifier_char(line[j])) {
                 j++;
             }
-            if (keywords.has(line.substr(start, j - start))) {
+            // A keyword after a dot is a member or package name (e.g. `godot.annotation.Export`).
+            bool member_access = start > 0 && line[start - 1] == '.';
+            if (!member_access && keywords.has(line.substr(start, j - start))) {
                 set_color_at(start, keyword_color);
                 if (j < length) { set_color_at(j, default_color); }
             }
+            i = j;
+            continue;
+        }
+
+        if (c == '@' && i + 1 < length && is_identifier_start(line[i + 1])) {
+            int64_t j = i + 1;
+            while (j < length && is_identifier_char(line[j])) {
+                j++;
+            }
+            set_color_at(i, annotation_color);
+            if (j < length) { set_color_at(j, default_color); }
+            i = j;
+            continue;
+        }
+
+        if (is_digit(c)) {
+            // Identifiers consume their own digits above, so a digit here starts a literal. Letters cover
+            // hex/binary prefixes, exponents and the L/f/d suffixes; `_` and `.` cover separators and decimals.
+            int64_t j = i + 1;
+            while (j < length && (is_identifier_char(line[j]) || line[j] == '.')) {
+                j++;
+            }
+            set_color_at(i, number_color);
+            if (j < length) { set_color_at(j, default_color); }
             i = j;
             continue;
         }

@@ -1,12 +1,9 @@
 #ifdef TOOLS_ENABLED
-#include "editor/godot_jvm_editor.h"
 #include "editor/export/godot_jvm_editor_export_plugin.h"
+#include "editor/godot_jvm_editor.h"
 #include "editor/jvm_syntax_highlighter.h"
 
-#include <classes/editor_export_plugin.hpp>
-#include <classes/editor_interface.hpp>
 #include <classes/editor_plugin_registration.hpp>
-#include <classes/script_editor.hpp>
 #endif
 
 #include "api/language/gdj_language.h"
@@ -31,10 +28,9 @@
 #include "register_types.h"
 
 #include <classes/engine.hpp>
-#include <classes/resource_format_loader.hpp>
 #include <classes/resource_loader.hpp>
 #include <classes/resource_saver.hpp>
-
+#include <core/class_db.hpp>
 
 Ref<JvmResourceFormatLoader> resource_format_loader;
 Ref<JvmResourceFormatSaver> resource_format_saver;
@@ -42,7 +38,9 @@ Ref<JavaArchiveFormatLoader> java_archive_format_loader;
 
 void initialize_godot_jvm_library(ModuleInitializationLevel p_level) {
     if (p_level == MODULE_INITIALIZATION_LEVEL_SERVERS) {
-        // Configure phase: one-time setup for globals that need godot-cpp's GDExtension interface to be ready (populated by GDExtensionBinding::InitObject, already run by this point — this function is only ever reached via that object's registered...
+        // Configure phase: one-time setup for globals that need godot-cpp's GDExtension interface to be ready
+        // (populated by GDExtensionBinding::InitObject, already run by this point — this function is only ever reached
+        // via that object's registered...
         configure_logging();
         VariantAllocator::configure();
         raw_godot::configure_core();
@@ -52,7 +50,8 @@ void initialize_godot_jvm_library(ModuleInitializationLevel p_level) {
         GDREGISTER_CLASS(KotlinScript);
         GDREGISTER_CLASS(JavaScript);
         GDREGISTER_CLASS(ScalaScript);
-        // JvmScriptManager::get_instance() does memnew(JvmScriptManager) — same memnew()-requires-ClassDB-registration requirement as everything else here.
+        // JvmScriptManager::get_instance() does memnew(JvmScriptManager) — same memnew()-requires-ClassDB-registration
+        // requirement as everything else here.
         GDREGISTER_INTERNAL_CLASS(JvmScriptManager);
         GDREGISTER_INTERNAL_CLASS(JavaArchive);
 
@@ -68,7 +67,9 @@ void initialize_godot_jvm_library(ModuleInitializationLevel p_level) {
         Engine::get_singleton()->register_script_language(ScalaLanguage::get_instance());
     }
 
-    // ResourceLoader/ResourceSaver aren't registered as engine singletons yet at SERVERS level (Engine::get_singleton_object("ResourceLoader") returns null there) — SCENE level is the earliest point they're guaranteed to exist for a GDExtension.
+    // ResourceLoader/ResourceSaver aren't registered as engine singletons yet at SERVERS level
+    // (Engine::get_singleton_object("ResourceLoader") returns null there) — SCENE level is the earliest point they're
+    // guaranteed to exist for a GDExtension.
     if (p_level == MODULE_INITIALIZATION_LEVEL_SCENE) {
         raw_godot::configure_scene();
 
@@ -88,7 +89,9 @@ void initialize_godot_jvm_library(ModuleInitializationLevel p_level) {
 #ifdef TOOLS_ENABLED
     if (p_level == MODULE_INITIALIZATION_LEVEL_EDITOR) {
         GDREGISTER_INTERNAL_CLASS(JvmStandardSyntaxHighlighter);
-        // Actual ScriptEditor::register_syntax_highlighter() call lives in GodotJvmEditor::_notification(NOTIFICATION_ENTER_TREE) — ScriptEditor isn't guaranteed to exist yet at MODULE_INITIALIZATION_LEVEL_EDITOR (crashes with a null-pointer acces...
+        // Actual ScriptEditor::register_syntax_highlighter() call lives in
+        // GodotJvmEditor::_notification(NOTIFICATION_ENTER_TREE) — ScriptEditor isn't guaranteed to exist yet at
+        // MODULE_INITIALIZATION_LEVEL_EDITOR (crashes with a null-pointer acces...
         GDREGISTER_INTERNAL_CLASS(GodotJvmEditor);
         GDREGISTER_INTERNAL_CLASS(GodotJvmEditorExportPlugin);
         EditorPlugins::add_by_type<GodotJvmEditor>();
@@ -108,28 +111,31 @@ void uninitialize_godot_jvm_library(ModuleInitializationLevel p_level) {
     resource_format_loader.unref();
     resource_format_saver.unref();
 
-    JavaLanguage* java_language {JavaLanguage::get_instance()};
+    JavaLanguage* java_language = JavaLanguage::get_instance();
     Engine::get_singleton()->unregister_script_language(java_language);
     memdelete(java_language);
 
-    KotlinLanguage* kotlin_language {KotlinLanguage::get_instance()};
+    KotlinLanguage* kotlin_language = KotlinLanguage::get_instance();
     Engine::get_singleton()->unregister_script_language(kotlin_language);
     memdelete(kotlin_language);
 
-    ScalaLanguage* scala_language {ScalaLanguage::get_instance()};
+    ScalaLanguage* scala_language = ScalaLanguage::get_instance();
     Engine::get_singleton()->unregister_script_language(scala_language);
     memdelete(scala_language);
 
-    JvmLanguage* jvm_language {GdjLanguage::get_instance()};
+    JvmLanguage* jvm_language = GdjLanguage::get_instance();
     Engine::get_singleton()->unregister_script_language(jvm_language);
     memdelete(jvm_language);
 }
 
-
 extern "C" {
-// Godot resolves this by its plain (non-mangled) name via GetProcAddress/dlsym, matching entry_symbol in jvm.gdextension — without extern "C" it's exported C++-mangled and Godot's lookup fails with "procedure not found".
-GDExtensionBool GDE_EXPORT
-godot_jvm_library_init(GDExtensionInterfaceGetProcAddress p_get_proc_address, GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization) {
+// Godot resolves this by its plain (non-mangled) name via GetProcAddress/dlsym, matching entry_symbol in
+// jvm.gdextension — without extern "C" it's exported C++-mangled and Godot's lookup fails with "procedure not found".
+GDExtensionBool GDE_EXPORT godot_jvm_library_init(
+    GDExtensionInterfaceGetProcAddress p_get_proc_address,
+    GDExtensionClassLibraryPtr p_library,
+    GDExtensionInitialization* r_initialization
+) {
     GDExtensionBinding::InitObject init_obj(p_get_proc_address, p_library, r_initialization);
 
     init_obj.register_initializer(initialize_godot_jvm_library);

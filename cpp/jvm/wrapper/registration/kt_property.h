@@ -5,8 +5,6 @@
 #include "jvm/wrapper/jvm_instance_wrapper.h"
 #include "kt_object.h"
 
-#include <classes/object.hpp>
-
 JVM_INSTANCE_WRAPPER(KtPropertyInfo, "godot.registration.KtPropertyInfo") {
     JVM_CLASS(KtPropertyInfo)
 

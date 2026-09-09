@@ -1,5 +1,6 @@
-#include "jvm/wrapper/memory/type_manager.h"
 #include "jvm_binding.h"
+
+#include "jvm/wrapper/memory/type_manager.h"
 
 #include <godot.hpp>
 
@@ -20,19 +21,14 @@ void JvmBinding::init_from_class_name(ObjectID p_object_id, const StringName& p_
 }
 
 void JvmBinding::init(GodotObject* p_engine_object) {
-    const ObjectID id {internal::gdextension_interface_object_get_instance_id(p_engine_object)};
-
-    StringName class_name;
-    internal::gdextension_interface_object_get_class_name(
-      p_engine_object,
-      internal::library,
-      static_cast<GDExtensionUninitializedStringNamePtr>(class_name._native_ptr())
-    );
+    raw_godot::RawObject object = p_engine_object;
+    const ObjectID id = ObjectID(object.get_instance_id());
+    StringName class_name = object.get_class_name();
 
     init_from_class_name(id, class_name);
 }
 
-int JvmBinding::get_constructor_id() const{
+int JvmBinding::get_constructor_id() const {
     return constructor_id;
 }
 

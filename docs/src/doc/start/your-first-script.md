@@ -4,32 +4,27 @@ description: Write a Kotlin, Java, or Scala script class, build it from the Godo
 
 # Your first script
 
-!!! note "Before you attach anything"
-    A JVM class only exists for Godot once a Gradle build has **succeeded**.
-    The JVM status indicator in the Godot editor toolbar tells you where you
-    stand: it is yellow while the JVM is still starting or your code has not
-    been loaded yet, and it turns green once your classes are loaded. Build
-    with **Build > Run Gradle** in the editor, from your IDE, or from a
-    terminal.
-
-Let's create a class that prints a message when its node enters the scene
-tree.
+Create a `Player` script with one exported property and one overridden method: when its node is ready, it prints a greeting that names the language it was written in. Use the example for one of the languages enabled in your project.
 
 /// tab | Kotlin
 
-Create `src/main/kotlin/com/yourcompany/game/Player.kt`:
+Create `src/main/kotlin/com/example/game/Player.kt`:
 
 ```kotlin
-package com.yourcompany.game
+package com.example.game
 
+import godot.annotation.Export
 import godot.annotation.Script
 import godot.api.Node
 import godot.global.GD
 
 @Script
 class Player : Node() {
+    @Export
+    var language: String = "Kotlin"
+
     override fun _ready() {
-        GD.print("Hello from Kotlin")
+        GD.print("Hello from $language")
     }
 }
 ```
@@ -38,20 +33,24 @@ class Player : Node() {
 
 /// tab | Java
 
-Create `src/main/java/com/yourcompany/game/Player.java`:
+Create `src/main/java/com/example/game/Player.java`:
 
 ```java
-package com.yourcompany.game;
+package com.example.game;
 
+import godot.annotation.Export;
 import godot.annotation.Script;
 import godot.api.Node;
 import godot.global.GD;
 
 @Script
 public class Player extends Node {
+    @Export
+    public String language = "Java";
+
     @Override
     public void _ready() {
-        GD.print("Hello from Java");
+        GD.print("Hello from " + language);
     }
 }
 ```
@@ -60,19 +59,23 @@ public class Player extends Node {
 
 /// tab | Scala
 
-Create `src/main/scala/com/yourcompany/game/Player.scala`:
+Create `src/main/scala/com/example/game/Player.scala`:
 
 ```scala
-package com.yourcompany.game
+package com.example.game
 
+import godot.annotation.Export
 import godot.annotation.Script
 import godot.api.Node
 import godot.global.GD
 
 @Script
 class Player extends Node {
+  @Export
+  var language: String = "Scala"
+
   override def _ready(): Unit = {
-    GD.print("Hello from Scala")
+    GD.print(s"Hello from $language")
   }
 }
 ```
@@ -83,74 +86,54 @@ This small example already shows the main building blocks:
 
 - `@Script` makes the class available to Godot.
 - Inheriting `Node` makes it a Godot script class.
-- Overriding `_ready()` runs code when the node enters the scene tree.
+- `@Export` registers the property and shows it in the Inspector, where you can change the greeting without touching the code.
+- Overriding `_ready()` runs code once the node and its children are ready.
 - `GD.print(...)` writes to the Godot output.
 
 ## Build it
 
-To compile your project, run a classic *Gradle build*. By default this creates a `debug` version of your code.
+Your scripts are compiled by Gradle, and you can start that build from wherever you are working:
 
-Using the Godot editor:
+- **From Godot.** In the editor toolbar, leave the task drop-down on **Build** and click **Run Gradle**. This is convenient when you are arranging scenes and only need to pick up a code change.
 
-![Build button](../assets/img/editor-plugin/build_button.png)
+    ![Build button](../assets/img/editor-plugin/build_button.png)
 
-!!! warning
-    On Linux or macOS you may receive an error when trying to build the project from the Godot editor (This can happen if you created your project via the IntelliJ template).
+- **From IntelliJ IDEA.** The IDE already manages Gradle for you: run the `build` task from the Gradle panel, or bind it to a run configuration.
+
+    ![Gradle task](../assets/img/build_ide.png)
+
+- **From a terminal.** Run the wrapper at the project root: `gradlew build` on Windows, `./gradlew build` on Linux and macOS.
+
+!!! note
+    On Linux or macOS, the build can fail if `gradlew` is not executable:
     ```shell
     ERROR: Godot-JVM: Could not create child process: /Users/username/projectname/gradlew
-    ERROR:  at: execute_with_pipe (drivers/unix/os_unix.cpp:659)
     ```
 
-    In such case, open up the terminal and change the permissions of the `gradlew` file to be executable.
+    Run this command from the project root, then build again:
     ```shell
     chmod +x gradlew
     ```
 
-Using your IDE:
+Whichever way you build, the editor notices the new jar and reloads your classes automatically. The toolbar's JVM status indicator is red when no JVM library could be loaded, yellow while the JVM starts or waits for code, and green when your classes are loaded.
 
-![Gradle task](../assets/img/build_ide.png)
-
-Using command-line:
-
-/// tab | Windows
-```shell
-gradlew build
-```
-///
-
-/// tab | Unix
-```bash
-./gradlew build
-```
-///
+![Run Gradle and JVM status indicator](../assets/img/run-gradle-ready.png)
 
 ## Attach it to a node
 
-After the build, attach the source file (`Player.kt`, `Player.java`, or
-`Player.scala`) to a node the same way you would attach a GDScript file —
-usually by dragging it from the FileSystem panel onto the node. You can also
-use the **Attach Node Script** dialog (right-click the node ▸ **Attach
-Script**); it works exactly like it does for GDScript, see Godot's own
-[Creating your first script](https://docs.godotengine.org/en/stable/getting_started/step_by_step/scripting_first_script.html)
-page. Name the file after the class, as in the example above (`Player.kt`
-declares `Player`) — see [Attaching scripts](../guide/attaching-scripts.md)
-for exactly when that naming actually matters.
+Attach `Player.kt`, `Player.java`, or `Player.scala` exactly like a GDScript: drag it from the FileSystem dock onto the node, or use **Attach Script**. In the dialog, the **Language** entries are **Kotlin**, **Java**, and **Scala**; select the language and the source path. Edit the source in IntelliJ IDEA; Godot's script editor does not support JVM source editing.
 
-If you rebuild while the editor is open, your classes are reloaded
-automatically.
+!!! warning "Build the script JAR"
+    A source file alone is not enough. If you attach it before building, the node warns that the script cannot be found in the JVM project. Its class must be present in the built JAR. Build the JVM project to load the class and its exported properties.
 
-!!! info
-    JVM languages are compiled. Godot cannot use a newly created or changed
-    class until its build succeeds.
+Select the node: the Inspector shows the **Language** property from the example. See [Script files](../reference/registration/script-files.md) for source-file association rules.
 
-!!! warning "If you attach the file before a successful build"
-    Godot will still let you attach it, but there is no compiled class behind it
-    yet, so the editor keeps a best-effort placeholder instead. The node shows a
-    script, but it exposes none of your properties or methods, and `_ready` never
-    runs — not in the editor and not when you play the scene. Nothing is broken:
-    run the build, and the placeholder is replaced by the real class.
+## Run it
 
-    If you see a node with a script and no members, this is almost always why.
+Run the scene or the project exactly as you would with any Godot game, with the play buttons or F5 and F6. The Output panel shows your greeting. Change the **Language** value in the Inspector and run again to see the exported property in action.
 
-Once this class works, [Write your game](../guide/index.md) covers the rest: signals, properties,
-exporting to the Inspector, and registration in full.
+Godot-JVM keeps an eye on stale builds for you. If you edit a script and forget to rebuild, every node using it shows a configuration warning in the scene tree saying the script has been modified since the last build. Rebuild, and the warning disappears.
+
+To never think about it, enable **Kotlin Jvm > Editor > Build Gradle Before Start** in **Editor > Editor Settings**. Godot then runs the Gradle build each time you start the game from the editor, and does not start it if the build fails, so what you play is always what you wrote.
+
+Once you see the greeting, you know the whole loop works: write, build, attach, run. The [User guide](../guide/index.md) covers everyday scripting with Godot-JVM, building and debugging your project, and exporting your game.

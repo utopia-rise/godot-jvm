@@ -1,12 +1,12 @@
 #ifndef GODOT_JVM_JVM_SCRIPT_H
 #define GODOT_JVM_JVM_SCRIPT_H
 
+#include "engine/godot_object.h"
 #include "jvm/wrapper/registration/kt_class.h"
 #include "jvm_placeholder_instance.h"
-#include "templates/hash_set.hpp"
 
 #include <classes/script_extension.hpp>
-#include <classes/script_language_extension.hpp>
+#include <classes/script_language.hpp>
 
 namespace godot {
 
@@ -23,7 +23,7 @@ namespace godot {
         KtClass* kotlin_class;
         mutable String source;
 
-        GodotObject* _object_create() const;
+        raw_godot::RawObject _object_create() const;
 #ifdef DEBUG_ENABLED
         bool validate_instance_creation() const;
 #endif
@@ -69,7 +69,8 @@ namespace godot {
         TypedArray<Dictionary> _get_documentation() const override;
         StringName _get_doc_class_name() const override;
 
-        // Dummy implementations: no real static-method introspection, and export-list refresh outside the editor is handled by update_script_exports() (TOOLS_ENABLED only, below).
+        // Dummy implementations: no real static-method introspection, and export-list refresh outside the editor is
+        // handled by update_script_exports() (TOOLS_ENABLED only, below).
         bool _has_static_method(const StringName& p_method) const override;
         void _update_exports() override;
 
@@ -77,7 +78,6 @@ namespace godot {
         void _get_script_property_info_list(List<PropertyInfo>* p_list) const;
 
     public:
-
         _FORCE_INLINE_ static String get_script_file_name(const String& path) {
             return path.get_file().trim_suffix(path.get_extension()).trim_suffix(".");
         }
@@ -86,7 +86,10 @@ namespace godot {
         // This concerns placeholders script instances only
 
     private:
-        mutable HashMap<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*, JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*> placeholders;
+        mutable HashMap<
+            JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
+            JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>
+            placeholders;
         mutable HashMap<StringName, Variant> exported_members_default_value_cache;
         StringName last_physical_fqdn;
         uint64_t last_source_modified_time = 0;
@@ -105,7 +108,6 @@ namespace godot {
         void _placeholder_erased(void* p_placeholder) override;
         virtual void _format_template(const String& p_path) const;
 
-        // Real Resource virtual, invoked by the engine whenever this resource's path is assigned/cached (mirrors master's per-language Script::set_path() override trigger point, which GDExtension's ScriptExtension has no direct equivalent for).
         void _set_path_cache(const String& p_path) const override;
 #endif
 

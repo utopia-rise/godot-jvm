@@ -1,5 +1,6 @@
 package godot.gradle.tasks.graal.ios
 
+import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
 import godot.gradle.tasks.graal.iosJniConfig
 import godot.gradle.tasks.graal.iosReflectionConfig
@@ -7,12 +8,14 @@ import godot.gradle.tasks.graal.iosResourceConfig
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
@@ -35,6 +38,10 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
 
     @get:InputFile
     abstract val bootstrapJar: RegularFileProperty
+
+    // A native image cannot load jars at runtime, so godotSingle dependencies are compiled in as well.
+    @get:InputFiles
+    abstract val godotSingleJars: ConfigurableFileCollection
 
     @get:Input
     @get:Optional
@@ -109,7 +116,8 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
             add(nativeImageExecutable)
             addAll(listOf(
             "-cp",
-            "${bootstrapJar.get().asFile.absolutePath}:${mainJar.get().asFile.absolutePath}",
+            (listOf(bootstrapJar.get().asFile, mainJar.get().asFile) + godotSingleJars.files.sortedBy { file -> file.name })
+                .joinToString(":") { file -> file.absolutePath },
             "--no-server",
             "-H:+ExitAfterRelocatableImageWrite",
             "-H:+SharedLibrary",
@@ -206,6 +214,9 @@ fun Project.createIOSGraalNativeImageTask(
             )
             this.mainJar.set(libsDirectory.map { directory -> directory.file("main.jar") })
             this.bootstrapJar.set(libsDirectory.map { directory -> directory.file("godot-bootstrap.jar") })
+            this.godotSingleJars.from(
+                configurations.getByName(GODOT_SINGLE_CONFIGURATION).filter { file -> file.extension == "jar" }
+            )
             this.graalVmHomeDirectory.set(graalVmHomeDirectory)
             this.additionalJniConfigurationFiles.set(additionalJniConfigurationFiles)
             this.additionalReflectionConfigurationFiles.set(additionalReflectionConfigurationFiles)

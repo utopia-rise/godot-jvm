@@ -66,7 +66,13 @@ public:
     godot::MethodInfo get_member_info();
     KtFunctionInfo* get_kt_function_info();
 
-    void invoke(jni::Env & p_env, const KtObject* instance, const godot::Variant** p_args, int args_count, godot::Variant& r_ret);
+    void invoke(
+        jni::Env & p_env,
+        const KtObject* instance,
+        const godot::Variant** p_args,
+        int args_count,
+        godot::Variant& r_ret
+    );
 };
 
 #endif // GODOT_JVM_KT_FUNCTION_H

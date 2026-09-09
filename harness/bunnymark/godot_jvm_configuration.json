@@ -3,10 +3,10 @@
     "debug_port": 5005,
     "disable_gc": false,
     "jmx_port": -1,
-    "jvm_args": "",
+    "custom_jvm_args": [],
     "max_string_size": -1,
     "use_debug": false,
-    "version": "1.0",
-    "vm_type": "auto",
+    "version": "3.0",
+    "useNativeImage": false,
     "wait_for_debugger": true
 }

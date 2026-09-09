@@ -1,9 +1,6 @@
 #ifndef GODOT_JVM_PROJECTGENERATOR_H
 #define GODOT_JVM_PROJECTGENERATOR_H
 
-#include "logging.h"
-#include "templates.h"
-
 namespace godot {
     class ProjectGenerator {
     public:

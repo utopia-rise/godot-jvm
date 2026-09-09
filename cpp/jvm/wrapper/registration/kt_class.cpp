@@ -1,12 +1,12 @@
 #include "kt_class.h"
 
-#include "godot_jvm.h"
 #include "jvm/wrapper/memory/transfer_context.h"
+#include "jvm/wrapper/registration/kt_object.h"
 #include "logging.h"
 
 KtClass::KtClass(jni::Env& p_env, jni::JObject p_wrapped) :
-  JvmInstanceWrapper(p_env, p_wrapped),
-  kt_constructor {nullptr} {
+    JvmInstanceWrapper(p_env, p_wrapped),
+    kt_constructor(nullptr) {
     LOCAL_FRAME(5);
     registered_class_name = get_registered_name(p_env);
     fqdn = get_fqdn(p_env);
@@ -26,7 +26,7 @@ KtClass::~KtClass() {
 }
 
 KtObject* KtClass::create_instance(jni::Env& env, godot::GodotObject* p_owner) {
-    KtObject* jvm_instance {kt_constructor->create_instance(env, p_owner)};
+    KtObject* jvm_instance = kt_constructor->create_instance(env, p_owner);
     JVM_DEV_VERBOSE("Instantiated a Jvm script: %s", registered_class_name);
 
     return jvm_instance;
@@ -43,7 +43,7 @@ KtProperty* KtClass::get_property(const godot::StringName& p_property_name) {
 }
 
 KtSignalInfo* KtClass::get_signal(const godot::StringName& p_signal_name) {
-    KtSignalInfo** signal_info {signal_infos.getptr(p_signal_name)};
+    KtSignalInfo** signal_info = signal_infos.getptr(p_signal_name);
     return signal_info ? *signal_info : nullptr;
 }
 
@@ -68,21 +68,23 @@ bool KtClass::can_zero_init() const {
 
 godot::StringName KtClass::get_base_godot_class(jni::Env& env) {
     jni::JObject ret = wrapped.call_object_method(env, GET_BASE_GODOT_CLASS);
-    return {env.from_jstring(jni::JString((jstring) ret.obj))};
+    return godot::StringName(env.from_jstring(jni::JString((jstring) ret.obj)));
 }
 
 void KtClass::fetch_handled_notifications(jni::Env& env) {
-    jni::JIntArray notifications {wrapped.call_object_method(env, GET_HANDLED_NOTIFICATIONS)};
+    jni::JIntArray notifications(wrapped.call_object_method(env, GET_HANDLED_NOTIFICATIONS));
     const int count = notifications.length(env);
     godot::Vector<jint> values;
     values.resize(count);
     notifications.get_array_elements(env, values.ptrw(), count);
-    for (int i = 0; i < count; ++i) { handled_notifications.insert(values[i]); }
+    for (int i = 0; i < count; ++i) {
+        handled_notifications.insert(values[i]);
+    }
     notifications.delete_local_ref(env);
 }
 
 void KtClass::fetch_registered_supertypes(jni::Env& env) {
-    jni::JObjectArray classesArray {wrapped.call_object_method(env, GET_REGISTERED_SUPERTYPES)};
+    jni::JObjectArray classesArray(wrapped.call_object_method(env, GET_REGISTERED_SUPERTYPES));
     for (int i = 0; i < classesArray.length(env); i++) {
         godot::StringName parent_name = godot::StringName(env.from_jstring(jni::JString(classesArray.get(env, i))));
         registered_supertypes.append(parent_name);
@@ -92,10 +94,10 @@ void KtClass::fetch_registered_supertypes(jni::Env& env) {
 }
 
 void KtClass::fetch_methods(jni::Env& env) {
-    jni::JObjectArray functionsArray {wrapped.call_object_method(env, GET_FUNCTIONS)};
+    jni::JObjectArray functionsArray(wrapped.call_object_method(env, GET_FUNCTIONS));
     for (int i = 0; i < functionsArray.length(env); i++) {
         jni::JObject object = functionsArray.get(env, i);
-        auto* ktFunction {new KtFunction(env, object)};
+        auto* ktFunction = new KtFunction(env, object);
         methods[ktFunction->get_name()] = ktFunction;
         JVM_DEV_VERBOSE("Fetched method %s for class %s", ktFunction->get_name(), registered_class_name);
     }
@@ -103,22 +105,20 @@ void KtClass::fetch_methods(jni::Env& env) {
 }
 
 void KtClass::fetch_properties(jni::Env& env) {
-    jni::JObjectArray propertiesArray {wrapped.call_object_method(env, GET_PROPERTIES)};
+    jni::JObjectArray propertiesArray(wrapped.call_object_method(env, GET_PROPERTIES));
     for (int i = 0; i < propertiesArray.length(env); i++) {
-        auto* ktProperty {new KtProperty(env, propertiesArray.get(env, i))};
+        auto* ktProperty = new KtProperty(env, propertiesArray.get(env, i));
         property_list.append(ktProperty);
-        if (!ktProperty->is_property_list_marker()) {
-            properties[ktProperty->get_name()] = ktProperty;
-        }
+        if (!ktProperty->is_property_list_marker()) { properties[ktProperty->get_name()] = ktProperty; }
         JVM_DEV_VERBOSE("Fetched property %s for class %s", ktProperty->get_name(), registered_class_name);
     }
     propertiesArray.delete_local_ref(env);
 }
 
 void KtClass::fetch_signals(jni::Env& env) {
-    jni::JObjectArray signal_info_array {wrapped.call_object_method(env, GET_SIGNAL_INFOS)};
+    jni::JObjectArray signal_info_array(wrapped.call_object_method(env, GET_SIGNAL_INFOS));
     for (int i = 0; i < signal_info_array.length(env); i++) {
-        auto* kt_signal_info {new KtSignalInfo(env, signal_info_array.get(env, i))};
+        auto* kt_signal_info = new KtSignalInfo(env, signal_info_array.get(env, i));
         signal_infos[kt_signal_info->name] = kt_signal_info;
         JVM_DEV_VERBOSE("Fetched signal %s for class %s", kt_signal_info->name, registered_class_name);
     }
@@ -126,7 +126,7 @@ void KtClass::fetch_signals(jni::Env& env) {
 }
 
 void KtClass::fetch_constructor(jni::Env& env) {
-    jni::JObject constructor {wrapped.call_object_method(env, GET_CONSTRUCTOR)};
+    jni::JObject constructor = wrapped.call_object_method(env, GET_CONSTRUCTOR);
     if (constructor.obj != nullptr) {
         kt_constructor = new KtConstructor(env, constructor);
         JVM_DEV_VERBOSE("Fetched constructor for class %s", registered_class_name);
@@ -148,7 +148,7 @@ void KtClass::get_signal_list(godot::List<godot::MethodInfo>* p_list) {
 }
 
 const godot::Dictionary KtClass::get_rpc_config() {
-    godot::Dictionary rpc_configs {};
+    godot::Dictionary rpc_configs = godot::Dictionary();
 
     for (const godot::KeyValue<godot::StringName, KtFunction*>& E : methods) {
         rpc_configs[E.key] = E.value->get_rpc_config()->toRpcConfigDictionary();

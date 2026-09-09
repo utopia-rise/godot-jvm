@@ -1,12 +1,11 @@
 #include "kt_function.h"
 
-#include "godot_jvm.h"
 #include "jvm/wrapper/memory/transfer_context.h"
+#include "jvm/wrapper/registration/kt_object.h"
 
 #include <classes/global_constants.hpp>
 
-KtFunction::KtFunction(jni::Env& p_env, jni::JObject p_wrapped) :
-  JvmInstanceWrapper(p_env, p_wrapped) {
+KtFunction::KtFunction(jni::Env& p_env, jni::JObject p_wrapped) : JvmInstanceWrapper(p_env, p_wrapped) {
     method_info = new KtFunctionInfo(p_env, wrapped.call_object_method(p_env, GET_FUNCTION_INFO));
     has_return_value = method_info->return_val->type != godot::Variant::NIL
                     || (method_info->return_val->usage & godot::PropertyUsageFlags::PROPERTY_USAGE_NIL_IS_VARIANT) != 0;
@@ -25,7 +24,9 @@ godot::StringName KtFunction::get_name() const {
 }
 
 int KtFunction::get_parameter_count() const {
-    // No "getParameterCount" JNI method exists on the real Kotlin KtFunction (never did — that JNI binding was a porting mistake, not a Kotlin-side gap). The argument count is already known locally from the getArguments() array fetched into me...
+    // No "getParameterCount" JNI method exists on the real Kotlin KtFunction (never did — that JNI binding was a
+    // porting mistake, not a Kotlin-side gap). The argument count is already known locally from the getArguments()
+    // array fetched into me...
     return method_info->arguments.size();
 }
 
@@ -37,7 +38,13 @@ KtFunctionInfo* KtFunction::get_kt_function_info() {
     return method_info;
 }
 
-void KtFunction::invoke(jni::Env& p_env, const KtObject* instance, const godot::Variant** p_args, int args_count, godot::Variant& r_ret) {
+void KtFunction::invoke(
+    jni::Env& p_env,
+    const KtObject* instance,
+    const godot::Variant** p_args,
+    int args_count,
+    godot::Variant& r_ret
+) {
     TransferContext& transferContext = TransferContext::get_instance();
     transferContext.write_args(p_env, p_args, args_count);
     jvalue call_args[1] = {jni::to_jni_arg(instance->get_wrapped())};
@@ -52,10 +59,10 @@ void KtFunction::invoke(jni::Env& p_env, const KtObject* instance, const godot::
 }
 
 KtFunctionInfo::KtFunctionInfo(jni::Env& p_env, jni::JObject p_wrapped) : JvmInstanceWrapper(p_env, p_wrapped) {
-    jni::JString string {wrapped.call_object_method(p_env, GET_NAME)};
+    jni::JString string(wrapped.call_object_method(p_env, GET_NAME));
     name = p_env.from_jstring(string);
 
-    jni::JObjectArray propertyInfoArray {wrapped.call_object_method(p_env, GET_ARGUMENTS)};
+    jni::JObjectArray propertyInfoArray(wrapped.call_object_method(p_env, GET_ARGUMENTS));
     for (int i = 0; i < propertyInfoArray.length(p_env); i++) {
         arguments.push_back(new KtPropertyInfo(p_env, propertyInfoArray.get(p_env, i)));
     }
