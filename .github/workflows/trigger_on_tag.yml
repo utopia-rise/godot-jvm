@@ -40,6 +40,8 @@ jobs:
   create-draft-release:
     name: 📝 Create draft release
     needs: create-or-update-maintenance-branch
+    permissions:
+      contents: write
     uses: ./.github/workflows/deploy_create_draft_release.yml
     secrets: inherit # needed so that this sub workflow can also access github secrets for this workflow
 
@@ -124,7 +126,10 @@ jobs:
   deploy-godot:
     name: 🚀 Deploy godot artifacts to Github
     uses: ./.github/workflows/deploy_godot.yml
+    permissions:
+      contents: write
     needs:
+      - create-draft-release
       - assemble-linux
       - assemble-macos
       - assemble-windows
@@ -136,6 +141,8 @@ jobs:
   deploy-jvm:
     name: 🚀 Deploy Jvm artifacts
     uses: ./.github/workflows/deploy_jvm.yml
+    permissions:
+      contents: write
     needs:
       - deploy-godot # we define an explicit dependency on the github upload in case something goes wrong there. Github release purging is easier than from maven central and the likes
     with:

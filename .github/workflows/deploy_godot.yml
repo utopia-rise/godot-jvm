@@ -8,32 +8,31 @@ on:
 jobs:
   deploy-addon:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/download-artifact@v7
-        with:
-          name: deploy_release_url
-      - id: release_url
-        run: echo "release_url=$(cat deploy_release_url.txt)" >> $GITHUB_OUTPUT
       - uses: actions/download-artifact@v7
         with:
           name: godot-jvm-addon-${{ inputs.godot-jvm-version }}
           path: package
+
       # This is the only point the addon actually needs to exist as a real zip file: release assets
       # are downloaded as-is, with no extra wrapping layer from GitHub the way workflow artifacts get.
       - name: Zip addon
         shell: bash
         run: cd package && zip -q -9 -r ../godot-jvm-addon-${{ inputs.godot-jvm-version }}.zip addons
-      - uses: actions/upload-release-asset@v1.0.2
+
+      - name: Upload release asset
+        shell: bash
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_url.outputs.release_url }}
-          asset_path: godot-jvm-addon-${{ inputs.godot-jvm-version }}.zip
-          asset_name: godot-jvm-addon-${{ inputs.godot-jvm-version }}.zip
-          asset_content_type: application/octet-stream
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh release upload "${{ inputs.godot-jvm-version }}" godot-jvm-addon-${{ inputs.godot-jvm-version }}.zip --clobber
 
   deploy-libraries:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     strategy:
       matrix:
         include:
@@ -58,23 +57,18 @@ jobs:
     steps:
       - uses: actions/download-artifact@v7
         with:
-          name: deploy_release_url
-      - id: release_url
-        run: echo "release_url=$(cat deploy_release_url.txt)" >> $GITHUB_OUTPUT
-      - uses: actions/download-artifact@v7
-        with:
           name: godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}
           path: package
+
       # This is the only point the library actually needs to exist as a real zip file: release assets
       # are downloaded as-is, with no extra wrapping layer from GitHub the way workflow artifacts get.
       - name: Zip library
         shell: bash
         run: cd package && zip -q -9 -r ../godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}.zip addons
-      - uses: actions/upload-release-asset@v1.0.2
+
+      - name: Upload release asset
+        shell: bash
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release_url.outputs.release_url }}
-          asset_path: godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}.zip
-          asset_name: godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}.zip
-          asset_content_type: application/octet-stream
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh release upload "${{ inputs.godot-jvm-version }}" godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}.zip --clobber

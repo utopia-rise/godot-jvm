@@ -7,17 +7,9 @@ jobs:
   create-draft-release:
     name: Create github draft release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Clone Godot JVM module.
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0 # clone whole history -> needed for generation of changelog
-
-      - uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: 17
-
       - name: Validate release tag
         shell: bash
         run: |
@@ -26,51 +18,15 @@ jobs:
             exit 1
           fi
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
-        with:
-          cache-read-only: false
-          cache-cleanup: always
-          gradle-home-cache-excludes: |
-            wrapper/dists
-            caches/*/generated-gradle-jars
-            daemon
-            notifications
-
+      # The deploy workflows attach their assets to this draft by tag name with `gh release upload`.
       - name: Create draft release
-        id: create_release
-        uses: actions/create-release@v1
+        shell: bash
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: true
-          prerelease: ${{ contains(github.ref_name, '-dev') || contains(github.ref_name, '-rc') }}
-
-      - name: Output release url file
-        run: echo "${{ steps.create_release.outputs.upload_url }}" > deploy_release_url.txt
-
-      - name: Output supported godot version file
-        run: grep -Po '^godot = "\K[^"]+' kt/gradle/libs.versions.toml > deploy_godot_version.txt
-
-      - name: Output Godot-JVM version file
-        run: echo "$GITHUB_REF_NAME" > deploy_godot_jvm_version.txt
-
-      - name: Save Release URL File for publish
-        uses: actions/upload-artifact@v7
-        with:
-          name: deploy_release_url
-          path: deploy_release_url.txt
-
-      - name: Save supported godot version for publish
-        uses: actions/upload-artifact@v7
-        with:
-          name: deploy_godot_version
-          path: deploy_godot_version.txt
-
-      - name: Save Godot-JVM version for publish
-        uses: actions/upload-artifact@v7
-        with:
-          name: deploy_godot_jvm_version
-          path: deploy_godot_jvm_version.txt
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          prerelease=""
+          if [[ "$GITHUB_REF_NAME" == *-dev* || "$GITHUB_REF_NAME" == *-rc* ]]; then
+            prerelease="--prerelease"
+          fi
+          gh release create "$GITHUB_REF_NAME" --draft --title "$GITHUB_REF_NAME" --notes "" $prerelease
