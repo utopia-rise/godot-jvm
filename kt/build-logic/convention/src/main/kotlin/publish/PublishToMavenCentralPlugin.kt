@@ -17,6 +17,10 @@ class PublishToMavenCentralPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         target.pluginManager.apply(MavenPublishBasePlugin::class.java)
 
+        if (target.group.toString().isEmpty()) {
+            target.group = "com.utopia-rise"
+        }
+
         val mavenCentralUser = target.propOrEnv("ORG_GRADLE_PROJECT_mavenCentralUsername") ?: target.propOrEnv("mavenCentralUsername")
         val mavenCentralPassword = target.propOrEnv("ORG_GRADLE_PROJECT_mavenCentralPassword") ?: target.propOrEnv("mavenCentralPassword")
         val gpgInMemoryKey = target.propOrEnv("ORG_GRADLE_PROJECT_signingInMemoryKey") ?: target.propOrEnv("signingInMemoryKey")

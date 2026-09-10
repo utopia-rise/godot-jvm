@@ -51,7 +51,7 @@ Install the **Godot-JVM** plugin in **Settings > Plugins > Marketplace** (listed
 
 ## Option 3: Template project
 
-Use this when you want a complete, ready-to-run project without generating anything. The [Godot-JVM project template](https://github.com/utopia-rise/godot-kotlin-project-template) already contains the Godot project files, the Gradle build, the source directories, and the addon.
+Use this when you want a complete, ready-to-run project without generating anything. The [Godot-JVM project template](https://github.com/utopia-rise/godot-jvm-project-template) already contains the Godot project files, the Gradle build, the source directories, and the addon.
 
 1. Clone or download the template repository.
 2. Rename the project in `project.godot` and adjust the package name in the source directories to match your game.

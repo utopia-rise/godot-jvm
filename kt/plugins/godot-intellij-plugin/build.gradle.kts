@@ -82,14 +82,15 @@ tasks {
     processResources {
         val logoDirectory = rootProject.projectDir.parentFile.resolve("logo")
 
+        // JetBrains sizes: 40px marketplace icon, 16px in-IDE icon.
         from(logoDirectory) {
-            include("logo-reference.svg")
-            rename("logo-reference.svg", "pluginIcon.svg")
+            include("logo-40.svg")
+            rename("logo-40.svg", "pluginIcon.svg")
             into("META-INF")
         }
         from(logoDirectory) {
-            include("logo-reference.svg")
-            rename("logo-reference.svg", "pluginIcon_small.svg")
+            include("logo-16.svg")
+            rename("logo-16.svg", "pluginIcon_small.svg")
         }
     }
 

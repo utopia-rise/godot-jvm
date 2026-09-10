@@ -1,13 +1,26 @@
-"""Render the PNG logo sizes from logo-reference.svg (requires Inkscape and Pillow)."""
+"""Export the logo sizes from logo-reference.svg: SVG copies with a fixed declared size
+and rendered PNGs (the PNGs require Inkscape and Pillow)."""
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+import xml.etree.ElementTree as ElementTree
 
 from PIL import Image, ImageFilter
 
 
 directory = Path(__file__).resolve().parent
+
+# SVG renderers such as IntelliJ's icon loader draw an SVG at its declared width/height,
+# so consumers that need an exact size get their own copy with that size declared.
+ElementTree.register_namespace('', 'http://www.w3.org/2000/svg')
+svg = ElementTree.parse(directory / 'logo-reference.svg')
+svg_sizes = (16, 40)
+for size in svg_sizes:
+    svg.getroot().set('width', str(size))
+    svg.getroot().set('height', str(size))
+    svg.write(directory / f'logo-{size}.svg', encoding='utf-8', xml_declaration=True)
+
 inkscape = shutil.which('inkscape.com') or shutil.which('inkscape')
 if Path(r'C:\Program Files\Inkscape\bin\inkscape.com').exists():
     inkscape = r'C:\Program Files\Inkscape\bin\inkscape.com'
@@ -33,4 +46,5 @@ with tempfile.TemporaryDirectory(prefix='godot-jvm-logo-') as temporary:
     outline.alpha_composite(padded)
     outline.resize((1024, 1024), Image.Resampling.LANCZOS).save(directory / 'logo-1024-outline.png')
 
+print('Exported SVG logo sizes:', ', '.join(map(str, svg_sizes)))
 print('Exported PNG logo sizes:', ', '.join(map(str, sizes)), 'and outlined 1024px logo')

@@ -15,8 +15,8 @@ Godot-JVM lets you write [Godot](https://godotengine.org/) game and application 
 
 Explore these example projects:
 
-- [Godot-JVM project template](https://github.com/utopia-rise/godot-kotlin-project-template)
-- [Godot-JVM 3D demo](https://github.com/utopia-rise/godot-kotlin-3d-demo)
+- [Godot-JVM project template](https://github.com/utopia-rise/godot-jvm-project-template)
+- [Godot-JVM 3D demo](https://github.com/utopia-rise/godot-jvm-3d-demo)
 
 ### Code Distribution
 

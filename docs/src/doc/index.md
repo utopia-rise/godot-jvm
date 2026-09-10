@@ -99,7 +99,7 @@ class Player extends Node {
 - **IntelliJ IDEA plugin.** Create a new Godot-JVM project and scripts from a wizard, and let the IDE warn you as you type when something will not register correctly with Godot.
 - **Gradle plugin.** One plugin builds your project end to end: it compiles your code, prepares it for Godot, and packages everything the editor and your exported game need. You never have to wire these steps up yourself.
 - **Godot editor integration.** Kotlin, Java, and Scala show up as script languages in the editor, and a toolbar button runs the build for you, so you can stay in Godot while testing a scene.
-- **Example projects.** Start from the [Godot-JVM project template](https://github.com/utopia-rise/godot-kotlin-project-template) or explore the [Godot-JVM 3D demo](https://github.com/utopia-rise/godot-kotlin-3d-demo) to see a complete game.
+- **Example projects.** Start from the [Godot-JVM project template](https://github.com/utopia-rise/godot-jvm-project-template) or explore the [Godot-JVM 3D demo](https://github.com/utopia-rise/godot-jvm-3d-demo) to see a complete game.
 
 ## Requirements
 
