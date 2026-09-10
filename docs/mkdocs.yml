@@ -59,7 +59,6 @@ plugins:
         guide/enums-and-bitfields.md: reference/binding/types.md#enums-and-bitfields
         guide/abstract-classes.md: reference/registration/classes.md#abstract-classes
         guide/attaching-scripts.md: guide/registration-files.md
-        reference/registration.md: reference/registration/index.md
         reference/property-hints.md: reference/annotations.md#property-hints
         reference/language-parity.md: reference/index.md
         reference/compatibility.md: start/compatibility.md
