@@ -4,6 +4,8 @@
 
 Test and export tasks are deliberately dependency-free. They only run or export the files already present in the test project; they never build, import, create a native image, or create a JRE. Run every prerequisite explicitly, in order.
 
+Debug tasks write `jvm/debug/`, release tasks write `jvm/release/`; an export with debug packs the former, a release export the latter.
+
 For JVM tests in the editor:
 
 ```shell
@@ -52,4 +54,4 @@ gradlew buildIOS
 gradlew exportIOSDebug
 ```
 
-Use `-Prelease` for the release build, for example `gradlew -Prelease buildAndroid` followed by `gradlew exportAndroidRelease`.
+Use the `Release` tasks together with `-Prelease` for the release build, for example `gradlew -Prelease buildAndroidRelease` followed by `gradlew exportAndroidRelease`. The task selects the release variant; the property additionally makes the included `kt` build compile the Godot libraries in release mode, as a published release does.

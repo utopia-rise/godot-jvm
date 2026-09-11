@@ -28,7 +28,7 @@ jobs:
             xcode-configuration: Debug
             variant: debug
           - name: Release export tests
-            build-task: -Prelease buildIOS
+            build-task: -Prelease buildIOSRelease
             export-task: exportIOSRelease
             xcode-configuration: Release
             variant: release
@@ -71,7 +71,9 @@ jobs:
             harness/tests/.gradle
             harness/tests/build/graal
             harness/tests/build/libs/ios
+            harness/tests/build/libs/${{ matrix.variant }}/ios
             harness/tests/jvm/ios
+            harness/tests/jvm/${{ matrix.variant }}/game.a
           key: ios-native-image-${{ matrix.variant }}-${{ runner.arch }}-${{ github.sha }}
           restore-keys: |
             ios-native-image-${{ matrix.variant }}-${{ runner.arch }}-
@@ -108,7 +110,7 @@ jobs:
         timeout-minutes: 30
 
       # Device build only, so no execution: Godot's official simulator template slice is x86_64
-      # while the GraalVM usercode image is arm64, and the two can never link together.
+      # while the GraalVM game image is arm64, and the two can never link together.
       - name: Link the exported iOS application
         run: |
           sudo xcode-select --switch /Applications/Xcode_26.3.app
