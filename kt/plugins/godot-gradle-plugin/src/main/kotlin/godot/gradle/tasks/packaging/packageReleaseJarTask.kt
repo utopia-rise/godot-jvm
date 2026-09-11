@@ -15,14 +15,14 @@ import org.gradle.api.tasks.TaskProvider
  */
 fun Project.packageReleaseJarTask(
     packageBootstrapJarTask: TaskProvider<ShadowJar>,
-    packageMainJarTask: TaskProvider<ShadowJar>,
+    packageUserCodeJarTask: TaskProvider<ShadowJar>,
 ): TaskProvider<ShadowJar> {
     val godotSingle = configurations.getByName(GODOT_SINGLE_CONFIGURATION)
 
     return tasks.register("packageReleaseJar", ShadowJar::class.java) {
         with(it) {
             group = "godot-jvm"
-            description = "Merges the bootstrap and main jars into the single release jar."
+            description = "Merges the bootstrap and user code jars into the single release jar."
 
             archiveBaseName.set(ArtifactNames.Release.JAR.removeSuffix(".jar"))
             archiveVersion.set("")
@@ -30,12 +30,12 @@ fun Project.packageReleaseJarTask(
             destinationDirectory.set(variantLibsDirectory())
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-            dependsOn(packageBootstrapJarTask, packageMainJarTask)
+            dependsOn(packageBootstrapJarTask, packageUserCodeJarTask)
             configurations.clear()
             from(zipTree(packageBootstrapJarTask.flatMap(ShadowJar::getArchiveFile))) { copySpec ->
                 copySpec.exclude("META-INF/MANIFEST.MF")
             }
-            from(zipTree(packageMainJarTask.flatMap(ShadowJar::getArchiveFile))) { copySpec ->
+            from(zipTree(packageUserCodeJarTask.flatMap(ShadowJar::getArchiveFile))) { copySpec ->
                 copySpec.exclude("META-INF/MANIFEST.MF")
             }
 

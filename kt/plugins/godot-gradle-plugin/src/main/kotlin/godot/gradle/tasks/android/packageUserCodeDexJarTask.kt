@@ -7,11 +7,11 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
 
-fun Project.packageMainDexJarTask(
+fun Project.packageUserCodeDexJarTask(
     createMainDexFileTask: TaskProvider<out Task>,
-    packageMainJarTask: TaskProvider<ShadowJar>,
+    packageUserCodeJarTask: TaskProvider<ShadowJar>,
 ): TaskProvider<ShadowJar> {
-    return tasks.register("packageMainDexJar", ShadowJar::class.java) {
+    return tasks.register("packageUserCodeDexJar", ShadowJar::class.java) {
         with(it) {
             group = "godot-jvm"
             description =
@@ -23,7 +23,7 @@ fun Project.packageMainDexJarTask(
             // add all dex files (converted class files)
             from(variantLibsDirectory()).include("*.dex")
 
-            from(zipTree(packageMainJarTask.flatMap(ShadowJar::getArchiveFile))) { copySpec ->
+            from(zipTree(packageUserCodeJarTask.flatMap(ShadowJar::getArchiveFile))) { copySpec ->
                 // copy everything from the usercode.jar
                 copySpec.include("**/*")
 
@@ -31,7 +31,7 @@ fun Project.packageMainDexJarTask(
                 copySpec.exclude("**/*.class")
             }
 
-            dependsOn(createMainDexFileTask, packageMainJarTask)
+            dependsOn(createMainDexFileTask, packageUserCodeJarTask)
         }
     }
 }
