@@ -449,7 +449,7 @@ bool GodotJvm::load_user_code() {
 #ifdef TOOLS_ENABLED
             JVM_LOG_WARNING(message, user_code_path);
             return false;
-#elif defined DEBUG_ENABLED
+#else
             JVM_ERR_FAIL_V_MSG(false, message, user_code_path);
 #endif
         }
