@@ -14,6 +14,7 @@ import godot.core.Dictionary
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedFloat32Array
+import godot.core.RID
 import godot.core.VariantArray
 import godot.core.VariantParser.ARRAY
 import godot.core.VariantParser.DICTIONARY

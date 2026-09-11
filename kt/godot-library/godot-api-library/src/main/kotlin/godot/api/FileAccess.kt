@@ -424,8 +424,8 @@ public open class FileAccess internal constructor() : RefCounted() {
   }
 
   /**
-   * Returns the next [Variant] value from the file. If [allowObjects] is `true`, decoding objects
-   * is allowed. This advances the file cursor by the number of bytes read.
+   * Returns the next [Any] value from the file. If [allowObjects] is `true`, decoding objects is
+   * allowed. This advances the file cursor by the number of bytes read.
    *
    * Internally, this uses the same decoding mechanism as the [@GlobalScope.bytesToVar] method, as
    * described in the [url=$DOCS_URL/tutorials/io/binary_serialization_api.html]Binary serialization
@@ -538,7 +538,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    * Stores an integer as 64 bits in the file. This advances the file cursor by 8 bytes. Returns
    * `true` if the operation is successful.
    *
-   * **Note:** The [value] must lie in the interval `[-2^63, 2^63 - 1]` (i.e. be a valid [int]
+   * **Note:** The [value] must lie in the interval `[-2^63, 2^63 - 1]` (i.e. be a valid [Long]
    * value).
    *
    * **Note:** If an error occurs, the resulting value of the file position indicator is

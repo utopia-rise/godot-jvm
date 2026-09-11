@@ -33,8 +33,8 @@ import kotlin.jvm.JvmField
 import kotlin.jvm.JvmOverloads
 
 /**
- * This helper class can be used to store [Variant] values on the filesystem using INI-style
- * formatting. The stored values are identified by a section and a key:
+ * This helper class can be used to store [Any] values on the filesystem using INI-style formatting.
+ * The stored values are identified by a section and a key:
  *
  * [codeblock lang=text]
  *

@@ -30,6 +30,7 @@ import godot.core.PackedFloat32Array
 import godot.core.PackedInt32Array
 import godot.core.PackedStringArray
 import godot.core.PackedVector2Array
+import godot.core.PackedVector3Array
 import godot.core.RID
 import godot.core.Rect2
 import godot.core.Transform2D
@@ -1316,7 +1317,8 @@ public open class TextServer internal constructor() : RefCounted() {
    *
    * `contours`       - [PackedInt32Array], containing indices the end points of each contour.
    *
-   * `orientation`    - [bool], contour orientation. If `true`, clockwise contours must be filled.
+   * `orientation`    - [Boolean], contour orientation. If `true`, clockwise contours must be
+   * filled.
    *
    * - Two successive [CONTOUR_CURVE_TAG_ON] points indicate a line segment.
    *

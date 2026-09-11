@@ -10,9 +10,11 @@ import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
+import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.PackedFloat32Array
 import godot.core.PackedVector2Array
 import godot.core.Rect2
 import godot.core.VariantArray
@@ -193,13 +195,13 @@ public open class NavigationMeshSourceGeometryData2D : Resource() {
   }
 
   /**
-   * Returns the projected obstructions as an [Array] of dictionaries. Each [Dictionary] contains
-   * the following entries:
+   * Returns the projected obstructions as an [VariantArray] of dictionaries. Each [Dictionary]
+   * contains the following entries:
    *
    * - `vertices` - A [PackedFloat32Array] that defines the outline points of the projected shape.
    *
-   * - `carve` - A [bool] that defines how the projected shape affects the navigation mesh baking.
-   * If `true` the projected shape will not be affected by addition offsets, e.g. agent radius.
+   * - `carve` - A [Boolean] that defines how the projected shape affects the navigation mesh
+   * baking. If `true` the projected shape will not be affected by addition offsets, e.g. agent radius.
    */
   public final fun getProjectedObstructions(): VariantArray<Any?> {
     TransferContext.writeMethodArguments(ptr, objectID.id)

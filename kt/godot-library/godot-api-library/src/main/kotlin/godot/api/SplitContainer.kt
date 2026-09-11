@@ -16,6 +16,7 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedInt32Array
+import godot.core.Rect2
 import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.VariantArray
@@ -397,10 +398,10 @@ public open class SplitContainer : Container() {
   }
 
   /**
-   * Returns an [Array] of the drag area [Control]s. These are the interactable [Control] nodes
-   * between each child. For example, this can be used to add a pre-configured button to a drag area
-   * [Control] so that it rides along with the split bar. Try setting the [Button] anchors to `center`
-   * prior to the [Node.reparent] call.
+   * Returns an [VariantArray] of the drag area [Control]s. These are the interactable [Control]
+   * nodes between each child. For example, this can be used to add a pre-configured button to a drag
+   * area [Control] so that it rides along with the split bar. Try setting the [Button] anchors to
+   * `center` prior to the [Node.reparent] call.
    *
    * ```
    * $BarnacleButton.reparent($SplitContainer.get_drag_area_controls()[0])

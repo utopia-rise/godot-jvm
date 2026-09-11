@@ -116,7 +116,7 @@ public object JavaScriptBridge : Object() {
 
   /**
    * Returns an interface to a JavaScript object that can be used by scripts. The [interface] must
-   * be a valid property of the JavaScript `window`. The callback must accept a single [Array]
+   * be a valid property of the JavaScript `window`. The callback must accept a single [VariantArray]
    * argument, which will contain the JavaScript `arguments`. See [JavaScriptObject] for usage.
    */
   @JvmStatic
@@ -131,8 +131,8 @@ public object JavaScriptBridge : Object() {
    * must be kept until the callback happens, or it won't be called at all. See [JavaScriptObject] for
    * usage.
    *
-   * **Note:** The callback function must take exactly one [Array] argument, which is going to be
-   * the JavaScript
+   * **Note:** The callback function must take exactly one [VariantArray] argument, which is going
+   * to be the JavaScript
    * [url=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments]arguments
    * object[/url] converted to an array.
    */

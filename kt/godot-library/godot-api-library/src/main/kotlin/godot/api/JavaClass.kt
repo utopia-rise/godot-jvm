@@ -51,8 +51,8 @@ public open class JavaClass : RefCounted() {
   }
 
   /**
-   * Returns the object's Java methods and their signatures as an [Array] of dictionaries, in the
-   * same format as [Object.getMethodList].
+   * Returns the object's Java methods and their signatures as an [VariantArray] of dictionaries, in
+   * the same format as [Object.getMethodList].
    */
   public final fun getJavaMethodList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments(ptr, objectID.id)

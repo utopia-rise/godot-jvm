@@ -13,6 +13,7 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.Transform3D
 import godot.core.VariantParser.LONG
 import kotlin.Long
 import kotlin.Suppress

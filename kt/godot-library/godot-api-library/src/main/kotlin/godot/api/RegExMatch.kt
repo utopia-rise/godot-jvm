@@ -53,7 +53,7 @@ public open class RegExMatch : RefCounted() {
     get() = getNames()
 
   /**
-   * An [Array] of the match and its capturing groups.
+   * An [VariantArray] of the match and its capturing groups.
    */
   public final inline val strings: PackedStringArray
     @JvmName("stringsProperty")

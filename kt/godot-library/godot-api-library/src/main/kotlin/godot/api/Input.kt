@@ -982,7 +982,7 @@ public object Input : Object() {
   }
 
   /**
-   * Returns an [Array] containing the device IDs of all currently connected joypads.
+   * Returns an [VariantArray] containing the device IDs of all currently connected joypads.
    *
    * **Note:** The order of connected joypads can not be guaranteed to be the same after a project
    * and/or the editor is restarted, because Godot doesn't save the order of joypad connections.

@@ -19,6 +19,7 @@ import godot.core.MethodStringName2
 import godot.core.NodePath
 import godot.core.PackedColorArray
 import godot.core.PackedFloat32Array
+import godot.core.PackedInt32Array
 import godot.core.PackedVector2Array
 import godot.core.VariantArray
 import godot.core.VariantParser.ARRAY
@@ -254,7 +255,7 @@ public open class Polygon2D : Node2D() {
 
   /**
    * The list of polygons, in case more than one is being represented. Every individual polygon is
-   * stored as a [PackedInt32Array] where each [int] is an index to a point in [polygon]. If empty,
+   * stored as a [PackedInt32Array] where each [Long] is an index to a point in [polygon]. If empty,
    * this property will be ignored, and the resulting single polygon will be composed of all points in
    * [polygon], using the order they are stored in.
    */

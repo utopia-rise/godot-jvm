@@ -42,11 +42,11 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class PacketPeer internal constructor() : RefCounted() {
   /**
-   * Maximum buffer size allowed when encoding [Variant]s. Raise this value to support heavier
-   * memory allocations.
+   * Maximum buffer size allowed when encoding [Any]s. Raise this value to support heavier memory
+   * allocations.
    *
    * The [putVar] method allocates memory on the stack, and the buffer used will grow automatically
-   * to the closest power of two to match the size of the [Variant]. If the [Variant] is bigger than
+   * to the closest power of two to match the size of the [Any]. If the [Any] is bigger than
    * [encodeBufferMaxSize], the method will error out with [ERR_OUT_OF_MEMORY].
    */
   public final inline var encodeBufferMaxSize: Int
@@ -78,7 +78,7 @@ public open class PacketPeer internal constructor() : RefCounted() {
   }
 
   /**
-   * Sends a [Variant] as a packet. If [fullObjects] is `true`, encoding objects is allowed (and can
+   * Sends a [Any] as a packet. If [fullObjects] is `true`, encoding objects is allowed (and can
    * potentially include code).
    *
    * Internally, this uses the same encoding mechanism as the [@GlobalScope.varToBytes] method.

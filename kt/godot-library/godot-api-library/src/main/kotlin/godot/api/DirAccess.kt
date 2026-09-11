@@ -303,7 +303,7 @@ public open class DirAccess internal constructor() : RefCounted() {
    * Returns whether the target directory exists. The argument can be relative to the current
    * directory, or an absolute path.
    *
-   * **Note:** The returned [bool] in the editor and after exporting when used on a path in the
+   * **Note:** The returned [Boolean] in the editor and after exporting when used on a path in the
    * `res://` directory may be different. Some files are converted to engine-specific formats when
    * exported, potentially changing the directory structure.
    */
@@ -796,7 +796,7 @@ public open class DirAccess internal constructor() : RefCounted() {
     /**
      * Static version of [dirExists]. Supports only absolute paths.
      *
-     * **Note:** The returned [bool] in the editor and after exporting when used on a path in the
+     * **Note:** The returned [Boolean] in the editor and after exporting when used on a path in the
      * `res://` directory may be different. Some files are converted to engine-specific formats when
      * exported, potentially changing the directory structure.
      */

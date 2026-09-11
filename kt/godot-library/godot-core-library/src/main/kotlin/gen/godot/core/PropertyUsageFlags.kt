@@ -128,7 +128,7 @@ public class PropertyUsageFlags(
     public val CLASS_IS_ENUM: PropertyUsageFlags = PropertyUsageFlags(65536)
 
     /**
-     * If property has `nil` as default value, its type will be [Variant].
+     * If property has `nil` as default value, its type will be [Any].
      */
     @JvmField
     public val NIL_IS_VARIANT: PropertyUsageFlags = PropertyUsageFlags(131072)
@@ -152,7 +152,7 @@ public class PropertyUsageFlags(
      * - `unfoldable`: The array can't be folded.
      *
      * - `swap_method=method_name`: The method that will be called when two elements switch places.
-     * The method should take 2 [int] parameters, which will be indices of the elements being swapped.
+     * The method should take 2 [Long] parameters, which will be indices of the elements being swapped.
      *
      * Note that making a full-fledged property array requires boilerplate code involving
      * [Object.GetPropertyList].

@@ -1429,9 +1429,9 @@ public open class Control : CanvasItem() {
   /**
    * User defined BiDi algorithm override function.
    *
-   * Returns an [Array] of [Vector3i] text ranges and text base directions, in the left-to-right
-   * order. Ranges should cover full source [text] without overlaps. BiDi algorithm will be used on
-   * each range separately.
+   * Returns an [VariantArray] of [Vector3i] text ranges and text base directions, in the
+   * left-to-right order. Ranges should cover full source [text] without overlaps. BiDi algorithm will
+   * be used on each range separately.
    */
   public open fun _structuredTextParser(args: VariantArray<Any?>, text: String):
       VariantArray<Vector3i> {
@@ -3243,9 +3243,9 @@ public open class Control : CanvasItem() {
    *
    * - [dragFunc] corresponds to [_getDragData] and requires a [Vector2];
    *
-   * - [canDropFunc] corresponds to [_canDropData] and requires both a [Vector2] and a [Variant];
+   * - [canDropFunc] corresponds to [_canDropData] and requires both a [Vector2] and a [Any];
    *
-   * - [dropFunc] corresponds to [_dropData] and requires both a [Vector2] and a [Variant].
+   * - [dropFunc] corresponds to [_dropData] and requires both a [Vector2] and a [Any].
    */
   public final fun setDragForwarding(
     dragFunc: Callable,

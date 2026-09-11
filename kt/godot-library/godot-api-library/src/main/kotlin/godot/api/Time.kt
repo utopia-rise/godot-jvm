@@ -413,7 +413,7 @@ public object Time : Object() {
    * [url=https://en.wikipedia.org/wiki/Unix_time]Unix epoch[/url].
    *
    * **Note:** Unlike other methods that use integer timestamps, this method returns the timestamp
-   * as a [float] for sub-second precision.
+   * as a [Double] for sub-second precision.
    */
   @JvmStatic
   public final fun getUnixTimeFromSystem(): Double {

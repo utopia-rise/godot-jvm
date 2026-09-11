@@ -19,6 +19,7 @@ import godot.core.MethodStringName7
 import godot.core.PackedInt64Array
 import godot.core.RID
 import godot.core.Rect2i
+import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.VariantParser.ARRAY
 import godot.core.VariantParser.BOOL

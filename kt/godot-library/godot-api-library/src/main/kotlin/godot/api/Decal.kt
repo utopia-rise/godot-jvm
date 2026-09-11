@@ -12,6 +12,7 @@ import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
+import godot.core.AABB
 import godot.core.Color
 import godot.core.GodotEnum
 import godot.core.MethodStringName0

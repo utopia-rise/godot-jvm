@@ -19,6 +19,10 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.MethodStringName5
+import godot.core.PackedFloat32Array
+import godot.core.PackedFloat64Array
+import godot.core.PackedVector3Array
+import godot.core.Plane
 import godot.core.RID
 import godot.core.Transform3D
 import godot.core.VariantCaster.ANY
@@ -941,17 +945,17 @@ public object PhysicsServer3D : Object() {
    *
    * - [SHAPE_WORLD_BOUNDARY]: a [Plane],
    *
-   * - [SHAPE_SEPARATION_RAY]: a dictionary containing the key `"length"` with a [float] value and
-   * the key `"slide_on_slope"` with a [bool] value,
+   * - [SHAPE_SEPARATION_RAY]: a dictionary containing the key `"length"` with a [Double] value and
+   * the key `"slide_on_slope"` with a [Boolean] value,
    *
-   * - [SHAPE_SPHERE]: a [float] that is the radius of the sphere,
+   * - [SHAPE_SPHERE]: a [Double] that is the radius of the sphere,
    *
    * - [SHAPE_BOX]: a [Vector3] containing the half-extents of the box,
    *
-   * - [SHAPE_CAPSULE]: a dictionary containing the keys `"height"` and `"radius"` with [float]
+   * - [SHAPE_CAPSULE]: a dictionary containing the keys `"height"` and `"radius"` with [Double]
    * values,
    *
-   * - [SHAPE_CYLINDER]: a dictionary containing the keys `"height"` and `"radius"` with [float]
+   * - [SHAPE_CYLINDER]: a dictionary containing the keys `"height"` and `"radius"` with [Double]
    * values,
    *
    * - [SHAPE_CONVEX_POLYGON]: a [PackedVector3Array] of points defining a convex polygon (the shape
@@ -959,13 +963,13 @@ public object PhysicsServer3D : Object() {
    *
    * - [SHAPE_CONCAVE_POLYGON]: a dictionary containing the key `"faces"` with a
    * [PackedVector3Array] value (with a length divisible by 3, so that each 3-tuple of points forms a
-   * face) and the key `"backface_collision"` with a [bool] value,
+   * face) and the key `"backface_collision"` with a [Boolean] value,
    *
-   * - [SHAPE_HEIGHTMAP]: a dictionary containing the keys `"width"` and `"depth"` with [int]
-   * values, and the key `"heights"` with a value that is a packed array of [float]s of length `width *
-   * depth` (that is a [PackedFloat32Array], or a [PackedFloat64Array] if Godot was compiled with the
-   * `precision=double` option), and optionally the keys `"min_height"` and `"max_height"` with [float]
-   * values,
+   * - [SHAPE_HEIGHTMAP]: a dictionary containing the keys `"width"` and `"depth"` with [Long]
+   * values, and the key `"heights"` with a value that is a packed array of [Double]s of length `width
+   * * depth` (that is a [PackedFloat32Array], or a [PackedFloat64Array] if Godot was compiled with the
+   * `precision=double` option), and optionally the keys `"min_height"` and `"max_height"` with
+   * [Double] values,
    *
    * - [SHAPE_SOFT_BODY]: the input [data] is ignored and this method has no effect,
    *
@@ -1998,8 +2002,8 @@ public object PhysicsServer3D : Object() {
    *
    * 1. `state`: a [PhysicsDirectBodyState3D], used to retrieve and modify the body's state,
    *
-   * 2. [code skip-lint]userdata[/code]: a [Variant]; its value will be the [userdata] passed into
-   * this method.
+   * 2. [code skip-lint]userdata[/code]: a [Any]; its value will be the [userdata] passed into this
+   * method.
    *
    * If [userdata] is `null`, then [callable] must take only the `state` parameter.
    */

@@ -19,10 +19,10 @@ public enum class PropertyHint(
    */
   NONE(0),
   /**
-   * Hints that an [int], [float], or packed/typed [Array] property containing [int] or [float]
-   * types should be within a range specified via the hint string `"min,max"` or `"min,max,step"`. The
-   * hint string can optionally include `"or_greater"` and/or `"or_less"` to allow manual input going
-   * respectively above the max or below the min values.
+   * Hints that an [Long], [Double], or packed/typed [VariantArray] property containing [Long] or
+   * [Double] types should be within a range specified via the hint string `"min,max"` or
+   * `"min,max,step"`. The hint string can optionally include `"or_greater"` and/or `"or_less"` to
+   * allow manual input going respectively above the max or below the min values.
    *
    * **Example:** `"-360,360,1,or_greater,or_less"`.
    *
@@ -34,7 +34,7 @@ public enum class PropertyHint(
    */
   RANGE(1),
   /**
-   * Hints that an [int], [String], or [StringName] property is an enumerated value to pick in a
+   * Hints that an [Long], [String], or [StringName] property is an enumerated value to pick in a
    * list specified via a hint string.
    *
    * The hint string is a comma separated list of names such as `"Hello,Something,Else"`. Whitespace
@@ -53,7 +53,7 @@ public enum class PropertyHint(
    */
   ENUM_SUGGESTION(3),
   /**
-   * Hints that a [float] property should be edited using a curve editor showing an exponential
+   * Hints that a [Double] property should be edited using a curve editor showing an exponential
    * easing function. The hint string can include `"attenuation"` to flip the curve horizontally and/or
    * `"positive_only"` to exclude in/out easing and limit values to be greater than or equal to zero.
    * This displays differently to a property that uses [PROPERTY_HINT_RANGE] with the `"exp"` keyword,
@@ -68,7 +68,7 @@ public enum class PropertyHint(
    */
   LINK(5),
   /**
-   * Hints that an [int] property is a bitmask with named bit flags.
+   * Hints that an [Long] property is a bitmask with named bit flags.
    *
    * The hint string is a comma separated list of names such as `"Bit0,Bit1,Bit2,Bit3"`. Whitespace
    * is **not** removed from either end of a name. The first name in the list has value 1, the next 2,
@@ -82,27 +82,27 @@ public enum class PropertyHint(
    */
   FLAGS(6),
   /**
-   * Hints that an [int] property is a bitmask using the optionally named 2D render layers.
+   * Hints that an [Long] property is a bitmask using the optionally named 2D render layers.
    */
   LAYERS_2D_RENDER(7),
   /**
-   * Hints that an [int] property is a bitmask using the optionally named 2D physics layers.
+   * Hints that an [Long] property is a bitmask using the optionally named 2D physics layers.
    */
   LAYERS_2D_PHYSICS(8),
   /**
-   * Hints that an [int] property is a bitmask using the optionally named 2D navigation layers.
+   * Hints that an [Long] property is a bitmask using the optionally named 2D navigation layers.
    */
   LAYERS_2D_NAVIGATION(9),
   /**
-   * Hints that an [int] property is a bitmask using the optionally named 3D render layers.
+   * Hints that an [Long] property is a bitmask using the optionally named 3D render layers.
    */
   LAYERS_3D_RENDER(10),
   /**
-   * Hints that an [int] property is a bitmask using the optionally named 3D physics layers.
+   * Hints that an [Long] property is a bitmask using the optionally named 3D physics layers.
    */
   LAYERS_3D_PHYSICS(11),
   /**
-   * Hints that an [int] property is a bitmask using the optionally named 3D navigation layers.
+   * Hints that an [Long] property is a bitmask using the optionally named 3D navigation layers.
    */
   LAYERS_3D_NAVIGATION(12),
   /**
@@ -172,11 +172,11 @@ public enum class PropertyHint(
    * allows to select a type from the create dialog. The property will store the selected type as a
    * string.
    *
-   * If a property is [Array], hints the editor how to show elements. The `hint_string` must encode
-   * nested types using `":"` and `"/"`.
+   * If a property is [VariantArray], hints the editor how to show elements. The `hint_string` must
+   * encode nested types using `":"` and `"/"`.
    *
    * If a property is [Dictionary], hints the editor how to show elements. The `hint_string` is the
-   * same as [Array], with a `";"` separating the key and value.
+   * same as [VariantArray], with a `";"` separating the key and value.
    *
    * ```gdscript
    * //gdscript
@@ -285,12 +285,12 @@ public enum class PropertyHint(
   GLOBAL_SAVE_FILE(28),
   INT_IS_OBJECTID(29),
   /**
-   * Hints that an [int] property is a pointer. Used by GDExtension.
+   * Hints that an [Long] property is a pointer. Used by GDExtension.
    */
   INT_IS_POINTER(30),
   /**
-   * Hints that a property is an [Array] with the stored type specified in the hint string. The hint
-   * string contains the type of the array (e.g. `"String"`).
+   * Hints that a property is an [VariantArray] with the stored type specified in the hint string.
+   * The hint string contains the type of the array (e.g. `"String"`).
    *
    * Use the hint string format from [PROPERTY_HINT_TYPE_STRING] for more control over the stored
    * type.

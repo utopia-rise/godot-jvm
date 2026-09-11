@@ -251,7 +251,7 @@ public object ProjectSettings : Object() {
   }
 
   /**
-   * Returns an [Array] of registered global classes. Each global class is represented as a
+   * Returns an [VariantArray] of registered global classes. Each global class is represented as a
    * [Dictionary] that contains the following entries:
    *
    * - `base` is a name of the base class;
@@ -359,9 +359,9 @@ public object ProjectSettings : Object() {
    *
    * - `"name"`: [String] (the property's name)
    *
-   * - `"type"`: [int] (see [Variant.Type])
+   * - `"type"`: [Long] (see [Variant.Type])
    *
-   * - optionally `"hint"`: [int] (see [PropertyHint]) and `"hint_string"`: [String]
+   * - optionally `"hint"`: [Long] (see [PropertyHint]) and `"hint_string"`: [String]
    *
    * ```gdscript
    * //gdscript

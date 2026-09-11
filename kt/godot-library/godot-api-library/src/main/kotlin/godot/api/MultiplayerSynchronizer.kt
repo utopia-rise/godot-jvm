@@ -16,6 +16,7 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.NodePath
+import godot.core.RID
 import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.VariantParser.BOOL
@@ -230,7 +231,7 @@ public open class MultiplayerSynchronizer : Node() {
   /**
    * Adds a peer visibility filter for this synchronizer.
    *
-   * [filter] should take a peer ID [int] and return a [bool].
+   * [filter] should take a peer ID [Long] and return a [Boolean].
    */
   public final fun addVisibilityFilter(filter: Callable): Unit {
     TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to filter)

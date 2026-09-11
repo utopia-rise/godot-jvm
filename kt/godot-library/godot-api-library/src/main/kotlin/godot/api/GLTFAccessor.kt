@@ -114,7 +114,7 @@ public open class GLTFAccessor : Resource() {
     }
 
   /**
-   * The glTF accessor type, as an [int]. Possible values are `0` for "SCALAR", `1` for "VEC2", `2`
+   * The glTF accessor type, as an [Long]. Possible values are `0` for "SCALAR", `1` for "VEC2", `2`
    * for "VEC3", `3` for "VEC4", `4` for "MAT2", `5` for "MAT3", and `6` for "MAT4".
    */
   public final inline var type: Int

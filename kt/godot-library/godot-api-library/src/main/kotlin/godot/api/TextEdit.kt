@@ -21,6 +21,7 @@ import godot.core.MethodStringName4
 import godot.core.MethodStringName5
 import godot.core.PackedInt32Array
 import godot.core.PackedStringArray
+import godot.core.Rect2
 import godot.core.Rect2i
 import godot.core.Signal0
 import godot.core.Signal2
@@ -2037,9 +2038,9 @@ public open class TextEdit : Control() {
   }
 
   /**
-   * Returns an [Array] of line ranges where `x` is the first line and `y` is the last line. All
-   * lines within these ranges will have a caret on them or be part of a selection. Each line will only
-   * be part of one line range, even if it has multiple carets on it.
+   * Returns an [VariantArray] of line ranges where `x` is the first line and `y` is the last line.
+   * All lines within these ranges will have a caret on them or be part of a selection. Each line will
+   * only be part of one line range, even if it has multiple carets on it.
    *
    * If a selection's end column ([getSelectionToColumn]) is at column `0`, that line will not be
    * included. If a selection begins on the line after another selection ends and [mergeAdjacent] is
@@ -2629,8 +2630,8 @@ public open class TextEdit : Control() {
 
   /**
    * Set a custom draw callback for the gutter at the given index. [drawCallback] must take the
-   * following arguments: A line index [int], a gutter index [int], and an area [Rect2]. This callback
-   * only works when the gutter type is [GUTTER_TYPE_CUSTOM] (see [setGutterType]).
+   * following arguments: A line index [Long], a gutter index [Long], and an area [Rect2]. This
+   * callback only works when the gutter type is [GUTTER_TYPE_CUSTOM] (see [setGutterType]).
    */
   public final fun setGutterCustomDraw(column: Int, drawCallback: Callable): Unit {
     TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong(), CALLABLE to drawCallback)

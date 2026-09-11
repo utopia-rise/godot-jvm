@@ -17,15 +17,15 @@ public enum class VariantType(
    */
   TYPE_NIL(0),
   /**
-   * Variable is of type [bool].
+   * Variable is of type [Boolean].
    */
   TYPE_BOOL(1),
   /**
-   * Variable is of type [int].
+   * Variable is of type [Long].
    */
   TYPE_INT(2),
   /**
-   * Variable is of type [float].
+   * Variable is of type [Double].
    */
   TYPE_FLOAT(3),
   /**
@@ -125,7 +125,7 @@ public enum class VariantType(
    */
   TYPE_DICTIONARY(27),
   /**
-   * Variable is of type [Array].
+   * Variable is of type [VariantArray].
    */
   TYPE_ARRAY(28),
   /**

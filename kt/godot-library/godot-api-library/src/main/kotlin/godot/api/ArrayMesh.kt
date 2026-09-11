@@ -21,6 +21,8 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName5
 import godot.core.PackedByteArray
+import godot.core.PackedInt32Array
+import godot.core.PackedVector3Array
 import godot.core.StringName
 import godot.core.Transform3D
 import godot.core.VariantArray
@@ -33,6 +35,8 @@ import godot.core.VariantParser.PACKED_BYTE_ARRAY
 import godot.core.VariantParser.STRING
 import godot.core.VariantParser.STRING_NAME
 import godot.core.VariantParser.TRANSFORM3D
+import godot.core.Vector2
+import godot.core.Vector3
 import godot.core.asCachedStringName
 import kotlin.Any
 import kotlin.Float
@@ -247,8 +251,8 @@ public open class ArrayMesh : Mesh() {
    * [Mesh.ARRAY_TANGENT] are set if and only if they are set in [arrays] and all other entries are
    * `null`.
    *
-   * The [lods] argument is a dictionary with [float] keys and [PackedInt32Array] values. Each entry
-   * in the dictionary represents an LOD level of the surface, where the value is the
+   * The [lods] argument is a dictionary with [Double] keys and [PackedInt32Array] values. Each
+   * entry in the dictionary represents an LOD level of the surface, where the value is the
    * [Mesh.ARRAY_INDEX] array to use for the LOD level and the key is roughly proportional to the
    * distance at which the LOD stats being used. I.e., increasing the key of an LOD also increases the
    * distance that the objects has to be from the camera before the LOD is used.

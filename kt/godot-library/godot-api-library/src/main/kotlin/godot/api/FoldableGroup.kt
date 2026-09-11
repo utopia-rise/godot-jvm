@@ -58,7 +58,7 @@ public open class FoldableGroup : Resource() {
   }
 
   /**
-   * Returns an [Array] of [FoldableContainer]s that have this as their FoldableGroup (see
+   * Returns an [VariantArray] of [FoldableContainer]s that have this as their FoldableGroup (see
    * [FoldableContainer.foldableGroup]). This is equivalent to [ButtonGroup] but for
    * FoldableContainers.
    */

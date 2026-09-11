@@ -19,6 +19,7 @@ import godot.core.VariantParser.BOOL
 import godot.core.VariantParser.DOUBLE
 import godot.core.VariantParser.LONG
 import godot.core.VariantParser.TRANSFORM3D
+import godot.core.Vector3
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float

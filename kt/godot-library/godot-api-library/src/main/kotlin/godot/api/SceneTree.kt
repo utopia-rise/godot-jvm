@@ -461,7 +461,7 @@ public open class SceneTree : MainLoop() {
   }
 
   /**
-   * Returns an [Array] of currently existing [Tween]s in the tree, including paused tweens.
+   * Returns an [VariantArray] of currently existing [Tween]s in the tree, including paused tweens.
    */
   public final fun getProcessedTweens(): VariantArray<Tween> {
     TransferContext.writeMethodArguments(ptr, objectID.id)
@@ -641,8 +641,8 @@ public open class SceneTree : MainLoop() {
   }
 
   /**
-   * Returns an [Array] containing all nodes inside this tree, that have been added to the given
-   * [group], in scene hierarchy order.
+   * Returns an [VariantArray] containing all nodes inside this tree, that have been added to the
+   * given [group], in scene hierarchy order.
    */
   public final fun getNodesInGroup(group: StringName): VariantArray<Node> {
     TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to group)
@@ -907,8 +907,8 @@ public open class SceneTree : MainLoop() {
   ) = setGroup(group.asCachedStringName(), property, value)
 
   /**
-   * Returns an [Array] containing all nodes inside this tree, that have been added to the given
-   * [group], in scene hierarchy order.
+   * Returns an [VariantArray] containing all nodes inside this tree, that have been added to the
+   * given [group], in scene hierarchy order.
    */
   public final fun getNodesInGroup(group: String): VariantArray<Node> =
       getNodesInGroup(group.asCachedStringName())

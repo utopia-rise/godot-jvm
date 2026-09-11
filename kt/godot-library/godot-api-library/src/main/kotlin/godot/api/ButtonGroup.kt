@@ -62,7 +62,7 @@ public open class ButtonGroup : Resource() {
   }
 
   /**
-   * Returns an [Array] of [Button]s who have this as their [ButtonGroup] (see
+   * Returns an [VariantArray] of [Button]s who have this as their [ButtonGroup] (see
    * [BaseButton.buttonGroup]).
    */
   public final fun getButtons(): VariantArray<BaseButton> {

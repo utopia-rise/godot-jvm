@@ -18,7 +18,10 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.PackedColorArray
 import godot.core.PackedFloat32Array
+import godot.core.PackedVector2Array
+import godot.core.PackedVector3Array
 import godot.core.Transform2D
 import godot.core.Transform3D
 import godot.core.VariantParser.BOOL
@@ -28,6 +31,8 @@ import godot.core.VariantParser.OBJECT
 import godot.core.VariantParser.PACKED_FLOAT_32_ARRAY
 import godot.core.VariantParser.TRANSFORM2D
 import godot.core.VariantParser.TRANSFORM3D
+import godot.core.Vector2
+import godot.core.Vector3
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int

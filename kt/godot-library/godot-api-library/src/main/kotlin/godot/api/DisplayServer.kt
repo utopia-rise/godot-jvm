@@ -2487,7 +2487,7 @@ public object DisplayServer : Object() {
   }
 
   /**
-   * Returns an [Array] of voice information dictionaries.
+   * Returns an [VariantArray] of voice information dictionaries.
    *
    * Each [Dictionary] contains two [String] entries:
    *
@@ -2609,10 +2609,10 @@ public object DisplayServer : Object() {
    * a text boundary.
    *
    * - [TTS_UTTERANCE_STARTED], [TTS_UTTERANCE_ENDED], and [TTS_UTTERANCE_CANCELED] callable's
-   * method should take one [int] parameter, the utterance ID.
+   * method should take one [Long] parameter, the utterance ID.
    *
-   * - [TTS_UTTERANCE_BOUNDARY] callable's method should take two [int] parameters, the index of the
-   * character and the utterance ID.
+   * - [TTS_UTTERANCE_BOUNDARY] callable's method should take two [Long] parameters, the index of
+   * the character and the utterance ID.
    *
    * **Note:** The granularity of the boundary callbacks is engine dependent.
    *
@@ -2826,9 +2826,10 @@ public object DisplayServer : Object() {
   }
 
   /**
-   * Returns an [Array] of [Rect2], each of which is the bounding rectangle for a display cutout or
-   * notch. These are non-functional areas on edge-to-edge screens used by cameras and sensors. Returns
-   * an empty array if the device does not have cutouts. See also [getDisplaySafeArea].
+   * Returns an [VariantArray] of [Rect2], each of which is the bounding rectangle for a display
+   * cutout or notch. These are non-functional areas on edge-to-edge screens used by cameras and
+   * sensors. Returns an empty array if the device does not have cutouts. See also
+   * [getDisplaySafeArea].
    *
    * **Note:** Currently only implemented on Android. Other platforms will return an empty array
    * even if they do have display cutouts or notches.
@@ -4533,7 +4534,7 @@ public object DisplayServer : Object() {
   /**
    * Adds a callback for the accessibility action (action which can be performed by using a special
    * screen reader command or buttons on the Braille display), and marks this action as supported. The
-   * action callback receives one [Variant] argument, which value depends on action type.
+   * action callback receives one [Any] argument, which value depends on action type.
    */
   @JvmStatic
   public final fun accessibilityUpdateAddAction(
@@ -5027,7 +5028,7 @@ public object DisplayServer : Object() {
 
   /**
    * Sets the callback that should be called when a hardware keyboard is connected or disconnected.
-   * [callable] should accept a single [bool] argument indicating whether the keyboard has been
+   * [callable] should accept a single [Boolean] argument indicating whether the keyboard has been
    * connected (`true`) or disconnected (`false`).
    *
    * **Note:** This method is only implemented on Android.
@@ -5109,7 +5110,7 @@ public object DisplayServer : Object() {
 
   /**
    * Shows a text dialog which uses the operating system's native look-and-feel. [callback] should
-   * accept a single [int] parameter which corresponds to the index of the pressed button.
+   * accept a single [Long] parameter which corresponds to the index of the pressed button.
    *
    * **Note:** This method is implemented if the display server has the [FEATURE_NATIVE_DIALOG]
    * feature. Supported platforms include macOS, Windows, and Android.
@@ -5228,7 +5229,7 @@ public object DisplayServer : Object() {
    *
    * - `"values"` - [PackedStringArray] of values. If empty, boolean option (check box) is used.
    *
-   * - `"default"` - default selected option index ([int]) or default boolean value ([bool]).
+   * - `"default"` - default selected option index ([Long]) or default boolean value ([Boolean]).
    *
    * Callbacks have the following arguments: `status: bool, selected_paths: PackedStringArray,
    * selected_filter_index: int, selected_option: Dictionary`.
@@ -5504,8 +5505,8 @@ public object DisplayServer : Object() {
 
   /**
    * Sets the application status indicator activation callback. [callback] should take two
-   * arguments: [int] mouse button index (one of [MouseButton] values) and [Vector2i] click position in
-   * screen coordinates.
+   * arguments: [Long] mouse button index (one of [MouseButton] values) and [Vector2i] click position
+   * in screen coordinates.
    *
    * **Note:** This method is implemented on macOS and Windows.
    */

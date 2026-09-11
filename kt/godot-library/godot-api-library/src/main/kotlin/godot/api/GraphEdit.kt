@@ -752,7 +752,7 @@ public open class GraphEdit : Control() {
   }
 
   /**
-   * Returns an [Array] containing a list of all connections for [node].
+   * Returns an [VariantArray] containing a list of all connections for [node].
    *
    * A connection is represented as a [Dictionary] in the form of:
    *
@@ -795,7 +795,8 @@ public open class GraphEdit : Control() {
   }
 
   /**
-   * Returns an [Array] containing the list of connections that intersect with the given [Rect2].
+   * Returns an [VariantArray] containing the list of connections that intersect with the given
+   * [Rect2].
    *
    * A connection is represented as a [Dictionary] in the form of:
    *
@@ -1312,7 +1313,7 @@ public open class GraphEdit : Control() {
       getConnectionCount(fromNode.asCachedStringName(), fromPort)
 
   /**
-   * Returns an [Array] containing a list of all connections for [node].
+   * Returns an [VariantArray] containing a list of all connections for [node].
    *
    * A connection is represented as a [Dictionary] in the form of:
    *

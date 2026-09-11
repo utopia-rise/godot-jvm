@@ -10,9 +10,12 @@ import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
+import godot.core.Dictionary
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
+import godot.core.StringName
+import godot.core.VariantArray
 import godot.core.VariantCaster.ANY
 import godot.core.VariantParser.LONG
 import kotlin.Any
@@ -24,8 +27,8 @@ import kotlin.jvm.JvmField
 
 /**
  * [PackedDataContainer] can be used to efficiently store data from untyped containers. The data is
- * packed into raw bytes and can be saved to file. Only [Array] and [Dictionary] can be stored this
- * way.
+ * packed into raw bytes and can be saved to file. Only [VariantArray] and [Dictionary] can be stored
+ * this way.
  *
  * You can retrieve the data by iterating on the container, which will work as if iterating on the
  * packed data itself. If the packed container is a [Dictionary], the data can be retrieved by key
@@ -66,8 +69,8 @@ public open class PackedDataContainer : Resource() {
   }
 
   /**
-   * Packs the given container into a binary representation. The [value] must be either [Array] or
-   * [Dictionary], any other type will result in invalid data error.
+   * Packs the given container into a binary representation. The [value] must be either
+   * [VariantArray] or [Dictionary], any other type will result in invalid data error.
    *
    * **Note:** Subsequent calls to this method will overwrite the existing data.
    */

@@ -111,7 +111,7 @@ public open class Font internal constructor() : Resource() {
   }
 
   /**
-   * Returns [Array] of valid [Font] [RID]s, which can be passed to the [TextServer] methods.
+   * Returns [VariantArray] of valid [Font] [RID]s, which can be passed to the [TextServer] methods.
    */
   public final fun getRids(): VariantArray<RID> {
     TransferContext.writeMethodArguments(ptr, objectID.id)

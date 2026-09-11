@@ -158,9 +158,9 @@ public open class BitMap : Resource() {
   }
 
   /**
-   * Creates an [Array] of polygons covering a rectangular portion of the bitmap. It uses a marching
-   * squares algorithm, followed by Ramer-Douglas-Peucker (RDP) reduction of the number of vertices.
-   * Each polygon is described as a [PackedVector2Array] of its vertices.
+   * Creates an [VariantArray] of polygons covering a rectangular portion of the bitmap. It uses a
+   * marching squares algorithm, followed by Ramer-Douglas-Peucker (RDP) reduction of the number of
+   * vertices. Each polygon is described as a [PackedVector2Array] of its vertices.
    *
    * To get polygons covering the whole bitmap, pass:
    *

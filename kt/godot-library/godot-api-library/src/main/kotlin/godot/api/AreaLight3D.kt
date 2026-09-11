@@ -18,6 +18,7 @@ import godot.core.VariantParser.BOOL
 import godot.core.VariantParser.OBJECT
 import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.core.Vector3
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Suppress

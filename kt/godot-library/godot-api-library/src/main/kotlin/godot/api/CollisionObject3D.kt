@@ -332,8 +332,8 @@ public open class CollisionObject3D internal constructor() : Node3D() {
   }
 
   /**
-   * Returns an [Array] of `owner_id` identifiers. You can use these ids in other methods that take
-   * `owner_id` as an argument.
+   * Returns an [VariantArray] of `owner_id` identifiers. You can use these ids in other methods
+   * that take `owner_id` as an argument.
    */
   public final fun getShapeOwners(): PackedInt32Array {
     TransferContext.writeMethodArguments(ptr, objectID.id)

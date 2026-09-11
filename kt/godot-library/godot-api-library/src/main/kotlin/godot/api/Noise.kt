@@ -139,7 +139,8 @@ public open class Noise internal constructor() : Resource() {
   }
 
   /**
-   * Returns an [Array] of [Image]s containing 3D noise values for use with [ImageTexture3D.create].
+   * Returns an [VariantArray] of [Image]s containing 3D noise values for use with
+   * [ImageTexture3D.create].
    *
    * **Note:** With [normalize] set to `false`, the default implementation expects the noise
    * generator to return values in the range `-1.0` to `1.0`.
@@ -158,7 +159,7 @@ public open class Noise internal constructor() : Resource() {
   }
 
   /**
-   * Returns an [Array] of [Image]s containing seamless 3D noise values for use with
+   * Returns an [VariantArray] of [Image]s containing seamless 3D noise values for use with
    * [ImageTexture3D.create].
    *
    * **Note:** With [normalize] set to `false`, the default implementation expects the noise

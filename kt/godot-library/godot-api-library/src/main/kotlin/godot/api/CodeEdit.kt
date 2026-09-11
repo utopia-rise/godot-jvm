@@ -378,8 +378,8 @@ public open class CodeEdit : TextEdit() {
   /**
    * Override this method to define what items in [candidates] should be displayed.
    *
-   * Both [candidates] and the return is an [Array] of [Dictionary], see [getCodeCompletionOption]
-   * for [Dictionary] content.
+   * Both [candidates] and the return is an [VariantArray] of [Dictionary], see
+   * [getCodeCompletionOption] for [Dictionary] content.
    */
   public open fun _filterCodeCompletionCandidates(candidates: VariantArray<Dictionary<Any?, Any?>>):
       VariantArray<Dictionary<Any?, Any?>> {

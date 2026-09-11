@@ -10,6 +10,7 @@ import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
+import godot.core.Dictionary
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -37,10 +38,10 @@ import kotlin.jvm.JvmStatic
  *
  * [stringify] is used to convert any data type into a JSON string.
  *
- * [parse] is used to convert any existing JSON data into a [Variant] that can be used within Godot.
- * If successfully parsed, use [data] to retrieve the [Variant], and use [@GlobalScope.typeof] to check
- * if the Variant's type is what you expect. JSON Objects are converted into a [Dictionary], but JSON
- * data can be used to store [Array]s, numbers, [String]s and even just a boolean.
+ * [parse] is used to convert any existing JSON data into a [Any] that can be used within Godot. If
+ * successfully parsed, use [data] to retrieve the [Any], and use [@GlobalScope.typeof] to check if the
+ * Variant's type is what you expect. JSON Objects are converted into a [Dictionary], but JSON data can
+ * be used to store [VariantArray]s, numbers, [String]s and even just a boolean.
  *
  * ```
  * var data_to_send = ["a", "b", "c"]
@@ -84,7 +85,7 @@ import kotlin.jvm.JvmStatic
 @GodotBaseType
 public open class JSON : Resource() {
   /**
-   * Contains the parsed JSON data in [Variant] form.
+   * Contains the parsed JSON data in [Any] form.
    */
   public final inline var `data`: Any?
     @JvmName("dataProperty")
@@ -200,11 +201,11 @@ public open class JSON : Resource() {
         MethodStringName2<JSON, Any?, Any?, Boolean>("to_native")
 
     /**
-     * Converts a [Variant] var to JSON text and returns the result. Useful for serializing data to
+     * Converts a [Any] var to JSON text and returns the result. Useful for serializing data to
      * store or send over the network.
      *
      * **Note:** The JSON specification does not define integer or float types, but only a *number*
-     * type. Therefore, converting a Variant to JSON text will convert all numerical values to [float]
+     * type. Therefore, converting a Variant to JSON text will convert all numerical values to [Double]
      * types.
      *
      * **Note:** If [fullPrecision] is `true`, when stringifying floats, the unreliable digits are

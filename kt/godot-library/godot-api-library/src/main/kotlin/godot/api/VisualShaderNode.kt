@@ -130,8 +130,8 @@ public open class VisualShaderNode internal constructor() : Resource() {
   }
 
   /**
-   * Sets the default input ports values using an [Array] of the form `[index0, value0, index1,
-   * value1, ...]`. For example: `[0, Vector3(0, 0, 0), 1, Vector3(0, 0, 0)]`.
+   * Sets the default input ports values using an [VariantArray] of the form `[index0, value0,
+   * index1, value1, ...]`. For example: `[0, Vector3(0, 0, 0), 1, Vector3(0, 0, 0)]`.
    */
   public final fun setDefaultInputValues(values: VariantArray<Any?>): Unit {
     TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to values)
@@ -139,8 +139,8 @@ public open class VisualShaderNode internal constructor() : Resource() {
   }
 
   /**
-   * Returns an [Array] containing default values for all of the input ports of the node in the form
-   * `[index0, value0, index1, value1, ...]`.
+   * Returns an [VariantArray] containing default values for all of the input ports of the node in
+   * the form `[index0, value0, index1, value1, ...]`.
    */
   public final fun getDefaultInputValues(): VariantArray<Any?> {
     TransferContext.writeMethodArguments(ptr, objectID.id)

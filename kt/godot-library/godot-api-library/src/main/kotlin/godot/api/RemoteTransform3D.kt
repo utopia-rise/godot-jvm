@@ -13,6 +13,7 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
+import godot.core.Transform3D
 import godot.core.VariantParser.BOOL
 import godot.core.VariantParser.NODE_PATH
 import godot.core.asCachedNodePath

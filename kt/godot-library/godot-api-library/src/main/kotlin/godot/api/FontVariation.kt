@@ -86,7 +86,7 @@ public open class FontVariation : Font() {
    * tags[/url].
    *
    * **Note:** This [Dictionary] uses OpenType tags as keys. Variation axes can be identified both
-   * by tags ([int], e.g. `0x77678674`) and names ([String], e.g. `wght`). Some axes might be
+   * by tags ([Long], e.g. `0x77678674`) and names ([String], e.g. `wght`). Some axes might be
    * accessible by multiple names. For example, `wght` refers to the same axis as `weight`. Tags on the
    * other hand are unique. To convert between names and tags, use [TextServer.nameToTag] and
    * [TextServer.tagToName].

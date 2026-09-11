@@ -237,7 +237,7 @@ public object Performance : Object() {
   }
 
   /**
-   * Returns the names of active custom monitors in an [Array].
+   * Returns the names of active custom monitors in an [VariantArray].
    */
   @JvmStatic
   public final fun getCustomMonitorNames(): VariantArray<StringName> {
@@ -247,7 +247,7 @@ public object Performance : Object() {
   }
 
   /**
-   * Returns the [MonitorType] values of active custom monitors in an [Array].
+   * Returns the [MonitorType] values of active custom monitors in an [VariantArray].
    */
   @JvmStatic
   public final fun getCustomMonitorTypes(): PackedInt32Array {
