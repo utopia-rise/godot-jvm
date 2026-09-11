@@ -81,9 +81,12 @@ The reconciliation rules are:
 
 ## Source warning
 
+Reloading exists only for the debug pair: the release `game.jar` shares one class loader with the
+bootstrap code and is never reloaded, which a release binary never needs.
+
 The node warning is timestamp-based, not a reload-order flag. Each physical
 script stores the source file modification time when it is loaded, saved, or
-reloaded. The manager records the current time when it reloads `main.jar`. A
+reloaded. The manager records the current time when it reloads `usercode.jar`. A
 placeholder warns only when its source timestamp is newer than the JAR reload
 timestamp. Reloading either resource therefore gives the same result regardless
 of which one Godot processes first.
