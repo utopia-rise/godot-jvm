@@ -283,6 +283,17 @@
     transform: translateX(-50%);
     width: max-content;
   }
+
+  /* Material sizes the repository name for its fixed 11.7rem slot; in the centered, content-sized bar the name and
+     facts get their full width. */
+  .md-header__inner .md-header__source .md-source {
+    flex-shrink: 0;
+  }
+
+  .md-header__inner .md-header__source .md-source__repository {
+    max-width: none;
+    overflow: visible;
+  }
 }
 
 .md-source--extra {
