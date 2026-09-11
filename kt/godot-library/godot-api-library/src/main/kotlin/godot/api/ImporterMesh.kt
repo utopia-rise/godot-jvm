@@ -123,8 +123,8 @@ public open class ImporterMesh : Resource() {
    * [Mesh.ARRAY_TANGENT] are set if and only if they are set in [arrays] and all other entries are
    * `null`.
    *
-   * The [lods] argument is a dictionary with [float] keys and [PackedInt32Array] values. Each entry
-   * in the dictionary represents an LOD level of the surface, where the value is the
+   * The [lods] argument is a dictionary with [Double] keys and [PackedInt32Array] values. Each
+   * entry in the dictionary represents an LOD level of the surface, where the value is the
    * [Mesh.ARRAY_INDEX] array to use for the LOD level and the key is roughly proportional to the
    * distance at which the LOD stats being used. I.e., increasing the key of an LOD also increases the
    * distance that the objects has to be from the camera before the LOD is used.
@@ -269,10 +269,10 @@ public open class ImporterMesh : Resource() {
    * The number of generated lods can be accessed using [getSurfaceLodCount], and each LOD is
    * available in [getSurfaceLodSize] and [getSurfaceLodIndices].
    *
-   * [boneTransformArray] is an [Array] which can be either empty or contain [Transform3D]s which,
-   * for each of the mesh's bone IDs, will apply mesh skinning when generating the LOD mesh variations.
-   * This is usually used to account for discrepancies in scale between the mesh itself and its
-   * skinning data.
+   * [boneTransformArray] is an [VariantArray] which can be either empty or contain [Transform3D]s
+   * which, for each of the mesh's bone IDs, will apply mesh skinning when generating the LOD mesh
+   * variations. This is usually used to account for discrepancies in scale between the mesh itself and
+   * its skinning data.
    */
   public final fun generateLods(
     normalMergeAngle: Float,

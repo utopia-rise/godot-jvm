@@ -18,6 +18,7 @@ import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.PackedInt32Array
 import godot.core.PackedVector2Array
+import godot.core.Transform2D
 import godot.core.VariantArray
 import godot.core.VariantCaster.ANY
 import godot.core.VariantParser.ARRAY

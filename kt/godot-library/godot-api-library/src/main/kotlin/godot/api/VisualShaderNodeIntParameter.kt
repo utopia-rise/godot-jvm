@@ -29,7 +29,7 @@ import kotlin.jvm.JvmField
 import kotlin.jvm.JvmName
 
 /**
- * A [VisualShaderNodeParameter] of type [int]. Offers additional customization for range of
+ * A [VisualShaderNodeParameter] of type [Long]. Offers additional customization for range of
  * accepted values.
  */
 @GodotBaseType

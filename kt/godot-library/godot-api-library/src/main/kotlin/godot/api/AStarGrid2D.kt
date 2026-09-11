@@ -548,7 +548,7 @@ public open class AStarGrid2D : RefCounted() {
 
   /**
    * Returns an array of dictionaries with point data (`id`: [Vector2i], `position`: [Vector2],
-   * `solid`: [bool], `weight_scale`: [float]) within a [region].
+   * `solid`: [Boolean], `weight_scale`: [Double]) within a [region].
    */
   public final fun getPointDataInRegion(region: Rect2i): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments(ptr, objectID.id, RECT2I to region)

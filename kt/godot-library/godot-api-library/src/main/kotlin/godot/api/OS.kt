@@ -883,7 +883,7 @@ public object OS : Object() {
    *
    * - `"stderr"` - [FileAccess] to access the process stderr pipe (read only).
    *
-   * - `"pid"` - Process ID as an [int], which you can use to monitor the process (and potentially
+   * - `"pid"` - Process ID as an [Long], which you can use to monitor the process (and potentially
    * terminate it with [kill]).
    *
    * **Note:** This method is implemented on Android, Linux, macOS, and Windows.

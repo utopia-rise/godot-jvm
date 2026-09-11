@@ -28,7 +28,7 @@ import kotlin.jvm.JvmField
 import kotlin.jvm.JvmOverloads
 
 /**
- * UDP packet peer. Can be used to send and receive raw UDP packets as well as [Variant]s.
+ * UDP packet peer. Can be used to send and receive raw UDP packets as well as [Any]s.
  *
  * **Example:** Send a packet:
  *

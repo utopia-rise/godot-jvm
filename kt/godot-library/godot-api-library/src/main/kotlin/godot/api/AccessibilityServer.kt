@@ -746,7 +746,7 @@ public object AccessibilityServer : Object() {
   /**
    * Adds a callback for the accessibility action (action which can be performed by using a special
    * screen reader command or buttons on the Braille display), and marks this action as supported. The
-   * action callback receives one [Variant] argument, which value depends on action type.
+   * action callback receives one [Any] argument, which value depends on action type.
    */
   @JvmStatic
   public final fun updateAddAction(

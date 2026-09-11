@@ -10,7 +10,9 @@ import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
+import godot.core.Dictionary
 import godot.core.MethodStringName0
+import godot.core.VariantArray
 import godot.core.VariantParser.LONG
 import kotlin.Int
 import kotlin.Long
@@ -20,8 +22,8 @@ import kotlin.jvm.JvmField
 
 /**
  * When packing nested containers using [PackedDataContainer], they are recursively packed into
- * [PackedDataContainerRef] (only applies to [Array] and [Dictionary]). Their data can be retrieved the
- * same way as from [PackedDataContainer].
+ * [PackedDataContainerRef] (only applies to [VariantArray] and [Dictionary]). Their data can be
+ * retrieved the same way as from [PackedDataContainer].
  *
  * ```
  * var packed = PackedDataContainer.new()

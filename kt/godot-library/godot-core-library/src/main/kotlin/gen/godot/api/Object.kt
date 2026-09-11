@@ -21,6 +21,7 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.NodePath
+import godot.core.Signal
 import godot.core.Signal0
 import godot.core.StringName
 import godot.core.VariantArray
@@ -51,8 +52,8 @@ public infix fun Long.xor(other: Object.ConnectFlags): Long = this.xor(other.fla
 public infix fun Long.and(other: Object.ConnectFlags): Long = this.and(other.flag)
 
 /**
- * An advanced [Variant] type. All classes in the engine inherit from Object. Each class may define
- * new properties, methods or signals, which are available to all inheriting classes. For example, a
+ * An advanced [Any] type. All classes in the engine inherit from Object. Each class may define new
+ * properties, methods or signals, which are available to all inheriting classes. For example, a
  * [Sprite2D] instance is able to call [Node.addChild] because it inherits from [Node].
  *
  * You can create new instances, using `Object.new()` in GDScript, or `new GodotObject` in C#.
@@ -70,7 +71,7 @@ public infix fun Long.and(other: Object.ConnectFlags): Long = this.and(other.fla
  * Inside a [Script], [_getPropertyList] may be overridden to customize properties in several ways.
  * This allows them to be available to the editor, display as lists of options, sub-divide into groups,
  * save on disk, etc. Scripting languages offer easier ways to customize properties, such as with the
- * [annotation @GDScript.@export] annotation.
+ * `@export` annotation.
  *
  * Godot is very dynamic. An object's script, and therefore its properties, methods and signals, can
  * be changed at run-time. Because of this, there can be occasions where, for example, a property
@@ -89,7 +90,7 @@ public infix fun Long.and(other: Object.ConnectFlags): Long = this.and(other.fla
  * print("unknown" in node)      # Prints false
  * ```
  *
- * Notifications are [int] constants commonly sent and received by objects. For example, on every
+ * Notifications are [Long] constants commonly sent and received by objects. For example, on every
  * rendered frame, the [SceneTree] notifies nodes inside the tree with a [Node.NOTIFICATION_PROCESS].
  * The nodes receive it and may call [Node.Process] to update. To make use of notifications, see
  * [notification] and [_notification].
@@ -196,8 +197,8 @@ public open class Object : KtObject() {
   }
 
   /**
-   * Returns the [Variant] value of the given [property]. If the [property] does not exist, this
-   * method returns `null`.
+   * Returns the [Any] value of the given [property]. If the [property] does not exist, this method
+   * returns `null`.
    *
    * ```gdscript
    * //gdscript
@@ -289,15 +290,15 @@ public open class Object : KtObject() {
   }
 
   /**
-   * Returns the object's property list as an [Array] of dictionaries. Each [Dictionary] contains
-   * the following entries:
+   * Returns the object's property list as an [VariantArray] of dictionaries. Each [Dictionary]
+   * contains the following entries:
    *
    * - `name` is the property's name, as a [String];
    *
    * - `class_name` is an empty [StringName], unless the property is [TYPE_OBJECT] and it inherits
    * from a class;
    *
-   * - `type` is the property's type, as an [int] (see [Variant.Type]);
+   * - `type` is the property's type, as an [Long] (see [Variant.Type]);
    *
    * - `hint` is *how* the property is meant to be edited (see [PropertyHint]);
    *
@@ -316,18 +317,18 @@ public open class Object : KtObject() {
   }
 
   /**
-   * Returns this object's methods and their signatures as an [Array] of dictionaries. Each
+   * Returns this object's methods and their signatures as an [VariantArray] of dictionaries. Each
    * [Dictionary] contains the following entries:
    *
    * - `name` is the name of the method, as a [String];
    *
-   * - `args` is an [Array] of dictionaries representing the arguments;
+   * - `args` is an [VariantArray] of dictionaries representing the arguments;
    *
-   * - `default_args` is the default arguments as an [Array] of variants;
+   * - `default_args` is the default arguments as an [VariantArray] of variants;
    *
    * - `flags` is a combination of [MethodFlags];
    *
-   * - `id` is the method's internal identifier [int];
+   * - `id` is the method's internal identifier [Long];
    *
    * - `return` is the returned value, as a [Dictionary];
    *
@@ -451,7 +452,7 @@ public open class Object : KtObject() {
 
   /**
    * Adds or changes the entry [name] inside the object's metadata. The metadata [value] can be any
-   * [Variant], although some types cannot be serialized correctly.
+   * [Any], although some types cannot be serialized correctly.
    *
    * If [value] is `null`, the entry is removed. This is the equivalent of using [removeMeta]. See
    * also [hasMeta] and [getMeta].
@@ -520,7 +521,7 @@ public open class Object : KtObject() {
   }
 
   /**
-   * Returns the object's metadata entry names as an [Array] of [StringName]s.
+   * Returns the object's metadata entry names as an [VariantArray] of [StringName]s.
    */
   public final fun getMetaList(): VariantArray<StringName> {
     TransferContext.writeMethodArguments(ptr, objectID.id)
@@ -530,8 +531,8 @@ public open class Object : KtObject() {
 
   /**
    * Adds a user-defined signal named [signal]. Optional arguments for the signal can be added as an
-   * [Array] of dictionaries, each defining a `name` [String] and a `type` [int] (see [Variant.Type]).
-   * See also [hasUserSignal] and [removeUserSignal].
+   * [VariantArray] of dictionaries, each defining a `name` [String] and a `type` [Long] (see
+   * [Variant.Type]). See also [hasUserSignal] and [removeUserSignal].
    *
    * ```gdscript
    * //gdscript
@@ -796,7 +797,7 @@ public open class Object : KtObject() {
   }
 
   /**
-   * Returns the list of existing signals as an [Array] of dictionaries.
+   * Returns the list of existing signals as an [VariantArray] of dictionaries.
    *
    * **Note:** Due to the implementation, each [Dictionary] is formatted very similarly to the
    * returned values of [getMethodList].
@@ -808,8 +809,8 @@ public open class Object : KtObject() {
   }
 
   /**
-   * Returns an [Array] of connections for the given [signal] name. Each connection is represented
-   * as a [Dictionary] that contains three entries:
+   * Returns an [VariantArray] of connections for the given [signal] name. Each connection is
+   * represented as a [Dictionary] that contains three entries:
    *
    * - [code skip-lint]signal[/code] is a reference to the [Signal];
    *
@@ -825,7 +826,7 @@ public open class Object : KtObject() {
   }
 
   /**
-   * Returns an [Array] of signal connections received by this object. Each connection is
+   * Returns an [VariantArray] of signal connections received by this object. Each connection is
    * represented as a [Dictionary] that contains three entries:
    *
    * - `signal` is a reference to the [Signal];
@@ -983,7 +984,7 @@ public open class Object : KtObject() {
    * For detailed examples, see
    * [url=$DOCS_URL/tutorials/i18n/localization_using_gettext.html]Localization using gettext[/url].
    *
-   * **Note:** Negative and [float] numbers may not properly apply to some countable subjects. It's
+   * **Note:** Negative and [Double] numbers may not properly apply to some countable subjects. It's
    * recommended to handle these cases with [tr].
    *
    * **Note:** This method can't be used without an [Object] instance, as it requires the
@@ -1091,8 +1092,8 @@ public open class Object : KtObject() {
       set(property.asCachedStringName(), value)
 
   /**
-   * Returns the [Variant] value of the given [property]. If the [property] does not exist, this
-   * method returns `null`.
+   * Returns the [Any] value of the given [property]. If the [property] does not exist, this method
+   * returns `null`.
    *
    * ```gdscript
    * //gdscript
@@ -1198,7 +1199,7 @@ public open class Object : KtObject() {
 
   /**
    * Adds or changes the entry [name] inside the object's metadata. The metadata [value] can be any
-   * [Variant], although some types cannot be serialized correctly.
+   * [Any], although some types cannot be serialized correctly.
    *
    * If [value] is `null`, the entry is removed. This is the equivalent of using [removeMeta]. See
    * also [hasMeta] and [getMeta].
@@ -1453,8 +1454,8 @@ public open class Object : KtObject() {
   public final fun hasSignal(signal: String): Boolean = hasSignal(signal.asCachedStringName())
 
   /**
-   * Returns an [Array] of connections for the given [signal] name. Each connection is represented
-   * as a [Dictionary] that contains three entries:
+   * Returns an [VariantArray] of connections for the given [signal] name. Each connection is
+   * represented as a [Dictionary] that contains three entries:
    *
    * - [code skip-lint]signal[/code] is a reference to the [Signal];
    *
@@ -1547,7 +1548,7 @@ public open class Object : KtObject() {
    * For detailed examples, see
    * [url=$DOCS_URL/tutorials/i18n/localization_using_gettext.html]Localization using gettext[/url].
    *
-   * **Note:** Negative and [float] numbers may not properly apply to some countable subjects. It's
+   * **Note:** Negative and [Double] numbers may not properly apply to some countable subjects. It's
    * recommended to handle these cases with [tr].
    *
    * **Note:** This method can't be used without an [Object] instance, as it requires the

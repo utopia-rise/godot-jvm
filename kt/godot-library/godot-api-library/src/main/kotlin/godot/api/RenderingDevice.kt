@@ -165,7 +165,7 @@ public open class RenderingDevice internal constructor() : Object() {
    * Once finished with your RID, you will want to free the RID using the RenderingDevice's
    * [freeRid] method.
    *
-   * **Note:** [data] takes an [Array] of [PackedByteArray]s. For [TEXTURE_TYPE_1D],
+   * **Note:** [data] takes an [VariantArray] of [PackedByteArray]s. For [TEXTURE_TYPE_1D],
    * [TEXTURE_TYPE_2D], and [TEXTURE_TYPE_3D] types, this array should only have one element, a
    * [PackedByteArray] containing all the data for the texture. For `_ARRAY` and `_CUBE` types, the
    * length should be the same as the number of [RDTextureFormat.arrayLayers] in [format].

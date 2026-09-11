@@ -13,6 +13,7 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantParser.DOUBLE
+import godot.core.Vector3
 import kotlin.Double
 import kotlin.Float
 import kotlin.Suppress

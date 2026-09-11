@@ -17,6 +17,7 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.RID
 import godot.core.StringName
 import godot.core.VariantCaster.ANY
 import godot.core.VariantParser.BOOL

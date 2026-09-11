@@ -32,7 +32,7 @@ import kotlin.jvm.JvmName
 @GodotBaseType
 public open class RDPipelineSpecializationConstant : RefCounted() {
   /**
-   * The specialization constant's value. Only [bool], [int] and [float] types are valid for
+   * The specialization constant's value. Only [Boolean], [Long] and [Double] types are valid for
    * specialization constants.
    */
   public final inline var `value`: Any?

@@ -351,7 +351,7 @@ public abstract class Mesh : Resource() {
     public override val `value`: Long,
   ) : GodotEnum {
     /**
-     * [PackedVector3Array], [PackedVector2Array], or [Array] of vertex positions.
+     * [PackedVector3Array], [PackedVector2Array], or [VariantArray] of vertex positions.
      */
     VERTEX(0),
     /**

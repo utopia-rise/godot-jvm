@@ -11,8 +11,10 @@ import godot.codegen.generation.task.EnrichedEnumTask
 import godot.codegen.generation.task.FileTask
 import godot.codegen.models.enriched.EnrichedClass
 import godot.codegen.models.enriched.EnrichedEnum
+import godot.codegen.models.traits.GenerationType
 import godot.common.extensions.convertToCamelCase
 import godot.tools.common.constants.GENERATED_COMMENT
+import godot.tools.common.constants.godotCorePackage
 
 class FileRule : GodotApiRule<FileTask>() {
     override fun apply(task: FileTask, context: GenerationContext) {
@@ -120,6 +122,15 @@ class DocumentationRule : GodotApiRule<ApiTask>() {
         CodeBlock("codeblock", false),
     )
     private val codeBlockRegex = Regex("""```[\s\S]*?```""")
+    private val annotationRegex = Regex("""\[annotation @\w+\.(@\w+)]""")
+    private val referenceRegex = Regex("""\[(\w+)(?:\.\w+)?]""")
+    private val typeReferences = mapOf(
+        "[int]" to "[Long]",
+        "[float]" to "[Double]",
+        "[bool]" to "[Boolean]",
+        "[Variant]" to "[Any]",
+        "[Array]" to "[VariantArray]",
+    )
     private val doubleSkipRegex = Regex("(?<!\n)\n(?!\n)")
 
     override fun apply(task: ApiTask, context: GenerationContext) {
@@ -136,6 +147,18 @@ class DocumentationRule : GodotApiRule<ApiTask>() {
         allDocumented.forEach {
             it.description = sanitize(it.description)
         }
+
+        for (clazz in classes) {
+            if (clazz.className.packageName == godotCorePackage) continue
+            val documentation = (listOf(clazz) + clazz.methods + clazz.properties + clazz.constants + clazz.signals)
+                .joinToString(" ") { it.description ?: "" }
+            for (match in referenceRegex.findAll(documentation)) {
+                val className = GenerationType(match.groupValues[1]).className
+                if (className.packageName == godotCorePackage) {
+                    clazz.additionalImports.add(className)
+                }
+            }
+        }
     }
 
     private fun sanitize(documentation: String?): String {
@@ -148,6 +171,11 @@ class DocumentationRule : GodotApiRule<ApiTask>() {
             .replace("%", "&#37;")
             .replace("*/", "*&#92;")
             .replace(System.lineSeparator(), "\n")
+            .replace(annotationRegex, "`$1`")
+
+        for ((godotType, kotlinType) in typeReferences) {
+            unicodeString = unicodeString.replace(godotType, kotlinType)
+        }
 
         for ((regex) in typeToSanitize) {
             var matchResult = unicodeString.let { regex.find(it) }

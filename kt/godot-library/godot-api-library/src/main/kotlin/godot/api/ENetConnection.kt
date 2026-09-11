@@ -123,10 +123,10 @@ public open class ENetConnection : RefCounted() {
 
   /**
    * Waits for events on this connection and shuttles packets between the host and its peers, with
-   * the given [timeout] (in milliseconds). The returned [Array] will have 4 elements. An [EventType],
-   * the [ENetPacketPeer] which generated the event, the event associated data (if any), the event
-   * associated channel (if any). If the generated event is [EVENT_RECEIVE], the received packet will
-   * be queued to the associated [ENetPacketPeer].
+   * the given [timeout] (in milliseconds). The returned [VariantArray] will have 4 elements. An
+   * [EventType], the [ENetPacketPeer] which generated the event, the event associated data (if any),
+   * the event associated channel (if any). If the generated event is [EVENT_RECEIVE], the received
+   * packet will be queued to the associated [ENetPacketPeer].
    *
    * Call this function regularly to handle connections, disconnections, and to receive new packets.
    *

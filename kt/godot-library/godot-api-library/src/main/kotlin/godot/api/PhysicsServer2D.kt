@@ -19,7 +19,10 @@ import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.MethodStringName5
 import godot.core.MethodStringName6
+import godot.core.PackedFloat32Array
+import godot.core.PackedVector2Array
 import godot.core.RID
+import godot.core.Rect2
 import godot.core.Transform2D
 import godot.core.VariantCaster.ANY
 import godot.core.VariantParser.BOOL
@@ -675,25 +678,25 @@ public object PhysicsServer2D : Object() {
    * depends on the shape's type (see [shapeGetType]):
    *
    * - [SHAPE_WORLD_BOUNDARY]: an array of length two containing a [Vector2] `normal` direction and
-   * a [float] distance `d`,
+   * a [Double] distance `d`,
    *
-   * - [SHAPE_SEPARATION_RAY]: a dictionary containing the key `length` with a [float] value and the
-   * key `slide_on_slope` with a [bool] value,
+   * - [SHAPE_SEPARATION_RAY]: a dictionary containing the key `length` with a [Double] value and
+   * the key `slide_on_slope` with a [Boolean] value,
    *
    * - [SHAPE_SEGMENT]: a [Rect2] `rect` containing the first point of the segment in
    * `rect.position` and the second point of the segment in `rect.size`,
    *
-   * - [SHAPE_CIRCLE]: a [float] `radius`,
+   * - [SHAPE_CIRCLE]: a [Double] `radius`,
    *
    * - [SHAPE_RECTANGLE]: a [Vector2] `half_extents`,
    *
-   * - [SHAPE_CAPSULE]: an array of length two (or a [Vector2]) containing a [float] `height` and a
-   * [float] `radius`,
+   * - [SHAPE_CAPSULE]: an array of length two (or a [Vector2]) containing a [Double] `height` and a
+   * [Double] `radius`,
    *
    * - [SHAPE_CONVEX_POLYGON]: either a [PackedVector2Array] of points defining a convex polygon in
    * counterclockwise order (the clockwise outward normal of each segment formed by consecutive points
    * is calculated internally), or a [PackedFloat32Array] of length divisible by four so that every
-   * 4-tuple of [float]s contains the coordinates of a point followed by the coordinates of the
+   * 4-tuple of [Double]s contains the coordinates of a point followed by the coordinates of the
    * clockwise outward normal vector to the segment between the current point and the next point,
    *
    * - [SHAPE_CONCAVE_POLYGON]: a [PackedVector2Array] of length divisible by two (each pair of
@@ -1793,8 +1796,8 @@ public object PhysicsServer2D : Object() {
    *
    * 1. `state`: a [PhysicsDirectBodyState2D] used to retrieve and modify the body's state,
    *
-   * 2. [code skip-lint]userdata[/code]: a [Variant]; its value will be the [userdata] passed into
-   * this method.
+   * 2. [code skip-lint]userdata[/code]: a [Any]; its value will be the [userdata] passed into this
+   * method.
    *
    * If [userdata] is `null`, then [callable] must take only the `state` parameter.
    */

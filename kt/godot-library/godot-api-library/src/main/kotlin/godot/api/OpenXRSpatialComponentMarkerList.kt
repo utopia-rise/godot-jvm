@@ -13,6 +13,7 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.PackedByteArray
 import godot.core.RID
 import godot.core.VariantCaster.ANY
 import godot.core.VariantParser.LONG

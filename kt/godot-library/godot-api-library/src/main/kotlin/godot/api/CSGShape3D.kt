@@ -14,6 +14,7 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
+import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.VariantParser.ARRAY
 import godot.core.VariantParser.BOOL
@@ -323,8 +324,8 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
   }
 
   /**
-   * Returns an [Array] with two elements, the first is the [Transform3D] of this node and the
-   * second is the root [Mesh] of this node. Only works when this node is the root shape.
+   * Returns an [VariantArray] with two elements, the first is the [Transform3D] of this node and
+   * the second is the root [Mesh] of this node. Only works when this node is the root shape.
    *
    * **Note:** CSG mesh data updates are deferred, which means they are updated with a delay of one
    * rendered frame. To avoid getting an empty shape or outdated mesh data, make sure to call `await

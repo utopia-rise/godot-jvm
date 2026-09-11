@@ -10,6 +10,7 @@ import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
+import godot.core.Dictionary
 import godot.core.Error
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -352,7 +353,7 @@ public open class Resource : RefCounted() {
    * Duplicates this resource, returning a new resource with its `export`ed or
    * [PROPERTY_USAGE_STORAGE] properties copied from the original.
    *
-   * If [deep] is `false`, a **shallow** copy is returned: nested [Array], [Dictionary], and
+   * If [deep] is `false`, a **shallow** copy is returned: nested [VariantArray], [Dictionary], and
    * [Resource] properties are not duplicated and are shared with the original resource.
    *
    * If [deep] is `true`, a **deep** copy is returned: all nested arrays, dictionaries, and packed

@@ -596,7 +596,7 @@ public object Engine : Object() {
    * The `hex` value is encoded as follows, from left to right: one byte for the major, one byte for
    * the minor, one byte for the patch version. For example, "3.1.12" would be `0x03010C`.
    *
-   * **Note:** The `hex` value is still an [int] internally, and printing it will give you its
+   * **Note:** The `hex` value is still an [Long] internally, and printing it will give you its
    * decimal representation, which is not particularly meaningful. Use hexadecimal literals for quick
    * version comparisons from code:
    *
@@ -628,9 +628,9 @@ public object Engine : Object() {
   }
 
   /**
-   * Returns the engine author information as a [Dictionary], where each entry is an [Array] of
-   * strings with the names of notable contributors to the Godot Engine: `lead_developers`, `founders`,
-   * `project_managers`, and `developers`.
+   * Returns the engine author information as a [Dictionary], where each entry is an [VariantArray]
+   * of strings with the names of notable contributors to the Godot Engine: `lead_developers`,
+   * `founders`, `project_managers`, and `developers`.
    */
   @JvmStatic
   public final fun getAuthorInfo(): Dictionary<Any?, Any?> {
@@ -640,15 +640,15 @@ public object Engine : Object() {
   }
 
   /**
-   * Returns an [Array] of dictionaries with copyright information for every component of Godot's
-   * source code.
+   * Returns an [VariantArray] of dictionaries with copyright information for every component of
+   * Godot's source code.
    *
    * Every [Dictionary] contains a `name` identifier, and a `parts` array of dictionaries. It
    * describes the component in detail with the following entries:
    *
-   * - `files` - [Array] of file paths from the source code affected by this component;
+   * - `files` - [VariantArray] of file paths from the source code affected by this component;
    *
-   * - `copyright` - [Array] of owners of this component;
+   * - `copyright` - [VariantArray] of owners of this component;
    *
    * - `license` - The license applied to this component (such as
    * "[url=https://en.wikipedia.org/wiki/MIT_License#Ambiguity_and_variants]Expat[/url]" or
@@ -662,7 +662,7 @@ public object Engine : Object() {
   }
 
   /**
-   * Returns a [Dictionary] of categorized donor names. Each entry is an [Array] of strings:
+   * Returns a [Dictionary] of categorized donor names. Each entry is an [VariantArray] of strings:
    *
    * {`platinum_sponsors`, `gold_sponsors`, `silver_sponsors`, `bronze_sponsors`, `mini_sponsors`,
    * `gold_donors`, `silver_donors`, `bronze_donors`}

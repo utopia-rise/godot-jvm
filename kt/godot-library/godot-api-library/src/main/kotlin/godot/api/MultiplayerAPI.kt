@@ -16,6 +16,7 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName4
+import godot.core.NodePath
 import godot.core.PackedInt32Array
 import godot.core.Signal0
 import godot.core.Signal1

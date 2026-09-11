@@ -139,7 +139,7 @@ public open class PrimitiveMesh : Mesh() {
 
   /**
    * Override this method to customize how this primitive mesh should be generated. Should return an
-   * [Array] where each element is another Array of values required for the mesh (see the
+   * [VariantArray] where each element is another Array of values required for the mesh (see the
    * [Mesh.ArrayType] constants).
    */
   public open fun _createMeshArray(): VariantArray<Any?> {

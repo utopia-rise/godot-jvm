@@ -65,7 +65,7 @@ import kotlin.jvm.JvmOverloads
  * **Note:** [PopupMenu] is invisible by default. To make it visible, call one of the `popup_*`
  * methods from [Window] on the node, such as [Window.popupCenteredClamped].
  *
- * **Note:** The ID values used for items are limited to 32 bits, not full 64 bits of [int]. This
+ * **Note:** The ID values used for items are limited to 32 bits, not full 64 bits of [Long]. This
  * has a range of `-2^32` to `2^32 - 1`, i.e. `-2147483648` to `2147483647`.
  */
 @GodotBaseType

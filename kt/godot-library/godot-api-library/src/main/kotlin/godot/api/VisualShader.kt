@@ -420,15 +420,15 @@ public open class VisualShader : Shader() {
     public override val `value`: Long,
   ) : GodotEnum {
     /**
-     * Varying is of type [float].
+     * Varying is of type [Double].
      */
     FLOAT(0),
     /**
-     * Varying is of type [int].
+     * Varying is of type [Long].
      */
     INT(1),
     /**
-     * Varying is of type unsigned [int].
+     * Varying is of type unsigned [Long].
      */
     UINT(2),
     /**
@@ -444,7 +444,7 @@ public open class VisualShader : Shader() {
      */
     VECTOR_4D(5),
     /**
-     * Varying is of type [bool].
+     * Varying is of type [Boolean].
      */
     BOOLEAN(6),
     /**

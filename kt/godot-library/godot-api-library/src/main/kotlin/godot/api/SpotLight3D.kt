@@ -8,6 +8,7 @@ package godot.api
 
 import godot.`annotation`.GodotBaseType
 import godot.common.interop.VoidPtr
+import godot.core.Vector3
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit

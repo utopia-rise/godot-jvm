@@ -22,6 +22,7 @@ import godot.core.MethodStringName3
 import godot.core.RID
 import godot.core.Signal0
 import godot.core.Signal1
+import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.VariantParser.ARRAY
 import godot.core.VariantParser.BASIS

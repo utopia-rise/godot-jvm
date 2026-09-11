@@ -15,6 +15,7 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantParser.BOOL
 import godot.core.VariantParser.LONG
+import godot.core.Vector3
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Long

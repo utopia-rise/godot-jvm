@@ -11,6 +11,7 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.BitFieldBase
+import godot.core.Dictionary
 import godot.core.Error
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -1017,7 +1018,7 @@ public open class Node : Object() {
   }
 
   /**
-   * Returns all children of this node inside an [Array].
+   * Returns all children of this node inside an [VariantArray].
    *
    * If [includeInternal] is `false`, excludes internal children from the returned array (see
    * [addChild]'s `internal` parameter).
@@ -1185,10 +1186,10 @@ public open class Node : Object() {
   }
 
   /**
-   * Finds all descendants of this node whose names match [pattern], returning an empty [Array] if
-   * no match is found. The matching is done against node names, *not* their paths, through
-   * [String.match]. As such, it is case-sensitive, `"*"` matches zero or more characters, and `"?"`
-   * matches any single character.
+   * Finds all descendants of this node whose names match [pattern], returning an empty
+   * [VariantArray] if no match is found. The matching is done against node names, *not* their paths,
+   * through [String.match]. As such, it is case-sensitive, `"*"` matches zero or more characters, and
+   * `"?"` matches any single character.
    *
    * If [type] is not empty, only descendants inheriting from [type] are included (see
    * [Object.isClass]).
@@ -1236,7 +1237,7 @@ public open class Node : Object() {
   /**
    * Returns `true` if [path] points to a valid node and its subnames point to a valid [Resource],
    * e.g. `Area2D/CollisionShape2D:shape`. Properties that are not [Resource] types (such as nodes or
-   * other [Variant] types) are not considered. See also [getNodeAndResource].
+   * other [Any] types) are not considered. See also [getNodeAndResource].
    */
   public final fun hasNodeAndResource(path: NodePath): Boolean {
     TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
@@ -1246,7 +1247,7 @@ public open class Node : Object() {
 
   /**
    * Fetches a node and its most nested resource as specified by the [NodePath]'s subname. Returns
-   * an [Array] of size `3` where:
+   * an [VariantArray] of size `3` where:
    *
    * - Element `0` is the [Node], or `null` if not found;
    *
@@ -1418,7 +1419,7 @@ public open class Node : Object() {
   }
 
   /**
-   * Returns an [Array] of group names that the node has been added to.
+   * Returns an [VariantArray] of group names that the node has been added to.
    *
    * **Note:** To improve performance, the order of group names is *not* guaranteed and may vary
    * between project runs. Therefore, do not rely on the group order.
@@ -2132,8 +2133,8 @@ public open class Node : Object() {
    * parameters, the duplicated node will not have a [Script].
    *
    * **Note:** By default, this method will duplicate only properties marked for serialization (i.e.
-   * using [@GlobalScope.PROPERTY_USAGE_STORAGE], or in GDScript, [annotation @GDScript.@export]). If
-   * you want to duplicate all properties, use [DUPLICATE_INTERNAL_STATE].
+   * using [@GlobalScope.PROPERTY_USAGE_STORAGE], or in GDScript, `@export`). If you want to duplicate
+   * all properties, use [DUPLICATE_INTERNAL_STATE].
    */
   @JvmOverloads
   public final fun duplicate(flags: Int = 15): Node? {
@@ -2300,10 +2301,10 @@ public open class Node : Object() {
    *
    * - `call_local`: if `true`, the method will also be called locally;
    *
-   * - `channel`: an [int] representing the channel to send the RPC on.
+   * - `channel`: an [Long] representing the channel to send the RPC on.
    *
-   * **Note:** In GDScript, this method corresponds to the [annotation @GDScript.@rpc] annotation,
-   * with various parameters passed (`@rpc(any)`, `@rpc(authority)`...). See also the
+   * **Note:** In GDScript, this method corresponds to the `@rpc` annotation, with various
+   * parameters passed (`@rpc(any)`, `@rpc(authority)`...). See also the
    * [url=$DOCS_URL/tutorials/networking/high_level_multiplayer.html]high-level multiplayer[/url]
    * tutorial.
    */
@@ -2384,7 +2385,7 @@ public open class Node : Object() {
    * For detailed examples, see
    * [url=$DOCS_URL/tutorials/i18n/localization_using_gettext.html]Localization using gettext[/url].
    *
-   * **Note:** Negative and [float] numbers may not properly apply to some countable subjects. It's
+   * **Note:** Negative and [Double] numbers may not properly apply to some countable subjects. It's
    * recommended to handle these cases with [atr].
    */
   public final fun atrN(
@@ -2402,8 +2403,8 @@ public open class Node : Object() {
    * Sends a remote procedure call request for the given [method] to peers on the network (and
    * locally), sending additional arguments to the method called by the RPC. The call request will only
    * be received by nodes with the same [NodePath], including the exact same [name]. Behavior depends
-   * on the RPC configuration for the given [method] (see [rpcConfig] and [annotation @GDScript.@rpc]).
-   * By default, methods are not exposed to RPCs.
+   * on the RPC configuration for the given [method] (see [rpcConfig] and `@rpc`). By default, methods
+   * are not exposed to RPCs.
    *
    * May return [OK] if the call is successful, [ERR_INVALID_PARAMETER] if the arguments passed in
    * the [method] do not match, [ERR_UNCONFIGURED] if the node's [multiplayer] cannot be fetched (such
@@ -2586,14 +2587,14 @@ public open class Node : Object() {
   /**
    * Returns `true` if [path] points to a valid node and its subnames point to a valid [Resource],
    * e.g. `Area2D/CollisionShape2D:shape`. Properties that are not [Resource] types (such as nodes or
-   * other [Variant] types) are not considered. See also [getNodeAndResource].
+   * other [Any] types) are not considered. See also [getNodeAndResource].
    */
   public final fun hasNodeAndResource(path: String): Boolean =
       hasNodeAndResource(path.asCachedNodePath())
 
   /**
    * Fetches a node and its most nested resource as specified by the [NodePath]'s subname. Returns
-   * an [Array] of size `3` where:
+   * an [VariantArray] of size `3` where:
    *
    * - Element `0` is the [Node], or `null` if not found;
    *
@@ -2697,10 +2698,10 @@ public open class Node : Object() {
    *
    * - `call_local`: if `true`, the method will also be called locally;
    *
-   * - `channel`: an [int] representing the channel to send the RPC on.
+   * - `channel`: an [Long] representing the channel to send the RPC on.
    *
-   * **Note:** In GDScript, this method corresponds to the [annotation @GDScript.@rpc] annotation,
-   * with various parameters passed (`@rpc(any)`, `@rpc(authority)`...). See also the
+   * **Note:** In GDScript, this method corresponds to the `@rpc` annotation, with various
+   * parameters passed (`@rpc(any)`, `@rpc(authority)`...). See also the
    * [url=$DOCS_URL/tutorials/networking/high_level_multiplayer.html]high-level multiplayer[/url]
    * tutorial.
    */
@@ -2741,7 +2742,7 @@ public open class Node : Object() {
    * For detailed examples, see
    * [url=$DOCS_URL/tutorials/i18n/localization_using_gettext.html]Localization using gettext[/url].
    *
-   * **Note:** Negative and [float] numbers may not properly apply to some countable subjects. It's
+   * **Note:** Negative and [Double] numbers may not properly apply to some countable subjects. It's
    * recommended to handle these cases with [atr].
    */
   public final fun atrN(
@@ -2755,8 +2756,8 @@ public open class Node : Object() {
    * Sends a remote procedure call request for the given [method] to peers on the network (and
    * locally), sending additional arguments to the method called by the RPC. The call request will only
    * be received by nodes with the same [NodePath], including the exact same [name]. Behavior depends
-   * on the RPC configuration for the given [method] (see [rpcConfig] and [annotation @GDScript.@rpc]).
-   * By default, methods are not exposed to RPCs.
+   * on the RPC configuration for the given [method] (see [rpcConfig] and `@rpc`). By default, methods
+   * are not exposed to RPCs.
    *
    * May return [OK] if the call is successful, [ERR_INVALID_PARAMETER] if the arguments passed in
    * the [method] do not match, [ERR_UNCONFIGURED] if the node's [multiplayer] cannot be fetched (such

@@ -39,6 +39,8 @@ import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
 import godot.core.VariantParser.PACKED_VECTOR3_ARRAY
 import godot.core.VariantParser.STRING
 import godot.core.VariantParser._RID
+import godot.core.Vector2
+import godot.core.Vector3
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
@@ -137,8 +139,8 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
   }
 
   /**
-   * Convenience method when the caller only has an [Array] of [OpenXRSpatialComponentData] and
-   * needs to discover spatial entities.
+   * Convenience method when the caller only has an [VariantArray] of [OpenXRSpatialComponentData]
+   * and needs to discover spatial entities.
    */
   @JvmOverloads
   public final fun discoverSpatialEntitiesWithComponentData(

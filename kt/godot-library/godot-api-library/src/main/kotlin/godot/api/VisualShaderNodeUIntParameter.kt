@@ -23,7 +23,7 @@ import kotlin.jvm.JvmField
 import kotlin.jvm.JvmName
 
 /**
- * A [VisualShaderNodeParameter] of type unsigned [int]. Offers additional customization for range
+ * A [VisualShaderNodeParameter] of type unsigned [Long]. Offers additional customization for range
  * of accepted values.
  */
 @GodotBaseType

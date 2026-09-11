@@ -49,8 +49,8 @@ public open class InstancePlaceholder internal constructor() : Node() {
    * called.
    *
    * If [withOrder] is `true`, a key named `.order` (note the leading period) is added to the
-   * dictionary. This `.order` key is an [Array] of [String] property names specifying the order in
-   * which properties will be applied (with index 0 being the first).
+   * dictionary. This `.order` key is an [VariantArray] of [String] property names specifying the order
+   * in which properties will be applied (with index 0 being the first).
    */
   @JvmOverloads
   public final fun getStoredValues(withOrder: Boolean = false): Dictionary<Any?, Any?> {

@@ -106,8 +106,8 @@ public object IP : Object() {
   }
 
   /**
-   * Resolves a given hostname in a blocking way. Addresses are returned as an [Array] of IPv4 or
-   * IPv6 addresses depending on [ipType].
+   * Resolves a given hostname in a blocking way. Addresses are returned as an [VariantArray] of
+   * IPv4 or IPv6 addresses depending on [ipType].
    */
   @JvmOverloads
   @JvmStatic

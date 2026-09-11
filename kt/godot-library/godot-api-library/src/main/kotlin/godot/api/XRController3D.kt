@@ -93,8 +93,8 @@ public open class XRController3D : XRNode3D() {
   }
 
   /**
-   * Returns a [Variant] for the input with the given [name]. This works for any input type, the
-   * variant will be typed according to the actions configuration.
+   * Returns a [Any] for the input with the given [name]. This works for any input type, the variant
+   * will be typed according to the actions configuration.
    *
    * **Note:** The current [XRInterface] defines the [name] for each input. In the case of OpenXR,
    * these are the names of actions in the current action set.
@@ -150,8 +150,8 @@ public open class XRController3D : XRNode3D() {
       isButtonPressed(name.asCachedStringName())
 
   /**
-   * Returns a [Variant] for the input with the given [name]. This works for any input type, the
-   * variant will be typed according to the actions configuration.
+   * Returns a [Any] for the input with the given [name]. This works for any input type, the variant
+   * will be typed according to the actions configuration.
    *
    * **Note:** The current [XRInterface] defines the [name] for each input. In the case of OpenXR,
    * these are the names of actions in the current action set.

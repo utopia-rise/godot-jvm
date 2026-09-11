@@ -57,8 +57,8 @@ import kotlin.jvm.JvmOverloads
  * To create a [TreeItem], use [Tree.createItem] or [TreeItem.createChild]. To remove a [TreeItem],
  * use [Object.free].
  *
- * **Note:** The ID values used for buttons are 32-bit, unlike [int] which is always 64-bit. They go
- * from `-2147483648` to `2147483647`.
+ * **Note:** The ID values used for buttons are 32-bit, unlike [Long] which is always 64-bit. They
+ * go from `-2147483648` to `2147483647`.
  */
 @GodotBaseType
 public open class TreeItem internal constructor() : Object() {

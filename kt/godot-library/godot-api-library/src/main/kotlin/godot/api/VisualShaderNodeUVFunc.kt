@@ -14,6 +14,7 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantParser.LONG
+import godot.core.Vector2
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit

@@ -119,9 +119,9 @@ public open class ScriptBacktrace : RefCounted() {
   /**
    * Returns the value of the global variable at the specified index.
    *
-   * **Warning:** With GDScript backtraces, the returned [Variant] will be the variable's actual
-   * value, including any object references. This means that storing the returned [Variant] will
-   * prevent any such object from being deallocated, so it's generally recommended not to do so.
+   * **Warning:** With GDScript backtraces, the returned [Any] will be the variable's actual value,
+   * including any object references. This means that storing the returned [Any] will prevent any such
+   * object from being deallocated, so it's generally recommended not to do so.
    */
   public final fun getGlobalVariableValue(variableIndex: Int): Any? {
     TransferContext.writeMethodArguments(ptr, objectID.id, LONG to variableIndex.toLong())
@@ -155,9 +155,9 @@ public open class ScriptBacktrace : RefCounted() {
    * Returns the value of the local variable at the specified [variableIndex] in the stack frame at
    * the specified [frameIndex].
    *
-   * **Warning:** With GDScript backtraces, the returned [Variant] will be the variable's actual
-   * value, including any object references. This means that storing the returned [Variant] will
-   * prevent any such object from being deallocated, so it's generally recommended not to do so.
+   * **Warning:** With GDScript backtraces, the returned [Any] will be the variable's actual value,
+   * including any object references. This means that storing the returned [Any] will prevent any such
+   * object from being deallocated, so it's generally recommended not to do so.
    */
   public final fun getLocalVariableValue(frameIndex: Int, variableIndex: Int): Any? {
     TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frameIndex.toLong(), LONG to variableIndex.toLong())
@@ -191,9 +191,9 @@ public open class ScriptBacktrace : RefCounted() {
    * Returns the value of the member variable at the specified [variableIndex] in the stack frame at
    * the specified [frameIndex].
    *
-   * **Warning:** With GDScript backtraces, the returned [Variant] will be the variable's actual
-   * value, including any object references. This means that storing the returned [Variant] will
-   * prevent any such object from being deallocated, so it's generally recommended not to do so.
+   * **Warning:** With GDScript backtraces, the returned [Any] will be the variable's actual value,
+   * including any object references. This means that storing the returned [Any] will prevent any such
+   * object from being deallocated, so it's generally recommended not to do so.
    */
   public final fun getMemberVariableValue(frameIndex: Int, variableIndex: Int): Any? {
     TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frameIndex.toLong(), LONG to variableIndex.toLong())

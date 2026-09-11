@@ -83,9 +83,9 @@ public open class StreamPeer internal constructor() : RefCounted() {
   }
 
   /**
-   * Returns a chunk data with the received bytes, as an [Array] containing two elements: an [Error]
-   * constant and a [PackedByteArray]. [bytes] is the number of bytes to be received. If not enough
-   * bytes are available, the function will block until the desired amount is received.
+   * Returns a chunk data with the received bytes, as an [VariantArray] containing two elements: an
+   * [Error] constant and a [PackedByteArray]. [bytes] is the number of bytes to be received. If not
+   * enough bytes are available, the function will block until the desired amount is received.
    */
   public final fun getData(bytes: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bytes.toLong())
@@ -94,9 +94,9 @@ public open class StreamPeer internal constructor() : RefCounted() {
   }
 
   /**
-   * Returns a chunk data with the received bytes, as an [Array] containing two elements: an [Error]
-   * constant and a [PackedByteArray]. [bytes] is the number of bytes to be received. If not enough
-   * bytes are available, the function will return how many were actually received.
+   * Returns a chunk data with the received bytes, as an [VariantArray] containing two elements: an
+   * [Error] constant and a [PackedByteArray]. [bytes] is the number of bytes to be received. If not
+   * enough bytes are available, the function will return how many were actually received.
    */
   public final fun getPartialData(bytes: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bytes.toLong())
