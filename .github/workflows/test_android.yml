@@ -30,7 +30,7 @@ jobs:
             variant: debug
           - name: Release export tests
             release: true
-            build-task: buildAndroid
+            build-task: buildAndroidRelease
             export-task: exportAndroidRelease
             variant: release
     steps:

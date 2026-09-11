@@ -33,7 +33,7 @@ jobs:
             variant: debug
           - name: Release export tests
             release: true
-            build-task: buildIOS
+            build-task: buildIOSRelease
             export-task: exportIOSRelease
             xcode-configuration: Release
             variant: release
@@ -114,7 +114,7 @@ jobs:
         timeout-minutes: 30
 
       # Device build only, so no execution: Godot's official simulator template slice is x86_64
-      # while the GraalVM usercode image is arm64, and the two can never link together.
+      # while the GraalVM game image is arm64, and the two can never link together.
       - name: Link the exported iOS application
         run: |
           sudo xcode-select --switch /Applications/Xcode_26.3.app
