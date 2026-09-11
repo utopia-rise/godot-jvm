@@ -21,7 +21,9 @@ These are also the source fixtures used by the IDE plugin's
 diagnostics expected in each mode.
 
 `CopyModificationCheckTestClass.kt` remains a separate Kotlin-only check and
-is not part of the registration matrix.
+is not part of the registration matrix. `IdeKotlinInspectionContainers.kt` is
+another Kotlin-only check covering typed, nested, and star-projected
+`VariantArray` and `Dictionary` registrations plus converter-built callables.
 
 ## Registration highlighting examples
 

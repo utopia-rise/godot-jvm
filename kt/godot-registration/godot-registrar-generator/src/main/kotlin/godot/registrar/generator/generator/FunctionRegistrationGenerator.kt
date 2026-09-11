@@ -12,11 +12,9 @@ import godot.registrar.generator.ext.asEnumName
 import godot.registrar.generator.ext.effectiveFunctions
 import godot.registrar.generator.ext.flattenedHierarchy
 import godot.registrar.generator.ext.toGodotClassName
-import godot.registrar.generator.ext.toKtVariantMemberName
+import godot.registrar.generator.ext.toKtVariantConverter
 import godot.registration.model.RegisteredFunction
-import godot.registration.model.ext.isEnum
 import godot.registration.model.types.ScriptClass
-import godot.registration.model.types.Type
 
 fun FunSpec.Builder.addNotificationRegistrations(
     registeredClass: ScriptClass,
@@ -61,22 +59,10 @@ fun FunSpec.Builder.addFunctionRegistrations(
 }
 
 private fun getFunctionTemplateString(registeredFunction: RegisteredFunction) = buildString {
-    val variantType = if (registeredFunction.returnType.isEnum()) {
-        "%M(%T.entries.toTypedArray())"
-    } else {
-        "%M"
+    append("function(%L, rpc(%M, %L, %M, %L), returns(%L, %S)")
+    repeat(registeredFunction.parameters.size) {
+        append(", argument(%L, %S, %S)")
     }
-
-    append("function(%L, rpc(%M, %L, %M, %L), returns($variantType, %S)")
-
-    registeredFunction.parameters.forEach { valueParameter ->
-        if (valueParameter.type.isEnum()) {
-            append(", argument(%M(%T.entries.toTypedArray()), %S, %S)")
-        } else {
-            append(", argument(%M, %S, %S)")
-        }
-    }
-
     append(")")
 }
 
@@ -84,38 +70,19 @@ private fun getTemplateArgs(
     registeredFunction: RegisteredFunction,
     context: GeneratorContext,
     className: ClassName,
-): List<Any> {
-    val returnType = registeredFunction.returnType.toGodotClassName(context)
-    val typeClassName = if (registeredFunction.returnType.isEnum()) {
-        registeredFunction.returnType.toEnumClassName()
-    } else {
-        null
-    }
+): List<Any> = buildList {
+    add(getFunctionReference(registeredFunction, className))
+    add(getRpcModeEnum(registeredFunction))
+    add(getRpcCallLocal(registeredFunction))
+    add(getRpcTransferModeEnum(registeredFunction))
+    add(getRpcChannel(registeredFunction))
+    add(registeredFunction.returnType.toKtVariantConverter())
+    add(registeredFunction.returnType.toGodotClassName(context))
 
-    return buildList {
-        add(getFunctionReference(registeredFunction, className))
-        add(getRpcModeEnum(registeredFunction))
-        add(getRpcCallLocal(registeredFunction))
-        add(getRpcTransferModeEnum(registeredFunction))
-        add(getRpcChannel(registeredFunction))
-
-        if (registeredFunction.returnType.isEnum()) {
-            add(registeredFunction.returnType.toKtVariantMemberName())
-            typeClassName?.let { add(it) }
-        } else {
-            add(registeredFunction.returnType.toKtVariantMemberName())
-        }
-
-        add(returnType)
-
-        registeredFunction.parameters.forEach { valueParameter ->
-            add(valueParameter.type.toKtVariantMemberName())
-            if (valueParameter.type.isEnum()) {
-                add(valueParameter.type.toEnumClassName())
-            }
-            add(valueParameter.type.toGodotClassName(context))
-            add(valueParameter.name)
-        }
+    registeredFunction.parameters.forEach { valueParameter ->
+        add(valueParameter.type.toKtVariantConverter())
+        add(valueParameter.type.toGodotClassName(context))
+        add(valueParameter.name)
     }
 }
 
@@ -138,8 +105,3 @@ private fun getRpcCallLocal(registeredFunction: RegisteredFunction): Boolean =
 
 private fun getRpcChannel(registeredFunction: RegisteredFunction): Int =
     registeredFunction.rpcConfig?.transferChannel ?: 0
-
-private fun Type.toEnumClassName() = ClassName(
-    fqName.substringBeforeLast("."),
-    fqName.substringAfterLast("."),
-)

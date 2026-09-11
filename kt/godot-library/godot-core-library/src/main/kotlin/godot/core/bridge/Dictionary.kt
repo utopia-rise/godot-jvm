@@ -22,22 +22,36 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
     internal var valueVariantConverter: VariantConverter = VariantParser.NIL
 
     @PublishedApi
-    internal constructor(handle: VoidPtr) {
-        keyVariantConverter = VariantCaster.ANY
-        valueVariantConverter = VariantCaster.ANY
-        ptr = handle
-        MemoryManager.registerNativeCoreType(this, VariantParser.DICTIONARY)
-    }
+    internal constructor(handle: VoidPtr) : this(handle, VariantCaster.ANY, VariantCaster.ANY)
 
     @PublishedApi
     internal constructor(handle: VoidPtr, keyConverter: VariantConverter, valueConverter: VariantConverter) {
-        keyVariantConverter = if(keyConverter == VariantParser.NIL) VariantCaster.ANY else keyConverter
-        valueVariantConverter = if(valueConverter == VariantParser.NIL) VariantCaster.ANY else valueConverter
+        keyVariantConverter = keyConverter
+        valueVariantConverter = valueConverter
         ptr = handle
         MemoryManager.registerNativeCoreType(this, VariantParser.DICTIONARY)
     }
 
     constructor(keyClass: Class<*>, valueClass: Class<*>) : this(Reflection.getOrCreateKotlinClass(keyClass), Reflection.getOrCreateKotlinClass(valueClass))
+
+    constructor(keyConverter: VariantConverter, valueConverter: VariantConverter) {
+        keyVariantConverter = keyConverter
+        valueVariantConverter = valueConverter
+        ptr = if (keyConverter != VariantCaster.ANY || valueConverter != VariantCaster.ANY) {
+            TransferContext.writeArguments(
+                VariantCaster.INT to keyConverter.id,
+                VariantCaster.INT to -1,
+                VariantParser.LONG to nullptr,
+                VariantCaster.INT to valueConverter.id,
+                VariantCaster.INT to -1,
+                VariantParser.LONG to nullptr
+            )
+            Bridge.engine_call_constructor_typed()
+        } else {
+            Bridge.engine_call_constructor()
+        }
+        MemoryManager.registerNativeCoreType(this, VariantParser.DICTIONARY)
+    }
 
     @PublishedApi
     internal constructor(keyClass: KClass<*>, valueClass: KClass<*>) {
@@ -321,7 +335,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
     }
 
     override fun put(key: K, value: V): V? {
-        val ret = get(key, null)
+        val ret = if (has(key)) get(key) else null
         set(key, value)
         return ret
     }

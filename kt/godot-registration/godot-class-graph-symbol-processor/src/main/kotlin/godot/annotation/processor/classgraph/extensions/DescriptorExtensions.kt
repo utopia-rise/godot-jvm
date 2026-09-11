@@ -8,6 +8,7 @@ import io.github.classgraph.MethodInfo
 import io.github.classgraph.MethodParameterInfo
 import io.github.classgraph.TypeArgument
 import io.github.classgraph.TypeSignature
+import godot.registration.model.types.TYPE_KOTLIN_ANY
 
 val ClassMemberInfo.fqName: String
     get() = "${classInfo.name}$$name"
@@ -50,7 +51,7 @@ fun MethodInfo.returnTypeArguments(): List<TypeArgument> =
     (typeSignature?.resultType as? ClassRefTypeSignature)?.typeArguments ?: emptyList()
 
 fun TypeArgument.rawDescriptor(): String =
-    typeSignature.toStringWithoutAnnotations()
+    typeSignature?.toStringWithoutAnnotations() ?: TYPE_KOTLIN_ANY // A generic wildcard has a null value so we fallback to Any.
 
 fun TypeArgument.typeArguments(): List<TypeArgument> =
     (typeSignature as? ClassRefTypeSignature)?.typeArguments ?: emptyList()

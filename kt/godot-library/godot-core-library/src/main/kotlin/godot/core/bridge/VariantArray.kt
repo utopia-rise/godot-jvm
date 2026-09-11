@@ -27,12 +27,28 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
 
     @PublishedApi
     internal constructor(handle: VoidPtr, converter: VariantConverter) {
-        variantConverter = if(converter == VariantParser.NIL) VariantCaster.ANY else converter
+        variantConverter = converter
         ptr = handle
         MemoryManager.registerNativeCoreType(this, VariantParser.ARRAY)
     }
 
     constructor(parameterClazz: Class<*>) : this(Reflection.getOrCreateKotlinClass(parameterClazz))
+
+
+    constructor(converter: VariantConverter) {
+        variantConverter = converter
+        ptr = if (converter != VariantCaster.ANY) {
+            TransferContext.writeArguments(
+                VariantCaster.INT to converter.id,
+                VariantCaster.INT to -1,
+                VariantParser.LONG to nullptr
+            )
+            Bridge.engine_call_constructor_typed()
+        } else {
+            Bridge.engine_call_constructor()
+        }
+        MemoryManager.registerNativeCoreType(this, VariantParser.ARRAY)
+    }
 
     @PublishedApi
     internal constructor(parameterClazz: KClass<*>) {

@@ -393,22 +393,13 @@ enum class VariantParser(override val id: Int) : VariantConverter {
         }
     },
     DICTIONARY(27) {
-        override fun toUnsafeKotlin(buffer: ByteBuffer): Dictionary<*, *> {
-            val ptr = buffer.long
-            val keyType = VariantParser.entries[buffer.long.toInt()]
-            val valueType = VariantParser.entries[buffer.long.toInt()]
-            return Dictionary<Any?, Any?>(ptr, keyType, valueType)
-        }
+        override fun toUnsafeKotlin(buffer: ByteBuffer): Dictionary<*, *> = Dictionary<Any?, Any?>(buffer.long)
 
         override fun toUnsafeGodot(buffer: ByteBuffer, any: Any?) =
             toGodotNativeCoreType<Dictionary<Any, Any?>>(buffer, any)
     },
     ARRAY(28) {
-        override fun toUnsafeKotlin(buffer: ByteBuffer): VariantArray<*> {
-            val ptr = buffer.long
-            val type = VariantParser.entries[buffer.long.toInt()]
-            return VariantArray<Any?>(ptr, type)
-        }
+        override fun toUnsafeKotlin(buffer: ByteBuffer): VariantArray<*> = VariantArray<Any?>(buffer.long)
 
         override fun toUnsafeGodot(buffer: ByteBuffer, any: Any?) =
             toGodotNativeCoreType<VariantArray<Any?>>(buffer, any)
@@ -464,19 +455,20 @@ enum class VariantParser(override val id: Int) : VariantConverter {
 
     override fun toKotlin(buffer: ByteBuffer): Any? {
         val idInBuffer = buffer.variantType
-        if (idInBuffer == id) {
-            return toUnsafeKotlin(buffer)
-        } else if (id == OBJECT.id && idInBuffer == NIL.id) {
+        if (id == OBJECT.id && idInBuffer == NIL.id) {
             // Godot can sometimes send null pointer as NIL variant, so we need to test for that case.
             return null
         }
-        throw TypeCastException(
-            "Shared Buffer Error: JVM expected a ${this::class.simpleName} but received a ${
-                VariantParser.from(
-                    idInBuffer.toLong()
-                )
-            }."
-        )
+        checkType(idInBuffer)
+        return toUnsafeKotlin(buffer)
+    }
+
+    internal fun checkType(idInBuffer: Int) {
+        if (idInBuffer != id) {
+            throw TypeCastException(
+                "Shared Buffer Error: JVM expected a ${this::class.simpleName} but received a ${from(idInBuffer.toLong())}."
+            )
+        }
     }
 
     override fun toGodot(buffer: ByteBuffer, any: Any?) {
@@ -520,6 +512,32 @@ sealed class VariantCaster(val coreVariant: VariantParser) : VariantConverter {
             "No enum entry with godotValue $any found in entries: [${entries.joinToString()}]"
         }
         override fun toGodotCast(any: Any?) = (any as ENUM_TYPE).godotValue
+    }
+
+    /**
+     * The [VariantArray] converter. Godot only knows its own builtin element types (an int array is a `Long` array),
+     * so the element type declared by the engine is never trusted: an array coming from Godot gets [elementConverter],
+     * the converter the JVM declared for its elements (`Int`, `Byte`, an enum, a nested typed container...).
+     * The default instance converts elements as [ANY].
+     */
+    class TYPED_ARRAY(val elementConverter: VariantConverter = ANY) : VariantCaster(VariantParser.ARRAY) {
+        override fun toKotlin(buffer: ByteBuffer): Any? {
+            coreVariant.checkType(buffer.variantType)
+            return VariantArray<Any?>(buffer.long, elementConverter)
+        }
+
+        override fun toGodot(buffer: ByteBuffer, any: Any?) = coreVariant.toGodot(buffer, any)
+    }
+
+    /** The [Dictionary] converter, see [TYPED_ARRAY]. */
+    class TYPED_DICTIONARY(val keyConverter: VariantConverter = ANY, val valueConverter: VariantConverter = ANY) :
+        VariantCaster(VariantParser.DICTIONARY) {
+        override fun toKotlin(buffer: ByteBuffer): Any? {
+            coreVariant.checkType(buffer.variantType)
+            return Dictionary<Any?, Any?>(buffer.long, keyConverter, valueConverter)
+        }
+
+        override fun toGodot(buffer: ByteBuffer, any: Any?) = coreVariant.toGodot(buffer, any)
     }
 
     data object FLOAT : VariantSimpleCaster(VariantParser.DOUBLE) {

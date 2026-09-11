@@ -95,20 +95,20 @@ class KtEnumListProperty<T : KtObject, P : Enum<P>, L : Collection<P>>(
     ktPropertyInfo: KtPropertyInfo,
     getter: (T) -> L,
     setter: ((T, L) -> Unit)?,
-    val getValueConverter: (L?) -> VariantArray<Int>,
-    val setValueConverter: (VariantArray<Int>) -> L
+    val getValueConverter: (L?) -> VariantArray<Long>,
+    val setValueConverter: (VariantArray<Long>) -> L
 ) : KtProperty<T, L>(
     ktPropertyInfo,
     getter,
     setter,
-    VariantParser.ARRAY
+    VariantCaster.TYPED_ARRAY(VariantParser.LONG)
 ) {
     override fun callGet(instance: T) {
-        TransferContext.writeReturnValue(getValueConverter(getter(instance)), VariantParser.ARRAY)
+        TransferContext.writeReturnValue(getValueConverter(getter(instance)), variantConverter)
     }
 
     override fun callSet(instance: T) {
-        val arg = extractSetterArgument<VariantArray<Int>>()
+        val arg = extractSetterArgument<VariantArray<Long>>()
         setter?.invoke(instance, setValueConverter(arg))
     }
 }

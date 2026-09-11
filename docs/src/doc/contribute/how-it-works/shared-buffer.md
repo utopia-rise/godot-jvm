@@ -65,8 +65,7 @@ Type tags follow Godot's `Variant::Type` ordinals. The table below describes C++
 | Object | 24 | 4-byte constructor ID, 8-byte native pointer, 8-byte ObjectID |
 | Callable | 25 | 8-byte native pointer |
 | Signal | 26 | Object payload followed by an 8-byte pointer to its StringName |
-| Dictionary | 27 | 8-byte native pointer and two 8-byte type tags for keys and values |
-| Array | 28 | 8-byte native pointer and 8-byte element type tag |
+| Dictionary, Array | 27, 28 | 8-byte native pointer; element converters come from the JVM declaration, never from the engine's typed builtin |
 | Packed arrays | 29 to 38 | 8-byte native pointer |
 
 Mathematical values use their native component layout. Integer components are 4 bytes; real-valued components follow the build's precision. The JVM and native converters must agree on that layout.

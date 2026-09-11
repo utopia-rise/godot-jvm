@@ -8,8 +8,7 @@ import godot.core.PropertyUsageFlags
 import godot.registrar.generator.GeneratorContext
 import godot.registrar.generator.ext.effectiveProperties
 import godot.registrar.generator.ext.toGodotClassName
-import godot.registrar.generator.ext.toKtVariantMemberName
-import godot.registrar.generator.ext.toTypeName
+import godot.registrar.generator.ext.toKtVariantConverter
 import godot.registrar.generator.generator.hint.PropertyHintProvider
 import godot.registration.model.RegisteredProperty
 import godot.registration.model.RegisteredPropertyBindingKind
@@ -62,14 +61,7 @@ private fun FunSpec.Builder.registerProperty(
 ) {
     val propertyHint = PropertyHintProvider.provide(registeredProperty, context).generate()
     val typeGodotName = if (registeredProperty.type.isEnum()) "int" else registeredProperty.type.toGodotClassName(context)
-    val variantType = if (registeredProperty.type.isEnum()) "%M(%T.entries.toTypedArray())" else "%M"
-    val typeClassName = registeredProperty.type.toTypeName()
-    val variantTypeArguments = buildList {
-        add(registeredProperty.type.toKtVariantMemberName())
-        if (registeredProperty.type.isEnum()) {
-            add(typeClassName)
-        }
-    }
+    val variantConverter = registeredProperty.type.toKtVariantConverter()
 
     if (registeredProperty.bindingKind == RegisteredPropertyBindingKind.ACCESSOR_METHODS) {
         val getterFqName = registeredProperty.getterFqName
@@ -77,51 +69,30 @@ private fun FunSpec.Builder.registerProperty(
         requireNotNull(getterFqName) {
             "Property ${registeredProperty.name} should have a getter when using accessor binding"
         }
-        if (registeredProperty.type.isEnum()) {
-            addStatement(
-                if (setterFqName == null) {
-                    "property(%S, %L, %M(%T.entries.toTypedArray()), %S, %M, %L, %L)"
-                } else {
-                    "property(%S, %L, %L, %M(%T.entries.toTypedArray()), %S, %M, %L, %L)"
-                },
-                registeredProperty.name.convertToSnakeCase(),
-                getGetterReference(registeredProperty, className),
-                *listOfNotNull(
-                    setterFqName?.let { getSetterReference(registeredProperty, className) },
-                    registeredProperty.type.toKtVariantMemberName(),
-                    typeClassName,
-                    typeGodotName,
-                    propertyHint.typeHint,
-                    propertyHint.hintString,
-                    getPropertyUsage(registeredProperty),
-                ).toTypedArray(),
-            )
-        } else {
-            addStatement(
-                if (setterFqName == null) {
-                    "property(%S, %L, %M, %S, %M, %L, %L)"
-                } else {
-                    "property(%S, %L, %L, %M, %S, %M, %L, %L)"
-                },
-                registeredProperty.name.convertToSnakeCase(),
-                getGetterReference(registeredProperty, className),
-                *listOfNotNull(
-                    setterFqName?.let { getSetterReference(registeredProperty, className) },
-                    registeredProperty.type.toKtVariantMemberName(),
-                    typeGodotName,
-                    propertyHint.typeHint,
-                    propertyHint.hintString,
-                    getPropertyUsage(registeredProperty),
-                ).toTypedArray(),
-            )
-        }
+        addStatement(
+            if (setterFqName == null) {
+                "property(%S, %L, %L, %S, %M, %L, %L)"
+            } else {
+                "property(%S, %L, %L, %L, %S, %M, %L, %L)"
+            },
+            registeredProperty.name.convertToSnakeCase(),
+            getGetterReference(registeredProperty, className),
+            *listOfNotNull(
+                setterFqName?.let { getSetterReference(registeredProperty, className) },
+                variantConverter,
+                typeGodotName,
+                propertyHint.typeHint,
+                propertyHint.hintString,
+                getPropertyUsage(registeredProperty),
+            ).toTypedArray(),
+        )
         return
     }
 
     addStatement(
-        "property(%L, $variantType, %S, %M, %L, %L)",
+        "property(%L, %L, %S, %M, %L, %L)",
         getPropertyReference(registeredProperty, className),
-        *variantTypeArguments.toTypedArray(),
+        variantConverter,
         typeGodotName,
         propertyHint.typeHint,
         propertyHint.hintString,
