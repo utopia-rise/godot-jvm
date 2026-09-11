@@ -71,9 +71,10 @@ jobs:
             harness/tests/.gradle
             harness/tests/build/graal
             harness/tests/build/libs/ios
-            harness/tests/build/libs/${{ matrix.variant }}/ios
             harness/tests/jvm/ios
-            harness/tests/jvm/${{ matrix.variant }}/game.a
+#            Note: don't add the following paths, they blow up the cache and are cheap to rebuild
+#            harness/tests/build/libs/${{ matrix.variant }}/ios
+#            harness/tests/jvm/${{ matrix.variant }}/game.a
           key: ios-native-image-${{ matrix.variant }}-${{ runner.arch }}-${{ github.sha }}
           restore-keys: |
             ios-native-image-${{ matrix.variant }}-${{ runner.arch }}-
