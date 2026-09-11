@@ -122,26 +122,27 @@ class KtClassBuilder<T : KtObject>(
             "Found two properties with name $name for class $registeredName"
         }
 
+        val converter = VariantCaster.TYPED_ARRAY(VariantParser.LONG)
         properties += KtEnumListProperty(
             KtPropertyInfo(
-                VariantParser.ARRAY,
+                converter,
                 name,
                 "Int",
                 PropertyHint.ENUM,
                 hintString,
-                propertyUsage(usage, setter != null, VariantParser.ARRAY),
+                propertyUsage(usage, setter != null, converter),
             ),
             getter,
             setter,
             { enumList: Collection<P>? ->
                 (enumList
-                    ?.map { it.godotValue.toInt() }
+                    ?.map { it.godotValue }
                     ?.toVariantArray()
                     ?: variantArrayOf())
             },
-            { enumOrdinalVariantArray ->
+            { enumValueVariantArray ->
                 @Suppress("UNCHECKED_CAST")
-                (enumOrdinalVariantArray.map { it.toLong().toEnum<P>() } as L)
+                (enumValueVariantArray.map { it.toEnum<P>() } as L)
             }
         )
     }

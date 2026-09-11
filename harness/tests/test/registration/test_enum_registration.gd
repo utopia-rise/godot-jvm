@@ -52,3 +52,21 @@ func test_invalid_enum_ordinal_handling():
 	assert_bool(script.invalid_enum_ordinal_handled(99)).override_failure_message("Invalid enum ordinals should be handled predictably instead of silently mapping to a wrong enum").is_true()
 	assert_that(script.bit_flag_value).override_failure_message("Bit flag style enum values should stay readable from GDScript").is_equal(0b011)
 	script.free()
+
+
+func test_enum_list_property_round_trip():
+	var script := EnumRegistration.new()
+	assert_array(script.enum_list).override_failure_message("Enum list properties should be read as their ordinals").contains_exactly([1, 0])
+
+	script.enum_list = [0, 1, 1]
+	assert_that(script.enum_list_names()).override_failure_message("An untyped GDScript array assigned to an enum list should map back to enum entries").is_equal("ENUM_1,ENUM_2,ENUM_2")
+	assert_array(script.enum_list).contains_exactly([0, 1, 1])
+
+	var typed: Array[int] = [1]
+	script.enum_list = typed
+	assert_that(script.enum_list_names()).override_failure_message("A typed Array[int] assigned to an enum list should map back to enum entries").is_equal("ENUM_2")
+
+	# JVM to Godot: the list is replaced on the Kotlin side and read back here.
+	script.set_enum_list_from_jvm()
+	assert_array(script.enum_list).override_failure_message("An enum list set from the JVM should be read as its godot values").contains_exactly([0, 0, 1])
+	script.free()
