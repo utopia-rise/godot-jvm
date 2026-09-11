@@ -444,7 +444,7 @@ bool GodotJvm::load_user_code() {
 #endif
 
         if (!FileAccess::file_exists(user_code_path)) {
-            String message = "No main.jar detected at %s. No classes will be loaded. Build the gradle "
+            String message = "No user code archive detected at %s. No classes will be loaded. Build the gradle "
                              "project to load classes";
 #ifdef TOOLS_ENABLED
             JVM_LOG_WARNING(message, user_code_path);
@@ -454,7 +454,7 @@ bool GodotJvm::load_user_code() {
 #endif
         }
 
-        JVM_LOG_VERBOSE("Loading usercode file at: %s", user_code_path);
+        JVM_LOG_VERBOSE("Loading user code file at: %s", user_code_path);
 #ifdef TOOLS_ENABLED
         jar.instantiate();
         jar->take_over_path(user_code_path);
@@ -466,7 +466,7 @@ bool GodotJvm::load_user_code() {
             bootstrap_class_loader->get_wrapped()
         );
 
-        // update context classloader to use usercode jar
+        // update context classloader to use the user code jar
         user_class_loader->set_as_context_loader(env);
 
         bootstrap->init_jar(env, user_class_loader->get_wrapped());
