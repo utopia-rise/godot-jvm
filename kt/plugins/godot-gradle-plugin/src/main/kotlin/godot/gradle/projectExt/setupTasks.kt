@@ -286,12 +286,15 @@ private fun Project.setupAndroidPackagingTasks(
         packageUserCodeJarTask = desktopPackagingTasks.packageUserCodeJarTask,
     )
 
-    val createReleaseDexJarTask = desktopPackagingTasks.packageReleaseJarTask?.let { packageReleaseJarTask ->
+    val packageReleaseJarTask = desktopPackagingTasks.packageReleaseJarTask
+    val createReleaseDexJarTask = if (packageReleaseJarTask != null) {
         createReleaseDexJarTask(
             checkAndroidJarAccessibleTask = checkAndroidJarAccessibleTask,
             checkD8ToolAccessibleTask = checkD8ToolAccessibleTask,
             packageReleaseJarTask = packageReleaseJarTask,
         )
+    } else {
+        null
     }
 
     return AndroidPackagingTasks(
