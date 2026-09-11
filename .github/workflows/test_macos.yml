@@ -114,6 +114,10 @@ jobs:
           mkdir -p "$template_directory"
           mv templates/templates/macos.zip "$template_directory/macos.zip"
 
+      - name: Build the debug jars the editor resolves script classes from
+        if: matrix.release
+        run: harness/tests/gradlew -p harness/tests/ build
+
       - name: Build JVM tests project
         run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.build-task }}
 

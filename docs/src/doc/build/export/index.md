@@ -10,7 +10,7 @@ Open **Editor > Manage Export Templates** and install the official templates mat
 
 ## 2. Build your project
 
-Select **Build Release** in Godot's toolbar and click **Run Gradle** before a release export (**Export Project**), which packs `jvm/release/`; select **Build** before an export with debug (**Export with Debug**), which packs `jvm/debug/`. For another target, use the platform build action in its page below. The preset warns about the variant that has not been built, and an export whose variant is missing reports the artifact it needs.
+Select **Build Release** in Godot's toolbar and click **Run Gradle** before a release export (**Export Project**), which packs `jvm/release/`; select **Build** before an export with debug (**Export with Debug**), which packs `jvm/debug/`. For another target, use the platform build action in its page below. The preset warns about the variant that has not been built, and an export whose variant is missing reports the artifact it needs. The editor itself always loads `jvm/debug/` and resolves the script classes of an export from it, so **Build** has to have run before any export, a release export included; without it the exported class cache knows none of your scripts.
 
 ## 3. Prepare the runtime
 
