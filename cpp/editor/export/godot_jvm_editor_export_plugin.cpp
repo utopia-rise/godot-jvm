@@ -107,24 +107,32 @@ static Error copy_directory_recursive(const String& from, const String& to) {
 struct DesktopRuntimeFiles {
     const char* arm64_jre_directory;
     const char* x86_64_jre_directory;
-    const char* native_image_file;
+    const char* debug_native_image_file;
+    const char* release_native_image_file;
+
+    const char* native_image_file(bool p_debug) const {
+        return p_debug ? debug_native_image_file : release_native_image_file;
+    }
 };
 
 static const DesktopRuntimeFiles* desktop_runtime_files(const String& p_os_name) {
     static constexpr DesktopRuntimeFiles windows = {
         WINDOWS_EMBEDDED_JRE_ARM_DIRECTORY,
         WINDOWS_EMBEDDED_JRE_AMD_DIRECTORY,
-        WINDOWS_GRAAL_NATIVE_IMAGE_FILE
+        WINDOWS_DEBUG_GRAAL_NATIVE_IMAGE_FILE,
+        WINDOWS_RELEASE_GRAAL_NATIVE_IMAGE_FILE
     };
     static constexpr DesktopRuntimeFiles linux = {
         LINUX_EMBEDDED_JRE_ARM_DIRECTORY,
         LINUX_EMBEDDED_JRE_AMD_DIRECTORY,
-        LINUX_GRAAL_NATIVE_IMAGE_FILE
+        LINUX_DEBUG_GRAAL_NATIVE_IMAGE_FILE,
+        LINUX_RELEASE_GRAAL_NATIVE_IMAGE_FILE
     };
     static constexpr DesktopRuntimeFiles macos = {
         MACOS_EMBEDDED_JRE_ARM_DIRECTORY,
         MACOS_EMBEDDED_JRE_AMD_DIRECTORY,
-        MACOS_GRAAL_NATIVE_IMAGE_FILE
+        MACOS_DEBUG_GRAAL_NATIVE_IMAGE_FILE,
+        MACOS_RELEASE_GRAAL_NATIVE_IMAGE_FILE
     };
     if (p_os_name == "Windows") { return &windows; }
     if (p_os_name == "Linux") { return &linux; }
@@ -140,9 +148,41 @@ static PackedStringArray embedded_jre_directories(const DesktopRuntimeFiles& p_f
     return directories;
 }
 
-// res:// paths of the jars every desktop JVM export bundles.
-static PackedStringArray desktop_jars() {
-    return {String(RES_DIRECTORY) + DESKTOP_BOOTSTRAP_FILE, String(RES_DIRECTORY) + DESKTOP_USER_CODE_FILE};
+// res:// paths of the jars a JVM export of the given variant bundles.
+static PackedStringArray desktop_jars(const bool p_debug) {
+    if (p_debug) {
+        return {
+            String(RES_DIRECTORY) + DESKTOP_DEBUG_BOOTSTRAP_FILE,
+            String(RES_DIRECTORY) + DESKTOP_DEBUG_USER_CODE_FILE
+        };
+    }
+    return {String(RES_DIRECTORY) + DESKTOP_RELEASE_USER_CODE_FILE};
+}
+
+static PackedStringArray android_jars(const bool p_debug) {
+    if (p_debug) {
+        return {
+            String(RES_DIRECTORY) + ANDROID_DEBUG_BOOTSTRAP_FILE,
+            String(RES_DIRECTORY) + ANDROID_DEBUG_USER_CODE_FILE
+        };
+    }
+    return {String(RES_DIRECTORY) + ANDROID_RELEASE_USER_CODE_FILE};
+}
+
+static String external_jars_directory(const bool p_debug) {
+    return String(RES_DIRECTORY) + (p_debug ? DEBUG_EXTERNAL_JARS_DIRECTORY : RELEASE_EXTERNAL_JARS_DIRECTORY);
+}
+
+static String ios_archive(const bool p_debug) {
+    return String(RES_DIRECTORY)
+         + (p_debug ? IOS_DEBUG_GRAAL_NATIVE_IMAGE_ARCHIVE : IOS_RELEASE_GRAAL_NATIVE_IMAGE_ARCHIVE);
+}
+
+static bool any_missing(const PackedStringArray& p_files, PackedStringArray& r_missing) {
+    for (const String& file : p_files) {
+        if (!FileAccess::file_exists(file)) { r_missing.push_back(file); }
+    }
+    return !r_missing.is_empty();
 }
 
 bool GodotJvmEditorExportPlugin::_supports_platform(const Ref<EditorExportPlatform>& p_platform) const {
@@ -246,6 +286,14 @@ String GodotJvmEditorExportPlugin::_get_export_option_warning(
     int runtime = selected_runtime();
 
     PackedStringArray warnings;
+    PackedStringArray missing_editor_jars;
+    if (runtime != RUNTIME_NONE && any_missing(desktop_jars(true), missing_editor_jars)) {
+        warnings.push_back(vformat(
+            "No debug JVM build at %s. The editor resolves script classes from it, so run the \"Build\" Gradle task "
+            "before any export.",
+            String(", ").join(missing_editor_jars)
+        ));
+    }
     if (runtime == RUNTIME_JVM) {
         String architecture = get_option("binary_format/architecture");
         bool universal = architecture == "universal";
@@ -263,23 +311,30 @@ String GodotJvmEditorExportPlugin::_get_export_option_warning(
                 String(", ").join(missing)
             ));
         }
+        // The export type is unknown here, so both variants are checked.
         missing.clear();
-        for (const String& jar : desktop_jars()) {
-            if (!FileAccess::file_exists(jar)) { missing.push_back(jar); }
-        }
-        if (!missing.is_empty()) {
+        if (any_missing(desktop_jars(false), missing)) {
             warnings.push_back(vformat(
-                "No JVM build at %s. Run the \"Build\" Gradle task before exporting.",
+                "No release JVM build at %s. Run the \"Build Release\" Gradle task before a release export.",
                 String(", ").join(missing)
             ));
         }
     }
     if (runtime == RUNTIME_GRAAL) {
-        String native_image = String(RES_DIRECTORY) + files->native_image_file;
-        if (!FileAccess::file_exists(native_image)) {
+        String debug_image = String(RES_DIRECTORY) + files->native_image_file(true);
+        if (!FileAccess::file_exists(debug_image)) {
             warnings.push_back(vformat(
-                "No Graal native image at %s. Run the \"Build Graal Native Image\" Gradle task before exporting.",
-                native_image
+                "No debug Graal native image at %s. Run the \"Build Graal Native Image\" Gradle task before an "
+                "export with debug.",
+                debug_image
+            ));
+        }
+        String release_image = String(RES_DIRECTORY) + files->native_image_file(false);
+        if (!FileAccess::file_exists(release_image)) {
+            warnings.push_back(vformat(
+                "No release Graal native image at %s. Run the \"Build Graal Native Image Release\" Gradle task "
+                "before a release export.",
+                release_image
             ));
         }
     }
@@ -293,14 +348,18 @@ bool GodotJvmEditorExportPlugin::_should_update_export_options(const Ref<EditorE
     const DesktopRuntimeFiles* files = desktop_runtime_files(os_name);
     if (files == nullptr) { return false; }
 
-    int state = FileAccess::file_exists(String(RES_DIRECTORY) + files->native_image_file) ? 1 : 0;
-    int bit = 2;
+    int state = 0;
+    int bit = 1;
     for (const String& jre_directory : embedded_jre_directories(*files, true, true)) {
         if (DirAccess::dir_exists_absolute(jre_directory)) { state |= bit; }
         bit <<= 1;
     }
-    for (const String& jar : desktop_jars()) {
-        if (FileAccess::file_exists(jar)) { state |= bit; }
+    PackedStringArray files_of_both_variants = desktop_jars(true);
+    files_of_both_variants.append_array(desktop_jars(false));
+    files_of_both_variants.push_back(String(RES_DIRECTORY) + files->native_image_file(true));
+    files_of_both_variants.push_back(String(RES_DIRECTORY) + files->native_image_file(false));
+    for (const String& file : files_of_both_variants) {
+        if (FileAccess::file_exists(file)) { state |= bit; }
         bit <<= 1;
     }
 
@@ -329,6 +388,18 @@ void GodotJvmEditorExportPlugin::_export_begin(
     int runtime = desktop_files != nullptr ? selected_runtime() : RUNTIME_JVM;
     // Read back by _export_file, which is only given the export features.
     exporting_jvm_runtime = runtime == RUNTIME_JVM;
+    exporting_debug = p_debug;
+
+    // The editor loads the debug build whatever the export type, so the script classes of the export are only
+    // resolved with it in place.
+    PackedStringArray missing_editor_jars;
+    if (runtime != RUNTIME_NONE && any_missing(desktop_jars(true), missing_editor_jars)) {
+        JVM_ERR_FAIL_MSG(
+            "No debug JVM build at %s. The editor resolves script classes from it, so run the \"Build\" Gradle task "
+            "before any export.",
+            String(", ").join(missing_editor_jars)
+        );
+    }
 
     if (desktop_files != nullptr) {
         if (runtime == RUNTIME_JVM) {
@@ -343,13 +414,13 @@ void GodotJvmEditorExportPlugin::_export_begin(
             }
 
             // Godot exports the jars itself as regular resources; only their presence has to be checked here.
-            for (const String& jar : desktop_jars()) {
-                if (!FileAccess::file_exists(jar)) {
-                    JVM_ERR_FAIL_MSG(
-                        "JVM build does not exist at %s! Run the \"Build\" Gradle task before exporting.",
-                        jar
-                    );
-                }
+            PackedStringArray missing;
+            if (any_missing(desktop_jars(p_debug), missing)) {
+                JVM_ERR_FAIL_MSG(
+                    "JVM build does not exist at %s! Run the \"%s\" Gradle task before exporting.",
+                    String(", ").join(missing),
+                    p_debug ? "Build" : "Build Release"
+                );
             }
 
             // Presets give a bare project-relative export path ("./export/game.exe"), which DirAccess::copy()
@@ -386,9 +457,13 @@ void GodotJvmEditorExportPlugin::_export_begin(
 
         if (runtime == RUNTIME_GRAAL) {
             // usercode.(so, dll, dylib) is packed into the pck and extracted to user:// at runtime.
-            String native_image = String(RES_DIRECTORY) + desktop_files->native_image_file;
+            String native_image = String(RES_DIRECTORY) + desktop_files->native_image_file(p_debug);
             if (!FileAccess::file_exists(native_image)) {
-                JVM_ERR_FAIL_MSG("File can't be found, it won't be exported: %s", native_image);
+                JVM_ERR_FAIL_MSG(
+                    "Graal native image does not exist at %s! Run the \"%s\" Gradle task before exporting.",
+                    native_image,
+                    p_debug ? "Build Graal Native Image" : "Build Graal Native Image Release"
+                );
             }
             add_file(native_image, FileAccess::get_file_as_bytes(native_image), false);
             JVM_LOG_INFO("Exporting %s", native_image);
@@ -397,20 +472,30 @@ void GodotJvmEditorExportPlugin::_export_begin(
         PackedStringArray static_libraries = {
             ProjectSettings::get_singleton()->globalize_path(IOS_JAVA_STATIC_LIBRARY),
             ProjectSettings::get_singleton()->globalize_path(IOS_JVM_STATIC_LIBRARY),
-            ProjectSettings::get_singleton()->globalize_path(IOS_GRAAL_NATIVE_IMAGE_ARCHIVE),
+            ProjectSettings::get_singleton()->globalize_path(ios_archive(p_debug)),
         };
-        for (const String& static_library : static_libraries) {
-            if (!FileAccess::file_exists(static_library)) {
-                JVM_ERR_FAIL_MSG(
-                    "Missing iOS static library: %s. Run buildIOS or buildIOSRelease before exporting.",
-                    static_library
-                );
-            }
+        PackedStringArray missing;
+        if (any_missing(static_libraries, missing)) {
+            JVM_ERR_FAIL_MSG(
+                "Missing iOS static library: %s. Run \"%s\" before exporting.",
+                String(", ").join(missing),
+                p_debug ? "Build iOS" : "Build iOS Release"
+            );
         }
         for (const String& static_library : static_libraries) {
             add_apple_embedded_platform_project_static_lib(static_library);
         }
-    } else if (!p_features.has("android")) {
+    } else if (p_features.has("android")) {
+        // Godot exports the dex jars itself as regular resources; only their presence has to be checked here.
+        PackedStringArray missing;
+        if (any_missing(android_jars(p_debug), missing)) {
+            JVM_ERR_FAIL_MSG(
+                "Android build does not exist at %s! Run the \"%s\" Gradle task before exporting.",
+                String(", ").join(missing),
+                p_debug ? "Build Android" : "Build Android Release"
+            );
+        }
+    } else {
         JVM_ERR_FAIL_MSG("Godot-JVM doesn't handle this platform");
     }
 
@@ -474,15 +559,13 @@ void GodotJvmEditorExportPlugin::_export_file(
     // to load it a second time from the pck, where its native-library paths do not exist.
     excluded = excluded || (android && p_path == "res://addons/jvm/jvm.gdextension");
     if (!excluded && p_path.begins_with(String(RES_DIRECTORY) + JVM_DIRECTORY)) {
-        // res://jvm/ holds the artifacts of every platform: desktop and Android jars, native images and
-        // embedded JREs. JVM exports need their runtime jars and, on desktop, intact external dependencies;
-        // the native image is added explicitly by _export_begin and everything else must stay out.
-        String bootstrap = String(RES_DIRECTORY) + (android ? ANDROID_BOOTSTRAP_FILE : DESKTOP_BOOTSTRAP_FILE);
-        String user_code = String(RES_DIRECTORY) + (android ? ANDROID_USER_CODE_FILE : DESKTOP_USER_CODE_FILE);
-        bool external_jar = !android && p_path.begins_with(String(RES_DIRECTORY) + EXTERNAL_JARS_DIRECTORY);
-        excluded = p_features.has("ios")
-                || !exporting_jvm_runtime
-                || (!external_jar && p_path != bootstrap && p_path != user_code);
+        // res://jvm/ holds the artifacts of every platform and variant: desktop and Android jars, native images
+        // and embedded JREs. JVM exports need the runtime jars of the exported variant and, on desktop, its intact
+        // external dependencies; the native image is added explicitly by _export_begin and everything else must
+        // stay out.
+        PackedStringArray jars = android ? android_jars(exporting_debug) : desktop_jars(exporting_debug);
+        const bool external_jar = !android && p_path.begins_with(external_jars_directory(exporting_debug));
+        excluded = p_features.has("ios") || !exporting_jvm_runtime || (!external_jar && !jars.has(p_path));
     }
     if (excluded) {
         skip();

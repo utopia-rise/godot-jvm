@@ -1,7 +1,10 @@
 package godot.gradle.tasks
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.tasks.registrar_generation.requireConfiguredGodotProjectDirectory
 import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
+import godot.gradle.projectExt.variantDirectoryName
+import godot.tools.common.constants.ArtifactNames
 import godot.tools.common.constants.Paths
 import org.gradle.api.Action
 import org.gradle.api.Project
@@ -14,8 +17,11 @@ import java.io.File
 private fun Project.godotJvmDestinationDir(): File =
     requireConfiguredGodotProjectDirectory().resolve(Paths.GODOT_JVM_DIR)
 
+private fun Project.godotJvmVariantDestinationDir(): File =
+    godotJvmDestinationDir().resolve(variantDirectoryName)
+
 private fun Project.libsDir(): File =
-    layout.buildDirectory.asFile.get().resolve("libs")
+    layout.buildDirectory.asFile.get().resolve("libs").resolve(variantDirectoryName)
 
 private fun Project.registerCopyTask(
     name: String,
@@ -32,40 +38,36 @@ private fun Project.registerCopyTask(
 
             val libsDir = libsDir()
             configureSources(libsDir)
-            destinationDir = godotJvmDestinationDir()
+            destinationDir = godotJvmVariantDestinationDir()
         }
     }
 }
 
 fun Project.createCopyDesktopJarsTask(
-    packageBootstrapJarTask: TaskProvider<out Task>,
-    packageMainJarTask: TaskProvider<out Task>,
+    gameJarTasks: List<TaskProvider<ShadowJar>>,
 ): TaskProvider<Copy> {
     return registerCopyTask(
         name = "copyDesktopJars",
-        description = "Internal task! Copies the desktop jars into the Godot-JVM output directory.",
-        dependsOnTasks = listOf(packageBootstrapJarTask, packageMainJarTask),
-    ) { libsDir ->
-        from(File(libsDir, "godot-bootstrap.jar"))
-        from(File(libsDir, "main.jar"))
+        description = "Internal task! Copies the desktop jars of this variant into the Godot-JVM output directory.",
+        dependsOnTasks = gameJarTasks,
+    ) {
+        from(gameJarTasks)
         from(
             configurations.getByName(GODOT_SINGLE_CONFIGURATION).filter { it.extension == "jar" },
-            Action<CopySpec> { it.into("external") },
+            Action<CopySpec> { it.into(Paths.EXTERNAL_JARS_DIR) },
         )
     }
 }
 
 fun Project.createCopyAndroidArtifactsTask(
-    createBootstrapDexJarTask: TaskProvider<out Task>,
-    packageMainDexJarTask: TaskProvider<out Task>,
+    gameDexJarTasks: List<TaskProvider<out Task>>,
 ): TaskProvider<Copy> {
     return registerCopyTask(
         name = "copyAndroidArtifacts",
-        description = "Internal task! Copies the Android dex artifacts into the Godot-JVM output directory.",
-        dependsOnTasks = listOf(createBootstrapDexJarTask, packageMainDexJarTask),
-    ) { libsDir ->
-        from(File(libsDir, "godot-bootstrap-dex.jar"))
-        from(File(libsDir, "main-dex.jar"))
+        description = "Internal task! Copies the Android dex artifacts of this variant into the Godot-JVM output directory.",
+        dependsOnTasks = gameDexJarTasks,
+    ) {
+        from(gameDexJarTasks)
     }
 }
 
@@ -78,11 +80,9 @@ fun Project.createCopyGraalArtifactsTask(
         dependsOnTasks = listOf(createGraalNativeImageTask),
     ) { libsDir ->
         from(provider {
-            listOf(
-                File(libsDir, "usercode.dll"),
-                File(libsDir, "usercode.so"),
-                File(libsDir, "usercode.dylib"),
-            ).filter(File::exists)
+            listOf("dll", "so", "dylib")
+                .map { extension -> File(libsDir, "${ArtifactNames.NATIVE_IMAGE_BASE_NAME}.$extension") }
+                .filter(File::exists)
         })
     }
 }
@@ -90,20 +90,27 @@ fun Project.createCopyGraalArtifactsTask(
 fun Project.createCopyIOSArtifactsTask(
     createIOSTask: TaskProvider<out Task>,
 ): TaskProvider<Copy> {
-    return tasks.register("copyIOSArtifacts", Copy::class.java) {
+    return registerCopyTask(
+        name = "copyIOSArtifacts",
+        description = "Internal task! Copies the iOS static library of this variant into the Godot-JVM output directory.",
+        dependsOnTasks = listOf(createIOSTask),
+    ) { libsDir ->
+        from(File(libsDir, ArtifactNames.IOS_STATIC_LIBRARY))
+    }
+}
+
+fun Project.createCopyIOSJdkTask(
+    downloadIOSGraalToolchainTask: TaskProvider<out Task>,
+): TaskProvider<Copy> {
+    return tasks.register("copyIOSJdk", Copy::class.java) {
         with(it) {
             group = "godot-jvm-internal"
-            description =
-                "Internal task! Copies the iOS static library and bundled iOS JDK files into the Godot-JVM output directory."
+            description = "Internal task! Copies the bundled iOS JDK files into the Godot-JVM output directory."
 
-            dependsOn(createIOSTask)
+            dependsOn(downloadIOSGraalToolchainTask)
 
-            val libsDir = libsDir()
-            val iosLibsDir = libsDir.resolve("ios")
-            from(iosLibsDir) {
-                include("usercode.a", "ios-jdk/**")
-            }
-            destinationDir = godotJvmDestinationDir().resolve("ios")
+            from(layout.buildDirectory.dir("libs/${Paths.IOS_DIR}/${Paths.IOS_JDK_DIR}"))
+            destinationDir = godotJvmDestinationDir().resolve(Paths.IOS_DIR).resolve(Paths.IOS_JDK_DIR)
         }
     }
 }

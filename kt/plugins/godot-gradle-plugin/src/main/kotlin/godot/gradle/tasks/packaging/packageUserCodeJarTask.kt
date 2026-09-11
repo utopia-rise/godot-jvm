@@ -3,29 +3,33 @@ package godot.gradle.tasks
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.projectExt.GODOT_MAIN_CONFIGURATION
 import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
+import godot.gradle.projectExt.variantLibsDirectory
+import godot.tools.common.constants.ArtifactNames
+import godot.tools.common.constants.Paths
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 
-fun Project.packageMainJarTask(
+fun Project.packageUserCodeJarTask(
     generatedRegistrarJarTask: TaskProvider<Jar>,
     updateRegistrationFilesTask: TaskProvider<out Task>,
     userClassesTask: TaskProvider<out Task>,
-): TaskProvider<out Task> {
+): TaskProvider<ShadowJar> {
     return tasks.named("shadowJar", ShadowJar::class.java) {
         with(it) {
             group = "godot-jvm"
             description = "Creates a fat jar containing game code and all dependencies of it"
 
-            archiveBaseName.set("main")
+            archiveBaseName.set(ArtifactNames.Debug.USER_CODE_JAR.removeSuffix(".jar"))
             archiveVersion.set("")
             archiveClassifier.set("")
+            destinationDirectory.set(variantLibsDirectory())
             configurations.clear()
-            configurations.add(this@packageMainJarTask.configurations.getByName(GODOT_MAIN_CONFIGURATION))
+            configurations.add(this@packageUserCodeJarTask.configurations.getByName(GODOT_MAIN_CONFIGURATION))
 
-            val godotSingle = this@packageMainJarTask.configurations.getByName(GODOT_SINGLE_CONFIGURATION)
+            val godotSingle = this@packageUserCodeJarTask.configurations.getByName(GODOT_SINGLE_CONFIGURATION)
             // Keep godotSingle dependencies as intact JARs while making them visible to the main URLClassLoader.
             manifest.attributes[
                 "Class-Path"
@@ -33,7 +37,7 @@ fun Project.packageMainJarTask(
                 godotSingle.files
                     .filter { it.extension == "jar" }
                     .sortedBy { it.name }
-                    .joinToString(" ") { "external/${it.name}" }
+                    .joinToString(" ") { "${Paths.EXTERNAL_JARS_DIR}/${it.name}" }
             }
 
             dependsOn(userClassesTask)

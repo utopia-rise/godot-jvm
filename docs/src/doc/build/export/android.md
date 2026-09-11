@@ -12,7 +12,7 @@ Android exports require Godot's Gradle build:
 
 1. Install the Android build template from **Project > Install Android Build Template**.
 2. Enable **Gradle Build > Use Gradle Build** in the Android export preset.
-3. Select **Build Android Release** in Godot's toolbar and click **Run Gradle** before exporting (`buildAndroidRelease` in IntelliJ). Use **Build Android** / `buildAndroid` for a debug build.
+3. Select **Build Android Release** in Godot's toolbar and click **Run Gradle** before exporting (`buildAndroidRelease` in IntelliJ). Use **Build Android** / `buildAndroid` before an export with debug.
 
 Install the Android SDK build tools through Android Studio's SDK manager and set `ANDROID_SDK_ROOT`. The Gradle plugin uses them to convert your JARs to DEX format. It selects the newest installed build tools by default.
 

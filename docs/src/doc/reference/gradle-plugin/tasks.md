@@ -10,22 +10,22 @@ Run through the project's Gradle wrapper. The names below are identical for Kotl
 
 | Task | Output/effect | Required inputs |
 |---|---|---|
-| `build` | Desktop debug JARs; normal Gradle build/check lifecycle | Configured JVM toolchain |
-| `buildRelease` | Desktop release JARs | Same as `build` |
-| `buildAndroid` | Desktop JARs and Android dex artifacts | Android d8 and platform SDK |
-| `buildAndroidRelease` | Release Android artifacts | Same as `buildAndroid` |
-| `buildGraalNativeImage` | Desktop JARs and native image | GraalVM and native compiler |
-| `buildGraalNativeImageRelease` | Release native image | Same as `buildGraalNativeImage` |
-| `buildIOS` | iOS static library from packaged JVM code | iOS native-image toolchain |
-| `buildIOSRelease` | Release iOS static library | Same as `buildIOS` |
+| `build` | `jvm/debug/godot-bootstrap.jar` and `jvm/debug/usercode.jar`; normal Gradle build/check lifecycle | Configured JVM toolchain |
+| `buildRelease` | `jvm/release/game.jar`, the two JARs merged into one | Same as `build` |
+| `buildAndroid` | The debug JARs and `jvm/debug/godot-bootstrap-dex.jar` plus `usercode-dex.jar` | Android d8 and platform SDK |
+| `buildAndroidRelease` | `jvm/release/game-dex.jar` | Same as `buildAndroid` |
+| `buildGraalNativeImage` | The debug JARs and `jvm/debug/game.<so, dll or dylib>` | GraalVM and native compiler |
+| `buildGraalNativeImageRelease` | `jvm/release/game.<so, dll or dylib>` | Same as `buildGraalNativeImage` |
+| `buildIOS` | `jvm/debug/game.a` and the shared `jvm/ios/ios-jdk/` | iOS native-image toolchain |
+| `buildIOSRelease` | `jvm/release/game.a` | Same as `buildIOS` |
 
-Release tasks select release runtime artifacts. `build -Prelease` also selects release mode. Platform configuration keys are listed under [Export options](export-targets.md).
+Release tasks select the release runtime libraries and write into `jvm/release/`; debug tasks write into `jvm/debug/`. The two directories never overwrite each other, so both variants can be kept built. `build -Prelease` also selects release mode and then produces only the release artifacts. Platform configuration keys are listed under [Export options](export-targets.md).
 
-Desktop distribution artifacts are `godot-bootstrap.jar` and `main.jar`. Android packaging produces dex JARs, and native-image packaging produces `usercode` artifacts. These tasks prepare JVM-side artifacts; Godot's export preset produces the final game package.
+Every `godotSingle` JAR is copied intact into `jvm/<variant>/external/`. These tasks prepare JVM-side artifacts; Godot's export preset produces the final game package from the variant matching the export type.
 
 ## `fastBuild`
 
-Recompiles project code and rebuilds desktop JARs while reusing the previous registrar output. Requires an earlier successful full build. No class scan, registrar generation, or `.gdj` synchronization runs.
+Recompiles project code and rebuilds the desktop debug JARs while reusing the previous registrar output. Requires an earlier successful full build. No class scan, registrar generation, or `.gdj` synchronization runs. It fails in release mode, which never reuses debug output.
 
 Valid for method-body changes. Adding, removing, renaming, or changing the signature of a registered class/member requires a normal build. `fastBuild` does not enable native-image hot reloading.
 

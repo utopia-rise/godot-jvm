@@ -9,14 +9,14 @@ import org.joda.time.LocalDate
 import java.nio.charset.StandardCharsets
 
 // Exercises one dependency of each Gradle configuration: implementation ends up in godot-bootstrap.jar, godotMain is
-// shaded into main.jar and godotSingle stays an intact jar under jvm/external/ that main.jar's manifest references.
+// shaded into usercode.jar and godotSingle stays an intact jar under jvm/<variant>/external/ that the manifest references.
 @Script
 class DependencyTest : Node() {
     @Register
     fun bootstrapJarDependency(): String = LocalDate(2024, 1, 1).year.toString()
 
     @Register
-    fun mainJarDependency(): String = StringUtils.capitalize("godot")
+    fun userCodeJarDependency(): String = StringUtils.capitalize("godot")
 
     @Register
     fun singleJarDependency(): String =

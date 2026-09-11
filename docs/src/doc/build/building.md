@@ -10,7 +10,7 @@ In Godot, select **Build** in the toolbar drop-down and click **Run Gradle**. Ru
 
 ## What a rebuild reloads
 
-After a successful build, the editor reloads `godot-bootstrap.jar` and `main.jar`, making the compiled classes and their registration available. Restart a running game to use the new build.
+After a successful build, the editor reloads `jvm/debug/godot-bootstrap.jar` and `jvm/debug/usercode.jar`, making the compiled classes and their registration available. Restart a running game to use the new build.
 
 Select **Fast Build** only after a successful full build and only when method bodies changed. Use **Build** after changing registered classes, members, signatures, annotations, or dependencies.
 
@@ -18,7 +18,7 @@ Native images cannot reload code. Rebuild and restart to apply changes.
 
 ## Release builds
 
-Select **Build Release** and click **Run Gradle** for distribution. **Build** selects debug runtime artifacts with additional checks; **Build Release** selects release artifacts.
+Select **Build Release** and click **Run Gradle** for distribution. **Build** writes the debug JARs into `jvm/debug/`; **Build Release** merges them into a single `jvm/release/game.jar` built against the release runtime libraries. The two directories never overwrite each other, and the editor keeps using the debug JARs. A release export packs `jvm/release/`, an export with debug packs `jvm/debug/`, see [Export your game](export/index.md).
 
 The equivalent IntelliJ Gradle tasks are `build`, `fastBuild`, and `buildRelease`. The `build` task also accepts `-Prelease`.
 

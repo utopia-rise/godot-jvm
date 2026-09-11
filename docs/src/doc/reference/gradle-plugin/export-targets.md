@@ -4,7 +4,9 @@ description: The godot { } inputs that configure Android d8/SDK paths, minimum A
 
 # Android, GraalVM and iOS inputs
 
-These properties supply SDK paths and native-image configuration to the platform build tasks.
+These properties supply SDK paths and native-image configuration to the platform build tasks. The debug tasks
+write their artifacts into `jvm/debug/`, the release tasks into `jvm/release/`; an export packs the variant
+matching its export type.
 
 ## Android build inputs
 
