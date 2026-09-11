@@ -93,6 +93,10 @@ jobs:
           printf 'res://android_source.zip [%s]\n' "$(md5sum harness/tests/android_source.zip | cut -d ' ' -f 1)" > harness/tests/android/build/.build_version
           touch harness/tests/android/build/build/.gdignore
 
+      - name: Build the debug jars the editor resolves script classes from
+        if: matrix.variant == 'release'
+        run: harness/tests/gradlew -p harness/tests/ build
+
       - name: Build JVM tests project
         run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
 

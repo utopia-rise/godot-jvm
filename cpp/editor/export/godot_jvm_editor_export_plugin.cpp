@@ -286,6 +286,14 @@ String GodotJvmEditorExportPlugin::_get_export_option_warning(
     int runtime = selected_runtime();
 
     PackedStringArray warnings;
+    PackedStringArray missing_editor_jars;
+    if (runtime != RUNTIME_NONE && any_missing(desktop_jars(true), missing_editor_jars)) {
+        warnings.push_back(vformat(
+            "No debug JVM build at %s. The editor resolves script classes from it, so run the \"Build\" Gradle task "
+            "before any export.",
+            String(", ").join(missing_editor_jars)
+        ));
+    }
     if (runtime == RUNTIME_JVM) {
         String architecture = get_option("binary_format/architecture");
         bool universal = architecture == "universal";
@@ -304,13 +312,6 @@ String GodotJvmEditorExportPlugin::_get_export_option_warning(
             ));
         }
         // The export type is unknown here, so both variants are checked.
-        missing.clear();
-        if (any_missing(desktop_jars(true), missing)) {
-            warnings.push_back(vformat(
-                "No debug JVM build at %s. Run the \"Build\" Gradle task before an export with debug.",
-                String(", ").join(missing)
-            ));
-        }
         missing.clear();
         if (any_missing(desktop_jars(false), missing)) {
             warnings.push_back(vformat(
@@ -388,6 +389,17 @@ void GodotJvmEditorExportPlugin::_export_begin(
     // Read back by _export_file, which is only given the export features.
     exporting_jvm_runtime = runtime == RUNTIME_JVM;
     exporting_debug = p_debug;
+
+    // The editor loads the debug build whatever the export type, so the script classes of the export are only
+    // resolved with it in place.
+    PackedStringArray missing_editor_jars;
+    if (runtime != RUNTIME_NONE && any_missing(desktop_jars(true), missing_editor_jars)) {
+        JVM_ERR_FAIL_MSG(
+            "No debug JVM build at %s. The editor resolves script classes from it, so run the \"Build\" Gradle task "
+            "before any export.",
+            String(", ").join(missing_editor_jars)
+        );
+    }
 
     if (desktop_files != nullptr) {
         if (runtime == RUNTIME_JVM) {

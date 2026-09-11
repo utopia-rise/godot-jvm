@@ -103,6 +103,10 @@ jobs:
           mv templates/templates/ios.zip "$template_directory/ios.zip"
           sed -i '' 's|application/export_project_only=false|application/export_project_only=true|' harness/tests/export_presets.cfg
 
+      - name: Build the debug jars the editor resolves script classes from
+        if: matrix.variant == 'release'
+        run: harness/tests/gradlew -p harness/tests/ build
+
       - name: Build JVM tests project
         run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
 
