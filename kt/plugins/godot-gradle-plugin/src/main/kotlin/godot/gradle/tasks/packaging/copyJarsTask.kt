@@ -10,8 +10,6 @@ import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.CopySpec
-import org.gradle.api.file.RegularFile
-import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.TaskProvider
 import java.io.File
@@ -53,7 +51,7 @@ fun Project.createCopyDesktopJarsTask(
         description = "Internal task! Copies the desktop jars of this variant into the Godot-JVM output directory.",
         dependsOnTasks = gameJarTasks,
     ) {
-        from(gameJarTasks.map { jarTask -> jarTask.flatMap(ShadowJar::getArchiveFile) })
+        from(gameJarTasks)
         from(
             configurations.getByName(GODOT_SINGLE_CONFIGURATION).filter { it.extension == "jar" },
             Action<CopySpec> { it.into(Paths.EXTERNAL_JARS_DIR) },
@@ -63,14 +61,13 @@ fun Project.createCopyDesktopJarsTask(
 
 fun Project.createCopyAndroidArtifactsTask(
     dexTasks: List<TaskProvider<out Task>>,
-    dexJars: List<Provider<RegularFile>>,
 ): TaskProvider<Copy> {
     return registerCopyTask(
         name = "copyAndroidArtifacts",
         description = "Internal task! Copies the Android dex artifacts of this variant into the Godot-JVM output directory.",
         dependsOnTasks = dexTasks,
     ) {
-        from(dexJars)
+        from(dexTasks)
     }
 }
 

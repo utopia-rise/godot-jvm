@@ -41,9 +41,6 @@ abstract class CreateDexJarTask : DefaultTask() {
     abstract val additionalInputJars: ConfigurableFileCollection
 
     @get:OutputFile
-    abstract val mainDexRulesFile: RegularFileProperty
-
-    @get:OutputFile
     abstract val dexJar: RegularFileProperty
 
     @get:Input
@@ -63,7 +60,7 @@ abstract class CreateDexJarTask : DefaultTask() {
         val workingDirectory = inputJarFile.parentFile
         val dexOutputJar = dexJar.get().asFile
         val dexOutputDirectory = workingDirectory.resolve(dexOutputJar.nameWithoutExtension)
-        val mainDexRules = writeMainDexRules(mainDexRulesFile.get().asFile)
+        val mainDexRules = writeMainDexRules(temporaryDir.resolve("main-dex-rules.proguard"))
 
         dexOutputDirectory.deleteRecursively()
         dexOutputDirectory.mkdirs()
@@ -150,7 +147,6 @@ fun Project.createBootstrapDexJarTask(
     dependsOnTasks = listOf(checkD8ToolAccessibleTask, checkAndroidJarAccessibleTask),
     inputJar = packageBootstrapJarTask.flatMap(ShadowJar::getArchiveFile),
     dexJarName = ArtifactNames.Debug.BOOTSTRAP_DEX_JAR,
-    mainDexRulesFileName = "main-dex-rules.proguard",
     includeGodotSingleJars = false,
 )
 
@@ -164,7 +160,6 @@ fun Project.createReleaseDexJarTask(
     dependsOnTasks = listOf(checkD8ToolAccessibleTask, checkAndroidJarAccessibleTask),
     inputJar = packageReleaseJarTask.flatMap(ShadowJar::getArchiveFile),
     dexJarName = ArtifactNames.Release.DEX_JAR,
-    mainDexRulesFileName = "main-dex-rules.proguard",
     includeGodotSingleJars = true,
 )
 
@@ -174,7 +169,6 @@ private fun Project.registerDexJarTask(
     dependsOnTasks: List<TaskProvider<out Task>>,
     inputJar: Provider<RegularFile>,
     dexJarName: String,
-    mainDexRulesFileName: String,
     includeGodotSingleJars: Boolean,
 ): TaskProvider<CreateDexJarTask> {
     val libsDirectory = variantLibsDirectory()
@@ -195,7 +189,6 @@ private fun Project.registerDexJarTask(
                     configurations.getByName(GODOT_SINGLE_CONFIGURATION).filter { file -> file.extension == "jar" }
                 )
             }
-            mainDexRulesFile.set(layout.buildDirectory.file(mainDexRulesFileName))
             dexJar.set(libsDirectory.map { directory -> directory.file(dexJarName) })
             this.d8ToolPath.set(d8ToolPath)
             this.androidJarPath.set(androidCompileSdkDirectory.map { compileSdkDirectory ->

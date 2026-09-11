@@ -34,8 +34,6 @@ import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.DuplicatesStrategy
-import org.gradle.api.file.RegularFile
-import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.TaskProvider
@@ -57,9 +55,14 @@ private data class DesktopPackagingTasks(
 }
 
 private data class AndroidPackagingTasks(
-    val dexTasks: List<TaskProvider<out Task>>,
-    val dexJars: List<Provider<RegularFile>>,
-)
+    val createBootstrapDexJarTask: TaskProvider<CreateDexJarTask>,
+    val packageUserCodeDexJarTask: TaskProvider<ShadowJar>,
+    /** Only registered for release builds, which dex the merged jar instead of the pair. */
+    val createReleaseDexJarTask: TaskProvider<CreateDexJarTask>?,
+) {
+    val dexTasks: List<TaskProvider<out Task>>
+        get() = createReleaseDexJarTask?.let(::listOf) ?: listOf(createBootstrapDexJarTask, packageUserCodeDexJarTask)
+}
 
 private data class NativePackagingTasks(
     val createGraalNativeImageTask: TaskProvider<out Task>,
@@ -266,19 +269,6 @@ private fun Project.setupAndroidPackagingTasks(
     val checkD8ToolAccessibleTask = checkD8ToolAccessibleTask()
     val checkAndroidJarAccessibleTask = checkAndroidJarAccessibleTask()
 
-    val packageReleaseJarTask = desktopPackagingTasks.packageReleaseJarTask
-    if (packageReleaseJarTask != null) {
-        val createReleaseDexJarTask = createReleaseDexJarTask(
-            checkAndroidJarAccessibleTask = checkAndroidJarAccessibleTask,
-            checkD8ToolAccessibleTask = checkD8ToolAccessibleTask,
-            packageReleaseJarTask = packageReleaseJarTask,
-        )
-        return AndroidPackagingTasks(
-            dexTasks = listOf(createReleaseDexJarTask),
-            dexJars = listOf(createReleaseDexJarTask.flatMap(CreateDexJarTask::dexJar)),
-        )
-    }
-
     val createBootstrapDexJarTask = createBootstrapDexJarTask(
         checkAndroidJarAccessibleTask = checkAndroidJarAccessibleTask,
         checkD8ToolAccessibleTask = checkD8ToolAccessibleTask,
@@ -296,12 +286,18 @@ private fun Project.setupAndroidPackagingTasks(
         packageUserCodeJarTask = desktopPackagingTasks.packageUserCodeJarTask,
     )
 
+    val createReleaseDexJarTask = desktopPackagingTasks.packageReleaseJarTask?.let { packageReleaseJarTask ->
+        createReleaseDexJarTask(
+            checkAndroidJarAccessibleTask = checkAndroidJarAccessibleTask,
+            checkD8ToolAccessibleTask = checkD8ToolAccessibleTask,
+            packageReleaseJarTask = packageReleaseJarTask,
+        )
+    }
+
     return AndroidPackagingTasks(
-        dexTasks = listOf(createBootstrapDexJarTask, packageUserCodeDexJarTask),
-        dexJars = listOf(
-            createBootstrapDexJarTask.flatMap(CreateDexJarTask::dexJar),
-            packageUserCodeDexJarTask.flatMap(ShadowJar::getArchiveFile),
-        ),
+        createBootstrapDexJarTask = createBootstrapDexJarTask,
+        packageUserCodeDexJarTask = packageUserCodeDexJarTask,
+        createReleaseDexJarTask = createReleaseDexJarTask,
     )
 }
 
@@ -348,7 +344,6 @@ private fun Project.setupCopyTasks(
     )
     val copyAndroidArtifactsTask = createCopyAndroidArtifactsTask(
         dexTasks = androidPackagingTasks.dexTasks,
-        dexJars = androidPackagingTasks.dexJars,
     )
     val copyGraalArtifactsTask = createCopyGraalArtifactsTask(
         createGraalNativeImageTask = nativePackagingTasks.createGraalNativeImageTask,
