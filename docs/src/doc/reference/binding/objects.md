@@ -55,7 +55,7 @@ node.free()
 | `Node.queueFree()` | Queues deletion through Godot's scene lifecycle |
 | `RefCounted` | Lifetime follows reference counting coordinated with JVM garbage collection |
 | `_onDestroy()` | Binding cleanup callback on non-`RefCounted` classes; final on `RefCounted` |
-| `GD.syncMemory()` | Requests a binding memory synchronization; does not replace ownership rules |
+| `GD.syncMemory()` | Requests a binding memory synchronization from the main thread only; does not replace ownership rules |
 
 Dropping a JVM reference is not an explicit deletion operation for a plain `Object`/`Node`. Nodes owned by the scene tree follow the tree's lifetime. Do not call methods through references to freed objects.
 

@@ -6,6 +6,7 @@
 #include "engine/godot_object.h"
 #include "logging.h"
 
+#include <classes/os.hpp>
 #include <core/object.hpp>
 
 static godot::LocalVector<uint64_t> ids;
@@ -98,6 +99,12 @@ void MemoryManager::unref_native_core_types(JNIEnv* p_raw_env, jobject, jobject 
 }
 
 void MemoryManager::query_sync(JNIEnv* p_raw_env, jobject) {
+    godot::OS* os = godot::OS::get_singleton();
+    JVM_ERR_FAIL_COND_MSG(
+        os->get_thread_caller_id() != os->get_main_thread_id(),
+        "GD.syncMemory() must be called from the main thread."
+    );
+
     jni::Env env(p_raw_env);
     MemoryManager::get_instance().sync_memory(env);
 }
