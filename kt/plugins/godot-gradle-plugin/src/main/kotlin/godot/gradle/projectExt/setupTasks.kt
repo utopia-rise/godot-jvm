@@ -60,7 +60,7 @@ private data class AndroidPackagingTasks(
     /** Only registered for release builds, which dex the merged jar instead of the pair. */
     val createReleaseDexJarTask: TaskProvider<CreateDexJarTask>?,
 ) {
-    val dexTasks: List<TaskProvider<out Task>>
+    val gameDexJarTasks: List<TaskProvider<out Task>>
         get() = createReleaseDexJarTask?.let(::listOf) ?: listOf(createBootstrapDexJarTask, packageUserCodeDexJarTask)
 }
 
@@ -346,7 +346,7 @@ private fun Project.setupCopyTasks(
         gameJarTasks = desktopPackagingTasks.gameJarTasks,
     )
     val copyAndroidArtifactsTask = createCopyAndroidArtifactsTask(
-        dexTasks = androidPackagingTasks.dexTasks,
+        gameDexJarTasks = androidPackagingTasks.gameDexJarTasks,
     )
     val copyGraalArtifactsTask = createCopyGraalArtifactsTask(
         createGraalNativeImageTask = nativePackagingTasks.createGraalNativeImageTask,
@@ -405,7 +405,7 @@ private fun Project.setupBuildLifecycleTasks(
     tasks.named("buildAndroid") { task ->
         task.dependsOn(
             checkIgnoredScriptSourcesTask,
-            androidPackagingTasks.dexTasks,
+            androidPackagingTasks.gameDexJarTasks,
             copyTasks.copyAndroidArtifactsTask
         )
     }
@@ -413,7 +413,7 @@ private fun Project.setupBuildLifecycleTasks(
     tasks.named("buildAndroidRelease") { task ->
         task.dependsOn(
             checkIgnoredScriptSourcesTask,
-            androidPackagingTasks.dexTasks,
+            androidPackagingTasks.gameDexJarTasks,
             copyTasks.copyAndroidArtifactsTask
         )
     }
