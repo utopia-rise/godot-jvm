@@ -350,8 +350,10 @@ bool GodotJvm::load_bootstrap() {
         );
         constexpr const char* hint_text = "Make sure to build your gradle project before running the game.";
 #else
+#ifndef DEBUG_ENABLED
         // The merged archive lists the external jars in its manifest class path, so they have to be in place first.
-        if (MERGED_USER_CODE) { copy_external_jars_to_user_dir(); }
+        copy_external_jars_to_user_dir();
+#endif
         String bootstrap_jar = ProjectSettings::get_singleton()->globalize_path(
             copy_new_file_to_user_dir(BOOTSTRAP_FILE)
         );
@@ -428,11 +430,12 @@ bool GodotJvm::load_user_code() {
     if (user_configuration.vm_type == jni::JvmType::GRAAL_NATIVE_IMAGE) {
         bootstrap->init_native_image(env);
         return true;
-    } else if (MERGED_USER_CODE) {
-        // User code already sits in the bootstrap loader, so there is no second loader to create.
+    } else {
+#ifndef DEBUG_ENABLED
+        // The merged release archive already sits in the bootstrap loader, so there is no second loader to create.
         bootstrap->init_jar(env, bootstrap_class_loader->get_wrapped());
         return true;
-    } else {
+#else
 #ifdef TOOLS_ENABLED
         String user_code_path = String(RES_DIRECTORY).path_join(USER_CODE_FILE);
 #else
@@ -441,7 +444,7 @@ bool GodotJvm::load_user_code() {
 #endif
 
         if (!FileAccess::file_exists(user_code_path)) {
-            String message = "No user code archive detected at %s. No classes will be loaded. Build the gradle "
+            String message = "No main.jar detected at %s. No classes will be loaded. Build the gradle "
                              "project to load classes";
 #ifdef TOOLS_ENABLED
             JVM_LOG_WARNING(message, user_code_path);
@@ -451,7 +454,7 @@ bool GodotJvm::load_user_code() {
 #endif
         }
 
-        JVM_LOG_VERBOSE("Loading user code file at: %s", user_code_path);
+        JVM_LOG_VERBOSE("Loading usercode file at: %s", user_code_path);
 #ifdef TOOLS_ENABLED
         jar.instantiate();
         jar->take_over_path(user_code_path);
@@ -463,12 +466,13 @@ bool GodotJvm::load_user_code() {
             bootstrap_class_loader->get_wrapped()
         );
 
-        // update context classloader to use the user code jar
+        // update context classloader to use usercode jar
         user_class_loader->set_as_context_loader(env);
 
         bootstrap->init_jar(env, user_class_loader->get_wrapped());
         delete user_class_loader;
         return FileAccess::file_exists(user_code_path);
+#endif
     }
 }
 
