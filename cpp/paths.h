@@ -58,7 +58,6 @@ static constexpr const char* IOS_RELEASE_GRAAL_NATIVE_IMAGE_ARCHIVE = JVM_RELEAS
 
 // The editor and template_debug load the debug variant, template_release the release variant.
 #ifdef DEBUG_ENABLED
-static constexpr bool MERGED_USER_CODE = false;
 static constexpr const char* DESKTOP_BOOTSTRAP_FILE = DESKTOP_DEBUG_BOOTSTRAP_FILE;
 static constexpr const char* DESKTOP_USER_CODE_FILE = DESKTOP_DEBUG_USER_CODE_FILE;
 static constexpr const char* EXTERNAL_JARS_DIRECTORY = DEBUG_EXTERNAL_JARS_DIRECTORY;
@@ -69,7 +68,6 @@ static constexpr const char* ANDROID_BOOTSTRAP_FILE = ANDROID_DEBUG_BOOTSTRAP_FI
 static constexpr const char* ANDROID_USER_CODE_FILE = ANDROID_DEBUG_USER_CODE_FILE;
 #else
 // The merged release archive is both the bootstrap and the user code archive.
-static constexpr bool MERGED_USER_CODE = true;
 static constexpr const char* DESKTOP_BOOTSTRAP_FILE = DESKTOP_RELEASE_USER_CODE_FILE;
 static constexpr const char* DESKTOP_USER_CODE_FILE = DESKTOP_RELEASE_USER_CODE_FILE;
 static constexpr const char* EXTERNAL_JARS_DIRECTORY = RELEASE_EXTERNAL_JARS_DIRECTORY;
