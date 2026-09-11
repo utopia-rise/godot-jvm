@@ -3,6 +3,9 @@ package godot.gradle.tasks
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.projectExt.GODOT_MAIN_CONFIGURATION
 import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
+import godot.gradle.projectExt.variantLibsDirectory
+import godot.tools.common.constants.ArtifactNames
+import godot.tools.common.constants.Paths
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -13,15 +16,16 @@ fun Project.packageMainJarTask(
     generatedRegistrarJarTask: TaskProvider<Jar>,
     updateRegistrationFilesTask: TaskProvider<out Task>,
     userClassesTask: TaskProvider<out Task>,
-): TaskProvider<out Task> {
+): TaskProvider<ShadowJar> {
     return tasks.named("shadowJar", ShadowJar::class.java) {
         with(it) {
             group = "godot-jvm"
             description = "Creates a fat jar containing game code and all dependencies of it"
 
-            archiveBaseName.set("main")
+            archiveBaseName.set(ArtifactNames.Debug.USER_CODE_JAR.removeSuffix(".jar"))
             archiveVersion.set("")
             archiveClassifier.set("")
+            destinationDirectory.set(variantLibsDirectory())
             configurations.clear()
             configurations.add(this@packageMainJarTask.configurations.getByName(GODOT_MAIN_CONFIGURATION))
 
@@ -33,7 +37,7 @@ fun Project.packageMainJarTask(
                 godotSingle.files
                     .filter { it.extension == "jar" }
                     .sortedBy { it.name }
-                    .joinToString(" ") { "external/${it.name}" }
+                    .joinToString(" ") { "${Paths.EXTERNAL_JARS_DIR}/${it.name}" }
             }
 
             dependsOn(userClassesTask)

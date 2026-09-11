@@ -1,8 +1,10 @@
 package godot.gradle.tasks.android
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.GodotPlugin
 import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
+import godot.gradle.projectExt.variantLibsDirectory
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -26,7 +28,7 @@ abstract class CreateMainDexFileTask : DefaultTask() {
     @get:InputFile
     abstract val bootstrapJar: RegularFileProperty
 
-    // ART cannot load plain jars, so godotSingle dependencies are dexed together with main.jar.
+    // ART cannot load plain jars, so godotSingle dependencies are dexed together with usercode.jar.
     @get:InputFiles
     abstract val godotSingleJars: ConfigurableFileCollection
 
@@ -96,9 +98,10 @@ fun Project.createMainDexFileTask(
     checkAndroidJarAccessibleTask: TaskProvider<out Task>,
     checkD8ToolAccessibleTask: TaskProvider<out Task>,
     createBootstrapDexJarTask: TaskProvider<out Task>,
-    packageMainJarTask: TaskProvider<out Task>
-): TaskProvider<out Task> {
-    val libsDirectory = layout.buildDirectory.dir("libs")
+    packageMainJarTask: TaskProvider<ShadowJar>,
+    packageBootstrapJarTask: TaskProvider<ShadowJar>,
+): TaskProvider<CreateMainDexFileTask> {
+    val libsDirectory = variantLibsDirectory()
     val d8ToolPath = godotJvmExtension.android.d8ToolPath
     val androidCompileSdkDirectory = godotJvmExtension.android.compileSdkDirectory
     val androidMinApiLevel = godotJvmExtension.android.minApiLevel
@@ -106,17 +109,12 @@ fun Project.createMainDexFileTask(
     return tasks.register("createMainDexFile", CreateMainDexFileTask::class.java) {
         with(it) {
             group = "godot-jvm"
-            description = "Converts the main.jar to an android dex file. Needed for android builds only"
+            description = "Converts the usercode.jar to an android dex file. Needed for android builds only"
 
-            dependsOn(
-                checkD8ToolAccessibleTask,
-                checkAndroidJarAccessibleTask,
-                createBootstrapDexJarTask,
-                packageMainJarTask,
-            )
+            dependsOn(checkD8ToolAccessibleTask, checkAndroidJarAccessibleTask, createBootstrapDexJarTask)
 
-            this.mainJar.set(libsDirectory.map { directory -> directory.file("main.jar") })
-            this.bootstrapJar.set(libsDirectory.map { directory -> directory.file("godot-bootstrap.jar") })
+            this.mainJar.set(packageMainJarTask.flatMap(ShadowJar::getArchiveFile))
+            this.bootstrapJar.set(packageBootstrapJarTask.flatMap(ShadowJar::getArchiveFile))
             this.godotSingleJars.from(
                 configurations.getByName(GODOT_SINGLE_CONFIGURATION).filter { file -> file.extension == "jar" }
             )

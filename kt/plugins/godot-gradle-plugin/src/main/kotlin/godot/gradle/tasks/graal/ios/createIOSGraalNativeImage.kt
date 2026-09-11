@@ -1,21 +1,23 @@
 package godot.gradle.tasks.graal.ios
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
+import godot.gradle.projectExt.variantLibsDirectory
 import godot.gradle.tasks.graal.iosJniConfig
 import godot.gradle.tasks.graal.iosReflectionConfig
 import godot.gradle.tasks.graal.iosResourceConfig
+import godot.tools.common.constants.ArtifactNames
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
-import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
@@ -33,15 +35,15 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
     @get:InputDirectory
     abstract val capCacheDirectory: DirectoryProperty
 
-    @get:InputFile
-    abstract val mainJar: RegularFileProperty
-
-    @get:InputFile
-    abstract val bootstrapJar: RegularFileProperty
+    @get:InputFiles
+    abstract val gameJars: ConfigurableFileCollection
 
     // A native image cannot load jars at runtime, so godotSingle dependencies are compiled in as well.
     @get:InputFiles
     abstract val godotSingleJars: ConfigurableFileCollection
+
+    @get:Internal
+    abstract val workingDirectory: DirectoryProperty
 
     @get:Input
     @get:Optional
@@ -64,7 +66,7 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
 
     @TaskAction
     fun createIOSGraalNativeImage() {
-        val libsDir = mainJar.get().asFile.parentFile
+        val libsDir = workingDirectory.get().asFile
         val iosLibDir = iosNativeImageDirectory.get().asFile
         val graalDir = graalDirectory.get().asFile
         val iosGraalConfigDir = graalDir.resolve("ios")
@@ -116,13 +118,13 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
             add(nativeImageExecutable)
             addAll(listOf(
             "-cp",
-            (listOf(bootstrapJar.get().asFile, mainJar.get().asFile) + godotSingleJars.files.sortedBy { file -> file.name })
+            (gameJars.files + godotSingleJars.files.sortedBy { file -> file.name })
                 .joinToString(":") { file -> file.absolutePath },
             "--no-server",
             "-H:+ExitAfterRelocatableImageWrite",
             "-H:+SharedLibrary",
             "-H:TempDirectory=${iosLibDir.absolutePath}",
-            "-H:Name=usercode",
+            "-H:Name=${ArtifactNames.NATIVE_IMAGE_BASE_NAME}",
             "-H:+AddAllCharsets",
             "-H:-DeadlockWatchdogExitOnTimeout",
             "-H:DeadlockWatchdogInterval=0",
@@ -172,11 +174,10 @@ fun Project.createIOSGraalNativeImageTask(
     checkNativeImageToolAccessibleTask: TaskProvider<out Task>,
     copyDefaultGraalIOSConfigsTask: TaskProvider<out Task>,
     downloadIOSGraalToolchainTask: TaskProvider<out DownloadIOSGraalToolchainTask>,
-    packageMainJarTask: TaskProvider<out Task>,
-    packageBootstrapJarTask: TaskProvider<out Task>
+    gameJarTasks: List<TaskProvider<ShadowJar>>,
 ): TaskProvider<out Task> {
-    val libsDirectory = layout.buildDirectory.dir("libs")
-    val iosNativeImageDirectory = layout.buildDirectory.dir("libs/ios/native-image")
+    val libsDirectory = variantLibsDirectory()
+    val iosNativeImageDirectory = libsDirectory.map { directory -> directory.dir("ios/native-image") }
     val graalDirectory = layout.buildDirectory.dir("graal")
     val graalVmHomeDirectory = godotJvmExtension.graal.homeDirectory
     val isVerboseEnabled = godotJvmExtension.graal.verbose
@@ -197,14 +198,13 @@ fun Project.createIOSGraalNativeImageTask(
     return tasks.register("createIOSGraalNativeImage", CreateIOSGraalNativeImageTask::class.java) {
         with(it) {
             group = "godot-jvm-internal"
-            description = "INTERNAL TASK ! Converts main.jar and bootstrap.jar into a GraalVM ios native image."
+            description = "INTERNAL TASK ! Converts the packaged jars into a GraalVM ios native image."
 
             dependsOn(
                 checkNativeImageToolAccessibleTask,
                 copyDefaultGraalIOSConfigsTask,
                 downloadIOSGraalToolchainTask,
-                packageMainJarTask,
-                packageBootstrapJarTask
+                gameJarTasks,
             )
 
             this.iosNativeImageDirectory.set(iosNativeImageDirectory)
@@ -212,8 +212,8 @@ fun Project.createIOSGraalNativeImageTask(
             this.capCacheDirectory.set(
                 downloadIOSGraalToolchainTask.flatMap { task -> task.capCacheDirectory }
             )
-            this.mainJar.set(libsDirectory.map { directory -> directory.file("main.jar") })
-            this.bootstrapJar.set(libsDirectory.map { directory -> directory.file("godot-bootstrap.jar") })
+            this.gameJars.from(gameJarTasks.map { jarTask -> jarTask.flatMap(ShadowJar::getArchiveFile) })
+            this.workingDirectory.set(libsDirectory)
             this.godotSingleJars.from(
                 configurations.getByName(GODOT_SINGLE_CONFIGURATION).filter { file -> file.extension == "jar" }
             )

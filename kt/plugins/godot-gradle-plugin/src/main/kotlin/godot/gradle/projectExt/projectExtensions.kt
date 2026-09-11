@@ -2,7 +2,10 @@ package godot.gradle.projectExt
 
 import godot.gradle.GodotExtension
 import godot.gradle.GodotLanguage
+import godot.tools.common.constants.Paths
 import org.gradle.api.Project
+import org.gradle.api.file.Directory
+import org.gradle.api.provider.Provider
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
 val Project.godotJvmExtension: GodotExtension
@@ -45,3 +48,9 @@ val Project.godotExtensionArtifactName: String
 
 val Project.godotCoroutineLibraryArtifactName: String
     get() = "godot-coroutine-library-${if (isRelease) "release" else "debug"}"
+
+// Debug and release artifacts never share a directory, so one cannot be mistaken for the other.
+val Project.variantDirectoryName: String
+    get() = if (isRelease) Paths.RELEASE_VARIANT_DIR else Paths.DEBUG_VARIANT_DIR
+
+fun Project.variantLibsDirectory(): Provider<Directory> = layout.buildDirectory.dir("libs/$variantDirectoryName")

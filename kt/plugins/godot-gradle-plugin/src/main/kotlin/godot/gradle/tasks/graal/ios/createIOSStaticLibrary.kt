@@ -1,5 +1,7 @@
 package godot.gradle.tasks.graal.ios
 
+import godot.gradle.projectExt.variantLibsDirectory
+import godot.tools.common.constants.ArtifactNames
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -23,7 +25,7 @@ abstract class CreateIOSStaticLibraryTask : DefaultTask() {
         val userCodeObjectPath = iosLibDir.listFiles()
             ?.filter { file -> file.isDirectory && file.name.startsWith("SVM-") }
             ?.maxByOrNull { file -> file.lastModified() }
-            ?.resolve("usercode.o")
+            ?.resolve("${ArtifactNames.NATIVE_IMAGE_BASE_NAME}.o")
             ?.absolutePath
             ?: error("Could not find generated iOS object file in ${iosLibDir.absolutePath}")
 
@@ -53,14 +55,14 @@ fun Project.createIOSStaticLibraryTask(
 ): TaskProvider<out Task> = tasks.register("createIOSStaticLibrary", CreateIOSStaticLibraryTask::class.java) {
     with(it) {
         group = "godot-jvm"
-        description = "Pack usercode.o in a static library."
+        description = "Packs the iOS native image object file into a static library."
 
         dependsOn(
             downloadIOSGraalToolchainTask,
             createIOSGraalNativeImageTask
         )
 
-        iosNativeImageDirectory.set(layout.buildDirectory.dir("libs/ios/native-image"))
-        userCodeArchive.set(layout.buildDirectory.file("libs/ios/usercode.a"))
+        iosNativeImageDirectory.set(variantLibsDirectory().map { directory -> directory.dir("ios/native-image") })
+        userCodeArchive.set(variantLibsDirectory().map { directory -> directory.file(ArtifactNames.IOS_STATIC_LIBRARY) })
     }
 }
