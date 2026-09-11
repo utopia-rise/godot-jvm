@@ -10,7 +10,7 @@ These chapters explain Godot-JVM's internal design and the responsibilities of e
 
 You run a Gradle build; your Kotlin, Java or Scala sources are compiled to bytecode, a processor
 scans that bytecode for the classes you registered, a registrar is generated from what it finds,
-and everything is packaged into two JARs that are copied into `res://jvm/`. The Godot-JVM addon
+and everything is packaged into JARs that are copied into `res://jvm/debug/` (`res://jvm/release/` for release builds). The Godot-JVM addon
 loads those JARs, and that is how the editor and the running game learn about your classes.
 
 ```mermaid
@@ -20,13 +20,13 @@ flowchart LR
         src["Player.kt"]
         cls["compiled bytecode"]
         reg["generated registrar entry"]
-        jar["main.jar"]
+        jar["usercode.jar"]
         src --> cls --> reg --> jar
     end
 
     subgraph editor["Godot editor"]
         direction TB
-        addon["jvm addon loads<br/>res://jvm/main.jar"]
+        addon["jvm addon loads<br/>res://jvm/debug/usercode.jar"]
         node["Node in your scene"]
         addon --> node
     end
@@ -35,7 +35,7 @@ flowchart LR
     src -. "com.example.game.Player" .-> node
 ```
 
-The solid arrows follow compiled code. The dotted arrow shows how the attached source file identifies a class: Godot reads its package and class name, then resolves that fully qualified name to the compiled class in `main.jar`.
+The solid arrows follow compiled code. The dotted arrow shows how the attached source file identifies a class: Godot reads its package and class name, then resolves that fully qualified name to the compiled class in `usercode.jar`.
 
 The diagram follows a project class attached through its source file. Dependency classes use generated `.gdj` files because their source is outside the Godot project. Both identify compiled classes for Godot to load.
 
@@ -46,8 +46,9 @@ flowchart LR
     subgraph artifacts["Build artifacts"]
         direction TB
         boot["godot-bootstrap.jar"]
-        main["main.jar"]
-        user["usercode<br/>(native image only)"]
+        main["usercode.jar"]
+        release["game.jar<br/>(release only)"]
+        user["game<br/>(native image only)"]
     end
 
     subgraph edit["Edit time"]
@@ -68,11 +69,13 @@ flowchart LR
     main ==> e1
     boot ==> g1
     main ==> g1
+    release ==> g1
     user -. "native image export:<br/>replaces both JARs" .-> export
 ```
 
-1. **[The three build artifacts](artifacts.md)**: what `godot-bootstrap.jar`, `main.jar`, and the
-   GraalVM native-image `usercode` output each contain, and when each one is used.
+1. **[The build artifacts](artifacts.md)**: what `godot-bootstrap.jar`, `usercode.jar`, the release
+   `game.jar` and the GraalVM native-image `game` output each contain, when each one is used, and how
+   debug and release artifacts are kept apart.
 2. **[Memory management](memory-management.md)**: how Godot's object bindings and the JVM garbage
    collector are reconciled, and why `RefCounted` script instances need a weak JNI reference.
 3. **[The JNI shared buffer](shared-buffer.md)**: the per-thread buffer used to exchange call arguments and return values, and its memory layout.
