@@ -7,7 +7,7 @@ description: Build Godot games in Kotlin, Java, or Scala with the Godot-JVM GDEx
 
 # Godot-JVM
 
-<img src="logo/logo-512.png" alt="Godot-JVM logo" width="256" height="256">
+<img src="logo/highres/logo-512.png" alt="Godot-JVM logo" width="256" height="256">
 
 </div>
 

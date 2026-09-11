@@ -80,7 +80,7 @@ intellijPlatform {
 
 tasks {
     processResources {
-        val logoDirectory = rootProject.projectDir.parentFile.resolve("logo")
+        val logoDirectory = rootProject.projectDir.parentFile.resolve("logo/highres")
 
         // JetBrains sizes: 40px marketplace icon, 16px in-IDE icon.
         from(logoDirectory) {

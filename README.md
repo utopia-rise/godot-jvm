@@ -2,7 +2,7 @@
 ## JVM binding for the Godot Game Engine
 
 <p align="center">
-<img src="logo/logo-1024.png" width="30%" height="30%">
+<img src="logo/highres/logo-1024.png" width="30%" height="30%">
 </p>
 
 [![GitHub](https://img.shields.io/github/license/utopia-rise/godot-jvm?style=for-the-badge)](LICENSE)

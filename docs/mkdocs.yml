@@ -16,7 +16,7 @@ repo_url: 'https://github.com/utopia-rise/godot-jvm'
 theme:
   name: material
   custom_dir: src/overrides
-  favicon: logo/logo-64.png
+  favicon: logo/pixel/logo-64.png
   palette:
     - media: "(prefers-color-scheme)"
       primary: deep purple
@@ -35,7 +35,7 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
-  logo: logo/logo-64.png
+  logo: logo/pixel/logo-64.png
   font:
     code: JetBrains Mono
   features:
