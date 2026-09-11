@@ -1,7 +1,9 @@
 #ifndef GODOT_JVM_GODOT_JVM_H
 #define GODOT_JVM_GODOT_JVM_H
 
+#ifdef TOOLS_ENABLED
 #include "api/resource_format/java_archive.h"
+#endif
 #include "engine/godot_object.h"
 #include "jvm/lifecycle/class_loader.h"
 #include "jvm/lifecycle/jvm_manager.h"
@@ -39,8 +41,10 @@ namespace godot {
 
         ClassLoader* bootstrap_class_loader = nullptr;
         Bootstrap* bootstrap = nullptr;
+#ifdef TOOLS_ENABLED
         godot::Ref<JavaArchive> jar; // We keep a Reference to the jar in memory because the Godot editor require a
                                      // resource to be in cache to reload.
+#endif
         // TODO: delete when https://github.com/godotengine/godot/issues/95231 is resolved
         raw_godot::RawObject callable_middleman;
 

@@ -483,7 +483,9 @@ void GodotJvm::unload_user_code() {
     if (bootstrap_class_loader != nullptr) { bootstrap_class_loader->set_as_context_loader(env); }
 
     bootstrap->finish(env);
+#ifdef TOOLS_ENABLED
     jar.unref();
+#endif
 }
 
 void GodotJvm::finalize_core_library() {
