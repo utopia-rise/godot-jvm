@@ -44,8 +44,9 @@ namespace godot {
         // Which runtime files (native image, embedded JREs) existed at the last _should_update_export_options() check,
         // per OS name.
         mutable HashMap<String, int> runtime_file_states;
-        // Set by _export_begin for the current export so _export_file knows whether the desktop jars are wanted.
+        // Set by _export_begin for the current export, since _export_file is only given the export features.
         bool exporting_jvm_runtime = true;
+        bool exporting_debug = true;
 
         int selected_runtime() const;
     };
