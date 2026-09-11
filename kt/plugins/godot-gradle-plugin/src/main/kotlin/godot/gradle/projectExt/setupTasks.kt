@@ -8,7 +8,7 @@ import godot.gradle.tasks.android.checkD8ToolAccessibleTask
 import godot.gradle.tasks.android.createBootstrapDexJarTask
 import godot.gradle.tasks.android.createMainDexFileTask
 import godot.gradle.tasks.android.createReleaseDexJarTask
-import godot.gradle.tasks.android.packageMainDexJarTask
+import godot.gradle.tasks.android.packageUserCodeDexJarTask
 import godot.gradle.tasks.createCopyAndroidArtifactsTask
 import godot.gradle.tasks.createCopyDesktopJarsTask
 import godot.gradle.tasks.createCopyGraalArtifactsTask
@@ -28,7 +28,7 @@ import godot.gradle.tasks.graal.ios.createIOSGraalNativeImageTask
 import godot.gradle.tasks.graal.ios.createIOSStaticLibraryTask
 import godot.gradle.tasks.graal.ios.downloadIOSGraalToolchain
 import godot.gradle.tasks.packageBootstrapJarTask
-import godot.gradle.tasks.packageMainJarTask
+import godot.gradle.tasks.packageUserCodeJarTask
 import godot.gradle.tasks.packageReleaseJarTask
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -48,12 +48,12 @@ private data class RegistrarGenerationTasks(
 
 private data class DesktopPackagingTasks(
     val packageBootstrapJarTask: TaskProvider<ShadowJar>,
-    val packageMainJarTask: TaskProvider<ShadowJar>,
+    val packageUserCodeJarTask: TaskProvider<ShadowJar>,
     /** Only registered for release builds, which ship the merged jar instead of the pair. */
     val packageReleaseJarTask: TaskProvider<ShadowJar>?,
 ) {
     val gameJarTasks: List<TaskProvider<ShadowJar>>
-        get() = packageReleaseJarTask?.let(::listOf) ?: listOf(packageBootstrapJarTask, packageMainJarTask)
+        get() = packageReleaseJarTask?.let(::listOf) ?: listOf(packageBootstrapJarTask, packageUserCodeJarTask)
 }
 
 private data class AndroidPackagingTasks(
@@ -239,7 +239,7 @@ private fun Project.setupDesktopPackagingTasks(
     customApiJarTask: TaskProvider<Jar>?,
 ): DesktopPackagingTasks {
     val packageBootstrapJarTask = packageBootstrapJarTask(customApiJarTask)
-    val packageMainJarTask = packageMainJarTask(
+    val packageUserCodeJarTask = packageUserCodeJarTask(
         generatedRegistrarJarTask = registrarGenerationTasks.generatedRegistrarJarTask,
         updateRegistrationFilesTask = registrarGenerationTasks.updateRegistrationFilesTask,
         userClassesTask = classesTask,
@@ -247,7 +247,7 @@ private fun Project.setupDesktopPackagingTasks(
     val packageReleaseJarTask = if (isRelease) {
         packageReleaseJarTask(
             packageBootstrapJarTask = packageBootstrapJarTask,
-            packageMainJarTask = packageMainJarTask,
+            packageUserCodeJarTask = packageUserCodeJarTask,
         )
     } else {
         null
@@ -255,7 +255,7 @@ private fun Project.setupDesktopPackagingTasks(
 
     return DesktopPackagingTasks(
         packageBootstrapJarTask = packageBootstrapJarTask,
-        packageMainJarTask = packageMainJarTask,
+        packageUserCodeJarTask = packageUserCodeJarTask,
         packageReleaseJarTask = packageReleaseJarTask,
     )
 }
@@ -288,19 +288,19 @@ private fun Project.setupAndroidPackagingTasks(
         checkAndroidJarAccessibleTask = checkAndroidJarAccessibleTask,
         checkD8ToolAccessibleTask = checkD8ToolAccessibleTask,
         createBootstrapDexJarTask = createBootstrapDexJarTask,
-        packageMainJarTask = desktopPackagingTasks.packageMainJarTask,
+        packageUserCodeJarTask = desktopPackagingTasks.packageUserCodeJarTask,
         packageBootstrapJarTask = desktopPackagingTasks.packageBootstrapJarTask,
     )
-    val packageMainDexJarTask = packageMainDexJarTask(
+    val packageUserCodeDexJarTask = packageUserCodeDexJarTask(
         createMainDexFileTask = createMainDexFileTask,
-        packageMainJarTask = desktopPackagingTasks.packageMainJarTask,
+        packageUserCodeJarTask = desktopPackagingTasks.packageUserCodeJarTask,
     )
 
     return AndroidPackagingTasks(
-        dexTasks = listOf(createBootstrapDexJarTask, packageMainDexJarTask),
+        dexTasks = listOf(createBootstrapDexJarTask, packageUserCodeDexJarTask),
         dexJars = listOf(
             createBootstrapDexJarTask.flatMap(CreateDexJarTask::dexJar),
-            packageMainDexJarTask.flatMap(ShadowJar::getArchiveFile),
+            packageUserCodeDexJarTask.flatMap(ShadowJar::getArchiveFile),
         ),
     )
 }
@@ -394,7 +394,7 @@ private fun Project.setupBuildLifecycleTasks(
     }
 
     if (isFastBuildRequested() && isRelease) {
-        throw GradleException("fastBuild only produces debug artifacts. Use build or buildRelease.")
+        throw GradleException("fastBuild only produces debug artifacts. Use buildRelease instead for release builds.")
     }
     tasks.named("fastBuild") { task ->
         task.dependsOn(

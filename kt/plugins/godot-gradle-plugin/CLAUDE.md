@@ -103,7 +103,7 @@ The end-to-end workflow is:
 5. `registrarGenerationSyncRegistrationFiles` syncs staged `.gdj` files by updating indexed matches in place, deleting obsolete indexed files, and copying new files into the configured registration directory
 6. `registrarGenerationJar` compiles generated registrar code into its own intermediary jar
 7. `packageBootstrapJar` builds `godot-bootstrap.jar` into `build/libs/<debug|release>/`
-8. `packageMainJar` builds `usercode.jar` next to it, merging in the generated-registrar jar
+8. `packageUserCodeJar` builds `usercode.jar` next to it, merging in the generated-registrar jar
 9. release builds only: `packageReleaseJar` merges both into `game.jar`
 10. Android and Graal tasks derive export artifacts from the packaged jars of the variant
 11. the copy tasks write everything into `<godotProject>/jvm/<debug|release>/`
@@ -160,7 +160,7 @@ Defined by:
 ### `usercode.jar`
 
 Defined by:
-[`tasks/packaging/packageMainJar.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/packaging/packageMainJar.kt)
+[`tasks/packaging/packageUserCodeJarTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/packaging/packageUserCodeJarTask.kt)
 
 - final packaged runtime jar
 - built from `shadowJar`
@@ -236,7 +236,7 @@ Jar packaging and copy tasks.
 
 - `packageUserJarTask.kt`
 - `packageBootstrapJarTask.kt`
-- `packageMainJar.kt`
+- `packageUserCodeJarTask.kt`
 - `copyJarsTask.kt`
 - `generateGdIgnoreFilesTask.kt`
 

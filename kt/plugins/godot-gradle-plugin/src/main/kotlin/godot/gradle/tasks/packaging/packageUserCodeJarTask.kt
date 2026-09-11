@@ -12,7 +12,7 @@ import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 
-fun Project.packageMainJarTask(
+fun Project.packageUserCodeJarTask(
     generatedRegistrarJarTask: TaskProvider<Jar>,
     updateRegistrationFilesTask: TaskProvider<out Task>,
     userClassesTask: TaskProvider<out Task>,
@@ -27,9 +27,9 @@ fun Project.packageMainJarTask(
             archiveClassifier.set("")
             destinationDirectory.set(variantLibsDirectory())
             configurations.clear()
-            configurations.add(this@packageMainJarTask.configurations.getByName(GODOT_MAIN_CONFIGURATION))
+            configurations.add(this@packageUserCodeJarTask.configurations.getByName(GODOT_MAIN_CONFIGURATION))
 
-            val godotSingle = this@packageMainJarTask.configurations.getByName(GODOT_SINGLE_CONFIGURATION)
+            val godotSingle = this@packageUserCodeJarTask.configurations.getByName(GODOT_SINGLE_CONFIGURATION)
             // Keep godotSingle dependencies as intact JARs while making them visible to the main URLClassLoader.
             manifest.attributes[
                 "Class-Path"

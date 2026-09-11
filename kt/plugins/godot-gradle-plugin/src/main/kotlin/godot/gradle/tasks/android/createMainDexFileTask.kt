@@ -23,7 +23,7 @@ import java.io.File
 
 abstract class CreateMainDexFileTask : DefaultTask() {
     @get:InputFile
-    abstract val mainJar: RegularFileProperty
+    abstract val userCodeJar: RegularFileProperty
 
     @get:InputFile
     abstract val bootstrapJar: RegularFileProperty
@@ -51,9 +51,9 @@ abstract class CreateMainDexFileTask : DefaultTask() {
 
     @TaskAction
     fun createMainDexFile() {
-        val libsDir = mainJar.get().asFile.parentFile
+        val libsDir = userCodeJar.get().asFile.parentFile
         val mainDexRules = writeMainDexRules(mainDexRulesFile.get().asFile)
-        val inputJars = listOf(mainJar.get().asFile) + godotSingleJars.files.sortedBy { file -> file.name }
+        val inputJars = listOf(userCodeJar.get().asFile) + godotSingleJars.files.sortedBy { file -> file.name }
         val d8Arguments = listOf(File(d8ToolPath.get()).absolutePath) +
             inputJars.map { file -> file.absolutePath } +
             listOf(
@@ -98,7 +98,7 @@ fun Project.createMainDexFileTask(
     checkAndroidJarAccessibleTask: TaskProvider<out Task>,
     checkD8ToolAccessibleTask: TaskProvider<out Task>,
     createBootstrapDexJarTask: TaskProvider<out Task>,
-    packageMainJarTask: TaskProvider<ShadowJar>,
+    packageUserCodeJarTask: TaskProvider<ShadowJar>,
     packageBootstrapJarTask: TaskProvider<ShadowJar>,
 ): TaskProvider<CreateMainDexFileTask> {
     val libsDirectory = variantLibsDirectory()
@@ -113,7 +113,7 @@ fun Project.createMainDexFileTask(
 
             dependsOn(checkD8ToolAccessibleTask, checkAndroidJarAccessibleTask, createBootstrapDexJarTask)
 
-            this.mainJar.set(packageMainJarTask.flatMap(ShadowJar::getArchiveFile))
+            this.userCodeJar.set(packageUserCodeJarTask.flatMap(ShadowJar::getArchiveFile))
             this.bootstrapJar.set(packageBootstrapJarTask.flatMap(ShadowJar::getArchiveFile))
             this.godotSingleJars.from(
                 configurations.getByName(GODOT_SINGLE_CONFIGURATION).filter { file -> file.extension == "jar" }
