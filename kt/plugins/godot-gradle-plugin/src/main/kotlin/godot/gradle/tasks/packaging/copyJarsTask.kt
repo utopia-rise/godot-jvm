@@ -60,14 +60,14 @@ fun Project.createCopyDesktopJarsTask(
 }
 
 fun Project.createCopyAndroidArtifactsTask(
-    dexTasks: List<TaskProvider<out Task>>,
+    gameDexJarTasks: List<TaskProvider<out Task>>,
 ): TaskProvider<Copy> {
     return registerCopyTask(
         name = "copyAndroidArtifacts",
         description = "Internal task! Copies the Android dex artifacts of this variant into the Godot-JVM output directory.",
-        dependsOnTasks = dexTasks,
+        dependsOnTasks = gameDexJarTasks,
     ) {
-        from(dexTasks)
+        from(gameDexJarTasks)
     }
 }
 
