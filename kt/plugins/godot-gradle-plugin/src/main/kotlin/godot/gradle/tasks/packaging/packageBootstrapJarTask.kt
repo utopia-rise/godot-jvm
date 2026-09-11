@@ -1,14 +1,15 @@
 package godot.gradle.tasks
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import godot.gradle.projectExt.variantLibsDirectory
+import godot.tools.common.constants.ArtifactNames
 import org.gradle.api.Project
-import org.gradle.api.Task
 import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 
-fun Project.packageBootstrapJarTask(customApiJarTask: TaskProvider<Jar>? = null): TaskProvider<out Task> {
+fun Project.packageBootstrapJarTask(customApiJarTask: TaskProvider<Jar>? = null): TaskProvider<ShadowJar> {
     val mainSourceSet = extensions
         .getByType(SourceSetContainer::class.java)
         .getByName("main")
@@ -16,9 +17,10 @@ fun Project.packageBootstrapJarTask(customApiJarTask: TaskProvider<Jar>? = null)
     return tasks.register("packageBootstrapJar", ShadowJar::class.java) {
         with(it) {
             group = "godot-jvm"
-            description = "Creates a fat jar containing everything needed to load and run the main.jar"
+            description = "Creates a fat jar containing everything needed to load and run the usercode.jar"
 
-            archiveBaseName.set("godot-bootstrap")
+            archiveBaseName.set(ArtifactNames.Debug.BOOTSTRAP_JAR.removeSuffix(".jar"))
+            destinationDirectory.set(variantLibsDirectory())
             if (customApiJarTask != null) {
                 dependsOn(customApiJarTask)
                 duplicatesStrategy = DuplicatesStrategy.EXCLUDE

@@ -2,6 +2,7 @@ package godot.gradle.tasks.registrar_generation
 
 import godot.gradle.projectExt.godotJvmExtension
 import godot.tools.common.constants.FileExtensions
+import godot.tools.common.constants.Paths
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -96,6 +97,7 @@ internal fun Project.requireConfiguredGodotProjectDirectory(): File {
 internal fun Project.godotRegistrationFileTree(rootDir: File) = fileTree(rootDir).matching { patternFilterable ->
     patternFilterable.include("**/*.${FileExtensions.GodotJvm.registrationFile}")
     patternFilterable.exclude("build/**")
+    patternFilterable.exclude("${Paths.GODOT_JVM_DIR}/**")
     patternFilterable.exclude("android/**")
     patternFilterable.exclude(".*/**")
     patternFilterable.exclude("**/.*/**")

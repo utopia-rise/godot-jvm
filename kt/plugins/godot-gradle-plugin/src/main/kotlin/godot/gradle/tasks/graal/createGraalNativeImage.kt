@@ -1,11 +1,14 @@
 package godot.gradle.tasks.graal
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.exception.GraalNativeImageToolNotFountException
 import godot.gradle.ext.existingFileOrNull
 import godot.gradle.ext.resolveExecutable
 import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
 import godot.gradle.projectExt.isRelease
+import godot.gradle.projectExt.variantLibsDirectory
+import godot.tools.common.constants.ArtifactNames
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.Exec
@@ -16,10 +19,9 @@ import java.io.File
 fun Project.createGraalNativeImageTask(
     checkNativeImageToolAccessibleTask: TaskProvider<out Task>,
     checkPresenceOfDefaultGraalJniConfigTask: TaskProvider<out Task>,
-    packageMainJarTask: TaskProvider<out Task>,
-    packageBootstrapJarTask: TaskProvider<out Task>
+    gameJarTasks: List<TaskProvider<ShadowJar>>,
 ): TaskProvider<out Task> {
-    val libsDirectory = layout.buildDirectory.dir("libs")
+    val libsDirectory = variantLibsDirectory()
     val graalDirectory = layout.buildDirectory.dir("graal")
     val graalVmHomeDirectory = godotJvmExtension.graal.homeDirectory
     val windowsDeveloperVcVarsPath = godotJvmExtension.graal.windowsDeveloperVcVarsPath
@@ -28,11 +30,12 @@ fun Project.createGraalNativeImageTask(
     // Debug images use native-image's quick build mode (-Ob): far shorter build at the cost of runtime speed, which
     // only matters for the shipped release image. Release keeps the fully optimized default (-O2).
     val optimizationLevel = if (isRelease) "-O2" else "-Ob"
-    val sharedLibraryName = when {
-        DefaultNativePlatform.getCurrentOperatingSystem().isWindows -> "usercode.dll"
-        DefaultNativePlatform.getCurrentOperatingSystem().isMacOsX -> "usercode.dylib"
-        else -> "usercode.so"
+    val sharedLibraryExtension = when {
+        DefaultNativePlatform.getCurrentOperatingSystem().isWindows -> "dll"
+        DefaultNativePlatform.getCurrentOperatingSystem().isMacOsX -> "dylib"
+        else -> "so"
     }
+    val sharedLibraryName = "${ArtifactNames.NATIVE_IMAGE_BASE_NAME}.$sharedLibraryExtension"
     val projectBaseDir = projectDir
     val additionalJniConfigurationFiles = godotJvmExtension.graal.additionalJniConfigurationFiles.map { configFiles ->
         configFiles.joinToString(",") { configFile ->
@@ -49,21 +52,13 @@ fun Project.createGraalNativeImageTask(
     return tasks.register("createGraalNativeImage", Exec::class.java) {
         with(it) {
             group = "godot-jvm"
-            description = "Converts main.jar and bootstrap.jar into a GraalVM native image."
+            description = "Converts the packaged jars into a GraalVM native image."
 
-            dependsOn(
-                checkNativeImageToolAccessibleTask,
-                checkPresenceOfDefaultGraalJniConfigTask,
-                packageMainJarTask,
-                packageBootstrapJarTask
-            )
+            dependsOn(checkNativeImageToolAccessibleTask, checkPresenceOfDefaultGraalJniConfigTask, gameJarTasks)
 
             // Only the jars, not the whole libs directory: the image itself is written there, and a task whose
             // inputs contain its own outputs (or that declares no outputs at all) can never be up to date.
-            inputs.files(
-                libsDirectory.map { directory -> directory.file("godot-bootstrap.jar") },
-                libsDirectory.map { directory -> directory.file("main.jar") }
-            )
+            inputs.files(gameJarTasks.map { jarTask -> jarTask.flatMap(ShadowJar::getArchiveFile) })
             inputs.dir(graalDirectory)
             outputs.file(libsDirectory.map { directory -> directory.file(sharedLibraryName) })
             inputs.files(configurations.getByName(GODOT_SINGLE_CONFIGURATION))
@@ -80,7 +75,7 @@ fun Project.createGraalNativeImageTask(
                 val libsDir = libsDirectory.get().asFile
 
                 // A native image cannot load jars at runtime, so godotSingle dependencies are compiled in as well.
-                val classPath = listOf(File(libsDir, "godot-bootstrap.jar"), File(libsDir, "main.jar")) +
+                val classPath = gameJarTasks.map { jarTask -> jarTask.get().archiveFile.get().asFile } +
                     configurations.getByName(GODOT_SINGLE_CONFIGURATION).files
                         .filter { file -> file.extension == "jar" }
                         .sortedBy { file -> file.name }
@@ -146,7 +141,7 @@ fun Project.createGraalNativeImageTask(
                         "-cp",
                         classPath.joinToString(";") { file -> "\"${file.absolutePath}\"" },
                         "--shared",
-                        "-H:Name=usercode",
+                        "-H:Name=${ArtifactNames.NATIVE_IMAGE_BASE_NAME}",
                         jniConfigurationFilesArgument,
                         "--no-fallback",
                         optimizationLevel,
@@ -159,7 +154,7 @@ fun Project.createGraalNativeImageTask(
                         "-cp",
                         classPath.joinToString(":") { file -> file.absolutePath },
                         "--shared",
-                        "-H:Name=usercode",
+                        "-H:Name=${ArtifactNames.NATIVE_IMAGE_BASE_NAME}",
                         jniConfigurationFilesArgument,
                         "--no-fallback",
                         optimizationLevel,

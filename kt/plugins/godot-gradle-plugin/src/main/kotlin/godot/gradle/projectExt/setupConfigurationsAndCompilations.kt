@@ -23,8 +23,8 @@ const val GODOT_SINGLE_CONFIGURATION = "godotSingle"
  * - Creates a dedicated `bootstrap` configuration used to build `bootstrap.jar`, which contains the glue code for the
  *   `cpp -> jvm -> cpp` communication but no user project classes.
  * - The user's normal compiled output is later packaged into an intermediary `user.jar`, then used by registrar generation to
- *   produce generated registrar sources and `.gdj` files, then merged into the final `main.jar`.
- * - At runtime, the module uses `godot-bootstrap.jar` together with `main.jar`.
+ *   produce generated registrar sources and `.gdj` files, then merged into the final `usercode.jar`.
+ * - At runtime, the module uses `godot-bootstrap.jar` together with `usercode.jar`.
  */
 fun Project.setupConfigurationsAndCompilations() {
     val godotMain = configurations.create(GODOT_MAIN_CONFIGURATION)
