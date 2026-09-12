@@ -6,7 +6,7 @@ import godot.internal.logging.GodotLogging
 import godot.internal.memory.TransferContext
 
 data class KtPropertyInfo(
-    val _type: VariantConverter,
+    val _type: VariantConverter<*>,
     val name: String,
     val className: String,
     val _hint: PropertyHint,
@@ -18,7 +18,7 @@ data class KtPropertyInfo(
     }
 ) {
     constructor(
-        type: VariantConverter,
+        type: VariantConverter<*>,
         className: String,
         name: String = ""
     ) : this(
@@ -40,7 +40,7 @@ open class KtProperty<T : KtObject, P : Any?>(
     @Suppress("unused") val ktPropertyInfo: KtPropertyInfo,
     protected val getter: (T) -> P,
     protected val setter: ((T, P) -> Unit)?,
-    protected val variantConverter: VariantConverter,
+    protected val variantConverter: VariantConverter<*>,
 ) {
     open fun callGet(instance: T) {
         try {
@@ -95,20 +95,20 @@ class KtEnumListProperty<T : KtObject, P : Enum<P>, L : Collection<P>>(
     ktPropertyInfo: KtPropertyInfo,
     getter: (T) -> L,
     setter: ((T, L) -> Unit)?,
-    val getValueConverter: (L?) -> VariantArray<Int>,
-    val setValueConverter: (VariantArray<Int>) -> L
+    val getValueConverter: (L?) -> VariantArray<Long>,
+    val setValueConverter: (VariantArray<Long>) -> L
 ) : KtProperty<T, L>(
     ktPropertyInfo,
     getter,
     setter,
-    VariantParser.ARRAY
+    VariantCaster.TYPED_ARRAY(VariantParser.LONG)
 ) {
     override fun callGet(instance: T) {
-        TransferContext.writeReturnValue(getValueConverter(getter(instance)), VariantParser.ARRAY)
+        TransferContext.writeReturnValue(getValueConverter(getter(instance)), variantConverter)
     }
 
     override fun callSet(instance: T) {
-        val arg = extractSetterArgument<VariantArray<Int>>()
+        val arg = extractSetterArgument<VariantArray<Long>>()
         setter?.invoke(instance, setValueConverter(arg))
     }
 }

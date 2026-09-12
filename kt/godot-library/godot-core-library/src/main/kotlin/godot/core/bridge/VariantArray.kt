@@ -20,19 +20,35 @@ import kotlin.reflect.KClass
 @Suppress("unused", "UNCHECKED_CAST")
 class VariantArray<T> : NativeCoreType, MutableCollection<T> {
 
-    internal var variantConverter: VariantConverter
+    internal var variantConverter: VariantConverter<T>
 
     @PublishedApi
-    internal constructor(handle: VoidPtr) : this(handle, VariantCaster.ANY)
+    internal constructor(handle: VoidPtr) : this(handle, VariantCaster.ANY as VariantConverter<T>)
 
     @PublishedApi
-    internal constructor(handle: VoidPtr, converter: VariantConverter) {
-        variantConverter = if(converter == VariantParser.NIL) VariantCaster.ANY else converter
+    internal constructor(handle: VoidPtr, converter: VariantConverter<T>) {
+        variantConverter = converter
         ptr = handle
         MemoryManager.registerNativeCoreType(this, VariantParser.ARRAY)
     }
 
     constructor(parameterClazz: Class<*>) : this(Reflection.getOrCreateKotlinClass(parameterClazz))
+
+
+    constructor(converter: VariantConverter<T>) {
+        variantConverter = converter
+        ptr = if (converter != VariantCaster.ANY) {
+            TransferContext.writeArguments(
+                VariantCaster.INT to converter.id,
+                VariantCaster.INT to -1,
+                VariantParser.LONG to nullptr
+            )
+            Bridge.engine_call_constructor_typed()
+        } else {
+            Bridge.engine_call_constructor()
+        }
+        MemoryManager.registerNativeCoreType(this, VariantParser.ARRAY)
+    }
 
     @PublishedApi
     internal constructor(parameterClazz: KClass<*>) {
@@ -44,7 +60,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
             }
         }
 
-        this.variantConverter = variantConverter!!
+        this.variantConverter = variantConverter as VariantConverter<T>
         ptr = if (variantConverter != VariantCaster.ANY) {
             TransferContext.writeArguments(
                 VariantCaster.INT to variantConverter.id,

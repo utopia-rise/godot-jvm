@@ -6,6 +6,7 @@
 
 package godot.core
 
+import godot.common.interop.VariantConverter
 import java.lang.Class
 import java.lang.Void
 import kotlin.Any
@@ -37,11 +38,20 @@ public class LambdaCallable0<R> @PublishedApi internal constructor(
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R> _createJava(returnConverter: VariantConverter<R>, function: JvmFunction0<R>):
+        LambdaCallable0<R> = LambdaCallable0<R>(LambdaContainer0<R>(returnConverter, arrayOf(),
+        function))
   }
 }
 
 public inline fun <reified R> lambdaCallable0(noinline function: () -> R) =
     LambdaCallable0<R>(LambdaContainer0<R>(getVariantConverter<R>()!!, arrayOf(), function))
+
+public fun <R> lambdaCallable0(returnConverter: VariantConverter<R>, function: () -> R) =
+    LambdaCallable0<R>(LambdaContainer0<R>(returnConverter, arrayOf(), function))
 
 public inline fun <reified R> (() -> R).asCallable() = lambdaCallable0(this)
 
@@ -74,11 +84,39 @@ public class LambdaCallable1<R, P0> @PublishedApi internal constructor(
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      function: JvmFunction1<R, P0>,
+    ): LambdaCallable1<R, P0> = LambdaCallable1<R, P0>(LambdaContainer1<R, P0>(returnConverter,
+        arrayOf(p0Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0> _createJava(p0Converter: VariantConverter<P0>, action: JvmAction1<P0>):
+        LambdaCallable1<Void?, P0> =
+        LambdaCallable1<Void?, P0>(LambdaContainer1<Void?, P0>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter), object : JvmFunction1<Void?, P0> {
+      override fun invoke(p0: P0): Void? {
+        action.invoke(p0)
+        return null
+      }
+    }
+    ))
   }
 }
 
 public inline fun <reified R, reified P0> lambdaCallable1(noinline function: (p0: P0) -> R) =
     LambdaCallable1<R, P0>(LambdaContainer1<R, P0>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!), function))
+
+public fun <R, P0> lambdaCallable1(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  function: (p0: P0) -> R,
+) = LambdaCallable1<R, P0>(LambdaContainer1<R, P0>(returnConverter, arrayOf(p0Converter), function))
 
 public inline fun <reified R, reified P0> ((p0: P0) -> R).asCallable() = lambdaCallable1(this)
 
@@ -120,12 +158,47 @@ public class LambdaCallable2<R, P0, P1> @PublishedApi internal constructor(
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      function: JvmFunction2<R, P0, P1>,
+    ): LambdaCallable2<R, P0, P1> =
+        LambdaCallable2<R, P0, P1>(LambdaContainer2<R, P0, P1>(returnConverter, arrayOf(p0Converter,
+        p1Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      action: JvmAction2<P0, P1>,
+    ): LambdaCallable2<Void?, P0, P1> =
+        LambdaCallable2<Void?, P0, P1>(LambdaContainer2<Void?, P0, P1>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter), object : JvmFunction2<Void?, P0, P1> {
+      override fun invoke(p0: P0, p1: P1): Void? {
+        action.invoke(p0, p1)
+        return null
+      }
+    }
+    ))
   }
 }
 
 public inline fun <reified R, reified P0, reified P1> lambdaCallable2(noinline function: (p0: P0,
     p1: P1) -> R) =
     LambdaCallable2<R, P0, P1>(LambdaContainer2<R, P0, P1>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!), function))
+
+public fun <R, P0, P1> lambdaCallable2(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  function: (p0: P0, p1: P1) -> R,
+) = LambdaCallable2<R, P0, P1>(LambdaContainer2<R, P0, P1>(returnConverter, arrayOf(p0Converter,
+    p1Converter), function))
 
 public inline fun <reified R, reified P0, reified P1> ((p0: P0, p1: P1) -> R).asCallable() =
     lambdaCallable2(this)
@@ -177,6 +250,35 @@ public class LambdaCallable3<R, P0, P1, P2> @PublishedApi internal constructor(
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      function: JvmFunction3<R, P0, P1, P2>,
+    ): LambdaCallable3<R, P0, P1, P2> =
+        LambdaCallable3<R, P0, P1, P2>(LambdaContainer3<R, P0, P1, P2>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      action: JvmAction3<P0, P1, P2>,
+    ): LambdaCallable3<Void?, P0, P1, P2> =
+        LambdaCallable3<Void?, P0, P1, P2>(LambdaContainer3<Void?, P0, P1, P2>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter), object : JvmFunction3<Void?, P0, P1, P2> {
+      override fun invoke(p0: P0, p1: P1, p2: P2): Void? {
+        action.invoke(p0, p1, p2)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -187,6 +289,20 @@ public inline fun <reified R, reified P0, reified P1, reified P2> lambdaCallable
   p2: P2,
 ) -> R) =
     LambdaCallable3<R, P0, P1, P2>(LambdaContainer3<R, P0, P1, P2>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!), function))
+
+public fun <R, P0, P1, P2> lambdaCallable3(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+  ) -> R,
+) =
+    LambdaCallable3<R, P0, P1, P2>(LambdaContainer3<R, P0, P1, P2>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2> ((
   p0: P0,
@@ -251,6 +367,38 @@ public class LambdaCallable4<R, P0, P1, P2, P3> @PublishedApi internal construct
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      function: JvmFunction4<R, P0, P1, P2, P3>,
+    ): LambdaCallable4<R, P0, P1, P2, P3> =
+        LambdaCallable4<R, P0, P1, P2, P3>(LambdaContainer4<R, P0, P1, P2, P3>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      action: JvmAction4<P0, P1, P2, P3>,
+    ): LambdaCallable4<Void?, P0, P1, P2, P3> =
+        LambdaCallable4<Void?, P0, P1, P2, P3>(LambdaContainer4<Void?, P0, P1, P2, P3>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter), object :
+        JvmFunction4<Void?, P0, P1, P2, P3> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3): Void? {
+        action.invoke(p0, p1, p2, p3)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -262,6 +410,22 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3>
   p3: P3,
 ) -> R) =
     LambdaCallable4<R, P0, P1, P2, P3>(LambdaContainer4<R, P0, P1, P2, P3>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!), function))
+
+public fun <R, P0, P1, P2, P3> lambdaCallable4(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+  ) -> R,
+) =
+    LambdaCallable4<R, P0, P1, P2, P3>(LambdaContainer4<R, P0, P1, P2, P3>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3> ((
   p0: P0,
@@ -338,6 +502,40 @@ public class LambdaCallable5<R, P0, P1, P2, P3, P4> @PublishedApi internal const
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      function: JvmFunction5<R, P0, P1, P2, P3, P4>,
+    ): LambdaCallable5<R, P0, P1, P2, P3, P4> =
+        LambdaCallable5<R, P0, P1, P2, P3, P4>(LambdaContainer5<R, P0, P1, P2, P3, P4>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      action: JvmAction5<P0, P1, P2, P3, P4>,
+    ): LambdaCallable5<Void?, P0, P1, P2, P3, P4> =
+        LambdaCallable5<Void?, P0, P1, P2, P3, P4>(LambdaContainer5<Void?, P0, P1, P2, P3, P4>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter), object :
+        JvmFunction5<Void?, P0, P1, P2, P3, P4> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4): Void? {
+        action.invoke(p0, p1, p2, p3, p4)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -350,6 +548,24 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p4: P4,
 ) -> R) =
     LambdaCallable5<R, P0, P1, P2, P3, P4>(LambdaContainer5<R, P0, P1, P2, P3, P4>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4> lambdaCallable5(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+  ) -> R,
+) =
+    LambdaCallable5<R, P0, P1, P2, P3, P4>(LambdaContainer5<R, P0, P1, P2, P3, P4>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4> ((
   p0: P0,
@@ -438,6 +654,43 @@ public class LambdaCallable6<R, P0, P1, P2, P3, P4, P5> @PublishedApi internal c
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4, P5> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      function: JvmFunction6<R, P0, P1, P2, P3, P4, P5>,
+    ): LambdaCallable6<R, P0, P1, P2, P3, P4, P5> =
+        LambdaCallable6<R, P0, P1, P2, P3, P4, P5>(LambdaContainer6<R, P0, P1, P2, P3, P4, P5>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter),
+        function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4, P5> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      action: JvmAction6<P0, P1, P2, P3, P4, P5>,
+    ): LambdaCallable6<Void?, P0, P1, P2, P3, P4, P5> =
+        LambdaCallable6<Void?, P0, P1, P2, P3, P4, P5>(LambdaContainer6<Void?, P0, P1, P2, P3, P4, P5>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter),
+        object : JvmFunction6<Void?, P0, P1, P2, P3, P4, P5> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5): Void? {
+        action.invoke(p0, p1, p2, p3, p4, p5)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -451,6 +704,26 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p5: P5,
 ) -> R) =
     LambdaCallable6<R, P0, P1, P2, P3, P4, P5>(LambdaContainer6<R, P0, P1, P2, P3, P4, P5>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4, P5> lambdaCallable6(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  p5Converter: VariantConverter<P5>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+    p5: P5,
+  ) -> R,
+) =
+    LambdaCallable6<R, P0, P1, P2, P3, P4, P5>(LambdaContainer6<R, P0, P1, P2, P3, P4, P5>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter, p5Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4, reified
     P5> ((
@@ -554,6 +827,45 @@ public class LambdaCallable7<R, P0, P1, P2, P3, P4, P5, P6> @PublishedApi intern
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4, P5, P6> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      function: JvmFunction7<R, P0, P1, P2, P3, P4, P5, P6>,
+    ): LambdaCallable7<R, P0, P1, P2, P3, P4, P5, P6> =
+        LambdaCallable7<R, P0, P1, P2, P3, P4, P5, P6>(LambdaContainer7<R, P0, P1, P2, P3, P4, P5, P6>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4, P5, P6> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      action: JvmAction7<P0, P1, P2, P3, P4, P5, P6>,
+    ): LambdaCallable7<Void?, P0, P1, P2, P3, P4, P5, P6> =
+        LambdaCallable7<Void?, P0, P1, P2, P3, P4, P5, P6>(LambdaContainer7<Void?, P0, P1, P2, P3, P4, P5, P6>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter), object : JvmFunction7<Void?, P0, P1, P2, P3, P4, P5, P6> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6): Void? {
+        action.invoke(p0, p1, p2, p3, p4, p5, p6)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -568,6 +880,28 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p6: P6,
 ) -> R) =
     LambdaCallable7<R, P0, P1, P2, P3, P4, P5, P6>(LambdaContainer7<R, P0, P1, P2, P3, P4, P5, P6>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4, P5, P6> lambdaCallable7(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  p5Converter: VariantConverter<P5>,
+  p6Converter: VariantConverter<P6>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+    p5: P5,
+    p6: P6,
+  ) -> R,
+) =
+    LambdaCallable7<R, P0, P1, P2, P3, P4, P5, P6>(LambdaContainer7<R, P0, P1, P2, P3, P4, P5, P6>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter, p5Converter, p6Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4, reified
     P5, reified P6> ((
@@ -687,6 +1021,47 @@ public class LambdaCallable8<R, P0, P1, P2, P3, P4, P5, P6, P7> @PublishedApi in
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4, P5, P6, P7> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      function: JvmFunction8<R, P0, P1, P2, P3, P4, P5, P6, P7>,
+    ): LambdaCallable8<R, P0, P1, P2, P3, P4, P5, P6, P7> =
+        LambdaCallable8<R, P0, P1, P2, P3, P4, P5, P6, P7>(LambdaContainer8<R, P0, P1, P2, P3, P4, P5, P6, P7>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4, P5, P6, P7> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      action: JvmAction8<P0, P1, P2, P3, P4, P5, P6, P7>,
+    ): LambdaCallable8<Void?, P0, P1, P2, P3, P4, P5, P6, P7> =
+        LambdaCallable8<Void?, P0, P1, P2, P3, P4, P5, P6, P7>(LambdaContainer8<Void?, P0, P1, P2, P3, P4, P5, P6, P7>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter), object : JvmFunction8<Void?, P0, P1, P2, P3, P4, P5, P6, P7> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7): Void? {
+        action.invoke(p0, p1, p2, p3, p4, p5, p6, p7)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -702,6 +1077,31 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p7: P7,
 ) -> R) =
     LambdaCallable8<R, P0, P1, P2, P3, P4, P5, P6, P7>(LambdaContainer8<R, P0, P1, P2, P3, P4, P5, P6, P7>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4, P5, P6, P7> lambdaCallable8(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  p5Converter: VariantConverter<P5>,
+  p6Converter: VariantConverter<P6>,
+  p7Converter: VariantConverter<P7>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+    p5: P5,
+    p6: P6,
+    p7: P7,
+  ) -> R,
+) =
+    LambdaCallable8<R, P0, P1, P2, P3, P4, P5, P6, P7>(LambdaContainer8<R, P0, P1, P2, P3, P4, P5, P6, P7>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter, p5Converter, p6Converter,
+    p7Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4, reified
     P5, reified P6, reified P7> ((
@@ -838,6 +1238,51 @@ public class LambdaCallable9<R, P0, P1, P2, P3, P4, P5, P6, P7, P8> @PublishedAp
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      function: JvmFunction9<R, P0, P1, P2, P3, P4, P5, P6, P7, P8>,
+    ): LambdaCallable9<R, P0, P1, P2, P3, P4, P5, P6, P7, P8> =
+        LambdaCallable9<R, P0, P1, P2, P3, P4, P5, P6, P7, P8>(LambdaContainer9<R, P0, P1, P2, P3, P4, P5, P6, P7, P8>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      action: JvmAction9<P0, P1, P2, P3, P4, P5, P6, P7, P8>,
+    ): LambdaCallable9<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8> =
+        LambdaCallable9<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8>(LambdaContainer9<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter), object :
+        JvmFunction9<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8):
+          Void? {
+        action.invoke(p0, p1, p2, p3, p4, p5, p6, p7, p8)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -854,6 +1299,33 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p8: P8,
 ) -> R) =
     LambdaCallable9<R, P0, P1, P2, P3, P4, P5, P6, P7, P8>(LambdaContainer9<R, P0, P1, P2, P3, P4, P5, P6, P7, P8>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8> lambdaCallable9(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  p5Converter: VariantConverter<P5>,
+  p6Converter: VariantConverter<P6>,
+  p7Converter: VariantConverter<P7>,
+  p8Converter: VariantConverter<P8>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+    p5: P5,
+    p6: P6,
+    p7: P7,
+    p8: P8,
+  ) -> R,
+) =
+    LambdaCallable9<R, P0, P1, P2, P3, P4, P5, P6, P7, P8>(LambdaContainer9<R, P0, P1, P2, P3, P4, P5, P6, P7, P8>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter, p5Converter, p6Converter, p7Converter,
+    p8Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4, reified
     P5, reified P6, reified P7, reified P8> ((
@@ -1016,6 +1488,53 @@ public class LambdaCallable10<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> @Publis
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      function: JvmFunction10<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>,
+    ): LambdaCallable10<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> =
+        LambdaCallable10<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(LambdaContainer10<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      action: JvmAction10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>,
+    ): LambdaCallable10<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> =
+        LambdaCallable10<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(LambdaContainer10<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter), object :
+        JvmFunction10<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8,
+          p9: P9): Void? {
+        action.invoke(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -1033,6 +1552,35 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p9: P9,
 ) -> R) =
     LambdaCallable10<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(LambdaContainer10<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> lambdaCallable10(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  p5Converter: VariantConverter<P5>,
+  p6Converter: VariantConverter<P6>,
+  p7Converter: VariantConverter<P7>,
+  p8Converter: VariantConverter<P8>,
+  p9Converter: VariantConverter<P9>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+    p5: P5,
+    p6: P6,
+    p7: P7,
+    p8: P8,
+    p9: P9,
+  ) -> R,
+) =
+    LambdaCallable10<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(LambdaContainer10<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter, p5Converter, p6Converter, p7Converter,
+    p8Converter, p9Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4, reified
     P5, reified P6, reified P7, reified P8, reified P9> ((
@@ -1216,6 +1764,55 @@ public class LambdaCallable11<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> @P
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      function: JvmFunction11<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>,
+    ): LambdaCallable11<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> =
+        LambdaCallable11<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(LambdaContainer11<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      action: JvmAction11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>,
+    ): LambdaCallable11<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> =
+        LambdaCallable11<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(LambdaContainer11<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter), object :
+        JvmFunction11<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8,
+          p9: P9, p10: P10): Void? {
+        action.invoke(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -1235,6 +1832,37 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p10: P10,
 ) -> R) =
     LambdaCallable11<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(LambdaContainer11<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> lambdaCallable11(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  p5Converter: VariantConverter<P5>,
+  p6Converter: VariantConverter<P6>,
+  p7Converter: VariantConverter<P7>,
+  p8Converter: VariantConverter<P8>,
+  p9Converter: VariantConverter<P9>,
+  p10Converter: VariantConverter<P10>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+    p5: P5,
+    p6: P6,
+    p7: P7,
+    p8: P8,
+    p9: P9,
+    p10: P10,
+  ) -> R,
+) =
+    LambdaCallable11<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(LambdaContainer11<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter, p5Converter, p6Converter, p7Converter,
+    p8Converter, p9Converter, p10Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4, reified
     P5, reified P6, reified P7, reified P8, reified P9, reified P10> ((
@@ -1437,6 +2065,57 @@ public class LambdaCallable12<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P1
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      p11Converter: VariantConverter<P11>,
+      function: JvmFunction12<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>,
+    ): LambdaCallable12<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> =
+        LambdaCallable12<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(LambdaContainer12<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter, p11Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      p11Converter: VariantConverter<P11>,
+      action: JvmAction12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>,
+    ): LambdaCallable12<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> =
+        LambdaCallable12<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(LambdaContainer12<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter, p11Converter), object :
+        JvmFunction12<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8,
+          p9: P9, p10: P10, p11: P11): Void? {
+        action.invoke(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -1457,6 +2136,39 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p11: P11,
 ) -> R) =
     LambdaCallable12<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(LambdaContainer12<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!, getVariantConverter<P11>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> lambdaCallable12(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  p5Converter: VariantConverter<P5>,
+  p6Converter: VariantConverter<P6>,
+  p7Converter: VariantConverter<P7>,
+  p8Converter: VariantConverter<P8>,
+  p9Converter: VariantConverter<P9>,
+  p10Converter: VariantConverter<P10>,
+  p11Converter: VariantConverter<P11>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+    p5: P5,
+    p6: P6,
+    p7: P7,
+    p8: P8,
+    p9: P9,
+    p10: P10,
+    p11: P11,
+  ) -> R,
+) =
+    LambdaCallable12<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(LambdaContainer12<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter, p5Converter, p6Converter, p7Converter,
+    p8Converter, p9Converter, p10Converter, p11Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4, reified
     P5, reified P6, reified P7, reified P8, reified P9, reified P10, reified P11> ((
@@ -1681,6 +2393,61 @@ public class LambdaCallable13<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P1
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      p11Converter: VariantConverter<P11>,
+      p12Converter: VariantConverter<P12>,
+      function: JvmFunction13<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>,
+    ): LambdaCallable13<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> =
+        LambdaCallable13<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(LambdaContainer13<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter, p11Converter,
+        p12Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      p11Converter: VariantConverter<P11>,
+      p12Converter: VariantConverter<P12>,
+      action: JvmAction13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>,
+    ): LambdaCallable13<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> =
+        LambdaCallable13<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(LambdaContainer13<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter, p11Converter,
+        p12Converter), object :
+        JvmFunction13<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8,
+          p9: P9, p10: P10, p11: P11, p12: P12): Void? {
+        action.invoke(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -1702,6 +2469,41 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p12: P12,
 ) -> R) =
     LambdaCallable13<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(LambdaContainer13<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!, getVariantConverter<P11>()!!, getVariantConverter<P12>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> lambdaCallable13(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  p5Converter: VariantConverter<P5>,
+  p6Converter: VariantConverter<P6>,
+  p7Converter: VariantConverter<P7>,
+  p8Converter: VariantConverter<P8>,
+  p9Converter: VariantConverter<P9>,
+  p10Converter: VariantConverter<P10>,
+  p11Converter: VariantConverter<P11>,
+  p12Converter: VariantConverter<P12>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+    p5: P5,
+    p6: P6,
+    p7: P7,
+    p8: P8,
+    p9: P9,
+    p10: P10,
+    p11: P11,
+    p12: P12,
+  ) -> R,
+) =
+    LambdaCallable13<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(LambdaContainer13<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter, p5Converter, p6Converter, p7Converter,
+    p8Converter, p9Converter, p10Converter, p11Converter, p12Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4, reified
     P5, reified P6, reified P7, reified P8, reified P9, reified P10, reified P11, reified P12> ((
@@ -1947,6 +2749,63 @@ public class LambdaCallable14<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P1
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      p11Converter: VariantConverter<P11>,
+      p12Converter: VariantConverter<P12>,
+      p13Converter: VariantConverter<P13>,
+      function: JvmFunction14<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>,
+    ): LambdaCallable14<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> =
+        LambdaCallable14<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(LambdaContainer14<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter, p11Converter,
+        p12Converter, p13Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      p11Converter: VariantConverter<P11>,
+      p12Converter: VariantConverter<P12>,
+      p13Converter: VariantConverter<P13>,
+      action: JvmAction14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>,
+    ): LambdaCallable14<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> =
+        LambdaCallable14<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(LambdaContainer14<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter, p11Converter,
+        p12Converter, p13Converter), object :
+        JvmFunction14<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8,
+          p9: P9, p10: P10, p11: P11, p12: P12, p13: P13): Void? {
+        action.invoke(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -1969,6 +2828,43 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p13: P13,
 ) -> R) =
     LambdaCallable14<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(LambdaContainer14<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!, getVariantConverter<P11>()!!, getVariantConverter<P12>()!!, getVariantConverter<P13>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> lambdaCallable14(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  p5Converter: VariantConverter<P5>,
+  p6Converter: VariantConverter<P6>,
+  p7Converter: VariantConverter<P7>,
+  p8Converter: VariantConverter<P8>,
+  p9Converter: VariantConverter<P9>,
+  p10Converter: VariantConverter<P10>,
+  p11Converter: VariantConverter<P11>,
+  p12Converter: VariantConverter<P12>,
+  p13Converter: VariantConverter<P13>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+    p5: P5,
+    p6: P6,
+    p7: P7,
+    p8: P8,
+    p9: P9,
+    p10: P10,
+    p11: P11,
+    p12: P12,
+    p13: P13,
+  ) -> R,
+) =
+    LambdaCallable14<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(LambdaContainer14<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter, p5Converter, p6Converter, p7Converter,
+    p8Converter, p9Converter, p10Converter, p11Converter, p12Converter, p13Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4, reified
     P5, reified P6, reified P7, reified P8, reified P9, reified P10, reified P11, reified P12,
@@ -2239,6 +3135,65 @@ public class LambdaCallable15<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P1
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14> _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      p11Converter: VariantConverter<P11>,
+      p12Converter: VariantConverter<P12>,
+      p13Converter: VariantConverter<P13>,
+      p14Converter: VariantConverter<P14>,
+      function: JvmFunction15<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>,
+    ): LambdaCallable15<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14> =
+        LambdaCallable15<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(LambdaContainer15<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter, p11Converter,
+        p12Converter, p13Converter, p14Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      p11Converter: VariantConverter<P11>,
+      p12Converter: VariantConverter<P12>,
+      p13Converter: VariantConverter<P13>,
+      p14Converter: VariantConverter<P14>,
+      action: JvmAction15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>,
+    ): LambdaCallable15<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14> =
+        LambdaCallable15<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(LambdaContainer15<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter, p11Converter,
+        p12Converter, p13Converter, p14Converter), object :
+        JvmFunction15<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8,
+          p9: P9, p10: P10, p11: P11, p12: P12, p13: P13, p14: P14): Void? {
+        action.invoke(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -2262,6 +3217,46 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p14: P14,
 ) -> R) =
     LambdaCallable15<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(LambdaContainer15<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!, getVariantConverter<P11>()!!, getVariantConverter<P12>()!!, getVariantConverter<P13>()!!, getVariantConverter<P14>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14> lambdaCallable15(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  p5Converter: VariantConverter<P5>,
+  p6Converter: VariantConverter<P6>,
+  p7Converter: VariantConverter<P7>,
+  p8Converter: VariantConverter<P8>,
+  p9Converter: VariantConverter<P9>,
+  p10Converter: VariantConverter<P10>,
+  p11Converter: VariantConverter<P11>,
+  p12Converter: VariantConverter<P12>,
+  p13Converter: VariantConverter<P13>,
+  p14Converter: VariantConverter<P14>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+    p5: P5,
+    p6: P6,
+    p7: P7,
+    p8: P8,
+    p9: P9,
+    p10: P10,
+    p11: P11,
+    p12: P12,
+    p13: P13,
+    p14: P14,
+  ) -> R,
+) =
+    LambdaCallable15<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(LambdaContainer15<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter, p5Converter, p6Converter, p7Converter,
+    p8Converter, p9Converter, p10Converter, p11Converter, p12Converter, p13Converter,
+    p14Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4, reified
     P5, reified P6, reified P7, reified P8, reified P9, reified P10, reified P11, reified P12,
@@ -2558,6 +3553,69 @@ public class LambdaCallable16<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P1
       }
     }
     ))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>
+        _createJava(
+      returnConverter: VariantConverter<R>,
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      p11Converter: VariantConverter<P11>,
+      p12Converter: VariantConverter<P12>,
+      p13Converter: VariantConverter<P13>,
+      p14Converter: VariantConverter<P14>,
+      p15Converter: VariantConverter<P15>,
+      function: JvmFunction16<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>,
+    ): LambdaCallable16<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15> =
+        LambdaCallable16<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>(LambdaContainer16<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>(returnConverter,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter, p11Converter,
+        p12Converter, p13Converter, p14Converter, p15Converter), function))
+
+    @JvmStatic
+    @JvmName("create")
+    public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15> _createJava(
+      p0Converter: VariantConverter<P0>,
+      p1Converter: VariantConverter<P1>,
+      p2Converter: VariantConverter<P2>,
+      p3Converter: VariantConverter<P3>,
+      p4Converter: VariantConverter<P4>,
+      p5Converter: VariantConverter<P5>,
+      p6Converter: VariantConverter<P6>,
+      p7Converter: VariantConverter<P7>,
+      p8Converter: VariantConverter<P8>,
+      p9Converter: VariantConverter<P9>,
+      p10Converter: VariantConverter<P10>,
+      p11Converter: VariantConverter<P11>,
+      p12Converter: VariantConverter<P12>,
+      p13Converter: VariantConverter<P13>,
+      p14Converter: VariantConverter<P14>,
+      p15Converter: VariantConverter<P15>,
+      action: JvmAction16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>,
+    ): LambdaCallable16<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>
+        =
+        LambdaCallable16<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>(LambdaContainer16<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>(getVariantConverter(Void::class.java)!!,
+        arrayOf(p0Converter, p1Converter, p2Converter, p3Converter, p4Converter, p5Converter,
+        p6Converter, p7Converter, p8Converter, p9Converter, p10Converter, p11Converter,
+        p12Converter, p13Converter, p14Converter, p15Converter), object :
+        JvmFunction16<Void?, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15> {
+      override fun invoke(p0: P0, p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8,
+          p9: P9, p10: P10, p11: P11, p12: P12, p13: P13, p14: P14, p15: P15): Void? {
+        action.invoke(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15)
+        return null
+      }
+    }
+    ))
   }
 }
 
@@ -2582,6 +3640,49 @@ public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, re
   p15: P15,
 ) -> R) =
     LambdaCallable16<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>(LambdaContainer16<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>(getVariantConverter<R>()!!, arrayOf(getVariantConverter<P0>()!!, getVariantConverter<P1>()!!, getVariantConverter<P2>()!!, getVariantConverter<P3>()!!, getVariantConverter<P4>()!!, getVariantConverter<P5>()!!, getVariantConverter<P6>()!!, getVariantConverter<P7>()!!, getVariantConverter<P8>()!!, getVariantConverter<P9>()!!, getVariantConverter<P10>()!!, getVariantConverter<P11>()!!, getVariantConverter<P12>()!!, getVariantConverter<P13>()!!, getVariantConverter<P14>()!!, getVariantConverter<P15>()!!), function))
+
+public fun <R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>
+    lambdaCallable16(
+  returnConverter: VariantConverter<R>,
+  p0Converter: VariantConverter<P0>,
+  p1Converter: VariantConverter<P1>,
+  p2Converter: VariantConverter<P2>,
+  p3Converter: VariantConverter<P3>,
+  p4Converter: VariantConverter<P4>,
+  p5Converter: VariantConverter<P5>,
+  p6Converter: VariantConverter<P6>,
+  p7Converter: VariantConverter<P7>,
+  p8Converter: VariantConverter<P8>,
+  p9Converter: VariantConverter<P9>,
+  p10Converter: VariantConverter<P10>,
+  p11Converter: VariantConverter<P11>,
+  p12Converter: VariantConverter<P12>,
+  p13Converter: VariantConverter<P13>,
+  p14Converter: VariantConverter<P14>,
+  p15Converter: VariantConverter<P15>,
+  function: (
+    p0: P0,
+    p1: P1,
+    p2: P2,
+    p3: P3,
+    p4: P4,
+    p5: P5,
+    p6: P6,
+    p7: P7,
+    p8: P8,
+    p9: P9,
+    p10: P10,
+    p11: P11,
+    p12: P12,
+    p13: P13,
+    p14: P14,
+    p15: P15,
+  ) -> R,
+) =
+    LambdaCallable16<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>(LambdaContainer16<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>(returnConverter, arrayOf(p0Converter,
+    p1Converter, p2Converter, p3Converter, p4Converter, p5Converter, p6Converter, p7Converter,
+    p8Converter, p9Converter, p10Converter, p11Converter, p12Converter, p13Converter, p14Converter,
+    p15Converter), function))
 
 public inline fun <reified R, reified P0, reified P1, reified P2, reified P3, reified P4, reified
     P5, reified P6, reified P7, reified P8, reified P9, reified P10, reified P11, reified P12,

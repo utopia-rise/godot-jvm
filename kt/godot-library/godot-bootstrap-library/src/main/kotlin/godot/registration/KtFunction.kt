@@ -29,8 +29,8 @@ data class KtRpcConfig(
 abstract class KtFunction<T : KtObject, R : Any?>(
     val functionInfo: KtFunctionInfo,
 ) {
-    private val variantConverter: VariantConverter = functionInfo.returnVal._type
-    private val types: Array<VariantConverter> = functionInfo.arguments.map { it._type }.toTypedArray()
+    private val variantConverter: VariantConverter<*> = functionInfo.returnVal._type
+    private val types: Array<VariantConverter<*>> = functionInfo.arguments.map { it._type }.toTypedArray()
 
     fun invoke(instance: T): Unit = withParameters(types) {
         try {

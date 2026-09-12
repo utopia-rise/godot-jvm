@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
 import kotlin.jvm.`internal`.Reflection
 
 @PublishedApi
-internal val variantMapper = mutableMapOf(
+internal val variantMapper = mutableMapOf<KClass<*>, VariantConverter<*>>(
     Unit::class to VariantParser.NIL,
     Void::class to VariantParser.NIL,
     Any::class to VariantCaster.ANY,
@@ -24,8 +24,8 @@ internal val variantMapper = mutableMapOf(
     Basis::class to VariantParser.BASIS,
     Color::class to VariantParser.COLOR,
     StringName::class to VariantParser.STRING_NAME,
-    Dictionary::class to VariantParser.DICTIONARY,
-    VariantArray::class to VariantParser.ARRAY,
+    Dictionary::class to VariantCaster.TYPED_DICTIONARY(VariantCaster.ANY, VariantCaster.ANY),
+    VariantArray::class to VariantCaster.TYPED_ARRAY(VariantCaster.ANY),
     Plane::class to VariantParser.PLANE,
     NodePath::class to VariantParser.NODE_PATH,
     Quaternion::class to VariantParser.QUATERNION,
@@ -108,7 +108,7 @@ internal val variantMapper = mutableMapOf(
     PackedVector4Array::class to VariantParser.PACKED_VECTOR4_ARRAY
 )
 
-inline fun <reified T : Any> addVariantMapping(clazz: KClass<out T>, parser: VariantConverter) {
+inline fun <reified T : Any> addVariantMapping(clazz: KClass<out T>, parser: VariantConverter<*>) {
     variantMapper[clazz] = parser
 }
 

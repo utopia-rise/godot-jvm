@@ -1,9 +1,11 @@
 package godot.registrar.generator.ext
 
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.asClassName
+import com.squareup.kotlinpoet.joinToCode
 import godot.api.Resource
 import godot.core.Callable
 import godot.core.Dictionary
@@ -22,7 +24,6 @@ import godot.registration.model.types.Type.Companion.booleanType
 import godot.registration.model.types.Type.Companion.byteType
 import godot.registration.model.types.Type.Companion.callableType
 import godot.registration.model.types.Type.Companion.colorType
-import godot.registration.model.types.Type.Companion.dictionaryType
 import godot.registration.model.types.Type.Companion.doubleType
 import godot.registration.model.types.Type.Companion.floatType
 import godot.registration.model.types.Type.Companion.intType
@@ -53,7 +54,6 @@ import godot.registration.model.types.Type.Companion.stringNameType
 import godot.registration.model.types.Type.Companion.stringType
 import godot.registration.model.types.Type.Companion.transform2DType
 import godot.registration.model.types.Type.Companion.transform3DType
-import godot.registration.model.types.Type.Companion.variantArrayType
 import godot.registration.model.types.Type.Companion.vector2Type
 import godot.registration.model.types.Type.Companion.vector2iType
 import godot.registration.model.types.Type.Companion.vector3Type
@@ -103,87 +103,95 @@ import godot.tools.common.constants.GODOT_VECTOR4I
 import godot.tools.common.constants.godotApiPackage
 import godot.tools.common.constants.isFromPackage
 
-private data class TypeMetadata(
-    val variantMember: MemberName,
+/** Everything the registrar needs to know about how a model [Type] maps to Godot. */
+private class TypeMetadata(
+    /** The `VariantConverter` expression passed to the registrar, complete with enum entries and container arguments. */
+    val converter: CodeBlock,
     val variantTypeOrdinal: Int,
     val godotCoreTypeName: String?,
-    val godotClassName: String?
+    val godotClassName: String?,
 )
 
+/**
+ * Single source of truth for the Godot mapping of a type. The processor and the model checks guarantee that every type
+ * reaching the generator is Godot compatible, so an unknown type here is a bug upstream, never a fallback case.
+ */
 private object TypeMetadataRegistry {
-    private fun parserMetadata(
-        memberName: String,
-        godotTypeName: String,
-        godotClassName: String? = godotTypeName,
-    ) = TypeMetadata(
-        variantMember = MemberName(VariantParser::class.asClassName(), memberName),
-        variantTypeOrdinal = VariantParser.valueOf(memberName).id,
+    private val parserClass = VariantParser::class.asClassName()
+    private val casterClass = VariantCaster::class.asClassName()
+
+    private fun singleton(parser: VariantParser<*>, godotTypeName: String, godotClassName: String? = godotTypeName) = TypeMetadata(
+        converter = CodeBlock.of("%M", MemberName(parserClass, parser::class.simpleName!!)),
+        variantTypeOrdinal = parser.id,
         godotCoreTypeName = godotTypeName,
         godotClassName = godotClassName,
     )
 
-    private fun casterMetadata(
-        memberName: String,
+    private fun singleton(caster: VariantCaster<*>, godotTypeName: String, godotClassName: String? = godotTypeName) = TypeMetadata(
+        converter = CodeBlock.of("%M", MemberName(casterClass, caster::class.simpleName!!)),
+        variantTypeOrdinal = caster.id,
+        godotCoreTypeName = godotTypeName,
+        godotClassName = godotClassName,
+    )
+
+    /** A stateful caster instantiated by the registrar: `VariantCaster.<name>(<arguments>)`. */
+    private fun instantiated(
+        name: String,
+        coreVariant: VariantParser<*>,
         godotTypeName: String,
         godotClassName: String? = godotTypeName,
+        vararg arguments: CodeBlock,
     ) = TypeMetadata(
-        variantMember = MemberName(VariantCaster::class.asClassName(), memberName),
-        variantTypeOrdinal = when (memberName) {
-            "ANY" -> VariantParser.NIL.id
-            "BYTE", "INT", "ENUM" -> VariantParser.LONG.id
-            "FLOAT" -> VariantParser.DOUBLE.id
-            else -> error("Unsupported caster metadata member $memberName")
-        },
+        converter = CodeBlock.of("%M(%L)", MemberName(casterClass, name), arguments.toList().joinToCode()),
+        variantTypeOrdinal = coreVariant.id,
         godotCoreTypeName = godotTypeName,
         godotClassName = godotClassName,
     )
 
     private val knownMetadataByType = linkedMapOf(
-        nilType to parserMetadata("NIL", GODOT_NIL, ""),
-        booleanType to parserMetadata("BOOL", GODOT_BOOL),
-        byteType to casterMetadata("BYTE", GODOT_INT),
-        shortType to parserMetadata("LONG", GODOT_INT),
-        intType to casterMetadata("INT", GODOT_INT),
-        naturalType to parserMetadata("LONG", GODOT_INT),
-        longType to parserMetadata("LONG", GODOT_INT),
-        floatType to casterMetadata("FLOAT", GODOT_FLOAT),
-        realType to parserMetadata("DOUBLE", GODOT_FLOAT),
-        doubleType to parserMetadata("DOUBLE", GODOT_FLOAT),
-        stringType to parserMetadata("STRING", GODOT_STRING),
-        Type.anyType to casterMetadata("ANY", GODOT_NIL, ""),
-        vector2Type to parserMetadata("VECTOR2", GODOT_VECTOR2),
-        vector2iType to parserMetadata("VECTOR2I", GODOT_VECTOR2I),
-        rect2Type to parserMetadata("RECT2", GODOT_RECT2),
-        rect2iType to parserMetadata("RECT2I", GODOT_RECT2I),
-        vector3Type to parserMetadata("VECTOR3", GODOT_VECTOR3),
-        vector3iType to parserMetadata("VECTOR3I", GODOT_VECTOR3I),
-        transform2DType to parserMetadata("TRANSFORM2D", GODOT_TRANSFORM2D),
-        vector4Type to parserMetadata("VECTOR4", GODOT_VECTOR4),
-        vector4iType to parserMetadata("VECTOR4I", GODOT_VECTOR4I),
-        planeType to parserMetadata("PLANE", GODOT_PLANE),
-        quaternionType to parserMetadata("QUATERNION", GODOT_QUATERNION),
-        aabbType to parserMetadata("AABB", GODOT_AABB),
-        basisType to parserMetadata("BASIS", GODOT_BASIS),
-        transform3DType to parserMetadata("TRANSFORM3D", GODOT_TRANSFORM3D),
-        projectionType to parserMetadata("PROJECTION", GODOT_PROJECTION),
-        colorType to parserMetadata("COLOR", GODOT_COLOR),
-        stringNameType to parserMetadata("STRING_NAME", GODOT_STRING_NAME),
-        nodePathType to parserMetadata("NODE_PATH", GODOT_NODE_PATH),
-        ridType to parserMetadata("_RID", GODOT_RID),
-        callableType to parserMetadata("CALLABLE", GODOT_CALLABLE),
-        signalType to parserMetadata("SIGNAL", GODOT_SIGNAL),
-        dictionaryType to parserMetadata("DICTIONARY", GODOT_DICTIONARY),
-        variantArrayType to parserMetadata("ARRAY", GODOT_ARRAY),
-        packedByteArrayType to parserMetadata("PACKED_BYTE_ARRAY", GODOT_PACKED_BYTE_ARRAY),
-        packedInt32ArrayType to parserMetadata("PACKED_INT_32_ARRAY", GODOT_PACKED_INT32_ARRAY),
-        packedInt64ArrayType to parserMetadata("PACKED_INT_64_ARRAY", GODOT_PACKED_INT64_ARRAY),
-        packedFloat32ArrayType to parserMetadata("PACKED_FLOAT_32_ARRAY", GODOT_PACKED_FLOAT32_ARRAY),
-        packedFloat64ArrayType to parserMetadata("PACKED_FLOAT_64_ARRAY", GODOT_PACKED_FLOAT64_ARRAY),
-        packedStringArrayType to parserMetadata("PACKED_STRING_ARRAY", GODOT_PACKED_STRING_ARRAY),
-        packedVector2ArrayType to parserMetadata("PACKED_VECTOR2_ARRAY", GODOT_PACKED_VECTOR2_ARRAY),
-        packedVector3ArrayType to parserMetadata("PACKED_VECTOR3_ARRAY", GODOT_PACKED_VECTOR3_ARRAY),
-        packedColorArrayType to parserMetadata("PACKED_COLOR_ARRAY", GODOT_PACKED_COLOR_ARRAY),
-        packedVector4ArrayType to parserMetadata("PACKED_VECTOR4_ARRAY", GODOT_PACKED_VECTOR4_ARRAY),
+        nilType to singleton(VariantParser.NIL, GODOT_NIL, ""),
+        booleanType to singleton(VariantParser.BOOL, GODOT_BOOL),
+        byteType to singleton(VariantCaster.BYTE, GODOT_INT),
+        shortType to singleton(VariantParser.LONG, GODOT_INT),
+        intType to singleton(VariantCaster.INT, GODOT_INT),
+        naturalType to singleton(VariantParser.LONG, GODOT_INT),
+        longType to singleton(VariantParser.LONG, GODOT_INT),
+        floatType to singleton(VariantCaster.FLOAT, GODOT_FLOAT),
+        realType to singleton(VariantParser.DOUBLE, GODOT_FLOAT),
+        doubleType to singleton(VariantParser.DOUBLE, GODOT_FLOAT),
+        stringType to singleton(VariantParser.STRING, GODOT_STRING),
+        Type.anyType to singleton(VariantCaster.ANY, GODOT_NIL, ""),
+        vector2Type to singleton(VariantParser.VECTOR2, GODOT_VECTOR2),
+        vector2iType to singleton(VariantParser.VECTOR2I, GODOT_VECTOR2I),
+        rect2Type to singleton(VariantParser.RECT2, GODOT_RECT2),
+        rect2iType to singleton(VariantParser.RECT2I, GODOT_RECT2I),
+        vector3Type to singleton(VariantParser.VECTOR3, GODOT_VECTOR3),
+        vector3iType to singleton(VariantParser.VECTOR3I, GODOT_VECTOR3I),
+        transform2DType to singleton(VariantParser.TRANSFORM2D, GODOT_TRANSFORM2D),
+        vector4Type to singleton(VariantParser.VECTOR4, GODOT_VECTOR4),
+        vector4iType to singleton(VariantParser.VECTOR4I, GODOT_VECTOR4I),
+        planeType to singleton(VariantParser.PLANE, GODOT_PLANE),
+        quaternionType to singleton(VariantParser.QUATERNION, GODOT_QUATERNION),
+        aabbType to singleton(VariantParser.AABB, GODOT_AABB),
+        basisType to singleton(VariantParser.BASIS, GODOT_BASIS),
+        transform3DType to singleton(VariantParser.TRANSFORM3D, GODOT_TRANSFORM3D),
+        projectionType to singleton(VariantParser.PROJECTION, GODOT_PROJECTION),
+        colorType to singleton(VariantParser.COLOR, GODOT_COLOR),
+        stringNameType to singleton(VariantParser.STRING_NAME, GODOT_STRING_NAME),
+        nodePathType to singleton(VariantParser.NODE_PATH, GODOT_NODE_PATH),
+        ridType to singleton(VariantParser._RID, GODOT_RID),
+        callableType to singleton(VariantParser.CALLABLE, GODOT_CALLABLE),
+        signalType to singleton(VariantParser.SIGNAL, GODOT_SIGNAL),
+        packedByteArrayType to singleton(VariantParser.PACKED_BYTE_ARRAY, GODOT_PACKED_BYTE_ARRAY),
+        packedInt32ArrayType to singleton(VariantParser.PACKED_INT_32_ARRAY, GODOT_PACKED_INT32_ARRAY),
+        packedInt64ArrayType to singleton(VariantParser.PACKED_INT_64_ARRAY, GODOT_PACKED_INT64_ARRAY),
+        packedFloat32ArrayType to singleton(VariantParser.PACKED_FLOAT_32_ARRAY, GODOT_PACKED_FLOAT32_ARRAY),
+        packedFloat64ArrayType to singleton(VariantParser.PACKED_FLOAT_64_ARRAY, GODOT_PACKED_FLOAT64_ARRAY),
+        packedStringArrayType to singleton(VariantParser.PACKED_STRING_ARRAY, GODOT_PACKED_STRING_ARRAY),
+        packedVector2ArrayType to singleton(VariantParser.PACKED_VECTOR2_ARRAY, GODOT_PACKED_VECTOR2_ARRAY),
+        packedVector3ArrayType to singleton(VariantParser.PACKED_VECTOR3_ARRAY, GODOT_PACKED_VECTOR3_ARRAY),
+        packedColorArrayType to singleton(VariantParser.PACKED_COLOR_ARRAY, GODOT_PACKED_COLOR_ARRAY),
+        packedVector4ArrayType to singleton(VariantParser.PACKED_VECTOR4_ARRAY, GODOT_PACKED_VECTOR4_ARRAY),
     )
 
     private fun isAssignableTo(type: Type, target: Class<*>): Boolean = runCatching {
@@ -211,78 +219,64 @@ private object TypeMetadataRegistry {
         else -> null
     }
 
-    fun metadataOrNull(type: Type): TypeMetadata? = when (type.kind) {
-        TypeKind.PRIMITIVE,
-        TypeKind.CORE_TYPE,
-            -> knownMetadataByType[canonicalKey(type)]
+    // A container declared without generic arguments (a Java raw type) converts its elements as Any.
+    private fun argumentConverter(type: Type, index: Int): CodeBlock =
+        metadata(type.genericArguments.getOrNull(index) ?: Type.anyType).converter
 
-        TypeKind.OTHER -> knownMetadataByType[canonicalKey(type)]
-        else -> null
-    }
-
-    fun metadata(type: Type): TypeMetadata = metadataOrNull(type) ?: when (type.kind) {
-        TypeKind.ENUM -> casterMetadata(
-            memberName = "ENUM",
-            godotTypeName = GODOT_INT,
-            godotClassName = type.name,
+    fun metadata(type: Type): TypeMetadata = when {
+        type.isCompatibleList() || type.kind == TypeKind.COLLECTION -> instantiated(
+            "TYPED_ARRAY",
+            VariantParser.ARRAY,
+            GODOT_ARRAY,
+            arguments = arrayOf(argumentConverter(type, 0)),
         )
 
-        TypeKind.BITFIELD -> parserMetadata(
-            memberName = "LONG",
-            godotTypeName = GODOT_INT,
+        type.isDictionary() -> instantiated(
+            "TYPED_DICTIONARY",
+            VariantParser.DICTIONARY,
+            GODOT_DICTIONARY,
+            arguments = arrayOf(argumentConverter(type, 0), argumentConverter(type, 1)),
         )
 
-        TypeKind.GODOT_CLASS,
-        TypeKind.INTERFACE,
-            -> parserMetadata(
-            memberName = "OBJECT",
-            godotTypeName = GODOT_OBJECT,
-            godotClassName = if (type.fqName == Any::class.qualifiedName) "" else null,
-        )
+        else -> when (type.kind) {
+            TypeKind.PRIMITIVE,
+            TypeKind.CORE_TYPE,
+            TypeKind.OTHER,
+                -> knownMetadataByType[canonicalKey(type)]
+                ?: error("Unrecognized type ${type.fqName}, it cannot be represented by Godot")
 
-        TypeKind.COLLECTION -> parserMetadata(
-            memberName = "ARRAY",
-            godotTypeName = GODOT_ARRAY,
-        )
+            TypeKind.ENUM -> instantiated(
+                "ENUM",
+                VariantParser.LONG,
+                GODOT_INT,
+                type.name,
+                CodeBlock.of("%T.entries.toTypedArray()", type.toTypeName()),
+            )
 
-        TypeKind.OTHER -> error("Unrecognized type ${type.fqName}, it cannot be represented by Godot")
+            TypeKind.BITFIELD -> singleton(VariantParser.LONG, GODOT_INT)
 
-        TypeKind.PRIMITIVE,
-        TypeKind.CORE_TYPE,
-            -> error("Unsupported known type ${type.fqName}")
+            TypeKind.GODOT_CLASS,
+            TypeKind.INTERFACE,
+                -> singleton(
+                VariantParser.OBJECT,
+                GODOT_OBJECT,
+                if (type.fqName == Any::class.qualifiedName) "" else null,
+            )
+
+            TypeKind.COLLECTION -> error("unreachable, handled above")
+        }
     }
 }
 
-private fun typeVariantTypeOrdinal(type: Type): Int? = when (type.kind) {
-    TypeKind.PRIMITIVE,
-    TypeKind.CORE_TYPE,
-    TypeKind.OTHER,
-        -> TypeMetadataRegistry.metadataOrNull(type)?.variantTypeOrdinal
-
-    TypeKind.ENUM,
-    TypeKind.BITFIELD,
-        -> VariantParser.LONG.id
-
-    TypeKind.GODOT_CLASS,
-    TypeKind.INTERFACE,
-        -> VariantParser.OBJECT.id
-
-    TypeKind.COLLECTION -> VariantParser.ARRAY.id
-}
-
-fun Type.toKtVariantMemberName(): MemberName = TypeMetadataRegistry.metadata(this).variantMember
+/** The `VariantConverter` expression the registrar registers for this type. */
+fun Type.toKtVariantConverter(): CodeBlock = TypeMetadataRegistry.metadata(this).converter
 
 /** Maps a model [Type] to the Godot class name used in generated registration code. */
 fun Type.toGodotClassName(
     context: GeneratorContext,
-): String = when {
-    TypeMetadataRegistry.metadata(this).godotClassName != null -> TypeMetadataRegistry.metadata(this).godotClassName!!
-    else -> registeredOrBaseGodotClassName(context)
-}
+): String = TypeMetadataRegistry.metadata(this).godotClassName ?: registeredOrBaseGodotClassName(context)
 
-fun Type.getAsVariantTypeOrdinal(): Int = requireNotNull(typeVariantTypeOrdinal(this)) {
-    "Unsupported variant type ordinal for $fqName"
-}
+fun Type.getAsVariantTypeOrdinal(): Int = TypeMetadataRegistry.metadata(this).variantTypeOrdinal
 
 fun Type.getGodotCoreTypeName(): String =
     requireNotNull(TypeMetadataRegistry.metadata(this).godotCoreTypeName) { "Unsupported fq type $fqName" }

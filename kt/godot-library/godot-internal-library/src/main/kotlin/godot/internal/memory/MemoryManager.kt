@@ -126,7 +126,7 @@ object MemoryManager {
 
     fun isInstanceValid(ktObject: NativeWrapper) = checkInstance(ktObject.ptr, ktObject.objectID.id)
 
-    fun registerNativeCoreType(nativeCoreType: NativePointer, variantType: VariantConverter) {
+    fun registerNativeCoreType(nativeCoreType: NativePointer, variantType: VariantConverter<*>) {
         val rawPtr = nativeCoreType.ptr
         nativeCoreTypeMap[rawPtr] = NativeCoreBinding(nativeCoreType, variantType)
     }

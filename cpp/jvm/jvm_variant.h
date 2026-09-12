@@ -77,25 +77,19 @@ class VariantToBuffer {
 
     static void write_array(SharedBuffer* des, const godot::Variant& src) {
         godot::Array arr = src.operator godot::Array();
-        uint64_t type = arr.get_typed_builtin();
         set_variant_type(des, godot::Variant::Type::ARRAY);
         des->increment_position(
             encode_uint64(reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Array(arr))), des->get_cursor())
         );
-        des->increment_position(encode_uint64(type, des->get_cursor()));
     }
 
     static void write_dictionary(SharedBuffer* des, const godot::Variant& src) {
         godot::Dictionary dict = src.operator godot::Dictionary();
-        uint64_t key_type = dict.get_typed_key_builtin();
-        uint64_t value_type = dict.get_typed_value_builtin();
         set_variant_type(des, godot::Variant::Type::DICTIONARY);
         des->increment_position(encode_uint64(
             reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Dictionary(dict))),
             des->get_cursor()
         ));
-        des->increment_position(encode_uint64(key_type, des->get_cursor()));
-        des->increment_position(encode_uint64(value_type, des->get_cursor()));
     }
 
     // Takes the raw engine pointer, never a godot-cpp `Object*`: that parameter type is exactly what used to make
