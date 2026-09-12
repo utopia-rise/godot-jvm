@@ -14,6 +14,9 @@ concurrency:
 jobs:
   test-windows:
     runs-on: windows-latest
+    env:
+      # See VersionInfoPlugin: drop the commit hash from the build version so cached Kotlin/native-image outputs stay valid.
+      ORG_GRADLE_PROJECT_reproducibleVersion: 'true'
     name: ${{ matrix.name }}
     timeout-minutes: 90
     strategy:
@@ -80,30 +83,33 @@ jobs:
       - name: Locate Visual Studio native-image environment
         shell: pwsh
         run: |
-          $vcVars = Get-ChildItem 'C:\Program Files\Microsoft Visual Studio' -Filter vcvars64.bat -Recurse | Select-Object -First 1
-          if ($null -eq $vcVars) { throw 'Could not find Visual Studio vcvars64.bat' }
-          "VC_VARS_PATH=$($vcVars.FullName)" >> $env:GITHUB_ENV
+          $vcVars = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -find 'VC\Auxiliary\Build\vcvars64.bat' | Select-Object -First 1
+          if ([string]::IsNullOrEmpty($vcVars)) { throw 'Could not find Visual Studio vcvars64.bat' }
+          "VC_VARS_PATH=$vcVars" >> $env:GITHUB_ENV
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
-          cache-read-only: false
-          cache-cleanup: always
-          gradle-home-cache-excludes: |
-            wrapper/dists
-            caches/*/generated-gradle-jars
-            daemon
-            notifications
+          # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
+          cache-disabled: true
 
-      - name: Cache desktop Graal build output
-        uses: actions/cache@v5
+      # Kotlin compile outputs are platform independent, so every job reads the single entry the Linux editor test job writes.
+      - name: Restore Gradle build cache
+        uses: ./.github/actions/master-cache
         with:
+          mode: restore
+          cache-name: gradle-build-cache
+          path: ~/.gradle/caches/build-cache-1
+
+      - name: Restore desktop Graal build output
+        uses: ./.github/actions/master-cache
+        with:
+          mode: restore
+          cache-name: desktop-graal-${{ matrix.build-task }}-${{ matrix.variant }}-${{ runner.os }}-${{ runner.arch }}
           path: |
+            kt/**/build
             harness/tests/.gradle
             harness/tests/build
-          key: desktop-graal-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
-          restore-keys: |
-            desktop-graal-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Download Windows editor library
         uses: actions/download-artifact@v7
@@ -186,3 +192,13 @@ jobs:
           name: windows-exports-hs-err
           path: harness/tests/hs_err_pid*.log
           if-no-files-found: ignore
+
+      - name: Save desktop Graal build output
+        uses: ./.github/actions/master-cache
+        with:
+          mode: save
+          cache-name: desktop-graal-${{ matrix.build-task }}-${{ matrix.variant }}-${{ runner.os }}-${{ runner.arch }}
+          path: |
+            kt/**/build
+            harness/tests/.gradle
+            harness/tests/build

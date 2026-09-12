@@ -1,118 +1,110 @@
 # CI caches
 
-This directory uses three different caches. They are GitHub Actions caches, not
-workspace state: a runner starts empty, restores cache files before a build, and
-saves a snapshot after it. Artifacts downloaded between jobs are deliberately
-not caches; they are build inputs for that one workflow run.
+These are GitHub Actions caches, not workspace state: a runner starts empty,
+restores cache files before a build, and saves a snapshot after it. Artifacts
+downloaded between jobs are deliberately not caches; they are build inputs for
+that one workflow run.
+
+## Rules
+
+**Only master writes.** A run on `master` (the daily schedule or a manual
+dispatch) is the only one that saves a cache. Pull requests, tags and other
+branches restore master's entries and never write. A PR is assumed to be a
+small change on top of master, so master's entries are a good starting point,
+and the repository stores exactly one entry per cache name instead of one per
+branch or commit. Keys therefore contain no branch name and no commit SHA.
+
+**Only cache what is slow to produce and cheap to store.** C++ objects, Kotlin
+class files and GraalVM native images are cached. Gradle dependencies and
+transforms are not: they download in about a minute and the IntelliJ
+distributions alone weighed 6 GB, which evicted every other entry within hours
+and left the whole CI running uncached.
+
+**Outputs must be reproducible for a cache to hit.** Gradle decides per task
+whether restored files are up to date by hashing the task's inputs. Untagged
+builds normally embed the commit hash in the version, so every commit produced
+different jars and Gradle rebuilt everything, native image included, even after
+restoring master's entry. The test workflows set
+`ORG_GRADLE_PROJECT_reproducibleVersion` so `VersionInfoPlugin` drops the hash
+(`1.0.0-SNAPSHOT` instead of `1.0.0-<hash>-SNAPSHOT`), and the same plugin makes
+every archive task reproducible. Local builds and every publish keep the
+per-commit snapshot version. A cache miss must still produce the same build;
+caches are accelerators, never a correctness mechanism.
+
+## The composite action
+
+Every explicit cache goes through
+[actions/master-cache/action.yml](actions/master-cache/action.yml): a
+`restore` step before the build and a `save` step after it. GitHub cache
+entries are immutable and `actions/cache/save` silently no-ops when the key
+exists, so on master the action deletes the previous entry before saving (this
+needs the default token's `actions: write` permission). Off master both save
+steps are skipped.
+
+Within one run, no two jobs write the same key: SCons keys carry the matrix
+job, the build-output keys carry the build task and variant, and the Gradle
+build cache has a single designated writer. Two jobs saving the same key at
+once would fail with `ReserveCacheError` and leave whichever one won.
 
 ## 1. SCons compilation cache
 
-**Source:** [actions/scons-cache/action.yml](actions/scons-cache/action.yml)
-
 **Used by:** `build_android.yml`, `build_ios.yml`, `build_linux.yml`,
-`build_macos.yml`, and `build_windows.yml`.
+`build_macos.yml`, `build_windows.yml`.
 
 **Contents:** `${{ github.workspace }}/.scons-cache`, SCons' content-addressed
-object-file cache. It contains reusable compilation results, not the final
-libraries in `bin/`.
+object-file cache, not the final libraries.
 
-**Key:**
+**Key:** `scons-<platform-architecture-target>` from the matrix `cache-name`.
 
-```text
-scons-<platform-architecture-target>-<PR branch or branch>
-```
+The save runs even when the build failed, since the objects that did compile
+are still worth keeping. SCons validates its own signatures, so a changed
+source or build setting is recompiled and never taken from the cache.
 
-The matrix supplies the platform/architecture/target part (`cache-name`). A
-normal branch run uses its branch name. A pull request uses its source branch
-name (`github.head_ref`).
+## 2. Kotlin and test-project build outputs
 
-**Reuse:** An exact cache is restored first. If the branch/PR has no cache, the
-action falls back to the matching `master` cache. SCons validates its own
-signatures, so a changed C++ source or build setting is recompiled and is not
-silently taken from the cache.
+**Used by:** every `test_*.yml` workflow. The save step is last in the job, so
+it only runs after every step succeeded.
 
-**Refresh and exclusions:** GitHub cache entries are immutable. The composite
-action deletes this branch/PR's previous exact entry before saving the new
-`.scons-cache`, so each branch keeps one refreshed SCons cache per matrix
-entry. On forked PRs the token cannot delete/save it; those runs can only use
-the existing fallback cache. The cache does not include `bin/`, Gradle files,
-or downloaded tools.
+| Key | Contents |
+| --- | --- |
+| `desktop-graal-<build task>-<variant>-<OS>-<arch>` (`test_linux.yml`, `test_macos.yml`, `test_windows.yml`) | `kt/**/build`, `harness/tests/.gradle`, `harness/tests/build` |
+| `ios-native-image-<variant>-<arch>` (`test_ios.yml`) | `kt/**/build`, `harness/tests/.gradle`, `harness/tests/build/graal`, `harness/tests/build/libs/ios`, `harness/tests/jvm/ios` |
+| `android-build-<variant>-<OS>-<arch>` (`test_android.yml`) | `kt/**/build`, `harness/tests/.gradle`, `harness/tests/build` |
 
-## 2. Gradle User Home cache
+`harness/tests` includes all of `kt/` as included builds, so `kt/**/build`
+holds the compiled Godot-JVM libraries and their Kotlin incremental-compilation
+state, and `harness/tests/build` holds the packaged jars and the GraalVM native
+image. With reproducible outputs, Gradle marks the native image up to date when
+the jars did not change, which is the single largest saving (4 to 11 minutes
+per job). When a module did change, the incremental state limits recompilation
+to the affected files.
 
-**Source:** `gradle/actions/setup-gradle@v6` in `build_jvm.yml`, both deploy
-workflows, and every export/test workflow.
+The keys are OS/architecture-specific because native outputs must not cross
+those boundaries, and include the build task and variant so every matrix job
+writes its own entry. None of these include
+the Godot editor/template artifacts, the Android SDK, or the iOS GraalVM
+distribution.
 
-This is the action's built-in, enhanced Gradle cache. Its keying and restore
-strategy are managed by the Gradle action rather than written in our YAML. It
-uses the runner OS, job/workflow/matrix identity, and commit SHA; normally it
-restores the latest compatible state when the SHA changes.
+## 3. Gradle build cache
 
-**Contents:** reusable state in the runner's Gradle User Home, principally
-downloaded dependencies and Gradle caches (including transforms and the local
-Gradle build cache), plus setup-action metadata. It does *not* cache this
-repository's `build/` directories; those are covered separately below where
-needed.
+**Contents:** `~/.gradle/caches/build-cache-1`, Gradle's local build cache. It is
+content addressed: a `compileKotlin` whose sources and classpath were compiled
+before resolves `FROM-CACHE` even when the incremental state above does not
+match. Kotlin compile outputs are platform independent, so there is a single
+OS-independent entry, key `gradle-build-cache`.
 
-**Explicit exclusions in every use:**
+**Restored by:** `build_jvm.yml`, `deploy_jvm.yml` and every test workflow,
+right after `setup-gradle`, whose own caching is turned off with
+`cache-disabled: true`.
 
-```text
-wrapper/dists
-caches/*/generated-gradle-jars
-daemon
-notifications
-```
-
-`cache-cleanup: always` removes unused Gradle User Home files before saving,
-even if the Gradle build failed. `cache-read-only: false` permits the action to
-write cache entries from these workflows.
-
-**Reuse boundaries:** Gradle cache entries are OS/job/workflow/matrix-specific.
-GitHub first restores the newest compatible entry from the current branch (or
-the current PR's merge ref), then falls back to the default branch. It does not
-restore from arbitrary sibling branches. This cache speeds up dependency
-resolution and Gradle work; it does not replace a native image or DEX output
-by itself.
-
-## 3. Project build-output caches
-
-These explicit `actions/cache@v4` steps preserve expensive generated output in
-the integration-test Godot project. They restore before Gradle runs. Gradle
-then decides whether the restored files are up to date from its declared task
-inputs and outputs.
-
-| Cache | Workflows | Contents | Exact key | Fallback |
-| --- | --- | --- | --- | --- |
-| Desktop Graal | `test_linux.yml`, `test_macos.yml`, `test_windows.yml` | `harness/tests/.gradle`, `harness/tests/build` | `desktop-graal-<OS>-<arch>-<github.sha>` | newest `desktop-graal-<OS>-<arch>-*` |
-| iOS native image | `test_ios.yml` | `harness/tests/.gradle`, `harness/tests/build/graal`, `harness/tests/build/libs/ios`, `harness/tests/jvm/ios` | `ios-native-image-<arch>-<github.sha>` | newest `ios-native-image-<arch>-*` |
-| Android build/DEX | `test_android.yml` | `harness/tests/.gradle`, `harness/tests/build` | `android-build-<OS>-<arch>-<github.sha>` | newest `android-build-<OS>-<arch>-*` |
-
-`github.sha` is the checked-out commit (the PR merge commit for a
-`pull_request` run), not the run ID. Its purpose is to preserve an updated
-snapshot after each commit; it is not intended as the main reuse mechanism.
-On a new commit, GitHub first finds the newest compatible cache in the current
-branch/PR scope. If none exists, it falls back to the default branch's newest
-matching cache. It then saves this commit's updated snapshot after a successful
-job. It never selects a sibling branch's cache. The prefix is intentionally
-OS/architecture-specific: native outputs must not cross those boundaries. The
-iOS workflow currently only runs on macOS, so its key only needs the
-architecture.
-
-The desktop test and export workflows share an exact cache when they run the
-same commit on the same OS/architecture. The iOS cache excludes unrelated
-`harness/tests/build` output; Android and desktop cache their full test-project
-build directory because their respective generated output lives there. None of
-these caches include the Godot editor/template artifacts, the Android SDK, or
-the downloaded iOS GraalVM distribution.
+**Written by:** the Linux "Editor tests" job only, at the end of
+`test_linux.yml`. The other jobs compile the same sources with the same flags
+apart from `-Prelease`, so one writer covers nearly everything and no two jobs
+ever race for the key.
 
 ## What a new run does
 
-| Run | SCons compilation cache | Gradle User Home cache | Project build-output cache |
+| Run | SCons | Kotlin and test-project outputs | Gradle build cache |
 | --- | --- | --- | --- |
-| New PR | No PR cache exists, so restore the matching `master` SCons cache. | No PR merge-ref cache exists, so restore the compatible default-branch Gradle state. | No PR cache exists, so restore the newest matching `master` platform cache. |
-| New commit on that PR | Restore the PR's current SCons cache; after the build, replace it with the updated cache. | Restore the newest compatible cache from that PR's merge ref; Gradle updates its state and saves it. | Restore the newest matching cache from that PR, let Gradle rebuild stale tasks, then save a new SHA-keyed snapshot. |
-
-GitHub caches are disposable accelerators, never a correctness mechanism. A
-cache miss must produce the same build; a stale restored file must be rejected
-by SCons or Gradle's normal input/output checks. A re-run of an unchanged
-commit can use its exact cache, but that is incidental to the two cases above.
+| Any PR commit | Restore master's entry; never save. | Restore master's entry, let Gradle skip or rebuild per task; never save. | Restore the single entry; never save. |
+| Daily or dispatched master run | Restore, then replace after the build. | Restore, then replace after a successful job. | Restore everywhere; the Linux editor test job replaces it. |

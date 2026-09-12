@@ -16,6 +16,9 @@ concurrency:
 jobs:
   test-ios:
     runs-on: macos-15
+    env:
+      # See VersionInfoPlugin: drop the commit hash from the build version so cached Kotlin/native-image outputs stay valid.
+      ORG_GRADLE_PROJECT_reproducibleVersion: 'true'
     name: ${{ matrix.name }}
     timeout-minutes: 45
     strategy:
@@ -56,25 +59,28 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v6
         with:
-          cache-read-only: false
-          cache-cleanup: always
-          gradle-home-cache-excludes: |
-            wrapper/dists
-            caches/*/generated-gradle-jars
-            daemon
-            notifications
+          # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
+          cache-disabled: true
 
-      - name: Cache iOS native-image output
-        uses: actions/cache@v5
+      # Kotlin compile outputs are platform independent, so every job reads the single entry the Linux editor test job writes.
+      - name: Restore Gradle build cache
+        uses: ./.github/actions/master-cache
         with:
+          mode: restore
+          cache-name: gradle-build-cache
+          path: ~/.gradle/caches/build-cache-1
+
+      - name: Restore iOS native-image output
+        uses: ./.github/actions/master-cache
+        with:
+          mode: restore
+          cache-name: ios-native-image-${{ matrix.variant }}-${{ runner.arch }}
           path: |
+            kt/**/build
             harness/tests/.gradle
             harness/tests/build/graal
             harness/tests/build/libs/ios
             harness/tests/jvm/ios
-          key: ios-native-image-${{ matrix.variant }}-${{ runner.arch }}-${{ github.sha }}
-          restore-keys: |
-            ios-native-image-${{ matrix.variant }}-${{ runner.arch }}-
 
       - name: Download macOS editor library
         uses: actions/download-artifact@v7
@@ -121,3 +127,15 @@ jobs:
             ARCHS=arm64 \
             CODE_SIGNING_ALLOWED=NO \
             build
+
+      - name: Save iOS native-image output
+        uses: ./.github/actions/master-cache
+        with:
+          mode: save
+          cache-name: ios-native-image-${{ matrix.variant }}-${{ runner.arch }}
+          path: |
+            kt/**/build
+            harness/tests/.gradle
+            harness/tests/build/graal
+            harness/tests/build/libs/ios
+            harness/tests/jvm/ios
