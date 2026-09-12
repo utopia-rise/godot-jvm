@@ -83,8 +83,17 @@ jobs:
         with:
           mode: restore
           cache-name: ios-native-image-${{ matrix.variant }}-${{ runner.arch }}
+          # Compiled Godot-JVM libraries plus Gradle's per-build task history: the harness includes six builds and
+          # each keeps its own .gradle/<version>/executionHistory. Without it nothing can be marked up to date.
           path: |
             kt/**/build
+            kt/.gradle
+            kt/api-generator/.gradle
+            kt/common/.gradle
+            kt/tools-common/.gradle
+            kt/build-logic/.gradle
+            harness/third-party-library/build
+            harness/third-party-library/.gradle
             harness/tests/.gradle
             harness/tests/build/graal
             harness/tests/build/libs/ios
@@ -141,8 +150,17 @@ jobs:
         with:
           mode: save
           cache-name: ios-native-image-${{ matrix.variant }}-${{ runner.arch }}
+          # Compiled Godot-JVM libraries plus Gradle's per-build task history: the harness includes six builds and
+          # each keeps its own .gradle/<version>/executionHistory. Without it nothing can be marked up to date.
           path: |
             kt/**/build
+            kt/.gradle
+            kt/api-generator/.gradle
+            kt/common/.gradle
+            kt/tools-common/.gradle
+            kt/build-logic/.gradle
+            harness/third-party-library/build
+            harness/third-party-library/.gradle
             harness/tests/.gradle
             harness/tests/build/graal
             harness/tests/build/libs/ios

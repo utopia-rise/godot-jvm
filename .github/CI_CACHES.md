@@ -67,14 +67,18 @@ it only runs after every step succeeded.
 
 | Key | Contents |
 | --- | --- |
-| `desktop-graal-<build task>-<variant>-<OS>-<arch>` (`test_linux.yml`, `test_macos.yml`, `test_windows.yml`) | `kt/**/build`, `harness/tests/.gradle`, `harness/tests/build` |
-| `ios-native-image-<variant>-<arch>` (`test_ios.yml`) | `kt/**/build`, `harness/tests/.gradle`, `harness/tests/build/graal`, `harness/tests/build/libs/ios`, `harness/tests/jvm/ios` |
-| `android-build-<variant>-<OS>-<arch>` (`test_android.yml`) | `kt/**/build`, `harness/tests/.gradle`, `harness/tests/build` |
+| `desktop-graal-<build task>-<variant>-<OS>-<arch>` (`test_linux.yml`, `test_macos.yml`, `test_windows.yml`) | `kt/**/build`, the `.gradle` directory of every included build, `harness/third-party-library/build`, `harness/tests/.gradle`, `harness/tests/build` |
+| `ios-native-image-<variant>-<arch>` (`test_ios.yml`) | same `kt/**/build` and `.gradle` set, `harness/tests/build/graal`, `harness/tests/build/libs/ios`, `harness/tests/jvm/ios` |
+| `android-build-<variant>-<OS>-<arch>` (`test_android.yml`) | `kt/**/build`, the `.gradle` directory of every included build, `harness/third-party-library/build`, `harness/tests/.gradle`, `harness/tests/build` |
 
-`harness/tests` includes all of `kt/` as included builds, so `kt/**/build`
-holds the compiled Godot-JVM libraries and their Kotlin incremental-compilation
-state, and `harness/tests/build` holds the packaged jars and the GraalVM native
-image. With reproducible outputs, Gradle marks the native image up to date when
+`harness/tests` includes `kt`, `kt/api-generator`, `kt/common`,
+`kt/build-logic` (through `kt`), `kt/tools-common` and
+`harness/third-party-library` as included builds. `kt/**/build` holds the
+compiled Godot-JVM libraries and their Kotlin incremental-compilation state,
+and `harness/tests/build` holds the packaged jars and the GraalVM native image.
+Gradle records task history per build in `<build root>/.gradle/<version>/executionHistory`,
+so each included build's `.gradle` directory is cached too; without it no task
+in that build can be marked up to date and non-cacheable tasks rerun. With reproducible outputs, Gradle marks the native image up to date when
 the jars did not change, which is the single largest saving (4 to 11 minutes
 per job). When a module did change, the incremental state limits recompilation
 to the affected files.
