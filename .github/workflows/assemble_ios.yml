@@ -15,9 +15,8 @@ jobs:
           pattern: '*_ios_*'
           path: libraries
           merge-multiple: true
-      # Godot's iOS exporter only picks a GDExtension up when the manifest points at an
-      # .xcframework -- a bare .a is silently ignored, and the app then fails at load with a
-      # missing entry symbol.
+      # The .gdextension manifest points at the bare .a archives SCons writes, the same files the
+      # harness project uses locally, so only the intermediate object archives are dropped here.
       - name: Assemble iOS libraries
         shell: bash
         run: |
@@ -25,17 +24,10 @@ jobs:
           ios_libraries=libraries/jvm/libs/ios
           ls -1 "$ios_libraries"
           for target in template_debug template_release; do
-            # SCons builds the iOS libraries through env.Command, which does not add the "lib"
-            # prefix that StaticLibrary would, so match on the suffix instead of assuming one.
-            device="$(find "$ios_libraries" -name "*godot.jvm.ios.$target.a" -print -quit)"
-            if [[ -z "$device" ]]; then
+            if [[ ! -f "$ios_libraries/godot.jvm.ios.$target.a" ]]; then
               echo "Missing the iOS library for $target" >&2
               exit 1
             fi
-            xcodebuild -create-xcframework \
-              -library "$device" \
-              -output "$ios_libraries/$(basename "${device%.a}").xcframework"
-            rm "$device"
           done
           rm "$ios_libraries"/*.objects.a
           mkdir -p package/addons
