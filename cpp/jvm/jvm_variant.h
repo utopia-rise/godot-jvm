@@ -111,7 +111,8 @@ class VariantToBuffer {
         // below, and JvmBindingManager, for the other side of this contract).
         des->increment_position(encode_uint32(constructorID, des->get_cursor()));
         des->increment_position(encode_uint64(reinterpret_cast<uintptr_t>(p_raw_object), des->get_cursor()));
-        des->increment_position(encode_uint64(raw_godot::RawObject(p_raw_object).get_instance_id(), des->get_cursor()));
+        // The binding cached the ObjectID at creation: no second trip to the engine for it.
+        des->increment_position(encode_uint64(binding->get_object_id(), des->get_cursor()));
     }
 
     static void write_object(SharedBuffer* des, const godot::Variant& src) {

@@ -39,24 +39,18 @@ void JvmBindingManager::_instance_binding_free_callback(void* p_token, void* p_i
 JvmBinding* JvmBindingManager::set_instance_binding(GodotObject* p_object) {
     // Godot being weird. Call this function only if the JVM is the creator of the object, otherwise it will crash in
     // case the object has any other bindings.
-    raw_godot::RawObject raw_object = raw_godot::RawObject(p_object);
-    bool is_rc = raw_object.is_ref_counted();
-    if (is_rc) {
+    JvmBinding* binding = reinterpret_cast<JvmBinding*>(
+        raw_godot::RawObject(p_object).get_instance_binding(&GodotJvm::get_instance(), &_instance_binding_callbacks)
+    );
+
+    if (binding->get_object_id().is_ref_counted()) {
         // p_object was just constructed via RawObject::instantiate(), so its refcount is genuinely 0 here — init_ref()
         // (not reference()) is required: reference() refuses to increment a true-zero, never-initialized count (it's
         // meant for objects that already... Must be dropped if RawObject::instantiate() ever moves to
         // classdb_construct_object3, which returns RefCounted instances already at refcount 1 — see the note there.
         raw_godot::RawObject(p_object).init_ref();
+        binding->test_and_set_incremented();
     }
-
-    // Attach via the growable get_instance_binding mechanism, not the engine's raw one-shot
-    // object_set_instance_binding: that one asserts if binding slot 0 is already occupied, which it always is once
-    // godot-cpp's own wrapper binding exists for...
-    JvmBinding* binding = reinterpret_cast<JvmBinding*>(
-        raw_object.get_instance_binding(&GodotJvm::get_instance(), &_instance_binding_callbacks)
-    );
-
-    if (is_rc) { binding->test_and_set_incremented(); }
 
     return binding;
 }
@@ -65,11 +59,11 @@ JvmBinding* JvmBindingManager::get_instance_binding(GodotObject* p_object) {
     // Godot being weird but this is how you create a binding if it doesn't exist already, otherwise just retrieve it.
     // Use this function to bind an existing object to the JVM, the callbacks provided will handle the creation of the
     // binding.
-    raw_godot::RawObject raw_object = raw_godot::RawObject(p_object);
+    raw_godot::RawObject raw_object(p_object);
     JvmBinding* binding = reinterpret_cast<JvmBinding*>(
         raw_object.get_instance_binding(&GodotJvm::get_instance(), &_instance_binding_callbacks)
     );
-    if (raw_object.is_ref_counted() && !binding->test_and_set_incremented()) { raw_object.reference(); }
+    if (binding->get_object_id().is_ref_counted() && !binding->test_and_set_incremented()) { raw_object.reference(); }
     return binding;
 }
 

@@ -230,6 +230,13 @@ namespace raw_godot {
         _ALWAYS_INLINE_ void update_configuration_warnings() const {
             internal::_call_native_mb_no_ret(update_configuration_warnings_bind, _ptr);
         }
+        
+        _ALWAYS_INLINE_ static GDExtensionScriptInstancePtr create_script_instance(
+            const GDExtensionScriptInstanceInfo3* p_info,
+            GDExtensionScriptInstanceDataPtr p_data
+        ) {
+            return internal::gdextension_interface_script_instance_create3(p_info, p_data);
+        }
 
         _ALWAYS_INLINE_ void set_script_instance(GDExtensionScriptInstancePtr p_script_instance) const {
             internal::gdextension_interface_object_set_script_instance(_ptr, p_script_instance);

@@ -38,16 +38,10 @@ raw_godot::RawObject JvmScript::_object_create() const {
         kotlin_class->base_godot_class
     );
 
-    // Establishes the object's real refcount (if any) and our own binding before anything else touches it — see
-    // JvmBindingManager::set_instance_binding()'s own comment.
     JvmBindingManager::set_instance_binding(owner);
-
-    // Attaching directly via object_set_script_instance, not owner->set_script(this): set_script() re-enters the
-    // engine's can-instantiate/placeholder decision, and _can_instantiate() is unconditionally false in the editor (see
-    // below) — that re...
-    void* instance = create_jvm_instance(owner);
-    if (instance == nullptr) { return raw_godot::RawObject(); }
-    owner.set_script_instance(instance);
+    jni::Env env = jni::Jvm::current_env();
+    KtObject* kt_object = KtObject::create_strong(env, kotlin_class->construct(env, owner), owner.is_ref_counted());
+    owner.set_script_instance(JvmInstance::create_script_instance(owner, kt_object, this));
     return owner;
 }
 
@@ -102,7 +96,18 @@ void* JvmScript::_instance_create(GodotObject* p_for_object) const {
 #ifdef DEBUG_ENABLED
     if (!validate_instance_creation()) { return nullptr; }
 #endif
-    return create_jvm_instance(p_for_object);
+    // TODO: Check if creator when set_script_instance is implemented in engine.
+    JvmBindingManager::get_instance_binding(p_for_object);
+
+    jni::Env env = jni::Jvm::current_env();
+    raw_godot::RawObject owner(p_for_object);
+    jni::JObject instance = kotlin_class->construct(env, p_for_object);
+    // The binding above took the JVM's reference, so a count of exactly 1 means the JVM alone owns this RefCounted and
+    // its instance must be collectable from the start (see KtObject::create_weak).
+    KtObject* kt_object = owner.is_ref_counted() && owner.get_reference_count() == 1
+                            ? KtObject::create_weak(env, instance)
+                            : KtObject::create_strong(env, instance, owner.is_ref_counted());
+    return JvmInstance::create_script_instance(p_for_object, kt_object, this);
 }
 
 bool JvmScript::_instance_has(Object* p_object) const {
@@ -128,24 +133,6 @@ bool JvmScript::validate_instance_creation() const {
     return true;
 }
 #endif
-
-void* JvmScript::create_jvm_instance(GodotObject* p_raw_owner) const {
-    // Assumes validate_instance_creation() has succeeded.
-    // TODO: Check if creator when set_script_instance is implemented in engine.
-    JvmBindingManager::get_instance_binding(p_raw_owner);
-
-    JVM_DEV_VERBOSE("Try to create %s instance.", kotlin_class->registered_class_name);
-
-    jni::Env env = jni::Jvm::current_env();
-    KtObject* wrapped = kotlin_class->create_instance(env, p_raw_owner);
-
-    JvmInstance::JvmInstanceData* instance_data = JvmInstance::create_instance_data(env, p_raw_owner, wrapped, this);
-
-    return internal::gdextension_interface_script_instance_create3(
-        &JvmInstance::jvm_script_instance_info,
-        instance_data
-    );
-}
 
 bool JvmScript::_has_source_code() const {
     return !source.is_empty();
@@ -328,7 +315,7 @@ void* JvmScript::_placeholder_instance_create(GodotObject* p_for_object) const {
     placeholder_data->script = Ref<Script>(this);
     placeholder_data->owner = p_for_object;
 
-    GDExtensionScriptInstancePtr placeholder = internal::gdextension_interface_script_instance_create3(
+    GDExtensionScriptInstancePtr placeholder = raw_godot::RawObject::create_script_instance(
         &JvmPlaceHolderInstance::jvm_placeholder_script_instance_info,
         placeholder_data
     );

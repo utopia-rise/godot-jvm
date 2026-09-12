@@ -22,8 +22,11 @@ JVM_INSTANCE_WRAPPER(KtObject, "godot.core.KtObject") {
 private:
     bool is_ref;
 
+    KtObject(jni::JObject p_global_ref, bool p_is_weak, bool p_is_ref);
+
 public:
-    explicit KtObject(jni::Env & p_env, jni::JObject p_wrapped, bool p_is_ref);
+    static KtObject* create_strong(jni::Env & p_env, jni::JObject p_local_ref, bool p_is_ref);
+    static KtObject* create_weak(jni::Env & p_env, jni::JObject p_local_ref);
     ~KtObject();
 
     void script_instance_removed(jni::Env & p_env, uint32_t constructor_index);

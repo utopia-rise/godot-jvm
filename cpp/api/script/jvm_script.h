@@ -27,7 +27,6 @@ namespace godot {
 #ifdef DEBUG_ENABLED
         bool validate_instance_creation() const;
 #endif
-        void* create_jvm_instance(GodotObject* p_raw_owner) const;
 
     public:
         JvmScript();
