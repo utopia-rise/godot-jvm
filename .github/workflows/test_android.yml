@@ -14,6 +14,9 @@ concurrency:
 jobs:
   test-android:
     runs-on: ubuntu-latest
+    env:
+      # See VersionInfoPlugin: drop the commit hash from the build version so cached Kotlin/native-image outputs stay valid.
+      ORG_GRADLE_PROJECT_reproducibleVersion: 'true'
     name: ${{ matrix.name }}
     timeout-minutes: 35
     strategy:
@@ -21,11 +24,13 @@ jobs:
       matrix:
         include:
           - name: Debug export tests
+            release: false
             build-task: buildAndroid
             export-task: exportAndroidDebug
             variant: debug
           - name: Release export tests
-            build-task: -Prelease buildAndroid
+            release: true
+            build-task: buildAndroid
             export-task: exportAndroidRelease
             variant: release
     steps:
@@ -51,23 +56,36 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v6
         with:
-          cache-read-only: false
-          cache-cleanup: always
-          gradle-home-cache-excludes: |
-            wrapper/dists
-            caches/*/generated-gradle-jars
-            daemon
-            notifications
+          # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
+          cache-disabled: true
 
-      - name: Cache Android build output
-        uses: actions/cache@v5
+      # Kotlin compile outputs are platform independent, so every job reads the entry for its flavor written by a Linux
+      # job: debug by the Linux editor tests, release (DEBUG preprocessor flag off) by the Android release tests.
+      - name: Restore Gradle build cache
+        uses: ./.github/actions/master-cache
         with:
+          mode: restore
+          cache-name: gradle-build-cache-${{ matrix.release && 'release' || 'debug' }}
+          path: ~/.gradle/caches/build-cache-1
+
+      - name: Restore Android build output
+        uses: ./.github/actions/master-cache
+        with:
+          mode: restore
+          cache-name: android-build-${{ matrix.variant }}-${{ runner.os }}-${{ runner.arch }}
+          # Compiled Godot-JVM libraries plus Gradle's per-build task history: the harness includes six builds and
+          # each keeps its own .gradle/<version>/executionHistory. Without it nothing can be marked up to date.
           path: |
+            kt/**/build
+            kt/.gradle
+            kt/api-generator/.gradle
+            kt/common/.gradle
+            kt/tools-common/.gradle
+            kt/build-logic/.gradle
+            harness/third-party-library/build
+            harness/third-party-library/.gradle
             harness/tests/.gradle
             harness/tests/build
-          key: android-build-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
-          restore-keys: |
-            android-build-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Download Linux editor library
         uses: actions/download-artifact@v7
@@ -94,7 +112,7 @@ jobs:
           touch harness/tests/android/build/build/.gdignore
 
       - name: Build JVM tests project
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.build-task }}
 
       - name: Create Android release test key
         run: |
@@ -112,7 +130,7 @@ jobs:
           echo "GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD=godot-jvm-tests" >> "$GITHUB_ENV"
 
       - name: Export Android tests
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.export-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.export-task }}
         timeout-minutes: 30
 
       - name: Enable KVM
@@ -142,3 +160,30 @@ jobs:
           name: android-${{ matrix.variant }}-emulator-logs
           path: android-emulator.log
           if-no-files-found: ignore
+
+      - name: Save Android build output
+        uses: ./.github/actions/master-cache
+        with:
+          mode: save
+          cache-name: android-build-${{ matrix.variant }}-${{ runner.os }}-${{ runner.arch }}
+          # Compiled Godot-JVM libraries plus Gradle's per-build task history: the harness includes six builds and
+          # each keeps its own .gradle/<version>/executionHistory. Without it nothing can be marked up to date.
+          path: |
+            kt/**/build
+            kt/.gradle
+            kt/api-generator/.gradle
+            kt/common/.gradle
+            kt/tools-common/.gradle
+            kt/build-logic/.gradle
+            harness/third-party-library/build
+            harness/third-party-library/.gradle
+            harness/tests/.gradle
+            harness/tests/build
+
+      - name: Save Gradle build cache (release)
+        if: matrix.variant == 'release'
+        uses: ./.github/actions/master-cache
+        with:
+          mode: save
+          cache-name: gradle-build-cache-release
+          path: ~/.gradle/caches/build-cache-1

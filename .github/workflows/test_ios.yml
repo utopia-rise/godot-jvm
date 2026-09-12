@@ -16,6 +16,9 @@ concurrency:
 jobs:
   test-ios:
     runs-on: macos-15
+    env:
+      # See VersionInfoPlugin: drop the commit hash from the build version so cached Kotlin/native-image outputs stay valid.
+      ORG_GRADLE_PROJECT_reproducibleVersion: 'true'
     name: ${{ matrix.name }}
     timeout-minutes: 45
     strategy:
@@ -23,12 +26,14 @@ jobs:
       matrix:
         include:
           - name: Debug export tests
+            release: false
             build-task: buildIOS
             export-task: exportIOSDebug
             xcode-configuration: Debug
             variant: debug
           - name: Release export tests
-            build-task: -Prelease buildIOS
+            release: true
+            build-task: buildIOS
             export-task: exportIOSRelease
             xcode-configuration: Release
             variant: release
@@ -56,25 +61,38 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v6
         with:
-          cache-read-only: false
-          cache-cleanup: always
-          gradle-home-cache-excludes: |
-            wrapper/dists
-            caches/*/generated-gradle-jars
-            daemon
-            notifications
+          # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
+          cache-disabled: true
 
-      - name: Cache iOS native-image output
-        uses: actions/cache@v5
+      # Kotlin compile outputs are platform independent, so every job reads the entry for its flavor written by a Linux
+      # job: debug by the Linux editor tests, release (DEBUG preprocessor flag off) by the Android release tests.
+      - name: Restore Gradle build cache
+        uses: ./.github/actions/master-cache
         with:
+          mode: restore
+          cache-name: gradle-build-cache-${{ matrix.release && 'release' || 'debug' }}
+          path: ~/.gradle/caches/build-cache-1
+
+      - name: Restore iOS native-image output
+        uses: ./.github/actions/master-cache
+        with:
+          mode: restore
+          cache-name: ios-native-image-${{ matrix.variant }}-${{ runner.arch }}
+          # Compiled Godot-JVM libraries plus Gradle's per-build task history: the harness includes six builds and
+          # each keeps its own .gradle/<version>/executionHistory. Without it nothing can be marked up to date.
           path: |
+            kt/**/build
+            kt/.gradle
+            kt/api-generator/.gradle
+            kt/common/.gradle
+            kt/tools-common/.gradle
+            kt/build-logic/.gradle
+            harness/third-party-library/build
+            harness/third-party-library/.gradle
             harness/tests/.gradle
             harness/tests/build/graal
             harness/tests/build/libs/ios
             harness/tests/jvm/ios
-          key: ios-native-image-${{ matrix.variant }}-${{ runner.arch }}-${{ github.sha }}
-          restore-keys: |
-            ios-native-image-${{ matrix.variant }}-${{ runner.arch }}-
 
       - name: Download macOS editor library
         uses: actions/download-artifact@v7
@@ -101,10 +119,10 @@ jobs:
           sed -i '' 's|application/export_project_only=false|application/export_project_only=true|' harness/tests/export_presets.cfg
 
       - name: Build JVM tests project
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.build-task }}
 
       - name: Export iOS test project
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.export-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.export-task }}
         timeout-minutes: 30
 
       # Device build only, so no execution: Godot's official simulator template slice is x86_64
@@ -121,3 +139,24 @@ jobs:
             ARCHS=arm64 \
             CODE_SIGNING_ALLOWED=NO \
             build
+
+      - name: Save iOS native-image output
+        uses: ./.github/actions/master-cache
+        with:
+          mode: save
+          cache-name: ios-native-image-${{ matrix.variant }}-${{ runner.arch }}
+          # Compiled Godot-JVM libraries plus Gradle's per-build task history: the harness includes six builds and
+          # each keeps its own .gradle/<version>/executionHistory. Without it nothing can be marked up to date.
+          path: |
+            kt/**/build
+            kt/.gradle
+            kt/api-generator/.gradle
+            kt/common/.gradle
+            kt/tools-common/.gradle
+            kt/build-logic/.gradle
+            harness/third-party-library/build
+            harness/third-party-library/.gradle
+            harness/tests/.gradle
+            harness/tests/build/graal
+            harness/tests/build/libs/ios
+            harness/tests/jvm/ios

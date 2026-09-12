@@ -68,6 +68,10 @@ Used by:
 
 The desktop GraalVM and iOS export tasks are also compatible with configuration cache.
 
+### Optimization level
+
+Debug builds (`buildGraalNativeImage`, `buildIOS`) pass native-image's quick build mode, `-Ob`, which shortens the image build considerably in exchange for a slower image. Release builds (`buildGraalNativeImageRelease`, `buildIOSRelease`) use the fully optimized default, `-O2`. This is not configurable: the release image is what ships, and debug iteration speed matters more than debug runtime speed.
+
 ### `graal.homeDirectory`
 
 Path to the GraalVM home directory, as a string. It is used to locate the `native-image` executable.

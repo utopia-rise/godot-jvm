@@ -2,6 +2,7 @@ package godot.gradle.tasks.graal.ios
 
 import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
+import godot.gradle.projectExt.isRelease
 import godot.gradle.tasks.graal.iosJniConfig
 import godot.gradle.tasks.graal.iosReflectionConfig
 import godot.gradle.tasks.graal.iosResourceConfig
@@ -61,6 +62,10 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
 
     @get:Input
     abstract val strictImageHeapEnabled: Property<Boolean>
+
+    // -Ob (quick build) for debug images, -O2 for release. See createGraalNativeImage.kt.
+    @get:Input
+    abstract val optimizationLevel: Property<String>
 
     @TaskAction
     fun createIOSGraalNativeImage() {
@@ -130,7 +135,6 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
             "-H:-SpawnIsolates",
             "-H:PageSize=16384",
             "-H:EnableURLProtocols=http,https,jar",
-            "-H:+PrintAnalysisCallTree",
             "-H:Log=registerResource:",
             "-Djdk.internal.lambda.eagerlyInitialize=false",
             "-H:+ReportExceptionStackTraces",
@@ -144,6 +148,7 @@ abstract class CreateIOSGraalNativeImageTask : DefaultTask() {
             reflectionConfigurationFilesArgument,
             resourceConfigurationFilesArgument,
             "--no-fallback",
+            optimizationLevel.get(),
             ))
         }
 
@@ -181,6 +186,7 @@ fun Project.createIOSGraalNativeImageTask(
     val graalVmHomeDirectory = godotJvmExtension.graal.homeDirectory
     val isVerboseEnabled = godotJvmExtension.graal.verbose
     val isStrictImageHeapEnabled = godotJvmExtension.graal.strictImageHeapEnabled
+    val optimizationLevel = if (isRelease) "-O2" else "-Ob"
     val projectBaseDir = projectDir
     val additionalJniConfigurationFiles = godotJvmExtension.graal.additionalJniConfigurationFiles.map { configFiles ->
         configFiles.joinToString(",") { configFile ->
@@ -223,6 +229,7 @@ fun Project.createIOSGraalNativeImageTask(
             this.additionalResourceConfigurationFiles.set(additionalResourceConfigurationFiles)
             this.verboseEnabled.set(isVerboseEnabled)
             this.strictImageHeapEnabled.set(isStrictImageHeapEnabled)
+            this.optimizationLevel.set(optimizationLevel)
         }
     }
 }

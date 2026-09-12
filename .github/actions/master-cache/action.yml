@@ -1,0 +1,43 @@
+name: Master-only cache
+description: >
+  Restores master's cache entry for `cache-name`. Only a master run saves it back, deleting the previous
+  entry first, so the repository keeps exactly one entry per cache name and PRs only read.
+inputs:
+  mode:
+    description: "'restore' (before the build) or 'save' (after the build)."
+    required: true
+  cache-name:
+    description: Cache key. Must already be specific to platform, architecture and target.
+    required: true
+  path:
+    description: Paths to cache, one per line.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Restore cache
+      if: inputs.mode == 'restore'
+      uses: actions/cache/restore@v6
+      with:
+        path: ${{ inputs.path }}
+        key: ${{ inputs.cache-name }}
+
+    # actions/cache/save silently no-ops if a cache with this exact key already exists (keys are
+    # immutable), so the previous entry has to be deleted first or the cache would never refresh.
+    # Requires the `actions: write` permission. Only master writes the cache; every other run just reads it.
+    - name: Delete master's previous cache
+      if: inputs.mode == 'save' && github.ref == 'refs/heads/master'
+      shell: bash
+      continue-on-error: true
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        gh api --method DELETE "repos/${{ github.repository }}/actions/caches?key=${{ inputs.cache-name }}&ref=${{ github.ref }}" --silent || true
+
+    - name: Save cache
+      if: inputs.mode == 'save' && github.ref == 'refs/heads/master'
+      uses: actions/cache/save@v6
+      with:
+        path: ${{ inputs.path }}
+        key: ${{ inputs.cache-name }}
