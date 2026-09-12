@@ -36,7 +36,7 @@ class ContainerRegistration : Node() {
 
     // Built from converters because a class cannot describe the inner element type.
     @Visible
-    var nestedIntArray: VariantArray<VariantArray<Int>> = VariantArray<VariantArray<Int>>(VariantCaster.TYPED_ARRAY(VariantCaster.INT)).also {
+    var nestedIntArray: VariantArray<VariantArray<Int>> = VariantArray(VariantCaster.TYPED_ARRAY(VariantCaster.INT)).also {
         it.add(variantArrayOf(1, 2))
         it.add(variantArrayOf(3))
     }
@@ -51,7 +51,7 @@ class ContainerRegistration : Node() {
     var byteFloatDictionary: Dictionary<Byte, Float> = dictionaryOf(1.toByte() to 1.5f, 2.toByte() to 2.5f)
 
     @Visible
-    var nestedDictionary: Dictionary<String, VariantArray<Int>> = Dictionary<String, VariantArray<Int>>(
+    var nestedDictionary: Dictionary<String, VariantArray<Int>> = Dictionary(
         VariantParser.STRING,
         VariantCaster.TYPED_ARRAY(VariantCaster.INT)
     ).also {

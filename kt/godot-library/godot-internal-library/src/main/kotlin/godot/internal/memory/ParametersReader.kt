@@ -11,14 +11,14 @@ open class ParametersReader {
         }
     }
 
-    inline fun withParameters(types: Array<VariantConverter>, code: () -> Unit) {
+    inline fun withParameters(types: Array<out VariantConverter<*>>, code: () -> Unit) {
         TransferContext.readArguments(types, paramsArray)
         code()
         paramsArray.fill(null, 0, types.size)
     }
 
     inline fun <R> withParametersReturn(
-        types: Array<VariantConverter>,
+        types: Array<out VariantConverter<*>>,
         code: () -> R
     ): Any? {
         TransferContext.readArguments(types, paramsArray)

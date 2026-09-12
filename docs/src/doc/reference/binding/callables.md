@@ -103,7 +103,7 @@ Kotlin also converts an existing lambda with `asCallable()` from `godot.core`. J
 
 ### Explicit converters for typed containers
 
-A class only names the outer type, and so does a reified type parameter: a `VariantArray<Int>` parameter created from `VariantArray.class` or from `lambdaCallable1<Unit, VariantArray<Int>>` is treated as an untyped array and its elements arrive as `Long`. Every `lambdaCallableN` helper and `LambdaCallableN.create` factory therefore also accepts `VariantConverter` arguments in place of the classes: the return converter first, then one converter per parameter, then the lambda. Use `VariantCaster.TYPED_ARRAY(elementConverter)` and `VariantCaster.TYPED_DICTIONARY(keyConverter, valueConverter)` from `godot.core` to describe typed containers, nesting them as needed; `VariantParser` and `VariantCaster` provide the converters for the other types (`VariantCaster.INT`, `VariantParser.STRING`, `VariantParser.OBJECT`...). From Java and Scala, the `VariantCaster` singletons are reached through `INSTANCE`.
+A class only names the outer type, and so does a reified type parameter: a `VariantArray<Int>` parameter created from `VariantArray.class` or from `lambdaCallable1<Unit, VariantArray<Int>>` is treated as an untyped array and its elements arrive as `Long`. Every `lambdaCallableN` helper and `LambdaCallableN.create` factory therefore also accepts `VariantConverter` arguments in place of the classes: the return converter first, then one converter per parameter, then the lambda. A converter carries the JVM type it produces (`VariantCaster.INT` is a `VariantConverter<Int>`), so the callable's type arguments are inferred from the converters and need not be spelled out. Use `VariantCaster.TYPED_ARRAY(elementConverter)` and `VariantCaster.TYPED_DICTIONARY(keyConverter, valueConverter)` from `godot.core` to describe typed containers, nesting them as needed; `VariantParser` and `VariantCaster` provide the converters for the other types (`VariantCaster.INT`, `VariantParser.STRING`, `VariantParser.OBJECT`...). From Java and Scala, the `VariantCaster` singletons are reached through `INSTANCE`.
 
 /// tab | Kotlin
 
@@ -111,9 +111,9 @@ A class only names the outer type, and so does a reified type parameter: a `Vari
 import godot.core.VariantCaster
 import godot.core.lambdaCallable1
 
-val sum = lambdaCallable1<Int, VariantArray<Int>>(
-    VariantCaster.INT, VariantCaster.TYPED_ARRAY(VariantCaster.INT)
-) { values -> values.sum() }
+val sum = lambdaCallable1(VariantCaster.INT, VariantCaster.TYPED_ARRAY(VariantCaster.INT)) { values ->
+    values.sum()
+}
 ```
 
 ///
@@ -124,8 +124,8 @@ val sum = lambdaCallable1<Int, VariantArray<Int>>(
 import godot.core.LambdaCallable1;
 import godot.core.VariantCaster;
 
-var sum = LambdaCallable1.<Integer, VariantArray<Integer>>create(
-    VariantCaster.INT.INSTANCE, new VariantCaster.TYPED_ARRAY(VariantCaster.INT.INSTANCE),
+var sum = LambdaCallable1.create(
+    VariantCaster.INT.INSTANCE, new VariantCaster.TYPED_ARRAY<>(VariantCaster.INT.INSTANCE),
     values -> values.stream().mapToInt(Integer::intValue).sum()
 );
 ```
@@ -137,7 +137,7 @@ var sum = LambdaCallable1.<Integer, VariantArray<Integer>>create(
 ```scala
 import godot.core.{LambdaCallable1, VariantCaster}
 
-val sum = LambdaCallable1.create[Integer, VariantArray[Integer]](
+val sum = LambdaCallable1.create(
   VariantCaster.INT.INSTANCE, new VariantCaster.TYPED_ARRAY(VariantCaster.INT.INSTANCE),
   (values: VariantArray[Integer]) => values.stream().mapToInt(_.intValue).sum
 )
@@ -145,7 +145,7 @@ val sum = LambdaCallable1.create[Integer, VariantArray[Integer]](
 
 ///
 
-Registered properties, functions, and signals get these container converters generated from their declared generic arguments, so this is only needed for values built by hand. `VariantArray` and `Dictionary` have matching constructors taking converters, for example `VariantArray<VariantArray<Int>>(VariantCaster.TYPED_ARRAY(VariantCaster.INT))`; the Godot container is typed with the converter's builtin type, without narrowing object classes.
+Registered properties, functions, and signals get these container converters generated from their declared generic arguments, so this is only needed for values built by hand. `VariantArray` and `Dictionary` have matching constructors taking converters, for example `VariantArray(VariantCaster.TYPED_ARRAY(VariantCaster.INT))` is a `VariantArray<VariantArray<Int>>`; the Godot container is typed with the converter's builtin type, without narrowing object classes.
 
 ## Calling and binding
 

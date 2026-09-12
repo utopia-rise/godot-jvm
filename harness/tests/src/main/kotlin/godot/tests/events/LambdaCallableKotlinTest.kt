@@ -7,7 +7,6 @@ import godot.annotation.Visible
 import godot.annotation.Emit
 import godot.core.Signal3
 import godot.core.Callable1
-import godot.core.VariantArray
 import godot.core.VariantCaster
 import godot.core.asCallable
 import godot.core.lambdaCallable0
@@ -45,7 +44,7 @@ class LambdaCallableKotlinTest : Node() {
 
     // Built with explicit converters: a reified type only carries the outer class, so a nested typed array needs them.
     @Visible
-    var sumNestedInts = lambdaCallable1<Int, VariantArray<VariantArray<Int>>>(
+    var sumNestedInts = lambdaCallable1(
         VariantCaster.INT,
         VariantCaster.TYPED_ARRAY(VariantCaster.TYPED_ARRAY(VariantCaster.INT))
     ) { arrays -> arrays.sumOf { it.sum() } }

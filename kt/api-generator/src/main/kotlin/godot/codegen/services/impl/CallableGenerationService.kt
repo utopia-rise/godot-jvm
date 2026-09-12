@@ -12,6 +12,8 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.STAR
+import com.squareup.kotlinpoet.WildcardTypeName
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
@@ -410,7 +412,7 @@ object CallableGenerationService : ICallableGenerationService {
                         ParameterSpec
                             .builder(
                                 Generator.returnConverterParameterName,
-                                VariantConverter.BASE
+                                VariantConverter.BASE.parameterizedBy(STAR)
                             )
                             .build()
                     )
@@ -418,7 +420,7 @@ object CallableGenerationService : ICallableGenerationService {
                         ParameterSpec
                             .builder(
                                 Generator.typeConvertersParameterName,
-                                ARRAY.parameterizedBy(VariantConverter.BASE)
+                                ARRAY.parameterizedBy(WildcardTypeName.producerOf(VariantConverter.BASE.parameterizedBy(STAR)))
                             )
                             .build()
                     )
@@ -635,8 +637,9 @@ object CallableGenerationService : ICallableGenerationService {
             )
 
 
-        val converterParameters = genericParameters.mapIndexed { index, _ ->
-            ParameterSpec.builder("p${index}Converter", VariantConverter.BASE).build()
+        // Typed converters let Kotlin and Java infer the callable's type arguments from the converters alone.
+        val converterParameters = genericParameters.mapIndexed { index, typeVariableName ->
+            ParameterSpec.builder("p${index}Converter", VariantConverter.BASE.parameterizedBy(typeVariableName)).build()
         }
         val converterArray = buildString {
             append("arrayOf(")
@@ -649,7 +652,7 @@ object CallableGenerationService : ICallableGenerationService {
         companionBuilder.addFunction(
             lambdaInfo
                 .toFunSpecBuilder(kotlinJavaHelperName(Core.createMethodName), prefix = listOf(returnTypeParameter))
-                .addParameter(Generator.returnConverterParameterName, VariantConverter.BASE)
+                .addParameter(Generator.returnConverterParameterName, VariantConverter.BASE.parameterizedBy(returnTypeParameter))
                 .addParameters(converterParameters)
                 .addParameter(Generator.functionParameterName, genericJvmFunction)
                 .returns(genericLambdaCallable)
@@ -746,7 +749,7 @@ object CallableGenerationService : ICallableGenerationService {
             FunSpec.builder(Generator.lambdaCallableFunctionName + argCount)
                 .addTypeVariable(returnTypeParameter)
                 .addTypeVariables(genericParameters)
-                .addParameter(Generator.returnConverterParameterName, VariantConverter.BASE)
+                .addParameter(Generator.returnConverterParameterName, VariantConverter.BASE.parameterizedBy(returnTypeParameter))
                 .addParameters(converterParameters)
                 .addParameter(Generator.functionParameterName, lambdaTypeName)
                 .addCode(

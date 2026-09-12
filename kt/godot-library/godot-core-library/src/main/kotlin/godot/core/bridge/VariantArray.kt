@@ -20,13 +20,13 @@ import kotlin.reflect.KClass
 @Suppress("unused", "UNCHECKED_CAST")
 class VariantArray<T> : NativeCoreType, MutableCollection<T> {
 
-    internal var variantConverter: VariantConverter
+    internal var variantConverter: VariantConverter<T>
 
     @PublishedApi
-    internal constructor(handle: VoidPtr) : this(handle, VariantCaster.ANY)
+    internal constructor(handle: VoidPtr) : this(handle, VariantCaster.ANY as VariantConverter<T>)
 
     @PublishedApi
-    internal constructor(handle: VoidPtr, converter: VariantConverter) {
+    internal constructor(handle: VoidPtr, converter: VariantConverter<T>) {
         variantConverter = converter
         ptr = handle
         MemoryManager.registerNativeCoreType(this, VariantParser.ARRAY)
@@ -35,7 +35,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
     constructor(parameterClazz: Class<*>) : this(Reflection.getOrCreateKotlinClass(parameterClazz))
 
 
-    constructor(converter: VariantConverter) {
+    constructor(converter: VariantConverter<T>) {
         variantConverter = converter
         ptr = if (converter != VariantCaster.ANY) {
             TransferContext.writeArguments(
@@ -60,7 +60,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
             }
         }
 
-        this.variantConverter = variantConverter!!
+        this.variantConverter = variantConverter as VariantConverter<T>
         ptr = if (variantConverter != VariantCaster.ANY) {
             TransferContext.writeArguments(
                 VariantCaster.INT to variantConverter.id,

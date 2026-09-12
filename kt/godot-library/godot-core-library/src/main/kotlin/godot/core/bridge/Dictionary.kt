@@ -1,4 +1,4 @@
-@file:Suppress("unused", "PackageDirectoryMismatch")
+@file:Suppress("unused", "PackageDirectoryMismatch", "UNCHECKED_CAST")
 
 package godot.core
 
@@ -18,14 +18,14 @@ import kotlin.reflect.KClass
 
 class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
 
-    internal var keyVariantConverter: VariantConverter = VariantParser.NIL
-    internal var valueVariantConverter: VariantConverter = VariantParser.NIL
+    internal var keyVariantConverter: VariantConverter<K>
+    internal var valueVariantConverter: VariantConverter<V>
 
     @PublishedApi
-    internal constructor(handle: VoidPtr) : this(handle, VariantCaster.ANY, VariantCaster.ANY)
+    internal constructor(handle: VoidPtr) : this(handle, VariantCaster.ANY as VariantConverter<K>, VariantCaster.ANY as VariantConverter<V>)
 
     @PublishedApi
-    internal constructor(handle: VoidPtr, keyConverter: VariantConverter, valueConverter: VariantConverter) {
+    internal constructor(handle: VoidPtr, keyConverter: VariantConverter<K>, valueConverter: VariantConverter<V>) {
         keyVariantConverter = keyConverter
         valueVariantConverter = valueConverter
         ptr = handle
@@ -34,7 +34,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
 
     constructor(keyClass: Class<*>, valueClass: Class<*>) : this(Reflection.getOrCreateKotlinClass(keyClass), Reflection.getOrCreateKotlinClass(valueClass))
 
-    constructor(keyConverter: VariantConverter, valueConverter: VariantConverter) {
+    constructor(keyConverter: VariantConverter<K>, valueConverter: VariantConverter<V>) {
         keyVariantConverter = keyConverter
         valueVariantConverter = valueConverter
         ptr = if (keyConverter != VariantCaster.ANY || valueConverter != VariantCaster.ANY) {
@@ -68,8 +68,8 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
             }
         }
 
-        this.keyVariantConverter = keyVariantConverter!!
-        this.valueVariantConverter = valueVariantConverter!!
+        this.keyVariantConverter = keyVariantConverter as VariantConverter<K>
+        this.valueVariantConverter = valueVariantConverter as VariantConverter<V>
 
         ptr = if (keyVariantConverter != VariantCaster.ANY || valueVariantConverter != VariantCaster.ANY) {
             TransferContext.writeArguments(
