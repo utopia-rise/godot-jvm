@@ -85,36 +85,22 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
-          # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
+          # The Gradle build cache is shared through ./.github/actions/gradle-build-cache below, nothing else is worth caching.
           cache-disabled: true
 
       # Kotlin compile outputs are platform independent, so every job reads the entry for its flavor written by a Linux
       # job: debug by the Linux editor tests, release (DEBUG preprocessor flag off) by the Android release tests.
       - name: Restore Gradle build cache
-        uses: ./.github/actions/master-cache
+        uses: ./.github/actions/gradle-build-cache
         with:
           mode: restore
-          cache-name: gradle-build-cache-${{ matrix.release && 'release' || 'debug' }}
-          path: ~/.gradle/caches/build-cache-1
+          flavor: ${{ matrix.release && 'release' || 'debug' }}
 
-      - name: Restore desktop Graal build output
-        uses: ./.github/actions/master-cache
+      - name: Restore Kotlin build outputs
+        uses: ./.github/actions/kotlin-cache
         with:
           mode: restore
-          cache-name: desktop-graal-${{ matrix.build-task }}-${{ matrix.variant }}-${{ runner.os }}-${{ runner.arch }}
-          # Compiled Godot-JVM libraries plus Gradle's per-build task history: the harness includes six builds and
-          # each keeps its own .gradle/<version>/executionHistory. Without it nothing can be marked up to date.
-          path: |
-            kt/**/build
-            kt/.gradle
-            kt/api-generator/.gradle
-            kt/common/.gradle
-            kt/tools-common/.gradle
-            kt/build-logic/.gradle
-            harness/third-party-library/build
-            harness/third-party-library/.gradle
-            harness/tests/.gradle
-            harness/tests/build
+          name: desktop-${{ matrix.build-task }}-${{ matrix.variant }}-${{ runner.os }}-${{ runner.arch }}
 
       - name: Download Linux editor library
         uses: actions/download-artifact@v7
@@ -193,29 +179,15 @@ jobs:
         run: cd harness/tests/; ./gradlew ${{ matrix.release && '-Prelease' || '' }} runExportedGDTests
         timeout-minutes: 30
 
-      - name: Save desktop Graal build output
-        uses: ./.github/actions/master-cache
+      - name: Save Kotlin build outputs
+        uses: ./.github/actions/kotlin-cache
         with:
           mode: save
-          cache-name: desktop-graal-${{ matrix.build-task }}-${{ matrix.variant }}-${{ runner.os }}-${{ runner.arch }}
-          # Compiled Godot-JVM libraries plus Gradle's per-build task history: the harness includes six builds and
-          # each keeps its own .gradle/<version>/executionHistory. Without it nothing can be marked up to date.
-          path: |
-            kt/**/build
-            kt/.gradle
-            kt/api-generator/.gradle
-            kt/common/.gradle
-            kt/tools-common/.gradle
-            kt/build-logic/.gradle
-            harness/third-party-library/build
-            harness/third-party-library/.gradle
-            harness/tests/.gradle
-            harness/tests/build
+          name: desktop-${{ matrix.build-task }}-${{ matrix.variant }}-${{ runner.os }}-${{ runner.arch }}
 
       - name: Save Gradle build cache (debug)
         if: matrix.variant == 'editor'
-        uses: ./.github/actions/master-cache
+        uses: ./.github/actions/gradle-build-cache
         with:
           mode: save
-          cache-name: gradle-build-cache-debug
-          path: ~/.gradle/caches/build-cache-1
+          flavor: debug

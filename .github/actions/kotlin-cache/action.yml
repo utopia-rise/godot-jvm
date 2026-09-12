@@ -1,0 +1,33 @@
+name: Kotlin build outputs cache
+description: >
+  Compiled Godot-JVM libraries, harness build outputs (jars, GraalVM native image, iOS image) and the Gradle task
+  history of every build the test harness includes. Master-only writes, see master-cache.
+inputs:
+  mode:
+    description: "'restore' or 'save'."
+    required: true
+  name:
+    description: Platform, build task/variant and architecture of the test job, so every matrix job owns its entry.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/master-cache
+      with:
+        mode: ${{ inputs.mode }}
+        key: kotlin-${{ inputs.name }}
+        # Each included build keeps its own .gradle/<version>/executionHistory; without it nothing in that build
+        # can be marked up to date. kt/**/build also holds the Kotlin incremental-compilation state.
+        path: |
+          kt/**/build
+          kt/.gradle
+          kt/api-generator/.gradle
+          kt/common/.gradle
+          kt/tools-common/.gradle
+          kt/build-logic/.gradle
+          harness/third-party-library/build
+          harness/third-party-library/.gradle
+          harness/tests/.gradle
+          harness/tests/build
+          harness/tests/jvm/ios

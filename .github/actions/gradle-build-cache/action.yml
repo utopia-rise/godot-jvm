@@ -1,0 +1,20 @@
+name: Gradle build cache
+description: >
+  Gradle's local build cache (FROM-CACHE for unchanged compile tasks), platform independent, one entry per
+  library flavor since the DEBUG preprocessor definition is a compile input. Master-only writes, see master-cache.
+inputs:
+  mode:
+    description: "'restore' or 'save'."
+    required: true
+  flavor:
+    description: "'debug' or 'release'."
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/master-cache
+      with:
+        mode: ${{ inputs.mode }}
+        key: gradle-build-cache-${{ inputs.flavor }}
+        path: ~/.gradle/caches/build-cache-1

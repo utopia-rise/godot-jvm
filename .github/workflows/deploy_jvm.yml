@@ -37,22 +37,20 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
-          # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
+          # The Gradle build cache is shared through ./.github/actions/gradle-build-cache below, nothing else is worth caching.
           cache-disabled: true
 
       # Publishing builds every library twice, -Pdebug and -Prelease, so both flavors of the shared Kotlin build cache apply.
       - name: Restore Gradle build cache (debug)
-        uses: ./.github/actions/master-cache
+        uses: ./.github/actions/gradle-build-cache
         with:
           mode: restore
-          cache-name: gradle-build-cache-debug
-          path: ~/.gradle/caches/build-cache-1
+          flavor: debug
       - name: Restore Gradle build cache (release)
-        uses: ./.github/actions/master-cache
+        uses: ./.github/actions/gradle-build-cache
         with:
           mode: restore
-          cache-name: gradle-build-cache-release
-          path: ~/.gradle/caches/build-cache-1
+          flavor: release
 
       - name: Publish common
         shell: sh

@@ -1,0 +1,19 @@
+name: SCons cache
+description: SCons' content-addressed object-file cache for one native build job. Master-only writes, see master-cache.
+inputs:
+  mode:
+    description: "'restore' or 'save'."
+    required: true
+  name:
+    description: Platform, architecture and target of the matrix job.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/master-cache
+      with:
+        mode: ${{ inputs.mode }}
+        key: scons-${{ inputs.name }}
+        # The build workflows export the same path as SCONS_CACHE for SCons itself.
+        path: ${{ github.workspace }}/.scons-cache
