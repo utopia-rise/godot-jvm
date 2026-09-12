@@ -67,12 +67,20 @@ jobs:
           # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
           cache-disabled: true
 
-      # Kotlin compile outputs are platform independent, so every job reads the single entry the Linux editor test job writes.
-      - name: Restore Gradle build cache
+      # Kotlin compile outputs are platform independent, so every job reads the two entries written by the Linux
+      # test jobs: the debug one from the editor tests, the release one (DEBUG preprocessor flag off) from the Android
+      # release tests. Both restore into the same directory; Gradle's build cache is content addressed.
+      - name: Restore Gradle build cache (debug)
         uses: ./.github/actions/master-cache
         with:
           mode: restore
-          cache-name: gradle-build-cache
+          cache-name: gradle-build-cache-debug
+          path: ~/.gradle/caches/build-cache-1
+      - name: Restore Gradle build cache (release)
+        uses: ./.github/actions/master-cache
+        with:
+          mode: restore
+          cache-name: gradle-build-cache-release
           path: ~/.gradle/caches/build-cache-1
 
       - name: Restore desktop Graal build output

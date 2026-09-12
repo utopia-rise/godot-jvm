@@ -90,21 +90,25 @@ distribution.
 **Contents:** `~/.gradle/caches/build-cache-1`, Gradle's local build cache. It is
 content addressed: a `compileKotlin` whose sources and classpath were compiled
 before resolves `FROM-CACHE` even when the incremental state above does not
-match. Kotlin compile outputs are platform independent, so there is a single
-OS-independent entry, key `gradle-build-cache`.
+match. Kotlin compile outputs are platform independent, so the entries are
+OS-independent.
+
+`kt/godot-library` compiles differently with `-Prelease` (the `DEBUG`
+preprocessor definition flips), so there are two entries, `gradle-build-cache-debug`
+and `gradle-build-cache-release`. Every job restores both into the same
+directory; Gradle looks entries up by input hash, so they coexist.
 
 **Restored by:** `build_jvm.yml`, `deploy_jvm.yml` and every test workflow,
 right after `setup-gradle`, whose own caching is turned off with
 `cache-disabled: true`.
 
-**Written by:** the Linux "Editor tests" job only, at the end of
-`test_linux.yml`. The other jobs compile the same sources with the same flags
-apart from `-Prelease`, so one writer covers nearly everything and no two jobs
-ever race for the key.
+**Written by:** the Linux "Editor tests" job writes the debug entry and the
+Android "Release export tests" job writes the release entry, each at the end
+of its job. One writer per key, so no two jobs ever race for it.
 
 ## What a new run does
 
 | Run | SCons | Kotlin and test-project outputs | Gradle build cache |
 | --- | --- | --- | --- |
-| Any PR commit | Restore master's entry; never save. | Restore master's entry, let Gradle skip or rebuild per task; never save. | Restore the single entry; never save. |
-| Daily or dispatched master run | Restore, then replace after the build. | Restore, then replace after a successful job. | Restore everywhere; the Linux editor test job replaces it. |
+| Any PR commit | Restore master's entry; never save. | Restore master's entry, let Gradle skip or rebuild per task; never save. | Restore both entries; never save. |
+| Daily or dispatched master run | Restore, then replace after the build. | Restore, then replace after a successful job. | Restore everywhere; the Linux editor and Android release jobs replace their entry. |
