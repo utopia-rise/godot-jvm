@@ -22,10 +22,12 @@ jobs:
       matrix:
         include:
           - name: Editor tests
+            release: false
             variant: editor
             build-task: build
             graal-build-task: buildGraalNativeImage
           - name: Release export tests
+            release: true
             variant: export
             build-task: buildRelease
             graal-build-task: buildGraalNativeImageRelease
@@ -33,6 +35,7 @@ jobs:
             graal-export-task: exportGraalRelease
             export-library: release_macos_universal
           - name: Debug export tests
+            release: false
             variant: export
             build-task: build
             graal-build-task: buildGraalNativeImage
@@ -67,20 +70,13 @@ jobs:
           # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
           cache-disabled: true
 
-      # Kotlin compile outputs are platform independent, so every job reads the two entries written by the Linux
-      # test jobs: the debug one from the editor tests, the release one (DEBUG preprocessor flag off) from the Android
-      # release tests. Both restore into the same directory; Gradle's build cache is content addressed.
-      - name: Restore Gradle build cache (debug)
+      # Kotlin compile outputs are platform independent, so every job reads the entry for its flavor written by a Linux
+      # job: debug by the Linux editor tests, release (DEBUG preprocessor flag off) by the Android release tests.
+      - name: Restore Gradle build cache
         uses: ./.github/actions/master-cache
         with:
           mode: restore
-          cache-name: gradle-build-cache-debug
-          path: ~/.gradle/caches/build-cache-1
-      - name: Restore Gradle build cache (release)
-        uses: ./.github/actions/master-cache
-        with:
-          mode: restore
-          cache-name: gradle-build-cache-release
+          cache-name: gradle-build-cache-${{ matrix.release && 'release' || 'debug' }}
           path: ~/.gradle/caches/build-cache-1
 
       - name: Restore desktop Graal build output
@@ -129,13 +125,13 @@ jobs:
           mv templates/templates/macos.zip "$template_directory/macos.zip"
 
       - name: Build JVM tests project
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.build-task }}
 
       - name: Build Graal native image
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.graal-build-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.graal-build-task }}
 
       - name: Import test project
-        run: harness/tests/gradlew -p harness/tests/ importResources
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} importResources
         # Longer than the task's own 10 minute wait, so it can terminate a hung
         # editor itself instead of the step timeout leaving the process orphaned.
         timeout-minutes: 15
@@ -146,14 +142,14 @@ jobs:
           cd harness/tests/
           chmod +x bin/godot.*
           jlink --add-modules java.base,java.logging --output jvm/jre-arm64-macos
-          ./gradlew runGDTests
+          ./gradlew ${{ matrix.release && '-Prelease' || '' }} runGDTests
         timeout-minutes: 30
 
       - name: Run Graal native-image tests
         if: matrix.variant == 'editor'
         run: |
           cd harness/tests/
-          ./gradlew runGraalGDTests
+          ./gradlew ${{ matrix.release && '-Prelease' || '' }} runGraalGDTests
         timeout-minutes: 30
 
       - name: Create JRE for export
@@ -167,7 +163,7 @@ jobs:
         if: matrix.variant == 'export'
         run: |
           cd harness/tests/
-          ./gradlew ${{ matrix.export-task }}
+          ./gradlew ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.export-task }}
         timeout-minutes: 30
 
       - name: Extract app from DMG
@@ -181,14 +177,14 @@ jobs:
 
       - name: Run JVM exported tests
         if: matrix.variant == 'export'
-        run: cd harness/tests/; ./gradlew runExportedGDTests
+        run: cd harness/tests/; ./gradlew ${{ matrix.release && '-Prelease' || '' }} runExportedGDTests
         timeout-minutes: 30
 
       - name: Export Graal native-image tests
         if: matrix.variant == 'export'
         run: |
           cd harness/tests/
-          ./gradlew ${{ matrix.graal-export-task }}
+          ./gradlew ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.graal-export-task }}
         timeout-minutes: 30
 
       - name: Extract Graal app from DMG
@@ -201,7 +197,7 @@ jobs:
 
       - name: Run Graal native-image exported tests
         if: matrix.variant == 'export'
-        run: cd harness/tests/; ./gradlew runExportedGDTests
+        run: cd harness/tests/; ./gradlew ${{ matrix.release && '-Prelease' || '' }} runExportedGDTests
         timeout-minutes: 30
 
       - name: Save desktop Graal build output

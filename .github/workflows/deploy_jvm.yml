@@ -40,9 +40,7 @@ jobs:
           # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
           cache-disabled: true
 
-      # Kotlin compile outputs are platform independent, so every job reads the two entries written by the Linux
-      # test jobs: the debug one from the editor tests, the release one (DEBUG preprocessor flag off) from the Android
-      # release tests. Both restore into the same directory; Gradle's build cache is content addressed.
+      # Publishing builds every library twice, -Pdebug and -Prelease, so both flavors of the shared Kotlin build cache apply.
       - name: Restore Gradle build cache (debug)
         uses: ./.github/actions/master-cache
         with:

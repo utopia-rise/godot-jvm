@@ -24,11 +24,13 @@ jobs:
       matrix:
         include:
           - name: Debug export tests
+            release: false
             build-task: buildAndroid
             export-task: exportAndroidDebug
             variant: debug
           - name: Release export tests
-            build-task: -Prelease buildAndroid
+            release: true
+            build-task: buildAndroid
             export-task: exportAndroidRelease
             variant: release
     steps:
@@ -57,20 +59,13 @@ jobs:
           # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
           cache-disabled: true
 
-      # Kotlin compile outputs are platform independent, so every job reads the two entries written by the Linux
-      # test jobs: the debug one from the editor tests, the release one (DEBUG preprocessor flag off) from the Android
-      # release tests. Both restore into the same directory; Gradle's build cache is content addressed.
-      - name: Restore Gradle build cache (debug)
+      # Kotlin compile outputs are platform independent, so every job reads the entry for its flavor written by a Linux
+      # job: debug by the Linux editor tests, release (DEBUG preprocessor flag off) by the Android release tests.
+      - name: Restore Gradle build cache
         uses: ./.github/actions/master-cache
         with:
           mode: restore
-          cache-name: gradle-build-cache-debug
-          path: ~/.gradle/caches/build-cache-1
-      - name: Restore Gradle build cache (release)
-        uses: ./.github/actions/master-cache
-        with:
-          mode: restore
-          cache-name: gradle-build-cache-release
+          cache-name: gradle-build-cache-${{ matrix.release && 'release' || 'debug' }}
           path: ~/.gradle/caches/build-cache-1
 
       - name: Restore Android build output
@@ -117,7 +112,7 @@ jobs:
           touch harness/tests/android/build/build/.gdignore
 
       - name: Build JVM tests project
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.build-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.build-task }}
 
       - name: Create Android release test key
         run: |
@@ -135,7 +130,7 @@ jobs:
           echo "GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD=godot-jvm-tests" >> "$GITHUB_ENV"
 
       - name: Export Android tests
-        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.export-task }}
+        run: harness/tests/gradlew -p harness/tests/ ${{ matrix.release && '-Prelease' || '' }} ${{ matrix.export-task }}
         timeout-minutes: 30
 
       - name: Enable KVM

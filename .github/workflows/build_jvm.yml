@@ -45,20 +45,13 @@ jobs:
           # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
           cache-disabled: true
 
-      # Kotlin compile outputs are platform independent, so every job reads the two entries written by the Linux
-      # test jobs: the debug one from the editor tests, the release one (DEBUG preprocessor flag off) from the Android
-      # release tests. Both restore into the same directory; Gradle's build cache is content addressed.
-      - name: Restore Gradle build cache (debug)
+      # Kotlin compile outputs are platform independent, so every job reads the entry for its flavor written by a Linux
+      # job: debug by the Linux editor tests, release (DEBUG preprocessor flag off) by the Android release tests.
+      - name: Restore Gradle build cache
         uses: ./.github/actions/master-cache
         with:
           mode: restore
           cache-name: gradle-build-cache-debug
-          path: ~/.gradle/caches/build-cache-1
-      - name: Restore Gradle build cache (release)
-        uses: ./.github/actions/master-cache
-        with:
-          mode: restore
-          cache-name: gradle-build-cache-release
           path: ~/.gradle/caches/build-cache-1
 
       - name: Build API generator
@@ -102,20 +95,13 @@ jobs:
           # The Gradle build cache is shared through ./.github/actions/master-cache below, nothing else is worth caching.
           cache-disabled: true
 
-      # Kotlin compile outputs are platform independent, so every job reads the two entries written by the Linux
-      # test jobs: the debug one from the editor tests, the release one (DEBUG preprocessor flag off) from the Android
-      # release tests. Both restore into the same directory; Gradle's build cache is content addressed.
-      - name: Restore Gradle build cache (debug)
+      # Kotlin compile outputs are platform independent, so every job reads the entry for its flavor written by a Linux
+      # job: debug by the Linux editor tests, release (DEBUG preprocessor flag off) by the Android release tests.
+      - name: Restore Gradle build cache
         uses: ./.github/actions/master-cache
         with:
           mode: restore
           cache-name: gradle-build-cache-debug
-          path: ~/.gradle/caches/build-cache-1
-      - name: Restore Gradle build cache (release)
-        uses: ./.github/actions/master-cache
-        with:
-          mode: restore
-          cache-name: gradle-build-cache-release
           path: ~/.gradle/caches/build-cache-1
 
       - name: Build and verify IDE plugin
