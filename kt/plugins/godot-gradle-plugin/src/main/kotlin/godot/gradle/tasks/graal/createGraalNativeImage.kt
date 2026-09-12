@@ -5,6 +5,7 @@ import godot.gradle.ext.existingFileOrNull
 import godot.gradle.ext.resolveExecutable
 import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
+import godot.gradle.projectExt.isRelease
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.Exec
@@ -24,6 +25,9 @@ fun Project.createGraalNativeImageTask(
     val windowsDeveloperVcVarsPath = godotJvmExtension.graal.windowsDeveloperVcVarsPath
     val isVerboseEnabled = godotJvmExtension.graal.verbose
     val isStrictImageHeapEnabled = godotJvmExtension.graal.strictImageHeapEnabled
+    // Debug images use native-image's quick build mode (-Ob): far shorter build at the cost of runtime speed, which
+    // only matters for the shipped release image. Release keeps the fully optimized default (-O2).
+    val optimizationLevel = if (isRelease) "-O2" else "-Ob"
     val projectBaseDir = projectDir
     val additionalJniConfigurationFiles = godotJvmExtension.graal.additionalJniConfigurationFiles.map { configFiles ->
         configFiles.joinToString(",") { configFile ->
@@ -56,6 +60,7 @@ fun Project.createGraalNativeImageTask(
             inputs.property("windowsDeveloperVcVarsPath", windowsDeveloperVcVarsPath.orElse(""))
             inputs.property("isGraalNativeImageVerboseEnabled", isVerboseEnabled)
             inputs.property("isGraalNativeImageStrictImageHeapEnabled", isStrictImageHeapEnabled)
+            inputs.property("graalNativeImageOptimizationLevel", optimizationLevel)
             inputs.property("additionalGraalJniConfigurationFiles", additionalJniConfigurationFiles)
             inputs.property("additionalGraalReflectionConfigurationFiles", additionalReflectionConfigurationFiles)
             inputs.property("additionalGraalResourceConfigurationFiles", additionalResourceConfigurationFiles)
@@ -133,6 +138,7 @@ fun Project.createGraalNativeImageTask(
                         "-H:Name=usercode",
                         jniConfigurationFilesArgument,
                         "--no-fallback",
+                        optimizationLevel,
                         verboseArgument
                     )
 
@@ -145,6 +151,7 @@ fun Project.createGraalNativeImageTask(
                         "-H:Name=usercode",
                         jniConfigurationFilesArgument,
                         "--no-fallback",
+                        optimizationLevel,
                         verboseArgument,
                     )
                 }
