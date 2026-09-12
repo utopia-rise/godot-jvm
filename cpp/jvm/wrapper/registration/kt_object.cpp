@@ -12,9 +12,21 @@
 #include <core/object.hpp>
 #include <variant/string_name.hpp>
 
-KtObject::KtObject(jni::Env& p_env, jni::JObject p_wrapped, bool p_is_ref) :
-    JvmInstanceWrapper(p_env, p_wrapped),
+KtObject::KtObject(jni::JObject p_global_ref, bool p_is_weak, bool p_is_ref) :
+    JvmInstanceWrapper(p_global_ref, p_is_weak),
     is_ref(p_is_ref) {}
+
+KtObject* KtObject::create_strong(jni::Env& p_env, jni::JObject p_local_ref, bool p_is_ref) {
+    jni::JObject global_ref = p_local_ref.new_global_ref<jni::JObject>(p_env);
+    p_local_ref.delete_local_ref(p_env);
+    return memnew(KtObject(global_ref, false, p_is_ref));
+}
+
+KtObject* KtObject::create_weak(jni::Env& p_env, jni::JObject p_local_ref) {
+    jni::JObject weak_ref = p_local_ref.new_weak_ref<jni::JObject>(p_env);
+    p_local_ref.delete_local_ref(p_env);
+    return memnew(KtObject(weak_ref, true, true));
+}
 
 void KtObject::script_instance_removed(jni::Env& p_env, uint32_t constructor_index) {
     jvalue args[1] = {jni::to_jni_arg(constructor_index)};
@@ -36,26 +48,20 @@ void KtObject::create_native_object(JNIEnv* p_raw_env, jobject p_instance, jint 
 
     jni::Env env(p_raw_env);
 
-    // set_instance_binding()/RawObject::is_ref_counted() work directly on the raw pointer — no godot-cpp wrapper is
-    // created (or needed) for any of this.
-    godot::JvmBindingManager::set_instance_binding(raw_ptr_value);
-    bool is_rc = raw_godot::RawObject(raw_ptr_value).is_ref_counted();
+    // set_instance_binding() works directly on the raw pointer — no godot-cpp wrapper is created (or needed) for any
+    // of this. The binding caches the ObjectID, which answers both the RefCounted question and the id sent back below.
+    godot::JvmBinding* binding = godot::JvmBindingManager::set_instance_binding(raw_ptr_value);
+    bool is_rc = binding->get_object_id().is_ref_counted();
 
     if (auto* kotlin_script = bridges::from_uint_to_ptr<godot::JvmScript>(p_script_ptr)) {
-        KtObject* kt_object = memnew(KtObject(env, jni::JObject(p_instance), is_rc));
-        auto* instance_data = godot::JvmInstance::create_instance_data(env, raw_ptr_value, kt_object, kotlin_script);
-        GDExtensionScriptInstancePtr script_instance = godot::internal::gdextension_interface_script_instance_create3(
-            &godot::JvmInstance::jvm_script_instance_info,
-            instance_data
-        );
-        raw_godot::RawObject(raw_ptr_value).set_script_instance(script_instance);
+        KtObject* kt_object = is_rc ? KtObject::create_weak(env, jni::JObject(p_instance))
+                                    : KtObject::create_strong(env, jni::JObject(p_instance), false);
+        raw_godot::RawObject(raw_ptr_value)
+            .set_script_instance(godot::JvmInstance::create_script_instance(raw_ptr_value, kt_object, kotlin_script));
     }
 
-    TransferContext::get_instance().write_object_data(
-        env,
-        reinterpret_cast<uintptr_t>(raw_ptr_value),
-        godot::ObjectID(raw_godot::RawObject(raw_ptr_value).get_instance_id())
-    );
+    TransferContext::get_instance()
+        .write_object_data(env, reinterpret_cast<uintptr_t>(raw_ptr_value), binding->get_object_id());
 }
 
 void KtObject::get_singleton(JNIEnv* p_raw_env, jobject, jint p_class_index) {

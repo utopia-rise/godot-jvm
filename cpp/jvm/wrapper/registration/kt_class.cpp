@@ -25,8 +25,8 @@ KtClass::~KtClass() {
     delete kt_constructor;
 }
 
-KtObject* KtClass::create_instance(jni::Env& env, godot::GodotObject* p_owner) {
-    KtObject* jvm_instance = kt_constructor->create_instance(env, p_owner);
+jni::JObject KtClass::construct(jni::Env& env, godot::GodotObject* p_owner) {
+    jni::JObject jvm_instance = kt_constructor->construct(env, p_owner);
     JVM_DEV_VERBOSE("Instantiated a Jvm script: %s", registered_class_name);
 
     return jvm_instance;

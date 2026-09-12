@@ -152,8 +152,7 @@ namespace godot {
         static void promote_reference(JvmInstanceData* instance_data);
         static void demote_reference(JvmInstanceData* instance_data);
 
-        static JvmInstanceData* create_instance_data(
-            jni::Env& p_env,
+        static GDExtensionScriptInstancePtr create_script_instance(
             GodotObject* p_owner,
             KtObject* p_kt_object,
             const JvmScript* p_script
