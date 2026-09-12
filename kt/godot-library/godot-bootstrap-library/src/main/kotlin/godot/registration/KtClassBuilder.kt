@@ -33,13 +33,13 @@ class KtClassBuilder<T : KtObject>(
     }
 
     fun argument(
-        type: VariantConverter,
+        type: VariantConverter<*>,
         className: String,
         name: String,
     ): KtPropertyInfo = KtPropertyInfo(type, className, name)
 
     fun returns(
-        type: VariantConverter,
+        type: VariantConverter<*>,
         className: String,
     ): KtPropertyInfo = KtPropertyInfo(type, className)
 
@@ -65,7 +65,7 @@ class KtClassBuilder<T : KtObject>(
 
     fun <P : Any?> property(
         kProperty: KProperty1<T, P>,
-        variantType: VariantConverter,
+        variantType: VariantConverter<*>,
         className: String,
         hint: PropertyHint = PropertyHint.NONE,
         hintString: String = "",
@@ -87,7 +87,7 @@ class KtClassBuilder<T : KtObject>(
         name: String,
         getter: (T) -> P,
         setter: ((T, P) -> Unit)? = null,
-        variantType: VariantConverter,
+        variantType: VariantConverter<*>,
         className: String,
         hint: PropertyHint = PropertyHint.NONE,
         hintString: String = "",
@@ -231,7 +231,7 @@ class KtClassBuilder<T : KtObject>(
     }
 
     @PublishedApi
-    internal fun propertyUsage(usage: PropertyUsageFlags, isMutable: Boolean, variantType: VariantConverter): Long {
+    internal fun propertyUsage(usage: PropertyUsageFlags, isMutable: Boolean, variantType: VariantConverter<*>): Long {
         // Site-specific usage stays as provided; we only OR in flags inferred from the variant type.
         var flags = if (isMutable) usage.flag else usage.flag or PropertyUsageFlags.READ_ONLY
         if (variantType === VariantCaster.ANY) {

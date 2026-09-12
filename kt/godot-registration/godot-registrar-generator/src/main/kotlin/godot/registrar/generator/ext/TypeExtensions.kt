@@ -120,14 +120,14 @@ private object TypeMetadataRegistry {
     private val parserClass = VariantParser::class.asClassName()
     private val casterClass = VariantCaster::class.asClassName()
 
-    private fun singleton(parser: VariantParser, godotTypeName: String, godotClassName: String? = godotTypeName) = TypeMetadata(
-        converter = CodeBlock.of("%M", MemberName(parserClass, parser.name)),
+    private fun singleton(parser: VariantParser<*>, godotTypeName: String, godotClassName: String? = godotTypeName) = TypeMetadata(
+        converter = CodeBlock.of("%M", MemberName(parserClass, parser::class.simpleName!!)),
         variantTypeOrdinal = parser.id,
         godotCoreTypeName = godotTypeName,
         godotClassName = godotClassName,
     )
 
-    private fun singleton(caster: VariantCaster, godotTypeName: String, godotClassName: String? = godotTypeName) = TypeMetadata(
+    private fun singleton(caster: VariantCaster<*>, godotTypeName: String, godotClassName: String? = godotTypeName) = TypeMetadata(
         converter = CodeBlock.of("%M", MemberName(casterClass, caster::class.simpleName!!)),
         variantTypeOrdinal = caster.id,
         godotCoreTypeName = godotTypeName,
@@ -137,7 +137,7 @@ private object TypeMetadataRegistry {
     /** A stateful caster instantiated by the registrar: `VariantCaster.<name>(<arguments>)`. */
     private fun instantiated(
         name: String,
-        coreVariant: VariantParser,
+        coreVariant: VariantParser<*>,
         godotTypeName: String,
         godotClassName: String? = godotTypeName,
         vararg arguments: CodeBlock,

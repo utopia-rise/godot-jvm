@@ -36,15 +36,15 @@ class ContainerRegistrationFixture : Node() {
     // Expected no issue: nested containers built from explicit converters.
     @Visible
     var nestedIntArray: VariantArray<VariantArray<Int>> =
-        VariantArray<VariantArray<Int>>(VariantCaster.TYPED_ARRAY(VariantCaster.INT))
+        VariantArray(VariantCaster.TYPED_ARRAY(VariantCaster.INT))
 
     @Visible
     var nestedDictionary: Dictionary<String, VariantArray<Int>> =
-        Dictionary<String, VariantArray<Int>>(VariantParser.STRING, VariantCaster.TYPED_ARRAY(VariantCaster.INT))
+        Dictionary(VariantParser.STRING, VariantCaster.TYPED_ARRAY(VariantCaster.INT))
 
     // Expected no issue: a callable built from explicit converters around a lambda.
     @Visible
-    var sumNestedInts = lambdaCallable1<Int, VariantArray<VariantArray<Int>>>(
+    var sumNestedInts = lambdaCallable1(
         VariantCaster.INT,
         VariantCaster.TYPED_ARRAY(VariantCaster.TYPED_ARRAY(VariantCaster.INT))
     ) { arrays -> arrays.sumOf { it.sum() } }
@@ -53,11 +53,7 @@ class ContainerRegistrationFixture : Node() {
     override fun _ready() {
         // Expected red on the callable reference: the converter-taking factory
         // still requires its target to be a registered function.
-        lambdaCallable1<Int, VariantArray<Int>>(
-            VariantCaster.INT,
-            VariantCaster.TYPED_ARRAY(VariantCaster.INT),
-            this::sumNotRegistered
-        ).call(intArray)
+        lambdaCallable1(VariantCaster.INT, VariantCaster.TYPED_ARRAY(VariantCaster.INT), this::sumNotRegistered).call(intArray)
     }
 
     // Expected red when referenced from `lambdaCallable1`: missing `@Register`.

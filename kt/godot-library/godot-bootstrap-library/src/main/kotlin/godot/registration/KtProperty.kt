@@ -6,7 +6,7 @@ import godot.internal.logging.GodotLogging
 import godot.internal.memory.TransferContext
 
 data class KtPropertyInfo(
-    val _type: VariantConverter,
+    val _type: VariantConverter<*>,
     val name: String,
     val className: String,
     val _hint: PropertyHint,
@@ -18,7 +18,7 @@ data class KtPropertyInfo(
     }
 ) {
     constructor(
-        type: VariantConverter,
+        type: VariantConverter<*>,
         className: String,
         name: String = ""
     ) : this(
@@ -40,7 +40,7 @@ open class KtProperty<T : KtObject, P : Any?>(
     @Suppress("unused") val ktPropertyInfo: KtPropertyInfo,
     protected val getter: (T) -> P,
     protected val setter: ((T, P) -> Unit)?,
-    protected val variantConverter: VariantConverter,
+    protected val variantConverter: VariantConverter<*>,
 ) {
     open fun callGet(instance: T) {
         try {

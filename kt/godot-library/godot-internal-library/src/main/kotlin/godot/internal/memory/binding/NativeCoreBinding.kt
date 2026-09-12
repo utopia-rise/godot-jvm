@@ -7,7 +7,7 @@ import java.lang.ref.WeakReference
 
 class NativeCoreBinding(
     ref: NativePointer,
-    val variantType: VariantConverter
+    val variantType: VariantConverter<*>
 ) : WeakReference<NativePointer>(ref, queue) {
     val ptr = ref.ptr
 

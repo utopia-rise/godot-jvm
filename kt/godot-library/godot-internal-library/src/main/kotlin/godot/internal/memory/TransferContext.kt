@@ -32,7 +32,7 @@ object TransferContext {
         buf
     }
 
-    fun writeArguments(vararg values: Pair<VariantConverter, Any?>) = buffer.let {
+    fun writeArguments(vararg values: Pair<VariantConverter<*>, Any?>) = buffer.let {
         it.rewind()
         it.putInt(values.size)
         for (value in values) {
@@ -40,7 +40,7 @@ object TransferContext {
         }
     }
 
-    fun writeMethodArguments(callerPtr: VoidPtr, callerId: Long, vararg values: Pair<VariantConverter, Any?>) = buffer.let {
+    fun writeMethodArguments(callerPtr: VoidPtr, callerId: Long, vararg values: Pair<VariantConverter<*>, Any?>) = buffer.let {
         it.rewind()
         it.putLong(callerPtr)
         it.putLong(callerId)
@@ -50,7 +50,7 @@ object TransferContext {
         }
     }
 
-    fun readSetterArgument(variantConverter: VariantConverter) = buffer.let {
+    fun readSetterArgument(variantConverter: VariantConverter<*>) = buffer.let {
         it.rewind()
         val argsSize = it.getInt()
         if (GodotJvmBuildConfig.DEBUG) {
@@ -61,7 +61,7 @@ object TransferContext {
         variantConverter.toKotlin(it)
     }
 
-    fun readArguments(variantConverters: Array<VariantConverter>, returnArray: Array<Any?>) = buffer.let {
+    fun readArguments(variantConverters: Array<out VariantConverter<*>>, returnArray: Array<Any?>) = buffer.let {
         it.rewind()
         val argsSize = it.getInt()
         if (GodotJvmBuildConfig.DEBUG) {
@@ -76,12 +76,12 @@ object TransferContext {
         }
     }
 
-    fun writeReturnValue(value: Any?, type: VariantConverter) = buffer.let {
+    fun writeReturnValue(value: Any?, type: VariantConverter<*>) = buffer.let {
         it.rewind()
         type.toGodot(it, value)
     }
 
-    fun readReturnValue(type: VariantConverter) = buffer.let {
+    fun readReturnValue(type: VariantConverter<*>) = buffer.let {
         it.rewind()
         type.toKotlin(it)
     }
