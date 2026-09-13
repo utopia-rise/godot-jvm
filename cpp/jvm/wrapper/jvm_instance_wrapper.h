@@ -81,8 +81,10 @@ protected:
 
 public:
     bool is_ref_weak() const;
+    bool is_collected(jni::Env& p_env) const;
     const jni::JObject& get_wrapped() const;
-    void swap_to_strong_unsafe(jni::Env& p_env);
+    // Returns false when the JVM object is already collected, in which case the reference stays weak.
+    bool swap_to_strong_unsafe(jni::Env& p_env);
     // Publishes a weak reference in place of the strong one, then asks p_must_stay_strong() whether the owner gained
     // another user in the meantime and cancels the swap if so. The strong reference is only released after that
     // decision, so the JVM instance cannot be collected in between. Returns whether the reference is weak afterwards.
@@ -146,12 +148,19 @@ bool JvmInstanceWrapper<Derived, FqName>::is_ref_weak() const {
 }
 
 template<class Derived, const char* FqName>
-void JvmInstanceWrapper<Derived, FqName>::swap_to_strong_unsafe(jni::Env& p_env) {
+bool JvmInstanceWrapper<Derived, FqName>::is_collected(jni::Env& p_env) const {
+    return is_weak && wrapped.is_same_object(p_env, jni::JObject());
+}
+
+template<class Derived, const char* FqName>
+bool JvmInstanceWrapper<Derived, FqName>::swap_to_strong_unsafe(jni::Env& p_env) {
     // Assume the reference is currently weak
     jni::JObject new_ref = wrapped.new_global_ref<jni::JObject>(p_env);
+    if (new_ref.is_null()) { return false; }
     wrapped.delete_weak_ref(p_env);
     wrapped = new_ref;
     is_weak = false;
+    return true;
 }
 
 template<class Derived, const char* FqName>
