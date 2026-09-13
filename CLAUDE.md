@@ -182,11 +182,11 @@ User writes @Script Kotlin, Java, or Scala code
 | JAR | Contents | Purpose |
 |-----|----------|---------|
 | `jvm/debug/godot-bootstrap.jar` | godot-library + startup/reload code + the project's ordinary `implementation` dependencies | Loaded in the editor and included in debug exports; loads and reloads `usercode.jar` |
-| `jvm/debug/usercode.jar` | user code + generated registrar + `godotMain` dependencies (shadow) | Reloaded after each build in the editor; bundled in debug exports |
+| `jvm/debug/usercode.jar` | user code + generated registrar + `godotGameImplementation` dependencies (shadow) | Reloaded after each build in the editor; bundled in debug exports |
 | `jvm/release/game.jar` | both JARs merged | Release exports; one class loader, no reloading |
 | `game` (native image) | GraalVM AOT compilation of the variant's JARs | Replaces the JARs; no runtime reloading |
 
-Debug and release artifacts live under `jvm/debug/` and `jvm/release/` (Gradle: `build/libs/<variant>/`) and never overwrite each other; the editor and `template_debug` load the debug variant, `template_release` the release variant (`cpp/paths.h` selects `BOOTSTRAP_FILE`, `USER_CODE_FILE` and `GRAAL_NATIVE_IMAGE_FILE` per `DEBUG_ENABLED`). The export plugin packs exactly the variant matching the export type and reports a missing one. `godotSingle` dependencies stay as intact JARs under `res://jvm/<variant>/external/` and are added to the JAR's class path. Details: `docs/src/doc/contribute/how-it-works/artifacts.md`
+Debug and release artifacts live under `jvm/debug/` and `jvm/release/` (Gradle: `build/libs/<variant>/`) and never overwrite each other; the editor and `template_debug` load the debug variant, `template_release` the release variant (`cpp/paths.h` selects `BOOTSTRAP_FILE`, `USER_CODE_FILE` and `GRAAL_NATIVE_IMAGE_FILE` per `DEBUG_ENABLED`). The export plugin packs exactly the variant matching the export type and reports a missing one. `godotExternalImplementation` dependencies stay as intact JARs under `res://jvm/<variant>/external/` and are added to the JAR's class path. Details: `docs/src/doc/contribute/how-it-works/artifacts.md`
 
 ### Memory Management
 

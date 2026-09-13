@@ -29,7 +29,7 @@ Godot loads this JAR in the editor and includes it in debug exports. User projec
 
 ## usercode
 
-The `usercode.jar` is built when you build your code. It is a shadow JAR containing your compiled code, the generated registrar, and dependencies declared with `godotMain`. Ordinary dependencies are bundled into `godot-bootstrap.jar`.
+The `usercode.jar` is built when you build your code. It is a shadow JAR containing your compiled code, the generated registrar, and dependencies declared with `godotGameImplementation`. Ordinary dependencies are bundled into `godot-bootstrap.jar`.
 
 `godot-bootstrap.jar` loads and executes the code in `usercode.jar` through a second class loader, which is what lets the editor reload user code after a build. Both JARs are included in debug exports.
 
@@ -40,26 +40,27 @@ Release builds do not ship the pair. `packageReleaseJar` merges `godot-bootstrap
 ## Dependency placement
 
 By default, dependencies declared with `implementation` are merged into `godot-bootstrap.jar`.
-Use `godotMain` for a dependency that must be loaded with user code and recreated when `usercode.jar`
-reloads:
+Use `godotGameImplementation` for a dependency that must be loaded with user code and recreated
+when `usercode.jar` reloads:
 
 ```kotlin
 dependencies {
-    godotMain("org.eclipse.serializer:serializer:4.0.1")
+    godotGameImplementation("org.eclipse.serializer:serializer:4.0.1")
 }
 ```
 
-Use `godotSingle` when a dependency must remain an intact JAR, such as a signed JAR. The plugin
-copies its resolved JARs to `res://jvm/<variant>/external/` and adds them to the class path of `usercode.jar` or `game.jar`:
+Use `godotExternalImplementation` when a dependency must remain an intact JAR, such as a signed
+JAR. The plugin copies its resolved JARs to `res://jvm/<variant>/external/` and adds them to the
+class path of `usercode.jar` or `game.jar`:
 
 ```kotlin
 dependencies {
-    godotSingle("org.bouncycastle:bcprov-jdk18on:1.79")
+    godotExternalImplementation("org.bouncycastle:bcprov-jdk18on:1.79")
 }
 ```
 
-Do not declare the same dependency in more than one of `implementation`, `godotMain`, or
-`godotSingle`.
+Do not declare the same dependency in more than one of `implementation`, `godotGameImplementation`,
+or `godotExternalImplementation`.
 
 ## game (native image)
 
@@ -71,4 +72,4 @@ Native-image mode uses it in place of the JARs. Select it through runtime config
 
 The JVM requires filesystem paths for loading JARs and cannot load them directly from the PCK. At startup the binding extracts the packed JARs to `user://jvm/<variant>/`, comparing MD5 hashes to avoid unnecessary copies on desktop. Android recopies its runtime artifacts on each launch. Desktop native images are likewise extracted as shared libraries before loading.
 
-Separate JARs from `godotSingle` are also copied from `res://jvm/<variant>/external/` to `user://jvm/<variant>/external/`, where the class path in the JAR manifest expects them. Native images and Android builds do not ship them: the native image compiles them in and the dex jar dexes them.
+Separate JARs from `godotExternalImplementation` are also copied from `res://jvm/<variant>/external/` to `user://jvm/<variant>/external/`, where the class path in the JAR manifest expects them. Native images and Android builds do not ship them: the native image compiles them in and the dex jar dexes them.

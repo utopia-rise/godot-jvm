@@ -8,8 +8,9 @@ import org.apache.commons.lang3.StringUtils
 import org.joda.time.LocalDate
 import java.nio.charset.StandardCharsets
 
-// Exercises one dependency of each Gradle configuration: implementation ends up in godot-bootstrap.jar, godotMain is
-// shaded into usercode.jar and godotSingle stays an intact jar under jvm/<variant>/external/ that the manifest references.
+// Exercises one dependency of each Gradle configuration: implementation ends up in godot-bootstrap.jar,
+// godotGameImplementation is shaded into usercode.jar and godotExternalImplementation stays an intact jar
+// under jvm/<variant>/external/ that the manifest references.
 @Script
 class DependencyTest : Node() {
     @Register

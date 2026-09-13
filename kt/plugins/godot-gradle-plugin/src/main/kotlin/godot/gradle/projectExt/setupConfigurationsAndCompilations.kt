@@ -9,8 +9,8 @@ import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.compile.JavaCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-const val GODOT_MAIN_CONFIGURATION = "godotMain"
-const val GODOT_SINGLE_CONFIGURATION = "godotSingle"
+const val GODOT_GAME_IMPLEMENTATION_CONFIGURATION = "godotGameImplementation"
+const val GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION = "godotExternalImplementation"
 
 /**
  * Set's up all configurations and compilations needed for kotlin_jvm to work and defines proper task dependencies between them.
@@ -27,10 +27,10 @@ const val GODOT_SINGLE_CONFIGURATION = "godotSingle"
  * - At runtime, the module uses `godot-bootstrap.jar` together with `usercode.jar`.
  */
 fun Project.setupConfigurationsAndCompilations() {
-    val godotMain = configurations.create(GODOT_MAIN_CONFIGURATION)
-    val godotSingle = configurations.create(GODOT_SINGLE_CONFIGURATION)
+    val godotGameImplementation = configurations.create(GODOT_GAME_IMPLEMENTATION_CONFIGURATION)
+    val godotExternalImplementation = configurations.create(GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION)
 
-    addGodotDependencyConfigurationsToSourceSets(godotMain, godotSingle)
+    addGodotDependencyConfigurationsToSourceSets(godotGameImplementation, godotExternalImplementation)
 
     afterEvaluate {
         // Add all consumer-project main compilation dependencies in one place, after the user's
@@ -93,15 +93,18 @@ fun Project.setupConfigurationsAndCompilations() {
 }
 
 private fun Project.addGodotDependencyConfigurationsToSourceSets(
-    godotMain: Configuration,
-    godotSingle: Configuration,
+    godotGameImplementation: Configuration,
+    godotExternalImplementation: Configuration,
 ) {
     val sourceSets = extensions.getByType(SourceSetContainer::class.java)
     val main = sourceSets.getByName("main")
-    configurations.getByName(main.compileClasspathConfigurationName).extendsFrom(godotMain, godotSingle)
+    configurations.getByName(main.compileClasspathConfigurationName)
+        .extendsFrom(godotGameImplementation, godotExternalImplementation)
 
     sourceSets.findByName("test")?.let { test ->
-        configurations.getByName(test.compileClasspathConfigurationName).extendsFrom(godotMain, godotSingle)
-        configurations.getByName(test.runtimeClasspathConfigurationName).extendsFrom(godotMain, godotSingle)
+        configurations.getByName(test.compileClasspathConfigurationName)
+            .extendsFrom(godotGameImplementation, godotExternalImplementation)
+        configurations.getByName(test.runtimeClasspathConfigurationName)
+            .extendsFrom(godotGameImplementation, godotExternalImplementation)
     }
 }

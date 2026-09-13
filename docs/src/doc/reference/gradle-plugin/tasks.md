@@ -21,7 +21,7 @@ Run through the project's Gradle wrapper. The names below are identical for Kotl
 
 Release tasks select the release runtime libraries and write into `jvm/release/`; debug tasks write into `jvm/debug/`. The two directories never overwrite each other, so both variants can be kept built. `build -Prelease` also selects release mode and then produces only the release artifacts. Platform configuration keys are listed under [Export options](export-targets.md).
 
-Every `godotSingle` JAR is copied intact into `jvm/<variant>/external/`. These tasks prepare JVM-side artifacts; Godot's export preset produces the final game package from the variant matching the export type.
+Every `godotExternalImplementation` JAR is copied intact into `jvm/<variant>/external/`. These tasks prepare JVM-side artifacts; Godot's export preset produces the final game package from the variant matching the export type.
 
 ## `fastBuild`
 

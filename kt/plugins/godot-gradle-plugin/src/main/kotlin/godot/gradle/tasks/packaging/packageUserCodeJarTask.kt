@@ -1,8 +1,8 @@
 package godot.gradle.tasks
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import godot.gradle.projectExt.GODOT_MAIN_CONFIGURATION
-import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
+import godot.gradle.projectExt.GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION
+import godot.gradle.projectExt.GODOT_GAME_IMPLEMENTATION_CONFIGURATION
 import godot.gradle.projectExt.variantLibsDirectory
 import godot.tools.common.constants.ArtifactNames
 import godot.tools.common.constants.Paths
@@ -27,14 +27,17 @@ fun Project.packageUserCodeJarTask(
             archiveClassifier.set("")
             destinationDirectory.set(variantLibsDirectory())
             configurations.clear()
-            configurations.add(this@packageUserCodeJarTask.configurations.getByName(GODOT_MAIN_CONFIGURATION))
+            configurations.add(
+                this@packageUserCodeJarTask.configurations.getByName(GODOT_GAME_IMPLEMENTATION_CONFIGURATION)
+            )
 
-            val godotSingle = this@packageUserCodeJarTask.configurations.getByName(GODOT_SINGLE_CONFIGURATION)
-            // Keep godotSingle dependencies as intact JARs while making them visible to the main URLClassLoader.
+            val godotExternalImplementation =
+                this@packageUserCodeJarTask.configurations.getByName(GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION)
+            // Keep godotExternalImplementation dependencies as intact JARs, visible to the main URLClassLoader.
             manifest.attributes[
                 "Class-Path"
             ] = provider {
-                godotSingle.files
+                godotExternalImplementation.files
                     .filter { it.extension == "jar" }
                     .sortedBy { it.name }
                     .joinToString(" ") { "${Paths.EXTERNAL_JARS_DIR}/${it.name}" }

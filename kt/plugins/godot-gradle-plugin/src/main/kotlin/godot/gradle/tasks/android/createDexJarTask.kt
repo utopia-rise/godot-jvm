@@ -2,7 +2,7 @@ package godot.gradle.tasks.android
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.GodotPlugin
-import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
+import godot.gradle.projectExt.GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
 import godot.gradle.projectExt.variantLibsDirectory
 import godot.tools.common.constants.ArtifactNames
@@ -36,7 +36,7 @@ abstract class CreateDexJarTask : DefaultTask() {
     @get:InputFile
     abstract val inputJar: RegularFileProperty
 
-    // ART cannot load plain jars, so godotSingle dependencies are dexed together with the program jar.
+    // ART cannot load plain jars, so godotExternalImplementation dependencies are dexed together with the program jar.
     @get:InputFiles
     abstract val additionalInputJars: ConfigurableFileCollection
 
@@ -147,7 +147,7 @@ fun Project.createBootstrapDexJarTask(
     dependsOnTasks = listOf(checkD8ToolAccessibleTask, checkAndroidJarAccessibleTask),
     inputJar = packageBootstrapJarTask.flatMap(ShadowJar::getArchiveFile),
     dexJarName = ArtifactNames.Debug.BOOTSTRAP_DEX_JAR,
-    includeGodotSingleJars = false,
+    includeGodotExternalImplementationJars = false,
 )
 
 fun Project.createReleaseDexJarTask(
@@ -160,7 +160,7 @@ fun Project.createReleaseDexJarTask(
     dependsOnTasks = listOf(checkD8ToolAccessibleTask, checkAndroidJarAccessibleTask),
     inputJar = packageReleaseJarTask.flatMap(ShadowJar::getArchiveFile),
     dexJarName = ArtifactNames.Release.DEX_JAR,
-    includeGodotSingleJars = true,
+    includeGodotExternalImplementationJars = true,
 )
 
 private fun Project.registerDexJarTask(
@@ -169,7 +169,7 @@ private fun Project.registerDexJarTask(
     dependsOnTasks: List<TaskProvider<out Task>>,
     inputJar: Provider<RegularFile>,
     dexJarName: String,
-    includeGodotSingleJars: Boolean,
+    includeGodotExternalImplementationJars: Boolean,
 ): TaskProvider<CreateDexJarTask> {
     val libsDirectory = variantLibsDirectory()
     val d8ToolPath = godotJvmExtension.android.d8ToolPath
@@ -184,9 +184,10 @@ private fun Project.registerDexJarTask(
             dependsOn(dependsOnTasks)
 
             this.inputJar.set(inputJar)
-            if (includeGodotSingleJars) {
+            if (includeGodotExternalImplementationJars) {
                 additionalInputJars.from(
-                    configurations.getByName(GODOT_SINGLE_CONFIGURATION).filter { file -> file.extension == "jar" }
+                    configurations.getByName(GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION)
+                        .filter { file -> file.extension == "jar" }
                 )
             }
             dexJar.set(libsDirectory.map { directory -> directory.file(dexJarName) })

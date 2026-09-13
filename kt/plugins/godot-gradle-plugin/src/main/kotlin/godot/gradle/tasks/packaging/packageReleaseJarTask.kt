@@ -1,7 +1,7 @@
 package godot.gradle.tasks
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
+import godot.gradle.projectExt.GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION
 import godot.gradle.projectExt.variantLibsDirectory
 import godot.tools.common.constants.ArtifactNames
 import godot.tools.common.constants.Paths
@@ -17,7 +17,7 @@ fun Project.packageReleaseJarTask(
     packageBootstrapJarTask: TaskProvider<ShadowJar>,
     packageUserCodeJarTask: TaskProvider<ShadowJar>,
 ): TaskProvider<ShadowJar> {
-    val godotSingle = configurations.getByName(GODOT_SINGLE_CONFIGURATION)
+    val godotExternalImplementation = configurations.getByName(GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION)
 
     return tasks.register("packageReleaseJar", ShadowJar::class.java) {
         with(it) {
@@ -39,11 +39,11 @@ fun Project.packageReleaseJarTask(
                 copySpec.exclude("META-INF/MANIFEST.MF")
             }
 
-            // godotSingle jars stay intact next to the release jar, so the class path entry follows it.
+            // godotExternalImplementation jars stay intact next to the release jar, so the class path entry follows it.
             manifest.attributes[
                 "Class-Path"
             ] = provider {
-                godotSingle.files
+                godotExternalImplementation.files
                     .filter { file -> file.extension == "jar" }
                     .sortedBy { file -> file.name }
                     .joinToString(" ") { file -> "${Paths.EXTERNAL_JARS_DIR}/${file.name}" }

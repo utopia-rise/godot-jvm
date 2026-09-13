@@ -8,13 +8,13 @@ object ArtifactNames {
         /** The Godot-JVM libraries, the bootstrap code and the project's `implementation` dependencies. */
         const val BOOTSTRAP_JAR = "godot-bootstrap.jar"
 
-        /** The project's code, its generated registrars and its `godotMain` dependencies, reloadable in the editor. */
+        /** The project's code, its generated registrars and its `godotGameImplementation` dependencies, reloadable in the editor. */
         const val USER_CODE_JAR = "usercode.jar"
 
         /** Android: [BOOTSTRAP_JAR] dexed. */
         const val BOOTSTRAP_DEX_JAR = "godot-bootstrap-dex.jar"
 
-        /** Android: [USER_CODE_JAR] and the `godotSingle` dependencies dexed. */
+        /** Android: [USER_CODE_JAR] and the `godotExternalImplementation` dependencies dexed. */
         const val USER_CODE_DEX_JAR = "usercode-dex.jar"
     }
 
@@ -22,7 +22,7 @@ object ArtifactNames {
         /** [Debug.BOOTSTRAP_JAR] and [Debug.USER_CODE_JAR] merged into one archive. */
         const val JAR = "game.jar"
 
-        /** Android: [JAR] and the `godotSingle` dependencies dexed. */
+        /** Android: [JAR] and the `godotExternalImplementation` dependencies dexed. */
         const val DEX_JAR = "game-dex.jar"
     }
 
