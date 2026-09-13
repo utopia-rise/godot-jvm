@@ -109,7 +109,7 @@ MyGameProject/
 ├── gradlew / gradlew.bat
 ├── gradle/                     # Gradle wrapper files
 ├── project.godot
-├── jvm/                        # JARs and embedded JRE
+├── jvm/                        # debug/ and release/ JARs and the embedded JRE
 ├── gdj/                        # dependency registration files
 ├── godot_jvm_configuration.json # runtime settings, written on first editor launch
 └── build/                      # Gradle output, excluded from exports

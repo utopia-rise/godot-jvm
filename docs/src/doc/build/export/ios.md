@@ -8,10 +8,10 @@ Use [GraalVM for JDK 25.0.2](https://download.oracle.com/graalvm/25/archive/graa
 
 1. Prepare the macOS/Xcode toolchain described in [Godot's iOS export documentation](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_ios.html).
 2. Set `GRAALVM_HOME` to your GraalVM installation. Apply the dependency configuration from [GraalVM native image](graalvm-native-image.md).
-3. Select **Build iOS Release** in Godot's toolbar and click **Run Gradle** (`buildIOSRelease` in IntelliJ). Use **Build iOS** for debug builds.
-4. Export with an iOS preset, build the exported Xcode project, and run it on your device.
+3. Select **Build iOS Release** in Godot's toolbar and click **Run Gradle** (`buildIOSRelease` in IntelliJ). Use **Build iOS** before an export with debug.
+4. Export with an iOS preset, build the exported Xcode project with the configuration matching the export type, and run it on your device.
 
-The JVM build produces `jvm/ios/usercode.a`, `libjava-release.a`, and `libjvm-release.a`. The export links these with the Godot-JVM iOS extension into the application.
+The JVM build produces `jvm/release/game.a` (or `jvm/debug/game.a`) and the shared `jvm/ios/ios-jdk/libjava-release.a` and `libjvm-release.a`. The export links the archive of its variant and the JDK libraries with the Godot-JVM iOS extension into the application.
 
 Details: [Reference](../../reference/gradle-plugin/export-targets.md).
 

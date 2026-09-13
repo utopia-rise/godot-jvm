@@ -1,8 +1,10 @@
 package godot.gradle.tasks.android
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.GodotPlugin
-import godot.gradle.projectExt.GODOT_SINGLE_CONFIGURATION
+import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
 import godot.gradle.projectExt.godotJvmExtension
+import godot.gradle.projectExt.variantLibsDirectory
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -21,14 +23,14 @@ import java.io.File
 
 abstract class CreateMainDexFileTask : DefaultTask() {
     @get:InputFile
-    abstract val mainJar: RegularFileProperty
+    abstract val userCodeJar: RegularFileProperty
 
     @get:InputFile
     abstract val bootstrapJar: RegularFileProperty
 
-    // ART cannot load plain jars, so godotSingle dependencies are dexed together with main.jar.
+    // ART cannot load plain jars, so godotSplitImplementation dependencies are dexed together with usercode.jar.
     @get:InputFiles
-    abstract val godotSingleJars: ConfigurableFileCollection
+    abstract val godotSplitImplementationJars: ConfigurableFileCollection
 
     @get:OutputFile
     abstract val mainDexRulesFile: RegularFileProperty
@@ -49,9 +51,10 @@ abstract class CreateMainDexFileTask : DefaultTask() {
 
     @TaskAction
     fun createMainDexFile() {
-        val libsDir = mainJar.get().asFile.parentFile
+        val libsDir = userCodeJar.get().asFile.parentFile
         val mainDexRules = writeMainDexRules(mainDexRulesFile.get().asFile)
-        val inputJars = listOf(mainJar.get().asFile) + godotSingleJars.files.sortedBy { file -> file.name }
+        val inputJars = listOf(userCodeJar.get().asFile) +
+            godotSplitImplementationJars.files.sortedBy { file -> file.name }
         val d8Arguments = listOf(File(d8ToolPath.get()).absolutePath) +
             inputJars.map { file -> file.absolutePath } +
             listOf(
@@ -96,9 +99,10 @@ fun Project.createMainDexFileTask(
     checkAndroidJarAccessibleTask: TaskProvider<out Task>,
     checkD8ToolAccessibleTask: TaskProvider<out Task>,
     createBootstrapDexJarTask: TaskProvider<out Task>,
-    packageMainJarTask: TaskProvider<out Task>
-): TaskProvider<out Task> {
-    val libsDirectory = layout.buildDirectory.dir("libs")
+    packageUserCodeJarTask: TaskProvider<ShadowJar>,
+    packageBootstrapJarTask: TaskProvider<ShadowJar>,
+): TaskProvider<CreateMainDexFileTask> {
+    val libsDirectory = variantLibsDirectory()
     val d8ToolPath = godotJvmExtension.android.d8ToolPath
     val androidCompileSdkDirectory = godotJvmExtension.android.compileSdkDirectory
     val androidMinApiLevel = godotJvmExtension.android.minApiLevel
@@ -106,19 +110,15 @@ fun Project.createMainDexFileTask(
     return tasks.register("createMainDexFile", CreateMainDexFileTask::class.java) {
         with(it) {
             group = "godot-jvm"
-            description = "Converts the main.jar to an android dex file. Needed for android builds only"
+            description = "Converts the usercode.jar to an android dex file. Needed for android builds only"
 
-            dependsOn(
-                checkD8ToolAccessibleTask,
-                checkAndroidJarAccessibleTask,
-                createBootstrapDexJarTask,
-                packageMainJarTask,
-            )
+            dependsOn(checkD8ToolAccessibleTask, checkAndroidJarAccessibleTask, createBootstrapDexJarTask)
 
-            this.mainJar.set(libsDirectory.map { directory -> directory.file("main.jar") })
-            this.bootstrapJar.set(libsDirectory.map { directory -> directory.file("godot-bootstrap.jar") })
-            this.godotSingleJars.from(
-                configurations.getByName(GODOT_SINGLE_CONFIGURATION).filter { file -> file.extension == "jar" }
+            this.userCodeJar.set(packageUserCodeJarTask.flatMap(ShadowJar::getArchiveFile))
+            this.bootstrapJar.set(packageBootstrapJarTask.flatMap(ShadowJar::getArchiveFile))
+            this.godotSplitImplementationJars.from(
+                configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
+                    .filter { file -> file.extension == "jar" }
             )
             this.mainDexRulesFile.set(layout.buildDirectory.file("main-dex-rules.proguard"))
             this.mainDexFile.set(libsDirectory.map { directory -> directory.file("classes.dex") })

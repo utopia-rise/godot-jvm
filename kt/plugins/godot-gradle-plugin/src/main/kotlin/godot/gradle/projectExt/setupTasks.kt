@@ -2,15 +2,18 @@ package godot.gradle.projectExt
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.tasks.GenerateEmbeddedJreTask
+import godot.gradle.tasks.android.CreateDexJarTask
 import godot.gradle.tasks.android.checkAndroidJarAccessibleTask
 import godot.gradle.tasks.android.checkD8ToolAccessibleTask
 import godot.gradle.tasks.android.createBootstrapDexJarTask
 import godot.gradle.tasks.android.createMainDexFileTask
-import godot.gradle.tasks.android.packageMainDexJarTask
+import godot.gradle.tasks.android.createReleaseDexJarTask
+import godot.gradle.tasks.android.packageUserCodeDexJarTask
 import godot.gradle.tasks.createCopyAndroidArtifactsTask
 import godot.gradle.tasks.createCopyDesktopJarsTask
 import godot.gradle.tasks.createCopyGraalArtifactsTask
 import godot.gradle.tasks.createCopyIOSArtifactsTask
+import godot.gradle.tasks.createCopyIOSJdkTask
 import godot.gradle.tasks.custom_api.customApiJarTask
 import godot.gradle.tasks.registrarGenerationGenerateFilesTask
 import godot.gradle.tasks.registrarGenerationJarTask
@@ -25,7 +28,8 @@ import godot.gradle.tasks.graal.ios.createIOSGraalNativeImageTask
 import godot.gradle.tasks.graal.ios.createIOSStaticLibraryTask
 import godot.gradle.tasks.graal.ios.downloadIOSGraalToolchain
 import godot.gradle.tasks.packageBootstrapJarTask
-import godot.gradle.tasks.packageMainJarTask
+import godot.gradle.tasks.packageUserCodeJarTask
+import godot.gradle.tasks.packageReleaseJarTask
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -41,18 +45,29 @@ private data class RegistrarGenerationTasks(
 )
 
 private data class DesktopPackagingTasks(
-    val packageBootstrapJarTask: TaskProvider<out Task>,
-    val packageMainJarTask: TaskProvider<out Task>,
-)
+    val packageBootstrapJarTask: TaskProvider<ShadowJar>,
+    val packageUserCodeJarTask: TaskProvider<ShadowJar>,
+    /** Only registered for release builds, which ship the merged jar instead of the pair. */
+    val packageReleaseJarTask: TaskProvider<ShadowJar>?,
+) {
+    val gameJarTasks: List<TaskProvider<ShadowJar>>
+        get() = packageReleaseJarTask?.let(::listOf) ?: listOf(packageBootstrapJarTask, packageUserCodeJarTask)
+}
 
 private data class AndroidPackagingTasks(
-    val createBootstrapDexJarTask: TaskProvider<out Task>,
-    val packageMainDexJarTask: TaskProvider<out Task>,
-)
+    val createBootstrapDexJarTask: TaskProvider<CreateDexJarTask>,
+    val packageUserCodeDexJarTask: TaskProvider<ShadowJar>,
+    /** Only registered for release builds, which dex the merged jar instead of the pair. */
+    val createReleaseDexJarTask: TaskProvider<CreateDexJarTask>?,
+) {
+    val gameDexJarTasks: List<TaskProvider<out Task>>
+        get() = createReleaseDexJarTask?.let(::listOf) ?: listOf(createBootstrapDexJarTask, packageUserCodeDexJarTask)
+}
 
 private data class NativePackagingTasks(
     val createGraalNativeImageTask: TaskProvider<out Task>,
     val createIOSTask: TaskProvider<out Task>,
+    val downloadIOSGraalToolchainTask: TaskProvider<out Task>,
 )
 
 private data class CopyTasks(
@@ -61,6 +76,7 @@ private data class CopyTasks(
     val copyAndroidArtifactsTask: TaskProvider<out Task>,
     val copyGraalArtifactsTask: TaskProvider<out Task>,
     val copyIOSArtifactsTask: TaskProvider<out Task>,
+    val copyIOSJdkTask: TaskProvider<out Task>,
 )
 
 fun Project.setupTasks() {
@@ -138,7 +154,7 @@ fun Project.setupTasks() {
 private fun Project.registerUserFacingBuildTasks() {
     tasks.register("buildRelease") { task ->
         task.group = "build"
-        task.description = "Builds the desktop release jars."
+        task.description = "Builds the desktop release jar."
     }
 
     tasks.register("fastBuild") { task ->
@@ -154,7 +170,7 @@ private fun Project.registerUserFacingBuildTasks() {
 
     tasks.register("buildAndroidRelease") { task ->
         task.group = "build"
-        task.description = "Builds the desktop release jars and Android dex artifacts."
+        task.description = "Builds the desktop release jar and Android dex artifact."
     }
 
     tasks.register("buildGraalNativeImage") { task ->
@@ -164,7 +180,7 @@ private fun Project.registerUserFacingBuildTasks() {
 
     tasks.register("buildGraalNativeImageRelease") { task ->
         task.group = "build"
-        task.description = "Builds the desktop release jars and GraalVM native image."
+        task.description = "Builds the desktop release jar and GraalVM native image."
     }
 
     tasks.register("buildIOS") { task ->
@@ -174,7 +190,7 @@ private fun Project.registerUserFacingBuildTasks() {
 
     tasks.register("buildIOSRelease") { task ->
         task.group = "build"
-        task.description = "Builds the desktop release jars and iOS static library."
+        task.description = "Builds the desktop release jar and iOS static library."
     }
 }
 
@@ -226,15 +242,24 @@ private fun Project.setupDesktopPackagingTasks(
     customApiJarTask: TaskProvider<Jar>?,
 ): DesktopPackagingTasks {
     val packageBootstrapJarTask = packageBootstrapJarTask(customApiJarTask)
-    val packageMainJarTask = packageMainJarTask(
+    val packageUserCodeJarTask = packageUserCodeJarTask(
         generatedRegistrarJarTask = registrarGenerationTasks.generatedRegistrarJarTask,
         updateRegistrationFilesTask = registrarGenerationTasks.updateRegistrationFilesTask,
         userClassesTask = classesTask,
     )
+    val packageReleaseJarTask = if (isRelease) {
+        packageReleaseJarTask(
+            packageBootstrapJarTask = packageBootstrapJarTask,
+            packageUserCodeJarTask = packageUserCodeJarTask,
+        )
+    } else {
+        null
+    }
 
     return DesktopPackagingTasks(
         packageBootstrapJarTask = packageBootstrapJarTask,
-        packageMainJarTask = packageMainJarTask,
+        packageUserCodeJarTask = packageUserCodeJarTask,
+        packageReleaseJarTask = packageReleaseJarTask,
     )
 }
 
@@ -243,6 +268,7 @@ private fun Project.setupAndroidPackagingTasks(
 ): AndroidPackagingTasks {
     val checkD8ToolAccessibleTask = checkD8ToolAccessibleTask()
     val checkAndroidJarAccessibleTask = checkAndroidJarAccessibleTask()
+
     val createBootstrapDexJarTask = createBootstrapDexJarTask(
         checkAndroidJarAccessibleTask = checkAndroidJarAccessibleTask,
         checkD8ToolAccessibleTask = checkD8ToolAccessibleTask,
@@ -252,15 +278,29 @@ private fun Project.setupAndroidPackagingTasks(
         checkAndroidJarAccessibleTask = checkAndroidJarAccessibleTask,
         checkD8ToolAccessibleTask = checkD8ToolAccessibleTask,
         createBootstrapDexJarTask = createBootstrapDexJarTask,
-        packageMainJarTask = desktopPackagingTasks.packageMainJarTask,
+        packageUserCodeJarTask = desktopPackagingTasks.packageUserCodeJarTask,
+        packageBootstrapJarTask = desktopPackagingTasks.packageBootstrapJarTask,
     )
-    val packageMainDexJarTask = packageMainDexJarTask(
-        createMainDexFileTask = createMainDexFileTask
+    val packageUserCodeDexJarTask = packageUserCodeDexJarTask(
+        createMainDexFileTask = createMainDexFileTask,
+        packageUserCodeJarTask = desktopPackagingTasks.packageUserCodeJarTask,
     )
+
+    val packageReleaseJarTask = desktopPackagingTasks.packageReleaseJarTask
+    val createReleaseDexJarTask = if (packageReleaseJarTask != null) {
+        createReleaseDexJarTask(
+            checkAndroidJarAccessibleTask = checkAndroidJarAccessibleTask,
+            checkD8ToolAccessibleTask = checkD8ToolAccessibleTask,
+            packageReleaseJarTask = packageReleaseJarTask,
+        )
+    } else {
+        null
+    }
 
     return AndroidPackagingTasks(
         createBootstrapDexJarTask = createBootstrapDexJarTask,
-        packageMainDexJarTask = packageMainDexJarTask,
+        packageUserCodeDexJarTask = packageUserCodeDexJarTask,
+        createReleaseDexJarTask = createReleaseDexJarTask,
     )
 }
 
@@ -275,25 +315,24 @@ private fun Project.setupNativePackagingTasks(
     val createGraalNativeImageTask = createGraalNativeImageTask(
         checkNativeImageToolAccessibleTask = checkNativeImageToolAccessibleTask,
         checkPresenceOfDefaultGraalJniConfigTask = copyDefaultGraalJniConfigTask,
-        packageMainJarTask = desktopPackagingTasks.packageMainJarTask,
-        packageBootstrapJarTask = desktopPackagingTasks.packageBootstrapJarTask
+        gameJarTasks = desktopPackagingTasks.gameJarTasks,
     )
     val downloadIOSGraalToolchainTask = downloadIOSGraalToolchain()
     val createIOSGraalNativeImageTask = createIOSGraalNativeImageTask(
         checkNativeImageToolAccessibleTask = checkNativeImageToolAccessibleTask,
         copyDefaultGraalIOSConfigsTask = copyDefaultGraalIOSConfigsTask,
         downloadIOSGraalToolchainTask = downloadIOSGraalToolchainTask,
-        packageMainJarTask = desktopPackagingTasks.packageMainJarTask,
-        packageBootstrapJarTask = desktopPackagingTasks.packageBootstrapJarTask
+        gameJarTasks = desktopPackagingTasks.gameJarTasks,
     )
     val createIOSTask = createIOSStaticLibraryTask(
         downloadIOSGraalToolchainTask = downloadIOSGraalToolchainTask,
-        createIOSGraalNativeImageTask = createIOSGraalNativeImageTask
+        createIOSGraalNativeImageTask = createIOSGraalNativeImageTask,
     )
 
     return NativePackagingTasks(
         createGraalNativeImageTask = createGraalNativeImageTask,
         createIOSTask = createIOSTask,
+        downloadIOSGraalToolchainTask = downloadIOSGraalToolchainTask,
     )
 }
 
@@ -304,18 +343,19 @@ private fun Project.setupCopyTasks(
 ): CopyTasks {
     val generateGdIgnoreFilesTask = generateGdIgnoreFilesTask()
     val copyDesktopJarsTask = createCopyDesktopJarsTask(
-        packageBootstrapJarTask = desktopPackagingTasks.packageBootstrapJarTask,
-        packageMainJarTask = desktopPackagingTasks.packageMainJarTask,
+        gameJarTasks = desktopPackagingTasks.gameJarTasks,
     )
     val copyAndroidArtifactsTask = createCopyAndroidArtifactsTask(
-        createBootstrapDexJarTask = androidPackagingTasks.createBootstrapDexJarTask,
-        packageMainDexJarTask = androidPackagingTasks.packageMainDexJarTask,
+        gameDexJarTasks = androidPackagingTasks.gameDexJarTasks,
     )
     val copyGraalArtifactsTask = createCopyGraalArtifactsTask(
         createGraalNativeImageTask = nativePackagingTasks.createGraalNativeImageTask,
     )
     val copyIOSArtifactsTask = createCopyIOSArtifactsTask(
         createIOSTask = nativePackagingTasks.createIOSTask,
+    )
+    val copyIOSJdkTask = createCopyIOSJdkTask(
+        downloadIOSGraalToolchainTask = nativePackagingTasks.downloadIOSGraalToolchainTask,
     )
 
     return CopyTasks(
@@ -324,6 +364,7 @@ private fun Project.setupCopyTasks(
         copyAndroidArtifactsTask = copyAndroidArtifactsTask,
         copyGraalArtifactsTask = copyGraalArtifactsTask,
         copyIOSArtifactsTask = copyIOSArtifactsTask,
+        copyIOSJdkTask = copyIOSJdkTask,
     )
 }
 
@@ -339,11 +380,7 @@ private fun Project.setupBuildLifecycleTasks(
         .filter { jarTask -> jarTask !is ShadowJar }
         .forEach { task ->
             task.dependsOn(copyTasks.generateGdIgnoreFilesTask)
-            task.finalizedBy(
-                copyTasks.copyDesktopJarsTask,
-                desktopPackagingTasks.packageBootstrapJarTask,
-                desktopPackagingTasks.packageMainJarTask
-            )
+            task.finalizedBy(copyTasks.copyDesktopJarsTask)
         }
 
     val buildTask = tasks.named("build") { task ->
@@ -351,15 +388,16 @@ private fun Project.setupBuildLifecycleTasks(
     }
 
     tasks.named("buildRelease") { task ->
-        task.dependsOn(buildTask)
+        task.dependsOn(buildTask, copyTasks.copyDesktopJarsTask)
     }
 
+    if (isFastBuildRequested() && isRelease) {
+        throw GradleException("fastBuild only produces debug artifacts. Use buildRelease instead for release builds.")
+    }
     tasks.named("fastBuild") { task ->
         task.dependsOn(
             checkIgnoredScriptSourcesTask,
             copyTasks.generateGdIgnoreFilesTask,
-            desktopPackagingTasks.packageBootstrapJarTask,
-            desktopPackagingTasks.packageMainJarTask,
             copyTasks.copyDesktopJarsTask,
         )
     }
@@ -367,8 +405,7 @@ private fun Project.setupBuildLifecycleTasks(
     tasks.named("buildAndroid") { task ->
         task.dependsOn(
             checkIgnoredScriptSourcesTask,
-            androidPackagingTasks.createBootstrapDexJarTask,
-            androidPackagingTasks.packageMainDexJarTask,
+            androidPackagingTasks.gameDexJarTasks,
             copyTasks.copyAndroidArtifactsTask
         )
     }
@@ -376,8 +413,7 @@ private fun Project.setupBuildLifecycleTasks(
     tasks.named("buildAndroidRelease") { task ->
         task.dependsOn(
             checkIgnoredScriptSourcesTask,
-            androidPackagingTasks.createBootstrapDexJarTask,
-            androidPackagingTasks.packageMainDexJarTask,
+            androidPackagingTasks.gameDexJarTasks,
             copyTasks.copyAndroidArtifactsTask
         )
     }
@@ -391,11 +427,11 @@ private fun Project.setupBuildLifecycleTasks(
     }
 
     tasks.named("buildIOS") { task ->
-        task.dependsOn(checkIgnoredScriptSourcesTask, nativePackagingTasks.createIOSTask, copyTasks.copyIOSArtifactsTask)
+        task.dependsOn(checkIgnoredScriptSourcesTask, nativePackagingTasks.createIOSTask, copyTasks.copyIOSArtifactsTask, copyTasks.copyIOSJdkTask)
     }
 
     tasks.named("buildIOSRelease") { task ->
-        task.dependsOn(checkIgnoredScriptSourcesTask, nativePackagingTasks.createIOSTask, copyTasks.copyIOSArtifactsTask)
+        task.dependsOn(checkIgnoredScriptSourcesTask, nativePackagingTasks.createIOSTask, copyTasks.copyIOSArtifactsTask, copyTasks.copyIOSJdkTask)
     }
 }
 

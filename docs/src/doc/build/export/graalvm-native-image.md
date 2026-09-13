@@ -40,7 +40,7 @@ requested, but scripts cannot reload in native-image mode.
 
 ## 4. Export and test
 
-In the desktop [export preset](https://docs.godotengine.org/en/stable/tutorials/export/exporting_projects.html), set **Godot Jvm > Runtime** to **Graal**, click **Export Project**, and launch the exported game. The native image is the `usercode` library. See the [Desktop runtime table](desktop.md#choose-the-bundled-runtime) for the other packaging choices.
+In the desktop [export preset](https://docs.godotengine.org/en/stable/tutorials/export/exporting_projects.html), set **Godot Jvm > Runtime** to **Graal**, click **Export Project**, and launch the exported game. The native image is the `game` library under `jvm/release/`, or under `jvm/debug/` for an export with debug. See the [Desktop runtime table](desktop.md#choose-the-bundled-runtime) for the other packaging choices.
 
 Details: [Reference](../../reference/gradle-plugin/export-targets.md).
 

@@ -63,7 +63,7 @@ Library mode is intentionally different:
 
 - keep the compile-time Godot dependencies and compiler setup
 - skip registrar scanning and all generated registrar/`.gdj` work
-- skip `main.jar` / `godot-bootstrap.jar` packaging and Godot-project copy tasks
+- skip `usercode.jar` / `godot-bootstrap.jar` packaging and Godot-project copy tasks
 - leave the project with a regular publishable jar named after the Gradle project
 
 The first compilation step is the project's regular build:
@@ -102,9 +102,11 @@ The end-to-end workflow is:
 4. `registrarGenerationIndexExistingRegistrationFiles` scans the configured Godot project root for existing `.gdj` files and writes an index keyed by fqName
 5. `registrarGenerationSyncRegistrationFiles` syncs staged `.gdj` files by updating indexed matches in place, deleting obsolete indexed files, and copying new files into the configured registration directory
 6. `registrarGenerationJar` compiles generated registrar code into its own intermediary jar
-7. `packageBootstrapJar` builds `bootstrap.jar`
-8. `packageMainJar` builds `main.jar`, merging in the generated-registrar jar
-9. Android and Graal tasks derive export artifacts from the packaged jars
+7. `packageBootstrapJar` builds `godot-bootstrap.jar` into `build/libs/<debug|release>/`
+8. `packageUserCodeJar` builds `usercode.jar` next to it, merging in the generated-registrar jar
+9. release builds only: `packageReleaseJar` merges both into `game.jar`
+10. Android and Graal tasks derive export artifacts from the packaged jars of the variant
+11. the copy tasks write everything into `<godotProject>/jvm/<debug|release>/`
 
 When `godot.isLibrary` is `true`, this whole runtime pipeline is skipped after normal JVM compilation and the plain `jar` task becomes the final artifact.
 
@@ -137,6 +139,15 @@ Produced by:
 - staged `.gdj` files under `build/generated/registrar-generation/registration`
 - `build/.gdignore` is created so Godot does not index generated build output
 
+### `game.jar`
+
+Defined by:
+[`tasks/packaging/packageReleaseJarTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/packaging/packageReleaseJarTask.kt)
+
+- release builds only (`Project.isRelease`, a whole-invocation flag derived from the requested tasks or `-Prelease`)
+- `godot-bootstrap.jar` and `usercode.jar` merged with Shadow, service files merged, one class loader at runtime
+- the debug pair is never produced in a release invocation because the release runtime libraries are on the classpath then
+
 ### `bootstrap.jar`
 
 Defined by:
@@ -146,10 +157,10 @@ Defined by:
 - contains runtime/bootstrap glue code
 - does not package user project classes
 
-### `main.jar`
+### `usercode.jar`
 
 Defined by:
-[`tasks/packaging/packageMainJar.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/packaging/packageMainJar.kt)
+[`tasks/packaging/packageUserCodeJarTask.kt`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/packaging/packageUserCodeJarTask.kt)
 
 - final packaged runtime jar
 - built from `shadowJar`
@@ -225,13 +236,13 @@ Jar packaging and copy tasks.
 
 - `packageUserJarTask.kt`
 - `packageBootstrapJarTask.kt`
-- `packageMainJar.kt`
+- `packageUserCodeJarTask.kt`
 - `copyJarsTask.kt`
 - `generateGdIgnoreFilesTask.kt`
 
 ### [`src/main/kotlin/godot/gradle/tasks/android`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/android)
 
-Android export pipeline built from `bootstrap.jar` and `main.jar`.
+Android export pipeline built from `godot-bootstrap.jar` and `usercode.jar`, or from `game.jar` in release builds.
 
 ### [`src/main/kotlin/godot/gradle/tasks/graal`](D:/Godot/Module/kotlin/modules/kotlin_jvm/kt/plugins/godot-gradle-plugin/src/main/kotlin/godot/gradle/tasks/graal)
 

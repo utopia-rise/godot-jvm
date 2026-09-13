@@ -14,11 +14,11 @@ Desktop presets have a **Godot Jvm > Runtime** option that selects what the expo
 
 | Value | Bundled | Runtime mode |
 |---|---|---|
-| `JVM` (default) | Embedded JRE, `godot-bootstrap.jar`, `main.jar`, and `godotSingle` JARs | JVM |
-| `Graal` | `usercode` native image | GraalVM native image |
+| `JVM` (default) | Embedded JRE, the JARs of the exported variant (`godot-bootstrap.jar` and `usercode.jar`, or the release `game.jar`), and `godotSingle` JARs | JVM |
+| `Graal` | The `game` native image of the exported variant | GraalVM native image |
 | `No` | Nothing | The export cannot run JVM code |
 
-The export dialog warns when a bundled file is missing: the JRE directory for the preset's OS and architecture, or the native image for its OS.
+The export dialog warns when a bundled file is missing: the JRE directory for the preset's OS and architecture, and the debug or release build for its OS.
 
 Presets inherit the on-disk game configuration and can override its debug, memory, and custom-argument
 settings. See [preset overrides](../../reference/runtime-configuration.md#preset-overrides). The editor's own

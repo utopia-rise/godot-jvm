@@ -9,8 +9,8 @@ import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.compile.JavaCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-const val GODOT_MAIN_CONFIGURATION = "godotMain"
-const val GODOT_SINGLE_CONFIGURATION = "godotSingle"
+const val GODOT_GAME_IMPLEMENTATION_CONFIGURATION = "godotGameImplementation"
+const val GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION = "godotSplitImplementation"
 
 /**
  * Set's up all configurations and compilations needed for kotlin_jvm to work and defines proper task dependencies between them.
@@ -23,14 +23,14 @@ const val GODOT_SINGLE_CONFIGURATION = "godotSingle"
  * - Creates a dedicated `bootstrap` configuration used to build `bootstrap.jar`, which contains the glue code for the
  *   `cpp -> jvm -> cpp` communication but no user project classes.
  * - The user's normal compiled output is later packaged into an intermediary `user.jar`, then used by registrar generation to
- *   produce generated registrar sources and `.gdj` files, then merged into the final `main.jar`.
- * - At runtime, the module uses `godot-bootstrap.jar` together with `main.jar`.
+ *   produce generated registrar sources and `.gdj` files, then merged into the final `usercode.jar`.
+ * - At runtime, the module uses `godot-bootstrap.jar` together with `usercode.jar`.
  */
 fun Project.setupConfigurationsAndCompilations() {
-    val godotMain = configurations.create(GODOT_MAIN_CONFIGURATION)
-    val godotSingle = configurations.create(GODOT_SINGLE_CONFIGURATION)
+    val godotGameImplementation = configurations.create(GODOT_GAME_IMPLEMENTATION_CONFIGURATION)
+    val godotSplitImplementation = configurations.create(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
 
-    addGodotDependencyConfigurationsToSourceSets(godotMain, godotSingle)
+    addGodotDependencyConfigurationsToSourceSets(godotGameImplementation, godotSplitImplementation)
 
     afterEvaluate {
         // Add all consumer-project main compilation dependencies in one place, after the user's
@@ -93,15 +93,18 @@ fun Project.setupConfigurationsAndCompilations() {
 }
 
 private fun Project.addGodotDependencyConfigurationsToSourceSets(
-    godotMain: Configuration,
-    godotSingle: Configuration,
+    godotGameImplementation: Configuration,
+    godotSplitImplementation: Configuration,
 ) {
     val sourceSets = extensions.getByType(SourceSetContainer::class.java)
     val main = sourceSets.getByName("main")
-    configurations.getByName(main.compileClasspathConfigurationName).extendsFrom(godotMain, godotSingle)
+    configurations.getByName(main.compileClasspathConfigurationName)
+        .extendsFrom(godotGameImplementation, godotSplitImplementation)
 
     sourceSets.findByName("test")?.let { test ->
-        configurations.getByName(test.compileClasspathConfigurationName).extendsFrom(godotMain, godotSingle)
-        configurations.getByName(test.runtimeClasspathConfigurationName).extendsFrom(godotMain, godotSingle)
+        configurations.getByName(test.compileClasspathConfigurationName)
+            .extendsFrom(godotGameImplementation, godotSplitImplementation)
+        configurations.getByName(test.runtimeClasspathConfigurationName)
+            .extendsFrom(godotGameImplementation, godotSplitImplementation)
     }
 }
