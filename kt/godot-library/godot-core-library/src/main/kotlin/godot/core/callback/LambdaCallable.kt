@@ -52,8 +52,8 @@ open class LambdaCallable<R> internal constructor(
 }
 
 abstract class LambdaContainer<R>(
-    val returnConverter: VariantConverter,
-    val typeConverters: Array<VariantConverter>,
+    val returnConverter: VariantConverter<*>,
+    val typeConverters: Array<out VariantConverter<*>>,
     var function: Function<R>?
 ) {
     var cancelFunction: (() -> Unit)? = null

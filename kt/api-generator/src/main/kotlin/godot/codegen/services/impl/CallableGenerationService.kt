@@ -1,4 +1,4 @@
-﻿package godot.codegen.services.impl
+package godot.codegen.services.impl
 
 import com.squareup.kotlinpoet.ANY
 import com.squareup.kotlinpoet.ARRAY
@@ -12,7 +12,10 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.STAR
+import com.squareup.kotlinpoet.WildcardTypeName
 import com.squareup.kotlinpoet.STRING
+import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.TypeVariableName
 import com.squareup.kotlinpoet.UNIT
@@ -409,7 +412,7 @@ object CallableGenerationService : ICallableGenerationService {
                         ParameterSpec
                             .builder(
                                 Generator.returnConverterParameterName,
-                                VariantConverter.BASE
+                                VariantConverter.BASE.parameterizedBy(STAR)
                             )
                             .build()
                     )
@@ -417,7 +420,7 @@ object CallableGenerationService : ICallableGenerationService {
                         ParameterSpec
                             .builder(
                                 Generator.typeConvertersParameterName,
-                                ARRAY.parameterizedBy(VariantConverter.BASE)
+                                ARRAY.parameterizedBy(WildcardTypeName.producerOf(VariantConverter.BASE.parameterizedBy(STAR)))
                             )
                             .build()
                     )
@@ -620,16 +623,7 @@ object CallableGenerationService : ICallableGenerationService {
                                 add("%M(p${index}Type)!!", variantMapperMember)
                             }
                             add("), ")
-                            add("object : %T ", jvmFunctionClassName.parameterizedBy(listOf(nullableVoidType) + genericParameters))
-                            beginControlFlow("{")
-                            beginControlFlow(
-                                "override fun invoke(${containerInfo.toParameterSpecList().joinToString(", ") { "${it.name}: ${it.type}" }}): %T",
-                                nullableVoidType
-                            )
-                            addStatement("action.invoke(${containerInfo.toArgumentsString("pINDEX", "INDEX")})")
-                            addStatement("return null")
-                            endControlFlow()
-                            endControlFlow()
+                            add(jvmActionAdapter(argCount, containerInfo, nullableVoidType))
                             add("))")
                         }
                     )
@@ -641,6 +635,69 @@ object CallableGenerationService : ICallableGenerationService {
                     )
                     .build()
             )
+
+
+        // Typed converters let Kotlin and Java infer the callable's type arguments from the converters alone.
+        val converterParameters = genericParameters.mapIndexed { index, typeVariableName ->
+            ParameterSpec.builder("p${index}Converter", VariantConverter.BASE.parameterizedBy(typeVariableName)).build()
+        }
+        val converterArray = buildString {
+            append("arrayOf(")
+            genericParameters.forEachIndexed { index, _ ->
+                if (index != 0) append(", ")
+                append("p${index}Converter")
+            }
+            append(")")
+        }
+        companionBuilder.addFunction(
+            lambdaInfo
+                .toFunSpecBuilder(kotlinJavaHelperName(Core.createMethodName), prefix = listOf(returnTypeParameter))
+                .addParameter(Generator.returnConverterParameterName, VariantConverter.BASE.parameterizedBy(returnTypeParameter))
+                .addParameters(converterParameters)
+                .addParameter(Generator.functionParameterName, genericJvmFunction)
+                .returns(genericLambdaCallable)
+                .addCode(
+                    "return %T(%T(${Generator.returnConverterParameterName}, $converterArray, %L))",
+                    genericLambdaCallable,
+                    containerInfo.className.parameterizedBy(listOf(returnTypeParameter) + genericParameters),
+                    Generator.functionParameterName,
+                )
+                .addAnnotation(JvmStatic::class)
+                .addAnnotation(
+                    AnnotationSpec.builder(JvmName::class)
+                        .addMember("%S", Core.createMethodName)
+                        .build()
+                )
+                .build()
+        )
+        if (argCount > 0) {
+            companionBuilder.addFunction(
+                lambdaInfo
+                    .toFunSpecBuilder(kotlinJavaHelperName(Core.createMethodName))
+                    .addParameters(converterParameters)
+                    .addParameter("action", genericJvmAction)
+                    .returns(lambdaCallableClassName.parameterizedBy(listOf(nullableVoidType) + genericParameters))
+                    .addCode(
+                        buildCodeBlock {
+                            add(
+                                "return %T(%T(",
+                                lambdaCallableClassName.parameterizedBy(listOf(nullableVoidType) + genericParameters),
+                                containerInfo.className.parameterizedBy(listOf(nullableVoidType) + genericParameters)
+                            )
+                            add("%M(%T::class.java)!!, $converterArray, ", variantMapperMember, voidClassName)
+                            add(jvmActionAdapter(argCount, containerInfo, nullableVoidType))
+                            add("))")
+                        }
+                    )
+                    .addAnnotation(JvmStatic::class)
+                    .addAnnotation(
+                        AnnotationSpec.builder(JvmName::class)
+                            .addMember("%S", Core.createMethodName)
+                            .build()
+                    )
+                    .build()
+            )
+        }
 
         lambdaCallableClassBuilder.addType(companionBuilder.build())
 
@@ -689,6 +746,22 @@ object CallableGenerationService : ICallableGenerationService {
         )
 
         addFunction(
+            FunSpec.builder(Generator.lambdaCallableFunctionName + argCount)
+                .addTypeVariable(returnTypeParameter)
+                .addTypeVariables(genericParameters)
+                .addParameter(Generator.returnConverterParameterName, VariantConverter.BASE.parameterizedBy(returnTypeParameter))
+                .addParameters(converterParameters)
+                .addParameter(Generator.functionParameterName, lambdaTypeName)
+                .addCode(
+                    "return·%T(%T(${Generator.returnConverterParameterName},·$converterArray,·%L))",
+                    lambdaInfo.className.parameterizedBy(listOf(returnTypeParameter) + genericParameters),
+                    containerInfo.className.parameterizedBy(listOf(returnTypeParameter) + genericParameters),
+                    Generator.functionParameterName,
+                )
+                .build()
+        )
+
+        addFunction(
             FunSpec
                 .builder(Utils.asCallable.simpleName)
                 .addTypeVariable(returnTypeParameter.copy(reified = true))
@@ -698,6 +771,20 @@ object CallableGenerationService : ICallableGenerationService {
                 .addCode("return·${Generator.lambdaCallableFunctionName}$argCount(this)")
                 .build()
         )
+    }
+
+    /** `object : JvmFunctionN<Void?, P0..> { override fun invoke(p0..): Void? { action.invoke(p0..); return null } }` */
+    private fun jvmActionAdapter(argCount: Int, containerInfo: GenericClassNameInfo, nullableVoidType: TypeName) = buildCodeBlock {
+        add("object : %T ", Core.jvmFunction(argCount).parameterizedBy(listOf(nullableVoidType) + containerInfo.genericTypes))
+        beginControlFlow("{")
+        beginControlFlow(
+            "override fun invoke(${containerInfo.toParameterSpecList().joinToString(", ") { "${it.name}: ${it.type}" }}): %T",
+            nullableVoidType
+        )
+        addStatement("action.invoke(${containerInfo.toArgumentsString("pINDEX", "INDEX")})")
+        addStatement("return null")
+        endControlFlow()
+        endControlFlow()
     }
 
     inline fun generateBindMethods(argCount: Int, block: (remaining: MutableList<TypeVariableName>, parameters: MutableList<TypeVariableName>) -> Unit) {

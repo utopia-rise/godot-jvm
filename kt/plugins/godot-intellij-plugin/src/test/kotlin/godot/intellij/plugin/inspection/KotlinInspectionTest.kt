@@ -52,6 +52,18 @@ class KotlinInspectionTest : CodeInsightFixtureTestBase() {
         )
     }
 
+    fun testContainerFixture() {
+        val problems = inspectFixture(
+            "src/main/kotlin/godot/inspection/IdeKotlinInspectionContainers.kt",
+            KotlinInspection()
+        )
+
+        assertProblems(
+            problems,
+            error(GodotPluginBundle.message("problem.general.calledFunctionNotRegistered"))
+        )
+    }
+
     fun testCoreTypeCopyFixture() {
         val problems = inspectFixture(
             "src/main/kotlin/godot/inspection/CopyModificationCheckTestClass.kt",

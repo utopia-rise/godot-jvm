@@ -17,6 +17,8 @@ func test_kotlin_lambda_callable() -> void:
     script.kt_callable.call("called-from-gdscript")
     assert_that(script.kt_callable_string).is_equal("called-from-gdscript")
 
+    assert_that(script.sum_nested_ints.call([[1, 2], [3]])).override_failure_message("A callable created with explicit converters should convert nested array elements as Int").is_equal(6)
+
     script.call_callable_no_param()
     assert_bool(script.callable_no_param_triggered).is_true()
     script.callable_no_param_triggered = false

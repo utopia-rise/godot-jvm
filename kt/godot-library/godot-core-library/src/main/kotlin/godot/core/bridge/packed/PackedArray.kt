@@ -236,8 +236,8 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
 
 @Suppress("FunctionName", "LocalVariableName")
 internal interface PackedArrayBridge {
-    val packedArrayVariantType: VariantConverter
-    val elementVariantType: VariantConverter
+    val packedArrayVariantType: VariantConverter<*>
+    val elementVariantType: VariantConverter<*>
 
     fun engine_call_constructor(): VoidPtr
     fun engine_call_constructor_packed_array(): VoidPtr

@@ -12,8 +12,8 @@ import kotlin.Array
 import kotlin.Suppress
 
 public class LambdaContainer0<R>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: () -> R,
 ) : LambdaContainer<R>(returnConverter, typeConverters, function) {
   public override fun invokeUnsafe(vararg args: Any?): R {
@@ -23,8 +23,8 @@ public class LambdaContainer0<R>(
 }
 
 public class LambdaContainer1<R, P0>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (p0: P0) -> R,
 ) : LambdaContainer<R>(returnConverter, typeConverters, function) {
   public override fun invokeUnsafe(vararg args: Any?): R {
@@ -34,8 +34,8 @@ public class LambdaContainer1<R, P0>(
 }
 
 public class LambdaContainer2<R, P0, P1>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (p0: P0, p1: P1) -> R,
 ) : LambdaContainer<R>(returnConverter, typeConverters, function) {
   public override fun invokeUnsafe(vararg args: Any?): R {
@@ -45,8 +45,8 @@ public class LambdaContainer2<R, P0, P1>(
 }
 
 public class LambdaContainer3<R, P0, P1, P2>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -64,8 +64,8 @@ public class LambdaContainer3<R, P0, P1, P2>(
 }
 
 public class LambdaContainer4<R, P0, P1, P2, P3>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -85,8 +85,8 @@ public class LambdaContainer4<R, P0, P1, P2, P3>(
 }
 
 public class LambdaContainer5<R, P0, P1, P2, P3, P4>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -108,8 +108,8 @@ public class LambdaContainer5<R, P0, P1, P2, P3, P4>(
 }
 
 public class LambdaContainer6<R, P0, P1, P2, P3, P4, P5>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -133,8 +133,8 @@ public class LambdaContainer6<R, P0, P1, P2, P3, P4, P5>(
 }
 
 public class LambdaContainer7<R, P0, P1, P2, P3, P4, P5, P6>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -160,8 +160,8 @@ public class LambdaContainer7<R, P0, P1, P2, P3, P4, P5, P6>(
 }
 
 public class LambdaContainer8<R, P0, P1, P2, P3, P4, P5, P6, P7>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -189,8 +189,8 @@ public class LambdaContainer8<R, P0, P1, P2, P3, P4, P5, P6, P7>(
 }
 
 public class LambdaContainer9<R, P0, P1, P2, P3, P4, P5, P6, P7, P8>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -220,8 +220,8 @@ public class LambdaContainer9<R, P0, P1, P2, P3, P4, P5, P6, P7, P8>(
 }
 
 public class LambdaContainer10<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -253,8 +253,8 @@ public class LambdaContainer10<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(
 }
 
 public class LambdaContainer11<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -288,8 +288,8 @@ public class LambdaContainer11<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(
 }
 
 public class LambdaContainer12<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -325,8 +325,8 @@ public class LambdaContainer12<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P
 }
 
 public class LambdaContainer13<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -364,8 +364,8 @@ public class LambdaContainer13<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P
 }
 
 public class LambdaContainer14<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -405,8 +405,8 @@ public class LambdaContainer14<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P
 }
 
 public class LambdaContainer15<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
@@ -449,8 +449,8 @@ public class LambdaContainer15<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P
 
 public class LambdaContainer16<R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14,
     P15>(
-  returnConverter: VariantConverter,
-  typeConverters: Array<VariantConverter>,
+  returnConverter: VariantConverter<*>,
+  typeConverters: Array<out VariantConverter<*>>,
   function: (
     p0: P0,
     p1: P1,
