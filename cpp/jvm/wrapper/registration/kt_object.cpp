@@ -48,9 +48,9 @@ void KtObject::create_native_object(JNIEnv* p_raw_env, jobject p_instance, jint 
 
     jni::Env env(p_raw_env);
 
-    // set_instance_binding() works directly on the raw pointer — no godot-cpp wrapper is created (or needed) for any
+    // bind_created() works directly on the raw pointer — no godot-cpp wrapper is created (or needed) for any
     // of this. The binding caches the ObjectID, which answers both the RefCounted question and the id sent back below.
-    godot::JvmBinding* binding = godot::JvmBindingManager::set_instance_binding(raw_ptr_value);
+    godot::JvmBinding* binding = godot::JvmBindingManager::bind_created(raw_ptr_value);
     bool is_rc = binding->get_object_id().is_ref_counted();
 
     if (auto* kotlin_script = bridges::from_uint_to_ptr<godot::JvmScript>(p_script_ptr)) {

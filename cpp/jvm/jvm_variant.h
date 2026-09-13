@@ -104,7 +104,7 @@ class VariantToBuffer {
         }
 
         // Create a binding if it doesn't exist yet.
-        godot::JvmBinding* binding = godot::JvmBindingManager::get_instance_binding(p_raw_object);
+        godot::JvmBinding* binding = godot::JvmBindingManager::bind(p_raw_object);
         int constructorID = binding->get_constructor_id();
 
         // The JVM only ever deals in raw engine pointers, never godot-cpp's wrapper pointers (see to_raw_object()

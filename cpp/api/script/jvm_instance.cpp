@@ -424,10 +424,7 @@ void JvmInstance::free(GDExtensionScriptInstanceDataPtr p_instance) {
 
     jni::Env env = jni::Jvm::current_env();
     if (instance_data->delete_flag) {
-        kt_object->script_instance_removed(
-            env,
-            JvmBindingManager::get_instance_binding(instance_data->owner)->get_constructor_id()
-        );
+        kt_object->script_instance_removed(env, JvmBindingManager::bind(instance_data->owner)->get_constructor_id());
     }
     if (instance_data->to_demote_flag.is_set()) { MemoryManager::get_instance().cancel_demotion(instance_data); }
     memdelete(kt_object);

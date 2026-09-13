@@ -30,6 +30,7 @@ of upstream bug fixes.
 
 ## Engineering Principles
 
+- **Code is documentation** — Names and structure carry the meaning; comment only what the code cannot say, such as a non-obvious invariant, a cross-thread protocol, or an engine quirk being worked around. Never restate the line below.
 - **Avoid needless helpers** — Keep trivial single-use code inline. Extract a helper only when it has multiple call sites or its body is substantial enough to make the caller clearer.
 - **KISS** — Prefer the simplest design that clearly solves the current problem.
 - **YAGNI** — Do not add behavior or abstractions for requirements that do not exist yet.

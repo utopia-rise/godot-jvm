@@ -38,7 +38,7 @@ raw_godot::RawObject JvmScript::_object_create() const {
         kotlin_class->base_godot_class
     );
 
-    JvmBindingManager::set_instance_binding(owner);
+    JvmBindingManager::bind_created(owner);
     jni::Env env = jni::Jvm::current_env();
     KtObject* kt_object = KtObject::create_strong(env, kotlin_class->construct(env, owner), owner.is_ref_counted());
     owner.set_script_instance(JvmInstance::create_script_instance(owner, kt_object, this));
@@ -97,7 +97,7 @@ void* JvmScript::_instance_create(GodotObject* p_for_object) const {
     if (!validate_instance_creation()) { return nullptr; }
 #endif
     // TODO: Check if creator when set_script_instance is implemented in engine.
-    JvmBindingManager::get_instance_binding(p_for_object);
+    JvmBindingManager::bind(p_for_object);
 
     jni::Env env = jni::Jvm::current_env();
     raw_godot::RawObject owner(p_for_object);

@@ -230,7 +230,7 @@ namespace raw_godot {
         _ALWAYS_INLINE_ void update_configuration_warnings() const {
             internal::_call_native_mb_no_ret(update_configuration_warnings_bind, _ptr);
         }
-        
+
         _ALWAYS_INLINE_ static GDExtensionScriptInstancePtr create_script_instance(
             const GDExtensionScriptInstanceInfo3* p_info,
             GDExtensionScriptInstanceDataPtr p_data
@@ -303,10 +303,6 @@ namespace raw_godot {
 
         _ALWAYS_INLINE_ bool unreference() const {
             return internal::_call_native_mb_ret<int8_t>(unreference_bind, _ptr);
-        }
-
-        _ALWAYS_INLINE_ void unreference_and_destroy() const {
-            if (unreference()) { destroy(); }
         }
 
         _ALWAYS_INLINE_ int32_t get_reference_count() const {

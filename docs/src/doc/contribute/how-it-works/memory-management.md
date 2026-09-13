@@ -45,6 +45,8 @@ Because Godot can replace a script while its object remains alive, `MemoryManage
 
 A JVM binding holds a native reference while it needs a `RefCounted` object. When its wrapper is collected, the memory manager decrements the native reference count. Other native references can keep the object alive after the wrapper is gone.
 
+The decrement happens one synchronization after the collection is reported, and only if no new wrapper for the object appeared and the native side delivered the object to the JVM no further time in between. A delivery in flight while the collection is processed therefore hands the existing reference to the wrapper it creates instead of releasing it.
+
 This resembles Godot's C++ `Ref<>` ownership, with the release delayed until JVM collection.
 
 ### RefCounted scripts

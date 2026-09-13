@@ -9,6 +9,11 @@
 #include <classes/os.hpp>
 #include <core/object.hpp>
 
+// Release report layout, mirrored from MemoryManager.kt.
+static constexpr uint32_t CONFIRMED_COUNT_INDEX = 0;
+static constexpr uint32_t CANDIDATE_COUNT_INDEX = 1;
+static constexpr uint32_t IDS_START_INDEX = 2;
+
 static godot::LocalVector<uint64_t> ids;
 static godot::LocalVector<uintptr_t> pointers;
 static godot::LocalVector<uint32_t> variant_types;
@@ -22,8 +27,7 @@ void MemoryManager::release_binding(JNIEnv*, jobject, jlong instance_id) {
     godot::GodotObject* obj = raw_godot::RawObject::from_instance_id(instance_id);
     if (obj == nullptr) { return; }
 
-    ::godot::JvmBindingManager::free_binding(obj);
-    if (raw_godot::RawObject(obj).is_ref_counted()) { raw_godot::RawObject(obj).unreference_and_destroy(); }
+    ::godot::JvmBindingManager::unbind(obj);
 }
 
 void MemoryManager::unref_native_core_types(JNIEnv* p_raw_env, jobject, jobject p_ptr_array, jobject p_var_type_array) {
@@ -127,21 +131,37 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
     dead_objects.clear();
     dead_objects_mutex.unlock();
 
-    // Call the JVM side sending all the list of all dead objects and receiving the list of references to decrement
     jvalue args[1] = {jni::to_jni_arg(arr)};
-    jni::JLongArray refs_to_decrement(wrapped.call_object_method(p_env, SYNC_MEMORY, args));
+    jni::JLongArray release_report(wrapped.call_object_method(p_env, SYNC_MEMORY, args));
     arr.delete_local_ref(p_env);
 
-    size = refs_to_decrement.length(p_env);
-    ids.resize(size);
-    refs_to_decrement.get_array_elements(p_env, reinterpret_cast<jlong*>(ids.ptr()), size);
-    refs_to_decrement.delete_local_ref(p_env);
+    // Layout: [confirmed count, candidate count, confirmed ids..., candidate ids...], see
+    // MemoryManager.buildReleaseReport on the JVM side. A wrapper's death only makes its object a candidate: its
+    // binding's delivery count is recorded here, and the reference is released at the next sync if the JVM confirms no
+    // wrapper reappeared and the count did not move. A delivery in flight across either sync thus keeps the reference
+    // for the wrapper it creates instead of having it released underneath.
+    jlong header[IDS_START_INDEX];
+    release_report.get_array_region(p_env, 0, header, IDS_START_INDEX);
+    uint32_t candidates_start = IDS_START_INDEX + static_cast<uint32_t>(header[CONFIRMED_COUNT_INDEX]);
+    uint32_t report_size = candidates_start + static_cast<uint32_t>(header[CANDIDATE_COUNT_INDEX]);
+    ids.resize(report_size);
+    release_report.get_array_region(p_env, 0, reinterpret_cast<jlong*>(ids.ptr()), report_size);
+    release_report.delete_local_ref(p_env);
 
-    for (uint64_t id : ids) {
+    for (uint32_t i = IDS_START_INDEX; i < candidates_start; ++i) {
+        godot::ObjectID id(ids[i]);
+        uint32_t* deliveries_at_death = release_candidates.getptr(id);
+        if (deliveries_at_death == nullptr) { continue; }
+        uint32_t deliveries = *deliveries_at_death;
+        release_candidates.erase(id);
+
         godot::GodotObject* ref = raw_godot::RawObject::from_instance_id(id);
-        if (ref == nullptr) { continue; }
-        ::godot::JvmBindingManager::free_binding(ref);
-        raw_godot::RawObject(ref).unreference_and_destroy();
+        if (ref != nullptr) { ::godot::JvmBindingManager::unbind_unless_delivered_since(ref, deliveries); }
+    }
+    for (uint32_t i = candidates_start; i < report_size; ++i) {
+        godot::ObjectID id(ids[i]);
+        godot::GodotObject* ref = raw_godot::RawObject::from_instance_id(id);
+        if (ref != nullptr) { release_candidates.insert(id, ::godot::JvmBindingManager::get_deliveries(ref)); }
     }
 
     ids.clear();
@@ -151,6 +171,7 @@ void MemoryManager::clean_up(jni::Env& p_env) {
     JVM_LOG_VERBOSE("Cleaning JVM Memory...");
     sync_memory(p_env);
     wrapped.call_void_method(p_env, CLEAN_UP);
+    release_candidates.clear();
     JVM_LOG_VERBOSE("JVM Memory cleaned!");
 }
 
