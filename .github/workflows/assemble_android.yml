@@ -32,9 +32,17 @@ jobs:
           ./kt/gradlew -p kt :android-plugin:assemble \
             -PgodotVersion="$godot_maven_version" \
             -PnativeLibrariesDir="$PWD/native/jvm/bin"
-          mkdir -p package/addons/jvm/libs/android/debug package/addons/jvm/libs/android/release
-          cp kt/android-plugin/build/outputs/aar/godot-jvm-debug.aar package/addons/jvm/libs/android/debug/
-          cp kt/android-plugin/build/outputs/aar/godot-jvm-release.aar package/addons/jvm/libs/android/release/
+          # Godot loads the Android library from the AAR, but the .gdextension manifest must still point at
+          # existing files: the asset library rejects a manifest whose library paths do not resolve, and the
+          # official GDExtension Android plugin template ships its .so files next to the AAR the same way.
+          for variant in debug release; do
+            mkdir -p "package/addons/jvm/libs/android/$variant"
+            cp "kt/android-plugin/build/outputs/aar/godot-jvm-$variant.aar" "package/addons/jvm/libs/android/$variant/"
+            for abi in arm64-v8a x86_64; do
+              mkdir -p "package/addons/jvm/libs/android/$variant/$abi"
+              cp "native/jvm/bin/$variant/$abi/libgodot_jvm.so" "package/addons/jvm/libs/android/$variant/$abi/"
+            done
+          done
       # Upload the raw folder rather than a pre-made zip: actions/upload-artifact always wraps
       # whatever it's given in its own zip, so uploading a zip here results in a zip nested inside
       # that zip once a human downloads the artifact.
