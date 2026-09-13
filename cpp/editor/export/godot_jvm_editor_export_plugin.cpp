@@ -370,7 +370,7 @@ bool GodotJvmEditorExportPlugin::_should_update_export_options(const Ref<EditorE
     return true;
 }
 
-void GodotJvmEditorExportPlugin::report_export_error(const String& p_message) {
+void GodotJvmEditorExportPlugin::report_export_error(const String& p_message) const {
     get_export_platform()->add_message(EditorExportPlatform::EXPORT_MESSAGE_ERROR, "Godot-JVM", p_message);
 }
 
