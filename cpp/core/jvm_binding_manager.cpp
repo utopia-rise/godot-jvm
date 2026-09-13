@@ -3,6 +3,7 @@
 #include "engine/godot_object.h"
 #include "godot_jvm.h"
 #include "jvm/wrapper/memory/memory_manager.h"
+#include "logging.h"
 
 using namespace godot;
 
@@ -84,5 +85,15 @@ void JvmBindingManager::unbind(GodotObject* p_object) {
 
 void JvmBindingManager::unbind_unless_delivered_since(GodotObject* p_object, uint32_t p_deliveries) {
     JvmBinding* binding = find_binding(p_object);
-    if (binding != nullptr && binding->get_deliveries() == p_deliveries) { ::unbind(p_object, binding); }
+    if (unlikely(binding == nullptr)) {
+#ifdef DEBUG_ENABLED
+        JVM_ERR_PRINT(
+            "RefCounted %d lost its JVM binding while a release was pending. Only unbind() or the object's destruction "
+            "may remove it.",
+            raw_godot::RawObject(p_object).get_instance_id()
+        );
+#endif
+        return;
+    }
+    if (binding->get_deliveries() == p_deliveries) { ::unbind(p_object, binding); }
 }

@@ -274,6 +274,7 @@ object MemoryManager {
             releaseBinding(objectID.id)
         }
         ObjectDB.clear()
+        refCountedLinks.clear()
 
         forEachPreviousCandidate { releaseBinding(it) }
         previousReport[CONFIRMED_COUNT_INDEX] = 0
