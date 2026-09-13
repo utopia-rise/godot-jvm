@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Page not found &ndash; {{ config.site_name }}</title>
+    {#-
+      Read the Docs serves this page for any missing URL of any version, including versions whose own build predates
+      this file. It must therefore stand on its own: no stylesheet, script, or image reference, since every asset path
+      baked in at build time points at the version that was built, not at the version being browsed.
+    -#}
+    <style>
+      body { margin: 0; display: flex; min-height: 100vh; align-items: center; justify-content: center;
+             font-family: system-ui, sans-serif; color: #212121; background: #fff; text-align: center; }
+      main { padding: 2rem; }
+      h1 { font-size: 1.5rem; font-weight: 500; }
+      p { color: #616161; }
+      a { color: #673ab7; }
+      @media (prefers-color-scheme: dark) {
+        body { color: #e0e0e0; background: #1e1e26; }
+        p { color: #a0a0a8; }
+        a { color: #b39ddb; }
+      }
+    </style>
+    <script>
+      /* Read the Docs serves every version under /<language>/<version>/; send the reader to that version's home. */
+      var segments = window.location.pathname.split("/").filter(Boolean);
+      if (segments.length > 2 && /^[a-z]{2}(-[a-z]{2})?$/.test(segments[0])) {
+        window.location.replace("/" + segments[0] + "/" + segments[1] + "/");
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <h1>This page does not exist in this version of the documentation.</h1>
+      <p><a href="/">Go to the documentation home</a></p>
+    </main>
+  </body>
+</html>

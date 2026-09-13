@@ -11,6 +11,7 @@ When updating this project's release version, minimum Godot version, or Kotlin v
   - `androidCompileSdk` and `androidBuildTools` if the preferred Android toolchain defaults/examples should move too.
 - `docs/src/doc/index.md`: in the "Versioning" block, update the Kotlin version text, `Version`, and `Minimum Godot Version`.
 - `config.py`: change the module version string to `jvm-x.x.x`.
+- `README.md`: the documentation links point at a specific published doc version (`https://godot-jvm.dev/en/x.y/`). Update them on a major or minor bump only; a patch release keeps the same documentation version, which is published without the patch number.
 
 Also update the GitHub workflow output variables used by CI/release jobs:
 - `.github/workflows/trigger_on_pull_request.yml`

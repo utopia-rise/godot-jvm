@@ -7,7 +7,7 @@
 
 [![GitHub](https://img.shields.io/github/license/utopia-rise/godot-jvm?style=for-the-badge)](LICENSE)
 [![Discord](https://img.shields.io/discord/675058327088136212?style=for-the-badge&label=Discord)](https://discord.gg/zpb5Ru7v9x)
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fgodot-jvm.dev%2Fen%2Fstable%2F&style=for-the-badge&label=Documentation)](https://godot-jvm.dev/en/stable/)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fgodot-jvm.dev%2Fen%2F1.0%2F&style=for-the-badge&label=Documentation)](https://godot-jvm.dev/en/1.0/)
 
 ## Overview
 
@@ -20,7 +20,7 @@ Explore these example projects:
 
 ### Code Distribution
 
-Distribute desktop games as JARs with an embedded JRE, so players do not need to install Java. Alternatively, compile your JVM code into a native library with the [GraalVM native-image workflow](https://godot-jvm.dev/en/stable/build/export/graalvm-native-image/).
+Distribute desktop games as JARs with an embedded JRE, so players do not need to install Java. Alternatively, compile your JVM code into a native library with the [GraalVM native-image workflow](https://godot-jvm.dev/en/1.0/build/export/graalvm-native-image/).
 
 ## Status
 
@@ -32,15 +32,15 @@ Use Godot 4.7.2 or newer and JDK 17 or newer. Download the addon archive from th
 
 ## Documentation
 
-Follow [Start here](https://godot-jvm.dev/en/stable/start/) to set up a project and run your first script. Continue through the guides for everyday development and the reference for detailed rules and settings.
+Follow [Start here](https://godot-jvm.dev/en/1.0/start/) to set up a project and run your first script. Continue through the guides for everyday development and the reference for detailed rules and settings.
 
 ## Community and contributing
 
 Join us on our [Discord](https://discord.gg/zpb5Ru7v9x) server to ask questions and work together
 with a friendly community.
 
-If you want to contribute to the project, please read through the [contribution guidelines](https://godot-jvm.dev/en/stable/contribute/)
-and the [setup](https://godot-jvm.dev/en/stable/contribute/build-from-source/) sections.
+If you want to contribute to the project, please read through the [contribution guidelines](https://godot-jvm.dev/en/1.0/contribute/)
+and the [setup](https://godot-jvm.dev/en/1.0/contribute/build-from-source/) sections.
 
 ## Partners
 
