@@ -45,6 +45,8 @@ void KtFunction::invoke(
     int args_count,
     godot::Variant& r_ret
 ) {
+    if (instance->is_collected(p_env)) { return; }
+
     TransferContext& transferContext = TransferContext::get_instance();
     transferContext.write_args(p_env, p_args, args_count);
     jvalue call_args[1] = {jni::to_jni_arg(instance->get_wrapped())};

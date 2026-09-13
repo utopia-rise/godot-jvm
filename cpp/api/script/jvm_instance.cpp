@@ -423,7 +423,7 @@ void JvmInstance::free(GDExtensionScriptInstanceDataPtr p_instance) {
     KtObject* kt_object = instance_data->kt_object;
 
     jni::Env env = jni::Jvm::current_env();
-    if (instance_data->delete_flag) {
+    if (instance_data->delete_flag && !kt_object->is_collected(env)) {
         kt_object->script_instance_removed(env, JvmBindingManager::bind(instance_data->owner)->get_constructor_id());
     }
     if (instance_data->to_demote_flag.is_set()) { MemoryManager::get_instance().cancel_demotion(instance_data); }
@@ -436,7 +436,11 @@ void JvmInstance::promote_reference(JvmInstance::JvmInstanceData* instance_data)
 
     if (kt_object->is_ref_weak()) {
         jni::Env env = jni::Jvm::current_env();
-        kt_object->swap_to_strong_unsafe(env);
+        if (!kt_object->swap_to_strong_unsafe(env)) {
+            JVM_DEV_VERBOSE(
+                "Godot referenced a RefCounted whose JVM instance is already collected; it stays weak until released."
+            );
+        }
     }
 }
 

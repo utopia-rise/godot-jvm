@@ -158,7 +158,7 @@ const godot::Dictionary KtClass::get_rpc_config() {
 }
 
 void KtClass::do_notification(jni::Env& env, KtObject* p_instance, int p_notification, bool p_reversed) {
-    if (!handled_notifications.has(p_notification)) { return; }
+    if (!handled_notifications.has(p_notification) || p_instance->is_collected(env)) { return; }
 
     godot::Variant notification = p_notification;
     godot::Variant reversed = p_reversed;
