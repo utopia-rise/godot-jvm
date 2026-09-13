@@ -138,10 +138,11 @@ no effect, even after rebuilding.
 
 **Fix:** create a JRE for that target with a matching JDK in `jvm/jre-<amd64|arm64>-<linux|windows|macos>`. A universal macOS export needs both architectures.
 
-### The export reports a missing JVM build
+### The export dialog reports a missing JVM build
 
-**Symptom:** the export prints `JVM build does not exist at res://jvm/release/game.jar` (or the debug pair,
-a native image, a dex JAR or an iOS archive) although the project was built.
+**Symptom:** the export dialog lists `JVM build does not exist at res://jvm/release/game.jar` (or the debug
+pair, a native image, a dex JAR or an iOS archive) as an error and the export completes with errors. A
+headless export prints the same line but still exits successfully, so a CI script has to check the output.
 
 **Explanation:** an export with debug packs `jvm/debug/`, a release export packs `jvm/release/`, and each build
 task writes only its own variant, so the variant matching the export type has to be built first.

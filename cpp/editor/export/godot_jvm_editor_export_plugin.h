@@ -49,6 +49,7 @@ namespace godot {
         bool exporting_debug = true;
 
         int selected_runtime() const;
+        void report_export_error(const String& p_message);
     };
 } // namespace godot
 #endif // GODOT_JVM_EDITOR_EXPORT_PLUGIN_H
