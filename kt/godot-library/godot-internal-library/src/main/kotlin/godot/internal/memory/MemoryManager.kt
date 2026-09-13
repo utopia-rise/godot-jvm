@@ -60,6 +60,14 @@ object MemoryManager {
     /** Base capacity for several binding containers.*/
     private const val BINDING_INITIAL_CAPACITY = 4096
 
+    /**
+     * Layout of a release report: `[confirmed count, candidate count, confirmed ids..., candidate ids...]`.
+     * A candidate is an object whose wrapper just died. It is confirmed at the next sync if it still has no wrapper.
+     */
+    private const val CONFIRMED_COUNT_INDEX = 0
+    private const val CANDIDATE_COUNT_INDEX = 1
+    private const val IDS_START_INDEX = 2
+
     private val lock = ReentrantReadWriteLock()
 
     /** Pointers to Godot objects.*/
@@ -68,8 +76,14 @@ object MemoryManager {
     /** Pointers to Godot objects.*/
     private val refCountedLinks = HashMap<RefCountedBinding, NativeWrapper>(BINDING_INITIAL_CAPACITY)
 
-    /** List of references to decrement.*/
-    private val deadReferences = mutableListOf<RefCountedBinding>()
+    /** Bindings whose wrapper was collected, drained from [Binding.queue] and processed over several syncs. */
+    private val deadBindings = mutableListOf<RefCountedBinding>()
+
+    /** Report written at this sync. Reused, grows on demand. */
+    private var currentReport = LongArray(IDS_START_INDEX)
+
+    /** Report handed to the native side at the previous sync. Its candidates are the ones to confirm now. */
+    private var previousReport = LongArray(IDS_START_INDEX)
 
     /** Pointers to ValuePointer.*/
     private val nativeCoreTypeMap = ConcurrentHashMap<VoidPtr, NativeCoreBinding>(BINDING_INITIAL_CAPACITY)
@@ -134,7 +148,7 @@ object MemoryManager {
     private fun syncMemory(freedObjects: LongArray): LongArray {
         removeNativeCoreTypes()
         removeDeadObjects(freedObjects)
-        return getDeadReferences()
+        return buildReleaseReport()
     }
 
     /**
@@ -148,55 +162,79 @@ object MemoryManager {
     }
 
     /**
-     * Get a LongArray containing a collection of dead references that have to be decremented on the native side.
-     * The GC happening in waves, not everything is processed at once, we process the dead references over several frames when necessary.
+     * A wrapper's death makes its object a release candidate. The native side releases the reference one sync later,
+     * once confirmed here that no new wrapper took it over in the meantime, see MemoryManager::sync_memory.
      */
-    private fun getDeadReferences(): LongArray {
-        // Pool all dead references first, so we can know the amount of work to do.
+    private fun buildReleaseReport(): LongArray {
+        // Drain every wrapper the GC collected since the last sync, so the throttle knows the total amount of work.
         while (true) {
-            val ref = ((Binding.queue.poll() ?: break) as RefCountedBinding)
-            deadReferences.add(ref)
+            deadBindings.add((Binding.queue.poll() ?: break) as RefCountedBinding)
         }
 
-        val numberToDecrement = Configuration.getNumberOfItemsToProcess(deadReferences.size)
-        val sublist = deadReferences.subList(0, numberToDecrement)
+        // Worst case size: every previous candidate confirmed, plus as many new candidates as the throttle allows.
+        val previousCandidateCount = previousReport[CANDIDATE_COUNT_INDEX].toInt()
+        val newCandidateMax = Configuration.getNumberOfItemsToProcess(deadBindings.size)
+        val reportSize = IDS_START_INDEX + previousCandidateCount + newCandidateMax
+        if (currentReport.size < reportSize) {
+            currentReport = LongArray(max(reportSize, currentReport.size * 2))
+        }
+        val report = currentReport
 
-        val deadArray = lock.write {
-            sublist.filter {
-                val objectID = it.objectID
-                val otherRef = ObjectDB[objectID]
+        // Confirmed ids first, candidates right after; the two ObjectDB walks are the only part needing the lock.
+        var confirmedCount = 0
+        var candidateCount = 0
+        lock.write {
+            confirmedCount = writeConfirmedIds(report, IDS_START_INDEX)
+            candidateCount = writeCandidateIds(report, IDS_START_INDEX + confirmedCount, newCandidateMax)
+        }
+        report[CONFIRMED_COUNT_INDEX] = confirmedCount.toLong()
+        report[CANDIDATE_COUNT_INDEX] = candidateCount.toLong()
 
-                /** This part requires caution. We have to make sure it's safe to decrement the counter of this instance.
-                 * Everything is under the assumption that all objects during the execution of the engine have a unique ObjectID, which is an assumption Godot uses as well.
+        // This report becomes the previous one: its candidates are what the next sync confirms.
+        currentReport = previousReport
+        previousReport = report
+        return report
+    }
 
-                Note that the state of the binding in the ObjectDB at this point in time can be several things:
-                - Present with its weak reference still valid.
-                - Present but its weak reference got GCed.
-                - Not present
+    private inline fun forEachPreviousCandidate(action: (Long) -> Unit) {
+        val firstCandidateIndex = IDS_START_INDEX + previousReport[CONFIRMED_COUNT_INDEX].toInt()
+        val candidateCount = previousReport[CANDIDATE_COUNT_INDEX].toInt()
+        for (index in firstCandidateIndex until firstCandidateIndex + candidateCount) {
+            action(previousReport[index])
+        }
+    }
 
-                Here the different interpretations we can have:
-                - If the dead binding is the same (===) as the one in the ObjectDB, it means it hasn't been replaced yet and is safe to decrement.
-                - If the binding is not in the objectDB, it means it has been queued or deleted already, we don't need to queue it again.
-                it can happen if 2 or more wrappers for the same RefCounted are created and GCed between 2 memory syncs.
-                - If the binding in the objectDB is a different one, it means the wrapper has been replaced (the previous one died, but Godot sent to the JVM again), we don't queue it.
-
-                Only the identity test is necessary because that the only case that allows for decrement, all others possibilities don't pass.
-                 **/
-                val decrement = it === otherRef
-                if (decrement) {
-                    ObjectDB.remove(objectID)
-                } else {
-                    // The binding is not in the ObjectDB, it can because it's a Twin of a more recent wrapper. In this case, we remove the link.
-                    refCountedLinks.remove(it)
-                }
-                decrement
+    /** A candidate still without a wrapper is confirmed. One that got a new wrapper handed its reference over to it. */
+    private fun writeConfirmedIds(report: LongArray, firstIndex: Int): Int {
+        var written = 0
+        forEachPreviousCandidate { objectId ->
+            if (ObjectDB[ObjectID(objectId)] == null) {
+                report[firstIndex + written++] = objectId
             }
         }
-            .map { it.objectID.id }
-            .toLongArray()
+        return written
+    }
 
-        sublist.clear()
-        return deadArray
+    /**
+     * The GC happening in waves, not everything is processed at once, we process the dead bindings over several frames when necessary.
+     *
+     * A dead binding becomes a candidate only if it is still the one in the ObjectDB. Another binding there means a new
+     * wrapper took the reference over; none means it was already handled. Both rely on ObjectIDs being unique for the
+     * whole run, as Godot itself does.
+     */
+    private fun writeCandidateIds(report: LongArray, firstIndex: Int, max: Int): Int {
+        val processed = deadBindings.subList(0, max)
+        var written = 0
+        for (binding in processed) {
+            val objectID = binding.objectID
+            if (ObjectDB.remove(objectID, binding)) {
+                report[firstIndex + written++] = objectID.id
+            } else {
+                refCountedLinks.remove(binding)
+            }
+        }
+        processed.clear()
+        return written
     }
 
     /**
@@ -236,6 +274,10 @@ object MemoryManager {
             releaseBinding(objectID.id)
         }
         ObjectDB.clear()
+
+        forEachPreviousCandidate { releaseBinding(it) }
+        previousReport[CONFIRMED_COUNT_INDEX] = 0
+        previousReport[CANDIDATE_COUNT_INDEX] = 0
 
         val size = nativeCoreTypeMap.size
         if (size > 0) {

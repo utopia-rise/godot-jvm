@@ -214,6 +214,7 @@ namespace jni {
         explicit JLongArray(JObject jObject) : JArray(jObject) {};
 
         void get_array_elements(Env& env, jlong* arr, jsize size);
+        void get_array_region(Env& env, jsize start, jlong* arr, jsize size);
         void set_array_elements(Env& env, const jlong* arr, jsize size);
     };
 

@@ -190,6 +190,10 @@ namespace jni {
         env.env->ReleaseIntArrayElements((jintArray) obj, nativeArray, 0);
     }
 
+    void JLongArray::get_array_region(Env& env, const jsize start, jlong* arr, const jsize size) {
+        env.env->GetLongArrayRegion((jlongArray) obj, start, size, arr);
+    }
+
     void JLongArray::get_array_elements(Env& env, jlong* arr, const jsize size) {
         // Convert java array to native array
         jlong* nativeArray = env.env->GetLongArrayElements((jlongArray) obj, nullptr);
