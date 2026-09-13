@@ -10,7 +10,7 @@ import org.gradle.api.tasks.compile.JavaCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 const val GODOT_GAME_IMPLEMENTATION_CONFIGURATION = "godotGameImplementation"
-const val GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION = "godotExternalImplementation"
+const val GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION = "godotSplitImplementation"
 
 /**
  * Set's up all configurations and compilations needed for kotlin_jvm to work and defines proper task dependencies between them.
@@ -28,9 +28,9 @@ const val GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION = "godotExternalImplementa
  */
 fun Project.setupConfigurationsAndCompilations() {
     val godotGameImplementation = configurations.create(GODOT_GAME_IMPLEMENTATION_CONFIGURATION)
-    val godotExternalImplementation = configurations.create(GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION)
+    val godotSplitImplementation = configurations.create(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION)
 
-    addGodotDependencyConfigurationsToSourceSets(godotGameImplementation, godotExternalImplementation)
+    addGodotDependencyConfigurationsToSourceSets(godotGameImplementation, godotSplitImplementation)
 
     afterEvaluate {
         // Add all consumer-project main compilation dependencies in one place, after the user's
@@ -94,17 +94,17 @@ fun Project.setupConfigurationsAndCompilations() {
 
 private fun Project.addGodotDependencyConfigurationsToSourceSets(
     godotGameImplementation: Configuration,
-    godotExternalImplementation: Configuration,
+    godotSplitImplementation: Configuration,
 ) {
     val sourceSets = extensions.getByType(SourceSetContainer::class.java)
     val main = sourceSets.getByName("main")
     configurations.getByName(main.compileClasspathConfigurationName)
-        .extendsFrom(godotGameImplementation, godotExternalImplementation)
+        .extendsFrom(godotGameImplementation, godotSplitImplementation)
 
     sourceSets.findByName("test")?.let { test ->
         configurations.getByName(test.compileClasspathConfigurationName)
-            .extendsFrom(godotGameImplementation, godotExternalImplementation)
+            .extendsFrom(godotGameImplementation, godotSplitImplementation)
         configurations.getByName(test.runtimeClasspathConfigurationName)
-            .extendsFrom(godotGameImplementation, godotExternalImplementation)
+            .extendsFrom(godotGameImplementation, godotSplitImplementation)
     }
 }

@@ -48,7 +48,7 @@ godot {
 dependencies {
     implementation("joda-time:joda-time:2.10.6") // external dependency to test dependency inclusion in mainCompilation
     godotGameImplementation("org.apache.commons:commons-lang3:3.14.0")
-    godotExternalImplementation("commons-io:commons-io:2.15.1")
+    godotSplitImplementation("commons-io:commons-io:2.15.1")
 
     implementation("com.godot.tests:third-party-library")
 

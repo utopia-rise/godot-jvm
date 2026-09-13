@@ -2,7 +2,7 @@ package godot.gradle.tasks
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import godot.gradle.tasks.registrar_generation.requireConfiguredGodotProjectDirectory
-import godot.gradle.projectExt.GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION
+import godot.gradle.projectExt.GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION
 import godot.gradle.projectExt.variantDirectoryName
 import godot.tools.common.constants.ArtifactNames
 import godot.tools.common.constants.Paths
@@ -53,7 +53,7 @@ fun Project.createCopyDesktopJarsTask(
     ) {
         from(gameJarTasks)
         from(
-            configurations.getByName(GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION).filter { it.extension == "jar" },
+            configurations.getByName(GODOT_SPLIT_IMPLEMENTATION_CONFIGURATION).filter { it.extension == "jar" },
             Action<CopySpec> { it.into(Paths.DEPENDENCIES_DIR) },
         )
     }

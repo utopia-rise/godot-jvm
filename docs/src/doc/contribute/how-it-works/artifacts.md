@@ -49,18 +49,18 @@ dependencies {
 }
 ```
 
-Use `godotExternalImplementation` when a dependency must remain an intact JAR, such as a signed
+Use `godotSplitImplementation` when a dependency must remain an intact JAR, such as a signed
 JAR. The plugin copies its resolved JARs to `res://jvm/<variant>/dependencies/` and adds them to the
 class path of `usercode.jar` or `game.jar`:
 
 ```kotlin
 dependencies {
-    godotExternalImplementation("org.bouncycastle:bcprov-jdk18on:1.79")
+    godotSplitImplementation("org.bouncycastle:bcprov-jdk18on:1.79")
 }
 ```
 
 Do not declare the same dependency in more than one of `implementation`, `godotGameImplementation`,
-or `godotExternalImplementation`.
+or `godotSplitImplementation`.
 
 ## game (native image)
 
@@ -72,4 +72,4 @@ Native-image mode uses it in place of the JARs. Select it through runtime config
 
 The JVM requires filesystem paths for loading JARs and cannot load them directly from the PCK. At startup the binding extracts the packed JARs to `user://jvm/<variant>/`, comparing MD5 hashes to avoid unnecessary copies on desktop. Android recopies its runtime artifacts on each launch. Desktop native images are likewise extracted as shared libraries before loading.
 
-Separate JARs from `godotExternalImplementation` are also copied from `res://jvm/<variant>/dependencies/` to `user://jvm/<variant>/dependencies/`, where the class path in the JAR manifest expects them. Native images and Android builds do not ship them: the native image compiles them in and the dex jar dexes them.
+Separate JARs from `godotSplitImplementation` are also copied from `res://jvm/<variant>/dependencies/` to `user://jvm/<variant>/dependencies/`, where the class path in the JAR manifest expects them. Native images and Android builds do not ship them: the native image compiles them in and the dex jar dexes them.

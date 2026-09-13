@@ -56,4 +56,4 @@ Next: [Export your game](export/index.md).
 
 ## Dependency placement
 
-Use `implementation` for dependencies bundled into `godot-bootstrap.jar`, `godotGameImplementation` for dependencies merged into the reloadable `usercode.jar`, and `godotExternalImplementation` for intact JARs copied to `jvm/<variant>/dependencies/`. Declare a dependency in only one of these configurations. See [packaging options](../reference/gradle-plugin/packaging-and-tasks.md#godotgameimplementation-and-godotexternalimplementation-dependencies) for examples.
+Use `implementation` for dependencies bundled into `godot-bootstrap.jar`, `godotGameImplementation` for dependencies merged into the reloadable `usercode.jar`, and `godotSplitImplementation` for intact JARs copied to `jvm/<variant>/dependencies/`. Declare a dependency in only one of these configurations. See [packaging options](../reference/gradle-plugin/packaging-and-tasks.md#godotgameimplementation-and-godotsplitimplementation-dependencies) for examples.

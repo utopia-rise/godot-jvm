@@ -14,7 +14,7 @@ object ArtifactNames {
         /** Android: [BOOTSTRAP_JAR] dexed. */
         const val BOOTSTRAP_DEX_JAR = "godot-bootstrap-dex.jar"
 
-        /** Android: [USER_CODE_JAR] and the `godotExternalImplementation` dependencies dexed. */
+        /** Android: [USER_CODE_JAR] and the `godotSplitImplementation` dependencies dexed. */
         const val USER_CODE_DEX_JAR = "usercode-dex.jar"
     }
 
@@ -22,7 +22,7 @@ object ArtifactNames {
         /** [Debug.BOOTSTRAP_JAR] and [Debug.USER_CODE_JAR] merged into one archive. */
         const val JAR = "game.jar"
 
-        /** Android: [JAR] and the `godotExternalImplementation` dependencies dexed. */
+        /** Android: [JAR] and the `godotSplitImplementation` dependencies dexed. */
         const val DEX_JAR = "game-dex.jar"
     }
 

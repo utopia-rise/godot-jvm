@@ -74,7 +74,7 @@ godot {
 }
 ```
 
-### `godotGameImplementation` and `godotExternalImplementation` dependencies
+### `godotGameImplementation` and `godotSplitImplementation` dependencies
 
 Dependencies declared with `implementation` are merged into `godot-bootstrap.jar`. Two additional
 dependency configurations control different packaging requirements:
@@ -82,13 +82,13 @@ dependency configurations control different packaging requirements:
 ```kotlin
 dependencies {
     godotGameImplementation("org.eclipse.serializer:serializer:4.0.1")
-    godotExternalImplementation("org.bouncycastle:bcprov-jdk18on:1.79")
+    godotSplitImplementation("org.bouncycastle:bcprov-jdk18on:1.79")
 }
 ```
 
 - `godotGameImplementation` merges the dependency into `usercode.jar` (into `game.jar` in release
   builds). Use it when the library must load user-code classes or be recreated with editor reloads.
-- `godotExternalImplementation` preserves the dependency as a separate JAR in
+- `godotSplitImplementation` preserves the dependency as a separate JAR in
   `res://jvm/<variant>/dependencies/`. Use it for signed JARs or libraries that cannot be merged safely.
   Only desktop JVM runs keep the JAR intact: native images compile it into `game` and Android dexes
   it into the dex JAR, because neither runtime can load a JAR.
