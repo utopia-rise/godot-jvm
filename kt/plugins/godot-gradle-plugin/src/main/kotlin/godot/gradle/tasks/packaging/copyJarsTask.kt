@@ -54,7 +54,7 @@ fun Project.createCopyDesktopJarsTask(
         from(gameJarTasks)
         from(
             configurations.getByName(GODOT_EXTERNAL_IMPLEMENTATION_CONFIGURATION).filter { it.extension == "jar" },
-            Action<CopySpec> { it.into(Paths.EXTERNAL_JARS_DIR) },
+            Action<CopySpec> { it.into(Paths.DEPENDENCIES_DIR) },
         )
     }
 }

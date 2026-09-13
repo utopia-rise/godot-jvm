@@ -12,8 +12,8 @@ Debug and release artifacts live in separate directories so that neither can be 
 <godot project>/jvm/
   jre-<arch>-<os>/            embedded JRE, shared by both variants
   ios/ios-jdk/                iOS JDK static libraries, shared by both variants
-  debug/                      godot-bootstrap.jar, usercode.jar, godot-bootstrap-dex.jar, usercode-dex.jar, game.<so|dll|dylib|a>, external/
-  release/                    game.<jar|so|dll|dylib|a>, game-dex.jar, external/
+  debug/                      godot-bootstrap.jar, usercode.jar, godot-bootstrap-dex.jar, usercode-dex.jar, game.<so|dll|dylib|a>, dependencies/
+  release/                    game.<jar|so|dll|dylib|a>, game-dex.jar, dependencies/
 ```
 
 `build`, `fastBuild`, `buildAndroid`, `buildGraalNativeImage` and `buildIOS` write `jvm/debug/`; their `Release` counterparts write `jvm/release/`. The Gradle build mirrors the split under `build/libs/debug/` and `build/libs/release/`.
@@ -50,7 +50,7 @@ dependencies {
 ```
 
 Use `godotExternalImplementation` when a dependency must remain an intact JAR, such as a signed
-JAR. The plugin copies its resolved JARs to `res://jvm/<variant>/external/` and adds them to the
+JAR. The plugin copies its resolved JARs to `res://jvm/<variant>/dependencies/` and adds them to the
 class path of `usercode.jar` or `game.jar`:
 
 ```kotlin
@@ -72,4 +72,4 @@ Native-image mode uses it in place of the JARs. Select it through runtime config
 
 The JVM requires filesystem paths for loading JARs and cannot load them directly from the PCK. At startup the binding extracts the packed JARs to `user://jvm/<variant>/`, comparing MD5 hashes to avoid unnecessary copies on desktop. Android recopies its runtime artifacts on each launch. Desktop native images are likewise extracted as shared libraries before loading.
 
-Separate JARs from `godotExternalImplementation` are also copied from `res://jvm/<variant>/external/` to `user://jvm/<variant>/external/`, where the class path in the JAR manifest expects them. Native images and Android builds do not ship them: the native image compiles them in and the dex jar dexes them.
+Separate JARs from `godotExternalImplementation` are also copied from `res://jvm/<variant>/dependencies/` to `user://jvm/<variant>/dependencies/`, where the class path in the JAR manifest expects them. Native images and Android builds do not ship them: the native image compiles them in and the dex jar dexes them.

@@ -316,13 +316,13 @@ String GodotJvm::copy_new_file_to_user_dir(const String& file_name) {
     return file_user_path;
 }
 
-void GodotJvm::copy_external_jars_to_user_dir() {
-    String source_directory = String(RES_DIRECTORY) + EXTERNAL_JARS_DIRECTORY;
+void GodotJvm::copy_dependency_jars_to_user_dir() {
+    String source_directory = String(RES_DIRECTORY) + DEPENDENCIES_DIRECTORY;
     Ref<DirAccess> source = DirAccess::open(source_directory);
     if (source.is_null()) { return; }
 
     Ref<DirAccess> destination = DirAccess::open(USER_DIRECTORY);
-    destination->make_dir_recursive(EXTERNAL_JARS_DIRECTORY);
+    destination->make_dir_recursive(DEPENDENCIES_DIRECTORY);
 
     if (source->list_dir_begin() != OK) { return; }
     for (String entry = source->get_next(); !entry.is_empty(); entry = source->get_next()) {
@@ -330,7 +330,7 @@ void GodotJvm::copy_external_jars_to_user_dir() {
 
         // The user code manifest lists these jars relative to its own location, so they must sit next to it in user://.
         String source_file = source_directory.path_join(entry);
-        String destination_file = String(USER_DIRECTORY) + EXTERNAL_JARS_DIRECTORY + entry;
+        String destination_file = String(USER_DIRECTORY) + DEPENDENCIES_DIRECTORY + entry;
         if (!FileAccess::file_exists(destination_file)
             || FileAccess::get_md5(destination_file) != FileAccess::get_md5(source_file)) {
             destination->copy(source_file, destination_file);
@@ -351,8 +351,8 @@ bool GodotJvm::load_bootstrap() {
         constexpr const char* hint_text = "Make sure to build your gradle project before running the game.";
 #else
 #ifndef DEBUG_ENABLED
-        // The merged archive lists the external jars in its manifest class path, so they have to be in place first.
-        copy_external_jars_to_user_dir();
+        // The merged archive lists the dependency jars in its manifest class path, so they have to be in place first.
+        copy_dependency_jars_to_user_dir();
 #endif
         String bootstrap_jar = ProjectSettings::get_singleton()->globalize_path(
             copy_new_file_to_user_dir(BOOTSTRAP_FILE)
@@ -440,7 +440,7 @@ bool GodotJvm::load_user_code() {
         String user_code_path = String(RES_DIRECTORY).path_join(USER_CODE_FILE);
 #else
         String user_code_path = copy_new_file_to_user_dir(USER_CODE_FILE);
-        copy_external_jars_to_user_dir();
+        copy_dependency_jars_to_user_dir();
 #endif
 
         if (!FileAccess::file_exists(user_code_path)) {

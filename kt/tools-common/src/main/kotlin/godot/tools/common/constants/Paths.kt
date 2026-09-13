@@ -14,7 +14,7 @@ object Paths {
     const val RELEASE_VARIANT_DIR = "release"
 
     /** Under a variant directory: the `godotExternalImplementation` dependencies as intact jars, listed in the jar manifest class path. */
-    const val EXTERNAL_JARS_DIR = "external"
+    const val DEPENDENCIES_DIR = "dependencies"
 
     /** Under [GODOT_JVM_DIR]: the iOS files shared by both variants. */
     const val IOS_DIR = "ios"

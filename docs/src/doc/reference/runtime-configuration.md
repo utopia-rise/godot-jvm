@@ -173,7 +173,7 @@ from `res://jvm/release/`, and never both:
 - `jvm/debug/godot-bootstrap.jar` and `jvm/debug/usercode.jar`, or `jvm/release/game.jar` (on Android
   `godot-bootstrap-dex.jar` and `usercode-dex.jar`, or `game-dex.jar`)
 - `jvm/<variant>/game.so`, `game.dll`, or `game.dylib` for native-image exports
-- `jvm/<variant>/external/` with the intact JARs declared through `godotExternalImplementation`
+- `jvm/<variant>/dependencies/` with the intact JARs declared through `godotExternalImplementation`
 
 A `template_debug` binary loads the debug variant and a `template_release` binary the release variant, so an
 export always finds the variant it packed. The embedded JRE is not packed; the export places it next to the

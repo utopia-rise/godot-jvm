@@ -169,8 +169,8 @@ static PackedStringArray android_jars(const bool p_debug) {
     return {String(RES_DIRECTORY) + ANDROID_RELEASE_USER_CODE_FILE};
 }
 
-static String external_jars_directory(const bool p_debug) {
-    return String(RES_DIRECTORY) + (p_debug ? DEBUG_EXTERNAL_JARS_DIRECTORY : RELEASE_EXTERNAL_JARS_DIRECTORY);
+static String dependencies_directory(const bool p_debug) {
+    return String(RES_DIRECTORY) + (p_debug ? DEBUG_DEPENDENCIES_DIRECTORY : RELEASE_DEPENDENCIES_DIRECTORY);
 }
 
 static String ios_archive(const bool p_debug) {
@@ -561,11 +561,11 @@ void GodotJvmEditorExportPlugin::_export_file(
     if (!excluded && p_path.begins_with(String(RES_DIRECTORY) + JVM_DIRECTORY)) {
         // res://jvm/ holds the artifacts of every platform and variant: desktop and Android jars, native images
         // and embedded JREs. JVM exports need the runtime jars of the exported variant and, on desktop, its intact
-        // external dependencies; the native image is added explicitly by _export_begin and everything else must
+        // dependency jars; the native image is added explicitly by _export_begin and everything else must
         // stay out.
         PackedStringArray jars = android ? android_jars(exporting_debug) : desktop_jars(exporting_debug);
-        const bool external_jar = !android && p_path.begins_with(external_jars_directory(exporting_debug));
-        excluded = p_features.has("ios") || !exporting_jvm_runtime || (!external_jar && !jars.has(p_path));
+        const bool dependency_jar = !android && p_path.begins_with(dependencies_directory(exporting_debug));
+        excluded = p_features.has("ios") || !exporting_jvm_runtime || (!dependency_jar && !jars.has(p_path));
     }
     if (excluded) {
         skip();

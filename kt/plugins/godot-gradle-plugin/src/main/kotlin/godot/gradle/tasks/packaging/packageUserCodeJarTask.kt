@@ -40,7 +40,7 @@ fun Project.packageUserCodeJarTask(
                 godotExternalImplementation.files
                     .filter { it.extension == "jar" }
                     .sortedBy { it.name }
-                    .joinToString(" ") { "${Paths.EXTERNAL_JARS_DIR}/${it.name}" }
+                    .joinToString(" ") { "${Paths.DEPENDENCIES_DIR}/${it.name}" }
             }
 
             dependsOn(userClassesTask)

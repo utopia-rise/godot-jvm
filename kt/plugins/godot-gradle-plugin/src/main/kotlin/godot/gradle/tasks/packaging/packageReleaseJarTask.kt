@@ -46,7 +46,7 @@ fun Project.packageReleaseJarTask(
                 godotExternalImplementation.files
                     .filter { file -> file.extension == "jar" }
                     .sortedBy { file -> file.name }
-                    .joinToString(" ") { file -> "${Paths.EXTERNAL_JARS_DIR}/${file.name}" }
+                    .joinToString(" ") { file -> "${Paths.DEPENDENCIES_DIR}/${file.name}" }
             }
 
             mergeServiceFiles()

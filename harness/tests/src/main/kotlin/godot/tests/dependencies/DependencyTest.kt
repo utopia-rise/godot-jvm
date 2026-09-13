@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets
 
 // Exercises one dependency of each Gradle configuration: implementation ends up in godot-bootstrap.jar,
 // godotGameImplementation is shaded into usercode.jar and godotExternalImplementation stays an intact jar
-// under jvm/<variant>/external/ that the manifest references.
+// under jvm/<variant>/dependencies/ that the manifest references.
 @Script
 class DependencyTest : Node() {
     @Register
