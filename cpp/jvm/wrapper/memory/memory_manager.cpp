@@ -156,12 +156,32 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
         release_candidates.erase(id);
 
         godot::GodotObject* ref = raw_godot::RawObject::from_instance_id(id);
-        if (ref != nullptr) { ::godot::JvmBindingManager::unbind_unless_delivered_since(ref, deliveries); }
+        if (likely(ref != nullptr)) {
+            ::godot::JvmBindingManager::unbind_unless_delivered_since(ref, deliveries);
+        } else {
+#ifdef DEBUG_ENABLED
+            JVM_ERR_PRINT(
+                "RefCounted %d was destroyed while the JVM still held a reference to it. Something released it without "
+                "going through the binding.",
+                static_cast<uint64_t>(id)
+            );
+#endif
+        }
     }
     for (uint32_t i = candidates_start; i < report_size; ++i) {
         godot::ObjectID id(ids[i]);
         godot::GodotObject* ref = raw_godot::RawObject::from_instance_id(id);
-        if (ref != nullptr) { release_candidates.insert(id, ::godot::JvmBindingManager::get_deliveries(ref)); }
+        if (likely(ref != nullptr)) {
+            release_candidates.insert(id, ::godot::JvmBindingManager::get_deliveries(ref));
+        } else {
+#ifdef DEBUG_ENABLED
+            JVM_ERR_PRINT(
+                "RefCounted %d died before its JVM wrapper's death was processed; the JVM's reference should have kept "
+                "it alive.",
+                static_cast<uint64_t>(id)
+            );
+#endif
+        }
     }
 
     ids.clear();
