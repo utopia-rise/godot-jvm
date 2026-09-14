@@ -13,6 +13,7 @@
 #include "logging.h"
 
 #include <core/object.hpp>
+#include <utility>
 
 using namespace godot;
 
@@ -41,9 +42,9 @@ raw_godot::RawObject JvmScript::_object_create() const {
     JvmBindingManager::bind_created(owner);
     jni::Env env = jni::Jvm::current_env();
     jni::JObject instance = kotlin_class->construct(env, owner);
-    KtObject* kt_object = owner.is_ref_counted() ? KtObject::create_strong_ref(env, instance)
-                                                 : KtObject::create_object(env, instance);
-    owner.set_script_instance(JvmInstance::create_script_instance(owner, kt_object, this));
+    KtObject kt_object = owner.is_ref_counted() ? KtObject::create_strong_ref(env, instance)
+                                                : KtObject::create_object(env, instance);
+    owner.set_script_instance(JvmInstance::create_script_instance(owner, std::move(kt_object), this));
     return owner;
 }
 
@@ -106,15 +107,10 @@ void* JvmScript::_instance_create(GodotObject* p_for_object) const {
     jni::JObject instance = kotlin_class->construct(env, p_for_object);
     // The binding above took the JVM's reference, so a count of exactly 1 means the JVM alone owns this RefCounted and
     // its instance must be collectable from the start.
-    KtObject* kt_object;
-    if (!owner.is_ref_counted()) {
-        kt_object = KtObject::create_object(env, instance);
-    } else if (owner.get_reference_count() == 1) {
-        kt_object = KtObject::create_weak_ref(env, instance);
-    } else {
-        kt_object = KtObject::create_strong_ref(env, instance);
-    }
-    return JvmInstance::create_script_instance(p_for_object, kt_object, this);
+    KtObject kt_object = !owner.is_ref_counted()          ? KtObject::create_object(env, instance)
+                       : owner.get_reference_count() == 1 ? KtObject::create_weak_ref(env, instance)
+                                                          : KtObject::create_strong_ref(env, instance);
+    return JvmInstance::create_script_instance(p_for_object, std::move(kt_object), this);
 }
 
 bool JvmScript::_instance_has(Object* p_object) const {
