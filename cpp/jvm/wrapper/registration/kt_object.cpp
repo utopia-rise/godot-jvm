@@ -12,20 +12,27 @@
 #include <core/object.hpp>
 #include <variant/string_name.hpp>
 
-KtObject::KtObject(jni::JObject p_global_ref, bool p_is_weak, bool p_is_ref) :
-    JvmInstanceWrapper(p_global_ref, p_is_weak),
-    is_ref(p_is_ref) {}
+KtObject::KtObject(jni::JObject p_global_ref) : JvmInstanceWrapper(p_global_ref) {}
 
-KtObject* KtObject::create_strong(jni::Env& p_env, jni::JObject p_local_ref, bool p_is_ref) {
+KtObject::KtObject(jni::JObject p_weak_ref, jni::JObject p_pin) : JvmInstanceWrapper(p_weak_ref, p_pin) {}
+
+KtObject* KtObject::create_object(jni::Env& p_env, jni::JObject p_local_ref) {
     jni::JObject global_ref = p_local_ref.new_global_ref<jni::JObject>(p_env);
     p_local_ref.delete_local_ref(p_env);
-    return memnew(KtObject(global_ref, false, p_is_ref));
+    return memnew(KtObject(global_ref));
 }
 
-KtObject* KtObject::create_weak(jni::Env& p_env, jni::JObject p_local_ref) {
+KtObject* KtObject::create_strong_ref(jni::Env& p_env, jni::JObject p_local_ref) {
+    jni::JObject weak_ref = p_local_ref.new_weak_ref<jni::JObject>(p_env);
+    jni::JObject pin = p_local_ref.new_global_ref<jni::JObject>(p_env);
+    p_local_ref.delete_local_ref(p_env);
+    return memnew(KtObject(weak_ref, pin));
+}
+
+KtObject* KtObject::create_weak_ref(jni::Env& p_env, jni::JObject p_local_ref) {
     jni::JObject weak_ref = p_local_ref.new_weak_ref<jni::JObject>(p_env);
     p_local_ref.delete_local_ref(p_env);
-    return memnew(KtObject(weak_ref, true, true));
+    return memnew(KtObject(weak_ref, jni::JObject()));
 }
 
 void KtObject::script_instance_removed(jni::Env& p_env, uint32_t constructor_index) {
@@ -54,8 +61,8 @@ void KtObject::create_native_object(JNIEnv* p_raw_env, jobject p_instance, jint 
     bool is_rc = binding->get_object_id().is_ref_counted();
 
     if (auto* kotlin_script = bridges::from_uint_to_ptr<godot::JvmScript>(p_script_ptr)) {
-        KtObject* kt_object = is_rc ? KtObject::create_weak(env, jni::JObject(p_instance))
-                                    : KtObject::create_strong(env, jni::JObject(p_instance), false);
+        KtObject* kt_object = is_rc ? KtObject::create_weak_ref(env, jni::JObject(p_instance))
+                                    : KtObject::create_object(env, jni::JObject(p_instance));
         raw_godot::RawObject(raw_ptr_value)
             .set_script_instance(godot::JvmInstance::create_script_instance(raw_ptr_value, kt_object, kotlin_script));
     }
@@ -106,7 +113,10 @@ void KtObject::free_object(JNIEnv*, jobject, jlong p_raw_ptr) {
 }
 
 KtObject::~KtObject() {
-    if (is_ref) { return; }
+    // Only a RefCounted is given a weak reference, and the JVM does not announce the destruction of one: Godot owns
+    // that lifetime and the instance may already be collected.
+    if (wrapped_is_weak) { return; }
+
     jni::Env env = jni::Jvm::current_env();
     wrapped.call_void_method(env, ON_DESTROY);
 }
