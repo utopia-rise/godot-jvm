@@ -9,6 +9,7 @@
 #include "logging.h"
 
 #include <atomic>
+#include <utility>
 
 using namespace godot;
 
@@ -19,7 +20,7 @@ GDExtensionBool JvmInstance::set(
 ) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
 
     jni::LocalFrame localFrame(1000);
     jni::Env env = jni::Jvm::current_env();
@@ -49,7 +50,7 @@ GDExtensionBool JvmInstance::get(
 ) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
     GodotObject* owner = instance_data->owner;
     const StringName& parameter_name = *reinterpret_cast<const StringName*>(p_name);
     Variant& r_return = *reinterpret_cast<Variant*>(r_ret);
@@ -86,7 +87,7 @@ const GDExtensionPropertyInfo* JvmInstance::get_property_list(
 ) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
 
     // The property-list bridge owns this freshly allocated list and frees it later.
     List<PropertyInfo>* properties = memnew(List<PropertyInfo>);
@@ -126,7 +127,7 @@ GDExtensionBool JvmInstance::property_can_revert(
 ) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
     const StringName& property_name = *reinterpret_cast<const StringName*>(p_name);
 
     jni::Env env = jni::Jvm::current_env();
@@ -150,7 +151,7 @@ GDExtensionBool JvmInstance::property_get_revert(
 ) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
     Variant& r_return = *reinterpret_cast<Variant*>(r_ret);
 
     jni::Env env = jni::Jvm::current_env();
@@ -235,7 +236,7 @@ GDExtensionBool JvmInstance::validate_property(
 ) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
 
     jni::Env env = jni::Jvm::current_env();
 
@@ -296,7 +297,7 @@ void JvmInstance::call(
 ) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
 
     jni::Env env = jni::Jvm::current_env();
 
@@ -322,7 +323,7 @@ void JvmInstance::notification(
     if (p_what == Object::NOTIFICATION_PREDELETE) { instance_data->delete_flag = false; }
 
     jni::Env env = jni::Jvm::current_env();
-    kt_class->do_notification(env, instance_data->kt_object, p_what, p_reversed);
+    kt_class->do_notification(env, &instance_data->kt_object, p_what, p_reversed);
 }
 
 void JvmInstance::to_string(
@@ -332,7 +333,7 @@ void JvmInstance::to_string(
 ) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
 
     jni::Env env = jni::Jvm::current_env();
 
@@ -349,7 +350,7 @@ void JvmInstance::to_string(
 
 void JvmInstance::refcount_incremented(GDExtensionScriptInstanceDataPtr p_instance) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
 
     // This function should only ever be called for a RefCounted, so the count can be read straight off the raw pointer.
     int refcount = raw_godot::RawObject(instance_data->owner).get_reference_count();
@@ -418,19 +419,18 @@ GDExtensionScriptLanguagePtr JvmInstance::get_language(GDExtensionScriptInstance
 
 void JvmInstance::free(GDExtensionScriptInstanceDataPtr p_instance) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
 
     jni::Env env = jni::Jvm::current_env();
     if (instance_data->delete_flag && !kt_object->is_collected(env)) {
         kt_object->script_instance_removed(env, JvmBindingManager::bind(instance_data->owner)->get_constructor_id());
     }
     if (instance_data->to_demote_flag.is_set()) { MemoryManager::get_instance().cancel_demotion(instance_data); }
-    memdelete(kt_object);
     memdelete(instance_data);
 }
 
 void JvmInstance::promote_reference(JvmInstance::JvmInstanceData* instance_data) {
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
 
     if (kt_object->is_ref_weak()) {
         jni::Env env = jni::Jvm::current_env();
@@ -453,7 +453,7 @@ bool JvmInstance::demote_reference(JvmInstance::JvmInstanceData* instance_data) 
     instance_data->demotion_deferred.set_to(false);
 
     raw_godot::RawObject owner(instance_data->owner);
-    KtObject* kt_object = instance_data->kt_object;
+    KtObject* kt_object = &instance_data->kt_object;
 
     if (owner.get_reference_count() == 1 && !kt_object->is_ref_weak()) {
         jni::Env env = jni::Jvm::current_env();
@@ -467,20 +467,18 @@ bool JvmInstance::demote_reference(JvmInstance::JvmInstanceData* instance_data) 
     return true;
 }
 
+JvmInstance::JvmInstanceData::JvmInstanceData(GodotObject* p_owner, KtObject&& p_kt_object, const JvmScript* p_script) :
+    owner(p_owner),
+    kt_object(std::move(p_kt_object)),
+    kt_class(p_script->kotlin_class),
+    script(p_script) {}
+
 GDExtensionScriptInstancePtr JvmInstance::create_script_instance(
     GodotObject* p_owner,
-    KtObject* p_kt_object,
+    KtObject&& p_kt_object,
     const JvmScript* p_script
 ) {
-    JvmInstanceData* instance_data = memnew(JvmInstanceData);
-    instance_data->owner = p_owner;
-    instance_data->kt_object = p_kt_object;
-    instance_data->kt_class = p_script->kotlin_class;
-    instance_data->script = Ref<JvmScript>(p_script);
-    instance_data->to_demote_flag.set_to(false);
-    instance_data->demotion_deferred.set_to(false);
-    instance_data->delete_flag = true;
-
+    JvmInstanceData* instance_data = memnew(JvmInstanceData(p_owner, std::move(p_kt_object), p_script));
     return raw_godot::RawObject::create_script_instance(&jvm_script_instance_info, instance_data);
 }
 
@@ -495,7 +493,7 @@ bool JvmInstance::get_or_default(
 
     KtProperty* ktProperty = instance_data->kt_class->get_property(p_name);
     if (ktProperty) {
-        ktProperty->call_get(env, instance_data->kt_object, r_ret);
+        ktProperty->call_get(env, &instance_data->kt_object, r_ret);
         return true;
     } else {
         return false;

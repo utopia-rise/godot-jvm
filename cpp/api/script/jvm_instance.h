@@ -11,17 +11,19 @@ namespace godot {
     public:
         struct JvmInstanceData {
             GodotObject* owner;
-            KtObject* kt_object;
+            KtObject kt_object;
             KtClass* kt_class;
             Ref<JvmScript> script;
             SafeFlag to_demote_flag;
             SafeFlag demotion_deferred;
-            bool delete_flag;
+            bool delete_flag = true;
+
+            JvmInstanceData(GodotObject* p_owner, KtObject&& p_kt_object, const JvmScript* p_script);
         };
 
-        // One of these is allocated per scripted object, alongside a KtObject and a JvmBinding: four pointers plus
-        // the three flags, which fit in the tail padding. Keep it that way.
-        static_assert(sizeof(JvmInstanceData) == 5 * sizeof(void*));
+        // One of these is allocated per scripted object, alongside a JvmBinding: the owner, the JVM reference, the
+        // class, the script, and the three flags in the tail padding. It fits in a cache line; keep it that way.
+        static_assert(sizeof(JvmInstanceData) == 7 * sizeof(void*));
 
     private:
         static GDExtensionBool set(
@@ -159,7 +161,7 @@ namespace godot {
 
         static GDExtensionScriptInstancePtr create_script_instance(
             GodotObject* p_owner,
-            KtObject* p_kt_object,
+            KtObject&& p_kt_object,
             const JvmScript* p_script
         );
 

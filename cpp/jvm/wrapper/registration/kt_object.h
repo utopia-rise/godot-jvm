@@ -24,12 +24,14 @@ private:
     KtObject(jni::JObject p_weak_ref, jni::JObject p_pin);
 
 public:
+    KtObject(KtObject && p_other) noexcept = default;
+
     // A plain Object: one strong global reference, never promoted or demoted.
-    static KtObject* create_object(jni::Env & p_env, jni::JObject p_local_ref);
+    static KtObject create_object(jni::Env & p_env, jni::JObject p_local_ref);
     // A RefCounted something other than the JVM owns too: the permanent weak reference plus the pin that holds it.
-    static KtObject* create_strong_ref(jni::Env & p_env, jni::JObject p_local_ref);
+    static KtObject create_strong_ref(jni::Env & p_env, jni::JObject p_local_ref);
     // A RefCounted the JVM alone owns: the permanent weak reference, collectable from the start.
-    static KtObject* create_weak_ref(jni::Env & p_env, jni::JObject p_local_ref);
+    static KtObject create_weak_ref(jni::Env & p_env, jni::JObject p_local_ref);
     ~KtObject();
 
     void script_instance_removed(jni::Env & p_env, uint32_t constructor_index);
@@ -38,8 +40,8 @@ public:
     static void free_object(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
 };
 
-// One KtObject is allocated per scripted object, alongside a JvmInstanceData and a JvmBinding: the permanent
-// reference, the pin, and the flag telling them apart. Keep it padding-free.
+// One KtObject lives inside every JvmInstanceData: the permanent reference, the pin, and the flag telling them
+// apart. Keep it padding-free.
 static_assert(sizeof(KtObject) == 3 * sizeof(void*));
 
 #endif // GODOT_JVM_KT_OBJECT_H

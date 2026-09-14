@@ -80,6 +80,9 @@ protected:
     explicit JvmInstanceWrapper(jni::Env& p_env, jni::JObject p_wrapped);
     explicit JvmInstanceWrapper(jni::JObject p_global_ref);
     JvmInstanceWrapper(jni::JObject p_weak_ref, jni::JObject p_pin);
+    // Empties the source, so a wrapper can be returned from a factory and settled into whatever owns it. The atomic
+    // pin suppresses the implicit move and copying altogether, which is why this one is written out.
+    JvmInstanceWrapper(JvmInstanceWrapper&& p_other) noexcept;
     ~JvmInstanceWrapper();
 
 public:
@@ -116,6 +119,14 @@ JvmInstanceWrapper<Derived, FqName>::JvmInstanceWrapper(jni::JObject p_weak_ref,
     pin(p_pin.obj) {}
 
 template<class Derived, const char* FqName>
+JvmInstanceWrapper<Derived, FqName>::JvmInstanceWrapper(JvmInstanceWrapper&& p_other) noexcept :
+    wrapped(p_other.wrapped),
+    wrapped_is_weak(p_other.wrapped_is_weak),
+    pin(p_other.pin.exchange(nullptr)) {
+    p_other.wrapped = jni::JObject();
+}
+
+template<class Derived, const char* FqName>
 bool JvmInstanceWrapper<Derived, FqName>::initialize(jni::Env& p_env, ClassLoader* class_loader) {
     Derived::initialize_jni_binding(p_env, class_loader);
     return true;
@@ -141,6 +152,9 @@ void JvmInstanceWrapper<Derived, FqName>::finalize(jni::Env& p_env, ClassLoader*
 
 template<class Derived, const char* FqName>
 JvmInstanceWrapper<Derived, FqName>::~JvmInstanceWrapper() {
+    // Empty once moved from, and when the reference could not be created in the first place.
+    if (wrapped.is_null()) { return; }
+
     jni::Env env = jni::Jvm::current_env();
 
     // The pin is released last so the instance is still strongly reachable while its weak reference is deleted.
