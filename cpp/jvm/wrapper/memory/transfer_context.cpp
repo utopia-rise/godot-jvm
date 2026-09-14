@@ -47,7 +47,7 @@ void TransferContext::read_return_value(jni::Env& p_env, godot::Variant& r_ret) 
 
 void TransferContext::write_args(jni::Env& p_env, const godot::Variant** p_args, int args_size) {
     SharedBuffer* buffer = get_and_rewind_buffer(p_env);
-    buffer->increment_position(encode_uint32(args_size, buffer->get_cursor()));
+    buffer->increment_position(godot::encode_uint32(args_size, buffer->get_cursor()));
     for (auto i = 0; i < args_size; ++i) {
         VariantToBuffer::write_variant(*p_args[i], buffer);
     }
@@ -68,8 +68,8 @@ void TransferContext::write_return_value(jni::Env& p_env, godot::Variant& varian
 
 void TransferContext::write_object_data(jni::Env& p_env, uintptr_t ptr, godot::ObjectID id) {
     SharedBuffer* buffer = get_and_rewind_buffer(p_env);
-    buffer->increment_position(encode_uint64(ptr, buffer->get_cursor()));
-    buffer->increment_position(encode_uint64(id, buffer->get_cursor()));
+    buffer->increment_position(godot::encode_uint64(ptr, buffer->get_cursor()));
+    buffer->increment_position(godot::encode_uint64(id, buffer->get_cursor()));
 }
 
 void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
@@ -89,9 +89,9 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
 
     // The receiver pointer and ObjectID are written directly into the buffer by Kotlin's
     // TransferContext.writeMethodArguments() before this call.
-    uintptr_t receiver_ptr = static_cast<uintptr_t>(decode_uint64(buffer->get_cursor()));
+    uintptr_t receiver_ptr = static_cast<uintptr_t>(godot::decode_uint64(buffer->get_cursor()));
 #ifdef DEBUG_ENABLED
-    uint64_t receiver_id = decode_uint64(buffer->get_cursor() + PTR_SIZE);
+    uint64_t receiver_id = godot::decode_uint64(buffer->get_cursor() + PTR_SIZE);
 #endif
     buffer->increment_position(PTR_SIZE + PTR_SIZE);
     // receiver_ptr is the raw engine pointer the JVM was given.

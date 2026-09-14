@@ -196,12 +196,10 @@ const GDExtensionMethodInfo* JvmInstance::get_method_list(
     uint32_t* r_count
 ) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
-    KtClass* kt_class = instance_data->kt_class;
 
-    List<MethodInfo>& methods = instance_data->method_list;
-    JVM_ERR_FAIL_COND_V_MSG(!methods.is_empty(), nullptr, "Internal error, method list was not freed by engine");
-
-    kt_class->get_method_list(&methods);
+    // The method-list bridge owns this freshly allocated list and frees it later.
+    List<MethodInfo>* methods = memnew(List<MethodInfo>);
+    instance_data->kt_class->get_method_list(methods);
     return internal::create_c_method_list(methods, r_count);
 }
 
@@ -210,8 +208,6 @@ void JvmInstance::free_method_list(
     const GDExtensionMethodInfo* p_list,
     uint32_t p_count
 ) {
-    auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
-    instance_data->method_list.clear();
     internal::free_c_method_list(const_cast<GDExtensionMethodInfo*>(p_list), p_count);
 }
 
@@ -358,6 +354,8 @@ void JvmInstance::refcount_incremented(GDExtensionScriptInstanceDataPtr p_instan
     // This function should only ever be called for a RefCounted, so the count can be read straight off the raw pointer.
     int refcount = raw_godot::RawObject(instance_data->owner).get_reference_count();
 
+    instance_data->demotion_deferred.clear();
+
     // Pairs with the fence in demote_reference(): the increment the engine just performed is ordered before this read
     // of the weak flag, so a demotion that re-read the counter before that increment is seen here as already weak and
     // promoted back below.
@@ -444,7 +442,16 @@ void JvmInstance::promote_reference(JvmInstance::JvmInstanceData* instance_data)
     }
 }
 
-void JvmInstance::demote_reference(JvmInstance::JvmInstanceData* instance_data) {
+bool JvmInstance::demote_reference(JvmInstance::JvmInstanceData* instance_data) {
+    // Godot used the object since the last synchronization, so leave it promoted: demoting now would only force a
+    // promotion back on its next use. It stays queued and is demoted at the first synchronization that follows a
+    // frame without a single use.
+    if (!instance_data->demotion_deferred.is_set()) {
+        instance_data->demotion_deferred.set();
+        return false;
+    }
+    instance_data->demotion_deferred.set_to(false);
+
     raw_godot::RawObject owner(instance_data->owner);
     KtObject* kt_object = instance_data->kt_object;
 
@@ -457,6 +464,7 @@ void JvmInstance::demote_reference(JvmInstance::JvmInstanceData* instance_data) 
     }
 
     instance_data->to_demote_flag.clear();
+    return true;
 }
 
 GDExtensionScriptInstancePtr JvmInstance::create_script_instance(
@@ -470,6 +478,7 @@ GDExtensionScriptInstancePtr JvmInstance::create_script_instance(
     instance_data->kt_class = p_script->kotlin_class;
     instance_data->script = Ref<JvmScript>(p_script);
     instance_data->to_demote_flag.set_to(false);
+    instance_data->demotion_deferred.set_to(false);
     instance_data->delete_flag = true;
 
     return raw_godot::RawObject::create_script_instance(&jvm_script_instance_info, instance_data);

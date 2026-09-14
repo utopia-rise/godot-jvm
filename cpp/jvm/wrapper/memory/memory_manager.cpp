@@ -14,6 +14,7 @@ static constexpr uint32_t CONFIRMED_COUNT_INDEX = 0;
 static constexpr uint32_t CANDIDATE_COUNT_INDEX = 1;
 static constexpr uint32_t IDS_START_INDEX = 2;
 
+static godot::LocalVector<::godot::JvmInstance::JvmInstanceData*> demoted;
 static godot::LocalVector<uint64_t> ids;
 static godot::LocalVector<uintptr_t> pointers;
 static godot::LocalVector<uint32_t> variant_types;
@@ -118,9 +119,12 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
     // each call.
     to_demote_mutex.lock();
     for (::godot::JvmInstance::JvmInstanceData* script_instance : to_demote_objects) {
-        ::godot::JvmInstance::demote_reference(script_instance);
+        if (::godot::JvmInstance::demote_reference(script_instance)) { demoted.push_back(script_instance); }
     }
-    to_demote_objects.clear();
+    for (::godot::JvmInstance::JvmInstanceData* script_instance : demoted) {
+        to_demote_objects.erase(script_instance);
+    }
+    demoted.clear();
     to_demote_mutex.unlock();
 
     // Read the list of dead objects and copy them to the JVM.

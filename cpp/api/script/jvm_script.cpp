@@ -40,7 +40,9 @@ raw_godot::RawObject JvmScript::_object_create() const {
 
     JvmBindingManager::bind_created(owner);
     jni::Env env = jni::Jvm::current_env();
-    KtObject* kt_object = KtObject::create_strong(env, kotlin_class->construct(env, owner), owner.is_ref_counted());
+    jni::JObject instance = kotlin_class->construct(env, owner);
+    KtObject* kt_object = owner.is_ref_counted() ? KtObject::create_strong_ref(env, instance)
+                                                 : KtObject::create_object(env, instance);
     owner.set_script_instance(JvmInstance::create_script_instance(owner, kt_object, this));
     return owner;
 }
@@ -103,10 +105,15 @@ void* JvmScript::_instance_create(GodotObject* p_for_object) const {
     raw_godot::RawObject owner(p_for_object);
     jni::JObject instance = kotlin_class->construct(env, p_for_object);
     // The binding above took the JVM's reference, so a count of exactly 1 means the JVM alone owns this RefCounted and
-    // its instance must be collectable from the start (see KtObject::create_weak).
-    KtObject* kt_object = owner.is_ref_counted() && owner.get_reference_count() == 1
-                            ? KtObject::create_weak(env, instance)
-                            : KtObject::create_strong(env, instance, owner.is_ref_counted());
+    // its instance must be collectable from the start.
+    KtObject* kt_object;
+    if (!owner.is_ref_counted()) {
+        kt_object = KtObject::create_object(env, instance);
+    } else if (owner.get_reference_count() == 1) {
+        kt_object = KtObject::create_weak_ref(env, instance);
+    } else {
+        kt_object = KtObject::create_strong_ref(env, instance);
+    }
     return JvmInstance::create_script_instance(p_for_object, kt_object, this);
 }
 
@@ -327,7 +334,7 @@ void* JvmScript::_placeholder_instance_create(GodotObject* p_for_object) const {
     get_script_exported_property_list(&exported_properties);
     JvmPlaceHolderInstance::update(placeholder_data, exported_properties, exported_members_default_value_cache);
 
-    placeholders.insert(placeholder_data, placeholder_data);
+    placeholders.insert(placeholder_data);
     return placeholder;
 #else
     return nullptr;
@@ -369,10 +376,8 @@ String JvmScript::_get_class_icon_path() const {
 
 void JvmScript::move_placeholders_to(JvmScript* p_script) {
     Vector<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*> current_placeholders;
-    for (const KeyValue<
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& entry : placeholders) {
-        current_placeholders.append(entry.value);
+    for (JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder : placeholders) {
+        current_placeholders.append(placeholder);
     }
 
     for (JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder : current_placeholders) {
@@ -397,10 +402,8 @@ void JvmScript::set_last_source_modified_time(uint64_t p_time) {
 }
 
 void JvmScript::update_source_sync_warning() {
-    for (const KeyValue<
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
-        raw_godot::RawObject owner = placeholder.value->owner;
+    for (JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder : placeholders) {
+        raw_godot::RawObject owner = placeholder->owner;
         if (owner && owner.is_class(SNAME("Node"))) { owner.update_configuration_warnings(); }
     }
 }
@@ -440,10 +443,8 @@ void JvmScript::update_script_exports() const {
         exported_members_default_value_cache[property_name] = default_value;
     }
 
-    for (const KeyValue<
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
-        JvmPlaceHolderInstance::update(placeholder.value, exported_properties, exported_members_default_value_cache);
+    for (JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder : placeholders) {
+        JvmPlaceHolderInstance::update(placeholder, exported_properties, exported_members_default_value_cache);
     }
 
     jni::Env env = jni::Jvm::current_env();

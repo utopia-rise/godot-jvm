@@ -66,17 +66,20 @@ private:
  * One implementation must be provided for every JVM class you wish to use.
  * Use INIT_JNI_BINDINGS macro to create a static instance that will handle the JNI setup for that class.
  * The (env, local) constructor takes a local reference, promotes it to a strong global one and deletes the local. The
- * adopting constructor takes a reference that is already global, strong or weak, for wrappers that pick their initial
- * strength themselves (see KtObject::create_strong / create_weak).
+ * adopting constructors take references that are already global: either a strong one whose strength never changes, or
+ * a permanent weak one plus the pin that makes it strong while something else owns the object too (see the KtObject
+ * factories).
  */
 template<class Derived, const char* FqName>
 class JvmInstanceWrapper {
 protected:
-    std::atomic<bool> is_weak = false;
     jni::JObject wrapped;
+    bool wrapped_is_weak = false;
+    std::atomic<jobject> pin = nullptr;
 
     explicit JvmInstanceWrapper(jni::Env& p_env, jni::JObject p_wrapped);
-    JvmInstanceWrapper(jni::JObject p_global_ref, bool p_is_weak);
+    explicit JvmInstanceWrapper(jni::JObject p_global_ref);
+    JvmInstanceWrapper(jni::JObject p_weak_ref, jni::JObject p_pin);
     ~JvmInstanceWrapper();
 
 public:
@@ -104,9 +107,13 @@ JvmInstanceWrapper<Derived, FqName>::JvmInstanceWrapper(jni::Env& p_env, jni::JO
 }
 
 template<class Derived, const char* FqName>
-JvmInstanceWrapper<Derived, FqName>::JvmInstanceWrapper(jni::JObject p_global_ref, bool p_is_weak) :
-    is_weak(p_is_weak),
-    wrapped(p_global_ref) {}
+JvmInstanceWrapper<Derived, FqName>::JvmInstanceWrapper(jni::JObject p_global_ref) : wrapped(p_global_ref) {}
+
+template<class Derived, const char* FqName>
+JvmInstanceWrapper<Derived, FqName>::JvmInstanceWrapper(jni::JObject p_weak_ref, jni::JObject p_pin) :
+    wrapped(p_weak_ref),
+    wrapped_is_weak(true),
+    pin(p_pin.obj) {}
 
 template<class Derived, const char* FqName>
 bool JvmInstanceWrapper<Derived, FqName>::initialize(jni::Env& p_env, ClassLoader* class_loader) {
@@ -135,54 +142,48 @@ void JvmInstanceWrapper<Derived, FqName>::finalize(jni::Env& p_env, ClassLoader*
 template<class Derived, const char* FqName>
 JvmInstanceWrapper<Derived, FqName>::~JvmInstanceWrapper() {
     jni::Env env = jni::Jvm::current_env();
-    if (is_weak) {
+
+    // The pin is released last so the instance is still strongly reachable while its weak reference is deleted.
+    if (wrapped_is_weak) {
         wrapped.delete_weak_ref(env);
     } else {
         wrapped.delete_global_ref(env);
     }
+    if (jobject strong = pin.load(std::memory_order_acquire)) { jni::JObject(strong).delete_global_ref(env); }
 }
 
 template<class Derived, const char* FqName>
 bool JvmInstanceWrapper<Derived, FqName>::is_ref_weak() const {
-    return is_weak;
+    return wrapped_is_weak && pin.load(std::memory_order_acquire) == nullptr;
 }
 
 template<class Derived, const char* FqName>
 bool JvmInstanceWrapper<Derived, FqName>::is_collected(jni::Env& p_env) const {
-    return is_weak && wrapped.is_same_object(p_env, jni::JObject());
+    return is_ref_weak() && wrapped.is_same_object(p_env, jni::JObject());
 }
 
 template<class Derived, const char* FqName>
 bool JvmInstanceWrapper<Derived, FqName>::swap_to_strong_unsafe(jni::Env& p_env) {
-    // Assume the reference is currently weak
-    jni::JObject new_ref = wrapped.new_global_ref<jni::JObject>(p_env);
-    if (new_ref.is_null()) { return false; }
-    wrapped.delete_weak_ref(p_env);
-    wrapped = new_ref;
-    is_weak = false;
+    jni::JObject strong = wrapped.new_global_ref<jni::JObject>(p_env);
+    if (strong.is_null()) { return false; }
+    pin.store(strong.obj, std::memory_order_release);
     return true;
 }
 
 template<class Derived, const char* FqName>
 template<typename Predicate>
 bool JvmInstanceWrapper<Derived, FqName>::swap_to_weak_unsafe(jni::Env& p_env, Predicate p_must_stay_strong) {
-    // Assume the reference is currently strong
-    jni::JObject strong_ref = wrapped;
-    wrapped = wrapped.new_weak_ref<jni::JObject>(p_env);
-    is_weak = true;
+    jobject strong = pin.exchange(nullptr);
 
-    // Orders the publication of the weak flag before whatever p_must_stay_strong() reads. A thread that gave the owner
-    // another user either did so before this fence, and the predicate sees it, or after it, and that thread sees the
-    // weak flag and promotes (see JvmInstance::refcount_incremented for the pairing fence).
+    // Orders the publication of the weak state before whatever p_must_stay_strong() reads, pairing with the fence in
+    // JvmInstance::refcount_incremented.
     std::atomic_thread_fence(std::memory_order_seq_cst);
     if (p_must_stay_strong()) {
-        wrapped.delete_weak_ref(p_env);
-        wrapped = strong_ref;
-        is_weak = false;
+        pin.store(strong);
         return false;
     }
 
-    strong_ref.delete_global_ref(p_env);
+    jni::JObject(strong).delete_global_ref(p_env);
     return true;
 }
 

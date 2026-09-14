@@ -14,10 +14,14 @@ namespace godot {
             KtObject* kt_object;
             KtClass* kt_class;
             Ref<JvmScript> script;
-            List<MethodInfo> method_list;
             SafeFlag to_demote_flag;
+            SafeFlag demotion_deferred;
             bool delete_flag;
         };
+
+        // One of these is allocated per scripted object, alongside a KtObject and a JvmBinding: four pointers plus
+        // the three flags, which fit in the tail padding. Keep it that way.
+        static_assert(sizeof(JvmInstanceData) == 5 * sizeof(void*));
 
     private:
         static GDExtensionBool set(
@@ -150,7 +154,8 @@ namespace godot {
         };
 
         static void promote_reference(JvmInstanceData* instance_data);
-        static void demote_reference(JvmInstanceData* instance_data);
+        // Returns whether the instance leaves the demotion queue.
+        static bool demote_reference(JvmInstanceData* instance_data);
 
         static GDExtensionScriptInstancePtr create_script_instance(
             GodotObject* p_owner,
