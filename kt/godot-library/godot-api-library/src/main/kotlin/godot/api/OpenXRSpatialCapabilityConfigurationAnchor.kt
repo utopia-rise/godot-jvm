@@ -12,7 +12,8 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.PackedInt64Array
-import godot.core.VariantParser.PACKED_INT_64_ARRAY
+import godot.readReturnValue_PACKED_INT_64_ARRAY
+import godot.writeMethodArguments0
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -35,9 +36,9 @@ public open class OpenXRSpatialCapabilityConfigurationAnchor :
    * **Note:** Only valid after this configuration was used to create a spatial context.
    */
   public final fun getEnabledComponents(): PackedInt64Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getEnabledComponentsPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_64_ARRAY) as PackedInt64Array)
+    return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 
   public companion object {

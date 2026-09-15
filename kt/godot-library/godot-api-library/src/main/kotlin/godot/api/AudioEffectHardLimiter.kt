@@ -12,8 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -75,36 +76,36 @@ public open class AudioEffectHardLimiter : AudioEffect() {
   }
 
   public final fun setCeilingDb(ceiling: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to ceiling.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ceiling.toDouble())
     TransferContext.callMethod(MethodBindings.setCeilingDbPtr)
   }
 
   public final fun getCeilingDb(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCeilingDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPreGainDb(preGain: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to preGain.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, preGain.toDouble())
     TransferContext.callMethod(MethodBindings.setPreGainDbPtr)
   }
 
   public final fun getPreGainDb(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPreGainDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRelease(release: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to release.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, release.toDouble())
     TransferContext.callMethod(MethodBindings.setReleasePtr)
   }
 
   public final fun getRelease(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getReleasePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**

@@ -11,7 +11,8 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
-import godot.core.VariantParser.BOOL
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments0
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -32,34 +33,34 @@ public open class GodotInstance internal constructor() : Object() {
    * Finishes this instance's startup sequence. Returns `true` on success.
    */
   public final fun start(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.startPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns `true` if this instance has been fully started.
    */
   public final fun isStarted(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isStartedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Runs a single iteration of the main loop. Returns `true` if the engine is attempting to quit.
    */
   public final fun iteration(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.iterationPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Notifies the instance that it is now in focus.
    */
   public final fun focusIn(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.focusInPtr)
   }
 
@@ -67,7 +68,7 @@ public open class GodotInstance internal constructor() : Object() {
    * Notifies the instance that it is now not in focus.
    */
   public final fun focusOut(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.focusOutPtr)
   }
 
@@ -75,7 +76,7 @@ public open class GodotInstance internal constructor() : Object() {
    * Notifies the instance that it is going to be paused.
    */
   public final fun pause(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.pausePtr)
   }
 
@@ -83,7 +84,7 @@ public open class GodotInstance internal constructor() : Object() {
    * Notifies the instance that it is being resumed.
    */
   public final fun resume(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.resumePtr)
   }
 

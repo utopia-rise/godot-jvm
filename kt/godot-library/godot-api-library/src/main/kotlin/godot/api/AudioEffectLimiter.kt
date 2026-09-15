@@ -12,8 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -85,47 +86,47 @@ public open class AudioEffectLimiter : AudioEffect() {
   }
 
   public final fun setCeilingDb(ceiling: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to ceiling.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ceiling.toDouble())
     TransferContext.callMethod(MethodBindings.setCeilingDbPtr)
   }
 
   public final fun getCeilingDb(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCeilingDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setThresholdDb(threshold: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to threshold.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, threshold.toDouble())
     TransferContext.callMethod(MethodBindings.setThresholdDbPtr)
   }
 
   public final fun getThresholdDb(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getThresholdDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSoftClipDb(softClip: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to softClip.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, softClip.toDouble())
     TransferContext.callMethod(MethodBindings.setSoftClipDbPtr)
   }
 
   public final fun getSoftClipDb(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSoftClipDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSoftClipRatio(softClip: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to softClip.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, softClip.toDouble())
     TransferContext.callMethod(MethodBindings.setSoftClipRatioPtr)
   }
 
   public final fun getSoftClipRatio(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSoftClipRatioPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**

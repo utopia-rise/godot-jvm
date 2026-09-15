@@ -13,7 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedColorArray
-import godot.core.VariantParser.PACKED_COLOR_ARRAY
+import godot.readReturnValue_PACKED_COLOR_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_PACKED_COLOR_ARRAY
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -43,14 +45,14 @@ public open class ColorPalette : Resource() {
   }
 
   public final fun setColors(colors: PackedColorArray): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_COLOR_ARRAY to colors)
+    TransferContext.writeMethodArguments_PACKED_COLOR_ARRAY(ptr, objectID.id, colors)
     TransferContext.callMethod(MethodBindings.setColorsPtr)
   }
 
   public final fun getColors(): PackedColorArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getColorsPtr)
-    return (TransferContext.readReturnValue(PACKED_COLOR_ARRAY) as PackedColorArray)
+    return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 
   public companion object {

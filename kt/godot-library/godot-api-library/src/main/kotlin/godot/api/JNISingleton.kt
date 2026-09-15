@@ -12,9 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.StringName
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments_STRING_NAME
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
@@ -38,9 +38,9 @@ public open class JNISingleton : Object() {
    * Returns `true` if the given [method] name exists in the JNISingleton's Java methods.
    */
   public final fun hasJavaMethod(method: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, method)
     TransferContext.callMethod(MethodBindings.hasJavaMethodPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**

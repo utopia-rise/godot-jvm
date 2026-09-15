@@ -13,7 +13,8 @@ import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -32,25 +33,25 @@ public open class StreamPeerSocket internal constructor() : StreamPeer() {
    * Polls the socket, updating its state. See [getStatus].
    */
   public final fun poll(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.pollPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Returns the status of the connection.
    */
   public final fun getStatus(): Status {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStatusPtr)
-    return Status.from(TransferContext.readReturnValue(LONG) as Long)
+    return Status.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Disconnects from host.
    */
   public final fun disconnectFromHost(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.disconnectFromHostPtr)
   }
 

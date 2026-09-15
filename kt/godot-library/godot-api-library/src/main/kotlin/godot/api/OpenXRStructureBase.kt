@@ -12,8 +12,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_OBJECT
 import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -51,20 +53,20 @@ public open class OpenXRStructureBase : RefCounted() {
    * Returns the structure type (OpenXR `XrStructureType`) used for this structure.
    */
   public final fun getStructureType(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStructureTypePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setNext(entity: OpenXRStructureBase?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to entity)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, entity)
     TransferContext.callMethod(MethodBindings.setNextPtr)
   }
 
   public final fun getNext(): OpenXRStructureBase? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNextPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRStructureBase?)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRStructureBase?)
   }
 
   public companion object {

@@ -14,11 +14,13 @@ import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_STRING_BOOL
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -46,9 +48,9 @@ public open class CryptoKey : Resource() {
    */
   @JvmOverloads
   public final fun save(path: String, publicOnly: Boolean = false): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, BOOL to publicOnly)
+    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, path, publicOnly)
     TransferContext.callMethod(MethodBindings.savePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -58,18 +60,18 @@ public open class CryptoKey : Resource() {
    */
   @JvmOverloads
   public final fun load(path: String, publicOnly: Boolean = false): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, BOOL to publicOnly)
+    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, path, publicOnly)
     TransferContext.callMethod(MethodBindings.loadPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Returns `true` if this CryptoKey only has the public part, and not the private one.
    */
   public final fun isPublicOnly(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isPublicOnlyPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -78,9 +80,9 @@ public open class CryptoKey : Resource() {
    */
   @JvmOverloads
   public final fun saveToString(publicOnly: Boolean = false): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to publicOnly)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, publicOnly)
     TransferContext.callMethod(MethodBindings.saveToStringPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -89,9 +91,9 @@ public open class CryptoKey : Resource() {
    */
   @JvmOverloads
   public final fun loadFromString(stringKey: String, publicOnly: Boolean = false): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to stringKey, BOOL to publicOnly)
+    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, stringKey, publicOnly)
     TransferContext.callMethod(MethodBindings.loadFromStringPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   public companion object {

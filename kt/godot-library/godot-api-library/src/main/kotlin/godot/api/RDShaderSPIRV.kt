@@ -15,9 +15,11 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedByteArray
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_PACKED_BYTE_ARRAY
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_PACKED_BYTE_ARRAY
+import godot.writeMethodArguments_LONG_STRING
 import kotlin.Byte
 import kotlin.Int
 import kotlin.String
@@ -732,7 +734,7 @@ public open class RDShaderSPIRV : Resource() {
    */
   public final fun setStageBytecode(stage: RenderingDevice.ShaderStage, bytecode: PackedByteArray):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value, PACKED_BYTE_ARRAY to bytecode)
+    TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, stage.value, bytecode)
     TransferContext.callMethod(MethodBindings.setStageBytecodePtr)
   }
 
@@ -741,9 +743,9 @@ public open class RDShaderSPIRV : Resource() {
    * [bytecodeTesselationControl], [bytecodeTesselationEvaluation], [bytecodeVertex].
    */
   public final fun getStageBytecode(stage: RenderingDevice.ShaderStage): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stage.value)
     TransferContext.callMethod(MethodBindings.getStageBytecodePtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   /**
@@ -753,7 +755,7 @@ public open class RDShaderSPIRV : Resource() {
    */
   public final fun setStageCompileError(stage: RenderingDevice.ShaderStage, compileError: String):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value, STRING to compileError)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, stage.value, compileError)
     TransferContext.callMethod(MethodBindings.setStageCompileErrorPtr)
   }
 
@@ -763,9 +765,9 @@ public open class RDShaderSPIRV : Resource() {
    * [compileErrorTesselationEvaluation], [compileErrorVertex].
    */
   public final fun getStageCompileError(stage: RenderingDevice.ShaderStage): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stage.value)
     TransferContext.callMethod(MethodBindings.getStageCompileErrorPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public companion object {

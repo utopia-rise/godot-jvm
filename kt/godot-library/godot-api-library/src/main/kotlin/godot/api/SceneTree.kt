@@ -22,17 +22,27 @@ import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedNodePath
 import godot.core.asCachedStringName
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE_BOOL_BOOL_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_STRING_NAME_LONG
+import godot.writeMethodArguments_LONG_STRING_NAME_STRING_ANY
+import godot.writeMethodArguments_LONG_STRING_NAME_STRING_NAME_VARARG
+import godot.writeMethodArguments_NODE_PATH
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_OBJECT_NODE_PATH
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_STRING_NAME
+import godot.writeMethodArguments_STRING_NAME_LONG
+import godot.writeMethodArguments_STRING_NAME_STRING_ANY
+import godot.writeMethodArguments_STRING_NAME_STRING_NAME_VARARG
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -286,18 +296,18 @@ public open class SceneTree : MainLoop() {
   }
 
   public final fun getRoot(): Window {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRootPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Window)
+    return (TransferContext.readReturnValue_OBJECT() as Window)
   }
 
   /**
    * Returns `true` if a node added to the given group [name] exists in the tree.
    */
   public final fun hasGroup(name: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.hasGroupPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -305,9 +315,9 @@ public open class SceneTree : MainLoop() {
    * actively processed.
    */
   public final fun isAccessibilityEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAccessibilityEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -315,86 +325,86 @@ public open class SceneTree : MainLoop() {
    * settings.
    */
   public final fun isAccessibilitySupported(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAccessibilitySupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun isAutoAcceptQuit(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAutoAcceptQuitPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAutoAcceptQuit(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setAutoAcceptQuitPtr)
   }
 
   public final fun isQuitOnGoBack(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isQuitOnGoBackPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setQuitOnGoBack(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setQuitOnGoBackPtr)
   }
 
   public final fun setDebugCollisionsHint(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setDebugCollisionsHintPtr)
   }
 
   public final fun isDebuggingCollisionsHint(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isDebuggingCollisionsHintPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDebugPathsHint(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setDebugPathsHintPtr)
   }
 
   public final fun isDebuggingPathsHint(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isDebuggingPathsHintPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDebugNavigationHint(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setDebugNavigationHintPtr)
   }
 
   public final fun isDebuggingNavigationHint(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isDebuggingNavigationHintPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEditedSceneRoot(scene: Node?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to scene)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, scene)
     TransferContext.callMethod(MethodBindings.setEditedSceneRootPtr)
   }
 
   public final fun getEditedSceneRoot(): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getEditedSceneRootPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   public final fun setPause(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setPausePtr)
   }
 
   public final fun isPaused(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isPausedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -441,9 +451,9 @@ public open class SceneTree : MainLoop() {
     processInPhysics: Boolean = false,
     ignoreTimeScale: Boolean = false,
   ): SceneTreeTimer {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to timeSec, BOOL to processAlways, BOOL to processInPhysics, BOOL to ignoreTimeScale)
+    TransferContext.writeMethodArguments_DOUBLE_BOOL_BOOL_BOOL(ptr, objectID.id, timeSec, processAlways, processInPhysics, ignoreTimeScale)
     TransferContext.callMethod(MethodBindings.createTimerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as SceneTreeTimer)
+    return (TransferContext.readReturnValue_OBJECT() as SceneTreeTimer)
   }
 
   /**
@@ -455,27 +465,27 @@ public open class SceneTree : MainLoop() {
    * the [Node] is freed, use [Node.createTween] or [Tween.bindNode].
    */
   public final fun createTween(): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.createTweenPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
    * Returns an [VariantArray] of currently existing [Tween]s in the tree, including paused tweens.
    */
   public final fun getProcessedTweens(): VariantArray<Tween> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getProcessedTweensPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Tween>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Tween>)
   }
 
   /**
    * Returns the number of nodes inside this tree.
    */
   public final fun getNodeCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNodeCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -484,9 +494,9 @@ public open class SceneTree : MainLoop() {
    * rendered, see [Engine.getProcessFrames].
    */
   public final fun getFrame(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFramePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -501,19 +511,19 @@ public open class SceneTree : MainLoop() {
    */
   @JvmOverloads
   public final fun quit(exitCode: Int = 0): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to exitCode.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, exitCode.toLong())
     TransferContext.callMethod(MethodBindings.quitPtr)
   }
 
   public final fun setPhysicsInterpolationEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setPhysicsInterpolationEnabledPtr)
   }
 
   public final fun isPhysicsInterpolationEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isPhysicsInterpolationEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -521,7 +531,7 @@ public open class SceneTree : MainLoop() {
    * frame. This method is similar to [Node.queueFree].
    */
   public final fun queueDelete(obj: Object): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to obj)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, obj)
     TransferContext.callMethod(MethodBindings.queueDeletePtr)
   }
 
@@ -549,7 +559,7 @@ public open class SceneTree : MainLoop() {
     method: StringName,
     vararg args: Any?,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flags, STRING_NAME to group, STRING_NAME to method, *args.map { ANY to it }.toTypedArray())
+    TransferContext.writeMethodArguments_LONG_STRING_NAME_STRING_NAME_VARARG(ptr, objectID.id, flags, group, method, args)
     TransferContext.callMethod(MethodBindings.callGroupFlagsPtr)
   }
 
@@ -562,7 +572,7 @@ public open class SceneTree : MainLoop() {
     group: StringName,
     notification: Int,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to callFlags, STRING_NAME to group, LONG to notification.toLong())
+    TransferContext.writeMethodArguments_LONG_STRING_NAME_LONG(ptr, objectID.id, callFlags, group, notification.toLong())
     TransferContext.callMethod(MethodBindings.notifyGroupFlagsPtr)
   }
 
@@ -581,7 +591,7 @@ public open class SceneTree : MainLoop() {
     `property`: String,
     `value`: Any?,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to callFlags, STRING_NAME to group, STRING to property, ANY to value)
+    TransferContext.writeMethodArguments_LONG_STRING_NAME_STRING_ANY(ptr, objectID.id, callFlags, group, property, value)
     TransferContext.callMethod(MethodBindings.setGroupFlagsPtr)
   }
 
@@ -603,7 +613,7 @@ public open class SceneTree : MainLoop() {
     method: StringName,
     vararg args: Any?,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to group, STRING_NAME to method, *args.map { ANY to it }.toTypedArray())
+    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_VARARG(ptr, objectID.id, group, method, args)
     TransferContext.callMethod(MethodBindings.callGroupPtr)
   }
 
@@ -616,7 +626,7 @@ public open class SceneTree : MainLoop() {
    * stuttering in some performance-intensive situations.
    */
   public final fun notifyGroup(group: StringName, notification: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to group, LONG to notification.toLong())
+    TransferContext.writeMethodArguments_STRING_NAME_LONG(ptr, objectID.id, group, notification.toLong())
     TransferContext.callMethod(MethodBindings.notifyGroupPtr)
   }
 
@@ -636,7 +646,7 @@ public open class SceneTree : MainLoop() {
     `property`: String,
     `value`: Any?,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to group, STRING to property, ANY to value)
+    TransferContext.writeMethodArguments_STRING_NAME_STRING_ANY(ptr, objectID.id, group, property, value)
     TransferContext.callMethod(MethodBindings.setGroupPtr)
   }
 
@@ -645,9 +655,9 @@ public open class SceneTree : MainLoop() {
    * given [group], in scene hierarchy order.
    */
   public final fun getNodesInGroup(group: StringName): VariantArray<Node> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to group)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, group)
     TransferContext.callMethod(MethodBindings.getNodesInGroupPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Node>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Node>)
   }
 
   /**
@@ -655,29 +665,29 @@ public open class SceneTree : MainLoop() {
    * scene hierarchy order. Returns `null` if no match is found. See also [getNodesInGroup].
    */
   public final fun getFirstNodeInGroup(group: StringName): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to group)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, group)
     TransferContext.callMethod(MethodBindings.getFirstNodeInGroupPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
    * Returns the number of nodes assigned to the given group.
    */
   public final fun getNodeCountInGroup(group: StringName): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to group)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, group)
     TransferContext.callMethod(MethodBindings.getNodeCountInGroupPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setCurrentScene(childNode: Node?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to childNode)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, childNode)
     TransferContext.callMethod(MethodBindings.setCurrentScenePtr)
   }
 
   public final fun getCurrentScene(): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCurrentScenePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
@@ -690,9 +700,9 @@ public open class SceneTree : MainLoop() {
    * **Note:** See [changeSceneToNode] for details on the order of operations.
    */
   public final fun changeSceneToFile(path: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
     TransferContext.callMethod(MethodBindings.changeSceneToFilePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -704,9 +714,9 @@ public open class SceneTree : MainLoop() {
    * **Note:** See [changeSceneToNode] for details on the order of operations.
    */
   public final fun changeSceneToPacked(packedScene: PackedScene): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to packedScene)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, packedScene)
     TransferContext.callMethod(MethodBindings.changeSceneToPackedPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -736,9 +746,9 @@ public open class SceneTree : MainLoop() {
    * invalid.
    */
   public final fun changeSceneToNode(node: Node): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to node)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, node)
     TransferContext.callMethod(MethodBindings.changeSceneToNodePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -750,16 +760,16 @@ public open class SceneTree : MainLoop() {
    * instantiated.
    */
   public final fun reloadCurrentScene(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.reloadCurrentScenePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * If a current scene is loaded, calling this method will unload it.
    */
   public final fun unloadCurrentScene(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.unloadCurrentScenePtr)
   }
 
@@ -777,7 +787,7 @@ public open class SceneTree : MainLoop() {
    */
   public final fun setMultiplayer(multiplayer: MultiplayerAPI?, rootPath: NodePath = NodePath("")):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to multiplayer, NODE_PATH to rootPath)
+    TransferContext.writeMethodArguments_OBJECT_NODE_PATH(ptr, objectID.id, multiplayer, rootPath)
     TransferContext.callMethod(MethodBindings.setMultiplayerPtr)
   }
 
@@ -787,20 +797,20 @@ public open class SceneTree : MainLoop() {
    * one is returned. See [setMultiplayer].
    */
   public final fun getMultiplayer(forPath: NodePath = NodePath("")): MultiplayerAPI {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to forPath)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, forPath)
     TransferContext.callMethod(MethodBindings.getMultiplayerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as MultiplayerAPI)
+    return (TransferContext.readReturnValue_OBJECT() as MultiplayerAPI)
   }
 
   public final fun setMultiplayerPollEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setMultiplayerPollEnabledPtr)
   }
 
   public final fun isMultiplayerPollEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isMultiplayerPollEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**

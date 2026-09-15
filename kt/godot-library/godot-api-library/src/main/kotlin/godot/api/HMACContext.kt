@@ -15,9 +15,11 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedByteArray
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import kotlin.Long
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_BYTE_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG_PACKED_BYTE_ARRAY
+import godot.writeMethodArguments_PACKED_BYTE_ARRAY
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -83,9 +85,9 @@ public open class HMACContext : RefCounted() {
    * [finish] has been called.
    */
   public final fun start(hashType: HashingContext.HashType, key: PackedByteArray): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to hashType.value, PACKED_BYTE_ARRAY to key)
+    TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, hashType.value, key)
     TransferContext.callMethod(MethodBindings.startPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -93,18 +95,18 @@ public open class HMACContext : RefCounted() {
    * to append [data] to the message, but cannot be called until [start] has been called.
    */
   public final fun update(`data`: PackedByteArray): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_BYTE_ARRAY to data)
+    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, data)
     TransferContext.callMethod(MethodBindings.updatePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Returns the resulting HMAC. If the HMAC failed, an empty [PackedByteArray] is returned.
    */
   public final fun finish(): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.finishPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   public companion object {

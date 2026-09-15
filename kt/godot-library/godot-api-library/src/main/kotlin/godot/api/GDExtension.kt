@@ -12,8 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -39,9 +40,9 @@ public open class GDExtension : Resource() {
    * Returns `true` if this extension's library has been opened.
    */
   public final fun isLibraryOpen(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isLibraryOpenPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -49,9 +50,9 @@ public open class GDExtension : Resource() {
    * [InitializationLevel] enum).
    */
   public final fun getMinimumLibraryInitializationLevel(): InitializationLevel {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMinimumLibraryInitializationLevelPtr)
-    return InitializationLevel.from(TransferContext.readReturnValue(LONG) as Long)
+    return InitializationLevel.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class InitializationLevel(

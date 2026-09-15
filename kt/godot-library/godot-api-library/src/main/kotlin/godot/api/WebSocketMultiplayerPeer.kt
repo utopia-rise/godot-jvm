@@ -18,15 +18,19 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.PackedStringArray
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_STRING_ARRAY
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_STRING_OBJECT
+import godot.writeMethodArguments_PACKED_STRING_ARRAY
+import godot.writeMethodArguments_STRING_OBJECT
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -221,9 +225,9 @@ public open class WebSocketMultiplayerPeer : MultiplayerPeer() {
    */
   @JvmOverloads
   public final fun createClient(url: String, tlsClientOptions: TLSOptions? = null): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to url, OBJECT to tlsClientOptions)
+    TransferContext.writeMethodArguments_STRING_OBJECT(ptr, objectID.id, url, tlsClientOptions)
     TransferContext.callMethod(MethodBindings.createClientPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -236,102 +240,102 @@ public open class WebSocketMultiplayerPeer : MultiplayerPeer() {
     bindAddress: String = "*",
     tlsServerOptions: TLSOptions? = null,
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong(), STRING to bindAddress, OBJECT to tlsServerOptions)
+    TransferContext.writeMethodArguments_LONG_STRING_OBJECT(ptr, objectID.id, port.toLong(), bindAddress, tlsServerOptions)
     TransferContext.callMethod(MethodBindings.createServerPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Returns the [WebSocketPeer] associated to the given [peerId].
    */
   public final fun getPeer(peerId: Int): WebSocketPeer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to peerId.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, peerId.toLong())
     TransferContext.callMethod(MethodBindings.getPeerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as WebSocketPeer?)
+    return (TransferContext.readReturnValue_OBJECT() as WebSocketPeer?)
   }
 
   /**
    * Returns the IP address of the given peer.
    */
   public final fun getPeerAddress(id: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
     TransferContext.callMethod(MethodBindings.getPeerAddressPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Returns the remote port of the given peer.
    */
   public final fun getPeerPort(id: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
     TransferContext.callMethod(MethodBindings.getPeerPortPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun getSupportedProtocols(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSupportedProtocolsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   public final fun setSupportedProtocols(protocols: PackedStringArray): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_STRING_ARRAY to protocols)
+    TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, protocols)
     TransferContext.callMethod(MethodBindings.setSupportedProtocolsPtr)
   }
 
   public final fun getHandshakeHeaders(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getHandshakeHeadersPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   public final fun setHandshakeHeaders(protocols: PackedStringArray): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_STRING_ARRAY to protocols)
+    TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, protocols)
     TransferContext.callMethod(MethodBindings.setHandshakeHeadersPtr)
   }
 
   public final fun getInboundBufferSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getInboundBufferSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setInboundBufferSize(bufferSize: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bufferSize.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bufferSize.toLong())
     TransferContext.callMethod(MethodBindings.setInboundBufferSizePtr)
   }
 
   public final fun getOutboundBufferSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getOutboundBufferSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setOutboundBufferSize(bufferSize: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bufferSize.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bufferSize.toLong())
     TransferContext.callMethod(MethodBindings.setOutboundBufferSizePtr)
   }
 
   public final fun getHandshakeTimeout(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getHandshakeTimeoutPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setHandshakeTimeout(timeout: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to timeout.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeout.toDouble())
     TransferContext.callMethod(MethodBindings.setHandshakeTimeoutPtr)
   }
 
   public final fun setMaxQueuedPackets(maxQueuedPackets: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxQueuedPackets.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxQueuedPackets.toLong())
     TransferContext.callMethod(MethodBindings.setMaxQueuedPacketsPtr)
   }
 
   public final fun getMaxQueuedPackets(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMaxQueuedPacketsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public companion object {

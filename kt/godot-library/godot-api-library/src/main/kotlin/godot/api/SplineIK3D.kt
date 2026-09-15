@@ -13,13 +13,16 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.NodePath
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
 import godot.core.asCachedNodePath
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_NODE_PATH
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_LONG_NODE_PATH
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -68,7 +71,7 @@ public open class SplineIK3D : ChainIK3D() {
    * Sets the node path of the [Path3D] which is describing the path.
    */
   public final fun setPath3d(index: Int, path3d: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), NODE_PATH to path3d)
+    TransferContext.writeMethodArguments_LONG_NODE_PATH(ptr, objectID.id, index.toLong(), path3d)
     TransferContext.callMethod(MethodBindings.setPath3dPtr)
   }
 
@@ -76,16 +79,16 @@ public open class SplineIK3D : ChainIK3D() {
    * Returns the node path of the [Path3D] which is describing the path.
    */
   public final fun getPath3d(index: Int): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getPath3dPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   /**
    * Sets if the tilt property of the [Curve3D] should affect the bone twist.
    */
   public final fun setTiltEnabled(index: Int, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), BOOL to enabled)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
     TransferContext.callMethod(MethodBindings.setTiltEnabledPtr)
   }
 
@@ -93,9 +96,9 @@ public open class SplineIK3D : ChainIK3D() {
    * Returns if the tilt property of the [Curve3D] affects the bone twist.
    */
   public final fun isTiltEnabled(index: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.isTiltEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -109,7 +112,7 @@ public open class SplineIK3D : ChainIK3D() {
    * [Curve3D] are `0.0`.
    */
   public final fun setTiltFadeIn(index: Int, size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to size.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), size.toLong())
     TransferContext.callMethod(MethodBindings.setTiltFadeInPtr)
   }
 
@@ -118,9 +121,9 @@ public open class SplineIK3D : ChainIK3D() {
    * [Curve3D] when they are apart. See also [setTiltFadeIn].
    */
   public final fun getTiltFadeIn(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getTiltFadeInPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -134,7 +137,7 @@ public open class SplineIK3D : ChainIK3D() {
    * are `0.0`.
    */
   public final fun setTiltFadeOut(index: Int, size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to size.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), size.toLong())
     TransferContext.callMethod(MethodBindings.setTiltFadeOutPtr)
   }
 
@@ -143,9 +146,9 @@ public open class SplineIK3D : ChainIK3D() {
    * [Curve3D] when they are apart. See also [setTiltFadeOut].
    */
   public final fun getTiltFadeOut(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getTiltFadeOutPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**

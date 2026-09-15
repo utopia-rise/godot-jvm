@@ -21,17 +21,25 @@ import godot.core.RID
 import godot.core.Rect2i
 import godot.core.Transform3D
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_INT_64_ARRAY
-import godot.core.VariantParser.RECT2I
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.VECTOR2I
-import godot.core.VariantParser._RID
 import godot.core.Vector2i
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_INT_64_ARRAY
+import godot.readReturnValue_RID
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_LONG_LONG_LONG_LONG_LONG_LONG
+import godot.writeMethodArguments_LONG_LONG_STRING
+import godot.writeMethodArguments_LONG_STRING_ARRAY
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_RECT2I
+import godot.writeMethodArguments_RID
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_STRING_RID
+import godot.writeMethodArguments_VECTOR2I
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -63,9 +71,9 @@ public open class OpenXRAPIExtension : RefCounted() {
    * for how the version is calculated.
    */
   public final fun getOpenxrVersion(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getOpenxrVersionPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -74,9 +82,9 @@ public open class OpenXRAPIExtension : RefCounted() {
    * created during the initialization of the OpenXR API.
    */
   public final fun getInstance(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getInstancePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -85,9 +93,9 @@ public open class OpenXRAPIExtension : RefCounted() {
    * to an integer.
    */
   public final fun getSystemId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSystemIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -96,9 +104,9 @@ public open class OpenXRAPIExtension : RefCounted() {
    * an integer.
    */
   public final fun getSession(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSessionPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -113,9 +121,9 @@ public open class OpenXRAPIExtension : RefCounted() {
     format: String,
     args: VariantArray<Any?>,
   ): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to result, STRING to format, ARRAY to args)
+    TransferContext.writeMethodArguments_LONG_STRING_ARRAY(ptr, objectID.id, result, format, args)
     TransferContext.callMethod(MethodBindings.xrResultPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -126,9 +134,9 @@ public open class OpenXRAPIExtension : RefCounted() {
    * `GDEXTENSION_INIT_XR_FUNC_V(xrCreateAction)`.
    */
   public final fun getInstanceProcAddr(name: String): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.getInstanceProcAddrPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -136,18 +144,18 @@ public open class OpenXRAPIExtension : RefCounted() {
    * [url=https://registry.khronos.org/OpenXR/specs/1.0/man/html/XrResult.html]XrResult[/url].
    */
   public final fun getErrorString(result: Long): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to result)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, result)
     TransferContext.callMethod(MethodBindings.getErrorStringPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Returns the name of the specified swapchain format.
    */
   public final fun getSwapchainFormatName(swapchainFormat: Long): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to swapchainFormat)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchainFormat)
     TransferContext.callMethod(MethodBindings.getSwapchainFormatNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -159,7 +167,7 @@ public open class OpenXRAPIExtension : RefCounted() {
     objectHandle: Long,
     objectName: String,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to objectType, LONG to objectHandle, STRING to objectName)
+    TransferContext.writeMethodArguments_LONG_LONG_STRING(ptr, objectID.id, objectType, objectHandle, objectName)
     TransferContext.callMethod(MethodBindings.setObjectNamePtr)
   }
 
@@ -168,7 +176,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * following this until [endDebugLabelRegion] is called. Debug labels can be stacked.
    */
   public final fun beginDebugLabelRegion(labelName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to labelName)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, labelName)
     TransferContext.callMethod(MethodBindings.beginDebugLabelRegionPtr)
   }
 
@@ -177,7 +185,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * [beginDebugLabelRegion].
    */
   public final fun endDebugLabelRegion(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.endDebugLabelRegionPtr)
   }
 
@@ -187,7 +195,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * [insertDebugLabel] is called.
    */
   public final fun insertDebugLabel(labelName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to labelName)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, labelName)
     TransferContext.callMethod(MethodBindings.insertDebugLabelPtr)
   }
 
@@ -196,9 +204,9 @@ public open class OpenXRAPIExtension : RefCounted() {
    * view configurations.
    */
   public final fun getViewCount(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getViewCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -207,18 +215,18 @@ public open class OpenXRAPIExtension : RefCounted() {
    * cast to an integer.
    */
   public final fun getViewConfiguration(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getViewConfigurationPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Returns `true` if OpenXR is initialized.
    */
   public final fun isInitialized(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isInitializedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -227,9 +235,9 @@ public open class OpenXRAPIExtension : RefCounted() {
    * was successfully called and the swapchains were created).
    */
   public final fun isRunning(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isRunningPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -238,36 +246,36 @@ public open class OpenXRAPIExtension : RefCounted() {
    * integer.
    */
   public final fun getPlaySpace(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPlaySpacePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Returns the predicted display timing for the current frame.
    */
   public final fun getPredictedDisplayTime(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPredictedDisplayTimePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Returns the predicted display timing for the next frame.
    */
   public final fun getNextFrameTime(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNextFrameTimePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Returns `true` if OpenXR is initialized for rendering with an XR viewport.
    */
   public final fun canRender(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.canRenderPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -275,27 +283,27 @@ public open class OpenXRAPIExtension : RefCounted() {
    * specified action set.
    */
   public final fun findAction(name: String, actionSet: RID): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name, _RID to actionSet)
+    TransferContext.writeMethodArguments_STRING_RID(ptr, objectID.id, name, actionSet)
     TransferContext.callMethod(MethodBindings.findActionPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
    * Returns the corresponding `XrAction` OpenXR handle for the given action RID.
    */
   public final fun actionGetHandle(action: RID): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to action)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, action)
     TransferContext.callMethod(MethodBindings.actionGetHandlePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Returns the corresponding `XRHandTrackerEXT` handle for the given hand index value.
    */
   public final fun getHandTracker(handIndex: Int): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to handIndex.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, handIndex.toLong())
     TransferContext.callMethod(MethodBindings.getHandTrackerPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -305,7 +313,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * in [OpenXRExtensionWrapper.OnSessionCreated].
    */
   public final fun registerCompositionLayerProvider(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to extension)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
     TransferContext.callMethod(MethodBindings.registerCompositionLayerProviderPtr)
   }
 
@@ -315,7 +323,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** This cannot be called while the OpenXR session is still running.
    */
   public final fun unregisterCompositionLayerProvider(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to extension)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
     TransferContext.callMethod(MethodBindings.unregisterCompositionLayerProviderPtr)
   }
 
@@ -326,7 +334,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * in [OpenXRExtensionWrapper.OnSessionCreated].
    */
   public final fun registerProjectionViewsExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to extension)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
     TransferContext.callMethod(MethodBindings.registerProjectionViewsExtensionPtr)
   }
 
@@ -337,7 +345,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** This cannot be called while the OpenXR session is still running.
    */
   public final fun unregisterProjectionViewsExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to extension)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
     TransferContext.callMethod(MethodBindings.unregisterProjectionViewsExtensionPtr)
   }
 
@@ -351,7 +359,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * in [OpenXRExtensionWrapper.OnSessionCreated].
    */
   public final fun registerFrameInfoExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to extension)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
     TransferContext.callMethod(MethodBindings.registerFrameInfoExtensionPtr)
   }
 
@@ -361,7 +369,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** This cannot be called while the OpenXR session is still running.
    */
   public final fun unregisterFrameInfoExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to extension)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
     TransferContext.callMethod(MethodBindings.unregisterFrameInfoExtensionPtr)
   }
 
@@ -373,7 +381,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * in [OpenXRExtensionWrapper.OnSessionCreated].
    */
   public final fun registerProjectionLayerExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to extension)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
     TransferContext.callMethod(MethodBindings.registerProjectionLayerExtensionPtr)
   }
 
@@ -383,7 +391,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** This cannot be called while the OpenXR session is still running.
    */
   public final fun unregisterProjectionLayerExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to extension)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
     TransferContext.callMethod(MethodBindings.unregisterProjectionLayerExtensionPtr)
   }
 
@@ -393,9 +401,9 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** This is only accessible in the render thread.
    */
   public final fun getRenderStateZNear(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRenderStateZNearPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   /**
@@ -404,16 +412,16 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** This is only accessible in the render thread.
    */
   public final fun getRenderStateZFar(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRenderStateZFarPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   /**
    * Sets the render target of the velocity texture.
    */
   public final fun setVelocityTexture(renderTarget: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to renderTarget)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderTarget)
     TransferContext.callMethod(MethodBindings.setVelocityTexturePtr)
   }
 
@@ -421,7 +429,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * Sets the render target of the velocity depth texture.
    */
   public final fun setVelocityDepthTexture(renderTarget: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to renderTarget)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderTarget)
     TransferContext.callMethod(MethodBindings.setVelocityDepthTexturePtr)
   }
 
@@ -429,7 +437,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * Sets the target size of the velocity and velocity depth textures.
    */
   public final fun setVelocityTargetSize(targetSize: Vector2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to targetSize)
+    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, targetSize)
     TransferContext.callMethod(MethodBindings.setVelocityTargetSizePtr)
   }
 
@@ -437,9 +445,9 @@ public open class OpenXRAPIExtension : RefCounted() {
    * Returns an array of supported swapchain formats.
    */
   public final fun getSupportedSwapchainFormats(): PackedInt64Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSupportedSwapchainFormatsPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_64_ARRAY) as PackedInt64Array)
+    return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 
   /**
@@ -454,16 +462,16 @@ public open class OpenXRAPIExtension : RefCounted() {
     sampleCount: Long,
     arraySize: Long,
   ): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to createFlags, LONG to usageFlags, LONG to swapchainFormat, LONG to width, LONG to height, LONG to sampleCount, LONG to arraySize)
+    TransferContext.writeMethodArguments_LONG_LONG_LONG_LONG_LONG_LONG_LONG(ptr, objectID.id, createFlags, usageFlags, swapchainFormat, width, height, sampleCount, arraySize)
     TransferContext.callMethod(MethodBindings.openxrSwapchainCreatePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Destroys the provided swapchain and frees it from memory.
    */
   public final fun openxrSwapchainFree(swapchain: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to swapchain)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
     TransferContext.callMethod(MethodBindings.openxrSwapchainFreePtr)
   }
 
@@ -471,16 +479,16 @@ public open class OpenXRAPIExtension : RefCounted() {
    * Returns the `XrSwapchain` handle of the provided swapchain.
    */
   public final fun openxrSwapchainGetSwapchain(swapchain: Long): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to swapchain)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
     TransferContext.callMethod(MethodBindings.openxrSwapchainGetSwapchainPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Acquires the image of the provided swapchain.
    */
   public final fun openxrSwapchainAcquire(swapchain: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to swapchain)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
     TransferContext.callMethod(MethodBindings.openxrSwapchainAcquirePtr)
   }
 
@@ -488,16 +496,16 @@ public open class OpenXRAPIExtension : RefCounted() {
    * Returns the RID of the provided swapchain's image.
    */
   public final fun openxrSwapchainGetImage(swapchain: Long): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to swapchain)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
     TransferContext.callMethod(MethodBindings.openxrSwapchainGetImagePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
    * Releases the image of the provided swapchain.
    */
   public final fun openxrSwapchainRelease(swapchain: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to swapchain)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
     TransferContext.callMethod(MethodBindings.openxrSwapchainReleasePtr)
   }
 
@@ -507,16 +515,16 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** This method should only be called from the rendering thread.
    */
   public final fun getProjectionLayer(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getProjectionLayerPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Sets the render region to [renderRegion], overriding the normal render target's rect.
    */
   public final fun setRenderRegion(renderRegion: Rect2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, RECT2I to renderRegion)
+    TransferContext.writeMethodArguments_RECT2I(ptr, objectID.id, renderRegion)
     TransferContext.callMethod(MethodBindings.setRenderRegionPtr)
   }
 
@@ -525,7 +533,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * [XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND] blend mode.
    */
   public final fun setEmulateEnvironmentBlendModeAlphaBlend(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setEmulateEnvironmentBlendModeAlphaBlendPtr)
   }
 
@@ -534,9 +542,9 @@ public open class OpenXRAPIExtension : RefCounted() {
    * [XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND] is really supported, emulated or not supported at all.
    */
   public final fun isEnvironmentBlendModeAlphaSupported(): OpenXRAlphaBlendModeSupport {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isEnvironmentBlendModeAlphaSupportedPtr)
-    return OpenXRAlphaBlendModeSupport.from(TransferContext.readReturnValue(LONG) as Long)
+    return OpenXRAlphaBlendModeSupport.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -544,7 +552,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * if it has changed.
    */
   public final fun updateMainSwapchainSize(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.updateMainSwapchainSizePtr)
   }
 
@@ -786,9 +794,9 @@ public open class OpenXRAPIExtension : RefCounted() {
      */
     @JvmStatic
     public final fun openxrIsEnabled(checkRunInEditor: Boolean): Boolean {
-      TransferContext.writeMethodArguments(0L, 0L, BOOL to checkRunInEditor)
+      TransferContext.writeMethodArguments_BOOL(0L, 0L, checkRunInEditor)
       TransferContext.callMethod(MethodBindings.openxrIsEnabledPtr)
-      return (TransferContext.readReturnValue(BOOL) as Boolean)
+      return TransferContext.readReturnValue_BOOL()
     }
   }
 

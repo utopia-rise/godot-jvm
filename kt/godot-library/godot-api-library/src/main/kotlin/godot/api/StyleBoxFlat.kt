@@ -20,17 +20,23 @@ import godot.core.MethodStringName2
 import godot.core.RID
 import godot.core.Rect2
 import godot.core.Side
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_DOUBLE
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -509,32 +515,32 @@ public open class StyleBoxFlat : StyleBox() {
   }
 
   public final fun setBgColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setBgColorPtr)
   }
 
   public final fun getBgColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBgColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setBorderColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setBorderColorPtr)
   }
 
   public final fun getBorderColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBorderColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   /**
    * Sets the border width to [width] pixels for all sides.
    */
   public final fun setBorderWidthAll(width: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
     TransferContext.callMethod(MethodBindings.setBorderWidthAllPtr)
   }
 
@@ -542,16 +548,16 @@ public open class StyleBoxFlat : StyleBox() {
    * Returns the smallest border width out of all four borders.
    */
   public final fun getBorderWidthMin(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBorderWidthMinPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Sets the specified [Side]'s border width to [width] pixels.
    */
   public final fun setBorderWidth(margin: Side, width: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.value, LONG to width.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, margin.value, width.toLong())
     TransferContext.callMethod(MethodBindings.setBorderWidthPtr)
   }
 
@@ -559,27 +565,27 @@ public open class StyleBoxFlat : StyleBox() {
    * Returns the specified [Side]'s border width.
    */
   public final fun getBorderWidth(margin: Side): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
     TransferContext.callMethod(MethodBindings.getBorderWidthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setBorderBlend(blend: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to blend)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, blend)
     TransferContext.callMethod(MethodBindings.setBorderBlendPtr)
   }
 
   public final fun getBorderBlend(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBorderBlendPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Sets the corner radius to [radius] pixels for all corners.
    */
   public final fun setCornerRadiusAll(radius: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to radius.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, radius.toLong())
     TransferContext.callMethod(MethodBindings.setCornerRadiusAllPtr)
   }
 
@@ -587,7 +593,7 @@ public open class StyleBoxFlat : StyleBox() {
    * Sets the corner radius to [radius] pixels for the given [corner].
    */
   public final fun setCornerRadius(corner: Corner, radius: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to corner.value, LONG to radius.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, corner.value, radius.toLong())
     TransferContext.callMethod(MethodBindings.setCornerRadiusPtr)
   }
 
@@ -595,16 +601,16 @@ public open class StyleBoxFlat : StyleBox() {
    * Returns the given [corner]'s radius.
    */
   public final fun getCornerRadius(corner: Corner): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to corner.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, corner.value)
     TransferContext.callMethod(MethodBindings.getCornerRadiusPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Sets the expand margin to [size] pixels for the specified [Side].
    */
   public final fun setExpandMargin(margin: Side, size: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.value, DOUBLE to size.toDouble())
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, margin.value, size.toDouble())
     TransferContext.callMethod(MethodBindings.setExpandMarginPtr)
   }
 
@@ -612,7 +618,7 @@ public open class StyleBoxFlat : StyleBox() {
    * Sets the expand margin to [size] pixels for all sides.
    */
   public final fun setExpandMarginAll(size: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to size.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, size.toDouble())
     TransferContext.callMethod(MethodBindings.setExpandMarginAllPtr)
   }
 
@@ -620,97 +626,97 @@ public open class StyleBoxFlat : StyleBox() {
    * Returns the size of the specified [Side]'s expand margin.
    */
   public final fun getExpandMargin(margin: Side): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
     TransferContext.callMethod(MethodBindings.getExpandMarginPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDrawCenter(drawCenter: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to drawCenter)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, drawCenter)
     TransferContext.callMethod(MethodBindings.setDrawCenterPtr)
   }
 
   public final fun isDrawCenterEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isDrawCenterEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSkew(skew: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to skew)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, skew)
     TransferContext.callMethod(MethodBindings.setSkewPtr)
   }
 
   public final fun getSkew(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSkewPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setShadowColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setShadowColorPtr)
   }
 
   public final fun getShadowColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getShadowColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setShadowSize(size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
     TransferContext.callMethod(MethodBindings.setShadowSizePtr)
   }
 
   public final fun getShadowSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getShadowSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setShadowOffset(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to offset)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
     TransferContext.callMethod(MethodBindings.setShadowOffsetPtr)
   }
 
   public final fun getShadowOffset(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getShadowOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setAntiAliased(antiAliased: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to antiAliased)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, antiAliased)
     TransferContext.callMethod(MethodBindings.setAntiAliasedPtr)
   }
 
   public final fun isAntiAliased(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAntiAliasedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAaSize(size: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to size.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, size.toDouble())
     TransferContext.callMethod(MethodBindings.setAaSizePtr)
   }
 
   public final fun getAaSize(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAaSizePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setCornerDetail(detail: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to detail.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, detail.toLong())
     TransferContext.callMethod(MethodBindings.setCornerDetailPtr)
   }
 
   public final fun getCornerDetail(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCornerDetailPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**

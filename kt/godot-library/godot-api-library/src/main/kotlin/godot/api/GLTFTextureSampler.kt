@@ -12,9 +12,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -77,46 +78,46 @@ public open class GLTFTextureSampler : Resource() {
   }
 
   public final fun getMagFilter(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMagFilterPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMagFilter(filterMode: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to filterMode.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, filterMode.toLong())
     TransferContext.callMethod(MethodBindings.setMagFilterPtr)
   }
 
   public final fun getMinFilter(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMinFilterPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMinFilter(filterMode: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to filterMode.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, filterMode.toLong())
     TransferContext.callMethod(MethodBindings.setMinFilterPtr)
   }
 
   public final fun getWrapS(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getWrapSPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setWrapS(wrapMode: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to wrapMode.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, wrapMode.toLong())
     TransferContext.callMethod(MethodBindings.setWrapSPtr)
   }
 
   public final fun getWrapT(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getWrapTPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setWrapT(wrapMode: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to wrapMode.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, wrapMode.toLong())
     TransferContext.callMethod(MethodBindings.setWrapTPtr)
   }
 

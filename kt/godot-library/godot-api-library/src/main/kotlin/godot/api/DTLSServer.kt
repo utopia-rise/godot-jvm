@@ -12,9 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import kotlin.Long
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments_OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -182,9 +182,9 @@ public open class DTLSServer : RefCounted() {
    * Setup the DTLS server to use the given [serverOptions]. See [TLSOptions.server].
    */
   public final fun setup(serverOptions: TLSOptions?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to serverOptions)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, serverOptions)
     TransferContext.callMethod(MethodBindings.setupPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -196,9 +196,9 @@ public open class DTLSServer : RefCounted() {
    * invalid due to cookie exchange.
    */
   public final fun takeConnection(udpPeer: PacketPeerUDP?): PacketPeerDTLS? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to udpPeer)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, udpPeer)
     TransferContext.callMethod(MethodBindings.takeConnectionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as PacketPeerDTLS?)
+    return (TransferContext.readReturnValue_OBJECT() as PacketPeerDTLS?)
   }
 
   public companion object {

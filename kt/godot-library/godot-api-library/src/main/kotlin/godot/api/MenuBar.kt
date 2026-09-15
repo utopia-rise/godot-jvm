@@ -13,13 +13,18 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_LONG_STRING
+import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -114,102 +119,102 @@ public open class MenuBar : Control() {
   }
 
   public final fun setSwitchOnHover(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setSwitchOnHoverPtr)
   }
 
   public final fun isSwitchOnHover(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isSwitchOnHoverPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * If `true`, shortcuts are disabled and cannot be used to trigger the button.
    */
   public final fun setDisableShortcuts(disabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to disabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, disabled)
     TransferContext.callMethod(MethodBindings.setDisableShortcutsPtr)
   }
 
   public final fun setPreferGlobalMenu(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setPreferGlobalMenuPtr)
   }
 
   public final fun isPreferGlobalMenu(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isPreferGlobalMenuPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns `true` if the current system's global menu is supported and used by this [MenuBar].
    */
   public final fun isNativeMenu(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isNativeMenuPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns number of menu items.
    */
   public final fun getMenuCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMenuCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setTextDirection(direction: Control.TextDirection): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to direction.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, direction.value)
     TransferContext.callMethod(MethodBindings.setTextDirectionPtr)
   }
 
   public final fun getTextDirection(): Control.TextDirection {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTextDirectionPtr)
-    return Control.TextDirection.from(TransferContext.readReturnValue(LONG) as Long)
+    return Control.TextDirection.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setLanguage(language: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to language)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, language)
     TransferContext.callMethod(MethodBindings.setLanguagePtr)
   }
 
   public final fun getLanguage(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLanguagePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setFlat(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setFlatPtr)
   }
 
   public final fun isFlat(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isFlatPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setStartIndex(enabled: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to enabled.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, enabled.toLong())
     TransferContext.callMethod(MethodBindings.setStartIndexPtr)
   }
 
   public final fun getStartIndex(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStartIndexPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Sets menu item title.
    */
   public final fun setMenuTitle(menu: Int, title: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to menu.toLong(), STRING to title)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, menu.toLong(), title)
     TransferContext.callMethod(MethodBindings.setMenuTitlePtr)
   }
 
@@ -217,16 +222,16 @@ public open class MenuBar : Control() {
    * Returns menu item title.
    */
   public final fun getMenuTitle(menu: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to menu.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, menu.toLong())
     TransferContext.callMethod(MethodBindings.getMenuTitlePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Sets menu item tooltip.
    */
   public final fun setMenuTooltip(menu: Int, tooltip: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to menu.toLong(), STRING to tooltip)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, menu.toLong(), tooltip)
     TransferContext.callMethod(MethodBindings.setMenuTooltipPtr)
   }
 
@@ -234,16 +239,16 @@ public open class MenuBar : Control() {
    * Returns menu item tooltip.
    */
   public final fun getMenuTooltip(menu: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to menu.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, menu.toLong())
     TransferContext.callMethod(MethodBindings.getMenuTooltipPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * If `true`, menu item is disabled.
    */
   public final fun setMenuDisabled(menu: Int, disabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to menu.toLong(), BOOL to disabled)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, menu.toLong(), disabled)
     TransferContext.callMethod(MethodBindings.setMenuDisabledPtr)
   }
 
@@ -251,16 +256,16 @@ public open class MenuBar : Control() {
    * Returns `true` if the menu item is disabled.
    */
   public final fun isMenuDisabled(menu: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to menu.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, menu.toLong())
     TransferContext.callMethod(MethodBindings.isMenuDisabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * If `true`, menu item is hidden.
    */
   public final fun setMenuHidden(menu: Int, hidden: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to menu.toLong(), BOOL to hidden)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, menu.toLong(), hidden)
     TransferContext.callMethod(MethodBindings.setMenuHiddenPtr)
   }
 
@@ -268,18 +273,18 @@ public open class MenuBar : Control() {
    * Returns `true` if the menu item is hidden.
    */
   public final fun isMenuHidden(menu: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to menu.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, menu.toLong())
     TransferContext.callMethod(MethodBindings.isMenuHiddenPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns [PopupMenu] associated with menu item.
    */
   public final fun getMenuPopup(menu: Int): PopupMenu? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to menu.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, menu.toLong())
     TransferContext.callMethod(MethodBindings.getMenuPopupPtr)
-    return (TransferContext.readReturnValue(OBJECT) as PopupMenu?)
+    return (TransferContext.readReturnValue_OBJECT() as PopupMenu?)
   }
 
   public companion object {

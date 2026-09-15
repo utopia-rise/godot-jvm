@@ -26,21 +26,28 @@ import godot.core.RID
 import godot.core.Signal1
 import godot.core.VariantArray
 import godot.core.VariantCallable
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.PACKED_FLOAT_32_ARRAY
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.PACKED_INT_64_ARRAY
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
-import godot.core.VariantParser.PACKED_VECTOR3_ARRAY
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser._RID
 import godot.core.Vector2
 import godot.core.Vector3
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_BYTE_ARRAY
+import godot.readReturnValue_PACKED_FLOAT_32_ARRAY
+import godot.readReturnValue_PACKED_INT_32_ARRAY
+import godot.readReturnValue_PACKED_VECTOR2_ARRAY
+import godot.readReturnValue_PACKED_VECTOR3_ARRAY
+import godot.readReturnValue_RID
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments_ARRAY_OBJECT_CALLABLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_RID
+import godot.writeMethodArguments_RID_ARRAY_OBJECT
+import godot.writeMethodArguments_RID_ARRAY_OBJECT_CALLABLE
+import godot.writeMethodArguments_RID_ARRAY_PACKED_INT_64_ARRAY_OBJECT
+import godot.writeMethodArguments_RID_LONG
+import godot.writeMethodArguments_RID_LONG_LONG
+import godot.writeMethodArguments_RID_PACKED_INT_64_ARRAY_OBJECT_CALLABLE
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
@@ -69,9 +76,9 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    * Returns `true` if this spatial entity [capability] is supported by the hardware used.
    */
   public final fun supportsCapability(capability: Capability): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to capability.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, capability.value)
     TransferContext.callMethod(MethodBindings.supportsCapabilityPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -79,9 +86,9 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    */
   public final fun supportsComponentType(capability: Capability, componentType: ComponentType):
       Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to capability.value, LONG to componentType.value)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, capability.value, componentType.value)
     TransferContext.callMethod(MethodBindings.supportsComponentTypePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -103,18 +110,18 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
     next: OpenXRStructureBase? = null,
     userCallback: Callable = VariantCallable(),
   ): OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to capabilityConfigurations, OBJECT to next, CALLABLE to userCallback)
+    TransferContext.writeMethodArguments_ARRAY_OBJECT_CALLABLE(ptr, objectID.id, capabilityConfigurations, next, userCallback)
     TransferContext.callMethod(MethodBindings.createSpatialContextPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRFutureResult?)
   }
 
   /**
    * Returns `true` if the spatial context finished its creation and is ready to be used.
    */
   public final fun getSpatialContextReady(spatialContext: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, spatialContext)
     TransferContext.callMethod(MethodBindings.getSpatialContextReadyPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -122,7 +129,7 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    * context creation is still ongoing, the asynchronous process is cancelled.
    */
   public final fun freeSpatialContext(spatialContext: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, spatialContext)
     TransferContext.callMethod(MethodBindings.freeSpatialContextPtr)
   }
 
@@ -133,9 +140,9 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    * capability handlers.
    */
   public final fun getSpatialContextHandle(spatialContext: RID): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, spatialContext)
     TransferContext.callMethod(MethodBindings.getSpatialContextHandlePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -149,9 +156,9 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
     next: OpenXRStructureBase? = null,
     userCallback: Callable = VariantCallable(),
   ): OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext, ARRAY to componentData, OBJECT to next, CALLABLE to userCallback)
+    TransferContext.writeMethodArguments_RID_ARRAY_OBJECT_CALLABLE(ptr, objectID.id, spatialContext, componentData, next, userCallback)
     TransferContext.callMethod(MethodBindings.discoverSpatialEntitiesWithComponentDataPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRFutureResult?)
   }
 
   /**
@@ -173,9 +180,9 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
     next: OpenXRStructureBase? = null,
     userCallback: Callable = VariantCallable(),
   ): OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext, PACKED_INT_64_ARRAY to componentTypes, OBJECT to next, CALLABLE to userCallback)
+    TransferContext.writeMethodArguments_RID_PACKED_INT_64_ARRAY_OBJECT_CALLABLE(ptr, objectID.id, spatialContext, componentTypes, next, userCallback)
     TransferContext.callMethod(MethodBindings.discoverSpatialEntitiesPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRFutureResult?)
   }
 
   /**
@@ -189,9 +196,9 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
     componentTypes: PackedInt64Array,
     next: OpenXRStructureBase? = null,
   ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext, ARRAY to entities, PACKED_INT_64_ARRAY to componentTypes, OBJECT to next)
+    TransferContext.writeMethodArguments_RID_ARRAY_PACKED_INT_64_ARRAY_OBJECT(ptr, objectID.id, spatialContext, entities, componentTypes, next)
     TransferContext.callMethod(MethodBindings.updateSpatialEntitiesPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
@@ -199,7 +206,7 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    * spatial snapshot creation is still ongoing, the asynchronous process is cancelled.
    */
   public final fun freeSpatialSnapshot(spatialSnapshot: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialSnapshot)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, spatialSnapshot)
     TransferContext.callMethod(MethodBindings.freeSpatialSnapshotPtr)
   }
 
@@ -210,18 +217,18 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    * capability handlers.
    */
   public final fun getSpatialSnapshotHandle(spatialSnapshot: RID): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialSnapshot)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, spatialSnapshot)
     TransferContext.callMethod(MethodBindings.getSpatialSnapshotHandlePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Returns the spatial context related to this spatial snapshot.
    */
   public final fun getSpatialSnapshotContext(spatialSnapshot: RID): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialSnapshot)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, spatialSnapshot)
     TransferContext.callMethod(MethodBindings.getSpatialSnapshotContextPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
@@ -239,54 +246,54 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
     componentData: VariantArray<OpenXRSpatialComponentData>,
     next: OpenXRStructureBase? = null,
   ): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialSnapshot, ARRAY to componentData, OBJECT to next)
+    TransferContext.writeMethodArguments_RID_ARRAY_OBJECT(ptr, objectID.id, spatialSnapshot, componentData, next)
     TransferContext.callMethod(MethodBindings.querySnapshotPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns a string from a buffer that was retrieved when taking a snapshot.
    */
   public final fun getString(spatialSnapshot: RID, bufferId: Long): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialSnapshot, LONG to bufferId)
+    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
     TransferContext.callMethod(MethodBindings.getStringPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Returns a buffer with 8 bit ints from a buffer that was retrieved when taking a snapshot.
    */
   public final fun getUint8Buffer(spatialSnapshot: RID, bufferId: Long): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialSnapshot, LONG to bufferId)
+    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
     TransferContext.callMethod(MethodBindings.getUint8BufferPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   /**
    * Returns a buffer with 16 bit ints from a buffer that was retrieved when taking a snapshot.
    */
   public final fun getUint16Buffer(spatialSnapshot: RID, bufferId: Long): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialSnapshot, LONG to bufferId)
+    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
     TransferContext.callMethod(MethodBindings.getUint16BufferPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
+    return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
   /**
    * Returns a buffer with 32 bit ints from a buffer that was retrieved when taking a snapshot.
    */
   public final fun getUint32Buffer(spatialSnapshot: RID, bufferId: Long): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialSnapshot, LONG to bufferId)
+    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
     TransferContext.callMethod(MethodBindings.getUint32BufferPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
+    return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
   /**
    * Returns a buffer with floats from a buffer that was retrieved when taking a snapshot.
    */
   public final fun getFloatBuffer(spatialSnapshot: RID, bufferId: Long): PackedFloat32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialSnapshot, LONG to bufferId)
+    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
     TransferContext.callMethod(MethodBindings.getFloatBufferPtr)
-    return (TransferContext.readReturnValue(PACKED_FLOAT_32_ARRAY) as PackedFloat32Array)
+    return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
   /**
@@ -294,9 +301,9 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    * snapshot.
    */
   public final fun getVector2Buffer(spatialSnapshot: RID, bufferId: Long): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialSnapshot, LONG to bufferId)
+    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
     TransferContext.callMethod(MethodBindings.getVector2BufferPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
+    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
   /**
@@ -304,18 +311,18 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    * snapshot.
    */
   public final fun getVector3Buffer(spatialSnapshot: RID, bufferId: Long): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialSnapshot, LONG to bufferId)
+    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
     TransferContext.callMethod(MethodBindings.getVector3BufferPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
+    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
   /**
    * Returns the [RID] for the specified spatial entity ID.
    */
   public final fun findSpatialEntity(entityId: Long): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to entityId)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, entityId)
     TransferContext.callMethod(MethodBindings.findSpatialEntityPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
@@ -326,9 +333,9 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
     entityId: Long,
     entity: Long,
   ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext, LONG to entityId, LONG to entity)
+    TransferContext.writeMethodArguments_RID_LONG_LONG(ptr, objectID.id, spatialContext, entityId, entity)
     TransferContext.callMethod(MethodBindings.addSpatialEntityPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
@@ -336,34 +343,34 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    * discovered the entity.
    */
   public final fun makeSpatialEntity(spatialContext: RID, entityId: Long): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext, LONG to entityId)
+    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialContext, entityId)
     TransferContext.callMethod(MethodBindings.makeSpatialEntityPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
    * Returns the internal `XrSpatialEntityIdEXT` associated with the entity.
    */
   public final fun getSpatialEntityId(entity: RID): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to entity)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, entity)
     TransferContext.callMethod(MethodBindings.getSpatialEntityIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Returns the spatial context for this entity.
    */
   public final fun getSpatialEntityContext(entity: RID): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to entity)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, entity)
     TransferContext.callMethod(MethodBindings.getSpatialEntityContextPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
    * Frees an entity previously created when calling [addSpatialEntity] or [makeSpatialEntity].
    */
   public final fun freeSpatialEntity(entity: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to entity)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, entity)
     TransferContext.callMethod(MethodBindings.freeSpatialEntityPtr)
   }
 

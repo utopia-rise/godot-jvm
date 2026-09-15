@@ -17,15 +17,22 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_DOUBLE
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_VECTOR3
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -1538,564 +1545,564 @@ public open class Environment : Resource() {
   }
 
   public final fun setBackground(mode: BGMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setBackgroundPtr)
   }
 
   public final fun getBackground(): BGMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBackgroundPtr)
-    return BGMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return BGMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSky(sky: Sky?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to sky)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, sky)
     TransferContext.callMethod(MethodBindings.setSkyPtr)
   }
 
   public final fun getSky(): Sky? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSkyPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Sky?)
+    return (TransferContext.readReturnValue_OBJECT() as Sky?)
   }
 
   public final fun setSkyCustomFov(scale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to scale.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, scale.toDouble())
     TransferContext.callMethod(MethodBindings.setSkyCustomFovPtr)
   }
 
   public final fun getSkyCustomFov(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSkyCustomFovPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSkyRotation(eulerRadians: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to eulerRadians)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, eulerRadians)
     TransferContext.callMethod(MethodBindings.setSkyRotationPtr)
   }
 
   public final fun getSkyRotation(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSkyRotationPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setBgColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setBgColorPtr)
   }
 
   public final fun getBgColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBgColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setBgEnergyMultiplier(energy: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to energy.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, energy.toDouble())
     TransferContext.callMethod(MethodBindings.setBgEnergyMultiplierPtr)
   }
 
   public final fun getBgEnergyMultiplier(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBgEnergyMultiplierPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setBgIntensity(energy: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to energy.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, energy.toDouble())
     TransferContext.callMethod(MethodBindings.setBgIntensityPtr)
   }
 
   public final fun getBgIntensity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBgIntensityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setCanvasMaxLayer(layer: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
     TransferContext.callMethod(MethodBindings.setCanvasMaxLayerPtr)
   }
 
   public final fun getCanvasMaxLayer(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCanvasMaxLayerPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setCameraFeedId(id: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
     TransferContext.callMethod(MethodBindings.setCameraFeedIdPtr)
   }
 
   public final fun getCameraFeedId(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCameraFeedIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setAmbientLightColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setAmbientLightColorPtr)
   }
 
   public final fun getAmbientLightColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAmbientLightColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setAmbientSource(source: AmbientSource): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to source.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, source.value)
     TransferContext.callMethod(MethodBindings.setAmbientSourcePtr)
   }
 
   public final fun getAmbientSource(): AmbientSource {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAmbientSourcePtr)
-    return AmbientSource.from(TransferContext.readReturnValue(LONG) as Long)
+    return AmbientSource.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setAmbientLightEnergy(energy: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to energy.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, energy.toDouble())
     TransferContext.callMethod(MethodBindings.setAmbientLightEnergyPtr)
   }
 
   public final fun getAmbientLightEnergy(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAmbientLightEnergyPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAmbientLightSkyContribution(ratio: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to ratio.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
     TransferContext.callMethod(MethodBindings.setAmbientLightSkyContributionPtr)
   }
 
   public final fun getAmbientLightSkyContribution(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAmbientLightSkyContributionPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setReflectionSource(source: ReflectionSource): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to source.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, source.value)
     TransferContext.callMethod(MethodBindings.setReflectionSourcePtr)
   }
 
   public final fun getReflectionSource(): ReflectionSource {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getReflectionSourcePtr)
-    return ReflectionSource.from(TransferContext.readReturnValue(LONG) as Long)
+    return ReflectionSource.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTonemapper(mode: ToneMapper): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setTonemapperPtr)
   }
 
   public final fun getTonemapper(): ToneMapper {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTonemapperPtr)
-    return ToneMapper.from(TransferContext.readReturnValue(LONG) as Long)
+    return ToneMapper.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTonemapExposure(exposure: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to exposure.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, exposure.toDouble())
     TransferContext.callMethod(MethodBindings.setTonemapExposurePtr)
   }
 
   public final fun getTonemapExposure(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTonemapExposurePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTonemapWhite(white: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to white.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, white.toDouble())
     TransferContext.callMethod(MethodBindings.setTonemapWhitePtr)
   }
 
   public final fun getTonemapWhite(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTonemapWhitePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTonemapAgxWhite(white: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to white.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, white.toDouble())
     TransferContext.callMethod(MethodBindings.setTonemapAgxWhitePtr)
   }
 
   public final fun getTonemapAgxWhite(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTonemapAgxWhitePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTonemapAgxContrast(contrast: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to contrast.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, contrast.toDouble())
     TransferContext.callMethod(MethodBindings.setTonemapAgxContrastPtr)
   }
 
   public final fun getTonemapAgxContrast(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTonemapAgxContrastPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsrEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setSsrEnabledPtr)
   }
 
   public final fun isSsrEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isSsrEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSsrMaxSteps(maxSteps: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxSteps.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxSteps.toLong())
     TransferContext.callMethod(MethodBindings.setSsrMaxStepsPtr)
   }
 
   public final fun getSsrMaxSteps(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsrMaxStepsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSsrFadeIn(fadeIn: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to fadeIn.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fadeIn.toDouble())
     TransferContext.callMethod(MethodBindings.setSsrFadeInPtr)
   }
 
   public final fun getSsrFadeIn(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsrFadeInPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsrFadeOut(fadeOut: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to fadeOut.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fadeOut.toDouble())
     TransferContext.callMethod(MethodBindings.setSsrFadeOutPtr)
   }
 
   public final fun getSsrFadeOut(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsrFadeOutPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsrDepthTolerance(depthTolerance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to depthTolerance.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, depthTolerance.toDouble())
     TransferContext.callMethod(MethodBindings.setSsrDepthTolerancePtr)
   }
 
   public final fun getSsrDepthTolerance(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsrDepthTolerancePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsaoEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setSsaoEnabledPtr)
   }
 
   public final fun isSsaoEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isSsaoEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSsaoRadius(radius: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to radius.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
     TransferContext.callMethod(MethodBindings.setSsaoRadiusPtr)
   }
 
   public final fun getSsaoRadius(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsaoRadiusPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsaoIntensity(intensity: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to intensity.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, intensity.toDouble())
     TransferContext.callMethod(MethodBindings.setSsaoIntensityPtr)
   }
 
   public final fun getSsaoIntensity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsaoIntensityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsaoPower(power: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to power.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, power.toDouble())
     TransferContext.callMethod(MethodBindings.setSsaoPowerPtr)
   }
 
   public final fun getSsaoPower(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsaoPowerPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsaoDetail(detail: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to detail.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, detail.toDouble())
     TransferContext.callMethod(MethodBindings.setSsaoDetailPtr)
   }
 
   public final fun getSsaoDetail(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsaoDetailPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsaoHorizon(horizon: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to horizon.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, horizon.toDouble())
     TransferContext.callMethod(MethodBindings.setSsaoHorizonPtr)
   }
 
   public final fun getSsaoHorizon(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsaoHorizonPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsaoSharpness(sharpness: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to sharpness.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, sharpness.toDouble())
     TransferContext.callMethod(MethodBindings.setSsaoSharpnessPtr)
   }
 
   public final fun getSsaoSharpness(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsaoSharpnessPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsaoDirectLightAffect(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
     TransferContext.callMethod(MethodBindings.setSsaoDirectLightAffectPtr)
   }
 
   public final fun getSsaoDirectLightAffect(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsaoDirectLightAffectPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsaoAoChannelAffect(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
     TransferContext.callMethod(MethodBindings.setSsaoAoChannelAffectPtr)
   }
 
   public final fun getSsaoAoChannelAffect(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsaoAoChannelAffectPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsilEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setSsilEnabledPtr)
   }
 
   public final fun isSsilEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isSsilEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSsilRadius(radius: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to radius.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
     TransferContext.callMethod(MethodBindings.setSsilRadiusPtr)
   }
 
   public final fun getSsilRadius(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsilRadiusPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsilIntensity(intensity: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to intensity.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, intensity.toDouble())
     TransferContext.callMethod(MethodBindings.setSsilIntensityPtr)
   }
 
   public final fun getSsilIntensity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsilIntensityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsilSharpness(sharpness: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to sharpness.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, sharpness.toDouble())
     TransferContext.callMethod(MethodBindings.setSsilSharpnessPtr)
   }
 
   public final fun getSsilSharpness(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsilSharpnessPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSsilNormalRejection(normalRejection: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to normalRejection.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, normalRejection.toDouble())
     TransferContext.callMethod(MethodBindings.setSsilNormalRejectionPtr)
   }
 
   public final fun getSsilNormalRejection(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSsilNormalRejectionPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSdfgiEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setSdfgiEnabledPtr)
   }
 
   public final fun isSdfgiEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isSdfgiEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSdfgiCascades(amount: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to amount.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
     TransferContext.callMethod(MethodBindings.setSdfgiCascadesPtr)
   }
 
   public final fun getSdfgiCascades(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSdfgiCascadesPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSdfgiMinCellSize(size: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to size.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, size.toDouble())
     TransferContext.callMethod(MethodBindings.setSdfgiMinCellSizePtr)
   }
 
   public final fun getSdfgiMinCellSize(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSdfgiMinCellSizePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSdfgiMaxDistance(distance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to distance.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
     TransferContext.callMethod(MethodBindings.setSdfgiMaxDistancePtr)
   }
 
   public final fun getSdfgiMaxDistance(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSdfgiMaxDistancePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSdfgiCascade0Distance(distance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to distance.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
     TransferContext.callMethod(MethodBindings.setSdfgiCascade0DistancePtr)
   }
 
   public final fun getSdfgiCascade0Distance(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSdfgiCascade0DistancePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSdfgiYScale(scale: SDFGIYScale): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to scale.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, scale.value)
     TransferContext.callMethod(MethodBindings.setSdfgiYScalePtr)
   }
 
   public final fun getSdfgiYScale(): SDFGIYScale {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSdfgiYScalePtr)
-    return SDFGIYScale.from(TransferContext.readReturnValue(LONG) as Long)
+    return SDFGIYScale.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSdfgiUseOcclusion(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setSdfgiUseOcclusionPtr)
   }
 
   public final fun isSdfgiUsingOcclusion(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isSdfgiUsingOcclusionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSdfgiBounceFeedback(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
     TransferContext.callMethod(MethodBindings.setSdfgiBounceFeedbackPtr)
   }
 
   public final fun getSdfgiBounceFeedback(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSdfgiBounceFeedbackPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSdfgiReadSkyLight(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setSdfgiReadSkyLightPtr)
   }
 
   public final fun isSdfgiReadingSkyLight(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isSdfgiReadingSkyLightPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSdfgiEnergy(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
     TransferContext.callMethod(MethodBindings.setSdfgiEnergyPtr)
   }
 
   public final fun getSdfgiEnergy(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSdfgiEnergyPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSdfgiNormalBias(bias: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to bias.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, bias.toDouble())
     TransferContext.callMethod(MethodBindings.setSdfgiNormalBiasPtr)
   }
 
   public final fun getSdfgiNormalBias(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSdfgiNormalBiasPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSdfgiProbeBias(bias: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to bias.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, bias.toDouble())
     TransferContext.callMethod(MethodBindings.setSdfgiProbeBiasPtr)
   }
 
   public final fun getSdfgiProbeBias(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSdfgiProbeBiasPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGlowEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setGlowEnabledPtr)
   }
 
   public final fun isGlowEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isGlowEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -2104,7 +2111,7 @@ public open class Environment : Resource() {
    * effect rendering, even if previous levels aren't enabled.
    */
   public final fun setGlowLevel(idx: Int, intensity: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to idx.toLong(), DOUBLE to intensity.toDouble())
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, idx.toLong(), intensity.toDouble())
     TransferContext.callMethod(MethodBindings.setGlowLevelPtr)
   }
 
@@ -2112,472 +2119,472 @@ public open class Environment : Resource() {
    * Returns the intensity of the glow level [idx].
    */
   public final fun getGlowLevel(idx: Int): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to idx.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
     TransferContext.callMethod(MethodBindings.getGlowLevelPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGlowNormalized(normalize: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to normalize)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, normalize)
     TransferContext.callMethod(MethodBindings.setGlowNormalizedPtr)
   }
 
   public final fun isGlowNormalized(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isGlowNormalizedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setGlowIntensity(intensity: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to intensity.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, intensity.toDouble())
     TransferContext.callMethod(MethodBindings.setGlowIntensityPtr)
   }
 
   public final fun getGlowIntensity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGlowIntensityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGlowStrength(strength: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to strength.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, strength.toDouble())
     TransferContext.callMethod(MethodBindings.setGlowStrengthPtr)
   }
 
   public final fun getGlowStrength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGlowStrengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGlowMix(mix: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to mix.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, mix.toDouble())
     TransferContext.callMethod(MethodBindings.setGlowMixPtr)
   }
 
   public final fun getGlowMix(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGlowMixPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGlowBloom(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
     TransferContext.callMethod(MethodBindings.setGlowBloomPtr)
   }
 
   public final fun getGlowBloom(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGlowBloomPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGlowBlendMode(mode: GlowBlendMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setGlowBlendModePtr)
   }
 
   public final fun getGlowBlendMode(): GlowBlendMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGlowBlendModePtr)
-    return GlowBlendMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return GlowBlendMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setGlowHdrBleedThreshold(threshold: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to threshold.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, threshold.toDouble())
     TransferContext.callMethod(MethodBindings.setGlowHdrBleedThresholdPtr)
   }
 
   public final fun getGlowHdrBleedThreshold(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGlowHdrBleedThresholdPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGlowHdrBleedScale(scale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to scale.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, scale.toDouble())
     TransferContext.callMethod(MethodBindings.setGlowHdrBleedScalePtr)
   }
 
   public final fun getGlowHdrBleedScale(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGlowHdrBleedScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGlowHdrLuminanceCap(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
     TransferContext.callMethod(MethodBindings.setGlowHdrLuminanceCapPtr)
   }
 
   public final fun getGlowHdrLuminanceCap(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGlowHdrLuminanceCapPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGlowMapStrength(strength: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to strength.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, strength.toDouble())
     TransferContext.callMethod(MethodBindings.setGlowMapStrengthPtr)
   }
 
   public final fun getGlowMapStrength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGlowMapStrengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGlowMap(mode: Texture?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to mode)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, mode)
     TransferContext.callMethod(MethodBindings.setGlowMapPtr)
   }
 
   public final fun getGlowMap(): Texture? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGlowMapPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture?)
+    return (TransferContext.readReturnValue_OBJECT() as Texture?)
   }
 
   public final fun setFogEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setFogEnabledPtr)
   }
 
   public final fun isFogEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isFogEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFogMode(mode: FogMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setFogModePtr)
   }
 
   public final fun getFogMode(): FogMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogModePtr)
-    return FogMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return FogMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setFogLightColor(lightColor: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to lightColor)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, lightColor)
     TransferContext.callMethod(MethodBindings.setFogLightColorPtr)
   }
 
   public final fun getFogLightColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogLightColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setFogLightEnergy(lightEnergy: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to lightEnergy.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, lightEnergy.toDouble())
     TransferContext.callMethod(MethodBindings.setFogLightEnergyPtr)
   }
 
   public final fun getFogLightEnergy(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogLightEnergyPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFogSunScatter(sunScatter: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to sunScatter.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, sunScatter.toDouble())
     TransferContext.callMethod(MethodBindings.setFogSunScatterPtr)
   }
 
   public final fun getFogSunScatter(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogSunScatterPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFogDensity(density: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to density.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, density.toDouble())
     TransferContext.callMethod(MethodBindings.setFogDensityPtr)
   }
 
   public final fun getFogDensity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogDensityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFogHeight(height: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to height.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, height.toDouble())
     TransferContext.callMethod(MethodBindings.setFogHeightPtr)
   }
 
   public final fun getFogHeight(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogHeightPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFogHeightDensity(heightDensity: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to heightDensity.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, heightDensity.toDouble())
     TransferContext.callMethod(MethodBindings.setFogHeightDensityPtr)
   }
 
   public final fun getFogHeightDensity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogHeightDensityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFogAerialPerspective(aerialPerspective: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to aerialPerspective.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, aerialPerspective.toDouble())
     TransferContext.callMethod(MethodBindings.setFogAerialPerspectivePtr)
   }
 
   public final fun getFogAerialPerspective(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogAerialPerspectivePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFogSkyAffect(skyAffect: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to skyAffect.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, skyAffect.toDouble())
     TransferContext.callMethod(MethodBindings.setFogSkyAffectPtr)
   }
 
   public final fun getFogSkyAffect(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogSkyAffectPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFogDepthCurve(curve: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to curve.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, curve.toDouble())
     TransferContext.callMethod(MethodBindings.setFogDepthCurvePtr)
   }
 
   public final fun getFogDepthCurve(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogDepthCurvePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFogDepthBegin(begin: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to begin.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, begin.toDouble())
     TransferContext.callMethod(MethodBindings.setFogDepthBeginPtr)
   }
 
   public final fun getFogDepthBegin(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogDepthBeginPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFogDepthEnd(end: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to end.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, end.toDouble())
     TransferContext.callMethod(MethodBindings.setFogDepthEndPtr)
   }
 
   public final fun getFogDepthEnd(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFogDepthEndPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumetricFogEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setVolumetricFogEnabledPtr)
   }
 
   public final fun isVolumetricFogEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isVolumetricFogEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setVolumetricFogEmission(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setVolumetricFogEmissionPtr)
   }
 
   public final fun getVolumetricFogEmission(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVolumetricFogEmissionPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setVolumetricFogAlbedo(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setVolumetricFogAlbedoPtr)
   }
 
   public final fun getVolumetricFogAlbedo(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVolumetricFogAlbedoPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setVolumetricFogDensity(density: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to density.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, density.toDouble())
     TransferContext.callMethod(MethodBindings.setVolumetricFogDensityPtr)
   }
 
   public final fun getVolumetricFogDensity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVolumetricFogDensityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumetricFogEmissionEnergy(begin: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to begin.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, begin.toDouble())
     TransferContext.callMethod(MethodBindings.setVolumetricFogEmissionEnergyPtr)
   }
 
   public final fun getVolumetricFogEmissionEnergy(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVolumetricFogEmissionEnergyPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumetricFogAnisotropy(anisotropy: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to anisotropy.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, anisotropy.toDouble())
     TransferContext.callMethod(MethodBindings.setVolumetricFogAnisotropyPtr)
   }
 
   public final fun getVolumetricFogAnisotropy(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVolumetricFogAnisotropyPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumetricFogLength(length: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to length.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, length.toDouble())
     TransferContext.callMethod(MethodBindings.setVolumetricFogLengthPtr)
   }
 
   public final fun getVolumetricFogLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVolumetricFogLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumetricFogDetailSpread(detailSpread: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to detailSpread.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, detailSpread.toDouble())
     TransferContext.callMethod(MethodBindings.setVolumetricFogDetailSpreadPtr)
   }
 
   public final fun getVolumetricFogDetailSpread(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVolumetricFogDetailSpreadPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumetricFogGiInject(giInject: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to giInject.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, giInject.toDouble())
     TransferContext.callMethod(MethodBindings.setVolumetricFogGiInjectPtr)
   }
 
   public final fun getVolumetricFogGiInject(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVolumetricFogGiInjectPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumetricFogAmbientInject(enabled: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to enabled.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, enabled.toDouble())
     TransferContext.callMethod(MethodBindings.setVolumetricFogAmbientInjectPtr)
   }
 
   public final fun getVolumetricFogAmbientInject(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVolumetricFogAmbientInjectPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumetricFogSkyAffect(skyAffect: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to skyAffect.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, skyAffect.toDouble())
     TransferContext.callMethod(MethodBindings.setVolumetricFogSkyAffectPtr)
   }
 
   public final fun getVolumetricFogSkyAffect(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVolumetricFogSkyAffectPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumetricFogTemporalReprojectionEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setVolumetricFogTemporalReprojectionEnabledPtr)
   }
 
   public final fun isVolumetricFogTemporalReprojectionEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isVolumetricFogTemporalReprojectionEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setVolumetricFogTemporalReprojectionAmount(temporalReprojectionAmount: Float):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to temporalReprojectionAmount.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, temporalReprojectionAmount.toDouble())
     TransferContext.callMethod(MethodBindings.setVolumetricFogTemporalReprojectionAmountPtr)
   }
 
   public final fun getVolumetricFogTemporalReprojectionAmount(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVolumetricFogTemporalReprojectionAmountPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAdjustmentEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setAdjustmentEnabledPtr)
   }
 
   public final fun isAdjustmentEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAdjustmentEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAdjustmentBrightness(brightness: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to brightness.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, brightness.toDouble())
     TransferContext.callMethod(MethodBindings.setAdjustmentBrightnessPtr)
   }
 
   public final fun getAdjustmentBrightness(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAdjustmentBrightnessPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAdjustmentContrast(contrast: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to contrast.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, contrast.toDouble())
     TransferContext.callMethod(MethodBindings.setAdjustmentContrastPtr)
   }
 
   public final fun getAdjustmentContrast(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAdjustmentContrastPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAdjustmentSaturation(saturation: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to saturation.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, saturation.toDouble())
     TransferContext.callMethod(MethodBindings.setAdjustmentSaturationPtr)
   }
 
   public final fun getAdjustmentSaturation(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAdjustmentSaturationPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAdjustmentColorCorrection(colorCorrection: Texture?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to colorCorrection)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, colorCorrection)
     TransferContext.callMethod(MethodBindings.setAdjustmentColorCorrectionPtr)
   }
 
   public final fun getAdjustmentColorCorrection(): Texture? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAdjustmentColorCorrectionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture?)
+    return (TransferContext.readReturnValue_OBJECT() as Texture?)
   }
 
   public enum class BGMode(

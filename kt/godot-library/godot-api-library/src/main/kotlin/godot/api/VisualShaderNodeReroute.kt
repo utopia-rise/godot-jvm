@@ -11,8 +11,8 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
-import godot.core.VariantParser.LONG
-import kotlin.Long
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -36,9 +36,9 @@ public open class VisualShaderNodeReroute : VisualShaderNode() {
    * Returns the port type of the reroute node.
    */
   public final fun getPortType(): VisualShaderNode.PortType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPortTypePtr)
-    return VisualShaderNode.PortType.from(TransferContext.readReturnValue(LONG) as Long)
+    return VisualShaderNode.PortType.from(TransferContext.readReturnValue_LONG())
   }
 
   public companion object {

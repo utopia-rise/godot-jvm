@@ -12,8 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import kotlin.Long
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -86,58 +87,58 @@ public open class RDTextureView : RefCounted() {
   }
 
   public final fun setFormatOverride(pMember: RenderingDevice.DataFormat): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
     TransferContext.callMethod(MethodBindings.setFormatOverridePtr)
   }
 
   public final fun getFormatOverride(): RenderingDevice.DataFormat {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFormatOverridePtr)
-    return RenderingDevice.DataFormat.from(TransferContext.readReturnValue(LONG) as Long)
+    return RenderingDevice.DataFormat.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSwizzleR(pMember: RenderingDevice.TextureSwizzle): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
     TransferContext.callMethod(MethodBindings.setSwizzleRPtr)
   }
 
   public final fun getSwizzleR(): RenderingDevice.TextureSwizzle {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSwizzleRPtr)
-    return RenderingDevice.TextureSwizzle.from(TransferContext.readReturnValue(LONG) as Long)
+    return RenderingDevice.TextureSwizzle.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSwizzleG(pMember: RenderingDevice.TextureSwizzle): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
     TransferContext.callMethod(MethodBindings.setSwizzleGPtr)
   }
 
   public final fun getSwizzleG(): RenderingDevice.TextureSwizzle {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSwizzleGPtr)
-    return RenderingDevice.TextureSwizzle.from(TransferContext.readReturnValue(LONG) as Long)
+    return RenderingDevice.TextureSwizzle.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSwizzleB(pMember: RenderingDevice.TextureSwizzle): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
     TransferContext.callMethod(MethodBindings.setSwizzleBPtr)
   }
 
   public final fun getSwizzleB(): RenderingDevice.TextureSwizzle {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSwizzleBPtr)
-    return RenderingDevice.TextureSwizzle.from(TransferContext.readReturnValue(LONG) as Long)
+    return RenderingDevice.TextureSwizzle.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSwizzleA(pMember: RenderingDevice.TextureSwizzle): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
     TransferContext.callMethod(MethodBindings.setSwizzleAPtr)
   }
 
   public final fun getSwizzleA(): RenderingDevice.TextureSwizzle {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSwizzleAPtr)
-    return RenderingDevice.TextureSwizzle.from(TransferContext.readReturnValue(LONG) as Long)
+    return RenderingDevice.TextureSwizzle.from(TransferContext.readReturnValue_LONG())
   }
 
   public companion object {

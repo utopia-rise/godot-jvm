@@ -14,14 +14,14 @@ import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_DICTIONARY
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_STRING_ARRAY
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ANY
 import kotlin.Any
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -64,30 +64,30 @@ public open class RegExMatch : RefCounted() {
   }
 
   public final fun getSubject(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSubjectPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Returns the number of capturing groups.
    */
   public final fun getGroupCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGroupCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun getNames(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNamesPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   public final fun getStrings(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStringsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -99,9 +99,9 @@ public open class RegExMatch : RefCounted() {
    */
   @JvmOverloads
   public final fun getString(name: Any? = 0): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ANY to name)
+    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.getStringPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -113,9 +113,9 @@ public open class RegExMatch : RefCounted() {
    */
   @JvmOverloads
   public final fun getStart(name: Any? = 0): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ANY to name)
+    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.getStartPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -127,9 +127,9 @@ public open class RegExMatch : RefCounted() {
    */
   @JvmOverloads
   public final fun getEnd(name: Any? = 0): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ANY to name)
+    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.getEndPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public companion object {

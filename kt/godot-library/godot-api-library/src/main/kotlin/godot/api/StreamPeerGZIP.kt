@@ -13,11 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL_LONG
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -48,9 +48,9 @@ public open class StreamPeerGZIP : StreamPeer() {
    */
   @JvmOverloads
   public final fun startCompression(useDeflate: Boolean = false, bufferSize: Int = 65535): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to useDeflate, LONG to bufferSize.toLong())
+    TransferContext.writeMethodArguments_BOOL_LONG(ptr, objectID.id, useDeflate, bufferSize.toLong())
     TransferContext.callMethod(MethodBindings.startCompressionPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -59,9 +59,9 @@ public open class StreamPeerGZIP : StreamPeer() {
    */
   @JvmOverloads
   public final fun startDecompression(useDeflate: Boolean = false, bufferSize: Int = 65535): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to useDeflate, LONG to bufferSize.toLong())
+    TransferContext.writeMethodArguments_BOOL_LONG(ptr, objectID.id, useDeflate, bufferSize.toLong())
     TransferContext.callMethod(MethodBindings.startDecompressionPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -70,16 +70,16 @@ public open class StreamPeerGZIP : StreamPeer() {
    * You must call it only when you are compressing.
    */
   public final fun finish(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.finishPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Clears this stream, resetting the internal state.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.clearPtr)
   }
 

@@ -13,11 +13,12 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_LONG_DOUBLE
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -39,7 +40,7 @@ public open class HingeJoint3D : Joint3D() {
    * Sets the value of the specified parameter.
    */
   public final fun setParam(`param`: Param, `value`: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value, DOUBLE to value.toDouble())
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, param.value, value.toDouble())
     TransferContext.callMethod(MethodBindings.setParamPtr)
   }
 
@@ -47,16 +48,16 @@ public open class HingeJoint3D : Joint3D() {
    * Returns the value of the specified parameter.
    */
   public final fun getParam(`param`: Param): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, param.value)
     TransferContext.callMethod(MethodBindings.getParamPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
    * If `true`, enables the specified flag.
    */
   public final fun setFlag(flag: Flag, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flag.value, BOOL to enabled)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, flag.value, enabled)
     TransferContext.callMethod(MethodBindings.setFlagPtr)
   }
 
@@ -64,9 +65,9 @@ public open class HingeJoint3D : Joint3D() {
    * Returns the value of the specified flag.
    */
   public final fun getFlag(flag: Flag): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flag.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flag.value)
     TransferContext.callMethod(MethodBindings.getFlagPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class Param(

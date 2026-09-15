@@ -12,9 +12,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -51,24 +52,24 @@ public open class GLTFTexture : Resource() {
   }
 
   public final fun getSrcImage(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSrcImagePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSrcImage(srcImage: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to srcImage.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, srcImage.toLong())
     TransferContext.callMethod(MethodBindings.setSrcImagePtr)
   }
 
   public final fun getSampler(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSamplerPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSampler(sampler: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to sampler.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, sampler.toLong())
     TransferContext.callMethod(MethodBindings.setSamplerPtr)
   }
 

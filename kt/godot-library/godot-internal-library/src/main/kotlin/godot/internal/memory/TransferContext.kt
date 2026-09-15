@@ -40,14 +40,18 @@ object TransferContext {
         }
     }
 
-    fun writeMethodArguments(callerPtr: VoidPtr, callerId: Long, vararg values: Pair<VariantConverter<*>, Any?>) = buffer.let {
+    fun writeMethodArguments(callerPtr: VoidPtr, callerId: Long, vararg values: Pair<VariantConverter<*>, Any?>) {
+        val buffer = beginMethodCall(callerPtr, callerId, values.size)
+        for (value in values) {
+            value.first.toGodot(buffer, value.second)
+        }
+    }
+
+    fun beginMethodCall(callerPtr: VoidPtr, callerId: Long, argumentCount: Int): ByteBuffer = buffer.also {
         it.rewind()
         it.putLong(callerPtr)
         it.putLong(callerId)
-        it.putInt(values.size)
-        for (value in values) {
-            value.first.toGodot(it, value.second)
-        }
+        it.putInt(argumentCount)
     }
 
     fun readSetterArgument(variantConverter: VariantConverter<*>) = buffer.let {
@@ -81,10 +85,9 @@ object TransferContext {
         type.toGodot(it, value)
     }
 
-    fun readReturnValue(type: VariantConverter<*>) = buffer.let {
-        it.rewind()
-        type.toKotlin(it)
-    }
+    fun readReturnValue(type: VariantConverter<*>) = type.toKotlin(beginReturnValueRead())
+
+    fun beginReturnValueRead(): ByteBuffer = buffer.rewind()
 
     fun callMethod(methodPtr: VoidPtr) = icall(methodPtr)
 

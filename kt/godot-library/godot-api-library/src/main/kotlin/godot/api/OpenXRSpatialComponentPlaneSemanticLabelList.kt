@@ -12,7 +12,8 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -32,9 +33,9 @@ public open class OpenXRSpatialComponentPlaneSemanticLabelList : OpenXRSpatialCo
    * Returns the plane semantic label for the parent entity at this [index].
    */
   public final fun getPlaneSemanticLabel(index: Long): PlaneSemanticLabel {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
     TransferContext.callMethod(MethodBindings.getPlaneSemanticLabelPtr)
-    return PlaneSemanticLabel.from(TransferContext.readReturnValue(LONG) as Long)
+    return PlaneSemanticLabel.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class PlaneSemanticLabel(

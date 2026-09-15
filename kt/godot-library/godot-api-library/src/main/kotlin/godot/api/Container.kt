@@ -16,9 +16,10 @@ import godot.core.MethodStringName2
 import godot.core.PackedInt32Array
 import godot.core.Rect2
 import godot.core.Signal0
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.RECT2
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_OBJECT_RECT2
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -89,7 +90,7 @@ public open class Container : Control() {
    * upon request.
    */
   public final fun queueSort(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.queueSortPtr)
   }
 
@@ -98,19 +99,19 @@ public open class Container : Control() {
    * classes.
    */
   public final fun fitChildInRect(child: Control, rect: Rect2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to child, RECT2 to rect)
+    TransferContext.writeMethodArguments_OBJECT_RECT2(ptr, objectID.id, child, rect)
     TransferContext.callMethod(MethodBindings.fitChildInRectPtr)
   }
 
   public final fun setAccessibilityRegion(region: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to region)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, region)
     TransferContext.callMethod(MethodBindings.setAccessibilityRegionPtr)
   }
 
   public final fun isAccessibilityRegion(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAccessibilityRegionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

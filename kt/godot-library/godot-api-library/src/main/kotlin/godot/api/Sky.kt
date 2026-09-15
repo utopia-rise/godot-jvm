@@ -13,8 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -72,36 +75,36 @@ public open class Sky : Resource() {
   }
 
   public final fun setRadianceSize(size: RadianceSize): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.value)
     TransferContext.callMethod(MethodBindings.setRadianceSizePtr)
   }
 
   public final fun getRadianceSize(): RadianceSize {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRadianceSizePtr)
-    return RadianceSize.from(TransferContext.readReturnValue(LONG) as Long)
+    return RadianceSize.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setProcessMode(mode: ProcessMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setProcessModePtr)
   }
 
   public final fun getProcessMode(): ProcessMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getProcessModePtr)
-    return ProcessMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return ProcessMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setMaterial(material: Material?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to material)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
     TransferContext.callMethod(MethodBindings.setMaterialPtr)
   }
 
   public final fun getMaterial(): Material? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMaterialPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Material?)
+    return (TransferContext.readReturnValue_OBJECT() as Material?)
   }
 
   public enum class RadianceSize(

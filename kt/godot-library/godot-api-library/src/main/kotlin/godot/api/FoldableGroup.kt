@@ -14,9 +14,11 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal1
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -52,9 +54,9 @@ public open class FoldableGroup : Resource() {
    * Returns the current expanded container.
    */
   public final fun getExpandedContainer(): FoldableContainer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getExpandedContainerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as FoldableContainer?)
+    return (TransferContext.readReturnValue_OBJECT() as FoldableContainer?)
   }
 
   /**
@@ -63,20 +65,20 @@ public open class FoldableGroup : Resource() {
    * FoldableContainers.
    */
   public final fun getContainers(): VariantArray<FoldableContainer> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getContainersPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<FoldableContainer>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<FoldableContainer>)
   }
 
   public final fun setAllowFoldingAll(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setAllowFoldingAllPtr)
   }
 
   public final fun isAllowFoldingAll(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAllowFoldingAllPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

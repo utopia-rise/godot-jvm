@@ -14,8 +14,9 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser._RID
+import godot.readReturnValue_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_RID
 import kotlin.Any
 import kotlin.Suppress
 import kotlin.Unit
@@ -38,7 +39,7 @@ public open class OpenXRSpatialContextPersistenceConfig : OpenXRStructureBase() 
    * [OpenXRSpatialAnchorCapability.createPersistenceContext].
    */
   public final fun addPersistenceContext(persistenceContext: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to persistenceContext)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, persistenceContext)
     TransferContext.callMethod(MethodBindings.addPersistenceContextPtr)
   }
 
@@ -46,7 +47,7 @@ public open class OpenXRSpatialContextPersistenceConfig : OpenXRStructureBase() 
    * Removes a persistence context.
    */
   public final fun removePersistenceContext(persistenceContext: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to persistenceContext)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, persistenceContext)
     TransferContext.callMethod(MethodBindings.removePersistenceContextPtr)
   }
 
@@ -54,9 +55,9 @@ public open class OpenXRSpatialContextPersistenceConfig : OpenXRStructureBase() 
    * Gets the persistence context(s) (as [RID]s) received by [addPersistenceContext].
    */
   public final fun getPersistenceContexts(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPersistenceContextsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   public companion object {

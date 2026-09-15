@@ -16,8 +16,10 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.VariantCallable
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.OBJECT
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_OBJECT_OBJECT
+import godot.writeMethodArguments_OBJECT_OBJECT_CALLABLE
+import godot.writeMethodArguments_OBJECT_OBJECT_OBJECT_CALLABLE
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -90,7 +92,7 @@ public object NavigationMeshGenerator : Object() {
    */
   @JvmStatic
   public final fun bake(navigationMesh: NavigationMesh?, rootNode: Node?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to navigationMesh, OBJECT to rootNode)
+    TransferContext.writeMethodArguments_OBJECT_OBJECT(ptr, objectID.id, navigationMesh, rootNode)
     TransferContext.callMethod(MethodBindings.bakePtr)
   }
 
@@ -99,7 +101,7 @@ public object NavigationMeshGenerator : Object() {
    */
   @JvmStatic
   public final fun clear(navigationMesh: NavigationMesh?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to navigationMesh)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, navigationMesh)
     TransferContext.callMethod(MethodBindings.clearPtr)
   }
 
@@ -125,7 +127,7 @@ public object NavigationMeshGenerator : Object() {
     rootNode: Node?,
     callback: Callable = VariantCallable(),
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to navigationMesh, OBJECT to sourceGeometryData, OBJECT to rootNode, CALLABLE to callback)
+    TransferContext.writeMethodArguments_OBJECT_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, navigationMesh, sourceGeometryData, rootNode, callback)
     TransferContext.callMethod(MethodBindings.parseSourceGeometryDataPtr)
   }
 
@@ -140,7 +142,7 @@ public object NavigationMeshGenerator : Object() {
     sourceGeometryData: NavigationMeshSourceGeometryData3D?,
     callback: Callable = VariantCallable(),
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to navigationMesh, OBJECT to sourceGeometryData, CALLABLE to callback)
+    TransferContext.writeMethodArguments_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, navigationMesh, sourceGeometryData, callback)
     TransferContext.callMethod(MethodBindings.bakeFromSourceGeometryDataPtr)
   }
 

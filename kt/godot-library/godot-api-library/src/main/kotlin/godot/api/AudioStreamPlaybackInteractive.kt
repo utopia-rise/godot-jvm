@@ -13,13 +13,14 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.StringName
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_STRING_NAME
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.String
 import kotlin.Suppress
@@ -40,7 +41,7 @@ public open class AudioStreamPlaybackInteractive internal constructor() : AudioS
    * Switch to a clip (by name).
    */
   public final fun switchToClipByName(clipName: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to clipName)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, clipName)
     TransferContext.callMethod(MethodBindings.switchToClipByNamePtr)
   }
 
@@ -48,7 +49,7 @@ public open class AudioStreamPlaybackInteractive internal constructor() : AudioS
    * Switch to a clip (by index).
    */
   public final fun switchToClip(clipIndex: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to clipIndex.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, clipIndex.toLong())
     TransferContext.callMethod(MethodBindings.switchToClipPtr)
   }
 
@@ -64,9 +65,9 @@ public open class AudioStreamPlaybackInteractive internal constructor() : AudioS
    * ```
    */
   public final fun getCurrentClipIndex(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCurrentClipIndexPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**

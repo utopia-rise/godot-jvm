@@ -22,16 +22,22 @@ import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.Signal4
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BASIS
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BASIS
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_VECTOR3
+import godot.writeMethodArguments_VECTOR3_VECTOR3
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -695,80 +701,80 @@ public open class RigidBody3D : PhysicsBody3D() {
   }
 
   public final fun setMass(mass: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to mass.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, mass.toDouble())
     TransferContext.callMethod(MethodBindings.setMassPtr)
   }
 
   public final fun getMass(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMassPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setInertia(inertia: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to inertia)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, inertia)
     TransferContext.callMethod(MethodBindings.setInertiaPtr)
   }
 
   public final fun getInertia(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getInertiaPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setCenterOfMassMode(mode: CenterOfMassMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setCenterOfMassModePtr)
   }
 
   public final fun getCenterOfMassMode(): CenterOfMassMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCenterOfMassModePtr)
-    return CenterOfMassMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return CenterOfMassMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setCenterOfMass(centerOfMass: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to centerOfMass)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, centerOfMass)
     TransferContext.callMethod(MethodBindings.setCenterOfMassPtr)
   }
 
   public final fun getCenterOfMass(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCenterOfMassPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setPhysicsMaterialOverride(physicsMaterialOverride: PhysicsMaterial?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to physicsMaterialOverride)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, physicsMaterialOverride)
     TransferContext.callMethod(MethodBindings.setPhysicsMaterialOverridePtr)
   }
 
   public final fun getPhysicsMaterialOverride(): PhysicsMaterial? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPhysicsMaterialOverridePtr)
-    return (TransferContext.readReturnValue(OBJECT) as PhysicsMaterial?)
+    return (TransferContext.readReturnValue_OBJECT() as PhysicsMaterial?)
   }
 
   public final fun setLinearVelocity(linearVelocity: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to linearVelocity)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, linearVelocity)
     TransferContext.callMethod(MethodBindings.setLinearVelocityPtr)
   }
 
   public final fun getLinearVelocity(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLinearVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setAngularVelocity(angularVelocity: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to angularVelocity)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, angularVelocity)
     TransferContext.callMethod(MethodBindings.setAngularVelocityPtr)
   }
 
   public final fun getAngularVelocity(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAngularVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   /**
@@ -776,75 +782,75 @@ public open class RigidBody3D : PhysicsBody3D() {
    * resulting from a torque applied to the [RigidBody3D].
    */
   public final fun getInverseInertiaTensor(): Basis {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getInverseInertiaTensorPtr)
-    return (TransferContext.readReturnValue(BASIS) as Basis)
+    return TransferContext.readReturnValue_BASIS()
   }
 
   public final fun setGravityScale(gravityScale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to gravityScale.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, gravityScale.toDouble())
     TransferContext.callMethod(MethodBindings.setGravityScalePtr)
   }
 
   public final fun getGravityScale(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGravityScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setLinearDampMode(linearDampMode: DampMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to linearDampMode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, linearDampMode.value)
     TransferContext.callMethod(MethodBindings.setLinearDampModePtr)
   }
 
   public final fun getLinearDampMode(): DampMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLinearDampModePtr)
-    return DampMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return DampMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setAngularDampMode(angularDampMode: DampMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to angularDampMode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, angularDampMode.value)
     TransferContext.callMethod(MethodBindings.setAngularDampModePtr)
   }
 
   public final fun getAngularDampMode(): DampMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAngularDampModePtr)
-    return DampMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return DampMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setLinearDamp(linearDamp: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to linearDamp.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, linearDamp.toDouble())
     TransferContext.callMethod(MethodBindings.setLinearDampPtr)
   }
 
   public final fun getLinearDamp(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLinearDampPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAngularDamp(angularDamp: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to angularDamp.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angularDamp.toDouble())
     TransferContext.callMethod(MethodBindings.setAngularDampPtr)
   }
 
   public final fun getAngularDamp(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAngularDampPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMaxContactsReported(amount: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to amount.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
     TransferContext.callMethod(MethodBindings.setMaxContactsReportedPtr)
   }
 
   public final fun getMaxContactsReported(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMaxContactsReportedPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -854,42 +860,42 @@ public open class RigidBody3D : PhysicsBody3D() {
    * **Note:** To retrieve the colliding bodies, use [getCollidingBodies].
    */
   public final fun getContactCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getContactCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setUseCustomIntegrator(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setUseCustomIntegratorPtr)
   }
 
   public final fun isUsingCustomIntegrator(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isUsingCustomIntegratorPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setContactMonitor(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setContactMonitorPtr)
   }
 
   public final fun isContactMonitorEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isContactMonitorEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setUseContinuousCollisionDetection(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setUseContinuousCollisionDetectionPtr)
   }
 
   public final fun isUsingContinuousCollisionDetection(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isUsingContinuousCollisionDetectionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -897,7 +903,7 @@ public open class RigidBody3D : PhysicsBody3D() {
    * length. This is useful for jumping behavior.
    */
   public final fun setAxisVelocity(axisVelocity: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to axisVelocity)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, axisVelocity)
     TransferContext.callMethod(MethodBindings.setAxisVelocityPtr)
   }
 
@@ -911,7 +917,7 @@ public open class RigidBody3D : PhysicsBody3D() {
    * This is equivalent to using [applyImpulse] at the body's center of mass.
    */
   public final fun applyCentralImpulse(impulse: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to impulse)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, impulse)
     TransferContext.callMethod(MethodBindings.applyCentralImpulsePtr)
   }
 
@@ -926,7 +932,7 @@ public open class RigidBody3D : PhysicsBody3D() {
    */
   @JvmOverloads
   public final fun applyImpulse(impulse: Vector3, position: Vector3 = Vector3(0, 0, 0)): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to impulse, VECTOR3 to position)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3(ptr, objectID.id, impulse, position)
     TransferContext.callMethod(MethodBindings.applyImpulsePtr)
   }
 
@@ -941,7 +947,7 @@ public open class RigidBody3D : PhysicsBody3D() {
    * [CollisionShape3D] must be a child of the node, or you can manually set [inertia].
    */
   public final fun applyTorqueImpulse(impulse: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to impulse)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, impulse)
     TransferContext.callMethod(MethodBindings.applyTorqueImpulsePtr)
   }
 
@@ -952,7 +958,7 @@ public open class RigidBody3D : PhysicsBody3D() {
    * This is equivalent to using [applyForce] at the body's center of mass.
    */
   public final fun applyCentralForce(force: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to force)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, force)
     TransferContext.callMethod(MethodBindings.applyCentralForcePtr)
   }
 
@@ -964,7 +970,7 @@ public open class RigidBody3D : PhysicsBody3D() {
    */
   @JvmOverloads
   public final fun applyForce(force: Vector3, position: Vector3 = Vector3(0, 0, 0)): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to force, VECTOR3 to position)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3(ptr, objectID.id, force, position)
     TransferContext.callMethod(MethodBindings.applyForcePtr)
   }
 
@@ -976,7 +982,7 @@ public open class RigidBody3D : PhysicsBody3D() {
    * [CollisionShape3D] must be a child of the node, or you can manually set [inertia].
    */
   public final fun applyTorque(torque: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to torque)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, torque)
     TransferContext.callMethod(MethodBindings.applyTorquePtr)
   }
 
@@ -987,7 +993,7 @@ public open class RigidBody3D : PhysicsBody3D() {
    * This is equivalent to using [addConstantForce] at the body's center of mass.
    */
   public final fun addConstantCentralForce(force: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to force)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, force)
     TransferContext.callMethod(MethodBindings.addConstantCentralForcePtr)
   }
 
@@ -999,7 +1005,7 @@ public open class RigidBody3D : PhysicsBody3D() {
    */
   @JvmOverloads
   public final fun addConstantForce(force: Vector3, position: Vector3 = Vector3(0, 0, 0)): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to force, VECTOR3 to position)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3(ptr, objectID.id, force, position)
     TransferContext.callMethod(MethodBindings.addConstantForcePtr)
   }
 
@@ -1008,85 +1014,85 @@ public open class RigidBody3D : PhysicsBody3D() {
    * until cleared with `constant_torque = Vector3(0, 0, 0)`.
    */
   public final fun addConstantTorque(torque: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to torque)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, torque)
     TransferContext.callMethod(MethodBindings.addConstantTorquePtr)
   }
 
   public final fun setConstantForce(force: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to force)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, force)
     TransferContext.callMethod(MethodBindings.setConstantForcePtr)
   }
 
   public final fun getConstantForce(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConstantForcePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setConstantTorque(torque: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to torque)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, torque)
     TransferContext.callMethod(MethodBindings.setConstantTorquePtr)
   }
 
   public final fun getConstantTorque(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConstantTorquePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setSleeping(sleeping: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to sleeping)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, sleeping)
     TransferContext.callMethod(MethodBindings.setSleepingPtr)
   }
 
   public final fun isSleeping(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isSleepingPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCanSleep(ableToSleep: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to ableToSleep)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, ableToSleep)
     TransferContext.callMethod(MethodBindings.setCanSleepPtr)
   }
 
   public final fun isAbleToSleep(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAbleToSleepPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setLockRotationEnabled(lockRotation: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to lockRotation)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, lockRotation)
     TransferContext.callMethod(MethodBindings.setLockRotationEnabledPtr)
   }
 
   public final fun isLockRotationEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isLockRotationEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFreezeEnabled(freezeMode: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to freezeMode)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, freezeMode)
     TransferContext.callMethod(MethodBindings.setFreezeEnabledPtr)
   }
 
   public final fun isFreezeEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isFreezeEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFreezeMode(freezeMode: FreezeMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to freezeMode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, freezeMode.value)
     TransferContext.callMethod(MethodBindings.setFreezeModePtr)
   }
 
   public final fun getFreezeMode(): FreezeMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFreezeModePtr)
-    return FreezeMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return FreezeMode.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -1098,9 +1104,9 @@ public open class RigidBody3D : PhysicsBody3D() {
    * instead.
    */
   public final fun getCollidingBodies(): VariantArray<Node3D> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCollidingBodiesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Node3D>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Node3D>)
   }
 
   public enum class FreezeMode(

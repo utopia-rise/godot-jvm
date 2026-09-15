@@ -14,12 +14,12 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName6
 import godot.core.StringName
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_DOUBLE
+import godot.writeMethodArguments_OBJECT_DOUBLE_DOUBLE_DOUBLE_LONG_STRING_NAME
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float
@@ -66,9 +66,9 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
     playbackType: AudioServer.PlaybackType = AudioServer.PlaybackType.DEFAULT,
     bus: StringName = StringName("Master"),
   ): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to stream, DOUBLE to fromOffset.toDouble(), DOUBLE to volumeDb.toDouble(), DOUBLE to pitchScale.toDouble(), LONG to playbackType.value, STRING_NAME to bus)
+    TransferContext.writeMethodArguments_OBJECT_DOUBLE_DOUBLE_DOUBLE_LONG_STRING_NAME(ptr, objectID.id, stream, fromOffset.toDouble(), volumeDb.toDouble(), pitchScale.toDouble(), playbackType.value, bus)
     TransferContext.callMethod(MethodBindings.playStreamPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -76,7 +76,7 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
    * [playStream].
    */
   public final fun setStreamVolume(stream: Long, volumeDb: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stream, DOUBLE to volumeDb.toDouble())
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, stream, volumeDb.toDouble())
     TransferContext.callMethod(MethodBindings.setStreamVolumePtr)
   }
 
@@ -84,7 +84,7 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
    * Change the stream pitch scale. The [stream] argument is an integer ID returned by [playStream].
    */
   public final fun setStreamPitchScale(stream: Long, pitchScale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stream, DOUBLE to pitchScale.toDouble())
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, stream, pitchScale.toDouble())
     TransferContext.callMethod(MethodBindings.setStreamPitchScalePtr)
   }
 
@@ -93,9 +93,9 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
    * [playStream] for information on when this ID becomes invalid.
    */
   public final fun isStreamPlaying(stream: Long): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stream)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stream)
     TransferContext.callMethod(MethodBindings.isStreamPlayingPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -103,7 +103,7 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
    * invalid after calling this function.
    */
   public final fun stopStream(stream: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stream)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stream)
     TransferContext.callMethod(MethodBindings.stopStreamPtr)
   }
 

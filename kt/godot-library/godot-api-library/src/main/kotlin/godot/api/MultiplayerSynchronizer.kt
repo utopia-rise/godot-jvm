@@ -19,13 +19,20 @@ import godot.core.NodePath
 import godot.core.RID
 import godot.core.Signal0
 import godot.core.Signal1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
 import godot.core.asCachedNodePath
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_NODE_PATH
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_CALLABLE
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_NODE_PATH
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
@@ -153,58 +160,58 @@ public open class MultiplayerSynchronizer : Node() {
   }
 
   public final fun setRootPath(path: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
     TransferContext.callMethod(MethodBindings.setRootPathPtr)
   }
 
   public final fun getRootPath(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRootPathPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   public final fun setReplicationInterval(milliseconds: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to milliseconds)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, milliseconds)
     TransferContext.callMethod(MethodBindings.setReplicationIntervalPtr)
   }
 
   public final fun getReplicationInterval(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getReplicationIntervalPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setDeltaInterval(milliseconds: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to milliseconds)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, milliseconds)
     TransferContext.callMethod(MethodBindings.setDeltaIntervalPtr)
   }
 
   public final fun getDeltaInterval(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDeltaIntervalPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setReplicationConfig(config: SceneReplicationConfig?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to config)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, config)
     TransferContext.callMethod(MethodBindings.setReplicationConfigPtr)
   }
 
   public final fun getReplicationConfig(): SceneReplicationConfig? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getReplicationConfigPtr)
-    return (TransferContext.readReturnValue(OBJECT) as SceneReplicationConfig?)
+    return (TransferContext.readReturnValue_OBJECT() as SceneReplicationConfig?)
   }
 
   public final fun setVisibilityUpdateMode(mode: VisibilityUpdateMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setVisibilityUpdateModePtr)
   }
 
   public final fun getVisibilityUpdateMode(): VisibilityUpdateMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVisibilityUpdateModePtr)
-    return VisibilityUpdateMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return VisibilityUpdateMode.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -213,19 +220,19 @@ public open class MultiplayerSynchronizer : Node() {
    */
   @JvmOverloads
   public final fun updateVisibility(forPeer: Int = 0): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to forPeer.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, forPeer.toLong())
     TransferContext.callMethod(MethodBindings.updateVisibilityPtr)
   }
 
   public final fun setVisibilityPublic(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to visible)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
     TransferContext.callMethod(MethodBindings.setVisibilityPublicPtr)
   }
 
   public final fun isVisibilityPublic(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isVisibilityPublicPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -234,7 +241,7 @@ public open class MultiplayerSynchronizer : Node() {
    * [filter] should take a peer ID [Long] and return a [Boolean].
    */
   public final fun addVisibilityFilter(filter: Callable): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to filter)
+    TransferContext.writeMethodArguments_CALLABLE(ptr, objectID.id, filter)
     TransferContext.callMethod(MethodBindings.addVisibilityFilterPtr)
   }
 
@@ -242,7 +249,7 @@ public open class MultiplayerSynchronizer : Node() {
    * Removes a peer visibility filter from this synchronizer.
    */
   public final fun removeVisibilityFilter(filter: Callable): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to filter)
+    TransferContext.writeMethodArguments_CALLABLE(ptr, objectID.id, filter)
     TransferContext.callMethod(MethodBindings.removeVisibilityFilterPtr)
   }
 
@@ -251,7 +258,7 @@ public open class MultiplayerSynchronizer : Node() {
    * will be updated instead.
    */
   public final fun setVisibilityFor(peer: Int, visible: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to peer.toLong(), BOOL to visible)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, peer.toLong(), visible)
     TransferContext.callMethod(MethodBindings.setVisibilityForPtr)
   }
 
@@ -259,9 +266,9 @@ public open class MultiplayerSynchronizer : Node() {
    * Queries the current visibility for peer [peer].
    */
   public final fun getVisibilityFor(peer: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to peer.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, peer.toLong())
     TransferContext.callMethod(MethodBindings.getVisibilityForPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRootPath(path: String) = setRootPath(path.asCachedNodePath())

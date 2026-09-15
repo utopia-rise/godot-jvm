@@ -24,15 +24,26 @@ import godot.core.PackedVector2Array
 import godot.core.PackedVector3Array
 import godot.core.Transform2D
 import godot.core.Transform3D
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_FLOAT_32_ARRAY
-import godot.core.VariantParser.TRANSFORM2D
-import godot.core.VariantParser.TRANSFORM3D
 import godot.core.Vector2
 import godot.core.Vector3
+import godot.readReturnValue_AABB
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_FLOAT_32_ARRAY
+import godot.readReturnValue_TRANSFORM2D
+import godot.readReturnValue_TRANSFORM3D
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_AABB
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_COLOR
+import godot.writeMethodArguments_LONG_TRANSFORM2D
+import godot.writeMethodArguments_LONG_TRANSFORM3D
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_PACKED_FLOAT_32_ARRAY
+import godot.writeMethodArguments_PACKED_FLOAT_32_ARRAY_PACKED_FLOAT_32_ARRAY
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -253,87 +264,87 @@ public open class MultiMesh : Resource() {
   }
 
   public final fun setMesh(mesh: Mesh?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to mesh)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, mesh)
     TransferContext.callMethod(MethodBindings.setMeshPtr)
   }
 
   public final fun getMesh(): Mesh? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMeshPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Mesh?)
+    return (TransferContext.readReturnValue_OBJECT() as Mesh?)
   }
 
   public final fun setUseColors(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setUseColorsPtr)
   }
 
   public final fun isUsingColors(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isUsingColorsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setUseCustomData(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setUseCustomDataPtr)
   }
 
   public final fun isUsingCustomData(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isUsingCustomDataPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setTransformFormat(format: TransformFormat): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to format.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, format.value)
     TransferContext.callMethod(MethodBindings.setTransformFormatPtr)
   }
 
   public final fun getTransformFormat(): TransformFormat {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTransformFormatPtr)
-    return TransformFormat.from(TransferContext.readReturnValue(LONG) as Long)
+    return TransformFormat.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setInstanceCount(count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to count.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
     TransferContext.callMethod(MethodBindings.setInstanceCountPtr)
   }
 
   public final fun getInstanceCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getInstanceCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setVisibleInstanceCount(count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to count.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
     TransferContext.callMethod(MethodBindings.setVisibleInstanceCountPtr)
   }
 
   public final fun getVisibleInstanceCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVisibleInstanceCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setPhysicsInterpolationQuality(quality: PhysicsInterpolationQuality): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to quality.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, quality.value)
     TransferContext.callMethod(MethodBindings.setPhysicsInterpolationQualityPtr)
   }
 
   public final fun getPhysicsInterpolationQuality(): PhysicsInterpolationQuality {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPhysicsInterpolationQualityPtr)
-    return PhysicsInterpolationQuality.from(TransferContext.readReturnValue(LONG) as Long)
+    return PhysicsInterpolationQuality.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Sets the [Transform3D] for a specific instance.
    */
   public final fun setInstanceTransform(instance: Int, transform: Transform3D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to instance.toLong(), TRANSFORM3D to transform)
+    TransferContext.writeMethodArguments_LONG_TRANSFORM3D(ptr, objectID.id, instance.toLong(), transform)
     TransferContext.callMethod(MethodBindings.setInstanceTransformPtr)
   }
 
@@ -341,7 +352,7 @@ public open class MultiMesh : Resource() {
    * Sets the [Transform2D] for a specific instance.
    */
   public final fun setInstanceTransform2d(instance: Int, transform: Transform2D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to instance.toLong(), TRANSFORM2D to transform)
+    TransferContext.writeMethodArguments_LONG_TRANSFORM2D(ptr, objectID.id, instance.toLong(), transform)
     TransferContext.callMethod(MethodBindings.setInstanceTransform2dPtr)
   }
 
@@ -349,18 +360,18 @@ public open class MultiMesh : Resource() {
    * Returns the [Transform3D] of a specific instance.
    */
   public final fun getInstanceTransform(instance: Int): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to instance.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, instance.toLong())
     TransferContext.callMethod(MethodBindings.getInstanceTransformPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
+    return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   /**
    * Returns the [Transform2D] of a specific instance.
    */
   public final fun getInstanceTransform2d(instance: Int): Transform2D {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to instance.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, instance.toLong())
     TransferContext.callMethod(MethodBindings.getInstanceTransform2dPtr)
-    return (TransferContext.readReturnValue(TRANSFORM2D) as Transform2D)
+    return TransferContext.readReturnValue_TRANSFORM2D()
   }
 
   /**
@@ -376,7 +387,7 @@ public open class MultiMesh : Resource() {
    * (`Color(1, 1, 1)`).
    */
   public final fun setInstanceColor(instance: Int, color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to instance.toLong(), COLOR to color)
+    TransferContext.writeMethodArguments_LONG_COLOR(ptr, objectID.id, instance.toLong(), color)
     TransferContext.callMethod(MethodBindings.setInstanceColorPtr)
   }
 
@@ -384,9 +395,9 @@ public open class MultiMesh : Resource() {
    * Gets a specific instance's color multiplier.
    */
   public final fun getInstanceColor(instance: Int): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to instance.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, instance.toLong())
     TransferContext.callMethod(MethodBindings.getInstanceColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   /**
@@ -402,7 +413,7 @@ public open class MultiMesh : Resource() {
    * `INSTANCE_CUSTOM`.
    */
   public final fun setInstanceCustomData(instance: Int, customData: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to instance.toLong(), COLOR to customData)
+    TransferContext.writeMethodArguments_LONG_COLOR(ptr, objectID.id, instance.toLong(), customData)
     TransferContext.callMethod(MethodBindings.setInstanceCustomDataPtr)
   }
 
@@ -410,9 +421,9 @@ public open class MultiMesh : Resource() {
    * Returns the custom data that has been set for a specific instance.
    */
   public final fun getInstanceCustomData(instance: Int): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to instance.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, instance.toLong())
     TransferContext.callMethod(MethodBindings.getInstanceCustomDataPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   /**
@@ -423,7 +434,7 @@ public open class MultiMesh : Resource() {
    * placing an instance such as a bullet to prevent graphical glitches.
    */
   public final fun resetInstancePhysicsInterpolation(instance: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to instance.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, instance.toLong())
     TransferContext.callMethod(MethodBindings.resetInstancePhysicsInterpolationPtr)
   }
 
@@ -435,38 +446,38 @@ public open class MultiMesh : Resource() {
    * initially placing instances to prevent graphical glitches.
    */
   public final fun resetInstancesPhysicsInterpolation(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.resetInstancesPhysicsInterpolationPtr)
   }
 
   public final fun setCustomAabb(aabb: AABB): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, godot.core.VariantParser.AABB to aabb)
+    TransferContext.writeMethodArguments_AABB(ptr, objectID.id, aabb)
     TransferContext.callMethod(MethodBindings.setCustomAabbPtr)
   }
 
   public final fun getCustomAabb(): AABB {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCustomAabbPtr)
-    return (TransferContext.readReturnValue(godot.core.VariantParser.AABB) as AABB)
+    return TransferContext.readReturnValue_AABB()
   }
 
   /**
    * Returns the visibility axis-aligned bounding box in local space.
    */
   public final fun getAabb(): AABB {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAabbPtr)
-    return (TransferContext.readReturnValue(godot.core.VariantParser.AABB) as AABB)
+    return TransferContext.readReturnValue_AABB()
   }
 
   public final fun getBuffer(): PackedFloat32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBufferPtr)
-    return (TransferContext.readReturnValue(PACKED_FLOAT_32_ARRAY) as PackedFloat32Array)
+    return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
   public final fun setBuffer(buffer: PackedFloat32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_FLOAT_32_ARRAY to buffer)
+    TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, buffer)
     TransferContext.callMethod(MethodBindings.setBufferPtr)
   }
 
@@ -483,7 +494,7 @@ public open class MultiMesh : Resource() {
    */
   public final fun setBufferInterpolated(bufferCurr: PackedFloat32Array,
       bufferPrev: PackedFloat32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_FLOAT_32_ARRAY to bufferCurr, PACKED_FLOAT_32_ARRAY to bufferPrev)
+    TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, bufferCurr, bufferPrev)
     TransferContext.callMethod(MethodBindings.setBufferInterpolatedPtr)
   }
 

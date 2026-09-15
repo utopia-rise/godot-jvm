@@ -16,10 +16,19 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName5
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_LONG_STRING
+import godot.writeMethodArguments_LONG_LONG_STRING_STRING_LONG
+import godot.writeMethodArguments_LONG_OBJECT
+import godot.writeMethodArguments_LONG_STRING
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -169,25 +178,25 @@ public open class UPNP : RefCounted() {
    * Returns the number of discovered [UPNPDevice]s.
    */
   public final fun getDeviceCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDeviceCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the [UPNPDevice] at the given [index].
    */
   public final fun getDevice(index: Int): UPNPDevice? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getDevicePtr)
-    return (TransferContext.readReturnValue(OBJECT) as UPNPDevice?)
+    return (TransferContext.readReturnValue_OBJECT() as UPNPDevice?)
   }
 
   /**
    * Adds the given [UPNPDevice] to the list of discovered devices.
    */
   public final fun addDevice(device: UPNPDevice?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to device)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, device)
     TransferContext.callMethod(MethodBindings.addDevicePtr)
   }
 
@@ -195,7 +204,7 @@ public open class UPNP : RefCounted() {
    * Sets the device at [index] from the list of discovered devices to [device].
    */
   public final fun setDevice(index: Int, device: UPNPDevice?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), OBJECT to device)
+    TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, index.toLong(), device)
     TransferContext.callMethod(MethodBindings.setDevicePtr)
   }
 
@@ -203,7 +212,7 @@ public open class UPNP : RefCounted() {
    * Removes the device at [index] from the list of discovered devices.
    */
   public final fun removeDevice(index: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.removeDevicePtr)
   }
 
@@ -211,7 +220,7 @@ public open class UPNP : RefCounted() {
    * Clears the list of discovered devices.
    */
   public final fun clearDevices(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.clearDevicesPtr)
   }
 
@@ -220,9 +229,9 @@ public open class UPNP : RefCounted() {
    * (InternetGatewayDevice).
    */
   public final fun getGateway(): UPNPDevice? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGatewayPtr)
-    return (TransferContext.readReturnValue(OBJECT) as UPNPDevice?)
+    return (TransferContext.readReturnValue_OBJECT() as UPNPDevice?)
   }
 
   /**
@@ -240,9 +249,9 @@ public open class UPNP : RefCounted() {
     ttl: Int = 2,
     deviceFilter: String = "InternetGatewayDevice",
   ): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to timeout.toLong(), LONG to ttl.toLong(), STRING to deviceFilter)
+    TransferContext.writeMethodArguments_LONG_LONG_STRING(ptr, objectID.id, timeout.toLong(), ttl.toLong(), deviceFilter)
     TransferContext.callMethod(MethodBindings.discoverPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -250,9 +259,9 @@ public open class UPNP : RefCounted() {
    * an empty string on error.
    */
   public final fun queryExternalAddress(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.queryExternalAddressPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -293,9 +302,9 @@ public open class UPNP : RefCounted() {
     proto: String = "UDP",
     duration: Int = 0,
   ): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong(), LONG to portInternal.toLong(), STRING to desc, STRING to proto, LONG to duration.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG_STRING_STRING_LONG(ptr, objectID.id, port.toLong(), portInternal.toLong(), desc, proto, duration.toLong())
     TransferContext.callMethod(MethodBindings.addPortMappingPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -307,42 +316,42 @@ public open class UPNP : RefCounted() {
    */
   @JvmOverloads
   public final fun deletePortMapping(port: Int, proto: String = "UDP"): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong(), STRING to proto)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, port.toLong(), proto)
     TransferContext.callMethod(MethodBindings.deletePortMappingPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setDiscoverMulticastIf(mIf: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to mIf)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, mIf)
     TransferContext.callMethod(MethodBindings.setDiscoverMulticastIfPtr)
   }
 
   public final fun getDiscoverMulticastIf(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDiscoverMulticastIfPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setDiscoverLocalPort(port: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, port.toLong())
     TransferContext.callMethod(MethodBindings.setDiscoverLocalPortPtr)
   }
 
   public final fun getDiscoverLocalPort(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDiscoverLocalPortPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setDiscoverIpv6(ipv6: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to ipv6)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, ipv6)
     TransferContext.callMethod(MethodBindings.setDiscoverIpv6Ptr)
   }
 
   public final fun isDiscoverIpv6(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isDiscoverIpv6Ptr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class UPNPResult(

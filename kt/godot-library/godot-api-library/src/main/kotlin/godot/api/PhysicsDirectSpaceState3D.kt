@@ -16,12 +16,12 @@ import godot.core.MethodStringName2
 import godot.core.PackedFloat32Array
 import godot.core.RID
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_FLOAT_32_ARRAY
 import godot.core.Vector3
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_DICTIONARY
+import godot.readReturnValue_PACKED_FLOAT_32_ARRAY
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_OBJECT_LONG
 import kotlin.Any
 import kotlin.Int
 import kotlin.Suppress
@@ -61,9 +61,9 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
   @JvmOverloads
   public final fun intersectPoint(parameters: PhysicsPointQueryParameters3D, maxResults: Int = 32):
       VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to parameters, LONG to maxResults.toLong())
+    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, parameters, maxResults.toLong())
     TransferContext.callMethod(MethodBindings.intersectPointPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Dictionary<Any?, Any?>>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
   /**
@@ -91,9 +91,9 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
    * If the ray did not intersect anything, then an empty dictionary is returned instead.
    */
   public final fun intersectRay(parameters: PhysicsRayQueryParameters3D): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to parameters)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, parameters)
     TransferContext.callMethod(MethodBindings.intersectRayPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -117,9 +117,9 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
   @JvmOverloads
   public final fun intersectShape(parameters: PhysicsShapeQueryParameters3D, maxResults: Int = 32):
       VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to parameters, LONG to maxResults.toLong())
+    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, parameters, maxResults.toLong())
     TransferContext.callMethod(MethodBindings.intersectShapePtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Dictionary<Any?, Any?>>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
   /**
@@ -135,9 +135,9 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
    * ignored. Use [collideShape] to determine the [Shape3D]s that the shape is already colliding with.
    */
   public final fun castMotion(parameters: PhysicsShapeQueryParameters3D): PackedFloat32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to parameters)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, parameters)
     TransferContext.callMethod(MethodBindings.castMotionPtr)
-    return (TransferContext.readReturnValue(PACKED_FLOAT_32_ARRAY) as PackedFloat32Array)
+    return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
   /**
@@ -155,9 +155,9 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
   @JvmOverloads
   public final fun collideShape(parameters: PhysicsShapeQueryParameters3D, maxResults: Int = 32):
       VariantArray<Vector3> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to parameters, LONG to maxResults.toLong())
+    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, parameters, maxResults.toLong())
     TransferContext.callMethod(MethodBindings.collideShapePtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector3>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3>)
   }
 
   /**
@@ -184,9 +184,9 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
    * **Note:** This method does not take into account the `motion` property of the object.
    */
   public final fun getRestInfo(parameters: PhysicsShapeQueryParameters3D): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to parameters)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, parameters)
     TransferContext.callMethod(MethodBindings.getRestInfoPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   public companion object {

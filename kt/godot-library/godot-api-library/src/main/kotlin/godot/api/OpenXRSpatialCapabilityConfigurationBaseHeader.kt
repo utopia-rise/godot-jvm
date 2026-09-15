@@ -11,8 +11,9 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -53,9 +54,9 @@ public open class OpenXRSpatialCapabilityConfigurationBaseHeader : RefCounted() 
    * [OpenXRSpatialEntityExtension.createSpatialContext].
    */
   public final fun hasValidConfiguration(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.hasValidConfigurationPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -64,9 +65,9 @@ public open class OpenXRSpatialCapabilityConfigurationBaseHeader : RefCounted() 
    * **Note:** This method is intended to be used from GDExtensions.
    */
   public final fun getConfiguration(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConfigurationPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public companion object {

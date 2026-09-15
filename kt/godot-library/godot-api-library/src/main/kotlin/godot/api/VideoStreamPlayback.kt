@@ -12,12 +12,11 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName3
 import godot.core.PackedFloat32Array
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_FLOAT_32_ARRAY
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments_LONG_PACKED_FLOAT_32_ARRAY_LONG
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -140,9 +139,9 @@ public abstract class VideoStreamPlayback : Resource() {
     buffer: PackedFloat32Array = PackedFloat32Array(),
     offset: Int = 0,
   ): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to numFrames.toLong(), PACKED_FLOAT_32_ARRAY to buffer, LONG to offset.toLong())
+    TransferContext.writeMethodArguments_LONG_PACKED_FLOAT_32_ARRAY_LONG(ptr, objectID.id, numFrames.toLong(), buffer, offset.toLong())
     TransferContext.callMethod(MethodBindings.mixAudioPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public companion object {

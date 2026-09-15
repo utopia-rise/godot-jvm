@@ -13,8 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -91,53 +94,53 @@ public open class FlowContainer : Container() {
    * Returns the current line count.
    */
   public final fun getLineCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLineCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setAlignment(alignment: AlignmentMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to alignment.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
     TransferContext.callMethod(MethodBindings.setAlignmentPtr)
   }
 
   public final fun getAlignment(): AlignmentMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAlignmentPtr)
-    return AlignmentMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return AlignmentMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setLastWrapAlignment(lastWrapAlignment: LastWrapAlignmentMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to lastWrapAlignment.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, lastWrapAlignment.value)
     TransferContext.callMethod(MethodBindings.setLastWrapAlignmentPtr)
   }
 
   public final fun getLastWrapAlignment(): LastWrapAlignmentMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLastWrapAlignmentPtr)
-    return LastWrapAlignmentMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return LastWrapAlignmentMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setVertical(vertical: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to vertical)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, vertical)
     TransferContext.callMethod(MethodBindings.setVerticalPtr)
   }
 
   public final fun isVertical(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isVerticalPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setReverseFill(reverseFill: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to reverseFill)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, reverseFill)
     TransferContext.callMethod(MethodBindings.setReverseFillPtr)
   }
 
   public final fun isReverseFill(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isReverseFillPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class AlignmentMode(

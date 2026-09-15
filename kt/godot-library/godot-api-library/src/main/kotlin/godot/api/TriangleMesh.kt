@@ -15,11 +15,13 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedVector3Array
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.PACKED_VECTOR3_ARRAY
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DICTIONARY
+import godot.readReturnValue_PACKED_VECTOR3_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_PACKED_VECTOR3_ARRAY
+import godot.writeMethodArguments_VECTOR3_VECTOR3
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Suppress
@@ -51,9 +53,9 @@ public open class TriangleMesh : RefCounted() {
    * Returns `true` if the tree is successfully built, `false` otherwise.
    */
   public final fun createFromFaces(faces: PackedVector3Array): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR3_ARRAY to faces)
+    TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY(ptr, objectID.id, faces)
     TransferContext.callMethod(MethodBindings.createFromFacesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -61,9 +63,9 @@ public open class TriangleMesh : RefCounted() {
    * (face).
    */
   public final fun getFaces(): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFacesPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
+    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
   /**
@@ -82,9 +84,9 @@ public open class TriangleMesh : RefCounted() {
    * See also [intersectRay], which is similar but uses an infinite-length ray.
    */
   public final fun intersectSegment(begin: Vector3, end: Vector3): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to begin, VECTOR3 to end)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3(ptr, objectID.id, begin, end)
     TransferContext.callMethod(MethodBindings.intersectSegmentPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -104,9 +106,9 @@ public open class TriangleMesh : RefCounted() {
    * See also [intersectSegment], which is similar but uses a finite-length segment.
    */
   public final fun intersectRay(begin: Vector3, dir: Vector3): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to begin, VECTOR3 to dir)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3(ptr, objectID.id, begin, dir)
     TransferContext.callMethod(MethodBindings.intersectRayPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   public companion object {

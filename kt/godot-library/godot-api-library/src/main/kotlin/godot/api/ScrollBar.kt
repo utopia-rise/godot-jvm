@@ -13,8 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -49,14 +50,14 @@ public open class ScrollBar internal constructor() : Range() {
   }
 
   public final fun setCustomStep(step: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to step.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, step.toDouble())
     TransferContext.callMethod(MethodBindings.setCustomStepPtr)
   }
 
   public final fun getCustomStep(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCustomStepPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public companion object {

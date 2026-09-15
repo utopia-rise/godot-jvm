@@ -16,16 +16,15 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName4
 import godot.core.PackedStringArray
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_ANY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ARRAY_OBJECT_BOOL_BOOL
+import godot.writeMethodArguments_STRING_PACKED_STRING_ARRAY
 import kotlin.Any
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -98,9 +97,9 @@ public open class Expression : RefCounted() {
   @JvmOverloads
   public final fun parse(expression: String, inputNames: PackedStringArray = PackedStringArray()):
       Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to expression, PACKED_STRING_ARRAY to inputNames)
+    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY(ptr, objectID.id, expression, inputNames)
     TransferContext.callMethod(MethodBindings.parsePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -117,27 +116,27 @@ public open class Expression : RefCounted() {
     showError: Boolean = true,
     constCallsOnly: Boolean = false,
   ): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to inputs, OBJECT to baseInstance, BOOL to showError, BOOL to constCallsOnly)
+    TransferContext.writeMethodArguments_ARRAY_OBJECT_BOOL_BOOL(ptr, objectID.id, inputs, baseInstance, showError, constCallsOnly)
     TransferContext.callMethod(MethodBindings.executePtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
    * Returns `true` if [execute] has failed.
    */
   public final fun hasExecuteFailed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.hasExecuteFailedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns the error text if [parse] or [execute] has failed.
    */
   public final fun getErrorText(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getErrorTextPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public companion object {

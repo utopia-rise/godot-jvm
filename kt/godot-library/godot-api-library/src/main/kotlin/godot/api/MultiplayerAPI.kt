@@ -22,14 +22,17 @@ import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_INT_32_ARRAY
+import godot.readReturnValue_STRING_NAME
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG_OBJECT_STRING_NAME_ARRAY
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_OBJECT_ANY
+import godot.writeMethodArguments_STRING_NAME
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -112,19 +115,19 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    * Returns `true` if there is a [multiplayerPeer] set.
    */
   public final fun hasMultiplayerPeer(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.hasMultiplayerPeerPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun getMultiplayerPeer(): MultiplayerPeer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMultiplayerPeerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as MultiplayerPeer?)
+    return (TransferContext.readReturnValue_OBJECT() as MultiplayerPeer?)
   }
 
   public final fun setMultiplayerPeer(peer: MultiplayerPeer?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to peer)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, peer)
     TransferContext.callMethod(MethodBindings.setMultiplayerPeerPtr)
   }
 
@@ -132,9 +135,9 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    * Returns the unique peer ID of this MultiplayerAPI's [multiplayerPeer].
    */
   public final fun getUniqueId(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getUniqueIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -142,9 +145,9 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    * (listening for connections).
    */
   public final fun isServer(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isServerPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -154,9 +157,9 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    * may be lost when code execution is delayed (such as with GDScript's `await` keyword).
    */
   public final fun getRemoteSenderId(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRemoteSenderIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -168,9 +171,9 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    * context of this function (e.g. `_process`, `physics`, [Thread]).
    */
   public final fun poll(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.pollPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -189,9 +192,9 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
     method: StringName,
     arguments: VariantArray<Any?> = godot.core.variantArrayOf(),
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to peer.toLong(), OBJECT to `object`, STRING_NAME to method, ARRAY to arguments)
+    TransferContext.writeMethodArguments_LONG_OBJECT_STRING_NAME_ARRAY(ptr, objectID.id, peer.toLong(), `object`, method, arguments)
     TransferContext.callMethod(MethodBindings.rpcPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -205,9 +208,9 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    * behavior via [MultiplayerAPIExtension].
    */
   public final fun objectConfigurationAdd(`object`: Object?, configuration: Any?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to `object`, ANY to configuration)
+    TransferContext.writeMethodArguments_OBJECT_ANY(ptr, objectID.id, `object`, configuration)
     TransferContext.callMethod(MethodBindings.objectConfigurationAddPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -221,18 +224,18 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    * behavior via [MultiplayerAPIExtension].
    */
   public final fun objectConfigurationRemove(`object`: Object?, configuration: Any?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to `object`, ANY to configuration)
+    TransferContext.writeMethodArguments_OBJECT_ANY(ptr, objectID.id, `object`, configuration)
     TransferContext.callMethod(MethodBindings.objectConfigurationRemovePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Returns the peer IDs of all connected peers of this MultiplayerAPI's [multiplayerPeer].
    */
   public final fun getPeers(): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPeersPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
+    return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
   /**
@@ -344,7 +347,7 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun setDefaultInterface(interfaceName: StringName): Unit {
-      TransferContext.writeMethodArguments(0L, 0L, STRING_NAME to interfaceName)
+      TransferContext.writeMethodArguments_STRING_NAME(0L, 0L, interfaceName)
       TransferContext.callMethod(MethodBindings.setDefaultInterfacePtr)
     }
 
@@ -354,9 +357,9 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun getDefaultInterface(): StringName {
-      TransferContext.writeMethodArguments(0L, 0L)
+      TransferContext.writeMethodArguments0(0L, 0L)
       TransferContext.callMethod(MethodBindings.getDefaultInterfacePtr)
-      return (TransferContext.readReturnValue(STRING_NAME) as StringName)
+      return TransferContext.readReturnValue_STRING_NAME()
     }
 
     /**
@@ -364,9 +367,9 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun createDefaultInterface(): MultiplayerAPI? {
-      TransferContext.writeMethodArguments(0L, 0L)
+      TransferContext.writeMethodArguments0(0L, 0L)
       TransferContext.callMethod(MethodBindings.createDefaultInterfacePtr)
-      return (TransferContext.readReturnValue(OBJECT) as MultiplayerAPI?)
+      return (TransferContext.readReturnValue_OBJECT() as MultiplayerAPI?)
     }
 
     /**

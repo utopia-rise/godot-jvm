@@ -13,8 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Int
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -73,30 +76,30 @@ public open class CurveTexture : Texture2D() {
   }
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
     TransferContext.callMethod(MethodBindings.setWidthPtr)
   }
 
   public final fun setCurve(curve: Curve?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to curve)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
     TransferContext.callMethod(MethodBindings.setCurvePtr)
   }
 
   public final fun getCurve(): Curve? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCurvePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Curve?)
+    return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 
   public final fun setTextureMode(textureMode: TextureMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to textureMode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, textureMode.value)
     TransferContext.callMethod(MethodBindings.setTextureModePtr)
   }
 
   public final fun getTextureMode(): TextureMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTextureModePtr)
-    return TextureMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return TextureMode.from(TransferContext.readReturnValue_LONG())
   }
 
   /**

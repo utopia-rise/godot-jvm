@@ -15,9 +15,10 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedByteArray
 import godot.core.RID
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser._RID
+import godot.readReturnValue_ANY
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_RID_LONG
 import kotlin.Any
 import kotlin.Long
 import kotlin.Suppress
@@ -38,9 +39,9 @@ public open class OpenXRSpatialComponentMarkerList : OpenXRSpatialComponentData(
    * Returns the marker type for the marker at this [index].
    */
   public final fun getMarkerType(index: Long): MarkerType {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
     TransferContext.callMethod(MethodBindings.getMarkerTypePtr)
-    return MarkerType.from(TransferContext.readReturnValue(LONG) as Long)
+    return MarkerType.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -48,9 +49,9 @@ public open class OpenXRSpatialComponentMarkerList : OpenXRSpatialComponentData(
    * markers.
    */
   public final fun getMarkerId(index: Long): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
     TransferContext.callMethod(MethodBindings.getMarkerIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -58,9 +59,9 @@ public open class OpenXRSpatialComponentMarkerList : OpenXRSpatialComponentData(
    * [index]. Only applicable for QR code markers.
    */
   public final fun getMarkerData(snapshot: RID, index: Long): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to snapshot, LONG to index)
+    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, snapshot, index)
     TransferContext.callMethod(MethodBindings.getMarkerDataPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   public enum class MarkerType(

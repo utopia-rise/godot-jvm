@@ -22,14 +22,11 @@ import godot.core.Rect2
 import godot.core.Rect2i
 import godot.core.StringName
 import godot.core.Transform3D
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.RECT2
-import godot.core.VariantParser.RECT2I
-import godot.core.VariantParser.VECTOR2
-import godot.core.VariantParser._RID
 import godot.core.Vector2
+import godot.readReturnValue_RID
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_RID
+import godot.writeMethodArguments_RID_RECT2_RECT2I_BOOL_LONG_BOOL_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -292,21 +289,21 @@ public open class XRInterfaceExtension : XRInterface() {
   }
 
   public final fun getColorTexture(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getColorTexturePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   public final fun getDepthTexture(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDepthTexturePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   public final fun getVelocityTexture(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVelocityTexturePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
@@ -326,7 +323,7 @@ public open class XRInterfaceExtension : XRInterface() {
     upscale: Double,
     aspectRatio: Double,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to renderTarget, RECT2 to srcRect, RECT2I to dstRect, BOOL to useLayer, LONG to layer, BOOL to applyLensDistortion, VECTOR2 to eyeCenter, DOUBLE to k1, DOUBLE to k2, DOUBLE to upscale, DOUBLE to aspectRatio)
+    TransferContext.writeMethodArguments_RID_RECT2_RECT2I_BOOL_LONG_BOOL_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, renderTarget, srcRect, dstRect, useLayer, layer, applyLensDistortion, eyeCenter, k1, k2, upscale, aspectRatio)
     TransferContext.callMethod(MethodBindings.addBlitPtr)
   }
 
@@ -335,9 +332,9 @@ public open class XRInterfaceExtension : XRInterface() {
    * the interface.
    */
   public final fun getRenderTargetTexture(renderTarget: RID): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to renderTarget)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderTarget)
     TransferContext.callMethod(MethodBindings.getRenderTargetTexturePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   public companion object {

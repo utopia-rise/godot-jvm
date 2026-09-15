@@ -18,16 +18,22 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.StringName
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_ANY
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_DICTIONARY
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_DICTIONARY
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_STRING_NAME
+import godot.writeMethodArguments_STRING_NAME_ANY
 import kotlin.Any
-import kotlin.Double
 import kotlin.Float
 import kotlin.String
 import kotlin.Suppress
@@ -165,94 +171,94 @@ public open class GLTFLight : Resource() {
    * Converts this GLTFLight instance into a Godot [Light3D] node.
    */
   public final fun toNode(): Light3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.toNodePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Light3D?)
+    return (TransferContext.readReturnValue_OBJECT() as Light3D?)
   }
 
   /**
    * Serializes this GLTFLight instance into a [Dictionary].
    */
   public final fun toDictionary(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.toDictionaryPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   public final fun getColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setColorPtr)
   }
 
   public final fun getIntensity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getIntensityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setIntensity(intensity: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to intensity.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, intensity.toDouble())
     TransferContext.callMethod(MethodBindings.setIntensityPtr)
   }
 
   public final fun getLightType(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLightTypePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setLightType(lightType: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to lightType)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, lightType)
     TransferContext.callMethod(MethodBindings.setLightTypePtr)
   }
 
   public final fun getRange(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRangePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRange(range: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to range.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, range.toDouble())
     TransferContext.callMethod(MethodBindings.setRangePtr)
   }
 
   public final fun getInnerConeAngle(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getInnerConeAnglePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setInnerConeAngle(innerConeAngle: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to innerConeAngle.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, innerConeAngle.toDouble())
     TransferContext.callMethod(MethodBindings.setInnerConeAnglePtr)
   }
 
   public final fun getOuterConeAngle(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getOuterConeAnglePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOuterConeAngle(outerConeAngle: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to outerConeAngle.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, outerConeAngle.toDouble())
     TransferContext.callMethod(MethodBindings.setOuterConeAnglePtr)
   }
 
   public final fun getAdditionalData(extensionName: StringName): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to extensionName)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, extensionName)
     TransferContext.callMethod(MethodBindings.getAdditionalDataPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   public final fun setAdditionalData(extensionName: StringName, additionalData: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to extensionName, ANY to additionalData)
+    TransferContext.writeMethodArguments_STRING_NAME_ANY(ptr, objectID.id, extensionName, additionalData)
     TransferContext.callMethod(MethodBindings.setAdditionalDataPtr)
   }
 
@@ -340,9 +346,9 @@ public open class GLTFLight : Resource() {
      */
     @JvmStatic
     public final fun fromNode(lightNode: Light3D?): GLTFLight? {
-      TransferContext.writeMethodArguments(0L, 0L, OBJECT to lightNode)
+      TransferContext.writeMethodArguments_OBJECT(0L, 0L, lightNode)
       TransferContext.callMethod(MethodBindings.fromNodePtr)
-      return (TransferContext.readReturnValue(OBJECT) as GLTFLight?)
+      return (TransferContext.readReturnValue_OBJECT() as GLTFLight?)
     }
 
     /**
@@ -350,9 +356,9 @@ public open class GLTFLight : Resource() {
      */
     @JvmStatic
     public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFLight? {
-      TransferContext.writeMethodArguments(0L, 0L, DICTIONARY to dictionary)
+      TransferContext.writeMethodArguments_DICTIONARY(0L, 0L, dictionary)
       TransferContext.callMethod(MethodBindings.fromDictionaryPtr)
-      return (TransferContext.readReturnValue(OBJECT) as GLTFLight?)
+      return (TransferContext.readReturnValue_OBJECT() as GLTFLight?)
     }
   }
 

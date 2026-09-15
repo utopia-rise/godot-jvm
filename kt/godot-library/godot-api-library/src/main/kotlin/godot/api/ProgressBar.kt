@@ -13,8 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -80,47 +83,47 @@ public open class ProgressBar : Range() {
   }
 
   public final fun setFillMode(mode: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.toLong())
     TransferContext.callMethod(MethodBindings.setFillModePtr)
   }
 
   public final fun getFillMode(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFillModePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setShowPercentage(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to visible)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
     TransferContext.callMethod(MethodBindings.setShowPercentagePtr)
   }
 
   public final fun isPercentageShown(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isPercentageShownPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setIndeterminate(indeterminate: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to indeterminate)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, indeterminate)
     TransferContext.callMethod(MethodBindings.setIndeterminatePtr)
   }
 
   public final fun isIndeterminate(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isIndeterminatePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEditorPreviewIndeterminate(previewIndeterminate: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to previewIndeterminate)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, previewIndeterminate)
     TransferContext.callMethod(MethodBindings.setEditorPreviewIndeterminatePtr)
   }
 
   public final fun isEditorPreviewIndeterminateEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isEditorPreviewIndeterminateEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class FillMode(

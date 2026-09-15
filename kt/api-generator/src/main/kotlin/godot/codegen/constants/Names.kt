@@ -4,6 +4,9 @@ package godot.codegen.constants
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.STAR
+import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.asClassName
 import godot.common.interop.VariantConverter
 import godot.tools.common.constants.godotAnnotationPackage
@@ -184,6 +187,51 @@ object VariantConverter {
     val MAPPER = MemberName(godotCorePackage, "variantMapper")
 
     fun parse(name: String) = MemberName(PARSER.canonicalName, name.uppercase(Locale.US))
+
+    val primitives = setOf(BOOL, LONG, DOUBLE)
+
+    fun bufferType(converter: MemberName): TypeName = when (converter.simpleName) {
+        "BOOL" -> com.squareup.kotlinpoet.BOOLEAN
+        "LONG" -> com.squareup.kotlinpoet.LONG
+        "DOUBLE" -> com.squareup.kotlinpoet.DOUBLE
+        "STRING" -> com.squareup.kotlinpoet.STRING
+        "ANY" -> com.squareup.kotlinpoet.ANY.copy(nullable = true)
+        "OBJECT" -> Core.godotObject.copy(nullable = true)
+        "ARRAY" -> Core.variantArray.parameterizedBy(STAR)
+        "DICTIONARY" -> Core.dictionary.parameterizedBy(STAR, STAR)
+        "CALLABLE" -> Core.callable
+        "SIGNAL" -> Core.signal
+        "_RID" -> Core.rid
+        "STRING_NAME" -> Core.stringName
+        "NODE_PATH" -> Core.nodePath
+        "VECTOR2" -> Core.vector2
+        "VECTOR2I" -> Core.vector2i
+        "RECT2" -> Core.rect2
+        "RECT2I" -> Core.rect2i
+        "VECTOR3" -> Core.vector3
+        "VECTOR3I" -> Core.vector3i
+        "TRANSFORM2D" -> Core.transform2D
+        "VECTOR4" -> Core.vector4
+        "VECTOR4I" -> Core.vector4i
+        "PLANE" -> Core.plane
+        "QUATERNION" -> Core.quaternion
+        "AABB" -> Core.aabb
+        "BASIS" -> Core.basis
+        "TRANSFORM3D" -> Core.transform3D
+        "PROJECTION" -> Core.projection
+        "COLOR" -> Core.color
+        "PACKED_BYTE_ARRAY" -> Core.packedByteArray
+        "PACKED_INT_32_ARRAY" -> Core.packedInt32Array
+        "PACKED_INT_64_ARRAY" -> Core.packedInt64Array
+        "PACKED_FLOAT_32_ARRAY" -> Core.packedFloat32Array
+        "PACKED_FLOAT_64_ARRAY" -> Core.packedFloat64Array
+        "PACKED_STRING_ARRAY" -> Core.packedStringArray
+        "PACKED_VECTOR2_ARRAY" -> Core.packedVector2Array
+        "PACKED_VECTOR3_ARRAY" -> Core.packedVector3Array
+        "PACKED_COLOR_ARRAY" -> Core.packedColorArray
+        "PACKED_VECTOR4_ARRAY" -> Core.packedVector4Array
+        else -> throw IllegalArgumentException("No buffer type declared for converter ${converter.simpleName}")
+    }
 }
 
 object Coroutines {

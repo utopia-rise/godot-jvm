@@ -16,11 +16,13 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_ANY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_CALLABLE_LONG
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Long
@@ -61,9 +63,9 @@ public open class Thread : RefCounted() {
    */
   @JvmOverloads
   public final fun start(callable: Callable, priority: Priority = Thread.Priority.NORMAL): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to callable, LONG to priority.value)
+    TransferContext.writeMethodArguments_CALLABLE_LONG(ptr, objectID.id, callable, priority.value)
     TransferContext.callMethod(MethodBindings.startPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -71,9 +73,9 @@ public open class Thread : RefCounted() {
    * has not started running or if [waitToFinish] has been called, this returns an empty string.
    */
   public final fun getId(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getIdPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -82,9 +84,9 @@ public open class Thread : RefCounted() {
    * [isAlive].
    */
   public final fun isStarted(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isStartedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -94,9 +96,9 @@ public open class Thread : RefCounted() {
    * To check if a [Thread] is joinable, use [isStarted].
    */
   public final fun isAlive(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAlivePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -110,9 +112,9 @@ public open class Thread : RefCounted() {
    * `false`.
    */
   public final fun waitToFinish(): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.waitToFinishPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   public enum class Priority(
@@ -193,7 +195,7 @@ public open class Thread : RefCounted() {
      */
     @JvmStatic
     public final fun setThreadSafetyChecksEnabled(enabled: Boolean): Unit {
-      TransferContext.writeMethodArguments(0L, 0L, BOOL to enabled)
+      TransferContext.writeMethodArguments_BOOL(0L, 0L, enabled)
       TransferContext.callMethod(MethodBindings.setThreadSafetyChecksEnabledPtr)
     }
 
@@ -204,9 +206,9 @@ public open class Thread : RefCounted() {
      */
     @JvmStatic
     public final fun isMainThread(): Boolean {
-      TransferContext.writeMethodArguments(0L, 0L)
+      TransferContext.writeMethodArguments0(0L, 0L)
       TransferContext.callMethod(MethodBindings.isMainThreadPtr)
-      return (TransferContext.readReturnValue(BOOL) as Boolean)
+      return TransferContext.readReturnValue_BOOL()
     }
   }
 

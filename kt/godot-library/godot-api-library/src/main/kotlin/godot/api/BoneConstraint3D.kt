@@ -15,12 +15,17 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.NodePath
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.STRING
 import godot.core.asCachedNodePath
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_NODE_PATH
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_DOUBLE
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_LONG_NODE_PATH
+import godot.writeMethodArguments_LONG_STRING
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -46,7 +51,7 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * Sets the apply amount of the setting at [index] to [amount].
    */
   public final fun setAmount(index: Int, amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), DOUBLE to amount.toDouble())
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, index.toLong(), amount.toDouble())
     TransferContext.callMethod(MethodBindings.setAmountPtr)
   }
 
@@ -54,16 +59,16 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * Returns the apply amount of the setting at [index].
    */
   public final fun getAmount(index: Int): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getAmountPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
    * Sets the apply bone of the setting at [index] to [boneName]. This bone will be modified.
    */
   public final fun setApplyBoneName(index: Int, boneName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), STRING to boneName)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, index.toLong(), boneName)
     TransferContext.callMethod(MethodBindings.setApplyBoneNamePtr)
   }
 
@@ -71,16 +76,16 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * Returns the apply bone name of the setting at [index]. This bone will be modified.
    */
   public final fun getApplyBoneName(index: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getApplyBoneNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Sets the apply bone of the setting at [index] to [bone]. This bone will be modified.
    */
   public final fun setApplyBone(index: Int, bone: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to bone.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), bone.toLong())
     TransferContext.callMethod(MethodBindings.setApplyBonePtr)
   }
 
@@ -88,16 +93,16 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * Returns the apply bone of the setting at [index]. This bone will be modified.
    */
   public final fun getApplyBone(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getApplyBonePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Sets the reference target type of the setting at [index] to [type]. See also [ReferenceType].
    */
   public final fun setReferenceType(index: Int, type: ReferenceType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to type.value)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), type.value)
     TransferContext.callMethod(MethodBindings.setReferenceTypePtr)
   }
 
@@ -105,9 +110,9 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * Returns the reference target type of the setting at [index]. See also [ReferenceType].
    */
   public final fun getReferenceType(index: Int): ReferenceType {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getReferenceTypePtr)
-    return ReferenceType.from(TransferContext.readReturnValue(LONG) as Long)
+    return ReferenceType.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -116,7 +121,7 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This bone will be only referenced and not modified by this modifier.
    */
   public final fun setReferenceBoneName(index: Int, boneName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), STRING to boneName)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, index.toLong(), boneName)
     TransferContext.callMethod(MethodBindings.setReferenceBoneNamePtr)
   }
 
@@ -126,9 +131,9 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This bone will be only referenced and not modified by this modifier.
    */
   public final fun getReferenceBoneName(index: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getReferenceBoneNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -137,7 +142,7 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This bone will be only referenced and not modified by this modifier.
    */
   public final fun setReferenceBone(index: Int, bone: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to bone.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), bone.toLong())
     TransferContext.callMethod(MethodBindings.setReferenceBonePtr)
   }
 
@@ -147,9 +152,9 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This bone will be only referenced and not modified by this modifier.
    */
   public final fun getReferenceBone(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getReferenceBonePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -158,7 +163,7 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This node will be only referenced and not modified by this modifier.
    */
   public final fun setReferenceNode(index: Int, node: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), NODE_PATH to node)
+    TransferContext.writeMethodArguments_LONG_NODE_PATH(ptr, objectID.id, index.toLong(), node)
     TransferContext.callMethod(MethodBindings.setReferenceNodePtr)
   }
 
@@ -168,16 +173,16 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * This node will be only referenced and not modified by this modifier.
    */
   public final fun getReferenceNode(index: Int): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getReferenceNodePtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   /**
    * Sets the number of settings in the modifier.
    */
   public final fun setSettingCount(count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to count.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
     TransferContext.callMethod(MethodBindings.setSettingCountPtr)
   }
 
@@ -185,16 +190,16 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    * Returns the number of settings in the modifier.
    */
   public final fun getSettingCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSettingCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Clear all settings.
    */
   public final fun clearSetting(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.clearSettingPtr)
   }
 

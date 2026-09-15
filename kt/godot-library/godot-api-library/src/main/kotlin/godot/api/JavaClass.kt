@@ -15,12 +15,13 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING_NAME
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.String
@@ -45,9 +46,9 @@ public open class JavaClass : RefCounted() {
    * Returns the Java class name.
    */
   public final fun getJavaClassName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getJavaClassNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -55,27 +56,27 @@ public open class JavaClass : RefCounted() {
    * the same format as [Object.getMethodList].
    */
   public final fun getJavaMethodList(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getJavaMethodListPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Dictionary<Any?, Any?>>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
   /**
    * Returns a [JavaClass] representing the Java parent class of this class.
    */
   public final fun getJavaParentClass(): JavaClass? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getJavaParentClassPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaClass?)
+    return (TransferContext.readReturnValue_OBJECT() as JavaClass?)
   }
 
   /**
    * Returns `true` if the given [method] name exists in the object's Java methods.
    */
   public final fun hasJavaMethod(method: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, method)
     TransferContext.callMethod(MethodBindings.hasJavaMethodPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
