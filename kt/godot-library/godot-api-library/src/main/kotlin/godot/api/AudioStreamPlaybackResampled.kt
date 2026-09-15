@@ -41,7 +41,7 @@ public abstract class AudioStreamPlaybackResampled : AudioStreamPlayback() {
    */
   public final fun beginResample(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.beginResamplePtr)
+    TransferContext.callPtrMethod(MethodBindings.beginResamplePtr, 0)
   }
 
   /**

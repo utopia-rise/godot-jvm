@@ -108,23 +108,23 @@ public open class MissingNode : Node() {
 
   public final fun setRecordingProperties(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setRecordingPropertiesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRecordingPropertiesPtr, 0)
   }
 
   public final fun isRecordingProperties(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRecordingPropertiesPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRecordingPropertiesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRecordingSignals(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setRecordingSignalsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRecordingSignalsPtr, 0)
   }
 
   public final fun isRecordingSignals(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRecordingSignalsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRecordingSignalsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

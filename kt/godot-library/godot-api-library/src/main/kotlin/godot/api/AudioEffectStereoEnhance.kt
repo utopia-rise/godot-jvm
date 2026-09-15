@@ -69,34 +69,34 @@ public open class AudioEffectStereoEnhance : AudioEffect() {
 
   public final fun setPanPullout(amount: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setPanPulloutPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPanPulloutPtr, 0)
   }
 
   public final fun getPanPullout(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPanPulloutPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPanPulloutPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTimePullout(amount: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setTimePulloutPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTimePulloutPtr, 0)
   }
 
   public final fun getTimePullout(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTimePulloutPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTimePulloutPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSurround(amount: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setSurroundPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSurroundPtr, 0)
   }
 
   public final fun getSurround(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSurroundPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSurroundPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

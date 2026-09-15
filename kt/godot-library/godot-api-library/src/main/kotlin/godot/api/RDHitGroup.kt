@@ -71,34 +71,34 @@ public open class RDHitGroup : RefCounted() {
 
   public final fun setClosestHitShader(pMember: RDPipelineShader?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setClosestHitShaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.setClosestHitShaderPtr, 0)
   }
 
   public final fun getClosestHitShader(): RDPipelineShader? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getClosestHitShaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClosestHitShaderPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as RDPipelineShader?)
   }
 
   public final fun setAnyHitShader(pMember: RDPipelineShader?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setAnyHitShaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAnyHitShaderPtr, 0)
   }
 
   public final fun getAnyHitShader(): RDPipelineShader? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnyHitShaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnyHitShaderPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as RDPipelineShader?)
   }
 
   public final fun setIntersectionShader(pMember: RDPipelineShader?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setIntersectionShaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIntersectionShaderPtr, 0)
   }
 
   public final fun getIntersectionShader(): RDPipelineShader? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIntersectionShaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIntersectionShaderPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as RDPipelineShader?)
   }
 

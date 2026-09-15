@@ -75,12 +75,12 @@ public open class RDPipelineSpecializationConstant : RefCounted() {
 
   public final fun setConstantId(constantId: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, constantId)
-    TransferContext.callMethod(MethodBindings.setConstantIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setConstantIdPtr, 0)
   }
 
   public final fun getConstantId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConstantIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

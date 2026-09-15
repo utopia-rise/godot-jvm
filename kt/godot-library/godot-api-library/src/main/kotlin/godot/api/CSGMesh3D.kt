@@ -74,23 +74,23 @@ public open class CSGMesh3D : CSGPrimitive3D() {
 
   public final fun setMesh(mesh: Mesh?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, mesh)
-    TransferContext.callMethod(MethodBindings.setMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMeshPtr, 0)
   }
 
   public final fun getMesh(): Mesh? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMeshPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Mesh?)
   }
 
   public final fun setMaterial(material: Material?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
-    TransferContext.callMethod(MethodBindings.setMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaterialPtr, 0)
   }
 
   public final fun getMaterial(): Material? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaterialPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Material?)
   }
 

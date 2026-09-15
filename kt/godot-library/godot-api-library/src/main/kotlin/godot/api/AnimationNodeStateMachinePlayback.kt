@@ -80,7 +80,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
   @JvmOverloads
   public final fun travel(toNode: StringName, resetOnTeleport: Boolean = true): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_BOOL(ptr, objectID.id, toNode, resetOnTeleport)
-    TransferContext.callMethod(MethodBindings.travelPtr)
+    TransferContext.callPtrMethod(MethodBindings.travelPtr, 0)
   }
 
   /**
@@ -91,7 +91,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
   @JvmOverloads
   public final fun start(node: StringName, reset: Boolean = true): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_BOOL(ptr, objectID.id, node, reset)
-    TransferContext.callMethod(MethodBindings.startPtr)
+    TransferContext.callPtrMethod(MethodBindings.startPtr, 0)
   }
 
   /**
@@ -100,7 +100,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun next(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.nextPtr)
+    TransferContext.callPtrMethod(MethodBindings.nextPtr, 0)
   }
 
   /**
@@ -108,7 +108,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun stop(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.stopPtr)
+    TransferContext.callPtrMethod(MethodBindings.stopPtr, 0)
   }
 
   /**
@@ -116,7 +116,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun isPlaying(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPlayingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPlayingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -137,7 +137,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun getCurrentPlayPosition(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurrentPlayPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurrentPlayPositionPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -151,7 +151,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun getCurrentLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurrentLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurrentLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -170,7 +170,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun getFadingFromPlayPosition(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFadingFromPlayPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFadingFromPlayPositionPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -180,7 +180,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun getFadingFromLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFadingFromLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFadingFromLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -190,7 +190,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun getFadingPosition(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFadingPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFadingPositionPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -200,7 +200,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun getFadingLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFadingLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFadingLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

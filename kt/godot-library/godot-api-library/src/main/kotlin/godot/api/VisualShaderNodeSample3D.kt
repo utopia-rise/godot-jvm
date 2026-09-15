@@ -44,12 +44,12 @@ public open class VisualShaderNodeSample3D internal constructor() : VisualShader
 
   public final fun setSource(`value`: Source): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, value.value)
-    TransferContext.callMethod(MethodBindings.setSourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSourcePtr, 0)
   }
 
   public final fun getSource(): Source {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSourcePtr, 2)
     return Source.from(TransferContext.readReturnValue_LONG())
   }
 

@@ -68,7 +68,7 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
   public final fun createServer(channelsConfig: VariantArray<Any?> = godot.core.variantArrayOf()):
       Error {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, channelsConfig)
-    TransferContext.callMethod(MethodBindings.createServerPtr)
+    TransferContext.callPtrMethod(MethodBindings.createServerPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -85,7 +85,7 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
   public final fun createClient(peerId: Int, channelsConfig: VariantArray<Any?> =
       godot.core.variantArrayOf()): Error {
     TransferContext.writeMethodArguments_LONG_ARRAY(ptr, objectID.id, peerId.toLong(), channelsConfig)
-    TransferContext.callMethod(MethodBindings.createClientPtr)
+    TransferContext.callPtrMethod(MethodBindings.createClientPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -97,7 +97,7 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
   public final fun createMesh(peerId: Int, channelsConfig: VariantArray<Any?> =
       godot.core.variantArrayOf()): Error {
     TransferContext.writeMethodArguments_LONG_ARRAY(ptr, objectID.id, peerId.toLong(), channelsConfig)
-    TransferContext.callMethod(MethodBindings.createMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.createMeshPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -116,7 +116,7 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
     unreliableLifetime: Int = 1,
   ): Error {
     TransferContext.writeMethodArguments_OBJECT_LONG_LONG(ptr, objectID.id, peer, peerId.toLong(), unreliableLifetime.toLong())
-    TransferContext.callMethod(MethodBindings.addPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.addPeerPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -127,7 +127,7 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
    */
   public final fun removePeer(peerId: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, peerId.toLong())
-    TransferContext.callMethod(MethodBindings.removePeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.removePeerPtr, 0)
   }
 
   /**
@@ -135,7 +135,7 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
    */
   public final fun hasPeer(peerId: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, peerId.toLong())
-    TransferContext.callMethod(MethodBindings.hasPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasPeerPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

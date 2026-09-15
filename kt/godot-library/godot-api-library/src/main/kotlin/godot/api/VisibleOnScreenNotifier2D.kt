@@ -107,23 +107,23 @@ public open class VisibleOnScreenNotifier2D : Node2D() {
 
   public final fun setRect(rect: Rect2): Unit {
     TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, rect)
-    TransferContext.callMethod(MethodBindings.setRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRectPtr, 0)
   }
 
   public final fun getRect(): Rect2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRectPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 
   public final fun setShowRect(showRect: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, showRect)
-    TransferContext.callMethod(MethodBindings.setShowRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShowRectPtr, 0)
   }
 
   public final fun isShowingRect(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isShowingRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.isShowingRectPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -136,7 +136,7 @@ public open class VisibleOnScreenNotifier2D : Node2D() {
    */
   public final fun isOnScreen(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isOnScreenPtr)
+    TransferContext.callPtrMethod(MethodBindings.isOnScreenPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

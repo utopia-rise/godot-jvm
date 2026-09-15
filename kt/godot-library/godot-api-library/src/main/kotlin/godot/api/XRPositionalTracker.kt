@@ -132,13 +132,13 @@ public open class XRPositionalTracker : XRTracker() {
 
   public final fun getTrackerHand(): TrackerHand {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackerHandPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTrackerHandPtr, 2)
     return TrackerHand.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTrackerHand(hand: TrackerHand): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, hand.value)
-    TransferContext.callMethod(MethodBindings.setTrackerHandPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTrackerHandPtr, 0)
   }
 
   /**
@@ -146,7 +146,7 @@ public open class XRPositionalTracker : XRTracker() {
    */
   public final fun hasPose(name: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.hasPosePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasPosePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -155,7 +155,7 @@ public open class XRPositionalTracker : XRTracker() {
    */
   public final fun getPose(name: StringName): XRPose? {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getPosePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPosePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as XRPose?)
   }
 
@@ -166,7 +166,7 @@ public open class XRPositionalTracker : XRTracker() {
    */
   public final fun invalidatePose(name: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.invalidatePosePtr)
+    TransferContext.callPtrMethod(MethodBindings.invalidatePosePtr, 0)
   }
 
   /**
@@ -181,7 +181,7 @@ public open class XRPositionalTracker : XRTracker() {
     trackingConfidence: XRPose.TrackingConfidence,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_TRANSFORM3D_VECTOR3_VECTOR3_LONG(ptr, objectID.id, name, transform, linearVelocity, angularVelocity, trackingConfidence.value)
-    TransferContext.callMethod(MethodBindings.setPosePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPosePtr, 0)
   }
 
   /**

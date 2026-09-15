@@ -89,45 +89,45 @@ public open class SpringBoneCollisionCapsule3D : SpringBoneCollision3D() {
 
   public final fun setRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRadiusPtr, 0)
   }
 
   public final fun getRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setHeight(height: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, height.toDouble())
-    TransferContext.callMethod(MethodBindings.setHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHeightPtr, 0)
   }
 
   public final fun getHeight(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMidHeight(midHeight: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, midHeight.toDouble())
-    TransferContext.callMethod(MethodBindings.setMidHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMidHeightPtr, 0)
   }
 
   public final fun getMidHeight(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMidHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMidHeightPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setInside(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setInsidePtr)
+    TransferContext.callPtrMethod(MethodBindings.setInsidePtr, 0)
   }
 
   public final fun isInside(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isInsidePtr)
+    TransferContext.callPtrMethod(MethodBindings.isInsidePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

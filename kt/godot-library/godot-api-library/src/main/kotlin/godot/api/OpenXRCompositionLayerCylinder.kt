@@ -80,45 +80,45 @@ public open class OpenXRCompositionLayerCylinder : OpenXRCompositionLayer() {
 
   public final fun setRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRadiusPtr, 0)
   }
 
   public final fun getRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAspectRatio(aspectRatio: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, aspectRatio.toDouble())
-    TransferContext.callMethod(MethodBindings.setAspectRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAspectRatioPtr, 0)
   }
 
   public final fun getAspectRatio(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAspectRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAspectRatioPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setCentralAngle(angle: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callMethod(MethodBindings.setCentralAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCentralAnglePtr, 0)
   }
 
   public final fun getCentralAngle(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCentralAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCentralAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFallbackSegments(segments: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, segments)
-    TransferContext.callMethod(MethodBindings.setFallbackSegmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFallbackSegmentsPtr, 0)
   }
 
   public final fun getFallbackSegments(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFallbackSegmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFallbackSegmentsPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

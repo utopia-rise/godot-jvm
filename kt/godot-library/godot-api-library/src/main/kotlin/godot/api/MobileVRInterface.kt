@@ -207,112 +207,112 @@ public open class MobileVRInterface : XRInterface() {
 
   public final fun setEyeHeight(eyeHeight: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, eyeHeight)
-    TransferContext.callMethod(MethodBindings.setEyeHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEyeHeightPtr, 0)
   }
 
   public final fun getEyeHeight(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEyeHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEyeHeightPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setIod(iod: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, iod)
-    TransferContext.callMethod(MethodBindings.setIodPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIodPtr, 0)
   }
 
   public final fun getIod(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIodPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIodPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setDisplayWidth(displayWidth: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, displayWidth)
-    TransferContext.callMethod(MethodBindings.setDisplayWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDisplayWidthPtr, 0)
   }
 
   public final fun getDisplayWidth(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDisplayWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDisplayWidthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setDisplayToLens(displayToLens: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, displayToLens)
-    TransferContext.callMethod(MethodBindings.setDisplayToLensPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDisplayToLensPtr, 0)
   }
 
   public final fun getDisplayToLens(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDisplayToLensPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDisplayToLensPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setOffsetRect(offsetRect: Rect2): Unit {
     TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, offsetRect)
-    TransferContext.callMethod(MethodBindings.setOffsetRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOffsetRectPtr, 0)
   }
 
   public final fun getOffsetRect(): Rect2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOffsetRectPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 
   public final fun setOversample(oversample: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, oversample)
-    TransferContext.callMethod(MethodBindings.setOversamplePtr)
+    TransferContext.callPtrMethod(MethodBindings.setOversamplePtr, 0)
   }
 
   public final fun getOversample(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOversamplePtr)
+    TransferContext.callPtrMethod(MethodBindings.getOversamplePtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setK1(k: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, k)
-    TransferContext.callMethod(MethodBindings.setK1Ptr)
+    TransferContext.callPtrMethod(MethodBindings.setK1Ptr, 0)
   }
 
   public final fun getK1(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getK1Ptr)
+    TransferContext.callPtrMethod(MethodBindings.getK1Ptr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setK2(k: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, k)
-    TransferContext.callMethod(MethodBindings.setK2Ptr)
+    TransferContext.callPtrMethod(MethodBindings.setK2Ptr, 0)
   }
 
   public final fun getK2(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getK2Ptr)
+    TransferContext.callPtrMethod(MethodBindings.getK2Ptr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getVrsMinRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVrsMinRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVrsMinRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVrsMinRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setVrsMinRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVrsMinRadiusPtr, 0)
   }
 
   public final fun getVrsStrength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVrsStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVrsStrengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVrsStrength(strength: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, strength.toDouble())
-    TransferContext.callMethod(MethodBindings.setVrsStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVrsStrengthPtr, 0)
   }
 
   public companion object {

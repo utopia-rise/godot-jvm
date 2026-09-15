@@ -49,7 +49,7 @@ public open class StreamPeerGZIP : StreamPeer() {
   @JvmOverloads
   public final fun startCompression(useDeflate: Boolean = false, bufferSize: Int = 65535): Error {
     TransferContext.writeMethodArguments_BOOL_LONG(ptr, objectID.id, useDeflate, bufferSize.toLong())
-    TransferContext.callMethod(MethodBindings.startCompressionPtr)
+    TransferContext.callPtrMethod(MethodBindings.startCompressionPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -60,7 +60,7 @@ public open class StreamPeerGZIP : StreamPeer() {
   @JvmOverloads
   public final fun startDecompression(useDeflate: Boolean = false, bufferSize: Int = 65535): Error {
     TransferContext.writeMethodArguments_BOOL_LONG(ptr, objectID.id, useDeflate, bufferSize.toLong())
-    TransferContext.callMethod(MethodBindings.startDecompressionPtr)
+    TransferContext.callPtrMethod(MethodBindings.startDecompressionPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -71,7 +71,7 @@ public open class StreamPeerGZIP : StreamPeer() {
    */
   public final fun finish(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.finishPtr)
+    TransferContext.callPtrMethod(MethodBindings.finishPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -80,7 +80,7 @@ public open class StreamPeerGZIP : StreamPeer() {
    */
   public final fun clear(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   public companion object {

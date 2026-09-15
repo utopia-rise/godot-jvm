@@ -82,12 +82,12 @@ public open class AudioEffectChorus : AudioEffect() {
 
   public final fun setVoiceCount(voices: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, voices.toLong())
-    TransferContext.callMethod(MethodBindings.setVoiceCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVoiceCountPtr, 0)
   }
 
   public final fun getVoiceCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVoiceCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVoiceCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -97,7 +97,7 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun setVoiceDelayMs(voiceIdx: Int, delayMs: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, voiceIdx.toLong(), delayMs.toDouble())
-    TransferContext.callMethod(MethodBindings.setVoiceDelayMsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVoiceDelayMsPtr, 0)
   }
 
   /**
@@ -105,7 +105,7 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun getVoiceDelayMs(voiceIdx: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, voiceIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getVoiceDelayMsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVoiceDelayMsPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -115,7 +115,7 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun setVoiceRateHz(voiceIdx: Int, rateHz: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, voiceIdx.toLong(), rateHz.toDouble())
-    TransferContext.callMethod(MethodBindings.setVoiceRateHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVoiceRateHzPtr, 0)
   }
 
   /**
@@ -123,7 +123,7 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun getVoiceRateHz(voiceIdx: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, voiceIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getVoiceRateHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVoiceRateHzPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -133,7 +133,7 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun setVoiceDepthMs(voiceIdx: Int, depthMs: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, voiceIdx.toLong(), depthMs.toDouble())
-    TransferContext.callMethod(MethodBindings.setVoiceDepthMsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVoiceDepthMsPtr, 0)
   }
 
   /**
@@ -141,7 +141,7 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun getVoiceDepthMs(voiceIdx: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, voiceIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getVoiceDepthMsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVoiceDepthMsPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -150,7 +150,7 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun setVoiceLevelDb(voiceIdx: Int, levelDb: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, voiceIdx.toLong(), levelDb.toDouble())
-    TransferContext.callMethod(MethodBindings.setVoiceLevelDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVoiceLevelDbPtr, 0)
   }
 
   /**
@@ -158,7 +158,7 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun getVoiceLevelDb(voiceIdx: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, voiceIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getVoiceLevelDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVoiceLevelDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -168,7 +168,7 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun setVoiceCutoffHz(voiceIdx: Int, cutoffHz: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, voiceIdx.toLong(), cutoffHz.toDouble())
-    TransferContext.callMethod(MethodBindings.setVoiceCutoffHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVoiceCutoffHzPtr, 0)
   }
 
   /**
@@ -177,7 +177,7 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun getVoiceCutoffHz(voiceIdx: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, voiceIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getVoiceCutoffHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVoiceCutoffHzPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -187,7 +187,7 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun setVoicePan(voiceIdx: Int, pan: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, voiceIdx.toLong(), pan.toDouble())
-    TransferContext.callMethod(MethodBindings.setVoicePanPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVoicePanPtr, 0)
   }
 
   /**
@@ -196,29 +196,29 @@ public open class AudioEffectChorus : AudioEffect() {
    */
   public final fun getVoicePan(voiceIdx: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, voiceIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getVoicePanPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVoicePanPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setWet(amount: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setWetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setWetPtr, 0)
   }
 
   public final fun getWet(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWetPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDry(amount: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setDryPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDryPtr, 0)
   }
 
   public final fun getDry(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDryPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDryPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

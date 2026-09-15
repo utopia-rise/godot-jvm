@@ -84,45 +84,45 @@ public open class OpenXRAnalogThresholdModifier : OpenXRActionBindingModifier() 
 
   public final fun setOnThreshold(onThreshold: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, onThreshold.toDouble())
-    TransferContext.callMethod(MethodBindings.setOnThresholdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOnThresholdPtr, 0)
   }
 
   public final fun getOnThreshold(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOnThresholdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOnThresholdPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOffThreshold(offThreshold: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offThreshold.toDouble())
-    TransferContext.callMethod(MethodBindings.setOffThresholdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOffThresholdPtr, 0)
   }
 
   public final fun getOffThreshold(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffThresholdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOffThresholdPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOnHaptic(haptic: OpenXRHapticBase?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, haptic)
-    TransferContext.callMethod(MethodBindings.setOnHapticPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOnHapticPtr, 0)
   }
 
   public final fun getOnHaptic(): OpenXRHapticBase? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOnHapticPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOnHapticPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OpenXRHapticBase?)
   }
 
   public final fun setOffHaptic(haptic: OpenXRHapticBase?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, haptic)
-    TransferContext.callMethod(MethodBindings.setOffHapticPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOffHapticPtr, 0)
   }
 
   public final fun getOffHaptic(): OpenXRHapticBase? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffHapticPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOffHapticPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OpenXRHapticBase?)
   }
 

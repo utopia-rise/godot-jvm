@@ -153,12 +153,12 @@ public open class PrimitiveMesh : Mesh() {
 
   public final fun setMaterial(material: Material?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
-    TransferContext.callMethod(MethodBindings.setMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaterialPtr, 0)
   }
 
   public final fun getMaterial(): Material? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaterialPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Material?)
   }
 
@@ -189,45 +189,45 @@ public open class PrimitiveMesh : Mesh() {
 
   public final fun setCustomAabb(aabb: AABB): Unit {
     TransferContext.writeMethodArguments_AABB(ptr, objectID.id, aabb)
-    TransferContext.callMethod(MethodBindings.setCustomAabbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCustomAabbPtr, 0)
   }
 
   public final fun getCustomAabb(): AABB {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomAabbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCustomAabbPtr, 16)
     return TransferContext.readReturnValue_AABB()
   }
 
   public final fun setFlipFaces(flipFaces: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, flipFaces)
-    TransferContext.callMethod(MethodBindings.setFlipFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFlipFacesPtr, 0)
   }
 
   public final fun getFlipFaces(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFlipFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFlipFacesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAddUv2(addUv2: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, addUv2)
-    TransferContext.callMethod(MethodBindings.setAddUv2Ptr)
+    TransferContext.callPtrMethod(MethodBindings.setAddUv2Ptr, 0)
   }
 
   public final fun getAddUv2(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAddUv2Ptr)
+    TransferContext.callPtrMethod(MethodBindings.getAddUv2Ptr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setUv2Padding(uv2Padding: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, uv2Padding.toDouble())
-    TransferContext.callMethod(MethodBindings.setUv2PaddingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUv2PaddingPtr, 0)
   }
 
   public final fun getUv2Padding(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUv2PaddingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUv2PaddingPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -236,7 +236,7 @@ public open class PrimitiveMesh : Mesh() {
    */
   public final fun requestUpdate(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.requestUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.requestUpdatePtr, 0)
   }
 
   /**

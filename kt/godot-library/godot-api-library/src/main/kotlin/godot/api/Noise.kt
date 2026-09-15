@@ -59,7 +59,7 @@ public open class Noise internal constructor() : Resource() {
    */
   public final fun getNoise1d(x: Float): Float {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, x.toDouble())
-    TransferContext.callMethod(MethodBindings.getNoise1dPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNoise1dPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -68,7 +68,7 @@ public open class Noise internal constructor() : Resource() {
    */
   public final fun getNoise2d(x: Float, y: Float): Float {
     TransferContext.writeMethodArguments_DOUBLE_DOUBLE(ptr, objectID.id, x.toDouble(), y.toDouble())
-    TransferContext.callMethod(MethodBindings.getNoise2dPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNoise2dPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -77,7 +77,7 @@ public open class Noise internal constructor() : Resource() {
    */
   public final fun getNoise2dv(v: Vector2): Float {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, v)
-    TransferContext.callMethod(MethodBindings.getNoise2dvPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNoise2dvPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -90,7 +90,7 @@ public open class Noise internal constructor() : Resource() {
     z: Float,
   ): Float {
     TransferContext.writeMethodArguments_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, x.toDouble(), y.toDouble(), z.toDouble())
-    TransferContext.callMethod(MethodBindings.getNoise3dPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNoise3dPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -99,7 +99,7 @@ public open class Noise internal constructor() : Resource() {
    */
   public final fun getNoise3dv(v: Vector3): Float {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, v)
-    TransferContext.callMethod(MethodBindings.getNoise3dvPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNoise3dvPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -118,7 +118,7 @@ public open class Noise internal constructor() : Resource() {
     normalize: Boolean = true,
   ): Image? {
     TransferContext.writeMethodArguments_LONG_LONG_BOOL_BOOL_BOOL(ptr, objectID.id, width.toLong(), height.toLong(), invert, in3dSpace, normalize)
-    TransferContext.callMethod(MethodBindings.getImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.getImagePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Image?)
   }
 
@@ -138,7 +138,7 @@ public open class Noise internal constructor() : Resource() {
     normalize: Boolean = true,
   ): Image? {
     TransferContext.writeMethodArguments_LONG_LONG_BOOL_BOOL_DOUBLE_BOOL(ptr, objectID.id, width.toLong(), height.toLong(), invert, in3dSpace, skirt.toDouble(), normalize)
-    TransferContext.callMethod(MethodBindings.getSeamlessImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSeamlessImagePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Image?)
   }
 

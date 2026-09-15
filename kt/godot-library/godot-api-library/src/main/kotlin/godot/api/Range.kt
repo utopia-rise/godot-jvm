@@ -181,43 +181,43 @@ public open class Range : Control() {
 
   public final fun getValue(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getValuePtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getMin(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getMax(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getStep(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStepPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getPage(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPagePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPagePtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getAsRatio(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAsRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAsRatioPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setValue(`value`: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setValuePtr, 0)
   }
 
   /**
@@ -226,75 +226,75 @@ public open class Range : Control() {
    */
   public final fun setValueNoSignal(`value`: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setValueNoSignalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setValueNoSignalPtr, 0)
   }
 
   public final fun setMin(minimum: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, minimum)
-    TransferContext.callMethod(MethodBindings.setMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMinPtr, 0)
   }
 
   public final fun setMax(maximum: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, maximum)
-    TransferContext.callMethod(MethodBindings.setMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxPtr, 0)
   }
 
   public final fun setStep(step: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, step)
-    TransferContext.callMethod(MethodBindings.setStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStepPtr, 0)
   }
 
   public final fun setPage(pagesize: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pagesize)
-    TransferContext.callMethod(MethodBindings.setPagePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPagePtr, 0)
   }
 
   public final fun setAsRatio(`value`: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setAsRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAsRatioPtr, 0)
   }
 
   public final fun setUseRoundedValues(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setUseRoundedValuesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseRoundedValuesPtr, 0)
   }
 
   public final fun isUsingRoundedValues(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingRoundedValuesPtr)
+    TransferContext.callPtrMethod(MethodBindings.isUsingRoundedValuesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setExpRatio(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setExpRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExpRatioPtr, 0)
   }
 
   public final fun isRatioExp(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRatioExpPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRatioExpPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAllowGreater(allow: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, allow)
-    TransferContext.callMethod(MethodBindings.setAllowGreaterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAllowGreaterPtr, 0)
   }
 
   public final fun isGreaterAllowed(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isGreaterAllowedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isGreaterAllowedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAllowLesser(allow: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, allow)
-    TransferContext.callMethod(MethodBindings.setAllowLesserPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAllowLesserPtr, 0)
   }
 
   public final fun isLesserAllowed(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isLesserAllowedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLesserAllowedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -305,7 +305,7 @@ public open class Range : Control() {
    */
   public final fun share(with: Node?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, with)
-    TransferContext.callMethod(MethodBindings.sharePtr)
+    TransferContext.callPtrMethod(MethodBindings.sharePtr, 0)
   }
 
   /**
@@ -313,7 +313,7 @@ public open class Range : Control() {
    */
   public final fun unshare(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.unsharePtr)
+    TransferContext.callPtrMethod(MethodBindings.unsharePtr, 0)
   }
 
   public companion object {

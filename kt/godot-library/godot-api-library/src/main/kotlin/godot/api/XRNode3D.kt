@@ -91,7 +91,7 @@ public open class XRNode3D : Node3D() {
 
   public final fun setTracker(trackerName: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, trackerName)
-    TransferContext.callMethod(MethodBindings.setTrackerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTrackerPtr, 0)
   }
 
   public final fun getTracker(): StringName {
@@ -102,7 +102,7 @@ public open class XRNode3D : Node3D() {
 
   public final fun setPoseName(pose: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, pose)
-    TransferContext.callMethod(MethodBindings.setPoseNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPoseNamePtr, 0)
   }
 
   public final fun getPoseName(): StringName {
@@ -113,12 +113,12 @@ public open class XRNode3D : Node3D() {
 
   public final fun setShowWhenTracked(show: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, show)
-    TransferContext.callMethod(MethodBindings.setShowWhenTrackedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShowWhenTrackedPtr, 0)
   }
 
   public final fun getShowWhenTracked(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShowWhenTrackedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShowWhenTrackedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -127,7 +127,7 @@ public open class XRNode3D : Node3D() {
    */
   public final fun getIsActive(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIsActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.getIsActivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -136,7 +136,7 @@ public open class XRNode3D : Node3D() {
    */
   public final fun getHasTrackingData(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHasTrackingDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHasTrackingDataPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -146,7 +146,7 @@ public open class XRNode3D : Node3D() {
    */
   public final fun getPose(): XRPose? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPosePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPosePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as XRPose?)
   }
 

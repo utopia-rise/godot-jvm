@@ -47,7 +47,7 @@ public open class StreamPeerTLS : StreamPeer() {
    */
   public final fun poll(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pollPtr)
+    TransferContext.callPtrMethod(MethodBindings.pollPtr, 0)
   }
 
   /**
@@ -55,7 +55,7 @@ public open class StreamPeerTLS : StreamPeer() {
    */
   public final fun acceptStream(stream: StreamPeer?, serverOptions: TLSOptions?): Error {
     TransferContext.writeMethodArguments_OBJECT_OBJECT(ptr, objectID.id, stream, serverOptions)
-    TransferContext.callMethod(MethodBindings.acceptStreamPtr)
+    TransferContext.callPtrMethod(MethodBindings.acceptStreamPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -81,7 +81,7 @@ public open class StreamPeerTLS : StreamPeer() {
    */
   public final fun getStatus(): Status {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStatusPtr, 2)
     return Status.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -90,7 +90,7 @@ public open class StreamPeerTLS : StreamPeer() {
    */
   public final fun getStream(): StreamPeer? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStreamPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStreamPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as StreamPeer?)
   }
 
@@ -99,7 +99,7 @@ public open class StreamPeerTLS : StreamPeer() {
    */
   public final fun disconnectFromStream(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.disconnectFromStreamPtr)
+    TransferContext.callPtrMethod(MethodBindings.disconnectFromStreamPtr, 0)
   }
 
   public enum class Status(

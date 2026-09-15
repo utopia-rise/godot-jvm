@@ -34,7 +34,7 @@ public open class StreamPeerSocket internal constructor() : StreamPeer() {
    */
   public final fun poll(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pollPtr)
+    TransferContext.callPtrMethod(MethodBindings.pollPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -43,7 +43,7 @@ public open class StreamPeerSocket internal constructor() : StreamPeer() {
    */
   public final fun getStatus(): Status {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStatusPtr, 2)
     return Status.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -52,7 +52,7 @@ public open class StreamPeerSocket internal constructor() : StreamPeer() {
    */
   public final fun disconnectFromHost(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.disconnectFromHostPtr)
+    TransferContext.callPtrMethod(MethodBindings.disconnectFromHostPtr, 0)
   }
 
   public enum class Status(

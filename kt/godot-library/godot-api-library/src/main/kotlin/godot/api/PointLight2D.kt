@@ -111,34 +111,34 @@ public open class PointLight2D : Light2D() {
 
   public final fun setTexture(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setTextureOffset(textureOffset: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, textureOffset)
-    TransferContext.callMethod(MethodBindings.setTextureOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureOffsetPtr, 0)
   }
 
   public final fun getTextureOffset(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureOffsetPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setTextureScale(textureScale: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, textureScale.toDouble())
-    TransferContext.callMethod(MethodBindings.setTextureScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureScalePtr, 0)
   }
 
   public final fun getTextureScale(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureScalePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

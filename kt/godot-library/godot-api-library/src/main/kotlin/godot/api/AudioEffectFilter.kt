@@ -105,45 +105,45 @@ public open class AudioEffectFilter : AudioEffect() {
 
   public final fun setCutoff(freq: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, freq.toDouble())
-    TransferContext.callMethod(MethodBindings.setCutoffPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCutoffPtr, 0)
   }
 
   public final fun getCutoff(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCutoffPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCutoffPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setResonance(amount: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setResonancePtr)
+    TransferContext.callPtrMethod(MethodBindings.setResonancePtr, 0)
   }
 
   public final fun getResonance(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResonancePtr)
+    TransferContext.callPtrMethod(MethodBindings.getResonancePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGain(amount: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setGainPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGainPtr, 0)
   }
 
   public final fun getGain(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGainPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGainPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDb(amount: FilterDB): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.value)
-    TransferContext.callMethod(MethodBindings.setDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDbPtr, 0)
   }
 
   public final fun getDb(): FilterDB {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDbPtr, 2)
     return FilterDB.from(TransferContext.readReturnValue_LONG())
   }
 

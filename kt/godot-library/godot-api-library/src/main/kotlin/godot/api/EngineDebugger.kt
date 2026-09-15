@@ -154,7 +154,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun isActive(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.isActivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -164,7 +164,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun registerProfiler(name: StringName, profiler: EngineProfiler?): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_OBJECT(ptr, objectID.id, name, profiler)
-    TransferContext.callMethod(MethodBindings.registerProfilerPtr)
+    TransferContext.callPtrMethod(MethodBindings.registerProfilerPtr, 0)
   }
 
   /**
@@ -173,7 +173,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun unregisterProfiler(name: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.unregisterProfilerPtr)
+    TransferContext.callPtrMethod(MethodBindings.unregisterProfilerPtr, 0)
   }
 
   /**
@@ -182,7 +182,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun isProfiling(name: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.isProfilingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isProfilingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -192,7 +192,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun hasProfiler(name: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.hasProfilerPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasProfilerPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -202,7 +202,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun profilerAddFrameData(name: StringName, `data`: VariantArray<Any?>): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_ARRAY(ptr, objectID.id, name, data)
-    TransferContext.callMethod(MethodBindings.profilerAddFrameDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.profilerAddFrameDataPtr, 0)
   }
 
   /**
@@ -217,7 +217,7 @@ public object EngineDebugger : Object() {
     arguments: VariantArray<Any?> = godot.core.variantArrayOf(),
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_BOOL_ARRAY(ptr, objectID.id, name, enable, arguments)
-    TransferContext.callMethod(MethodBindings.profilerEnablePtr)
+    TransferContext.callPtrMethod(MethodBindings.profilerEnablePtr, 0)
   }
 
   /**
@@ -242,7 +242,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun unregisterMessageCapture(name: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.unregisterMessageCapturePtr)
+    TransferContext.callPtrMethod(MethodBindings.unregisterMessageCapturePtr, 0)
   }
 
   /**
@@ -251,7 +251,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun hasCapture(name: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.hasCapturePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasCapturePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -263,7 +263,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun linePoll(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.linePollPtr)
+    TransferContext.callPtrMethod(MethodBindings.linePollPtr, 0)
   }
 
   /**
@@ -283,7 +283,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun debug(canContinue: Boolean = true, isErrorBreakpoint: Boolean = false): Unit {
     TransferContext.writeMethodArguments_BOOL_BOOL(ptr, objectID.id, canContinue, isErrorBreakpoint)
-    TransferContext.callMethod(MethodBindings.debugPtr)
+    TransferContext.callPtrMethod(MethodBindings.debugPtr, 0)
   }
 
   /**
@@ -298,7 +298,7 @@ public object EngineDebugger : Object() {
     isErrorBreakpoint: Boolean = false,
   ): Unit {
     TransferContext.writeMethodArguments_OBJECT_BOOL_BOOL(ptr, objectID.id, language, canContinue, isErrorBreakpoint)
-    TransferContext.callMethod(MethodBindings.scriptDebugPtr)
+    TransferContext.callPtrMethod(MethodBindings.scriptDebugPtr, 0)
   }
 
   /**
@@ -307,7 +307,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun setLinesLeft(lines: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, lines.toLong())
-    TransferContext.callMethod(MethodBindings.setLinesLeftPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLinesLeftPtr, 0)
   }
 
   /**
@@ -316,7 +316,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun getLinesLeft(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLinesLeftPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLinesLeftPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -326,7 +326,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun setDepth(depth: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, depth.toLong())
-    TransferContext.callMethod(MethodBindings.setDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDepthPtr, 0)
   }
 
   /**
@@ -335,7 +335,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun getDepth(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -345,7 +345,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun isBreakpoint(line: Int, source: StringName): Boolean {
     TransferContext.writeMethodArguments_LONG_STRING_NAME(ptr, objectID.id, line.toLong(), source)
-    TransferContext.callMethod(MethodBindings.isBreakpointPtr)
+    TransferContext.callPtrMethod(MethodBindings.isBreakpointPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -355,7 +355,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun isSkippingBreakpoints(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSkippingBreakpointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSkippingBreakpointsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -365,7 +365,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun insertBreakpoint(line: Int, source: StringName): Unit {
     TransferContext.writeMethodArguments_LONG_STRING_NAME(ptr, objectID.id, line.toLong(), source)
-    TransferContext.callMethod(MethodBindings.insertBreakpointPtr)
+    TransferContext.callPtrMethod(MethodBindings.insertBreakpointPtr, 0)
   }
 
   /**
@@ -374,7 +374,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun removeBreakpoint(line: Int, source: StringName): Unit {
     TransferContext.writeMethodArguments_LONG_STRING_NAME(ptr, objectID.id, line.toLong(), source)
-    TransferContext.callMethod(MethodBindings.removeBreakpointPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeBreakpointPtr, 0)
   }
 
   /**
@@ -383,7 +383,7 @@ public object EngineDebugger : Object() {
   @JvmStatic
   public final fun clearBreakpoints(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearBreakpointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearBreakpointsPtr, 0)
   }
 
   /**

@@ -181,12 +181,12 @@ public open class SpinBox : Range() {
 
   public final fun setHorizontalAlignment(alignment: HorizontalAlignment): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
-    TransferContext.callMethod(MethodBindings.setHorizontalAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHorizontalAlignmentPtr, 0)
   }
 
   public final fun getHorizontalAlignment(): HorizontalAlignment {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHorizontalAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHorizontalAlignmentPtr, 2)
     return HorizontalAlignment.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -214,56 +214,56 @@ public open class SpinBox : Range() {
 
   public final fun setEditable(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setEditablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setEditablePtr, 0)
   }
 
   public final fun setCustomArrowStep(arrowStep: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, arrowStep)
-    TransferContext.callMethod(MethodBindings.setCustomArrowStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCustomArrowStepPtr, 0)
   }
 
   public final fun getCustomArrowStep(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomArrowStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCustomArrowStepPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setCustomArrowRound(round: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, round)
-    TransferContext.callMethod(MethodBindings.setCustomArrowRoundPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCustomArrowRoundPtr, 0)
   }
 
   public final fun isCustomArrowRounding(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCustomArrowRoundingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCustomArrowRoundingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun isEditable(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEditablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isEditablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setUpdateOnTextChanged(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setUpdateOnTextChangedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUpdateOnTextChangedPtr, 0)
   }
 
   public final fun getUpdateOnTextChanged(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUpdateOnTextChangedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUpdateOnTextChangedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSelectAllOnFocus(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setSelectAllOnFocusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSelectAllOnFocusPtr, 0)
   }
 
   public final fun isSelectAllOnFocus(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSelectAllOnFocusPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSelectAllOnFocusPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -274,7 +274,7 @@ public open class SpinBox : Range() {
    */
   public final fun apply(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.applyPtr)
+    TransferContext.callPtrMethod(MethodBindings.applyPtr, 0)
   }
 
   /**
@@ -286,7 +286,7 @@ public open class SpinBox : Range() {
    */
   public final fun getLineEdit(): LineEdit? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLineEditPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineEditPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as LineEdit?)
   }
 

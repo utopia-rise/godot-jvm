@@ -116,45 +116,45 @@ public open class BoxMesh : PrimitiveMesh() {
 
   public final fun setSize(size: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
   }
 
   public final fun getSize(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setSubdivideWidth(subdivide: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, subdivide.toLong())
-    TransferContext.callMethod(MethodBindings.setSubdivideWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSubdivideWidthPtr, 0)
   }
 
   public final fun getSubdivideWidth(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubdivideWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSubdivideWidthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSubdivideHeight(divisions: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, divisions.toLong())
-    TransferContext.callMethod(MethodBindings.setSubdivideHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSubdivideHeightPtr, 0)
   }
 
   public final fun getSubdivideHeight(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubdivideHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSubdivideHeightPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSubdivideDepth(divisions: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, divisions.toLong())
-    TransferContext.callMethod(MethodBindings.setSubdivideDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSubdivideDepthPtr, 0)
   }
 
   public final fun getSubdivideDepth(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubdivideDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSubdivideDepthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

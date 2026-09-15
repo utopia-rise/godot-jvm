@@ -289,7 +289,7 @@ public open class RDFramebufferPass : RefCounted() {
 
   public final fun setColorAttachments(pMember: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setColorAttachmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setColorAttachmentsPtr, 0)
   }
 
   public final fun getColorAttachments(): PackedInt32Array {
@@ -300,7 +300,7 @@ public open class RDFramebufferPass : RefCounted() {
 
   public final fun setInputAttachments(pMember: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setInputAttachmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInputAttachmentsPtr, 0)
   }
 
   public final fun getInputAttachments(): PackedInt32Array {
@@ -311,7 +311,7 @@ public open class RDFramebufferPass : RefCounted() {
 
   public final fun setResolveAttachments(pMember: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setResolveAttachmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setResolveAttachmentsPtr, 0)
   }
 
   public final fun getResolveAttachments(): PackedInt32Array {
@@ -322,7 +322,7 @@ public open class RDFramebufferPass : RefCounted() {
 
   public final fun setPreserveAttachments(pMember: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setPreserveAttachmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPreserveAttachmentsPtr, 0)
   }
 
   public final fun getPreserveAttachments(): PackedInt32Array {
@@ -333,12 +333,12 @@ public open class RDFramebufferPass : RefCounted() {
 
   public final fun setDepthAttachment(pMember: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.toLong())
-    TransferContext.callMethod(MethodBindings.setDepthAttachmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDepthAttachmentPtr, 0)
   }
 
   public final fun getDepthAttachment(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDepthAttachmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDepthAttachmentPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

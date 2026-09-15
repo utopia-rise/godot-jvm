@@ -313,18 +313,18 @@ public open class PopupMenu : Popup() {
   public final fun activateItemByEvent(event: InputEvent?, forGlobalOnly: Boolean = false):
       Boolean {
     TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, event, forGlobalOnly)
-    TransferContext.callMethod(MethodBindings.activateItemByEventPtr)
+    TransferContext.callPtrMethod(MethodBindings.activateItemByEventPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setPreferNativeMenu(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setPreferNativeMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPreferNativeMenuPtr, 0)
   }
 
   public final fun isPreferNativeMenu(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPreferNativeMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPreferNativeMenuPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -333,7 +333,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun isNativeMenu(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isNativeMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.isNativeMenuPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -516,7 +516,7 @@ public open class PopupMenu : Popup() {
     allowEcho: Boolean = false,
   ): Unit {
     TransferContext.writeMethodArguments_OBJECT_LONG_BOOL_BOOL(ptr, objectID.id, shortcut, id.toLong(), global, allowEcho)
-    TransferContext.callMethod(MethodBindings.addShortcutPtr)
+    TransferContext.callPtrMethod(MethodBindings.addShortcutPtr, 0)
   }
 
   /**
@@ -536,7 +536,7 @@ public open class PopupMenu : Popup() {
     allowEcho: Boolean = false,
   ): Unit {
     TransferContext.writeMethodArguments_OBJECT_OBJECT_LONG_BOOL_BOOL(ptr, objectID.id, texture, shortcut, id.toLong(), global, allowEcho)
-    TransferContext.callMethod(MethodBindings.addIconShortcutPtr)
+    TransferContext.callPtrMethod(MethodBindings.addIconShortcutPtr, 0)
   }
 
   /**
@@ -556,7 +556,7 @@ public open class PopupMenu : Popup() {
     global: Boolean = false,
   ): Unit {
     TransferContext.writeMethodArguments_OBJECT_LONG_BOOL(ptr, objectID.id, shortcut, id.toLong(), global)
-    TransferContext.callMethod(MethodBindings.addCheckShortcutPtr)
+    TransferContext.callPtrMethod(MethodBindings.addCheckShortcutPtr, 0)
   }
 
   /**
@@ -577,7 +577,7 @@ public open class PopupMenu : Popup() {
     global: Boolean = false,
   ): Unit {
     TransferContext.writeMethodArguments_OBJECT_OBJECT_LONG_BOOL(ptr, objectID.id, texture, shortcut, id.toLong(), global)
-    TransferContext.callMethod(MethodBindings.addIconCheckShortcutPtr)
+    TransferContext.callPtrMethod(MethodBindings.addIconCheckShortcutPtr, 0)
   }
 
   /**
@@ -597,7 +597,7 @@ public open class PopupMenu : Popup() {
     global: Boolean = false,
   ): Unit {
     TransferContext.writeMethodArguments_OBJECT_LONG_BOOL(ptr, objectID.id, shortcut, id.toLong(), global)
-    TransferContext.callMethod(MethodBindings.addRadioCheckShortcutPtr)
+    TransferContext.callPtrMethod(MethodBindings.addRadioCheckShortcutPtr, 0)
   }
 
   /**
@@ -611,7 +611,7 @@ public open class PopupMenu : Popup() {
     global: Boolean = false,
   ): Unit {
     TransferContext.writeMethodArguments_OBJECT_OBJECT_LONG_BOOL(ptr, objectID.id, texture, shortcut, id.toLong(), global)
-    TransferContext.callMethod(MethodBindings.addIconRadioCheckShortcutPtr)
+    TransferContext.callPtrMethod(MethodBindings.addIconRadioCheckShortcutPtr, 0)
   }
 
   /**
@@ -666,7 +666,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemTextDirection(index: Int, direction: Control.TextDirection): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), direction.value)
-    TransferContext.callMethod(MethodBindings.setItemTextDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemTextDirectionPtr, 0)
   }
 
   /**
@@ -686,7 +686,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemAutoTranslateMode(index: Int, mode: Node.AutoTranslateMode): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), mode.value)
-    TransferContext.callMethod(MethodBindings.setItemAutoTranslateModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemAutoTranslateModePtr, 0)
   }
 
   /**
@@ -694,7 +694,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemIcon(index: Int, icon: Texture2D?): Unit {
     TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, index.toLong(), icon)
-    TransferContext.callMethod(MethodBindings.setItemIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemIconPtr, 0)
   }
 
   /**
@@ -704,7 +704,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemIconMaxWidth(index: Int, width: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), width.toLong())
-    TransferContext.callMethod(MethodBindings.setItemIconMaxWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemIconMaxWidthPtr, 0)
   }
 
   /**
@@ -712,7 +712,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemIconModulate(index: Int, modulate: Color): Unit {
     TransferContext.writeMethodArguments_LONG_COLOR(ptr, objectID.id, index.toLong(), modulate)
-    TransferContext.callMethod(MethodBindings.setItemIconModulatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemIconModulatePtr, 0)
   }
 
   /**
@@ -720,7 +720,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemChecked(index: Int, checked: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), checked)
-    TransferContext.callMethod(MethodBindings.setItemCheckedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemCheckedPtr, 0)
   }
 
   /**
@@ -730,7 +730,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemId(index: Int, id: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), id.toLong())
-    TransferContext.callMethod(MethodBindings.setItemIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemIdPtr, 0)
   }
 
   /**
@@ -741,7 +741,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemAccelerator(index: Int, accel: Key): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), accel.value)
-    TransferContext.callMethod(MethodBindings.setItemAcceleratorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemAcceleratorPtr, 0)
   }
 
   /**
@@ -759,7 +759,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemDisabled(index: Int, disabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), disabled)
-    TransferContext.callMethod(MethodBindings.setItemDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemDisabledPtr, 0)
   }
 
   /**
@@ -779,7 +779,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemSubmenuNode(index: Int, submenu: PopupMenu?): Unit {
     TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, index.toLong(), submenu)
-    TransferContext.callMethod(MethodBindings.setItemSubmenuNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemSubmenuNodePtr, 0)
   }
 
   /**
@@ -788,7 +788,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemAsSeparator(index: Int, enable: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enable)
-    TransferContext.callMethod(MethodBindings.setItemAsSeparatorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemAsSeparatorPtr, 0)
   }
 
   /**
@@ -800,7 +800,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemAsCheckable(index: Int, enable: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enable)
-    TransferContext.callMethod(MethodBindings.setItemAsCheckablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemAsCheckablePtr, 0)
   }
 
   /**
@@ -809,7 +809,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemAsRadioCheckable(index: Int, enable: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enable)
-    TransferContext.callMethod(MethodBindings.setItemAsRadioCheckablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemAsRadioCheckablePtr, 0)
   }
 
   /**
@@ -830,7 +830,7 @@ public open class PopupMenu : Popup() {
     global: Boolean = false,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_OBJECT_BOOL(ptr, objectID.id, index.toLong(), shortcut, global)
-    TransferContext.callMethod(MethodBindings.setItemShortcutPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemShortcutPtr, 0)
   }
 
   /**
@@ -838,7 +838,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemIndent(index: Int, indent: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), indent.toLong())
-    TransferContext.callMethod(MethodBindings.setItemIndentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemIndentPtr, 0)
   }
 
   /**
@@ -846,7 +846,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemMultistate(index: Int, state: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), state.toLong())
-    TransferContext.callMethod(MethodBindings.setItemMultistatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemMultistatePtr, 0)
   }
 
   /**
@@ -854,7 +854,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemMultistateMax(index: Int, maxStates: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), maxStates.toLong())
-    TransferContext.callMethod(MethodBindings.setItemMultistateMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemMultistateMaxPtr, 0)
   }
 
   /**
@@ -862,7 +862,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemShortcutDisabled(index: Int, disabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), disabled)
-    TransferContext.callMethod(MethodBindings.setItemShortcutDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemShortcutDisabledPtr, 0)
   }
 
   /**
@@ -875,7 +875,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setItemIndex(index: Int, targetIndex: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), targetIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setItemIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemIndexPtr, 0)
   }
 
   /**
@@ -883,7 +883,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun toggleItemChecked(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.toggleItemCheckedPtr)
+    TransferContext.callPtrMethod(MethodBindings.toggleItemCheckedPtr, 0)
   }
 
   /**
@@ -891,7 +891,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun toggleItemMultistate(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.toggleItemMultistatePtr)
+    TransferContext.callPtrMethod(MethodBindings.toggleItemMultistatePtr, 0)
   }
 
   /**
@@ -908,7 +908,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemTextDirection(index: Int): Control.TextDirection {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemTextDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemTextDirectionPtr, 2)
     return Control.TextDirection.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -926,7 +926,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemAutoTranslateMode(index: Int): Node.AutoTranslateMode {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemAutoTranslateModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemAutoTranslateModePtr, 2)
     return Node.AutoTranslateMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -935,7 +935,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemIcon(index: Int): Texture2D? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemIconPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
@@ -944,7 +944,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemIconMaxWidth(index: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemIconMaxWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemIconMaxWidthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -953,7 +953,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemIconModulate(index: Int): Color {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemIconModulatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemIconModulatePtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
@@ -962,7 +962,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun isItemChecked(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isItemCheckedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isItemCheckedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -971,7 +971,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemId(index: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemIdPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -981,7 +981,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemIndex(id: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.getItemIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -994,7 +994,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemAccelerator(index: Int): Key {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemAcceleratorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemAcceleratorPtr, 2)
     return Key.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -1016,7 +1016,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun isItemDisabled(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isItemDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isItemDisabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1036,7 +1036,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemSubmenuNode(index: Int): PopupMenu? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemSubmenuNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemSubmenuNodePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as PopupMenu?)
   }
 
@@ -1046,7 +1046,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun isItemSeparator(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isItemSeparatorPtr)
+    TransferContext.callPtrMethod(MethodBindings.isItemSeparatorPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1059,7 +1059,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun isItemCheckable(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isItemCheckablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isItemCheckablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1071,7 +1071,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun isItemRadioCheckable(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isItemRadioCheckablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isItemRadioCheckablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1080,7 +1080,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun isItemShortcutDisabled(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isItemShortcutDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isItemShortcutDisabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1098,7 +1098,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemShortcut(index: Int): Shortcut? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemShortcutPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemShortcutPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Shortcut?)
   }
 
@@ -1107,7 +1107,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemIndent(index: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemIndentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemIndentPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1116,7 +1116,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemMultistateMax(index: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemMultistateMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemMultistateMaxPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1125,7 +1125,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun getItemMultistate(index: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getItemMultistatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemMultistatePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1136,7 +1136,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun setFocusedItem(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.setFocusedItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFocusedItemPtr, 0)
   }
 
   /**
@@ -1144,18 +1144,18 @@ public open class PopupMenu : Popup() {
    */
   public final fun getFocusedItem(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFocusedItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFocusedItemPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setItemCount(count: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.setItemCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemCountPtr, 0)
   }
 
   public final fun getItemCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getItemCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1164,7 +1164,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun scrollToItem(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.scrollToItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.scrollToItemPtr, 0)
   }
 
   /**
@@ -1174,7 +1174,7 @@ public open class PopupMenu : Popup() {
    */
   public final fun removeItem(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.removeItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeItemPtr, 0)
   }
 
   /**
@@ -1196,61 +1196,61 @@ public open class PopupMenu : Popup() {
   @JvmOverloads
   public final fun clear(freeSubmenus: Boolean = false): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, freeSubmenus)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   public final fun setHideOnItemSelection(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setHideOnItemSelectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHideOnItemSelectionPtr, 0)
   }
 
   public final fun isHideOnItemSelection(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isHideOnItemSelectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.isHideOnItemSelectionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHideOnCheckableItemSelection(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setHideOnCheckableItemSelectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHideOnCheckableItemSelectionPtr, 0)
   }
 
   public final fun isHideOnCheckableItemSelection(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isHideOnCheckableItemSelectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.isHideOnCheckableItemSelectionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHideOnStateItemSelection(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setHideOnStateItemSelectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHideOnStateItemSelectionPtr, 0)
   }
 
   public final fun isHideOnStateItemSelection(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isHideOnStateItemSelectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.isHideOnStateItemSelectionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSubmenuPopupDelay(seconds: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, seconds.toDouble())
-    TransferContext.callMethod(MethodBindings.setSubmenuPopupDelayPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSubmenuPopupDelayPtr, 0)
   }
 
   public final fun getSubmenuPopupDelay(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubmenuPopupDelayPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSubmenuPopupDelayPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAllowSearch(allow: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, allow)
-    TransferContext.callMethod(MethodBindings.setAllowSearchPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAllowSearchPtr, 0)
   }
 
   public final fun getAllowSearch(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAllowSearchPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAllowSearchPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1259,84 +1259,84 @@ public open class PopupMenu : Popup() {
    */
   public final fun isSystemMenu(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSystemMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSystemMenuPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSystemMenu(systemMenuId: NativeMenu.SystemMenus): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, systemMenuId.value)
-    TransferContext.callMethod(MethodBindings.setSystemMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSystemMenuPtr, 0)
   }
 
   public final fun getSystemMenu(): NativeMenu.SystemMenus {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSystemMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSystemMenuPtr, 2)
     return NativeMenu.SystemMenus.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSearchBarEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setSearchBarEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSearchBarEnabledPtr, 0)
   }
 
   public final fun isSearchBarEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSearchBarEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSearchBarEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSearchBarMinItemCount(count: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.setSearchBarMinItemCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSearchBarMinItemCountPtr, 0)
   }
 
   public final fun getSearchBarMinItemCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSearchBarMinItemCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSearchBarMinItemCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSearchBarFuzzySearchEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setSearchBarFuzzySearchEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSearchBarFuzzySearchEnabledPtr, 0)
   }
 
   public final fun isSearchBarFuzzySearchEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSearchBarFuzzySearchEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSearchBarFuzzySearchEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSearchBarFuzzySearchMaxMisses(maxMisses: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxMisses.toLong())
-    TransferContext.callMethod(MethodBindings.setSearchBarFuzzySearchMaxMissesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSearchBarFuzzySearchMaxMissesPtr, 0)
   }
 
   public final fun getSearchBarFuzzySearchMaxMisses(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSearchBarFuzzySearchMaxMissesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSearchBarFuzzySearchMaxMissesPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setShrinkHeight(shrink: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, shrink)
-    TransferContext.callMethod(MethodBindings.setShrinkHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShrinkHeightPtr, 0)
   }
 
   public final fun getShrinkHeight(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShrinkHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShrinkHeightPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setShrinkWidth(shrink: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, shrink)
-    TransferContext.callMethod(MethodBindings.setShrinkWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShrinkWidthPtr, 0)
   }
 
   public final fun getShrinkWidth(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShrinkWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShrinkWidthPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

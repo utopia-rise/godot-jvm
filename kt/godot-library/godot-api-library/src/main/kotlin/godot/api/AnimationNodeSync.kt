@@ -46,12 +46,12 @@ public open class AnimationNodeSync : AnimationNode() {
 
   public final fun setUseSync(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setUseSyncPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseSyncPtr, 0)
   }
 
   public final fun isUsingSync(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingSyncPtr)
+    TransferContext.callPtrMethod(MethodBindings.isUsingSyncPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

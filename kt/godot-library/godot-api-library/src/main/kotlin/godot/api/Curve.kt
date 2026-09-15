@@ -130,13 +130,13 @@ public open class Curve : Resource() {
 
   public final fun getPointCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPointCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setPointCount(count: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.setPointCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointCountPtr, 0)
   }
 
   /**
@@ -153,7 +153,7 @@ public open class Curve : Resource() {
     rightMode: TangentMode = Curve.TangentMode.FREE,
   ): Int {
     TransferContext.writeMethodArguments_VECTOR2_DOUBLE_DOUBLE_LONG_LONG(ptr, objectID.id, position, leftTangent.toDouble(), rightTangent.toDouble(), leftMode.value, rightMode.value)
-    TransferContext.callMethod(MethodBindings.addPointPtr)
+    TransferContext.callPtrMethod(MethodBindings.addPointPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -162,7 +162,7 @@ public open class Curve : Resource() {
    */
   public final fun removePoint(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.removePointPtr)
+    TransferContext.callPtrMethod(MethodBindings.removePointPtr, 0)
   }
 
   /**
@@ -170,7 +170,7 @@ public open class Curve : Resource() {
    */
   public final fun clearPoints(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPointsPtr, 0)
   }
 
   /**
@@ -178,7 +178,7 @@ public open class Curve : Resource() {
    */
   public final fun getPointPosition(index: Int): Vector2 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getPointPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -187,7 +187,7 @@ public open class Curve : Resource() {
    */
   public final fun setPointValue(index: Int, y: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, index.toLong(), y.toDouble())
-    TransferContext.callMethod(MethodBindings.setPointValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointValuePtr, 0)
   }
 
   /**
@@ -195,7 +195,7 @@ public open class Curve : Resource() {
    */
   public final fun setPointOffset(index: Int, offset: Float): Int {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, index.toLong(), offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setPointOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointOffsetPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -204,7 +204,7 @@ public open class Curve : Resource() {
    */
   public final fun sample(offset: Float): Float {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
-    TransferContext.callMethod(MethodBindings.samplePtr)
+    TransferContext.callPtrMethod(MethodBindings.samplePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -214,7 +214,7 @@ public open class Curve : Resource() {
    */
   public final fun sampleBaked(offset: Float): Float {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
-    TransferContext.callMethod(MethodBindings.sampleBakedPtr)
+    TransferContext.callPtrMethod(MethodBindings.sampleBakedPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -223,7 +223,7 @@ public open class Curve : Resource() {
    */
   public final fun getPointLeftTangent(index: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getPointLeftTangentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointLeftTangentPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -232,7 +232,7 @@ public open class Curve : Resource() {
    */
   public final fun getPointRightTangent(index: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getPointRightTangentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointRightTangentPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -241,7 +241,7 @@ public open class Curve : Resource() {
    */
   public final fun getPointLeftMode(index: Int): TangentMode {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getPointLeftModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointLeftModePtr, 2)
     return TangentMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -250,7 +250,7 @@ public open class Curve : Resource() {
    */
   public final fun getPointRightMode(index: Int): TangentMode {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getPointRightModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointRightModePtr, 2)
     return TangentMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -259,7 +259,7 @@ public open class Curve : Resource() {
    */
   public final fun setPointLeftTangent(index: Int, tangent: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, index.toLong(), tangent.toDouble())
-    TransferContext.callMethod(MethodBindings.setPointLeftTangentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointLeftTangentPtr, 0)
   }
 
   /**
@@ -267,7 +267,7 @@ public open class Curve : Resource() {
    */
   public final fun setPointRightTangent(index: Int, tangent: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, index.toLong(), tangent.toDouble())
-    TransferContext.callMethod(MethodBindings.setPointRightTangentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointRightTangentPtr, 0)
   }
 
   /**
@@ -275,7 +275,7 @@ public open class Curve : Resource() {
    */
   public final fun setPointLeftMode(index: Int, mode: TangentMode): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), mode.value)
-    TransferContext.callMethod(MethodBindings.setPointLeftModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointLeftModePtr, 0)
   }
 
   /**
@@ -283,29 +283,29 @@ public open class Curve : Resource() {
    */
   public final fun setPointRightMode(index: Int, mode: TangentMode): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), mode.value)
-    TransferContext.callMethod(MethodBindings.setPointRightModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointRightModePtr, 0)
   }
 
   public final fun getMinValue(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinValuePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMinValue(min: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, min.toDouble())
-    TransferContext.callMethod(MethodBindings.setMinValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMinValuePtr, 0)
   }
 
   public final fun getMaxValue(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxValuePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMaxValue(max: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, max.toDouble())
-    TransferContext.callMethod(MethodBindings.setMaxValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxValuePtr, 0)
   }
 
   /**
@@ -313,30 +313,30 @@ public open class Curve : Resource() {
    */
   public final fun getValueRange(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getValueRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.getValueRangePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun getMinDomain(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinDomainPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinDomainPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMinDomain(min: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, min.toDouble())
-    TransferContext.callMethod(MethodBindings.setMinDomainPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMinDomainPtr, 0)
   }
 
   public final fun getMaxDomain(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxDomainPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxDomainPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMaxDomain(max: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, max.toDouble())
-    TransferContext.callMethod(MethodBindings.setMaxDomainPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxDomainPtr, 0)
   }
 
   /**
@@ -344,7 +344,7 @@ public open class Curve : Resource() {
    */
   public final fun getDomainRange(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDomainRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDomainRangePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -354,7 +354,7 @@ public open class Curve : Resource() {
    */
   public final fun cleanDupes(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.cleanDupesPtr)
+    TransferContext.callPtrMethod(MethodBindings.cleanDupesPtr, 0)
   }
 
   /**
@@ -362,18 +362,18 @@ public open class Curve : Resource() {
    */
   public final fun bake(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.bakePtr)
+    TransferContext.callPtrMethod(MethodBindings.bakePtr, 0)
   }
 
   public final fun getBakeResolution(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakeResolutionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBakeResolutionPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setBakeResolution(resolution: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, resolution.toLong())
-    TransferContext.callMethod(MethodBindings.setBakeResolutionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBakeResolutionPtr, 0)
   }
 
   public enum class TangentMode(

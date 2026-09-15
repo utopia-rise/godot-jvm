@@ -49,12 +49,12 @@ public open class AudioEffectPanner : AudioEffect() {
 
   public final fun setPan(cpanume: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, cpanume.toDouble())
-    TransferContext.callMethod(MethodBindings.setPanPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPanPtr, 0)
   }
 
   public final fun getPan(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPanPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPanPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

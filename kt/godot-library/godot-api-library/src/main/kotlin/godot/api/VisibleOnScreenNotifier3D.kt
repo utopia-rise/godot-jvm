@@ -94,7 +94,7 @@ public open class VisibleOnScreenNotifier3D : VisualInstance3D() {
 
   public final fun setAabb(rect: AABB): Unit {
     TransferContext.writeMethodArguments_AABB(ptr, objectID.id, rect)
-    TransferContext.callMethod(MethodBindings.setAabbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAabbPtr, 0)
   }
 
   /**
@@ -106,7 +106,7 @@ public open class VisibleOnScreenNotifier3D : VisualInstance3D() {
    */
   public final fun isOnScreen(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isOnScreenPtr)
+    TransferContext.callPtrMethod(MethodBindings.isOnScreenPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

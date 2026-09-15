@@ -40,7 +40,7 @@ public open class OpenXRSpatialComponentMarkerList : OpenXRSpatialComponentData(
    */
   public final fun getMarkerType(index: Long): MarkerType {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getMarkerTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarkerTypePtr, 2)
     return MarkerType.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -50,7 +50,7 @@ public open class OpenXRSpatialComponentMarkerList : OpenXRSpatialComponentData(
    */
   public final fun getMarkerId(index: Long): Long {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getMarkerIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarkerIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

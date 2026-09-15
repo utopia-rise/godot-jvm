@@ -238,18 +238,18 @@ public open class NavigationObstacle2D : Node2D() {
    */
   public final fun getRid(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRidPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setAvoidanceEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setAvoidanceEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAvoidanceEnabledPtr, 0)
   }
 
   public final fun getAvoidanceEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAvoidanceEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAvoidanceEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -259,7 +259,7 @@ public open class NavigationObstacle2D : Node2D() {
    */
   public final fun setNavigationMap(navigationMap: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, navigationMap)
-    TransferContext.callMethod(MethodBindings.setNavigationMapPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNavigationMapPtr, 0)
   }
 
   /**
@@ -271,35 +271,35 @@ public open class NavigationObstacle2D : Node2D() {
    */
   public final fun getNavigationMap(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNavigationMapPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNavigationMapPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRadiusPtr, 0)
   }
 
   public final fun getRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVelocity(velocity: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, velocity)
-    TransferContext.callMethod(MethodBindings.setVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVelocityPtr, 0)
   }
 
   public final fun getVelocity(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVelocityPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setVertices(vertices: PackedVector2Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, vertices)
-    TransferContext.callMethod(MethodBindings.setVerticesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVerticesPtr, 0)
   }
 
   public final fun getVertices(): PackedVector2Array {
@@ -310,12 +310,12 @@ public open class NavigationObstacle2D : Node2D() {
 
   public final fun setAvoidanceLayers(layers: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layers)
-    TransferContext.callMethod(MethodBindings.setAvoidanceLayersPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAvoidanceLayersPtr, 0)
   }
 
   public final fun getAvoidanceLayers(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAvoidanceLayersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAvoidanceLayersPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -325,7 +325,7 @@ public open class NavigationObstacle2D : Node2D() {
    */
   public final fun setAvoidanceLayerValue(layerNumber: Int, `value`: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
-    TransferContext.callMethod(MethodBindings.setAvoidanceLayerValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAvoidanceLayerValuePtr, 0)
   }
 
   /**
@@ -334,29 +334,29 @@ public open class NavigationObstacle2D : Node2D() {
    */
   public final fun getAvoidanceLayerValue(layerNumber: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
-    TransferContext.callMethod(MethodBindings.getAvoidanceLayerValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAvoidanceLayerValuePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAffectNavigationMesh(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setAffectNavigationMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAffectNavigationMeshPtr, 0)
   }
 
   public final fun getAffectNavigationMesh(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAffectNavigationMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAffectNavigationMeshPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCarveNavigationMesh(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setCarveNavigationMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCarveNavigationMeshPtr, 0)
   }
 
   public final fun getCarveNavigationMesh(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCarveNavigationMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCarveNavigationMeshPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

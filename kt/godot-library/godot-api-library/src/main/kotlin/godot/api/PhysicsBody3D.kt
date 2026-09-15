@@ -144,7 +144,7 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
     maxCollisions: Int = 1,
   ): KinematicCollision3D? {
     TransferContext.writeMethodArguments_VECTOR3_BOOL_DOUBLE_BOOL_LONG(ptr, objectID.id, motion, testOnly, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong())
-    TransferContext.callMethod(MethodBindings.moveAndCollidePtr)
+    TransferContext.callPtrMethod(MethodBindings.moveAndCollidePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as KinematicCollision3D?)
   }
 
@@ -177,7 +177,7 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
     maxCollisions: Int = 1,
   ): Boolean {
     TransferContext.writeMethodArguments_TRANSFORM3D_VECTOR3_OBJECT_DOUBLE_BOOL_LONG(ptr, objectID.id, from, motion, collision, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong())
-    TransferContext.callMethod(MethodBindings.testMovePtr)
+    TransferContext.callPtrMethod(MethodBindings.testMovePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -187,7 +187,7 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
    */
   public final fun getGravity(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGravityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGravityPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -196,7 +196,7 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
    */
   public final fun setAxisLock(axis: PhysicsServer3D.BodyAxis, lock: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, axis.value, lock)
-    TransferContext.callMethod(MethodBindings.setAxisLockPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAxisLockPtr, 0)
   }
 
   /**
@@ -204,7 +204,7 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
    */
   public final fun getAxisLock(axis: PhysicsServer3D.BodyAxis): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, axis.value)
-    TransferContext.callMethod(MethodBindings.getAxisLockPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAxisLockPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -222,7 +222,7 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
    */
   public final fun addCollisionExceptionWith(body: Node): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, body)
-    TransferContext.callMethod(MethodBindings.addCollisionExceptionWithPtr)
+    TransferContext.callPtrMethod(MethodBindings.addCollisionExceptionWithPtr, 0)
   }
 
   /**
@@ -230,7 +230,7 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
    */
   public final fun removeCollisionExceptionWith(body: Node): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, body)
-    TransferContext.callMethod(MethodBindings.removeCollisionExceptionWithPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeCollisionExceptionWithPtr, 0)
   }
 
   public companion object {

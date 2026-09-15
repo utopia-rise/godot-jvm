@@ -149,40 +149,40 @@ public open class PhysicsPointQueryParameters2D : RefCounted() {
 
   public final fun setPosition(position: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.setPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPositionPtr, 0)
   }
 
   public final fun getPosition(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setCanvasInstanceId(canvasInstanceId: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, canvasInstanceId)
-    TransferContext.callMethod(MethodBindings.setCanvasInstanceIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCanvasInstanceIdPtr, 0)
   }
 
   public final fun getCanvasInstanceId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCanvasInstanceIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCanvasInstanceIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setCollisionMask(collisionMask: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionMask)
-    TransferContext.callMethod(MethodBindings.setCollisionMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionMaskPtr, 0)
   }
 
   public final fun getCollisionMask(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionMaskPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setExclude(exclude: VariantArray<RID>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, exclude)
-    TransferContext.callMethod(MethodBindings.setExcludePtr)
+    TransferContext.callPtrMethod(MethodBindings.setExcludePtr, 0)
   }
 
   public final fun getExclude(): VariantArray<RID> {
@@ -193,23 +193,23 @@ public open class PhysicsPointQueryParameters2D : RefCounted() {
 
   public final fun setCollideWithBodies(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setCollideWithBodiesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollideWithBodiesPtr, 0)
   }
 
   public final fun isCollideWithBodiesEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollideWithBodiesEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCollideWithBodiesEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCollideWithAreas(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setCollideWithAreasPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollideWithAreasPtr, 0)
   }
 
   public final fun isCollideWithAreasEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollideWithAreasEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCollideWithAreasEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

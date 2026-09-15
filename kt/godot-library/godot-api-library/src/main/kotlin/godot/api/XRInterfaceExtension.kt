@@ -290,19 +290,19 @@ public open class XRInterfaceExtension : XRInterface() {
 
   public final fun getColorTexture(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorTexturePtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun getDepthTexture(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDepthTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDepthTexturePtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun getVelocityTexture(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVelocityTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getVelocityTexturePtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -324,7 +324,7 @@ public open class XRInterfaceExtension : XRInterface() {
     aspectRatio: Double,
   ): Unit {
     TransferContext.writeMethodArguments_RID_RECT2_RECT2I_BOOL_LONG_BOOL_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, renderTarget, srcRect, dstRect, useLayer, layer, applyLensDistortion, eyeCenter, k1, k2, upscale, aspectRatio)
-    TransferContext.callMethod(MethodBindings.addBlitPtr)
+    TransferContext.callPtrMethod(MethodBindings.addBlitPtr, 0)
   }
 
   /**
@@ -333,7 +333,7 @@ public open class XRInterfaceExtension : XRInterface() {
    */
   public final fun getRenderTargetTexture(renderTarget: RID): RID {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderTarget)
-    TransferContext.callMethod(MethodBindings.getRenderTargetTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getRenderTargetTexturePtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 

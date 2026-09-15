@@ -110,7 +110,7 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
     position: Vector2 = Vector2(0, 0),
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_OBJECT_VECTOR2(ptr, objectID.id, name, node, position)
-    TransferContext.callMethod(MethodBindings.addNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.addNodePtr, 0)
   }
 
   /**
@@ -118,7 +118,7 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
    */
   public final fun getNode(name: StringName): AnimationNode? {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as AnimationNode?)
   }
 
@@ -127,7 +127,7 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
    */
   public final fun removeNode(name: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.removeNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.removeNodePtr, 0)
   }
 
   /**
@@ -135,7 +135,7 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
    */
   public final fun renameNode(name: StringName, newName: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, newName)
-    TransferContext.callMethod(MethodBindings.renameNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.renameNodePtr, 0)
   }
 
   /**
@@ -143,7 +143,7 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
    */
   public final fun hasNode(name: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.hasNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasNodePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -157,7 +157,7 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
     outputNode: StringName,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_LONG_STRING_NAME(ptr, objectID.id, inputNode, inputIndex.toLong(), outputNode)
-    TransferContext.callMethod(MethodBindings.connectNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.connectNodePtr, 0)
   }
 
   /**
@@ -165,7 +165,7 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
    */
   public final fun disconnectNode(inputNode: StringName, inputIndex: Int): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_LONG(ptr, objectID.id, inputNode, inputIndex.toLong())
-    TransferContext.callMethod(MethodBindings.disconnectNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.disconnectNodePtr, 0)
   }
 
   /**
@@ -182,7 +182,7 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
    */
   public final fun setNodePosition(name: StringName, position: Vector2): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_VECTOR2(ptr, objectID.id, name, position)
-    TransferContext.callMethod(MethodBindings.setNodePositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNodePositionPtr, 0)
   }
 
   /**
@@ -190,18 +190,18 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
    */
   public final fun getNodePosition(name: StringName): Vector2 {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getNodePositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodePositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setGraphOffset(offset: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callMethod(MethodBindings.setGraphOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGraphOffsetPtr, 0)
   }
 
   public final fun getGraphOffset(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGraphOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGraphOffsetPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

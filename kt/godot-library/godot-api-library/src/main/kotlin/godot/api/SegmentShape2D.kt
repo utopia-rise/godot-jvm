@@ -111,23 +111,23 @@ public open class SegmentShape2D : Shape2D() {
 
   public final fun setA(a: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, a)
-    TransferContext.callMethod(MethodBindings.setAPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAPtr, 0)
   }
 
   public final fun getA(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setB(b: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, b)
-    TransferContext.callMethod(MethodBindings.setBPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBPtr, 0)
   }
 
   public final fun getB(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

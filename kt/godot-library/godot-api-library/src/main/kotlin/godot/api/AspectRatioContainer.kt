@@ -83,45 +83,45 @@ public open class AspectRatioContainer : Container() {
 
   public final fun setRatio(ratio: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
-    TransferContext.callMethod(MethodBindings.setRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRatioPtr, 0)
   }
 
   public final fun getRatio(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRatioPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setStretchMode(stretchMode: StretchMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stretchMode.value)
-    TransferContext.callMethod(MethodBindings.setStretchModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setStretchModePtr, 0)
   }
 
   public final fun getStretchMode(): StretchMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStretchModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getStretchModePtr, 2)
     return StretchMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setAlignmentHorizontal(alignmentHorizontal: AlignmentMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignmentHorizontal.value)
-    TransferContext.callMethod(MethodBindings.setAlignmentHorizontalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAlignmentHorizontalPtr, 0)
   }
 
   public final fun getAlignmentHorizontal(): AlignmentMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAlignmentHorizontalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAlignmentHorizontalPtr, 2)
     return AlignmentMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setAlignmentVertical(alignmentVertical: AlignmentMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignmentVertical.value)
-    TransferContext.callMethod(MethodBindings.setAlignmentVerticalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAlignmentVerticalPtr, 0)
   }
 
   public final fun getAlignmentVertical(): AlignmentMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAlignmentVerticalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAlignmentVerticalPtr, 2)
     return AlignmentMode.from(TransferContext.readReturnValue_LONG())
   }
 

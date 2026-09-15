@@ -139,7 +139,7 @@ public abstract class StyleBox : Resource() {
    */
   public final fun getMinimumSize(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinimumSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinimumSizePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -148,7 +148,7 @@ public abstract class StyleBox : Resource() {
    */
   public final fun setContentMargin(margin: Side, offset: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, margin.value, offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setContentMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setContentMarginPtr, 0)
   }
 
   /**
@@ -156,7 +156,7 @@ public abstract class StyleBox : Resource() {
    */
   public final fun setContentMarginAll(offset: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setContentMarginAllPtr)
+    TransferContext.callPtrMethod(MethodBindings.setContentMarginAllPtr, 0)
   }
 
   /**
@@ -164,7 +164,7 @@ public abstract class StyleBox : Resource() {
    */
   public final fun getContentMargin(margin: Side): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
-    TransferContext.callMethod(MethodBindings.getContentMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getContentMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -175,7 +175,7 @@ public abstract class StyleBox : Resource() {
    */
   public final fun getMargin(margin: Side): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
-    TransferContext.callMethod(MethodBindings.getMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -185,7 +185,7 @@ public abstract class StyleBox : Resource() {
    */
   public final fun getOffset(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOffsetPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -198,7 +198,7 @@ public abstract class StyleBox : Resource() {
    */
   public final fun draw(canvasItem: RID, rect: Rect2): Unit {
     TransferContext.writeMethodArguments_RID_RECT2(ptr, objectID.id, canvasItem, rect)
-    TransferContext.callMethod(MethodBindings.drawPtr)
+    TransferContext.callPtrMethod(MethodBindings.drawPtr, 0)
   }
 
   /**
@@ -207,7 +207,7 @@ public abstract class StyleBox : Resource() {
    */
   public final fun getCurrentItemDrawn(): CanvasItem? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurrentItemDrawnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurrentItemDrawnPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as CanvasItem?)
   }
 
@@ -216,7 +216,7 @@ public abstract class StyleBox : Resource() {
    */
   public final fun testMask(point: Vector2, rect: Rect2): Boolean {
     TransferContext.writeMethodArguments_VECTOR2_RECT2(ptr, objectID.id, point, rect)
-    TransferContext.callMethod(MethodBindings.testMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.testMaskPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

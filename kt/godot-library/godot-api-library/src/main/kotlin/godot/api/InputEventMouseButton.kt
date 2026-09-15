@@ -101,44 +101,44 @@ public open class InputEventMouseButton : InputEventMouse() {
 
   public final fun setFactor(factor: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, factor.toDouble())
-    TransferContext.callMethod(MethodBindings.setFactorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFactorPtr, 0)
   }
 
   public final fun getFactor(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFactorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFactorPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setButtonIndex(buttonIndex: MouseButton): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, buttonIndex.value)
-    TransferContext.callMethod(MethodBindings.setButtonIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setButtonIndexPtr, 0)
   }
 
   public final fun getButtonIndex(): MouseButton {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getButtonIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getButtonIndexPtr, 2)
     return MouseButton.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPressed(pressed: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
-    TransferContext.callMethod(MethodBindings.setPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPressedPtr, 0)
   }
 
   public final fun setCanceled(canceled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, canceled)
-    TransferContext.callMethod(MethodBindings.setCanceledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCanceledPtr, 0)
   }
 
   public final fun setDoubleClick(doubleClick: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, doubleClick)
-    TransferContext.callMethod(MethodBindings.setDoubleClickPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDoubleClickPtr, 0)
   }
 
   public final fun isDoubleClick(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDoubleClickPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDoubleClickPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

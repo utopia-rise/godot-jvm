@@ -201,18 +201,18 @@ public open class CollisionPolygon3D : Node3D() {
 
   public final fun setDepth(depth: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, depth.toDouble())
-    TransferContext.callMethod(MethodBindings.setDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDepthPtr, 0)
   }
 
   public final fun getDepth(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPolygon(polygon: PackedVector2Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, polygon)
-    TransferContext.callMethod(MethodBindings.setPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPolygonPtr, 0)
   }
 
   public final fun getPolygon(): PackedVector2Array {
@@ -223,45 +223,45 @@ public open class CollisionPolygon3D : Node3D() {
 
   public final fun setDisabled(disabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, disabled)
-    TransferContext.callMethod(MethodBindings.setDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDisabledPtr, 0)
   }
 
   public final fun isDisabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDisabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDebugColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setDebugColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDebugColorPtr, 0)
   }
 
   public final fun getDebugColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDebugColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDebugColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setEnableDebugFill(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setEnableDebugFillPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnableDebugFillPtr, 0)
   }
 
   public final fun getEnableDebugFill(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableDebugFillPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnableDebugFillPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMargin(margin: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, margin.toDouble())
-    TransferContext.callMethod(MethodBindings.setMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMarginPtr, 0)
   }
 
   public final fun getMargin(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

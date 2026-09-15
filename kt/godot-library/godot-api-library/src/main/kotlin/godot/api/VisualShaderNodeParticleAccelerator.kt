@@ -45,12 +45,12 @@ public open class VisualShaderNodeParticleAccelerator : VisualShaderNode() {
 
   public final fun setMode(mode: Mode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setModePtr, 0)
   }
 
   public final fun getMode(): Mode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getModePtr, 2)
     return Mode.from(TransferContext.readReturnValue_LONG())
   }
 

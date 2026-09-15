@@ -275,7 +275,7 @@ public open class CodeHighlighter : SyntaxHighlighter() {
 
   public final fun setKeywordColors(keywords: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, keywords)
-    TransferContext.callMethod(MethodBindings.setKeywordColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setKeywordColorsPtr, 0)
   }
 
   /**
@@ -283,7 +283,7 @@ public open class CodeHighlighter : SyntaxHighlighter() {
    */
   public final fun clearKeywordColors(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearKeywordColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearKeywordColorsPtr, 0)
   }
 
   public final fun getKeywordColors(): Dictionary<Any?, Any?> {
@@ -332,7 +332,7 @@ public open class CodeHighlighter : SyntaxHighlighter() {
 
   public final fun setMemberKeywordColors(memberKeyword: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, memberKeyword)
-    TransferContext.callMethod(MethodBindings.setMemberKeywordColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMemberKeywordColorsPtr, 0)
   }
 
   /**
@@ -340,7 +340,7 @@ public open class CodeHighlighter : SyntaxHighlighter() {
    */
   public final fun clearMemberKeywordColors(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearMemberKeywordColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearMemberKeywordColorsPtr, 0)
   }
 
   public final fun getMemberKeywordColors(): Dictionary<Any?, Any?> {
@@ -386,7 +386,7 @@ public open class CodeHighlighter : SyntaxHighlighter() {
 
   public final fun setColorRegions(colorRegions: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, colorRegions)
-    TransferContext.callMethod(MethodBindings.setColorRegionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setColorRegionsPtr, 0)
   }
 
   /**
@@ -394,7 +394,7 @@ public open class CodeHighlighter : SyntaxHighlighter() {
    */
   public final fun clearColorRegions(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearColorRegionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearColorRegionsPtr, 0)
   }
 
   public final fun getColorRegions(): Dictionary<Any?, Any?> {
@@ -405,45 +405,45 @@ public open class CodeHighlighter : SyntaxHighlighter() {
 
   public final fun setFunctionColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setFunctionColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFunctionColorPtr, 0)
   }
 
   public final fun getFunctionColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFunctionColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFunctionColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setNumberColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setNumberColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNumberColorPtr, 0)
   }
 
   public final fun getNumberColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNumberColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNumberColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setSymbolColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setSymbolColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSymbolColorPtr, 0)
   }
 
   public final fun getSymbolColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSymbolColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSymbolColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setMemberVariableColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setMemberVariableColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMemberVariableColorPtr, 0)
   }
 
   public final fun getMemberVariableColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMemberVariableColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMemberVariableColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 

@@ -87,13 +87,13 @@ public open class XRTracker internal constructor() : RefCounted() {
 
   public final fun getTrackerType(): XRServer.TrackerType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackerTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTrackerTypePtr, 2)
     return XRServer.TrackerType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTrackerType(type: XRServer.TrackerType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
-    TransferContext.callMethod(MethodBindings.setTrackerTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTrackerTypePtr, 0)
   }
 
   public final fun getTrackerName(): StringName {
@@ -104,7 +104,7 @@ public open class XRTracker internal constructor() : RefCounted() {
 
   public final fun setTrackerName(name: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.setTrackerNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTrackerNamePtr, 0)
   }
 
   public final fun getTrackerDesc(): String {

@@ -43,7 +43,7 @@ public open class OptimizedTranslation : Translation() {
    */
   public final fun generate(from: Translation?): Boolean {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, from)
-    TransferContext.callMethod(MethodBindings.generatePtr)
+    TransferContext.callPtrMethod(MethodBindings.generatePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

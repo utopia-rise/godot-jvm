@@ -348,67 +348,67 @@ public open class AudioStreamPlayer3D : Node3D() {
 
   public final fun setStream(stream: AudioStream?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, stream)
-    TransferContext.callMethod(MethodBindings.setStreamPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStreamPtr, 0)
   }
 
   public final fun getStream(): AudioStream? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStreamPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStreamPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as AudioStream?)
   }
 
   public final fun setVolumeDb(volumeDb: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, volumeDb.toDouble())
-    TransferContext.callMethod(MethodBindings.setVolumeDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVolumeDbPtr, 0)
   }
 
   public final fun getVolumeDb(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVolumeDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVolumeDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumeLinear(volumeLinear: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, volumeLinear.toDouble())
-    TransferContext.callMethod(MethodBindings.setVolumeLinearPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVolumeLinearPtr, 0)
   }
 
   public final fun getVolumeLinear(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVolumeLinearPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVolumeLinearPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setUnitSize(unitSize: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, unitSize.toDouble())
-    TransferContext.callMethod(MethodBindings.setUnitSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setUnitSizePtr, 0)
   }
 
   public final fun getUnitSize(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUnitSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getUnitSizePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMaxDb(maxDb: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, maxDb.toDouble())
-    TransferContext.callMethod(MethodBindings.setMaxDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxDbPtr, 0)
   }
 
   public final fun getMaxDb(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPitchScale(pitchScale: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pitchScale.toDouble())
-    TransferContext.callMethod(MethodBindings.setPitchScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPitchScalePtr, 0)
   }
 
   public final fun getPitchScale(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPitchScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPitchScalePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -419,7 +419,7 @@ public open class AudioStreamPlayer3D : Node3D() {
   @JvmOverloads
   public final fun play(fromPosition: Float = 0.0f): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fromPosition.toDouble())
-    TransferContext.callMethod(MethodBindings.playPtr)
+    TransferContext.callPtrMethod(MethodBindings.playPtr, 0)
   }
 
   /**
@@ -427,7 +427,7 @@ public open class AudioStreamPlayer3D : Node3D() {
    */
   public final fun seek(toPosition: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, toPosition.toDouble())
-    TransferContext.callMethod(MethodBindings.seekPtr)
+    TransferContext.callPtrMethod(MethodBindings.seekPtr, 0)
   }
 
   /**
@@ -435,12 +435,12 @@ public open class AudioStreamPlayer3D : Node3D() {
    */
   public final fun stop(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.stopPtr)
+    TransferContext.callPtrMethod(MethodBindings.stopPtr, 0)
   }
 
   public final fun isPlaying(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPlayingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPlayingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -449,13 +449,13 @@ public open class AudioStreamPlayer3D : Node3D() {
    */
   public final fun getPlaybackPosition(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPlaybackPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPlaybackPositionPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setBus(bus: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, bus)
-    TransferContext.callMethod(MethodBindings.setBusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBusPtr, 0)
   }
 
   public final fun getBus(): StringName {
@@ -466,149 +466,149 @@ public open class AudioStreamPlayer3D : Node3D() {
 
   public final fun setAutoplay(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setAutoplayPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutoplayPtr, 0)
   }
 
   public final fun isAutoplayEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAutoplayEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAutoplayEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setPlaying(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setPlayingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPlayingPtr, 0)
   }
 
   public final fun setMaxDistance(meters: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, meters.toDouble())
-    TransferContext.callMethod(MethodBindings.setMaxDistancePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxDistancePtr, 0)
   }
 
   public final fun getMaxDistance(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxDistancePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxDistancePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAreaMask(mask: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask)
-    TransferContext.callMethod(MethodBindings.setAreaMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAreaMaskPtr, 0)
   }
 
   public final fun getAreaMask(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAreaMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAreaMaskPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setEmissionAngle(degrees: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, degrees.toDouble())
-    TransferContext.callMethod(MethodBindings.setEmissionAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.setEmissionAnglePtr, 0)
   }
 
   public final fun getEmissionAngle(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEmissionAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.getEmissionAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setEmissionAngleEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setEmissionAngleEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEmissionAngleEnabledPtr, 0)
   }
 
   public final fun isEmissionAngleEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEmissionAngleEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEmissionAngleEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEmissionAngleFilterAttenuationDb(db: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, db.toDouble())
-    TransferContext.callMethod(MethodBindings.setEmissionAngleFilterAttenuationDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEmissionAngleFilterAttenuationDbPtr, 0)
   }
 
   public final fun getEmissionAngleFilterAttenuationDb(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEmissionAngleFilterAttenuationDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEmissionAngleFilterAttenuationDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAttenuationFilterCutoffHz(degrees: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, degrees.toDouble())
-    TransferContext.callMethod(MethodBindings.setAttenuationFilterCutoffHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAttenuationFilterCutoffHzPtr, 0)
   }
 
   public final fun getAttenuationFilterCutoffHz(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAttenuationFilterCutoffHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAttenuationFilterCutoffHzPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAttenuationFilterDb(db: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, db.toDouble())
-    TransferContext.callMethod(MethodBindings.setAttenuationFilterDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAttenuationFilterDbPtr, 0)
   }
 
   public final fun getAttenuationFilterDb(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAttenuationFilterDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAttenuationFilterDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAttenuationModel(model: AttenuationModel): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, model.value)
-    TransferContext.callMethod(MethodBindings.setAttenuationModelPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAttenuationModelPtr, 0)
   }
 
   public final fun getAttenuationModel(): AttenuationModel {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAttenuationModelPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAttenuationModelPtr, 2)
     return AttenuationModel.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setDopplerTracking(mode: DopplerTracking): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setDopplerTrackingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDopplerTrackingPtr, 0)
   }
 
   public final fun getDopplerTracking(): DopplerTracking {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDopplerTrackingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDopplerTrackingPtr, 2)
     return DopplerTracking.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setStreamPaused(pause: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pause)
-    TransferContext.callMethod(MethodBindings.setStreamPausedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStreamPausedPtr, 0)
   }
 
   public final fun getStreamPaused(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStreamPausedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStreamPausedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMaxPolyphony(maxPolyphony: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxPolyphony.toLong())
-    TransferContext.callMethod(MethodBindings.setMaxPolyphonyPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxPolyphonyPtr, 0)
   }
 
   public final fun getMaxPolyphony(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxPolyphonyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxPolyphonyPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setPanningStrength(panningStrength: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, panningStrength.toDouble())
-    TransferContext.callMethod(MethodBindings.setPanningStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPanningStrengthPtr, 0)
   }
 
   public final fun getPanningStrength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPanningStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPanningStrengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -617,7 +617,7 @@ public open class AudioStreamPlayer3D : Node3D() {
    */
   public final fun hasStreamPlayback(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasStreamPlaybackPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasStreamPlaybackPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -626,18 +626,18 @@ public open class AudioStreamPlayer3D : Node3D() {
    */
   public final fun getStreamPlayback(): AudioStreamPlayback? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStreamPlaybackPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStreamPlaybackPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as AudioStreamPlayback?)
   }
 
   public final fun setPlaybackType(playbackType: AudioServer.PlaybackType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, playbackType.value)
-    TransferContext.callMethod(MethodBindings.setPlaybackTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPlaybackTypePtr, 0)
   }
 
   public final fun getPlaybackType(): AudioServer.PlaybackType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPlaybackTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPlaybackTypePtr, 2)
     return AudioServer.PlaybackType.from(TransferContext.readReturnValue_LONG())
   }
 

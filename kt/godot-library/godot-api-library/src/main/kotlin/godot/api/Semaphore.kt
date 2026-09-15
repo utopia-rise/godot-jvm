@@ -48,7 +48,7 @@ public open class Semaphore : RefCounted() {
    */
   public final fun waitFor(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.waitPtr)
+    TransferContext.callPtrMethod(MethodBindings.waitPtr, 0)
   }
 
   /**
@@ -57,7 +57,7 @@ public open class Semaphore : RefCounted() {
    */
   public final fun tryWait(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.tryWaitPtr)
+    TransferContext.callPtrMethod(MethodBindings.tryWaitPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -67,7 +67,7 @@ public open class Semaphore : RefCounted() {
   @JvmOverloads
   public final fun post(count: Int = 1): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.postPtr)
+    TransferContext.callPtrMethod(MethodBindings.postPtr, 0)
   }
 
   public companion object {

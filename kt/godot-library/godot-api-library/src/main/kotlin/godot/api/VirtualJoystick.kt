@@ -248,73 +248,73 @@ public open class VirtualJoystick : Control() {
 
   public final fun setJoystickMode(mode: JoystickMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setJoystickModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setJoystickModePtr, 0)
   }
 
   public final fun getJoystickMode(): JoystickMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJoystickModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoystickModePtr, 2)
     return JoystickMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setJoystickSize(size: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, size.toDouble())
-    TransferContext.callMethod(MethodBindings.setJoystickSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setJoystickSizePtr, 0)
   }
 
   public final fun getJoystickSize(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJoystickSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoystickSizePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTipSize(size: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, size.toDouble())
-    TransferContext.callMethod(MethodBindings.setTipSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTipSizePtr, 0)
   }
 
   public final fun getTipSize(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTipSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTipSizePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDeadzoneRatio(ratio: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
-    TransferContext.callMethod(MethodBindings.setDeadzoneRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDeadzoneRatioPtr, 0)
   }
 
   public final fun getDeadzoneRatio(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDeadzoneRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDeadzoneRatioPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setClampzoneRatio(ratio: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
-    TransferContext.callMethod(MethodBindings.setClampzoneRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.setClampzoneRatioPtr, 0)
   }
 
   public final fun getClampzoneRatio(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getClampzoneRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClampzoneRatioPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setInitialOffsetRatio(ratio: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, ratio)
-    TransferContext.callMethod(MethodBindings.setInitialOffsetRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInitialOffsetRatioPtr, 0)
   }
 
   public final fun getInitialOffsetRatio(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInitialOffsetRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInitialOffsetRatioPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setActionLeft(action: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.setActionLeftPtr)
+    TransferContext.callPtrMethod(MethodBindings.setActionLeftPtr, 0)
   }
 
   public final fun getActionLeft(): StringName {
@@ -325,7 +325,7 @@ public open class VirtualJoystick : Control() {
 
   public final fun setActionRight(action: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.setActionRightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setActionRightPtr, 0)
   }
 
   public final fun getActionRight(): StringName {
@@ -336,7 +336,7 @@ public open class VirtualJoystick : Control() {
 
   public final fun setActionUp(action: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.setActionUpPtr)
+    TransferContext.callPtrMethod(MethodBindings.setActionUpPtr, 0)
   }
 
   public final fun getActionUp(): StringName {
@@ -347,7 +347,7 @@ public open class VirtualJoystick : Control() {
 
   public final fun setActionDown(action: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.setActionDownPtr)
+    TransferContext.callPtrMethod(MethodBindings.setActionDownPtr, 0)
   }
 
   public final fun getActionDown(): StringName {
@@ -358,12 +358,12 @@ public open class VirtualJoystick : Control() {
 
   public final fun setVisibilityMode(mode: VisibilityMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setVisibilityModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setVisibilityModePtr, 0)
   }
 
   public final fun getVisibilityMode(): VisibilityMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVisibilityModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getVisibilityModePtr, 2)
     return VisibilityMode.from(TransferContext.readReturnValue_LONG())
   }
 

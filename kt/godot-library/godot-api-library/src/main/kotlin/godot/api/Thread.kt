@@ -85,7 +85,7 @@ public open class Thread : RefCounted() {
    */
   public final fun isStarted(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isStartedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isStartedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -97,7 +97,7 @@ public open class Thread : RefCounted() {
    */
   public final fun isAlive(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAlivePtr)
+    TransferContext.callPtrMethod(MethodBindings.isAlivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -196,7 +196,7 @@ public open class Thread : RefCounted() {
     @JvmStatic
     public final fun setThreadSafetyChecksEnabled(enabled: Boolean): Unit {
       TransferContext.writeMethodArguments_BOOL(0L, 0L, enabled)
-      TransferContext.callMethod(MethodBindings.setThreadSafetyChecksEnabledPtr)
+      TransferContext.callPtrMethod(MethodBindings.setThreadSafetyChecksEnabledPtr, 0)
     }
 
     /**
@@ -207,7 +207,7 @@ public open class Thread : RefCounted() {
     @JvmStatic
     public final fun isMainThread(): Boolean {
       TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callMethod(MethodBindings.isMainThreadPtr)
+      TransferContext.callPtrMethod(MethodBindings.isMainThreadPtr, 1)
       return TransferContext.readReturnValue_BOOL()
     }
   }

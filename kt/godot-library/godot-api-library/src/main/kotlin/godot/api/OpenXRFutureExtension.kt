@@ -44,7 +44,7 @@ public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
    */
   public final fun isActive(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.isActivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -80,7 +80,7 @@ public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
    */
   public final fun cancelFuture(future: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, future)
-    TransferContext.callMethod(MethodBindings.cancelFuturePtr)
+    TransferContext.callPtrMethod(MethodBindings.cancelFuturePtr, 0)
   }
 
   public companion object {

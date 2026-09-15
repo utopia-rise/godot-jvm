@@ -96,23 +96,23 @@ public open class WorldBoundaryShape2D : Shape2D() {
 
   public final fun setNormal(normal: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, normal)
-    TransferContext.callMethod(MethodBindings.setNormalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNormalPtr, 0)
   }
 
   public final fun getNormal(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNormalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNormalPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setDistance(distance: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
-    TransferContext.callMethod(MethodBindings.setDistancePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDistancePtr, 0)
   }
 
   public final fun getDistance(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDistancePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDistancePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

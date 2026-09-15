@@ -47,12 +47,12 @@ public open class VisualShaderNodeSmoothStep : VisualShaderNode() {
 
   public final fun setOpType(opType: OpType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, opType.value)
-    TransferContext.callMethod(MethodBindings.setOpTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setOpTypePtr, 0)
   }
 
   public final fun getOpType(): OpType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOpTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getOpTypePtr, 2)
     return OpType.from(TransferContext.readReturnValue_LONG())
   }
 

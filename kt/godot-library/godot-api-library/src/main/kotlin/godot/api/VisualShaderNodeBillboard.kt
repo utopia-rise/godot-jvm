@@ -60,23 +60,23 @@ public open class VisualShaderNodeBillboard : VisualShaderNode() {
 
   public final fun setBillboardType(billboardType: BillboardType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, billboardType.value)
-    TransferContext.callMethod(MethodBindings.setBillboardTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBillboardTypePtr, 0)
   }
 
   public final fun getBillboardType(): BillboardType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBillboardTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBillboardTypePtr, 2)
     return BillboardType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setKeepScaleEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setKeepScaleEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setKeepScaleEnabledPtr, 0)
   }
 
   public final fun isKeepScaleEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isKeepScaleEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isKeepScaleEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

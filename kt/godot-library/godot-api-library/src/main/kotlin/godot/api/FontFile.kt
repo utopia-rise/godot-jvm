@@ -469,7 +469,7 @@ public open class FontFile : Font() {
 
   public final fun setData(`data`: PackedByteArray): Unit {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, data)
-    TransferContext.callMethod(MethodBindings.setDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDataPtr, 0)
   }
 
   public final fun getData(): PackedByteArray {
@@ -490,182 +490,182 @@ public open class FontFile : Font() {
 
   public final fun setFontStyle(style: TextServer.FontStyle): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, style.flag)
-    TransferContext.callMethod(MethodBindings.setFontStylePtr)
+    TransferContext.callPtrMethod(MethodBindings.setFontStylePtr, 0)
   }
 
   public final fun setFontWeight(weight: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, weight.toLong())
-    TransferContext.callMethod(MethodBindings.setFontWeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFontWeightPtr, 0)
   }
 
   public final fun setFontStretch(stretch: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stretch.toLong())
-    TransferContext.callMethod(MethodBindings.setFontStretchPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFontStretchPtr, 0)
   }
 
   public final fun setAntialiasing(antialiasing: TextServer.FontAntialiasing): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, antialiasing.value)
-    TransferContext.callMethod(MethodBindings.setAntialiasingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAntialiasingPtr, 0)
   }
 
   public final fun getAntialiasing(): TextServer.FontAntialiasing {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAntialiasingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAntialiasingPtr, 2)
     return TextServer.FontAntialiasing.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setDisableEmbeddedBitmaps(disableEmbeddedBitmaps: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, disableEmbeddedBitmaps)
-    TransferContext.callMethod(MethodBindings.setDisableEmbeddedBitmapsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDisableEmbeddedBitmapsPtr, 0)
   }
 
   public final fun getDisableEmbeddedBitmaps(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDisableEmbeddedBitmapsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDisableEmbeddedBitmapsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setGenerateMipmaps(generateMipmaps: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, generateMipmaps)
-    TransferContext.callMethod(MethodBindings.setGenerateMipmapsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGenerateMipmapsPtr, 0)
   }
 
   public final fun getGenerateMipmaps(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGenerateMipmapsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGenerateMipmapsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMultichannelSignedDistanceField(msdf: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, msdf)
-    TransferContext.callMethod(MethodBindings.setMultichannelSignedDistanceFieldPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMultichannelSignedDistanceFieldPtr, 0)
   }
 
   public final fun isMultichannelSignedDistanceField(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMultichannelSignedDistanceFieldPtr)
+    TransferContext.callPtrMethod(MethodBindings.isMultichannelSignedDistanceFieldPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMsdfPixelRange(msdfPixelRange: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, msdfPixelRange.toLong())
-    TransferContext.callMethod(MethodBindings.setMsdfPixelRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMsdfPixelRangePtr, 0)
   }
 
   public final fun getMsdfPixelRange(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMsdfPixelRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMsdfPixelRangePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMsdfSize(msdfSize: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, msdfSize.toLong())
-    TransferContext.callMethod(MethodBindings.setMsdfSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMsdfSizePtr, 0)
   }
 
   public final fun getMsdfSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMsdfSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMsdfSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setFixedSize(fixedSize: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fixedSize.toLong())
-    TransferContext.callMethod(MethodBindings.setFixedSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setFixedSizePtr, 0)
   }
 
   public final fun getFixedSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFixedSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFixedSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setFixedSizeScaleMode(fixedSizeScaleMode: TextServer.FixedSizeScaleMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fixedSizeScaleMode.value)
-    TransferContext.callMethod(MethodBindings.setFixedSizeScaleModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setFixedSizeScaleModePtr, 0)
   }
 
   public final fun getFixedSizeScaleMode(): TextServer.FixedSizeScaleMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFixedSizeScaleModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFixedSizeScaleModePtr, 2)
     return TextServer.FixedSizeScaleMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setAllowSystemFallback(allowSystemFallback: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, allowSystemFallback)
-    TransferContext.callMethod(MethodBindings.setAllowSystemFallbackPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAllowSystemFallbackPtr, 0)
   }
 
   public final fun isAllowSystemFallback(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAllowSystemFallbackPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAllowSystemFallbackPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setForceAutohinter(forceAutohinter: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, forceAutohinter)
-    TransferContext.callMethod(MethodBindings.setForceAutohinterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setForceAutohinterPtr, 0)
   }
 
   public final fun isForceAutohinter(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isForceAutohinterPtr)
+    TransferContext.callPtrMethod(MethodBindings.isForceAutohinterPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setModulateColorGlyphs(modulate: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, modulate)
-    TransferContext.callMethod(MethodBindings.setModulateColorGlyphsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setModulateColorGlyphsPtr, 0)
   }
 
   public final fun isModulateColorGlyphs(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isModulateColorGlyphsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isModulateColorGlyphsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHinting(hinting: TextServer.Hinting): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, hinting.value)
-    TransferContext.callMethod(MethodBindings.setHintingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHintingPtr, 0)
   }
 
   public final fun getHinting(): TextServer.Hinting {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHintingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHintingPtr, 2)
     return TextServer.Hinting.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSubpixelPositioning(subpixelPositioning: TextServer.SubpixelPositioning):
       Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, subpixelPositioning.value)
-    TransferContext.callMethod(MethodBindings.setSubpixelPositioningPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSubpixelPositioningPtr, 0)
   }
 
   public final fun getSubpixelPositioning(): TextServer.SubpixelPositioning {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubpixelPositioningPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSubpixelPositioningPtr, 2)
     return TextServer.SubpixelPositioning.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setKeepRoundingRemainders(keepRoundingRemainders: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, keepRoundingRemainders)
-    TransferContext.callMethod(MethodBindings.setKeepRoundingRemaindersPtr)
+    TransferContext.callPtrMethod(MethodBindings.setKeepRoundingRemaindersPtr, 0)
   }
 
   public final fun getKeepRoundingRemainders(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getKeepRoundingRemaindersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getKeepRoundingRemaindersPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setOversampling(oversampling: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, oversampling.toDouble())
-    TransferContext.callMethod(MethodBindings.setOversamplingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOversamplingPtr, 0)
   }
 
   public final fun getOversampling(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOversamplingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOversamplingPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -674,7 +674,7 @@ public open class FontFile : Font() {
    */
   public final fun getCacheCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCacheCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCacheCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -683,7 +683,7 @@ public open class FontFile : Font() {
    */
   public final fun clearCache(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearCachePtr)
+    TransferContext.callPtrMethod(MethodBindings.clearCachePtr, 0)
   }
 
   /**
@@ -691,7 +691,7 @@ public open class FontFile : Font() {
    */
   public final fun removeCache(cacheIndex: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, cacheIndex.toLong())
-    TransferContext.callMethod(MethodBindings.removeCachePtr)
+    TransferContext.callPtrMethod(MethodBindings.removeCachePtr, 0)
   }
 
   /**
@@ -709,7 +709,7 @@ public open class FontFile : Font() {
    */
   public final fun clearSizeCache(cacheIndex: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, cacheIndex.toLong())
-    TransferContext.callMethod(MethodBindings.clearSizeCachePtr)
+    TransferContext.callPtrMethod(MethodBindings.clearSizeCachePtr, 0)
   }
 
   /**
@@ -717,7 +717,7 @@ public open class FontFile : Font() {
    */
   public final fun removeSizeCache(cacheIndex: Int, size: Vector2i): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I(ptr, objectID.id, cacheIndex.toLong(), size)
-    TransferContext.callMethod(MethodBindings.removeSizeCachePtr)
+    TransferContext.callPtrMethod(MethodBindings.removeSizeCachePtr, 0)
   }
 
   /**
@@ -727,7 +727,7 @@ public open class FontFile : Font() {
   public final fun setVariationCoordinates(cacheIndex: Int,
       variationCoordinates: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_LONG_DICTIONARY(ptr, objectID.id, cacheIndex.toLong(), variationCoordinates)
-    TransferContext.callMethod(MethodBindings.setVariationCoordinatesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVariationCoordinatesPtr, 0)
   }
 
   /**
@@ -746,7 +746,7 @@ public open class FontFile : Font() {
    */
   public final fun setEmbolden(cacheIndex: Int, strength: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, cacheIndex.toLong(), strength.toDouble())
-    TransferContext.callMethod(MethodBindings.setEmboldenPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEmboldenPtr, 0)
   }
 
   /**
@@ -755,7 +755,7 @@ public open class FontFile : Font() {
    */
   public final fun getEmbolden(cacheIndex: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, cacheIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getEmboldenPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEmboldenPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -765,7 +765,7 @@ public open class FontFile : Font() {
    */
   public final fun setTransform(cacheIndex: Int, transform: Transform2D): Unit {
     TransferContext.writeMethodArguments_LONG_TRANSFORM2D(ptr, objectID.id, cacheIndex.toLong(), transform)
-    TransferContext.callMethod(MethodBindings.setTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTransformPtr, 0)
   }
 
   /**
@@ -774,7 +774,7 @@ public open class FontFile : Font() {
    */
   public final fun getTransform(cacheIndex: Int): Transform2D {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, cacheIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransformPtr, 11)
     return TransferContext.readReturnValue_TRANSFORM2D()
   }
 
@@ -787,7 +787,7 @@ public open class FontFile : Font() {
     `value`: Long,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), spacing.value, value)
-    TransferContext.callMethod(MethodBindings.setExtraSpacingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExtraSpacingPtr, 0)
   }
 
   /**
@@ -795,7 +795,7 @@ public open class FontFile : Font() {
    */
   public final fun getExtraSpacing(cacheIndex: Int, spacing: TextServer.SpacingType): Long {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), spacing.value)
-    TransferContext.callMethod(MethodBindings.getExtraSpacingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExtraSpacingPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -804,7 +804,7 @@ public open class FontFile : Font() {
    */
   public final fun setExtraBaselineOffset(cacheIndex: Int, baselineOffset: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, cacheIndex.toLong(), baselineOffset.toDouble())
-    TransferContext.callMethod(MethodBindings.setExtraBaselineOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExtraBaselineOffsetPtr, 0)
   }
 
   /**
@@ -812,7 +812,7 @@ public open class FontFile : Font() {
    */
   public final fun getExtraBaselineOffset(cacheIndex: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, cacheIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getExtraBaselineOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExtraBaselineOffsetPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -821,7 +821,7 @@ public open class FontFile : Font() {
    */
   public final fun setFaceIndex(cacheIndex: Int, faceIndex: Long): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), faceIndex)
-    TransferContext.callMethod(MethodBindings.setFaceIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFaceIndexPtr, 0)
   }
 
   /**
@@ -829,7 +829,7 @@ public open class FontFile : Font() {
    */
   public final fun getFaceIndex(cacheIndex: Int): Long {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, cacheIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getFaceIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFaceIndexPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -842,7 +842,7 @@ public open class FontFile : Font() {
     ascent: Float,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, cacheIndex.toLong(), size.toLong(), ascent.toDouble())
-    TransferContext.callMethod(MethodBindings.setCacheAscentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCacheAscentPtr, 0)
   }
 
   /**
@@ -850,7 +850,7 @@ public open class FontFile : Font() {
    */
   public final fun getCacheAscent(cacheIndex: Int, size: Int): Float {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), size.toLong())
-    TransferContext.callMethod(MethodBindings.getCacheAscentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCacheAscentPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -863,7 +863,7 @@ public open class FontFile : Font() {
     descent: Float,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, cacheIndex.toLong(), size.toLong(), descent.toDouble())
-    TransferContext.callMethod(MethodBindings.setCacheDescentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCacheDescentPtr, 0)
   }
 
   /**
@@ -871,7 +871,7 @@ public open class FontFile : Font() {
    */
   public final fun getCacheDescent(cacheIndex: Int, size: Int): Float {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), size.toLong())
-    TransferContext.callMethod(MethodBindings.getCacheDescentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCacheDescentPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -884,7 +884,7 @@ public open class FontFile : Font() {
     underlinePosition: Float,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, cacheIndex.toLong(), size.toLong(), underlinePosition.toDouble())
-    TransferContext.callMethod(MethodBindings.setCacheUnderlinePositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCacheUnderlinePositionPtr, 0)
   }
 
   /**
@@ -892,7 +892,7 @@ public open class FontFile : Font() {
    */
   public final fun getCacheUnderlinePosition(cacheIndex: Int, size: Int): Float {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), size.toLong())
-    TransferContext.callMethod(MethodBindings.getCacheUnderlinePositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCacheUnderlinePositionPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -905,7 +905,7 @@ public open class FontFile : Font() {
     underlineThickness: Float,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, cacheIndex.toLong(), size.toLong(), underlineThickness.toDouble())
-    TransferContext.callMethod(MethodBindings.setCacheUnderlineThicknessPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCacheUnderlineThicknessPtr, 0)
   }
 
   /**
@@ -913,7 +913,7 @@ public open class FontFile : Font() {
    */
   public final fun getCacheUnderlineThickness(cacheIndex: Int, size: Int): Float {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), size.toLong())
-    TransferContext.callMethod(MethodBindings.getCacheUnderlineThicknessPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCacheUnderlineThicknessPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -926,7 +926,7 @@ public open class FontFile : Font() {
     scale: Float,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, cacheIndex.toLong(), size.toLong(), scale.toDouble())
-    TransferContext.callMethod(MethodBindings.setCacheScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCacheScalePtr, 0)
   }
 
   /**
@@ -934,7 +934,7 @@ public open class FontFile : Font() {
    */
   public final fun getCacheScale(cacheIndex: Int, size: Int): Float {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), size.toLong())
-    TransferContext.callMethod(MethodBindings.getCacheScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCacheScalePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -943,7 +943,7 @@ public open class FontFile : Font() {
    */
   public final fun getTextureCount(cacheIndex: Int, size: Vector2i): Int {
     TransferContext.writeMethodArguments_LONG_VECTOR2I(ptr, objectID.id, cacheIndex.toLong(), size)
-    TransferContext.callMethod(MethodBindings.getTextureCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -955,7 +955,7 @@ public open class FontFile : Font() {
    */
   public final fun clearTextures(cacheIndex: Int, size: Vector2i): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I(ptr, objectID.id, cacheIndex.toLong(), size)
-    TransferContext.callMethod(MethodBindings.clearTexturesPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearTexturesPtr, 0)
   }
 
   /**
@@ -970,7 +970,7 @@ public open class FontFile : Font() {
     textureIndex: Int,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, cacheIndex.toLong(), size, textureIndex.toLong())
-    TransferContext.callMethod(MethodBindings.removeTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.removeTexturePtr, 0)
   }
 
   /**
@@ -983,7 +983,7 @@ public open class FontFile : Font() {
     image: Image?,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG_OBJECT(ptr, objectID.id, cacheIndex.toLong(), size, textureIndex.toLong(), image)
-    TransferContext.callMethod(MethodBindings.setTextureImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureImagePtr, 0)
   }
 
   /**
@@ -995,7 +995,7 @@ public open class FontFile : Font() {
     textureIndex: Int,
   ): Image? {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, cacheIndex.toLong(), size, textureIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getTextureImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureImagePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Image?)
   }
 
@@ -1009,7 +1009,7 @@ public open class FontFile : Font() {
     offset: PackedInt32Array,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG_PACKED_INT_32_ARRAY(ptr, objectID.id, cacheIndex.toLong(), size, textureIndex.toLong(), offset)
-    TransferContext.callMethod(MethodBindings.setTextureOffsetsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureOffsetsPtr, 0)
   }
 
   /**
@@ -1042,7 +1042,7 @@ public open class FontFile : Font() {
    */
   public final fun clearGlyphs(cacheIndex: Int, size: Vector2i): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I(ptr, objectID.id, cacheIndex.toLong(), size)
-    TransferContext.callMethod(MethodBindings.clearGlyphsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearGlyphsPtr, 0)
   }
 
   /**
@@ -1057,7 +1057,7 @@ public open class FontFile : Font() {
     glyph: Int,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, cacheIndex.toLong(), size, glyph.toLong())
-    TransferContext.callMethod(MethodBindings.removeGlyphPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeGlyphPtr, 0)
   }
 
   /**
@@ -1072,7 +1072,7 @@ public open class FontFile : Font() {
     advance: Vector2,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_LONG_VECTOR2(ptr, objectID.id, cacheIndex.toLong(), size.toLong(), glyph.toLong(), advance)
-    TransferContext.callMethod(MethodBindings.setGlyphAdvancePtr)
+    TransferContext.callPtrMethod(MethodBindings.setGlyphAdvancePtr, 0)
   }
 
   /**
@@ -1086,7 +1086,7 @@ public open class FontFile : Font() {
     glyph: Int,
   ): Vector2 {
     TransferContext.writeMethodArguments_LONG_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), size.toLong(), glyph.toLong())
-    TransferContext.callMethod(MethodBindings.getGlyphAdvancePtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlyphAdvancePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -1100,7 +1100,7 @@ public open class FontFile : Font() {
     offset: Vector2,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG_VECTOR2(ptr, objectID.id, cacheIndex.toLong(), size, glyph.toLong(), offset)
-    TransferContext.callMethod(MethodBindings.setGlyphOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGlyphOffsetPtr, 0)
   }
 
   /**
@@ -1112,7 +1112,7 @@ public open class FontFile : Font() {
     glyph: Int,
   ): Vector2 {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, cacheIndex.toLong(), size, glyph.toLong())
-    TransferContext.callMethod(MethodBindings.getGlyphOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlyphOffsetPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -1126,7 +1126,7 @@ public open class FontFile : Font() {
     glSize: Vector2,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG_VECTOR2(ptr, objectID.id, cacheIndex.toLong(), size, glyph.toLong(), glSize)
-    TransferContext.callMethod(MethodBindings.setGlyphSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setGlyphSizePtr, 0)
   }
 
   /**
@@ -1138,7 +1138,7 @@ public open class FontFile : Font() {
     glyph: Int,
   ): Vector2 {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, cacheIndex.toLong(), size, glyph.toLong())
-    TransferContext.callMethod(MethodBindings.getGlyphSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlyphSizePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -1152,7 +1152,7 @@ public open class FontFile : Font() {
     uvRect: Rect2,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG_RECT2(ptr, objectID.id, cacheIndex.toLong(), size, glyph.toLong(), uvRect)
-    TransferContext.callMethod(MethodBindings.setGlyphUvRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGlyphUvRectPtr, 0)
   }
 
   /**
@@ -1164,7 +1164,7 @@ public open class FontFile : Font() {
     glyph: Int,
   ): Rect2 {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, cacheIndex.toLong(), size, glyph.toLong())
-    TransferContext.callMethod(MethodBindings.getGlyphUvRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlyphUvRectPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 
@@ -1178,7 +1178,7 @@ public open class FontFile : Font() {
     textureIdx: Int,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), size, glyph.toLong(), textureIdx.toLong())
-    TransferContext.callMethod(MethodBindings.setGlyphTextureIdxPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGlyphTextureIdxPtr, 0)
   }
 
   /**
@@ -1190,7 +1190,7 @@ public open class FontFile : Font() {
     glyph: Int,
   ): Int {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, cacheIndex.toLong(), size, glyph.toLong())
-    TransferContext.callMethod(MethodBindings.getGlyphTextureIdxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlyphTextureIdxPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1208,7 +1208,7 @@ public open class FontFile : Font() {
    */
   public final fun clearKerningMap(cacheIndex: Int, size: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), size.toLong())
-    TransferContext.callMethod(MethodBindings.clearKerningMapPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearKerningMapPtr, 0)
   }
 
   /**
@@ -1220,7 +1220,7 @@ public open class FontFile : Font() {
     glyphPair: Vector2i,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_VECTOR2I(ptr, objectID.id, cacheIndex.toLong(), size.toLong(), glyphPair)
-    TransferContext.callMethod(MethodBindings.removeKerningPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeKerningPtr, 0)
   }
 
   /**
@@ -1233,7 +1233,7 @@ public open class FontFile : Font() {
     kerning: Vector2,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_VECTOR2I_VECTOR2(ptr, objectID.id, cacheIndex.toLong(), size.toLong(), glyphPair, kerning)
-    TransferContext.callMethod(MethodBindings.setKerningPtr)
+    TransferContext.callPtrMethod(MethodBindings.setKerningPtr, 0)
   }
 
   /**
@@ -1245,7 +1245,7 @@ public open class FontFile : Font() {
     glyphPair: Vector2i,
   ): Vector2 {
     TransferContext.writeMethodArguments_LONG_LONG_VECTOR2I(ptr, objectID.id, cacheIndex.toLong(), size.toLong(), glyphPair)
-    TransferContext.callMethod(MethodBindings.getKerningPtr)
+    TransferContext.callPtrMethod(MethodBindings.getKerningPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -1259,7 +1259,7 @@ public open class FontFile : Font() {
     end: Long,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), size, start, end)
-    TransferContext.callMethod(MethodBindings.renderRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.renderRangePtr, 0)
   }
 
   /**
@@ -1271,7 +1271,7 @@ public open class FontFile : Font() {
     index: Int,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, cacheIndex.toLong(), size, index.toLong())
-    TransferContext.callMethod(MethodBindings.renderGlyphPtr)
+    TransferContext.callPtrMethod(MethodBindings.renderGlyphPtr, 0)
   }
 
   /**
@@ -1344,7 +1344,7 @@ public open class FontFile : Font() {
 
   public final fun setOpentypeFeatureOverrides(overrides: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, overrides)
-    TransferContext.callMethod(MethodBindings.setOpentypeFeatureOverridesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOpentypeFeatureOverridesPtr, 0)
   }
 
   public final fun getOpentypeFeatureOverrides(): Dictionary<Any?, Any?> {
@@ -1362,7 +1362,7 @@ public open class FontFile : Font() {
     variationSelector: Long,
   ): Int {
     TransferContext.writeMethodArguments_LONG_LONG_LONG(ptr, objectID.id, size.toLong(), char, variationSelector)
-    TransferContext.callMethod(MethodBindings.getGlyphIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlyphIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1372,7 +1372,7 @@ public open class FontFile : Font() {
    */
   public final fun getCharFromGlyphIndex(size: Int, glyphIndex: Int): Long {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, size.toLong(), glyphIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getCharFromGlyphIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCharFromGlyphIndexPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

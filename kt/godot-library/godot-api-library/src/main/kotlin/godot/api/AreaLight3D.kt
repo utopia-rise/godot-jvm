@@ -169,34 +169,34 @@ public open class AreaLight3D : Light3D() {
 
   public final fun setAreaTexture(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setAreaTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAreaTexturePtr, 0)
   }
 
   public final fun getAreaTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAreaTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAreaTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setAreaSize(areaSize: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, areaSize)
-    TransferContext.callMethod(MethodBindings.setAreaSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAreaSizePtr, 0)
   }
 
   public final fun getAreaSize(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAreaSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAreaSizePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setAreaNormalizeEnergy(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setAreaNormalizeEnergyPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAreaNormalizeEnergyPtr, 0)
   }
 
   public final fun isAreaNormalizingEnergy(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAreaNormalizingEnergyPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAreaNormalizingEnergyPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

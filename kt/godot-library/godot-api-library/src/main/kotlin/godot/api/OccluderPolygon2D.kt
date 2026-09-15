@@ -122,29 +122,29 @@ public open class OccluderPolygon2D : Resource() {
 
   public final fun setClosed(closed: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, closed)
-    TransferContext.callMethod(MethodBindings.setClosedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setClosedPtr, 0)
   }
 
   public final fun isClosed(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isClosedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isClosedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCullMode(cullMode: CullMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, cullMode.value)
-    TransferContext.callMethod(MethodBindings.setCullModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCullModePtr, 0)
   }
 
   public final fun getCullMode(): CullMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCullModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCullModePtr, 2)
     return CullMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPolygon(polygon: PackedVector2Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, polygon)
-    TransferContext.callMethod(MethodBindings.setPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPolygonPtr, 0)
   }
 
   public final fun getPolygon(): PackedVector2Array {

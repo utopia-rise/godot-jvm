@@ -106,35 +106,35 @@ public open class XRVRS : Object() {
 
   public final fun getVrsMinRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVrsMinRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVrsMinRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVrsMinRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setVrsMinRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVrsMinRadiusPtr, 0)
   }
 
   public final fun getVrsStrength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVrsStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVrsStrengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVrsStrength(strength: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, strength.toDouble())
-    TransferContext.callMethod(MethodBindings.setVrsStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVrsStrengthPtr, 0)
   }
 
   public final fun getVrsRenderRegion(): Rect2i {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVrsRenderRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVrsRenderRegionPtr, 8)
     return TransferContext.readReturnValue_RECT2I()
   }
 
   public final fun setVrsRenderRegion(renderRegion: Rect2i): Unit {
     TransferContext.writeMethodArguments_RECT2I(ptr, objectID.id, renderRegion)
-    TransferContext.callMethod(MethodBindings.setVrsRenderRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVrsRenderRegionPtr, 0)
   }
 
   /**
@@ -146,7 +146,7 @@ public open class XRVRS : Object() {
    */
   public final fun makeVrsTexture(targetSize: Vector2, eyeFoci: PackedVector2Array): RID {
     TransferContext.writeMethodArguments_VECTOR2_PACKED_VECTOR2_ARRAY(ptr, objectID.id, targetSize, eyeFoci)
-    TransferContext.callMethod(MethodBindings.makeVrsTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.makeVrsTexturePtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 

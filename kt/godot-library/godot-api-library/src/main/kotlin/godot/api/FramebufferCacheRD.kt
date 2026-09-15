@@ -52,7 +52,7 @@ public open class FramebufferCacheRD : Object() {
       views: Long,
     ): RID {
       TransferContext.writeMethodArguments_ARRAY_ARRAY_LONG(0L, 0L, textures, passes, views)
-      TransferContext.callMethod(MethodBindings.getCacheMultipassPtr)
+      TransferContext.callPtrMethod(MethodBindings.getCacheMultipassPtr, 23)
       return TransferContext.readReturnValue_RID()
     }
   }

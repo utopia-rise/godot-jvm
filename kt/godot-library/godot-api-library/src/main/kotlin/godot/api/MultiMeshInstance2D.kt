@@ -66,23 +66,23 @@ public open class MultiMeshInstance2D : Node2D() {
 
   public final fun setMultimesh(multimesh: MultiMesh?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, multimesh)
-    TransferContext.callMethod(MethodBindings.setMultimeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMultimeshPtr, 0)
   }
 
   public final fun getMultimesh(): MultiMesh? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMultimeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMultimeshPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as MultiMesh?)
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 

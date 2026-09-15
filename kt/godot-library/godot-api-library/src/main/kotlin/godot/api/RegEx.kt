@@ -121,7 +121,7 @@ public open class RegEx : RefCounted() {
    */
   public final fun clear(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**
@@ -207,7 +207,7 @@ public open class RegEx : RefCounted() {
    */
   public final fun isValid(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isValidPtr)
+    TransferContext.callPtrMethod(MethodBindings.isValidPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -225,7 +225,7 @@ public open class RegEx : RefCounted() {
    */
   public final fun getGroupCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGroupCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGroupCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

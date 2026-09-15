@@ -93,7 +93,7 @@ public object NavigationMeshGenerator : Object() {
   @JvmStatic
   public final fun bake(navigationMesh: NavigationMesh?, rootNode: Node?): Unit {
     TransferContext.writeMethodArguments_OBJECT_OBJECT(ptr, objectID.id, navigationMesh, rootNode)
-    TransferContext.callMethod(MethodBindings.bakePtr)
+    TransferContext.callPtrMethod(MethodBindings.bakePtr, 0)
   }
 
   /**
@@ -102,7 +102,7 @@ public object NavigationMeshGenerator : Object() {
   @JvmStatic
   public final fun clear(navigationMesh: NavigationMesh?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, navigationMesh)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**

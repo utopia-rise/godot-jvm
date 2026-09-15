@@ -296,12 +296,12 @@ public open class StyleBoxTexture : StyleBox() {
 
   public final fun setTexture(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
@@ -310,7 +310,7 @@ public open class StyleBoxTexture : StyleBox() {
    */
   public final fun setTextureMargin(margin: Side, size: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, margin.value, size.toDouble())
-    TransferContext.callMethod(MethodBindings.setTextureMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureMarginPtr, 0)
   }
 
   /**
@@ -318,7 +318,7 @@ public open class StyleBoxTexture : StyleBox() {
    */
   public final fun setTextureMarginAll(size: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, size.toDouble())
-    TransferContext.callMethod(MethodBindings.setTextureMarginAllPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureMarginAllPtr, 0)
   }
 
   /**
@@ -326,7 +326,7 @@ public open class StyleBoxTexture : StyleBox() {
    */
   public final fun getTextureMargin(margin: Side): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
-    TransferContext.callMethod(MethodBindings.getTextureMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -335,7 +335,7 @@ public open class StyleBoxTexture : StyleBox() {
    */
   public final fun setExpandMargin(margin: Side, size: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, margin.value, size.toDouble())
-    TransferContext.callMethod(MethodBindings.setExpandMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExpandMarginPtr, 0)
   }
 
   /**
@@ -343,7 +343,7 @@ public open class StyleBoxTexture : StyleBox() {
    */
   public final fun setExpandMarginAll(size: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, size.toDouble())
-    TransferContext.callMethod(MethodBindings.setExpandMarginAllPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExpandMarginAllPtr, 0)
   }
 
   /**
@@ -351,62 +351,62 @@ public open class StyleBoxTexture : StyleBox() {
    */
   public final fun getExpandMargin(margin: Side): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
-    TransferContext.callMethod(MethodBindings.getExpandMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExpandMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRegionRect(region: Rect2): Unit {
     TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, region)
-    TransferContext.callMethod(MethodBindings.setRegionRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRegionRectPtr, 0)
   }
 
   public final fun getRegionRect(): Rect2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRegionRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRegionRectPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 
   public final fun setDrawCenter(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setDrawCenterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawCenterPtr, 0)
   }
 
   public final fun isDrawCenterEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDrawCenterEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDrawCenterEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setModulate(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setModulatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setModulatePtr, 0)
   }
 
   public final fun getModulate(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getModulatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getModulatePtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setHAxisStretchMode(mode: AxisStretchMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setHAxisStretchModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setHAxisStretchModePtr, 0)
   }
 
   public final fun getHAxisStretchMode(): AxisStretchMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHAxisStretchModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getHAxisStretchModePtr, 2)
     return AxisStretchMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setVAxisStretchMode(mode: AxisStretchMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setVAxisStretchModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setVAxisStretchModePtr, 0)
   }
 
   public final fun getVAxisStretchMode(): AxisStretchMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVAxisStretchModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getVAxisStretchModePtr, 2)
     return AxisStretchMode.from(TransferContext.readReturnValue_LONG())
   }
 

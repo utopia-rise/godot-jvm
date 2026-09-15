@@ -44,12 +44,12 @@ public open class VisualShaderNodeTexture3D : VisualShaderNodeSample3D() {
 
   public final fun setTexture(`value`: Texture3D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture3D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture3D?)
   }
 

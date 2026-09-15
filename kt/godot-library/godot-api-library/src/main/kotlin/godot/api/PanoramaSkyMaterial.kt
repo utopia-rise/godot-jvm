@@ -81,34 +81,34 @@ public open class PanoramaSkyMaterial : Material() {
 
   public final fun setPanorama(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setPanoramaPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPanoramaPtr, 0)
   }
 
   public final fun getPanorama(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPanoramaPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPanoramaPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setFilteringEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setFilteringEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFilteringEnabledPtr, 0)
   }
 
   public final fun isFilteringEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFilteringEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isFilteringEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEnergyMultiplier(multiplier: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, multiplier.toDouble())
-    TransferContext.callMethod(MethodBindings.setEnergyMultiplierPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnergyMultiplierPtr, 0)
   }
 
   public final fun getEnergyMultiplier(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnergyMultiplierPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnergyMultiplierPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

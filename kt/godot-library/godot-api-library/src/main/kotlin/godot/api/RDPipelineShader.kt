@@ -61,12 +61,12 @@ public open class RDPipelineShader : RefCounted() {
 
   public final fun setShader(pMember: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setShaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShaderPtr, 0)
   }
 
   public final fun getShader(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShaderPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -74,7 +74,7 @@ public open class RDPipelineShader : RefCounted() {
       fun setSpecializationConstants(specializationConstants: VariantArray<RDPipelineSpecializationConstant>):
       Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, specializationConstants)
-    TransferContext.callMethod(MethodBindings.setSpecializationConstantsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSpecializationConstantsPtr, 0)
   }
 
   public final fun getSpecializationConstants(): VariantArray<RDPipelineSpecializationConstant> {

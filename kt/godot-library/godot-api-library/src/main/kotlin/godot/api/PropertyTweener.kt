@@ -83,7 +83,7 @@ public open class PropertyTweener : Tweener() {
    */
   public final fun fromCurrent(): PropertyTweener {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.fromCurrentPtr)
+    TransferContext.callPtrMethod(MethodBindings.fromCurrentPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as PropertyTweener)
   }
 
@@ -106,7 +106,7 @@ public open class PropertyTweener : Tweener() {
    */
   public final fun asRelative(): PropertyTweener {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.asRelativePtr)
+    TransferContext.callPtrMethod(MethodBindings.asRelativePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as PropertyTweener)
   }
 
@@ -116,7 +116,7 @@ public open class PropertyTweener : Tweener() {
    */
   public final fun setTrans(trans: Tween.TransitionType): PropertyTweener {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trans.value)
-    TransferContext.callMethod(MethodBindings.setTransPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTransPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as PropertyTweener)
   }
 
@@ -126,7 +126,7 @@ public open class PropertyTweener : Tweener() {
    */
   public final fun setEase(ease: Tween.EaseType): PropertyTweener {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, ease.value)
-    TransferContext.callMethod(MethodBindings.setEasePtr)
+    TransferContext.callPtrMethod(MethodBindings.setEasePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as PropertyTweener)
   }
 
@@ -183,7 +183,7 @@ public open class PropertyTweener : Tweener() {
    */
   public final fun setDelay(delay: Double): PropertyTweener {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, delay)
-    TransferContext.callMethod(MethodBindings.setDelayPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDelayPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as PropertyTweener)
   }
 

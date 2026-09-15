@@ -107,29 +107,29 @@ public open class SpringArm3D : Node3D() {
    */
   public final fun getHitLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHitLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHitLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setLength(length: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, length.toDouble())
-    TransferContext.callMethod(MethodBindings.setLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLengthPtr, 0)
   }
 
   public final fun getLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setShape(shape: Shape3D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, shape)
-    TransferContext.callMethod(MethodBindings.setShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.setShapePtr, 0)
   }
 
   public final fun getShape(): Shape3D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.getShapePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Shape3D?)
   }
 
@@ -139,7 +139,7 @@ public open class SpringArm3D : Node3D() {
    */
   public final fun addExcludedObject(RID: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, RID)
-    TransferContext.callMethod(MethodBindings.addExcludedObjectPtr)
+    TransferContext.callPtrMethod(MethodBindings.addExcludedObjectPtr, 0)
   }
 
   /**
@@ -148,7 +148,7 @@ public open class SpringArm3D : Node3D() {
    */
   public final fun removeExcludedObject(RID: RID): Boolean {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, RID)
-    TransferContext.callMethod(MethodBindings.removeExcludedObjectPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeExcludedObjectPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -157,28 +157,28 @@ public open class SpringArm3D : Node3D() {
    */
   public final fun clearExcludedObjects(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearExcludedObjectsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearExcludedObjectsPtr, 0)
   }
 
   public final fun setCollisionMask(mask: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask)
-    TransferContext.callMethod(MethodBindings.setCollisionMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionMaskPtr, 0)
   }
 
   public final fun getCollisionMask(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionMaskPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setMargin(margin: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, margin.toDouble())
-    TransferContext.callMethod(MethodBindings.setMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMarginPtr, 0)
   }
 
   public final fun getMargin(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

@@ -196,7 +196,7 @@ public object Geometry2D : Object() {
     circleRadius: Float,
   ): Boolean {
     TransferContext.writeMethodArguments_VECTOR2_VECTOR2_DOUBLE(ptr, objectID.id, point, circlePosition, circleRadius.toDouble())
-    TransferContext.callMethod(MethodBindings.isPointInCirclePtr)
+    TransferContext.callPtrMethod(MethodBindings.isPointInCirclePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -215,7 +215,7 @@ public object Geometry2D : Object() {
     circleRadius: Float,
   ): Float {
     TransferContext.writeMethodArguments_VECTOR2_VECTOR2_VECTOR2_DOUBLE(ptr, objectID.id, segmentFrom, segmentTo, circlePosition, circleRadius.toDouble())
-    TransferContext.callMethod(MethodBindings.segmentIntersectsCirclePtr)
+    TransferContext.callPtrMethod(MethodBindings.segmentIntersectsCirclePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -312,7 +312,7 @@ public object Geometry2D : Object() {
     s2: Vector2,
   ): Vector2 {
     TransferContext.writeMethodArguments_VECTOR2_VECTOR2_VECTOR2(ptr, objectID.id, point, s1, s2)
-    TransferContext.callMethod(MethodBindings.getClosestPointToSegmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClosestPointToSegmentPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -328,7 +328,7 @@ public object Geometry2D : Object() {
     s2: Vector2,
   ): Vector2 {
     TransferContext.writeMethodArguments_VECTOR2_VECTOR2_VECTOR2(ptr, objectID.id, point, s1, s2)
-    TransferContext.callMethod(MethodBindings.getClosestPointToSegmentUncappedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClosestPointToSegmentUncappedPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -343,7 +343,7 @@ public object Geometry2D : Object() {
     c: Vector2,
   ): Boolean {
     TransferContext.writeMethodArguments_VECTOR2_VECTOR2_VECTOR2_VECTOR2(ptr, objectID.id, point, a, b, c)
-    TransferContext.callMethod(MethodBindings.pointIsInsideTrianglePtr)
+    TransferContext.callPtrMethod(MethodBindings.pointIsInsideTrianglePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -358,7 +358,7 @@ public object Geometry2D : Object() {
   @JvmStatic
   public final fun isPolygonClockwise(polygon: PackedVector2Array): Boolean {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, polygon)
-    TransferContext.callMethod(MethodBindings.isPolygonClockwisePtr)
+    TransferContext.callPtrMethod(MethodBindings.isPolygonClockwisePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -369,7 +369,7 @@ public object Geometry2D : Object() {
   @JvmStatic
   public final fun isPointInPolygon(point: Vector2, polygon: PackedVector2Array): Boolean {
     TransferContext.writeMethodArguments_VECTOR2_PACKED_VECTOR2_ARRAY(ptr, objectID.id, point, polygon)
-    TransferContext.callMethod(MethodBindings.isPointInPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPointInPolygonPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

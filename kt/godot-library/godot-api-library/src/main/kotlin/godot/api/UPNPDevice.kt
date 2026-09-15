@@ -117,7 +117,7 @@ public open class UPNPDevice : RefCounted() {
    */
   public final fun isValidGateway(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isValidGatewayPtr)
+    TransferContext.callPtrMethod(MethodBindings.isValidGatewayPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -215,12 +215,12 @@ public open class UPNPDevice : RefCounted() {
 
   public final fun setIgdStatus(status: IGDStatus): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, status.value)
-    TransferContext.callMethod(MethodBindings.setIgdStatusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIgdStatusPtr, 0)
   }
 
   public final fun getIgdStatus(): IGDStatus {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIgdStatusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIgdStatusPtr, 2)
     return IGDStatus.from(TransferContext.readReturnValue_LONG())
   }
 

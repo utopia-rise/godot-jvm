@@ -155,29 +155,29 @@ public open class HeightMapShape3D : Shape3D() {
 
   public final fun setMapWidth(width: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
-    TransferContext.callMethod(MethodBindings.setMapWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMapWidthPtr, 0)
   }
 
   public final fun getMapWidth(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMapWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMapWidthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMapDepth(height: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, height.toLong())
-    TransferContext.callMethod(MethodBindings.setMapDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMapDepthPtr, 0)
   }
 
   public final fun getMapDepth(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMapDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMapDepthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMapData(`data`: PackedFloat32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, data)
-    TransferContext.callMethod(MethodBindings.setMapDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMapDataPtr, 0)
   }
 
   public final fun getMapData(): PackedFloat32Array {
@@ -191,7 +191,7 @@ public open class HeightMapShape3D : Shape3D() {
    */
   public final fun getMinHeight(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinHeightPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -200,7 +200,7 @@ public open class HeightMapShape3D : Shape3D() {
    */
   public final fun getMaxHeight(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxHeightPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -225,7 +225,7 @@ public open class HeightMapShape3D : Shape3D() {
     heightMax: Float,
   ): Unit {
     TransferContext.writeMethodArguments_OBJECT_DOUBLE_DOUBLE(ptr, objectID.id, image, heightMin.toDouble(), heightMax.toDouble())
-    TransferContext.callMethod(MethodBindings.updateMapDataFromImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.updateMapDataFromImagePtr, 0)
   }
 
   public companion object {

@@ -192,34 +192,34 @@ public open class ParallaxLayer : Node2D() {
 
   public final fun setMotionScale(scale: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, scale)
-    TransferContext.callMethod(MethodBindings.setMotionScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMotionScalePtr, 0)
   }
 
   public final fun getMotionScale(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMotionScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMotionScalePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setMotionOffset(offset: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callMethod(MethodBindings.setMotionOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMotionOffsetPtr, 0)
   }
 
   public final fun getMotionOffset(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMotionOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMotionOffsetPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setMirroring(mirror: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, mirror)
-    TransferContext.callMethod(MethodBindings.setMirroringPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMirroringPtr, 0)
   }
 
   public final fun getMirroring(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMirroringPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMirroringPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

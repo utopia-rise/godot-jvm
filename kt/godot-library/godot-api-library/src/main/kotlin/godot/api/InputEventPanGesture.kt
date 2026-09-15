@@ -77,12 +77,12 @@ public open class InputEventPanGesture : InputEventGesture() {
 
   public final fun setDelta(delta: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, delta)
-    TransferContext.callMethod(MethodBindings.setDeltaPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDeltaPtr, 0)
   }
 
   public final fun getDelta(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDeltaPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDeltaPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

@@ -34,7 +34,7 @@ public open class OpenXRSpatialComponentPlaneSemanticLabelList : OpenXRSpatialCo
    */
   public final fun getPlaneSemanticLabel(index: Long): PlaneSemanticLabel {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getPlaneSemanticLabelPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPlaneSemanticLabelPtr, 2)
     return PlaneSemanticLabel.from(TransferContext.readReturnValue_LONG())
   }
 

@@ -46,12 +46,12 @@ public open class VisualShaderNodeParticleEmit : VisualShaderNode() {
 
   public final fun setFlags(flags: EmitFlags): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flags.value)
-    TransferContext.callMethod(MethodBindings.setFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFlagsPtr, 0)
   }
 
   public final fun getFlags(): EmitFlags {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFlagsPtr, 2)
     return EmitFlags.from(TransferContext.readReturnValue_LONG())
   }
 

@@ -192,46 +192,46 @@ public open class PhysicsTestMotionParameters2D : RefCounted() {
 
   public final fun getFrom(): Transform2D {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFromPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFromPtr, 11)
     return TransferContext.readReturnValue_TRANSFORM2D()
   }
 
   public final fun setFrom(from: Transform2D): Unit {
     TransferContext.writeMethodArguments_TRANSFORM2D(ptr, objectID.id, from)
-    TransferContext.callMethod(MethodBindings.setFromPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFromPtr, 0)
   }
 
   public final fun getMotion(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMotionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMotionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setMotion(motion: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, motion)
-    TransferContext.callMethod(MethodBindings.setMotionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMotionPtr, 0)
   }
 
   public final fun getMargin(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMargin(margin: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, margin.toDouble())
-    TransferContext.callMethod(MethodBindings.setMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMarginPtr, 0)
   }
 
   public final fun isCollideSeparationRayEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollideSeparationRayEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCollideSeparationRayEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCollideSeparationRayEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setCollideSeparationRayEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollideSeparationRayEnabledPtr, 0)
   }
 
   public final fun getExcludeBodies(): VariantArray<RID> {
@@ -242,7 +242,7 @@ public open class PhysicsTestMotionParameters2D : RefCounted() {
 
   public final fun setExcludeBodies(excludeList: VariantArray<RID>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, excludeList)
-    TransferContext.callMethod(MethodBindings.setExcludeBodiesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExcludeBodiesPtr, 0)
   }
 
   public final fun getExcludeObjects(): VariantArray<Long> {
@@ -253,18 +253,18 @@ public open class PhysicsTestMotionParameters2D : RefCounted() {
 
   public final fun setExcludeObjects(excludeList: VariantArray<Long>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, excludeList)
-    TransferContext.callMethod(MethodBindings.setExcludeObjectsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExcludeObjectsPtr, 0)
   }
 
   public final fun isRecoveryAsCollisionEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRecoveryAsCollisionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRecoveryAsCollisionEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRecoveryAsCollisionEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setRecoveryAsCollisionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRecoveryAsCollisionEnabledPtr, 0)
   }
 
   public companion object {

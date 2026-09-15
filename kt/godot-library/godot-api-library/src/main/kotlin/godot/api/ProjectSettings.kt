@@ -404,7 +404,7 @@ public object ProjectSettings : Object() {
   @JvmStatic
   public final fun addPropertyInfo(hint: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, hint)
-    TransferContext.callMethod(MethodBindings.addPropertyInfoPtr)
+    TransferContext.callPtrMethod(MethodBindings.addPropertyInfoPtr, 0)
   }
 
   /**
@@ -480,7 +480,7 @@ public object ProjectSettings : Object() {
   @JvmStatic
   public final fun save(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.savePtr)
+    TransferContext.callPtrMethod(MethodBindings.savePtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 

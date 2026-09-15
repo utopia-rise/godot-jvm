@@ -43,12 +43,12 @@ public open class VisualShaderNodeTexture2DArray : VisualShaderNodeSample3D() {
 
   public final fun setTextureArray(`value`: TextureLayered?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setTextureArrayPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureArrayPtr, 0)
   }
 
   public final fun getTextureArray(): TextureLayered? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureArrayPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureArrayPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as TextureLayered?)
   }
 

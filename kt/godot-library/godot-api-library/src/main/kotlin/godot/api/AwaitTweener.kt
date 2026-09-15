@@ -37,7 +37,7 @@ public open class AwaitTweener : Tweener() {
    */
   public final fun setTimeout(timeout: Double): AwaitTweener? {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeout)
-    TransferContext.callMethod(MethodBindings.setTimeoutPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTimeoutPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as AwaitTweener?)
   }
 

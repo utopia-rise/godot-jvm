@@ -101,34 +101,34 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
 
   public final fun setProfile(profile: SkeletonProfile?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, profile)
-    TransferContext.callMethod(MethodBindings.setProfilePtr)
+    TransferContext.callPtrMethod(MethodBindings.setProfilePtr, 0)
   }
 
   public final fun getProfile(): SkeletonProfile? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProfilePtr)
+    TransferContext.callPtrMethod(MethodBindings.getProfilePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as SkeletonProfile?)
   }
 
   public final fun setUseGlobalPose(useGlobalPose: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, useGlobalPose)
-    TransferContext.callMethod(MethodBindings.setUseGlobalPosePtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseGlobalPosePtr, 0)
   }
 
   public final fun isUsingGlobalPose(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingGlobalPosePtr)
+    TransferContext.callPtrMethod(MethodBindings.isUsingGlobalPosePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEnableFlags(enableFlags: TransformFlag): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, enableFlags.flag)
-    TransferContext.callMethod(MethodBindings.setEnableFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnableFlagsPtr, 0)
   }
 
   public final fun getEnableFlags(): TransformFlag {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnableFlagsPtr, 2)
     return TransformFlag(TransferContext.readReturnValue_LONG())
   }
 
@@ -137,7 +137,7 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
    */
   public final fun setPositionEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setPositionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPositionEnabledPtr, 0)
   }
 
   /**
@@ -145,7 +145,7 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
    */
   public final fun isPositionEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPositionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPositionEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -154,7 +154,7 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
    */
   public final fun setRotationEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setRotationEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRotationEnabledPtr, 0)
   }
 
   /**
@@ -162,7 +162,7 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
    */
   public final fun isRotationEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRotationEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRotationEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -171,7 +171,7 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
    */
   public final fun setScaleEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setScaleEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setScaleEnabledPtr, 0)
   }
 
   /**
@@ -179,7 +179,7 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
    */
   public final fun isScaleEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isScaleEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isScaleEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

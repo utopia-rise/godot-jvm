@@ -80,23 +80,23 @@ public open class XRHandTracker : XRPositionalTracker() {
 
   public final fun setHasTrackingData(hasData: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, hasData)
-    TransferContext.callMethod(MethodBindings.setHasTrackingDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHasTrackingDataPtr, 0)
   }
 
   public final fun getHasTrackingData(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHasTrackingDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHasTrackingDataPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHandTrackingSource(source: HandTrackingSource): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, source.value)
-    TransferContext.callMethod(MethodBindings.setHandTrackingSourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.setHandTrackingSourcePtr, 0)
   }
 
   public final fun getHandTrackingSource(): HandTrackingSource {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHandTrackingSourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.getHandTrackingSourcePtr, 2)
     return HandTrackingSource.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -105,7 +105,7 @@ public open class XRHandTracker : XRPositionalTracker() {
    */
   public final fun setHandJointFlags(joint: HandJoint, flags: HandJointFlags): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, joint.value, flags.flag)
-    TransferContext.callMethod(MethodBindings.setHandJointFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHandJointFlagsPtr, 0)
   }
 
   /**
@@ -113,7 +113,7 @@ public open class XRHandTracker : XRPositionalTracker() {
    */
   public final fun getHandJointFlags(joint: HandJoint): HandJointFlags {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, joint.value)
-    TransferContext.callMethod(MethodBindings.getHandJointFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHandJointFlagsPtr, 2)
     return HandJointFlags(TransferContext.readReturnValue_LONG())
   }
 
@@ -122,7 +122,7 @@ public open class XRHandTracker : XRPositionalTracker() {
    */
   public final fun setHandJointTransform(joint: HandJoint, transform: Transform3D): Unit {
     TransferContext.writeMethodArguments_LONG_TRANSFORM3D(ptr, objectID.id, joint.value, transform)
-    TransferContext.callMethod(MethodBindings.setHandJointTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHandJointTransformPtr, 0)
   }
 
   /**
@@ -130,7 +130,7 @@ public open class XRHandTracker : XRPositionalTracker() {
    */
   public final fun getHandJointTransform(joint: HandJoint): Transform3D {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, joint.value)
-    TransferContext.callMethod(MethodBindings.getHandJointTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHandJointTransformPtr, 18)
     return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
@@ -139,7 +139,7 @@ public open class XRHandTracker : XRPositionalTracker() {
    */
   public final fun setHandJointRadius(joint: HandJoint, radius: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, joint.value, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setHandJointRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHandJointRadiusPtr, 0)
   }
 
   /**
@@ -147,7 +147,7 @@ public open class XRHandTracker : XRPositionalTracker() {
    */
   public final fun getHandJointRadius(joint: HandJoint): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, joint.value)
-    TransferContext.callMethod(MethodBindings.getHandJointRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHandJointRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -156,7 +156,7 @@ public open class XRHandTracker : XRPositionalTracker() {
    */
   public final fun setHandJointLinearVelocity(joint: HandJoint, linearVelocity: Vector3): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, joint.value, linearVelocity)
-    TransferContext.callMethod(MethodBindings.setHandJointLinearVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHandJointLinearVelocityPtr, 0)
   }
 
   /**
@@ -164,7 +164,7 @@ public open class XRHandTracker : XRPositionalTracker() {
    */
   public final fun getHandJointLinearVelocity(joint: HandJoint): Vector3 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, joint.value)
-    TransferContext.callMethod(MethodBindings.getHandJointLinearVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHandJointLinearVelocityPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -173,7 +173,7 @@ public open class XRHandTracker : XRPositionalTracker() {
    */
   public final fun setHandJointAngularVelocity(joint: HandJoint, angularVelocity: Vector3): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, joint.value, angularVelocity)
-    TransferContext.callMethod(MethodBindings.setHandJointAngularVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHandJointAngularVelocityPtr, 0)
   }
 
   /**
@@ -181,7 +181,7 @@ public open class XRHandTracker : XRPositionalTracker() {
    */
   public final fun getHandJointAngularVelocity(joint: HandJoint): Vector3 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, joint.value)
-    TransferContext.callMethod(MethodBindings.getHandJointAngularVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHandJointAngularVelocityPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 

@@ -77,34 +77,34 @@ public open class AudioEffectHardLimiter : AudioEffect() {
 
   public final fun setCeilingDb(ceiling: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ceiling.toDouble())
-    TransferContext.callMethod(MethodBindings.setCeilingDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCeilingDbPtr, 0)
   }
 
   public final fun getCeilingDb(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCeilingDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCeilingDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPreGainDb(preGain: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, preGain.toDouble())
-    TransferContext.callMethod(MethodBindings.setPreGainDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPreGainDbPtr, 0)
   }
 
   public final fun getPreGainDb(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPreGainDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPreGainDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRelease(release: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, release.toDouble())
-    TransferContext.callMethod(MethodBindings.setReleasePtr)
+    TransferContext.callPtrMethod(MethodBindings.setReleasePtr, 0)
   }
 
   public final fun getRelease(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getReleasePtr)
+    TransferContext.callPtrMethod(MethodBindings.getReleasePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

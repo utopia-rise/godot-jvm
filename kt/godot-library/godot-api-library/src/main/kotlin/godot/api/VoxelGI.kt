@@ -151,45 +151,45 @@ public open class VoxelGI : VisualInstance3D() {
 
   public final fun setProbeData(`data`: VoxelGIData?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, data)
-    TransferContext.callMethod(MethodBindings.setProbeDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.setProbeDataPtr, 0)
   }
 
   public final fun getProbeData(): VoxelGIData? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProbeDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getProbeDataPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as VoxelGIData?)
   }
 
   public final fun setSubdiv(subdiv: Subdiv): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, subdiv.value)
-    TransferContext.callMethod(MethodBindings.setSubdivPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSubdivPtr, 0)
   }
 
   public final fun getSubdiv(): Subdiv {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubdivPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSubdivPtr, 2)
     return Subdiv.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSize(size: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
   }
 
   public final fun getSize(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setCameraAttributes(cameraAttributes: CameraAttributes?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, cameraAttributes)
-    TransferContext.callMethod(MethodBindings.setCameraAttributesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCameraAttributesPtr, 0)
   }
 
   public final fun getCameraAttributes(): CameraAttributes? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCameraAttributesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCameraAttributesPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as CameraAttributes?)
   }
 
@@ -211,7 +211,7 @@ public open class VoxelGI : VisualInstance3D() {
   @JvmOverloads
   public final fun bake(fromNode: Node? = null, createVisualDebug: Boolean = false): Unit {
     TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, fromNode, createVisualDebug)
-    TransferContext.callMethod(MethodBindings.bakePtr)
+    TransferContext.callPtrMethod(MethodBindings.bakePtr, 0)
   }
 
   /**
@@ -219,7 +219,7 @@ public open class VoxelGI : VisualInstance3D() {
    */
   public final fun debugBake(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.debugBakePtr)
+    TransferContext.callPtrMethod(MethodBindings.debugBakePtr, 0)
   }
 
   public enum class Subdiv(

@@ -46,12 +46,12 @@ public open class Path2D : Node2D() {
 
   public final fun setCurve(curve: Curve2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callMethod(MethodBindings.setCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCurvePtr, 0)
   }
 
   public final fun getCurve(): Curve2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurvePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Curve2D?)
   }
 

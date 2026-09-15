@@ -45,7 +45,7 @@ public open class OpenXRAndroidThreadSettingsExtension : OpenXRExtensionWrapper(
   @JvmOverloads
   public final fun setApplicationThreadType(threadType: ThreadType, threadId: Long = 0): Boolean {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, threadType.value, threadId)
-    TransferContext.callMethod(MethodBindings.setApplicationThreadTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setApplicationThreadTypePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

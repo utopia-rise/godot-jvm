@@ -198,7 +198,7 @@ public open class UDPServer : RefCounted() {
    */
   public final fun poll(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pollPtr)
+    TransferContext.callPtrMethod(MethodBindings.pollPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -207,7 +207,7 @@ public open class UDPServer : RefCounted() {
    */
   public final fun isConnectionAvailable(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isConnectionAvailablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isConnectionAvailablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -216,7 +216,7 @@ public open class UDPServer : RefCounted() {
    */
   public final fun getLocalPort(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalPortPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocalPortPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -225,7 +225,7 @@ public open class UDPServer : RefCounted() {
    */
   public final fun isListening(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isListeningPtr)
+    TransferContext.callPtrMethod(MethodBindings.isListeningPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -236,7 +236,7 @@ public open class UDPServer : RefCounted() {
    */
   public final fun takeConnection(): PacketPeerUDP? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.takeConnectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.takeConnectionPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as PacketPeerUDP?)
   }
 
@@ -246,17 +246,17 @@ public open class UDPServer : RefCounted() {
    */
   public final fun stop(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.stopPtr)
+    TransferContext.callPtrMethod(MethodBindings.stopPtr, 0)
   }
 
   public final fun setMaxPendingConnections(maxPendingConnections: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxPendingConnections.toLong())
-    TransferContext.callMethod(MethodBindings.setMaxPendingConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxPendingConnectionsPtr, 0)
   }
 
   public final fun getMaxPendingConnections(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxPendingConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxPendingConnectionsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

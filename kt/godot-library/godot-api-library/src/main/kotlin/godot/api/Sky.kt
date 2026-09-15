@@ -76,34 +76,34 @@ public open class Sky : Resource() {
 
   public final fun setRadianceSize(size: RadianceSize): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.value)
-    TransferContext.callMethod(MethodBindings.setRadianceSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setRadianceSizePtr, 0)
   }
 
   public final fun getRadianceSize(): RadianceSize {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadianceSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getRadianceSizePtr, 2)
     return RadianceSize.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setProcessMode(mode: ProcessMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setProcessModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setProcessModePtr, 0)
   }
 
   public final fun getProcessMode(): ProcessMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getProcessModePtr, 2)
     return ProcessMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setMaterial(material: Material?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
-    TransferContext.callMethod(MethodBindings.setMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaterialPtr, 0)
   }
 
   public final fun getMaterial(): Material? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaterialPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Material?)
   }
 

@@ -57,7 +57,7 @@ public open class ScriptBacktrace : RefCounted() {
    */
   public final fun isEmpty(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEmptyPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEmptyPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -66,7 +66,7 @@ public open class ScriptBacktrace : RefCounted() {
    */
   public final fun getFrameCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFrameCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFrameCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -93,7 +93,7 @@ public open class ScriptBacktrace : RefCounted() {
    */
   public final fun getFrameLine(index: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getFrameLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFrameLinePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -105,7 +105,7 @@ public open class ScriptBacktrace : RefCounted() {
    */
   public final fun getGlobalVariableCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlobalVariableCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlobalVariableCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -139,7 +139,7 @@ public open class ScriptBacktrace : RefCounted() {
    */
   public final fun getLocalVariableCount(frameIndex: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frameIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getLocalVariableCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocalVariableCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -175,7 +175,7 @@ public open class ScriptBacktrace : RefCounted() {
    */
   public final fun getMemberVariableCount(frameIndex: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frameIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getMemberVariableCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMemberVariableCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

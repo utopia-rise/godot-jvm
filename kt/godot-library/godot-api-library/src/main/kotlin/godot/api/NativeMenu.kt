@@ -408,7 +408,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun hasFeature(feature: Feature): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, feature.value)
-    TransferContext.callMethod(MethodBindings.hasFeaturePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasFeaturePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -420,7 +420,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun hasSystemMenu(menuId: SystemMenus): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, menuId.value)
-    TransferContext.callMethod(MethodBindings.hasSystemMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasSystemMenuPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -432,7 +432,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun getSystemMenu(menuId: SystemMenus): RID {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, menuId.value)
-    TransferContext.callMethod(MethodBindings.getSystemMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSystemMenuPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -479,7 +479,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun createMenu(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.createMenuPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -491,7 +491,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun hasMenu(rid: RID): Boolean {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, rid)
-    TransferContext.callMethod(MethodBindings.hasMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasMenuPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -503,7 +503,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun freeMenu(rid: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, rid)
-    TransferContext.callMethod(MethodBindings.freeMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.freeMenuPtr, 0)
   }
 
   /**
@@ -514,7 +514,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun getSize(rid: RID): Vector2 {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, rid)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -526,7 +526,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun popup(rid: RID, position: Vector2i): Unit {
     TransferContext.writeMethodArguments_RID_VECTOR2I(ptr, objectID.id, rid, position)
-    TransferContext.callMethod(MethodBindings.popupPtr)
+    TransferContext.callPtrMethod(MethodBindings.popupPtr, 0)
   }
 
   /**
@@ -537,7 +537,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun setInterfaceDirection(rid: RID, isRtl: Boolean): Unit {
     TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, rid, isRtl)
-    TransferContext.callMethod(MethodBindings.setInterfaceDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInterfaceDirectionPtr, 0)
   }
 
   /**
@@ -598,7 +598,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun setMinimumWidth(rid: RID, width: Float): Unit {
     TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, rid, width.toDouble())
-    TransferContext.callMethod(MethodBindings.setMinimumWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMinimumWidthPtr, 0)
   }
 
   /**
@@ -609,7 +609,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun getMinimumWidth(rid: RID): Float {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, rid)
-    TransferContext.callMethod(MethodBindings.getMinimumWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinimumWidthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -621,7 +621,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun isOpened(rid: RID): Boolean {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, rid)
-    TransferContext.callMethod(MethodBindings.isOpenedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isOpenedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -909,7 +909,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun addSeparator(rid: RID, index: Int = -1): Int {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, index.toLong())
-    TransferContext.callMethod(MethodBindings.addSeparatorPtr)
+    TransferContext.callPtrMethod(MethodBindings.addSeparatorPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -948,7 +948,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun findItemIndexWithSubmenu(rid: RID, submenuRid: RID): Int {
     TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, rid, submenuRid)
-    TransferContext.callMethod(MethodBindings.findItemIndexWithSubmenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.findItemIndexWithSubmenuPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -960,7 +960,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun isItemChecked(rid: RID, idx: Int): Boolean {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.isItemCheckedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isItemCheckedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -973,7 +973,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun isItemCheckable(rid: RID, idx: Int): Boolean {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.isItemCheckablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isItemCheckablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -988,7 +988,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun isItemRadioCheckable(rid: RID, idx: Int): Boolean {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.isItemRadioCheckablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isItemRadioCheckablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1050,7 +1050,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun getItemSubmenu(rid: RID, idx: Int): RID {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getItemSubmenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemSubmenuPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -1063,7 +1063,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun getItemAccelerator(rid: RID, idx: Int): Key {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getItemAcceleratorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemAcceleratorPtr, 2)
     return Key.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -1078,7 +1078,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun isItemDisabled(rid: RID, idx: Int): Boolean {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.isItemDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isItemDisabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1092,7 +1092,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun isItemHidden(rid: RID, idx: Int): Boolean {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.isItemHiddenPtr)
+    TransferContext.callPtrMethod(MethodBindings.isItemHiddenPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1116,7 +1116,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun getItemState(rid: RID, idx: Int): Int {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getItemStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemStatePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1128,7 +1128,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun getItemMaxStates(rid: RID, idx: Int): Int {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getItemMaxStatesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemMaxStatesPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1140,7 +1140,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun getItemIcon(rid: RID, idx: Int): Texture2D? {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getItemIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemIconPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
@@ -1152,7 +1152,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun getItemIndentationLevel(rid: RID, idx: Int): Int {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getItemIndentationLevelPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemIndentationLevelPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1168,7 +1168,7 @@ public object NativeMenu : Object() {
     checked: Boolean,
   ): Unit {
     TransferContext.writeMethodArguments_RID_LONG_BOOL(ptr, objectID.id, rid, idx.toLong(), checked)
-    TransferContext.callMethod(MethodBindings.setItemCheckedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemCheckedPtr, 0)
   }
 
   /**
@@ -1184,7 +1184,7 @@ public object NativeMenu : Object() {
     checkable: Boolean,
   ): Unit {
     TransferContext.writeMethodArguments_RID_LONG_BOOL(ptr, objectID.id, rid, idx.toLong(), checkable)
-    TransferContext.callMethod(MethodBindings.setItemCheckablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemCheckablePtr, 0)
   }
 
   /**
@@ -1203,7 +1203,7 @@ public object NativeMenu : Object() {
     checkable: Boolean,
   ): Unit {
     TransferContext.writeMethodArguments_RID_LONG_BOOL(ptr, objectID.id, rid, idx.toLong(), checkable)
-    TransferContext.callMethod(MethodBindings.setItemRadioCheckablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemRadioCheckablePtr, 0)
   }
 
   /**
@@ -1308,7 +1308,7 @@ public object NativeMenu : Object() {
     submenuRid: RID,
   ): Unit {
     TransferContext.writeMethodArguments_RID_LONG_RID(ptr, objectID.id, rid, idx.toLong(), submenuRid)
-    TransferContext.callMethod(MethodBindings.setItemSubmenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemSubmenuPtr, 0)
   }
 
   /**
@@ -1325,7 +1325,7 @@ public object NativeMenu : Object() {
     keycode: Key,
   ): Unit {
     TransferContext.writeMethodArguments_RID_LONG_LONG(ptr, objectID.id, rid, idx.toLong(), keycode.value)
-    TransferContext.callMethod(MethodBindings.setItemAcceleratorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemAcceleratorPtr, 0)
   }
 
   /**
@@ -1341,7 +1341,7 @@ public object NativeMenu : Object() {
     disabled: Boolean,
   ): Unit {
     TransferContext.writeMethodArguments_RID_LONG_BOOL(ptr, objectID.id, rid, idx.toLong(), disabled)
-    TransferContext.callMethod(MethodBindings.setItemDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemDisabledPtr, 0)
   }
 
   /**
@@ -1357,7 +1357,7 @@ public object NativeMenu : Object() {
     hidden: Boolean,
   ): Unit {
     TransferContext.writeMethodArguments_RID_LONG_BOOL(ptr, objectID.id, rid, idx.toLong(), hidden)
-    TransferContext.callMethod(MethodBindings.setItemHiddenPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemHiddenPtr, 0)
   }
 
   /**
@@ -1387,7 +1387,7 @@ public object NativeMenu : Object() {
     state: Int,
   ): Unit {
     TransferContext.writeMethodArguments_RID_LONG_LONG(ptr, objectID.id, rid, idx.toLong(), state.toLong())
-    TransferContext.callMethod(MethodBindings.setItemStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemStatePtr, 0)
   }
 
   /**
@@ -1402,7 +1402,7 @@ public object NativeMenu : Object() {
     maxStates: Int,
   ): Unit {
     TransferContext.writeMethodArguments_RID_LONG_LONG(ptr, objectID.id, rid, idx.toLong(), maxStates.toLong())
-    TransferContext.callMethod(MethodBindings.setItemMaxStatesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemMaxStatesPtr, 0)
   }
 
   /**
@@ -1419,7 +1419,7 @@ public object NativeMenu : Object() {
     icon: Texture2D?,
   ): Unit {
     TransferContext.writeMethodArguments_RID_LONG_OBJECT(ptr, objectID.id, rid, idx.toLong(), icon)
-    TransferContext.callMethod(MethodBindings.setItemIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemIconPtr, 0)
   }
 
   /**
@@ -1434,7 +1434,7 @@ public object NativeMenu : Object() {
     level: Int,
   ): Unit {
     TransferContext.writeMethodArguments_RID_LONG_LONG(ptr, objectID.id, rid, idx.toLong(), level.toLong())
-    TransferContext.callMethod(MethodBindings.setItemIndentationLevelPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemIndentationLevelPtr, 0)
   }
 
   /**
@@ -1455,7 +1455,7 @@ public object NativeMenu : Object() {
     targetIdx: Int,
   ): Int {
     TransferContext.writeMethodArguments_RID_LONG_LONG(ptr, objectID.id, rid, idx.toLong(), targetIdx.toLong())
-    TransferContext.callMethod(MethodBindings.setItemIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1467,7 +1467,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun getItemCount(rid: RID): Int {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, rid)
-    TransferContext.callMethod(MethodBindings.getItemCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1479,7 +1479,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun isSystemMenu(rid: RID): Boolean {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, rid)
-    TransferContext.callMethod(MethodBindings.isSystemMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSystemMenuPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1493,7 +1493,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun removeItem(rid: RID, idx: Int): Unit {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, rid, idx.toLong())
-    TransferContext.callMethod(MethodBindings.removeItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeItemPtr, 0)
   }
 
   /**
@@ -1504,7 +1504,7 @@ public object NativeMenu : Object() {
   @JvmStatic
   public final fun clear(rid: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, rid)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   public enum class Feature(

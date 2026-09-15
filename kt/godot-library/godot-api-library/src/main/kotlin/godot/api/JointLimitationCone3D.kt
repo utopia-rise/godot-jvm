@@ -46,12 +46,12 @@ public open class JointLimitationCone3D : JointLimitation3D() {
 
   public final fun setAngle(angle: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callMethod(MethodBindings.setAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAnglePtr, 0)
   }
 
   public final fun getAngle(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

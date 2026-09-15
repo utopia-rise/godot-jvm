@@ -46,7 +46,7 @@ public open class SkinReference internal constructor() : RefCounted() {
    */
   public final fun getSkeleton(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkeletonPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -60,7 +60,7 @@ public open class SkinReference internal constructor() : RefCounted() {
    */
   public final fun getSkin(): Skin? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkinPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkinPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Skin?)
   }
 

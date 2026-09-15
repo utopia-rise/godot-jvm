@@ -72,12 +72,12 @@ public open class OpenXRCompositionLayerQuad : OpenXRCompositionLayer() {
 
   public final fun setQuadSize(size: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, size)
-    TransferContext.callMethod(MethodBindings.setQuadSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setQuadSizePtr, 0)
   }
 
   public final fun getQuadSize(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getQuadSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getQuadSizePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

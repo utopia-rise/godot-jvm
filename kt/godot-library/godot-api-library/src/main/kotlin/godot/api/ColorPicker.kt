@@ -226,122 +226,122 @@ public open class ColorPicker : VBoxContainer() {
 
   public final fun setPickColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setPickColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPickColorPtr, 0)
   }
 
   public final fun getPickColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPickColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPickColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setDeferredMode(mode: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, mode)
-    TransferContext.callMethod(MethodBindings.setDeferredModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDeferredModePtr, 0)
   }
 
   public final fun isDeferredMode(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDeferredModePtr)
+    TransferContext.callPtrMethod(MethodBindings.isDeferredModePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setColorMode(colorMode: ColorModeType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, colorMode.value)
-    TransferContext.callMethod(MethodBindings.setColorModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setColorModePtr, 0)
   }
 
   public final fun getColorMode(): ColorModeType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorModePtr, 2)
     return ColorModeType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setEditAlpha(show: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, show)
-    TransferContext.callMethod(MethodBindings.setEditAlphaPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEditAlphaPtr, 0)
   }
 
   public final fun isEditingAlpha(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEditingAlphaPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEditingAlphaPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEditIntensity(show: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, show)
-    TransferContext.callMethod(MethodBindings.setEditIntensityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEditIntensityPtr, 0)
   }
 
   public final fun isEditingIntensity(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEditingIntensityPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEditingIntensityPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCanAddSwatches(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setCanAddSwatchesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCanAddSwatchesPtr, 0)
   }
 
   public final fun areSwatchesEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.areSwatchesEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.areSwatchesEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setPresetsVisible(visible: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
-    TransferContext.callMethod(MethodBindings.setPresetsVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPresetsVisiblePtr, 0)
   }
 
   public final fun arePresetsVisible(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.arePresetsVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.arePresetsVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setModesVisible(visible: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
-    TransferContext.callMethod(MethodBindings.setModesVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.setModesVisiblePtr, 0)
   }
 
   public final fun areModesVisible(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.areModesVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.areModesVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSamplerVisible(visible: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
-    TransferContext.callMethod(MethodBindings.setSamplerVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSamplerVisiblePtr, 0)
   }
 
   public final fun isSamplerVisible(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSamplerVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.isSamplerVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSlidersVisible(visible: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
-    TransferContext.callMethod(MethodBindings.setSlidersVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSlidersVisiblePtr, 0)
   }
 
   public final fun areSlidersVisible(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.areSlidersVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.areSlidersVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHexVisible(visible: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
-    TransferContext.callMethod(MethodBindings.setHexVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.setHexVisiblePtr, 0)
   }
 
   public final fun isHexVisible(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isHexVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.isHexVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -353,7 +353,7 @@ public open class ColorPicker : VBoxContainer() {
    */
   public final fun addPreset(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.addPresetPtr)
+    TransferContext.callPtrMethod(MethodBindings.addPresetPtr, 0)
   }
 
   /**
@@ -361,7 +361,7 @@ public open class ColorPicker : VBoxContainer() {
    */
   public final fun erasePreset(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.erasePresetPtr)
+    TransferContext.callPtrMethod(MethodBindings.erasePresetPtr, 0)
   }
 
   /**
@@ -382,7 +382,7 @@ public open class ColorPicker : VBoxContainer() {
    */
   public final fun addRecentPreset(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.addRecentPresetPtr)
+    TransferContext.callPtrMethod(MethodBindings.addRecentPresetPtr, 0)
   }
 
   /**
@@ -390,7 +390,7 @@ public open class ColorPicker : VBoxContainer() {
    */
   public final fun eraseRecentPreset(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.eraseRecentPresetPtr)
+    TransferContext.callPtrMethod(MethodBindings.eraseRecentPresetPtr, 0)
   }
 
   /**
@@ -404,12 +404,12 @@ public open class ColorPicker : VBoxContainer() {
 
   public final fun setPickerShape(shape: PickerShapeType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, shape.value)
-    TransferContext.callMethod(MethodBindings.setPickerShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPickerShapePtr, 0)
   }
 
   public final fun getPickerShape(): PickerShapeType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPickerShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPickerShapePtr, 2)
     return PickerShapeType.from(TransferContext.readReturnValue_LONG())
   }
 

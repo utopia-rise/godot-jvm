@@ -61,7 +61,7 @@ public open class AudioEffectRecord : AudioEffect() {
    */
   public final fun setRecordingActive(record: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, record)
-    TransferContext.callMethod(MethodBindings.setRecordingActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.setRecordingActivePtr, 0)
   }
 
   /**
@@ -69,18 +69,18 @@ public open class AudioEffectRecord : AudioEffect() {
    */
   public final fun isRecordingActive(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRecordingActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.isRecordingActivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFormat(format: AudioStreamWAV.Format): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, format.value)
-    TransferContext.callMethod(MethodBindings.setFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFormatPtr, 0)
   }
 
   public final fun getFormat(): AudioStreamWAV.Format {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
     return AudioStreamWAV.Format.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -89,7 +89,7 @@ public open class AudioEffectRecord : AudioEffect() {
    */
   public final fun getRecording(): AudioStreamWAV? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRecordingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRecordingPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as AudioStreamWAV?)
   }
 

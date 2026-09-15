@@ -51,12 +51,12 @@ public open class CSGPrimitive3D internal constructor() : CSGShape3D() {
 
   public final fun setFlipFaces(flipFaces: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, flipFaces)
-    TransferContext.callMethod(MethodBindings.setFlipFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFlipFacesPtr, 0)
   }
 
   public final fun getFlipFaces(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFlipFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFlipFacesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

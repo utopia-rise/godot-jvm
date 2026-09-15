@@ -168,7 +168,7 @@ public open class GLTFSkeleton : Resource() {
 
   public final fun setJoints(joints: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, joints)
-    TransferContext.callMethod(MethodBindings.setJointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setJointsPtr, 0)
   }
 
   public final fun getRoots(): PackedInt32Array {
@@ -179,12 +179,12 @@ public open class GLTFSkeleton : Resource() {
 
   public final fun setRoots(roots: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, roots)
-    TransferContext.callMethod(MethodBindings.setRootsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRootsPtr, 0)
   }
 
   public final fun getGodotSkeleton(): Skeleton3D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGodotSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGodotSkeletonPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Skeleton3D?)
   }
 
@@ -196,7 +196,7 @@ public open class GLTFSkeleton : Resource() {
 
   public final fun setUniqueNames(uniqueNames: VariantArray<String>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, uniqueNames)
-    TransferContext.callMethod(MethodBindings.setUniqueNamesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUniqueNamesPtr, 0)
   }
 
   /**
@@ -217,18 +217,18 @@ public open class GLTFSkeleton : Resource() {
    */
   public final fun setGodotBoneNode(godotBoneNode: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, godotBoneNode)
-    TransferContext.callMethod(MethodBindings.setGodotBoneNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.setGodotBoneNodePtr, 0)
   }
 
   public final fun getBoneAttachmentCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneAttachmentCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneAttachmentCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun getBoneAttachment(idx: Int): BoneAttachment3D? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneAttachmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneAttachmentPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as BoneAttachment3D?)
   }
 

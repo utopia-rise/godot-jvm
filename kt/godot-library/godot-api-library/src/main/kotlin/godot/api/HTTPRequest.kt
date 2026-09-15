@@ -378,7 +378,7 @@ public open class HTTPRequest : Node() {
    */
   public final fun cancelRequest(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.cancelRequestPtr)
+    TransferContext.callPtrMethod(MethodBindings.cancelRequestPtr, 0)
   }
 
   /**
@@ -386,7 +386,7 @@ public open class HTTPRequest : Node() {
    */
   public final fun setTlsOptions(clientOptions: TLSOptions?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, clientOptions)
-    TransferContext.callMethod(MethodBindings.setTlsOptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTlsOptionsPtr, 0)
   }
 
   /**
@@ -394,51 +394,51 @@ public open class HTTPRequest : Node() {
    */
   public final fun getHttpClientStatus(): HTTPClient.Status {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHttpClientStatusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHttpClientStatusPtr, 2)
     return HTTPClient.Status.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setUseThreads(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setUseThreadsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseThreadsPtr, 0)
   }
 
   public final fun isUsingThreads(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingThreadsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isUsingThreadsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAcceptGzip(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setAcceptGzipPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAcceptGzipPtr, 0)
   }
 
   public final fun isAcceptingGzip(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAcceptingGzipPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAcceptingGzipPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setBodySizeLimit(bytes: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bytes.toLong())
-    TransferContext.callMethod(MethodBindings.setBodySizeLimitPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBodySizeLimitPtr, 0)
   }
 
   public final fun getBodySizeLimit(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBodySizeLimitPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBodySizeLimitPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMaxRedirects(amount: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
-    TransferContext.callMethod(MethodBindings.setMaxRedirectsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxRedirectsPtr, 0)
   }
 
   public final fun getMaxRedirects(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxRedirectsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxRedirectsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -458,7 +458,7 @@ public open class HTTPRequest : Node() {
    */
   public final fun getDownloadedBytes(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDownloadedBytesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDownloadedBytesPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -470,29 +470,29 @@ public open class HTTPRequest : Node() {
    */
   public final fun getBodySize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBodySizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBodySizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setTimeout(timeout: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeout)
-    TransferContext.callMethod(MethodBindings.setTimeoutPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTimeoutPtr, 0)
   }
 
   public final fun getTimeout(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTimeoutPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTimeoutPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setDownloadChunkSize(chunkSize: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, chunkSize.toLong())
-    TransferContext.callMethod(MethodBindings.setDownloadChunkSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDownloadChunkSizePtr, 0)
   }
 
   public final fun getDownloadChunkSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDownloadChunkSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDownloadChunkSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

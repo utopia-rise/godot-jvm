@@ -41,7 +41,7 @@ public open class OpenXRSpatialComponentMesh2DList : OpenXRSpatialComponentData(
    */
   public final fun getTransform(index: Long): Transform3D {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransformPtr, 18)
     return TransferContext.readReturnValue_TRANSFORM3D()
   }
 

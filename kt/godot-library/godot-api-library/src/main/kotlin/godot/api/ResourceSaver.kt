@@ -137,7 +137,7 @@ public object ResourceSaver : Object() {
   public final fun addResourceFormatSaver(formatSaver: ResourceFormatSaver, atFront: Boolean =
       false): Unit {
     TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, formatSaver, atFront)
-    TransferContext.callMethod(MethodBindings.addResourceFormatSaverPtr)
+    TransferContext.callPtrMethod(MethodBindings.addResourceFormatSaverPtr, 0)
   }
 
   /**
@@ -146,7 +146,7 @@ public object ResourceSaver : Object() {
   @JvmStatic
   public final fun removeResourceFormatSaver(formatSaver: ResourceFormatSaver): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, formatSaver)
-    TransferContext.callMethod(MethodBindings.removeResourceFormatSaverPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeResourceFormatSaverPtr, 0)
   }
 
   /**

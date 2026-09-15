@@ -62,12 +62,12 @@ public open class OpenXRSpatialCapabilityConfigurationAprilTag :
 
   public final fun setAprilDict(aprilDict: AprilTagDict): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, aprilDict.value)
-    TransferContext.callMethod(MethodBindings.setAprilDictPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAprilDictPtr, 0)
   }
 
   public final fun getAprilDict(): AprilTagDict {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAprilDictPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAprilDictPtr, 2)
     return AprilTagDict.from(TransferContext.readReturnValue_LONG())
   }
 

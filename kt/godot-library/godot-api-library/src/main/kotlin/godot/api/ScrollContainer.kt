@@ -225,122 +225,122 @@ public open class ScrollContainer : Container() {
 
   public final fun setHScroll(`value`: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, value.toLong())
-    TransferContext.callMethod(MethodBindings.setHScrollPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHScrollPtr, 0)
   }
 
   public final fun getHScroll(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHScrollPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHScrollPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setVScroll(`value`: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, value.toLong())
-    TransferContext.callMethod(MethodBindings.setVScrollPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVScrollPtr, 0)
   }
 
   public final fun getVScroll(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVScrollPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVScrollPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setHorizontalCustomStep(`value`: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value.toDouble())
-    TransferContext.callMethod(MethodBindings.setHorizontalCustomStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHorizontalCustomStepPtr, 0)
   }
 
   public final fun getHorizontalCustomStep(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHorizontalCustomStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHorizontalCustomStepPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVerticalCustomStep(`value`: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value.toDouble())
-    TransferContext.callMethod(MethodBindings.setVerticalCustomStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVerticalCustomStepPtr, 0)
   }
 
   public final fun getVerticalCustomStep(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVerticalCustomStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVerticalCustomStepPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setHorizontalScrollMode(enable: ScrollMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, enable.value)
-    TransferContext.callMethod(MethodBindings.setHorizontalScrollModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setHorizontalScrollModePtr, 0)
   }
 
   public final fun getHorizontalScrollMode(): ScrollMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHorizontalScrollModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getHorizontalScrollModePtr, 2)
     return ScrollMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setVerticalScrollMode(enable: ScrollMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, enable.value)
-    TransferContext.callMethod(MethodBindings.setVerticalScrollModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setVerticalScrollModePtr, 0)
   }
 
   public final fun getVerticalScrollMode(): ScrollMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVerticalScrollModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getVerticalScrollModePtr, 2)
     return ScrollMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setScrollHorizontalByDefault(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setScrollHorizontalByDefaultPtr)
+    TransferContext.callPtrMethod(MethodBindings.setScrollHorizontalByDefaultPtr, 0)
   }
 
   public final fun isScrollHorizontalByDefault(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isScrollHorizontalByDefaultPtr)
+    TransferContext.callPtrMethod(MethodBindings.isScrollHorizontalByDefaultPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDeadzone(deadzone: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, deadzone.toLong())
-    TransferContext.callMethod(MethodBindings.setDeadzonePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDeadzonePtr, 0)
   }
 
   public final fun getDeadzone(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDeadzonePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDeadzonePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setScrollHintMode(scrollHintMode: ScrollHintMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, scrollHintMode.value)
-    TransferContext.callMethod(MethodBindings.setScrollHintModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setScrollHintModePtr, 0)
   }
 
   public final fun getScrollHintMode(): ScrollHintMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScrollHintModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getScrollHintModePtr, 2)
     return ScrollHintMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTileScrollHint(tileScrollHint: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, tileScrollHint)
-    TransferContext.callMethod(MethodBindings.setTileScrollHintPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTileScrollHintPtr, 0)
   }
 
   public final fun isScrollHintTiled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isScrollHintTiledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isScrollHintTiledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFollowFocus(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setFollowFocusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFollowFocusPtr, 0)
   }
 
   public final fun isFollowingFocus(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFollowingFocusPtr)
+    TransferContext.callPtrMethod(MethodBindings.isFollowingFocusPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -352,7 +352,7 @@ public open class ScrollContainer : Container() {
    */
   public final fun getHScrollBar(): HScrollBar? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHScrollBarPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHScrollBarPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as HScrollBar?)
   }
 
@@ -364,7 +364,7 @@ public open class ScrollContainer : Container() {
    */
   public final fun getVScrollBar(): VScrollBar? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVScrollBarPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVScrollBarPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as VScrollBar?)
   }
 
@@ -384,17 +384,17 @@ public open class ScrollContainer : Container() {
    */
   public final fun ensureControlVisible(control: Control?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, control)
-    TransferContext.callMethod(MethodBindings.ensureControlVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.ensureControlVisiblePtr, 0)
   }
 
   public final fun setDrawFocusBorder(draw: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, draw)
-    TransferContext.callMethod(MethodBindings.setDrawFocusBorderPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawFocusBorderPtr, 0)
   }
 
   public final fun getDrawFocusBorder(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDrawFocusBorderPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDrawFocusBorderPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

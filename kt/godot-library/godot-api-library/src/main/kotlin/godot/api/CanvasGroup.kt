@@ -106,34 +106,34 @@ public open class CanvasGroup : Node2D() {
 
   public final fun setFitMargin(fitMargin: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fitMargin.toDouble())
-    TransferContext.callMethod(MethodBindings.setFitMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFitMarginPtr, 0)
   }
 
   public final fun getFitMargin(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFitMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFitMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setClearMargin(clearMargin: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, clearMargin.toDouble())
-    TransferContext.callMethod(MethodBindings.setClearMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setClearMarginPtr, 0)
   }
 
   public final fun getClearMargin(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getClearMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClearMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setUseMipmaps(useMipmaps: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, useMipmaps)
-    TransferContext.callMethod(MethodBindings.setUseMipmapsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseMipmapsPtr, 0)
   }
 
   public final fun isUsingMipmaps(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingMipmapsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isUsingMipmapsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

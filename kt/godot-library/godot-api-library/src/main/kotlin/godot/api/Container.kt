@@ -91,7 +91,7 @@ public open class Container : Control() {
    */
   public final fun queueSort(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.queueSortPtr)
+    TransferContext.callPtrMethod(MethodBindings.queueSortPtr, 0)
   }
 
   /**
@@ -100,17 +100,17 @@ public open class Container : Control() {
    */
   public final fun fitChildInRect(child: Control, rect: Rect2): Unit {
     TransferContext.writeMethodArguments_OBJECT_RECT2(ptr, objectID.id, child, rect)
-    TransferContext.callMethod(MethodBindings.fitChildInRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.fitChildInRectPtr, 0)
   }
 
   public final fun setAccessibilityRegion(region: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, region)
-    TransferContext.callMethod(MethodBindings.setAccessibilityRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAccessibilityRegionPtr, 0)
   }
 
   public final fun isAccessibilityRegion(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAccessibilityRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAccessibilityRegionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

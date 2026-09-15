@@ -59,7 +59,7 @@ public open class ImageFormatLoaderExtension : ImageFormatLoader() {
    */
   public final fun addFormatLoader(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.addFormatLoaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.addFormatLoaderPtr, 0)
   }
 
   /**
@@ -67,7 +67,7 @@ public open class ImageFormatLoaderExtension : ImageFormatLoader() {
    */
   public final fun removeFormatLoader(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.removeFormatLoaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeFormatLoaderPtr, 0)
   }
 
   public companion object {

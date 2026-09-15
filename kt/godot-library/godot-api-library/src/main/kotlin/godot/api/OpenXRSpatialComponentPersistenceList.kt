@@ -44,7 +44,7 @@ public open class OpenXRSpatialComponentPersistenceList : OpenXRSpatialComponent
    */
   public final fun getPersistentState(index: Long): Long {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getPersistentStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPersistentStatePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

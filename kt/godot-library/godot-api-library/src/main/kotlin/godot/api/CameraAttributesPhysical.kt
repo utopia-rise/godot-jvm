@@ -166,67 +166,67 @@ public open class CameraAttributesPhysical : CameraAttributes() {
 
   public final fun setAperture(aperture: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, aperture.toDouble())
-    TransferContext.callMethod(MethodBindings.setAperturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAperturePtr, 0)
   }
 
   public final fun getAperture(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAperturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAperturePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setShutterSpeed(shutterSpeed: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, shutterSpeed.toDouble())
-    TransferContext.callMethod(MethodBindings.setShutterSpeedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShutterSpeedPtr, 0)
   }
 
   public final fun getShutterSpeed(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShutterSpeedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShutterSpeedPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFocalLength(focalLength: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, focalLength.toDouble())
-    TransferContext.callMethod(MethodBindings.setFocalLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFocalLengthPtr, 0)
   }
 
   public final fun getFocalLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFocalLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFocalLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFocusDistance(focusDistance: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, focusDistance.toDouble())
-    TransferContext.callMethod(MethodBindings.setFocusDistancePtr)
+    TransferContext.callPtrMethod(MethodBindings.setFocusDistancePtr, 0)
   }
 
   public final fun getFocusDistance(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFocusDistancePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFocusDistancePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setNear(near: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, near.toDouble())
-    TransferContext.callMethod(MethodBindings.setNearPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNearPtr, 0)
   }
 
   public final fun getNear(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNearPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNearPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFar(far: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, far.toDouble())
-    TransferContext.callMethod(MethodBindings.setFarPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFarPtr, 0)
   }
 
   public final fun getFar(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFarPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFarPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -236,29 +236,29 @@ public open class CameraAttributesPhysical : CameraAttributes() {
    */
   public final fun getFov(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFovPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFovPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAutoExposureMaxExposureValue(exposureValueMax: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, exposureValueMax.toDouble())
-    TransferContext.callMethod(MethodBindings.setAutoExposureMaxExposureValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutoExposureMaxExposureValuePtr, 0)
   }
 
   public final fun getAutoExposureMaxExposureValue(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutoExposureMaxExposureValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAutoExposureMaxExposureValuePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAutoExposureMinExposureValue(exposureValueMin: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, exposureValueMin.toDouble())
-    TransferContext.callMethod(MethodBindings.setAutoExposureMinExposureValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutoExposureMinExposureValuePtr, 0)
   }
 
   public final fun getAutoExposureMinExposureValue(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutoExposureMinExposureValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAutoExposureMinExposureValuePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

@@ -152,34 +152,34 @@ public open class Timer : Node() {
 
   public final fun setWaitTime(timeSec: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeSec)
-    TransferContext.callMethod(MethodBindings.setWaitTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.setWaitTimePtr, 0)
   }
 
   public final fun getWaitTime(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWaitTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.getWaitTimePtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setOneShot(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setOneShotPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOneShotPtr, 0)
   }
 
   public final fun isOneShot(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isOneShotPtr)
+    TransferContext.callPtrMethod(MethodBindings.isOneShotPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAutostart(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setAutostartPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutostartPtr, 0)
   }
 
   public final fun hasAutostart(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasAutostartPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasAutostartPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -192,7 +192,7 @@ public open class Timer : Node() {
   @JvmOverloads
   public final fun start(timeSec: Double = -1.0): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeSec)
-    TransferContext.callMethod(MethodBindings.startPtr)
+    TransferContext.callPtrMethod(MethodBindings.startPtr, 0)
   }
 
   /**
@@ -205,28 +205,28 @@ public open class Timer : Node() {
    */
   public final fun stop(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.stopPtr)
+    TransferContext.callPtrMethod(MethodBindings.stopPtr, 0)
   }
 
   public final fun setPaused(paused: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, paused)
-    TransferContext.callMethod(MethodBindings.setPausedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPausedPtr, 0)
   }
 
   public final fun isPaused(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPausedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPausedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setIgnoreTimeScale(ignore: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, ignore)
-    TransferContext.callMethod(MethodBindings.setIgnoreTimeScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setIgnoreTimeScalePtr, 0)
   }
 
   public final fun isIgnoringTimeScale(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isIgnoringTimeScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.isIgnoringTimeScalePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -235,24 +235,24 @@ public open class Timer : Node() {
    */
   public final fun isStopped(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isStoppedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isStoppedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun getTimeLeft(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTimeLeftPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTimeLeftPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setTimerProcessCallback(callback: TimerProcessCallback): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, callback.value)
-    TransferContext.callMethod(MethodBindings.setTimerProcessCallbackPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTimerProcessCallbackPtr, 0)
   }
 
   public final fun getTimerProcessCallback(): TimerProcessCallback {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTimerProcessCallbackPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTimerProcessCallbackPtr, 2)
     return TimerProcessCallback.from(TransferContext.readReturnValue_LONG())
   }
 

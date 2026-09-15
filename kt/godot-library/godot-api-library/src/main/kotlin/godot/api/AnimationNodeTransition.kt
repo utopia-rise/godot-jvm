@@ -129,7 +129,7 @@ public open class AnimationNodeTransition : AnimationNodeSync() {
 
   public final fun setInputCount(inputCount: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, inputCount.toLong())
-    TransferContext.callMethod(MethodBindings.setInputCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInputCountPtr, 0)
   }
 
   /**
@@ -139,7 +139,7 @@ public open class AnimationNodeTransition : AnimationNodeSync() {
    */
   public final fun setInputAsAutoAdvance(input: Int, enable: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, input.toLong(), enable)
-    TransferContext.callMethod(MethodBindings.setInputAsAutoAdvancePtr)
+    TransferContext.callPtrMethod(MethodBindings.setInputAsAutoAdvancePtr, 0)
   }
 
   /**
@@ -147,7 +147,7 @@ public open class AnimationNodeTransition : AnimationNodeSync() {
    */
   public final fun isInputSetAsAutoAdvance(input: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, input.toLong())
-    TransferContext.callMethod(MethodBindings.isInputSetAsAutoAdvancePtr)
+    TransferContext.callPtrMethod(MethodBindings.isInputSetAsAutoAdvancePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -157,7 +157,7 @@ public open class AnimationNodeTransition : AnimationNodeSync() {
    */
   public final fun setInputBreakLoopAtEnd(input: Int, enable: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, input.toLong(), enable)
-    TransferContext.callMethod(MethodBindings.setInputBreakLoopAtEndPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInputBreakLoopAtEndPtr, 0)
   }
 
   /**
@@ -165,7 +165,7 @@ public open class AnimationNodeTransition : AnimationNodeSync() {
    */
   public final fun isInputLoopBrokenAtEnd(input: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, input.toLong())
-    TransferContext.callMethod(MethodBindings.isInputLoopBrokenAtEndPtr)
+    TransferContext.callPtrMethod(MethodBindings.isInputLoopBrokenAtEndPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -174,7 +174,7 @@ public open class AnimationNodeTransition : AnimationNodeSync() {
    */
   public final fun setInputReset(input: Int, enable: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, input.toLong(), enable)
-    TransferContext.callMethod(MethodBindings.setInputResetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInputResetPtr, 0)
   }
 
   /**
@@ -182,40 +182,40 @@ public open class AnimationNodeTransition : AnimationNodeSync() {
    */
   public final fun isInputReset(input: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, input.toLong())
-    TransferContext.callMethod(MethodBindings.isInputResetPtr)
+    TransferContext.callPtrMethod(MethodBindings.isInputResetPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setXfadeTime(time: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
-    TransferContext.callMethod(MethodBindings.setXfadeTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.setXfadeTimePtr, 0)
   }
 
   public final fun getXfadeTime(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getXfadeTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.getXfadeTimePtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setXfadeCurve(curve: Curve?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callMethod(MethodBindings.setXfadeCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.setXfadeCurvePtr, 0)
   }
 
   public final fun getXfadeCurve(): Curve? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getXfadeCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.getXfadeCurvePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 
   public final fun setAllowTransitionToSelf(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setAllowTransitionToSelfPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAllowTransitionToSelfPtr, 0)
   }
 
   public final fun isAllowTransitionToSelf(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAllowTransitionToSelfPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAllowTransitionToSelfPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

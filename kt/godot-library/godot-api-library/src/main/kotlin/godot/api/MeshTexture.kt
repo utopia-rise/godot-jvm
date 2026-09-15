@@ -99,34 +99,34 @@ public open class MeshTexture : Texture2D() {
 
   public final fun setMesh(mesh: Mesh?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, mesh)
-    TransferContext.callMethod(MethodBindings.setMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMeshPtr, 0)
   }
 
   public final fun getMesh(): Mesh? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMeshPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Mesh?)
   }
 
   public final fun setImageSize(size: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, size)
-    TransferContext.callMethod(MethodBindings.setImageSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setImageSizePtr, 0)
   }
 
   public final fun getImageSize(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getImageSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getImageSizePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setBaseTexture(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setBaseTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBaseTexturePtr, 0)
   }
 
   public final fun getBaseTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBaseTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBaseTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 

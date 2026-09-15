@@ -121,7 +121,7 @@ public open class PackedScene : Resource() {
    */
   public final fun pack(path: Node?): Error {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.packPtr)
+    TransferContext.callPtrMethod(MethodBindings.packPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -132,7 +132,7 @@ public open class PackedScene : Resource() {
   @JvmOverloads
   public final fun instantiate(editState: GenEditState = PackedScene.GenEditState.DISABLED): Node? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, editState.value)
-    TransferContext.callMethod(MethodBindings.instantiatePtr)
+    TransferContext.callPtrMethod(MethodBindings.instantiatePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
@@ -141,7 +141,7 @@ public open class PackedScene : Resource() {
    */
   public final fun canInstantiate(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.canInstantiatePtr)
+    TransferContext.callPtrMethod(MethodBindings.canInstantiatePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -150,7 +150,7 @@ public open class PackedScene : Resource() {
    */
   public final fun getState(): SceneState? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getStatePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as SceneState?)
   }
 

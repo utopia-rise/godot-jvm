@@ -82,45 +82,45 @@ public open class DampedSpringJoint2D : Joint2D() {
 
   public final fun setLength(length: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, length.toDouble())
-    TransferContext.callMethod(MethodBindings.setLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLengthPtr, 0)
   }
 
   public final fun getLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRestLength(restLength: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, restLength.toDouble())
-    TransferContext.callMethod(MethodBindings.setRestLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRestLengthPtr, 0)
   }
 
   public final fun getRestLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRestLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRestLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setStiffness(stiffness: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, stiffness.toDouble())
-    TransferContext.callMethod(MethodBindings.setStiffnessPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStiffnessPtr, 0)
   }
 
   public final fun getStiffness(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStiffnessPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStiffnessPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDamping(damping: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, damping.toDouble())
-    TransferContext.callMethod(MethodBindings.setDampingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDampingPtr, 0)
   }
 
   public final fun getDamping(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDampingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDampingPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

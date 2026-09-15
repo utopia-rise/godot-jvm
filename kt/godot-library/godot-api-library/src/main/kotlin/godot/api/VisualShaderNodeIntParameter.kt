@@ -173,51 +173,51 @@ public open class VisualShaderNodeIntParameter : VisualShaderNodeParameter() {
 
   public final fun setHint(hint: Hint): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, hint.value)
-    TransferContext.callMethod(MethodBindings.setHintPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHintPtr, 0)
   }
 
   public final fun getHint(): Hint {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHintPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHintPtr, 2)
     return Hint.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setMin(`value`: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, value.toLong())
-    TransferContext.callMethod(MethodBindings.setMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMinPtr, 0)
   }
 
   public final fun getMin(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMax(`value`: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, value.toLong())
-    TransferContext.callMethod(MethodBindings.setMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxPtr, 0)
   }
 
   public final fun getMax(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setStep(`value`: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, value.toLong())
-    TransferContext.callMethod(MethodBindings.setStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStepPtr, 0)
   }
 
   public final fun getStep(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStepPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setEnumNames(names: PackedStringArray): Unit {
     TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, names)
-    TransferContext.callMethod(MethodBindings.setEnumNamesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnumNamesPtr, 0)
   }
 
   public final fun getEnumNames(): PackedStringArray {
@@ -228,23 +228,23 @@ public open class VisualShaderNodeIntParameter : VisualShaderNodeParameter() {
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setDefaultValueEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValueEnabledPtr, 0)
   }
 
   public final fun isDefaultValueEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDefaultValueEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDefaultValueEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDefaultValue(`value`: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, value.toLong())
-    TransferContext.callMethod(MethodBindings.setDefaultValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValuePtr, 0)
   }
 
   public final fun getDefaultValue(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultValuePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

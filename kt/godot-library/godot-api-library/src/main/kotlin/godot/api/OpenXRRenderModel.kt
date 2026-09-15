@@ -68,13 +68,13 @@ public open class OpenXRRenderModel : Node3D() {
 
   public final fun getRenderModel(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRenderModelPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRenderModelPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setRenderModel(renderModel: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callMethod(MethodBindings.setRenderModelPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRenderModelPtr, 0)
   }
 
   public companion object {

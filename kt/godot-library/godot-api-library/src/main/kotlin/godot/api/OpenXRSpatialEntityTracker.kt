@@ -73,7 +73,7 @@ public open class OpenXRSpatialEntityTracker : XRPositionalTracker() {
    */
   public final fun setSpatialContext(spatialContext: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, spatialContext)
-    TransferContext.callMethod(MethodBindings.setSpatialContextPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSpatialContextPtr, 0)
   }
 
   /**
@@ -81,29 +81,29 @@ public open class OpenXRSpatialEntityTracker : XRPositionalTracker() {
    */
   public final fun getSpatialContext(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpatialContextPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpatialContextPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setEntity(entity: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, entity)
-    TransferContext.callMethod(MethodBindings.setEntityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEntityPtr, 0)
   }
 
   public final fun getEntity(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEntityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEntityPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setSpatialTrackingState(spatialTrackingState: EntityTrackingState): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, spatialTrackingState.value)
-    TransferContext.callMethod(MethodBindings.setSpatialTrackingStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSpatialTrackingStatePtr, 0)
   }
 
   public final fun getSpatialTrackingState(): EntityTrackingState {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpatialTrackingStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpatialTrackingStatePtr, 2)
     return EntityTrackingState.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -114,7 +114,7 @@ public open class OpenXRSpatialEntityTracker : XRPositionalTracker() {
    */
   public final fun getNext(): OpenXRStructureBase? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNextPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNextPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OpenXRStructureBase?)
   }
 
@@ -126,7 +126,7 @@ public open class OpenXRSpatialEntityTracker : XRPositionalTracker() {
    */
   public final fun addNext(next: OpenXRStructureBase?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, next)
-    TransferContext.callMethod(MethodBindings.addNextPtr)
+    TransferContext.callPtrMethod(MethodBindings.addNextPtr, 0)
   }
 
   /**
@@ -134,7 +134,7 @@ public open class OpenXRSpatialEntityTracker : XRPositionalTracker() {
    */
   public final fun removeNext(next: OpenXRStructureBase?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, next)
-    TransferContext.callMethod(MethodBindings.removeNextPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeNextPtr, 0)
   }
 
   public enum class EntityTrackingState(

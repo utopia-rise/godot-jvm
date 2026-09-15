@@ -61,7 +61,7 @@ public open class RefCounted : Object() {
    */
   public final fun initRef(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.initRefPtr)
+    TransferContext.callPtrMethod(MethodBindings.initRefPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -72,7 +72,7 @@ public open class RefCounted : Object() {
    */
   public final fun reference(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.referencePtr)
+    TransferContext.callPtrMethod(MethodBindings.referencePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -83,7 +83,7 @@ public open class RefCounted : Object() {
    */
   public final fun unreference(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.unreferencePtr)
+    TransferContext.callPtrMethod(MethodBindings.unreferencePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -92,7 +92,7 @@ public open class RefCounted : Object() {
    */
   public final fun getReferenceCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getReferenceCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getReferenceCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

@@ -66,13 +66,13 @@ public open class BoneMap : Resource() {
 
   public final fun getProfile(): SkeletonProfile? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProfilePtr)
+    TransferContext.callPtrMethod(MethodBindings.getProfilePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as SkeletonProfile?)
   }
 
   public final fun setProfile(profile: SkeletonProfile?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, profile)
-    TransferContext.callMethod(MethodBindings.setProfilePtr)
+    TransferContext.callPtrMethod(MethodBindings.setProfilePtr, 0)
   }
 
   /**
@@ -94,7 +94,7 @@ public open class BoneMap : Resource() {
   public final fun setSkeletonBoneName(profileBoneName: StringName, skeletonBoneName: StringName):
       Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, profileBoneName, skeletonBoneName)
-    TransferContext.callMethod(MethodBindings.setSkeletonBoneNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSkeletonBoneNamePtr, 0)
   }
 
   /**

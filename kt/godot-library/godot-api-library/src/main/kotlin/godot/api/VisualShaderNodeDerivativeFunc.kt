@@ -67,34 +67,34 @@ public open class VisualShaderNodeDerivativeFunc : VisualShaderNode() {
 
   public final fun setOpType(type: OpType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
-    TransferContext.callMethod(MethodBindings.setOpTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setOpTypePtr, 0)
   }
 
   public final fun getOpType(): OpType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOpTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getOpTypePtr, 2)
     return OpType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setFunction(func: Function): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, func.value)
-    TransferContext.callMethod(MethodBindings.setFunctionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFunctionPtr, 0)
   }
 
   public final fun getFunction(): Function {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFunctionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFunctionPtr, 2)
     return Function.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPrecision(precision: Precision): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, precision.value)
-    TransferContext.callMethod(MethodBindings.setPrecisionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPrecisionPtr, 0)
   }
 
   public final fun getPrecision(): Precision {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPrecisionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPrecisionPtr, 2)
     return Precision.from(TransferContext.readReturnValue_LONG())
   }
 

@@ -49,7 +49,7 @@ public open class Mutex : RefCounted() {
    */
   public final fun lock(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.lockPtr)
+    TransferContext.callPtrMethod(MethodBindings.lockPtr, 0)
   }
 
   /**
@@ -59,7 +59,7 @@ public open class Mutex : RefCounted() {
    */
   public final fun tryLock(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.tryLockPtr)
+    TransferContext.callPtrMethod(MethodBindings.tryLockPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -74,7 +74,7 @@ public open class Mutex : RefCounted() {
    */
   public final fun unlock(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.unlockPtr)
+    TransferContext.callPtrMethod(MethodBindings.unlockPtr, 0)
   }
 
   public companion object {

@@ -116,7 +116,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setSkinWeightCount(count: SkinWeightCount): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.value)
-    TransferContext.callMethod(MethodBindings.setSkinWeightCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSkinWeightCountPtr, 0)
   }
 
   /**
@@ -128,7 +128,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun getSkinWeightCount(): SkinWeightCount {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkinWeightCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkinWeightCountPtr, 2)
     return SkinWeightCount.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -139,7 +139,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setCustomFormat(channelIndex: Int, format: CustomFormat): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, channelIndex.toLong(), format.value)
-    TransferContext.callMethod(MethodBindings.setCustomFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCustomFormatPtr, 0)
   }
 
   /**
@@ -148,7 +148,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun getCustomFormat(channelIndex: Int): CustomFormat {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, channelIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getCustomFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCustomFormatPtr, 2)
     return CustomFormat.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -158,7 +158,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun begin(primitive: Mesh.PrimitiveType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, primitive.value)
-    TransferContext.callMethod(MethodBindings.beginPtr)
+    TransferContext.callPtrMethod(MethodBindings.beginPtr, 0)
   }
 
   /**
@@ -167,7 +167,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun addVertex(vertex: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, vertex)
-    TransferContext.callMethod(MethodBindings.addVertexPtr)
+    TransferContext.callPtrMethod(MethodBindings.addVertexPtr, 0)
   }
 
   /**
@@ -180,7 +180,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
   }
 
   /**
@@ -189,7 +189,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setNormal(normal: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, normal)
-    TransferContext.callMethod(MethodBindings.setNormalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNormalPtr, 0)
   }
 
   /**
@@ -203,7 +203,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setTangent(tangent: Plane): Unit {
     TransferContext.writeMethodArguments_PLANE(ptr, objectID.id, tangent)
-    TransferContext.callMethod(MethodBindings.setTangentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTangentPtr, 0)
   }
 
   /**
@@ -213,7 +213,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setUv(uv: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, uv)
-    TransferContext.callMethod(MethodBindings.setUvPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUvPtr, 0)
   }
 
   /**
@@ -223,7 +223,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setUv2(uv2: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, uv2)
-    TransferContext.callMethod(MethodBindings.setUv2Ptr)
+    TransferContext.callPtrMethod(MethodBindings.setUv2Ptr, 0)
   }
 
   /**
@@ -231,7 +231,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setBones(bones: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, bones)
-    TransferContext.callMethod(MethodBindings.setBonesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBonesPtr, 0)
   }
 
   /**
@@ -241,7 +241,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setWeights(weights: PackedFloat32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, weights)
-    TransferContext.callMethod(MethodBindings.setWeightsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setWeightsPtr, 0)
   }
 
   /**
@@ -252,7 +252,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setCustom(channelIndex: Int, customColor: Color): Unit {
     TransferContext.writeMethodArguments_LONG_COLOR(ptr, objectID.id, channelIndex.toLong(), customColor)
-    TransferContext.callMethod(MethodBindings.setCustomPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCustomPtr, 0)
   }
 
   /**
@@ -265,7 +265,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setSmoothGroup(index: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.setSmoothGroupPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSmoothGroupPtr, 0)
   }
 
   /**
@@ -283,7 +283,7 @@ public open class SurfaceTool : RefCounted() {
     tangents: VariantArray<Plane> = godot.core.variantArrayOf(),
   ): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_PACKED_VECTOR2_ARRAY_PACKED_VECTOR3_ARRAY_ARRAY(ptr, objectID.id, vertices, uvs, colors, uv2s, normals, tangents)
-    TransferContext.callMethod(MethodBindings.addTriangleFanPtr)
+    TransferContext.callPtrMethod(MethodBindings.addTriangleFanPtr, 0)
   }
 
   /**
@@ -292,7 +292,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun addIndex(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.addIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.addIndexPtr, 0)
   }
 
   /**
@@ -301,7 +301,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun index(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.indexPtr)
+    TransferContext.callPtrMethod(MethodBindings.indexPtr, 0)
   }
 
   /**
@@ -309,7 +309,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun deindex(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.deindexPtr)
+    TransferContext.callPtrMethod(MethodBindings.deindexPtr, 0)
   }
 
   /**
@@ -329,7 +329,7 @@ public open class SurfaceTool : RefCounted() {
   @JvmOverloads
   public final fun generateNormals(flip: Boolean = false): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, flip)
-    TransferContext.callMethod(MethodBindings.generateNormalsPtr)
+    TransferContext.callPtrMethod(MethodBindings.generateNormalsPtr, 0)
   }
 
   /**
@@ -338,7 +338,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun generateTangents(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.generateTangentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.generateTangentsPtr, 0)
   }
 
   /**
@@ -347,7 +347,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun optimizeIndicesForCache(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.optimizeIndicesForCachePtr)
+    TransferContext.callPtrMethod(MethodBindings.optimizeIndicesForCachePtr, 0)
   }
 
   /**
@@ -355,7 +355,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun getAabb(): AABB {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAabbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAabbPtr, 16)
     return TransferContext.readReturnValue_AABB()
   }
 
@@ -375,7 +375,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun setMaterial(material: Material?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
-    TransferContext.callMethod(MethodBindings.setMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaterialPtr, 0)
   }
 
   /**
@@ -383,7 +383,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun getPrimitiveType(): Mesh.PrimitiveType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPrimitiveTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPrimitiveTypePtr, 2)
     return Mesh.PrimitiveType.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -392,7 +392,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun clear(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**
@@ -400,7 +400,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun createFrom(existing: Mesh?, surface: Int): Unit {
     TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, existing, surface.toLong())
-    TransferContext.callMethod(MethodBindings.createFromPtr)
+    TransferContext.callPtrMethod(MethodBindings.createFromPtr, 0)
   }
 
   /**
@@ -413,7 +413,7 @@ public open class SurfaceTool : RefCounted() {
   public final fun createFromArrays(arrays: VariantArray<Any?>, primitiveType: Mesh.PrimitiveType =
       Mesh.PrimitiveType.TRIANGLES): Unit {
     TransferContext.writeMethodArguments_ARRAY_LONG(ptr, objectID.id, arrays, primitiveType.value)
-    TransferContext.callMethod(MethodBindings.createFromArraysPtr)
+    TransferContext.callPtrMethod(MethodBindings.createFromArraysPtr, 0)
   }
 
   /**
@@ -439,7 +439,7 @@ public open class SurfaceTool : RefCounted() {
     transform: Transform3D,
   ): Unit {
     TransferContext.writeMethodArguments_OBJECT_LONG_TRANSFORM3D(ptr, objectID.id, existing, surface.toLong(), transform)
-    TransferContext.callMethod(MethodBindings.appendFromPtr)
+    TransferContext.callPtrMethod(MethodBindings.appendFromPtr, 0)
   }
 
   /**
@@ -452,7 +452,7 @@ public open class SurfaceTool : RefCounted() {
   @JvmOverloads
   public final fun commit(existing: ArrayMesh? = null, flags: Long = 0): ArrayMesh? {
     TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, existing, flags)
-    TransferContext.callMethod(MethodBindings.commitPtr)
+    TransferContext.callPtrMethod(MethodBindings.commitPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as ArrayMesh?)
   }
 

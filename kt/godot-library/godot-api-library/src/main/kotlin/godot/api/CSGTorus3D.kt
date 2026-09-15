@@ -112,67 +112,67 @@ public open class CSGTorus3D : CSGPrimitive3D() {
 
   public final fun setInnerRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setInnerRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInnerRadiusPtr, 0)
   }
 
   public final fun getInnerRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInnerRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInnerRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOuterRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setOuterRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOuterRadiusPtr, 0)
   }
 
   public final fun getOuterRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOuterRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOuterRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSides(sides: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, sides.toLong())
-    TransferContext.callMethod(MethodBindings.setSidesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSidesPtr, 0)
   }
 
   public final fun getSides(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSidesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSidesPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setRingSides(sides: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, sides.toLong())
-    TransferContext.callMethod(MethodBindings.setRingSidesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRingSidesPtr, 0)
   }
 
   public final fun getRingSides(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRingSidesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRingSidesPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMaterial(material: Material?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
-    TransferContext.callMethod(MethodBindings.setMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaterialPtr, 0)
   }
 
   public final fun getMaterial(): Material? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaterialPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Material?)
   }
 
   public final fun setSmoothFaces(smoothFaces: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, smoothFaces)
-    TransferContext.callMethod(MethodBindings.setSmoothFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSmoothFacesPtr, 0)
   }
 
   public final fun getSmoothFaces(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSmoothFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSmoothFacesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

@@ -44,12 +44,12 @@ public open class InputEventFromWindow internal constructor() : InputEvent() {
 
   public final fun setWindowId(id: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.setWindowIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setWindowIdPtr, 0)
   }
 
   public final fun getWindowId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWindowIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWindowIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

@@ -137,67 +137,67 @@ public open class RDAccelerationStructureInstance : RefCounted() {
 
   public final fun setTransform(pMember: Transform3D): Unit {
     TransferContext.writeMethodArguments_TRANSFORM3D(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTransformPtr, 0)
   }
 
   public final fun getTransform(): Transform3D {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransformPtr, 18)
     return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   public final fun setId(pMember: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIdPtr, 0)
   }
 
   public final fun getId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setMask(pMember: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.toLong())
-    TransferContext.callMethod(MethodBindings.setMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaskPtr, 0)
   }
 
   public final fun getMask(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaskPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setHitSbtRange(pMember: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setHitSbtRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.setHitSbtRangePtr, 0)
   }
 
   public final fun getHitSbtRange(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHitSbtRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.getHitSbtRangePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setFlags(pMember: RenderingDevice.AccelerationStructureInstanceFlagBits): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.flag)
-    TransferContext.callMethod(MethodBindings.setFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFlagsPtr, 0)
   }
 
   public final fun getFlags(): RenderingDevice.AccelerationStructureInstanceFlagBits {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFlagsPtr, 2)
     return RenderingDevice.AccelerationStructureInstanceFlagBits(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setBlas(pMember: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setBlasPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBlasPtr, 0)
   }
 
   public final fun getBlas(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBlasPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBlasPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 

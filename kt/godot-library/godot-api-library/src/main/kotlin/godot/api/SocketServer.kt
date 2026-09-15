@@ -33,7 +33,7 @@ public open class SocketServer internal constructor() : RefCounted() {
    */
   public final fun isConnectionAvailable(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isConnectionAvailablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isConnectionAvailablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -42,7 +42,7 @@ public open class SocketServer internal constructor() : RefCounted() {
    */
   public final fun isListening(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isListeningPtr)
+    TransferContext.callPtrMethod(MethodBindings.isListeningPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -51,7 +51,7 @@ public open class SocketServer internal constructor() : RefCounted() {
    */
   public final fun stop(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.stopPtr)
+    TransferContext.callPtrMethod(MethodBindings.stopPtr, 0)
   }
 
   /**
@@ -59,7 +59,7 @@ public open class SocketServer internal constructor() : RefCounted() {
    */
   public final fun takeSocketConnection(): StreamPeerSocket? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.takeSocketConnectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.takeSocketConnectionPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as StreamPeerSocket?)
   }
 

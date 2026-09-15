@@ -113,7 +113,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
    */
   public final fun setSamplePlayback(playbackSample: AudioSamplePlayback?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, playbackSample)
-    TransferContext.callMethod(MethodBindings.setSamplePlaybackPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSamplePlaybackPtr, 0)
   }
 
   /**
@@ -122,7 +122,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
    */
   public final fun getSamplePlayback(): AudioSamplePlayback? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSamplePlaybackPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSamplePlaybackPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as AudioSamplePlayback?)
   }
 
@@ -148,7 +148,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
   @JvmOverloads
   public final fun start(fromPos: Double = 0.0): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fromPos)
-    TransferContext.callMethod(MethodBindings.startPtr)
+    TransferContext.callPtrMethod(MethodBindings.startPtr, 0)
   }
 
   /**
@@ -157,7 +157,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
   @JvmOverloads
   public final fun seek(time: Double = 0.0): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
-    TransferContext.callMethod(MethodBindings.seekPtr)
+    TransferContext.callPtrMethod(MethodBindings.seekPtr, 0)
   }
 
   /**
@@ -165,7 +165,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
    */
   public final fun stop(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.stopPtr)
+    TransferContext.callPtrMethod(MethodBindings.stopPtr, 0)
   }
 
   /**
@@ -173,7 +173,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
    */
   public final fun getLoopCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoopCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLoopCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -182,7 +182,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
    */
   public final fun getPlaybackPosition(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPlaybackPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPlaybackPositionPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
@@ -191,7 +191,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
    */
   public final fun isPlaying(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPlayingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPlayingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

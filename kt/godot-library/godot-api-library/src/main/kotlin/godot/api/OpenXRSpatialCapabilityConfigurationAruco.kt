@@ -62,12 +62,12 @@ public open class OpenXRSpatialCapabilityConfigurationAruco :
 
   public final fun setArucoDict(arucoDict: ArucoDict): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, arucoDict.value)
-    TransferContext.callMethod(MethodBindings.setArucoDictPtr)
+    TransferContext.callPtrMethod(MethodBindings.setArucoDictPtr, 0)
   }
 
   public final fun getArucoDict(): ArucoDict {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getArucoDictPtr)
+    TransferContext.callPtrMethod(MethodBindings.getArucoDictPtr, 2)
     return ArucoDict.from(TransferContext.readReturnValue_LONG())
   }
 

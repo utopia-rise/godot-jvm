@@ -38,7 +38,7 @@ public open class OpenXRSpatialCapabilityConfigurationPlaneTracking :
    */
   public final fun supportsMesh2d(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.supportsMesh2dPtr)
+    TransferContext.callPtrMethod(MethodBindings.supportsMesh2dPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -48,7 +48,7 @@ public open class OpenXRSpatialCapabilityConfigurationPlaneTracking :
    */
   public final fun supportsPolygons(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.supportsPolygonsPtr)
+    TransferContext.callPtrMethod(MethodBindings.supportsPolygonsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -59,7 +59,7 @@ public open class OpenXRSpatialCapabilityConfigurationPlaneTracking :
    */
   public final fun supportsLabels(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.supportsLabelsPtr)
+    TransferContext.callPtrMethod(MethodBindings.supportsLabelsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

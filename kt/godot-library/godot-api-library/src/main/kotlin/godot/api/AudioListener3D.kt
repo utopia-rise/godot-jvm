@@ -59,7 +59,7 @@ public open class AudioListener3D : Node3D() {
    */
   public final fun makeCurrent(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.makeCurrentPtr)
+    TransferContext.callPtrMethod(MethodBindings.makeCurrentPtr, 0)
   }
 
   /**
@@ -67,7 +67,7 @@ public open class AudioListener3D : Node3D() {
    */
   public final fun clearCurrent(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearCurrentPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearCurrentPtr, 0)
   }
 
   /**
@@ -78,7 +78,7 @@ public open class AudioListener3D : Node3D() {
    */
   public final fun isCurrent(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCurrentPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCurrentPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -87,18 +87,18 @@ public open class AudioListener3D : Node3D() {
    */
   public final fun getListenerTransform(): Transform3D {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getListenerTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.getListenerTransformPtr, 18)
     return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   public final fun setDopplerTracking(mode: DopplerTracking): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setDopplerTrackingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDopplerTrackingPtr, 0)
   }
 
   public final fun getDopplerTracking(): DopplerTracking {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDopplerTrackingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDopplerTrackingPtr, 2)
     return DopplerTracking.from(TransferContext.readReturnValue_LONG())
   }
 

@@ -133,7 +133,7 @@ public open class AcceptDialog : Window() {
    */
   public final fun getOkButton(): Button? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOkButtonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOkButtonPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Button?)
   }
 
@@ -145,29 +145,29 @@ public open class AcceptDialog : Window() {
    */
   public final fun getLabel(): Label? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLabelPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLabelPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Label?)
   }
 
   public final fun setHideOnOk(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setHideOnOkPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHideOnOkPtr, 0)
   }
 
   public final fun getHideOnOk(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHideOnOkPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHideOnOkPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCloseOnEscape(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setCloseOnEscapePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCloseOnEscapePtr, 0)
   }
 
   public final fun getCloseOnEscape(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCloseOnEscapePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCloseOnEscapePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -212,7 +212,7 @@ public open class AcceptDialog : Window() {
    */
   public final fun removeButton(button: Button?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, button)
-    TransferContext.callMethod(MethodBindings.removeButtonPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeButtonPtr, 0)
   }
 
   /**
@@ -221,7 +221,7 @@ public open class AcceptDialog : Window() {
    */
   public final fun registerTextEnter(lineEdit: LineEdit?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, lineEdit)
-    TransferContext.callMethod(MethodBindings.registerTextEnterPtr)
+    TransferContext.callPtrMethod(MethodBindings.registerTextEnterPtr, 0)
   }
 
   public final fun setText(text: String): Unit {
@@ -237,12 +237,12 @@ public open class AcceptDialog : Window() {
 
   public final fun setAutowrap(autowrap: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, autowrap)
-    TransferContext.callMethod(MethodBindings.setAutowrapPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutowrapPtr, 0)
   }
 
   public final fun hasAutowrap(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasAutowrapPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasAutowrapPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

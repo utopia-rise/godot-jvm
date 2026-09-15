@@ -196,12 +196,12 @@ public open class GLTFDocument : Resource() {
 
   public final fun setLossyQuality(lossyQuality: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, lossyQuality.toDouble())
-    TransferContext.callMethod(MethodBindings.setLossyQualityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLossyQualityPtr, 0)
   }
 
   public final fun getLossyQuality(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLossyQualityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLossyQualityPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -218,45 +218,45 @@ public open class GLTFDocument : Resource() {
 
   public final fun setFallbackImageQuality(fallbackImageQuality: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fallbackImageQuality.toDouble())
-    TransferContext.callMethod(MethodBindings.setFallbackImageQualityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFallbackImageQualityPtr, 0)
   }
 
   public final fun getFallbackImageQuality(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFallbackImageQualityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFallbackImageQualityPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRootNodeMode(rootNodeMode: RootNodeMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, rootNodeMode.value)
-    TransferContext.callMethod(MethodBindings.setRootNodeModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setRootNodeModePtr, 0)
   }
 
   public final fun getRootNodeMode(): RootNodeMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootNodeModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getRootNodeModePtr, 2)
     return RootNodeMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTextureMapMode(textureMapMode: TextureMapMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, textureMapMode.value)
-    TransferContext.callMethod(MethodBindings.setTextureMapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureMapModePtr, 0)
   }
 
   public final fun getTextureMapMode(): TextureMapMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureMapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureMapModePtr, 2)
     return TextureMapMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setVisibilityMode(visibilityMode: VisibilityMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, visibilityMode.value)
-    TransferContext.callMethod(MethodBindings.setVisibilityModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setVisibilityModePtr, 0)
   }
 
   public final fun getVisibilityMode(): VisibilityMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVisibilityModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getVisibilityModePtr, 2)
     return VisibilityMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -307,7 +307,7 @@ public open class GLTFDocument : Resource() {
     flags: Long = 0,
   ): Error {
     TransferContext.writeMethodArguments_OBJECT_OBJECT_LONG(ptr, objectID.id, node, state, flags)
-    TransferContext.callMethod(MethodBindings.appendFromScenePtr)
+    TransferContext.callPtrMethod(MethodBindings.appendFromScenePtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -324,7 +324,7 @@ public open class GLTFDocument : Resource() {
     removeImmutableTracks: Boolean = true,
   ): Node? {
     TransferContext.writeMethodArguments_OBJECT_DOUBLE_BOOL_BOOL(ptr, objectID.id, state, bakeFps.toDouble(), trimming, removeImmutableTracks)
-    TransferContext.callMethod(MethodBindings.generateScenePtr)
+    TransferContext.callPtrMethod(MethodBindings.generateScenePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
@@ -629,7 +629,7 @@ public open class GLTFDocument : Resource() {
       gltfNodeIndex: Int,
     ): GLTFObjectModelProperty? {
       TransferContext.writeMethodArguments_OBJECT_NODE_PATH_OBJECT_LONG(0L, 0L, state, nodePath, godotNode, gltfNodeIndex.toLong())
-      TransferContext.callMethod(MethodBindings.exportObjectModelPropertyPtr)
+      TransferContext.callPtrMethod(MethodBindings.exportObjectModelPropertyPtr, 39)
       return (TransferContext.readReturnValue_OBJECT() as GLTFObjectModelProperty?)
     }
 
@@ -646,7 +646,7 @@ public open class GLTFDocument : Resource() {
     public final fun registerGltfDocumentExtension(extension: GLTFDocumentExtension?,
         firstPriority: Boolean = false): Unit {
       TransferContext.writeMethodArguments_OBJECT_BOOL(0L, 0L, extension, firstPriority)
-      TransferContext.callMethod(MethodBindings.registerGltfDocumentExtensionPtr)
+      TransferContext.callPtrMethod(MethodBindings.registerGltfDocumentExtensionPtr, 0)
     }
 
     /**
@@ -655,7 +655,7 @@ public open class GLTFDocument : Resource() {
     @JvmStatic
     public final fun unregisterGltfDocumentExtension(extension: GLTFDocumentExtension?): Unit {
       TransferContext.writeMethodArguments_OBJECT(0L, 0L, extension)
-      TransferContext.callMethod(MethodBindings.unregisterGltfDocumentExtensionPtr)
+      TransferContext.callPtrMethod(MethodBindings.unregisterGltfDocumentExtensionPtr, 0)
     }
 
     /**

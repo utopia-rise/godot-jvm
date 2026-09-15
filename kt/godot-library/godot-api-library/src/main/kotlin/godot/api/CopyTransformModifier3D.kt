@@ -90,7 +90,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setCopyFlags(index: Int, copyFlags: TransformFlag): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), copyFlags.flag)
-    TransferContext.callMethod(MethodBindings.setCopyFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCopyFlagsPtr, 0)
   }
 
   /**
@@ -98,7 +98,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun getCopyFlags(index: Int): TransformFlag {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getCopyFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCopyFlagsPtr, 2)
     return TransformFlag(TransferContext.readReturnValue_LONG())
   }
 
@@ -107,7 +107,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setAxisFlags(index: Int, axisFlags: AxisFlag): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), axisFlags.flag)
-    TransferContext.callMethod(MethodBindings.setAxisFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAxisFlagsPtr, 0)
   }
 
   /**
@@ -115,7 +115,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun getAxisFlags(index: Int): AxisFlag {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getAxisFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAxisFlagsPtr, 2)
     return AxisFlag(TransferContext.readReturnValue_LONG())
   }
 
@@ -132,7 +132,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setInvertFlags(index: Int, axisFlags: AxisFlag): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), axisFlags.flag)
-    TransferContext.callMethod(MethodBindings.setInvertFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInvertFlagsPtr, 0)
   }
 
   /**
@@ -140,7 +140,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun getInvertFlags(index: Int): AxisFlag {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getInvertFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInvertFlagsPtr, 2)
     return AxisFlag(TransferContext.readReturnValue_LONG())
   }
 
@@ -149,7 +149,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setCopyPosition(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setCopyPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCopyPositionPtr, 0)
   }
 
   /**
@@ -158,7 +158,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isPositionCopying(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isPositionCopyingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPositionCopyingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -167,7 +167,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setCopyRotation(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setCopyRotationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCopyRotationPtr, 0)
   }
 
   /**
@@ -176,7 +176,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isRotationCopying(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isRotationCopyingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRotationCopyingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -185,7 +185,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setCopyScale(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setCopyScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCopyScalePtr, 0)
   }
 
   /**
@@ -194,7 +194,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isScaleCopying(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isScaleCopyingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isScaleCopyingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -203,7 +203,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setAxisXEnabled(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setAxisXEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAxisXEnabledPtr, 0)
   }
 
   /**
@@ -212,7 +212,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isAxisXEnabled(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isAxisXEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAxisXEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -221,7 +221,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setAxisYEnabled(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setAxisYEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAxisYEnabledPtr, 0)
   }
 
   /**
@@ -230,7 +230,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isAxisYEnabled(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isAxisYEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAxisYEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -239,7 +239,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setAxisZEnabled(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setAxisZEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAxisZEnabledPtr, 0)
   }
 
   /**
@@ -248,7 +248,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isAxisZEnabled(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isAxisZEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAxisZEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -257,7 +257,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setAxisXInverted(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setAxisXInvertedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAxisXInvertedPtr, 0)
   }
 
   /**
@@ -266,7 +266,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isAxisXInverted(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isAxisXInvertedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAxisXInvertedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -275,7 +275,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setAxisYInverted(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setAxisYInvertedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAxisYInvertedPtr, 0)
   }
 
   /**
@@ -284,7 +284,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isAxisYInverted(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isAxisYInvertedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAxisYInvertedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -293,7 +293,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setAxisZInverted(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setAxisZInvertedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAxisZInvertedPtr, 0)
   }
 
   /**
@@ -302,7 +302,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isAxisZInverted(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isAxisZInvertedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAxisZInvertedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -315,7 +315,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setRelative(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setRelativePtr)
+    TransferContext.callPtrMethod(MethodBindings.setRelativePtr, 0)
   }
 
   /**
@@ -323,7 +323,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isRelative(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isRelativePtr)
+    TransferContext.callPtrMethod(MethodBindings.isRelativePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -339,7 +339,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setAdditive(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setAdditivePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAdditivePtr, 0)
   }
 
   /**
@@ -347,7 +347,7 @@ public open class CopyTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isAdditive(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isAdditivePtr)
+    TransferContext.callPtrMethod(MethodBindings.isAdditivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

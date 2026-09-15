@@ -67,7 +67,7 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
     bus: StringName = StringName("Master"),
   ): Long {
     TransferContext.writeMethodArguments_OBJECT_DOUBLE_DOUBLE_DOUBLE_LONG_STRING_NAME(ptr, objectID.id, stream, fromOffset.toDouble(), volumeDb.toDouble(), pitchScale.toDouble(), playbackType.value, bus)
-    TransferContext.callMethod(MethodBindings.playStreamPtr)
+    TransferContext.callPtrMethod(MethodBindings.playStreamPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -77,7 +77,7 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
    */
   public final fun setStreamVolume(stream: Long, volumeDb: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, stream, volumeDb.toDouble())
-    TransferContext.callMethod(MethodBindings.setStreamVolumePtr)
+    TransferContext.callPtrMethod(MethodBindings.setStreamVolumePtr, 0)
   }
 
   /**
@@ -85,7 +85,7 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
    */
   public final fun setStreamPitchScale(stream: Long, pitchScale: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, stream, pitchScale.toDouble())
-    TransferContext.callMethod(MethodBindings.setStreamPitchScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setStreamPitchScalePtr, 0)
   }
 
   /**
@@ -94,7 +94,7 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
    */
   public final fun isStreamPlaying(stream: Long): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stream)
-    TransferContext.callMethod(MethodBindings.isStreamPlayingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isStreamPlayingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -104,7 +104,7 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
    */
   public final fun stopStream(stream: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stream)
-    TransferContext.callMethod(MethodBindings.stopStreamPtr)
+    TransferContext.callPtrMethod(MethodBindings.stopStreamPtr, 0)
   }
 
   /**

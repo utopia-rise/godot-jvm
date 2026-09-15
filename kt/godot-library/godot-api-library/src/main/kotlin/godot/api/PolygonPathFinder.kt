@@ -70,7 +70,7 @@ public open class PolygonPathFinder : Resource() {
    */
   public final fun setup(points: PackedVector2Array, connections: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, points, connections)
-    TransferContext.callMethod(MethodBindings.setupPtr)
+    TransferContext.callPtrMethod(MethodBindings.setupPtr, 0)
   }
 
   public final fun findPath(from: Vector2, to: Vector2): PackedVector2Array {
@@ -87,7 +87,7 @@ public open class PolygonPathFinder : Resource() {
 
   public final fun getClosestPoint(point: Vector2): Vector2 {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, point)
-    TransferContext.callMethod(MethodBindings.getClosestPointPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClosestPointPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -121,24 +121,24 @@ public open class PolygonPathFinder : Resource() {
    */
   public final fun isPointInside(point: Vector2): Boolean {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, point)
-    TransferContext.callMethod(MethodBindings.isPointInsidePtr)
+    TransferContext.callPtrMethod(MethodBindings.isPointInsidePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setPointPenalty(idx: Int, penalty: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, idx.toLong(), penalty.toDouble())
-    TransferContext.callMethod(MethodBindings.setPointPenaltyPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointPenaltyPtr, 0)
   }
 
   public final fun getPointPenalty(idx: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getPointPenaltyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointPenaltyPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun getBounds(): Rect2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoundsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoundsPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 

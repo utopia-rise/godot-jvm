@@ -61,12 +61,12 @@ public open class ShaderMaterial : Material() {
 
   public final fun setShader(shader: Shader?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, shader)
-    TransferContext.callMethod(MethodBindings.setShaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShaderPtr, 0)
   }
 
   public final fun getShader(): Shader? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShaderPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Shader?)
   }
 

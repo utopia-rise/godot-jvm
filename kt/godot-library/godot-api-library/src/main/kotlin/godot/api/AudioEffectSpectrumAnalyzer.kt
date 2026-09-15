@@ -68,23 +68,23 @@ public open class AudioEffectSpectrumAnalyzer : AudioEffect() {
 
   public final fun setBufferLength(seconds: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, seconds.toDouble())
-    TransferContext.callMethod(MethodBindings.setBufferLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBufferLengthPtr, 0)
   }
 
   public final fun getBufferLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBufferLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFftSize(size: FFTSize): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.value)
-    TransferContext.callMethod(MethodBindings.setFftSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setFftSizePtr, 0)
   }
 
   public final fun getFftSize(): FFTSize {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFftSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFftSizePtr, 2)
     return FFTSize.from(TransferContext.readReturnValue_LONG())
   }
 

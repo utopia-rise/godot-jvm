@@ -63,25 +63,25 @@ public open class World2D : Resource() {
 
   public final fun getCanvas(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCanvasPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCanvasPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun getNavigationMap(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNavigationMapPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNavigationMapPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun getSpace(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpacePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpacePtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun getDirectSpaceState(): PhysicsDirectSpaceState2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDirectSpaceStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDirectSpaceStatePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as PhysicsDirectSpaceState2D?)
   }
 

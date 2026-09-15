@@ -85,18 +85,18 @@ public open class AnimationTree : AnimationMixer() {
 
   public final fun setTreeRoot(animationNode: AnimationRootNode?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, animationNode)
-    TransferContext.callMethod(MethodBindings.setTreeRootPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTreeRootPtr, 0)
   }
 
   public final fun getTreeRoot(): AnimationRootNode? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTreeRootPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTreeRootPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as AnimationRootNode?)
   }
 
   public final fun setAdvanceExpressionBaseNode(path: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.setAdvanceExpressionBaseNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAdvanceExpressionBaseNodePtr, 0)
   }
 
   public final fun getAdvanceExpressionBaseNode(): NodePath {
@@ -107,7 +107,7 @@ public open class AnimationTree : AnimationMixer() {
 
   public final fun setAnimationPlayer(path: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.setAnimationPlayerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAnimationPlayerPtr, 0)
   }
 
   public final fun getAnimationPlayer(): NodePath {
@@ -121,7 +121,7 @@ public open class AnimationTree : AnimationMixer() {
    */
   public final fun setProcessCallback(mode: AnimationProcessCallback): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setProcessCallbackPtr)
+    TransferContext.callPtrMethod(MethodBindings.setProcessCallbackPtr, 0)
   }
 
   /**
@@ -129,7 +129,7 @@ public open class AnimationTree : AnimationMixer() {
    */
   public final fun getProcessCallback(): AnimationProcessCallback {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessCallbackPtr)
+    TransferContext.callPtrMethod(MethodBindings.getProcessCallbackPtr, 2)
     return AnimationProcessCallback.from(TransferContext.readReturnValue_LONG())
   }
 

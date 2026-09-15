@@ -130,78 +130,78 @@ public open class CylinderMesh : PrimitiveMesh() {
 
   public final fun setTopRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setTopRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTopRadiusPtr, 0)
   }
 
   public final fun getTopRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTopRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTopRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setBottomRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setBottomRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBottomRadiusPtr, 0)
   }
 
   public final fun getBottomRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBottomRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBottomRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setHeight(height: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, height.toDouble())
-    TransferContext.callMethod(MethodBindings.setHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHeightPtr, 0)
   }
 
   public final fun getHeight(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRadialSegments(segments: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, segments.toLong())
-    TransferContext.callMethod(MethodBindings.setRadialSegmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRadialSegmentsPtr, 0)
   }
 
   public final fun getRadialSegments(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadialSegmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRadialSegmentsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setRings(rings: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, rings.toLong())
-    TransferContext.callMethod(MethodBindings.setRingsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRingsPtr, 0)
   }
 
   public final fun getRings(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRingsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRingsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setCapTop(capTop: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, capTop)
-    TransferContext.callMethod(MethodBindings.setCapTopPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCapTopPtr, 0)
   }
 
   public final fun isCapTop(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCapTopPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCapTopPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCapBottom(capBottom: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, capBottom)
-    TransferContext.callMethod(MethodBindings.setCapBottomPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCapBottomPtr, 0)
   }
 
   public final fun isCapBottom(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCapBottomPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCapBottomPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

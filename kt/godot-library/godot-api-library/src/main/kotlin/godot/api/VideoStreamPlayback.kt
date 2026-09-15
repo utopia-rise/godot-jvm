@@ -140,7 +140,7 @@ public abstract class VideoStreamPlayback : Resource() {
     offset: Int = 0,
   ): Int {
     TransferContext.writeMethodArguments_LONG_PACKED_FLOAT_32_ARRAY_LONG(ptr, objectID.id, numFrames.toLong(), buffer, offset.toLong())
-    TransferContext.callMethod(MethodBindings.mixAudioPtr)
+    TransferContext.callPtrMethod(MethodBindings.mixAudioPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

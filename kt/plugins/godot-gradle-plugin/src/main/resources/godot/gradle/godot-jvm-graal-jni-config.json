@@ -56,6 +56,7 @@
     ],
     "methods" : [
       { "name" : "icall", "parameterTypes" : ["long"] },
+      { "name" : "icallPtr", "parameterTypes" : ["long", "int"] },
       { "name" : "getBuffer", "parameterTypes" : [] }
 
     ]

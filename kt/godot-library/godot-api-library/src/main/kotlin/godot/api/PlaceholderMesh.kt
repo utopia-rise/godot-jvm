@@ -83,7 +83,7 @@ public open class PlaceholderMesh : Mesh() {
 
   public final fun setAabb(aabb: AABB): Unit {
     TransferContext.writeMethodArguments_AABB(ptr, objectID.id, aabb)
-    TransferContext.callMethod(MethodBindings.setAabbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAabbPtr, 0)
   }
 
   /**

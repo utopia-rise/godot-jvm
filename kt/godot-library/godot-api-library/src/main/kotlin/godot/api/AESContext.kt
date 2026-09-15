@@ -122,7 +122,7 @@ public open class AESContext : RefCounted() {
     iv: PackedByteArray = PackedByteArray(),
   ): Error {
     TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY(ptr, objectID.id, mode.value, key, iv)
-    TransferContext.callMethod(MethodBindings.startPtr)
+    TransferContext.callPtrMethod(MethodBindings.startPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -156,7 +156,7 @@ public open class AESContext : RefCounted() {
    */
   public final fun finish(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.finishPtr)
+    TransferContext.callPtrMethod(MethodBindings.finishPtr, 0)
   }
 
   public enum class Mode(

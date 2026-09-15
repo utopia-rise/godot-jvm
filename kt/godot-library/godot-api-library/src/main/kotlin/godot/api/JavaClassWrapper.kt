@@ -105,7 +105,7 @@ public object JavaClassWrapper : Object() {
   @JvmStatic
   public final fun getException(): JavaObject? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExceptionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExceptionPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as JavaObject?)
   }
 
@@ -161,7 +161,7 @@ public object JavaClassWrapper : Object() {
   @JvmStatic
   public final fun createProxy(`object`: Object?, interfaces: PackedStringArray): JavaObject? {
     TransferContext.writeMethodArguments_OBJECT_PACKED_STRING_ARRAY(ptr, objectID.id, `object`, interfaces)
-    TransferContext.callMethod(MethodBindings.createProxyPtr)
+    TransferContext.callPtrMethod(MethodBindings.createProxyPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as JavaObject?)
   }
 

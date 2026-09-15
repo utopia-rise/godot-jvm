@@ -70,7 +70,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getBaseSceneState(): SceneState? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBaseSceneStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBaseSceneStatePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as SceneState?)
   }
 
@@ -82,7 +82,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getNodeCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodeCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -130,7 +130,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun isNodeInstancePlaceholder(idx: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.isNodeInstancePlaceholderPtr)
+    TransferContext.callPtrMethod(MethodBindings.isNodeInstancePlaceholderPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -150,7 +150,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getNodeInstance(idx: Int): PackedScene? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getNodeInstancePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeInstancePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as PackedScene?)
   }
 
@@ -171,7 +171,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getNodeIndex(idx: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getNodeIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -183,7 +183,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getNodePropertyCount(idx: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getNodePropertyCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodePropertyCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -213,7 +213,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getConnectionCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectionCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -259,7 +259,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getConnectionFlags(idx: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getConnectionFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionFlagsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -277,7 +277,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getConnectionUnbinds(idx: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getConnectionUnbindsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionUnbindsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

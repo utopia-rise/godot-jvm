@@ -72,7 +72,7 @@ public abstract class AnimationNodeExtension : AnimationNode() {
     @JvmStatic
     public final fun isLooping(nodeInfo: PackedFloat32Array): Boolean {
       TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(0L, 0L, nodeInfo)
-      TransferContext.callMethod(MethodBindings.isLoopingPtr)
+      TransferContext.callPtrMethod(MethodBindings.isLoopingPtr, 1)
       return TransferContext.readReturnValue_BOOL()
     }
 
@@ -84,7 +84,7 @@ public abstract class AnimationNodeExtension : AnimationNode() {
     @JvmStatic
     public final fun getRemainingTime(nodeInfo: PackedFloat32Array, breakLoop: Boolean): Double {
       TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY_BOOL(0L, 0L, nodeInfo, breakLoop)
-      TransferContext.callMethod(MethodBindings.getRemainingTimePtr)
+      TransferContext.callPtrMethod(MethodBindings.getRemainingTimePtr, 3)
       return TransferContext.readReturnValue_DOUBLE()
     }
   }

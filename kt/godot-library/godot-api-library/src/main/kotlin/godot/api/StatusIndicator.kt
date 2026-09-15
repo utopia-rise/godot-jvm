@@ -106,29 +106,29 @@ public open class StatusIndicator : Node() {
 
   public final fun setIcon(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIconPtr, 0)
   }
 
   public final fun getIcon(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIconPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setVisible(visible: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
-    TransferContext.callMethod(MethodBindings.setVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.setVisiblePtr, 0)
   }
 
   public final fun isVisible(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.isVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMenu(menu: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, menu)
-    TransferContext.callMethod(MethodBindings.setMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMenuPtr, 0)
   }
 
   public final fun getMenu(): NodePath {
@@ -143,7 +143,7 @@ public open class StatusIndicator : Node() {
    */
   public final fun getRect(): Rect2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRectPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 

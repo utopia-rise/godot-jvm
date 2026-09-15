@@ -109,23 +109,23 @@ public abstract class Material : Resource() {
 
   public final fun setNextPass(nextPass: Material?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, nextPass)
-    TransferContext.callMethod(MethodBindings.setNextPassPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNextPassPtr, 0)
   }
 
   public final fun getNextPass(): Material? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNextPassPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNextPassPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Material?)
   }
 
   public final fun setRenderPriority(priority: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, priority.toLong())
-    TransferContext.callMethod(MethodBindings.setRenderPriorityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRenderPriorityPtr, 0)
   }
 
   public final fun getRenderPriority(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRenderPriorityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRenderPriorityPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -135,7 +135,7 @@ public abstract class Material : Resource() {
    */
   public final fun inspectNativeShaderCode(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.inspectNativeShaderCodePtr)
+    TransferContext.callPtrMethod(MethodBindings.inspectNativeShaderCodePtr, 0)
   }
 
   /**
@@ -143,7 +143,7 @@ public abstract class Material : Resource() {
    */
   public final fun createPlaceholder(): Resource? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createPlaceholderPtr)
+    TransferContext.callPtrMethod(MethodBindings.createPlaceholderPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Resource?)
   }
 

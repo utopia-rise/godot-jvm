@@ -38,7 +38,7 @@ public open class SliderJoint3D : Joint3D() {
    */
   public final fun setParam(`param`: Param, `value`: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, param.value, value.toDouble())
-    TransferContext.callMethod(MethodBindings.setParamPtr)
+    TransferContext.callPtrMethod(MethodBindings.setParamPtr, 0)
   }
 
   /**
@@ -46,7 +46,7 @@ public open class SliderJoint3D : Joint3D() {
    */
   public final fun getParam(`param`: Param): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, param.value)
-    TransferContext.callMethod(MethodBindings.getParamPtr)
+    TransferContext.callPtrMethod(MethodBindings.getParamPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

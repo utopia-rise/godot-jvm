@@ -110,7 +110,7 @@ public open class WebRTCPeerConnection : RefCounted() {
   @JvmOverloads
   public final fun initialize(configuration: Dictionary<Any?, Any?> = Dictionary()): Error {
     TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, configuration)
-    TransferContext.callMethod(MethodBindings.initializePtr)
+    TransferContext.callPtrMethod(MethodBindings.initializePtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -166,7 +166,7 @@ public open class WebRTCPeerConnection : RefCounted() {
    */
   public final fun createOffer(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createOfferPtr)
+    TransferContext.callPtrMethod(MethodBindings.createOfferPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -218,7 +218,7 @@ public open class WebRTCPeerConnection : RefCounted() {
    */
   public final fun poll(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pollPtr)
+    TransferContext.callPtrMethod(MethodBindings.pollPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -229,7 +229,7 @@ public open class WebRTCPeerConnection : RefCounted() {
    */
   public final fun close(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closePtr)
+    TransferContext.callPtrMethod(MethodBindings.closePtr, 0)
   }
 
   /**
@@ -237,7 +237,7 @@ public open class WebRTCPeerConnection : RefCounted() {
    */
   public final fun getConnectionState(): ConnectionState {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectionStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionStatePtr, 2)
     return ConnectionState.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -247,7 +247,7 @@ public open class WebRTCPeerConnection : RefCounted() {
    */
   public final fun getGatheringState(): GatheringState {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGatheringStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getGatheringStatePtr, 2)
     return GatheringState.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -257,7 +257,7 @@ public open class WebRTCPeerConnection : RefCounted() {
    */
   public final fun getSignalingState(): SignalingState {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSignalingStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSignalingStatePtr, 2)
     return SignalingState.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -423,7 +423,7 @@ public open class WebRTCPeerConnection : RefCounted() {
     @JvmStatic
     public final fun setDefaultExtension(extensionClass: StringName): Unit {
       TransferContext.writeMethodArguments_STRING_NAME(0L, 0L, extensionClass)
-      TransferContext.callMethod(MethodBindings.setDefaultExtensionPtr)
+      TransferContext.callPtrMethod(MethodBindings.setDefaultExtensionPtr, 0)
     }
 
     /**

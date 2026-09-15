@@ -211,18 +211,18 @@ public open class NavigationLink3D : Node3D() {
    */
   public final fun getRid(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRidPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnabledPtr, 0)
   }
 
   public final fun isEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -233,7 +233,7 @@ public open class NavigationLink3D : Node3D() {
    */
   public final fun setNavigationMap(navigationMap: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, navigationMap)
-    TransferContext.callMethod(MethodBindings.setNavigationMapPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNavigationMapPtr, 0)
   }
 
   /**
@@ -241,29 +241,29 @@ public open class NavigationLink3D : Node3D() {
    */
   public final fun getNavigationMap(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNavigationMapPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNavigationMapPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setBidirectional(bidirectional: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, bidirectional)
-    TransferContext.callMethod(MethodBindings.setBidirectionalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBidirectionalPtr, 0)
   }
 
   public final fun isBidirectional(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBidirectionalPtr)
+    TransferContext.callPtrMethod(MethodBindings.isBidirectionalPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setNavigationLayers(navigationLayers: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, navigationLayers)
-    TransferContext.callMethod(MethodBindings.setNavigationLayersPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNavigationLayersPtr, 0)
   }
 
   public final fun getNavigationLayers(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNavigationLayersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNavigationLayersPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -273,7 +273,7 @@ public open class NavigationLink3D : Node3D() {
    */
   public final fun setNavigationLayerValue(layerNumber: Int, `value`: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
-    TransferContext.callMethod(MethodBindings.setNavigationLayerValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setNavigationLayerValuePtr, 0)
   }
 
   /**
@@ -282,29 +282,29 @@ public open class NavigationLink3D : Node3D() {
    */
   public final fun getNavigationLayerValue(layerNumber: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
-    TransferContext.callMethod(MethodBindings.getNavigationLayerValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNavigationLayerValuePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setStartPosition(position: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.setStartPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStartPositionPtr, 0)
   }
 
   public final fun getStartPosition(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStartPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStartPositionPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setEndPosition(position: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.setEndPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEndPositionPtr, 0)
   }
 
   public final fun getEndPosition(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEndPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEndPositionPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -313,7 +313,7 @@ public open class NavigationLink3D : Node3D() {
    */
   public final fun setGlobalStartPosition(position: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.setGlobalStartPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGlobalStartPositionPtr, 0)
   }
 
   /**
@@ -321,7 +321,7 @@ public open class NavigationLink3D : Node3D() {
    */
   public final fun getGlobalStartPosition(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlobalStartPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlobalStartPositionPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -330,7 +330,7 @@ public open class NavigationLink3D : Node3D() {
    */
   public final fun setGlobalEndPosition(position: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.setGlobalEndPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGlobalEndPositionPtr, 0)
   }
 
   /**
@@ -338,29 +338,29 @@ public open class NavigationLink3D : Node3D() {
    */
   public final fun getGlobalEndPosition(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlobalEndPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlobalEndPositionPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setEnterCost(enterCost: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, enterCost.toDouble())
-    TransferContext.callMethod(MethodBindings.setEnterCostPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnterCostPtr, 0)
   }
 
   public final fun getEnterCost(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnterCostPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnterCostPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTravelCost(travelCost: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, travelCost.toDouble())
-    TransferContext.callMethod(MethodBindings.setTravelCostPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTravelCostPtr, 0)
   }
 
   public final fun getTravelCost(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTravelCostPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTravelCostPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

@@ -72,12 +72,12 @@ public open class ModifierBoneTarget3D : SkeletonModifier3D() {
 
   public final fun setBone(bone: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bone.toLong())
-    TransferContext.callMethod(MethodBindings.setBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBonePtr, 0)
   }
 
   public final fun getBone(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBonePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

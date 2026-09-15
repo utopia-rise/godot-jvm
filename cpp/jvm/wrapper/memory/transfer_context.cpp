@@ -2,6 +2,7 @@
 
 #include "api/script/jvm_instance.h"
 #include "constraints.h"
+#include "jvm/ptr_converter.h"
 #include "jvm/variant_stack.h"
 #include "logging.h"
 
@@ -59,38 +60,42 @@ void TransferContext::write_object_data(jni::Env& p_env, uintptr_t ptr, godot::O
     buffer->increment_position(godot::encode_uint64(id, buffer->get_cursor()));
 }
 
+bool TransferContext::read_receiver(jni::Env& p_env, SharedBuffer* p_buffer, raw_godot::RawObject& r_receiver) {
+    // The receiver pointer and ObjectID are written directly into the buffer by Kotlin before the call.
+    uintptr_t receiver_ptr = static_cast<uintptr_t>(godot::decode_uint64(p_buffer->get_cursor()));
+#ifdef DEBUG_ENABLED
+    uint64_t receiver_id = godot::decode_uint64(p_buffer->get_cursor() + PTR_SIZE);
+#endif
+    p_buffer->increment_position(PTR_SIZE + PTR_SIZE);
+    // receiver_ptr is the raw engine pointer the JVM was given.
+    r_receiver = reinterpret_cast<GDExtensionObjectPtr>(receiver_ptr);
+
+#ifdef DEBUG_ENABLED
+    if (unlikely(r_receiver != raw_godot::RawObject::from_instance_id(receiver_id))) {
+        p_buffer->rewind();
+        godot::Variant return_value;
+        VariantToBuffer::write_variant(return_value, p_buffer);
+        constexpr const char* message = "Cannot call a method on a previously freed instance.";
+        JVM_ERR_PRINT("%s", message);
+        p_env.throw_new(message);
+        return false;
+    }
+#endif
+    return true;
+}
+
 void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
     jni::Env env(rawEnv);
     SharedBuffer* buffer = get_instance().get_and_rewind_buffer(env);
 
-    // The receiver pointer and ObjectID are written directly into the buffer by Kotlin's
-    // TransferContext.writeMethodArguments() before this call.
-    uintptr_t receiver_ptr = static_cast<uintptr_t>(godot::decode_uint64(buffer->get_cursor()));
-#ifdef DEBUG_ENABLED
-    uint64_t receiver_id = godot::decode_uint64(buffer->get_cursor() + PTR_SIZE);
-#endif
-    buffer->increment_position(PTR_SIZE + PTR_SIZE);
-    // receiver_ptr is the raw engine pointer the JVM was given.
-    GDExtensionObjectPtr ptr = reinterpret_cast<GDExtensionObjectPtr>(receiver_ptr);
+    raw_godot::RawObject receiver;
+    if (unlikely(!read_receiver(env, buffer, receiver))) { return; }
 
     uint32_t args_size = read_args_size(buffer);
 
     GDExtensionMethodBindPtr method_bind = reinterpret_cast<GDExtensionMethodBindPtr>(
         static_cast<uintptr_t>(j_method_ptr)
     );
-    raw_godot::RawObject receiver = ptr;
-
-#ifdef DEBUG_ENABLED
-    if (unlikely(receiver != raw_godot::RawObject::from_instance_id(receiver_id))) {
-        buffer->rewind();
-        godot::Variant return_value;
-        VariantToBuffer::write_variant(return_value, buffer);
-        constexpr const char* message = "Cannot call a method on a previously freed instance.";
-        JVM_ERR_PRINT("%s", message);
-        env.throw_new(message);
-        return;
-    }
-#endif
 
     // A GDExtensionMethodBindPtr is an opaque engine handle with no exposed name or class accessors.
     JVM_DEV_ASSERT(
@@ -143,4 +148,51 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
         static_cast<int>(r_error.error)
     );
 #endif
+}
+
+void TransferContext::icall_ptr(JNIEnv* rawEnv, jobject, jlong j_method_ptr, jint p_return_type) {
+    jni::Env env(rawEnv);
+    SharedBuffer* buffer = get_instance().get_and_rewind_buffer(env);
+
+    raw_godot::RawObject receiver;
+    if (unlikely(!read_receiver(env, buffer, receiver))) { return; }
+
+    uint32_t args_size = read_args_size(buffer);
+    JVM_DEV_ASSERT(
+        args_size <= MAX_FUNCTION_ARG_COUNT,
+        "Cannot have more than %s arguments for a method call but tried to call with %s args",
+        MAX_FUNCTION_ARG_COUNT,
+        args_size
+    );
+
+    GDExtensionMethodBindPtr method_bind = reinterpret_cast<GDExtensionMethodBindPtr>(
+        static_cast<uintptr_t>(j_method_ptr)
+    );
+
+    // Per-call storage on this frame: a nested JVM call from inside the engine call rewrites the shared buffer.
+    const void* args[MAX_FUNCTION_ARG_COUNT];
+    BufferToPtr::InlineValue inline_args[MAX_FUNCTION_ARG_COUNT];
+    BufferToPtr::read_args(buffer, args_size, args, inline_args);
+
+    if (p_return_type == godot::Variant::NIL) {
+        receiver.ptrcall_method_bind(method_bind, args, nullptr);
+    } else if (p_return_type == godot::Variant::OBJECT || p_return_type == REF_COUNTED_RETURN_TYPE) {
+        // Must start null: for a RefCounted return the engine assigns a Ref over this slot, releasing whatever it
+        // previously pointed to.
+        godot::GodotObject* ret = nullptr;
+        receiver.ptrcall_method_bind(method_bind, args, &ret);
+        buffer->rewind();
+        VariantToBuffer::write_object(buffer, ret);
+        // The binding taken by write_object holds the JVM's own reference, so the one the engine handed over is
+        // surplus. Its release cannot free the object, but the destroy branch keeps the protocol honest.
+        if (p_return_type == REF_COUNTED_RETURN_TYPE && ret != nullptr) {
+            raw_godot::RawObject returned = ret;
+            if (unlikely(returned.unreference())) { returned.destroy(); }
+        }
+    } else {
+        BufferToPtr::InlineValue ret;
+        receiver.ptrcall_method_bind(method_bind, args, ret.bytes);
+        buffer->rewind();
+        BufferToPtr::write_inline_return(buffer, static_cast<godot::Variant::Type>(p_return_type), ret);
+    }
 }

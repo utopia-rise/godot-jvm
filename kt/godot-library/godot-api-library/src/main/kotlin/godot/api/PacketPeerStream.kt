@@ -67,34 +67,34 @@ public open class PacketPeerStream : PacketPeer() {
 
   public final fun setStreamPeer(peer: StreamPeer?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, peer)
-    TransferContext.callMethod(MethodBindings.setStreamPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStreamPeerPtr, 0)
   }
 
   public final fun getStreamPeer(): StreamPeer? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStreamPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStreamPeerPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as StreamPeer?)
   }
 
   public final fun setInputBufferMaxSize(maxSizeBytes: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxSizeBytes.toLong())
-    TransferContext.callMethod(MethodBindings.setInputBufferMaxSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setInputBufferMaxSizePtr, 0)
   }
 
   public final fun setOutputBufferMaxSize(maxSizeBytes: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxSizeBytes.toLong())
-    TransferContext.callMethod(MethodBindings.setOutputBufferMaxSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setOutputBufferMaxSizePtr, 0)
   }
 
   public final fun getInputBufferMaxSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInputBufferMaxSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getInputBufferMaxSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun getOutputBufferMaxSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOutputBufferMaxSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getOutputBufferMaxSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

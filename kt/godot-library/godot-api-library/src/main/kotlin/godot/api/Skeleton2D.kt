@@ -58,7 +58,7 @@ public open class Skeleton2D : Node2D() {
    */
   public final fun getBoneCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -69,7 +69,7 @@ public open class Skeleton2D : Node2D() {
    */
   public final fun getBone(idx: Int): Bone2D? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBonePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Bone2D?)
   }
 
@@ -78,7 +78,7 @@ public open class Skeleton2D : Node2D() {
    */
   public final fun getSkeleton(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkeletonPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -87,7 +87,7 @@ public open class Skeleton2D : Node2D() {
    */
   public final fun setModificationStack(modificationStack: SkeletonModificationStack2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, modificationStack)
-    TransferContext.callMethod(MethodBindings.setModificationStackPtr)
+    TransferContext.callPtrMethod(MethodBindings.setModificationStackPtr, 0)
   }
 
   /**
@@ -95,7 +95,7 @@ public open class Skeleton2D : Node2D() {
    */
   public final fun getModificationStack(): SkeletonModificationStack2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getModificationStackPtr)
+    TransferContext.callPtrMethod(MethodBindings.getModificationStackPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as SkeletonModificationStack2D?)
   }
 
@@ -105,7 +105,7 @@ public open class Skeleton2D : Node2D() {
    */
   public final fun executeModifications(delta: Float, executionMode: Int): Unit {
     TransferContext.writeMethodArguments_DOUBLE_LONG(ptr, objectID.id, delta.toDouble(), executionMode.toLong())
-    TransferContext.callMethod(MethodBindings.executeModificationsPtr)
+    TransferContext.callPtrMethod(MethodBindings.executeModificationsPtr, 0)
   }
 
   /**
@@ -124,7 +124,7 @@ public open class Skeleton2D : Node2D() {
     persistent: Boolean,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_TRANSFORM2D_DOUBLE_BOOL(ptr, objectID.id, boneIdx.toLong(), overridePose, strength.toDouble(), persistent)
-    TransferContext.callMethod(MethodBindings.setBoneLocalPoseOverridePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBoneLocalPoseOverridePtr, 0)
   }
 
   /**
@@ -132,7 +132,7 @@ public open class Skeleton2D : Node2D() {
    */
   public final fun getBoneLocalPoseOverride(boneIdx: Int): Transform2D {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneLocalPoseOverridePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneLocalPoseOverridePtr, 11)
     return TransferContext.readReturnValue_TRANSFORM2D()
   }
 

@@ -55,7 +55,7 @@ public open class FoldableGroup : Resource() {
    */
   public final fun getExpandedContainer(): FoldableContainer? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExpandedContainerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExpandedContainerPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as FoldableContainer?)
   }
 
@@ -72,12 +72,12 @@ public open class FoldableGroup : Resource() {
 
   public final fun setAllowFoldingAll(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setAllowFoldingAllPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAllowFoldingAllPtr, 0)
   }
 
   public final fun isAllowFoldingAll(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAllowFoldingAllPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAllowFoldingAllPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

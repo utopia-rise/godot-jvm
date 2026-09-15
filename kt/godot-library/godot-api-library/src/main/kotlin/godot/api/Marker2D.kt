@@ -45,12 +45,12 @@ public open class Marker2D : Node2D() {
 
   public final fun setGizmoExtents(extents: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, extents.toDouble())
-    TransferContext.callMethod(MethodBindings.setGizmoExtentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGizmoExtentsPtr, 0)
   }
 
   public final fun getGizmoExtents(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGizmoExtentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGizmoExtentsPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

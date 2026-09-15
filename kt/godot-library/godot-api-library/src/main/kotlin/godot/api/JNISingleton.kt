@@ -39,7 +39,7 @@ public open class JNISingleton : Object() {
    */
   public final fun hasJavaMethod(method: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, method)
-    TransferContext.callMethod(MethodBindings.hasJavaMethodPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasJavaMethodPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

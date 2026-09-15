@@ -95,56 +95,56 @@ public open class TextureRect : Control() {
 
   public final fun setTexture(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setExpandMode(expandMode: ExpandMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, expandMode.value)
-    TransferContext.callMethod(MethodBindings.setExpandModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setExpandModePtr, 0)
   }
 
   public final fun getExpandMode(): ExpandMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExpandModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getExpandModePtr, 2)
     return ExpandMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setFlipH(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setFlipHPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFlipHPtr, 0)
   }
 
   public final fun isFlippedH(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFlippedHPtr)
+    TransferContext.callPtrMethod(MethodBindings.isFlippedHPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFlipV(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setFlipVPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFlipVPtr, 0)
   }
 
   public final fun isFlippedV(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFlippedVPtr)
+    TransferContext.callPtrMethod(MethodBindings.isFlippedVPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setStretchMode(stretchMode: StretchMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stretchMode.value)
-    TransferContext.callMethod(MethodBindings.setStretchModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setStretchModePtr, 0)
   }
 
   public final fun getStretchMode(): StretchMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStretchModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getStretchModePtr, 2)
     return StretchMode.from(TransferContext.readReturnValue_LONG())
   }
 

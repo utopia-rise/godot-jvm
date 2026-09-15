@@ -76,7 +76,7 @@ public open class ImmediateMesh : Mesh() {
   @JvmOverloads
   public final fun surfaceBegin(primitive: Mesh.PrimitiveType, material: Material? = null): Unit {
     TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, primitive.value, material)
-    TransferContext.callMethod(MethodBindings.surfaceBeginPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceBeginPtr, 0)
   }
 
   /**
@@ -84,7 +84,7 @@ public open class ImmediateMesh : Mesh() {
    */
   public final fun surfaceSetColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.surfaceSetColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceSetColorPtr, 0)
   }
 
   /**
@@ -92,7 +92,7 @@ public open class ImmediateMesh : Mesh() {
    */
   public final fun surfaceSetNormal(normal: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, normal)
-    TransferContext.callMethod(MethodBindings.surfaceSetNormalPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceSetNormalPtr, 0)
   }
 
   /**
@@ -104,7 +104,7 @@ public open class ImmediateMesh : Mesh() {
    */
   public final fun surfaceSetTangent(tangent: Plane): Unit {
     TransferContext.writeMethodArguments_PLANE(ptr, objectID.id, tangent)
-    TransferContext.callMethod(MethodBindings.surfaceSetTangentPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceSetTangentPtr, 0)
   }
 
   /**
@@ -112,7 +112,7 @@ public open class ImmediateMesh : Mesh() {
    */
   public final fun surfaceSetUv(uv: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, uv)
-    TransferContext.callMethod(MethodBindings.surfaceSetUvPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceSetUvPtr, 0)
   }
 
   /**
@@ -120,7 +120,7 @@ public open class ImmediateMesh : Mesh() {
    */
   public final fun surfaceSetUv2(uv2: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, uv2)
-    TransferContext.callMethod(MethodBindings.surfaceSetUv2Ptr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceSetUv2Ptr, 0)
   }
 
   /**
@@ -128,7 +128,7 @@ public open class ImmediateMesh : Mesh() {
    */
   public final fun surfaceAddVertex(vertex: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, vertex)
-    TransferContext.callMethod(MethodBindings.surfaceAddVertexPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceAddVertexPtr, 0)
   }
 
   /**
@@ -136,7 +136,7 @@ public open class ImmediateMesh : Mesh() {
    */
   public final fun surfaceAddVertex2d(vertex: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, vertex)
-    TransferContext.callMethod(MethodBindings.surfaceAddVertex2dPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceAddVertex2dPtr, 0)
   }
 
   /**
@@ -145,7 +145,7 @@ public open class ImmediateMesh : Mesh() {
    */
   public final fun surfaceEnd(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.surfaceEndPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceEndPtr, 0)
   }
 
   /**
@@ -153,7 +153,7 @@ public open class ImmediateMesh : Mesh() {
    */
   public final fun clearSurfaces(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearSurfacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearSurfacesPtr, 0)
   }
 
   /**

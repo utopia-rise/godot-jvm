@@ -98,18 +98,18 @@ public open class PlaceholderTextureLayered internal constructor() : TextureLaye
 
   public final fun setSize(size: Vector2i): Unit {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
   }
 
   public final fun getSize(): Vector2i {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 6)
     return TransferContext.readReturnValue_VECTOR2I()
   }
 
   public final fun setLayers(layers: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layers.toLong())
-    TransferContext.callMethod(MethodBindings.setLayersPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLayersPtr, 0)
   }
 
   /**

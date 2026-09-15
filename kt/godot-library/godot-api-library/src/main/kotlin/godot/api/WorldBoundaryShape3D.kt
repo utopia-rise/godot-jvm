@@ -80,12 +80,12 @@ public open class WorldBoundaryShape3D : Shape3D() {
 
   public final fun setPlane(plane: Plane): Unit {
     TransferContext.writeMethodArguments_PLANE(ptr, objectID.id, plane)
-    TransferContext.callMethod(MethodBindings.setPlanePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPlanePtr, 0)
   }
 
   public final fun getPlane(): Plane {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPlanePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPlanePtr, 14)
     return TransferContext.readReturnValue_PLANE()
   }
 

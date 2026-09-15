@@ -97,34 +97,34 @@ public open class VehicleBody3D : RigidBody3D() {
 
   public final fun setEngineForce(engineForce: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, engineForce.toDouble())
-    TransferContext.callMethod(MethodBindings.setEngineForcePtr)
+    TransferContext.callPtrMethod(MethodBindings.setEngineForcePtr, 0)
   }
 
   public final fun getEngineForce(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEngineForcePtr)
+    TransferContext.callPtrMethod(MethodBindings.getEngineForcePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setBrake(brake: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, brake.toDouble())
-    TransferContext.callMethod(MethodBindings.setBrakePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBrakePtr, 0)
   }
 
   public final fun getBrake(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBrakePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBrakePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSteering(steering: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, steering.toDouble())
-    TransferContext.callMethod(MethodBindings.setSteeringPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSteeringPtr, 0)
   }
 
   public final fun getSteering(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSteeringPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSteeringPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

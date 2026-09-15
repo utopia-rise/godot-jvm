@@ -151,12 +151,12 @@ public open class HTTPClient : RefCounted() {
 
   public final fun setConnection(connection: StreamPeer?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, connection)
-    TransferContext.callMethod(MethodBindings.setConnectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setConnectionPtr, 0)
   }
 
   public final fun getConnection(): StreamPeer? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as StreamPeer?)
   }
 
@@ -238,7 +238,7 @@ public open class HTTPClient : RefCounted() {
    */
   public final fun close(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closePtr)
+    TransferContext.callPtrMethod(MethodBindings.closePtr, 0)
   }
 
   /**
@@ -246,7 +246,7 @@ public open class HTTPClient : RefCounted() {
    */
   public final fun hasResponse(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasResponsePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasResponsePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -255,7 +255,7 @@ public open class HTTPClient : RefCounted() {
    */
   public final fun isResponseChunked(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isResponseChunkedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isResponseChunkedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -264,7 +264,7 @@ public open class HTTPClient : RefCounted() {
    */
   public final fun getResponseCode(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResponseCodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getResponseCodePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -305,7 +305,7 @@ public open class HTTPClient : RefCounted() {
    */
   public final fun getResponseBodyLength(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResponseBodyLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getResponseBodyLengthPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -320,23 +320,23 @@ public open class HTTPClient : RefCounted() {
 
   public final fun setReadChunkSize(bytes: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bytes.toLong())
-    TransferContext.callMethod(MethodBindings.setReadChunkSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setReadChunkSizePtr, 0)
   }
 
   public final fun getReadChunkSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getReadChunkSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getReadChunkSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setBlockingMode(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setBlockingModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBlockingModePtr, 0)
   }
 
   public final fun isBlockingModeEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBlockingModeEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isBlockingModeEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -345,7 +345,7 @@ public open class HTTPClient : RefCounted() {
    */
   public final fun getStatus(): Status {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStatusPtr, 2)
     return Status.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -354,7 +354,7 @@ public open class HTTPClient : RefCounted() {
    */
   public final fun poll(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pollPtr)
+    TransferContext.callPtrMethod(MethodBindings.pollPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 

@@ -131,7 +131,7 @@ public open class Theme : Resource() {
     texture: Texture2D?,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_OBJECT(ptr, objectID.id, name, themeType, texture)
-    TransferContext.callMethod(MethodBindings.setIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIconPtr, 0)
   }
 
   /**
@@ -142,7 +142,7 @@ public open class Theme : Resource() {
    */
   public final fun getIcon(name: StringName, themeType: StringName): Texture2D? {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.getIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIconPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
@@ -153,7 +153,7 @@ public open class Theme : Resource() {
    */
   public final fun hasIcon(name: StringName, themeType: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.hasIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasIconPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -169,7 +169,7 @@ public open class Theme : Resource() {
     themeType: StringName,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_STRING_NAME(ptr, objectID.id, oldName, name, themeType)
-    TransferContext.callMethod(MethodBindings.renameIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.renameIconPtr, 0)
   }
 
   /**
@@ -179,7 +179,7 @@ public open class Theme : Resource() {
    */
   public final fun clearIcon(name: StringName, themeType: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.clearIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearIconPtr, 0)
   }
 
   /**
@@ -212,7 +212,7 @@ public open class Theme : Resource() {
     texture: StyleBox?,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_OBJECT(ptr, objectID.id, name, themeType, texture)
-    TransferContext.callMethod(MethodBindings.setStyleboxPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStyleboxPtr, 0)
   }
 
   /**
@@ -223,7 +223,7 @@ public open class Theme : Resource() {
    */
   public final fun getStylebox(name: StringName, themeType: StringName): StyleBox? {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.getStyleboxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStyleboxPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as StyleBox?)
   }
 
@@ -234,7 +234,7 @@ public open class Theme : Resource() {
    */
   public final fun hasStylebox(name: StringName, themeType: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.hasStyleboxPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasStyleboxPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -250,7 +250,7 @@ public open class Theme : Resource() {
     themeType: StringName,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_STRING_NAME(ptr, objectID.id, oldName, name, themeType)
-    TransferContext.callMethod(MethodBindings.renameStyleboxPtr)
+    TransferContext.callPtrMethod(MethodBindings.renameStyleboxPtr, 0)
   }
 
   /**
@@ -260,7 +260,7 @@ public open class Theme : Resource() {
    */
   public final fun clearStylebox(name: StringName, themeType: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.clearStyleboxPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearStyleboxPtr, 0)
   }
 
   /**
@@ -293,7 +293,7 @@ public open class Theme : Resource() {
     font: Font?,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_OBJECT(ptr, objectID.id, name, themeType, font)
-    TransferContext.callMethod(MethodBindings.setFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFontPtr, 0)
   }
 
   /**
@@ -307,7 +307,7 @@ public open class Theme : Resource() {
    */
   public final fun getFont(name: StringName, themeType: StringName): Font? {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.getFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFontPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Font?)
   }
 
@@ -319,7 +319,7 @@ public open class Theme : Resource() {
    */
   public final fun hasFont(name: StringName, themeType: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.hasFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasFontPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -335,7 +335,7 @@ public open class Theme : Resource() {
     themeType: StringName,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_STRING_NAME(ptr, objectID.id, oldName, name, themeType)
-    TransferContext.callMethod(MethodBindings.renameFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.renameFontPtr, 0)
   }
 
   /**
@@ -345,7 +345,7 @@ public open class Theme : Resource() {
    */
   public final fun clearFont(name: StringName, themeType: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.clearFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearFontPtr, 0)
   }
 
   /**
@@ -378,7 +378,7 @@ public open class Theme : Resource() {
     fontSize: Int,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_LONG(ptr, objectID.id, name, themeType, fontSize.toLong())
-    TransferContext.callMethod(MethodBindings.setFontSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setFontSizePtr, 0)
   }
 
   /**
@@ -392,7 +392,7 @@ public open class Theme : Resource() {
    */
   public final fun getFontSize(name: StringName, themeType: StringName): Int {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.getFontSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFontSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -404,7 +404,7 @@ public open class Theme : Resource() {
    */
   public final fun hasFontSize(name: StringName, themeType: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.hasFontSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasFontSizePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -420,7 +420,7 @@ public open class Theme : Resource() {
     themeType: StringName,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_STRING_NAME(ptr, objectID.id, oldName, name, themeType)
-    TransferContext.callMethod(MethodBindings.renameFontSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.renameFontSizePtr, 0)
   }
 
   /**
@@ -430,7 +430,7 @@ public open class Theme : Resource() {
    */
   public final fun clearFontSize(name: StringName, themeType: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.clearFontSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.clearFontSizePtr, 0)
   }
 
   /**
@@ -463,7 +463,7 @@ public open class Theme : Resource() {
     color: Color,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_COLOR(ptr, objectID.id, name, themeType, color)
-    TransferContext.callMethod(MethodBindings.setColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
   }
 
   /**
@@ -474,7 +474,7 @@ public open class Theme : Resource() {
    */
   public final fun getColor(name: StringName, themeType: StringName): Color {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.getColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
@@ -485,7 +485,7 @@ public open class Theme : Resource() {
    */
   public final fun hasColor(name: StringName, themeType: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.hasColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasColorPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -501,7 +501,7 @@ public open class Theme : Resource() {
     themeType: StringName,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_STRING_NAME(ptr, objectID.id, oldName, name, themeType)
-    TransferContext.callMethod(MethodBindings.renameColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.renameColorPtr, 0)
   }
 
   /**
@@ -511,7 +511,7 @@ public open class Theme : Resource() {
    */
   public final fun clearColor(name: StringName, themeType: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.clearColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearColorPtr, 0)
   }
 
   /**
@@ -544,7 +544,7 @@ public open class Theme : Resource() {
     constant: Int,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_LONG(ptr, objectID.id, name, themeType, constant.toLong())
-    TransferContext.callMethod(MethodBindings.setConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.setConstantPtr, 0)
   }
 
   /**
@@ -554,7 +554,7 @@ public open class Theme : Resource() {
    */
   public final fun getConstant(name: StringName, themeType: StringName): Int {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.getConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConstantPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -565,7 +565,7 @@ public open class Theme : Resource() {
    */
   public final fun hasConstant(name: StringName, themeType: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.hasConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasConstantPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -581,7 +581,7 @@ public open class Theme : Resource() {
     themeType: StringName,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_STRING_NAME(ptr, objectID.id, oldName, name, themeType)
-    TransferContext.callMethod(MethodBindings.renameConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.renameConstantPtr, 0)
   }
 
   /**
@@ -591,7 +591,7 @@ public open class Theme : Resource() {
    */
   public final fun clearConstant(name: StringName, themeType: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, themeType)
-    TransferContext.callMethod(MethodBindings.clearConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearConstantPtr, 0)
   }
 
   /**
@@ -616,12 +616,12 @@ public open class Theme : Resource() {
 
   public final fun setDefaultBaseScale(baseScale: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, baseScale.toDouble())
-    TransferContext.callMethod(MethodBindings.setDefaultBaseScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultBaseScalePtr, 0)
   }
 
   public final fun getDefaultBaseScale(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultBaseScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultBaseScalePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -632,18 +632,18 @@ public open class Theme : Resource() {
    */
   public final fun hasDefaultBaseScale(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasDefaultBaseScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasDefaultBaseScalePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDefaultFont(font: Font?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, font)
-    TransferContext.callMethod(MethodBindings.setDefaultFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultFontPtr, 0)
   }
 
   public final fun getDefaultFont(): Font? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultFontPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Font?)
   }
 
@@ -654,18 +654,18 @@ public open class Theme : Resource() {
    */
   public final fun hasDefaultFont(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasDefaultFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasDefaultFontPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDefaultFontSize(fontSize: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fontSize.toLong())
-    TransferContext.callMethod(MethodBindings.setDefaultFontSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultFontSizePtr, 0)
   }
 
   public final fun getDefaultFontSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultFontSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultFontSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -676,7 +676,7 @@ public open class Theme : Resource() {
    */
   public final fun hasDefaultFontSize(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasDefaultFontSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasDefaultFontSizePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -732,7 +732,7 @@ public open class Theme : Resource() {
     themeType: StringName,
   ): Boolean {
     TransferContext.writeMethodArguments_LONG_STRING_NAME_STRING_NAME(ptr, objectID.id, dataType.value, name, themeType)
-    TransferContext.callMethod(MethodBindings.hasThemeItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasThemeItemPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -753,7 +753,7 @@ public open class Theme : Resource() {
     themeType: StringName,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_STRING_NAME_STRING_NAME_STRING_NAME(ptr, objectID.id, dataType.value, oldName, name, themeType)
-    TransferContext.callMethod(MethodBindings.renameThemeItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.renameThemeItemPtr, 0)
   }
 
   /**
@@ -770,7 +770,7 @@ public open class Theme : Resource() {
     themeType: StringName,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_STRING_NAME_STRING_NAME(ptr, objectID.id, dataType.value, name, themeType)
-    TransferContext.callMethod(MethodBindings.clearThemeItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearThemeItemPtr, 0)
   }
 
   /**
@@ -814,7 +814,7 @@ public open class Theme : Resource() {
    */
   public final fun setTypeVariation(themeType: StringName, baseType: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, themeType, baseType)
-    TransferContext.callMethod(MethodBindings.setTypeVariationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTypeVariationPtr, 0)
   }
 
   /**
@@ -822,7 +822,7 @@ public open class Theme : Resource() {
    */
   public final fun isTypeVariation(themeType: StringName, baseType: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, themeType, baseType)
-    TransferContext.callMethod(MethodBindings.isTypeVariationPtr)
+    TransferContext.callPtrMethod(MethodBindings.isTypeVariationPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -831,7 +831,7 @@ public open class Theme : Resource() {
    */
   public final fun clearTypeVariation(themeType: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, themeType)
-    TransferContext.callMethod(MethodBindings.clearTypeVariationPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearTypeVariationPtr, 0)
   }
 
   /**
@@ -861,7 +861,7 @@ public open class Theme : Resource() {
    */
   public final fun addType(themeType: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, themeType)
-    TransferContext.callMethod(MethodBindings.addTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.addTypePtr, 0)
   }
 
   /**
@@ -871,7 +871,7 @@ public open class Theme : Resource() {
    */
   public final fun removeType(themeType: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, themeType)
-    TransferContext.callMethod(MethodBindings.removeTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.removeTypePtr, 0)
   }
 
   /**
@@ -884,7 +884,7 @@ public open class Theme : Resource() {
    */
   public final fun renameType(oldThemeType: StringName, themeType: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, oldThemeType, themeType)
-    TransferContext.callMethod(MethodBindings.renameTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.renameTypePtr, 0)
   }
 
   /**
@@ -905,7 +905,7 @@ public open class Theme : Resource() {
    */
   public final fun mergeWith(other: Theme?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, other)
-    TransferContext.callMethod(MethodBindings.mergeWithPtr)
+    TransferContext.callPtrMethod(MethodBindings.mergeWithPtr, 0)
   }
 
   /**
@@ -913,7 +913,7 @@ public open class Theme : Resource() {
    */
   public final fun clear(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**

@@ -103,7 +103,7 @@ public open class PacketPeerUDP : PacketPeer() {
    */
   public final fun close(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closePtr)
+    TransferContext.callPtrMethod(MethodBindings.closePtr, 0)
   }
 
   /**
@@ -146,7 +146,7 @@ public open class PacketPeerUDP : PacketPeer() {
    */
   public final fun waitFor(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.waitPtr)
+    TransferContext.callPtrMethod(MethodBindings.waitPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -155,7 +155,7 @@ public open class PacketPeerUDP : PacketPeer() {
    */
   public final fun isBound(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBoundPtr)
+    TransferContext.callPtrMethod(MethodBindings.isBoundPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -183,7 +183,7 @@ public open class PacketPeerUDP : PacketPeer() {
    */
   public final fun isSocketConnected(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSocketConnectedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSocketConnectedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -203,7 +203,7 @@ public open class PacketPeerUDP : PacketPeer() {
    */
   public final fun getPacketPort(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketPortPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPacketPortPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -212,7 +212,7 @@ public open class PacketPeerUDP : PacketPeer() {
    */
   public final fun getLocalPort(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalPortPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocalPortPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -238,7 +238,7 @@ public open class PacketPeerUDP : PacketPeer() {
    */
   public final fun setBroadcastEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setBroadcastEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBroadcastEnabledPtr, 0)
   }
 
   /**

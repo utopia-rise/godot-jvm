@@ -129,28 +129,28 @@ public open class CollisionShape3D : Node3D() {
    */
   public final fun resourceChanged(resource: Resource?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, resource)
-    TransferContext.callMethod(MethodBindings.resourceChangedPtr)
+    TransferContext.callPtrMethod(MethodBindings.resourceChangedPtr, 0)
   }
 
   public final fun setShape(shape: Shape3D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, shape)
-    TransferContext.callMethod(MethodBindings.setShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.setShapePtr, 0)
   }
 
   public final fun getShape(): Shape3D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.getShapePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Shape3D?)
   }
 
   public final fun setDisabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDisabledPtr, 0)
   }
 
   public final fun isDisabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDisabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -160,28 +160,28 @@ public open class CollisionShape3D : Node3D() {
    */
   public final fun makeConvexFromSiblings(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.makeConvexFromSiblingsPtr)
+    TransferContext.callPtrMethod(MethodBindings.makeConvexFromSiblingsPtr, 0)
   }
 
   public final fun setDebugColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setDebugColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDebugColorPtr, 0)
   }
 
   public final fun getDebugColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDebugColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDebugColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setEnableDebugFill(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setEnableDebugFillPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnableDebugFillPtr, 0)
   }
 
   public final fun getEnableDebugFill(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableDebugFillPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnableDebugFillPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

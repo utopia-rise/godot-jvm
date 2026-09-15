@@ -163,19 +163,19 @@ public open class CameraFeed : RefCounted() {
    */
   public final fun getId(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIdPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun isActive(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.isActivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setActive(active: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, active)
-    TransferContext.callMethod(MethodBindings.setActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.setActivePtr, 0)
   }
 
   /**
@@ -200,7 +200,7 @@ public open class CameraFeed : RefCounted() {
    */
   public final fun getPosition(): FeedPosition {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 2)
     return FeedPosition.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -209,18 +209,18 @@ public open class CameraFeed : RefCounted() {
    */
   public final fun setPosition(position: FeedPosition): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, position.value)
-    TransferContext.callMethod(MethodBindings.setPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPositionPtr, 0)
   }
 
   public final fun getTransform(): Transform2D {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransformPtr, 11)
     return TransferContext.readReturnValue_TRANSFORM2D()
   }
 
   public final fun setTransform(transform: Transform2D): Unit {
     TransferContext.writeMethodArguments_TRANSFORM2D(ptr, objectID.id, transform)
-    TransferContext.callMethod(MethodBindings.setTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTransformPtr, 0)
   }
 
   /**
@@ -228,7 +228,7 @@ public open class CameraFeed : RefCounted() {
    */
   public final fun setRgbImage(rgbImage: Image?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, rgbImage)
-    TransferContext.callMethod(MethodBindings.setRgbImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.setRgbImagePtr, 0)
   }
 
   /**
@@ -236,7 +236,7 @@ public open class CameraFeed : RefCounted() {
    */
   public final fun setYcbcrImage(ycbcrImage: Image?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, ycbcrImage)
-    TransferContext.callMethod(MethodBindings.setYcbcrImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.setYcbcrImagePtr, 0)
   }
 
   /**
@@ -244,7 +244,7 @@ public open class CameraFeed : RefCounted() {
    */
   public final fun setYcbcrImages(yImage: Image?, cbcrImage: Image?): Unit {
     TransferContext.writeMethodArguments_OBJECT_OBJECT(ptr, objectID.id, yImage, cbcrImage)
-    TransferContext.callMethod(MethodBindings.setYcbcrImagesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setYcbcrImagesPtr, 0)
   }
 
   /**
@@ -252,7 +252,7 @@ public open class CameraFeed : RefCounted() {
    */
   public final fun setExternal(width: Int, height: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, width.toLong(), height.toLong())
-    TransferContext.callMethod(MethodBindings.setExternalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExternalPtr, 0)
   }
 
   /**
@@ -261,7 +261,7 @@ public open class CameraFeed : RefCounted() {
    */
   public final fun getTextureTexId(feedImageType: CameraServer.FeedImage): Long {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, feedImageType.value)
-    TransferContext.callMethod(MethodBindings.getTextureTexIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureTexIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -270,7 +270,7 @@ public open class CameraFeed : RefCounted() {
    */
   public final fun getDatatype(): FeedDataType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDatatypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDatatypePtr, 2)
     return FeedDataType.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -293,7 +293,7 @@ public open class CameraFeed : RefCounted() {
    */
   public final fun setFormat(index: Int, parameters: Dictionary<Any?, Any?>): Boolean {
     TransferContext.writeMethodArguments_LONG_DICTIONARY(ptr, objectID.id, index.toLong(), parameters)
-    TransferContext.callMethod(MethodBindings.setFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFormatPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

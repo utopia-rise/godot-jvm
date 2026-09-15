@@ -71,23 +71,23 @@ public open class Shape3D internal constructor() : Resource() {
 
   public final fun setCustomSolverBias(bias: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, bias.toDouble())
-    TransferContext.callMethod(MethodBindings.setCustomSolverBiasPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCustomSolverBiasPtr, 0)
   }
 
   public final fun getCustomSolverBias(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomSolverBiasPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCustomSolverBiasPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMargin(margin: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, margin.toDouble())
-    TransferContext.callMethod(MethodBindings.setMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMarginPtr, 0)
   }
 
   public final fun getMargin(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -96,7 +96,7 @@ public open class Shape3D internal constructor() : Resource() {
    */
   public final fun getDebugMesh(): ArrayMesh? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDebugMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDebugMeshPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as ArrayMesh?)
   }
 

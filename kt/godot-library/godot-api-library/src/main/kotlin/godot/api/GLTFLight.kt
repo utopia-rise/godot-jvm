@@ -172,7 +172,7 @@ public open class GLTFLight : Resource() {
    */
   public final fun toNode(): Light3D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.toNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.toNodePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Light3D?)
   }
 
@@ -187,24 +187,24 @@ public open class GLTFLight : Resource() {
 
   public final fun getColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
   }
 
   public final fun getIntensity(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIntensityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIntensityPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setIntensity(intensity: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, intensity.toDouble())
-    TransferContext.callMethod(MethodBindings.setIntensityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIntensityPtr, 0)
   }
 
   public final fun getLightType(): String {
@@ -220,35 +220,35 @@ public open class GLTFLight : Resource() {
 
   public final fun getRange(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.getRangePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRange(range: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, range.toDouble())
-    TransferContext.callMethod(MethodBindings.setRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.setRangePtr, 0)
   }
 
   public final fun getInnerConeAngle(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInnerConeAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.getInnerConeAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setInnerConeAngle(innerConeAngle: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, innerConeAngle.toDouble())
-    TransferContext.callMethod(MethodBindings.setInnerConeAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.setInnerConeAnglePtr, 0)
   }
 
   public final fun getOuterConeAngle(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOuterConeAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.getOuterConeAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOuterConeAngle(outerConeAngle: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, outerConeAngle.toDouble())
-    TransferContext.callMethod(MethodBindings.setOuterConeAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.setOuterConeAnglePtr, 0)
   }
 
   public final fun getAdditionalData(extensionName: StringName): Any? {
@@ -347,7 +347,7 @@ public open class GLTFLight : Resource() {
     @JvmStatic
     public final fun fromNode(lightNode: Light3D?): GLTFLight? {
       TransferContext.writeMethodArguments_OBJECT(0L, 0L, lightNode)
-      TransferContext.callMethod(MethodBindings.fromNodePtr)
+      TransferContext.callPtrMethod(MethodBindings.fromNodePtr, 39)
       return (TransferContext.readReturnValue_OBJECT() as GLTFLight?)
     }
 
@@ -357,7 +357,7 @@ public open class GLTFLight : Resource() {
     @JvmStatic
     public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFLight? {
       TransferContext.writeMethodArguments_DICTIONARY(0L, 0L, dictionary)
-      TransferContext.callMethod(MethodBindings.fromDictionaryPtr)
+      TransferContext.callPtrMethod(MethodBindings.fromDictionaryPtr, 39)
       return (TransferContext.readReturnValue_OBJECT() as GLTFLight?)
     }
   }

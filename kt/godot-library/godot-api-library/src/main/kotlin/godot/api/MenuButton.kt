@@ -75,7 +75,7 @@ public open class MenuButton : Button() {
    */
   public final fun getPopup(): PopupMenu? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPopupPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPopupPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as PopupMenu?)
   }
 
@@ -85,17 +85,17 @@ public open class MenuButton : Button() {
    */
   public final fun showPopup(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.showPopupPtr)
+    TransferContext.callPtrMethod(MethodBindings.showPopupPtr, 0)
   }
 
   public final fun setSwitchOnHover(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setSwitchOnHoverPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSwitchOnHoverPtr, 0)
   }
 
   public final fun isSwitchOnHover(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSwitchOnHoverPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSwitchOnHoverPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -104,17 +104,17 @@ public open class MenuButton : Button() {
    */
   public final fun setDisableShortcuts(disabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, disabled)
-    TransferContext.callMethod(MethodBindings.setDisableShortcutsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDisableShortcutsPtr, 0)
   }
 
   public final fun setItemCount(count: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.setItemCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemCountPtr, 0)
   }
 
   public final fun getItemCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getItemCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

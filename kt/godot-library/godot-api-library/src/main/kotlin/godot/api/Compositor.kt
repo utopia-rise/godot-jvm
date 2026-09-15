@@ -44,7 +44,7 @@ public open class Compositor : Resource() {
 
   public final fun setCompositorEffects(compositorEffects: VariantArray<CompositorEffect>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, compositorEffects)
-    TransferContext.callMethod(MethodBindings.setCompositorEffectsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCompositorEffectsPtr, 0)
   }
 
   public final fun getCompositorEffects(): VariantArray<CompositorEffect> {

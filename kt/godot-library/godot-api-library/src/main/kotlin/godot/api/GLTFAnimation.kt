@@ -69,13 +69,13 @@ public open class GLTFAnimation : Resource() {
 
   public final fun getLoop(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoopPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLoopPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setLoop(loop: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, loop)
-    TransferContext.callMethod(MethodBindings.setLoopPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLoopPtr, 0)
   }
 
   /**

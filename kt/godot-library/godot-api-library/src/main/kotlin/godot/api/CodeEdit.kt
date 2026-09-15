@@ -396,40 +396,40 @@ public open class CodeEdit : TextEdit() {
 
   public final fun setIndentSize(size: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callMethod(MethodBindings.setIndentSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setIndentSizePtr, 0)
   }
 
   public final fun getIndentSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIndentSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getIndentSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setIndentUsingSpaces(useSpaces: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, useSpaces)
-    TransferContext.callMethod(MethodBindings.setIndentUsingSpacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIndentUsingSpacesPtr, 0)
   }
 
   public final fun isIndentUsingSpaces(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isIndentUsingSpacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.isIndentUsingSpacesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAutoIndentEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setAutoIndentEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutoIndentEnabledPtr, 0)
   }
 
   public final fun isAutoIndentEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAutoIndentEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAutoIndentEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAutoIndentPrefixes(prefixes: VariantArray<String>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, prefixes)
-    TransferContext.callMethod(MethodBindings.setAutoIndentPrefixesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutoIndentPrefixesPtr, 0)
   }
 
   public final fun getAutoIndentPrefixes(): VariantArray<String> {
@@ -445,7 +445,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun doIndent(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.doIndentPtr)
+    TransferContext.callPtrMethod(MethodBindings.doIndentPtr, 0)
   }
 
   /**
@@ -454,7 +454,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun indentLines(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.indentLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.indentLinesPtr, 0)
   }
 
   /**
@@ -464,7 +464,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun unindentLines(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.unindentLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.unindentLinesPtr, 0)
   }
 
   /**
@@ -476,28 +476,28 @@ public open class CodeEdit : TextEdit() {
   @JvmOverloads
   public final fun convertIndent(fromLine: Int = -1, toLine: Int = -1): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, fromLine.toLong(), toLine.toLong())
-    TransferContext.callMethod(MethodBindings.convertIndentPtr)
+    TransferContext.callPtrMethod(MethodBindings.convertIndentPtr, 0)
   }
 
   public final fun setAutoBraceCompletionEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setAutoBraceCompletionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutoBraceCompletionEnabledPtr, 0)
   }
 
   public final fun isAutoBraceCompletionEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAutoBraceCompletionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAutoBraceCompletionEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHighlightMatchingBracesEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setHighlightMatchingBracesEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHighlightMatchingBracesEnabledPtr, 0)
   }
 
   public final fun isHighlightMatchingBracesEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isHighlightMatchingBracesEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isHighlightMatchingBracesEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -513,7 +513,7 @@ public open class CodeEdit : TextEdit() {
 
   public final fun setAutoBraceCompletionPairs(pairs: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, pairs)
-    TransferContext.callMethod(MethodBindings.setAutoBraceCompletionPairsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutoBraceCompletionPairsPtr, 0)
   }
 
   public final fun getAutoBraceCompletionPairs(): Dictionary<Any?, Any?> {
@@ -551,34 +551,34 @@ public open class CodeEdit : TextEdit() {
 
   public final fun setDrawBreakpointsGutter(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setDrawBreakpointsGutterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawBreakpointsGutterPtr, 0)
   }
 
   public final fun isDrawingBreakpointsGutter(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDrawingBreakpointsGutterPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDrawingBreakpointsGutterPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDrawBookmarksGutter(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setDrawBookmarksGutterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawBookmarksGutterPtr, 0)
   }
 
   public final fun isDrawingBookmarksGutter(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDrawingBookmarksGutterPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDrawingBookmarksGutterPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDrawExecutingLinesGutter(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setDrawExecutingLinesGutterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawExecutingLinesGutterPtr, 0)
   }
 
   public final fun isDrawingExecutingLinesGutter(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDrawingExecutingLinesGutterPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDrawingExecutingLinesGutterPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -589,7 +589,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun setLineAsBreakpoint(line: Int, breakpointed: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, line.toLong(), breakpointed)
-    TransferContext.callMethod(MethodBindings.setLineAsBreakpointPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineAsBreakpointPtr, 0)
   }
 
   /**
@@ -597,7 +597,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun isLineBreakpointed(line: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.isLineBreakpointedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLineBreakpointedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -606,7 +606,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun clearBreakpointedLines(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearBreakpointedLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearBreakpointedLinesPtr, 0)
   }
 
   /**
@@ -625,7 +625,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun setLineAsBookmarked(line: Int, bookmarked: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, line.toLong(), bookmarked)
-    TransferContext.callMethod(MethodBindings.setLineAsBookmarkedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineAsBookmarkedPtr, 0)
   }
 
   /**
@@ -633,7 +633,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun isLineBookmarked(line: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.isLineBookmarkedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLineBookmarkedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -642,7 +642,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun clearBookmarkedLines(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearBookmarkedLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearBookmarkedLinesPtr, 0)
   }
 
   /**
@@ -661,7 +661,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun setLineAsExecuting(line: Int, executing: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, line.toLong(), executing)
-    TransferContext.callMethod(MethodBindings.setLineAsExecutingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineAsExecutingPtr, 0)
   }
 
   /**
@@ -669,7 +669,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun isLineExecuting(line: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.isLineExecutingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLineExecutingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -678,7 +678,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun clearExecutingLines(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearExecutingLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearExecutingLinesPtr, 0)
   }
 
   /**
@@ -692,56 +692,56 @@ public open class CodeEdit : TextEdit() {
 
   public final fun setDrawLineNumbers(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setDrawLineNumbersPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawLineNumbersPtr, 0)
   }
 
   public final fun isDrawLineNumbersEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDrawLineNumbersEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDrawLineNumbersEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setLineNumbersZeroPadded(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setLineNumbersZeroPaddedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineNumbersZeroPaddedPtr, 0)
   }
 
   public final fun isLineNumbersZeroPadded(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isLineNumbersZeroPaddedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLineNumbersZeroPaddedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setLineNumbersMinDigits(count: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.setLineNumbersMinDigitsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineNumbersMinDigitsPtr, 0)
   }
 
   public final fun getLineNumbersMinDigits(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLineNumbersMinDigitsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineNumbersMinDigitsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setDrawFoldGutter(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setDrawFoldGutterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawFoldGutterPtr, 0)
   }
 
   public final fun isDrawingFoldGutter(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDrawingFoldGutterPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDrawingFoldGutterPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setLineFoldingEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setLineFoldingEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineFoldingEnabledPtr, 0)
   }
 
   public final fun isLineFoldingEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isLineFoldingEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLineFoldingEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -752,7 +752,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun canFoldLine(line: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.canFoldLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.canFoldLinePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -761,7 +761,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun foldLine(line: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.foldLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.foldLinePtr, 0)
   }
 
   /**
@@ -769,7 +769,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun unfoldLine(line: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.unfoldLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.unfoldLinePtr, 0)
   }
 
   /**
@@ -777,7 +777,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun foldAllLines(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.foldAllLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.foldAllLinesPtr, 0)
   }
 
   /**
@@ -785,7 +785,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun unfoldAllLines(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.unfoldAllLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.unfoldAllLinesPtr, 0)
   }
 
   /**
@@ -793,7 +793,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun toggleFoldableLine(line: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.toggleFoldableLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.toggleFoldableLinePtr, 0)
   }
 
   /**
@@ -801,7 +801,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun toggleFoldableLinesAtCarets(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.toggleFoldableLinesAtCaretsPtr)
+    TransferContext.callPtrMethod(MethodBindings.toggleFoldableLinesAtCaretsPtr, 0)
   }
 
   /**
@@ -809,7 +809,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun isLineFolded(line: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.isLineFoldedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLineFoldedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -836,7 +836,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun createCodeRegion(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createCodeRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.createCodeRegionPtr, 0)
   }
 
   /**
@@ -871,7 +871,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun isLineCodeRegionStart(line: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.isLineCodeRegionStartPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLineCodeRegionStartPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -880,7 +880,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun isLineCodeRegionEnd(line: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.isLineCodeRegionEndPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLineCodeRegionEndPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -920,7 +920,7 @@ public open class CodeEdit : TextEdit() {
 
   public final fun setStringDelimiters(stringDelimiters: VariantArray<String>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, stringDelimiters)
-    TransferContext.callMethod(MethodBindings.setStringDelimitersPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStringDelimitersPtr, 0)
   }
 
   /**
@@ -928,7 +928,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun clearStringDelimiters(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearStringDelimitersPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearStringDelimitersPtr, 0)
   }
 
   public final fun getStringDelimiters(): VariantArray<String> {
@@ -944,7 +944,7 @@ public open class CodeEdit : TextEdit() {
   @JvmOverloads
   public final fun isInString(line: Int, column: Int = -1): Int {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), column.toLong())
-    TransferContext.callMethod(MethodBindings.isInStringPtr)
+    TransferContext.callPtrMethod(MethodBindings.isInStringPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -984,7 +984,7 @@ public open class CodeEdit : TextEdit() {
 
   public final fun setCommentDelimiters(commentDelimiters: VariantArray<String>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, commentDelimiters)
-    TransferContext.callMethod(MethodBindings.setCommentDelimitersPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCommentDelimitersPtr, 0)
   }
 
   /**
@@ -992,7 +992,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun clearCommentDelimiters(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearCommentDelimitersPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearCommentDelimitersPtr, 0)
   }
 
   public final fun getCommentDelimiters(): VariantArray<String> {
@@ -1008,7 +1008,7 @@ public open class CodeEdit : TextEdit() {
   @JvmOverloads
   public final fun isInComment(line: Int, column: Int = -1): Int {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), column.toLong())
-    TransferContext.callMethod(MethodBindings.isInCommentPtr)
+    TransferContext.callPtrMethod(MethodBindings.isInCommentPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1036,7 +1036,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun getDelimiterStartPosition(line: Int, column: Int): Vector2 {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), column.toLong())
-    TransferContext.callMethod(MethodBindings.getDelimiterStartPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDelimiterStartPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -1046,7 +1046,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun getDelimiterEndPosition(line: Int, column: Int): Vector2 {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), column.toLong())
-    TransferContext.callMethod(MethodBindings.getDelimiterEndPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDelimiterEndPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -1064,7 +1064,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun setCodeHintDrawBelow(drawBelow: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, drawBelow)
-    TransferContext.callMethod(MethodBindings.setCodeHintDrawBelowPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCodeHintDrawBelowPtr, 0)
   }
 
   /**
@@ -1084,7 +1084,7 @@ public open class CodeEdit : TextEdit() {
   @JvmOverloads
   public final fun requestCodeCompletion(force: Boolean = false): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, force)
-    TransferContext.callMethod(MethodBindings.requestCodeCompletionPtr)
+    TransferContext.callPtrMethod(MethodBindings.requestCodeCompletionPtr, 0)
   }
 
   /**
@@ -1118,7 +1118,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun updateCodeCompletionOptions(force: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, force)
-    TransferContext.callMethod(MethodBindings.updateCodeCompletionOptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.updateCodeCompletionOptionsPtr, 0)
   }
 
   /**
@@ -1156,7 +1156,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun getCodeCompletionSelectedIndex(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCodeCompletionSelectedIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCodeCompletionSelectedIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1165,7 +1165,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun setCodeCompletionSelectedIndex(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.setCodeCompletionSelectedIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCodeCompletionSelectedIndexPtr, 0)
   }
 
   /**
@@ -1175,7 +1175,7 @@ public open class CodeEdit : TextEdit() {
   @JvmOverloads
   public final fun confirmCodeCompletion(replace: Boolean = false): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, replace)
-    TransferContext.callMethod(MethodBindings.confirmCodeCompletionPtr)
+    TransferContext.callPtrMethod(MethodBindings.confirmCodeCompletionPtr, 0)
   }
 
   /**
@@ -1183,23 +1183,23 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun cancelCodeCompletion(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.cancelCodeCompletionPtr)
+    TransferContext.callPtrMethod(MethodBindings.cancelCodeCompletionPtr, 0)
   }
 
   public final fun setCodeCompletionEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setCodeCompletionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCodeCompletionEnabledPtr, 0)
   }
 
   public final fun isCodeCompletionEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCodeCompletionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCodeCompletionEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCodeCompletionPrefixes(prefixes: VariantArray<String>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, prefixes)
-    TransferContext.callMethod(MethodBindings.setCodeCompletionPrefixesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCodeCompletionPrefixesPtr, 0)
   }
 
   public final fun getCodeCompletionPrefixes(): VariantArray<String> {
@@ -1210,7 +1210,7 @@ public open class CodeEdit : TextEdit() {
 
   public final fun setLineLengthGuidelines(guidelineColumns: VariantArray<Long>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, guidelineColumns)
-    TransferContext.callMethod(MethodBindings.setLineLengthGuidelinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineLengthGuidelinesPtr, 0)
   }
 
   public final fun getLineLengthGuidelines(): VariantArray<Long> {
@@ -1221,12 +1221,12 @@ public open class CodeEdit : TextEdit() {
 
   public final fun setSymbolLookupOnClickEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setSymbolLookupOnClickEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSymbolLookupOnClickEnabledPtr, 0)
   }
 
   public final fun isSymbolLookupOnClickEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSymbolLookupOnClickEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSymbolLookupOnClickEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1253,17 +1253,17 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun setSymbolLookupWordAsValid(valid: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, valid)
-    TransferContext.callMethod(MethodBindings.setSymbolLookupWordAsValidPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSymbolLookupWordAsValidPtr, 0)
   }
 
   public final fun setSymbolTooltipOnHoverEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setSymbolTooltipOnHoverEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSymbolTooltipOnHoverEnabledPtr, 0)
   }
 
   public final fun isSymbolTooltipOnHoverEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSymbolTooltipOnHoverEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSymbolTooltipOnHoverEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1272,7 +1272,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun moveLinesUp(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.moveLinesUpPtr)
+    TransferContext.callPtrMethod(MethodBindings.moveLinesUpPtr, 0)
   }
 
   /**
@@ -1280,7 +1280,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun moveLinesDown(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.moveLinesDownPtr)
+    TransferContext.callPtrMethod(MethodBindings.moveLinesDownPtr, 0)
   }
 
   /**
@@ -1288,7 +1288,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun deleteLines(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.deleteLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.deleteLinesPtr, 0)
   }
 
   /**
@@ -1307,7 +1307,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun duplicateSelection(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.duplicateSelectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.duplicateSelectionPtr, 0)
   }
 
   /**
@@ -1316,7 +1316,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun duplicateLines(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.duplicateLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.duplicateLinesPtr, 0)
   }
 
   public enum class CodeCompletionKind(

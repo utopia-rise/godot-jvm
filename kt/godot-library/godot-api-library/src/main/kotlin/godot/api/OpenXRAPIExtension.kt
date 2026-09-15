@@ -72,7 +72,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getOpenxrVersion(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOpenxrVersionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOpenxrVersionPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -83,7 +83,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getInstance(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInstancePtr)
+    TransferContext.callPtrMethod(MethodBindings.getInstancePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -94,7 +94,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getSystemId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSystemIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSystemIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -105,7 +105,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getSession(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSessionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSessionPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -186,7 +186,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun endDebugLabelRegion(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.endDebugLabelRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.endDebugLabelRegionPtr, 0)
   }
 
   /**
@@ -205,7 +205,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getViewCount(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getViewCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getViewCountPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -216,7 +216,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getViewConfiguration(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getViewConfigurationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getViewConfigurationPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -225,7 +225,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun isInitialized(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isInitializedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isInitializedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -236,7 +236,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun isRunning(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRunningPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRunningPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -247,7 +247,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getPlaySpace(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPlaySpacePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPlaySpacePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -256,7 +256,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getPredictedDisplayTime(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPredictedDisplayTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPredictedDisplayTimePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -265,7 +265,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getNextFrameTime(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNextFrameTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNextFrameTimePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -274,7 +274,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun canRender(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.canRenderPtr)
+    TransferContext.callPtrMethod(MethodBindings.canRenderPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -293,7 +293,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun actionGetHandle(action: RID): Long {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.actionGetHandlePtr)
+    TransferContext.callPtrMethod(MethodBindings.actionGetHandlePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -302,7 +302,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getHandTracker(handIndex: Int): Long {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, handIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getHandTrackerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHandTrackerPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -314,7 +314,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun registerCompositionLayerProvider(extension: OpenXRExtensionWrapper?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callMethod(MethodBindings.registerCompositionLayerProviderPtr)
+    TransferContext.callPtrMethod(MethodBindings.registerCompositionLayerProviderPtr, 0)
   }
 
   /**
@@ -324,7 +324,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun unregisterCompositionLayerProvider(extension: OpenXRExtensionWrapper?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callMethod(MethodBindings.unregisterCompositionLayerProviderPtr)
+    TransferContext.callPtrMethod(MethodBindings.unregisterCompositionLayerProviderPtr, 0)
   }
 
   /**
@@ -335,7 +335,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun registerProjectionViewsExtension(extension: OpenXRExtensionWrapper?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callMethod(MethodBindings.registerProjectionViewsExtensionPtr)
+    TransferContext.callPtrMethod(MethodBindings.registerProjectionViewsExtensionPtr, 0)
   }
 
   /**
@@ -346,7 +346,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun unregisterProjectionViewsExtension(extension: OpenXRExtensionWrapper?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callMethod(MethodBindings.unregisterProjectionViewsExtensionPtr)
+    TransferContext.callPtrMethod(MethodBindings.unregisterProjectionViewsExtensionPtr, 0)
   }
 
   /**
@@ -360,7 +360,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun registerFrameInfoExtension(extension: OpenXRExtensionWrapper?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callMethod(MethodBindings.registerFrameInfoExtensionPtr)
+    TransferContext.callPtrMethod(MethodBindings.registerFrameInfoExtensionPtr, 0)
   }
 
   /**
@@ -370,7 +370,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun unregisterFrameInfoExtension(extension: OpenXRExtensionWrapper?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callMethod(MethodBindings.unregisterFrameInfoExtensionPtr)
+    TransferContext.callPtrMethod(MethodBindings.unregisterFrameInfoExtensionPtr, 0)
   }
 
   /**
@@ -382,7 +382,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun registerProjectionLayerExtension(extension: OpenXRExtensionWrapper?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callMethod(MethodBindings.registerProjectionLayerExtensionPtr)
+    TransferContext.callPtrMethod(MethodBindings.registerProjectionLayerExtensionPtr, 0)
   }
 
   /**
@@ -392,7 +392,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun unregisterProjectionLayerExtension(extension: OpenXRExtensionWrapper?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callMethod(MethodBindings.unregisterProjectionLayerExtensionPtr)
+    TransferContext.callPtrMethod(MethodBindings.unregisterProjectionLayerExtensionPtr, 0)
   }
 
   /**
@@ -402,7 +402,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getRenderStateZNear(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRenderStateZNearPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRenderStateZNearPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
@@ -413,7 +413,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getRenderStateZFar(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRenderStateZFarPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRenderStateZFarPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
@@ -422,7 +422,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun setVelocityTexture(renderTarget: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderTarget)
-    TransferContext.callMethod(MethodBindings.setVelocityTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setVelocityTexturePtr, 0)
   }
 
   /**
@@ -430,7 +430,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun setVelocityDepthTexture(renderTarget: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderTarget)
-    TransferContext.callMethod(MethodBindings.setVelocityDepthTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setVelocityDepthTexturePtr, 0)
   }
 
   /**
@@ -438,7 +438,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun setVelocityTargetSize(targetSize: Vector2i): Unit {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, targetSize)
-    TransferContext.callMethod(MethodBindings.setVelocityTargetSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setVelocityTargetSizePtr, 0)
   }
 
   /**
@@ -463,7 +463,7 @@ public open class OpenXRAPIExtension : RefCounted() {
     arraySize: Long,
   ): Long {
     TransferContext.writeMethodArguments_LONG_LONG_LONG_LONG_LONG_LONG_LONG(ptr, objectID.id, createFlags, usageFlags, swapchainFormat, width, height, sampleCount, arraySize)
-    TransferContext.callMethod(MethodBindings.openxrSwapchainCreatePtr)
+    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainCreatePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -472,7 +472,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun openxrSwapchainFree(swapchain: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
-    TransferContext.callMethod(MethodBindings.openxrSwapchainFreePtr)
+    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainFreePtr, 0)
   }
 
   /**
@@ -480,7 +480,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun openxrSwapchainGetSwapchain(swapchain: Long): Long {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
-    TransferContext.callMethod(MethodBindings.openxrSwapchainGetSwapchainPtr)
+    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainGetSwapchainPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -489,7 +489,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun openxrSwapchainAcquire(swapchain: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
-    TransferContext.callMethod(MethodBindings.openxrSwapchainAcquirePtr)
+    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainAcquirePtr, 0)
   }
 
   /**
@@ -497,7 +497,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun openxrSwapchainGetImage(swapchain: Long): RID {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
-    TransferContext.callMethod(MethodBindings.openxrSwapchainGetImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainGetImagePtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -506,7 +506,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun openxrSwapchainRelease(swapchain: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
-    TransferContext.callMethod(MethodBindings.openxrSwapchainReleasePtr)
+    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainReleasePtr, 0)
   }
 
   /**
@@ -516,7 +516,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getProjectionLayer(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProjectionLayerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getProjectionLayerPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -525,7 +525,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun setRenderRegion(renderRegion: Rect2i): Unit {
     TransferContext.writeMethodArguments_RECT2I(ptr, objectID.id, renderRegion)
-    TransferContext.callMethod(MethodBindings.setRenderRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRenderRegionPtr, 0)
   }
 
   /**
@@ -534,7 +534,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun setEmulateEnvironmentBlendModeAlphaBlend(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setEmulateEnvironmentBlendModeAlphaBlendPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEmulateEnvironmentBlendModeAlphaBlendPtr, 0)
   }
 
   /**
@@ -543,7 +543,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun isEnvironmentBlendModeAlphaSupported(): OpenXRAlphaBlendModeSupport {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEnvironmentBlendModeAlphaSupportedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEnvironmentBlendModeAlphaSupportedPtr, 2)
     return OpenXRAlphaBlendModeSupport.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -553,7 +553,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun updateMainSwapchainSize(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.updateMainSwapchainSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.updateMainSwapchainSizePtr, 0)
   }
 
   public enum class OpenXRAlphaBlendModeSupport(
@@ -795,7 +795,7 @@ public open class OpenXRAPIExtension : RefCounted() {
     @JvmStatic
     public final fun openxrIsEnabled(checkRunInEditor: Boolean): Boolean {
       TransferContext.writeMethodArguments_BOOL(0L, 0L, checkRunInEditor)
-      TransferContext.callMethod(MethodBindings.openxrIsEnabledPtr)
+      TransferContext.callPtrMethod(MethodBindings.openxrIsEnabledPtr, 1)
       return TransferContext.readReturnValue_BOOL()
     }
   }

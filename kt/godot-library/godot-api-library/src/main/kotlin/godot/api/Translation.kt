@@ -119,7 +119,7 @@ public open class Translation : Resource() {
     context: StringName = StringName(""),
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_STRING_NAME(ptr, objectID.id, srcMessage, xlatedMessage, context)
-    TransferContext.callMethod(MethodBindings.addMessagePtr)
+    TransferContext.callPtrMethod(MethodBindings.addMessagePtr, 0)
   }
 
   /**
@@ -134,7 +134,7 @@ public open class Translation : Resource() {
     context: StringName = StringName(""),
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_PACKED_STRING_ARRAY_STRING_NAME(ptr, objectID.id, srcMessage, xlatedMessages, context)
-    TransferContext.callMethod(MethodBindings.addPluralMessagePtr)
+    TransferContext.callPtrMethod(MethodBindings.addPluralMessagePtr, 0)
   }
 
   /**
@@ -174,7 +174,7 @@ public open class Translation : Resource() {
   public final fun eraseMessage(srcMessage: StringName, context: StringName = StringName("")):
       Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, srcMessage, context)
-    TransferContext.callMethod(MethodBindings.eraseMessagePtr)
+    TransferContext.callPtrMethod(MethodBindings.eraseMessagePtr, 0)
   }
 
   /**
@@ -217,7 +217,7 @@ public open class Translation : Resource() {
    */
   public final fun getMessageCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMessageCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMessageCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

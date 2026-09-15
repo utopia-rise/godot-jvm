@@ -77,28 +77,28 @@ public open class CurveTexture : Texture2D() {
 
   public final fun setWidth(width: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
-    TransferContext.callMethod(MethodBindings.setWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setWidthPtr, 0)
   }
 
   public final fun setCurve(curve: Curve?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callMethod(MethodBindings.setCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCurvePtr, 0)
   }
 
   public final fun getCurve(): Curve? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurvePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 
   public final fun setTextureMode(textureMode: TextureMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, textureMode.value)
-    TransferContext.callMethod(MethodBindings.setTextureModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureModePtr, 0)
   }
 
   public final fun getTextureMode(): TextureMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureModePtr, 2)
     return TextureMode.from(TransferContext.readReturnValue_LONG())
   }
 

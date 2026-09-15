@@ -40,7 +40,7 @@ public open class AudioListener2D : Node2D() {
    */
   public final fun makeCurrent(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.makeCurrentPtr)
+    TransferContext.callPtrMethod(MethodBindings.makeCurrentPtr, 0)
   }
 
   /**
@@ -48,7 +48,7 @@ public open class AudioListener2D : Node2D() {
    */
   public final fun clearCurrent(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearCurrentPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearCurrentPtr, 0)
   }
 
   /**
@@ -56,7 +56,7 @@ public open class AudioListener2D : Node2D() {
    */
   public final fun isCurrent(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCurrentPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCurrentPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

@@ -86,7 +86,7 @@ public open class HMACContext : RefCounted() {
    */
   public final fun start(hashType: HashingContext.HashType, key: PackedByteArray): Error {
     TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, hashType.value, key)
-    TransferContext.callMethod(MethodBindings.startPtr)
+    TransferContext.callPtrMethod(MethodBindings.startPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -96,7 +96,7 @@ public open class HMACContext : RefCounted() {
    */
   public final fun update(`data`: PackedByteArray): Error {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, data)
-    TransferContext.callMethod(MethodBindings.updatePtr)
+    TransferContext.callPtrMethod(MethodBindings.updatePtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 

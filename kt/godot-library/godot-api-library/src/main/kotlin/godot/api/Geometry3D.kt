@@ -220,7 +220,7 @@ public object Geometry3D : Object() {
     s2: Vector3,
   ): Vector3 {
     TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, point, s1, s2)
-    TransferContext.callMethod(MethodBindings.getClosestPointToSegmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClosestPointToSegmentPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -236,7 +236,7 @@ public object Geometry3D : Object() {
     s2: Vector3,
   ): Vector3 {
     TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, point, s1, s2)
-    TransferContext.callMethod(MethodBindings.getClosestPointToSegmentUncappedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClosestPointToSegmentUncappedPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -257,7 +257,7 @@ public object Geometry3D : Object() {
     c: Vector3,
   ): Vector3 {
     TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, point, a, b, c)
-    TransferContext.callMethod(MethodBindings.getTriangleBarycentricCoordsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTriangleBarycentricCoordsPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 

@@ -40,7 +40,7 @@ public open class OpenXRSpatialContextPersistenceConfig : OpenXRStructureBase() 
    */
   public final fun addPersistenceContext(persistenceContext: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, persistenceContext)
-    TransferContext.callMethod(MethodBindings.addPersistenceContextPtr)
+    TransferContext.callPtrMethod(MethodBindings.addPersistenceContextPtr, 0)
   }
 
   /**
@@ -48,7 +48,7 @@ public open class OpenXRSpatialContextPersistenceConfig : OpenXRStructureBase() 
    */
   public final fun removePersistenceContext(persistenceContext: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, persistenceContext)
-    TransferContext.callMethod(MethodBindings.removePersistenceContextPtr)
+    TransferContext.callPtrMethod(MethodBindings.removePersistenceContextPtr, 0)
   }
 
   /**

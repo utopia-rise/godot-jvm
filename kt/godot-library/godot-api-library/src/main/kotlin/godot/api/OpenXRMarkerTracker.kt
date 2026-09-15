@@ -104,34 +104,34 @@ public open class OpenXRMarkerTracker : OpenXRSpatialEntityTracker() {
 
   public final fun setBoundsSize(boundsSize: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, boundsSize)
-    TransferContext.callMethod(MethodBindings.setBoundsSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBoundsSizePtr, 0)
   }
 
   public final fun getBoundsSize(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoundsSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoundsSizePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setMarkerType(markerType: OpenXRSpatialComponentMarkerList.MarkerType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, markerType.value)
-    TransferContext.callMethod(MethodBindings.setMarkerTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMarkerTypePtr, 0)
   }
 
   public final fun getMarkerType(): OpenXRSpatialComponentMarkerList.MarkerType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMarkerTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarkerTypePtr, 2)
     return OpenXRSpatialComponentMarkerList.MarkerType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setMarkerId(markerId: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, markerId)
-    TransferContext.callMethod(MethodBindings.setMarkerIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMarkerIdPtr, 0)
   }
 
   public final fun getMarkerId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMarkerIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarkerIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

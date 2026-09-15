@@ -125,12 +125,12 @@ public open class ConvexPolygonShape2D : Shape2D() {
    */
   public final fun setPointCloud(pointCloud: PackedVector2Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, pointCloud)
-    TransferContext.callMethod(MethodBindings.setPointCloudPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointCloudPtr, 0)
   }
 
   public final fun setPoints(points: PackedVector2Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, points)
-    TransferContext.callMethod(MethodBindings.setPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointsPtr, 0)
   }
 
   public final fun getPoints(): PackedVector2Array {

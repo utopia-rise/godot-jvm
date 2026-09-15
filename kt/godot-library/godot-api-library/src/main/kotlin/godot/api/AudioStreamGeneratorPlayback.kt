@@ -46,7 +46,7 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    */
   public final fun pushFrame(frame: Vector2): Boolean {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, frame)
-    TransferContext.callMethod(MethodBindings.pushFramePtr)
+    TransferContext.callPtrMethod(MethodBindings.pushFramePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -56,7 +56,7 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    */
   public final fun canPushBuffer(amount: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
-    TransferContext.callMethod(MethodBindings.canPushBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.canPushBufferPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -67,7 +67,7 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    */
   public final fun pushBuffer(frames: PackedVector2Array): Boolean {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, frames)
-    TransferContext.callMethod(MethodBindings.pushBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.pushBufferPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -77,7 +77,7 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    */
   public final fun getFramesAvailable(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFramesAvailablePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFramesAvailablePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -87,7 +87,7 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    */
   public final fun getSkips(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkipsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkipsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -96,7 +96,7 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    */
   public final fun clearBuffer(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearBufferPtr, 0)
   }
 
   /**

@@ -41,7 +41,7 @@ public open class PhysicalBoneSimulator3D : SkeletonModifier3D() {
    */
   public final fun isSimulatingPhysics(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSimulatingPhysicsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSimulatingPhysicsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -50,7 +50,7 @@ public open class PhysicalBoneSimulator3D : SkeletonModifier3D() {
    */
   public final fun physicalBonesStopSimulation(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.physicalBonesStopSimulationPtr)
+    TransferContext.callPtrMethod(MethodBindings.physicalBonesStopSimulationPtr, 0)
   }
 
   /**
@@ -64,7 +64,7 @@ public open class PhysicalBoneSimulator3D : SkeletonModifier3D() {
   public final fun physicalBonesStartSimulation(bones: VariantArray<StringName> =
       godot.core.variantArrayOf()): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, bones)
-    TransferContext.callMethod(MethodBindings.physicalBonesStartSimulationPtr)
+    TransferContext.callPtrMethod(MethodBindings.physicalBonesStartSimulationPtr, 0)
   }
 
   /**
@@ -74,7 +74,7 @@ public open class PhysicalBoneSimulator3D : SkeletonModifier3D() {
    */
   public final fun physicalBonesAddCollisionException(exception: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, exception)
-    TransferContext.callMethod(MethodBindings.physicalBonesAddCollisionExceptionPtr)
+    TransferContext.callPtrMethod(MethodBindings.physicalBonesAddCollisionExceptionPtr, 0)
   }
 
   /**
@@ -84,7 +84,7 @@ public open class PhysicalBoneSimulator3D : SkeletonModifier3D() {
    */
   public final fun physicalBonesRemoveCollisionException(exception: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, exception)
-    TransferContext.callMethod(MethodBindings.physicalBonesRemoveCollisionExceptionPtr)
+    TransferContext.callPtrMethod(MethodBindings.physicalBonesRemoveCollisionExceptionPtr, 0)
   }
 
   public companion object {

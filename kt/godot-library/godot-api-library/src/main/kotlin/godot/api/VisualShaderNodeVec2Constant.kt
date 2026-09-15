@@ -72,12 +72,12 @@ public open class VisualShaderNodeVec2Constant : VisualShaderNodeConstant() {
 
   public final fun setConstant(constant: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, constant)
-    TransferContext.callMethod(MethodBindings.setConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.setConstantPtr, 0)
   }
 
   public final fun getConstant(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConstantPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

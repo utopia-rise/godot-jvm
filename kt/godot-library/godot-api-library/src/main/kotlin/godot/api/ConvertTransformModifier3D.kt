@@ -81,7 +81,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setApplyTransformMode(index: Int, transformMode: TransformMode): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), transformMode.value)
-    TransferContext.callMethod(MethodBindings.setApplyTransformModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setApplyTransformModePtr, 0)
   }
 
   /**
@@ -89,7 +89,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun getApplyTransformMode(index: Int): TransformMode {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getApplyTransformModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getApplyTransformModePtr, 2)
     return TransformMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -98,7 +98,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setApplyAxis(index: Int, axis: Vector3.Axis): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), axis.value)
-    TransferContext.callMethod(MethodBindings.setApplyAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.setApplyAxisPtr, 0)
   }
 
   /**
@@ -106,7 +106,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun getApplyAxis(index: Int): Vector3.Axis {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getApplyAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.getApplyAxisPtr, 2)
     return Vector3.Axis.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -115,7 +115,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setApplyRangeMin(index: Int, rangeMin: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, index.toLong(), rangeMin.toDouble())
-    TransferContext.callMethod(MethodBindings.setApplyRangeMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.setApplyRangeMinPtr, 0)
   }
 
   /**
@@ -123,7 +123,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun getApplyRangeMin(index: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getApplyRangeMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.getApplyRangeMinPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -132,7 +132,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setApplyRangeMax(index: Int, rangeMax: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, index.toLong(), rangeMax.toDouble())
-    TransferContext.callMethod(MethodBindings.setApplyRangeMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.setApplyRangeMaxPtr, 0)
   }
 
   /**
@@ -140,7 +140,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun getApplyRangeMax(index: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getApplyRangeMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getApplyRangeMaxPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -149,7 +149,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setReferenceTransformMode(index: Int, transformMode: TransformMode): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), transformMode.value)
-    TransferContext.callMethod(MethodBindings.setReferenceTransformModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setReferenceTransformModePtr, 0)
   }
 
   /**
@@ -157,7 +157,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun getReferenceTransformMode(index: Int): TransformMode {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getReferenceTransformModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getReferenceTransformModePtr, 2)
     return TransformMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -166,7 +166,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setReferenceAxis(index: Int, axis: Vector3.Axis): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), axis.value)
-    TransferContext.callMethod(MethodBindings.setReferenceAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.setReferenceAxisPtr, 0)
   }
 
   /**
@@ -174,7 +174,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun getReferenceAxis(index: Int): Vector3.Axis {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getReferenceAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.getReferenceAxisPtr, 2)
     return Vector3.Axis.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -183,7 +183,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setReferenceRangeMin(index: Int, rangeMin: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, index.toLong(), rangeMin.toDouble())
-    TransferContext.callMethod(MethodBindings.setReferenceRangeMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.setReferenceRangeMinPtr, 0)
   }
 
   /**
@@ -191,7 +191,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun getReferenceRangeMin(index: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getReferenceRangeMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.getReferenceRangeMinPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -200,7 +200,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setReferenceRangeMax(index: Int, rangeMax: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, index.toLong(), rangeMax.toDouble())
-    TransferContext.callMethod(MethodBindings.setReferenceRangeMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.setReferenceRangeMaxPtr, 0)
   }
 
   /**
@@ -208,7 +208,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun getReferenceRangeMax(index: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getReferenceRangeMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getReferenceRangeMaxPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -221,7 +221,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setRelative(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setRelativePtr)
+    TransferContext.callPtrMethod(MethodBindings.setRelativePtr, 0)
   }
 
   /**
@@ -229,7 +229,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isRelative(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isRelativePtr)
+    TransferContext.callPtrMethod(MethodBindings.isRelativePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -245,7 +245,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun setAdditive(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setAdditivePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAdditivePtr, 0)
   }
 
   /**
@@ -253,7 +253,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    */
   public final fun isAdditive(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isAdditivePtr)
+    TransferContext.callPtrMethod(MethodBindings.isAdditivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

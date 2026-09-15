@@ -299,67 +299,67 @@ public open class Sprite2D : Node2D() {
 
   public final fun setTexture(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setCentered(centered: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, centered)
-    TransferContext.callMethod(MethodBindings.setCenteredPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCenteredPtr, 0)
   }
 
   public final fun isCentered(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCenteredPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCenteredPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setOffset(offset: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callMethod(MethodBindings.setOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOffsetPtr, 0)
   }
 
   public final fun getOffset(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOffsetPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setFlipH(flipH: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, flipH)
-    TransferContext.callMethod(MethodBindings.setFlipHPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFlipHPtr, 0)
   }
 
   public final fun isFlippedH(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFlippedHPtr)
+    TransferContext.callPtrMethod(MethodBindings.isFlippedHPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFlipV(flipV: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, flipV)
-    TransferContext.callMethod(MethodBindings.setFlipVPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFlipVPtr, 0)
   }
 
   public final fun isFlippedV(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFlippedVPtr)
+    TransferContext.callPtrMethod(MethodBindings.isFlippedVPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRegionEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setRegionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRegionEnabledPtr, 0)
   }
 
   public final fun isRegionEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRegionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRegionEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -370,73 +370,73 @@ public open class Sprite2D : Node2D() {
    */
   public final fun isPixelOpaque(pos: Vector2): Boolean {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, pos)
-    TransferContext.callMethod(MethodBindings.isPixelOpaquePtr)
+    TransferContext.callPtrMethod(MethodBindings.isPixelOpaquePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRegionRect(rect: Rect2): Unit {
     TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, rect)
-    TransferContext.callMethod(MethodBindings.setRegionRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRegionRectPtr, 0)
   }
 
   public final fun getRegionRect(): Rect2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRegionRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRegionRectPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 
   public final fun setRegionFilterClipEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setRegionFilterClipEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRegionFilterClipEnabledPtr, 0)
   }
 
   public final fun isRegionFilterClipEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRegionFilterClipEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRegionFilterClipEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFrame(frame: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frame.toLong())
-    TransferContext.callMethod(MethodBindings.setFramePtr)
+    TransferContext.callPtrMethod(MethodBindings.setFramePtr, 0)
   }
 
   public final fun getFrame(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFramePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFramePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setFrameCoords(coords: Vector2i): Unit {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
-    TransferContext.callMethod(MethodBindings.setFrameCoordsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFrameCoordsPtr, 0)
   }
 
   public final fun getFrameCoords(): Vector2i {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFrameCoordsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFrameCoordsPtr, 6)
     return TransferContext.readReturnValue_VECTOR2I()
   }
 
   public final fun setVframes(vframes: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, vframes.toLong())
-    TransferContext.callMethod(MethodBindings.setVframesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVframesPtr, 0)
   }
 
   public final fun getVframes(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVframesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVframesPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setHframes(hframes: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, hframes.toLong())
-    TransferContext.callMethod(MethodBindings.setHframesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHframesPtr, 0)
   }
 
   public final fun getHframes(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHframesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHframesPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -473,7 +473,7 @@ public open class Sprite2D : Node2D() {
    */
   public final fun getRect(): Rect2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRectPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 

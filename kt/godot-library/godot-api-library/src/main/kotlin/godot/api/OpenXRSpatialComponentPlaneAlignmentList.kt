@@ -34,7 +34,7 @@ public open class OpenXRSpatialComponentPlaneAlignmentList : OpenXRSpatialCompon
    */
   public final fun getPlaneAlignment(index: Long): PlaneAlignment {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getPlaneAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPlaneAlignmentPtr, 2)
     return PlaneAlignment.from(TransferContext.readReturnValue_LONG())
   }
 

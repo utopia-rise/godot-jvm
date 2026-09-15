@@ -47,12 +47,12 @@ public open class MultiMeshInstance3D : GeometryInstance3D() {
 
   public final fun setMultimesh(multimesh: MultiMesh?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, multimesh)
-    TransferContext.callMethod(MethodBindings.setMultimeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMultimeshPtr, 0)
   }
 
   public final fun getMultimesh(): MultiMesh? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMultimeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMultimeshPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as MultiMesh?)
   }
 

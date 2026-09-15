@@ -91,12 +91,12 @@ public open class OpenXRActionSet : Resource() {
 
   public final fun setPriority(priority: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, priority.toLong())
-    TransferContext.callMethod(MethodBindings.setPriorityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPriorityPtr, 0)
   }
 
   public final fun getPriority(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPriorityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPriorityPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -105,13 +105,13 @@ public open class OpenXRActionSet : Resource() {
    */
   public final fun getActionCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setActions(actions: VariantArray<Any?>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, actions)
-    TransferContext.callMethod(MethodBindings.setActionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setActionsPtr, 0)
   }
 
   public final fun getActions(): VariantArray<Any?> {
@@ -125,7 +125,7 @@ public open class OpenXRActionSet : Resource() {
    */
   public final fun addAction(action: OpenXRAction?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.addActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.addActionPtr, 0)
   }
 
   /**
@@ -133,7 +133,7 @@ public open class OpenXRActionSet : Resource() {
    */
   public final fun removeAction(action: OpenXRAction?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.removeActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeActionPtr, 0)
   }
 
   public companion object {

@@ -49,12 +49,12 @@ public open class GridContainer : Container() {
 
   public final fun setColumns(columns: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, columns.toLong())
-    TransferContext.callMethod(MethodBindings.setColumnsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setColumnsPtr, 0)
   }
 
   public final fun getColumns(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColumnsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColumnsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

@@ -167,62 +167,62 @@ public open class GraphFrame : GraphElement() {
    */
   public final fun getTitlebarHbox(): HBoxContainer? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTitlebarHboxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTitlebarHboxPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as HBoxContainer?)
   }
 
   public final fun setAutoshrinkEnabled(shrink: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, shrink)
-    TransferContext.callMethod(MethodBindings.setAutoshrinkEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutoshrinkEnabledPtr, 0)
   }
 
   public final fun isAutoshrinkEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAutoshrinkEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAutoshrinkEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAutoshrinkMargin(autoshrinkMargin: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, autoshrinkMargin.toLong())
-    TransferContext.callMethod(MethodBindings.setAutoshrinkMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutoshrinkMarginPtr, 0)
   }
 
   public final fun getAutoshrinkMargin(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutoshrinkMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAutoshrinkMarginPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setDragMargin(dragMargin: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, dragMargin.toLong())
-    TransferContext.callMethod(MethodBindings.setDragMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDragMarginPtr, 0)
   }
 
   public final fun getDragMargin(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDragMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDragMarginPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setTintColorEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setTintColorEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTintColorEnabledPtr, 0)
   }
 
   public final fun isTintColorEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isTintColorEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isTintColorEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setTintColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setTintColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTintColorPtr, 0)
   }
 
   public final fun getTintColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTintColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTintColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 

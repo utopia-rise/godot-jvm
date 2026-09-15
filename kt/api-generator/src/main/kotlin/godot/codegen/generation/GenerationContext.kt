@@ -1,6 +1,7 @@
 package godot.codegen.generation
 
 import com.squareup.kotlinpoet.MemberName
+import godot.codegen.constants.API
 import godot.codegen.constants.TypeIdentifier
 import godot.codegen.exceptions.NoMatchingEnumFound
 import godot.codegen.models.ApiDescription
@@ -26,6 +27,15 @@ class GenerationContext(
     val methodSignatures = LinkedHashSet<TransferSignature>()
     val returnConverters = LinkedHashSet<MemberName>()
 
+
+    fun isRefCounted(className: String): Boolean {
+        var clazz = classMap[className]
+        while (clazz != null) {
+            if (clazz.identifier == API.refCounted.simpleName) return true
+            clazz = clazz.parent
+        }
+        return false
+    }
 
     fun getNextEngineClassIndex() = nextEngineClassIndex++
     fun getNextSingletonIndex(): Int {

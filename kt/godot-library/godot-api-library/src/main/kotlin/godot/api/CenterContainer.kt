@@ -44,12 +44,12 @@ public open class CenterContainer : Container() {
 
   public final fun setUseTopLeft(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setUseTopLeftPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseTopLeftPtr, 0)
   }
 
   public final fun isUsingTopLeft(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingTopLeftPtr)
+    TransferContext.callPtrMethod(MethodBindings.isUsingTopLeftPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

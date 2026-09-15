@@ -177,7 +177,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun setVertices(vertices: PackedFloat32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, vertices)
-    TransferContext.callMethod(MethodBindings.setVerticesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVerticesPtr, 0)
   }
 
   /**
@@ -198,7 +198,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun setIndices(indices: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, indices)
-    TransferContext.callMethod(MethodBindings.setIndicesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIndicesPtr, 0)
   }
 
   /**
@@ -216,7 +216,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun appendArrays(vertices: PackedFloat32Array, indices: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, vertices, indices)
-    TransferContext.callMethod(MethodBindings.appendArraysPtr)
+    TransferContext.callPtrMethod(MethodBindings.appendArraysPtr, 0)
   }
 
   /**
@@ -224,7 +224,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun clear(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**
@@ -232,7 +232,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun hasData(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasDataPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -243,7 +243,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun addMesh(mesh: Mesh?, xform: Transform3D): Unit {
     TransferContext.writeMethodArguments_OBJECT_TRANSFORM3D(ptr, objectID.id, mesh, xform)
-    TransferContext.callMethod(MethodBindings.addMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.addMeshPtr, 0)
   }
 
   /**
@@ -255,7 +255,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun addMeshArray(meshArray: VariantArray<Any?>, xform: Transform3D): Unit {
     TransferContext.writeMethodArguments_ARRAY_TRANSFORM3D(ptr, objectID.id, meshArray, xform)
-    TransferContext.callMethod(MethodBindings.addMeshArrayPtr)
+    TransferContext.callPtrMethod(MethodBindings.addMeshArrayPtr, 0)
   }
 
   /**
@@ -266,7 +266,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun addFaces(faces: PackedVector3Array, xform: Transform3D): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY_TRANSFORM3D(ptr, objectID.id, faces, xform)
-    TransferContext.callMethod(MethodBindings.addFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.addFacesPtr, 0)
   }
 
   /**
@@ -275,7 +275,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun merge(otherGeometry: NavigationMeshSourceGeometryData3D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, otherGeometry)
-    TransferContext.callMethod(MethodBindings.mergePtr)
+    TransferContext.callPtrMethod(MethodBindings.mergePtr, 0)
   }
 
   /**
@@ -291,7 +291,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
     carve: Boolean,
   ): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY_DOUBLE_DOUBLE_BOOL(ptr, objectID.id, vertices, elevation.toDouble(), height.toDouble(), carve)
-    TransferContext.callMethod(MethodBindings.addProjectedObstructionPtr)
+    TransferContext.callPtrMethod(MethodBindings.addProjectedObstructionPtr, 0)
   }
 
   /**
@@ -299,7 +299,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun clearProjectedObstructions(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearProjectedObstructionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearProjectedObstructionsPtr, 0)
   }
 
   /**
@@ -316,7 +316,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun setProjectedObstructions(projectedObstructions: VariantArray<Any?>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, projectedObstructions)
-    TransferContext.callMethod(MethodBindings.setProjectedObstructionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setProjectedObstructionsPtr, 0)
   }
 
   /**
@@ -345,7 +345,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    */
   public final fun getBounds(): AABB {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoundsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoundsPtr, 16)
     return TransferContext.readReturnValue_AABB()
   }
 

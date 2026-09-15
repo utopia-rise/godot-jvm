@@ -72,34 +72,34 @@ public open class CameraTexture : Texture2D() {
 
   public final fun setCameraFeedId(feedId: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, feedId.toLong())
-    TransferContext.callMethod(MethodBindings.setCameraFeedIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCameraFeedIdPtr, 0)
   }
 
   public final fun getCameraFeedId(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCameraFeedIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCameraFeedIdPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setWhichFeed(whichFeed: CameraServer.FeedImage): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, whichFeed.value)
-    TransferContext.callMethod(MethodBindings.setWhichFeedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setWhichFeedPtr, 0)
   }
 
   public final fun getWhichFeed(): CameraServer.FeedImage {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWhichFeedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWhichFeedPtr, 2)
     return CameraServer.FeedImage.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setCameraActive(active: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, active)
-    TransferContext.callMethod(MethodBindings.setCameraActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCameraActivePtr, 0)
   }
 
   public final fun getCameraActive(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCameraActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCameraActivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

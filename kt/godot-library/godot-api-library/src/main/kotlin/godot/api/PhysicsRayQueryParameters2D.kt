@@ -190,40 +190,40 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
 
   public final fun setFrom(from: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, from)
-    TransferContext.callMethod(MethodBindings.setFromPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFromPtr, 0)
   }
 
   public final fun getFrom(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFromPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFromPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setTo(to: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, to)
-    TransferContext.callMethod(MethodBindings.setToPtr)
+    TransferContext.callPtrMethod(MethodBindings.setToPtr, 0)
   }
 
   public final fun getTo(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getToPtr)
+    TransferContext.callPtrMethod(MethodBindings.getToPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setCollisionMask(collisionMask: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionMask)
-    TransferContext.callMethod(MethodBindings.setCollisionMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionMaskPtr, 0)
   }
 
   public final fun getCollisionMask(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionMaskPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setExclude(exclude: VariantArray<RID>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, exclude)
-    TransferContext.callMethod(MethodBindings.setExcludePtr)
+    TransferContext.callPtrMethod(MethodBindings.setExcludePtr, 0)
   }
 
   public final fun getExclude(): VariantArray<RID> {
@@ -234,34 +234,34 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
 
   public final fun setCollideWithBodies(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setCollideWithBodiesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollideWithBodiesPtr, 0)
   }
 
   public final fun isCollideWithBodiesEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollideWithBodiesEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCollideWithBodiesEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCollideWithAreas(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setCollideWithAreasPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollideWithAreasPtr, 0)
   }
 
   public final fun isCollideWithAreasEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollideWithAreasEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCollideWithAreasEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHitFromInside(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setHitFromInsidePtr)
+    TransferContext.callPtrMethod(MethodBindings.setHitFromInsidePtr, 0)
   }
 
   public final fun isHitFromInsideEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isHitFromInsideEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isHitFromInsideEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -352,7 +352,7 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
       exclude: VariantArray<RID> = godot.core.variantArrayOf(),
     ): PhysicsRayQueryParameters2D? {
       TransferContext.writeMethodArguments_VECTOR2_VECTOR2_LONG_ARRAY(0L, 0L, from, to, collisionMask, exclude)
-      TransferContext.callMethod(MethodBindings.createPtr)
+      TransferContext.callPtrMethod(MethodBindings.createPtr, 39)
       return (TransferContext.readReturnValue_OBJECT() as PhysicsRayQueryParameters2D?)
     }
   }

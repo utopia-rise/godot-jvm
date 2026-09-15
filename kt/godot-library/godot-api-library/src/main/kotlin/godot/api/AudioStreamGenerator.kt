@@ -156,34 +156,34 @@ public open class AudioStreamGenerator : AudioStream() {
 
   public final fun setMixRate(hz: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hz.toDouble())
-    TransferContext.callMethod(MethodBindings.setMixRatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMixRatePtr, 0)
   }
 
   public final fun getMixRate(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMixRatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMixRatePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMixRateMode(mode: AudioStreamGeneratorMixRate): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setMixRateModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMixRateModePtr, 0)
   }
 
   public final fun getMixRateMode(): AudioStreamGeneratorMixRate {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMixRateModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMixRateModePtr, 2)
     return AudioStreamGeneratorMixRate.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setBufferLength(seconds: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, seconds.toDouble())
-    TransferContext.callMethod(MethodBindings.setBufferLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBufferLengthPtr, 0)
   }
 
   public final fun getBufferLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBufferLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

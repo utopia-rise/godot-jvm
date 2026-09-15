@@ -54,7 +54,7 @@ public open class TileSetSource internal constructor() : Resource() {
    */
   public final fun getTilesCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTilesCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTilesCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -63,7 +63,7 @@ public open class TileSetSource internal constructor() : Resource() {
    */
   public final fun getTileId(index: Int): Vector2i {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getTileIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTileIdPtr, 6)
     return TransferContext.readReturnValue_VECTOR2I()
   }
 
@@ -72,7 +72,7 @@ public open class TileSetSource internal constructor() : Resource() {
    */
   public final fun hasTile(atlasCoords: Vector2i): Boolean {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callMethod(MethodBindings.hasTilePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasTilePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -86,7 +86,7 @@ public open class TileSetSource internal constructor() : Resource() {
    */
   public final fun getAlternativeTilesCount(atlasCoords: Vector2i): Int {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callMethod(MethodBindings.getAlternativeTilesCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAlternativeTilesCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -95,7 +95,7 @@ public open class TileSetSource internal constructor() : Resource() {
    */
   public final fun getAlternativeTileId(atlasCoords: Vector2i, index: Int): Int {
     TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, index.toLong())
-    TransferContext.callMethod(MethodBindings.getAlternativeTileIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAlternativeTileIdPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -105,7 +105,7 @@ public open class TileSetSource internal constructor() : Resource() {
    */
   public final fun hasAlternativeTile(atlasCoords: Vector2i, alternativeTile: Int): Boolean {
     TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, alternativeTile.toLong())
-    TransferContext.callMethod(MethodBindings.hasAlternativeTilePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasAlternativeTilePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

@@ -131,7 +131,7 @@ public open class PCKPacker : RefCounted() {
   @JvmOverloads
   public final fun flush(verbose: Boolean = false): Error {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, verbose)
-    TransferContext.callMethod(MethodBindings.flushPtr)
+    TransferContext.callPtrMethod(MethodBindings.flushPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 

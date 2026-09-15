@@ -238,7 +238,7 @@ public object ResourceLoader : Object() {
   public final fun addResourceFormatLoader(formatLoader: ResourceFormatLoader, atFront: Boolean =
       false): Unit {
     TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, formatLoader, atFront)
-    TransferContext.callMethod(MethodBindings.addResourceFormatLoaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.addResourceFormatLoaderPtr, 0)
   }
 
   /**
@@ -247,7 +247,7 @@ public object ResourceLoader : Object() {
   @JvmStatic
   public final fun removeResourceFormatLoader(formatLoader: ResourceFormatLoader): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, formatLoader)
-    TransferContext.callMethod(MethodBindings.removeResourceFormatLoaderPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeResourceFormatLoaderPtr, 0)
   }
 
   /**
@@ -256,7 +256,7 @@ public object ResourceLoader : Object() {
   @JvmStatic
   public final fun setAbortOnMissingResources(abort: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, abort)
-    TransferContext.callMethod(MethodBindings.setAbortOnMissingResourcesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAbortOnMissingResourcesPtr, 0)
   }
 
   /**

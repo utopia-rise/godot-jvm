@@ -184,12 +184,12 @@ public open class RDShaderSource : RefCounted() {
 
   public final fun setLanguage(language: RenderingDevice.ShaderLanguage): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, language.value)
-    TransferContext.callMethod(MethodBindings.setLanguagePtr)
+    TransferContext.callPtrMethod(MethodBindings.setLanguagePtr, 0)
   }
 
   public final fun getLanguage(): RenderingDevice.ShaderLanguage {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLanguagePtr)
+    TransferContext.callPtrMethod(MethodBindings.getLanguagePtr, 2)
     return RenderingDevice.ShaderLanguage.from(TransferContext.readReturnValue_LONG())
   }
 

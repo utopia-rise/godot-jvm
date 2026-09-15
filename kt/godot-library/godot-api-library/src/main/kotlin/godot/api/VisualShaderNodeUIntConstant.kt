@@ -43,12 +43,12 @@ public open class VisualShaderNodeUIntConstant : VisualShaderNodeConstant() {
 
   public final fun setConstant(constant: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, constant.toLong())
-    TransferContext.callMethod(MethodBindings.setConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.setConstantPtr, 0)
   }
 
   public final fun getConstant(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConstantPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

@@ -51,12 +51,12 @@ public open class ScrollBar internal constructor() : Range() {
 
   public final fun setCustomStep(step: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, step.toDouble())
-    TransferContext.callMethod(MethodBindings.setCustomStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCustomStepPtr, 0)
   }
 
   public final fun getCustomStep(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCustomStepPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

@@ -113,41 +113,41 @@ public open class RDPipelineColorBlendState : RefCounted() {
 
   public final fun setEnableLogicOp(pMember: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setEnableLogicOpPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnableLogicOpPtr, 0)
   }
 
   public final fun getEnableLogicOp(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableLogicOpPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnableLogicOpPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setLogicOp(pMember: RenderingDevice.LogicOperation): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callMethod(MethodBindings.setLogicOpPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLogicOpPtr, 0)
   }
 
   public final fun getLogicOp(): RenderingDevice.LogicOperation {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLogicOpPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLogicOpPtr, 2)
     return RenderingDevice.LogicOperation.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setBlendConstant(pMember: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setBlendConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBlendConstantPtr, 0)
   }
 
   public final fun getBlendConstant(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBlendConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBlendConstantPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setAttachments(attachments: VariantArray<RDPipelineColorBlendStateAttachment>):
       Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, attachments)
-    TransferContext.callMethod(MethodBindings.setAttachmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAttachmentsPtr, 0)
   }
 
   public final fun getAttachments(): VariantArray<RDPipelineColorBlendStateAttachment> {

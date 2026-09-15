@@ -97,7 +97,7 @@ public open class ENetConnection : RefCounted() {
     outBandwidth: Int = 0,
   ): Error {
     TransferContext.writeMethodArguments_LONG_LONG_LONG_LONG(ptr, objectID.id, maxPeers.toLong(), maxChannels.toLong(), inBandwidth.toLong(), outBandwidth.toLong())
-    TransferContext.callMethod(MethodBindings.createHostPtr)
+    TransferContext.callPtrMethod(MethodBindings.createHostPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -106,7 +106,7 @@ public open class ENetConnection : RefCounted() {
    */
   public final fun destroy(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.destroyPtr)
+    TransferContext.callPtrMethod(MethodBindings.destroyPtr, 0)
   }
 
   /**
@@ -153,7 +153,7 @@ public open class ENetConnection : RefCounted() {
    */
   public final fun flush(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.flushPtr)
+    TransferContext.callPtrMethod(MethodBindings.flushPtr, 0)
   }
 
   /**
@@ -162,7 +162,7 @@ public open class ENetConnection : RefCounted() {
   @JvmOverloads
   public final fun bandwidthLimit(inBandwidth: Int = 0, outBandwidth: Int = 0): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, inBandwidth.toLong(), outBandwidth.toLong())
-    TransferContext.callMethod(MethodBindings.bandwidthLimitPtr)
+    TransferContext.callPtrMethod(MethodBindings.bandwidthLimitPtr, 0)
   }
 
   /**
@@ -170,7 +170,7 @@ public open class ENetConnection : RefCounted() {
    */
   public final fun channelLimit(limit: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, limit.toLong())
-    TransferContext.callMethod(MethodBindings.channelLimitPtr)
+    TransferContext.callPtrMethod(MethodBindings.channelLimitPtr, 0)
   }
 
   /**
@@ -183,7 +183,7 @@ public open class ENetConnection : RefCounted() {
     flags: Int,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_LONG(ptr, objectID.id, channel.toLong(), packet, flags.toLong())
-    TransferContext.callMethod(MethodBindings.broadcastPtr)
+    TransferContext.callPtrMethod(MethodBindings.broadcastPtr, 0)
   }
 
   /**
@@ -201,7 +201,7 @@ public open class ENetConnection : RefCounted() {
    */
   public final fun compress(mode: CompressionMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.compressPtr)
+    TransferContext.callPtrMethod(MethodBindings.compressPtr, 0)
   }
 
   /**
@@ -211,7 +211,7 @@ public open class ENetConnection : RefCounted() {
    */
   public final fun dtlsServerSetup(serverOptions: TLSOptions?): Error {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, serverOptions)
-    TransferContext.callMethod(MethodBindings.dtlsServerSetupPtr)
+    TransferContext.callPtrMethod(MethodBindings.dtlsServerSetupPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -236,7 +236,7 @@ public open class ENetConnection : RefCounted() {
    */
   public final fun refuseNewConnections(refuse: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, refuse)
-    TransferContext.callMethod(MethodBindings.refuseNewConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.refuseNewConnectionsPtr, 0)
   }
 
   /**
@@ -244,7 +244,7 @@ public open class ENetConnection : RefCounted() {
    */
   public final fun popStatistic(statistic: HostStatistic): Double {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, statistic.value)
-    TransferContext.callMethod(MethodBindings.popStatisticPtr)
+    TransferContext.callPtrMethod(MethodBindings.popStatisticPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
@@ -253,7 +253,7 @@ public open class ENetConnection : RefCounted() {
    */
   public final fun getMaxChannels(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxChannelsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxChannelsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -262,7 +262,7 @@ public open class ENetConnection : RefCounted() {
    */
   public final fun getLocalPort(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalPortPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocalPortPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

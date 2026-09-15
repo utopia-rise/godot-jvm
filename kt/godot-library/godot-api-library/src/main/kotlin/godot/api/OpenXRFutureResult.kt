@@ -44,7 +44,7 @@ public open class OpenXRFutureResult internal constructor() : RefCounted() {
    */
   public final fun getStatus(): ResultStatus {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStatusPtr, 2)
     return ResultStatus.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -53,7 +53,7 @@ public open class OpenXRFutureResult internal constructor() : RefCounted() {
    */
   public final fun getFuture(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFuturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFuturePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -62,7 +62,7 @@ public open class OpenXRFutureResult internal constructor() : RefCounted() {
    */
   public final fun cancelFuture(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.cancelFuturePtr)
+    TransferContext.callPtrMethod(MethodBindings.cancelFuturePtr, 0)
   }
 
   /**

@@ -487,7 +487,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isAnythingPressed(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAnythingPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAnythingPressedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -531,7 +531,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isKeyPressed(keycode: Key): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, keycode.value)
-    TransferContext.callMethod(MethodBindings.isKeyPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isKeyPressedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -576,7 +576,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isPhysicalKeyPressed(keycode: Key): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, keycode.value)
-    TransferContext.callMethod(MethodBindings.isPhysicalKeyPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPhysicalKeyPressedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -610,7 +610,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isKeyLabelPressed(keycode: Key): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, keycode.value)
-    TransferContext.callMethod(MethodBindings.isKeyLabelPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isKeyLabelPressedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -643,7 +643,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isMouseButtonPressed(button: MouseButton): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, button.value)
-    TransferContext.callMethod(MethodBindings.isMouseButtonPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isMouseButtonPressedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -676,7 +676,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isJoyButtonPressed(device: Int, button: JoyButton): Boolean {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, device.toLong(), button.value)
-    TransferContext.callMethod(MethodBindings.isJoyButtonPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isJoyButtonPressedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -695,7 +695,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isActionPressed(action: StringName, exactMatch: Boolean = false): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_BOOL(ptr, objectID.id, action, exactMatch)
-    TransferContext.callMethod(MethodBindings.isActionPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isActionPressedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -725,7 +725,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isActionJustPressed(action: StringName, exactMatch: Boolean = false): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_BOOL(ptr, objectID.id, action, exactMatch)
-    TransferContext.callMethod(MethodBindings.isActionJustPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isActionJustPressedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -746,7 +746,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isActionJustReleased(action: StringName, exactMatch: Boolean = false): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_BOOL(ptr, objectID.id, action, exactMatch)
-    TransferContext.callMethod(MethodBindings.isActionJustReleasedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isActionJustReleasedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -778,7 +778,7 @@ public object Input : Object() {
     exactMatch: Boolean = false,
   ): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_OBJECT_BOOL(ptr, objectID.id, action, event, exactMatch)
-    TransferContext.callMethod(MethodBindings.isActionJustPressedByEventPtr)
+    TransferContext.callPtrMethod(MethodBindings.isActionJustPressedByEventPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -803,7 +803,7 @@ public object Input : Object() {
     exactMatch: Boolean = false,
   ): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_OBJECT_BOOL(ptr, objectID.id, action, event, exactMatch)
-    TransferContext.callMethod(MethodBindings.isActionJustReleasedByEventPtr)
+    TransferContext.callPtrMethod(MethodBindings.isActionJustReleasedByEventPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -820,7 +820,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getActionStrength(action: StringName, exactMatch: Boolean = false): Float {
     TransferContext.writeMethodArguments_STRING_NAME_BOOL(ptr, objectID.id, action, exactMatch)
-    TransferContext.callMethod(MethodBindings.getActionStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionStrengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -835,7 +835,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getActionRawStrength(action: StringName, exactMatch: Boolean = false): Float {
     TransferContext.writeMethodArguments_STRING_NAME_BOOL(ptr, objectID.id, action, exactMatch)
-    TransferContext.callMethod(MethodBindings.getActionRawStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionRawStrengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -848,7 +848,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getAxis(negativeAction: StringName, positiveAction: StringName): Float {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, negativeAction, positiveAction)
-    TransferContext.callMethod(MethodBindings.getAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAxisPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -872,7 +872,7 @@ public object Input : Object() {
     deadzone: Float = -1.0f,
   ): Vector2 {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_STRING_NAME_STRING_NAME_DOUBLE(ptr, objectID.id, negativeX, positiveX, negativeY, positiveY, deadzone.toDouble())
-    TransferContext.callMethod(MethodBindings.getVectorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVectorPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -907,7 +907,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isJoyKnown(device: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.isJoyKnownPtr)
+    TransferContext.callPtrMethod(MethodBindings.isJoyKnownPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -917,7 +917,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getJoyAxis(device: Int, axis: JoyAxis): Float {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, device.toLong(), axis.value)
-    TransferContext.callMethod(MethodBindings.getJoyAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoyAxisPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -994,7 +994,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun shouldIgnoreDevice(vendorId: Int, productId: Int): Boolean {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, vendorId.toLong(), productId.toLong())
-    TransferContext.callMethod(MethodBindings.shouldIgnoreDevicePtr)
+    TransferContext.callPtrMethod(MethodBindings.shouldIgnoreDevicePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1025,7 +1025,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getJoyVibrationStrength(device: Int): Vector2 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.getJoyVibrationStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoyVibrationStrengthPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -1041,7 +1041,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getJoyVibrationDuration(device: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.getJoyVibrationDurationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoyVibrationDurationPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -1051,7 +1051,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getJoyVibrationRemainingDuration(device: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.getJoyVibrationRemainingDurationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoyVibrationRemainingDurationPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -1064,7 +1064,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isJoyVibrating(device: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.isJoyVibratingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isJoyVibratingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1078,7 +1078,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun hasJoyVibration(device: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.hasJoyVibrationPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasJoyVibrationPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1111,7 +1111,7 @@ public object Input : Object() {
     duration: Float = 0.0f,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, device.toLong(), weakMagnitude.toDouble(), strongMagnitude.toDouble(), duration.toDouble())
-    TransferContext.callMethod(MethodBindings.startJoyVibrationPtr)
+    TransferContext.callPtrMethod(MethodBindings.startJoyVibrationPtr, 0)
   }
 
   /**
@@ -1120,7 +1120,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun stopJoyVibration(device: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.stopJoyVibrationPtr)
+    TransferContext.callPtrMethod(MethodBindings.stopJoyVibrationPtr, 0)
   }
 
   /**
@@ -1149,19 +1149,19 @@ public object Input : Object() {
   @JvmStatic
   public final fun vibrateHandheld(durationMs: Int = 500, amplitude: Float = -1.0f): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, durationMs.toLong(), amplitude.toDouble())
-    TransferContext.callMethod(MethodBindings.vibrateHandheldPtr)
+    TransferContext.callPtrMethod(MethodBindings.vibrateHandheldPtr, 0)
   }
 
   @JvmStatic
   public final fun setIgnoreJoypadOnUnfocusedApplication(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setIgnoreJoypadOnUnfocusedApplicationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIgnoreJoypadOnUnfocusedApplicationPtr, 0)
   }
 
   @JvmStatic
   public final fun isIgnoringJoypadOnUnfocusedApplication(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isIgnoringJoypadOnUnfocusedApplicationPtr)
+    TransferContext.callPtrMethod(MethodBindings.isIgnoringJoypadOnUnfocusedApplicationPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1177,7 +1177,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getGravity(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGravityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGravityPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -1198,7 +1198,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getAccelerometer(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAccelerometerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAccelerometerPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -1215,7 +1215,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getMagnetometer(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMagnetometerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMagnetometerPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -1231,7 +1231,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getGyroscope(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGyroscopePtr)
+    TransferContext.callPtrMethod(MethodBindings.getGyroscopePtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -1257,7 +1257,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getJoyAccelerometer(device: Int): Vector3 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.getJoyAccelerometerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoyAccelerometerPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -1283,7 +1283,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getJoyGravity(device: Int): Vector3 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.getJoyGravityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoyGravityPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -1310,7 +1310,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getJoyGyroscope(device: Int): Vector3 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.getJoyGyroscopePtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoyGyroscopePtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
@@ -1323,7 +1323,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getJoyMotionSensorsRate(device: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.getJoyMotionSensorsRatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoyMotionSensorsRatePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -1339,7 +1339,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isJoyMotionSensorsEnabled(device: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.isJoyMotionSensorsEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isJoyMotionSensorsEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1358,7 +1358,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun setJoyMotionSensorsEnabled(device: Int, enable: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, device.toLong(), enable)
-    TransferContext.callMethod(MethodBindings.setJoyMotionSensorsEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setJoyMotionSensorsEnabledPtr, 0)
   }
 
   /**
@@ -1371,7 +1371,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun hasJoyMotionSensors(device: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.hasJoyMotionSensorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasJoyMotionSensorsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1496,7 +1496,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun startJoyMotionSensorsCalibration(device: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.startJoyMotionSensorsCalibrationPtr)
+    TransferContext.callPtrMethod(MethodBindings.startJoyMotionSensorsCalibrationPtr, 0)
   }
 
   /**
@@ -1510,7 +1510,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun stopJoyMotionSensorsCalibration(device: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.stopJoyMotionSensorsCalibrationPtr)
+    TransferContext.callPtrMethod(MethodBindings.stopJoyMotionSensorsCalibrationPtr, 0)
   }
 
   /**
@@ -1525,7 +1525,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun clearJoyMotionSensorsCalibration(device: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.clearJoyMotionSensorsCalibrationPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearJoyMotionSensorsCalibrationPtr, 0)
   }
 
   /**
@@ -1561,7 +1561,7 @@ public object Input : Object() {
   public final fun setJoyMotionSensorsCalibration(device: Int,
       calibrationInfo: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_LONG_DICTIONARY(ptr, objectID.id, device.toLong(), calibrationInfo)
-    TransferContext.callMethod(MethodBindings.setJoyMotionSensorsCalibrationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setJoyMotionSensorsCalibrationPtr, 0)
   }
 
   /**
@@ -1575,7 +1575,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isJoyMotionSensorsCalibrated(device: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.isJoyMotionSensorsCalibratedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isJoyMotionSensorsCalibratedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1590,7 +1590,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun isJoyMotionSensorsCalibrating(device: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.isJoyMotionSensorsCalibratingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isJoyMotionSensorsCalibratingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1604,7 +1604,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun setGravity(`value`: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setGravityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGravityPtr, 0)
   }
 
   /**
@@ -1617,7 +1617,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun setAccelerometer(`value`: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setAccelerometerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAccelerometerPtr, 0)
   }
 
   /**
@@ -1630,7 +1630,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun setMagnetometer(`value`: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setMagnetometerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMagnetometerPtr, 0)
   }
 
   /**
@@ -1643,7 +1643,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun setGyroscope(`value`: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setGyroscopePtr)
+    TransferContext.callPtrMethod(MethodBindings.setGyroscopePtr, 0)
   }
 
   /**
@@ -1657,7 +1657,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun setJoyLight(device: Int, color: Color): Unit {
     TransferContext.writeMethodArguments_LONG_COLOR(ptr, objectID.id, device.toLong(), color)
-    TransferContext.callMethod(MethodBindings.setJoyLightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setJoyLightPtr, 0)
   }
 
   /**
@@ -1669,7 +1669,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun hasJoyLight(device: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.hasJoyLightPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasJoyLightPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1680,7 +1680,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getLastMouseVelocity(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLastMouseVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLastMouseVelocityPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -1692,7 +1692,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getLastMouseScreenVelocity(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLastMouseScreenVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLastMouseScreenVelocityPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -1703,20 +1703,20 @@ public object Input : Object() {
   @JvmStatic
   public final fun getMouseButtonMask(): MouseButtonMask {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMouseButtonMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMouseButtonMaskPtr, 2)
     return MouseButtonMask(TransferContext.readReturnValue_LONG())
   }
 
   @JvmStatic
   public final fun setMouseMode(mode: MouseMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setMouseModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMouseModePtr, 0)
   }
 
   @JvmStatic
   public final fun getMouseMode(): MouseMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMouseModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMouseModePtr, 2)
     return MouseMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -1733,7 +1733,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun warpMouse(position: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.warpMousePtr)
+    TransferContext.callPtrMethod(MethodBindings.warpMousePtr, 0)
   }
 
   /**
@@ -1750,7 +1750,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun actionPress(action: StringName, strength: Float = 1.0f): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_DOUBLE(ptr, objectID.id, action, strength.toDouble())
-    TransferContext.callMethod(MethodBindings.actionPressPtr)
+    TransferContext.callPtrMethod(MethodBindings.actionPressPtr, 0)
   }
 
   /**
@@ -1759,7 +1759,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun actionRelease(action: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.actionReleasePtr)
+    TransferContext.callPtrMethod(MethodBindings.actionReleasePtr, 0)
   }
 
   /**
@@ -1774,7 +1774,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun setDefaultCursorShape(shape: CursorShape = Input.CursorShape.ARROW): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, shape.value)
-    TransferContext.callMethod(MethodBindings.setDefaultCursorShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultCursorShapePtr, 0)
   }
 
   /**
@@ -1783,7 +1783,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getCurrentCursorShape(): CursorShape {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurrentCursorShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurrentCursorShapePtr, 2)
     return CursorShape.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -1816,7 +1816,7 @@ public object Input : Object() {
     hotspot: Vector2 = Vector2(0, 0),
   ): Unit {
     TransferContext.writeMethodArguments_OBJECT_LONG_VECTOR2(ptr, objectID.id, image, shape.value, hotspot)
-    TransferContext.callMethod(MethodBindings.setCustomMouseCursorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCustomMouseCursorPtr, 0)
   }
 
   /**
@@ -1847,19 +1847,19 @@ public object Input : Object() {
   @JvmStatic
   public final fun parseInputEvent(event: InputEvent): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, event)
-    TransferContext.callMethod(MethodBindings.parseInputEventPtr)
+    TransferContext.callPtrMethod(MethodBindings.parseInputEventPtr, 0)
   }
 
   @JvmStatic
   public final fun setUseAccumulatedInput(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setUseAccumulatedInputPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseAccumulatedInputPtr, 0)
   }
 
   @JvmStatic
   public final fun isUsingAccumulatedInput(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingAccumulatedInputPtr)
+    TransferContext.callPtrMethod(MethodBindings.isUsingAccumulatedInputPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1875,32 +1875,32 @@ public object Input : Object() {
   @JvmStatic
   public final fun flushBufferedEvents(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.flushBufferedEventsPtr)
+    TransferContext.callPtrMethod(MethodBindings.flushBufferedEventsPtr, 0)
   }
 
   @JvmStatic
   public final fun setEmulateMouseFromTouch(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setEmulateMouseFromTouchPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEmulateMouseFromTouchPtr, 0)
   }
 
   @JvmStatic
   public final fun isEmulatingMouseFromTouch(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEmulatingMouseFromTouchPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEmulatingMouseFromTouchPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   @JvmStatic
   public final fun setEmulateTouchFromMouse(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setEmulateTouchFromMousePtr)
+    TransferContext.callPtrMethod(MethodBindings.setEmulateTouchFromMousePtr, 0)
   }
 
   @JvmStatic
   public final fun isEmulatingTouchFromMouse(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEmulatingTouchFromMousePtr)
+    TransferContext.callPtrMethod(MethodBindings.isEmulatingTouchFromMousePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

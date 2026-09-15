@@ -181,67 +181,67 @@ public open class GraphElement : Container() {
 
   public final fun setResizable(resizable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, resizable)
-    TransferContext.callMethod(MethodBindings.setResizablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setResizablePtr, 0)
   }
 
   public final fun isResizable(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isResizablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isResizablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDraggable(draggable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, draggable)
-    TransferContext.callMethod(MethodBindings.setDraggablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDraggablePtr, 0)
   }
 
   public final fun isDraggable(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDraggablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isDraggablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSelectable(selectable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, selectable)
-    TransferContext.callMethod(MethodBindings.setSelectablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSelectablePtr, 0)
   }
 
   public final fun isSelectable(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSelectablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isSelectablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSelected(selected: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, selected)
-    TransferContext.callMethod(MethodBindings.setSelectedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSelectedPtr, 0)
   }
 
   public final fun isSelected(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSelectedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSelectedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setScalingMenus(scalingMenus: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, scalingMenus)
-    TransferContext.callMethod(MethodBindings.setScalingMenusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setScalingMenusPtr, 0)
   }
 
   public final fun isScalingMenus(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isScalingMenusPtr)
+    TransferContext.callPtrMethod(MethodBindings.isScalingMenusPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setPositionOffset(offset: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callMethod(MethodBindings.setPositionOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPositionOffsetPtr, 0)
   }
 
   public final fun getPositionOffset(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPositionOffsetPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

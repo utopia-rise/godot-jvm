@@ -50,7 +50,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
    */
   public final fun poll(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pollPtr)
+    TransferContext.callPtrMethod(MethodBindings.pollPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -59,7 +59,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
    */
   public final fun close(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closePtr)
+    TransferContext.callPtrMethod(MethodBindings.closePtr, 0)
   }
 
   /**
@@ -67,18 +67,18 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
    */
   public final fun wasStringPacket(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.wasStringPacketPtr)
+    TransferContext.callPtrMethod(MethodBindings.wasStringPacketPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setWriteMode(writeMode: WriteMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, writeMode.value)
-    TransferContext.callMethod(MethodBindings.setWriteModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setWriteModePtr, 0)
   }
 
   public final fun getWriteMode(): WriteMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWriteModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getWriteModePtr, 2)
     return WriteMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -87,7 +87,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
    */
   public final fun getReadyState(): ChannelState {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getReadyStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getReadyStatePtr, 2)
     return ChannelState.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -105,7 +105,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
    */
   public final fun isOrdered(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isOrderedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isOrderedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -117,7 +117,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
    */
   public final fun getId(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIdPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -128,7 +128,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
    */
   public final fun getMaxPacketLifeTime(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxPacketLifeTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxPacketLifeTimePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -139,7 +139,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
    */
   public final fun getMaxRetransmits(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxRetransmitsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxRetransmitsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -158,7 +158,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
    */
   public final fun isNegotiated(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isNegotiatedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isNegotiatedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -167,7 +167,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
    */
   public final fun getBufferedAmount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferedAmountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBufferedAmountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

@@ -54,7 +54,7 @@ public open class AimModifier3D : BoneConstraint3D() {
    */
   public final fun setForwardAxis(index: Int, axis: SkeletonModifier3D.BoneAxis): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), axis.value)
-    TransferContext.callMethod(MethodBindings.setForwardAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.setForwardAxisPtr, 0)
   }
 
   /**
@@ -62,7 +62,7 @@ public open class AimModifier3D : BoneConstraint3D() {
    */
   public final fun getForwardAxis(index: Int): SkeletonModifier3D.BoneAxis {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getForwardAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.getForwardAxisPtr, 2)
     return SkeletonModifier3D.BoneAxis.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -74,7 +74,7 @@ public open class AimModifier3D : BoneConstraint3D() {
    */
   public final fun setUseEuler(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setUseEulerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseEulerPtr, 0)
   }
 
   /**
@@ -82,7 +82,7 @@ public open class AimModifier3D : BoneConstraint3D() {
    */
   public final fun isUsingEuler(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isUsingEulerPtr)
+    TransferContext.callPtrMethod(MethodBindings.isUsingEulerPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -91,7 +91,7 @@ public open class AimModifier3D : BoneConstraint3D() {
    */
   public final fun setPrimaryRotationAxis(index: Int, axis: Vector3.Axis): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), axis.value)
-    TransferContext.callMethod(MethodBindings.setPrimaryRotationAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPrimaryRotationAxisPtr, 0)
   }
 
   /**
@@ -99,7 +99,7 @@ public open class AimModifier3D : BoneConstraint3D() {
    */
   public final fun getPrimaryRotationAxis(index: Int): Vector3.Axis {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getPrimaryRotationAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPrimaryRotationAxisPtr, 2)
     return Vector3.Axis.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -109,7 +109,7 @@ public open class AimModifier3D : BoneConstraint3D() {
    */
   public final fun setUseSecondaryRotation(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setUseSecondaryRotationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseSecondaryRotationPtr, 0)
   }
 
   /**
@@ -118,7 +118,7 @@ public open class AimModifier3D : BoneConstraint3D() {
    */
   public final fun isUsingSecondaryRotation(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isUsingSecondaryRotationPtr)
+    TransferContext.callPtrMethod(MethodBindings.isUsingSecondaryRotationPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -132,7 +132,7 @@ public open class AimModifier3D : BoneConstraint3D() {
    */
   public final fun setRelative(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setRelativePtr)
+    TransferContext.callPtrMethod(MethodBindings.setRelativePtr, 0)
   }
 
   /**
@@ -140,7 +140,7 @@ public open class AimModifier3D : BoneConstraint3D() {
    */
   public final fun isRelative(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isRelativePtr)
+    TransferContext.callPtrMethod(MethodBindings.isRelativePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

@@ -46,12 +46,12 @@ public open class BlitMaterial : Material() {
 
   public final fun setBlendMode(blendMode: BlendMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, blendMode.value)
-    TransferContext.callMethod(MethodBindings.setBlendModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBlendModePtr, 0)
   }
 
   public final fun getBlendMode(): BlendMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBlendModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBlendModePtr, 2)
     return BlendMode.from(TransferContext.readReturnValue_LONG())
   }
 

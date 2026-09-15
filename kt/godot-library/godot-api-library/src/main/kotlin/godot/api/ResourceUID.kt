@@ -125,7 +125,7 @@ public object ResourceUID : Object() {
   @JvmStatic
   public final fun createId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.createIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -146,7 +146,7 @@ public object ResourceUID : Object() {
   @JvmStatic
   public final fun hasId(id: Long): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.hasIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasIdPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -194,7 +194,7 @@ public object ResourceUID : Object() {
   @JvmStatic
   public final fun removeId(id: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.removeIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeIdPtr, 0)
   }
 
   /**

@@ -140,13 +140,13 @@ public object CameraServer : Object() {
   @JvmStatic
   public final fun setMonitoringFeeds(isMonitoringFeeds: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, isMonitoringFeeds)
-    TransferContext.callMethod(MethodBindings.setMonitoringFeedsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMonitoringFeedsPtr, 0)
   }
 
   @JvmStatic
   public final fun isMonitoringFeeds(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMonitoringFeedsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isMonitoringFeedsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -156,7 +156,7 @@ public object CameraServer : Object() {
   @JvmStatic
   public final fun getFeed(index: Int): CameraFeed? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getFeedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFeedPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as CameraFeed?)
   }
 
@@ -166,7 +166,7 @@ public object CameraServer : Object() {
   @JvmStatic
   public final fun getFeedCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFeedCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFeedCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -186,7 +186,7 @@ public object CameraServer : Object() {
   @JvmStatic
   public final fun addFeed(feed: CameraFeed?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, feed)
-    TransferContext.callMethod(MethodBindings.addFeedPtr)
+    TransferContext.callPtrMethod(MethodBindings.addFeedPtr, 0)
   }
 
   /**
@@ -195,7 +195,7 @@ public object CameraServer : Object() {
   @JvmStatic
   public final fun removeFeed(feed: CameraFeed?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, feed)
-    TransferContext.callMethod(MethodBindings.removeFeedPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeFeedPtr, 0)
   }
 
   public enum class FeedImage(

@@ -54,18 +54,18 @@ public open class OpenXRStructureBase : RefCounted() {
    */
   public final fun getStructureType(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStructureTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getStructureTypePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setNext(entity: OpenXRStructureBase?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, entity)
-    TransferContext.callMethod(MethodBindings.setNextPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNextPtr, 0)
   }
 
   public final fun getNext(): OpenXRStructureBase? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNextPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNextPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OpenXRStructureBase?)
   }
 

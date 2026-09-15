@@ -100,7 +100,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun getAvailablePointId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAvailablePointIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAvailablePointIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -134,7 +134,7 @@ public open class AStar2D : RefCounted() {
     weightScale: Float = 1.0f,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2_DOUBLE(ptr, objectID.id, id, position, weightScale.toDouble())
-    TransferContext.callMethod(MethodBindings.addPointPtr)
+    TransferContext.callPtrMethod(MethodBindings.addPointPtr, 0)
   }
 
   /**
@@ -142,7 +142,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun getPointPosition(id: Long): Vector2 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.getPointPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -151,7 +151,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun setPointPosition(id: Long, position: Vector2): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2(ptr, objectID.id, id, position)
-    TransferContext.callMethod(MethodBindings.setPointPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointPositionPtr, 0)
   }
 
   /**
@@ -159,7 +159,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun getPointWeightScale(id: Long): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.getPointWeightScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointWeightScalePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -170,7 +170,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun setPointWeightScale(id: Long, weightScale: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, id, weightScale.toDouble())
-    TransferContext.callMethod(MethodBindings.setPointWeightScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointWeightScalePtr, 0)
   }
 
   /**
@@ -178,7 +178,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun removePoint(id: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.removePointPtr)
+    TransferContext.callPtrMethod(MethodBindings.removePointPtr, 0)
   }
 
   /**
@@ -186,7 +186,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun hasPoint(id: Long): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.hasPointPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasPointPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -238,12 +238,12 @@ public open class AStar2D : RefCounted() {
 
   public final fun setNeighborFilterEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setNeighborFilterEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNeighborFilterEnabledPtr, 0)
   }
 
   public final fun isNeighborFilterEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isNeighborFilterEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isNeighborFilterEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -254,7 +254,7 @@ public open class AStar2D : RefCounted() {
   @JvmOverloads
   public final fun setPointDisabled(id: Long, disabled: Boolean = true): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, id, disabled)
-    TransferContext.callMethod(MethodBindings.setPointDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointDisabledPtr, 0)
   }
 
   /**
@@ -262,7 +262,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun isPointDisabled(id: Long): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.isPointDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPointDisabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -293,7 +293,7 @@ public open class AStar2D : RefCounted() {
     bidirectional: Boolean = true,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_BOOL(ptr, objectID.id, id, toId, bidirectional)
-    TransferContext.callMethod(MethodBindings.connectPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.connectPointsPtr, 0)
   }
 
   /**
@@ -307,7 +307,7 @@ public open class AStar2D : RefCounted() {
     bidirectional: Boolean = true,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_BOOL(ptr, objectID.id, id, toId, bidirectional)
-    TransferContext.callMethod(MethodBindings.disconnectPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.disconnectPointsPtr, 0)
   }
 
   /**
@@ -321,7 +321,7 @@ public open class AStar2D : RefCounted() {
     bidirectional: Boolean = true,
   ): Boolean {
     TransferContext.writeMethodArguments_LONG_LONG_BOOL(ptr, objectID.id, id, toId, bidirectional)
-    TransferContext.callMethod(MethodBindings.arePointsConnectedPtr)
+    TransferContext.callPtrMethod(MethodBindings.arePointsConnectedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -330,7 +330,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun getPointCount(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPointCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointCountPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -340,7 +340,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun getPointCapacity(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPointCapacityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointCapacityPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -350,7 +350,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun reserveSpace(numNodes: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, numNodes)
-    TransferContext.callMethod(MethodBindings.reserveSpacePtr)
+    TransferContext.callPtrMethod(MethodBindings.reserveSpacePtr, 0)
   }
 
   /**
@@ -358,7 +358,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun clear(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**
@@ -371,7 +371,7 @@ public open class AStar2D : RefCounted() {
   @JvmOverloads
   public final fun getClosestPoint(toPosition: Vector2, includeDisabled: Boolean = false): Long {
     TransferContext.writeMethodArguments_VECTOR2_BOOL(ptr, objectID.id, toPosition, includeDisabled)
-    TransferContext.callMethod(MethodBindings.getClosestPointPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClosestPointPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -402,7 +402,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun getClosestPositionInSegment(toPosition: Vector2): Vector2 {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, toPosition)
-    TransferContext.callMethod(MethodBindings.getClosestPositionInSegmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClosestPositionInSegmentPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

@@ -73,34 +73,34 @@ public open class LightOccluder2D : Node2D() {
 
   public final fun setOccluderPolygon(polygon: OccluderPolygon2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, polygon)
-    TransferContext.callMethod(MethodBindings.setOccluderPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOccluderPolygonPtr, 0)
   }
 
   public final fun getOccluderPolygon(): OccluderPolygon2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOccluderPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOccluderPolygonPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OccluderPolygon2D?)
   }
 
   public final fun setOccluderLightMask(mask: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask.toLong())
-    TransferContext.callMethod(MethodBindings.setOccluderLightMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOccluderLightMaskPtr, 0)
   }
 
   public final fun getOccluderLightMask(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOccluderLightMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOccluderLightMaskPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setAsSdfCollision(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setAsSdfCollisionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAsSdfCollisionPtr, 0)
   }
 
   public final fun isSetAsSdfCollision(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSetAsSdfCollisionPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSetAsSdfCollisionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

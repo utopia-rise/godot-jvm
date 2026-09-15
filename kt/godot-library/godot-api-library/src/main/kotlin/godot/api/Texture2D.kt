@@ -163,7 +163,7 @@ public abstract class Texture2D : Texture() {
    */
   public final fun getFormat(): Image.Format {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
     return Image.Format.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -172,7 +172,7 @@ public abstract class Texture2D : Texture() {
    */
   public final fun getMipmapCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMipmapCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMipmapCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -181,7 +181,7 @@ public abstract class Texture2D : Texture() {
    */
   public final fun getWidth(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWidthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -190,7 +190,7 @@ public abstract class Texture2D : Texture() {
    */
   public final fun getHeight(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -199,7 +199,7 @@ public abstract class Texture2D : Texture() {
    */
   public final fun getSize(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -208,7 +208,7 @@ public abstract class Texture2D : Texture() {
    */
   public final fun hasAlpha(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasAlphaPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasAlphaPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -217,7 +217,7 @@ public abstract class Texture2D : Texture() {
    */
   public final fun hasMipmaps(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasMipmapsPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasMipmapsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -233,7 +233,7 @@ public abstract class Texture2D : Texture() {
     transpose: Boolean = false,
   ): Unit {
     TransferContext.writeMethodArguments_RID_VECTOR2_COLOR_BOOL(ptr, objectID.id, canvasItem, position, modulate, transpose)
-    TransferContext.callMethod(MethodBindings.drawPtr)
+    TransferContext.callPtrMethod(MethodBindings.drawPtr, 0)
   }
 
   /**
@@ -248,7 +248,7 @@ public abstract class Texture2D : Texture() {
     transpose: Boolean = false,
   ): Unit {
     TransferContext.writeMethodArguments_RID_RECT2_BOOL_COLOR_BOOL(ptr, objectID.id, canvasItem, rect, tile, modulate, transpose)
-    TransferContext.callMethod(MethodBindings.drawRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.drawRectPtr, 0)
   }
 
   /**
@@ -264,7 +264,7 @@ public abstract class Texture2D : Texture() {
     clipUv: Boolean = true,
   ): Unit {
     TransferContext.writeMethodArguments_RID_RECT2_RECT2_COLOR_BOOL_BOOL(ptr, objectID.id, canvasItem, rect, srcRect, modulate, transpose, clipUv)
-    TransferContext.callMethod(MethodBindings.drawRectRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.drawRectRegionPtr, 0)
   }
 
   /**
@@ -278,7 +278,7 @@ public abstract class Texture2D : Texture() {
    */
   public final fun getImage(): Image? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.getImagePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Image?)
   }
 
@@ -287,7 +287,7 @@ public abstract class Texture2D : Texture() {
    */
   public final fun createPlaceholder(): Resource? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createPlaceholderPtr)
+    TransferContext.callPtrMethod(MethodBindings.createPlaceholderPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Resource?)
   }
 

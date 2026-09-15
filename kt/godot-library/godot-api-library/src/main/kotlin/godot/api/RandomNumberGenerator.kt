@@ -109,23 +109,23 @@ public open class RandomNumberGenerator : RefCounted() {
 
   public final fun setSeed(seed: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, seed)
-    TransferContext.callMethod(MethodBindings.setSeedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSeedPtr, 0)
   }
 
   public final fun getSeed(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSeedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSeedPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setState(state: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, state)
-    TransferContext.callMethod(MethodBindings.setStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setStatePtr, 0)
   }
 
   public final fun getState(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getStatePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -134,7 +134,7 @@ public open class RandomNumberGenerator : RefCounted() {
    */
   public final fun randi(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.randiPtr)
+    TransferContext.callPtrMethod(MethodBindings.randiPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -143,7 +143,7 @@ public open class RandomNumberGenerator : RefCounted() {
    */
   public final fun randf(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.randfPtr)
+    TransferContext.callPtrMethod(MethodBindings.randfPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -159,7 +159,7 @@ public open class RandomNumberGenerator : RefCounted() {
   @JvmOverloads
   public final fun randfn(mean: Float = 0.0f, deviation: Float = 1.0f): Float {
     TransferContext.writeMethodArguments_DOUBLE_DOUBLE(ptr, objectID.id, mean.toDouble(), deviation.toDouble())
-    TransferContext.callMethod(MethodBindings.randfnPtr)
+    TransferContext.callPtrMethod(MethodBindings.randfnPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -168,7 +168,7 @@ public open class RandomNumberGenerator : RefCounted() {
    */
   public final fun randfRange(from: Float, to: Float): Float {
     TransferContext.writeMethodArguments_DOUBLE_DOUBLE(ptr, objectID.id, from.toDouble(), to.toDouble())
-    TransferContext.callMethod(MethodBindings.randfRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.randfRangePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -177,7 +177,7 @@ public open class RandomNumberGenerator : RefCounted() {
    */
   public final fun randiRange(from: Int, to: Int): Int {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, from.toLong(), to.toLong())
-    TransferContext.callMethod(MethodBindings.randiRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.randiRangePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -208,7 +208,7 @@ public open class RandomNumberGenerator : RefCounted() {
    */
   public final fun randWeighted(weights: PackedFloat32Array): Long {
     TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, weights)
-    TransferContext.callMethod(MethodBindings.randWeightedPtr)
+    TransferContext.callPtrMethod(MethodBindings.randWeightedPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -219,7 +219,7 @@ public open class RandomNumberGenerator : RefCounted() {
    */
   public final fun randomize(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.randomizePtr)
+    TransferContext.callPtrMethod(MethodBindings.randomizePtr, 0)
   }
 
   public companion object {

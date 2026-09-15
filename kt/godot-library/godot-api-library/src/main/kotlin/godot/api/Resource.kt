@@ -240,18 +240,18 @@ public open class Resource : RefCounted() {
    */
   public final fun getRid(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRidPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setLocalToScene(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setLocalToScenePtr)
+    TransferContext.callPtrMethod(MethodBindings.setLocalToScenePtr, 0)
   }
 
   public final fun isLocalToScene(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isLocalToScenePtr)
+    TransferContext.callPtrMethod(MethodBindings.isLocalToScenePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -262,7 +262,7 @@ public open class Resource : RefCounted() {
    */
   public final fun getLocalScene(): Node? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalScenePtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocalScenePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
@@ -273,7 +273,7 @@ public open class Resource : RefCounted() {
    */
   public final fun setupLocalToScene(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.setupLocalToScenePtr)
+    TransferContext.callPtrMethod(MethodBindings.setupLocalToScenePtr, 0)
   }
 
   /**
@@ -283,7 +283,7 @@ public open class Resource : RefCounted() {
    */
   public final fun resetState(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.resetStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.resetStatePtr, 0)
   }
 
   /**
@@ -319,7 +319,7 @@ public open class Resource : RefCounted() {
    */
   public final fun isBuiltIn(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBuiltInPtr)
+    TransferContext.callPtrMethod(MethodBindings.isBuiltInPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -352,7 +352,7 @@ public open class Resource : RefCounted() {
    */
   public final fun emitChanged(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.emitChangedPtr)
+    TransferContext.callPtrMethod(MethodBindings.emitChangedPtr, 0)
   }
 
   /**
@@ -384,7 +384,7 @@ public open class Resource : RefCounted() {
   @JvmOverloads
   public final fun duplicate(deep: Boolean = false): Resource? {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, deep)
-    TransferContext.callMethod(MethodBindings.duplicatePtr)
+    TransferContext.callPtrMethod(MethodBindings.duplicatePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Resource?)
   }
 
@@ -396,7 +396,7 @@ public open class Resource : RefCounted() {
   public final fun duplicateDeep(deepSubresourcesMode: DeepDuplicateMode =
       Resource.DeepDuplicateMode.INTERNAL): Resource? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, deepSubresourcesMode.value)
-    TransferContext.callMethod(MethodBindings.duplicateDeepPtr)
+    TransferContext.callPtrMethod(MethodBindings.duplicateDeepPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Resource?)
   }
 
@@ -405,7 +405,7 @@ public open class Resource : RefCounted() {
    */
   public final fun copyFromResource(resource: Resource?): Error {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, resource)
-    TransferContext.callMethod(MethodBindings.copyFromResourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.copyFromResourcePtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 

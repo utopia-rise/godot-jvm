@@ -120,7 +120,7 @@ class MethodRule : GodotApiRule<EnrichedMethodTask>(), BaseMethodeRule {
 
     override fun FunSpec.Builder.writeCode(method: EnrichedMethod, clazz: EnrichedClass, context: GenerationContext) {
         generateWriteArgument(method, clazz, context)
-        generateMethodCall(method, clazz)
+        generateMethodCall(method, clazz, context)
         if (method.type.getVariantConverter() != VariantConverter.NIL) {
             generateReturn(method, clazz, context)
         }
@@ -142,13 +142,25 @@ class MethodRule : GodotApiRule<EnrichedMethodTask>(), BaseMethodeRule {
         addStatement("%T.%M($arguments)", Internal.transferContext, MemberName(godotPackage, signature.writerName))
     }
 
-    private fun FunSpec.Builder.generateMethodCall(method: EnrichedMethod, clazz: EnrichedClass) {
-        addStatement(
-            "%T.callMethod(%T.%M)",
-            Internal.transferContext,
-            clazz.className.nestedClass(API.methodBindingsInnerClassName),
-            MemberName(API.`object`.packageName, "${method.name}Ptr")
-        )
+    // A ptrcall reads the arguments where the buffer holds them, so it is only for methods whose every type is already
+    // in native layout there; variadic tails, Variants, Strings, Callables and Signals take the Variant call.
+    private fun FunSpec.Builder.generateMethodCall(method: EnrichedMethod, clazz: EnrichedClass, context: GenerationContext) {
+        val returnConverter = method.type.getVariantConverter()
+        val usesVariantCall = method.isVararg
+            || !VariantConverter.isPtrCallReturn(returnConverter)
+            || method.arguments.any { !VariantConverter.isPtrCallArgument(it.type.getVariantConverter()) }
+        val bindingPtr = MemberName(API.`object`.packageName, "${method.name}Ptr")
+        val methodBindings = clazz.className.nestedClass(API.methodBindingsInnerClassName)
+        if (usesVariantCall) {
+            addStatement("%T.callMethod(%T.%M)", Internal.transferContext, methodBindings, bindingPtr)
+            return
+        }
+        val returnType = if (method.type.isObjectSubClass() && context.isRefCounted(method.type.identifier)) {
+            VariantConverter.refCountedReturnType
+        } else {
+            VariantConverter.variantOrdinal(returnConverter)
+        }
+        addStatement("%T.callPtrMethod(%T.%M,·$returnType)", Internal.transferContext, methodBindings, bindingPtr)
     }
 
     private fun FunSpec.Builder.generateReturn(method: EnrichedMethod, clazz: EnrichedClass, context: GenerationContext) {

@@ -74,7 +74,7 @@ public open class RegExMatch : RefCounted() {
    */
   public final fun getGroupCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGroupCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGroupCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

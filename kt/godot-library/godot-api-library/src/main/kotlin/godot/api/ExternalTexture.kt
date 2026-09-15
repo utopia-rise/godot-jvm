@@ -84,7 +84,7 @@ public open class ExternalTexture : Texture2D() {
 
   public final fun setSize(size: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
   }
 
   /**
@@ -95,7 +95,7 @@ public open class ExternalTexture : Texture2D() {
    */
   public final fun getExternalTextureId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExternalTextureIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExternalTextureIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -107,7 +107,7 @@ public open class ExternalTexture : Texture2D() {
    */
   public final fun setExternalBufferId(externalBufferId: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, externalBufferId)
-    TransferContext.callMethod(MethodBindings.setExternalBufferIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExternalBufferIdPtr, 0)
   }
 
   /**

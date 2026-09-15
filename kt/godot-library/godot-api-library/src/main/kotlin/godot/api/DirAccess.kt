@@ -157,7 +157,7 @@ public open class DirAccess internal constructor() : RefCounted() {
    */
   public final fun listDirBegin(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.listDirBeginPtr)
+    TransferContext.callPtrMethod(MethodBindings.listDirBeginPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -180,7 +180,7 @@ public open class DirAccess internal constructor() : RefCounted() {
    */
   public final fun currentIsDir(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.currentIsDirPtr)
+    TransferContext.callPtrMethod(MethodBindings.currentIsDirPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -190,7 +190,7 @@ public open class DirAccess internal constructor() : RefCounted() {
    */
   public final fun listDirEnd(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.listDirEndPtr)
+    TransferContext.callPtrMethod(MethodBindings.listDirEndPtr, 0)
   }
 
   /**
@@ -233,7 +233,7 @@ public open class DirAccess internal constructor() : RefCounted() {
    */
   public final fun getCurrentDrive(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurrentDrivePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurrentDrivePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -326,7 +326,7 @@ public open class DirAccess internal constructor() : RefCounted() {
    */
   public final fun getSpaceLeft(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpaceLeftPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpaceLeftPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -429,23 +429,23 @@ public open class DirAccess internal constructor() : RefCounted() {
 
   public final fun setIncludeNavigational(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setIncludeNavigationalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIncludeNavigationalPtr, 0)
   }
 
   public final fun getIncludeNavigational(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIncludeNavigationalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIncludeNavigationalPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setIncludeHidden(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setIncludeHiddenPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIncludeHiddenPtr, 0)
   }
 
   public final fun getIncludeHidden(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIncludeHiddenPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIncludeHiddenPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -675,7 +675,7 @@ public open class DirAccess internal constructor() : RefCounted() {
     @JvmStatic
     public final fun getOpenError(): Error {
       TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callMethod(MethodBindings.getOpenErrorPtr)
+      TransferContext.callPtrMethod(MethodBindings.getOpenErrorPtr, 2)
       return Error.from(TransferContext.readReturnValue_LONG())
     }
 
@@ -746,7 +746,7 @@ public open class DirAccess internal constructor() : RefCounted() {
     @JvmStatic
     public final fun getDriveCount(): Int {
       TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callMethod(MethodBindings.getDriveCountPtr)
+      TransferContext.callPtrMethod(MethodBindings.getDriveCountPtr, 2)
       return TransferContext.readReturnValue_LONG().toInt()
     }
 

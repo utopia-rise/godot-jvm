@@ -107,7 +107,7 @@ public open class LimitAngularVelocityModifier3D : SkeletonModifier3D() {
    */
   public final fun setRootBone(index: Int, bone: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), bone.toLong())
-    TransferContext.callMethod(MethodBindings.setRootBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.setRootBonePtr, 0)
   }
 
   /**
@@ -115,7 +115,7 @@ public open class LimitAngularVelocityModifier3D : SkeletonModifier3D() {
    */
   public final fun getRootBone(index: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getRootBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.getRootBonePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -143,7 +143,7 @@ public open class LimitAngularVelocityModifier3D : SkeletonModifier3D() {
    */
   public final fun setEndBone(index: Int, bone: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), bone.toLong())
-    TransferContext.callMethod(MethodBindings.setEndBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.setEndBonePtr, 0)
   }
 
   /**
@@ -151,18 +151,18 @@ public open class LimitAngularVelocityModifier3D : SkeletonModifier3D() {
    */
   public final fun getEndBone(index: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getEndBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.getEndBonePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setChainCount(count: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.setChainCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setChainCountPtr, 0)
   }
 
   public final fun getChainCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getChainCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getChainCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -171,28 +171,28 @@ public open class LimitAngularVelocityModifier3D : SkeletonModifier3D() {
    */
   public final fun clearChains(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearChainsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearChainsPtr, 0)
   }
 
   public final fun setMaxAngularVelocity(angularVelocity: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angularVelocity)
-    TransferContext.callMethod(MethodBindings.setMaxAngularVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxAngularVelocityPtr, 0)
   }
 
   public final fun getMaxAngularVelocity(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxAngularVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxAngularVelocityPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setExclude(exclude: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, exclude)
-    TransferContext.callMethod(MethodBindings.setExcludePtr)
+    TransferContext.callPtrMethod(MethodBindings.setExcludePtr, 0)
   }
 
   public final fun isExclude(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isExcludePtr)
+    TransferContext.callPtrMethod(MethodBindings.isExcludePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -203,7 +203,7 @@ public open class LimitAngularVelocityModifier3D : SkeletonModifier3D() {
    */
   public final fun reset(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.resetPtr)
+    TransferContext.callPtrMethod(MethodBindings.resetPtr, 0)
   }
 
   public companion object {

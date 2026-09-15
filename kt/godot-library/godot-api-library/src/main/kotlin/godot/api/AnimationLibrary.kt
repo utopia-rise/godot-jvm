@@ -72,7 +72,7 @@ public open class AnimationLibrary : Resource() {
    */
   public final fun addAnimation(name: StringName, animation: Animation?): Error {
     TransferContext.writeMethodArguments_STRING_NAME_OBJECT(ptr, objectID.id, name, animation)
-    TransferContext.callMethod(MethodBindings.addAnimationPtr)
+    TransferContext.callPtrMethod(MethodBindings.addAnimationPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -81,7 +81,7 @@ public open class AnimationLibrary : Resource() {
    */
   public final fun removeAnimation(name: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.removeAnimationPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeAnimationPtr, 0)
   }
 
   /**
@@ -89,7 +89,7 @@ public open class AnimationLibrary : Resource() {
    */
   public final fun renameAnimation(name: StringName, newname: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, newname)
-    TransferContext.callMethod(MethodBindings.renameAnimationPtr)
+    TransferContext.callPtrMethod(MethodBindings.renameAnimationPtr, 0)
   }
 
   /**
@@ -97,7 +97,7 @@ public open class AnimationLibrary : Resource() {
    */
   public final fun hasAnimation(name: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.hasAnimationPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasAnimationPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -107,7 +107,7 @@ public open class AnimationLibrary : Resource() {
    */
   public final fun getAnimation(name: StringName): Animation? {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getAnimationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnimationPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Animation?)
   }
 
@@ -125,7 +125,7 @@ public open class AnimationLibrary : Resource() {
    */
   public final fun getAnimationListSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationListSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnimationListSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

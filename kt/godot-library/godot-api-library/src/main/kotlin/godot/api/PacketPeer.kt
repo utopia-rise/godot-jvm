@@ -107,7 +107,7 @@ public open class PacketPeer internal constructor() : RefCounted() {
    */
   public final fun putPacket(buffer: PackedByteArray): Error {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callMethod(MethodBindings.putPacketPtr)
+    TransferContext.callPtrMethod(MethodBindings.putPacketPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -116,7 +116,7 @@ public open class PacketPeer internal constructor() : RefCounted() {
    */
   public final fun getPacketError(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketErrorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPacketErrorPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -125,19 +125,19 @@ public open class PacketPeer internal constructor() : RefCounted() {
    */
   public final fun getAvailablePacketCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAvailablePacketCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAvailablePacketCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun getEncodeBufferMaxSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEncodeBufferMaxSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getEncodeBufferMaxSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setEncodeBufferMaxSize(maxSize: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxSize.toLong())
-    TransferContext.callMethod(MethodBindings.setEncodeBufferMaxSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setEncodeBufferMaxSizePtr, 0)
   }
 
   public companion object {

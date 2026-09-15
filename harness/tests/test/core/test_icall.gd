@@ -2,7 +2,7 @@ extends GdUnitTestSuite
 
 
 func _call_on_instance(method: String) -> Variant:
-    var instance := EngineApiCallTest.new()
+    var instance := IcallTest.new()
     var result: Variant = instance.call(method)
     instance.free()
     return result
@@ -45,7 +45,7 @@ func test_panel_set_size() -> void:
 # The JVM builds the Control but GDScript resizes it, so a half-built object still fails here even
 # though the call itself never crosses the JVM boundary.
 func test_jvm_built_label_resized_by_gdscript() -> void:
-    var instance := EngineApiCallTest.new()
+    var instance := IcallTest.new()
     var label: Label = instance.create_label_for_caller()
     label.set_size(Vector2(24, 24))
     assert_that(label.size)\
@@ -57,7 +57,7 @@ func test_jvm_built_label_resized_by_gdscript() -> void:
 
 # The mirror image: GDScript builds it, the JVM resizes it.
 func test_gdscript_built_label_resized_by_jvm() -> void:
-    var instance := EngineApiCallTest.new()
+    var instance := IcallTest.new()
     var label := Label.new()
     assert_that(instance.set_size_on_given_control(label))\
         .override_failure_message("A GDScript-constructed Label should be resizable from JVM code")\
@@ -134,3 +134,59 @@ func test_interleaved_mixed_argument_calls() -> void:
     assert_that(_call_on_instance("interleaved_mixed_argument_calls"))\
         .override_failure_message("setSize should still apply after calls with differing argument arities and types")\
         .is_equal(Vector2(101.5, 202.5))
+
+
+func test_call_with_variadic_arguments() -> void:
+    assert_that(_call_on_instance("call_with_variadic_arguments"))        .override_failure_message("Object.call with a (Vector2, bool) tail should reach set_size through the variadic native call")        .is_equal(Vector2(3.5, 4.5))
+
+
+func test_call_with_empty_variadic_tail() -> void:
+    assert_str(_call_on_instance("call_with_empty_variadic_tail"))        .override_failure_message("Object.call with no extra arguments should still return the getter's value")        .is_equal("variadic")
+
+
+func test_emit_signal_with_variadic_arguments() -> void:
+    assert_str(_call_on_instance("emit_signal_with_variadic_arguments"))        .override_failure_message("Object.emit_signal with an (int, String) tail should deliver both values to the connected lambda")        .is_equal("seven:7")
+
+
+func test_ptrcall_primitive_return() -> void:
+    var instance := IcallTest.new()
+    assert_int(instance.ptrcall_primitive_return())\
+        .override_failure_message("A Long returned through the ptrcall should be the instance id")\
+        .is_equal(instance.get_instance_id())
+    instance.free()
+
+
+func test_ptrcall_object_argument_and_return() -> void:
+    assert_bool(_call_on_instance("ptrcall_object_argument_and_return"))\
+        .override_failure_message("A Node passed and returned through the ptrcall should resolve to the same JVM instance")\
+        .is_true()
+
+
+func test_ptrcall_ref_counted_argument_and_return() -> void:
+    assert_bool(_call_on_instance("ptrcall_ref_counted_argument_and_return"))\
+        .override_failure_message("A Texture2D passed and returned through the ptrcall should resolve to the same JVM instance")\
+        .is_true()
+
+
+func test_ptrcall_ref_counted_return_keeps_reference_count() -> void:
+    assert_int(_call_on_instance("ptrcall_ref_counted_return_keeps_reference_count"))\
+        .override_failure_message("Reading a RefCounted through the ptrcall must not leak the reference the engine hands over")\
+        .is_equal(2)
+
+
+func test_icall_object_argument_and_return() -> void:
+    assert_bool(_call_on_instance("icall_object_argument_and_return"))\
+        .override_failure_message("A Node passed and returned through Object.call should resolve to the same JVM instance")\
+        .is_true()
+
+
+func test_icall_ref_counted_argument_and_return() -> void:
+    assert_bool(_call_on_instance("icall_ref_counted_argument_and_return"))\
+        .override_failure_message("A Texture2D passed and returned through Object.call should resolve to the same JVM instance")\
+        .is_true()
+
+
+func test_icall_ref_counted_return_keeps_reference_count() -> void:
+    assert_int(_call_on_instance("icall_ref_counted_return_keeps_reference_count"))\
+        .override_failure_message("Reading a RefCounted through Object.call must not change its reference count")\
+        .is_equal(2)

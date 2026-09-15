@@ -162,34 +162,34 @@ public open class DirectionalLight3D : Light3D() {
 
   public final fun setShadowMode(mode: ShadowMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setShadowModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setShadowModePtr, 0)
   }
 
   public final fun getShadowMode(): ShadowMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShadowModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getShadowModePtr, 2)
     return ShadowMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setBlendSplits(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setBlendSplitsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBlendSplitsPtr, 0)
   }
 
   public final fun isBlendSplitsEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBlendSplitsEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isBlendSplitsEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSkyMode(mode: SkyMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setSkyModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSkyModePtr, 0)
   }
 
   public final fun getSkyMode(): SkyMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkyModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkyModePtr, 2)
     return SkyMode.from(TransferContext.readReturnValue_LONG())
   }
 
