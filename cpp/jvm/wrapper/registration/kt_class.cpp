@@ -7,7 +7,6 @@
 KtClass::KtClass(jni::Env& p_env, jni::JObject p_wrapped) :
     JvmInstanceWrapper(p_env, p_wrapped),
     kt_constructor(nullptr) {
-    LOCAL_FRAME(5);
     registered_class_name = get_registered_name(p_env);
     fqdn = get_fqdn(p_env);
     source_file_name = get_source_file_name(p_env);
@@ -49,17 +48,23 @@ KtSignalInfo* KtClass::get_signal(const godot::StringName& p_signal_name) {
 
 godot::String KtClass::get_registered_name(jni::Env& env) {
     jni::JObject ret = wrapped.call_object_method(env, GET_REGISTERED_NAME);
-    return env.from_jstring(jni::JString((jstring) ret.obj));
+    godot::String name = env.from_jstring(jni::JString((jstring) ret.obj));
+    ret.delete_local_ref(env);
+    return name;
 }
 
 godot::String KtClass::get_fqdn(jni::Env& env) {
     jni::JObject ret = wrapped.call_object_method(env, GET_FQDN);
-    return env.from_jstring(jni::JString((jstring) ret.obj));
+    godot::String fqdn_value = env.from_jstring(jni::JString((jstring) ret.obj));
+    ret.delete_local_ref(env);
+    return fqdn_value;
 }
 
 godot::String KtClass::get_source_file_name(jni::Env& env) {
     jni::JObject ret = wrapped.call_object_method(env, GET_SOURCE_FILE_NAME);
-    return env.from_jstring(jni::JString((jstring) ret.obj));
+    godot::String file_name = env.from_jstring(jni::JString((jstring) ret.obj));
+    ret.delete_local_ref(env);
+    return file_name;
 }
 
 bool KtClass::can_zero_init() const {
@@ -68,7 +73,9 @@ bool KtClass::can_zero_init() const {
 
 godot::StringName KtClass::get_base_godot_class(jni::Env& env) {
     jni::JObject ret = wrapped.call_object_method(env, GET_BASE_GODOT_CLASS);
-    return godot::StringName(env.from_jstring(jni::JString((jstring) ret.obj)));
+    godot::StringName class_name(env.from_jstring(jni::JString((jstring) ret.obj)));
+    ret.delete_local_ref(env);
+    return class_name;
 }
 
 void KtClass::fetch_handled_notifications(jni::Env& env) {
@@ -86,7 +93,9 @@ void KtClass::fetch_handled_notifications(jni::Env& env) {
 void KtClass::fetch_registered_supertypes(jni::Env& env) {
     jni::JObjectArray classesArray(wrapped.call_object_method(env, GET_REGISTERED_SUPERTYPES));
     for (int i = 0; i < classesArray.length(env); i++) {
-        godot::StringName parent_name = godot::StringName(env.from_jstring(jni::JString(classesArray.get(env, i))));
+        jni::JString parent(classesArray.get(env, i));
+        godot::StringName parent_name = godot::StringName(env.from_jstring(parent));
+        parent.delete_local_ref(env);
         registered_supertypes.append(parent_name);
         JVM_DEV_VERBOSE("%s user type is parent of %s.", parent_name, registered_class_name);
     }

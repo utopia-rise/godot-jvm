@@ -142,6 +142,8 @@ Derived* JvmInstanceWrapper<Derived, FqName>::create_instance(jni::Env& p_env, C
     }
     jni::MethodID ctor = cls.get_constructor_method_id(p_env, "()V");
     jni::JObject instance = cls.new_instance(p_env, ctor);
+    cls.delete_local_ref(p_env);
+    // The instance is a local reference too, but the constructor below promotes it and drops it.
     return new Derived(p_env, instance);
 }
 
