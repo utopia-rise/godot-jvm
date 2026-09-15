@@ -250,7 +250,7 @@ public open class WebSocketMultiplayerPeer : MultiplayerPeer() {
    */
   public final fun getPeer(peerId: Int): WebSocketPeer? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, peerId.toLong())
-    TransferContext.callMethod(MethodBindings.getPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPeerPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as WebSocketPeer?)
   }
 
@@ -268,7 +268,7 @@ public open class WebSocketMultiplayerPeer : MultiplayerPeer() {
    */
   public final fun getPeerPort(id: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.getPeerPortPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPeerPortPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -280,7 +280,7 @@ public open class WebSocketMultiplayerPeer : MultiplayerPeer() {
 
   public final fun setSupportedProtocols(protocols: PackedStringArray): Unit {
     TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, protocols)
-    TransferContext.callMethod(MethodBindings.setSupportedProtocolsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSupportedProtocolsPtr, 0)
   }
 
   public final fun getHandshakeHeaders(): PackedStringArray {
@@ -291,50 +291,50 @@ public open class WebSocketMultiplayerPeer : MultiplayerPeer() {
 
   public final fun setHandshakeHeaders(protocols: PackedStringArray): Unit {
     TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, protocols)
-    TransferContext.callMethod(MethodBindings.setHandshakeHeadersPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHandshakeHeadersPtr, 0)
   }
 
   public final fun getInboundBufferSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInboundBufferSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getInboundBufferSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setInboundBufferSize(bufferSize: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bufferSize.toLong())
-    TransferContext.callMethod(MethodBindings.setInboundBufferSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setInboundBufferSizePtr, 0)
   }
 
   public final fun getOutboundBufferSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOutboundBufferSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getOutboundBufferSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setOutboundBufferSize(bufferSize: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bufferSize.toLong())
-    TransferContext.callMethod(MethodBindings.setOutboundBufferSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setOutboundBufferSizePtr, 0)
   }
 
   public final fun getHandshakeTimeout(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHandshakeTimeoutPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHandshakeTimeoutPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setHandshakeTimeout(timeout: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeout.toDouble())
-    TransferContext.callMethod(MethodBindings.setHandshakeTimeoutPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHandshakeTimeoutPtr, 0)
   }
 
   public final fun setMaxQueuedPackets(maxQueuedPackets: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxQueuedPackets.toLong())
-    TransferContext.callMethod(MethodBindings.setMaxQueuedPacketsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxQueuedPacketsPtr, 0)
   }
 
   public final fun getMaxQueuedPackets(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxQueuedPacketsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxQueuedPacketsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

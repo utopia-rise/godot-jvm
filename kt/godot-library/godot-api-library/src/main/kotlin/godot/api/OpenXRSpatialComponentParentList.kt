@@ -34,7 +34,7 @@ public open class OpenXRSpatialComponentParentList : OpenXRSpatialComponentData(
    */
   public final fun getParent(index: Long): RID {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getParentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getParentPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 

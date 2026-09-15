@@ -63,7 +63,7 @@ public open class TCPServer : SocketServer() {
    */
   public final fun getLocalPort(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalPortPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocalPortPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -72,7 +72,7 @@ public open class TCPServer : SocketServer() {
    */
   public final fun takeConnection(): StreamPeerTCP? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.takeConnectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.takeConnectionPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as StreamPeerTCP?)
   }
 

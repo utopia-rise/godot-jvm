@@ -69,7 +69,7 @@ public open class Shader : Resource() {
    */
   public final fun getMode(): Mode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getModePtr, 2)
     return Mode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -99,7 +99,7 @@ public open class Shader : Resource() {
     index: Int = 0,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_OBJECT_LONG(ptr, objectID.id, name, texture, index.toLong())
-    TransferContext.callMethod(MethodBindings.setDefaultTextureParameterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultTextureParameterPtr, 0)
   }
 
   /**
@@ -112,7 +112,7 @@ public open class Shader : Resource() {
   @JvmOverloads
   public final fun getDefaultTextureParameter(name: StringName, index: Int = 0): Texture? {
     TransferContext.writeMethodArguments_STRING_NAME_LONG(ptr, objectID.id, name, index.toLong())
-    TransferContext.callMethod(MethodBindings.getDefaultTextureParameterPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultTextureParameterPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture?)
   }
 
@@ -138,7 +138,7 @@ public open class Shader : Resource() {
    */
   public final fun inspectNativeShaderCode(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.inspectNativeShaderCodePtr)
+    TransferContext.callPtrMethod(MethodBindings.inspectNativeShaderCodePtr, 0)
   }
 
   /**

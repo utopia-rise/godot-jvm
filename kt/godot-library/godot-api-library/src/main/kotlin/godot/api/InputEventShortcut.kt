@@ -45,12 +45,12 @@ public open class InputEventShortcut : InputEvent() {
 
   public final fun setShortcut(shortcut: Shortcut?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, shortcut)
-    TransferContext.callMethod(MethodBindings.setShortcutPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShortcutPtr, 0)
   }
 
   public final fun getShortcut(): Shortcut? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShortcutPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShortcutPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Shortcut?)
   }
 

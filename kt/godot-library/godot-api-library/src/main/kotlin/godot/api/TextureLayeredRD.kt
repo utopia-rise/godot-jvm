@@ -51,12 +51,12 @@ public open class TextureLayeredRD internal constructor() : TextureLayered() {
 
   public final fun setTextureRdRid(textureRdRid: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, textureRdRid)
-    TransferContext.callMethod(MethodBindings.setTextureRdRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureRdRidPtr, 0)
   }
 
   public final fun getTextureRdRid(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureRdRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureRdRidPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 

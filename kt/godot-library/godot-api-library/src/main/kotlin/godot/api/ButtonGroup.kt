@@ -59,7 +59,7 @@ public open class ButtonGroup : Resource() {
    */
   public final fun getPressedButton(): BaseButton? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPressedButtonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPressedButtonPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as BaseButton?)
   }
 
@@ -75,12 +75,12 @@ public open class ButtonGroup : Resource() {
 
   public final fun setAllowUnpress(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setAllowUnpressPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAllowUnpressPtr, 0)
   }
 
   public final fun isAllowUnpress(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAllowUnpressPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAllowUnpressPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

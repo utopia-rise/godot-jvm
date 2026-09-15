@@ -98,7 +98,7 @@ public open class InputEventAction : InputEvent() {
 
   public final fun setAction(action: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.setActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setActionPtr, 0)
   }
 
   public final fun getAction(): StringName {
@@ -109,28 +109,28 @@ public open class InputEventAction : InputEvent() {
 
   public final fun setPressed(pressed: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
-    TransferContext.callMethod(MethodBindings.setPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPressedPtr, 0)
   }
 
   public final fun setStrength(strength: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, strength.toDouble())
-    TransferContext.callMethod(MethodBindings.setStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStrengthPtr, 0)
   }
 
   public final fun getStrength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStrengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setEventIndex(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.setEventIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEventIndexPtr, 0)
   }
 
   public final fun getEventIndex(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEventIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEventIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

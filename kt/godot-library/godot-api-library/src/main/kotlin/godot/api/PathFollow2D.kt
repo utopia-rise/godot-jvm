@@ -136,78 +136,78 @@ public open class PathFollow2D : Node2D() {
 
   public final fun setProgress(progress: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, progress.toDouble())
-    TransferContext.callMethod(MethodBindings.setProgressPtr)
+    TransferContext.callPtrMethod(MethodBindings.setProgressPtr, 0)
   }
 
   public final fun getProgress(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProgressPtr)
+    TransferContext.callPtrMethod(MethodBindings.getProgressPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setHOffset(hOffset: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hOffset.toDouble())
-    TransferContext.callMethod(MethodBindings.setHOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHOffsetPtr, 0)
   }
 
   public final fun getHOffset(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHOffsetPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVOffset(vOffset: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, vOffset.toDouble())
-    TransferContext.callMethod(MethodBindings.setVOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVOffsetPtr, 0)
   }
 
   public final fun getVOffset(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVOffsetPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setProgressRatio(ratio: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
-    TransferContext.callMethod(MethodBindings.setProgressRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.setProgressRatioPtr, 0)
   }
 
   public final fun getProgressRatio(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProgressRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.getProgressRatioPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRotates(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setRotatesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRotatesPtr, 0)
   }
 
   public final fun isRotating(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRotatingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRotatingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCubicInterpolation(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setCubicInterpolationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCubicInterpolationPtr, 0)
   }
 
   public final fun getCubicInterpolation(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCubicInterpolationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCubicInterpolationPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setLoop(loop: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, loop)
-    TransferContext.callMethod(MethodBindings.setLoopPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLoopPtr, 0)
   }
 
   public final fun hasLoop(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasLoopPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasLoopPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

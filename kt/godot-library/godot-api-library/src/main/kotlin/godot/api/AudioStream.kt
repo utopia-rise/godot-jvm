@@ -135,7 +135,7 @@ public abstract class AudioStream : Resource() {
    */
   public final fun getLength(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
@@ -145,7 +145,7 @@ public abstract class AudioStream : Resource() {
    */
   public final fun isMonophonic(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMonophonicPtr)
+    TransferContext.callPtrMethod(MethodBindings.isMonophonicPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -157,7 +157,7 @@ public abstract class AudioStream : Resource() {
    */
   public final fun instantiatePlayback(): AudioStreamPlayback? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.instantiatePlaybackPtr)
+    TransferContext.callPtrMethod(MethodBindings.instantiatePlaybackPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as AudioStreamPlayback?)
   }
 
@@ -167,7 +167,7 @@ public abstract class AudioStream : Resource() {
    */
   public final fun canBeSampled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.canBeSampledPtr)
+    TransferContext.callPtrMethod(MethodBindings.canBeSampledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -176,7 +176,7 @@ public abstract class AudioStream : Resource() {
    */
   public final fun generateSample(): AudioSample? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.generateSamplePtr)
+    TransferContext.callPtrMethod(MethodBindings.generateSamplePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as AudioSample?)
   }
 
@@ -185,7 +185,7 @@ public abstract class AudioStream : Resource() {
    */
   public final fun isMetaStream(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMetaStreamPtr)
+    TransferContext.callPtrMethod(MethodBindings.isMetaStreamPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

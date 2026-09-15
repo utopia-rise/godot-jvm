@@ -79,45 +79,45 @@ public open class TorusMesh : PrimitiveMesh() {
 
   public final fun setInnerRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setInnerRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInnerRadiusPtr, 0)
   }
 
   public final fun getInnerRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInnerRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInnerRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOuterRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setOuterRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOuterRadiusPtr, 0)
   }
 
   public final fun getOuterRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOuterRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOuterRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRings(rings: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, rings.toLong())
-    TransferContext.callMethod(MethodBindings.setRingsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRingsPtr, 0)
   }
 
   public final fun getRings(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRingsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRingsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setRingSegments(rings: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, rings.toLong())
-    TransferContext.callMethod(MethodBindings.setRingSegmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRingSegmentsPtr, 0)
   }
 
   public final fun getRingSegments(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRingSegmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRingSegmentsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

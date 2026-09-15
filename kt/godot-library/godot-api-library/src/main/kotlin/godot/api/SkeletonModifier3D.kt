@@ -125,29 +125,29 @@ public open class SkeletonModifier3D : Node3D() {
    */
   public final fun getSkeleton(): Skeleton3D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkeletonPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Skeleton3D?)
   }
 
   public final fun setActive(active: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, active)
-    TransferContext.callMethod(MethodBindings.setActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.setActivePtr, 0)
   }
 
   public final fun isActive(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.isActivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setInfluence(influence: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, influence.toDouble())
-    TransferContext.callMethod(MethodBindings.setInfluencePtr)
+    TransferContext.callPtrMethod(MethodBindings.setInfluencePtr, 0)
   }
 
   public final fun getInfluence(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInfluencePtr)
+    TransferContext.callPtrMethod(MethodBindings.getInfluencePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

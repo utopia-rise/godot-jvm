@@ -331,78 +331,78 @@ public open class InputEventMouseMotion : InputEventMouse() {
 
   public final fun setTilt(tilt: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, tilt)
-    TransferContext.callMethod(MethodBindings.setTiltPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTiltPtr, 0)
   }
 
   public final fun getTilt(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTiltPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTiltPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setPressure(pressure: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pressure.toDouble())
-    TransferContext.callMethod(MethodBindings.setPressurePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPressurePtr, 0)
   }
 
   public final fun getPressure(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPressurePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPressurePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPenInverted(penInverted: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, penInverted)
-    TransferContext.callMethod(MethodBindings.setPenInvertedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPenInvertedPtr, 0)
   }
 
   public final fun getPenInverted(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPenInvertedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPenInvertedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRelative(relative: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, relative)
-    TransferContext.callMethod(MethodBindings.setRelativePtr)
+    TransferContext.callPtrMethod(MethodBindings.setRelativePtr, 0)
   }
 
   public final fun getRelative(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRelativePtr)
+    TransferContext.callPtrMethod(MethodBindings.getRelativePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setScreenRelative(relative: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, relative)
-    TransferContext.callMethod(MethodBindings.setScreenRelativePtr)
+    TransferContext.callPtrMethod(MethodBindings.setScreenRelativePtr, 0)
   }
 
   public final fun getScreenRelative(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScreenRelativePtr)
+    TransferContext.callPtrMethod(MethodBindings.getScreenRelativePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setVelocity(velocity: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, velocity)
-    TransferContext.callMethod(MethodBindings.setVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVelocityPtr, 0)
   }
 
   public final fun getVelocity(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVelocityPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setScreenVelocity(velocity: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, velocity)
-    TransferContext.callMethod(MethodBindings.setScreenVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setScreenVelocityPtr, 0)
   }
 
   public final fun getScreenVelocity(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScreenVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getScreenVelocityPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

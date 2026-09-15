@@ -122,12 +122,12 @@ public open class ColorPickerButton : Button() {
 
   public final fun setPickColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setPickColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPickColorPtr, 0)
   }
 
   public final fun getPickColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPickColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPickColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
@@ -139,7 +139,7 @@ public open class ColorPickerButton : Button() {
    */
   public final fun getPicker(): ColorPicker? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPickerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPickerPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as ColorPicker?)
   }
 
@@ -152,29 +152,29 @@ public open class ColorPickerButton : Button() {
    */
   public final fun getPopup(): PopupPanel? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPopupPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPopupPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as PopupPanel?)
   }
 
   public final fun setEditAlpha(show: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, show)
-    TransferContext.callMethod(MethodBindings.setEditAlphaPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEditAlphaPtr, 0)
   }
 
   public final fun isEditingAlpha(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEditingAlphaPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEditingAlphaPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEditIntensity(show: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, show)
-    TransferContext.callMethod(MethodBindings.setEditIntensityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEditIntensityPtr, 0)
   }
 
   public final fun isEditingIntensity(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEditingIntensityPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEditingIntensityPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

@@ -49,7 +49,7 @@ public open class AudioEffectSpectrumAnalyzerInstance internal constructor() : A
     mode: MagnitudeMode = AudioEffectSpectrumAnalyzerInstance.MagnitudeMode.MAX,
   ): Vector2 {
     TransferContext.writeMethodArguments_DOUBLE_DOUBLE_LONG(ptr, objectID.id, fromHz.toDouble(), toHz.toDouble(), mode.value)
-    TransferContext.callMethod(MethodBindings.getMagnitudeForFrequencyRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMagnitudeForFrequencyRangePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

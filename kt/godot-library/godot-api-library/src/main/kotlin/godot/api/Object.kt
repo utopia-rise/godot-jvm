@@ -172,7 +172,7 @@ public open class Object : KtObject() {
    */
   public final fun isClass(`class`: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, `class`)
-    TransferContext.callMethod(MethodBindings.isClassPtr)
+    TransferContext.callPtrMethod(MethodBindings.isClassPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -358,7 +358,7 @@ public open class Object : KtObject() {
    */
   public final fun propertyCanRevert(`property`: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, property)
-    TransferContext.callMethod(MethodBindings.propertyCanRevertPtr)
+    TransferContext.callPtrMethod(MethodBindings.propertyCanRevertPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -410,7 +410,7 @@ public open class Object : KtObject() {
   @JvmOverloads
   public final fun notification(what: Int, reversed: Boolean = false): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, what.toLong(), reversed)
-    TransferContext.callMethod(MethodBindings.notificationPtr)
+    TransferContext.callPtrMethod(MethodBindings.notificationPtr, 0)
   }
 
   /**
@@ -432,7 +432,7 @@ public open class Object : KtObject() {
    */
   public final fun getInstanceId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInstanceIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInstanceIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -489,7 +489,7 @@ public open class Object : KtObject() {
    */
   public final fun removeMeta(name: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.removeMetaPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeMetaPtr, 0)
   }
 
   /**
@@ -523,7 +523,7 @@ public open class Object : KtObject() {
    */
   public final fun hasMeta(name: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.hasMetaPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasMetaPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -579,7 +579,7 @@ public open class Object : KtObject() {
    */
   public final fun hasUserSignal(signal: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signal)
-    TransferContext.callMethod(MethodBindings.hasUserSignalPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasUserSignalPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -589,7 +589,7 @@ public open class Object : KtObject() {
    */
   public final fun removeUserSignal(signal: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signal)
-    TransferContext.callMethod(MethodBindings.removeUserSignalPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeUserSignalPtr, 0)
   }
 
   /**
@@ -773,7 +773,7 @@ public open class Object : KtObject() {
    */
   public final override fun hasMethod(method: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, method)
-    TransferContext.callMethod(MethodBindings.hasMethodPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasMethodPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -786,7 +786,7 @@ public open class Object : KtObject() {
    */
   public final fun getMethodArgumentCount(method: StringName): Int {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, method)
-    TransferContext.callMethod(MethodBindings.getMethodArgumentCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMethodArgumentCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -799,7 +799,7 @@ public open class Object : KtObject() {
    */
   public final override fun hasSignal(signal: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signal)
-    TransferContext.callMethod(MethodBindings.hasSignalPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasSignalPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -905,7 +905,7 @@ public open class Object : KtObject() {
    */
   public final override fun hasConnections(signal: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signal)
-    TransferContext.callMethod(MethodBindings.hasConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasConnectionsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -915,7 +915,7 @@ public open class Object : KtObject() {
    */
   public final fun setBlockSignals(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setBlockSignalsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBlockSignalsPtr, 0)
   }
 
   /**
@@ -923,7 +923,7 @@ public open class Object : KtObject() {
    */
   public final fun isBlockingSignals(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBlockingSignalsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isBlockingSignalsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -933,7 +933,7 @@ public open class Object : KtObject() {
    */
   public final fun notifyPropertyListChanged(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.notifyPropertyListChangedPtr)
+    TransferContext.callPtrMethod(MethodBindings.notifyPropertyListChangedPtr, 0)
   }
 
   /**
@@ -942,7 +942,7 @@ public open class Object : KtObject() {
    */
   public final fun setMessageTranslation(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setMessageTranslationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMessageTranslationPtr, 0)
   }
 
   /**
@@ -951,7 +951,7 @@ public open class Object : KtObject() {
    */
   public final fun canTranslateMessages(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.canTranslateMessagesPtr)
+    TransferContext.callPtrMethod(MethodBindings.canTranslateMessagesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1023,7 +1023,7 @@ public open class Object : KtObject() {
    */
   public final fun setTranslationDomain(domain: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, domain)
-    TransferContext.callMethod(MethodBindings.setTranslationDomainPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTranslationDomainPtr, 0)
   }
 
   /**
@@ -1035,7 +1035,7 @@ public open class Object : KtObject() {
    */
   public final fun isQueuedForDeletion(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isQueuedForDeletionPtr)
+    TransferContext.callPtrMethod(MethodBindings.isQueuedForDeletionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1046,7 +1046,7 @@ public open class Object : KtObject() {
    */
   public final fun cancelFree(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.cancelFreePtr)
+    TransferContext.callPtrMethod(MethodBindings.cancelFreePtr, 0)
   }
 
   /**

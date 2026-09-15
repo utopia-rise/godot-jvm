@@ -96,7 +96,7 @@ public open class HashingContext : RefCounted() {
    */
   public final fun start(type: HashType): Error {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
-    TransferContext.callMethod(MethodBindings.startPtr)
+    TransferContext.callPtrMethod(MethodBindings.startPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -105,7 +105,7 @@ public open class HashingContext : RefCounted() {
    */
   public final fun update(chunk: PackedByteArray): Error {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, chunk)
-    TransferContext.callMethod(MethodBindings.updatePtr)
+    TransferContext.callPtrMethod(MethodBindings.updatePtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 

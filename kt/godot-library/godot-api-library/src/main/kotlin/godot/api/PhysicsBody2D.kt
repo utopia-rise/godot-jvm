@@ -67,7 +67,7 @@ public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
     recoveryAsCollision: Boolean = false,
   ): KinematicCollision2D? {
     TransferContext.writeMethodArguments_VECTOR2_BOOL_DOUBLE_BOOL(ptr, objectID.id, motion, testOnly, safeMargin.toDouble(), recoveryAsCollision)
-    TransferContext.callMethod(MethodBindings.moveAndCollidePtr)
+    TransferContext.callPtrMethod(MethodBindings.moveAndCollidePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as KinematicCollision2D?)
   }
 
@@ -97,7 +97,7 @@ public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
     recoveryAsCollision: Boolean = false,
   ): Boolean {
     TransferContext.writeMethodArguments_TRANSFORM2D_VECTOR2_OBJECT_DOUBLE_BOOL(ptr, objectID.id, from, motion, collision, safeMargin.toDouble(), recoveryAsCollision)
-    TransferContext.callMethod(MethodBindings.testMovePtr)
+    TransferContext.callPtrMethod(MethodBindings.testMovePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -107,7 +107,7 @@ public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
    */
   public final fun getGravity(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGravityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGravityPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -125,7 +125,7 @@ public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
    */
   public final fun addCollisionExceptionWith(body: Node): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, body)
-    TransferContext.callMethod(MethodBindings.addCollisionExceptionWithPtr)
+    TransferContext.callPtrMethod(MethodBindings.addCollisionExceptionWithPtr, 0)
   }
 
   /**
@@ -133,7 +133,7 @@ public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
    */
   public final fun removeCollisionExceptionWith(body: Node): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, body)
-    TransferContext.callMethod(MethodBindings.removeCollisionExceptionWithPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeCollisionExceptionWithPtr, 0)
   }
 
   public companion object {

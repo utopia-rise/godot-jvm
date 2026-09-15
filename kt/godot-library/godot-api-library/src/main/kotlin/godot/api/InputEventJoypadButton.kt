@@ -68,29 +68,29 @@ public open class InputEventJoypadButton : InputEvent() {
 
   public final fun setButtonIndex(buttonIndex: JoyButton): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, buttonIndex.value)
-    TransferContext.callMethod(MethodBindings.setButtonIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setButtonIndexPtr, 0)
   }
 
   public final fun getButtonIndex(): JoyButton {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getButtonIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getButtonIndexPtr, 2)
     return JoyButton.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPressure(pressure: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pressure.toDouble())
-    TransferContext.callMethod(MethodBindings.setPressurePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPressurePtr, 0)
   }
 
   public final fun getPressure(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPressurePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPressurePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPressed(pressed: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
-    TransferContext.callMethod(MethodBindings.setPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPressedPtr, 0)
   }
 
   public companion object {

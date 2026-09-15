@@ -151,7 +151,7 @@ public abstract class MovieWriter : Object() {
     @JvmStatic
     public final fun addWriter(writer: MovieWriter?): Unit {
       TransferContext.writeMethodArguments_OBJECT(0L, 0L, writer)
-      TransferContext.callMethod(MethodBindings.addWriterPtr)
+      TransferContext.callPtrMethod(MethodBindings.addWriterPtr, 0)
     }
   }
 

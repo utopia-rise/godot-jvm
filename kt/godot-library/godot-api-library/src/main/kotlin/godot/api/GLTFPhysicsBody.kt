@@ -347,7 +347,7 @@ public open class GLTFPhysicsBody : Resource() {
    */
   public final fun toNode(): CollisionObject3D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.toNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.toNodePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as CollisionObject3D?)
   }
 
@@ -374,79 +374,79 @@ public open class GLTFPhysicsBody : Resource() {
 
   public final fun getMass(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMassPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMassPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMass(mass: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, mass.toDouble())
-    TransferContext.callMethod(MethodBindings.setMassPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMassPtr, 0)
   }
 
   public final fun getLinearVelocity(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLinearVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLinearVelocityPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setLinearVelocity(linearVelocity: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, linearVelocity)
-    TransferContext.callMethod(MethodBindings.setLinearVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLinearVelocityPtr, 0)
   }
 
   public final fun getAngularVelocity(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAngularVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAngularVelocityPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setAngularVelocity(angularVelocity: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, angularVelocity)
-    TransferContext.callMethod(MethodBindings.setAngularVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAngularVelocityPtr, 0)
   }
 
   public final fun getCenterOfMass(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCenterOfMassPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCenterOfMassPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setCenterOfMass(centerOfMass: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, centerOfMass)
-    TransferContext.callMethod(MethodBindings.setCenterOfMassPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCenterOfMassPtr, 0)
   }
 
   public final fun getInertiaDiagonal(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInertiaDiagonalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInertiaDiagonalPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setInertiaDiagonal(inertiaDiagonal: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, inertiaDiagonal)
-    TransferContext.callMethod(MethodBindings.setInertiaDiagonalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInertiaDiagonalPtr, 0)
   }
 
   public final fun getInertiaOrientation(): Quaternion {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInertiaOrientationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInertiaOrientationPtr, 15)
     return TransferContext.readReturnValue_QUATERNION()
   }
 
   public final fun setInertiaOrientation(inertiaOrientation: Quaternion): Unit {
     TransferContext.writeMethodArguments_QUATERNION(ptr, objectID.id, inertiaOrientation)
-    TransferContext.callMethod(MethodBindings.setInertiaOrientationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInertiaOrientationPtr, 0)
   }
 
   public final fun getInertiaTensor(): Basis {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInertiaTensorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInertiaTensorPtr, 17)
     return TransferContext.readReturnValue_BASIS()
   }
 
   public final fun setInertiaTensor(inertiaTensor: Basis): Unit {
     TransferContext.writeMethodArguments_BASIS(ptr, objectID.id, inertiaTensor)
-    TransferContext.callMethod(MethodBindings.setInertiaTensorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInertiaTensorPtr, 0)
   }
 
   public companion object {
@@ -538,7 +538,7 @@ public open class GLTFPhysicsBody : Resource() {
     @JvmStatic
     public final fun fromNode(bodyNode: CollisionObject3D?): GLTFPhysicsBody? {
       TransferContext.writeMethodArguments_OBJECT(0L, 0L, bodyNode)
-      TransferContext.callMethod(MethodBindings.fromNodePtr)
+      TransferContext.callPtrMethod(MethodBindings.fromNodePtr, 39)
       return (TransferContext.readReturnValue_OBJECT() as GLTFPhysicsBody?)
     }
 
@@ -549,7 +549,7 @@ public open class GLTFPhysicsBody : Resource() {
     @JvmStatic
     public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFPhysicsBody? {
       TransferContext.writeMethodArguments_DICTIONARY(0L, 0L, dictionary)
-      TransferContext.callMethod(MethodBindings.fromDictionaryPtr)
+      TransferContext.callPtrMethod(MethodBindings.fromDictionaryPtr, 39)
       return (TransferContext.readReturnValue_OBJECT() as GLTFPhysicsBody?)
     }
   }

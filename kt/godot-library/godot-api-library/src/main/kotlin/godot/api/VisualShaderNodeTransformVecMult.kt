@@ -45,12 +45,12 @@ public open class VisualShaderNodeTransformVecMult : VisualShaderNode() {
 
   public final fun setOperator(op: Operator): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, op.value)
-    TransferContext.callMethod(MethodBindings.setOperatorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOperatorPtr, 0)
   }
 
   public final fun getOperator(): Operator {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOperatorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOperatorPtr, 2)
     return Operator.from(TransferContext.readReturnValue_LONG())
   }
 

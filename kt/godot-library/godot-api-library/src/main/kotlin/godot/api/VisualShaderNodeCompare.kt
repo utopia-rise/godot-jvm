@@ -67,34 +67,34 @@ public open class VisualShaderNodeCompare : VisualShaderNode() {
 
   public final fun setComparisonType(type: ComparisonType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
-    TransferContext.callMethod(MethodBindings.setComparisonTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setComparisonTypePtr, 0)
   }
 
   public final fun getComparisonType(): ComparisonType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getComparisonTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getComparisonTypePtr, 2)
     return ComparisonType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setFunction(func: Function): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, func.value)
-    TransferContext.callMethod(MethodBindings.setFunctionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFunctionPtr, 0)
   }
 
   public final fun getFunction(): Function {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFunctionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFunctionPtr, 2)
     return Function.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setCondition(condition: Condition): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, condition.value)
-    TransferContext.callMethod(MethodBindings.setConditionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setConditionPtr, 0)
   }
 
   public final fun getCondition(): Condition {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConditionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConditionPtr, 2)
     return Condition.from(TransferContext.readReturnValue_LONG())
   }
 

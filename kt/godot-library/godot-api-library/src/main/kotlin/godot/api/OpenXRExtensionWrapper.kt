@@ -353,7 +353,7 @@ public open class OpenXRExtensionWrapper : Object() {
    */
   public final fun getOpenxrApi(): OpenXRAPIExtension? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOpenxrApiPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOpenxrApiPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OpenXRAPIExtension?)
   }
 
@@ -364,7 +364,7 @@ public open class OpenXRExtensionWrapper : Object() {
    */
   public final fun registerExtensionWrapper(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.registerExtensionWrapperPtr)
+    TransferContext.callPtrMethod(MethodBindings.registerExtensionWrapperPtr, 0)
   }
 
   public companion object {

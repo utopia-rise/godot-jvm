@@ -69,7 +69,7 @@ public open class XRFaceModifier3D : Node3D() {
 
   public final fun setFaceTracker(trackerName: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, trackerName)
-    TransferContext.callMethod(MethodBindings.setFaceTrackerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFaceTrackerPtr, 0)
   }
 
   public final fun getFaceTracker(): StringName {
@@ -80,7 +80,7 @@ public open class XRFaceModifier3D : Node3D() {
 
   public final fun setTarget(target: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, target)
-    TransferContext.callMethod(MethodBindings.setTargetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTargetPtr, 0)
   }
 
   public final fun getTarget(): NodePath {

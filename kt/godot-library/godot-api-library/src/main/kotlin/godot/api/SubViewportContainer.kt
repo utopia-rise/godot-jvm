@@ -100,34 +100,34 @@ public open class SubViewportContainer : Container() {
 
   public final fun setStretch(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setStretchPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStretchPtr, 0)
   }
 
   public final fun isStretchEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isStretchEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isStretchEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setStretchShrink(amount: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
-    TransferContext.callMethod(MethodBindings.setStretchShrinkPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStretchShrinkPtr, 0)
   }
 
   public final fun getStretchShrink(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStretchShrinkPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStretchShrinkPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMouseTarget(amount: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, amount)
-    TransferContext.callMethod(MethodBindings.setMouseTargetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMouseTargetPtr, 0)
   }
 
   public final fun isMouseTargetEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMouseTargetEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isMouseTargetEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

@@ -149,7 +149,7 @@ public open class JSON : Resource() {
    */
   public final fun getErrorLine(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getErrorLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getErrorLinePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

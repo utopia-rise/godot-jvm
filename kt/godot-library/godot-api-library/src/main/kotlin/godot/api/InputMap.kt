@@ -116,7 +116,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun hasAction(action: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.hasActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasActionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -139,7 +139,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun addAction(action: StringName, deadzone: Float = 0.2f): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_DOUBLE(ptr, objectID.id, action, deadzone.toDouble())
-    TransferContext.callMethod(MethodBindings.addActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.addActionPtr, 0)
   }
 
   /**
@@ -148,7 +148,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun eraseAction(action: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.eraseActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.eraseActionPtr, 0)
   }
 
   /**
@@ -167,7 +167,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun actionSetDeadzone(action: StringName, deadzone: Float): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_DOUBLE(ptr, objectID.id, action, deadzone.toDouble())
-    TransferContext.callMethod(MethodBindings.actionSetDeadzonePtr)
+    TransferContext.callPtrMethod(MethodBindings.actionSetDeadzonePtr, 0)
   }
 
   /**
@@ -176,7 +176,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun actionGetDeadzone(action: StringName): Float {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.actionGetDeadzonePtr)
+    TransferContext.callPtrMethod(MethodBindings.actionGetDeadzonePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -186,7 +186,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun actionAddEvent(action: StringName, event: InputEvent): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_OBJECT(ptr, objectID.id, action, event)
-    TransferContext.callMethod(MethodBindings.actionAddEventPtr)
+    TransferContext.callPtrMethod(MethodBindings.actionAddEventPtr, 0)
   }
 
   /**
@@ -195,7 +195,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun actionHasEvent(action: StringName, event: InputEvent): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME_OBJECT(ptr, objectID.id, action, event)
-    TransferContext.callMethod(MethodBindings.actionHasEventPtr)
+    TransferContext.callPtrMethod(MethodBindings.actionHasEventPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -205,7 +205,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun actionEraseEvent(action: StringName, event: InputEvent): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_OBJECT(ptr, objectID.id, action, event)
-    TransferContext.callMethod(MethodBindings.actionEraseEventPtr)
+    TransferContext.callPtrMethod(MethodBindings.actionEraseEventPtr, 0)
   }
 
   /**
@@ -214,7 +214,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun actionEraseEvents(action: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.actionEraseEventsPtr)
+    TransferContext.callPtrMethod(MethodBindings.actionEraseEventsPtr, 0)
   }
 
   /**
@@ -247,7 +247,7 @@ public object InputMap : Object() {
     exactMatch: Boolean = false,
   ): Boolean {
     TransferContext.writeMethodArguments_OBJECT_STRING_NAME_BOOL(ptr, objectID.id, event, action, exactMatch)
-    TransferContext.callMethod(MethodBindings.eventIsActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.eventIsActionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -257,7 +257,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun loadFromProjectSettings(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.loadFromProjectSettingsPtr)
+    TransferContext.callPtrMethod(MethodBindings.loadFromProjectSettingsPtr, 0)
   }
 
   /**

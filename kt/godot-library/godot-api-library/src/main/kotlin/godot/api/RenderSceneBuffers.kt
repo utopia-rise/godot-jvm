@@ -36,7 +36,7 @@ public open class RenderSceneBuffers internal constructor() : RefCounted() {
    */
   public final fun configure(config: RenderSceneBuffersConfiguration?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, config)
-    TransferContext.callMethod(MethodBindings.configurePtr)
+    TransferContext.callPtrMethod(MethodBindings.configurePtr, 0)
   }
 
   public companion object {

@@ -50,7 +50,7 @@ public open class ResourcePreloader : Node() {
    */
   public final fun addResource(name: StringName, resource: Resource?): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_OBJECT(ptr, objectID.id, name, resource)
-    TransferContext.callMethod(MethodBindings.addResourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.addResourcePtr, 0)
   }
 
   /**
@@ -58,7 +58,7 @@ public open class ResourcePreloader : Node() {
    */
   public final fun removeResource(name: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.removeResourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.removeResourcePtr, 0)
   }
 
   /**
@@ -66,7 +66,7 @@ public open class ResourcePreloader : Node() {
    */
   public final fun renameResource(name: StringName, newname: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, newname)
-    TransferContext.callMethod(MethodBindings.renameResourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.renameResourcePtr, 0)
   }
 
   /**
@@ -74,7 +74,7 @@ public open class ResourcePreloader : Node() {
    */
   public final fun hasResource(name: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.hasResourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasResourcePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -83,7 +83,7 @@ public open class ResourcePreloader : Node() {
    */
   public final fun getResource(name: StringName): Resource? {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getResourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.getResourcePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Resource?)
   }
 

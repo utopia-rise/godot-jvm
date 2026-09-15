@@ -84,23 +84,23 @@ public open class VisualShaderNodeParameter internal constructor() : VisualShade
 
   public final fun setQualifier(qualifier: Qualifier): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, qualifier.value)
-    TransferContext.callMethod(MethodBindings.setQualifierPtr)
+    TransferContext.callPtrMethod(MethodBindings.setQualifierPtr, 0)
   }
 
   public final fun getQualifier(): Qualifier {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getQualifierPtr)
+    TransferContext.callPtrMethod(MethodBindings.getQualifierPtr, 2)
     return Qualifier.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setInstanceIndex(instanceIndex: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, instanceIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setInstanceIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInstanceIndexPtr, 0)
   }
 
   public final fun getInstanceIndex(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInstanceIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInstanceIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

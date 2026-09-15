@@ -43,7 +43,7 @@ public open class Texture2DArray : ImageTextureLayered() {
    */
   public final fun createPlaceholder(): Resource? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createPlaceholderPtr)
+    TransferContext.callPtrMethod(MethodBindings.createPlaceholderPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Resource?)
   }
 

@@ -47,7 +47,7 @@ public open class AudioEffectEQ : AudioEffect() {
    */
   public final fun setBandGainDb(bandIdx: Int, volumeDb: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, bandIdx.toLong(), volumeDb.toDouble())
-    TransferContext.callMethod(MethodBindings.setBandGainDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBandGainDbPtr, 0)
   }
 
   /**
@@ -55,7 +55,7 @@ public open class AudioEffectEQ : AudioEffect() {
    */
   public final fun getBandGainDb(bandIdx: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bandIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBandGainDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBandGainDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -64,7 +64,7 @@ public open class AudioEffectEQ : AudioEffect() {
    */
   public final fun getBandCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBandCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBandCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

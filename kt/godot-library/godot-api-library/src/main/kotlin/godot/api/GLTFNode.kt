@@ -399,112 +399,112 @@ public open class GLTFNode : Resource() {
 
   public final fun getParent(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getParentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getParentPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setParent(parent: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, parent.toLong())
-    TransferContext.callMethod(MethodBindings.setParentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setParentPtr, 0)
   }
 
   public final fun getHeight(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setHeight(height: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, height.toLong())
-    TransferContext.callMethod(MethodBindings.setHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHeightPtr, 0)
   }
 
   public final fun getXform(): Transform3D {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getXformPtr)
+    TransferContext.callPtrMethod(MethodBindings.getXformPtr, 18)
     return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   public final fun setXform(xform: Transform3D): Unit {
     TransferContext.writeMethodArguments_TRANSFORM3D(ptr, objectID.id, xform)
-    TransferContext.callMethod(MethodBindings.setXformPtr)
+    TransferContext.callPtrMethod(MethodBindings.setXformPtr, 0)
   }
 
   public final fun getMesh(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMeshPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMesh(mesh: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mesh.toLong())
-    TransferContext.callMethod(MethodBindings.setMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMeshPtr, 0)
   }
 
   public final fun getCamera(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCameraPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCameraPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setCamera(camera: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, camera.toLong())
-    TransferContext.callMethod(MethodBindings.setCameraPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCameraPtr, 0)
   }
 
   public final fun getSkin(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkinPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkinPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSkin(skin: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, skin.toLong())
-    TransferContext.callMethod(MethodBindings.setSkinPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSkinPtr, 0)
   }
 
   public final fun getSkeleton(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkeletonPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSkeleton(skeleton: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, skeleton.toLong())
-    TransferContext.callMethod(MethodBindings.setSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSkeletonPtr, 0)
   }
 
   public final fun getPosition(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setPosition(position: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.setPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPositionPtr, 0)
   }
 
   public final fun getRotation(): Quaternion {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRotationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRotationPtr, 15)
     return TransferContext.readReturnValue_QUATERNION()
   }
 
   public final fun setRotation(rotation: Quaternion): Unit {
     TransferContext.writeMethodArguments_QUATERNION(ptr, objectID.id, rotation)
-    TransferContext.callMethod(MethodBindings.setRotationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRotationPtr, 0)
   }
 
   public final fun getScale(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.getScalePtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setScale(scale: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, scale)
-    TransferContext.callMethod(MethodBindings.setScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setScalePtr, 0)
   }
 
   public final fun getChildren(): PackedInt32Array {
@@ -515,7 +515,7 @@ public open class GLTFNode : Resource() {
 
   public final fun setChildren(children: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, children)
-    TransferContext.callMethod(MethodBindings.setChildrenPtr)
+    TransferContext.callPtrMethod(MethodBindings.setChildrenPtr, 0)
   }
 
   /**
@@ -523,29 +523,29 @@ public open class GLTFNode : Resource() {
    */
   public final fun appendChildIndex(childIndex: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, childIndex.toLong())
-    TransferContext.callMethod(MethodBindings.appendChildIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.appendChildIndexPtr, 0)
   }
 
   public final fun getLight(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLightPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setLight(light: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, light.toLong())
-    TransferContext.callMethod(MethodBindings.setLightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLightPtr, 0)
   }
 
   public final fun getVisible(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.getVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setVisible(visible: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
-    TransferContext.callMethod(MethodBindings.setVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.setVisiblePtr, 0)
   }
 
   /**

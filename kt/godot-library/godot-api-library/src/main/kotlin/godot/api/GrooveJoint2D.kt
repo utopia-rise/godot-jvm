@@ -58,23 +58,23 @@ public open class GrooveJoint2D : Joint2D() {
 
   public final fun setLength(length: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, length.toDouble())
-    TransferContext.callMethod(MethodBindings.setLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLengthPtr, 0)
   }
 
   public final fun getLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setInitialOffset(offset: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setInitialOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInitialOffsetPtr, 0)
   }
 
   public final fun getInitialOffset(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInitialOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInitialOffsetPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

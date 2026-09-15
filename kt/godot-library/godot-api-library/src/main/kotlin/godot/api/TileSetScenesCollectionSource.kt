@@ -81,7 +81,7 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   public final fun getSceneTilesCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSceneTilesCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSceneTilesCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -90,7 +90,7 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   public final fun getSceneTileId(index: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getSceneTileIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSceneTileIdPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -99,7 +99,7 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   public final fun hasSceneTileId(id: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.hasSceneTileIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasSceneTileIdPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -111,7 +111,7 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
   @JvmOverloads
   public final fun createSceneTile(packedScene: PackedScene?, idOverride: Int = -1): Int {
     TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, packedScene, idOverride.toLong())
-    TransferContext.callMethod(MethodBindings.createSceneTilePtr)
+    TransferContext.callPtrMethod(MethodBindings.createSceneTilePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -121,7 +121,7 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   public final fun setSceneTileId(id: Int, newId: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, id.toLong(), newId.toLong())
-    TransferContext.callMethod(MethodBindings.setSceneTileIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSceneTileIdPtr, 0)
   }
 
   /**
@@ -131,7 +131,7 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   public final fun setSceneTileScene(id: Int, packedScene: PackedScene?): Unit {
     TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, id.toLong(), packedScene)
-    TransferContext.callMethod(MethodBindings.setSceneTileScenePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSceneTileScenePtr, 0)
   }
 
   /**
@@ -139,7 +139,7 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   public final fun getSceneTileScene(id: Int): PackedScene? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.getSceneTileScenePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSceneTileScenePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as PackedScene?)
   }
 
@@ -149,7 +149,7 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   public final fun setSceneTileDisplayPlaceholder(id: Int, displayPlaceholder: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, id.toLong(), displayPlaceholder)
-    TransferContext.callMethod(MethodBindings.setSceneTileDisplayPlaceholderPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSceneTileDisplayPlaceholderPtr, 0)
   }
 
   /**
@@ -157,7 +157,7 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   public final fun getSceneTileDisplayPlaceholder(id: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.getSceneTileDisplayPlaceholderPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSceneTileDisplayPlaceholderPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -166,7 +166,7 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   public final fun removeSceneTile(id: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.removeSceneTilePtr)
+    TransferContext.callPtrMethod(MethodBindings.removeSceneTilePtr, 0)
   }
 
   /**
@@ -174,7 +174,7 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   public final fun getNextSceneTileId(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNextSceneTileIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNextSceneTileIdPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

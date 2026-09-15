@@ -452,7 +452,7 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    */
   public final fun isInputSourceActive(inputSourceId: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, inputSourceId.toLong())
-    TransferContext.callMethod(MethodBindings.isInputSourceActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.isInputSourceActivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -480,7 +480,7 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    */
   public final fun getInputSourceTracker(inputSourceId: Int): XRControllerTracker? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, inputSourceId.toLong())
-    TransferContext.callMethod(MethodBindings.getInputSourceTrackerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInputSourceTrackerPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as XRControllerTracker?)
   }
 
@@ -493,7 +493,7 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    */
   public final fun getInputSourceTargetRayMode(inputSourceId: Int): TargetRayMode {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, inputSourceId.toLong())
-    TransferContext.callMethod(MethodBindings.getInputSourceTargetRayModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getInputSourceTargetRayModePtr, 2)
     return TargetRayMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -509,7 +509,7 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    */
   public final fun getDisplayRefreshRate(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDisplayRefreshRatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDisplayRefreshRatePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -519,7 +519,7 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    */
   public final fun setDisplayRefreshRate(refreshRate: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, refreshRate.toDouble())
-    TransferContext.callMethod(MethodBindings.setDisplayRefreshRatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDisplayRefreshRatePtr, 0)
   }
 
   /**

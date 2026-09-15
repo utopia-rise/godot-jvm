@@ -34,7 +34,7 @@ public open class GodotInstance internal constructor() : Object() {
    */
   public final fun start(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.startPtr)
+    TransferContext.callPtrMethod(MethodBindings.startPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -43,7 +43,7 @@ public open class GodotInstance internal constructor() : Object() {
    */
   public final fun isStarted(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isStartedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isStartedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -52,7 +52,7 @@ public open class GodotInstance internal constructor() : Object() {
    */
   public final fun iteration(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.iterationPtr)
+    TransferContext.callPtrMethod(MethodBindings.iterationPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -61,7 +61,7 @@ public open class GodotInstance internal constructor() : Object() {
    */
   public final fun focusIn(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.focusInPtr)
+    TransferContext.callPtrMethod(MethodBindings.focusInPtr, 0)
   }
 
   /**
@@ -69,7 +69,7 @@ public open class GodotInstance internal constructor() : Object() {
    */
   public final fun focusOut(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.focusOutPtr)
+    TransferContext.callPtrMethod(MethodBindings.focusOutPtr, 0)
   }
 
   /**
@@ -77,7 +77,7 @@ public open class GodotInstance internal constructor() : Object() {
    */
   public final fun pause(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pausePtr)
+    TransferContext.callPtrMethod(MethodBindings.pausePtr, 0)
   }
 
   /**
@@ -85,7 +85,7 @@ public open class GodotInstance internal constructor() : Object() {
    */
   public final fun resume(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.resumePtr)
+    TransferContext.callPtrMethod(MethodBindings.resumePtr, 0)
   }
 
   public companion object {

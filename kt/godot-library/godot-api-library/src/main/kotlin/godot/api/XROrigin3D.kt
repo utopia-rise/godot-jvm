@@ -73,23 +73,23 @@ public open class XROrigin3D : Node3D() {
 
   public final fun setWorldScale(worldScale: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, worldScale.toDouble())
-    TransferContext.callMethod(MethodBindings.setWorldScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setWorldScalePtr, 0)
   }
 
   public final fun getWorldScale(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWorldScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.getWorldScalePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setCurrent(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setCurrentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCurrentPtr, 0)
   }
 
   public final fun isCurrent(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCurrentPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCurrentPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

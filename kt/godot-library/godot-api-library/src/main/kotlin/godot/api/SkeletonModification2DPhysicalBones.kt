@@ -55,12 +55,12 @@ public open class SkeletonModification2DPhysicalBones : SkeletonModification2D()
 
   public final fun setPhysicalBoneChainLength(length: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, length.toLong())
-    TransferContext.callMethod(MethodBindings.setPhysicalBoneChainLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPhysicalBoneChainLengthPtr, 0)
   }
 
   public final fun getPhysicalBoneChainLength(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPhysicalBoneChainLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPhysicalBoneChainLengthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -72,7 +72,7 @@ public open class SkeletonModification2DPhysicalBones : SkeletonModification2D()
    */
   public final fun setPhysicalBoneNode(jointIdx: Int, physicalbone2dNode: NodePath): Unit {
     TransferContext.writeMethodArguments_LONG_NODE_PATH(ptr, objectID.id, jointIdx.toLong(), physicalbone2dNode)
-    TransferContext.callMethod(MethodBindings.setPhysicalBoneNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPhysicalBoneNodePtr, 0)
   }
 
   /**
@@ -90,7 +90,7 @@ public open class SkeletonModification2DPhysicalBones : SkeletonModification2D()
    */
   public final fun fetchPhysicalBones(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.fetchPhysicalBonesPtr)
+    TransferContext.callPtrMethod(MethodBindings.fetchPhysicalBonesPtr, 0)
   }
 
   /**
@@ -103,7 +103,7 @@ public open class SkeletonModification2DPhysicalBones : SkeletonModification2D()
   public final fun startSimulation(bones: VariantArray<StringName> = godot.core.variantArrayOf()):
       Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, bones)
-    TransferContext.callMethod(MethodBindings.startSimulationPtr)
+    TransferContext.callPtrMethod(MethodBindings.startSimulationPtr, 0)
   }
 
   /**
@@ -116,7 +116,7 @@ public open class SkeletonModification2DPhysicalBones : SkeletonModification2D()
   public final fun stopSimulation(bones: VariantArray<StringName> = godot.core.variantArrayOf()):
       Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, bones)
-    TransferContext.callMethod(MethodBindings.stopSimulationPtr)
+    TransferContext.callPtrMethod(MethodBindings.stopSimulationPtr, 0)
   }
 
   /**

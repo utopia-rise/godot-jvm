@@ -81,7 +81,7 @@ public open class PlaceholderTexture2D : Texture2D() {
 
   public final fun setSize(size: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
   }
 
   /**

@@ -69,34 +69,34 @@ public open class VisualShaderNodeTexture : VisualShaderNode() {
 
   public final fun setSource(`value`: Source): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, value.value)
-    TransferContext.callMethod(MethodBindings.setSourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSourcePtr, 0)
   }
 
   public final fun getSource(): Source {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSourcePtr, 2)
     return Source.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTexture(`value`: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setTextureType(`value`: TextureType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, value.value)
-    TransferContext.callMethod(MethodBindings.setTextureTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureTypePtr, 0)
   }
 
   public final fun getTextureType(): TextureType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureTypePtr, 2)
     return TextureType.from(TransferContext.readReturnValue_LONG())
   }
 

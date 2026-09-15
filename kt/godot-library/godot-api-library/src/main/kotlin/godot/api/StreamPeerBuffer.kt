@@ -104,7 +104,7 @@ public open class StreamPeerBuffer : StreamPeer() {
    */
   public final fun seek(position: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, position.toLong())
-    TransferContext.callMethod(MethodBindings.seekPtr)
+    TransferContext.callPtrMethod(MethodBindings.seekPtr, 0)
   }
 
   /**
@@ -112,7 +112,7 @@ public open class StreamPeerBuffer : StreamPeer() {
    */
   public final fun getSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -121,7 +121,7 @@ public open class StreamPeerBuffer : StreamPeer() {
    */
   public final fun getPosition(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -130,12 +130,12 @@ public open class StreamPeerBuffer : StreamPeer() {
    */
   public final fun resize(size: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callMethod(MethodBindings.resizePtr)
+    TransferContext.callPtrMethod(MethodBindings.resizePtr, 0)
   }
 
   public final fun setDataArray(`data`: PackedByteArray): Unit {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, data)
-    TransferContext.callMethod(MethodBindings.setDataArrayPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDataArrayPtr, 0)
   }
 
   public final fun getDataArray(): PackedByteArray {
@@ -149,7 +149,7 @@ public open class StreamPeerBuffer : StreamPeer() {
    */
   public final fun clear(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**
@@ -157,7 +157,7 @@ public open class StreamPeerBuffer : StreamPeer() {
    */
   public final fun duplicate(): StreamPeerBuffer? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.duplicatePtr)
+    TransferContext.callPtrMethod(MethodBindings.duplicatePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as StreamPeerBuffer?)
   }
 

@@ -35,9 +35,9 @@ Object method calls use a distinct layout because the receiver is not a method a
 [caller pointer: Long][caller ObjectID: Long][argument count: Int][arguments...]
 ```
 
-The native `icall` reader consumes the caller pointer and `ObjectID` directly before reading the regular argument list.
+Two native entry points read this layout. `icallPtr` uses the unchecked `object_method_bind_ptrcall`: each argument the buffer holds in native layout (booleans, numbers, math types, `RID`, object pointers) is copied to the call's own stack, since a nested JVM call from inside the engine call would rewrite the buffer, and the pointer-backed core types such as `StringName` or `Array` pass the pointer to the object the JVM owns; the return type is passed as a JNI argument so the value can be copied back behind its tag (`cpp/jvm/ptr_converter.h`). `icall` decodes every argument into a `Variant` and uses the checked `object_method_bind_call` (`cpp/jvm/variant_converter.h`); the generator picks it for variadic methods and for any method whose arguments or return include a type the ptrcall table does not cover: `String`, `Callable`, `Signal` and `Variant`. Both consume the caller pointer and `ObjectID` directly before reading the argument list.
 
-Objects sent from Kotlin to C++ use only their pointer. A null Kotlin object is encoded as a pointer of `0` (`nullptr`). Only an object method call's receiver includes an `ObjectID`, which `icall` checks against `ObjectDB` in debug builds.
+Objects sent from Kotlin to C++ use only their pointer. A null Kotlin object is encoded as a pointer of `0` (`nullptr`). Only an object method call's receiver includes an `ObjectID`, which the native call checks against `ObjectDB` in debug builds.
 
 Type tags follow Godot's `Variant::Type` ordinals. The table below describes C++-to-JVM payloads, excluding the 4-byte tag. The reverse direction uses only a native pointer for objects and collections. The readers and writers in `cpp/jvm/jvm_variant.h` define the wire format.
 

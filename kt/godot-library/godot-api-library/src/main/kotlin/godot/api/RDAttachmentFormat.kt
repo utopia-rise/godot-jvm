@@ -65,34 +65,34 @@ public open class RDAttachmentFormat : RefCounted() {
 
   public final fun setFormat(pMember: RenderingDevice.DataFormat): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callMethod(MethodBindings.setFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFormatPtr, 0)
   }
 
   public final fun getFormat(): RenderingDevice.DataFormat {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
     return RenderingDevice.DataFormat.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSamples(pMember: RenderingDevice.TextureSamples): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callMethod(MethodBindings.setSamplesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSamplesPtr, 0)
   }
 
   public final fun getSamples(): RenderingDevice.TextureSamples {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSamplesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSamplesPtr, 2)
     return RenderingDevice.TextureSamples.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setUsageFlags(pMember: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setUsageFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUsageFlagsPtr, 0)
   }
 
   public final fun getUsageFlags(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUsageFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUsageFlagsPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

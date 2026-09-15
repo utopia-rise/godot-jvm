@@ -61,23 +61,23 @@ public open class CylinderShape3D : Shape3D() {
 
   public final fun setRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRadiusPtr, 0)
   }
 
   public final fun getRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setHeight(height: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, height.toDouble())
-    TransferContext.callMethod(MethodBindings.setHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHeightPtr, 0)
   }
 
   public final fun getHeight(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

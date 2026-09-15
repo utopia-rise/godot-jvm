@@ -1,5 +1,5 @@
-#ifndef GODOT_JVM_JVM_VARIANT_H
-#define GODOT_JVM_JVM_VARIANT_H
+#ifndef GODOT_JVM_VARIANT_CONVERTER_H
+#define GODOT_JVM_VARIANT_CONVERTER_H
 
 #include "core/jvm_binding_manager.h"
 #include "core/variant_allocator.h"
@@ -123,8 +123,7 @@ class VariantToBuffer {
     }
 
     static void write_object(SharedBuffer* des, const godot::Variant& src) {
-        set_variant_type(des, godot::Variant::Type::OBJECT);
-        append_object(des, raw_godot::RawObject::from_variant(src));
+        write_object(des, raw_godot::RawObject::from_variant(src));
     }
 
     static void write_signal(SharedBuffer* des, const godot::Variant& src) {
@@ -137,6 +136,11 @@ class VariantToBuffer {
     }
 
 public:
+    static void write_object(SharedBuffer* des, godot::GodotObject* p_raw_object) {
+        set_variant_type(des, godot::Variant::Type::OBJECT);
+        append_object(des, p_raw_object);
+    }
+
     static void write_variant(const godot::Variant& variant, SharedBuffer* byte_buffer) {
         // must match the value order of godot_variant_type
         static void (*variant_writers[godot::Variant::VARIANT_MAX])(SharedBuffer*, const godot::Variant&) = {
@@ -314,4 +318,4 @@ public:
     }
 };
 
-#endif // GODOT_JVM_JVM_VARIANT_H
+#endif // GODOT_JVM_VARIANT_CONVERTER_H

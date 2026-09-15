@@ -170,23 +170,23 @@ public open class RayCast2D : Node2D() {
 
   public final fun setEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnabledPtr, 0)
   }
 
   public final fun isEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setTargetPosition(localPoint: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, localPoint)
-    TransferContext.callMethod(MethodBindings.setTargetPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTargetPositionPtr, 0)
   }
 
   public final fun getTargetPosition(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTargetPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTargetPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -196,7 +196,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun isColliding(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollidingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCollidingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -209,7 +209,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun forceRaycastUpdate(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.forceRaycastUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.forceRaycastUpdatePtr, 0)
   }
 
   /**
@@ -221,7 +221,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun getCollider(): Object? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColliderPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColliderPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Object?)
   }
 
@@ -231,7 +231,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun getColliderRid(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColliderRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColliderRidPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -259,7 +259,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun getColliderShape(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColliderShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.getColliderShapePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -273,7 +273,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun getCollisionPoint(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionPointPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionPointPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -286,7 +286,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun getCollisionNormal(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionNormalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionNormalPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -295,7 +295,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun addExceptionRid(rid: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, rid)
-    TransferContext.callMethod(MethodBindings.addExceptionRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.addExceptionRidPtr, 0)
   }
 
   /**
@@ -303,7 +303,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun addException(node: CollisionObject2D): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, node)
-    TransferContext.callMethod(MethodBindings.addExceptionPtr)
+    TransferContext.callPtrMethod(MethodBindings.addExceptionPtr, 0)
   }
 
   /**
@@ -311,7 +311,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun removeExceptionRid(rid: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, rid)
-    TransferContext.callMethod(MethodBindings.removeExceptionRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeExceptionRidPtr, 0)
   }
 
   /**
@@ -319,7 +319,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun removeException(node: CollisionObject2D): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, node)
-    TransferContext.callMethod(MethodBindings.removeExceptionPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeExceptionPtr, 0)
   }
 
   /**
@@ -327,17 +327,17 @@ public open class RayCast2D : Node2D() {
    */
   public final fun clearExceptions(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearExceptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearExceptionsPtr, 0)
   }
 
   public final fun setCollisionMask(mask: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask)
-    TransferContext.callMethod(MethodBindings.setCollisionMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionMaskPtr, 0)
   }
 
   public final fun getCollisionMask(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionMaskPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -347,7 +347,7 @@ public open class RayCast2D : Node2D() {
    */
   public final fun setCollisionMaskValue(layerNumber: Int, `value`: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
-    TransferContext.callMethod(MethodBindings.setCollisionMaskValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionMaskValuePtr, 0)
   }
 
   /**
@@ -356,51 +356,51 @@ public open class RayCast2D : Node2D() {
    */
   public final fun getCollisionMaskValue(layerNumber: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
-    TransferContext.callMethod(MethodBindings.getCollisionMaskValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionMaskValuePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setExcludeParentBody(mask: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, mask)
-    TransferContext.callMethod(MethodBindings.setExcludeParentBodyPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExcludeParentBodyPtr, 0)
   }
 
   public final fun getExcludeParentBody(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExcludeParentBodyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExcludeParentBodyPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCollideWithAreas(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setCollideWithAreasPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollideWithAreasPtr, 0)
   }
 
   public final fun isCollideWithAreasEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollideWithAreasEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCollideWithAreasEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCollideWithBodies(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setCollideWithBodiesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCollideWithBodiesPtr, 0)
   }
 
   public final fun isCollideWithBodiesEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollideWithBodiesEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCollideWithBodiesEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHitFromInside(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setHitFromInsidePtr)
+    TransferContext.callPtrMethod(MethodBindings.setHitFromInsidePtr, 0)
   }
 
   public final fun isHitFromInsideEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isHitFromInsideEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isHitFromInsideEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

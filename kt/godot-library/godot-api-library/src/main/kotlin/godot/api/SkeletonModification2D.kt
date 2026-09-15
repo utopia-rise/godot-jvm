@@ -96,12 +96,12 @@ public open class SkeletonModification2D : Resource() {
 
   public final fun setEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnabledPtr, 0)
   }
 
   public final fun getEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -111,7 +111,7 @@ public open class SkeletonModification2D : Resource() {
    */
   public final fun getModificationStack(): SkeletonModificationStack2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getModificationStackPtr)
+    TransferContext.callPtrMethod(MethodBindings.getModificationStackPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as SkeletonModificationStack2D?)
   }
 
@@ -122,7 +122,7 @@ public open class SkeletonModification2D : Resource() {
    */
   public final fun setIsSetup(isSetup: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, isSetup)
-    TransferContext.callMethod(MethodBindings.setIsSetupPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIsSetupPtr, 0)
   }
 
   /**
@@ -130,18 +130,18 @@ public open class SkeletonModification2D : Resource() {
    */
   public final fun getIsSetup(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIsSetupPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIsSetupPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setExecutionMode(executionMode: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, executionMode.toLong())
-    TransferContext.callMethod(MethodBindings.setExecutionModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setExecutionModePtr, 0)
   }
 
   public final fun getExecutionMode(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExecutionModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getExecutionModePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -156,7 +156,7 @@ public open class SkeletonModification2D : Resource() {
     invert: Boolean,
   ): Float {
     TransferContext.writeMethodArguments_DOUBLE_DOUBLE_DOUBLE_BOOL(ptr, objectID.id, angle.toDouble(), min.toDouble(), max.toDouble(), invert)
-    TransferContext.callMethod(MethodBindings.clampAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.clampAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -166,7 +166,7 @@ public open class SkeletonModification2D : Resource() {
    */
   public final fun setEditorDrawGizmo(drawGizmo: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, drawGizmo)
-    TransferContext.callMethod(MethodBindings.setEditorDrawGizmoPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEditorDrawGizmoPtr, 0)
   }
 
   /**
@@ -175,7 +175,7 @@ public open class SkeletonModification2D : Resource() {
    */
   public final fun getEditorDrawGizmo(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEditorDrawGizmoPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEditorDrawGizmoPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

@@ -70,7 +70,7 @@ public open class CryptoKey : Resource() {
    */
   public final fun isPublicOnly(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPublicOnlyPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPublicOnlyPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

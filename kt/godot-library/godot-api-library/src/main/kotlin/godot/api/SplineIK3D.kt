@@ -72,7 +72,7 @@ public open class SplineIK3D : ChainIK3D() {
    */
   public final fun setPath3d(index: Int, path3d: NodePath): Unit {
     TransferContext.writeMethodArguments_LONG_NODE_PATH(ptr, objectID.id, index.toLong(), path3d)
-    TransferContext.callMethod(MethodBindings.setPath3dPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPath3dPtr, 0)
   }
 
   /**
@@ -89,7 +89,7 @@ public open class SplineIK3D : ChainIK3D() {
    */
   public final fun setTiltEnabled(index: Int, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callMethod(MethodBindings.setTiltEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTiltEnabledPtr, 0)
   }
 
   /**
@@ -97,7 +97,7 @@ public open class SplineIK3D : ChainIK3D() {
    */
   public final fun isTiltEnabled(index: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.isTiltEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isTiltEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -113,7 +113,7 @@ public open class SplineIK3D : ChainIK3D() {
    */
   public final fun setTiltFadeIn(index: Int, size: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), size.toLong())
-    TransferContext.callMethod(MethodBindings.setTiltFadeInPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTiltFadeInPtr, 0)
   }
 
   /**
@@ -122,7 +122,7 @@ public open class SplineIK3D : ChainIK3D() {
    */
   public final fun getTiltFadeIn(index: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getTiltFadeInPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTiltFadeInPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -138,7 +138,7 @@ public open class SplineIK3D : ChainIK3D() {
    */
   public final fun setTiltFadeOut(index: Int, size: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), size.toLong())
-    TransferContext.callMethod(MethodBindings.setTiltFadeOutPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTiltFadeOutPtr, 0)
   }
 
   /**
@@ -147,7 +147,7 @@ public open class SplineIK3D : ChainIK3D() {
    */
   public final fun getTiltFadeOut(index: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getTiltFadeOutPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTiltFadeOutPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

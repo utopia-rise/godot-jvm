@@ -53,12 +53,12 @@ public open class AudioStreamSynchronized : AudioStream() {
 
   public final fun setStreamCount(streamCount: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, streamCount.toLong())
-    TransferContext.callMethod(MethodBindings.setStreamCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStreamCountPtr, 0)
   }
 
   public final fun getStreamCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStreamCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStreamCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -67,7 +67,7 @@ public open class AudioStreamSynchronized : AudioStream() {
    */
   public final fun setSyncStream(streamIndex: Int, audioStream: AudioStream?): Unit {
     TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, streamIndex.toLong(), audioStream)
-    TransferContext.callMethod(MethodBindings.setSyncStreamPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSyncStreamPtr, 0)
   }
 
   /**
@@ -75,7 +75,7 @@ public open class AudioStreamSynchronized : AudioStream() {
    */
   public final fun getSyncStream(streamIndex: Int): AudioStream? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, streamIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSyncStreamPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSyncStreamPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as AudioStream?)
   }
 
@@ -84,7 +84,7 @@ public open class AudioStreamSynchronized : AudioStream() {
    */
   public final fun setSyncStreamVolume(streamIndex: Int, volumeDb: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, streamIndex.toLong(), volumeDb.toDouble())
-    TransferContext.callMethod(MethodBindings.setSyncStreamVolumePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSyncStreamVolumePtr, 0)
   }
 
   /**
@@ -92,7 +92,7 @@ public open class AudioStreamSynchronized : AudioStream() {
    */
   public final fun getSyncStreamVolume(streamIndex: Int): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, streamIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSyncStreamVolumePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSyncStreamVolumePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

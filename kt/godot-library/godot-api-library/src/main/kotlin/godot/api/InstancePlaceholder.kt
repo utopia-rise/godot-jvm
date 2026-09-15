@@ -73,7 +73,7 @@ public open class InstancePlaceholder internal constructor() : Node() {
   public final fun createInstance(replace: Boolean = false, customScene: PackedScene? = null):
       Node? {
     TransferContext.writeMethodArguments_BOOL_OBJECT(ptr, objectID.id, replace, customScene)
-    TransferContext.callMethod(MethodBindings.createInstancePtr)
+    TransferContext.callPtrMethod(MethodBindings.createInstancePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 

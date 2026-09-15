@@ -66,12 +66,12 @@ public open class Shape2D internal constructor() : Resource() {
 
   public final fun setCustomSolverBias(bias: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, bias.toDouble())
-    TransferContext.callMethod(MethodBindings.setCustomSolverBiasPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCustomSolverBiasPtr, 0)
   }
 
   public final fun getCustomSolverBias(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomSolverBiasPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCustomSolverBiasPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -87,7 +87,7 @@ public open class Shape2D internal constructor() : Resource() {
     shapeXform: Transform2D,
   ): Boolean {
     TransferContext.writeMethodArguments_TRANSFORM2D_OBJECT_TRANSFORM2D(ptr, objectID.id, localXform, withShape, shapeXform)
-    TransferContext.callMethod(MethodBindings.collidePtr)
+    TransferContext.callPtrMethod(MethodBindings.collidePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -107,7 +107,7 @@ public open class Shape2D internal constructor() : Resource() {
     shapeMotion: Vector2,
   ): Boolean {
     TransferContext.writeMethodArguments_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2(ptr, objectID.id, localXform, localMotion, withShape, shapeXform, shapeMotion)
-    TransferContext.callMethod(MethodBindings.collideWithMotionPtr)
+    TransferContext.callPtrMethod(MethodBindings.collideWithMotionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -170,7 +170,7 @@ public open class Shape2D internal constructor() : Resource() {
    */
   public final fun draw(canvasItem: RID, color: Color): Unit {
     TransferContext.writeMethodArguments_RID_COLOR(ptr, objectID.id, canvasItem, color)
-    TransferContext.callMethod(MethodBindings.drawPtr)
+    TransferContext.callPtrMethod(MethodBindings.drawPtr, 0)
   }
 
   /**
@@ -178,7 +178,7 @@ public open class Shape2D internal constructor() : Resource() {
    */
   public final fun getRect(): Rect2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRectPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 

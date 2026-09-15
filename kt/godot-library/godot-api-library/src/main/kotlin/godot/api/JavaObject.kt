@@ -43,7 +43,7 @@ public open class JavaObject : RefCounted() {
    */
   public final fun getJavaClass(): JavaClass? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJavaClassPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJavaClassPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as JavaClass?)
   }
 
@@ -52,7 +52,7 @@ public open class JavaObject : RefCounted() {
    */
   public final fun hasJavaMethod(method: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, method)
-    TransferContext.callMethod(MethodBindings.hasJavaMethodPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasJavaMethodPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

@@ -218,7 +218,7 @@ public open class AnimationNode : Resource() {
    */
   public final fun removeInput(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.removeInputPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeInputPtr, 0)
   }
 
   /**
@@ -245,7 +245,7 @@ public open class AnimationNode : Resource() {
    */
   public final fun getInputCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInputCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInputCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -263,7 +263,7 @@ public open class AnimationNode : Resource() {
    */
   public final fun setFilterPath(path: NodePath, enable: Boolean): Unit {
     TransferContext.writeMethodArguments_NODE_PATH_BOOL(ptr, objectID.id, path, enable)
-    TransferContext.callMethod(MethodBindings.setFilterPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFilterPathPtr, 0)
   }
 
   /**
@@ -271,18 +271,18 @@ public open class AnimationNode : Resource() {
    */
   public final fun isPathFiltered(path: NodePath): Boolean {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.isPathFilteredPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPathFilteredPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFilterEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setFilterEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFilterEnabledPtr, 0)
   }
 
   public final fun isFilterEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFilterEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isFilterEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -294,7 +294,7 @@ public open class AnimationNode : Resource() {
    */
   public final fun getProcessingAnimationTreeInstanceId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessingAnimationTreeInstanceIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getProcessingAnimationTreeInstanceIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -303,7 +303,7 @@ public open class AnimationNode : Resource() {
    */
   public final fun isProcessTesting(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isProcessTestingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isProcessTestingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -324,7 +324,7 @@ public open class AnimationNode : Resource() {
     loopedFlag: Animation.LoopedFlag = Animation.LoopedFlag.NONE,
   ): Unit {
     TransferContext.writeMethodArguments_STRING_NAME_DOUBLE_DOUBLE_BOOL_BOOL_DOUBLE_LONG(ptr, objectID.id, animation, time, delta, seeked, isExternalSeeking, blend.toDouble(), loopedFlag.value)
-    TransferContext.callMethod(MethodBindings.blendAnimationPtr)
+    TransferContext.callPtrMethod(MethodBindings.blendAnimationPtr, 0)
   }
 
   /**
@@ -345,7 +345,7 @@ public open class AnimationNode : Resource() {
     testOnly: Boolean = false,
   ): Double {
     TransferContext.writeMethodArguments_STRING_NAME_OBJECT_DOUBLE_BOOL_BOOL_DOUBLE_LONG_BOOL_BOOL(ptr, objectID.id, name, node, time, seek, isExternalSeeking, blend.toDouble(), filter.value, sync, testOnly)
-    TransferContext.callMethod(MethodBindings.blendNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.blendNodePtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
@@ -366,7 +366,7 @@ public open class AnimationNode : Resource() {
     testOnly: Boolean = false,
   ): Double {
     TransferContext.writeMethodArguments_LONG_DOUBLE_BOOL_BOOL_DOUBLE_LONG_BOOL_BOOL(ptr, objectID.id, inputIndex.toLong(), time, seek, isExternalSeeking, blend.toDouble(), filter.value, sync, testOnly)
-    TransferContext.callMethod(MethodBindings.blendInputPtr)
+    TransferContext.callPtrMethod(MethodBindings.blendInputPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 

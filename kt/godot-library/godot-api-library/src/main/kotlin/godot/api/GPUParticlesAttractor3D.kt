@@ -105,45 +105,45 @@ public open class GPUParticlesAttractor3D internal constructor() : VisualInstanc
 
   public final fun setCullMask(mask: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask)
-    TransferContext.callMethod(MethodBindings.setCullMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCullMaskPtr, 0)
   }
 
   public final fun getCullMask(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCullMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCullMaskPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setStrength(strength: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, strength.toDouble())
-    TransferContext.callMethod(MethodBindings.setStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStrengthPtr, 0)
   }
 
   public final fun getStrength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStrengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStrengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAttenuation(attenuation: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, attenuation.toDouble())
-    TransferContext.callMethod(MethodBindings.setAttenuationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAttenuationPtr, 0)
   }
 
   public final fun getAttenuation(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAttenuationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAttenuationPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDirectionality(amount: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setDirectionalityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDirectionalityPtr, 0)
   }
 
   public final fun getDirectionality(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDirectionalityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDirectionalityPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

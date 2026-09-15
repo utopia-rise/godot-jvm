@@ -392,7 +392,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun addTranslation(translation: Translation?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, translation)
-    TransferContext.callMethod(MethodBindings.addTranslationPtr)
+    TransferContext.callPtrMethod(MethodBindings.addTranslationPtr, 0)
   }
 
   /**
@@ -401,7 +401,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun removeTranslation(translation: Translation?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, translation)
-    TransferContext.callMethod(MethodBindings.removeTranslationPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeTranslationPtr, 0)
   }
 
   /**
@@ -456,7 +456,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun hasTranslation(translation: Translation?): Boolean {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, translation)
-    TransferContext.callMethod(MethodBindings.hasTranslationPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasTranslationPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -466,7 +466,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun hasDomain(domain: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, domain)
-    TransferContext.callMethod(MethodBindings.hasDomainPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasDomainPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -477,7 +477,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun getOrAddDomain(domain: StringName): TranslationDomain? {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, domain)
-    TransferContext.callMethod(MethodBindings.getOrAddDomainPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOrAddDomainPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as TranslationDomain?)
   }
 
@@ -489,7 +489,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun removeDomain(domain: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, domain)
-    TransferContext.callMethod(MethodBindings.removeDomainPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeDomainPtr, 0)
   }
 
   /**
@@ -498,7 +498,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun clear(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**
@@ -544,14 +544,14 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun isPseudolocalizationEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPseudolocalizationEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPseudolocalizationEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   @JvmStatic
   public final fun setPseudolocalizationEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setPseudolocalizationEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPseudolocalizationEnabledPtr, 0)
   }
 
   /**
@@ -561,7 +561,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun reloadPseudolocalization(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.reloadPseudolocalizationPtr)
+    TransferContext.callPtrMethod(MethodBindings.reloadPseudolocalizationPtr, 0)
   }
 
   /**

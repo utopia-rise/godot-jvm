@@ -104,67 +104,67 @@ public open class RDVertexAttribute : RefCounted() {
 
   public final fun setBinding(pMember: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setBindingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBindingPtr, 0)
   }
 
   public final fun getBinding(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBindingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBindingPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setLocation(pMember: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setLocationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLocationPtr, 0)
   }
 
   public final fun getLocation(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocationPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setOffset(pMember: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOffsetPtr, 0)
   }
 
   public final fun getOffset(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOffsetPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setFormat(pMember: RenderingDevice.DataFormat): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callMethod(MethodBindings.setFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFormatPtr, 0)
   }
 
   public final fun getFormat(): RenderingDevice.DataFormat {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
     return RenderingDevice.DataFormat.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setStride(pMember: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callMethod(MethodBindings.setStridePtr)
+    TransferContext.callPtrMethod(MethodBindings.setStridePtr, 0)
   }
 
   public final fun getStride(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStridePtr)
+    TransferContext.callPtrMethod(MethodBindings.getStridePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setFrequency(pMember: RenderingDevice.VertexFrequency): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callMethod(MethodBindings.setFrequencyPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFrequencyPtr, 0)
   }
 
   public final fun getFrequency(): RenderingDevice.VertexFrequency {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFrequencyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFrequencyPtr, 2)
     return RenderingDevice.VertexFrequency.from(TransferContext.readReturnValue_LONG())
   }
 

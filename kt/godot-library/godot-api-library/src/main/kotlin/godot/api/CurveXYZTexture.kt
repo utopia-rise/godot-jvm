@@ -85,39 +85,39 @@ public open class CurveXYZTexture : Texture2D() {
 
   public final fun setWidth(width: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
-    TransferContext.callMethod(MethodBindings.setWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setWidthPtr, 0)
   }
 
   public final fun setCurveX(curve: Curve?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callMethod(MethodBindings.setCurveXPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCurveXPtr, 0)
   }
 
   public final fun getCurveX(): Curve? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurveXPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurveXPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 
   public final fun setCurveY(curve: Curve?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callMethod(MethodBindings.setCurveYPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCurveYPtr, 0)
   }
 
   public final fun getCurveY(): Curve? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurveYPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurveYPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 
   public final fun setCurveZ(curve: Curve?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callMethod(MethodBindings.setCurveZPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCurveZPtr, 0)
   }
 
   public final fun getCurveZ(): Curve? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurveZPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurveZPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 

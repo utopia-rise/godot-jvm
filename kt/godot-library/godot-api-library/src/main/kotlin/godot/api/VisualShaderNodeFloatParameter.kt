@@ -107,67 +107,67 @@ public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
 
   public final fun setHint(hint: Hint): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, hint.value)
-    TransferContext.callMethod(MethodBindings.setHintPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHintPtr, 0)
   }
 
   public final fun getHint(): Hint {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHintPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHintPtr, 2)
     return Hint.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setMin(`value`: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value.toDouble())
-    TransferContext.callMethod(MethodBindings.setMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMinPtr, 0)
   }
 
   public final fun getMin(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMax(`value`: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value.toDouble())
-    TransferContext.callMethod(MethodBindings.setMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxPtr, 0)
   }
 
   public final fun getMax(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setStep(`value`: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value.toDouble())
-    TransferContext.callMethod(MethodBindings.setStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStepPtr, 0)
   }
 
   public final fun getStep(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStepPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setDefaultValueEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValueEnabledPtr, 0)
   }
 
   public final fun isDefaultValueEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDefaultValueEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDefaultValueEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDefaultValue(`value`: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value.toDouble())
-    TransferContext.callMethod(MethodBindings.setDefaultValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValuePtr, 0)
   }
 
   public final fun getDefaultValue(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultValuePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

@@ -79,46 +79,46 @@ public open class GLTFTextureSampler : Resource() {
 
   public final fun getMagFilter(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMagFilterPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMagFilterPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMagFilter(filterMode: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, filterMode.toLong())
-    TransferContext.callMethod(MethodBindings.setMagFilterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMagFilterPtr, 0)
   }
 
   public final fun getMinFilter(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinFilterPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinFilterPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMinFilter(filterMode: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, filterMode.toLong())
-    TransferContext.callMethod(MethodBindings.setMinFilterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMinFilterPtr, 0)
   }
 
   public final fun getWrapS(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWrapSPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWrapSPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setWrapS(wrapMode: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, wrapMode.toLong())
-    TransferContext.callMethod(MethodBindings.setWrapSPtr)
+    TransferContext.callPtrMethod(MethodBindings.setWrapSPtr, 0)
   }
 
   public final fun getWrapT(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWrapTPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWrapTPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setWrapT(wrapMode: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, wrapMode.toLong())
-    TransferContext.callMethod(MethodBindings.setWrapTPtr)
+    TransferContext.callPtrMethod(MethodBindings.setWrapTPtr, 0)
   }
 
   public companion object {

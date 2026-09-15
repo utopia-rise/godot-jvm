@@ -117,7 +117,7 @@ public open class VisualInstance3D : Node3D() {
    */
   public final fun setBase(base: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, base)
-    TransferContext.callMethod(MethodBindings.setBasePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBasePtr, 0)
   }
 
   /**
@@ -126,7 +126,7 @@ public open class VisualInstance3D : Node3D() {
    */
   public final fun getBase(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBasePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBasePtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -137,18 +137,18 @@ public open class VisualInstance3D : Node3D() {
    */
   public final fun getInstance(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInstancePtr)
+    TransferContext.callPtrMethod(MethodBindings.getInstancePtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setLayerMask(mask: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask)
-    TransferContext.callMethod(MethodBindings.setLayerMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLayerMaskPtr, 0)
   }
 
   public final fun getLayerMask(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLayerMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLayerMaskPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -158,7 +158,7 @@ public open class VisualInstance3D : Node3D() {
    */
   public final fun setLayerMaskValue(layerNumber: Int, `value`: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
-    TransferContext.callMethod(MethodBindings.setLayerMaskValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setLayerMaskValuePtr, 0)
   }
 
   /**
@@ -167,29 +167,29 @@ public open class VisualInstance3D : Node3D() {
    */
   public final fun getLayerMaskValue(layerNumber: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
-    TransferContext.callMethod(MethodBindings.getLayerMaskValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getLayerMaskValuePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSortingOffset(offset: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setSortingOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSortingOffsetPtr, 0)
   }
 
   public final fun getSortingOffset(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSortingOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSortingOffsetPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSortingUseAabbCenter(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setSortingUseAabbCenterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSortingUseAabbCenterPtr, 0)
   }
 
   public final fun isSortingUseAabbCenter(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSortingUseAabbCenterPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSortingUseAabbCenterPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -198,7 +198,7 @@ public open class VisualInstance3D : Node3D() {
    */
   public final fun getAabb(): AABB {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAabbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAabbPtr, 16)
     return TransferContext.readReturnValue_AABB()
   }
 

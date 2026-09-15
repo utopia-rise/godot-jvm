@@ -89,7 +89,17 @@ object TransferContext {
 
     fun beginReturnValueRead(): ByteBuffer = buffer.rewind()
 
+    /** Checked Variant call: variadic methods, and methods taking or returning a Variant. */
     fun callMethod(methodPtr: VoidPtr) = icall(methodPtr)
+
+    /**
+     * Unchecked ptrcall. [returnType] is the Variant type ordinal the engine writes its result as, or
+     * [REF_COUNTED_RETURN_TYPE] for an object return that arrives with a reference of its own.
+     */
+    fun callPtrMethod(methodPtr: VoidPtr, returnType: Int) = icallPtr(methodPtr, returnType)
+
+    /** One past the Variant type ordinals; mirrors TransferContext::REF_COUNTED_RETURN_TYPE on the native side. */
+    const val REF_COUNTED_RETURN_TYPE = 39
 
     @ExperimentalContracts
     inline fun unsafeRead(block: (ByteBuffer) -> Unit) {
@@ -103,4 +113,5 @@ object TransferContext {
     }
 
     private external fun icall(methodPtr: VoidPtr)
+    private external fun icallPtr(methodPtr: VoidPtr, returnType: Int)
 }

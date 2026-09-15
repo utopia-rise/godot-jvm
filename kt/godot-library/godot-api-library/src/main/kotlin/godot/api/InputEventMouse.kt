@@ -141,34 +141,34 @@ public open class InputEventMouse internal constructor() : InputEventWithModifie
 
   public final fun setButtonMask(buttonMask: MouseButtonMask): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, buttonMask.flag)
-    TransferContext.callMethod(MethodBindings.setButtonMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setButtonMaskPtr, 0)
   }
 
   public final fun getButtonMask(): MouseButtonMask {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getButtonMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getButtonMaskPtr, 2)
     return MouseButtonMask(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPosition(position: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.setPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPositionPtr, 0)
   }
 
   public final fun getPosition(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setGlobalPosition(globalPosition: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, globalPosition)
-    TransferContext.callMethod(MethodBindings.setGlobalPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGlobalPositionPtr, 0)
   }
 
   public final fun getGlobalPosition(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlobalPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlobalPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

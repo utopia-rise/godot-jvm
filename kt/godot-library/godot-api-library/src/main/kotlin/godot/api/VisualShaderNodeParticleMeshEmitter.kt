@@ -72,34 +72,34 @@ public open class VisualShaderNodeParticleMeshEmitter : VisualShaderNodeParticle
 
   public final fun setMesh(mesh: Mesh?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, mesh)
-    TransferContext.callMethod(MethodBindings.setMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMeshPtr, 0)
   }
 
   public final fun getMesh(): Mesh? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMeshPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Mesh?)
   }
 
   public final fun setUseAllSurfaces(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setUseAllSurfacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseAllSurfacesPtr, 0)
   }
 
   public final fun isUseAllSurfaces(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUseAllSurfacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.isUseAllSurfacesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSurfaceIndex(surfaceIndex: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, surfaceIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setSurfaceIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSurfaceIndexPtr, 0)
   }
 
   public final fun getSurfaceIndex(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSurfaceIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSurfaceIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

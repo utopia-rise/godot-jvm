@@ -131,56 +131,56 @@ public open class StyleBoxLine : StyleBox() {
 
   public final fun setColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
   }
 
   public final fun getColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setThickness(thickness: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, thickness.toLong())
-    TransferContext.callMethod(MethodBindings.setThicknessPtr)
+    TransferContext.callPtrMethod(MethodBindings.setThicknessPtr, 0)
   }
 
   public final fun getThickness(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getThicknessPtr)
+    TransferContext.callPtrMethod(MethodBindings.getThicknessPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setGrowBegin(offset: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setGrowBeginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGrowBeginPtr, 0)
   }
 
   public final fun getGrowBegin(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGrowBeginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGrowBeginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGrowEnd(offset: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setGrowEndPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGrowEndPtr, 0)
   }
 
   public final fun getGrowEnd(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGrowEndPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGrowEndPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVertical(vertical: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, vertical)
-    TransferContext.callMethod(MethodBindings.setVerticalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVerticalPtr, 0)
   }
 
   public final fun isVertical(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isVerticalPtr)
+    TransferContext.callPtrMethod(MethodBindings.isVerticalPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

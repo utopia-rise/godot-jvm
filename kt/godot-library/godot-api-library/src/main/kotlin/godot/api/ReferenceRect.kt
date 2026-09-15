@@ -104,35 +104,35 @@ public open class ReferenceRect : Control() {
 
   public final fun getBorderColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBorderColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBorderColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setBorderColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setBorderColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBorderColorPtr, 0)
   }
 
   public final fun getBorderWidth(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBorderWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBorderWidthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setBorderWidth(width: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, width.toDouble())
-    TransferContext.callMethod(MethodBindings.setBorderWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBorderWidthPtr, 0)
   }
 
   public final fun getEditorOnly(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEditorOnlyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEditorOnlyPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEditorOnly(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setEditorOnlyPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEditorOnlyPtr, 0)
   }
 
   public companion object {

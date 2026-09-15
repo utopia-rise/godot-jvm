@@ -77,13 +77,13 @@ public open class Curve2D : Resource() {
 
   public final fun getPointCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPointCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setPointCount(count: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.setPointCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointCountPtr, 0)
   }
 
   /**
@@ -103,7 +103,7 @@ public open class Curve2D : Resource() {
     index: Int = -1,
   ): Unit {
     TransferContext.writeMethodArguments_VECTOR2_VECTOR2_VECTOR2_LONG(ptr, objectID.id, position, `in`, out, index.toLong())
-    TransferContext.callMethod(MethodBindings.addPointPtr)
+    TransferContext.callPtrMethod(MethodBindings.addPointPtr, 0)
   }
 
   /**
@@ -112,7 +112,7 @@ public open class Curve2D : Resource() {
    */
   public final fun setPointPosition(idx: Int, position: Vector2): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2(ptr, objectID.id, idx.toLong(), position)
-    TransferContext.callMethod(MethodBindings.setPointPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointPositionPtr, 0)
   }
 
   /**
@@ -121,7 +121,7 @@ public open class Curve2D : Resource() {
    */
   public final fun getPointPosition(idx: Int): Vector2 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getPointPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -131,7 +131,7 @@ public open class Curve2D : Resource() {
    */
   public final fun setPointIn(idx: Int, position: Vector2): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2(ptr, objectID.id, idx.toLong(), position)
-    TransferContext.callMethod(MethodBindings.setPointInPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointInPtr, 0)
   }
 
   /**
@@ -141,7 +141,7 @@ public open class Curve2D : Resource() {
    */
   public final fun getPointIn(idx: Int): Vector2 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getPointInPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointInPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -151,7 +151,7 @@ public open class Curve2D : Resource() {
    */
   public final fun setPointOut(idx: Int, position: Vector2): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2(ptr, objectID.id, idx.toLong(), position)
-    TransferContext.callMethod(MethodBindings.setPointOutPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointOutPtr, 0)
   }
 
   /**
@@ -161,7 +161,7 @@ public open class Curve2D : Resource() {
    */
   public final fun getPointOut(idx: Int): Vector2 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getPointOutPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointOutPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -171,7 +171,7 @@ public open class Curve2D : Resource() {
    */
   public final fun removePoint(idx: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.removePointPtr)
+    TransferContext.callPtrMethod(MethodBindings.removePointPtr, 0)
   }
 
   /**
@@ -179,7 +179,7 @@ public open class Curve2D : Resource() {
    */
   public final fun clearPoints(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPointsPtr, 0)
   }
 
   /**
@@ -192,7 +192,7 @@ public open class Curve2D : Resource() {
    */
   public final fun sample(idx: Int, t: Float): Vector2 {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, idx.toLong(), t.toDouble())
-    TransferContext.callMethod(MethodBindings.samplePtr)
+    TransferContext.callPtrMethod(MethodBindings.samplePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -202,18 +202,18 @@ public open class Curve2D : Resource() {
    */
   public final fun samplef(fofs: Float): Vector2 {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fofs.toDouble())
-    TransferContext.callMethod(MethodBindings.samplefPtr)
+    TransferContext.callPtrMethod(MethodBindings.samplefPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setBakeInterval(distance: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
-    TransferContext.callMethod(MethodBindings.setBakeIntervalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBakeIntervalPtr, 0)
   }
 
   public final fun getBakeInterval(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakeIntervalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBakeIntervalPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -223,7 +223,7 @@ public open class Curve2D : Resource() {
    */
   public final fun getBakedLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakedLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBakedLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -240,7 +240,7 @@ public open class Curve2D : Resource() {
   @JvmOverloads
   public final fun sampleBaked(offset: Float = 0.0f, cubic: Boolean = false): Vector2 {
     TransferContext.writeMethodArguments_DOUBLE_BOOL(ptr, objectID.id, offset.toDouble(), cubic)
-    TransferContext.callMethod(MethodBindings.sampleBakedPtr)
+    TransferContext.callPtrMethod(MethodBindings.sampleBakedPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -262,7 +262,7 @@ public open class Curve2D : Resource() {
   public final fun sampleBakedWithRotation(offset: Float = 0.0f, cubic: Boolean = false):
       Transform2D {
     TransferContext.writeMethodArguments_DOUBLE_BOOL(ptr, objectID.id, offset.toDouble(), cubic)
-    TransferContext.callMethod(MethodBindings.sampleBakedWithRotationPtr)
+    TransferContext.callPtrMethod(MethodBindings.sampleBakedWithRotationPtr, 11)
     return TransferContext.readReturnValue_TRANSFORM2D()
   }
 
@@ -282,7 +282,7 @@ public open class Curve2D : Resource() {
    */
   public final fun getClosestPoint(toPoint: Vector2): Vector2 {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, toPoint)
-    TransferContext.callMethod(MethodBindings.getClosestPointPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClosestPointPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -293,7 +293,7 @@ public open class Curve2D : Resource() {
    */
   public final fun getClosestOffset(toPoint: Vector2): Float {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, toPoint)
-    TransferContext.callMethod(MethodBindings.getClosestOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClosestOffsetPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

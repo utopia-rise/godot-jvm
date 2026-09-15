@@ -273,166 +273,166 @@ public open class Light2D internal constructor() : Node2D() {
 
   public final fun setEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnabledPtr, 0)
   }
 
   public final fun isEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEditorOnly(editorOnly: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, editorOnly)
-    TransferContext.callMethod(MethodBindings.setEditorOnlyPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEditorOnlyPtr, 0)
   }
 
   public final fun isEditorOnly(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEditorOnlyPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEditorOnlyPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
   }
 
   public final fun getColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setEnergy(energy: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, energy.toDouble())
-    TransferContext.callMethod(MethodBindings.setEnergyPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnergyPtr, 0)
   }
 
   public final fun getEnergy(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnergyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnergyPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setZRangeMin(z: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, z.toLong())
-    TransferContext.callMethod(MethodBindings.setZRangeMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.setZRangeMinPtr, 0)
   }
 
   public final fun getZRangeMin(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getZRangeMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.getZRangeMinPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setZRangeMax(z: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, z.toLong())
-    TransferContext.callMethod(MethodBindings.setZRangeMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.setZRangeMaxPtr, 0)
   }
 
   public final fun getZRangeMax(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getZRangeMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getZRangeMaxPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setLayerRangeMin(layer: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
-    TransferContext.callMethod(MethodBindings.setLayerRangeMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLayerRangeMinPtr, 0)
   }
 
   public final fun getLayerRangeMin(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLayerRangeMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLayerRangeMinPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setLayerRangeMax(layer: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
-    TransferContext.callMethod(MethodBindings.setLayerRangeMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLayerRangeMaxPtr, 0)
   }
 
   public final fun getLayerRangeMax(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLayerRangeMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLayerRangeMaxPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setItemCullMask(itemCullMask: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, itemCullMask.toLong())
-    TransferContext.callMethod(MethodBindings.setItemCullMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemCullMaskPtr, 0)
   }
 
   public final fun getItemCullMask(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getItemCullMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemCullMaskPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setItemShadowCullMask(itemShadowCullMask: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, itemShadowCullMask.toLong())
-    TransferContext.callMethod(MethodBindings.setItemShadowCullMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.setItemShadowCullMaskPtr, 0)
   }
 
   public final fun getItemShadowCullMask(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getItemShadowCullMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemShadowCullMaskPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setShadowEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setShadowEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShadowEnabledPtr, 0)
   }
 
   public final fun isShadowEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isShadowEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isShadowEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setShadowSmooth(smooth: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, smooth.toDouble())
-    TransferContext.callMethod(MethodBindings.setShadowSmoothPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShadowSmoothPtr, 0)
   }
 
   public final fun getShadowSmooth(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShadowSmoothPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShadowSmoothPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setShadowFilter(filter: ShadowFilter): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, filter.value)
-    TransferContext.callMethod(MethodBindings.setShadowFilterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShadowFilterPtr, 0)
   }
 
   public final fun getShadowFilter(): ShadowFilter {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShadowFilterPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShadowFilterPtr, 2)
     return ShadowFilter.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setShadowColor(shadowColor: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, shadowColor)
-    TransferContext.callMethod(MethodBindings.setShadowColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShadowColorPtr, 0)
   }
 
   public final fun getShadowColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShadowColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShadowColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setBlendMode(mode: BlendMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setBlendModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBlendModePtr, 0)
   }
 
   public final fun getBlendMode(): BlendMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBlendModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBlendModePtr, 2)
     return BlendMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -442,7 +442,7 @@ public open class Light2D internal constructor() : Node2D() {
    */
   public final fun setHeight(height: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, height.toDouble())
-    TransferContext.callMethod(MethodBindings.setHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHeightPtr, 0)
   }
 
   /**
@@ -451,7 +451,7 @@ public open class Light2D internal constructor() : Node2D() {
    */
   public final fun getHeight(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

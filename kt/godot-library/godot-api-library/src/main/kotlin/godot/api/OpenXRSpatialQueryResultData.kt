@@ -35,7 +35,7 @@ public open class OpenXRSpatialQueryResultData : OpenXRSpatialComponentData() {
    */
   public final fun getCapacity(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCapacityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCapacityPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -44,7 +44,7 @@ public open class OpenXRSpatialQueryResultData : OpenXRSpatialComponentData() {
    */
   public final fun getEntityId(index: Long): Long {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getEntityIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEntityIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -53,7 +53,7 @@ public open class OpenXRSpatialQueryResultData : OpenXRSpatialComponentData() {
    */
   public final fun getEntityState(index: Long): OpenXRSpatialEntityTracker.EntityTrackingState {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getEntityStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getEntityStatePtr, 2)
     return OpenXRSpatialEntityTracker.EntityTrackingState.from(TransferContext.readReturnValue_LONG())
   }
 

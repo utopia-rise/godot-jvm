@@ -49,12 +49,12 @@ public open class InputEventMagnifyGesture : InputEventGesture() {
 
   public final fun setFactor(factor: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, factor.toDouble())
-    TransferContext.callMethod(MethodBindings.setFactorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFactorPtr, 0)
   }
 
   public final fun getFactor(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFactorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFactorPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

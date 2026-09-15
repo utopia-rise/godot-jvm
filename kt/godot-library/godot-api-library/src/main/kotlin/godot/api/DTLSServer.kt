@@ -183,7 +183,7 @@ public open class DTLSServer : RefCounted() {
    */
   public final fun setup(serverOptions: TLSOptions?): Error {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, serverOptions)
-    TransferContext.callMethod(MethodBindings.setupPtr)
+    TransferContext.callPtrMethod(MethodBindings.setupPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -197,7 +197,7 @@ public open class DTLSServer : RefCounted() {
    */
   public final fun takeConnection(udpPeer: PacketPeerUDP?): PacketPeerDTLS? {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, udpPeer)
-    TransferContext.callMethod(MethodBindings.takeConnectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.takeConnectionPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as PacketPeerDTLS?)
   }
 

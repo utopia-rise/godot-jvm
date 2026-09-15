@@ -116,56 +116,56 @@ public open class AudioEffectDistortion : AudioEffect() {
 
   public final fun setMode(mode: Mode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setModePtr, 0)
   }
 
   public final fun getMode(): Mode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getModePtr, 2)
     return Mode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPreGain(preGain: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, preGain.toDouble())
-    TransferContext.callMethod(MethodBindings.setPreGainPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPreGainPtr, 0)
   }
 
   public final fun getPreGain(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPreGainPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPreGainPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setKeepHfHz(keepHfHz: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, keepHfHz.toDouble())
-    TransferContext.callMethod(MethodBindings.setKeepHfHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.setKeepHfHzPtr, 0)
   }
 
   public final fun getKeepHfHz(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getKeepHfHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.getKeepHfHzPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDrive(drive: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, drive.toDouble())
-    TransferContext.callMethod(MethodBindings.setDrivePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrivePtr, 0)
   }
 
   public final fun getDrive(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDrivePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDrivePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPostGain(postGain: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, postGain.toDouble())
-    TransferContext.callMethod(MethodBindings.setPostGainPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPostGainPtr, 0)
   }
 
   public final fun getPostGain(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPostGainPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPostGainPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

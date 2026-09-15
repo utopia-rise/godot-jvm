@@ -34,7 +34,7 @@ public open class OpenXRSpatialComponentAnchorList : OpenXRSpatialComponentData(
    */
   public final fun getEntityPose(index: Long): Transform3D {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getEntityPosePtr)
+    TransferContext.callPtrMethod(MethodBindings.getEntityPosePtr, 18)
     return TransferContext.readReturnValue_TRANSFORM3D()
   }
 

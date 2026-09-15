@@ -126,7 +126,7 @@ public open class Expression : RefCounted() {
    */
   public final fun hasExecuteFailed(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasExecuteFailedPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasExecuteFailedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

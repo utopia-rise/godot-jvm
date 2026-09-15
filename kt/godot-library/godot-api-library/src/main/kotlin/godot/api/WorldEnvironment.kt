@@ -73,34 +73,34 @@ public open class WorldEnvironment : Node() {
 
   public final fun setEnvironment(env: Environment?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, env)
-    TransferContext.callMethod(MethodBindings.setEnvironmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnvironmentPtr, 0)
   }
 
   public final fun getEnvironment(): Environment? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnvironmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnvironmentPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Environment?)
   }
 
   public final fun setCameraAttributes(cameraAttributes: CameraAttributes?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, cameraAttributes)
-    TransferContext.callMethod(MethodBindings.setCameraAttributesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCameraAttributesPtr, 0)
   }
 
   public final fun getCameraAttributes(): CameraAttributes? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCameraAttributesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCameraAttributesPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as CameraAttributes?)
   }
 
   public final fun setCompositor(compositor: Compositor?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, compositor)
-    TransferContext.callMethod(MethodBindings.setCompositorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCompositorPtr, 0)
   }
 
   public final fun getCompositor(): Compositor? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCompositorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCompositorPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Compositor?)
   }
 

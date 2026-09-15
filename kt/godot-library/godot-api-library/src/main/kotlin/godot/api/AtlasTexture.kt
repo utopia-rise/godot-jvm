@@ -158,45 +158,45 @@ public open class AtlasTexture : Texture2D() {
 
   public final fun setAtlas(atlas: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, atlas)
-    TransferContext.callMethod(MethodBindings.setAtlasPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAtlasPtr, 0)
   }
 
   public final fun getAtlas(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAtlasPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAtlasPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setRegion(region: Rect2): Unit {
     TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, region)
-    TransferContext.callMethod(MethodBindings.setRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRegionPtr, 0)
   }
 
   public final fun getRegion(): Rect2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRegionPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 
   public final fun setMargin(margin: Rect2): Unit {
     TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, margin)
-    TransferContext.callMethod(MethodBindings.setMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMarginPtr, 0)
   }
 
   public final fun getMargin(): Rect2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarginPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 
   public final fun setFilterClip(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setFilterClipPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFilterClipPtr, 0)
   }
 
   public final fun hasFilterClip(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasFilterClipPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasFilterClipPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

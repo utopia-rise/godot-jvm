@@ -117,29 +117,29 @@ public open class PhysicalBone2D : RigidBody2D() {
    */
   public final fun getJoint(): Joint2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJointPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJointPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Joint2D?)
   }
 
   public final fun getAutoConfigureJoint(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutoConfigureJointPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAutoConfigureJointPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAutoConfigureJoint(autoConfigureJoint: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, autoConfigureJoint)
-    TransferContext.callMethod(MethodBindings.setAutoConfigureJointPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutoConfigureJointPtr, 0)
   }
 
   public final fun setSimulatePhysics(simulatePhysics: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, simulatePhysics)
-    TransferContext.callMethod(MethodBindings.setSimulatePhysicsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSimulatePhysicsPtr, 0)
   }
 
   public final fun getSimulatePhysics(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSimulatePhysicsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSimulatePhysicsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -149,13 +149,13 @@ public open class PhysicalBone2D : RigidBody2D() {
    */
   public final fun isSimulatingPhysics(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSimulatingPhysicsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSimulatingPhysicsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setBone2dNodepath(nodepath: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, nodepath)
-    TransferContext.callMethod(MethodBindings.setBone2dNodepathPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBone2dNodepathPtr, 0)
   }
 
   public final fun getBone2dNodepath(): NodePath {
@@ -166,23 +166,23 @@ public open class PhysicalBone2D : RigidBody2D() {
 
   public final fun setBone2dIndex(boneIndex: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setBone2dIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBone2dIndexPtr, 0)
   }
 
   public final fun getBone2dIndex(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBone2dIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBone2dIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setFollowBoneWhenSimulating(followBone: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, followBone)
-    TransferContext.callMethod(MethodBindings.setFollowBoneWhenSimulatingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFollowBoneWhenSimulatingPtr, 0)
   }
 
   public final fun getFollowBoneWhenSimulating(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFollowBoneWhenSimulatingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFollowBoneWhenSimulatingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

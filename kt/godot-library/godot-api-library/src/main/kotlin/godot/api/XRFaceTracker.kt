@@ -110,7 +110,7 @@ public open class XRFaceTracker : XRTracker() {
    */
   public final fun getBlendShape(blendShape: BlendShapeEntry): Float {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, blendShape.value)
-    TransferContext.callMethod(MethodBindings.getBlendShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBlendShapePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -119,7 +119,7 @@ public open class XRFaceTracker : XRTracker() {
    */
   public final fun setBlendShape(blendShape: BlendShapeEntry, weight: Float): Unit {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, blendShape.value, weight.toDouble())
-    TransferContext.callMethod(MethodBindings.setBlendShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBlendShapePtr, 0)
   }
 
   public final fun getBlendShapes(): PackedFloat32Array {
@@ -130,7 +130,7 @@ public open class XRFaceTracker : XRTracker() {
 
   public final fun setBlendShapes(weights: PackedFloat32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, weights)
-    TransferContext.callMethod(MethodBindings.setBlendShapesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBlendShapesPtr, 0)
   }
 
   public enum class BlendShapeEntry(

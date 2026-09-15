@@ -59,23 +59,23 @@ public open class InputEventJoypadMotion : InputEvent() {
 
   public final fun setAxis(axis: JoyAxis): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, axis.value)
-    TransferContext.callMethod(MethodBindings.setAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAxisPtr, 0)
   }
 
   public final fun getAxis(): JoyAxis {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAxisPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAxisPtr, 2)
     return JoyAxis.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setAxisValue(axisValue: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, axisValue.toDouble())
-    TransferContext.callMethod(MethodBindings.setAxisValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAxisValuePtr, 0)
   }
 
   public final fun getAxisValue(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAxisValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAxisValuePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

@@ -88,7 +88,7 @@ public open class XRController3D : XRNode3D() {
    */
   public final fun isButtonPressed(name: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.isButtonPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isButtonPressedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -114,7 +114,7 @@ public open class XRController3D : XRNode3D() {
    */
   public final fun getFloat(name: StringName): Float {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getFloatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFloatPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -127,7 +127,7 @@ public open class XRController3D : XRNode3D() {
    */
   public final fun getVector2(name: StringName): Vector2 {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getVector2Ptr)
+    TransferContext.callPtrMethod(MethodBindings.getVector2Ptr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -136,7 +136,7 @@ public open class XRController3D : XRNode3D() {
    */
   public final fun getTrackerHand(): XRPositionalTracker.TrackerHand {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackerHandPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTrackerHandPtr, 2)
     return XRPositionalTracker.TrackerHand.from(TransferContext.readReturnValue_LONG())
   }
 

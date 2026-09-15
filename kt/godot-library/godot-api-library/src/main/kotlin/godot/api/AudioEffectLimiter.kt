@@ -87,45 +87,45 @@ public open class AudioEffectLimiter : AudioEffect() {
 
   public final fun setCeilingDb(ceiling: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ceiling.toDouble())
-    TransferContext.callMethod(MethodBindings.setCeilingDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCeilingDbPtr, 0)
   }
 
   public final fun getCeilingDb(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCeilingDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCeilingDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setThresholdDb(threshold: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, threshold.toDouble())
-    TransferContext.callMethod(MethodBindings.setThresholdDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setThresholdDbPtr, 0)
   }
 
   public final fun getThresholdDb(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getThresholdDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getThresholdDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSoftClipDb(softClip: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, softClip.toDouble())
-    TransferContext.callMethod(MethodBindings.setSoftClipDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSoftClipDbPtr, 0)
   }
 
   public final fun getSoftClipDb(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSoftClipDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSoftClipDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSoftClipRatio(softClip: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, softClip.toDouble())
-    TransferContext.callMethod(MethodBindings.setSoftClipRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSoftClipRatioPtr, 0)
   }
 
   public final fun getSoftClipRatio(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSoftClipRatioPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSoftClipRatioPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

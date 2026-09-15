@@ -143,34 +143,34 @@ public open class StaticBody3D : PhysicsBody3D() {
 
   public final fun setConstantLinearVelocity(vel: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, vel)
-    TransferContext.callMethod(MethodBindings.setConstantLinearVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setConstantLinearVelocityPtr, 0)
   }
 
   public final fun setConstantAngularVelocity(vel: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, vel)
-    TransferContext.callMethod(MethodBindings.setConstantAngularVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setConstantAngularVelocityPtr, 0)
   }
 
   public final fun getConstantLinearVelocity(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantLinearVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConstantLinearVelocityPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun getConstantAngularVelocity(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantAngularVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConstantAngularVelocityPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setPhysicsMaterialOverride(physicsMaterialOverride: PhysicsMaterial?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, physicsMaterialOverride)
-    TransferContext.callMethod(MethodBindings.setPhysicsMaterialOverridePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPhysicsMaterialOverridePtr, 0)
   }
 
   public final fun getPhysicsMaterialOverride(): PhysicsMaterial? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPhysicsMaterialOverridePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPhysicsMaterialOverridePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as PhysicsMaterial?)
   }
 

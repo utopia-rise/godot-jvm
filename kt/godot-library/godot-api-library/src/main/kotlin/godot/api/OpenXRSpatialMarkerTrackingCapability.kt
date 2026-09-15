@@ -42,7 +42,7 @@ public open class OpenXRSpatialMarkerTrackingCapability : OpenXRExtensionWrapper
    */
   public final fun isQrcodeSupported(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isQrcodeSupportedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isQrcodeSupportedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -51,7 +51,7 @@ public open class OpenXRSpatialMarkerTrackingCapability : OpenXRExtensionWrapper
    */
   public final fun isMicroQrcodeSupported(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMicroQrcodeSupportedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isMicroQrcodeSupportedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -60,7 +60,7 @@ public open class OpenXRSpatialMarkerTrackingCapability : OpenXRExtensionWrapper
    */
   public final fun isArucoSupported(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isArucoSupportedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isArucoSupportedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -69,7 +69,7 @@ public open class OpenXRSpatialMarkerTrackingCapability : OpenXRExtensionWrapper
    */
   public final fun isAprilTagSupported(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAprilTagSupportedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAprilTagSupportedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -129,7 +129,7 @@ public open class OpenXRSpatialMarkerTrackingCapability : OpenXRExtensionWrapper
     nextSnapshotQuery: OpenXRStructureBase? = null,
   ): Unit {
     TransferContext.writeMethodArguments_RID_ARRAY_OBJECT_OBJECT(ptr, objectID.id, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery)
-    TransferContext.callMethod(MethodBindings.doEntityUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.doEntityUpdatePtr, 0)
   }
 
   public companion object {

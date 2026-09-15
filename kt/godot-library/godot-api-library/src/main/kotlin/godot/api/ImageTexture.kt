@@ -82,7 +82,7 @@ public open class ImageTexture : Texture2D() {
    */
   public final fun setImage(image: Image?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, image)
-    TransferContext.callMethod(MethodBindings.setImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.setImagePtr, 0)
   }
 
   /**
@@ -97,7 +97,7 @@ public open class ImageTexture : Texture2D() {
    */
   public final fun update(image: Image?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, image)
-    TransferContext.callMethod(MethodBindings.updatePtr)
+    TransferContext.callPtrMethod(MethodBindings.updatePtr, 0)
   }
 
   /**
@@ -105,7 +105,7 @@ public open class ImageTexture : Texture2D() {
    */
   public final fun setSizeOverride(size: Vector2i): Unit {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, size)
-    TransferContext.callMethod(MethodBindings.setSizeOverridePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSizeOverridePtr, 0)
   }
 
   /**
@@ -146,7 +146,7 @@ public open class ImageTexture : Texture2D() {
     @JvmStatic
     public final fun createFromImage(image: Image?): ImageTexture? {
       TransferContext.writeMethodArguments_OBJECT(0L, 0L, image)
-      TransferContext.callMethod(MethodBindings.createFromImagePtr)
+      TransferContext.callPtrMethod(MethodBindings.createFromImagePtr, 39)
       return (TransferContext.readReturnValue_OBJECT() as ImageTexture?)
     }
   }

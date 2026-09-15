@@ -54,7 +54,7 @@ public open class IKModifier3D internal constructor() : SkeletonModifier3D() {
    */
   public final fun setSettingCount(count: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.setSettingCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSettingCountPtr, 0)
   }
 
   /**
@@ -62,7 +62,7 @@ public open class IKModifier3D internal constructor() : SkeletonModifier3D() {
    */
   public final fun getSettingCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSettingCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSettingCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -71,17 +71,17 @@ public open class IKModifier3D internal constructor() : SkeletonModifier3D() {
    */
   public final fun clearSettings(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearSettingsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearSettingsPtr, 0)
   }
 
   public final fun setMutableBoneAxes(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setMutableBoneAxesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMutableBoneAxesPtr, 0)
   }
 
   public final fun areBoneAxesMutable(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.areBoneAxesMutablePtr)
+    TransferContext.callPtrMethod(MethodBindings.areBoneAxesMutablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -90,7 +90,7 @@ public open class IKModifier3D internal constructor() : SkeletonModifier3D() {
    */
   public final fun reset(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.resetPtr)
+    TransferContext.callPtrMethod(MethodBindings.resetPtr, 0)
   }
 
   public companion object {

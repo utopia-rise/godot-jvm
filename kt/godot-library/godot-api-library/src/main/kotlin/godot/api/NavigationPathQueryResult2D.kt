@@ -250,7 +250,7 @@ public open class NavigationPathQueryResult2D : RefCounted() {
 
   public final fun setPath(path: PackedVector2Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.setPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathPtr, 0)
   }
 
   public final fun getPath(): PackedVector2Array {
@@ -261,7 +261,7 @@ public open class NavigationPathQueryResult2D : RefCounted() {
 
   public final fun setPathTypes(pathTypes: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, pathTypes)
-    TransferContext.callMethod(MethodBindings.setPathTypesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathTypesPtr, 0)
   }
 
   public final fun getPathTypes(): PackedInt32Array {
@@ -272,7 +272,7 @@ public open class NavigationPathQueryResult2D : RefCounted() {
 
   public final fun setPathRids(pathRids: VariantArray<RID>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, pathRids)
-    TransferContext.callMethod(MethodBindings.setPathRidsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathRidsPtr, 0)
   }
 
   public final fun getPathRids(): VariantArray<RID> {
@@ -283,7 +283,7 @@ public open class NavigationPathQueryResult2D : RefCounted() {
 
   public final fun setPathOwnerIds(pathOwnerIds: PackedInt64Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_64_ARRAY(ptr, objectID.id, pathOwnerIds)
-    TransferContext.callMethod(MethodBindings.setPathOwnerIdsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathOwnerIdsPtr, 0)
   }
 
   public final fun getPathOwnerIds(): PackedInt64Array {
@@ -294,12 +294,12 @@ public open class NavigationPathQueryResult2D : RefCounted() {
 
   public final fun setPathLength(length: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, length.toDouble())
-    TransferContext.callMethod(MethodBindings.setPathLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathLengthPtr, 0)
   }
 
   public final fun getPathLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPathLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -309,7 +309,7 @@ public open class NavigationPathQueryResult2D : RefCounted() {
    */
   public final fun reset(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.resetPtr)
+    TransferContext.callPtrMethod(MethodBindings.resetPtr, 0)
   }
 
   public enum class PathSegmentType(

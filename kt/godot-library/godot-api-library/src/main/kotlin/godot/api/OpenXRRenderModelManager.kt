@@ -78,13 +78,13 @@ public open class OpenXRRenderModelManager : Node3D() {
 
   public final fun getTracker(): RenderModelTracker {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTrackerPtr, 2)
     return RenderModelTracker.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTracker(tracker: RenderModelTracker): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tracker.value)
-    TransferContext.callMethod(MethodBindings.setTrackerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTrackerPtr, 0)
   }
 
   public final fun getMakeLocalToPose(): String {

@@ -49,12 +49,12 @@ public open class EncodedObjectAsID : RefCounted() {
 
   public final fun setObjectId(id: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.setObjectIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setObjectIdPtr, 0)
   }
 
   public final fun getObjectId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getObjectIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getObjectIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

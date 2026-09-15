@@ -42,7 +42,7 @@ public open class AudioStreamPlaybackInteractive internal constructor() : AudioS
    */
   public final fun switchToClipByName(clipName: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, clipName)
-    TransferContext.callMethod(MethodBindings.switchToClipByNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.switchToClipByNamePtr, 0)
   }
 
   /**
@@ -50,7 +50,7 @@ public open class AudioStreamPlaybackInteractive internal constructor() : AudioS
    */
   public final fun switchToClip(clipIndex: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, clipIndex.toLong())
-    TransferContext.callMethod(MethodBindings.switchToClipPtr)
+    TransferContext.callPtrMethod(MethodBindings.switchToClipPtr, 0)
   }
 
   /**
@@ -66,7 +66,7 @@ public open class AudioStreamPlaybackInteractive internal constructor() : AudioS
    */
   public final fun getCurrentClipIndex(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurrentClipIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurrentClipIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

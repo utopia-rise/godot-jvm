@@ -146,18 +146,18 @@ public open class OpenXRAction : Resource() {
 
   public final fun setActionType(actionType: ActionType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, actionType.value)
-    TransferContext.callMethod(MethodBindings.setActionTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setActionTypePtr, 0)
   }
 
   public final fun getActionType(): ActionType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionTypePtr, 2)
     return ActionType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setToplevelPaths(toplevelPaths: PackedStringArray): Unit {
     TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, toplevelPaths)
-    TransferContext.callMethod(MethodBindings.setToplevelPathsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setToplevelPathsPtr, 0)
   }
 
   public final fun getToplevelPaths(): PackedStringArray {

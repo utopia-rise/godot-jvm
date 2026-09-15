@@ -54,7 +54,7 @@ public open class TileMapPattern : Resource() {
     alternativeTile: Int = -1,
   ): Unit {
     TransferContext.writeMethodArguments_VECTOR2I_LONG_VECTOR2I_LONG(ptr, objectID.id, coords, sourceId.toLong(), atlasCoords, alternativeTile.toLong())
-    TransferContext.callMethod(MethodBindings.setCellPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCellPtr, 0)
   }
 
   /**
@@ -62,7 +62,7 @@ public open class TileMapPattern : Resource() {
    */
   public final fun hasCell(coords: Vector2i): Boolean {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
-    TransferContext.callMethod(MethodBindings.hasCellPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasCellPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -71,7 +71,7 @@ public open class TileMapPattern : Resource() {
    */
   public final fun removeCell(coords: Vector2i, updateSize: Boolean): Unit {
     TransferContext.writeMethodArguments_VECTOR2I_BOOL(ptr, objectID.id, coords, updateSize)
-    TransferContext.callMethod(MethodBindings.removeCellPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeCellPtr, 0)
   }
 
   /**
@@ -79,7 +79,7 @@ public open class TileMapPattern : Resource() {
    */
   public final fun getCellSourceId(coords: Vector2i): Int {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
-    TransferContext.callMethod(MethodBindings.getCellSourceIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCellSourceIdPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -88,7 +88,7 @@ public open class TileMapPattern : Resource() {
    */
   public final fun getCellAtlasCoords(coords: Vector2i): Vector2i {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
-    TransferContext.callMethod(MethodBindings.getCellAtlasCoordsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCellAtlasCoordsPtr, 6)
     return TransferContext.readReturnValue_VECTOR2I()
   }
 
@@ -97,7 +97,7 @@ public open class TileMapPattern : Resource() {
    */
   public final fun getCellAlternativeTile(coords: Vector2i): Int {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
-    TransferContext.callMethod(MethodBindings.getCellAlternativeTilePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCellAlternativeTilePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -115,7 +115,7 @@ public open class TileMapPattern : Resource() {
    */
   public final fun getSize(): Vector2i {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 6)
     return TransferContext.readReturnValue_VECTOR2I()
   }
 
@@ -124,7 +124,7 @@ public open class TileMapPattern : Resource() {
    */
   public final fun setSize(size: Vector2i): Unit {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
   }
 
   /**
@@ -132,7 +132,7 @@ public open class TileMapPattern : Resource() {
    */
   public final fun isEmpty(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEmptyPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEmptyPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

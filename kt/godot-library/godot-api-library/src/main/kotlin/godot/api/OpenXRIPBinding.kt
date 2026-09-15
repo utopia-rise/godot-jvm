@@ -144,12 +144,12 @@ public open class OpenXRIPBinding : Resource() {
 
   public final fun setAction(action: OpenXRAction?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.setActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setActionPtr, 0)
   }
 
   public final fun getAction(): OpenXRAction? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OpenXRAction?)
   }
 
@@ -169,7 +169,7 @@ public open class OpenXRIPBinding : Resource() {
    */
   public final fun getBindingModifierCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBindingModifierCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBindingModifierCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -178,13 +178,13 @@ public open class OpenXRIPBinding : Resource() {
    */
   public final fun getBindingModifier(index: Int): OpenXRActionBindingModifier? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getBindingModifierPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBindingModifierPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OpenXRActionBindingModifier?)
   }
 
   public final fun setBindingModifiers(bindingModifiers: VariantArray<Any?>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, bindingModifiers)
-    TransferContext.callMethod(MethodBindings.setBindingModifiersPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBindingModifiersPtr, 0)
   }
 
   public final fun getBindingModifiers(): VariantArray<Any?> {
@@ -195,7 +195,7 @@ public open class OpenXRIPBinding : Resource() {
 
   public final fun setPaths(paths: PackedStringArray): Unit {
     TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, paths)
-    TransferContext.callMethod(MethodBindings.setPathsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathsPtr, 0)
   }
 
   public final fun getPaths(): PackedStringArray {
@@ -209,7 +209,7 @@ public open class OpenXRIPBinding : Resource() {
    */
   public final fun getPathCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPathCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

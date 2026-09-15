@@ -102,23 +102,23 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
 
   public final fun setTransferChannel(channel: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, channel.toLong())
-    TransferContext.callMethod(MethodBindings.setTransferChannelPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTransferChannelPtr, 0)
   }
 
   public final fun getTransferChannel(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTransferChannelPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransferChannelPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setTransferMode(mode: TransferMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setTransferModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTransferModePtr, 0)
   }
 
   public final fun getTransferMode(): TransferMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTransferModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransferModePtr, 2)
     return TransferMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -132,7 +132,7 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    */
   public final fun setTargetPeer(id: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.setTargetPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTargetPeerPtr, 0)
   }
 
   /**
@@ -141,7 +141,7 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    */
   public final fun getPacketPeer(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPacketPeerPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -151,7 +151,7 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    */
   public final fun getPacketChannel(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketChannelPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPacketChannelPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -161,7 +161,7 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    */
   public final fun getPacketMode(): TransferMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPacketModePtr, 2)
     return TransferMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -170,7 +170,7 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    */
   public final fun poll(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pollPtr)
+    TransferContext.callPtrMethod(MethodBindings.pollPtr, 0)
   }
 
   /**
@@ -179,7 +179,7 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    */
   public final fun close(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closePtr)
+    TransferContext.callPtrMethod(MethodBindings.closePtr, 0)
   }
 
   /**
@@ -189,7 +189,7 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
   @JvmOverloads
   public final fun disconnectPeer(peer: Int, force: Boolean = false): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, peer.toLong(), force)
-    TransferContext.callMethod(MethodBindings.disconnectPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.disconnectPeerPtr, 0)
   }
 
   /**
@@ -197,7 +197,7 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    */
   public final fun getConnectionStatus(): ConnectionStatus {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectionStatusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionStatusPtr, 2)
     return ConnectionStatus.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -206,7 +206,7 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    */
   public final fun getUniqueId(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUniqueIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUniqueIdPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -215,18 +215,18 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    */
   public final fun generateUniqueId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.generateUniqueIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.generateUniqueIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setRefuseNewConnections(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setRefuseNewConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRefuseNewConnectionsPtr, 0)
   }
 
   public final fun isRefusingNewConnections(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRefusingNewConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRefusingNewConnectionsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -237,7 +237,7 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    */
   public final fun isServerRelaySupported(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isServerRelaySupportedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isServerRelaySupportedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

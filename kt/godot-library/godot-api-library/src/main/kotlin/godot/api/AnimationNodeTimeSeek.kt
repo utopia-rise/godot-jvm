@@ -71,12 +71,12 @@ public open class AnimationNodeTimeSeek : AnimationNode() {
 
   public final fun setExplicitElapse(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setExplicitElapsePtr)
+    TransferContext.callPtrMethod(MethodBindings.setExplicitElapsePtr, 0)
   }
 
   public final fun isExplicitElapse(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isExplicitElapsePtr)
+    TransferContext.callPtrMethod(MethodBindings.isExplicitElapsePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

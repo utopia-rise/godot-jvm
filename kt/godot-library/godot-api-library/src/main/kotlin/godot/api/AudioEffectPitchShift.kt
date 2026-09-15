@@ -77,34 +77,34 @@ public open class AudioEffectPitchShift : AudioEffect() {
 
   public final fun setPitchScale(rate: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, rate.toDouble())
-    TransferContext.callMethod(MethodBindings.setPitchScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPitchScalePtr, 0)
   }
 
   public final fun getPitchScale(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPitchScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPitchScalePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOversampling(amount: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
-    TransferContext.callMethod(MethodBindings.setOversamplingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOversamplingPtr, 0)
   }
 
   public final fun getOversampling(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOversamplingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOversamplingPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setFftSize(size: FFTSize): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.value)
-    TransferContext.callMethod(MethodBindings.setFftSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setFftSizePtr, 0)
   }
 
   public final fun getFftSize(): FFTSize {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFftSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFftSizePtr, 2)
     return FFTSize.from(TransferContext.readReturnValue_LONG())
   }
 

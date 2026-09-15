@@ -94,7 +94,7 @@ public object TextServerManager : Object() {
   @JvmStatic
   public final fun addInterface(`interface`: TextServer?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, `interface`)
-    TransferContext.callMethod(MethodBindings.addInterfacePtr)
+    TransferContext.callPtrMethod(MethodBindings.addInterfacePtr, 0)
   }
 
   /**
@@ -103,7 +103,7 @@ public object TextServerManager : Object() {
   @JvmStatic
   public final fun getInterfaceCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInterfaceCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInterfaceCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -114,7 +114,7 @@ public object TextServerManager : Object() {
   @JvmStatic
   public final fun removeInterface(`interface`: TextServer?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, `interface`)
-    TransferContext.callMethod(MethodBindings.removeInterfacePtr)
+    TransferContext.callPtrMethod(MethodBindings.removeInterfacePtr, 0)
   }
 
   /**
@@ -123,7 +123,7 @@ public object TextServerManager : Object() {
   @JvmStatic
   public final fun getInterface(idx: Int): TextServer? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getInterfacePtr)
+    TransferContext.callPtrMethod(MethodBindings.getInterfacePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as TextServer?)
   }
 
@@ -153,7 +153,7 @@ public object TextServerManager : Object() {
   @JvmStatic
   public final fun setPrimaryInterface(index: TextServer?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.setPrimaryInterfacePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPrimaryInterfacePtr, 0)
   }
 
   /**
@@ -162,7 +162,7 @@ public object TextServerManager : Object() {
   @JvmStatic
   public final fun getPrimaryInterface(): TextServer? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPrimaryInterfacePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPrimaryInterfacePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as TextServer?)
   }
 

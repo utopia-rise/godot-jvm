@@ -35,7 +35,7 @@ public open class OpenXRSpatialComponentMesh3DList : OpenXRSpatialComponentData(
    */
   public final fun getTransform(index: Long): Transform3D {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransformPtr, 18)
     return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
@@ -44,7 +44,7 @@ public open class OpenXRSpatialComponentMesh3DList : OpenXRSpatialComponentData(
    */
   public final fun getMesh(index: Long): Mesh? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMeshPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Mesh?)
   }
 

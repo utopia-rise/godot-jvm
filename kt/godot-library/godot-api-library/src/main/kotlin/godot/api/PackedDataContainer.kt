@@ -85,7 +85,7 @@ public open class PackedDataContainer : Resource() {
    */
   public final fun size(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.sizePtr)
+    TransferContext.callPtrMethod(MethodBindings.sizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

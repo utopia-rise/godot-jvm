@@ -53,24 +53,24 @@ public open class GLTFTexture : Resource() {
 
   public final fun getSrcImage(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSrcImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSrcImagePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSrcImage(srcImage: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, srcImage.toLong())
-    TransferContext.callMethod(MethodBindings.setSrcImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSrcImagePtr, 0)
   }
 
   public final fun getSampler(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSamplerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSamplerPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSampler(sampler: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, sampler.toLong())
-    TransferContext.callMethod(MethodBindings.setSamplerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSamplerPtr, 0)
   }
 
   public companion object {

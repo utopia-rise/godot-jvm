@@ -158,7 +158,7 @@ public object JavaScriptBridge : Object() {
   @JvmStatic
   public final fun isJsBuffer(javascriptObject: JavaScriptObject?): Boolean {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, javascriptObject)
-    TransferContext.callMethod(MethodBindings.isJsBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.isJsBufferPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -215,7 +215,7 @@ public object JavaScriptBridge : Object() {
   @JvmStatic
   public final fun pwaNeedsUpdate(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pwaNeedsUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.pwaNeedsUpdatePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -231,7 +231,7 @@ public object JavaScriptBridge : Object() {
   @JvmStatic
   public final fun pwaUpdate(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pwaUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.pwaUpdatePtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -244,7 +244,7 @@ public object JavaScriptBridge : Object() {
   @JvmStatic
   public final fun forceFsSync(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.forceFsSyncPtr)
+    TransferContext.callPtrMethod(MethodBindings.forceFsSyncPtr, 0)
   }
 
   public object MethodBindings {

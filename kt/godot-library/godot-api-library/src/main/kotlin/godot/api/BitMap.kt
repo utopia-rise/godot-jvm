@@ -55,7 +55,7 @@ public open class BitMap : Resource() {
    */
   public final fun create(size: Vector2i): Unit {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, size)
-    TransferContext.callMethod(MethodBindings.createPtr)
+    TransferContext.callPtrMethod(MethodBindings.createPtr, 0)
   }
 
   /**
@@ -66,7 +66,7 @@ public open class BitMap : Resource() {
   @JvmOverloads
   public final fun createFromImageAlpha(image: Image?, threshold: Float = 0.1f): Unit {
     TransferContext.writeMethodArguments_OBJECT_DOUBLE(ptr, objectID.id, image, threshold.toDouble())
-    TransferContext.callMethod(MethodBindings.createFromImageAlphaPtr)
+    TransferContext.callPtrMethod(MethodBindings.createFromImageAlphaPtr, 0)
   }
 
   /**
@@ -74,7 +74,7 @@ public open class BitMap : Resource() {
    */
   public final fun setBitv(position: Vector2i, bit: Boolean): Unit {
     TransferContext.writeMethodArguments_VECTOR2I_BOOL(ptr, objectID.id, position, bit)
-    TransferContext.callMethod(MethodBindings.setBitvPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBitvPtr, 0)
   }
 
   /**
@@ -86,7 +86,7 @@ public open class BitMap : Resource() {
     bit: Boolean,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_BOOL(ptr, objectID.id, x.toLong(), y.toLong(), bit)
-    TransferContext.callMethod(MethodBindings.setBitPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBitPtr, 0)
   }
 
   /**
@@ -94,7 +94,7 @@ public open class BitMap : Resource() {
    */
   public final fun getBitv(position: Vector2i): Boolean {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.getBitvPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBitvPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -103,7 +103,7 @@ public open class BitMap : Resource() {
    */
   public final fun getBit(x: Int, y: Int): Boolean {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, x.toLong(), y.toLong())
-    TransferContext.callMethod(MethodBindings.getBitPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBitPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -112,7 +112,7 @@ public open class BitMap : Resource() {
    */
   public final fun setBitRect(rect: Rect2i, bit: Boolean): Unit {
     TransferContext.writeMethodArguments_RECT2I_BOOL(ptr, objectID.id, rect, bit)
-    TransferContext.callMethod(MethodBindings.setBitRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBitRectPtr, 0)
   }
 
   /**
@@ -120,7 +120,7 @@ public open class BitMap : Resource() {
    */
   public final fun getTrueBitCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrueBitCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTrueBitCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -129,7 +129,7 @@ public open class BitMap : Resource() {
    */
   public final fun getSize(): Vector2i {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 6)
     return TransferContext.readReturnValue_VECTOR2I()
   }
 
@@ -138,7 +138,7 @@ public open class BitMap : Resource() {
    */
   public final fun resize(newSize: Vector2i): Unit {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, newSize)
-    TransferContext.callMethod(MethodBindings.resizePtr)
+    TransferContext.callPtrMethod(MethodBindings.resizePtr, 0)
   }
 
   /**
@@ -149,7 +149,7 @@ public open class BitMap : Resource() {
    */
   public final fun growMask(pixels: Int, rect: Rect2i): Unit {
     TransferContext.writeMethodArguments_LONG_RECT2I(ptr, objectID.id, pixels.toLong(), rect)
-    TransferContext.callMethod(MethodBindings.growMaskPtr)
+    TransferContext.callPtrMethod(MethodBindings.growMaskPtr, 0)
   }
 
   /**
@@ -159,7 +159,7 @@ public open class BitMap : Resource() {
    */
   public final fun convertToImage(): Image? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.convertToImagePtr)
+    TransferContext.callPtrMethod(MethodBindings.convertToImagePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Image?)
   }
 

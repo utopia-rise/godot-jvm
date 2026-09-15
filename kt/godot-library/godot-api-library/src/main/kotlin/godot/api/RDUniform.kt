@@ -58,23 +58,23 @@ public open class RDUniform : RefCounted() {
 
   public final fun setUniformType(pMember: RenderingDevice.UniformType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callMethod(MethodBindings.setUniformTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setUniformTypePtr, 0)
   }
 
   public final fun getUniformType(): RenderingDevice.UniformType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUniformTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getUniformTypePtr, 2)
     return RenderingDevice.UniformType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setBinding(pMember: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.toLong())
-    TransferContext.callMethod(MethodBindings.setBindingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBindingPtr, 0)
   }
 
   public final fun getBinding(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBindingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBindingPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -84,7 +84,7 @@ public open class RDUniform : RefCounted() {
    */
   public final fun addId(id: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.addIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.addIdPtr, 0)
   }
 
   /**
@@ -92,7 +92,7 @@ public open class RDUniform : RefCounted() {
    */
   public final fun clearIds(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearIdsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearIdsPtr, 0)
   }
 
   /**

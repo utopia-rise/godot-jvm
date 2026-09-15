@@ -109,7 +109,7 @@ public open class Shortcut : Resource() {
 
   public final fun setEvents(events: VariantArray<Any?>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, events)
-    TransferContext.callMethod(MethodBindings.setEventsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEventsPtr, 0)
   }
 
   public final fun getEvents(): VariantArray<Any?> {
@@ -123,7 +123,7 @@ public open class Shortcut : Resource() {
    */
   public final fun hasValidEvent(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasValidEventPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasValidEventPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -133,7 +133,7 @@ public open class Shortcut : Resource() {
    */
   public final fun matchesEvent(event: InputEvent?): Boolean {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, event)
-    TransferContext.callMethod(MethodBindings.matchesEventPtr)
+    TransferContext.callPtrMethod(MethodBindings.matchesEventPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

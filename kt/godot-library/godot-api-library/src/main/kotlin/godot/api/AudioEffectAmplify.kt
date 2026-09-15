@@ -60,23 +60,23 @@ public open class AudioEffectAmplify : AudioEffect() {
 
   public final fun setVolumeDb(volume: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, volume.toDouble())
-    TransferContext.callMethod(MethodBindings.setVolumeDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVolumeDbPtr, 0)
   }
 
   public final fun getVolumeDb(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVolumeDbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVolumeDbPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumeLinear(volume: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, volume.toDouble())
-    TransferContext.callMethod(MethodBindings.setVolumeLinearPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVolumeLinearPtr, 0)
   }
 
   public final fun getVolumeLinear(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVolumeLinearPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVolumeLinearPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

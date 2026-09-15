@@ -67,7 +67,7 @@ public open class ConfirmationDialog : AcceptDialog() {
    */
   public final fun getCancelButton(): Button? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCancelButtonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCancelButtonPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Button?)
   }
 

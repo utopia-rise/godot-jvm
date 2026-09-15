@@ -51,12 +51,12 @@ public open class AudioStreamPolyphonic : AudioStream() {
 
   public final fun setPolyphony(voices: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, voices.toLong())
-    TransferContext.callMethod(MethodBindings.setPolyphonyPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPolyphonyPtr, 0)
   }
 
   public final fun getPolyphony(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPolyphonyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPolyphonyPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

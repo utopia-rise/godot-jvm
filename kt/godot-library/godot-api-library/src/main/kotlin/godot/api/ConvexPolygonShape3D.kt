@@ -110,7 +110,7 @@ public open class ConvexPolygonShape3D : Shape3D() {
 
   public final fun setPoints(points: PackedVector3Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY(ptr, objectID.id, points)
-    TransferContext.callMethod(MethodBindings.setPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointsPtr, 0)
   }
 
   public final fun getPoints(): PackedVector3Array {

@@ -96,7 +96,7 @@ public open class SyntaxHighlighter : Resource() {
    */
   public final fun updateCache(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.updateCachePtr)
+    TransferContext.callPtrMethod(MethodBindings.updateCachePtr, 0)
   }
 
   /**
@@ -106,7 +106,7 @@ public open class SyntaxHighlighter : Resource() {
    */
   public final fun clearHighlightingCache(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearHighlightingCachePtr)
+    TransferContext.callPtrMethod(MethodBindings.clearHighlightingCachePtr, 0)
   }
 
   /**
@@ -114,7 +114,7 @@ public open class SyntaxHighlighter : Resource() {
    */
   public final fun getTextEdit(): TextEdit? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextEditPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextEditPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as TextEdit?)
   }
 

@@ -63,23 +63,23 @@ public open class SeparationRayShape3D : Shape3D() {
 
   public final fun setLength(length: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, length.toDouble())
-    TransferContext.callMethod(MethodBindings.setLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLengthPtr, 0)
   }
 
   public final fun getLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSlideOnSlope(active: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, active)
-    TransferContext.callMethod(MethodBindings.setSlideOnSlopePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSlideOnSlopePtr, 0)
   }
 
   public final fun getSlideOnSlope(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSlideOnSlopePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSlideOnSlopePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

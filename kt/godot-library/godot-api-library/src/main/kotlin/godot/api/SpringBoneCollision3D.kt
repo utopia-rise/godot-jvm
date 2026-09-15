@@ -157,7 +157,7 @@ public open class SpringBoneCollision3D : Node3D() {
    */
   public final fun getSkeleton(): Skeleton3D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkeletonPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Skeleton3D?)
   }
 
@@ -174,34 +174,34 @@ public open class SpringBoneCollision3D : Node3D() {
 
   public final fun setBone(bone: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bone.toLong())
-    TransferContext.callMethod(MethodBindings.setBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBonePtr, 0)
   }
 
   public final fun getBone(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBonePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setPositionOffset(offset: Vector3): Unit {
     TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, offset)
-    TransferContext.callMethod(MethodBindings.setPositionOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPositionOffsetPtr, 0)
   }
 
   public final fun getPositionOffset(): Vector3 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPositionOffsetPtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setRotationOffset(offset: Quaternion): Unit {
     TransferContext.writeMethodArguments_QUATERNION(ptr, objectID.id, offset)
-    TransferContext.callMethod(MethodBindings.setRotationOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRotationOffsetPtr, 0)
   }
 
   public final fun getRotationOffset(): Quaternion {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRotationOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRotationOffsetPtr, 15)
     return TransferContext.readReturnValue_QUATERNION()
   }
 

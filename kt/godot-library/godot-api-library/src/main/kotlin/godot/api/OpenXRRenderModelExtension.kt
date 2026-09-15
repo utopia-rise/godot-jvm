@@ -69,7 +69,7 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    */
   public final fun isActive(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isActivePtr)
+    TransferContext.callPtrMethod(MethodBindings.isActivePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -81,7 +81,7 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    */
   public final fun renderModelCreate(renderModelId: Long): RID {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, renderModelId)
-    TransferContext.callMethod(MethodBindings.renderModelCreatePtr)
+    TransferContext.callPtrMethod(MethodBindings.renderModelCreatePtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -94,7 +94,7 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    */
   public final fun renderModelDestroy(renderModel: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callMethod(MethodBindings.renderModelDestroyPtr)
+    TransferContext.callPtrMethod(MethodBindings.renderModelDestroyPtr, 0)
   }
 
   /**
@@ -112,7 +112,7 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    */
   public final fun renderModelNewSceneInstance(renderModel: RID): Node3D? {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callMethod(MethodBindings.renderModelNewSceneInstancePtr)
+    TransferContext.callPtrMethod(MethodBindings.renderModelNewSceneInstancePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Node3D?)
   }
 
@@ -144,7 +144,7 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    */
   public final fun renderModelGetConfidence(renderModel: RID): XRPose.TrackingConfidence {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callMethod(MethodBindings.renderModelGetConfidencePtr)
+    TransferContext.callPtrMethod(MethodBindings.renderModelGetConfidencePtr, 2)
     return XRPose.TrackingConfidence.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -154,7 +154,7 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    */
   public final fun renderModelGetRootTransform(renderModel: RID): Transform3D {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callMethod(MethodBindings.renderModelGetRootTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.renderModelGetRootTransformPtr, 18)
     return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
@@ -163,7 +163,7 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    */
   public final fun renderModelGetAnimatableNodeCount(renderModel: RID): Long {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callMethod(MethodBindings.renderModelGetAnimatableNodeCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.renderModelGetAnimatableNodeCountPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -181,7 +181,7 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    */
   public final fun renderModelIsAnimatableNodeVisible(renderModel: RID, index: Long): Boolean {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, renderModel, index)
-    TransferContext.callMethod(MethodBindings.renderModelIsAnimatableNodeVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.renderModelIsAnimatableNodeVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -191,7 +191,7 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
   public final fun renderModelGetAnimatableNodeTransform(renderModel: RID, index: Long):
       Transform3D {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, renderModel, index)
-    TransferContext.callMethod(MethodBindings.renderModelGetAnimatableNodeTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.renderModelGetAnimatableNodeTransformPtr, 18)
     return TransferContext.readReturnValue_TRANSFORM3D()
   }
 

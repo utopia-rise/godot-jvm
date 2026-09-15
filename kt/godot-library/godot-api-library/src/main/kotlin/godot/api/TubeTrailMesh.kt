@@ -140,89 +140,89 @@ public open class TubeTrailMesh : PrimitiveMesh() {
 
   public final fun setRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRadiusPtr, 0)
   }
 
   public final fun getRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRadialSteps(radialSteps: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, radialSteps.toLong())
-    TransferContext.callMethod(MethodBindings.setRadialStepsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRadialStepsPtr, 0)
   }
 
   public final fun getRadialSteps(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadialStepsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRadialStepsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSections(sections: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, sections.toLong())
-    TransferContext.callMethod(MethodBindings.setSectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSectionsPtr, 0)
   }
 
   public final fun getSections(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSectionsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSectionLength(sectionLength: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, sectionLength.toDouble())
-    TransferContext.callMethod(MethodBindings.setSectionLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSectionLengthPtr, 0)
   }
 
   public final fun getSectionLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSectionLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSectionLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSectionRings(sectionRings: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, sectionRings.toLong())
-    TransferContext.callMethod(MethodBindings.setSectionRingsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSectionRingsPtr, 0)
   }
 
   public final fun getSectionRings(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSectionRingsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSectionRingsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setCapTop(capTop: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, capTop)
-    TransferContext.callMethod(MethodBindings.setCapTopPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCapTopPtr, 0)
   }
 
   public final fun isCapTop(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCapTopPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCapTopPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCapBottom(capBottom: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, capBottom)
-    TransferContext.callMethod(MethodBindings.setCapBottomPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCapBottomPtr, 0)
   }
 
   public final fun isCapBottom(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCapBottomPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCapBottomPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCurve(curve: Curve?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callMethod(MethodBindings.setCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCurvePtr, 0)
   }
 
   public final fun getCurve(): Curve? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurvePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 

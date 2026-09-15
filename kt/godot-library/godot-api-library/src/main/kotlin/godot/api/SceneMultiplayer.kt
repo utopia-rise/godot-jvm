@@ -206,7 +206,7 @@ public open class SceneMultiplayer : MultiplayerAPI() {
 
   public final fun setRootPath(path: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.setRootPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRootPathPtr, 0)
   }
 
   public final fun getRootPath(): NodePath {
@@ -221,7 +221,7 @@ public open class SceneMultiplayer : MultiplayerAPI() {
    */
   public final fun clear(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**
@@ -230,7 +230,7 @@ public open class SceneMultiplayer : MultiplayerAPI() {
    */
   public final fun disconnectPeer(id: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.disconnectPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.disconnectPeerPtr, 0)
   }
 
   /**
@@ -250,7 +250,7 @@ public open class SceneMultiplayer : MultiplayerAPI() {
    */
   public final fun sendAuth(id: Int, `data`: PackedByteArray): Error {
     TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, id.toLong(), data)
-    TransferContext.callMethod(MethodBindings.sendAuthPtr)
+    TransferContext.callPtrMethod(MethodBindings.sendAuthPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -267,7 +267,7 @@ public open class SceneMultiplayer : MultiplayerAPI() {
    */
   public final fun completeAuth(id: Int): Error {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.completeAuthPtr)
+    TransferContext.callPtrMethod(MethodBindings.completeAuthPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -284,45 +284,45 @@ public open class SceneMultiplayer : MultiplayerAPI() {
 
   public final fun setAuthTimeout(timeout: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeout)
-    TransferContext.callMethod(MethodBindings.setAuthTimeoutPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAuthTimeoutPtr, 0)
   }
 
   public final fun getAuthTimeout(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAuthTimeoutPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAuthTimeoutPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setRefuseNewConnections(refuse: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, refuse)
-    TransferContext.callMethod(MethodBindings.setRefuseNewConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRefuseNewConnectionsPtr, 0)
   }
 
   public final fun isRefusingNewConnections(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRefusingNewConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRefusingNewConnectionsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAllowObjectDecoding(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setAllowObjectDecodingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAllowObjectDecodingPtr, 0)
   }
 
   public final fun isObjectDecodingAllowed(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isObjectDecodingAllowedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isObjectDecodingAllowedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setServerRelayEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setServerRelayEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setServerRelayEnabledPtr, 0)
   }
 
   public final fun isServerRelayEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isServerRelayEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isServerRelayEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -338,30 +338,30 @@ public open class SceneMultiplayer : MultiplayerAPI() {
     channel: Int = 0,
   ): Error {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY_LONG_LONG_LONG(ptr, objectID.id, bytes, id.toLong(), mode.value, channel.toLong())
-    TransferContext.callMethod(MethodBindings.sendBytesPtr)
+    TransferContext.callPtrMethod(MethodBindings.sendBytesPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun getMaxSyncPacketSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxSyncPacketSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxSyncPacketSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMaxSyncPacketSize(size: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callMethod(MethodBindings.setMaxSyncPacketSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxSyncPacketSizePtr, 0)
   }
 
   public final fun getMaxDeltaPacketSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxDeltaPacketSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxDeltaPacketSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMaxDeltaPacketSize(size: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callMethod(MethodBindings.setMaxDeltaPacketSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaxDeltaPacketSizePtr, 0)
   }
 
   public final fun setRootPath(path: String) = setRootPath(path.asCachedNodePath())

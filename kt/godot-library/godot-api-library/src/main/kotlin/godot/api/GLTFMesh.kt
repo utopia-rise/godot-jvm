@@ -152,13 +152,13 @@ public open class GLTFMesh : Resource() {
 
   public final fun getMesh(): ImporterMesh? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMeshPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as ImporterMesh?)
   }
 
   public final fun setMesh(mesh: ImporterMesh?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, mesh)
-    TransferContext.callMethod(MethodBindings.setMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMeshPtr, 0)
   }
 
   public final fun getBlendWeights(): PackedFloat32Array {
@@ -169,7 +169,7 @@ public open class GLTFMesh : Resource() {
 
   public final fun setBlendWeights(blendWeights: PackedFloat32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, blendWeights)
-    TransferContext.callMethod(MethodBindings.setBlendWeightsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBlendWeightsPtr, 0)
   }
 
   public final fun getInstanceMaterials(): VariantArray<Material> {
@@ -180,7 +180,7 @@ public open class GLTFMesh : Resource() {
 
   public final fun setInstanceMaterials(instanceMaterials: VariantArray<Material>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, instanceMaterials)
-    TransferContext.callMethod(MethodBindings.setInstanceMaterialsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setInstanceMaterialsPtr, 0)
   }
 
   /**

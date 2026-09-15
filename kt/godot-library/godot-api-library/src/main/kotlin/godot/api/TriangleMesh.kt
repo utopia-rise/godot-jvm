@@ -54,7 +54,7 @@ public open class TriangleMesh : RefCounted() {
    */
   public final fun createFromFaces(faces: PackedVector3Array): Boolean {
     TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY(ptr, objectID.id, faces)
-    TransferContext.callMethod(MethodBindings.createFromFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.createFromFacesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

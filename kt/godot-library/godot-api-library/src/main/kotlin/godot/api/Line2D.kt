@@ -308,7 +308,7 @@ public open class Line2D : Node2D() {
 
   public final fun setPoints(points: PackedVector2Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, points)
-    TransferContext.callMethod(MethodBindings.setPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointsPtr, 0)
   }
 
   public final fun getPoints(): PackedVector2Array {
@@ -322,7 +322,7 @@ public open class Line2D : Node2D() {
    */
   public final fun setPointPosition(index: Int, position: Vector2): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR2(ptr, objectID.id, index.toLong(), position)
-    TransferContext.callMethod(MethodBindings.setPointPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPointPositionPtr, 0)
   }
 
   /**
@@ -330,7 +330,7 @@ public open class Line2D : Node2D() {
    */
   public final fun getPointPosition(index: Int): Vector2 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getPointPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -339,7 +339,7 @@ public open class Line2D : Node2D() {
    */
   public final fun getPointCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPointCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -354,7 +354,7 @@ public open class Line2D : Node2D() {
   @JvmOverloads
   public final fun addPoint(position: Vector2, index: Int = -1): Unit {
     TransferContext.writeMethodArguments_VECTOR2_LONG(ptr, objectID.id, position, index.toLong())
-    TransferContext.callMethod(MethodBindings.addPointPtr)
+    TransferContext.callPtrMethod(MethodBindings.addPointPtr, 0)
   }
 
   /**
@@ -362,7 +362,7 @@ public open class Line2D : Node2D() {
    */
   public final fun removePoint(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.removePointPtr)
+    TransferContext.callPtrMethod(MethodBindings.removePointPtr, 0)
   }
 
   /**
@@ -370,149 +370,149 @@ public open class Line2D : Node2D() {
    */
   public final fun clearPoints(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPointsPtr, 0)
   }
 
   public final fun setClosed(closed: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, closed)
-    TransferContext.callMethod(MethodBindings.setClosedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setClosedPtr, 0)
   }
 
   public final fun isClosed(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isClosedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isClosedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setWidth(width: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, width.toDouble())
-    TransferContext.callMethod(MethodBindings.setWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setWidthPtr, 0)
   }
 
   public final fun getWidth(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWidthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setCurve(curve: Curve?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callMethod(MethodBindings.setCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCurvePtr, 0)
   }
 
   public final fun getCurve(): Curve? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurvePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 
   public final fun setDefaultColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setDefaultColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultColorPtr, 0)
   }
 
   public final fun getDefaultColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setGradient(color: Gradient?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setGradientPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGradientPtr, 0)
   }
 
   public final fun getGradient(): Gradient? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGradientPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGradientPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Gradient?)
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setTextureMode(mode: LineTextureMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setTextureModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureModePtr, 0)
   }
 
   public final fun getTextureMode(): LineTextureMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureModePtr, 2)
     return LineTextureMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setJointMode(mode: LineJointMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setJointModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setJointModePtr, 0)
   }
 
   public final fun getJointMode(): LineJointMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJointModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getJointModePtr, 2)
     return LineJointMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setBeginCapMode(mode: LineCapMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setBeginCapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBeginCapModePtr, 0)
   }
 
   public final fun getBeginCapMode(): LineCapMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBeginCapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBeginCapModePtr, 2)
     return LineCapMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setEndCapMode(mode: LineCapMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setEndCapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setEndCapModePtr, 0)
   }
 
   public final fun getEndCapMode(): LineCapMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEndCapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getEndCapModePtr, 2)
     return LineCapMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSharpLimit(limit: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, limit.toDouble())
-    TransferContext.callMethod(MethodBindings.setSharpLimitPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSharpLimitPtr, 0)
   }
 
   public final fun getSharpLimit(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSharpLimitPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSharpLimitPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRoundPrecision(precision: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, precision.toLong())
-    TransferContext.callMethod(MethodBindings.setRoundPrecisionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRoundPrecisionPtr, 0)
   }
 
   public final fun getRoundPrecision(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRoundPrecisionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRoundPrecisionPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setAntialiased(antialiased: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, antialiased)
-    TransferContext.callMethod(MethodBindings.setAntialiasedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAntialiasedPtr, 0)
   }
 
   public final fun getAntialiased(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAntialiasedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAntialiasedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

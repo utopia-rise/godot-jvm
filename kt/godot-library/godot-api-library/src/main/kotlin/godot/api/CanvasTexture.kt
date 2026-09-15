@@ -169,78 +169,78 @@ public open class CanvasTexture : Texture2D() {
 
   public final fun setDiffuseTexture(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setDiffuseTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setDiffuseTexturePtr, 0)
   }
 
   public final fun getDiffuseTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDiffuseTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDiffuseTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setNormalTexture(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setNormalTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setNormalTexturePtr, 0)
   }
 
   public final fun getNormalTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNormalTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNormalTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setSpecularTexture(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setSpecularTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSpecularTexturePtr, 0)
   }
 
   public final fun getSpecularTexture(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpecularTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpecularTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setSpecularColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setSpecularColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSpecularColorPtr, 0)
   }
 
   public final fun getSpecularColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpecularColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpecularColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setSpecularShininess(shininess: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, shininess.toDouble())
-    TransferContext.callMethod(MethodBindings.setSpecularShininessPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSpecularShininessPtr, 0)
   }
 
   public final fun getSpecularShininess(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpecularShininessPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpecularShininessPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTextureFilter(filter: CanvasItem.TextureFilter): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, filter.value)
-    TransferContext.callMethod(MethodBindings.setTextureFilterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureFilterPtr, 0)
   }
 
   public final fun getTextureFilter(): CanvasItem.TextureFilter {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureFilterPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureFilterPtr, 2)
     return CanvasItem.TextureFilter.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTextureRepeat(repeat: CanvasItem.TextureRepeat): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, repeat.value)
-    TransferContext.callMethod(MethodBindings.setTextureRepeatPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureRepeatPtr, 0)
   }
 
   public final fun getTextureRepeat(): CanvasItem.TextureRepeat {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureRepeatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureRepeatPtr, 2)
     return CanvasItem.TextureRepeat.from(TransferContext.readReturnValue_LONG())
   }
 

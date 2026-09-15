@@ -274,6 +274,16 @@ namespace raw_godot {
             );
         }
 
+        // The unchecked variant of call_method_bind: arguments and return are the native types the bind declares, not
+        // Variants, and the engine validates neither their count nor their types.
+        _ALWAYS_INLINE_ void ptrcall_method_bind(
+            GDExtensionMethodBindPtr p_method_bind,
+            const GDExtensionConstTypePtr* p_args,
+            GDExtensionTypePtr r_return
+        ) const {
+            internal::gdextension_interface_object_method_bind_ptrcall(p_method_bind, _ptr, p_args, r_return);
+        }
+
     private:
         template<typename... Args>
         _ALWAYS_INLINE_ void call_vararg(

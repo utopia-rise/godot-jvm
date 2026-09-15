@@ -1,13 +1,17 @@
 package godot.tests.core
 
+import godot.annotation.Emit
 import godot.annotation.Register
 import godot.annotation.Script
 import godot.api.Button
 import godot.api.Control
+import godot.api.Image
+import godot.api.ImageTexture
 import godot.api.Label
 import godot.api.Node
 import godot.api.Node3D
 import godot.api.Panel
+import godot.api.Sprite2D
 import godot.core.Color
 import godot.core.Side
 import godot.core.StringName
@@ -15,19 +19,21 @@ import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.Vector2
 import godot.core.Vector3
+import godot.core.signal2
 import godot.core.variantArrayOf
+import godot.extension.connectLambda
 
 /**
- * Calls plain engine API methods whose parameter lists mix Variant types, then reads the values back
- * through the matching getters. These are the most trivial calls a user makes, and they exercise a
- * path the core round-trip tests do not: arguments marshalled for an engine ptrcall
- * (writeMethodArguments/callMethod) rather than for one of our own registered functions.
+ * Calls plain engine API methods and reads the values back, covering both native entry points behind a
+ * generated call: the ptrcall (`callPtrMethod`) every fixed-arity method uses, and the checked Variant
+ * call (`callMethod`) left to variadic methods and to methods taking or returning a Variant. Each path is
+ * exercised with primitives, plain Objects and RefCounted objects, as arguments and as return values.
  *
  * Methods with defaulted trailing parameters are called both with and without those arguments, since
  * the binding always writes the full argument list and a mismatch there is invisible at the call site.
  */
 @Script
-class EngineApiCallTest : Node() {
+class IcallTest : Node() {
 
     // Regression cases for engine objects built by InstanceCreator without being postinitialized: a
     // Control subclass that never built its theme item cache crashed on its first resize. Text-drawing
@@ -201,5 +207,112 @@ class EngineApiCallTest : Node() {
         val size = label.getSize()
         label.free()
         return size
+    }
+
+    // --- ptrcall path: booleans, numbers, math types, RID, objects and pointer-backed core types. Methods with a
+    // String, Callable, Signal or Variant in their signature are on the Variant call instead. ---
+
+    @Register
+    fun ptrcallPrimitiveReturn(): Long = getInstanceId()
+
+    @Register
+    fun ptrcallObjectArgumentAndReturn(): Boolean {
+        val parent = Node()
+        val child = Node()
+        parent.addChild(child)
+        val returned = child.getParent() === parent
+        parent.removeChild(child)
+        val detached = child.getParent() == null
+        child.free()
+        parent.free()
+        return returned && detached
+    }
+
+    @Register
+    fun ptrcallRefCountedArgumentAndReturn(): Boolean {
+        val image = Image.createEmpty(2, 2, false, Image.Format.RGBA8)!!
+        val texture = ImageTexture.createFromImage(image)!!
+        val sprite = Sprite2D()
+        sprite.setTexture(texture)
+        val sameInstance = sprite.getTexture() === texture
+        sprite.free()
+        return sameInstance && texture.getWidth() == 2
+    }
+
+    // A RefCounted comes out of a ptrcall with a reference the engine hands over, which must be released once the JVM
+    // holds its own or every getter call leaks one. Expected: the JVM's reference plus the Sprite2D's.
+    @Register
+    fun ptrcallRefCountedReturnKeepsReferenceCount(): Int {
+        val texture = ImageTexture.createFromImage(Image.createEmpty(2, 2, false, Image.Format.RGBA8))!!
+        val sprite = Sprite2D()
+        sprite.setTexture(texture)
+        repeat(3) { sprite.getTexture() }
+        val count = texture.getReferenceCount()
+        sprite.free()
+        return count
+    }
+
+    // --- Variant call path: variadic methods carry their tail as Variants, so the same shapes go through Object.call. ---
+
+    @Register
+    fun icallObjectArgumentAndReturn(): Boolean {
+        val parent = Node()
+        val child = Node()
+        parent.call("add_child", child)
+        val sameInstance = parent.call("get_child", 0) === child
+        parent.free()
+        return sameInstance
+    }
+
+    @Register
+    fun icallRefCountedArgumentAndReturn(): Boolean {
+        val texture = ImageTexture.createFromImage(Image.createEmpty(2, 2, false, Image.Format.RGBA8))!!
+        val sprite = Sprite2D()
+        sprite.call("set_texture", texture)
+        val sameInstance = sprite.call("get_texture") === texture
+        sprite.free()
+        return sameInstance
+    }
+
+    @Register
+    fun icallRefCountedReturnKeepsReferenceCount(): Int {
+        val texture = ImageTexture.createFromImage(Image.createEmpty(2, 2, false, Image.Format.RGBA8))!!
+        val sprite = Sprite2D()
+        sprite.setTexture(texture)
+        repeat(3) { sprite.call("get_texture") }
+        val count = texture.getReferenceCount()
+        sprite.free()
+        return count
+    }
+
+    // The three cases below cover a variadic tail of mixed Variant types, an empty tail, and a tail delivered back to
+    // the JVM through a signal.
+    @Register
+    fun callWithVariadicArguments(): Vector2 {
+        val control = Control()
+        control.call("set_size", Vector2(3.5, 4.5), false)
+        val size = control.getSize()
+        control.free()
+        return size
+    }
+
+    @Register
+    fun callWithEmptyVariadicTail(): String {
+        val label = Label()
+        label.text = "variadic"
+        val text = label.call("get_text") as String
+        label.free()
+        return text
+    }
+
+    @Emit("count", "label")
+    val variadicSignal by signal2<Long, String>()
+
+    @Register
+    fun emitSignalWithVariadicArguments(): String {
+        var received = ""
+        variadicSignal.connectLambda { count, label -> received = "$label:$count" }
+        emitSignal("variadic_signal", 7L, "seven")
+        return received
     }
 }

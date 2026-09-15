@@ -183,17 +183,17 @@ public open class ArrayOccluder3D : Occluder3D() {
    */
   public final fun setArrays(vertices: PackedVector3Array, indices: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, vertices, indices)
-    TransferContext.callMethod(MethodBindings.setArraysPtr)
+    TransferContext.callPtrMethod(MethodBindings.setArraysPtr, 0)
   }
 
   public final fun setVertices(vertices: PackedVector3Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY(ptr, objectID.id, vertices)
-    TransferContext.callMethod(MethodBindings.setVerticesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVerticesPtr, 0)
   }
 
   public final fun setIndices(indices: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, indices)
-    TransferContext.callMethod(MethodBindings.setIndicesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIndicesPtr, 0)
   }
 
   public companion object {

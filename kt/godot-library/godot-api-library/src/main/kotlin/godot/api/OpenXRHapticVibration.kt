@@ -71,34 +71,34 @@ public open class OpenXRHapticVibration : OpenXRHapticBase() {
 
   public final fun setDuration(duration: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, duration)
-    TransferContext.callMethod(MethodBindings.setDurationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDurationPtr, 0)
   }
 
   public final fun getDuration(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDurationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDurationPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setFrequency(frequency: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, frequency.toDouble())
-    TransferContext.callMethod(MethodBindings.setFrequencyPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFrequencyPtr, 0)
   }
 
   public final fun getFrequency(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFrequencyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFrequencyPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAmplitude(amplitude: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amplitude.toDouble())
-    TransferContext.callMethod(MethodBindings.setAmplitudePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAmplitudePtr, 0)
   }
 
   public final fun getAmplitude(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAmplitudePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAmplitudePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

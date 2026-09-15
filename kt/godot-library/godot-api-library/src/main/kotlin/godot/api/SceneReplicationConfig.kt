@@ -58,7 +58,7 @@ public open class SceneReplicationConfig : Resource() {
   @JvmOverloads
   public final fun addProperty(path: NodePath, index: Int = -1): Unit {
     TransferContext.writeMethodArguments_NODE_PATH_LONG(ptr, objectID.id, path, index.toLong())
-    TransferContext.callMethod(MethodBindings.addPropertyPtr)
+    TransferContext.callPtrMethod(MethodBindings.addPropertyPtr, 0)
   }
 
   /**
@@ -66,7 +66,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun hasProperty(path: NodePath): Boolean {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.hasPropertyPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasPropertyPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -75,7 +75,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun removeProperty(path: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.removePropertyPtr)
+    TransferContext.callPtrMethod(MethodBindings.removePropertyPtr, 0)
   }
 
   /**
@@ -83,7 +83,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun propertyGetIndex(path: NodePath): Int {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.propertyGetIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.propertyGetIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -93,7 +93,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun propertyGetSpawn(path: NodePath): Boolean {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.propertyGetSpawnPtr)
+    TransferContext.callPtrMethod(MethodBindings.propertyGetSpawnPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -103,7 +103,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun propertySetSpawn(path: NodePath, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_NODE_PATH_BOOL(ptr, objectID.id, path, enabled)
-    TransferContext.callMethod(MethodBindings.propertySetSpawnPtr)
+    TransferContext.callPtrMethod(MethodBindings.propertySetSpawnPtr, 0)
   }
 
   /**
@@ -111,7 +111,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun propertyGetReplicationMode(path: NodePath): ReplicationMode {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.propertyGetReplicationModePtr)
+    TransferContext.callPtrMethod(MethodBindings.propertyGetReplicationModePtr, 2)
     return ReplicationMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -120,7 +120,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun propertySetReplicationMode(path: NodePath, mode: ReplicationMode): Unit {
     TransferContext.writeMethodArguments_NODE_PATH_LONG(ptr, objectID.id, path, mode.value)
-    TransferContext.callMethod(MethodBindings.propertySetReplicationModePtr)
+    TransferContext.callPtrMethod(MethodBindings.propertySetReplicationModePtr, 0)
   }
 
   /**
@@ -129,7 +129,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun propertyGetSync(path: NodePath): Boolean {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.propertyGetSyncPtr)
+    TransferContext.callPtrMethod(MethodBindings.propertyGetSyncPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -139,7 +139,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun propertySetSync(path: NodePath, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_NODE_PATH_BOOL(ptr, objectID.id, path, enabled)
-    TransferContext.callMethod(MethodBindings.propertySetSyncPtr)
+    TransferContext.callPtrMethod(MethodBindings.propertySetSyncPtr, 0)
   }
 
   /**
@@ -148,7 +148,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun propertyGetWatch(path: NodePath): Boolean {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.propertyGetWatchPtr)
+    TransferContext.callPtrMethod(MethodBindings.propertyGetWatchPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -158,7 +158,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun propertySetWatch(path: NodePath, enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_NODE_PATH_BOOL(ptr, objectID.id, path, enabled)
-    TransferContext.callMethod(MethodBindings.propertySetWatchPtr)
+    TransferContext.callPtrMethod(MethodBindings.propertySetWatchPtr, 0)
   }
 
   /**

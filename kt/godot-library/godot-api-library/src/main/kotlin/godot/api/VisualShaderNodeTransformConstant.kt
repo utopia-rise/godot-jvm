@@ -72,12 +72,12 @@ public open class VisualShaderNodeTransformConstant : VisualShaderNodeConstant()
 
   public final fun setConstant(constant: Transform3D): Unit {
     TransferContext.writeMethodArguments_TRANSFORM3D(ptr, objectID.id, constant)
-    TransferContext.callMethod(MethodBindings.setConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.setConstantPtr, 0)
   }
 
   public final fun getConstant(): Transform3D {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConstantPtr, 18)
     return TransferContext.readReturnValue_TRANSFORM3D()
   }
 

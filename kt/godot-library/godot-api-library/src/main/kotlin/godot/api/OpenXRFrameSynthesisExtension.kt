@@ -64,30 +64,30 @@ public open class OpenXRFrameSynthesisExtension : OpenXRExtensionWrapper() {
    */
   public final fun isAvailable(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAvailablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isAvailablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun isEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnabledPtr, 0)
   }
 
   public final fun getRelaxFrameInterval(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRelaxFrameIntervalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRelaxFrameIntervalPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRelaxFrameInterval(relaxFrameInterval: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, relaxFrameInterval)
-    TransferContext.callMethod(MethodBindings.setRelaxFrameIntervalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRelaxFrameIntervalPtr, 0)
   }
 
   /**
@@ -97,7 +97,7 @@ public open class OpenXRFrameSynthesisExtension : OpenXRExtensionWrapper() {
    */
   public final fun skipNextFrame(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.skipNextFramePtr)
+    TransferContext.callPtrMethod(MethodBindings.skipNextFramePtr, 0)
   }
 
   public companion object {

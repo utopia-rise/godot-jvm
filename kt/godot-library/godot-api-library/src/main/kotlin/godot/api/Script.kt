@@ -72,7 +72,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun canInstantiate(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.canInstantiatePtr)
+    TransferContext.callPtrMethod(MethodBindings.canInstantiatePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -86,7 +86,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun hasSourceCode(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasSourceCodePtr)
+    TransferContext.callPtrMethod(MethodBindings.hasSourceCodePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -107,7 +107,7 @@ public open class Script internal constructor() : Resource() {
   @JvmOverloads
   public final fun reload(keepState: Boolean = false): Error {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, keepState)
-    TransferContext.callMethod(MethodBindings.reloadPtr)
+    TransferContext.callPtrMethod(MethodBindings.reloadPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -116,7 +116,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun getBaseScript(): Script? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBaseScriptPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBaseScriptPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Script?)
   }
 
@@ -163,7 +163,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun hasScriptMethod(methodName: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, methodName)
-    TransferContext.callMethod(MethodBindings.hasScriptMethodPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasScriptMethodPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -172,7 +172,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun hasScriptSignal(signalName: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signalName)
-    TransferContext.callMethod(MethodBindings.hasScriptSignalPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasScriptSignalPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -235,7 +235,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun isTool(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isToolPtr)
+    TransferContext.callPtrMethod(MethodBindings.isToolPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -245,7 +245,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun isAbstract(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAbstractPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAbstractPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -263,7 +263,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun instanceHas(baseObject: Object?): Boolean {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, baseObject)
-    TransferContext.callMethod(MethodBindings.instanceHasPtr)
+    TransferContext.callPtrMethod(MethodBindings.instanceHasPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

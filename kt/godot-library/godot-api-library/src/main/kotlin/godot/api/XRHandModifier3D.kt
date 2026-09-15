@@ -67,7 +67,7 @@ public open class XRHandModifier3D : SkeletonModifier3D() {
 
   public final fun setHandTracker(trackerName: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, trackerName)
-    TransferContext.callMethod(MethodBindings.setHandTrackerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHandTrackerPtr, 0)
   }
 
   public final fun getHandTracker(): StringName {
@@ -78,12 +78,12 @@ public open class XRHandModifier3D : SkeletonModifier3D() {
 
   public final fun setBoneUpdate(boneUpdate: BoneUpdate): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneUpdate.value)
-    TransferContext.callMethod(MethodBindings.setBoneUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBoneUpdatePtr, 0)
   }
 
   public final fun getBoneUpdate(): BoneUpdate {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneUpdatePtr, 2)
     return BoneUpdate.from(TransferContext.readReturnValue_LONG())
   }
 

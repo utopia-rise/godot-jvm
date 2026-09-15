@@ -267,23 +267,23 @@ public open class CanvasLayer : Node() {
 
   public final fun setLayer(layer: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
-    TransferContext.callMethod(MethodBindings.setLayerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLayerPtr, 0)
   }
 
   public final fun getLayer(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLayerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLayerPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setVisible(visible: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
-    TransferContext.callMethod(MethodBindings.setVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.setVisiblePtr, 0)
   }
 
   public final fun isVisible(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.isVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -293,7 +293,7 @@ public open class CanvasLayer : Node() {
    */
   public final fun show(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.showPtr)
+    TransferContext.callPtrMethod(MethodBindings.showPtr, 0)
   }
 
   /**
@@ -302,17 +302,17 @@ public open class CanvasLayer : Node() {
    */
   public final fun hide(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hidePtr)
+    TransferContext.callPtrMethod(MethodBindings.hidePtr, 0)
   }
 
   public final fun setTransform(transform: Transform2D): Unit {
     TransferContext.writeMethodArguments_TRANSFORM2D(ptr, objectID.id, transform)
-    TransferContext.callMethod(MethodBindings.setTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTransformPtr, 0)
   }
 
   public final fun getTransform(): Transform2D {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransformPtr, 11)
     return TransferContext.readReturnValue_TRANSFORM2D()
   }
 
@@ -322,73 +322,73 @@ public open class CanvasLayer : Node() {
    */
   public final fun getFinalTransform(): Transform2D {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFinalTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFinalTransformPtr, 11)
     return TransferContext.readReturnValue_TRANSFORM2D()
   }
 
   public final fun setOffset(offset: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callMethod(MethodBindings.setOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOffsetPtr, 0)
   }
 
   public final fun getOffset(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOffsetPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setRotation(radians: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radians.toDouble())
-    TransferContext.callMethod(MethodBindings.setRotationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRotationPtr, 0)
   }
 
   public final fun getRotation(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRotationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRotationPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setScale(scale: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, scale)
-    TransferContext.callMethod(MethodBindings.setScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setScalePtr, 0)
   }
 
   public final fun getScale(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.getScalePtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setFollowViewport(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setFollowViewportPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFollowViewportPtr, 0)
   }
 
   public final fun isFollowingViewport(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFollowingViewportPtr)
+    TransferContext.callPtrMethod(MethodBindings.isFollowingViewportPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFollowViewportScale(scale: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, scale.toDouble())
-    TransferContext.callMethod(MethodBindings.setFollowViewportScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.setFollowViewportScalePtr, 0)
   }
 
   public final fun getFollowViewportScale(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFollowViewportScalePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFollowViewportScalePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setCustomViewport(viewport: Node?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, viewport)
-    TransferContext.callMethod(MethodBindings.setCustomViewportPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCustomViewportPtr, 0)
   }
 
   public final fun getCustomViewport(): Node? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomViewportPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCustomViewportPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
@@ -397,7 +397,7 @@ public open class CanvasLayer : Node() {
    */
   public final fun getCanvas(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCanvasPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCanvasPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 

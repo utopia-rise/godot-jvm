@@ -80,7 +80,7 @@ public open class StreamPeerTCP : StreamPeerSocket() {
    */
   public final fun getConnectedPort(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectedPortPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectedPortPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -89,7 +89,7 @@ public open class StreamPeerTCP : StreamPeerSocket() {
    */
   public final fun getLocalPort(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalPortPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocalPortPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -103,7 +103,7 @@ public open class StreamPeerTCP : StreamPeerSocket() {
    */
   public final fun setNoDelay(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setNoDelayPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNoDelayPtr, 0)
   }
 
   public companion object {

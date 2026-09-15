@@ -84,12 +84,12 @@ public open class ZIPPacker : RefCounted() {
 
   public final fun setCompressionLevel(compressionLevel: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, compressionLevel.toLong())
-    TransferContext.callMethod(MethodBindings.setCompressionLevelPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCompressionLevelPtr, 0)
   }
 
   public final fun getCompressionLevel(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCompressionLevelPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCompressionLevelPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -134,7 +134,7 @@ public open class ZIPPacker : RefCounted() {
    */
   public final fun writeFile(`data`: PackedByteArray): Error {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, data)
-    TransferContext.callMethod(MethodBindings.writeFilePtr)
+    TransferContext.callPtrMethod(MethodBindings.writeFilePtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -145,7 +145,7 @@ public open class ZIPPacker : RefCounted() {
    */
   public final fun closeFile(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closeFilePtr)
+    TransferContext.callPtrMethod(MethodBindings.closeFilePtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -154,7 +154,7 @@ public open class ZIPPacker : RefCounted() {
    */
   public final fun close(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closePtr)
+    TransferContext.callPtrMethod(MethodBindings.closePtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 

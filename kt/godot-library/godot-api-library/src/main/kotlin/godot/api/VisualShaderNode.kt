@@ -80,18 +80,18 @@ public open class VisualShaderNode internal constructor() : Resource() {
    */
   public final fun getDefaultInputPort(type: PortType): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
-    TransferContext.callMethod(MethodBindings.getDefaultInputPortPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultInputPortPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setOutputPortForPreview(port: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, port.toLong())
-    TransferContext.callMethod(MethodBindings.setOutputPortForPreviewPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOutputPortForPreviewPtr, 0)
   }
 
   public final fun getOutputPortForPreview(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOutputPortForPreviewPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOutputPortForPreviewPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -122,7 +122,7 @@ public open class VisualShaderNode internal constructor() : Resource() {
    */
   public final fun removeInputPortDefaultValue(port: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, port.toLong())
-    TransferContext.callMethod(MethodBindings.removeInputPortDefaultValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.removeInputPortDefaultValuePtr, 0)
   }
 
   /**
@@ -130,7 +130,7 @@ public open class VisualShaderNode internal constructor() : Resource() {
    */
   public final fun clearDefaultInputValues(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearDefaultInputValuesPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearDefaultInputValuesPtr, 0)
   }
 
   /**
@@ -139,7 +139,7 @@ public open class VisualShaderNode internal constructor() : Resource() {
    */
   public final fun setDefaultInputValues(values: VariantArray<Any?>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, values)
-    TransferContext.callMethod(MethodBindings.setDefaultInputValuesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultInputValuesPtr, 0)
   }
 
   /**
@@ -154,12 +154,12 @@ public open class VisualShaderNode internal constructor() : Resource() {
 
   public final fun setFrame(frame: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frame.toLong())
-    TransferContext.callMethod(MethodBindings.setFramePtr)
+    TransferContext.callPtrMethod(MethodBindings.setFramePtr, 0)
   }
 
   public final fun getFrame(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFramePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFramePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

@@ -116,7 +116,7 @@ public object Performance : Object() {
   @JvmStatic
   public final fun getMonitor(monitor: Monitor): Double {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, monitor.value)
-    TransferContext.callMethod(MethodBindings.getMonitorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMonitorPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
@@ -203,7 +203,7 @@ public object Performance : Object() {
   @JvmStatic
   public final fun removeCustomMonitor(id: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.removeCustomMonitorPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeCustomMonitorPtr, 0)
   }
 
   /**
@@ -212,7 +212,7 @@ public object Performance : Object() {
   @JvmStatic
   public final fun hasCustomMonitor(id: StringName): Boolean {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.hasCustomMonitorPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasCustomMonitorPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -234,7 +234,7 @@ public object Performance : Object() {
   @JvmStatic
   public final fun getMonitorModificationTime(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMonitorModificationTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMonitorModificationTimePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

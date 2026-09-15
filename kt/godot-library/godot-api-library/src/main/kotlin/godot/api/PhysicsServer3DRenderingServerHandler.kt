@@ -54,7 +54,7 @@ public abstract class PhysicsServer3DRenderingServerHandler : Object() {
    */
   public final fun setVertex(vertexId: Int, vertex: Vector3): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, vertexId.toLong(), vertex)
-    TransferContext.callMethod(MethodBindings.setVertexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVertexPtr, 0)
   }
 
   /**
@@ -62,7 +62,7 @@ public abstract class PhysicsServer3DRenderingServerHandler : Object() {
    */
   public final fun setNormal(vertexId: Int, normal: Vector3): Unit {
     TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, vertexId.toLong(), normal)
-    TransferContext.callMethod(MethodBindings.setNormalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNormalPtr, 0)
   }
 
   /**
@@ -70,7 +70,7 @@ public abstract class PhysicsServer3DRenderingServerHandler : Object() {
    */
   public final fun setAabb(aabb: AABB): Unit {
     TransferContext.writeMethodArguments_AABB(ptr, objectID.id, aabb)
-    TransferContext.callMethod(MethodBindings.setAabbPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAabbPtr, 0)
   }
 
   public companion object {

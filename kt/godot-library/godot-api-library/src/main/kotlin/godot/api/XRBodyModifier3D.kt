@@ -85,7 +85,7 @@ public open class XRBodyModifier3D : SkeletonModifier3D() {
 
   public final fun setBodyTracker(trackerName: StringName): Unit {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, trackerName)
-    TransferContext.callMethod(MethodBindings.setBodyTrackerPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBodyTrackerPtr, 0)
   }
 
   public final fun getBodyTracker(): StringName {
@@ -96,23 +96,23 @@ public open class XRBodyModifier3D : SkeletonModifier3D() {
 
   public final fun setBodyUpdate(bodyUpdate: BodyUpdate): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bodyUpdate.flag)
-    TransferContext.callMethod(MethodBindings.setBodyUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBodyUpdatePtr, 0)
   }
 
   public final fun getBodyUpdate(): BodyUpdate {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBodyUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBodyUpdatePtr, 2)
     return BodyUpdate(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setBoneUpdate(boneUpdate: BoneUpdate): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneUpdate.value)
-    TransferContext.callMethod(MethodBindings.setBoneUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBoneUpdatePtr, 0)
   }
 
   public final fun getBoneUpdate(): BoneUpdate {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneUpdatePtr, 2)
     return BoneUpdate.from(TransferContext.readReturnValue_LONG())
   }
 

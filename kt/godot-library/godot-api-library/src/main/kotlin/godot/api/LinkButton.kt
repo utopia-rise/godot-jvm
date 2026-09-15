@@ -171,12 +171,12 @@ public open class LinkButton : BaseButton() {
 
   public final fun setTextOverrunBehavior(overrunBehavior: TextServer.OverrunBehavior): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, overrunBehavior.value)
-    TransferContext.callMethod(MethodBindings.setTextOverrunBehaviorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextOverrunBehaviorPtr, 0)
   }
 
   public final fun getTextOverrunBehavior(): TextServer.OverrunBehavior {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextOverrunBehaviorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextOverrunBehaviorPtr, 2)
     return TextServer.OverrunBehavior.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -193,12 +193,12 @@ public open class LinkButton : BaseButton() {
 
   public final fun setTextDirection(direction: Control.TextDirection): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, direction.value)
-    TransferContext.callMethod(MethodBindings.setTextDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextDirectionPtr, 0)
   }
 
   public final fun getTextDirection(): Control.TextDirection {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextDirectionPtr, 2)
     return Control.TextDirection.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -226,29 +226,29 @@ public open class LinkButton : BaseButton() {
 
   public final fun setUnderlineMode(underlineMode: UnderlineMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, underlineMode.value)
-    TransferContext.callMethod(MethodBindings.setUnderlineModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setUnderlineModePtr, 0)
   }
 
   public final fun getUnderlineMode(): UnderlineMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUnderlineModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getUnderlineModePtr, 2)
     return UnderlineMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setStructuredTextBidiOverride(parser: TextServer.StructuredTextParser): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, parser.value)
-    TransferContext.callMethod(MethodBindings.setStructuredTextBidiOverridePtr)
+    TransferContext.callPtrMethod(MethodBindings.setStructuredTextBidiOverridePtr, 0)
   }
 
   public final fun getStructuredTextBidiOverride(): TextServer.StructuredTextParser {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStructuredTextBidiOverridePtr)
+    TransferContext.callPtrMethod(MethodBindings.getStructuredTextBidiOverridePtr, 2)
     return TextServer.StructuredTextParser.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setStructuredTextBidiOverrideOptions(args: VariantArray<Any?>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, args)
-    TransferContext.callMethod(MethodBindings.setStructuredTextBidiOverrideOptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStructuredTextBidiOverrideOptionsPtr, 0)
   }
 
   public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> {

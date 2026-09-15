@@ -85,7 +85,7 @@ public open class XMLParser : RefCounted() {
    */
   public final fun read(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.readPtr)
+    TransferContext.callPtrMethod(MethodBindings.readPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -94,7 +94,7 @@ public open class XMLParser : RefCounted() {
    */
   public final fun getNodeType(): NodeType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodeTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeTypePtr, 2)
     return NodeType.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -127,7 +127,7 @@ public open class XMLParser : RefCounted() {
    */
   public final fun getNodeOffset(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodeOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeOffsetPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -139,7 +139,7 @@ public open class XMLParser : RefCounted() {
    */
   public final fun getAttributeCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAttributeCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAttributeCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -196,7 +196,7 @@ public open class XMLParser : RefCounted() {
    */
   public final fun isEmpty(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEmptyPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEmptyPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -205,7 +205,7 @@ public open class XMLParser : RefCounted() {
    */
   public final fun getCurrentLine(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurrentLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurrentLinePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -215,7 +215,7 @@ public open class XMLParser : RefCounted() {
    */
   public final fun skipSection(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.skipSectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.skipSectionPtr, 0)
   }
 
   /**
@@ -224,7 +224,7 @@ public open class XMLParser : RefCounted() {
    */
   public final fun seek(position: Long): Error {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.seekPtr)
+    TransferContext.callPtrMethod(MethodBindings.seekPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -242,7 +242,7 @@ public open class XMLParser : RefCounted() {
    */
   public final fun openBuffer(buffer: PackedByteArray): Error {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callMethod(MethodBindings.openBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.openBufferPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 

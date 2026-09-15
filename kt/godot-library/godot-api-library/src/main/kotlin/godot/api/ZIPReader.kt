@@ -93,7 +93,7 @@ public open class ZIPReader : RefCounted() {
    */
   public final fun close(): Error {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closePtr)
+    TransferContext.callPtrMethod(MethodBindings.closePtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 

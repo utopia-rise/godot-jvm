@@ -119,7 +119,7 @@ public open class MultiplayerSpawner : Node() {
    */
   public final fun getSpawnableSceneCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpawnableSceneCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpawnableSceneCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -137,7 +137,7 @@ public open class MultiplayerSpawner : Node() {
    */
   public final fun clearSpawnableScenes(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearSpawnableScenesPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearSpawnableScenesPtr, 0)
   }
 
   /**
@@ -162,18 +162,18 @@ public open class MultiplayerSpawner : Node() {
 
   public final fun setSpawnPath(path: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.setSpawnPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSpawnPathPtr, 0)
   }
 
   public final fun getSpawnLimit(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpawnLimitPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpawnLimitPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setSpawnLimit(limit: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, limit)
-    TransferContext.callMethod(MethodBindings.setSpawnLimitPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSpawnLimitPtr, 0)
   }
 
   public final fun getSpawnFunction(): Callable {

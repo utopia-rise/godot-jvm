@@ -130,7 +130,7 @@ public open class Crypto : RefCounted() {
    */
   public final fun generateRsa(size: Int): CryptoKey? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callMethod(MethodBindings.generateRsaPtr)
+    TransferContext.callPtrMethod(MethodBindings.generateRsaPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as CryptoKey?)
   }
 
@@ -198,7 +198,7 @@ public open class Crypto : RefCounted() {
     key: CryptoKey?,
   ): Boolean {
     TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_OBJECT(ptr, objectID.id, hashType.value, hash, signature, key)
-    TransferContext.callMethod(MethodBindings.verifyPtr)
+    TransferContext.callPtrMethod(MethodBindings.verifyPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -251,7 +251,7 @@ public open class Crypto : RefCounted() {
   public final fun constantTimeCompare(trusted: PackedByteArray, received: PackedByteArray):
       Boolean {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY(ptr, objectID.id, trusted, received)
-    TransferContext.callMethod(MethodBindings.constantTimeComparePtr)
+    TransferContext.callPtrMethod(MethodBindings.constantTimeComparePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

@@ -39,7 +39,7 @@ public open class SkeletonModification2DStackHolder : SkeletonModification2D() {
   public final fun setHeldModificationStack(heldModificationStack: SkeletonModificationStack2D?):
       Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, heldModificationStack)
-    TransferContext.callMethod(MethodBindings.setHeldModificationStackPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHeldModificationStackPtr, 0)
   }
 
   /**
@@ -47,7 +47,7 @@ public open class SkeletonModification2DStackHolder : SkeletonModification2D() {
    */
   public final fun getHeldModificationStack(): SkeletonModificationStack2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeldModificationStackPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHeldModificationStackPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as SkeletonModificationStack2D?)
   }
 

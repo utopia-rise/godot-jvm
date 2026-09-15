@@ -69,7 +69,7 @@ public open class AudioEffectCapture : AudioEffect() {
    */
   public final fun canGetBuffer(frames: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frames.toLong())
-    TransferContext.callMethod(MethodBindings.canGetBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.canGetBufferPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -96,17 +96,17 @@ public open class AudioEffectCapture : AudioEffect() {
    */
   public final fun clearBuffer(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearBufferPtr, 0)
   }
 
   public final fun setBufferLength(bufferLengthSeconds: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, bufferLengthSeconds.toDouble())
-    TransferContext.callMethod(MethodBindings.setBufferLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBufferLengthPtr, 0)
   }
 
   public final fun getBufferLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBufferLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -115,7 +115,7 @@ public open class AudioEffectCapture : AudioEffect() {
    */
   public final fun getFramesAvailable(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFramesAvailablePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFramesAvailablePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -124,7 +124,7 @@ public open class AudioEffectCapture : AudioEffect() {
    */
   public final fun getDiscardedFrames(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDiscardedFramesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDiscardedFramesPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -133,7 +133,7 @@ public open class AudioEffectCapture : AudioEffect() {
    */
   public final fun getBufferLengthFrames(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferLengthFramesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBufferLengthFramesPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -142,7 +142,7 @@ public open class AudioEffectCapture : AudioEffect() {
    */
   public final fun getPushedFrames(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPushedFramesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPushedFramesPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

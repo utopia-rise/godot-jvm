@@ -48,7 +48,7 @@ public open class PacketPeerDTLS : PacketPeer() {
    */
   public final fun poll(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pollPtr)
+    TransferContext.callPtrMethod(MethodBindings.pollPtr, 0)
   }
 
   /**
@@ -73,7 +73,7 @@ public open class PacketPeerDTLS : PacketPeer() {
    */
   public final fun getStatus(): Status {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStatusPtr, 2)
     return Status.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -82,7 +82,7 @@ public open class PacketPeerDTLS : PacketPeer() {
    */
   public final fun disconnectFromPeer(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.disconnectFromPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.disconnectFromPeerPtr, 0)
   }
 
   public enum class Status(

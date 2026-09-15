@@ -89,45 +89,45 @@ public open class PhysicsMaterial : Resource() {
 
   public final fun setFriction(friction: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, friction.toDouble())
-    TransferContext.callMethod(MethodBindings.setFrictionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFrictionPtr, 0)
   }
 
   public final fun getFriction(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFrictionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFrictionPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRough(rough: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, rough)
-    TransferContext.callMethod(MethodBindings.setRoughPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRoughPtr, 0)
   }
 
   public final fun isRough(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRoughPtr)
+    TransferContext.callPtrMethod(MethodBindings.isRoughPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setBounce(bounce: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, bounce.toDouble())
-    TransferContext.callMethod(MethodBindings.setBouncePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBouncePtr, 0)
   }
 
   public final fun getBounce(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBouncePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBouncePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAbsorbent(absorbent: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, absorbent)
-    TransferContext.callMethod(MethodBindings.setAbsorbentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAbsorbentPtr, 0)
   }
 
   public final fun isAbsorbent(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAbsorbentPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAbsorbentPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

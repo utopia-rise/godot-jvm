@@ -98,56 +98,56 @@ public open class AudioEffectPhaser : AudioEffect() {
 
   public final fun setRangeMinHz(hz: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hz.toDouble())
-    TransferContext.callMethod(MethodBindings.setRangeMinHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRangeMinHzPtr, 0)
   }
 
   public final fun getRangeMinHz(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRangeMinHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRangeMinHzPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRangeMaxHz(hz: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hz.toDouble())
-    TransferContext.callMethod(MethodBindings.setRangeMaxHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRangeMaxHzPtr, 0)
   }
 
   public final fun getRangeMaxHz(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRangeMaxHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRangeMaxHzPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRateHz(hz: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hz.toDouble())
-    TransferContext.callMethod(MethodBindings.setRateHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRateHzPtr, 0)
   }
 
   public final fun getRateHz(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRateHzPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRateHzPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFeedback(fbk: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fbk.toDouble())
-    TransferContext.callMethod(MethodBindings.setFeedbackPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFeedbackPtr, 0)
   }
 
   public final fun getFeedback(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFeedbackPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFeedbackPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDepth(depth: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, depth.toDouble())
-    TransferContext.callMethod(MethodBindings.setDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDepthPtr, 0)
   }
 
   public final fun getDepth(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

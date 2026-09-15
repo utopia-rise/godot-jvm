@@ -244,45 +244,45 @@ public open class Button : BaseButton() {
 
   public final fun setTextOverrunBehavior(overrunBehavior: TextServer.OverrunBehavior): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, overrunBehavior.value)
-    TransferContext.callMethod(MethodBindings.setTextOverrunBehaviorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextOverrunBehaviorPtr, 0)
   }
 
   public final fun getTextOverrunBehavior(): TextServer.OverrunBehavior {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextOverrunBehaviorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextOverrunBehaviorPtr, 2)
     return TextServer.OverrunBehavior.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setAutowrapMode(autowrapMode: TextServer.AutowrapMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, autowrapMode.value)
-    TransferContext.callMethod(MethodBindings.setAutowrapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutowrapModePtr, 0)
   }
 
   public final fun getAutowrapMode(): TextServer.AutowrapMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutowrapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAutowrapModePtr, 2)
     return TextServer.AutowrapMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setAutowrapTrimFlags(autowrapTrimFlags: TextServer.LineBreakFlag): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, autowrapTrimFlags.flag)
-    TransferContext.callMethod(MethodBindings.setAutowrapTrimFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutowrapTrimFlagsPtr, 0)
   }
 
   public final fun getAutowrapTrimFlags(): TextServer.LineBreakFlag {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutowrapTrimFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAutowrapTrimFlagsPtr, 2)
     return TextServer.LineBreakFlag(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTextDirection(direction: Control.TextDirection): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, direction.value)
-    TransferContext.callMethod(MethodBindings.setTextDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextDirectionPtr, 0)
   }
 
   public final fun getTextDirection(): Control.TextDirection {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextDirectionPtr, 2)
     return Control.TextDirection.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -299,78 +299,78 @@ public open class Button : BaseButton() {
 
   public final fun setButtonIcon(texture: Texture2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.setButtonIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.setButtonIconPtr, 0)
   }
 
   public final fun getButtonIcon(): Texture2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getButtonIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.getButtonIconPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setFlat(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setFlatPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFlatPtr, 0)
   }
 
   public final fun isFlat(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFlatPtr)
+    TransferContext.callPtrMethod(MethodBindings.isFlatPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setClipText(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setClipTextPtr)
+    TransferContext.callPtrMethod(MethodBindings.setClipTextPtr, 0)
   }
 
   public final fun getClipText(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getClipTextPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClipTextPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setTextAlignment(alignment: HorizontalAlignment): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
-    TransferContext.callMethod(MethodBindings.setTextAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextAlignmentPtr, 0)
   }
 
   public final fun getTextAlignment(): HorizontalAlignment {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextAlignmentPtr, 2)
     return HorizontalAlignment.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setIconAlignment(iconAlignment: HorizontalAlignment): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, iconAlignment.value)
-    TransferContext.callMethod(MethodBindings.setIconAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIconAlignmentPtr, 0)
   }
 
   public final fun getIconAlignment(): HorizontalAlignment {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIconAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIconAlignmentPtr, 2)
     return HorizontalAlignment.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setVerticalIconAlignment(verticalIconAlignment: VerticalAlignment): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, verticalIconAlignment.value)
-    TransferContext.callMethod(MethodBindings.setVerticalIconAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVerticalIconAlignmentPtr, 0)
   }
 
   public final fun getVerticalIconAlignment(): VerticalAlignment {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVerticalIconAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVerticalIconAlignmentPtr, 2)
     return VerticalAlignment.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setExpandIcon(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setExpandIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExpandIconPtr, 0)
   }
 
   public final fun isExpandIcon(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isExpandIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.isExpandIconPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

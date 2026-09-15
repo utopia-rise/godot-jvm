@@ -53,7 +53,7 @@ public open class UDSServer : SocketServer() {
    */
   public final fun takeConnection(): StreamPeerUDS? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.takeConnectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.takeConnectionPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as StreamPeerUDS?)
   }
 

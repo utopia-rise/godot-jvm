@@ -142,73 +142,73 @@ public open class AudioStreamOggVorbis : AudioStream() {
 
   public final fun setPacketSequence(packetSequence: OggPacketSequence?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, packetSequence)
-    TransferContext.callMethod(MethodBindings.setPacketSequencePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPacketSequencePtr, 0)
   }
 
   public final fun getPacketSequence(): OggPacketSequence? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketSequencePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPacketSequencePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OggPacketSequence?)
   }
 
   public final fun setLoop(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setLoopPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLoopPtr, 0)
   }
 
   public final fun hasLoop(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasLoopPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasLoopPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setLoopOffset(seconds: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, seconds)
-    TransferContext.callMethod(MethodBindings.setLoopOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLoopOffsetPtr, 0)
   }
 
   public final fun getLoopOffset(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoopOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLoopOffsetPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setBpm(bpm: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, bpm)
-    TransferContext.callMethod(MethodBindings.setBpmPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBpmPtr, 0)
   }
 
   public final fun getBpm(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBpmPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBpmPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setBeatCount(count: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.setBeatCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBeatCountPtr, 0)
   }
 
   public final fun getBeatCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBeatCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBeatCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setBarBeats(count: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.setBarBeatsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBarBeatsPtr, 0)
   }
 
   public final fun getBarBeats(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBarBeatsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBarBeatsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setTags(tags: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, tags)
-    TransferContext.callMethod(MethodBindings.setTagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTagsPtr, 0)
   }
 
   public final fun getTags(): Dictionary<Any?, Any?> {
@@ -299,7 +299,7 @@ public open class AudioStreamOggVorbis : AudioStream() {
     @JvmStatic
     public final fun loadFromBuffer(streamData: PackedByteArray): AudioStreamOggVorbis? {
       TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(0L, 0L, streamData)
-      TransferContext.callMethod(MethodBindings.loadFromBufferPtr)
+      TransferContext.callPtrMethod(MethodBindings.loadFromBufferPtr, 39)
       return (TransferContext.readReturnValue_OBJECT() as AudioStreamOggVorbis?)
     }
 

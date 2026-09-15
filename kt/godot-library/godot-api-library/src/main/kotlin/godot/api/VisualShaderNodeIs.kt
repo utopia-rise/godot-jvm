@@ -44,12 +44,12 @@ public open class VisualShaderNodeIs : VisualShaderNode() {
 
   public final fun setFunction(func: Function): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, func.value)
-    TransferContext.callMethod(MethodBindings.setFunctionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFunctionPtr, 0)
   }
 
   public final fun getFunction(): Function {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFunctionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFunctionPtr, 2)
     return Function.from(TransferContext.readReturnValue_LONG())
   }
 

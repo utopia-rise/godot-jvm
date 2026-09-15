@@ -186,67 +186,67 @@ public open class CollisionShape2D : Node2D() {
 
   public final fun setShape(shape: Shape2D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, shape)
-    TransferContext.callMethod(MethodBindings.setShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.setShapePtr, 0)
   }
 
   public final fun getShape(): Shape2D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.getShapePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Shape2D?)
   }
 
   public final fun setDisabled(disabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, disabled)
-    TransferContext.callMethod(MethodBindings.setDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDisabledPtr, 0)
   }
 
   public final fun isDisabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDisabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setOneWayCollision(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setOneWayCollisionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOneWayCollisionPtr, 0)
   }
 
   public final fun isOneWayCollisionEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isOneWayCollisionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isOneWayCollisionEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setOneWayCollisionMargin(margin: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, margin.toDouble())
-    TransferContext.callMethod(MethodBindings.setOneWayCollisionMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOneWayCollisionMarginPtr, 0)
   }
 
   public final fun getOneWayCollisionMargin(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOneWayCollisionMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOneWayCollisionMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOneWayCollisionDirection(direction: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, direction)
-    TransferContext.callMethod(MethodBindings.setOneWayCollisionDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOneWayCollisionDirectionPtr, 0)
   }
 
   public final fun getOneWayCollisionDirection(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOneWayCollisionDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOneWayCollisionDirectionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setDebugColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setDebugColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDebugColorPtr, 0)
   }
 
   public final fun getDebugColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDebugColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDebugColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 

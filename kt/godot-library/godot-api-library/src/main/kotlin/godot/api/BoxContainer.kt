@@ -67,29 +67,29 @@ public open class BoxContainer : Container() {
    */
   public final fun addSpacer(begin: Boolean): Control? {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, begin)
-    TransferContext.callMethod(MethodBindings.addSpacerPtr)
+    TransferContext.callPtrMethod(MethodBindings.addSpacerPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Control?)
   }
 
   public final fun setAlignment(alignment: AlignmentMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
-    TransferContext.callMethod(MethodBindings.setAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAlignmentPtr, 0)
   }
 
   public final fun getAlignment(): AlignmentMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAlignmentPtr, 2)
     return AlignmentMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setVertical(vertical: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, vertical)
-    TransferContext.callMethod(MethodBindings.setVerticalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVerticalPtr, 0)
   }
 
   public final fun isVertical(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isVerticalPtr)
+    TransferContext.callPtrMethod(MethodBindings.isVerticalPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

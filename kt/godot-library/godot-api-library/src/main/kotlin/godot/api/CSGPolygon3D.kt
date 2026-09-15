@@ -318,7 +318,7 @@ public open class CSGPolygon3D : CSGPrimitive3D() {
 
   public final fun setPolygon(polygon: PackedVector2Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, polygon)
-    TransferContext.callMethod(MethodBindings.setPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPolygonPtr, 0)
   }
 
   public final fun getPolygon(): PackedVector2Array {
@@ -329,51 +329,51 @@ public open class CSGPolygon3D : CSGPrimitive3D() {
 
   public final fun setMode(mode: Mode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setModePtr, 0)
   }
 
   public final fun getMode(): Mode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getModePtr, 2)
     return Mode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setDepth(depth: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, depth.toDouble())
-    TransferContext.callMethod(MethodBindings.setDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDepthPtr, 0)
   }
 
   public final fun getDepth(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSpinDegrees(degrees: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, degrees.toDouble())
-    TransferContext.callMethod(MethodBindings.setSpinDegreesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSpinDegreesPtr, 0)
   }
 
   public final fun getSpinDegrees(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpinDegreesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpinDegreesPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSpinSides(spinSides: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, spinSides.toLong())
-    TransferContext.callMethod(MethodBindings.setSpinSidesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSpinSidesPtr, 0)
   }
 
   public final fun getSpinSides(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpinSidesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpinSidesPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setPathNode(path: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.setPathNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathNodePtr, 0)
   }
 
   public final fun getPathNode(): NodePath {
@@ -384,122 +384,122 @@ public open class CSGPolygon3D : CSGPrimitive3D() {
 
   public final fun setPathIntervalType(intervalType: PathIntervalType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, intervalType.value)
-    TransferContext.callMethod(MethodBindings.setPathIntervalTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathIntervalTypePtr, 0)
   }
 
   public final fun getPathIntervalType(): PathIntervalType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathIntervalTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPathIntervalTypePtr, 2)
     return PathIntervalType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPathInterval(interval: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, interval.toDouble())
-    TransferContext.callMethod(MethodBindings.setPathIntervalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathIntervalPtr, 0)
   }
 
   public final fun getPathInterval(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathIntervalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPathIntervalPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPathSimplifyAngle(degrees: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, degrees.toDouble())
-    TransferContext.callMethod(MethodBindings.setPathSimplifyAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathSimplifyAnglePtr, 0)
   }
 
   public final fun getPathSimplifyAngle(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathSimplifyAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPathSimplifyAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPathRotation(pathRotation: PathRotation): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pathRotation.value)
-    TransferContext.callMethod(MethodBindings.setPathRotationPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathRotationPtr, 0)
   }
 
   public final fun getPathRotation(): PathRotation {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathRotationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPathRotationPtr, 2)
     return PathRotation.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPathRotationAccurate(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setPathRotationAccuratePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathRotationAccuratePtr, 0)
   }
 
   public final fun getPathRotationAccurate(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathRotationAccuratePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPathRotationAccuratePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setPathLocal(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setPathLocalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathLocalPtr, 0)
   }
 
   public final fun isPathLocal(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPathLocalPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPathLocalPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setPathContinuousU(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setPathContinuousUPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathContinuousUPtr, 0)
   }
 
   public final fun isPathContinuousU(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPathContinuousUPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPathContinuousUPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setPathUDistance(distance: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
-    TransferContext.callMethod(MethodBindings.setPathUDistancePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathUDistancePtr, 0)
   }
 
   public final fun getPathUDistance(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathUDistancePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPathUDistancePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPathJoined(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setPathJoinedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPathJoinedPtr, 0)
   }
 
   public final fun isPathJoined(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPathJoinedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPathJoinedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMaterial(material: Material?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
-    TransferContext.callMethod(MethodBindings.setMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMaterialPtr, 0)
   }
 
   public final fun getMaterial(): Material? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaterialPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Material?)
   }
 
   public final fun setSmoothFaces(smoothFaces: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, smoothFaces)
-    TransferContext.callMethod(MethodBindings.setSmoothFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSmoothFacesPtr, 0)
   }
 
   public final fun getSmoothFaces(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSmoothFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSmoothFacesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

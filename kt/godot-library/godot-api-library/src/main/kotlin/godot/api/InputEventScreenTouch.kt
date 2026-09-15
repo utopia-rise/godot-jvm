@@ -125,44 +125,44 @@ public open class InputEventScreenTouch : InputEventFromWindow() {
 
   public final fun setIndex(index: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.setIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIndexPtr, 0)
   }
 
   public final fun getIndex(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setPosition(position: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.setPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPositionPtr, 0)
   }
 
   public final fun getPosition(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setPressed(pressed: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
-    TransferContext.callMethod(MethodBindings.setPressedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPressedPtr, 0)
   }
 
   public final fun setCanceled(canceled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, canceled)
-    TransferContext.callMethod(MethodBindings.setCanceledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCanceledPtr, 0)
   }
 
   public final fun setDoubleTap(doubleTap: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, doubleTap)
-    TransferContext.callMethod(MethodBindings.setDoubleTapPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDoubleTapPtr, 0)
   }
 
   public final fun isDoubleTap(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDoubleTapPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDoubleTapPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

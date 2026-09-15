@@ -199,77 +199,77 @@ public open class GradientTexture2D : Texture2D() {
 
   public final fun setGradient(gradient: Gradient?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, gradient)
-    TransferContext.callMethod(MethodBindings.setGradientPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGradientPtr, 0)
   }
 
   public final fun getGradient(): Gradient? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGradientPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGradientPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Gradient?)
   }
 
   public final fun setWidth(width: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
-    TransferContext.callMethod(MethodBindings.setWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setWidthPtr, 0)
   }
 
   public final fun setHeight(height: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, height.toLong())
-    TransferContext.callMethod(MethodBindings.setHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHeightPtr, 0)
   }
 
   public final fun setUseHdr(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setUseHdrPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseHdrPtr, 0)
   }
 
   public final fun isUsingHdr(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingHdrPtr)
+    TransferContext.callPtrMethod(MethodBindings.isUsingHdrPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFill(fill: Fill): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fill.value)
-    TransferContext.callMethod(MethodBindings.setFillPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFillPtr, 0)
   }
 
   public final fun getFill(): Fill {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFillPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFillPtr, 2)
     return Fill.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setFillFrom(fillFrom: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, fillFrom)
-    TransferContext.callMethod(MethodBindings.setFillFromPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFillFromPtr, 0)
   }
 
   public final fun getFillFrom(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFillFromPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFillFromPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setFillTo(fillTo: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, fillTo)
-    TransferContext.callMethod(MethodBindings.setFillToPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFillToPtr, 0)
   }
 
   public final fun getFillTo(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFillToPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFillToPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setRepeat(repeat: Repeat): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, repeat.value)
-    TransferContext.callMethod(MethodBindings.setRepeatPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRepeatPtr, 0)
   }
 
   public final fun getRepeat(): Repeat {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRepeatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRepeatPtr, 2)
     return Repeat.from(TransferContext.readReturnValue_LONG())
   }
 

@@ -36,7 +36,7 @@ public open class OpenXRSpatialComponentBounded3DList : OpenXRSpatialComponentDa
    */
   public final fun getCenterPose(index: Long): Transform3D {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getCenterPosePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCenterPosePtr, 18)
     return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
@@ -45,7 +45,7 @@ public open class OpenXRSpatialComponentBounded3DList : OpenXRSpatialComponentDa
    */
   public final fun getSize(index: Long): Vector3 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 9)
     return TransferContext.readReturnValue_VECTOR3()
   }
 

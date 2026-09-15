@@ -55,7 +55,7 @@ public open class OpenXRSpatialCapabilityConfigurationBaseHeader : RefCounted() 
    */
   public final fun hasValidConfiguration(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasValidConfigurationPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasValidConfigurationPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -66,7 +66,7 @@ public open class OpenXRSpatialCapabilityConfigurationBaseHeader : RefCounted() 
    */
   public final fun getConfiguration(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConfigurationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConfigurationPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

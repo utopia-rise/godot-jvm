@@ -48,7 +48,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getPosition(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -57,7 +57,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getNormal(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNormalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNormalPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -66,7 +66,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getTravel(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTravelPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTravelPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -75,7 +75,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getRemainder(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRemainderPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRemainderPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -86,7 +86,7 @@ public open class KinematicCollision2D : RefCounted() {
   @JvmOverloads
   public final fun getAngle(upDirection: Vector2 = Vector2(0, -1)): Float {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, upDirection)
-    TransferContext.callMethod(MethodBindings.getAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -95,7 +95,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getDepth(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -104,7 +104,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getLocalShape(): Object? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocalShapePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Object?)
   }
 
@@ -113,7 +113,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getCollider(): Object? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColliderPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColliderPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Object?)
   }
 
@@ -123,7 +123,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getColliderId(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColliderIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColliderIdPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -132,7 +132,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getColliderRid(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColliderRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColliderRidPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
@@ -141,7 +141,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getColliderShape(): Object? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColliderShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.getColliderShapePtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Object?)
   }
 
@@ -150,7 +150,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getColliderShapeIndex(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColliderShapeIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColliderShapeIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -159,7 +159,7 @@ public open class KinematicCollision2D : RefCounted() {
    */
   public final fun getColliderVelocity(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColliderVelocityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColliderVelocityPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

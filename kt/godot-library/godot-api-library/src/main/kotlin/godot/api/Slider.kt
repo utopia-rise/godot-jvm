@@ -109,56 +109,56 @@ public open class Slider internal constructor() : Range() {
 
   public final fun setTicks(count: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callMethod(MethodBindings.setTicksPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTicksPtr, 0)
   }
 
   public final fun getTicks(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTicksPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTicksPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun getTicksOnBorders(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTicksOnBordersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTicksOnBordersPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setTicksOnBorders(ticksOnBorder: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, ticksOnBorder)
-    TransferContext.callMethod(MethodBindings.setTicksOnBordersPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTicksOnBordersPtr, 0)
   }
 
   public final fun getTicksPosition(): TickPosition {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTicksPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTicksPositionPtr, 2)
     return TickPosition.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTicksPosition(ticksOnBorder: TickPosition): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, ticksOnBorder.value)
-    TransferContext.callMethod(MethodBindings.setTicksPositionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTicksPositionPtr, 0)
   }
 
   public final fun setEditable(editable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, editable)
-    TransferContext.callMethod(MethodBindings.setEditablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setEditablePtr, 0)
   }
 
   public final fun isEditable(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEditablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isEditablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setScrollable(scrollable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, scrollable)
-    TransferContext.callMethod(MethodBindings.setScrollablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setScrollablePtr, 0)
   }
 
   public final fun isScrollable(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isScrollablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isScrollablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

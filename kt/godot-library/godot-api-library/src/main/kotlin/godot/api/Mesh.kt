@@ -179,12 +179,12 @@ public abstract class Mesh : Resource() {
 
   public final fun setLightmapSizeHint(size: Vector2i): Unit {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, size)
-    TransferContext.callMethod(MethodBindings.setLightmapSizeHintPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLightmapSizeHintPtr, 0)
   }
 
   public final fun getLightmapSizeHint(): Vector2i {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLightmapSizeHintPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLightmapSizeHintPtr, 6)
     return TransferContext.readReturnValue_VECTOR2I()
   }
 
@@ -195,7 +195,7 @@ public abstract class Mesh : Resource() {
    */
   public final fun getAabb(): AABB {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAabbPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAabbPtr, 16)
     return TransferContext.readReturnValue_AABB()
   }
 
@@ -215,7 +215,7 @@ public abstract class Mesh : Resource() {
    */
   public final fun getSurfaceCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSurfaceCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSurfaceCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -248,7 +248,7 @@ public abstract class Mesh : Resource() {
    */
   public final fun surfaceSetMaterial(surfIdx: Int, material: Material?): Unit {
     TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, surfIdx.toLong(), material)
-    TransferContext.callMethod(MethodBindings.surfaceSetMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceSetMaterialPtr, 0)
   }
 
   /**
@@ -261,7 +261,7 @@ public abstract class Mesh : Resource() {
    */
   public final fun surfaceGetMaterial(surfIdx: Int): Material? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, surfIdx.toLong())
-    TransferContext.callMethod(MethodBindings.surfaceGetMaterialPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceGetMaterialPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Material?)
   }
 
@@ -270,7 +270,7 @@ public abstract class Mesh : Resource() {
    */
   public final fun createPlaceholder(): Resource? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createPlaceholderPtr)
+    TransferContext.callPtrMethod(MethodBindings.createPlaceholderPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Resource?)
   }
 
@@ -279,7 +279,7 @@ public abstract class Mesh : Resource() {
    */
   public final fun createTrimeshShape(): ConcavePolygonShape3D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createTrimeshShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.createTrimeshShapePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as ConcavePolygonShape3D?)
   }
 
@@ -296,7 +296,7 @@ public abstract class Mesh : Resource() {
   public final fun createConvexShape(clean: Boolean = true, simplify: Boolean = false):
       ConvexPolygonShape3D? {
     TransferContext.writeMethodArguments_BOOL_BOOL(ptr, objectID.id, clean, simplify)
-    TransferContext.callMethod(MethodBindings.createConvexShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.createConvexShapePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as ConvexPolygonShape3D?)
   }
 
@@ -308,7 +308,7 @@ public abstract class Mesh : Resource() {
    */
   public final fun createOutline(margin: Float): Mesh? {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, margin.toDouble())
-    TransferContext.callMethod(MethodBindings.createOutlinePtr)
+    TransferContext.callPtrMethod(MethodBindings.createOutlinePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Mesh?)
   }
 
@@ -318,7 +318,7 @@ public abstract class Mesh : Resource() {
    */
   public final fun generateTriangleMesh(): TriangleMesh? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.generateTriangleMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.generateTriangleMeshPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as TriangleMesh?)
   }
 

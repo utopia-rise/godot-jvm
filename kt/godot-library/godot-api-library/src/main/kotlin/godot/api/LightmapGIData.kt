@@ -91,7 +91,7 @@ public open class LightmapGIData : Resource() {
 
   public final fun setLightmapTextures(lightTextures: VariantArray<TextureLayered>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, lightTextures)
-    TransferContext.callMethod(MethodBindings.setLightmapTexturesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLightmapTexturesPtr, 0)
   }
 
   public final fun getLightmapTextures(): VariantArray<TextureLayered> {
@@ -102,7 +102,7 @@ public open class LightmapGIData : Resource() {
 
   public final fun setShadowmaskTextures(shadowmaskTextures: VariantArray<TextureLayered>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, shadowmaskTextures)
-    TransferContext.callMethod(MethodBindings.setShadowmaskTexturesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShadowmaskTexturesPtr, 0)
   }
 
   public final fun getShadowmaskTextures(): VariantArray<TextureLayered> {
@@ -122,7 +122,7 @@ public open class LightmapGIData : Resource() {
    */
   public final fun setUsesSphericalHarmonics(usesSphericalHarmonics: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, usesSphericalHarmonics)
-    TransferContext.callMethod(MethodBindings.setUsesSphericalHarmonicsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUsesSphericalHarmonicsPtr, 0)
   }
 
   /**
@@ -131,7 +131,7 @@ public open class LightmapGIData : Resource() {
    */
   public final fun isUsingSphericalHarmonics(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingSphericalHarmonicsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isUsingSphericalHarmonicsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -145,7 +145,7 @@ public open class LightmapGIData : Resource() {
     subInstance: Int,
   ): Unit {
     TransferContext.writeMethodArguments_NODE_PATH_RECT2_LONG_LONG(ptr, objectID.id, path, uvScale, sliceIndex.toLong(), subInstance.toLong())
-    TransferContext.callMethod(MethodBindings.addUserPtr)
+    TransferContext.callPtrMethod(MethodBindings.addUserPtr, 0)
   }
 
   /**
@@ -153,7 +153,7 @@ public open class LightmapGIData : Resource() {
    */
   public final fun getUserCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUserCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUserCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -171,17 +171,17 @@ public open class LightmapGIData : Resource() {
    */
   public final fun clearUsers(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearUsersPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearUsersPtr, 0)
   }
 
   public final fun setLightTexture(lightTexture: TextureLayered?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, lightTexture)
-    TransferContext.callMethod(MethodBindings.setLightTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.setLightTexturePtr, 0)
   }
 
   public final fun getLightTexture(): TextureLayered? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLightTexturePtr)
+    TransferContext.callPtrMethod(MethodBindings.getLightTexturePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as TextureLayered?)
   }
 

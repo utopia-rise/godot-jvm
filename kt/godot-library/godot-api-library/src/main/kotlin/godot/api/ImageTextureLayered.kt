@@ -78,7 +78,7 @@ public open class ImageTextureLayered internal constructor() : TextureLayered() 
    */
   public final fun createFromImages(images: VariantArray<Image>): Error {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, images)
-    TransferContext.callMethod(MethodBindings.createFromImagesPtr)
+    TransferContext.callPtrMethod(MethodBindings.createFromImagesPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -95,7 +95,7 @@ public open class ImageTextureLayered internal constructor() : TextureLayered() 
    */
   public final fun updateLayer(image: Image?, layer: Int): Unit {
     TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, image, layer.toLong())
-    TransferContext.callMethod(MethodBindings.updateLayerPtr)
+    TransferContext.callPtrMethod(MethodBindings.updateLayerPtr, 0)
   }
 
   /**

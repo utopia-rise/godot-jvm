@@ -90,56 +90,56 @@ public open class VisualShaderNodeTextureParameter internal constructor() :
 
   public final fun setTextureType(type: TextureType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
-    TransferContext.callMethod(MethodBindings.setTextureTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureTypePtr, 0)
   }
 
   public final fun getTextureType(): TextureType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureTypePtr, 2)
     return TextureType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setColorDefault(color: ColorDefault): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, color.value)
-    TransferContext.callMethod(MethodBindings.setColorDefaultPtr)
+    TransferContext.callPtrMethod(MethodBindings.setColorDefaultPtr, 0)
   }
 
   public final fun getColorDefault(): ColorDefault {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorDefaultPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorDefaultPtr, 2)
     return ColorDefault.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTextureFilter(filter: TextureFilter): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, filter.value)
-    TransferContext.callMethod(MethodBindings.setTextureFilterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureFilterPtr, 0)
   }
 
   public final fun getTextureFilter(): TextureFilter {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureFilterPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureFilterPtr, 2)
     return TextureFilter.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTextureRepeat(repeat: TextureRepeat): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, repeat.value)
-    TransferContext.callMethod(MethodBindings.setTextureRepeatPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureRepeatPtr, 0)
   }
 
   public final fun getTextureRepeat(): TextureRepeat {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureRepeatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureRepeatPtr, 2)
     return TextureRepeat.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTextureSource(source: TextureSource): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, source.value)
-    TransferContext.callMethod(MethodBindings.setTextureSourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextureSourcePtr, 0)
   }
 
   public final fun getTextureSource(): TextureSource {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureSourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureSourcePtr, 2)
     return TextureSource.from(TransferContext.readReturnValue_LONG())
   }
 

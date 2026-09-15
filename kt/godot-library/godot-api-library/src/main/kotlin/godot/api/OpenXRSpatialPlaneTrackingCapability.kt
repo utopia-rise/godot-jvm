@@ -40,7 +40,7 @@ public open class OpenXRSpatialPlaneTrackingCapability : OpenXRExtensionWrapper(
    */
   public final fun isSupported(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSupportedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSupportedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

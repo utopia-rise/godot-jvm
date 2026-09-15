@@ -189,34 +189,34 @@ public open class VisualShaderNodeFrame : VisualShaderNodeResizableBase() {
 
   public final fun setTintColorEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setTintColorEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTintColorEnabledPtr, 0)
   }
 
   public final fun isTintColorEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isTintColorEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isTintColorEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setTintColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setTintColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTintColorPtr, 0)
   }
 
   public final fun getTintColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTintColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTintColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setAutoshrinkEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setAutoshrinkEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutoshrinkEnabledPtr, 0)
   }
 
   public final fun isAutoshrinkEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAutoshrinkEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isAutoshrinkEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -226,7 +226,7 @@ public open class VisualShaderNodeFrame : VisualShaderNodeResizableBase() {
    */
   public final fun addAttachedNode(node: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, node.toLong())
-    TransferContext.callMethod(MethodBindings.addAttachedNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.addAttachedNodePtr, 0)
   }
 
   /**
@@ -235,12 +235,12 @@ public open class VisualShaderNodeFrame : VisualShaderNodeResizableBase() {
    */
   public final fun removeAttachedNode(node: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, node.toLong())
-    TransferContext.callMethod(MethodBindings.removeAttachedNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.removeAttachedNodePtr, 0)
   }
 
   public final fun setAttachedNodes(attachedNodes: PackedInt32Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, attachedNodes)
-    TransferContext.callMethod(MethodBindings.setAttachedNodesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setAttachedNodesPtr, 0)
   }
 
   public final fun getAttachedNodes(): PackedInt32Array {

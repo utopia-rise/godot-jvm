@@ -735,7 +735,7 @@ public open class RDShaderSPIRV : Resource() {
   public final fun setStageBytecode(stage: RenderingDevice.ShaderStage, bytecode: PackedByteArray):
       Unit {
     TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, stage.value, bytecode)
-    TransferContext.callMethod(MethodBindings.setStageBytecodePtr)
+    TransferContext.callPtrMethod(MethodBindings.setStageBytecodePtr, 0)
   }
 
   /**

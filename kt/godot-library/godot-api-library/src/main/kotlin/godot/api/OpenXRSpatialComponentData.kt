@@ -59,7 +59,7 @@ public open class OpenXRSpatialComponentData : RefCounted() {
    */
   public final fun setCapacity(capacity: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, capacity)
-    TransferContext.callMethod(MethodBindings.setCapacityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCapacityPtr, 0)
   }
 
   /**
@@ -67,7 +67,7 @@ public open class OpenXRSpatialComponentData : RefCounted() {
    */
   public final fun getComponentType(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getComponentTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getComponentTypePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

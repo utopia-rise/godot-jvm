@@ -93,56 +93,56 @@ public open class OpenXRCompositionLayerEquirect : OpenXRCompositionLayer() {
 
   public final fun setRadius(radius: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRadiusPtr, 0)
   }
 
   public final fun getRadius(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadiusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRadiusPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setCentralHorizontalAngle(angle: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callMethod(MethodBindings.setCentralHorizontalAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCentralHorizontalAnglePtr, 0)
   }
 
   public final fun getCentralHorizontalAngle(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCentralHorizontalAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCentralHorizontalAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setUpperVerticalAngle(angle: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callMethod(MethodBindings.setUpperVerticalAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.setUpperVerticalAnglePtr, 0)
   }
 
   public final fun getUpperVerticalAngle(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUpperVerticalAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.getUpperVerticalAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setLowerVerticalAngle(angle: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callMethod(MethodBindings.setLowerVerticalAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.setLowerVerticalAnglePtr, 0)
   }
 
   public final fun getLowerVerticalAngle(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLowerVerticalAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.getLowerVerticalAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFallbackSegments(segments: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, segments)
-    TransferContext.callMethod(MethodBindings.setFallbackSegmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFallbackSegmentsPtr, 0)
   }
 
   public final fun getFallbackSegments(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFallbackSegmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFallbackSegmentsPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 

@@ -155,12 +155,12 @@ public open class OpenXRDpadBindingModifier : OpenXRIPBindingModifier() {
 
   public final fun setActionSet(actionSet: OpenXRActionSet?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, actionSet)
-    TransferContext.callMethod(MethodBindings.setActionSetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setActionSetPtr, 0)
   }
 
   public final fun getActionSet(): OpenXRActionSet? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionSetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionSetPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OpenXRActionSet?)
   }
 
@@ -177,78 +177,78 @@ public open class OpenXRDpadBindingModifier : OpenXRIPBindingModifier() {
 
   public final fun setThreshold(threshold: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, threshold.toDouble())
-    TransferContext.callMethod(MethodBindings.setThresholdPtr)
+    TransferContext.callPtrMethod(MethodBindings.setThresholdPtr, 0)
   }
 
   public final fun getThreshold(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getThresholdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getThresholdPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setThresholdReleased(thresholdReleased: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, thresholdReleased.toDouble())
-    TransferContext.callMethod(MethodBindings.setThresholdReleasedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setThresholdReleasedPtr, 0)
   }
 
   public final fun getThresholdReleased(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getThresholdReleasedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getThresholdReleasedPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setCenterRegion(centerRegion: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, centerRegion.toDouble())
-    TransferContext.callMethod(MethodBindings.setCenterRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCenterRegionPtr, 0)
   }
 
   public final fun getCenterRegion(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCenterRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCenterRegionPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setWedgeAngle(wedgeAngle: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, wedgeAngle.toDouble())
-    TransferContext.callMethod(MethodBindings.setWedgeAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.setWedgeAnglePtr, 0)
   }
 
   public final fun getWedgeAngle(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWedgeAnglePtr)
+    TransferContext.callPtrMethod(MethodBindings.getWedgeAnglePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setIsSticky(isSticky: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, isSticky)
-    TransferContext.callMethod(MethodBindings.setIsStickyPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIsStickyPtr, 0)
   }
 
   public final fun getIsSticky(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIsStickyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIsStickyPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setOnHaptic(haptic: OpenXRHapticBase?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, haptic)
-    TransferContext.callMethod(MethodBindings.setOnHapticPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOnHapticPtr, 0)
   }
 
   public final fun getOnHaptic(): OpenXRHapticBase? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOnHapticPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOnHapticPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OpenXRHapticBase?)
   }
 
   public final fun setOffHaptic(haptic: OpenXRHapticBase?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, haptic)
-    TransferContext.callMethod(MethodBindings.setOffHapticPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOffHapticPtr, 0)
   }
 
   public final fun getOffHaptic(): OpenXRHapticBase? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffHapticPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOffHapticPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OpenXRHapticBase?)
   }
 

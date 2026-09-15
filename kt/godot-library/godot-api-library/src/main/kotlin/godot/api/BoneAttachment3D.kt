@@ -111,7 +111,7 @@ public open class BoneAttachment3D : Node3D() {
    */
   public final fun getSkeleton(): Skeleton3D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkeletonPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as Skeleton3D?)
   }
 
@@ -128,12 +128,12 @@ public open class BoneAttachment3D : Node3D() {
 
   public final fun setBoneIdx(boneIdx: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.setBoneIdxPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBoneIdxPtr, 0)
   }
 
   public final fun getBoneIdx(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneIdxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneIdxPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -144,34 +144,34 @@ public open class BoneAttachment3D : Node3D() {
    */
   public final fun onSkeletonUpdate(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.onSkeletonUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.onSkeletonUpdatePtr, 0)
   }
 
   public final fun setOverridePose(overridePose: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, overridePose)
-    TransferContext.callMethod(MethodBindings.setOverridePosePtr)
+    TransferContext.callPtrMethod(MethodBindings.setOverridePosePtr, 0)
   }
 
   public final fun getOverridePose(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOverridePosePtr)
+    TransferContext.callPtrMethod(MethodBindings.getOverridePosePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setUseExternalSkeleton(useExternalSkeleton: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, useExternalSkeleton)
-    TransferContext.callMethod(MethodBindings.setUseExternalSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseExternalSkeletonPtr, 0)
   }
 
   public final fun getUseExternalSkeleton(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUseExternalSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUseExternalSkeletonPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setExternalSkeleton(externalSkeleton: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, externalSkeleton)
-    TransferContext.callMethod(MethodBindings.setExternalSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExternalSkeletonPtr, 0)
   }
 
   public final fun getExternalSkeleton(): NodePath {

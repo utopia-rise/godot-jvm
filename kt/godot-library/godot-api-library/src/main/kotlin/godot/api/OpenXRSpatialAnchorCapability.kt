@@ -57,7 +57,7 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
    */
   public final fun isSpatialAnchorSupported(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSpatialAnchorSupportedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSpatialAnchorSupportedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -67,7 +67,7 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
    */
   public final fun isSpatialPersistenceSupported(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSpatialPersistenceSupportedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSpatialPersistenceSupportedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -78,7 +78,7 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
    */
   public final fun isPersistenceScopeSupported(scope: PersistenceScope): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, scope.value)
-    TransferContext.callMethod(MethodBindings.isPersistenceScopeSupportedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isPersistenceScopeSupportedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -118,7 +118,7 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
    */
   public final fun getPersistenceContextHandle(persistenceContext: RID): Long {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, persistenceContext)
-    TransferContext.callMethod(MethodBindings.getPersistenceContextHandlePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPersistenceContextHandlePtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -127,7 +127,7 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
    */
   public final fun freePersistenceContext(persistenceContext: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, persistenceContext)
-    TransferContext.callMethod(MethodBindings.freePersistenceContextPtr)
+    TransferContext.callPtrMethod(MethodBindings.freePersistenceContextPtr, 0)
   }
 
   /**
@@ -146,7 +146,7 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
     next: OpenXRStructureBase? = null,
   ): OpenXRAnchorTracker? {
     TransferContext.writeMethodArguments_TRANSFORM3D_RID_OBJECT(ptr, objectID.id, transform, spatialContext, next)
-    TransferContext.callMethod(MethodBindings.createNewAnchorPtr)
+    TransferContext.callPtrMethod(MethodBindings.createNewAnchorPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as OpenXRAnchorTracker?)
   }
 
@@ -156,7 +156,7 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
    */
   public final fun removeAnchor(anchorTracker: OpenXRAnchorTracker?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, anchorTracker)
-    TransferContext.callMethod(MethodBindings.removeAnchorPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeAnchorPtr, 0)
   }
 
   /**
@@ -258,7 +258,7 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
     nextSnapshotQuery: OpenXRStructureBase? = null,
   ): Unit {
     TransferContext.writeMethodArguments_RID_ARRAY_OBJECT_OBJECT(ptr, objectID.id, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery)
-    TransferContext.callMethod(MethodBindings.doEntityUpdatePtr)
+    TransferContext.callPtrMethod(MethodBindings.doEntityUpdatePtr, 0)
   }
 
   public enum class PersistenceScope(

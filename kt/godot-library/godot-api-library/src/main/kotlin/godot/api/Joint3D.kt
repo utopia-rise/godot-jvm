@@ -98,7 +98,7 @@ public open class Joint3D internal constructor() : Node3D() {
 
   public final fun setNodeA(node: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, node)
-    TransferContext.callMethod(MethodBindings.setNodeAPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNodeAPtr, 0)
   }
 
   public final fun getNodeA(): NodePath {
@@ -109,7 +109,7 @@ public open class Joint3D internal constructor() : Node3D() {
 
   public final fun setNodeB(node: NodePath): Unit {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, node)
-    TransferContext.callMethod(MethodBindings.setNodeBPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNodeBPtr, 0)
   }
 
   public final fun getNodeB(): NodePath {
@@ -120,23 +120,23 @@ public open class Joint3D internal constructor() : Node3D() {
 
   public final fun setSolverPriority(priority: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, priority.toLong())
-    TransferContext.callMethod(MethodBindings.setSolverPriorityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSolverPriorityPtr, 0)
   }
 
   public final fun getSolverPriority(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSolverPriorityPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSolverPriorityPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setExcludeNodesFromCollision(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setExcludeNodesFromCollisionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setExcludeNodesFromCollisionPtr, 0)
   }
 
   public final fun getExcludeNodesFromCollision(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExcludeNodesFromCollisionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExcludeNodesFromCollisionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -145,7 +145,7 @@ public open class Joint3D internal constructor() : Node3D() {
    */
   public final fun getRid(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRidPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 

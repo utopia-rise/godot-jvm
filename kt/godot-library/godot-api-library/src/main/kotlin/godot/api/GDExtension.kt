@@ -41,7 +41,7 @@ public open class GDExtension : Resource() {
    */
   public final fun isLibraryOpen(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isLibraryOpenPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLibraryOpenPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -51,7 +51,7 @@ public open class GDExtension : Resource() {
    */
   public final fun getMinimumLibraryInitializationLevel(): InitializationLevel {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinimumLibraryInitializationLevelPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinimumLibraryInitializationLevelPtr, 2)
     return InitializationLevel.from(TransferContext.readReturnValue_LONG())
   }
 

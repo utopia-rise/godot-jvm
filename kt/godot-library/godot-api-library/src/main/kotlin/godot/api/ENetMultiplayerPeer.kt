@@ -75,7 +75,7 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
     outBandwidth: Int = 0,
   ): Error {
     TransferContext.writeMethodArguments_LONG_LONG_LONG_LONG_LONG(ptr, objectID.id, port.toLong(), maxClients.toLong(), maxChannels.toLong(), inBandwidth.toLong(), outBandwidth.toLong())
-    TransferContext.callMethod(MethodBindings.createServerPtr)
+    TransferContext.callPtrMethod(MethodBindings.createServerPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -119,7 +119,7 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
    */
   public final fun createMesh(uniqueId: Int): Error {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, uniqueId.toLong())
-    TransferContext.callMethod(MethodBindings.createMeshPtr)
+    TransferContext.callPtrMethod(MethodBindings.createMeshPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -130,7 +130,7 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
    */
   public final fun addMeshPeer(peerId: Int, host: ENetConnection?): Error {
     TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, peerId.toLong(), host)
-    TransferContext.callMethod(MethodBindings.addMeshPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.addMeshPeerPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -146,7 +146,7 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
 
   public final fun getHost(): ENetConnection? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHostPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHostPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as ENetConnection?)
   }
 
@@ -155,7 +155,7 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
    */
   public final fun getPeer(id: Int): ENetPacketPeer? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.getPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPeerPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as ENetPacketPeer?)
   }
 

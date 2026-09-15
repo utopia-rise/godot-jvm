@@ -75,7 +75,7 @@ public abstract class Texture3D : Texture() {
    */
   public final fun getFormat(): Image.Format {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
     return Image.Format.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -84,7 +84,7 @@ public abstract class Texture3D : Texture() {
    */
   public final fun getWidth(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWidthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -93,7 +93,7 @@ public abstract class Texture3D : Texture() {
    */
   public final fun getHeight(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -103,7 +103,7 @@ public abstract class Texture3D : Texture() {
    */
   public final fun getDepth(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -112,7 +112,7 @@ public abstract class Texture3D : Texture() {
    */
   public final fun hasMipmaps(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasMipmapsPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasMipmapsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -131,7 +131,7 @@ public abstract class Texture3D : Texture() {
    */
   public final fun createPlaceholder(): Resource? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createPlaceholderPtr)
+    TransferContext.callPtrMethod(MethodBindings.createPlaceholderPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Resource?)
   }
 

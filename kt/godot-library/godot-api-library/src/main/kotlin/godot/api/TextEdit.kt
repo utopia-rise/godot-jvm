@@ -762,7 +762,7 @@ public open class TextEdit : Control() {
    */
   public final fun hasImeText(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasImeTextPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasImeTextPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -772,7 +772,7 @@ public open class TextEdit : Control() {
    */
   public final fun cancelIme(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.cancelImePtr)
+    TransferContext.callPtrMethod(MethodBindings.cancelImePtr, 0)
   }
 
   /**
@@ -781,28 +781,28 @@ public open class TextEdit : Control() {
    */
   public final fun applyIme(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.applyImePtr)
+    TransferContext.callPtrMethod(MethodBindings.applyImePtr, 0)
   }
 
   public final fun setEditable(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setEditablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setEditablePtr, 0)
   }
 
   public final fun isEditable(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEditablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isEditablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setTextDirection(direction: Control.TextDirection): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, direction.value)
-    TransferContext.callMethod(MethodBindings.setTextDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextDirectionPtr, 0)
   }
 
   public final fun getTextDirection(): Control.TextDirection {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextDirectionPtr, 2)
     return Control.TextDirection.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -819,18 +819,18 @@ public open class TextEdit : Control() {
 
   public final fun setStructuredTextBidiOverride(parser: TextServer.StructuredTextParser): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, parser.value)
-    TransferContext.callMethod(MethodBindings.setStructuredTextBidiOverridePtr)
+    TransferContext.callPtrMethod(MethodBindings.setStructuredTextBidiOverridePtr, 0)
   }
 
   public final fun getStructuredTextBidiOverride(): TextServer.StructuredTextParser {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStructuredTextBidiOverridePtr)
+    TransferContext.callPtrMethod(MethodBindings.getStructuredTextBidiOverridePtr, 2)
     return TextServer.StructuredTextParser.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setStructuredTextBidiOverrideOptions(args: VariantArray<Any?>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, args)
-    TransferContext.callMethod(MethodBindings.setStructuredTextBidiOverrideOptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStructuredTextBidiOverrideOptionsPtr, 0)
   }
 
   public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> {
@@ -844,7 +844,7 @@ public open class TextEdit : Control() {
    */
   public final fun setTabSize(size: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callMethod(MethodBindings.setTabSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTabSizePtr, 0)
   }
 
   /**
@@ -852,29 +852,29 @@ public open class TextEdit : Control() {
    */
   public final fun getTabSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTabSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTabSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setIndentWrappedLines(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setIndentWrappedLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setIndentWrappedLinesPtr, 0)
   }
 
   public final fun isIndentWrappedLines(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isIndentWrappedLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.isIndentWrappedLinesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setTabInputMode(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setTabInputModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setTabInputModePtr, 0)
   }
 
   public final fun getTabInputMode(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTabInputModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTabInputModePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -885,7 +885,7 @@ public open class TextEdit : Control() {
    */
   public final fun setOvertypeModeEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setOvertypeModeEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOvertypeModeEnabledPtr, 0)
   }
 
   /**
@@ -893,95 +893,95 @@ public open class TextEdit : Control() {
    */
   public final fun isOvertypeModeEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isOvertypeModeEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isOvertypeModeEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setContextMenuEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setContextMenuEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setContextMenuEnabledPtr, 0)
   }
 
   public final fun isContextMenuEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isContextMenuEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isContextMenuEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEmojiMenuEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setEmojiMenuEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEmojiMenuEnabledPtr, 0)
   }
 
   public final fun isEmojiMenuEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEmojiMenuEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEmojiMenuEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setBackspaceDeletesCompositeCharacterEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setBackspaceDeletesCompositeCharacterEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setBackspaceDeletesCompositeCharacterEnabledPtr, 0)
   }
 
   public final fun isBackspaceDeletesCompositeCharacterEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBackspaceDeletesCompositeCharacterEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isBackspaceDeletesCompositeCharacterEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setShortcutKeysEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setShortcutKeysEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setShortcutKeysEnabledPtr, 0)
   }
 
   public final fun isShortcutKeysEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isShortcutKeysEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isShortcutKeysEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setVirtualKeyboardEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setVirtualKeyboardEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVirtualKeyboardEnabledPtr, 0)
   }
 
   public final fun isVirtualKeyboardEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isVirtualKeyboardEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isVirtualKeyboardEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setVirtualKeyboardShowOnFocus(showOnFocus: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, showOnFocus)
-    TransferContext.callMethod(MethodBindings.setVirtualKeyboardShowOnFocusPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVirtualKeyboardShowOnFocusPtr, 0)
   }
 
   public final fun getVirtualKeyboardShowOnFocus(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVirtualKeyboardShowOnFocusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVirtualKeyboardShowOnFocusPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMiddleMousePasteEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setMiddleMousePasteEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMiddleMousePasteEnabledPtr, 0)
   }
 
   public final fun isMiddleMousePasteEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMiddleMousePasteEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isMiddleMousePasteEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEmptySelectionClipboardEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setEmptySelectionClipboardEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEmptySelectionClipboardEnabledPtr, 0)
   }
 
   public final fun isEmptySelectionClipboardEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEmptySelectionClipboardEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEmptySelectionClipboardEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -990,7 +990,7 @@ public open class TextEdit : Control() {
    */
   public final fun clear(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   public final fun setText(text: String): Unit {
@@ -1009,7 +1009,7 @@ public open class TextEdit : Control() {
    */
   public final fun getLineCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLineCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1058,7 +1058,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getLineWidth(line: Int, wrapIndex: Int = -1): Int {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), wrapIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getLineWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineWidthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1070,7 +1070,7 @@ public open class TextEdit : Control() {
    */
   public final fun getLineHeight(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLineHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineHeightPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1080,7 +1080,7 @@ public open class TextEdit : Control() {
    */
   public final fun getIndentLevel(line: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.getIndentLevelPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIndentLevelPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1090,7 +1090,7 @@ public open class TextEdit : Control() {
    */
   public final fun getFirstNonWhitespaceColumn(line: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.getFirstNonWhitespaceColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFirstNonWhitespaceColumnPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1099,7 +1099,7 @@ public open class TextEdit : Control() {
    */
   public final fun swapLines(fromLine: Int, toLine: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, fromLine.toLong(), toLine.toLong())
-    TransferContext.callMethod(MethodBindings.swapLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.swapLinesPtr, 0)
   }
 
   /**
@@ -1120,7 +1120,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun removeLineAt(line: Int, moveCaretsDown: Boolean = true): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, line.toLong(), moveCaretsDown)
-    TransferContext.callMethod(MethodBindings.removeLineAtPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeLineAtPtr, 0)
   }
 
   /**
@@ -1164,7 +1164,7 @@ public open class TextEdit : Control() {
     toColumn: Int,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_LONG_LONG(ptr, objectID.id, fromLine.toLong(), fromColumn.toLong(), toLine.toLong(), toColumn.toLong())
-    TransferContext.callMethod(MethodBindings.removeTextPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeTextPtr, 0)
   }
 
   /**
@@ -1172,7 +1172,7 @@ public open class TextEdit : Control() {
    */
   public final fun getLastUnhiddenLine(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLastUnhiddenLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getLastUnhiddenLinePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1183,7 +1183,7 @@ public open class TextEdit : Control() {
    */
   public final fun getNextVisibleLineOffsetFrom(line: Int, visibleAmount: Int): Int {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), visibleAmount.toLong())
-    TransferContext.callMethod(MethodBindings.getNextVisibleLineOffsetFromPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNextVisibleLineOffsetFromPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1197,7 +1197,7 @@ public open class TextEdit : Control() {
     visibleAmount: Int,
   ): Vector2i {
     TransferContext.writeMethodArguments_LONG_LONG_LONG(ptr, objectID.id, line.toLong(), wrapIndex.toLong(), visibleAmount.toLong())
-    TransferContext.callMethod(MethodBindings.getNextVisibleLineIndexOffsetFromPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNextVisibleLineIndexOffsetFromPtr, 6)
     return TransferContext.readReturnValue_VECTOR2I()
   }
 
@@ -1207,7 +1207,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun backspace(caretIndex: Int = -1): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.backspacePtr)
+    TransferContext.callPtrMethod(MethodBindings.backspacePtr, 0)
   }
 
   /**
@@ -1216,7 +1216,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun cut(caretIndex: Int = -1): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.cutPtr)
+    TransferContext.callPtrMethod(MethodBindings.cutPtr, 0)
   }
 
   /**
@@ -1225,7 +1225,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun copy(caretIndex: Int = -1): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.copyPtr)
+    TransferContext.callPtrMethod(MethodBindings.copyPtr, 0)
   }
 
   /**
@@ -1234,7 +1234,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun paste(caretIndex: Int = -1): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.pastePtr)
+    TransferContext.callPtrMethod(MethodBindings.pastePtr, 0)
   }
 
   /**
@@ -1243,7 +1243,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun pastePrimaryClipboard(caretIndex: Int = -1): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.pastePrimaryClipboardPtr)
+    TransferContext.callPtrMethod(MethodBindings.pastePrimaryClipboardPtr, 0)
   }
 
   /**
@@ -1255,7 +1255,7 @@ public open class TextEdit : Control() {
    */
   public final fun startAction(action: EditAction): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, action.value)
-    TransferContext.callMethod(MethodBindings.startActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.startActionPtr, 0)
   }
 
   /**
@@ -1263,7 +1263,7 @@ public open class TextEdit : Control() {
    */
   public final fun endAction(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.endActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.endActionPtr, 0)
   }
 
   /**
@@ -1272,7 +1272,7 @@ public open class TextEdit : Control() {
    */
   public final fun beginComplexOperation(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.beginComplexOperationPtr)
+    TransferContext.callPtrMethod(MethodBindings.beginComplexOperationPtr, 0)
   }
 
   /**
@@ -1281,7 +1281,7 @@ public open class TextEdit : Control() {
    */
   public final fun endComplexOperation(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.endComplexOperationPtr)
+    TransferContext.callPtrMethod(MethodBindings.endComplexOperationPtr, 0)
   }
 
   /**
@@ -1289,7 +1289,7 @@ public open class TextEdit : Control() {
    */
   public final fun hasUndo(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasUndoPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasUndoPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1298,7 +1298,7 @@ public open class TextEdit : Control() {
    */
   public final fun hasRedo(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasRedoPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasRedoPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1307,7 +1307,7 @@ public open class TextEdit : Control() {
    */
   public final fun undo(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.undoPtr)
+    TransferContext.callPtrMethod(MethodBindings.undoPtr, 0)
   }
 
   /**
@@ -1315,7 +1315,7 @@ public open class TextEdit : Control() {
    */
   public final fun redo(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.redoPtr)
+    TransferContext.callPtrMethod(MethodBindings.redoPtr, 0)
   }
 
   /**
@@ -1323,7 +1323,7 @@ public open class TextEdit : Control() {
    */
   public final fun clearUndoHistory(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearUndoHistoryPtr)
+    TransferContext.callPtrMethod(MethodBindings.clearUndoHistoryPtr, 0)
   }
 
   /**
@@ -1331,7 +1331,7 @@ public open class TextEdit : Control() {
    */
   public final fun tagSavedVersion(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.tagSavedVersionPtr)
+    TransferContext.callPtrMethod(MethodBindings.tagSavedVersionPtr, 0)
   }
 
   /**
@@ -1340,7 +1340,7 @@ public open class TextEdit : Control() {
    */
   public final fun getVersion(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVersionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVersionPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -1349,7 +1349,7 @@ public open class TextEdit : Control() {
    */
   public final fun getSavedVersion(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSavedVersionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSavedVersionPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -1367,7 +1367,7 @@ public open class TextEdit : Control() {
    */
   public final fun setSearchFlags(flags: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flags)
-    TransferContext.callMethod(MethodBindings.setSearchFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSearchFlagsPtr, 0)
   }
 
   /**
@@ -1421,7 +1421,7 @@ public open class TextEdit : Control() {
    */
   public final fun getLocalMousePos(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalMousePosPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocalMousePosPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -1451,7 +1451,7 @@ public open class TextEdit : Control() {
     clampColumn: Boolean = true,
   ): Vector2i {
     TransferContext.writeMethodArguments_VECTOR2I_BOOL_BOOL(ptr, objectID.id, position, clampLine, clampColumn)
-    TransferContext.callMethod(MethodBindings.getLineColumnAtPosPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineColumnAtPosPtr, 6)
     return TransferContext.readReturnValue_VECTOR2I()
   }
 
@@ -1464,7 +1464,7 @@ public open class TextEdit : Control() {
    */
   public final fun getPosAtLineColumn(line: Int, column: Int): Vector2i {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), column.toLong())
-    TransferContext.callMethod(MethodBindings.getPosAtLineColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPosAtLineColumnPtr, 6)
     return TransferContext.readReturnValue_VECTOR2I()
   }
 
@@ -1478,7 +1478,7 @@ public open class TextEdit : Control() {
    */
   public final fun getRectAtLineColumn(line: Int, column: Int): Rect2i {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), column.toLong())
-    TransferContext.callMethod(MethodBindings.getRectAtLineColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRectAtLineColumnPtr, 8)
     return TransferContext.readReturnValue_RECT2I()
   }
 
@@ -1487,7 +1487,7 @@ public open class TextEdit : Control() {
    */
   public final fun getMinimapLineAtPos(position: Vector2i): Int {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, position)
-    TransferContext.callMethod(MethodBindings.getMinimapLineAtPosPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinimapLineAtPosPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1496,7 +1496,7 @@ public open class TextEdit : Control() {
    */
   public final fun isDraggingCursor(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDraggingCursorPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDraggingCursorPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1507,84 +1507,84 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun isMouseOverSelection(edges: Boolean, caretIndex: Int = -1): Boolean {
     TransferContext.writeMethodArguments_BOOL_LONG(ptr, objectID.id, edges, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.isMouseOverSelectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.isMouseOverSelectionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCaretType(type: CaretType): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
-    TransferContext.callMethod(MethodBindings.setCaretTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCaretTypePtr, 0)
   }
 
   public final fun getCaretType(): CaretType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCaretTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCaretTypePtr, 2)
     return CaretType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setCaretBlinkEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setCaretBlinkEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCaretBlinkEnabledPtr, 0)
   }
 
   public final fun isCaretBlinkEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCaretBlinkEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCaretBlinkEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCaretBlinkInterval(interval: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, interval.toDouble())
-    TransferContext.callMethod(MethodBindings.setCaretBlinkIntervalPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCaretBlinkIntervalPtr, 0)
   }
 
   public final fun getCaretBlinkInterval(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCaretBlinkIntervalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCaretBlinkIntervalPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDrawCaretWhenEditableDisabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setDrawCaretWhenEditableDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawCaretWhenEditableDisabledPtr, 0)
   }
 
   public final fun isDrawingCaretWhenEditableDisabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDrawingCaretWhenEditableDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDrawingCaretWhenEditableDisabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMoveCaretOnRightClickEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setMoveCaretOnRightClickEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMoveCaretOnRightClickEnabledPtr, 0)
   }
 
   public final fun isMoveCaretOnRightClickEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMoveCaretOnRightClickEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isMoveCaretOnRightClickEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCaretMidGraphemeEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setCaretMidGraphemeEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCaretMidGraphemeEnabledPtr, 0)
   }
 
   public final fun isCaretMidGraphemeEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCaretMidGraphemeEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCaretMidGraphemeEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMultipleCaretsEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setMultipleCaretsEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMultipleCaretsEnabledPtr, 0)
   }
 
   public final fun isMultipleCaretsEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMultipleCaretsEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isMultipleCaretsEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1594,7 +1594,7 @@ public open class TextEdit : Control() {
    */
   public final fun addCaret(line: Int, column: Int): Int {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), column.toLong())
-    TransferContext.callMethod(MethodBindings.addCaretPtr)
+    TransferContext.callPtrMethod(MethodBindings.addCaretPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1605,7 +1605,7 @@ public open class TextEdit : Control() {
    */
   public final fun removeCaret(caret: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caret.toLong())
-    TransferContext.callMethod(MethodBindings.removeCaretPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeCaretPtr, 0)
   }
 
   /**
@@ -1613,7 +1613,7 @@ public open class TextEdit : Control() {
    */
   public final fun removeSecondaryCarets(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.removeSecondaryCaretsPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeSecondaryCaretsPtr, 0)
   }
 
   /**
@@ -1621,7 +1621,7 @@ public open class TextEdit : Control() {
    */
   public final fun getCaretCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCaretCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCaretCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1631,7 +1631,7 @@ public open class TextEdit : Control() {
    */
   public final fun addCaretAtCarets(below: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, below)
-    TransferContext.callMethod(MethodBindings.addCaretAtCaretsPtr)
+    TransferContext.callPtrMethod(MethodBindings.addCaretAtCaretsPtr, 0)
   }
 
   /**
@@ -1666,7 +1666,7 @@ public open class TextEdit : Control() {
     inclusive: Boolean = false,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_LONG_LONG_BOOL(ptr, objectID.id, fromLine.toLong(), fromColumn.toLong(), toLine.toLong(), toColumn.toLong(), inclusive)
-    TransferContext.callMethod(MethodBindings.collapseCaretsPtr)
+    TransferContext.callPtrMethod(MethodBindings.collapseCaretsPtr, 0)
   }
 
   /**
@@ -1680,7 +1680,7 @@ public open class TextEdit : Control() {
    */
   public final fun mergeOverlappingCarets(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.mergeOverlappingCaretsPtr)
+    TransferContext.callPtrMethod(MethodBindings.mergeOverlappingCaretsPtr, 0)
   }
 
   /**
@@ -1702,7 +1702,7 @@ public open class TextEdit : Control() {
    */
   public final fun beginMulticaretEdit(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.beginMulticaretEditPtr)
+    TransferContext.callPtrMethod(MethodBindings.beginMulticaretEditPtr, 0)
   }
 
   /**
@@ -1711,7 +1711,7 @@ public open class TextEdit : Control() {
    */
   public final fun endMulticaretEdit(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.endMulticaretEditPtr)
+    TransferContext.callPtrMethod(MethodBindings.endMulticaretEditPtr, 0)
   }
 
   /**
@@ -1720,7 +1720,7 @@ public open class TextEdit : Control() {
    */
   public final fun isInMulitcaretEdit(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isInMulitcaretEditPtr)
+    TransferContext.callPtrMethod(MethodBindings.isInMulitcaretEditPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1735,7 +1735,7 @@ public open class TextEdit : Control() {
    */
   public final fun multicaretEditIgnoreCaret(caretIndex: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.multicaretEditIgnoreCaretPtr)
+    TransferContext.callPtrMethod(MethodBindings.multicaretEditIgnoreCaretPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1756,7 +1756,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun isCaretVisible(caretIndex: Int = 0): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.isCaretVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.isCaretVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1766,7 +1766,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getCaretDrawPos(caretIndex: Int = 0): Vector2 {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getCaretDrawPosPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCaretDrawPosPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
@@ -1796,7 +1796,7 @@ public open class TextEdit : Control() {
     caretIndex: Int = 0,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL_BOOL_LONG_LONG(ptr, objectID.id, line.toLong(), adjustViewport, canBeHidden, wrapIndex.toLong(), caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setCaretLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCaretLinePtr, 0)
   }
 
   /**
@@ -1805,7 +1805,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getCaretLine(caretIndex: Int = 0): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getCaretLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCaretLinePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1825,7 +1825,7 @@ public open class TextEdit : Control() {
     caretIndex: Int = 0,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL_LONG(ptr, objectID.id, column.toLong(), adjustViewport, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setCaretColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCaretColumnPtr, 0)
   }
 
   /**
@@ -1834,7 +1834,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getCaretColumn(caretIndex: Int = 0): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getCaretColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCaretColumnPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1849,7 +1849,7 @@ public open class TextEdit : Control() {
    */
   public final fun getNextCompositeCharacterColumn(line: Int, column: Int): Int {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), column.toLong())
-    TransferContext.callMethod(MethodBindings.getNextCompositeCharacterColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNextCompositeCharacterColumnPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1864,7 +1864,7 @@ public open class TextEdit : Control() {
    */
   public final fun getPreviousCompositeCharacterColumn(line: Int, column: Int): Int {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), column.toLong())
-    TransferContext.callMethod(MethodBindings.getPreviousCompositeCharacterColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPreviousCompositeCharacterColumnPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1874,7 +1874,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getCaretWrapIndex(caretIndex: Int = 0): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getCaretWrapIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCaretWrapIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -1890,23 +1890,23 @@ public open class TextEdit : Control() {
 
   public final fun setUseDefaultWordSeparators(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setUseDefaultWordSeparatorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseDefaultWordSeparatorsPtr, 0)
   }
 
   public final fun isDefaultWordSeparatorsEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDefaultWordSeparatorsEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDefaultWordSeparatorsEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setUseCustomWordSeparators(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setUseCustomWordSeparatorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseCustomWordSeparatorsPtr, 0)
   }
 
   public final fun isCustomWordSeparatorsEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCustomWordSeparatorsEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCustomWordSeparatorsEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1923,34 +1923,34 @@ public open class TextEdit : Control() {
 
   public final fun setSelectingEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setSelectingEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSelectingEnabledPtr, 0)
   }
 
   public final fun isSelectingEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSelectingEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSelectingEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDeselectOnFocusLossEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setDeselectOnFocusLossEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDeselectOnFocusLossEnabledPtr, 0)
   }
 
   public final fun isDeselectOnFocusLossEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDeselectOnFocusLossEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDeselectOnFocusLossEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDragAndDropSelectionEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setDragAndDropSelectionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDragAndDropSelectionEnabledPtr, 0)
   }
 
   public final fun isDragAndDropSelectionEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDragAndDropSelectionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDragAndDropSelectionEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -1959,7 +1959,7 @@ public open class TextEdit : Control() {
    */
   public final fun setSelectionMode(mode: SelectionMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setSelectionModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSelectionModePtr, 0)
   }
 
   /**
@@ -1967,7 +1967,7 @@ public open class TextEdit : Control() {
    */
   public final fun getSelectionMode(): SelectionMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSelectionModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectionModePtr, 2)
     return SelectionMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -1978,7 +1978,7 @@ public open class TextEdit : Control() {
    */
   public final fun selectAll(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.selectAllPtr)
+    TransferContext.callPtrMethod(MethodBindings.selectAllPtr, 0)
   }
 
   /**
@@ -1987,7 +1987,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun selectWordUnderCaret(caretIndex: Int = -1): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.selectWordUnderCaretPtr)
+    TransferContext.callPtrMethod(MethodBindings.selectWordUnderCaretPtr, 0)
   }
 
   /**
@@ -1996,7 +1996,7 @@ public open class TextEdit : Control() {
    */
   public final fun addSelectionForNextOccurrence(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.addSelectionForNextOccurrencePtr)
+    TransferContext.callPtrMethod(MethodBindings.addSelectionForNextOccurrencePtr, 0)
   }
 
   /**
@@ -2005,7 +2005,7 @@ public open class TextEdit : Control() {
    */
   public final fun skipSelectionForNextOccurrence(): Unit {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.skipSelectionForNextOccurrencePtr)
+    TransferContext.callPtrMethod(MethodBindings.skipSelectionForNextOccurrencePtr, 0)
   }
 
   /**
@@ -2027,7 +2027,7 @@ public open class TextEdit : Control() {
     caretIndex: Int = 0,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_LONG_LONG_LONG(ptr, objectID.id, originLine.toLong(), originColumn.toLong(), caretLine.toLong(), caretColumn.toLong(), caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.selectPtr)
+    TransferContext.callPtrMethod(MethodBindings.selectPtr, 0)
   }
 
   /**
@@ -2036,7 +2036,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun hasSelection(caretIndex: Int = -1): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.hasSelectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasSelectionPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2066,7 +2066,7 @@ public open class TextEdit : Control() {
     onlySelections: Boolean = true,
   ): Int {
     TransferContext.writeMethodArguments_LONG_LONG_BOOL_BOOL(ptr, objectID.id, line.toLong(), column.toLong(), includeEdges, onlySelections)
-    TransferContext.callMethod(MethodBindings.getSelectionAtLineColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectionAtLineColumnPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2093,7 +2093,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getSelectionOriginLine(caretIndex: Int = 0): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSelectionOriginLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectionOriginLinePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2103,7 +2103,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getSelectionOriginColumn(caretIndex: Int = 0): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSelectionOriginColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectionOriginColumnPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2126,7 +2126,7 @@ public open class TextEdit : Control() {
     caretIndex: Int = 0,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL_LONG_LONG(ptr, objectID.id, line.toLong(), canBeHidden, wrapIndex.toLong(), caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setSelectionOriginLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSelectionOriginLinePtr, 0)
   }
 
   /**
@@ -2136,7 +2136,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun setSelectionOriginColumn(column: Int, caretIndex: Int = 0): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, column.toLong(), caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setSelectionOriginColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSelectionOriginColumnPtr, 0)
   }
 
   /**
@@ -2145,7 +2145,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getSelectionFromLine(caretIndex: Int = 0): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSelectionFromLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectionFromLinePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2155,7 +2155,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getSelectionFromColumn(caretIndex: Int = 0): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSelectionFromColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectionFromColumnPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2165,7 +2165,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getSelectionToLine(caretIndex: Int = 0): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSelectionToLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectionToLinePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2175,7 +2175,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getSelectionToColumn(caretIndex: Int = 0): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSelectionToColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectionToColumnPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2186,7 +2186,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun isCaretAfterSelectionOrigin(caretIndex: Int = 0): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.isCaretAfterSelectionOriginPtr)
+    TransferContext.callPtrMethod(MethodBindings.isCaretAfterSelectionOriginPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2196,7 +2196,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun deselect(caretIndex: Int = -1): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.deselectPtr)
+    TransferContext.callPtrMethod(MethodBindings.deselectPtr, 0)
   }
 
   /**
@@ -2205,28 +2205,28 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun deleteSelection(caretIndex: Int = -1): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.deleteSelectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.deleteSelectionPtr, 0)
   }
 
   public final fun setLineWrappingMode(mode: LineWrappingMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callMethod(MethodBindings.setLineWrappingModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineWrappingModePtr, 0)
   }
 
   public final fun getLineWrappingMode(): LineWrappingMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLineWrappingModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineWrappingModePtr, 2)
     return LineWrappingMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setAutowrapMode(autowrapMode: TextServer.AutowrapMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, autowrapMode.value)
-    TransferContext.callMethod(MethodBindings.setAutowrapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutowrapModePtr, 0)
   }
 
   public final fun getAutowrapMode(): TextServer.AutowrapMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutowrapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAutowrapModePtr, 2)
     return TextServer.AutowrapMode.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -2235,7 +2235,7 @@ public open class TextEdit : Control() {
    */
   public final fun isLineWrapped(line: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.isLineWrappedPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLineWrappedPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2244,7 +2244,7 @@ public open class TextEdit : Control() {
    */
   public final fun getLineWrapCount(line: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.getLineWrapCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineWrapCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2254,7 +2254,7 @@ public open class TextEdit : Control() {
    */
   public final fun getLineWrapIndexAtColumn(line: Int, column: Int): Int {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), column.toLong())
-    TransferContext.callMethod(MethodBindings.getLineWrapIndexAtColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineWrapIndexAtColumnPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2269,12 +2269,12 @@ public open class TextEdit : Control() {
 
   public final fun setSmoothScrollEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setSmoothScrollEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSmoothScrollEnabledPtr, 0)
   }
 
   public final fun isSmoothScrollEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSmoothScrollEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isSmoothScrollEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2283,7 +2283,7 @@ public open class TextEdit : Control() {
    */
   public final fun getVScrollBar(): VScrollBar? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVScrollBarPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVScrollBarPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as VScrollBar?)
   }
 
@@ -2292,73 +2292,73 @@ public open class TextEdit : Control() {
    */
   public final fun getHScrollBar(): HScrollBar? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHScrollBarPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHScrollBarPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as HScrollBar?)
   }
 
   public final fun setVScroll(`value`: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setVScrollPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVScrollPtr, 0)
   }
 
   public final fun getVScroll(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVScrollPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVScrollPtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setHScroll(`value`: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, value.toLong())
-    TransferContext.callMethod(MethodBindings.setHScrollPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHScrollPtr, 0)
   }
 
   public final fun getHScroll(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHScrollPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHScrollPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setScrollPastEndOfFileEnabled(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setScrollPastEndOfFileEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setScrollPastEndOfFileEnabledPtr, 0)
   }
 
   public final fun isScrollPastEndOfFileEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isScrollPastEndOfFileEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isScrollPastEndOfFileEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setVScrollSpeed(speed: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, speed.toDouble())
-    TransferContext.callMethod(MethodBindings.setVScrollSpeedPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVScrollSpeedPtr, 0)
   }
 
   public final fun getVScrollSpeed(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVScrollSpeedPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVScrollSpeedPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFitContentHeightEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setFitContentHeightEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFitContentHeightEnabledPtr, 0)
   }
 
   public final fun isFitContentHeightEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFitContentHeightEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isFitContentHeightEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFitContentWidthEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setFitContentWidthEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFitContentWidthEnabledPtr, 0)
   }
 
   public final fun isFitContentWidthEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFitContentWidthEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isFitContentWidthEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2368,7 +2368,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getScrollPosForLine(line: Int, wrapIndex: Int = 0): Double {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), wrapIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getScrollPosForLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getScrollPosForLinePtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
@@ -2378,7 +2378,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun setLineAsFirstVisible(line: Int, wrapIndex: Int = 0): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), wrapIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setLineAsFirstVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineAsFirstVisiblePtr, 0)
   }
 
   /**
@@ -2386,7 +2386,7 @@ public open class TextEdit : Control() {
    */
   public final fun getFirstVisibleLine(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFirstVisibleLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFirstVisibleLinePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2395,7 +2395,7 @@ public open class TextEdit : Control() {
    */
   public final fun isLineInViewport(line: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.isLineInViewportPtr)
+    TransferContext.callPtrMethod(MethodBindings.isLineInViewportPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2405,7 +2405,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun setLineAsCenterVisible(line: Int, wrapIndex: Int = 0): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), wrapIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setLineAsCenterVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineAsCenterVisiblePtr, 0)
   }
 
   /**
@@ -2414,7 +2414,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun setLineAsLastVisible(line: Int, wrapIndex: Int = 0): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), wrapIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setLineAsLastVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineAsLastVisiblePtr, 0)
   }
 
   /**
@@ -2422,7 +2422,7 @@ public open class TextEdit : Control() {
    */
   public final fun getLastFullVisibleLine(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLastFullVisibleLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getLastFullVisibleLinePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2431,7 +2431,7 @@ public open class TextEdit : Control() {
    */
   public final fun getLastFullVisibleLineWrapIndex(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLastFullVisibleLineWrapIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLastFullVisibleLineWrapIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2441,7 +2441,7 @@ public open class TextEdit : Control() {
    */
   public final fun getVisibleLineCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVisibleLineCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVisibleLineCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2452,7 +2452,7 @@ public open class TextEdit : Control() {
    */
   public final fun getVisibleLineCountInRange(fromLine: Int, toLine: Int): Int {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, fromLine.toLong(), toLine.toLong())
-    TransferContext.callMethod(MethodBindings.getVisibleLineCountInRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.getVisibleLineCountInRangePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2464,7 +2464,7 @@ public open class TextEdit : Control() {
    */
   public final fun getTotalVisibleLineCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTotalVisibleLineCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTotalVisibleLineCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2474,7 +2474,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun adjustViewportToCaret(caretIndex: Int = 0): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.adjustViewportToCaretPtr)
+    TransferContext.callPtrMethod(MethodBindings.adjustViewportToCaretPtr, 0)
   }
 
   /**
@@ -2484,28 +2484,28 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun centerViewportToCaret(caretIndex: Int = 0): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.centerViewportToCaretPtr)
+    TransferContext.callPtrMethod(MethodBindings.centerViewportToCaretPtr, 0)
   }
 
   public final fun setDrawMinimap(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setDrawMinimapPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawMinimapPtr, 0)
   }
 
   public final fun isDrawingMinimap(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDrawingMinimapPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDrawingMinimapPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMinimapWidth(width: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
-    TransferContext.callMethod(MethodBindings.setMinimapWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setMinimapWidthPtr, 0)
   }
 
   public final fun getMinimapWidth(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinimapWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinimapWidthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2514,7 +2514,7 @@ public open class TextEdit : Control() {
    */
   public final fun getMinimapVisibleLines(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinimapVisibleLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinimapVisibleLinesPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2525,7 +2525,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun addGutter(at: Int = -1): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, at.toLong())
-    TransferContext.callMethod(MethodBindings.addGutterPtr)
+    TransferContext.callPtrMethod(MethodBindings.addGutterPtr, 0)
   }
 
   /**
@@ -2533,7 +2533,7 @@ public open class TextEdit : Control() {
    */
   public final fun removeGutter(gutter: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, gutter.toLong())
-    TransferContext.callMethod(MethodBindings.removeGutterPtr)
+    TransferContext.callPtrMethod(MethodBindings.removeGutterPtr, 0)
   }
 
   /**
@@ -2541,7 +2541,7 @@ public open class TextEdit : Control() {
    */
   public final fun getGutterCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGutterCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGutterCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2567,7 +2567,7 @@ public open class TextEdit : Control() {
    */
   public final fun setGutterType(gutter: Int, type: GutterType): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, gutter.toLong(), type.value)
-    TransferContext.callMethod(MethodBindings.setGutterTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.setGutterTypePtr, 0)
   }
 
   /**
@@ -2576,7 +2576,7 @@ public open class TextEdit : Control() {
    */
   public final fun getGutterType(gutter: Int): GutterType {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, gutter.toLong())
-    TransferContext.callMethod(MethodBindings.getGutterTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getGutterTypePtr, 2)
     return GutterType.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -2585,7 +2585,7 @@ public open class TextEdit : Control() {
    */
   public final fun setGutterWidth(gutter: Int, width: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, gutter.toLong(), width.toLong())
-    TransferContext.callMethod(MethodBindings.setGutterWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGutterWidthPtr, 0)
   }
 
   /**
@@ -2593,7 +2593,7 @@ public open class TextEdit : Control() {
    */
   public final fun getGutterWidth(gutter: Int): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, gutter.toLong())
-    TransferContext.callMethod(MethodBindings.getGutterWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGutterWidthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2603,7 +2603,7 @@ public open class TextEdit : Control() {
    */
   public final fun setGutterDraw(gutter: Int, draw: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, gutter.toLong(), draw)
-    TransferContext.callMethod(MethodBindings.setGutterDrawPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGutterDrawPtr, 0)
   }
 
   /**
@@ -2611,7 +2611,7 @@ public open class TextEdit : Control() {
    */
   public final fun isGutterDrawn(gutter: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, gutter.toLong())
-    TransferContext.callMethod(MethodBindings.isGutterDrawnPtr)
+    TransferContext.callPtrMethod(MethodBindings.isGutterDrawnPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2622,7 +2622,7 @@ public open class TextEdit : Control() {
    */
   public final fun setGutterClickable(gutter: Int, clickable: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, gutter.toLong(), clickable)
-    TransferContext.callMethod(MethodBindings.setGutterClickablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setGutterClickablePtr, 0)
   }
 
   /**
@@ -2630,7 +2630,7 @@ public open class TextEdit : Control() {
    */
   public final fun isGutterClickable(gutter: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, gutter.toLong())
-    TransferContext.callMethod(MethodBindings.isGutterClickablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isGutterClickablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2640,7 +2640,7 @@ public open class TextEdit : Control() {
    */
   public final fun setGutterOverwritable(gutter: Int, overwritable: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, gutter.toLong(), overwritable)
-    TransferContext.callMethod(MethodBindings.setGutterOverwritablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setGutterOverwritablePtr, 0)
   }
 
   /**
@@ -2648,7 +2648,7 @@ public open class TextEdit : Control() {
    */
   public final fun isGutterOverwritable(gutter: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, gutter.toLong())
-    TransferContext.callMethod(MethodBindings.isGutterOverwritablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isGutterOverwritablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2658,7 +2658,7 @@ public open class TextEdit : Control() {
    */
   public final fun mergeGutters(fromLine: Int, toLine: Int): Unit {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, fromLine.toLong(), toLine.toLong())
-    TransferContext.callMethod(MethodBindings.mergeGuttersPtr)
+    TransferContext.callPtrMethod(MethodBindings.mergeGuttersPtr, 0)
   }
 
   /**
@@ -2676,7 +2676,7 @@ public open class TextEdit : Control() {
    */
   public final fun getTotalGutterWidth(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTotalGutterWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTotalGutterWidthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2734,7 +2734,7 @@ public open class TextEdit : Control() {
     icon: Texture2D?,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_OBJECT(ptr, objectID.id, line.toLong(), gutter.toLong(), icon)
-    TransferContext.callMethod(MethodBindings.setLineGutterIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineGutterIconPtr, 0)
   }
 
   /**
@@ -2743,7 +2743,7 @@ public open class TextEdit : Control() {
    */
   public final fun getLineGutterIcon(line: Int, gutter: Int): Texture2D? {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), gutter.toLong())
-    TransferContext.callMethod(MethodBindings.getLineGutterIconPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineGutterIconPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
@@ -2756,7 +2756,7 @@ public open class TextEdit : Control() {
     color: Color,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_COLOR(ptr, objectID.id, line.toLong(), gutter.toLong(), color)
-    TransferContext.callMethod(MethodBindings.setLineGutterItemColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineGutterItemColorPtr, 0)
   }
 
   /**
@@ -2764,7 +2764,7 @@ public open class TextEdit : Control() {
    */
   public final fun getLineGutterItemColor(line: Int, gutter: Int): Color {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), gutter.toLong())
-    TransferContext.callMethod(MethodBindings.getLineGutterItemColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineGutterItemColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
@@ -2779,7 +2779,7 @@ public open class TextEdit : Control() {
     clickable: Boolean,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_BOOL(ptr, objectID.id, line.toLong(), gutter.toLong(), clickable)
-    TransferContext.callMethod(MethodBindings.setLineGutterClickablePtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineGutterClickablePtr, 0)
   }
 
   /**
@@ -2788,7 +2788,7 @@ public open class TextEdit : Control() {
    */
   public final fun isLineGutterClickable(line: Int, gutter: Int): Boolean {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, line.toLong(), gutter.toLong())
-    TransferContext.callMethod(MethodBindings.isLineGutterClickablePtr)
+    TransferContext.callPtrMethod(MethodBindings.isLineGutterClickablePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2799,7 +2799,7 @@ public open class TextEdit : Control() {
    */
   public final fun setLineBackgroundColor(line: Int, color: Color): Unit {
     TransferContext.writeMethodArguments_LONG_COLOR(ptr, objectID.id, line.toLong(), color)
-    TransferContext.callMethod(MethodBindings.setLineBackgroundColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineBackgroundColorPtr, 0)
   }
 
   /**
@@ -2808,73 +2808,73 @@ public open class TextEdit : Control() {
    */
   public final fun getLineBackgroundColor(line: Int): Color {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.getLineBackgroundColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineBackgroundColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setSyntaxHighlighter(syntaxHighlighter: SyntaxHighlighter?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, syntaxHighlighter)
-    TransferContext.callMethod(MethodBindings.setSyntaxHighlighterPtr)
+    TransferContext.callPtrMethod(MethodBindings.setSyntaxHighlighterPtr, 0)
   }
 
   public final fun getSyntaxHighlighter(): SyntaxHighlighter? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSyntaxHighlighterPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSyntaxHighlighterPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as SyntaxHighlighter?)
   }
 
   public final fun setHighlightCurrentLine(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setHighlightCurrentLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.setHighlightCurrentLinePtr, 0)
   }
 
   public final fun isHighlightCurrentLineEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isHighlightCurrentLineEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isHighlightCurrentLineEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHighlightAllOccurrences(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setHighlightAllOccurrencesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHighlightAllOccurrencesPtr, 0)
   }
 
   public final fun isHighlightAllOccurrencesEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isHighlightAllOccurrencesEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isHighlightAllOccurrencesEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun getDrawControlChars(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDrawControlCharsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDrawControlCharsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDrawControlChars(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setDrawControlCharsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawControlCharsPtr, 0)
   }
 
   public final fun setDrawTabs(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setDrawTabsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawTabsPtr, 0)
   }
 
   public final fun isDrawingTabs(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDrawingTabsPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDrawingTabsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDrawSpaces(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setDrawSpacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDrawSpacesPtr, 0)
   }
 
   public final fun isDrawingSpaces(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDrawingSpacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDrawingSpacesPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2930,7 +2930,7 @@ public open class TextEdit : Control() {
    */
   public final fun getMenu(): PopupMenu? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMenuPtr, 24)
     return (TransferContext.readReturnValue_OBJECT() as PopupMenu?)
   }
 
@@ -2940,7 +2940,7 @@ public open class TextEdit : Control() {
    */
   public final fun isMenuVisible(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMenuVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.isMenuVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -2949,7 +2949,7 @@ public open class TextEdit : Control() {
    */
   public final fun menuOption(option: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, option.toLong())
-    TransferContext.callMethod(MethodBindings.menuOptionPtr)
+    TransferContext.callPtrMethod(MethodBindings.menuOptionPtr, 0)
   }
 
   /**
@@ -2963,7 +2963,7 @@ public open class TextEdit : Control() {
     toCol: Int,
   ): Unit {
     TransferContext.writeMethodArguments_LONG_LONG_LONG_LONG_LONG(ptr, objectID.id, caret.toLong(), fromLine.toLong(), fromCol.toLong(), toLine.toLong(), toCol.toLong())
-    TransferContext.callMethod(MethodBindings.adjustCaretsAfterEditPtr)
+    TransferContext.callPtrMethod(MethodBindings.adjustCaretsAfterEditPtr, 0)
   }
 
   /**
@@ -2982,7 +2982,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getSelectionLine(caretIndex: Int = 0): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSelectionLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectionLinePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -2992,7 +2992,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getSelectionColumn(caretIndex: Int = 0): Int {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, caretIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSelectionColumnPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectionColumnPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 

@@ -140,7 +140,7 @@ public object IP : Object() {
   @JvmStatic
   public final fun getResolveItemStatus(id: Int): ResolverStatus {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.getResolveItemStatusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getResolveItemStatusPtr, 2)
     return ResolverStatus.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -173,7 +173,7 @@ public object IP : Object() {
   @JvmStatic
   public final fun eraseResolveItem(id: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.eraseResolveItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.eraseResolveItemPtr, 0)
   }
 
   /**

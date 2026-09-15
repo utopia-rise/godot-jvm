@@ -85,7 +85,7 @@ public abstract class TextureLayered : Texture() {
    */
   public final fun getFormat(): Image.Format {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
     return Image.Format.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -95,7 +95,7 @@ public abstract class TextureLayered : Texture() {
    */
   public final fun getLayeredType(): LayeredType {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLayeredTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getLayeredTypePtr, 2)
     return LayeredType.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -104,7 +104,7 @@ public abstract class TextureLayered : Texture() {
    */
   public final fun getWidth(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWidthPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -113,7 +113,7 @@ public abstract class TextureLayered : Texture() {
    */
   public final fun getHeight(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -122,7 +122,7 @@ public abstract class TextureLayered : Texture() {
    */
   public final fun getLayers(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLayersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLayersPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
@@ -131,7 +131,7 @@ public abstract class TextureLayered : Texture() {
    */
   public final fun hasMipmaps(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasMipmapsPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasMipmapsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -140,7 +140,7 @@ public abstract class TextureLayered : Texture() {
    */
   public final fun getLayerData(layer: Int): Image? {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
-    TransferContext.callMethod(MethodBindings.getLayerDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLayerDataPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Image?)
   }
 

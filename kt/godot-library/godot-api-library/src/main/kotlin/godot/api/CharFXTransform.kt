@@ -349,79 +349,79 @@ public open class CharFXTransform : RefCounted() {
 
   public final fun getTransform(): Transform2D {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransformPtr, 11)
     return TransferContext.readReturnValue_TRANSFORM2D()
   }
 
   public final fun setTransform(transform: Transform2D): Unit {
     TransferContext.writeMethodArguments_TRANSFORM2D(ptr, objectID.id, transform)
-    TransferContext.callMethod(MethodBindings.setTransformPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTransformPtr, 0)
   }
 
   public final fun getRange(): Vector2i {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.getRangePtr, 6)
     return TransferContext.readReturnValue_VECTOR2I()
   }
 
   public final fun setRange(range: Vector2i): Unit {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, range)
-    TransferContext.callMethod(MethodBindings.setRangePtr)
+    TransferContext.callPtrMethod(MethodBindings.setRangePtr, 0)
   }
 
   public final fun getElapsedTime(): Double {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getElapsedTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.getElapsedTimePtr, 3)
     return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setElapsedTime(time: Double): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
-    TransferContext.callMethod(MethodBindings.setElapsedTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.setElapsedTimePtr, 0)
   }
 
   public final fun isVisible(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isVisiblePtr)
+    TransferContext.callPtrMethod(MethodBindings.isVisiblePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setVisibility(visibility: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visibility)
-    TransferContext.callMethod(MethodBindings.setVisibilityPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVisibilityPtr, 0)
   }
 
   public final fun isOutline(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isOutlinePtr)
+    TransferContext.callPtrMethod(MethodBindings.isOutlinePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setOutline(outline: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, outline)
-    TransferContext.callMethod(MethodBindings.setOutlinePtr)
+    TransferContext.callPtrMethod(MethodBindings.setOutlinePtr, 0)
   }
 
   public final fun getOffset(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOffsetPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setOffset(offset: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callMethod(MethodBindings.setOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOffsetPtr, 0)
   }
 
   public final fun getColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setColor(color: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callMethod(MethodBindings.setColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
   }
 
   public final fun getEnvironment(): Dictionary<Any?, Any?> {
@@ -432,62 +432,62 @@ public open class CharFXTransform : RefCounted() {
 
   public final fun setEnvironment(environment: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, environment)
-    TransferContext.callMethod(MethodBindings.setEnvironmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnvironmentPtr, 0)
   }
 
   public final fun getGlyphIndex(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlyphIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlyphIndexPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setGlyphIndex(glyphIndex: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, glyphIndex)
-    TransferContext.callMethod(MethodBindings.setGlyphIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGlyphIndexPtr, 0)
   }
 
   public final fun getRelativeIndex(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRelativeIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRelativeIndexPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setRelativeIndex(relativeIndex: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, relativeIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setRelativeIndexPtr)
+    TransferContext.callPtrMethod(MethodBindings.setRelativeIndexPtr, 0)
   }
 
   public final fun getGlyphCount(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlyphCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlyphCountPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setGlyphCount(glyphCount: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, glyphCount.toLong())
-    TransferContext.callMethod(MethodBindings.setGlyphCountPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGlyphCountPtr, 0)
   }
 
   public final fun getGlyphFlags(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlyphFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlyphFlagsPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setGlyphFlags(glyphFlags: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, glyphFlags.toLong())
-    TransferContext.callMethod(MethodBindings.setGlyphFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setGlyphFlagsPtr, 0)
   }
 
   public final fun getFont(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFontPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setFont(font: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, font)
-    TransferContext.callMethod(MethodBindings.setFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFontPtr, 0)
   }
 
   public companion object {

@@ -214,7 +214,7 @@ public open class CollisionPolygon2D : Node2D() {
 
   public final fun setPolygon(polygon: PackedVector2Array): Unit {
     TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, polygon)
-    TransferContext.callMethod(MethodBindings.setPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPolygonPtr, 0)
   }
 
   public final fun getPolygon(): PackedVector2Array {
@@ -225,56 +225,56 @@ public open class CollisionPolygon2D : Node2D() {
 
   public final fun setBuildMode(buildMode: BuildMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, buildMode.value)
-    TransferContext.callMethod(MethodBindings.setBuildModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setBuildModePtr, 0)
   }
 
   public final fun getBuildMode(): BuildMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBuildModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBuildModePtr, 2)
     return BuildMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setDisabled(disabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, disabled)
-    TransferContext.callMethod(MethodBindings.setDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDisabledPtr, 0)
   }
 
   public final fun isDisabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDisabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isDisabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setOneWayCollision(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setOneWayCollisionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOneWayCollisionPtr, 0)
   }
 
   public final fun isOneWayCollisionEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isOneWayCollisionEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isOneWayCollisionEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setOneWayCollisionMargin(margin: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, margin.toDouble())
-    TransferContext.callMethod(MethodBindings.setOneWayCollisionMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOneWayCollisionMarginPtr, 0)
   }
 
   public final fun getOneWayCollisionMargin(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOneWayCollisionMarginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOneWayCollisionMarginPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOneWayCollisionDirection(direction: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, direction)
-    TransferContext.callMethod(MethodBindings.setOneWayCollisionDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOneWayCollisionDirectionPtr, 0)
   }
 
   public final fun getOneWayCollisionDirection(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOneWayCollisionDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOneWayCollisionDirectionPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 

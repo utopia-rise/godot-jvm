@@ -102,23 +102,23 @@ public open class Path3D : Node3D() {
 
   public final fun setCurve(curve: Curve3D?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callMethod(MethodBindings.setCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.setCurvePtr, 0)
   }
 
   public final fun getCurve(): Curve3D? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurvePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurvePtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Curve3D?)
   }
 
   public final fun setDebugCustomColor(debugCustomColor: Color): Unit {
     TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, debugCustomColor)
-    TransferContext.callMethod(MethodBindings.setDebugCustomColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDebugCustomColorPtr, 0)
   }
 
   public final fun getDebugCustomColor(): Color {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDebugCustomColorPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDebugCustomColorPtr, 20)
     return TransferContext.readReturnValue_COLOR()
   }
 

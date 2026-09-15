@@ -229,7 +229,7 @@ public open class AudioStreamWAV : AudioStream() {
 
   public final fun setData(`data`: PackedByteArray): Unit {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, data)
-    TransferContext.callMethod(MethodBindings.setDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDataPtr, 0)
   }
 
   public final fun getData(): PackedByteArray {
@@ -240,73 +240,73 @@ public open class AudioStreamWAV : AudioStream() {
 
   public final fun setFormat(format: Format): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, format.value)
-    TransferContext.callMethod(MethodBindings.setFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFormatPtr, 0)
   }
 
   public final fun getFormat(): Format {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFormatPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
     return Format.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setLoopMode(loopMode: LoopMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, loopMode.value)
-    TransferContext.callMethod(MethodBindings.setLoopModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setLoopModePtr, 0)
   }
 
   public final fun getLoopMode(): LoopMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoopModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getLoopModePtr, 2)
     return LoopMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setLoopBegin(loopBegin: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, loopBegin.toLong())
-    TransferContext.callMethod(MethodBindings.setLoopBeginPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLoopBeginPtr, 0)
   }
 
   public final fun getLoopBegin(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoopBeginPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLoopBeginPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setLoopEnd(loopEnd: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, loopEnd.toLong())
-    TransferContext.callMethod(MethodBindings.setLoopEndPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLoopEndPtr, 0)
   }
 
   public final fun getLoopEnd(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoopEndPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLoopEndPtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setMixRate(mixRate: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mixRate.toLong())
-    TransferContext.callMethod(MethodBindings.setMixRatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setMixRatePtr, 0)
   }
 
   public final fun getMixRate(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMixRatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMixRatePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setStereo(stereo: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, stereo)
-    TransferContext.callMethod(MethodBindings.setStereoPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStereoPtr, 0)
   }
 
   public final fun isStereo(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isStereoPtr)
+    TransferContext.callPtrMethod(MethodBindings.isStereoPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setTags(tags: Dictionary<Any?, Any?>): Unit {
     TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, tags)
-    TransferContext.callMethod(MethodBindings.setTagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTagsPtr, 0)
   }
 
   public final fun getTags(): Dictionary<Any?, Any?> {
@@ -478,7 +478,7 @@ public open class AudioStreamWAV : AudioStream() {
     public final fun loadFromBuffer(streamData: PackedByteArray, options: Dictionary<Any?, Any?> =
         Dictionary()): AudioStreamWAV? {
       TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY_DICTIONARY(0L, 0L, streamData, options)
-      TransferContext.callMethod(MethodBindings.loadFromBufferPtr)
+      TransferContext.callPtrMethod(MethodBindings.loadFromBufferPtr, 39)
       return (TransferContext.readReturnValue_OBJECT() as AudioStreamWAV?)
     }
 

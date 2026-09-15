@@ -319,23 +319,23 @@ public open class TextMesh : PrimitiveMesh() {
 
   public final fun setHorizontalAlignment(alignment: HorizontalAlignment): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
-    TransferContext.callMethod(MethodBindings.setHorizontalAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setHorizontalAlignmentPtr, 0)
   }
 
   public final fun getHorizontalAlignment(): HorizontalAlignment {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHorizontalAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHorizontalAlignmentPtr, 2)
     return HorizontalAlignment.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setVerticalAlignment(alignment: VerticalAlignment): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
-    TransferContext.callMethod(MethodBindings.setVerticalAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.setVerticalAlignmentPtr, 0)
   }
 
   public final fun getVerticalAlignment(): VerticalAlignment {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVerticalAlignmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVerticalAlignmentPtr, 2)
     return VerticalAlignment.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -352,122 +352,122 @@ public open class TextMesh : PrimitiveMesh() {
 
   public final fun setFont(font: Font?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, font)
-    TransferContext.callMethod(MethodBindings.setFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.setFontPtr, 0)
   }
 
   public final fun getFont(): Font? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFontPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFontPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as Font?)
   }
 
   public final fun setFontSize(fontSize: Int): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fontSize.toLong())
-    TransferContext.callMethod(MethodBindings.setFontSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setFontSizePtr, 0)
   }
 
   public final fun getFontSize(): Int {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFontSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFontSizePtr, 2)
     return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setLineSpacing(lineSpacing: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, lineSpacing.toDouble())
-    TransferContext.callMethod(MethodBindings.setLineSpacingPtr)
+    TransferContext.callPtrMethod(MethodBindings.setLineSpacingPtr, 0)
   }
 
   public final fun getLineSpacing(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLineSpacingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineSpacingPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAutowrapMode(autowrapMode: TextServer.AutowrapMode): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, autowrapMode.value)
-    TransferContext.callMethod(MethodBindings.setAutowrapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.setAutowrapModePtr, 0)
   }
 
   public final fun getAutowrapMode(): TextServer.AutowrapMode {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutowrapModePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAutowrapModePtr, 2)
     return TextServer.AutowrapMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setJustificationFlags(justificationFlags: TextServer.JustificationFlag): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, justificationFlags.flag)
-    TransferContext.callMethod(MethodBindings.setJustificationFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setJustificationFlagsPtr, 0)
   }
 
   public final fun getJustificationFlags(): TextServer.JustificationFlag {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJustificationFlagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJustificationFlagsPtr, 2)
     return TextServer.JustificationFlag(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setDepth(depth: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, depth.toDouble())
-    TransferContext.callMethod(MethodBindings.setDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setDepthPtr, 0)
   }
 
   public final fun getDepth(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDepthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setWidth(width: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, width.toDouble())
-    TransferContext.callMethod(MethodBindings.setWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.setWidthPtr, 0)
   }
 
   public final fun getWidth(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWidthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWidthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPixelSize(pixelSize: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pixelSize.toDouble())
-    TransferContext.callMethod(MethodBindings.setPixelSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.setPixelSizePtr, 0)
   }
 
   public final fun getPixelSize(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPixelSizePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPixelSizePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOffset(offset: Vector2): Unit {
     TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callMethod(MethodBindings.setOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.setOffsetPtr, 0)
   }
 
   public final fun getOffset(): Vector2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOffsetPtr, 5)
     return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setCurveStep(curveStep: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, curveStep.toDouble())
-    TransferContext.callMethod(MethodBindings.setCurveStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.setCurveStepPtr, 0)
   }
 
   public final fun getCurveStep(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurveStepPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurveStepPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTextDirection(direction: TextServer.Direction): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, direction.value)
-    TransferContext.callMethod(MethodBindings.setTextDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTextDirectionPtr, 0)
   }
 
   public final fun getTextDirection(): TextServer.Direction {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextDirectionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextDirectionPtr, 2)
     return TextServer.Direction.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -484,18 +484,18 @@ public open class TextMesh : PrimitiveMesh() {
 
   public final fun setStructuredTextBidiOverride(parser: TextServer.StructuredTextParser): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, parser.value)
-    TransferContext.callMethod(MethodBindings.setStructuredTextBidiOverridePtr)
+    TransferContext.callPtrMethod(MethodBindings.setStructuredTextBidiOverridePtr, 0)
   }
 
   public final fun getStructuredTextBidiOverride(): TextServer.StructuredTextParser {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStructuredTextBidiOverridePtr)
+    TransferContext.callPtrMethod(MethodBindings.getStructuredTextBidiOverridePtr, 2)
     return TextServer.StructuredTextParser.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setStructuredTextBidiOverrideOptions(args: VariantArray<Any?>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, args)
-    TransferContext.callMethod(MethodBindings.setStructuredTextBidiOverrideOptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setStructuredTextBidiOverrideOptionsPtr, 0)
   }
 
   public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> {
@@ -506,12 +506,12 @@ public open class TextMesh : PrimitiveMesh() {
 
   public final fun setUppercase(enable: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callMethod(MethodBindings.setUppercasePtr)
+    TransferContext.callPtrMethod(MethodBindings.setUppercasePtr, 0)
   }
 
   public final fun isUppercase(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUppercasePtr)
+    TransferContext.callPtrMethod(MethodBindings.isUppercasePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

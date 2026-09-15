@@ -51,7 +51,7 @@ public open class ImageTexture3D : Texture3D() {
     `data`: VariantArray<Image>,
   ): Error {
     TransferContext.writeMethodArguments_LONG_LONG_LONG_LONG_BOOL_ARRAY(ptr, objectID.id, format.value, width.toLong(), height.toLong(), depth.toLong(), useMipmaps, data)
-    TransferContext.callMethod(MethodBindings.createPtr)
+    TransferContext.callPtrMethod(MethodBindings.createPtr, 2)
     return Error.from(TransferContext.readReturnValue_LONG())
   }
 
@@ -62,7 +62,7 @@ public open class ImageTexture3D : Texture3D() {
    */
   public final fun update(`data`: VariantArray<Image>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, data)
-    TransferContext.callMethod(MethodBindings.updatePtr)
+    TransferContext.callPtrMethod(MethodBindings.updatePtr, 0)
   }
 
   /**

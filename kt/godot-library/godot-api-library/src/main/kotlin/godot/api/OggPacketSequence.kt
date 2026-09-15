@@ -122,7 +122,7 @@ public open class OggPacketSequence : Resource() {
 
   public final fun setPacketData(packetData: VariantArray<VariantArray<Any?>>): Unit {
     TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, packetData)
-    TransferContext.callMethod(MethodBindings.setPacketDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPacketDataPtr, 0)
   }
 
   public final fun getPacketData(): VariantArray<VariantArray<Any?>> {
@@ -133,7 +133,7 @@ public open class OggPacketSequence : Resource() {
 
   public final fun setPacketGranulePositions(granulePositions: PackedInt64Array): Unit {
     TransferContext.writeMethodArguments_PACKED_INT_64_ARRAY(ptr, objectID.id, granulePositions)
-    TransferContext.callMethod(MethodBindings.setPacketGranulePositionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setPacketGranulePositionsPtr, 0)
   }
 
   public final fun getPacketGranulePositions(): PackedInt64Array {
@@ -144,12 +144,12 @@ public open class OggPacketSequence : Resource() {
 
   public final fun setSamplingRate(samplingRate: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, samplingRate.toDouble())
-    TransferContext.callMethod(MethodBindings.setSamplingRatePtr)
+    TransferContext.callPtrMethod(MethodBindings.setSamplingRatePtr, 0)
   }
 
   public final fun getSamplingRate(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSamplingRatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSamplingRatePtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -158,7 +158,7 @@ public open class OggPacketSequence : Resource() {
    */
   public final fun getLength(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLengthPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 

@@ -55,7 +55,7 @@ public open class OpenXRAnchorTracker : OpenXRSpatialEntityTracker() {
    */
   public final fun hasUuid(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasUuidPtr)
+    TransferContext.callPtrMethod(MethodBindings.hasUuidPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 

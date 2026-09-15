@@ -156,29 +156,29 @@ public open class NavigationRegion2D : Node2D() {
    */
   public final fun getRid(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRidPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setNavigationPolygon(navigationPolygon: NavigationPolygon?): Unit {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, navigationPolygon)
-    TransferContext.callMethod(MethodBindings.setNavigationPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNavigationPolygonPtr, 0)
   }
 
   public final fun getNavigationPolygon(): NavigationPolygon? {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNavigationPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNavigationPolygonPtr, 39)
     return (TransferContext.readReturnValue_OBJECT() as NavigationPolygon?)
   }
 
   public final fun setEnabled(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnabledPtr, 0)
   }
 
   public final fun isEnabled(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEnabledPtr)
+    TransferContext.callPtrMethod(MethodBindings.isEnabledPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -189,7 +189,7 @@ public open class NavigationRegion2D : Node2D() {
    */
   public final fun setNavigationMap(navigationMap: RID): Unit {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, navigationMap)
-    TransferContext.callMethod(MethodBindings.setNavigationMapPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNavigationMapPtr, 0)
   }
 
   /**
@@ -197,29 +197,29 @@ public open class NavigationRegion2D : Node2D() {
    */
   public final fun getNavigationMap(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNavigationMapPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNavigationMapPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setUseEdgeConnections(enabled: Boolean): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callMethod(MethodBindings.setUseEdgeConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.setUseEdgeConnectionsPtr, 0)
   }
 
   public final fun getUseEdgeConnections(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUseEdgeConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUseEdgeConnectionsPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setNavigationLayers(navigationLayers: Long): Unit {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, navigationLayers)
-    TransferContext.callMethod(MethodBindings.setNavigationLayersPtr)
+    TransferContext.callPtrMethod(MethodBindings.setNavigationLayersPtr, 0)
   }
 
   public final fun getNavigationLayers(): Long {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNavigationLayersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNavigationLayersPtr, 2)
     return TransferContext.readReturnValue_LONG()
   }
 
@@ -229,7 +229,7 @@ public open class NavigationRegion2D : Node2D() {
    */
   public final fun setNavigationLayerValue(layerNumber: Int, `value`: Boolean): Unit {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
-    TransferContext.callMethod(MethodBindings.setNavigationLayerValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.setNavigationLayerValuePtr, 0)
   }
 
   /**
@@ -238,7 +238,7 @@ public open class NavigationRegion2D : Node2D() {
    */
   public final fun getNavigationLayerValue(layerNumber: Int): Boolean {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
-    TransferContext.callMethod(MethodBindings.getNavigationLayerValuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNavigationLayerValuePtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -247,29 +247,29 @@ public open class NavigationRegion2D : Node2D() {
    */
   public final fun getRegionRid(): RID {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRegionRidPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRegionRidPtr, 23)
     return TransferContext.readReturnValue_RID()
   }
 
   public final fun setEnterCost(enterCost: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, enterCost.toDouble())
-    TransferContext.callMethod(MethodBindings.setEnterCostPtr)
+    TransferContext.callPtrMethod(MethodBindings.setEnterCostPtr, 0)
   }
 
   public final fun getEnterCost(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnterCostPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnterCostPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTravelCost(travelCost: Float): Unit {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, travelCost.toDouble())
-    TransferContext.callMethod(MethodBindings.setTravelCostPtr)
+    TransferContext.callPtrMethod(MethodBindings.setTravelCostPtr, 0)
   }
 
   public final fun getTravelCost(): Float {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTravelCostPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTravelCostPtr, 3)
     return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
@@ -280,7 +280,7 @@ public open class NavigationRegion2D : Node2D() {
   @JvmOverloads
   public final fun bakeNavigationPolygon(onThread: Boolean = true): Unit {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, onThread)
-    TransferContext.callMethod(MethodBindings.bakeNavigationPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.bakeNavigationPolygonPtr, 0)
   }
 
   /**
@@ -288,7 +288,7 @@ public open class NavigationRegion2D : Node2D() {
    */
   public final fun isBaking(): Boolean {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBakingPtr)
+    TransferContext.callPtrMethod(MethodBindings.isBakingPtr, 1)
     return TransferContext.readReturnValue_BOOL()
   }
 
@@ -297,7 +297,7 @@ public open class NavigationRegion2D : Node2D() {
    */
   public final fun getBounds(): Rect2 {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoundsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoundsPtr, 7)
     return TransferContext.readReturnValue_RECT2()
   }
 
