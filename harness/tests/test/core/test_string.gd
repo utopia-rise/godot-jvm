@@ -79,9 +79,11 @@ func test_short_supplementary_character() -> void:
     script.free()
 
 # Past the inline limit, so it crosses through LongStringQueue and therefore through NewStringUTF/GetStringUTFChars.
+# Built on the padding string rather than the prose one: a checkout that converts line endings leaves the two sides
+# with different newlines, and this test is about encoding, not about newlines.
 func test_long_supplementary_character() -> void:
     var script: Object = StringTest.new()
-    var expected: String = long_str + supplementary
+    var expected: String = shortest_long_str + supplementary
     assert_that(expected.to_utf8_buffer().size()).override_failure_message("This string must exceed the inline limit to exercise the JNI string queue.").is_greater(512)
     assert_that(script.get_long_supplementary()).override_failure_message("A supplementary character should survive the JVM to Godot crossing in a long string.").is_equal(expected)
     assert_that(script.identity(expected)).override_failure_message("A supplementary character should survive a round trip through the JVM in a long string.").is_equal(expected)

@@ -55,7 +55,7 @@ class StringTest : Node() {
     private val _shortSupplementary = _shortString + _supplementary
 
     /** Padded past LongStringQueue's limit, so it crosses through the JNI string queue instead of the buffer. */
-    private val _longSupplementary = _longString + _supplementary
+    private val _longSupplementary = _shortestLongString + _supplementary
 
     @Register
     fun identity(str: String) = str
