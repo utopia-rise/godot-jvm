@@ -35,7 +35,7 @@ import kotlin.jvm.JvmField
 public open class AudioStreamGeneratorPlayback internal constructor() :
     AudioStreamPlaybackResampled() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(85, scriptPtr)
+    createNativeObject(83, scriptPtr)
   }
 
   /**

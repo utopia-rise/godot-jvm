@@ -139,7 +139,7 @@ public open class Animation : Resource() {
     get() = isCaptureIncluded()
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(14, scriptPtr)
+    createNativeObject(12, scriptPtr)
   }
 
   /**

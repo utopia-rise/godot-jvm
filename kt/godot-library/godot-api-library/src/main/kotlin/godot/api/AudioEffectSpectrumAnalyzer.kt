@@ -61,7 +61,7 @@ public open class AudioEffectSpectrumAnalyzer : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(75, scriptPtr)
+    createNativeObject(73, scriptPtr)
   }
 
   public final fun setBufferLength(seconds: Float): Unit {

@@ -55,7 +55,7 @@ public open class MissingResource : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(384, scriptPtr)
+    createNativeObject(382, scriptPtr)
   }
 
   public final fun setOriginalClass(name: String): Unit {

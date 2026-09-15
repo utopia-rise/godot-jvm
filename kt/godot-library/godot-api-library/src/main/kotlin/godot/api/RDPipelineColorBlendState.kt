@@ -85,7 +85,7 @@ public open class RDPipelineColorBlendState : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(583, scriptPtr)
+    createNativeObject(582, scriptPtr)
   }
 
   /**

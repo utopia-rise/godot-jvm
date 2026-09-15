@@ -138,7 +138,7 @@ public open class AnimationNodeBlendSpace1D : AnimationRootNode() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(23, scriptPtr)
+    createNativeObject(21, scriptPtr)
   }
 
   /**

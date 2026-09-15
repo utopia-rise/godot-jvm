@@ -77,7 +77,7 @@ public abstract class Mesh : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(375, scriptPtr)
+    createNativeObject(373, scriptPtr)
   }
 
   /**

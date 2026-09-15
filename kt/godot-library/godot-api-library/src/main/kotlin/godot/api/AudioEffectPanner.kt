@@ -43,7 +43,7 @@ public open class AudioEffectPanner : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(70, scriptPtr)
+    createNativeObject(68, scriptPtr)
   }
 
   public final fun setPan(cpanume: Float): Unit {

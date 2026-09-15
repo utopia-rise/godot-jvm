@@ -29,7 +29,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OptimizedTranslation : Translation() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(497, scriptPtr)
+    createNativeObject(496, scriptPtr)
   }
 
   /**

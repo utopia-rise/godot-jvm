@@ -103,7 +103,7 @@ public open class GLTFSpecGloss : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(255, scriptPtr)
+    createNativeObject(253, scriptPtr)
   }
 
   /**

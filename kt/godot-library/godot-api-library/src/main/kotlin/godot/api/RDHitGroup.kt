@@ -64,7 +64,7 @@ public open class RDHitGroup : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(582, scriptPtr)
+    createNativeObject(581, scriptPtr)
   }
 
   public final fun setClosestHitShader(pMember: RDPipelineShader?): Unit {

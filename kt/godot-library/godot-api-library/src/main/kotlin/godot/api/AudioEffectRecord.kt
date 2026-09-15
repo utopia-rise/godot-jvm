@@ -50,7 +50,7 @@ public open class AudioEffectRecord : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(73, scriptPtr)
+    createNativeObject(71, scriptPtr)
   }
 
   /**

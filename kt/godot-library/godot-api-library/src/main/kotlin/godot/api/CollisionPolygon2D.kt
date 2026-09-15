@@ -138,7 +138,7 @@ public open class CollisionPolygon2D : Node2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(165, scriptPtr)
+    createNativeObject(163, scriptPtr)
   }
 
   /**

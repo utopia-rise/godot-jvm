@@ -20,7 +20,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class JvmScript internal constructor() : Script() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(346, scriptPtr)
+    createNativeObject(344, scriptPtr)
   }
 
   public final fun new(): Any? {

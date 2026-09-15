@@ -93,7 +93,7 @@ public open class GLTFMesh : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(248, scriptPtr)
+    createNativeObject(246, scriptPtr)
   }
 
   /**

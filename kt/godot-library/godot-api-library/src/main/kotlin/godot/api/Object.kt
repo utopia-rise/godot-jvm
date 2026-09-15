@@ -10,8 +10,8 @@ import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
-import godot.core.BitFieldBase
 import godot.core.Callable
+import godot.core.ConnectFlags
 import godot.core.Dictionary
 import godot.core.Error
 import godot.core.KtObject
@@ -44,12 +44,6 @@ import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmOverloads
-
-public infix fun Long.or(other: Object.ConnectFlags): Long = this.or(other.flag)
-
-public infix fun Long.xor(other: Object.ConnectFlags): Long = this.xor(other.flag)
-
-public infix fun Long.and(other: Object.ConnectFlags): Long = this.and(other.flag)
 
 /**
  * An advanced [Any] type. All classes in the engine inherit from Object. Each class may define new
@@ -127,7 +121,7 @@ public open class Object : KtObject() {
   public val propertyListChanged: Signal0 by Signal0
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(0, scriptPtr)
+    createNativeObject(428, scriptPtr)
   }
 
   /**
@@ -609,7 +603,7 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `SignalName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun emitSignal(signal: StringName, vararg args: Any?): Error {
+  public final override fun emitSignal(signal: StringName, vararg args: Any?): Error {
     TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal, *args.map { ANY to it }.toTypedArray())
     TransferContext.callMethod(MethodBindings.emitSignalPtr)
     return Error.from(TransferContext.readReturnValue(LONG) as Long)
@@ -635,7 +629,7 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `MethodName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun call(method: StringName, vararg args: Any?): Any? {
+  public final override fun call(method: StringName, vararg args: Any?): Any? {
     TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method, *args.map { ANY to it }.toTypedArray())
     TransferContext.callMethod(MethodBindings.callPtr)
     return (TransferContext.readReturnValue(ANY) as Any?)
@@ -688,7 +682,7 @@ public open class Object : KtObject() {
    * get_tree().process_frame.connect(callable, CONNECT_ONE_SHOT)
    * ```
    */
-  public final fun callDeferred(method: StringName, vararg args: Any?): Any? {
+  public final override fun callDeferred(method: StringName, vararg args: Any?): Any? {
     TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method, *args.map { ANY to it }.toTypedArray())
     TransferContext.callMethod(MethodBindings.callDeferredPtr)
     return (TransferContext.readReturnValue(ANY) as Any?)
@@ -764,7 +758,7 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `MethodName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun hasMethod(method: StringName): Boolean {
+  public final override fun hasMethod(method: StringName): Boolean {
     TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method)
     TransferContext.callMethod(MethodBindings.hasMethodPtr)
     return (TransferContext.readReturnValue(BOOL) as Boolean)
@@ -790,7 +784,7 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `SignalName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun hasSignal(signal: StringName): Boolean {
+  public final override fun hasSignal(signal: StringName): Boolean {
     TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal)
     TransferContext.callMethod(MethodBindings.hasSignalPtr)
     return (TransferContext.readReturnValue(BOOL) as Boolean)
@@ -818,7 +812,7 @@ public open class Object : KtObject() {
    *
    * - `flags` is a combination of [ConnectFlags].
    */
-  public final fun getSignalConnectionList(signal: StringName):
+  public final override fun getSignalConnectionList(signal: StringName):
       VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal)
     TransferContext.callMethod(MethodBindings.getSignalConnectionListPtr)
@@ -857,11 +851,10 @@ public open class Object : KtObject() {
    *
    * **Note:** This method, and all other signal-related methods, are thread-safe.
    */
-  @JvmOverloads
-  public final fun connect(
+  public final override fun connect(
     signal: StringName,
     callable: Callable,
-    flags: ConnectFlags = Object.ConnectFlags.DEFAULT,
+    flags: ConnectFlags,
   ): Error {
     TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal, CALLABLE to callable, LONG to flags.flag)
     TransferContext.callMethod(MethodBindings.connectPtr)
@@ -872,7 +865,7 @@ public open class Object : KtObject() {
    * Disconnects a [signal] by name from a given [callable]. If the connection does not exist,
    * generates an error. Use [isConnected] to make sure that the connection exists.
    */
-  public final fun disconnect(signal: StringName, callable: Callable): Unit {
+  public final override fun disconnect(signal: StringName, callable: Callable): Unit {
     TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal, CALLABLE to callable)
     TransferContext.callMethod(MethodBindings.disconnectPtr)
   }
@@ -884,7 +877,7 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `SignalName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun isConnected(signal: StringName, callable: Callable): Boolean {
+  public final override fun isConnected(signal: StringName, callable: Callable): Boolean {
     TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal, CALLABLE to callable)
     TransferContext.callMethod(MethodBindings.isConnectedPtr)
     return (TransferContext.readReturnValue(BOOL) as Boolean)
@@ -897,7 +890,7 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `SignalName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun hasConnections(signal: StringName): Boolean {
+  public final override fun hasConnections(signal: StringName): Boolean {
     TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal)
     TransferContext.callMethod(MethodBindings.hasConnectionsPtr)
     return (TransferContext.readReturnValue(BOOL) as Boolean)
@@ -1486,7 +1479,7 @@ public open class Object : KtObject() {
   public final fun connect(
     signal: String,
     callable: Callable,
-    flags: ConnectFlags = Object.ConnectFlags.DEFAULT,
+    flags: ConnectFlags = ConnectFlags.DEFAULT,
   ): Error = connect(signal.asCachedStringName(), callable, flags)
 
   /**
@@ -1568,72 +1561,6 @@ public open class Object : KtObject() {
    */
   public final fun setTranslationDomain(domain: String) =
       setTranslationDomain(domain.asCachedStringName())
-
-  public class ConnectFlags(
-    flag: Long,
-  ) : BitFieldBase<ConnectFlags>(flag) {
-    protected override fun wrap(flag: Long): ConnectFlags = ConnectFlags(flag)
-
-    public companion object {
-      /**
-       * Default connections that are immediately emitted
-       */
-      @JvmField
-      public val DEFAULT: ConnectFlags = ConnectFlags(0)
-
-      /**
-       * Deferred connections trigger their [Callable]s on idle time (at the end of the frame),
-       * rather than instantly.
-       */
-      @JvmField
-      public val DEFERRED: ConnectFlags = ConnectFlags(1)
-
-      /**
-       * Persisting connections are stored when the object is serialized (such as when using
-       * [PackedScene.pack]). In the editor, connections created through the Signals dock are always
-       * persisting.
-       *
-       * **Note:** Connections to lambda functions (that is, when the function code is embedded in
-       * the [connect] call) cannot be made persistent.
-       */
-      @JvmField
-      public val PERSIST: ConnectFlags = ConnectFlags(2)
-
-      /**
-       * One-shot connections disconnect themselves after emission.
-       */
-      @JvmField
-      public val ONE_SHOT: ConnectFlags = ConnectFlags(4)
-
-      /**
-       * Reference-counted connections can be assigned to the same [Callable] multiple times. Each
-       * disconnection decreases the internal counter. The signal fully disconnects only when the
-       * counter reaches 0.
-       */
-      @JvmField
-      public val REFERENCE_COUNTED: ConnectFlags = ConnectFlags(8)
-
-      /**
-       * On signal emission, the source object is automatically appended after the original
-       * arguments of the signal, regardless of the connected [Callable]'s unbinds which affect only
-       * the original arguments of the signal (see [Callable.unbind],
-       * [Callable.getUnboundArgumentsCount]).
-       *
-       * ```
-       * extends Object
-       *
-       * signal test_signal
-       *
-       * func test():
-       * 	print(self) # Prints e.g. <Object#35332818393>
-       * 	test_signal.connect(prints.unbind(1), CONNECT_APPEND_SOURCE_OBJECT)
-       * 	test_signal.emit("emit_arg_1", "emit_arg_2") # Prints emit_arg_1 <Object#35332818393>
-       * ```
-       */
-      @JvmField
-      public val APPEND_SOURCE_OBJECT: ConnectFlags = ConnectFlags(16)
-    }
-  }
 
   public companion object {
     @JvmField

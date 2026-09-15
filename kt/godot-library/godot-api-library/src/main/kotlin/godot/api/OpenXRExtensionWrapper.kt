@@ -57,7 +57,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRExtensionWrapper : Object() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(451, scriptPtr)
+    createNativeObject(450, scriptPtr)
   }
 
   /**

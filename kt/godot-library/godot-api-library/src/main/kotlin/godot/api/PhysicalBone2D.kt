@@ -105,7 +105,7 @@ public open class PhysicalBone2D : RigidBody2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(520, scriptPtr)
+    createNativeObject(519, scriptPtr)
   }
 
   /**

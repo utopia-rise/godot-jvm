@@ -112,7 +112,7 @@ public open class AnimationNode : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(17, scriptPtr)
+    createNativeObject(15, scriptPtr)
   }
 
   /**

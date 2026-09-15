@@ -109,7 +109,7 @@ public open class RDAccelerationStructureInstance : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(579, scriptPtr)
+    createNativeObject(578, scriptPtr)
   }
 
   /**

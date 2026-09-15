@@ -142,7 +142,7 @@ public open class AnimationNodeAnimation : AnimationRootNode() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(20, scriptPtr)
+    createNativeObject(18, scriptPtr)
   }
 
   public final fun setAnimation(name: StringName): Unit {

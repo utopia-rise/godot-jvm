@@ -363,7 +363,7 @@ public open class FileDialog : ConfirmationDialog() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(227, scriptPtr)
+    createNativeObject(225, scriptPtr)
   }
 
   /**

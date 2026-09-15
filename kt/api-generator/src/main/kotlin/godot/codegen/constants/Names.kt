@@ -32,11 +32,24 @@ object API {
     val resource = ClassName(godotApiPackage, "Resource")
     val node = ClassName(godotApiPackage, "Node")
 
-    val connectFlags = ClassName(godotApiPackage, "Object", "ConnectFlags")
     val rpcMode = ClassName(godotApiPackage, "MultiplayerAPI", "RPCMode")
     val transferMode = ClassName(godotApiPackage, "MultiplayerPeer", "TransferMode")
     val rpcModeDisabled = MemberName(ClassName(godotApiPackage, "MultiplayerAPI"), "DISABLED")
     val transferModeUnreliableOrdered = MemberName(ClassName(godotApiPackage, "MultiplayerPeer", "TransferMode"), "UNRELIABLE_ORDERED")
+
+    /** Godot names of the `Object` methods declared by `godot.core.GodotObject`; `Object` generates them as final overrides. */
+    val godotObjectMethods = setOf(
+        "has_method",
+        "call",
+        "call_deferred",
+        "has_signal",
+        "emit_signal",
+        "connect",
+        "disconnect",
+        "is_connected",
+        "has_connections",
+        "get_signal_connection_list",
+    )
 
     const val methodBindingsInnerClassName = "MethodBindings"
     fun getMethodStringName(count: Int) = ClassName(godotCorePackage, "MethodStringName$count")
@@ -64,6 +77,8 @@ object Core {
     const val delegatePropertyName = "delegate"
     const val unsafeSuffix = "Unsafe"
 
+    val godotObject = ClassName(godotCorePackage, "GodotObject")
+    val connectFlags = ClassName(godotCorePackage, "ConnectFlags")
     val string = ClassName(godotCorePackage, "String")
     val vector2 = ClassName(godotCorePackage, "Vector2")
     val vector2i = ClassName(godotCorePackage, "Vector2i")

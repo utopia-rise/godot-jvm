@@ -68,7 +68,7 @@ public open class GradientTexture1D : Texture2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(277, scriptPtr)
+    createNativeObject(275, scriptPtr)
   }
 
   public final fun setGradient(gradient: Gradient?): Unit {

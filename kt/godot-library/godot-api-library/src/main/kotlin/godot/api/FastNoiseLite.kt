@@ -292,7 +292,7 @@ public open class FastNoiseLite : Noise() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(225, scriptPtr)
+    createNativeObject(223, scriptPtr)
   }
 
   /**

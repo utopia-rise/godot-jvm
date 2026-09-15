@@ -8,15 +8,12 @@ import godot.codegen.models.traits.Nature
 import godot.codegen.models.traits.TypeGenerationTrait
 import godot.codegen.models.traits.from
 
-enum class ModuleLevel { CORE, API }
-
 class EnrichedClass(model: Class) : TypeGenerationTrait, DocumentedGenerationTrait {
     override val identifier = model.name
     override val nature = Nature.CLASS
     override val className = ClassName.from(this)
 
     val apiType = ApiType.from(model.apiType)
-    private var moduleLevel: ModuleLevel = ModuleLevel.API
 
 
     var parent: EnrichedClass? = null
@@ -46,13 +43,6 @@ class EnrichedClass(model: Class) : TypeGenerationTrait, DocumentedGenerationTra
         this.parent = parent
     }
 
-    fun setAsCoreModule() {
-        moduleLevel = ModuleLevel.CORE
-    }
-
-    fun isCoreModule(): Boolean {
-        return moduleLevel == ModuleLevel.CORE
-    }
 }
 
 fun List<Class>.toEnriched() = map { EnrichedClass(it) }

@@ -28,7 +28,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class AudioListener2D : Node2D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(78, scriptPtr)
+    createNativeObject(76, scriptPtr)
   }
 
   /**

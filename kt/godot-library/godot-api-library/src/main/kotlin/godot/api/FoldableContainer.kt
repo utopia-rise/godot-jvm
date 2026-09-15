@@ -136,7 +136,7 @@ public open class FoldableContainer : Container() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(231, scriptPtr)
+    createNativeObject(229, scriptPtr)
   }
 
   /**

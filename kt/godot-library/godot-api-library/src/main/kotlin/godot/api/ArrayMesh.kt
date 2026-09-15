@@ -153,7 +153,7 @@ public open class ArrayMesh : Mesh() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(43, scriptPtr)
+    createNativeObject(41, scriptPtr)
   }
 
   /**

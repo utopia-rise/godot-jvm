@@ -82,7 +82,7 @@ public open class PhysicsMaterial : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(534, scriptPtr)
+    createNativeObject(533, scriptPtr)
   }
 
   public final fun setFriction(friction: Float): Unit {

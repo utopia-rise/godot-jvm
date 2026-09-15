@@ -63,7 +63,7 @@ public open class CSGBox3D : CSGPrimitive3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(125, scriptPtr)
+    createNativeObject(123, scriptPtr)
   }
 
   /**

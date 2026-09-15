@@ -83,7 +83,7 @@ public open class MeshInstance3D : GeometryInstance3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(379, scriptPtr)
+    createNativeObject(377, scriptPtr)
   }
 
   public final fun setMesh(mesh: Mesh?): Unit {

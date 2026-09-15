@@ -109,7 +109,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class MultiplayerAPIExtension : MultiplayerAPI() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(392, scriptPtr)
+    createNativeObject(390, scriptPtr)
   }
 
   /**

@@ -1,7 +1,7 @@
 package godot.coroutines
 
 import godot.api.Node
-import godot.api.Object
+import godot.core.ConnectFlags
 import godot.core.asCallable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -50,7 +50,7 @@ fun Node.nodeScope(): NodeScope {
             {
                 releaseNodeScope(this, scope)
             }.asCallable(),
-            Object.ConnectFlags.ONE_SHOT,
+            ConnectFlags.ONE_SHOT,
         )
         return scope
     }

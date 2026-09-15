@@ -8,6 +8,7 @@
 package godot.extension
 
 import godot.api.Object
+import godot.core.ConnectFlags
 import godot.core.JvmAction0
 import godot.core.JvmAction1
 import godot.core.JvmAction10
@@ -123,8 +124,8 @@ import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmSynthetic
 import kotlin.reflect.KCallable
 
-public inline fun Signal0.connectLambda(flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
-    noinline method: () -> Unit): SignalConnector {
+public inline fun Signal0.connectLambda(flags: ConnectFlags = ConnectFlags.DEFAULT, noinline
+    method: () -> Unit): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
       method.asCallable()
@@ -135,7 +136,7 @@ public inline fun Signal0.connectLambda(flags: Object.ConnectFlags = Object.Conn
 
 @JvmOverloads
 @JvmName("connectLambda0")
-public fun Signal0._connectLambda0Java(flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+public fun Signal0._connectLambda0Java(flags: ConnectFlags = ConnectFlags.DEFAULT,
     action: JvmAction0): SignalConnector {
   val connector = SignalConnector.createUnsafe(
     this,
@@ -149,7 +150,7 @@ public fun Signal0._connectLambda0Java(flags: Object.ConnectFlags = Object.Conne
 public fun <T : Object> Signal0.connectMethod(
   target: T,
   method: T.() -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -164,7 +165,7 @@ public fun <T : Object> Signal0.connectMethod(
 public fun <T : Object, R> Signal0._connectMethod0Java(
   target: T,
   method: MethodStringName0<T, R>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -178,8 +179,8 @@ public inline fun Signal0.promise(noinline method: () -> Unit, noinline cancel: 
   LambdaContainer0<Unit>(NIL, arrayOf(), method).setAsCancellable(this, cancel)
 }
 
-public inline fun <reified P0> Signal1<P0>.connectLambda(flags: Object.ConnectFlags =
-    Object.ConnectFlags.DEFAULT, noinline method: (p0: P0) -> Unit): SignalConnector {
+public inline fun <reified P0> Signal1<P0>.connectLambda(flags: ConnectFlags = ConnectFlags.DEFAULT,
+    noinline method: (p0: P0) -> Unit): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
       method.asCallable()
@@ -191,7 +192,7 @@ public inline fun <reified P0> Signal1<P0>.connectLambda(flags: Object.ConnectFl
 @JvmOverloads
 @JvmName("connectLambda1")
 public fun <P0> Signal1<P0>._connectLambda1Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   action: JvmAction1<P0>,
 ): SignalConnector {
@@ -207,7 +208,7 @@ public fun <P0> Signal1<P0>._connectLambda1Java(
 public fun <T : Object, P0> Signal1<P0>.connectMethod(
   target: T,
   method: T.(p0: P0) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -222,7 +223,7 @@ public fun <T : Object, P0> Signal1<P0>.connectMethod(
 public fun <T : Object, R, P0> Signal1<P0>._connectMethod1Java(
   target: T,
   method: MethodStringName1<T, R, P0>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -237,8 +238,8 @@ public inline fun <reified P0> Signal1<P0>.promise(noinline method: (p0: P0) -> 
   LambdaContainer1<Unit, P0>(NIL, arrayOf(getVariantConverter(P0::class)!!), method).setAsCancellable(this, cancel)
 }
 
-public inline fun <reified P0, reified P1> Signal2<P0, P1>.connectLambda(flags: Object.ConnectFlags
-    = Object.ConnectFlags.DEFAULT, noinline method: (p0: P0, p1: P1) -> Unit): SignalConnector {
+public inline fun <reified P0, reified P1> Signal2<P0, P1>.connectLambda(flags: ConnectFlags =
+    ConnectFlags.DEFAULT, noinline method: (p0: P0, p1: P1) -> Unit): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
       method.asCallable()
@@ -250,7 +251,7 @@ public inline fun <reified P0, reified P1> Signal2<P0, P1>.connectLambda(flags: 
 @JvmOverloads
 @JvmName("connectLambda2")
 public fun <P0, P1> Signal2<P0, P1>._connectLambda2Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   action: JvmAction2<P0, P1>,
@@ -267,7 +268,7 @@ public fun <P0, P1> Signal2<P0, P1>._connectLambda2Java(
 public fun <T : Object, P0, P1> Signal2<P0, P1>.connectMethod(
   target: T,
   method: T.(p0: P0, p1: P1) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -282,7 +283,7 @@ public fun <T : Object, P0, P1> Signal2<P0, P1>.connectMethod(
 public fun <T : Object, R, P0, P1> Signal2<P0, P1>._connectMethod2Java(
   target: T,
   method: MethodStringName2<T, R, P0, P1>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -298,8 +299,7 @@ public inline fun <reified P0, reified P1> Signal2<P0, P1>.promise(noinline meth
 }
 
 public inline fun <reified P0, reified P1, reified P2>
-    Signal3<P0, P1, P2>.connectLambda(flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
-    noinline method: (
+    Signal3<P0, P1, P2>.connectLambda(flags: ConnectFlags = ConnectFlags.DEFAULT, noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -315,7 +315,7 @@ public inline fun <reified P0, reified P1, reified P2>
 @JvmOverloads
 @JvmName("connectLambda3")
 public fun <P0, P1, P2> Signal3<P0, P1, P2>._connectLambda3Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -337,7 +337,7 @@ public fun <T : Object, P0, P1, P2> Signal3<P0, P1, P2>.connectMethod(
     p1: P1,
     p2: P2,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -352,7 +352,7 @@ public fun <T : Object, P0, P1, P2> Signal3<P0, P1, P2>.connectMethod(
 public fun <T : Object, R, P0, P1, P2> Signal3<P0, P1, P2>._connectMethod3Java(
   target: T,
   method: MethodStringName3<T, R, P0, P1, P2>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -372,8 +372,8 @@ public inline fun <reified P0, reified P1, reified P2> Signal3<P0, P1, P2>.promi
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3>
-    Signal4<P0, P1, P2, P3>.connectLambda(flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
-    noinline method: (
+    Signal4<P0, P1, P2, P3>.connectLambda(flags: ConnectFlags = ConnectFlags.DEFAULT, noinline
+    method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -390,7 +390,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3>
 @JvmOverloads
 @JvmName("connectLambda4")
 public fun <P0, P1, P2, P3> Signal4<P0, P1, P2, P3>._connectLambda4Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -414,7 +414,7 @@ public fun <T : Object, P0, P1, P2, P3> Signal4<P0, P1, P2, P3>.connectMethod(
     p2: P2,
     p3: P3,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -429,7 +429,7 @@ public fun <T : Object, P0, P1, P2, P3> Signal4<P0, P1, P2, P3>.connectMethod(
 public fun <T : Object, R, P0, P1, P2, P3> Signal4<P0, P1, P2, P3>._connectMethod4Java(
   target: T,
   method: MethodStringName4<T, R, P0, P1, P2, P3>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -450,8 +450,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3>
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4>
-    Signal5<P0, P1, P2, P3, P4>.connectLambda(flags: Object.ConnectFlags =
-    Object.ConnectFlags.DEFAULT, noinline method: (
+    Signal5<P0, P1, P2, P3, P4>.connectLambda(flags: ConnectFlags = ConnectFlags.DEFAULT, noinline
+    method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -469,7 +469,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4>
 @JvmOverloads
 @JvmName("connectLambda5")
 public fun <P0, P1, P2, P3, P4> Signal5<P0, P1, P2, P3, P4>._connectLambda5Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -495,7 +495,7 @@ public fun <T : Object, P0, P1, P2, P3, P4> Signal5<P0, P1, P2, P3, P4>.connectM
     p3: P3,
     p4: P4,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -510,7 +510,7 @@ public fun <T : Object, P0, P1, P2, P3, P4> Signal5<P0, P1, P2, P3, P4>.connectM
 public fun <T : Object, R, P0, P1, P2, P3, P4> Signal5<P0, P1, P2, P3, P4>._connectMethod5Java(
   target: T,
   method: MethodStringName5<T, R, P0, P1, P2, P3, P4>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -532,8 +532,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4>
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5>
-    Signal6<P0, P1, P2, P3, P4, P5>.connectLambda(flags: Object.ConnectFlags =
-    Object.ConnectFlags.DEFAULT, noinline method: (
+    Signal6<P0, P1, P2, P3, P4, P5>.connectLambda(flags: ConnectFlags = ConnectFlags.DEFAULT,
+    noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -552,7 +552,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 @JvmOverloads
 @JvmName("connectLambda6")
 public fun <P0, P1, P2, P3, P4, P5> Signal6<P0, P1, P2, P3, P4, P5>._connectLambda6Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -580,7 +580,7 @@ public fun <T : Object, P0, P1, P2, P3, P4, P5> Signal6<P0, P1, P2, P3, P4, P5>.
     p4: P4,
     p5: P5,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -596,7 +596,7 @@ public fun <T : Object, R, P0, P1, P2, P3, P4, P5>
     Signal6<P0, P1, P2, P3, P4, P5>._connectMethod6Java(
   target: T,
   method: MethodStringName6<T, R, P0, P1, P2, P3, P4, P5>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -619,8 +619,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
-    P6> Signal7<P0, P1, P2, P3, P4, P5, P6>.connectLambda(flags: Object.ConnectFlags =
-    Object.ConnectFlags.DEFAULT, noinline method: (
+    P6> Signal7<P0, P1, P2, P3, P4, P5, P6>.connectLambda(flags: ConnectFlags =
+    ConnectFlags.DEFAULT, noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -640,7 +640,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 @JvmOverloads
 @JvmName("connectLambda7")
 public fun <P0, P1, P2, P3, P4, P5, P6> Signal7<P0, P1, P2, P3, P4, P5, P6>._connectLambda7Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -671,7 +671,7 @@ public fun <T : Object, P0, P1, P2, P3, P4, P5, P6>
     p5: P5,
     p6: P6,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -687,7 +687,7 @@ public fun <T : Object, R, P0, P1, P2, P3, P4, P5, P6>
     Signal7<P0, P1, P2, P3, P4, P5, P6>._connectMethod7Java(
   target: T,
   method: MethodStringName7<T, R, P0, P1, P2, P3, P4, P5, P6>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -711,8 +711,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 }
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
-    P6, reified P7> Signal8<P0, P1, P2, P3, P4, P5, P6, P7>.connectLambda(flags: Object.ConnectFlags
-    = Object.ConnectFlags.DEFAULT, noinline method: (
+    P6, reified P7> Signal8<P0, P1, P2, P3, P4, P5, P6, P7>.connectLambda(flags: ConnectFlags =
+    ConnectFlags.DEFAULT, noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -734,7 +734,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 @JvmName("connectLambda8")
 public fun <P0, P1, P2, P3, P4, P5, P6, P7>
     Signal8<P0, P1, P2, P3, P4, P5, P6, P7>._connectLambda8Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -767,7 +767,7 @@ public fun <T : Object, P0, P1, P2, P3, P4, P5, P6, P7>
     p6: P6,
     p7: P7,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -783,7 +783,7 @@ public fun <T : Object, R, P0, P1, P2, P3, P4, P5, P6, P7>
     Signal8<P0, P1, P2, P3, P4, P5, P6, P7>._connectMethod8Java(
   target: T,
   method: MethodStringName8<T, R, P0, P1, P2, P3, P4, P5, P6, P7>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -809,8 +809,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
     P6, reified P7, reified P8>
-    Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8>.connectLambda(flags: Object.ConnectFlags =
-    Object.ConnectFlags.DEFAULT, noinline method: (
+    Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8>.connectLambda(flags: ConnectFlags =
+    ConnectFlags.DEFAULT, noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -833,7 +833,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 @JvmName("connectLambda9")
 public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8>
     Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8>._connectLambda9Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -868,7 +868,7 @@ public fun <T : Object, P0, P1, P2, P3, P4, P5, P6, P7, P8>
     p7: P7,
     p8: P8,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -884,7 +884,7 @@ public fun <T : Object, R, P0, P1, P2, P3, P4, P5, P6, P7, P8>
     Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8>._connectMethod9Java(
   target: T,
   method: MethodStringName9<T, R, P0, P1, P2, P3, P4, P5, P6, P7, P8>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -912,8 +912,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
     P6, reified P7, reified P8, reified P9>
-    Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>.connectLambda(flags: Object.ConnectFlags =
-    Object.ConnectFlags.DEFAULT, noinline method: (
+    Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>.connectLambda(flags: ConnectFlags =
+    ConnectFlags.DEFAULT, noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -937,7 +937,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 @JvmName("connectLambda10")
 public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>
     Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>._connectLambda10Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -974,7 +974,7 @@ public fun <T : Object, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>
     p8: P8,
     p9: P9,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -990,7 +990,7 @@ public fun <T : Object, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>
     Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>._connectMethod10Java(
   target: T,
   method: MethodStringName10<T, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -1019,8 +1019,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
     P6, reified P7, reified P8, reified P9, reified P10>
-    Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>.connectLambda(flags: Object.ConnectFlags =
-    Object.ConnectFlags.DEFAULT, noinline method: (
+    Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>.connectLambda(flags: ConnectFlags =
+    ConnectFlags.DEFAULT, noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -1045,7 +1045,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 @JvmName("connectLambda11")
 public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>
     Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>._connectLambda11Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -1084,7 +1084,7 @@ public fun <T : Object, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>
     p9: P9,
     p10: P10,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -1100,7 +1100,7 @@ public fun <T : Object, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>
     Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>._connectMethod11Java(
   target: T,
   method: MethodStringName11<T, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -1130,8 +1130,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
     P6, reified P7, reified P8, reified P9, reified P10, reified P11>
-    Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>.connectLambda(flags: Object.ConnectFlags
-    = Object.ConnectFlags.DEFAULT, noinline method: (
+    Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>.connectLambda(flags: ConnectFlags =
+    ConnectFlags.DEFAULT, noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -1157,7 +1157,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 @JvmName("connectLambda12")
 public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>
     Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>._connectLambda12Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -1198,7 +1198,7 @@ public fun <T : Object, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>
     p10: P10,
     p11: P11,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -1214,7 +1214,7 @@ public fun <T : Object, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>
     Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>._connectMethod12Java(
   target: T,
   method: MethodStringName12<T, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -1245,8 +1245,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
     P6, reified P7, reified P8, reified P9, reified P10, reified P11, reified P12>
-    Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>.connectLambda(flags: Object.ConnectFlags
-    = Object.ConnectFlags.DEFAULT, noinline method: (
+    Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>.connectLambda(flags: ConnectFlags
+    = ConnectFlags.DEFAULT, noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -1273,7 +1273,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 @JvmName("connectLambda13")
 public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>
     Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>._connectLambda13Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -1316,7 +1316,7 @@ public fun <T : Object, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>
     p11: P11,
     p12: P12,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -1332,7 +1332,7 @@ public fun <T : Object, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12
     Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>._connectMethod13Java(
   target: T,
   method: MethodStringName13<T, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -1364,8 +1364,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
     P6, reified P7, reified P8, reified P9, reified P10, reified P11, reified P12, reified P13>
-    Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>.connectLambda(flags: Object.ConnectFlags
-    = Object.ConnectFlags.DEFAULT, noinline method: (
+    Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>.connectLambda(flags: ConnectFlags
+    = ConnectFlags.DEFAULT, noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -1393,7 +1393,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 @JvmName("connectLambda14")
 public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>
     Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>._connectLambda14Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -1438,7 +1438,7 @@ public fun <T : Object, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P
     p12: P12,
     p13: P13,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -1454,7 +1454,7 @@ public fun <T : Object, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12
     Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>._connectMethod14Java(
   target: T,
   method: MethodStringName14<T, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -1488,8 +1488,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
     P6, reified P7, reified P8, reified P9, reified P10, reified P11, reified P12, reified P13,
     reified P14>
-    Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>.connectLambda(flags: Object.ConnectFlags
-    = Object.ConnectFlags.DEFAULT, noinline method: (
+    Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>.connectLambda(flags: ConnectFlags
+    = ConnectFlags.DEFAULT, noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -1518,7 +1518,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 @JvmName("connectLambda15")
 public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>
     Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>._connectLambda15Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -1565,7 +1565,7 @@ public fun <T : Object, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P
     p13: P13,
     p14: P14,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -1581,7 +1581,7 @@ public fun <T : Object, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12
     Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>._connectMethod15Java(
   target: T,
   method: MethodStringName15<T, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,
@@ -1618,8 +1618,8 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, reified P5, reified
     P6, reified P7, reified P8, reified P9, reified P10, reified P11, reified P12, reified P13,
     reified P14, reified P15>
-    Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>.connectLambda(flags: Object.ConnectFlags
-    = Object.ConnectFlags.DEFAULT, noinline method: (
+    Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>.connectLambda(flags: ConnectFlags
+    = ConnectFlags.DEFAULT, noinline method: (
   p0: P0,
   p1: P1,
   p2: P2,
@@ -1649,7 +1649,7 @@ public inline fun <reified P0, reified P1, reified P2, reified P3, reified P4, r
 @JvmName("connectLambda16")
 public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>
     Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>._connectLambda16Java(
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
   p0Type: Class<P0>,
   p1Type: Class<P1>,
   p2Type: Class<P2>,
@@ -1698,7 +1698,7 @@ public fun <T : Object, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P
     p14: P14,
     p15: P15,
   ) -> Unit,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this, 
@@ -1714,7 +1714,7 @@ public fun <T : Object, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12
     Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>._connectMethod16Java(
   target: T,
   method: MethodStringName16<T, R, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>,
-  flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT,
+  flags: ConnectFlags = ConnectFlags.DEFAULT,
 ): SignalConnector {
   val connector = SignalConnector.createUnsafe(
       this,

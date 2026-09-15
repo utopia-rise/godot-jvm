@@ -34,7 +34,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class Generic6DOFJoint3D : Joint3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(271, scriptPtr)
+    createNativeObject(269, scriptPtr)
   }
 
   public final fun setParamX(`param`: Param, `value`: Float): Unit {

@@ -20,7 +20,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class OpenXRIPBindingModifier : OpenXRBindingModifier() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(460, scriptPtr)
+    createNativeObject(459, scriptPtr)
   }
 
   /**

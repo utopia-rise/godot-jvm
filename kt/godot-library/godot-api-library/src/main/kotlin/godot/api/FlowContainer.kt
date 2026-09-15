@@ -84,7 +84,7 @@ public open class FlowContainer : Container() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(228, scriptPtr)
+    createNativeObject(226, scriptPtr)
   }
 
   /**

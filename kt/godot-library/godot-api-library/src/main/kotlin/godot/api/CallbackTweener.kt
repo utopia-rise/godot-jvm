@@ -30,7 +30,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class CallbackTweener : Tweener() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(134, scriptPtr)
+    createNativeObject(132, scriptPtr)
   }
 
   /**

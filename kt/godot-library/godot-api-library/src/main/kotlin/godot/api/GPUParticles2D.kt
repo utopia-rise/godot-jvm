@@ -440,7 +440,7 @@ public open class GPUParticles2D : Node2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(259, scriptPtr)
+    createNativeObject(257, scriptPtr)
   }
 
   /**

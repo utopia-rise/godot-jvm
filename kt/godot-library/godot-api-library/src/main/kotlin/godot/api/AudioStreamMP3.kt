@@ -149,7 +149,7 @@ public open class AudioStreamMP3 : AudioStream() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(87, scriptPtr)
+    createNativeObject(85, scriptPtr)
   }
 
   /**

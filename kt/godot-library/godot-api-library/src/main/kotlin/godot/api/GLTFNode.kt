@@ -259,7 +259,7 @@ public open class GLTFNode : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(249, scriptPtr)
+    createNativeObject(247, scriptPtr)
   }
 
   /**

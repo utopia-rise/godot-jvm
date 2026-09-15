@@ -62,7 +62,7 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
   public val spatialDiscoveryRecommended: Signal1<RID> by Signal1
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(490, scriptPtr)
+    createNativeObject(489, scriptPtr)
   }
 
   /**

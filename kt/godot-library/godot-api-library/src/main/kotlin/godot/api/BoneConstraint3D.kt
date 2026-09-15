@@ -39,7 +39,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class BoneConstraint3D : SkeletonModifier3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(113, scriptPtr)
+    createNativeObject(111, scriptPtr)
   }
 
   /**

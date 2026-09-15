@@ -64,7 +64,7 @@ public open class OpenXRHapticVibration : OpenXRHapticBase() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(458, scriptPtr)
+    createNativeObject(457, scriptPtr)
   }
 
   public final fun setDuration(duration: Long): Unit {

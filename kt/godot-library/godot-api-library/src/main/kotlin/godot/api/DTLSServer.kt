@@ -175,7 +175,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class DTLSServer : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(204, scriptPtr)
+    createNativeObject(202, scriptPtr)
   }
 
   /**

@@ -896,7 +896,7 @@ public open class CPUParticles2D : Node2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(123, scriptPtr)
+    createNativeObject(121, scriptPtr)
   }
 
   /**

@@ -39,7 +39,7 @@ public open class BlitMaterial : Material() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(110, scriptPtr)
+    createNativeObject(108, scriptPtr)
   }
 
   public final fun setBlendMode(blendMode: BlendMode): Unit {

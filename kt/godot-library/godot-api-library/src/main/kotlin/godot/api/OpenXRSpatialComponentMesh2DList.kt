@@ -33,7 +33,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialComponentMesh2DList : OpenXRSpatialComponentData() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(482, scriptPtr)
+    createNativeObject(481, scriptPtr)
   }
 
   /**

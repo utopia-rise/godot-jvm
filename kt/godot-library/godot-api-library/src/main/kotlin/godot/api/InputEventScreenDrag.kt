@@ -199,7 +199,7 @@ public open class InputEventScreenDrag : InputEventFromWindow() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(323, scriptPtr)
+    createNativeObject(321, scriptPtr)
   }
 
   /**

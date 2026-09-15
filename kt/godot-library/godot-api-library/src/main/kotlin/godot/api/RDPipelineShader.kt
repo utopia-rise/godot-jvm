@@ -53,7 +53,7 @@ public open class RDPipelineShader : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(588, scriptPtr)
+    createNativeObject(587, scriptPtr)
   }
 
   public final fun setShader(pMember: RID): Unit {

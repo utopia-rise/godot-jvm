@@ -105,7 +105,7 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(391, scriptPtr)
+    createNativeObject(389, scriptPtr)
   }
 
   /**

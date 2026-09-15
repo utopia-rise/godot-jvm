@@ -27,7 +27,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class Occluder3D internal constructor() : Resource() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(430, scriptPtr)
+    createNativeObject(429, scriptPtr)
   }
 
   /**

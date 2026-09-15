@@ -74,7 +74,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(115, scriptPtr)
+    createNativeObject(113, scriptPtr)
   }
 
   public final fun setSettingCount(count: Int): Unit {

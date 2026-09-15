@@ -69,7 +69,7 @@ public open class ImageTexture : Texture2D() {
     get() = getImage()
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(303, scriptPtr)
+    createNativeObject(301, scriptPtr)
   }
 
   /**

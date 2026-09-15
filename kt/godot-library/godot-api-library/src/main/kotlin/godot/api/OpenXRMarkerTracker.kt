@@ -76,7 +76,7 @@ public open class OpenXRMarkerTracker : OpenXRSpatialEntityTracker() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(464, scriptPtr)
+    createNativeObject(463, scriptPtr)
   }
 
   /**

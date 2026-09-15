@@ -70,7 +70,7 @@ public open class OpenXRInteractionProfile : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(461, scriptPtr)
+    createNativeObject(460, scriptPtr)
   }
 
   public final fun setInteractionProfilePath(interactionProfilePath: String): Unit {

@@ -37,7 +37,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class MeshLibrary : Resource() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(380, scriptPtr)
+    createNativeObject(378, scriptPtr)
   }
 
   /**

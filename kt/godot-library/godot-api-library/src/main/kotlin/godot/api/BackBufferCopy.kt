@@ -68,7 +68,7 @@ public open class BackBufferCopy : Node2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(106, scriptPtr)
+    createNativeObject(104, scriptPtr)
   }
 
   /**

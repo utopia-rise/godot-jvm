@@ -38,7 +38,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class AudioEffectEQ : AudioEffect() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(57, scriptPtr)
+    createNativeObject(55, scriptPtr)
   }
 
   /**

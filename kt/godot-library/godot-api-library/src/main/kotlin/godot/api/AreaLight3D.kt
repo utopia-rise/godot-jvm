@@ -141,7 +141,7 @@ public open class AreaLight3D : Light3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(42, scriptPtr)
+    createNativeObject(40, scriptPtr)
   }
 
   /**

@@ -47,7 +47,7 @@ public open class GLTFTexture : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(257, scriptPtr)
+    createNativeObject(255, scriptPtr)
   }
 
   public final fun getSrcImage(): Int {
