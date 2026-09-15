@@ -22,7 +22,6 @@ GDExtensionBool JvmInstance::set(
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = &instance_data->kt_object;
 
-    jni::LocalFrame localFrame(1000);
     jni::Env env = jni::Jvm::current_env();
     Variant value = Variant(p_value);
 
@@ -55,7 +54,6 @@ GDExtensionBool JvmInstance::get(
     const StringName& parameter_name = *reinterpret_cast<const StringName*>(p_name);
     Variant& r_return = *reinterpret_cast<Variant*>(r_ret);
 
-    jni::LocalFrame localFrame(1000);
     jni::Env env = jni::Jvm::current_env();
 
     KtProperty* ktProperty = kt_class->get_property(parameter_name);
@@ -488,7 +486,6 @@ bool JvmInstance::get_or_default(
     const StringName& p_name,
     Variant& r_ret
 ) {
-    jni::LocalFrame localFrame(1000);
     jni::Env env = jni::Jvm::current_env();
 
     KtProperty* ktProperty = instance_data->kt_class->get_property(p_name);

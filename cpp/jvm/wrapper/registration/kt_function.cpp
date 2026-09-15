@@ -78,6 +78,7 @@ KtFunctionInfo::KtFunctionInfo(jni::Env& p_env, jni::JObject p_wrapped) : JvmIns
 
 KtFunctionInfo::~KtFunctionInfo() {
     delete return_val;
+    delete rpc_config;
 
     godot::List<KtPropertyInfo*>::Element* current = arguments.front();
     while (current) {

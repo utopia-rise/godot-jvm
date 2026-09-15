@@ -30,6 +30,7 @@ void LongStringQueue::send_string_to_jvm(jni::Env& p_env, const godot::String& s
     jni::JString java_string(p_env.new_string(str.utf8().get_data()));
     jvalue args[1] = {jni::to_jni_arg(java_string)};
     wrapped.call_void_method(p_env, QUEUE_STRING, args);
+    java_string.delete_local_ref(p_env);
 }
 
 void LongStringQueue::send_string_to_cpp(JNIEnv* p_raw_env, jobject, jstring p_string) {

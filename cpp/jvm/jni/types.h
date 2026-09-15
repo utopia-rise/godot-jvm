@@ -89,6 +89,13 @@ namespace jni {
         bool is_same_object(Env& env, const JObject& other) const;
     };
 
+// Passing CHECK_EXCEPTION = false skips the ExceptionCheck after the call, and the hot paths into user code do it
+// deliberately: the check is a JNI call of its own, paid on every crossing. It is safe because nothing can throw
+// across the boundary there -- KtFunction.invoke, invokeWithReturn and the KtProperty accessors each wrap the user
+// call in `catch (Throwable)` and log, so an exception is handled on the JVM side and never left pending.
+//
+// -Xcheck:jni reports these as "JNI call made without checking exceptions when required to". That is expected; it
+// cannot see the Kotlin side's catch. A dev build checks unconditionally, so a broken invariant still surfaces.
 #ifdef DEV_ENABLED
 #define CHECK_EXCEPTION_TEMPLATE p_env.handle_exception()
 #else

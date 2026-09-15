@@ -35,6 +35,8 @@ SharedBuffer* TransferContext::get_and_rewind_buffer(jni::Env& p_env) {
 #else
         shared_buffer = SharedBuffer(address, 0);
 #endif
+        // TransferContext holds the buffer in a thread local on the JVM side, so it outlives this reference.
+        buffer.delete_local_ref(p_env);
     }
     shared_buffer.rewind();
     return &shared_buffer;

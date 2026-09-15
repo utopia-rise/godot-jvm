@@ -66,6 +66,7 @@ namespace jni {
                 JThrowable throwable = exception_occurred();
                 exception_clear();
                 exception_handler(*this, throwable);
+                throwable.delete_local_ref(*this);
             } else {
                 exception_describe();
                 exception_clear();
