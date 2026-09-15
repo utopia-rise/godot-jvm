@@ -63,6 +63,31 @@ func test_shortest_long_string() -> void:
 #	assert_that(script.mix_string_and_variant(1).override_failure_message("Should return true when buffer is filled").is_equal(long_str, Vector2(1,1), long_str, 1.0), true)
 #	script.free()
 
+# U+1F600, built from the code point rather than written literally so the encoding of this file is not what the test
+# measures. Four bytes in the standard UTF-8 Godot speaks; JNI's modified UTF-8 has no four byte form and encodes the
+# UTF-16 surrogate pair as two three byte sequences instead.
+var supplementary: String = char(0x1F600)
+
+# Short enough to travel inline in the shared buffer as raw UTF-8 bytes, which never reaches a JNI string function.
+func test_short_supplementary_character() -> void:
+    var script: Object = StringTest.new()
+    var expected: String = short_str + supplementary
+    assert_that(expected.to_utf8_buffer().size()).override_failure_message("This string must stay under the inline limit to exercise the buffer path.").is_less_equal(512)
+    assert_that(script.get_short_supplementary()).override_failure_message("A supplementary character should survive the JVM to Godot crossing.").is_equal(expected)
+    assert_that(script.identity(expected)).override_failure_message("A supplementary character should survive a round trip through the JVM.").is_equal(expected)
+    assert_that(script.get_length(expected)).override_failure_message("The JVM should see the character as one surrogate pair, so one more UTF-16 unit than Godot counts code points.").is_equal(expected.length() + 1)
+    script.free()
+
+# Past the inline limit, so it crosses through LongStringQueue and therefore through NewStringUTF/GetStringUTFChars.
+func test_long_supplementary_character() -> void:
+    var script: Object = StringTest.new()
+    var expected: String = long_str + supplementary
+    assert_that(expected.to_utf8_buffer().size()).override_failure_message("This string must exceed the inline limit to exercise the JNI string queue.").is_greater(512)
+    assert_that(script.get_long_supplementary()).override_failure_message("A supplementary character should survive the JVM to Godot crossing in a long string.").is_equal(expected)
+    assert_that(script.identity(expected)).override_failure_message("A supplementary character should survive a round trip through the JVM in a long string.").is_equal(expected)
+    assert_that(script.get_length(expected)).override_failure_message("The JVM should see the character as one surrogate pair, so one more UTF-16 unit than Godot counts code points.").is_equal(expected.length() + 1)
+    script.free()
+
 func test_string_length() -> void:
     var script = StringTest.new()
     assert_that(script.get_length("")).override_failure_message("Should return the right size of the string").is_equal(0)
