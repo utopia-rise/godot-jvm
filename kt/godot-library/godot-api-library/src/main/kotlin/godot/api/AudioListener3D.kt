@@ -14,9 +14,11 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Transform3D
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.TRANSFORM3D
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_TRANSFORM3D
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -56,7 +58,7 @@ public open class AudioListener3D : Node3D() {
    * Enables the listener. This will override the current camera's listener.
    */
   public final fun makeCurrent(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.makeCurrentPtr)
   }
 
@@ -64,7 +66,7 @@ public open class AudioListener3D : Node3D() {
    * Disables the listener to use the current camera's listener instead.
    */
   public final fun clearCurrent(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.clearCurrentPtr)
   }
 
@@ -75,29 +77,29 @@ public open class AudioListener3D : Node3D() {
    * only the one that was made current last will be used.
    */
   public final fun isCurrent(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isCurrentPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns the listener's global orthonormalized [Transform3D].
    */
   public final fun getListenerTransform(): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getListenerTransformPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
+    return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   public final fun setDopplerTracking(mode: DopplerTracking): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setDopplerTrackingPtr)
   }
 
   public final fun getDopplerTracking(): DopplerTracking {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDopplerTrackingPtr)
-    return DopplerTracking.from(TransferContext.readReturnValue(LONG) as Long)
+    return DopplerTracking.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class DopplerTracking(

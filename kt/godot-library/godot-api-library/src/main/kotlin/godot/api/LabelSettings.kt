@@ -16,16 +16,23 @@ import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
-import kotlin.Double
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_COLOR
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_LONG_VECTOR2
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -286,123 +293,123 @@ public open class LabelSettings : Resource() {
   }
 
   public final fun setLineSpacing(spacing: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to spacing.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, spacing.toDouble())
     TransferContext.callMethod(MethodBindings.setLineSpacingPtr)
   }
 
   public final fun getLineSpacing(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLineSpacingPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setParagraphSpacing(spacing: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to spacing.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, spacing.toDouble())
     TransferContext.callMethod(MethodBindings.setParagraphSpacingPtr)
   }
 
   public final fun getParagraphSpacing(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getParagraphSpacingPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFont(font: Font?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to font)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, font)
     TransferContext.callMethod(MethodBindings.setFontPtr)
   }
 
   public final fun getFont(): Font? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFontPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Font?)
+    return (TransferContext.readReturnValue_OBJECT() as Font?)
   }
 
   public final fun setFontSize(size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
     TransferContext.callMethod(MethodBindings.setFontSizePtr)
   }
 
   public final fun getFontSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFontSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setFontColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setFontColorPtr)
   }
 
   public final fun getFontColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFontColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setOutlineSize(size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
     TransferContext.callMethod(MethodBindings.setOutlineSizePtr)
   }
 
   public final fun getOutlineSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getOutlineSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setOutlineColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setOutlineColorPtr)
   }
 
   public final fun getOutlineColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getOutlineColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setShadowSize(size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
     TransferContext.callMethod(MethodBindings.setShadowSizePtr)
   }
 
   public final fun getShadowSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getShadowSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setShadowColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setShadowColorPtr)
   }
 
   public final fun getShadowColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getShadowColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setShadowOffset(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to offset)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
     TransferContext.callMethod(MethodBindings.setShadowOffsetPtr)
   }
 
   public final fun getShadowOffset(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getShadowOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun getStackedOutlineCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStackedOutlineCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setStackedOutlineCount(count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to count.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
     TransferContext.callMethod(MethodBindings.setStackedOutlineCountPtr)
   }
 
@@ -412,7 +419,7 @@ public open class LabelSettings : Resource() {
    */
   @JvmOverloads
   public final fun addStackedOutline(index: Int = -1): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.addStackedOutlinePtr)
   }
 
@@ -420,7 +427,7 @@ public open class LabelSettings : Resource() {
    * Moves the stacked outline at index [fromIndex] to the given position [toPosition] in the array.
    */
   public final fun moveStackedOutline(fromIndex: Int, toPosition: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to fromIndex.toLong(), LONG to toPosition.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, fromIndex.toLong(), toPosition.toLong())
     TransferContext.callMethod(MethodBindings.moveStackedOutlinePtr)
   }
 
@@ -428,7 +435,7 @@ public open class LabelSettings : Resource() {
    * Removes the stacked outline at index [index].
    */
   public final fun removeStackedOutline(index: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.removeStackedOutlinePtr)
   }
 
@@ -436,7 +443,7 @@ public open class LabelSettings : Resource() {
    * Sets the size of the stacked outline identified by the given [index] to [size].
    */
   public final fun setStackedOutlineSize(index: Int, size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to size.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), size.toLong())
     TransferContext.callMethod(MethodBindings.setStackedOutlineSizePtr)
   }
 
@@ -444,16 +451,16 @@ public open class LabelSettings : Resource() {
    * Returns the size of the stacked outline at [index].
    */
   public final fun getStackedOutlineSize(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getStackedOutlineSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Sets the color of the stacked outline identified by the given [index] to [color].
    */
   public final fun setStackedOutlineColor(index: Int, color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), COLOR to color)
+    TransferContext.writeMethodArguments_LONG_COLOR(ptr, objectID.id, index.toLong(), color)
     TransferContext.callMethod(MethodBindings.setStackedOutlineColorPtr)
   }
 
@@ -461,19 +468,19 @@ public open class LabelSettings : Resource() {
    * Returns the color of the stacked outline at [index].
    */
   public final fun getStackedOutlineColor(index: Int): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getStackedOutlineColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun getStackedShadowCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStackedShadowCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setStackedShadowCount(count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to count.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
     TransferContext.callMethod(MethodBindings.setStackedShadowCountPtr)
   }
 
@@ -483,7 +490,7 @@ public open class LabelSettings : Resource() {
    */
   @JvmOverloads
   public final fun addStackedShadow(index: Int = -1): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.addStackedShadowPtr)
   }
 
@@ -491,7 +498,7 @@ public open class LabelSettings : Resource() {
    * Moves the stacked shadow at index [fromIndex] to the given position [toPosition] in the array.
    */
   public final fun moveStackedShadow(fromIndex: Int, toPosition: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to fromIndex.toLong(), LONG to toPosition.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, fromIndex.toLong(), toPosition.toLong())
     TransferContext.callMethod(MethodBindings.moveStackedShadowPtr)
   }
 
@@ -499,7 +506,7 @@ public open class LabelSettings : Resource() {
    * Removes the stacked shadow at index [index].
    */
   public final fun removeStackedShadow(index: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.removeStackedShadowPtr)
   }
 
@@ -507,7 +514,7 @@ public open class LabelSettings : Resource() {
    * Sets the offset of the stacked shadow identified by the given [index] to [offset].
    */
   public final fun setStackedShadowOffset(index: Int, offset: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), VECTOR2 to offset)
+    TransferContext.writeMethodArguments_LONG_VECTOR2(ptr, objectID.id, index.toLong(), offset)
     TransferContext.callMethod(MethodBindings.setStackedShadowOffsetPtr)
   }
 
@@ -515,16 +522,16 @@ public open class LabelSettings : Resource() {
    * Returns the offset of the stacked shadow at [index].
    */
   public final fun getStackedShadowOffset(index: Int): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getStackedShadowOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   /**
    * Sets the color of the stacked shadow identified by the given [index] to [color].
    */
   public final fun setStackedShadowColor(index: Int, color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), COLOR to color)
+    TransferContext.writeMethodArguments_LONG_COLOR(ptr, objectID.id, index.toLong(), color)
     TransferContext.callMethod(MethodBindings.setStackedShadowColorPtr)
   }
 
@@ -532,16 +539,16 @@ public open class LabelSettings : Resource() {
    * Returns the color of the stacked shadow at [index].
    */
   public final fun getStackedShadowColor(index: Int): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getStackedShadowColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   /**
    * Sets the outline size of the stacked shadow identified by the given [index] to [size].
    */
   public final fun setStackedShadowOutlineSize(index: Int, size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to size.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), size.toLong())
     TransferContext.callMethod(MethodBindings.setStackedShadowOutlineSizePtr)
   }
 
@@ -549,9 +556,9 @@ public open class LabelSettings : Resource() {
    * Returns the outline size of the stacked shadow at [index].
    */
   public final fun getStackedShadowOutlineSize(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getStackedShadowOutlineSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public companion object {

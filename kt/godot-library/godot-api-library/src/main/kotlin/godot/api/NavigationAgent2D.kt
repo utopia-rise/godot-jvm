@@ -21,18 +21,25 @@ import godot.core.PackedVector2Array
 import godot.core.RID
 import godot.core.Signal0
 import godot.core.Signal1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
-import godot.core.VariantParser.VECTOR2
-import godot.core.VariantParser._RID
 import godot.core.Vector2
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_VECTOR2_ARRAY
+import godot.readReturnValue_RID
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_RID
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Any
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -632,130 +639,130 @@ public open class NavigationAgent2D : Node() {
    * Returns the [RID] of this agent on the [NavigationServer2D].
    */
   public final fun getRid(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRidPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   public final fun setAvoidanceEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setAvoidanceEnabledPtr)
   }
 
   public final fun getAvoidanceEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAvoidanceEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setPathDesiredDistance(desiredDistance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to desiredDistance.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, desiredDistance.toDouble())
     TransferContext.callMethod(MethodBindings.setPathDesiredDistancePtr)
   }
 
   public final fun getPathDesiredDistance(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathDesiredDistancePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTargetDesiredDistance(desiredDistance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to desiredDistance.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, desiredDistance.toDouble())
     TransferContext.callMethod(MethodBindings.setTargetDesiredDistancePtr)
   }
 
   public final fun getTargetDesiredDistance(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTargetDesiredDistancePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to radius.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
     TransferContext.callMethod(MethodBindings.setRadiusPtr)
   }
 
   public final fun getRadius(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRadiusPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setNeighborDistance(neighborDistance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to neighborDistance.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, neighborDistance.toDouble())
     TransferContext.callMethod(MethodBindings.setNeighborDistancePtr)
   }
 
   public final fun getNeighborDistance(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNeighborDistancePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMaxNeighbors(maxNeighbors: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxNeighbors.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxNeighbors.toLong())
     TransferContext.callMethod(MethodBindings.setMaxNeighborsPtr)
   }
 
   public final fun getMaxNeighbors(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMaxNeighborsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setTimeHorizonAgents(timeHorizon: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to timeHorizon.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeHorizon.toDouble())
     TransferContext.callMethod(MethodBindings.setTimeHorizonAgentsPtr)
   }
 
   public final fun getTimeHorizonAgents(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTimeHorizonAgentsPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTimeHorizonObstacles(timeHorizon: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to timeHorizon.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeHorizon.toDouble())
     TransferContext.callMethod(MethodBindings.setTimeHorizonObstaclesPtr)
   }
 
   public final fun getTimeHorizonObstacles(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTimeHorizonObstaclesPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMaxSpeed(maxSpeed: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to maxSpeed.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, maxSpeed.toDouble())
     TransferContext.callMethod(MethodBindings.setMaxSpeedPtr)
   }
 
   public final fun getMaxSpeed(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMaxSpeedPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPathMaxDistance(maxSpeed: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to maxSpeed.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, maxSpeed.toDouble())
     TransferContext.callMethod(MethodBindings.setPathMaxDistancePtr)
   }
 
   public final fun getPathMaxDistance(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathMaxDistancePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setNavigationLayers(navigationLayers: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to navigationLayers)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, navigationLayers)
     TransferContext.callMethod(MethodBindings.setNavigationLayersPtr)
   }
 
   public final fun getNavigationLayers(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNavigationLayersPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -763,7 +770,7 @@ public open class NavigationAgent2D : Node() {
    * given a [layerNumber] between 1 and 32.
    */
   public final fun setNavigationLayerValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong(), BOOL to value)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
     TransferContext.callMethod(MethodBindings.setNavigationLayerValuePtr)
   }
 
@@ -772,47 +779,47 @@ public open class NavigationAgent2D : Node() {
    * a [layerNumber] between 1 and 32.
    */
   public final fun getNavigationLayerValue(layerNumber: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
     TransferContext.callMethod(MethodBindings.getNavigationLayerValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final
       fun setPathfindingAlgorithm(pathfindingAlgorithm: NavigationPathQueryParameters2D.PathfindingAlgorithm):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pathfindingAlgorithm.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pathfindingAlgorithm.value)
     TransferContext.callMethod(MethodBindings.setPathfindingAlgorithmPtr)
   }
 
   public final fun getPathfindingAlgorithm(): NavigationPathQueryParameters2D.PathfindingAlgorithm {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathfindingAlgorithmPtr)
-    return NavigationPathQueryParameters2D.PathfindingAlgorithm.from(TransferContext.readReturnValue(LONG) as Long)
+    return NavigationPathQueryParameters2D.PathfindingAlgorithm.from(TransferContext.readReturnValue_LONG())
   }
 
   public final
       fun setPathPostprocessing(pathPostprocessing: NavigationPathQueryParameters2D.PathPostProcessing):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pathPostprocessing.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pathPostprocessing.value)
     TransferContext.callMethod(MethodBindings.setPathPostprocessingPtr)
   }
 
   public final fun getPathPostprocessing(): NavigationPathQueryParameters2D.PathPostProcessing {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathPostprocessingPtr)
-    return NavigationPathQueryParameters2D.PathPostProcessing.from(TransferContext.readReturnValue(LONG) as Long)
+    return NavigationPathQueryParameters2D.PathPostProcessing.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPathMetadataFlags(flags: NavigationPathQueryParameters2D.PathMetadataFlags):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flags.flag)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flags.flag)
     TransferContext.callMethod(MethodBindings.setPathMetadataFlagsPtr)
   }
 
   public final fun getPathMetadataFlags(): NavigationPathQueryParameters2D.PathMetadataFlags {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathMetadataFlagsPtr)
-    return NavigationPathQueryParameters2D.PathMetadataFlags(TransferContext.readReturnValue(LONG) as Long)
+    return NavigationPathQueryParameters2D.PathMetadataFlags(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -820,7 +827,7 @@ public open class NavigationAgent2D : Node() {
    * `agent` on the NavigationServer.
    */
   public final fun setNavigationMap(navigationMap: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to navigationMap)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, navigationMap)
     TransferContext.callMethod(MethodBindings.setNavigationMapPtr)
   }
 
@@ -832,86 +839,86 @@ public open class NavigationAgent2D : Node() {
    * navigation map for the NavigationAgent and also update the agent on the NavigationServer.
    */
   public final fun getNavigationMap(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNavigationMapPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   public final fun setTargetPosition(position: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to position)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
     TransferContext.callMethod(MethodBindings.setTargetPositionPtr)
   }
 
   public final fun getTargetPosition(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTargetPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setSimplifyPath(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setSimplifyPathPtr)
   }
 
   public final fun getSimplifyPath(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSimplifyPathPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSimplifyEpsilon(epsilon: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to epsilon.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, epsilon.toDouble())
     TransferContext.callMethod(MethodBindings.setSimplifyEpsilonPtr)
   }
 
   public final fun getSimplifyEpsilon(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSimplifyEpsilonPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPathReturnMaxLength(length: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to length.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, length.toDouble())
     TransferContext.callMethod(MethodBindings.setPathReturnMaxLengthPtr)
   }
 
   public final fun getPathReturnMaxLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathReturnMaxLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPathReturnMaxRadius(radius: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to radius.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
     TransferContext.callMethod(MethodBindings.setPathReturnMaxRadiusPtr)
   }
 
   public final fun getPathReturnMaxRadius(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathReturnMaxRadiusPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPathSearchMaxPolygons(maxPolygons: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxPolygons.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxPolygons.toLong())
     TransferContext.callMethod(MethodBindings.setPathSearchMaxPolygonsPtr)
   }
 
   public final fun getPathSearchMaxPolygons(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathSearchMaxPolygonsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setPathSearchMaxDistance(distance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to distance.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
     TransferContext.callMethod(MethodBindings.setPathSearchMaxDistancePtr)
   }
 
   public final fun getPathSearchMaxDistance(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathSearchMaxDistancePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -919,9 +926,9 @@ public open class NavigationAgent2D : Node() {
    * is still calculating or no calculation has been requested yet.
    */
   public final fun getPathLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -931,9 +938,9 @@ public open class NavigationAgent2D : Node() {
    * update the internal path logic of the NavigationAgent.
    */
   public final fun getNextPathPosition(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNextPathPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   /**
@@ -942,19 +949,19 @@ public open class NavigationAgent2D : Node() {
    * frequently this function can get agents stuck.
    */
   public final fun setVelocityForced(velocity: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to velocity)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, velocity)
     TransferContext.callMethod(MethodBindings.setVelocityForcedPtr)
   }
 
   public final fun setVelocity(velocity: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to velocity)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, velocity)
     TransferContext.callMethod(MethodBindings.setVelocityPtr)
   }
 
   public final fun getVelocity(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   /**
@@ -962,18 +969,18 @@ public open class NavigationAgent2D : Node() {
    * set [targetPosition] in order for this to be accurate.
    */
   public final fun distanceToTarget(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.distanceToTargetPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
    * Returns the path query result for the path the agent is currently following.
    */
   public final fun getCurrentNavigationResult(): NavigationPathQueryResult2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCurrentNavigationResultPtr)
-    return (TransferContext.readReturnValue(OBJECT) as NavigationPathQueryResult2D?)
+    return (TransferContext.readReturnValue_OBJECT() as NavigationPathQueryResult2D?)
   }
 
   /**
@@ -985,18 +992,18 @@ public open class NavigationAgent2D : Node() {
    * also updates the internal path logic.
    */
   public final fun getCurrentNavigationPath(): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCurrentNavigationPathPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
+    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
   /**
    * Returns which index the agent is currently on in the navigation path's [PackedVector2Array].
    */
   public final fun getCurrentNavigationPathIndex(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCurrentNavigationPathIndexPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -1005,18 +1012,18 @@ public open class NavigationAgent2D : Node() {
    * but it should always be possible to reach the final position. See [getFinalPosition].
    */
   public final fun isTargetReached(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isTargetReachedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns `true` if [getFinalPosition] is within [targetDesiredDistance] of the [targetPosition].
    */
   public final fun isTargetReachable(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isTargetReachablePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1028,9 +1035,9 @@ public open class NavigationAgent2D : Node() {
    * avoids jittering the standing agent due to calling repeated path updates.
    */
   public final fun isNavigationFinished(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isNavigationFinishedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1039,31 +1046,31 @@ public open class NavigationAgent2D : Node() {
    * the [signal path_changed] signal.
    */
   public final fun getFinalPosition(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFinalPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setAvoidanceLayers(layers: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layers)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layers)
     TransferContext.callMethod(MethodBindings.setAvoidanceLayersPtr)
   }
 
   public final fun getAvoidanceLayers(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAvoidanceLayersPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setAvoidanceMask(mask: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mask)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask)
     TransferContext.callMethod(MethodBindings.setAvoidanceMaskPtr)
   }
 
   public final fun getAvoidanceMask(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAvoidanceMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -1071,7 +1078,7 @@ public open class NavigationAgent2D : Node() {
    * given a [layerNumber] between 1 and 32.
    */
   public final fun setAvoidanceLayerValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong(), BOOL to value)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
     TransferContext.callMethod(MethodBindings.setAvoidanceLayerValuePtr)
   }
 
@@ -1080,9 +1087,9 @@ public open class NavigationAgent2D : Node() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getAvoidanceLayerValue(layerNumber: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
     TransferContext.callMethod(MethodBindings.getAvoidanceLayerValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1090,7 +1097,7 @@ public open class NavigationAgent2D : Node() {
    * a [maskNumber] between 1 and 32.
    */
   public final fun setAvoidanceMaskValue(maskNumber: Int, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maskNumber.toLong(), BOOL to value)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, maskNumber.toLong(), value)
     TransferContext.callMethod(MethodBindings.setAvoidanceMaskValuePtr)
   }
 
@@ -1099,75 +1106,75 @@ public open class NavigationAgent2D : Node() {
    * [maskNumber] between 1 and 32.
    */
   public final fun getAvoidanceMaskValue(maskNumber: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maskNumber.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maskNumber.toLong())
     TransferContext.callMethod(MethodBindings.getAvoidanceMaskValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAvoidancePriority(priority: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to priority.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, priority.toDouble())
     TransferContext.callMethod(MethodBindings.setAvoidancePriorityPtr)
   }
 
   public final fun getAvoidancePriority(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAvoidancePriorityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDebugEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setDebugEnabledPtr)
   }
 
   public final fun getDebugEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDebugEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDebugUseCustom(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setDebugUseCustomPtr)
   }
 
   public final fun getDebugUseCustom(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDebugUseCustomPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDebugPathCustomColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setDebugPathCustomColorPtr)
   }
 
   public final fun getDebugPathCustomColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDebugPathCustomColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setDebugPathCustomPointSize(pointSize: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pointSize.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pointSize.toDouble())
     TransferContext.callMethod(MethodBindings.setDebugPathCustomPointSizePtr)
   }
 
   public final fun getDebugPathCustomPointSize(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDebugPathCustomPointSizePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDebugPathCustomLineWidth(lineWidth: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to lineWidth.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, lineWidth.toDouble())
     TransferContext.callMethod(MethodBindings.setDebugPathCustomLineWidthPtr)
   }
 
   public final fun getDebugPathCustomLineWidth(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDebugPathCustomLineWidthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public companion object {

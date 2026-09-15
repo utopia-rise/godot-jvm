@@ -10,7 +10,8 @@ import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
-import godot.core.VariantCaster.ANY
+import godot.readReturnValue_ANY
+import godot.writeMethodArguments_VARARG
 import kotlin.Any
 import kotlin.Suppress
 import kotlin.Unit
@@ -40,9 +41,9 @@ public open class GDScript : Script() {
    * ```
    */
   public final fun new(vararg args: Any?): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, *args.map { ANY to it }.toTypedArray())
+    TransferContext.writeMethodArguments_VARARG(ptr, objectID.id, args)
     TransferContext.callMethod(MethodBindings.newPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   public companion object

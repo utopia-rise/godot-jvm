@@ -106,6 +106,8 @@ private var ByteBuffer.variantType: Int
  * the JVM type it produces.
  */
 sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
+    // BOOL, LONG and DOUBLE also declare `read`/`write` with primitive signatures. They deliberately override nothing:
+    // a generic `T` would erase them to `Any?` and box, and generated engine calls name their converter statically.
     data object NIL : VariantParser<Unit>(0) {
         override fun toUnsafeKotlin(buffer: ByteBuffer) = Unit
         override fun toUnsafeGodot(buffer: ByteBuffer, any: Any?) {}
@@ -118,6 +120,16 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
             require(any is Boolean)
             buffer.bool = any
         }
+
+        fun read(buffer: ByteBuffer): Boolean {
+            checkType(buffer.variantType)
+            return buffer.bool
+        }
+
+        fun write(buffer: ByteBuffer, value: Boolean) {
+            buffer.variantType = id
+            buffer.bool = value
+        }
     }
     data object LONG : VariantParser<Long>(2) {
         override fun toUnsafeKotlin(buffer: ByteBuffer) = buffer.long
@@ -125,12 +137,32 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
             require(any is Long)
             buffer.putLong(any)
         }
+
+        fun read(buffer: ByteBuffer): Long {
+            checkType(buffer.variantType)
+            return buffer.long
+        }
+
+        fun write(buffer: ByteBuffer, value: Long) {
+            buffer.variantType = id
+            buffer.putLong(value)
+        }
     }
     data object DOUBLE : VariantParser<Double>(3) {
         override fun toUnsafeKotlin(buffer: ByteBuffer) = buffer.double
         override fun toUnsafeGodot(buffer: ByteBuffer, any: Any?) {
             require(any is Double)
             buffer.putDouble(any)
+        }
+
+        fun read(buffer: ByteBuffer): Double {
+            checkType(buffer.variantType)
+            return buffer.double
+        }
+
+        fun write(buffer: ByteBuffer, value: Double) {
+            buffer.variantType = id
+            buffer.putDouble(value)
         }
     }
     data object STRING : VariantParser<String>(4) {
@@ -379,7 +411,7 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
             buffer.obj = any
         }
     }
-    data object CALLABLE : VariantParser<VariantCallable>(25) {
+    data object CALLABLE : VariantParser<Callable>(25) {
         override fun toUnsafeKotlin(buffer: ByteBuffer) = VariantCallable(buffer.long)
         override fun toUnsafeGodot(buffer: ByteBuffer, any: Any?) {
             require(any is Callable)

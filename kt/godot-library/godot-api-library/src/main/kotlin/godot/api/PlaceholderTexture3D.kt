@@ -15,8 +15,10 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantArray
-import godot.core.VariantParser.VECTOR3I
 import godot.core.Vector3i
+import godot.readReturnValue_VECTOR3I
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_VECTOR3I
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -83,14 +85,14 @@ public open class PlaceholderTexture3D : Texture3D() {
   }
 
   public final fun setSize(size: Vector3i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3I to size)
+    TransferContext.writeMethodArguments_VECTOR3I(ptr, objectID.id, size)
     TransferContext.callMethod(MethodBindings.setSizePtr)
   }
 
   public final fun getSize(): Vector3i {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR3I) as Vector3i)
+    return TransferContext.readReturnValue_VECTOR3I()
   }
 
   /**

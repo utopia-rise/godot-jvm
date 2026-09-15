@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -42,14 +44,14 @@ public open class VisualShaderNodeBooleanConstant : VisualShaderNodeConstant() {
   }
 
   public final fun setConstant(constant: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to constant)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, constant)
     TransferContext.callMethod(MethodBindings.setConstantPtr)
   }
 
   public final fun getConstant(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConstantPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

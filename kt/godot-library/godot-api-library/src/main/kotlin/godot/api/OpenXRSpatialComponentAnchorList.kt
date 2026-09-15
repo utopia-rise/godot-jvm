@@ -12,8 +12,8 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.Transform3D
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.TRANSFORM3D
+import godot.readReturnValue_TRANSFORM3D
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -33,9 +33,9 @@ public open class OpenXRSpatialComponentAnchorList : OpenXRSpatialComponentData(
    * Returns the transform for the entity at this [index].
    */
   public final fun getEntityPose(index: Long): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
     TransferContext.callMethod(MethodBindings.getEntityPosePtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
+    return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   public companion object {

@@ -12,11 +12,14 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -162,124 +165,124 @@ public open class RDPipelineRasterizationState : RefCounted() {
   }
 
   public final fun setEnableDepthClamp(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
     TransferContext.callMethod(MethodBindings.setEnableDepthClampPtr)
   }
 
   public final fun getEnableDepthClamp(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getEnableDepthClampPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDiscardPrimitives(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
     TransferContext.callMethod(MethodBindings.setDiscardPrimitivesPtr)
   }
 
   public final fun getDiscardPrimitives(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDiscardPrimitivesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setWireframe(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
     TransferContext.callMethod(MethodBindings.setWireframePtr)
   }
 
   public final fun getWireframe(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getWireframePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCullMode(pMember: RenderingDevice.PolygonCullMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
     TransferContext.callMethod(MethodBindings.setCullModePtr)
   }
 
   public final fun getCullMode(): RenderingDevice.PolygonCullMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCullModePtr)
-    return RenderingDevice.PolygonCullMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return RenderingDevice.PolygonCullMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setFrontFace(pMember: RenderingDevice.PolygonFrontFace): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
     TransferContext.callMethod(MethodBindings.setFrontFacePtr)
   }
 
   public final fun getFrontFace(): RenderingDevice.PolygonFrontFace {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFrontFacePtr)
-    return RenderingDevice.PolygonFrontFace.from(TransferContext.readReturnValue(LONG) as Long)
+    return RenderingDevice.PolygonFrontFace.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setDepthBiasEnabled(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
     TransferContext.callMethod(MethodBindings.setDepthBiasEnabledPtr)
   }
 
   public final fun getDepthBiasEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDepthBiasEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDepthBiasConstantFactor(pMember: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pMember.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pMember.toDouble())
     TransferContext.callMethod(MethodBindings.setDepthBiasConstantFactorPtr)
   }
 
   public final fun getDepthBiasConstantFactor(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDepthBiasConstantFactorPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDepthBiasClamp(pMember: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pMember.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pMember.toDouble())
     TransferContext.callMethod(MethodBindings.setDepthBiasClampPtr)
   }
 
   public final fun getDepthBiasClamp(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDepthBiasClampPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDepthBiasSlopeFactor(pMember: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pMember.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pMember.toDouble())
     TransferContext.callMethod(MethodBindings.setDepthBiasSlopeFactorPtr)
   }
 
   public final fun getDepthBiasSlopeFactor(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDepthBiasSlopeFactorPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setLineWidth(pMember: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pMember.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pMember.toDouble())
     TransferContext.callMethod(MethodBindings.setLineWidthPtr)
   }
 
   public final fun getLineWidth(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLineWidthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPatchControlPoints(pMember: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
     TransferContext.callMethod(MethodBindings.setPatchControlPointsPtr)
   }
 
   public final fun getPatchControlPoints(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPatchControlPointsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public companion object {

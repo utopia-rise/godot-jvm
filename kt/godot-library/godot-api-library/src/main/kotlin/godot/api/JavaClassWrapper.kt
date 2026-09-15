@@ -15,10 +15,11 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedStringArray
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_OBJECT_PACKED_STRING_ARRAY
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_STRING_CALLABLE
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -89,9 +90,9 @@ public object JavaClassWrapper : Object() {
    */
   @JvmStatic
   public final fun wrap(name: String): JavaClass? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.wrapPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaClass?)
+    return (TransferContext.readReturnValue_OBJECT() as JavaClass?)
   }
 
   /**
@@ -103,9 +104,9 @@ public object JavaClassWrapper : Object() {
    */
   @JvmStatic
   public final fun getException(): JavaObject? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getExceptionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaObject?)
+    return (TransferContext.readReturnValue_OBJECT() as JavaObject?)
   }
 
   /**
@@ -131,9 +132,9 @@ public object JavaClassWrapper : Object() {
    */
   @JvmStatic
   public final fun createSamCallback(samInterface: String, callable: Callable): JavaObject? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to samInterface, CALLABLE to callable)
+    TransferContext.writeMethodArguments_STRING_CALLABLE(ptr, objectID.id, samInterface, callable)
     TransferContext.callMethod(MethodBindings.createSamCallbackPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaObject?)
+    return (TransferContext.readReturnValue_OBJECT() as JavaObject?)
   }
 
   /**
@@ -159,9 +160,9 @@ public object JavaClassWrapper : Object() {
    */
   @JvmStatic
   public final fun createProxy(`object`: Object?, interfaces: PackedStringArray): JavaObject? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to `object`, PACKED_STRING_ARRAY to interfaces)
+    TransferContext.writeMethodArguments_OBJECT_PACKED_STRING_ARRAY(ptr, objectID.id, `object`, interfaces)
     TransferContext.callMethod(MethodBindings.createProxyPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaObject?)
+    return (TransferContext.readReturnValue_OBJECT() as JavaObject?)
   }
 
   public object MethodBindings {

@@ -12,8 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -47,14 +48,14 @@ public open class AudioEffectPanner : AudioEffect() {
   }
 
   public final fun setPan(cpanume: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to cpanume.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, cpanume.toDouble())
     TransferContext.callMethod(MethodBindings.setPanPtr)
   }
 
   public final fun getPan(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPanPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**

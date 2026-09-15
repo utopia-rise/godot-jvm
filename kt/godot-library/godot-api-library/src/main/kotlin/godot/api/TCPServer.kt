@@ -13,11 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName2
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG_STRING
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -53,27 +53,27 @@ public open class TCPServer : SocketServer() {
    */
   @JvmOverloads
   public final fun listen(port: Int, bindAddress: String = "*"): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong(), STRING to bindAddress)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, port.toLong(), bindAddress)
     TransferContext.callMethod(MethodBindings.listenPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Returns the local port this server is listening to.
    */
   public final fun getLocalPort(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLocalPortPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * If a connection is available, returns a StreamPeerTCP with the connection.
    */
   public final fun takeConnection(): StreamPeerTCP? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.takeConnectionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as StreamPeerTCP?)
+    return (TransferContext.readReturnValue_OBJECT() as StreamPeerTCP?)
   }
 
   public companion object {

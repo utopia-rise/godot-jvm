@@ -16,9 +16,13 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_STRING_ARRAY
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_PACKED_STRING_ARRAY
+import godot.writeMethodArguments_STRING
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
@@ -130,36 +134,36 @@ public open class OpenXRAction : Resource() {
   }
 
   public final fun setLocalizedName(localizedName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to localizedName)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, localizedName)
     TransferContext.callMethod(MethodBindings.setLocalizedNamePtr)
   }
 
   public final fun getLocalizedName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLocalizedNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setActionType(actionType: ActionType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to actionType.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, actionType.value)
     TransferContext.callMethod(MethodBindings.setActionTypePtr)
   }
 
   public final fun getActionType(): ActionType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getActionTypePtr)
-    return ActionType.from(TransferContext.readReturnValue(LONG) as Long)
+    return ActionType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setToplevelPaths(toplevelPaths: PackedStringArray): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_STRING_ARRAY to toplevelPaths)
+    TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, toplevelPaths)
     TransferContext.callMethod(MethodBindings.setToplevelPathsPtr)
   }
 
   public final fun getToplevelPaths(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getToplevelPathsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   public enum class ActionType(

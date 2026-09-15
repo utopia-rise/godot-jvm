@@ -14,8 +14,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_VECTOR3
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -69,14 +71,14 @@ public open class VisualShaderNodeVec3Constant : VisualShaderNodeConstant() {
   }
 
   public final fun setConstant(constant: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to constant)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, constant)
     TransferContext.callMethod(MethodBindings.setConstantPtr)
   }
 
   public final fun getConstant(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConstantPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public companion object {

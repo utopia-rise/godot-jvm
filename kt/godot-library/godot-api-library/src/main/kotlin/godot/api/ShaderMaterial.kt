@@ -15,10 +15,13 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.RID
 import godot.core.StringName
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_ANY
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_STRING_NAME
+import godot.writeMethodArguments_STRING_NAME_ANY
 import kotlin.Any
 import kotlin.NotImplementedError
 import kotlin.String
@@ -57,14 +60,14 @@ public open class ShaderMaterial : Material() {
   }
 
   public final fun setShader(shader: Shader?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to shader)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, shader)
     TransferContext.callMethod(MethodBindings.setShaderPtr)
   }
 
   public final fun getShader(): Shader? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getShaderPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Shader?)
+    return (TransferContext.readReturnValue_OBJECT() as Shader?)
   }
 
   /**
@@ -81,7 +84,7 @@ public open class ShaderMaterial : Material() {
    * [ShaderMaterial] when possible.
    */
   public final fun setShaderParameter(`param`: StringName, `value`: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to param, ANY to value)
+    TransferContext.writeMethodArguments_STRING_NAME_ANY(ptr, objectID.id, param, value)
     TransferContext.callMethod(MethodBindings.setShaderParameterPtr)
   }
 
@@ -89,9 +92,9 @@ public open class ShaderMaterial : Material() {
    * Returns the current value set for this material of a uniform in the shader.
    */
   public final fun getShaderParameter(`param`: StringName): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to param)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, param)
     TransferContext.callMethod(MethodBindings.getShaderParameterPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**

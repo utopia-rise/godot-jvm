@@ -13,10 +13,12 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ARRAY
+import godot.writeMethodArguments_OBJECT
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.String
@@ -106,23 +108,23 @@ public open class Shortcut : Resource() {
   }
 
   public final fun setEvents(events: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to events)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, events)
     TransferContext.callMethod(MethodBindings.setEventsPtr)
   }
 
   public final fun getEvents(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getEventsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   /**
    * Returns whether [events] contains an [InputEvent] which is valid.
    */
   public final fun hasValidEvent(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.hasValidEventPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -130,18 +132,18 @@ public open class Shortcut : Resource() {
    * compare events.
    */
   public final fun matchesEvent(event: InputEvent?): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to event)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, event)
     TransferContext.callMethod(MethodBindings.matchesEventPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns the shortcut's first valid [InputEvent] as a [String].
    */
   public final fun getAsText(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAsTextPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public companion object {

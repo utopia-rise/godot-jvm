@@ -13,7 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -42,14 +44,14 @@ public open class VisualShaderNodeTransformVecMult : VisualShaderNode() {
   }
 
   public final fun setOperator(op: Operator): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to op.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, op.value)
     TransferContext.callMethod(MethodBindings.setOperatorPtr)
   }
 
   public final fun getOperator(): Operator {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getOperatorPtr)
-    return Operator.from(TransferContext.readReturnValue(LONG) as Long)
+    return Operator.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class Operator(

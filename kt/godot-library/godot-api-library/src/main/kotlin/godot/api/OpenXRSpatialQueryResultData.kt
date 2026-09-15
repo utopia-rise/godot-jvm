@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -32,27 +34,27 @@ public open class OpenXRSpatialQueryResultData : OpenXRSpatialComponentData() {
    * Returns the number of entities that were retrieved.
    */
   public final fun getCapacity(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCapacityPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Returns the entity id (`XrSpatialEntityIdEXT`) for the entity at this [index].
    */
   public final fun getEntityId(index: Long): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
     TransferContext.callMethod(MethodBindings.getEntityIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
    * Returns the entity state for the entity at this [index].
    */
   public final fun getEntityState(index: Long): OpenXRSpatialEntityTracker.EntityTrackingState {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
     TransferContext.callMethod(MethodBindings.getEntityStatePtr)
-    return OpenXRSpatialEntityTracker.EntityTrackingState.from(TransferContext.readReturnValue(LONG) as Long)
+    return OpenXRSpatialEntityTracker.EntityTrackingState.from(TransferContext.readReturnValue_LONG())
   }
 
   public companion object {

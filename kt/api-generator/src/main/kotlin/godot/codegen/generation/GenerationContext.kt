@@ -1,5 +1,6 @@
 package godot.codegen.generation
 
+import com.squareup.kotlinpoet.MemberName
 import godot.codegen.constants.TypeIdentifier
 import godot.codegen.exceptions.NoMatchingEnumFound
 import godot.codegen.models.ApiDescription
@@ -21,6 +22,9 @@ class GenerationContext(
     val globalEnumList = mutableListOf<EnrichedEnum>()
     val classMap = mutableMapOf<String, EnrichedClass>()
     val classList = mutableListOf<EnrichedClass>()
+
+    val methodSignatures = LinkedHashSet<TransferSignature>()
+    val returnConverters = LinkedHashSet<MemberName>()
 
 
     fun getNextEngineClassIndex() = nextEngineClassIndex++

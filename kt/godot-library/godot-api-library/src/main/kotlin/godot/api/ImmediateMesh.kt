@@ -19,14 +19,14 @@ import godot.core.MethodStringName2
 import godot.core.Plane
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PLANE
-import godot.core.VariantParser.VECTOR2
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector2
 import godot.core.Vector3
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_LONG_OBJECT
+import godot.writeMethodArguments_PLANE
+import godot.writeMethodArguments_VECTOR2
+import godot.writeMethodArguments_VECTOR3
 import kotlin.Any
 import kotlin.Int
 import kotlin.Long
@@ -75,7 +75,7 @@ public open class ImmediateMesh : Mesh() {
    */
   @JvmOverloads
   public final fun surfaceBegin(primitive: Mesh.PrimitiveType, material: Material? = null): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to primitive.value, OBJECT to material)
+    TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, primitive.value, material)
     TransferContext.callMethod(MethodBindings.surfaceBeginPtr)
   }
 
@@ -83,7 +83,7 @@ public open class ImmediateMesh : Mesh() {
    * Set the color attribute that will be pushed with the next vertex.
    */
   public final fun surfaceSetColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.surfaceSetColorPtr)
   }
 
@@ -91,7 +91,7 @@ public open class ImmediateMesh : Mesh() {
    * Set the normal attribute that will be pushed with the next vertex.
    */
   public final fun surfaceSetNormal(normal: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to normal)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, normal)
     TransferContext.callMethod(MethodBindings.surfaceSetNormalPtr)
   }
 
@@ -103,7 +103,7 @@ public open class ImmediateMesh : Mesh() {
    * either `-1` or `1`. See also [Mesh.ARRAY_TANGENT].
    */
   public final fun surfaceSetTangent(tangent: Plane): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PLANE to tangent)
+    TransferContext.writeMethodArguments_PLANE(ptr, objectID.id, tangent)
     TransferContext.callMethod(MethodBindings.surfaceSetTangentPtr)
   }
 
@@ -111,7 +111,7 @@ public open class ImmediateMesh : Mesh() {
    * Set the UV attribute that will be pushed with the next vertex.
    */
   public final fun surfaceSetUv(uv: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to uv)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, uv)
     TransferContext.callMethod(MethodBindings.surfaceSetUvPtr)
   }
 
@@ -119,7 +119,7 @@ public open class ImmediateMesh : Mesh() {
    * Set the UV2 attribute that will be pushed with the next vertex.
    */
   public final fun surfaceSetUv2(uv2: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to uv2)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, uv2)
     TransferContext.callMethod(MethodBindings.surfaceSetUv2Ptr)
   }
 
@@ -127,7 +127,7 @@ public open class ImmediateMesh : Mesh() {
    * Add a 3D vertex using the current attributes previously set.
    */
   public final fun surfaceAddVertex(vertex: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to vertex)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, vertex)
     TransferContext.callMethod(MethodBindings.surfaceAddVertexPtr)
   }
 
@@ -135,7 +135,7 @@ public open class ImmediateMesh : Mesh() {
    * Add a 2D vertex using the current attributes previously set.
    */
   public final fun surfaceAddVertex2d(vertex: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to vertex)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, vertex)
     TransferContext.callMethod(MethodBindings.surfaceAddVertex2dPtr)
   }
 
@@ -144,7 +144,7 @@ public open class ImmediateMesh : Mesh() {
    * function is called.
    */
   public final fun surfaceEnd(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.surfaceEndPtr)
   }
 
@@ -152,7 +152,7 @@ public open class ImmediateMesh : Mesh() {
    * Clear all surfaces.
    */
   public final fun clearSurfaces(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.clearSurfacesPtr)
   }
 

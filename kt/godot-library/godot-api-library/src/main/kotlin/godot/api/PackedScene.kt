@@ -14,9 +14,12 @@ import godot.core.Error
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -117,9 +120,9 @@ public open class PackedScene : Resource() {
    * be cleared. See [Node.owner].
    */
   public final fun pack(path: Node?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to path)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, path)
     TransferContext.callMethod(MethodBindings.packPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -128,27 +131,27 @@ public open class PackedScene : Resource() {
    */
   @JvmOverloads
   public final fun instantiate(editState: GenEditState = PackedScene.GenEditState.DISABLED): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to editState.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, editState.value)
     TransferContext.callMethod(MethodBindings.instantiatePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
    * Returns `true` if the scene file has nodes.
    */
   public final fun canInstantiate(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.canInstantiatePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns the [SceneState] representing the scene file contents.
    */
   public final fun getState(): SceneState? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStatePtr)
-    return (TransferContext.readReturnValue(OBJECT) as SceneState?)
+    return (TransferContext.readReturnValue_OBJECT() as SceneState?)
   }
 
   public enum class GenEditState(

@@ -12,10 +12,12 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -110,58 +112,58 @@ public open class CameraAttributes : Resource() {
   }
 
   public final fun setExposureMultiplier(multiplier: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to multiplier.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, multiplier.toDouble())
     TransferContext.callMethod(MethodBindings.setExposureMultiplierPtr)
   }
 
   public final fun getExposureMultiplier(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getExposureMultiplierPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setExposureSensitivity(sensitivity: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to sensitivity.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, sensitivity.toDouble())
     TransferContext.callMethod(MethodBindings.setExposureSensitivityPtr)
   }
 
   public final fun getExposureSensitivity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getExposureSensitivityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAutoExposureEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setAutoExposureEnabledPtr)
   }
 
   public final fun isAutoExposureEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAutoExposureEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAutoExposureSpeed(exposureSpeed: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to exposureSpeed.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, exposureSpeed.toDouble())
     TransferContext.callMethod(MethodBindings.setAutoExposureSpeedPtr)
   }
 
   public final fun getAutoExposureSpeed(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAutoExposureSpeedPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAutoExposureScale(exposureGrey: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to exposureGrey.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, exposureGrey.toDouble())
     TransferContext.callMethod(MethodBindings.setAutoExposureScalePtr)
   }
 
   public final fun getAutoExposureScale(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAutoExposureScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public companion object {

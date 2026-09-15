@@ -18,16 +18,22 @@ import godot.core.MethodStringName2
 import godot.core.PackedStringArray
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DICTIONARY
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_STRING_ARRAY
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_STRING_NAME
+import godot.writeMethodArguments_STRING_NAME_OBJECT
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -391,41 +397,41 @@ public object Engine : Object() {
 
   @JvmStatic
   public final fun setPhysicsTicksPerSecond(physicsTicksPerSecond: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to physicsTicksPerSecond.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, physicsTicksPerSecond.toLong())
     TransferContext.callMethod(MethodBindings.setPhysicsTicksPerSecondPtr)
   }
 
   @JvmStatic
   public final fun getPhysicsTicksPerSecond(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPhysicsTicksPerSecondPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   @JvmStatic
   public final fun setMaxPhysicsStepsPerFrame(maxPhysicsSteps: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxPhysicsSteps.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxPhysicsSteps.toLong())
     TransferContext.callMethod(MethodBindings.setMaxPhysicsStepsPerFramePtr)
   }
 
   @JvmStatic
   public final fun getMaxPhysicsStepsPerFrame(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMaxPhysicsStepsPerFramePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   @JvmStatic
   public final fun setPhysicsJitterFix(physicsJitterFix: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to physicsJitterFix)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, physicsJitterFix)
     TransferContext.callMethod(MethodBindings.setPhysicsJitterFixPtr)
   }
 
   @JvmStatic
   public final fun getPhysicsJitterFix(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPhysicsJitterFixPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   /**
@@ -434,35 +440,35 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getPhysicsInterpolationFraction(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPhysicsInterpolationFractionPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   @JvmStatic
   public final fun setMaxFps(maxFps: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxFps.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxFps.toLong())
     TransferContext.callMethod(MethodBindings.setMaxFpsPtr)
   }
 
   @JvmStatic
   public final fun getMaxFps(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMaxFpsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   @JvmStatic
   public final fun setTimeScale(timeScale: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to timeScale)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeScale)
     TransferContext.callMethod(MethodBindings.setTimeScalePtr)
   }
 
   @JvmStatic
   public final fun getTimeScale(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTimeScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   /**
@@ -473,9 +479,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getFramesDrawn(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFramesDrawnPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -483,9 +489,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getFramesPerSecond(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFramesPerSecondPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   /**
@@ -516,9 +522,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getPhysicsFrames(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPhysicsFramesPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -550,9 +556,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getProcessFrames(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getProcessFramesPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -564,9 +570,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getMainLoop(): MainLoop? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMainLoopPtr)
-    return (TransferContext.readReturnValue(OBJECT) as MainLoop?)
+    return (TransferContext.readReturnValue_OBJECT() as MainLoop?)
   }
 
   /**
@@ -622,9 +628,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getVersionInfo(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVersionInfoPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -634,9 +640,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getAuthorInfo(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAuthorInfoPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -656,9 +662,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getCopyrightInfo(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCopyrightInfoPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Dictionary<Any?, Any?>>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
   /**
@@ -669,9 +675,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getDonorInfo(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDonorInfoPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -682,9 +688,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getLicenseInfo(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLicenseInfoPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -692,9 +698,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getLicenseText(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLicenseTextPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -713,9 +719,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getArchitectureName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getArchitectureNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -736,9 +742,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun isInPhysicsFrame(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isInPhysicsFramePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -766,9 +772,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun hasSingleton(name: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.hasSingletonPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -780,9 +786,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getSingleton(name: StringName): Object? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.getSingletonPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Object?)
+    return (TransferContext.readReturnValue_OBJECT() as Object?)
   }
 
   /**
@@ -791,7 +797,7 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun registerSingleton(name: StringName, instance: Object): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, OBJECT to instance)
+    TransferContext.writeMethodArguments_STRING_NAME_OBJECT(ptr, objectID.id, name, instance)
     TransferContext.callMethod(MethodBindings.registerSingletonPtr)
   }
 
@@ -801,7 +807,7 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun unregisterSingleton(name: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.unregisterSingletonPtr)
   }
 
@@ -810,9 +816,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getSingletonList(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSingletonListPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -830,9 +836,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun registerScriptLanguage(language: ScriptLanguage): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to language)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, language)
     TransferContext.callMethod(MethodBindings.registerScriptLanguagePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -846,9 +852,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun unregisterScriptLanguage(language: ScriptLanguage): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to language)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, language)
     TransferContext.callMethod(MethodBindings.unregisterScriptLanguagePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -856,9 +862,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getScriptLanguageCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getScriptLanguageCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -866,9 +872,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getScriptLanguage(index: Int): ScriptLanguage? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getScriptLanguagePtr)
-    return (TransferContext.readReturnValue(OBJECT) as ScriptLanguage?)
+    return (TransferContext.readReturnValue_OBJECT() as ScriptLanguage?)
   }
 
   /**
@@ -894,9 +900,9 @@ public object Engine : Object() {
   @JvmStatic
   public final fun captureScriptBacktraces(includeVariables: Boolean = false):
       VariantArray<ScriptBacktrace> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to includeVariables)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, includeVariables)
     TransferContext.callMethod(MethodBindings.captureScriptBacktracesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<ScriptBacktrace>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<ScriptBacktrace>)
   }
 
   /**
@@ -930,9 +936,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun isEditorHint(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isEditorHintPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -942,9 +948,9 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun isEmbeddedInEditor(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isEmbeddedInEditorPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -954,35 +960,35 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun getWriteMoviePath(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getWriteMoviePathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   @JvmStatic
   public final fun setPrintToStdout(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setPrintToStdoutPtr)
   }
 
   @JvmStatic
   public final fun isPrintingToStdout(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isPrintingToStdoutPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   @JvmStatic
   public final fun setPrintErrorMessages(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setPrintErrorMessagesPtr)
   }
 
   @JvmStatic
   public final fun isPrintingErrorMessages(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isPrintingErrorMessagesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**

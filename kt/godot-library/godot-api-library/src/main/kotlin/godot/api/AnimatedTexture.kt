@@ -13,12 +13,17 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_DOUBLE
+import godot.writeMethodArguments_LONG_OBJECT
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -114,58 +119,58 @@ public open class AnimatedTexture : Texture2D() {
   }
 
   public final fun setFrames(frames: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frames.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frames.toLong())
     TransferContext.callMethod(MethodBindings.setFramesPtr)
   }
 
   public final fun getFrames(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFramesPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setCurrentFrame(frame: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frame.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frame.toLong())
     TransferContext.callMethod(MethodBindings.setCurrentFramePtr)
   }
 
   public final fun getCurrentFrame(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCurrentFramePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setPause(pause: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pause)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pause)
     TransferContext.callMethod(MethodBindings.setPausePtr)
   }
 
   public final fun getPause(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPausePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setOneShot(oneShot: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to oneShot)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, oneShot)
     TransferContext.callMethod(MethodBindings.setOneShotPtr)
   }
 
   public final fun getOneShot(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getOneShotPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSpeedScale(scale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to scale.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, scale.toDouble())
     TransferContext.callMethod(MethodBindings.setSpeedScalePtr)
   }
 
   public final fun getSpeedScale(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSpeedScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -176,7 +181,7 @@ public open class AnimatedTexture : Texture2D() {
    * from 0 to [frames] - 1 will be part of the animation.
    */
   public final fun setFrameTexture(frame: Int, texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frame.toLong(), OBJECT to texture)
+    TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, frame.toLong(), texture)
     TransferContext.callMethod(MethodBindings.setFrameTexturePtr)
   }
 
@@ -184,9 +189,9 @@ public open class AnimatedTexture : Texture2D() {
    * Returns the given frame's [Texture2D].
    */
   public final fun getFrameTexture(frame: Int): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frame.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frame.toLong())
     TransferContext.callMethod(MethodBindings.getFrameTexturePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
+    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   /**
@@ -194,7 +199,7 @@ public open class AnimatedTexture : Texture2D() {
    * set to `0`, the frame is skipped during playback.
    */
   public final fun setFrameDuration(frame: Int, duration: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frame.toLong(), DOUBLE to duration.toDouble())
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, frame.toLong(), duration.toDouble())
     TransferContext.callMethod(MethodBindings.setFrameDurationPtr)
   }
 
@@ -202,9 +207,9 @@ public open class AnimatedTexture : Texture2D() {
    * Returns the given [frame]'s duration, in seconds.
    */
   public final fun getFrameDuration(frame: Int): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frame.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frame.toLong())
     TransferContext.callMethod(MethodBindings.getFrameDurationPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**

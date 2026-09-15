@@ -13,8 +13,8 @@ import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
-import godot.core.VariantParser.OBJECT
 import godot.core.Vector2i
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -150,7 +150,7 @@ public abstract class MovieWriter : Object() {
      */
     @JvmStatic
     public final fun addWriter(writer: MovieWriter?): Unit {
-      TransferContext.writeMethodArguments(0L, 0L, OBJECT to writer)
+      TransferContext.writeMethodArguments_OBJECT(0L, 0L, writer)
       TransferContext.callMethod(MethodBindings.addWriterPtr)
     }
   }

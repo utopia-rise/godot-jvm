@@ -14,8 +14,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -74,14 +76,14 @@ public open class InputEventPanGesture : InputEventGesture() {
   }
 
   public final fun setDelta(delta: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to delta)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, delta)
     TransferContext.callMethod(MethodBindings.setDeltaPtr)
   }
 
   public final fun getDelta(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDeltaPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public companion object {

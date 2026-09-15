@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -61,30 +63,30 @@ public open class OpenXRFrameSynthesisExtension : OpenXRExtensionWrapper() {
    * supports frame synthesis. The value returned will only be valid once OpenXR has been initialized.
    */
   public final fun isAvailable(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAvailablePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun isEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEnabled(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setEnabledPtr)
   }
 
   public final fun getRelaxFrameInterval(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRelaxFrameIntervalPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRelaxFrameInterval(relaxFrameInterval: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to relaxFrameInterval)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, relaxFrameInterval)
     TransferContext.callMethod(MethodBindings.setRelaxFrameIntervalPtr)
   }
 
@@ -94,7 +96,7 @@ public open class OpenXRFrameSynthesisExtension : OpenXRExtensionWrapper() {
    * reprojection results due to this movement.
    */
   public final fun skipNextFrame(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.skipNextFramePtr)
   }
 

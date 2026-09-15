@@ -17,15 +17,18 @@ import godot.core.MethodStringName3
 import godot.core.MethodStringName5
 import godot.core.PackedStringArray
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_STRING_ARRAY
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING_BOOL
+import godot.writeMethodArguments_STRING_LONG_LONG
+import godot.writeMethodArguments_STRING_STRING_BOOL_LONG_LONG
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -117,7 +120,7 @@ public open class RegEx : RefCounted() {
    * the regular expression of this object.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.clearPtr)
   }
 
@@ -128,9 +131,9 @@ public open class RegEx : RefCounted() {
    */
   @JvmOverloads
   public final fun compile(pattern: String, showError: Boolean = true): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to pattern, BOOL to showError)
+    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, pattern, showError)
     TransferContext.callMethod(MethodBindings.compilePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -149,9 +152,9 @@ public open class RegEx : RefCounted() {
     offset: Int = 0,
     end: Int = -1,
   ): RegExMatch? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to subject, LONG to offset.toLong(), LONG to end.toLong())
+    TransferContext.writeMethodArguments_STRING_LONG_LONG(ptr, objectID.id, subject, offset.toLong(), end.toLong())
     TransferContext.callMethod(MethodBindings.searchPtr)
-    return (TransferContext.readReturnValue(OBJECT) as RegExMatch?)
+    return (TransferContext.readReturnValue_OBJECT() as RegExMatch?)
   }
 
   /**
@@ -170,9 +173,9 @@ public open class RegEx : RefCounted() {
     offset: Int = 0,
     end: Int = -1,
   ): VariantArray<RegExMatch> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to subject, LONG to offset.toLong(), LONG to end.toLong())
+    TransferContext.writeMethodArguments_STRING_LONG_LONG(ptr, objectID.id, subject, offset.toLong(), end.toLong())
     TransferContext.callMethod(MethodBindings.searchAllPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<RegExMatch>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RegExMatch>)
   }
 
   /**
@@ -194,36 +197,36 @@ public open class RegEx : RefCounted() {
     offset: Int = 0,
     end: Int = -1,
   ): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to subject, STRING to replacement, BOOL to all, LONG to offset.toLong(), LONG to end.toLong())
+    TransferContext.writeMethodArguments_STRING_STRING_BOOL_LONG_LONG(ptr, objectID.id, subject, replacement, all, offset.toLong(), end.toLong())
     TransferContext.callMethod(MethodBindings.subPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Returns whether this object has a valid search pattern assigned.
    */
   public final fun isValid(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isValidPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns the original search pattern that was compiled.
    */
   public final fun getPattern(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPatternPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Returns the number of capturing groups in compiled pattern.
    */
   public final fun getGroupCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGroupCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -231,9 +234,9 @@ public open class RegEx : RefCounted() {
    * by appearance.
    */
   public final fun getNames(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNamesPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   public companion object {
@@ -282,9 +285,9 @@ public open class RegEx : RefCounted() {
     @JvmOverloads
     @JvmStatic
     public final fun createFromString(pattern: String, showError: Boolean = true): RegEx? {
-      TransferContext.writeMethodArguments(0L, 0L, STRING to pattern, BOOL to showError)
+      TransferContext.writeMethodArguments_STRING_BOOL(0L, 0L, pattern, showError)
       TransferContext.callMethod(MethodBindings.createFromStringPtr)
-      return (TransferContext.readReturnValue(OBJECT) as RegEx?)
+      return (TransferContext.readReturnValue_OBJECT() as RegEx?)
     }
   }
 

@@ -12,9 +12,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
 import godot.core.Vector3
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -95,36 +96,36 @@ public open class VehicleBody3D : RigidBody3D() {
   }
 
   public final fun setEngineForce(engineForce: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to engineForce.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, engineForce.toDouble())
     TransferContext.callMethod(MethodBindings.setEngineForcePtr)
   }
 
   public final fun getEngineForce(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getEngineForcePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setBrake(brake: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to brake.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, brake.toDouble())
     TransferContext.callMethod(MethodBindings.setBrakePtr)
   }
 
   public final fun getBrake(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBrakePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSteering(steering: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to steering.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, steering.toDouble())
     TransferContext.callMethod(MethodBindings.setSteeringPtr)
   }
 
   public final fun getSteering(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSteeringPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public companion object {

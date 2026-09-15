@@ -20,13 +20,18 @@ import godot.core.PackedInt64Array
 import godot.core.PackedVector2Array
 import godot.core.RID
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.PACKED_INT_64_ARRAY
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
 import godot.core.Vector2
-import kotlin.Double
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_PACKED_INT_32_ARRAY
+import godot.readReturnValue_PACKED_INT_64_ARRAY
+import godot.readReturnValue_PACKED_VECTOR2_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ARRAY
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_PACKED_INT_32_ARRAY
+import godot.writeMethodArguments_PACKED_INT_64_ARRAY
+import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -244,58 +249,58 @@ public open class NavigationPathQueryResult2D : RefCounted() {
   }
 
   public final fun setPath(path: PackedVector2Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR2_ARRAY to path)
+    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, path)
     TransferContext.callMethod(MethodBindings.setPathPtr)
   }
 
   public final fun getPath(): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
+    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
   public final fun setPathTypes(pathTypes: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_INT_32_ARRAY to pathTypes)
+    TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, pathTypes)
     TransferContext.callMethod(MethodBindings.setPathTypesPtr)
   }
 
   public final fun getPathTypes(): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathTypesPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
+    return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
   public final fun setPathRids(pathRids: VariantArray<RID>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to pathRids)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, pathRids)
     TransferContext.callMethod(MethodBindings.setPathRidsPtr)
   }
 
   public final fun getPathRids(): VariantArray<RID> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathRidsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<RID>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
   public final fun setPathOwnerIds(pathOwnerIds: PackedInt64Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_INT_64_ARRAY to pathOwnerIds)
+    TransferContext.writeMethodArguments_PACKED_INT_64_ARRAY(ptr, objectID.id, pathOwnerIds)
     TransferContext.callMethod(MethodBindings.setPathOwnerIdsPtr)
   }
 
   public final fun getPathOwnerIds(): PackedInt64Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathOwnerIdsPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_64_ARRAY) as PackedInt64Array)
+    return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 
   public final fun setPathLength(length: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to length.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, length.toDouble())
     TransferContext.callMethod(MethodBindings.setPathLengthPtr)
   }
 
   public final fun getPathLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPathLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -303,7 +308,7 @@ public open class NavigationPathQueryResult2D : RefCounted() {
    * multiple queries.
    */
   public final fun reset(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.resetPtr)
   }
 

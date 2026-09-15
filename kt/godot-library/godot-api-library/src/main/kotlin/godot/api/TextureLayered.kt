@@ -13,9 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -82,9 +84,9 @@ public abstract class TextureLayered : Texture() {
    * Returns the current format being used by this texture.
    */
   public final fun getFormat(): Image.Format {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFormatPtr)
-    return Image.Format.from(TransferContext.readReturnValue(LONG) as Long)
+    return Image.Format.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -92,54 +94,54 @@ public abstract class TextureLayered : Texture() {
    * cubemaps having special types.
    */
   public final fun getLayeredType(): LayeredType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLayeredTypePtr)
-    return LayeredType.from(TransferContext.readReturnValue(LONG) as Long)
+    return LayeredType.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Returns the width of the texture in pixels. Width is typically represented by the X axis.
    */
   public final fun getWidth(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getWidthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the height of the texture in pixels. Height is typically represented by the Y axis.
    */
   public final fun getHeight(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getHeightPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the number of referenced [Image]s.
    */
   public final fun getLayers(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLayersPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns `true` if the layers have generated mipmaps.
    */
   public final fun hasMipmaps(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.hasMipmapsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns an [Image] resource with the data from specified [layer].
    */
   public final fun getLayerData(layer: Int): Image? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
     TransferContext.callMethod(MethodBindings.getLayerDataPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Image?)
+    return (TransferContext.readReturnValue_OBJECT() as Image?)
   }
 
   public enum class LayeredType(

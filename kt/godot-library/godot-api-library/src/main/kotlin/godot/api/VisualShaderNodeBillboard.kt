@@ -13,8 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -56,25 +59,25 @@ public open class VisualShaderNodeBillboard : VisualShaderNode() {
   }
 
   public final fun setBillboardType(billboardType: BillboardType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to billboardType.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, billboardType.value)
     TransferContext.callMethod(MethodBindings.setBillboardTypePtr)
   }
 
   public final fun getBillboardType(): BillboardType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBillboardTypePtr)
-    return BillboardType.from(TransferContext.readReturnValue(LONG) as Long)
+    return BillboardType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setKeepScaleEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setKeepScaleEnabledPtr)
   }
 
   public final fun isKeepScaleEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isKeepScaleEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class BillboardType(

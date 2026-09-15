@@ -18,16 +18,20 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.PackedByteArray
 import godot.core.Signal0
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_ANY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_BYTE_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_CALLABLE
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_PACKED_BYTE_ARRAY_STRING_STRING
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_STRING_BOOL
+import godot.writeMethodArguments_STRING_VARARG
 import kotlin.Any
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -109,9 +113,9 @@ public object JavaScriptBridge : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun eval(code: String, useGlobalExecutionContext: Boolean = false): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to code, BOOL to useGlobalExecutionContext)
+    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, code, useGlobalExecutionContext)
     TransferContext.callMethod(MethodBindings.evalPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -121,9 +125,9 @@ public object JavaScriptBridge : Object() {
    */
   @JvmStatic
   public final fun getInterface(`interface`: String): JavaScriptObject? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to `interface`)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, `interface`)
     TransferContext.callMethod(MethodBindings.getInterfacePtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaScriptObject?)
+    return (TransferContext.readReturnValue_OBJECT() as JavaScriptObject?)
   }
 
   /**
@@ -138,9 +142,9 @@ public object JavaScriptBridge : Object() {
    */
   @JvmStatic
   public final fun createCallback(callable: Callable): JavaScriptObject? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to callable)
+    TransferContext.writeMethodArguments_CALLABLE(ptr, objectID.id, callable)
     TransferContext.callMethod(MethodBindings.createCallbackPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaScriptObject?)
+    return (TransferContext.readReturnValue_OBJECT() as JavaScriptObject?)
   }
 
   /**
@@ -153,9 +157,9 @@ public object JavaScriptBridge : Object() {
    */
   @JvmStatic
   public final fun isJsBuffer(javascriptObject: JavaScriptObject?): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to javascriptObject)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, javascriptObject)
     TransferContext.callMethod(MethodBindings.isJsBufferPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -163,9 +167,9 @@ public object JavaScriptBridge : Object() {
    */
   @JvmStatic
   public final fun jsBufferToPackedByteArray(javascriptBuffer: JavaScriptObject?): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to javascriptBuffer)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, javascriptBuffer)
     TransferContext.callMethod(MethodBindings.jsBufferToPackedByteArrayPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   /**
@@ -174,9 +178,9 @@ public object JavaScriptBridge : Object() {
    */
   @JvmStatic
   public final fun createObject(`object`: String, vararg args: Any?): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to `object`, *args.map { ANY to it }.toTypedArray())
+    TransferContext.writeMethodArguments_STRING_VARARG(ptr, objectID.id, `object`, args)
     TransferContext.callMethod(MethodBindings.createObjectPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -199,7 +203,7 @@ public object JavaScriptBridge : Object() {
     name: String,
     mime: String = "application/octet-stream",
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_BYTE_ARRAY to buffer, STRING to name, STRING to mime)
+    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY_STRING_STRING(ptr, objectID.id, buffer, name, mime)
     TransferContext.callMethod(MethodBindings.downloadBufferPtr)
   }
 
@@ -210,9 +214,9 @@ public object JavaScriptBridge : Object() {
    */
   @JvmStatic
   public final fun pwaNeedsUpdate(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.pwaNeedsUpdatePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -226,9 +230,9 @@ public object JavaScriptBridge : Object() {
    */
   @JvmStatic
   public final fun pwaUpdate(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.pwaUpdatePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -239,7 +243,7 @@ public object JavaScriptBridge : Object() {
    */
   @JvmStatic
   public final fun forceFsSync(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.forceFsSyncPtr)
   }
 

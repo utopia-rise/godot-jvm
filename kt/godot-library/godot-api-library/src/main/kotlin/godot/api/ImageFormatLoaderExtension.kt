@@ -13,6 +13,7 @@ import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.PackedStringArray
+import godot.writeMethodArguments0
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -57,7 +58,7 @@ public open class ImageFormatLoaderExtension : ImageFormatLoader() {
    * [_getRecognizedExtensions].
    */
   public final fun addFormatLoader(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.addFormatLoaderPtr)
   }
 
@@ -65,7 +66,7 @@ public open class ImageFormatLoaderExtension : ImageFormatLoader() {
    * Remove this format loader from the engine.
    */
   public final fun removeFormatLoader(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.removeFormatLoaderPtr)
   }
 

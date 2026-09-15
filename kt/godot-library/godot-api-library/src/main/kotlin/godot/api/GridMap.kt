@@ -24,20 +24,33 @@ import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.Transform3D
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BASIS
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR3
-import godot.core.VariantParser.VECTOR3I
-import godot.core.VariantParser._RID
 import godot.core.Vector3
 import godot.core.Vector3i
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BASIS
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_RID
+import godot.readReturnValue_VECTOR3
+import godot.readReturnValue_VECTOR3I
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_AABB
+import godot.writeMethodArguments_BASIS
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_BOOL_DOUBLE
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_RID
+import godot.writeMethodArguments_VECTOR3
+import godot.writeMethodArguments_VECTOR3I
+import godot.writeMethodArguments_VECTOR3I_LONG
+import godot.writeMethodArguments_VECTOR3I_LONG_LONG
 import kotlin.Any
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -268,25 +281,25 @@ public open class GridMap : Node3D() {
   }
 
   public final fun setCollisionLayer(layer: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer)
     TransferContext.callMethod(MethodBindings.setCollisionLayerPtr)
   }
 
   public final fun getCollisionLayer(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCollisionLayerPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setCollisionMask(mask: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mask)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask)
     TransferContext.callMethod(MethodBindings.setCollisionMaskPtr)
   }
 
   public final fun getCollisionMask(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCollisionMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -294,7 +307,7 @@ public open class GridMap : Node3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun setCollisionMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong(), BOOL to value)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
     TransferContext.callMethod(MethodBindings.setCollisionMaskValuePtr)
   }
 
@@ -303,9 +316,9 @@ public open class GridMap : Node3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getCollisionMaskValue(layerNumber: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
     TransferContext.callMethod(MethodBindings.getCollisionMaskValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -313,7 +326,7 @@ public open class GridMap : Node3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun setCollisionLayerValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong(), BOOL to value)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
     TransferContext.callMethod(MethodBindings.setCollisionLayerValuePtr)
   }
 
@@ -322,53 +335,53 @@ public open class GridMap : Node3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getCollisionLayerValue(layerNumber: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
     TransferContext.callMethod(MethodBindings.getCollisionLayerValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCollisionPriority(priority: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to priority.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, priority.toDouble())
     TransferContext.callMethod(MethodBindings.setCollisionPriorityPtr)
   }
 
   public final fun getCollisionPriority(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCollisionPriorityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setCollisionVisibilityMode(visibilityMode: DebugVisibilityMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to visibilityMode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, visibilityMode.value)
     TransferContext.callMethod(MethodBindings.setCollisionVisibilityModePtr)
   }
 
   public final fun getCollisionVisibilityMode(): DebugVisibilityMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCollisionVisibilityModePtr)
-    return DebugVisibilityMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return DebugVisibilityMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPhysicsMaterial(material: PhysicsMaterial?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to material)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
     TransferContext.callMethod(MethodBindings.setPhysicsMaterialPtr)
   }
 
   public final fun getPhysicsMaterial(): PhysicsMaterial? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPhysicsMaterialPtr)
-    return (TransferContext.readReturnValue(OBJECT) as PhysicsMaterial?)
+    return (TransferContext.readReturnValue_OBJECT() as PhysicsMaterial?)
   }
 
   public final fun setBakeNavigation(bakeNavigation: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to bakeNavigation)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, bakeNavigation)
     TransferContext.callMethod(MethodBindings.setBakeNavigationPtr)
   }
 
   public final fun isBakingNavigation(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isBakingNavigationPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -376,7 +389,7 @@ public open class GridMap : Node3D() {
    * meshes.
    */
   public final fun setNavigationMap(navigationMap: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to navigationMap)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, navigationMap)
     TransferContext.callMethod(MethodBindings.setNavigationMapPtr)
   }
 
@@ -389,53 +402,53 @@ public open class GridMap : Node3D() {
    * will not be aware of the map change.
    */
   public final fun getNavigationMap(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNavigationMapPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   public final fun setMeshLibrary(meshLibrary: MeshLibrary?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to meshLibrary)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, meshLibrary)
     TransferContext.callMethod(MethodBindings.setMeshLibraryPtr)
   }
 
   public final fun getMeshLibrary(): MeshLibrary? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMeshLibraryPtr)
-    return (TransferContext.readReturnValue(OBJECT) as MeshLibrary?)
+    return (TransferContext.readReturnValue_OBJECT() as MeshLibrary?)
   }
 
   public final fun setCellSize(size: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to size)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, size)
     TransferContext.callMethod(MethodBindings.setCellSizePtr)
   }
 
   public final fun getCellSize(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCellSizePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setCellScale(scale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to scale.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, scale.toDouble())
     TransferContext.callMethod(MethodBindings.setCellScalePtr)
   }
 
   public final fun getCellScale(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCellScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOctantSize(size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
     TransferContext.callMethod(MethodBindings.setOctantSizePtr)
   }
 
   public final fun getOctantSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getOctantSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -452,7 +465,7 @@ public open class GridMap : Node3D() {
     item: Int,
     orientation: Int = 0,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3I to position, LONG to item.toLong(), LONG to orientation.toLong())
+    TransferContext.writeMethodArguments_VECTOR3I_LONG_LONG(ptr, objectID.id, position, item.toLong(), orientation.toLong())
     TransferContext.callMethod(MethodBindings.setCellItemPtr)
   }
 
@@ -461,9 +474,9 @@ public open class GridMap : Node3D() {
    * [INVALID_CELL_ITEM] will be returned.
    */
   public final fun getCellItem(position: Vector3i): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3I to position)
+    TransferContext.writeMethodArguments_VECTOR3I(ptr, objectID.id, position)
     TransferContext.callMethod(MethodBindings.getCellItemPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -471,18 +484,18 @@ public open class GridMap : Node3D() {
    * empty.
    */
   public final fun getCellItemOrientation(position: Vector3i): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3I to position)
+    TransferContext.writeMethodArguments_VECTOR3I(ptr, objectID.id, position)
     TransferContext.callMethod(MethodBindings.getCellItemOrientationPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the basis that gives the specified cell its orientation.
    */
   public final fun getCellItemBasis(position: Vector3i): Basis {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3I to position)
+    TransferContext.writeMethodArguments_VECTOR3I(ptr, objectID.id, position)
     TransferContext.callMethod(MethodBindings.getCellItemBasisPtr)
-    return (TransferContext.readReturnValue(BASIS) as Basis)
+    return TransferContext.readReturnValue_BASIS()
   }
 
   /**
@@ -490,9 +503,9 @@ public open class GridMap : Node3D() {
    * being either -1, 0, or 1. For further details, refer to the Godot source code.
    */
   public final fun getBasisWithOrthogonalIndex(index: Int): Basis {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getBasisWithOrthogonalIndexPtr)
-    return (TransferContext.readReturnValue(BASIS) as Basis)
+    return TransferContext.readReturnValue_BASIS()
   }
 
   /**
@@ -502,9 +515,9 @@ public open class GridMap : Node3D() {
    * details, refer to the Godot source code.
    */
   public final fun getOrthogonalIndexFromBasis(basis: Basis): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BASIS to basis)
+    TransferContext.writeMethodArguments_BASIS(ptr, objectID.id, basis)
     TransferContext.callMethod(MethodBindings.getOrthogonalIndexFromBasisPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -513,9 +526,9 @@ public open class GridMap : Node3D() {
    * this method. See also [mapToLocal].
    */
   public final fun localToMap(localPosition: Vector3): Vector3i {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to localPosition)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, localPosition)
     TransferContext.callMethod(MethodBindings.localToMapPtr)
-    return (TransferContext.readReturnValue(VECTOR3I) as Vector3i)
+    return TransferContext.readReturnValue_VECTOR3I()
   }
 
   /**
@@ -523,57 +536,57 @@ public open class GridMap : Node3D() {
    * returned value into global coordinates, use [Node3D.toGlobal]. See also [localToMap].
    */
   public final fun mapToLocal(mapPosition: Vector3i): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3I to mapPosition)
+    TransferContext.writeMethodArguments_VECTOR3I(ptr, objectID.id, mapPosition)
     TransferContext.callMethod(MethodBindings.mapToLocalPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   /**
    * This method does nothing.
    */
   public final fun resourceChanged(resource: Resource?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to resource)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, resource)
     TransferContext.callMethod(MethodBindings.resourceChangedPtr)
   }
 
   public final fun setCenterX(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setCenterXPtr)
   }
 
   public final fun getCenterX(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCenterXPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCenterY(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setCenterYPtr)
   }
 
   public final fun getCenterY(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCenterYPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCenterZ(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setCenterZPtr)
   }
 
   public final fun getCenterZ(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCenterZPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Clear all cells.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.clearPtr)
   }
 
@@ -581,18 +594,18 @@ public open class GridMap : Node3D() {
    * Returns an array of [Vector3] with the non-empty cell coordinates in the grid map.
    */
   public final fun getUsedCells(): VariantArray<Vector3i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getUsedCellsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector3i>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
   /**
    * Returns an array of all cells with the given item index specified in [item].
    */
   public final fun getUsedCellsByItem(item: Int): VariantArray<Vector3i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to item.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, item.toLong())
     TransferContext.callMethod(MethodBindings.getUsedCellsByItemPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector3i>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
   /**
@@ -600,9 +613,9 @@ public open class GridMap : Node3D() {
    * grid map.
    */
   public final fun getUsedOctants(): VariantArray<Vector3i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getUsedOctantsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector3i>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
   /**
@@ -610,9 +623,9 @@ public open class GridMap : Node3D() {
    * specified [item] in the grid map.
    */
   public final fun getUsedOctantsByItem(item: Int): VariantArray<Vector3i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to item.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, item.toLong())
     TransferContext.callMethod(MethodBindings.getUsedOctantsByItemPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector3i>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
   /**
@@ -620,9 +633,9 @@ public open class GridMap : Node3D() {
    * at [octantCoords].
    */
   public final fun getUsedCellsInOctant(octantCoords: Vector3i): VariantArray<Vector3i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3I to octantCoords)
+    TransferContext.writeMethodArguments_VECTOR3I(ptr, objectID.id, octantCoords)
     TransferContext.callMethod(MethodBindings.getUsedCellsInOctantPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector3i>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
   /**
@@ -631,9 +644,9 @@ public open class GridMap : Node3D() {
    */
   public final fun getUsedCellsInOctantByItem(octantCoords: Vector3i, item: Int):
       VariantArray<Vector3i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3I to octantCoords, LONG to item.toLong())
+    TransferContext.writeMethodArguments_VECTOR3I_LONG(ptr, objectID.id, octantCoords, item.toLong())
     TransferContext.callMethod(MethodBindings.getUsedCellsInOctantByItemPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector3i>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
   /**
@@ -641,9 +654,9 @@ public open class GridMap : Node3D() {
    * octants that have no cells in use.
    */
   public final fun getOctantsInBounds(bounds: AABB): VariantArray<Vector3i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, godot.core.VariantParser.AABB to bounds)
+    TransferContext.writeMethodArguments_AABB(ptr, objectID.id, bounds)
     TransferContext.callMethod(MethodBindings.getOctantsInBoundsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector3i>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
   /**
@@ -651,9 +664,9 @@ public open class GridMap : Node3D() {
    * inside the local [bounds].
    */
   public final fun getUsedOctantsInBounds(bounds: AABB): VariantArray<Vector3i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, godot.core.VariantParser.AABB to bounds)
+    TransferContext.writeMethodArguments_AABB(ptr, objectID.id, bounds)
     TransferContext.callMethod(MethodBindings.getUsedOctantsInBoundsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector3i>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
   /**
@@ -661,9 +674,9 @@ public open class GridMap : Node3D() {
    * to.
    */
   public final fun getOctantCoordsFromCellCoords(cellCoords: Vector3i): Vector3i {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3I to cellCoords)
+    TransferContext.writeMethodArguments_VECTOR3I(ptr, objectID.id, cellCoords)
     TransferContext.callMethod(MethodBindings.getOctantCoordsFromCellCoordsPtr)
-    return (TransferContext.readReturnValue(VECTOR3I) as Vector3i)
+    return TransferContext.readReturnValue_VECTOR3I()
   }
 
   /**
@@ -672,9 +685,9 @@ public open class GridMap : Node3D() {
    * odd indices contain [Mesh]es related to the [Transform3D] in the index preceding it.
    */
   public final fun getMeshes(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMeshesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   /**
@@ -687,25 +700,25 @@ public open class GridMap : Node3D() {
    * yet.
    */
   public final fun getBakeMeshes(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBakeMeshesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   /**
    * Returns [RID] of a baked mesh with the given [idx].
    */
   public final fun getBakeMeshInstance(idx: Int): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to idx.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
     TransferContext.callMethod(MethodBindings.getBakeMeshInstancePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
    * Clears all baked meshes. See [makeBakedMeshes].
    */
   public final fun clearBakedMeshes(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.clearBakedMeshesPtr)
   }
 
@@ -724,7 +737,7 @@ public open class GridMap : Node3D() {
   @JvmOverloads
   public final fun makeBakedMeshes(genLightmapUv: Boolean = false, lightmapUvTexelSize: Float =
       0.1f): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to genLightmapUv, DOUBLE to lightmapUvTexelSize.toDouble())
+    TransferContext.writeMethodArguments_BOOL_DOUBLE(ptr, objectID.id, genLightmapUv, lightmapUvTexelSize.toDouble())
     TransferContext.callMethod(MethodBindings.makeBakedMeshesPtr)
   }
 

@@ -15,10 +15,11 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.VariantCallable
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_CALLABLE
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -42,9 +43,9 @@ public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
    * return a usable result after OpenXR has been initialized.
    */
   public final fun isActive(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isActivePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -68,9 +69,9 @@ public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
   @JvmOverloads
   public final fun registerFuture(future: Long, onSuccess: Callable = VariantCallable()):
       OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to future, CALLABLE to onSuccess)
+    TransferContext.writeMethodArguments_LONG_CALLABLE(ptr, objectID.id, future, onSuccess)
     TransferContext.callMethod(MethodBindings.registerFuturePtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRFutureResult?)
   }
 
   /**
@@ -78,7 +79,7 @@ public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
    * an API that started an asynchronous function.
    */
   public final fun cancelFuture(future: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to future)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, future)
     TransferContext.callMethod(MethodBindings.cancelFuturePtr)
   }
 

@@ -12,13 +12,13 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -74,27 +74,27 @@ public abstract class Texture3D : Texture() {
    * Returns the current format being used by this texture.
    */
   public final fun getFormat(): Image.Format {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFormatPtr)
-    return Image.Format.from(TransferContext.readReturnValue(LONG) as Long)
+    return Image.Format.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Returns the [Texture3D]'s width in pixels. Width is typically represented by the X axis.
    */
   public final fun getWidth(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getWidthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the [Texture3D]'s height in pixels. Width is typically represented by the Y axis.
    */
   public final fun getHeight(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getHeightPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -102,18 +102,18 @@ public abstract class Texture3D : Texture() {
    * dimension not present in [Texture2D]).
    */
   public final fun getDepth(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDepthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns `true` if the [Texture3D] has generated mipmaps.
    */
   public final fun hasMipmaps(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.hasMipmapsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -121,18 +121,18 @@ public abstract class Texture3D : Texture() {
    * the [Texture3D], with different slices mapping to different depth (Z axis) levels.
    */
   public final fun getData(): VariantArray<Image> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDataPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Image>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Image>)
   }
 
   /**
    * Creates a placeholder version of this resource ([PlaceholderTexture3D]).
    */
   public final fun createPlaceholder(): Resource? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.createPlaceholderPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Resource?)
+    return (TransferContext.readReturnValue_OBJECT() as Resource?)
   }
 
   public companion object {

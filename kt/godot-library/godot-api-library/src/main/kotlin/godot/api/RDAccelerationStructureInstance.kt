@@ -16,9 +16,13 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
 import godot.core.Transform3D
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser._RID
+import godot.readReturnValue_LONG
+import godot.readReturnValue_RID
+import godot.readReturnValue_TRANSFORM3D
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_RID
+import godot.writeMethodArguments_TRANSFORM3D
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
@@ -132,69 +136,69 @@ public open class RDAccelerationStructureInstance : RefCounted() {
   }
 
   public final fun setTransform(pMember: Transform3D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, TRANSFORM3D to pMember)
+    TransferContext.writeMethodArguments_TRANSFORM3D(ptr, objectID.id, pMember)
     TransferContext.callMethod(MethodBindings.setTransformPtr)
   }
 
   public final fun getTransform(): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTransformPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
+    return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   public final fun setId(pMember: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
     TransferContext.callMethod(MethodBindings.setIdPtr)
   }
 
   public final fun getId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setMask(pMember: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.toLong())
     TransferContext.callMethod(MethodBindings.setMaskPtr)
   }
 
   public final fun getMask(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setHitSbtRange(pMember: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
     TransferContext.callMethod(MethodBindings.setHitSbtRangePtr)
   }
 
   public final fun getHitSbtRange(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getHitSbtRangePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setFlags(pMember: RenderingDevice.AccelerationStructureInstanceFlagBits): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.flag)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.flag)
     TransferContext.callMethod(MethodBindings.setFlagsPtr)
   }
 
   public final fun getFlags(): RenderingDevice.AccelerationStructureInstanceFlagBits {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFlagsPtr)
-    return RenderingDevice.AccelerationStructureInstanceFlagBits(TransferContext.readReturnValue(LONG) as Long)
+    return RenderingDevice.AccelerationStructureInstanceFlagBits(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setBlas(pMember: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to pMember)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, pMember)
     TransferContext.callMethod(MethodBindings.setBlasPtr)
   }
 
   public final fun getBlas(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBlasPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   public companion object {

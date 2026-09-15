@@ -11,9 +11,9 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
 import kotlin.Double
 import kotlin.Suppress
 import kotlin.Unit
@@ -40,9 +40,9 @@ public open class MethodTweener : Tweener() {
    * there's no delay.
    */
   public final fun setDelay(delay: Double): MethodTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to delay)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, delay)
     TransferContext.callMethod(MethodBindings.setDelayPtr)
-    return (TransferContext.readReturnValue(OBJECT) as MethodTweener)
+    return (TransferContext.readReturnValue_OBJECT() as MethodTweener)
   }
 
   /**
@@ -50,9 +50,9 @@ public open class MethodTweener : Tweener() {
    * transition is used from the [Tween] that contains this Tweener.
    */
   public final fun setTrans(trans: Tween.TransitionType): MethodTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to trans.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trans.value)
     TransferContext.callMethod(MethodBindings.setTransPtr)
-    return (TransferContext.readReturnValue(OBJECT) as MethodTweener)
+    return (TransferContext.readReturnValue_OBJECT() as MethodTweener)
   }
 
   /**
@@ -60,9 +60,9 @@ public open class MethodTweener : Tweener() {
    * the [Tween] that contains this Tweener.
    */
   public final fun setEase(ease: Tween.EaseType): MethodTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to ease.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, ease.value)
     TransferContext.callMethod(MethodBindings.setEasePtr)
-    return (TransferContext.readReturnValue(OBJECT) as MethodTweener)
+    return (TransferContext.readReturnValue_OBJECT() as MethodTweener)
   }
 
   public companion object {

@@ -13,11 +13,14 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -180,146 +183,146 @@ public open class MeshConvexDecompositionSettings : RefCounted() {
   }
 
   public final fun setMaxConcavity(maxConcavity: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to maxConcavity.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, maxConcavity.toDouble())
     TransferContext.callMethod(MethodBindings.setMaxConcavityPtr)
   }
 
   public final fun getMaxConcavity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMaxConcavityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSymmetryPlanesClippingBias(symmetryPlanesClippingBias: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to symmetryPlanesClippingBias.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, symmetryPlanesClippingBias.toDouble())
     TransferContext.callMethod(MethodBindings.setSymmetryPlanesClippingBiasPtr)
   }
 
   public final fun getSymmetryPlanesClippingBias(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSymmetryPlanesClippingBiasPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRevolutionAxesClippingBias(revolutionAxesClippingBias: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to revolutionAxesClippingBias.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, revolutionAxesClippingBias.toDouble())
     TransferContext.callMethod(MethodBindings.setRevolutionAxesClippingBiasPtr)
   }
 
   public final fun getRevolutionAxesClippingBias(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRevolutionAxesClippingBiasPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMinVolumePerConvexHull(minVolumePerConvexHull: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to minVolumePerConvexHull.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, minVolumePerConvexHull.toDouble())
     TransferContext.callMethod(MethodBindings.setMinVolumePerConvexHullPtr)
   }
 
   public final fun getMinVolumePerConvexHull(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMinVolumePerConvexHullPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setResolution(minVolumePerConvexHull: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to minVolumePerConvexHull)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, minVolumePerConvexHull)
     TransferContext.callMethod(MethodBindings.setResolutionPtr)
   }
 
   public final fun getResolution(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getResolutionPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setMaxNumVerticesPerConvexHull(maxNumVerticesPerConvexHull: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxNumVerticesPerConvexHull)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxNumVerticesPerConvexHull)
     TransferContext.callMethod(MethodBindings.setMaxNumVerticesPerConvexHullPtr)
   }
 
   public final fun getMaxNumVerticesPerConvexHull(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMaxNumVerticesPerConvexHullPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setPlaneDownsampling(planeDownsampling: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to planeDownsampling)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, planeDownsampling)
     TransferContext.callMethod(MethodBindings.setPlaneDownsamplingPtr)
   }
 
   public final fun getPlaneDownsampling(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPlaneDownsamplingPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setConvexHullDownsampling(convexHullDownsampling: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to convexHullDownsampling)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, convexHullDownsampling)
     TransferContext.callMethod(MethodBindings.setConvexHullDownsamplingPtr)
   }
 
   public final fun getConvexHullDownsampling(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConvexHullDownsamplingPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setNormalizeMesh(normalizeMesh: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to normalizeMesh)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, normalizeMesh)
     TransferContext.callMethod(MethodBindings.setNormalizeMeshPtr)
   }
 
   public final fun getNormalizeMesh(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNormalizeMeshPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMode(mode: Mode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setModePtr)
   }
 
   public final fun getMode(): Mode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getModePtr)
-    return Mode.from(TransferContext.readReturnValue(LONG) as Long)
+    return Mode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setConvexHullApproximation(convexHullApproximation: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to convexHullApproximation)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, convexHullApproximation)
     TransferContext.callMethod(MethodBindings.setConvexHullApproximationPtr)
   }
 
   public final fun getConvexHullApproximation(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConvexHullApproximationPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMaxConvexHulls(maxConvexHulls: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxConvexHulls)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxConvexHulls)
     TransferContext.callMethod(MethodBindings.setMaxConvexHullsPtr)
   }
 
   public final fun getMaxConvexHulls(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMaxConvexHullsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setProjectHullVertices(projectHullVertices: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to projectHullVertices)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, projectHullVertices)
     TransferContext.callMethod(MethodBindings.setProjectHullVerticesPtr)
   }
 
   public final fun getProjectHullVertices(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getProjectHullVerticesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class Mode(

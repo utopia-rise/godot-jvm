@@ -16,8 +16,11 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName3
 import godot.core.PackedByteArray
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_BYTE_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY
+import godot.writeMethodArguments_PACKED_BYTE_ARRAY
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -118,9 +121,9 @@ public open class AESContext : RefCounted() {
     key: PackedByteArray,
     iv: PackedByteArray = PackedByteArray(),
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value, PACKED_BYTE_ARRAY to key, PACKED_BYTE_ARRAY to iv)
+    TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY(ptr, objectID.id, mode.value, key, iv)
     TransferContext.callMethod(MethodBindings.startPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -130,9 +133,9 @@ public open class AESContext : RefCounted() {
    * **Note:** The size of [src] must be a multiple of 16. Apply some padding if needed.
    */
   public final fun update(src: PackedByteArray): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_BYTE_ARRAY to src)
+    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, src)
     TransferContext.callMethod(MethodBindings.updatePtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   /**
@@ -143,16 +146,16 @@ public open class AESContext : RefCounted() {
    * [MODE_CBC_DECRYPT].
    */
   public final fun getIvState(): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getIvStatePtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   /**
    * Close this AES context so it can be started again. See [start].
    */
   public final fun finish(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.finishPtr)
   }
 

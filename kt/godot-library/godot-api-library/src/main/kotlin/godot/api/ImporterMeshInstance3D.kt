@@ -13,12 +13,16 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
 import godot.core.asCachedNodePath
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_NODE_PATH
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_NODE_PATH
+import godot.writeMethodArguments_OBJECT
 import kotlin.Float
 import kotlin.Long
 import kotlin.String
@@ -114,116 +118,116 @@ public open class ImporterMeshInstance3D : Node3D() {
   }
 
   public final fun setMesh(mesh: ImporterMesh?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to mesh)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, mesh)
     TransferContext.callMethod(MethodBindings.setMeshPtr)
   }
 
   public final fun getMesh(): ImporterMesh? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMeshPtr)
-    return (TransferContext.readReturnValue(OBJECT) as ImporterMesh?)
+    return (TransferContext.readReturnValue_OBJECT() as ImporterMesh?)
   }
 
   public final fun setSkin(skin: Skin?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to skin)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, skin)
     TransferContext.callMethod(MethodBindings.setSkinPtr)
   }
 
   public final fun getSkin(): Skin? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSkinPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Skin?)
+    return (TransferContext.readReturnValue_OBJECT() as Skin?)
   }
 
   public final fun setSkeletonPath(skeletonPath: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to skeletonPath)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, skeletonPath)
     TransferContext.callMethod(MethodBindings.setSkeletonPathPtr)
   }
 
   public final fun getSkeletonPath(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSkeletonPathPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   public final fun setLayerMask(layerMask: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerMask)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerMask)
     TransferContext.callMethod(MethodBindings.setLayerMaskPtr)
   }
 
   public final fun getLayerMask(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLayerMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final
       fun setCastShadowsSetting(shadowCastingSetting: GeometryInstance3D.ShadowCastingSetting):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to shadowCastingSetting.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, shadowCastingSetting.value)
     TransferContext.callMethod(MethodBindings.setCastShadowsSettingPtr)
   }
 
   public final fun getCastShadowsSetting(): GeometryInstance3D.ShadowCastingSetting {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCastShadowsSettingPtr)
-    return GeometryInstance3D.ShadowCastingSetting.from(TransferContext.readReturnValue(LONG) as Long)
+    return GeometryInstance3D.ShadowCastingSetting.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setVisibilityRangeEndMargin(distance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to distance.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
     TransferContext.callMethod(MethodBindings.setVisibilityRangeEndMarginPtr)
   }
 
   public final fun getVisibilityRangeEndMargin(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVisibilityRangeEndMarginPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVisibilityRangeEnd(distance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to distance.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
     TransferContext.callMethod(MethodBindings.setVisibilityRangeEndPtr)
   }
 
   public final fun getVisibilityRangeEnd(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVisibilityRangeEndPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVisibilityRangeBeginMargin(distance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to distance.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
     TransferContext.callMethod(MethodBindings.setVisibilityRangeBeginMarginPtr)
   }
 
   public final fun getVisibilityRangeBeginMargin(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVisibilityRangeBeginMarginPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVisibilityRangeBegin(distance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to distance.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
     TransferContext.callMethod(MethodBindings.setVisibilityRangeBeginPtr)
   }
 
   public final fun getVisibilityRangeBegin(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVisibilityRangeBeginPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVisibilityRangeFadeMode(mode: GeometryInstance3D.VisibilityRangeFadeMode):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setVisibilityRangeFadeModePtr)
   }
 
   public final fun getVisibilityRangeFadeMode(): GeometryInstance3D.VisibilityRangeFadeMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVisibilityRangeFadeModePtr)
-    return GeometryInstance3D.VisibilityRangeFadeMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return GeometryInstance3D.VisibilityRangeFadeMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSkeletonPath(skeletonPath: String) =

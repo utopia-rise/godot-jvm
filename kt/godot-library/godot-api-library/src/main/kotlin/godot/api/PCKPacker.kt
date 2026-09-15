@@ -15,13 +15,14 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.PackedByteArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_STRING_LONG_STRING_BOOL
+import godot.writeMethodArguments_STRING_PACKED_BYTE_ARRAY_BOOL
+import godot.writeMethodArguments_STRING_STRING_BOOL
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -71,9 +72,9 @@ public open class PCKPacker : RefCounted() {
     key: String = "0000000000000000000000000000000000000000000000000000000000000000",
     encryptDirectory: Boolean = false,
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to pckPath, LONG to alignment.toLong(), STRING to key, BOOL to encryptDirectory)
+    TransferContext.writeMethodArguments_STRING_LONG_STRING_BOOL(ptr, objectID.id, pckPath, alignment.toLong(), key, encryptDirectory)
     TransferContext.callMethod(MethodBindings.pckStartPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -87,9 +88,9 @@ public open class PCKPacker : RefCounted() {
     sourcePath: String,
     encrypt: Boolean = false,
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to targetPath, STRING to sourcePath, BOOL to encrypt)
+    TransferContext.writeMethodArguments_STRING_STRING_BOOL(ptr, objectID.id, targetPath, sourcePath, encrypt)
     TransferContext.callMethod(MethodBindings.addFilePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -103,9 +104,9 @@ public open class PCKPacker : RefCounted() {
     `data`: PackedByteArray,
     encrypt: Boolean = false,
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to targetPath, PACKED_BYTE_ARRAY to data, BOOL to encrypt)
+    TransferContext.writeMethodArguments_STRING_PACKED_BYTE_ARRAY_BOOL(ptr, objectID.id, targetPath, data, encrypt)
     TransferContext.callMethod(MethodBindings.addFileFromBufferPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -114,9 +115,9 @@ public open class PCKPacker : RefCounted() {
    * `res://` prefix for [targetPath] is optional and stripped internally.
    */
   public final fun addFileRemoval(targetPath: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to targetPath)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, targetPath)
     TransferContext.callMethod(MethodBindings.addFileRemovalPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -129,9 +130,9 @@ public open class PCKPacker : RefCounted() {
    */
   @JvmOverloads
   public final fun flush(verbose: Boolean = false): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to verbose)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, verbose)
     TransferContext.callMethod(MethodBindings.flushPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   public companion object {

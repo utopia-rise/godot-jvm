@@ -16,14 +16,23 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.Quaternion
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.QUATERNION
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_QUATERNION
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_LONG_DOUBLE
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_LONG_LONG_DOUBLE
+import godot.writeMethodArguments_LONG_OBJECT
+import godot.writeMethodArguments_LONG_QUATERNION
+import godot.writeMethodArguments_LONG_STRING
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -78,40 +87,40 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
   }
 
   public final fun setSettingCount(count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to count.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
     TransferContext.callMethod(MethodBindings.setSettingCountPtr)
   }
 
   public final fun getSettingCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSettingCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Clears all settings.
    */
   public final fun clearSettings(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.clearSettingsPtr)
   }
 
   public final fun setMutableBoneAxes(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setMutableBoneAxesPtr)
   }
 
   public final fun areBoneAxesMutable(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.areBoneAxesMutablePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Sets the root bone name of the bone chain.
    */
   public final fun setRootBoneName(index: Int, boneName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), STRING to boneName)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, index.toLong(), boneName)
     TransferContext.callMethod(MethodBindings.setRootBoneNamePtr)
   }
 
@@ -119,16 +128,16 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * Returns the root bone name of the bone chain.
    */
   public final fun getRootBoneName(index: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getRootBoneNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Sets the root bone index of the bone chain.
    */
   public final fun setRootBone(index: Int, bone: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to bone.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), bone.toLong())
     TransferContext.callMethod(MethodBindings.setRootBonePtr)
   }
 
@@ -136,9 +145,9 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * Returns the root bone index of the bone chain.
    */
   public final fun getRootBone(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getRootBonePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -147,7 +156,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * **Note:** The end bone must be a child of the root bone.
    */
   public final fun setEndBoneName(index: Int, boneName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), STRING to boneName)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, index.toLong(), boneName)
     TransferContext.callMethod(MethodBindings.setEndBoneNamePtr)
   }
 
@@ -155,16 +164,16 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * Returns the end bone name of the bone chain.
    */
   public final fun getEndBoneName(index: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getEndBoneNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Sets the end bone index of the bone chain.
    */
   public final fun setEndBone(index: Int, bone: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to bone.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), bone.toLong())
     TransferContext.callMethod(MethodBindings.setEndBonePtr)
   }
 
@@ -172,9 +181,9 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * Returns the end bone index of the bone chain.
    */
   public final fun getEndBone(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getEndBonePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -183,9 +192,9 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * This bone is either the end of the chain or its parent, depending on [isEndBoneExtended].
    */
   public final fun getReferenceBoneName(index: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getReferenceBoneNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -194,9 +203,9 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * This bone is either the end of the chain or its parent, depending on [isEndBoneExtended].
    */
   public final fun getReferenceBone(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getReferenceBonePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -206,7 +215,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * vector to the end bone as a twist axis.
    */
   public final fun setExtendEndBone(index: Int, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), BOOL to enabled)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
     TransferContext.callMethod(MethodBindings.setExtendEndBonePtr)
   }
 
@@ -214,9 +223,9 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * Returns `true` if the end bone is extended to have a tail.
    */
   public final fun isEndBoneExtended(index: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.isEndBoneExtendedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -224,7 +233,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    */
   public final fun setEndBoneDirection(index: Int, boneDirection: SkeletonModifier3D.BoneDirection):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to boneDirection.value)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), boneDirection.value)
     TransferContext.callMethod(MethodBindings.setEndBoneDirectionPtr)
   }
 
@@ -233,9 +242,9 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * `true`.
    */
   public final fun getEndBoneDirection(index: Int): SkeletonModifier3D.BoneDirection {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getEndBoneDirectionPtr)
-    return SkeletonModifier3D.BoneDirection.from(TransferContext.readReturnValue(LONG) as Long)
+    return SkeletonModifier3D.BoneDirection.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -246,7 +255,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * [getTwistFrom] and the current bone pose. See also [setTwistFrom].
    */
   public final fun setTwistFromRest(index: Int, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), BOOL to enabled)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
     TransferContext.callMethod(MethodBindings.setTwistFromRestPtr)
   }
 
@@ -255,9 +264,9 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * current bone pose.
    */
   public final fun isTwistFromRest(index: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.isTwistFromRestPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -269,7 +278,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * processed after that but before this [BoneTwistDisperser3D].
    */
   public final fun setTwistFrom(index: Int, from: Quaternion): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), QUATERNION to from)
+    TransferContext.writeMethodArguments_LONG_QUATERNION(ptr, objectID.id, index.toLong(), from)
     TransferContext.callMethod(MethodBindings.setTwistFromPtr)
   }
 
@@ -278,16 +287,16 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * the twist when [isTwistFromRest] is `false`.
    */
   public final fun getTwistFrom(index: Int): Quaternion {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getTwistFromPtr)
-    return (TransferContext.readReturnValue(QUATERNION) as Quaternion)
+    return TransferContext.readReturnValue_QUATERNION()
   }
 
   /**
    * Sets whether to use automatic amount assignment or to allow manual assignment.
    */
   public final fun setDisperseMode(index: Int, disperseMode: DisperseMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to disperseMode.value)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), disperseMode.value)
     TransferContext.callMethod(MethodBindings.setDisperseModePtr)
   }
 
@@ -295,9 +304,9 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * Returns whether to use automatic amount assignment or to allow manual assignment.
    */
   public final fun getDisperseMode(index: Int): DisperseMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getDisperseModePtr)
-    return DisperseMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return DisperseMode.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -309,7 +318,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * `1.0`, and `0.5`. Then amounts become `0.25`, `0.75`, and `1.0` respectively.
    */
   public final fun setWeightPosition(index: Int, weightPosition: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), DOUBLE to weightPosition.toDouble())
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, index.toLong(), weightPosition.toDouble())
     TransferContext.callMethod(MethodBindings.setWeightPositionPtr)
   }
 
@@ -318,16 +327,16 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * [getDisperseMode] is [DISPERSE_MODE_WEIGHTED].
    */
   public final fun getWeightPosition(index: Int): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getWeightPositionPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
    * Sets the damping curve when [getDisperseMode] is [DISPERSE_MODE_CUSTOM].
    */
   public final fun setDampingCurve(index: Int, curve: Curve?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), OBJECT to curve)
+    TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, index.toLong(), curve)
     TransferContext.callMethod(MethodBindings.setDampingCurvePtr)
   }
 
@@ -335,27 +344,27 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * Returns the damping curve when [getDisperseMode] is [DISPERSE_MODE_CUSTOM].
    */
   public final fun getDampingCurve(index: Int): Curve? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getDampingCurvePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Curve?)
+    return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 
   /**
    * Returns the bone name at [joint] in the bone chain's joint list.
    */
   public final fun getJointBoneName(index: Int, joint: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), joint.toLong())
     TransferContext.callMethod(MethodBindings.getJointBoneNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Returns the bone index at [joint] in the bone chain's joint list.
    */
   public final fun getJointBone(index: Int, joint: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), joint.toLong())
     TransferContext.callMethod(MethodBindings.getJointBonePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -363,9 +372,9 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * [DISPERSE_MODE_CUSTOM].
    */
   public final fun getJointTwistAmount(index: Int, joint: Int): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong())
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), joint.toLong())
     TransferContext.callMethod(MethodBindings.getJointTwistAmountPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -377,7 +386,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
     joint: Int,
     twistAmount: Float,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong(), DOUBLE to twistAmount.toDouble())
+    TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, index.toLong(), joint.toLong(), twistAmount.toDouble())
     TransferContext.callMethod(MethodBindings.setJointTwistAmountPtr)
   }
 
@@ -385,9 +394,9 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * Returns the joint count of the bone chain's joint list.
    */
   public final fun getJointCount(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
     TransferContext.callMethod(MethodBindings.getJointCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public enum class DisperseMode(

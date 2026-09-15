@@ -21,12 +21,15 @@ import godot.core.Signal1
 import godot.core.Signal2
 import godot.core.Signal3
 import godot.core.StringName
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DICTIONARY
+import godot.writeMethodArguments_STRING_DICTIONARY
+import godot.writeMethodArguments_STRING_LONG_STRING
+import godot.writeMethodArguments_STRING_NAME
+import godot.writeMethodArguments_STRING_STRING
 import kotlin.Any
 import kotlin.Int
 import kotlin.Long
@@ -106,9 +109,9 @@ public open class WebRTCPeerConnection : RefCounted() {
    */
   @JvmOverloads
   public final fun initialize(configuration: Dictionary<Any?, Any?> = Dictionary()): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DICTIONARY to configuration)
+    TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, configuration)
     TransferContext.callMethod(MethodBindings.initializePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -149,9 +152,9 @@ public open class WebRTCPeerConnection : RefCounted() {
   @JvmOverloads
   public final fun createDataChannel(label: String, options: Dictionary<Any?, Any?> = Dictionary()):
       WebRTCDataChannel? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to label, DICTIONARY to options)
+    TransferContext.writeMethodArguments_STRING_DICTIONARY(ptr, objectID.id, label, options)
     TransferContext.callMethod(MethodBindings.createDataChannelPtr)
-    return (TransferContext.readReturnValue(OBJECT) as WebRTCDataChannel?)
+    return (TransferContext.readReturnValue_OBJECT() as WebRTCDataChannel?)
   }
 
   /**
@@ -162,9 +165,9 @@ public open class WebRTCPeerConnection : RefCounted() {
    * session is ready to be sent.
    */
   public final fun createOffer(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.createOfferPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -175,9 +178,9 @@ public open class WebRTCPeerConnection : RefCounted() {
    * an [Error] different from [OK] is returned).
    */
   public final fun setLocalDescription(type: String, sdp: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to type, STRING to sdp)
+    TransferContext.writeMethodArguments_STRING_STRING(ptr, objectID.id, type, sdp)
     TransferContext.callMethod(MethodBindings.setLocalDescriptionPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -190,9 +193,9 @@ public open class WebRTCPeerConnection : RefCounted() {
    * If [type] is `"answer"` the peer will start emitting [signal ice_candidate_created].
    */
   public final fun setRemoteDescription(type: String, sdp: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to type, STRING to sdp)
+    TransferContext.writeMethodArguments_STRING_STRING(ptr, objectID.id, type, sdp)
     TransferContext.callMethod(MethodBindings.setRemoteDescriptionPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -204,9 +207,9 @@ public open class WebRTCPeerConnection : RefCounted() {
     index: Int,
     name: String,
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to media, LONG to index.toLong(), STRING to name)
+    TransferContext.writeMethodArguments_STRING_LONG_STRING(ptr, objectID.id, media, index.toLong(), name)
     TransferContext.callMethod(MethodBindings.addIceCandidatePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -214,9 +217,9 @@ public open class WebRTCPeerConnection : RefCounted() {
    * receive signals.
    */
   public final fun poll(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.pollPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -225,7 +228,7 @@ public open class WebRTCPeerConnection : RefCounted() {
    * **Note:** You cannot reuse this object for a new connection unless you call [initialize].
    */
   public final fun close(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.closePtr)
   }
 
@@ -233,9 +236,9 @@ public open class WebRTCPeerConnection : RefCounted() {
    * Returns the connection state.
    */
   public final fun getConnectionState(): ConnectionState {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConnectionStatePtr)
-    return ConnectionState.from(TransferContext.readReturnValue(LONG) as Long)
+    return ConnectionState.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -243,9 +246,9 @@ public open class WebRTCPeerConnection : RefCounted() {
    * collection of ICE candidates has finished.
    */
   public final fun getGatheringState(): GatheringState {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGatheringStatePtr)
-    return GatheringState.from(TransferContext.readReturnValue(LONG) as Long)
+    return GatheringState.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -253,9 +256,9 @@ public open class WebRTCPeerConnection : RefCounted() {
    * to another peer.
    */
   public final fun getSignalingState(): SignalingState {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSignalingStatePtr)
-    return SignalingState.from(TransferContext.readReturnValue(LONG) as Long)
+    return SignalingState.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class ConnectionState(
@@ -419,7 +422,7 @@ public open class WebRTCPeerConnection : RefCounted() {
      */
     @JvmStatic
     public final fun setDefaultExtension(extensionClass: StringName): Unit {
-      TransferContext.writeMethodArguments(0L, 0L, STRING_NAME to extensionClass)
+      TransferContext.writeMethodArguments_STRING_NAME(0L, 0L, extensionClass)
       TransferContext.callMethod(MethodBindings.setDefaultExtensionPtr)
     }
 

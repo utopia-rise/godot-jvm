@@ -12,9 +12,8 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.MethodStringName2
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
+import godot.writeMethodArguments_STRING_CALLABLE
+import godot.writeMethodArguments_STRING_LONG
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
@@ -49,7 +48,7 @@ public object PhysicsServer2DManager : Object() {
    */
   @JvmStatic
   public final fun registerServer(name: String, createCallback: Callable): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name, CALLABLE to createCallback)
+    TransferContext.writeMethodArguments_STRING_CALLABLE(ptr, objectID.id, name, createCallback)
     TransferContext.callMethod(MethodBindings.registerServerPtr)
   }
 
@@ -59,7 +58,7 @@ public object PhysicsServer2DManager : Object() {
    */
   @JvmStatic
   public final fun setDefaultServer(name: String, priority: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name, LONG to priority.toLong())
+    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, name, priority.toLong())
     TransferContext.callMethod(MethodBindings.setDefaultServerPtr)
   }
 

@@ -13,9 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
-import kotlin.Long
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -165,7 +167,7 @@ public open class RDShaderSource : RefCounted() {
    * remove the Godot-specific hint `#[compute]`.
    */
   public final fun setStageSource(stage: RenderingDevice.ShaderStage, source: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value, STRING to source)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, stage.value, source)
     TransferContext.callMethod(MethodBindings.setStageSourcePtr)
   }
 
@@ -175,20 +177,20 @@ public open class RDShaderSource : RefCounted() {
    * [sourceVertex].
    */
   public final fun getStageSource(stage: RenderingDevice.ShaderStage): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stage.value)
     TransferContext.callMethod(MethodBindings.getStageSourcePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setLanguage(language: RenderingDevice.ShaderLanguage): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to language.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, language.value)
     TransferContext.callMethod(MethodBindings.setLanguagePtr)
   }
 
   public final fun getLanguage(): RenderingDevice.ShaderLanguage {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLanguagePtr)
-    return RenderingDevice.ShaderLanguage.from(TransferContext.readReturnValue(LONG) as Long)
+    return RenderingDevice.ShaderLanguage.from(TransferContext.readReturnValue_LONG())
   }
 
   public companion object {

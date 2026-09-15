@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -44,14 +46,14 @@ public open class ShaderInclude : Resource() {
   }
 
   public final fun setCode(code: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to code)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, code)
     TransferContext.callMethod(MethodBindings.setCodePtr)
   }
 
   public final fun getCode(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCodePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public companion object {

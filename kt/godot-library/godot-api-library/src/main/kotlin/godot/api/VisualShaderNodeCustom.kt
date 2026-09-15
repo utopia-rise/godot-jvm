@@ -13,11 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
 import godot.core.VariantArray
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments_LONG
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.String
 import kotlin.Suppress
@@ -293,9 +293,9 @@ public open class VisualShaderNodeCustom : VisualShaderNode() {
    * function to define the specific behavior in the [_getCode] or [_getGlobalCode].
    */
   public final fun getOptionIndex(option: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to option.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, option.toLong())
     TransferContext.callMethod(MethodBindings.getOptionIndexPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public companion object {

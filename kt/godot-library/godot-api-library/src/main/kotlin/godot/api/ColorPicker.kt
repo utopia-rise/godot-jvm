@@ -18,10 +18,14 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedColorArray
 import godot.core.Signal1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_COLOR_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_COLOR_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -221,124 +225,124 @@ public open class ColorPicker : VBoxContainer() {
   }
 
   public final fun setPickColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.setPickColorPtr)
   }
 
   public final fun getPickColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPickColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setDeferredMode(mode: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to mode)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, mode)
     TransferContext.callMethod(MethodBindings.setDeferredModePtr)
   }
 
   public final fun isDeferredMode(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isDeferredModePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setColorMode(colorMode: ColorModeType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to colorMode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, colorMode.value)
     TransferContext.callMethod(MethodBindings.setColorModePtr)
   }
 
   public final fun getColorMode(): ColorModeType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getColorModePtr)
-    return ColorModeType.from(TransferContext.readReturnValue(LONG) as Long)
+    return ColorModeType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setEditAlpha(show: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to show)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, show)
     TransferContext.callMethod(MethodBindings.setEditAlphaPtr)
   }
 
   public final fun isEditingAlpha(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isEditingAlphaPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEditIntensity(show: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to show)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, show)
     TransferContext.callMethod(MethodBindings.setEditIntensityPtr)
   }
 
   public final fun isEditingIntensity(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isEditingIntensityPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCanAddSwatches(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setCanAddSwatchesPtr)
   }
 
   public final fun areSwatchesEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.areSwatchesEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setPresetsVisible(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to visible)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
     TransferContext.callMethod(MethodBindings.setPresetsVisiblePtr)
   }
 
   public final fun arePresetsVisible(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.arePresetsVisiblePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setModesVisible(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to visible)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
     TransferContext.callMethod(MethodBindings.setModesVisiblePtr)
   }
 
   public final fun areModesVisible(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.areModesVisiblePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSamplerVisible(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to visible)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
     TransferContext.callMethod(MethodBindings.setSamplerVisiblePtr)
   }
 
   public final fun isSamplerVisible(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isSamplerVisiblePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSlidersVisible(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to visible)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
     TransferContext.callMethod(MethodBindings.setSlidersVisiblePtr)
   }
 
   public final fun areSlidersVisible(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.areSlidersVisiblePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHexVisible(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to visible)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
     TransferContext.callMethod(MethodBindings.setHexVisiblePtr)
   }
 
   public final fun isHexVisible(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isHexVisiblePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -348,7 +352,7 @@ public open class ColorPicker : VBoxContainer() {
    * **Note:** The presets list is only for *this* color picker.
    */
   public final fun addPreset(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.addPresetPtr)
   }
 
@@ -356,7 +360,7 @@ public open class ColorPicker : VBoxContainer() {
    * Removes the given color from the list of color presets of this color picker.
    */
   public final fun erasePreset(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.erasePresetPtr)
   }
 
@@ -364,9 +368,9 @@ public open class ColorPicker : VBoxContainer() {
    * Returns the list of colors in the presets of the color picker.
    */
   public final fun getPresets(): PackedColorArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPresetsPtr)
-    return (TransferContext.readReturnValue(PACKED_COLOR_ARRAY) as PackedColorArray)
+    return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 
   /**
@@ -377,7 +381,7 @@ public open class ColorPicker : VBoxContainer() {
    * **Note:** The recent presets list is only for *this* color picker.
    */
   public final fun addRecentPreset(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.addRecentPresetPtr)
   }
 
@@ -385,7 +389,7 @@ public open class ColorPicker : VBoxContainer() {
    * Removes the given color from the list of color recent presets of this color picker.
    */
   public final fun eraseRecentPreset(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
     TransferContext.callMethod(MethodBindings.eraseRecentPresetPtr)
   }
 
@@ -393,20 +397,20 @@ public open class ColorPicker : VBoxContainer() {
    * Returns the list of colors in the recent presets of the color picker.
    */
   public final fun getRecentPresets(): PackedColorArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRecentPresetsPtr)
-    return (TransferContext.readReturnValue(PACKED_COLOR_ARRAY) as PackedColorArray)
+    return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 
   public final fun setPickerShape(shape: PickerShapeType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to shape.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, shape.value)
     TransferContext.callMethod(MethodBindings.setPickerShapePtr)
   }
 
   public final fun getPickerShape(): PickerShapeType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPickerShapePtr)
-    return PickerShapeType.from(TransferContext.readReturnValue(LONG) as Long)
+    return PickerShapeType.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class ColorModeType(

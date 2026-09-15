@@ -14,9 +14,12 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_VECTOR3
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -139,36 +142,36 @@ public open class StaticBody3D : PhysicsBody3D() {
   }
 
   public final fun setConstantLinearVelocity(vel: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to vel)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, vel)
     TransferContext.callMethod(MethodBindings.setConstantLinearVelocityPtr)
   }
 
   public final fun setConstantAngularVelocity(vel: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to vel)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, vel)
     TransferContext.callMethod(MethodBindings.setConstantAngularVelocityPtr)
   }
 
   public final fun getConstantLinearVelocity(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConstantLinearVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun getConstantAngularVelocity(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConstantAngularVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setPhysicsMaterialOverride(physicsMaterialOverride: PhysicsMaterial?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to physicsMaterialOverride)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, physicsMaterialOverride)
     TransferContext.callMethod(MethodBindings.setPhysicsMaterialOverridePtr)
   }
 
   public final fun getPhysicsMaterialOverride(): PhysicsMaterial? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPhysicsMaterialOverridePtr)
-    return (TransferContext.readReturnValue(OBJECT) as PhysicsMaterial?)
+    return (TransferContext.readReturnValue_OBJECT() as PhysicsMaterial?)
   }
 
   public companion object {

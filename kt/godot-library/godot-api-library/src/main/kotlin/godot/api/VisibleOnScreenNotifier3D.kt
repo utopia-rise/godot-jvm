@@ -16,7 +16,9 @@ import godot.core.AABB
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.core.VariantParser.BOOL
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_AABB
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -91,7 +93,7 @@ public open class VisibleOnScreenNotifier3D : VisualInstance3D() {
   }
 
   public final fun setAabb(rect: AABB): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, godot.core.VariantParser.AABB to rect)
+    TransferContext.writeMethodArguments_AABB(ptr, objectID.id, rect)
     TransferContext.callMethod(MethodBindings.setAabbPtr)
   }
 
@@ -103,9 +105,9 @@ public open class VisibleOnScreenNotifier3D : VisualInstance3D() {
    * instantiated.
    */
   public final fun isOnScreen(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isOnScreenPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

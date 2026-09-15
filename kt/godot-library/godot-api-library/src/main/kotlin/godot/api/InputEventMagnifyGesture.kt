@@ -12,8 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -47,14 +48,14 @@ public open class InputEventMagnifyGesture : InputEventGesture() {
   }
 
   public final fun setFactor(factor: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to factor.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, factor.toDouble())
     TransferContext.callMethod(MethodBindings.setFactorPtr)
   }
 
   public final fun getFactor(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFactorPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public companion object {

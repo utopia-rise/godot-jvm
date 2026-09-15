@@ -13,9 +13,12 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
 import godot.core.Vector3
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Long
@@ -158,36 +161,36 @@ public open class DirectionalLight3D : Light3D() {
   }
 
   public final fun setShadowMode(mode: ShadowMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setShadowModePtr)
   }
 
   public final fun getShadowMode(): ShadowMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getShadowModePtr)
-    return ShadowMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return ShadowMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setBlendSplits(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setBlendSplitsPtr)
   }
 
   public final fun isBlendSplitsEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isBlendSplitsEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSkyMode(mode: SkyMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setSkyModePtr)
   }
 
   public final fun getSkyMode(): SkyMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSkyModePtr)
-    return SkyMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return SkyMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class ShadowMode(

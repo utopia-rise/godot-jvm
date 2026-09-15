@@ -18,15 +18,17 @@ import godot.core.Signal1
 import godot.core.Signal2
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING_NAME
+import godot.writeMethodArguments_STRING_NAME_OBJECT
+import godot.writeMethodArguments_STRING_NAME_STRING_NAME
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -69,16 +71,16 @@ public open class AnimationLibrary : Resource() {
    * Adds the [animation] to the library, accessible by the key [name].
    */
   public final fun addAnimation(name: StringName, animation: Animation?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, OBJECT to animation)
+    TransferContext.writeMethodArguments_STRING_NAME_OBJECT(ptr, objectID.id, name, animation)
     TransferContext.callMethod(MethodBindings.addAnimationPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Removes the [Animation] with the key [name].
    */
   public final fun removeAnimation(name: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.removeAnimationPtr)
   }
 
@@ -86,7 +88,7 @@ public open class AnimationLibrary : Resource() {
    * Changes the key of the [Animation] associated with the key [name] to [newname].
    */
   public final fun renameAnimation(name: StringName, newname: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, STRING_NAME to newname)
+    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, newname)
     TransferContext.callMethod(MethodBindings.renameAnimationPtr)
   }
 
@@ -94,9 +96,9 @@ public open class AnimationLibrary : Resource() {
    * Returns `true` if the library stores an [Animation] with [name] as the key.
    */
   public final fun hasAnimation(name: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.hasAnimationPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -104,27 +106,27 @@ public open class AnimationLibrary : Resource() {
    * returned and an error is logged.
    */
   public final fun getAnimation(name: StringName): Animation? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.getAnimationPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Animation?)
+    return (TransferContext.readReturnValue_OBJECT() as Animation?)
   }
 
   /**
    * Returns the keys for the [Animation]s stored in the library.
    */
   public final fun getAnimationList(): VariantArray<StringName> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAnimationListPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<StringName>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
   /**
    * Returns the key count for the [Animation]s stored in the library.
    */
   public final fun getAnimationListSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAnimationListSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**

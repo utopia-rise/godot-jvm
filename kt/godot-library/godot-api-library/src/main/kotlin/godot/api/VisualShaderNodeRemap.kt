@@ -13,7 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -39,14 +41,14 @@ public open class VisualShaderNodeRemap : VisualShaderNode() {
   }
 
   public final fun setOpType(opType: OpType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to opType.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, opType.value)
     TransferContext.callMethod(MethodBindings.setOpTypePtr)
   }
 
   public final fun getOpType(): OpType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getOpTypePtr)
-    return OpType.from(TransferContext.readReturnValue(LONG) as Long)
+    return OpType.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class OpType(

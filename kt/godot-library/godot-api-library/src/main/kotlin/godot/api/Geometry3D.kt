@@ -19,15 +19,24 @@ import godot.core.PackedInt32Array
 import godot.core.PackedVector3Array
 import godot.core.Plane
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.PACKED_VECTOR3_ARRAY
-import godot.core.VariantParser.PLANE
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_ANY
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_PACKED_INT_32_ARRAY
+import godot.readReturnValue_PACKED_VECTOR3_ARRAY
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments_ARRAY
+import godot.writeMethodArguments_DOUBLE_DOUBLE_LONG_LONG
+import godot.writeMethodArguments_DOUBLE_DOUBLE_LONG_LONG_LONG
+import godot.writeMethodArguments_PACKED_VECTOR3_ARRAY
+import godot.writeMethodArguments_PACKED_VECTOR3_ARRAY_PLANE
+import godot.writeMethodArguments_VECTOR3
+import godot.writeMethodArguments_VECTOR3_VECTOR3_ARRAY
+import godot.writeMethodArguments_VECTOR3_VECTOR3_DOUBLE_DOUBLE
+import godot.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3
+import godot.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_DOUBLE
+import godot.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3
+import godot.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3_VECTOR3
 import kotlin.Any
 import kotlin.Float
 import kotlin.Int
@@ -126,9 +135,9 @@ public object Geometry3D : Object() {
    */
   @JvmStatic
   public final fun computeConvexMeshPoints(planes: VariantArray<Plane>): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to planes)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, planes)
     TransferContext.callMethod(MethodBindings.computeConvexMeshPointsPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
+    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
   /**
@@ -138,9 +147,9 @@ public object Geometry3D : Object() {
    */
   @JvmStatic
   public final fun buildBoxPlanes(extents: Vector3): VariantArray<Plane> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to extents)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, extents)
     TransferContext.callMethod(MethodBindings.buildBoxPlanesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Plane>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Plane>)
   }
 
   /**
@@ -157,9 +166,9 @@ public object Geometry3D : Object() {
     sides: Int,
     axis: Vector3.Axis = Vector3.Axis.Z,
   ): VariantArray<Plane> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to radius.toDouble(), DOUBLE to height.toDouble(), LONG to sides.toLong(), LONG to axis.value)
+    TransferContext.writeMethodArguments_DOUBLE_DOUBLE_LONG_LONG(ptr, objectID.id, radius.toDouble(), height.toDouble(), sides.toLong(), axis.value)
     TransferContext.callMethod(MethodBindings.buildCylinderPlanesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Plane>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Plane>)
   }
 
   /**
@@ -178,9 +187,9 @@ public object Geometry3D : Object() {
     lats: Int,
     axis: Vector3.Axis = Vector3.Axis.Z,
   ): VariantArray<Plane> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to radius.toDouble(), DOUBLE to height.toDouble(), LONG to sides.toLong(), LONG to lats.toLong(), LONG to axis.value)
+    TransferContext.writeMethodArguments_DOUBLE_DOUBLE_LONG_LONG_LONG(ptr, objectID.id, radius.toDouble(), height.toDouble(), sides.toLong(), lats.toLong(), axis.value)
     TransferContext.callMethod(MethodBindings.buildCapsulePlanesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Plane>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Plane>)
   }
 
   /**
@@ -195,9 +204,9 @@ public object Geometry3D : Object() {
     q1: Vector3,
     q2: Vector3,
   ): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to p1, VECTOR3 to p2, VECTOR3 to q1, VECTOR3 to q2)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, p1, p2, q1, q2)
     TransferContext.callMethod(MethodBindings.getClosestPointsBetweenSegmentsPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
+    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
   /**
@@ -210,9 +219,9 @@ public object Geometry3D : Object() {
     s1: Vector3,
     s2: Vector3,
   ): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to point, VECTOR3 to s1, VECTOR3 to s2)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, point, s1, s2)
     TransferContext.callMethod(MethodBindings.getClosestPointToSegmentPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   /**
@@ -226,9 +235,9 @@ public object Geometry3D : Object() {
     s1: Vector3,
     s2: Vector3,
   ): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to point, VECTOR3 to s1, VECTOR3 to s2)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, point, s1, s2)
     TransferContext.callMethod(MethodBindings.getClosestPointToSegmentUncappedPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   /**
@@ -247,9 +256,9 @@ public object Geometry3D : Object() {
     b: Vector3,
     c: Vector3,
   ): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to point, VECTOR3 to a, VECTOR3 to b, VECTOR3 to c)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, point, a, b, c)
     TransferContext.callMethod(MethodBindings.getTriangleBarycentricCoordsPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   /**
@@ -265,9 +274,9 @@ public object Geometry3D : Object() {
     b: Vector3,
     c: Vector3,
   ): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to from, VECTOR3 to dir, VECTOR3 to a, VECTOR3 to b, VECTOR3 to c)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, from, dir, a, b, c)
     TransferContext.callMethod(MethodBindings.rayIntersectsTrianglePtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -282,9 +291,9 @@ public object Geometry3D : Object() {
     b: Vector3,
     c: Vector3,
   ): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to from, VECTOR3 to to, VECTOR3 to a, VECTOR3 to b, VECTOR3 to c)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, from, to, a, b, c)
     TransferContext.callMethod(MethodBindings.segmentIntersectsTrianglePtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -300,9 +309,9 @@ public object Geometry3D : Object() {
     spherePosition: Vector3,
     sphereRadius: Float,
   ): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to from, VECTOR3 to to, VECTOR3 to spherePosition, DOUBLE to sphereRadius.toDouble())
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_DOUBLE(ptr, objectID.id, from, to, spherePosition, sphereRadius.toDouble())
     TransferContext.callMethod(MethodBindings.segmentIntersectsSpherePtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
+    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
   /**
@@ -318,9 +327,9 @@ public object Geometry3D : Object() {
     height: Float,
     radius: Float,
   ): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to from, VECTOR3 to to, DOUBLE to height.toDouble(), DOUBLE to radius.toDouble())
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_DOUBLE_DOUBLE(ptr, objectID.id, from, to, height.toDouble(), radius.toDouble())
     TransferContext.callMethod(MethodBindings.segmentIntersectsCylinderPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
+    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
   /**
@@ -335,9 +344,9 @@ public object Geometry3D : Object() {
     to: Vector3,
     planes: VariantArray<Plane>,
   ): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to from, VECTOR3 to to, ARRAY to planes)
+    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_ARRAY(ptr, objectID.id, from, to, planes)
     TransferContext.callMethod(MethodBindings.segmentIntersectsConvexPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
+    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
   /**
@@ -346,9 +355,9 @@ public object Geometry3D : Object() {
    */
   @JvmStatic
   public final fun clipPolygon(points: PackedVector3Array, plane: Plane): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR3_ARRAY to points, PLANE to plane)
+    TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY_PLANE(ptr, objectID.id, points, plane)
     TransferContext.callMethod(MethodBindings.clipPolygonPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
+    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
   /**
@@ -360,9 +369,9 @@ public object Geometry3D : Object() {
    */
   @JvmStatic
   public final fun tetrahedralizeDelaunay(points: PackedVector3Array): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR3_ARRAY to points)
+    TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY(ptr, objectID.id, points)
     TransferContext.callMethod(MethodBindings.tetrahedralizeDelaunayPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
+    return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
   public object MethodBindings {

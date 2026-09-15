@@ -14,12 +14,15 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -327,80 +330,80 @@ public open class InputEventMouseMotion : InputEventMouse() {
   }
 
   public final fun setTilt(tilt: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to tilt)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, tilt)
     TransferContext.callMethod(MethodBindings.setTiltPtr)
   }
 
   public final fun getTilt(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTiltPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setPressure(pressure: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pressure.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pressure.toDouble())
     TransferContext.callMethod(MethodBindings.setPressurePtr)
   }
 
   public final fun getPressure(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPressurePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPenInverted(penInverted: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to penInverted)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, penInverted)
     TransferContext.callMethod(MethodBindings.setPenInvertedPtr)
   }
 
   public final fun getPenInverted(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPenInvertedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRelative(relative: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to relative)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, relative)
     TransferContext.callMethod(MethodBindings.setRelativePtr)
   }
 
   public final fun getRelative(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRelativePtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setScreenRelative(relative: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to relative)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, relative)
     TransferContext.callMethod(MethodBindings.setScreenRelativePtr)
   }
 
   public final fun getScreenRelative(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getScreenRelativePtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setVelocity(velocity: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to velocity)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, velocity)
     TransferContext.callMethod(MethodBindings.setVelocityPtr)
   }
 
   public final fun getVelocity(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setScreenVelocity(velocity: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to velocity)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, velocity)
     TransferContext.callMethod(MethodBindings.setScreenVelocityPtr)
   }
 
   public final fun getScreenVelocity(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getScreenVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public companion object {

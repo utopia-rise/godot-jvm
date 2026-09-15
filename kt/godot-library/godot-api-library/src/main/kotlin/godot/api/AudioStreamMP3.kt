@@ -15,17 +15,21 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedByteArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_BYTE_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_PACKED_BYTE_ARRAY
+import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.Byte
 import kotlin.Double
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.String
 import kotlin.Suppress
@@ -237,69 +241,69 @@ public open class AudioStreamMP3 : AudioStream() {
   }
 
   public final fun setData(`data`: PackedByteArray): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_BYTE_ARRAY to data)
+    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, data)
     TransferContext.callMethod(MethodBindings.setDataPtr)
   }
 
   public final fun getData(): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDataPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   public final fun setLoop(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setLoopPtr)
   }
 
   public final fun hasLoop(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.hasLoopPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setLoopOffset(seconds: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to seconds)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, seconds)
     TransferContext.callMethod(MethodBindings.setLoopOffsetPtr)
   }
 
   public final fun getLoopOffset(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLoopOffsetPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setBpm(bpm: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to bpm)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, bpm)
     TransferContext.callMethod(MethodBindings.setBpmPtr)
   }
 
   public final fun getBpm(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBpmPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setBeatCount(count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to count.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
     TransferContext.callMethod(MethodBindings.setBeatCountPtr)
   }
 
   public final fun getBeatCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBeatCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setBarBeats(count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to count.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
     TransferContext.callMethod(MethodBindings.setBarBeatsPtr)
   }
 
   public final fun getBarBeats(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBarBeatsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -373,9 +377,9 @@ public open class AudioStreamMP3 : AudioStream() {
      */
     @JvmStatic
     public final fun loadFromBuffer(streamData: PackedByteArray): AudioStreamMP3? {
-      TransferContext.writeMethodArguments(0L, 0L, PACKED_BYTE_ARRAY to streamData)
+      TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(0L, 0L, streamData)
       TransferContext.callMethod(MethodBindings.loadFromBufferPtr)
-      return (TransferContext.readReturnValue(OBJECT) as AudioStreamMP3?)
+      return (TransferContext.readReturnValue_OBJECT() as AudioStreamMP3?)
     }
 
     /**
@@ -384,9 +388,9 @@ public open class AudioStreamMP3 : AudioStream() {
      */
     @JvmStatic
     public final fun loadFromFile(path: String): AudioStreamMP3? {
-      TransferContext.writeMethodArguments(0L, 0L, STRING to path)
+      TransferContext.writeMethodArguments_STRING(0L, 0L, path)
       TransferContext.callMethod(MethodBindings.loadFromFilePtr)
-      return (TransferContext.readReturnValue(OBJECT) as AudioStreamMP3?)
+      return (TransferContext.readReturnValue_OBJECT() as AudioStreamMP3?)
     }
   }
 

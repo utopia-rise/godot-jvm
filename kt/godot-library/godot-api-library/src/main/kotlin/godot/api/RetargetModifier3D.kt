@@ -13,9 +13,13 @@ import godot.common.interop.VoidPtr
 import godot.core.BitFieldBase
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -96,43 +100,43 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
   }
 
   public final fun setProfile(profile: SkeletonProfile?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to profile)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, profile)
     TransferContext.callMethod(MethodBindings.setProfilePtr)
   }
 
   public final fun getProfile(): SkeletonProfile? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getProfilePtr)
-    return (TransferContext.readReturnValue(OBJECT) as SkeletonProfile?)
+    return (TransferContext.readReturnValue_OBJECT() as SkeletonProfile?)
   }
 
   public final fun setUseGlobalPose(useGlobalPose: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to useGlobalPose)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, useGlobalPose)
     TransferContext.callMethod(MethodBindings.setUseGlobalPosePtr)
   }
 
   public final fun isUsingGlobalPose(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isUsingGlobalPosePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEnableFlags(enableFlags: TransformFlag): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to enableFlags.flag)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, enableFlags.flag)
     TransferContext.callMethod(MethodBindings.setEnableFlagsPtr)
   }
 
   public final fun getEnableFlags(): TransformFlag {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getEnableFlagsPtr)
-    return TransformFlag(TransferContext.readReturnValue(LONG) as Long)
+    return TransformFlag(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Sets [TRANSFORM_FLAG_POSITION] into [enable].
    */
   public final fun setPositionEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setPositionEnabledPtr)
   }
 
@@ -140,16 +144,16 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
    * Returns `true` if [enable] has [TRANSFORM_FLAG_POSITION].
    */
   public final fun isPositionEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isPositionEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Sets [TRANSFORM_FLAG_ROTATION] into [enable].
    */
   public final fun setRotationEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setRotationEnabledPtr)
   }
 
@@ -157,16 +161,16 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
    * Returns `true` if [enable] has [TRANSFORM_FLAG_ROTATION].
    */
   public final fun isRotationEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isRotationEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Sets [TRANSFORM_FLAG_SCALE] into [enable].
    */
   public final fun setScaleEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setScaleEnabledPtr)
   }
 
@@ -174,9 +178,9 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
    * Returns `true` if [enable] has [TRANSFORM_FLAG_SCALE].
    */
   public final fun isScaleEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isScaleEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public class TransformFlag(

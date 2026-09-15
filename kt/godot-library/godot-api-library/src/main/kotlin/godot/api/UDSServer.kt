@@ -13,10 +13,10 @@ import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import kotlin.Long
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -43,18 +43,18 @@ public open class UDSServer : SocketServer() {
    * any existing socket file before calling this method.
    */
   public final fun listen(path: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
     TransferContext.callMethod(MethodBindings.listenPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * If a connection is available, returns a StreamPeerUDS with the connection.
    */
   public final fun takeConnection(): StreamPeerUDS? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.takeConnectionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as StreamPeerUDS?)
+    return (TransferContext.readReturnValue_OBJECT() as StreamPeerUDS?)
   }
 
   public companion object {

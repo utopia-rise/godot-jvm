@@ -16,11 +16,15 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_OBJECT_BOOL
+import godot.writeMethodArguments_VECTOR3
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -146,47 +150,47 @@ public open class VoxelGI : VisualInstance3D() {
   }
 
   public final fun setProbeData(`data`: VoxelGIData?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to data)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, data)
     TransferContext.callMethod(MethodBindings.setProbeDataPtr)
   }
 
   public final fun getProbeData(): VoxelGIData? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getProbeDataPtr)
-    return (TransferContext.readReturnValue(OBJECT) as VoxelGIData?)
+    return (TransferContext.readReturnValue_OBJECT() as VoxelGIData?)
   }
 
   public final fun setSubdiv(subdiv: Subdiv): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to subdiv.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, subdiv.value)
     TransferContext.callMethod(MethodBindings.setSubdivPtr)
   }
 
   public final fun getSubdiv(): Subdiv {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSubdivPtr)
-    return Subdiv.from(TransferContext.readReturnValue(LONG) as Long)
+    return Subdiv.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to size)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, size)
     TransferContext.callMethod(MethodBindings.setSizePtr)
   }
 
   public final fun getSize(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setCameraAttributes(cameraAttributes: CameraAttributes?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to cameraAttributes)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, cameraAttributes)
     TransferContext.callMethod(MethodBindings.setCameraAttributesPtr)
   }
 
   public final fun getCameraAttributes(): CameraAttributes? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCameraAttributesPtr)
-    return (TransferContext.readReturnValue(OBJECT) as CameraAttributes?)
+    return (TransferContext.readReturnValue_OBJECT() as CameraAttributes?)
   }
 
   /**
@@ -206,7 +210,7 @@ public open class VoxelGI : VisualInstance3D() {
    */
   @JvmOverloads
   public final fun bake(fromNode: Node? = null, createVisualDebug: Boolean = false): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to fromNode, BOOL to createVisualDebug)
+    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, fromNode, createVisualDebug)
     TransferContext.callMethod(MethodBindings.bakePtr)
   }
 
@@ -214,7 +218,7 @@ public open class VoxelGI : VisualInstance3D() {
    * Calls [bake] with `create_visual_debug` enabled.
    */
   public final fun debugBake(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.debugBakePtr)
   }
 

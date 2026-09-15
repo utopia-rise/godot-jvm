@@ -14,12 +14,11 @@ import godot.core.Error
 import godot.core.MethodStringName1
 import godot.core.MethodStringName6
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments_ARRAY
+import godot.writeMethodArguments_LONG_LONG_LONG_LONG_BOOL_ARRAY
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -51,9 +50,9 @@ public open class ImageTexture3D : Texture3D() {
     useMipmaps: Boolean,
     `data`: VariantArray<Image>,
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to format.value, LONG to width.toLong(), LONG to height.toLong(), LONG to depth.toLong(), BOOL to useMipmaps, ARRAY to data)
+    TransferContext.writeMethodArguments_LONG_LONG_LONG_LONG_BOOL_ARRAY(ptr, objectID.id, format.value, width.toLong(), height.toLong(), depth.toLong(), useMipmaps, data)
     TransferContext.callMethod(MethodBindings.createPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -62,7 +61,7 @@ public open class ImageTexture3D : Texture3D() {
    * resized or have its format changed by calling [update].
    */
   public final fun update(`data`: VariantArray<Image>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to data)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, data)
     TransferContext.callMethod(MethodBindings.updatePtr)
   }
 

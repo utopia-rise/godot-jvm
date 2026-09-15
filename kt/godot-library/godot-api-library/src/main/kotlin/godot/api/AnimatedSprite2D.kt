@@ -18,20 +18,28 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.Signal0
 import godot.core.StringName
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
 import godot.core.asCachedStringName
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_STRING
+import godot.readReturnValue_STRING_NAME
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_DOUBLE
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_STRING_NAME
+import godot.writeMethodArguments_STRING_NAME_DOUBLE_BOOL
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -230,36 +238,36 @@ public open class AnimatedSprite2D : Node2D() {
   }
 
   public final fun setSpriteFrames(spriteFrames: SpriteFrames?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to spriteFrames)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, spriteFrames)
     TransferContext.callMethod(MethodBindings.setSpriteFramesPtr)
   }
 
   public final fun getSpriteFrames(): SpriteFrames? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSpriteFramesPtr)
-    return (TransferContext.readReturnValue(OBJECT) as SpriteFrames?)
+    return (TransferContext.readReturnValue_OBJECT() as SpriteFrames?)
   }
 
   public final fun setAnimation(name: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.setAnimationPtr)
   }
 
   public final fun getAnimation(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAnimationPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
+    return TransferContext.readReturnValue_STRING_NAME()
   }
 
   public final fun setAutoplay(name: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.setAutoplayPtr)
   }
 
   public final fun getAutoplay(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getAutoplayPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -267,9 +275,9 @@ public open class AnimatedSprite2D : Node2D() {
    * are `0`).
    */
   public final fun isPlaying(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isPlayingPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -285,7 +293,7 @@ public open class AnimatedSprite2D : Node2D() {
     customSpeed: Float = 1.0f,
     fromEnd: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, DOUBLE to customSpeed.toDouble(), BOOL to fromEnd)
+    TransferContext.writeMethodArguments_STRING_NAME_DOUBLE_BOOL(ptr, objectID.id, name, customSpeed.toDouble(), fromEnd)
     TransferContext.callMethod(MethodBindings.playPtr)
   }
 
@@ -296,7 +304,7 @@ public open class AnimatedSprite2D : Node2D() {
    * its description for more information.
    */
   public final fun playBackwards(name: StringName = StringName("")): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.playBackwardsPtr)
   }
 
@@ -308,7 +316,7 @@ public open class AnimatedSprite2D : Node2D() {
    * See also [stop].
    */
   public final fun pause(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.pausePtr)
   }
 
@@ -317,74 +325,74 @@ public open class AnimatedSprite2D : Node2D() {
    * `custom_speed` is reset to `1.0`. See also [pause].
    */
   public final fun stop(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.stopPtr)
   }
 
   public final fun setCentered(centered: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to centered)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, centered)
     TransferContext.callMethod(MethodBindings.setCenteredPtr)
   }
 
   public final fun isCentered(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isCenteredPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setOffset(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to offset)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
     TransferContext.callMethod(MethodBindings.setOffsetPtr)
   }
 
   public final fun getOffset(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setFlipH(flipH: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to flipH)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, flipH)
     TransferContext.callMethod(MethodBindings.setFlipHPtr)
   }
 
   public final fun isFlippedH(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isFlippedHPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFlipV(flipV: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to flipV)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, flipV)
     TransferContext.callMethod(MethodBindings.setFlipVPtr)
   }
 
   public final fun isFlippedV(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isFlippedVPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFrame(frame: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frame.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frame.toLong())
     TransferContext.callMethod(MethodBindings.setFramePtr)
   }
 
   public final fun getFrame(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFramePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setFrameProgress(progress: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to progress.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, progress.toDouble())
     TransferContext.callMethod(MethodBindings.setFrameProgressPtr)
   }
 
   public final fun getFrameProgress(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getFrameProgressPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -402,19 +410,19 @@ public open class AnimatedSprite2D : Node2D() {
    * ```
    */
   public final fun setFrameAndProgress(frame: Int, progress: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frame.toLong(), DOUBLE to progress.toDouble())
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, frame.toLong(), progress.toDouble())
     TransferContext.callMethod(MethodBindings.setFrameAndProgressPtr)
   }
 
   public final fun setSpeedScale(speedScale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to speedScale.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, speedScale.toDouble())
     TransferContext.callMethod(MethodBindings.setSpeedScalePtr)
   }
 
   public final fun getSpeedScale(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSpeedScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -425,9 +433,9 @@ public open class AnimatedSprite2D : Node2D() {
    * Returns a negative value if the current animation is playing backwards.
    */
   public final fun getPlayingSpeed(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPlayingSpeedPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAnimation(name: String) = setAnimation(name.asCachedStringName())

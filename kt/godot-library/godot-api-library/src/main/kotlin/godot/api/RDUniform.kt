@@ -14,11 +14,12 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser._RID
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_RID
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -56,25 +57,25 @@ public open class RDUniform : RefCounted() {
   }
 
   public final fun setUniformType(pMember: RenderingDevice.UniformType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
     TransferContext.callMethod(MethodBindings.setUniformTypePtr)
   }
 
   public final fun getUniformType(): RenderingDevice.UniformType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getUniformTypePtr)
-    return RenderingDevice.UniformType.from(TransferContext.readReturnValue(LONG) as Long)
+    return RenderingDevice.UniformType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setBinding(pMember: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.toLong())
     TransferContext.callMethod(MethodBindings.setBindingPtr)
   }
 
   public final fun getBinding(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBindingPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -82,7 +83,7 @@ public open class RDUniform : RefCounted() {
    * uniform is passed to a shader.
    */
   public final fun addId(id: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, id)
     TransferContext.callMethod(MethodBindings.addIdPtr)
   }
 
@@ -90,7 +91,7 @@ public open class RDUniform : RefCounted() {
    * Unbinds all ids currently bound to the uniform.
    */
   public final fun clearIds(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.clearIdsPtr)
   }
 
@@ -98,9 +99,9 @@ public open class RDUniform : RefCounted() {
    * Returns an array of all ids currently bound to the uniform.
    */
   public final fun getIds(): VariantArray<RID> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getIdsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<RID>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
   public companion object {

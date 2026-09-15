@@ -13,10 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.KeyModifierMask
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -95,14 +96,14 @@ public open class InputEventWithModifiers internal constructor() : InputEventFro
   }
 
   public final fun setCommandOrControlAutoremap(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setCommandOrControlAutoremapPtr)
   }
 
   public final fun isCommandOrControlAutoremap(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isCommandOrControlAutoremapPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -111,62 +112,62 @@ public open class InputEventWithModifiers internal constructor() : InputEventFro
    * On other platforms, returns `true` if [kbd]Ctrl[/kbd] is pressed.
    */
   public final fun isCommandOrControlPressed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isCommandOrControlPressedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAltPressed(pressed: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pressed)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
     TransferContext.callMethod(MethodBindings.setAltPressedPtr)
   }
 
   public final fun isAltPressed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isAltPressedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setShiftPressed(pressed: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pressed)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
     TransferContext.callMethod(MethodBindings.setShiftPressedPtr)
   }
 
   public final fun isShiftPressed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isShiftPressedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCtrlPressed(pressed: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pressed)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
     TransferContext.callMethod(MethodBindings.setCtrlPressedPtr)
   }
 
   public final fun isCtrlPressed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isCtrlPressedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMetaPressed(pressed: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pressed)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
     TransferContext.callMethod(MethodBindings.setMetaPressedPtr)
   }
 
   public final fun isMetaPressed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isMetaPressedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns the keycode combination of modifier keys.
    */
   public final fun getModifiersMask(): KeyModifierMask {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getModifiersMaskPtr)
-    return KeyModifierMask(TransferContext.readReturnValue(LONG) as Long)
+    return KeyModifierMask(TransferContext.readReturnValue_LONG())
   }
 
   public companion object {

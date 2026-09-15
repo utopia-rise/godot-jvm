@@ -13,9 +13,8 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName3
 import godot.core.RID
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser._RID
+import godot.readReturnValue_RID
+import godot.writeMethodArguments_ARRAY_ARRAY_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -52,9 +51,9 @@ public open class FramebufferCacheRD : Object() {
       passes: VariantArray<RDFramebufferPass>,
       views: Long,
     ): RID {
-      TransferContext.writeMethodArguments(0L, 0L, ARRAY to textures, ARRAY to passes, LONG to views)
+      TransferContext.writeMethodArguments_ARRAY_ARRAY_LONG(0L, 0L, textures, passes, views)
       TransferContext.callMethod(MethodBindings.getCacheMultipassPtr)
-      return (TransferContext.readReturnValue(_RID) as RID)
+      return TransferContext.readReturnValue_RID()
     }
   }
 

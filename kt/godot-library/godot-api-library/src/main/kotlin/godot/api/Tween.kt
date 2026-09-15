@@ -20,15 +20,22 @@ import godot.core.NodePath
 import godot.core.Signal
 import godot.core.Signal0
 import godot.core.Signal1
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.SIGNAL
 import godot.core.asCachedNodePath
+import godot.readReturnValue_ANY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ANY_ANY_DOUBLE_DOUBLE_LONG_LONG
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_CALLABLE
+import godot.writeMethodArguments_CALLABLE_ANY_ANY_DOUBLE
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_OBJECT_NODE_PATH_ANY_DOUBLE
+import godot.writeMethodArguments_SIGNAL
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -262,9 +269,9 @@ public open class Tween : RefCounted() {
     finalVal: Any?,
     duration: Double,
   ): PropertyTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to `object`, NODE_PATH to property, ANY to finalVal, DOUBLE to duration)
+    TransferContext.writeMethodArguments_OBJECT_NODE_PATH_ANY_DOUBLE(ptr, objectID.id, `object`, property, finalVal, duration)
     TransferContext.callMethod(MethodBindings.tweenPropertyPtr)
-    return (TransferContext.readReturnValue(OBJECT) as PropertyTweener)
+    return (TransferContext.readReturnValue_OBJECT() as PropertyTweener)
   }
 
   /**
@@ -313,9 +320,9 @@ public open class Tween : RefCounted() {
    * ```
    */
   public final fun tweenInterval(time: Double): IntervalTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to time)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
     TransferContext.callMethod(MethodBindings.tweenIntervalPtr)
-    return (TransferContext.readReturnValue(OBJECT) as IntervalTweener)
+    return (TransferContext.readReturnValue_OBJECT() as IntervalTweener)
   }
 
   /**
@@ -354,9 +361,9 @@ public open class Tween : RefCounted() {
    * ```
    */
   public final fun tweenCallback(callback: Callable): CallbackTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to callback)
+    TransferContext.writeMethodArguments_CALLABLE(ptr, objectID.id, callback)
     TransferContext.callMethod(MethodBindings.tweenCallbackPtr)
-    return (TransferContext.readReturnValue(OBJECT) as CallbackTweener)
+    return (TransferContext.readReturnValue_OBJECT() as CallbackTweener)
   }
 
   /**
@@ -418,9 +425,9 @@ public open class Tween : RefCounted() {
     to: Any?,
     duration: Double,
   ): MethodTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to method, ANY to from, ANY to to, DOUBLE to duration)
+    TransferContext.writeMethodArguments_CALLABLE_ANY_ANY_DOUBLE(ptr, objectID.id, method, from, to, duration)
     TransferContext.callMethod(MethodBindings.tweenMethodPtr)
-    return (TransferContext.readReturnValue(OBJECT) as MethodTweener)
+    return (TransferContext.readReturnValue_OBJECT() as MethodTweener)
   }
 
   /**
@@ -447,9 +454,9 @@ public open class Tween : RefCounted() {
    * will be overridden by the parent [Tween]'s settings.
    */
   public final fun tweenSubtween(subtween: Tween): SubtweenTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to subtween)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, subtween)
     TransferContext.callMethod(MethodBindings.tweenSubtweenPtr)
-    return (TransferContext.readReturnValue(OBJECT) as SubtweenTweener)
+    return (TransferContext.readReturnValue_OBJECT() as SubtweenTweener)
   }
 
   /**
@@ -494,9 +501,9 @@ public open class Tween : RefCounted() {
    * ```
    */
   public final fun tweenAwait(signal: Signal): AwaitTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, SIGNAL to signal)
+    TransferContext.writeMethodArguments_SIGNAL(ptr, objectID.id, signal)
     TransferContext.callMethod(MethodBindings.tweenAwaitPtr)
-    return (TransferContext.readReturnValue(OBJECT) as AwaitTweener)
+    return (TransferContext.readReturnValue_OBJECT() as AwaitTweener)
   }
 
   /**
@@ -507,9 +514,9 @@ public open class Tween : RefCounted() {
    * Returns `true` if the [Tween] still has [Tweener]s that haven't finished.
    */
   public final fun customStep(delta: Double): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to delta)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, delta)
     TransferContext.callMethod(MethodBindings.customStepPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -540,7 +547,7 @@ public open class Tween : RefCounted() {
    * [SceneTree.getProcessedTweens].
    */
   public final fun stop(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.stopPtr)
   }
 
@@ -552,7 +559,7 @@ public open class Tween : RefCounted() {
    * [SceneTree.getProcessedTweens].
    */
   public final fun pause(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.pausePtr)
   }
 
@@ -560,7 +567,7 @@ public open class Tween : RefCounted() {
    * Resumes a paused or stopped [Tween].
    */
   public final fun play(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.playPtr)
   }
 
@@ -568,7 +575,7 @@ public open class Tween : RefCounted() {
    * Aborts all tweening operations and invalidates the [Tween].
    */
   public final fun kill(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.killPtr)
   }
 
@@ -581,9 +588,9 @@ public open class Tween : RefCounted() {
    * finished animating will be slightly greater than the actual [Tween] duration.
    */
   public final fun getTotalElapsedTime(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTotalElapsedTimePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   /**
@@ -592,18 +599,18 @@ public open class Tween : RefCounted() {
    * it starts will prevent errors.
    */
   public final fun hasTweeners(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.hasTweenersPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns whether the [Tween] is currently running, i.e. it wasn't paused and it's not finished.
    */
   public final fun isRunning(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isRunningPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -613,9 +620,9 @@ public open class Tween : RefCounted() {
    * Invalid [Tween]s can't have [Tweener]s appended.
    */
   public final fun isValid(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isValidPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -628,9 +635,9 @@ public open class Tween : RefCounted() {
    * For a shorter way to create and bind a [Tween], you can use [Node.createTween].
    */
   public final fun bindNode(node: Node): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to node)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, node)
     TransferContext.callMethod(MethodBindings.bindNodePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -640,9 +647,9 @@ public open class Tween : RefCounted() {
    * Default value is [TWEEN_PROCESS_IDLE].
    */
   public final fun setProcessMode(mode: TweenProcessMode): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setProcessModePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -651,9 +658,9 @@ public open class Tween : RefCounted() {
    * Default value is [TWEEN_PAUSE_BOUND].
    */
   public final fun setPauseMode(mode: TweenPauseMode): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setPauseModePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -662,9 +669,9 @@ public open class Tween : RefCounted() {
    */
   @JvmOverloads
   public final fun setIgnoreTimeScale(ignore: Boolean = true): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to ignore)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, ignore)
     TransferContext.callMethod(MethodBindings.setIgnoreTimeScalePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -683,9 +690,9 @@ public open class Tween : RefCounted() {
    */
   @JvmOverloads
   public final fun setParallel(parallel: Boolean = true): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to parallel)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, parallel)
     TransferContext.callMethod(MethodBindings.setParallelPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -703,9 +710,9 @@ public open class Tween : RefCounted() {
    */
   @JvmOverloads
   public final fun setLoops(loops: Int = 0): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to loops.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, loops.toLong())
     TransferContext.callMethod(MethodBindings.setLoopsPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -714,18 +721,18 @@ public open class Tween : RefCounted() {
    * already finished.
    */
   public final fun getLoopsLeft(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLoopsLeftPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Scales the speed of tweening. This affects all [Tweener]s and their delays.
    */
   public final fun setSpeedScale(speed: Float): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to speed.toDouble())
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, speed.toDouble())
     TransferContext.callMethod(MethodBindings.setSpeedScalePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -742,9 +749,9 @@ public open class Tween : RefCounted() {
    * ```
    */
   public final fun setTrans(trans: TransitionType): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to trans.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trans.value)
     TransferContext.callMethod(MethodBindings.setTransPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -770,9 +777,9 @@ public open class Tween : RefCounted() {
    * ```
    */
   public final fun setEase(ease: EaseType): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to ease.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, ease.value)
     TransferContext.callMethod(MethodBindings.setEasePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -799,9 +806,9 @@ public open class Tween : RefCounted() {
    * You can make the [Tween] parallel by default by using [setParallel].
    */
   public final fun parallel(): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.parallelPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -824,9 +831,9 @@ public open class Tween : RefCounted() {
    * ```
    */
   public final fun chain(): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.chainPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -1149,9 +1156,9 @@ public open class Tween : RefCounted() {
       transType: TransitionType,
       easeType: EaseType,
     ): Any? {
-      TransferContext.writeMethodArguments(0L, 0L, ANY to initialValue, ANY to deltaValue, DOUBLE to elapsedTime, DOUBLE to duration, LONG to transType.value, LONG to easeType.value)
+      TransferContext.writeMethodArguments_ANY_ANY_DOUBLE_DOUBLE_LONG_LONG(0L, 0L, initialValue, deltaValue, elapsedTime, duration, transType.value, easeType.value)
       TransferContext.callMethod(MethodBindings.interpolateValuePtr)
-      return (TransferContext.readReturnValue(ANY) as Any?)
+      return TransferContext.readReturnValue_ANY()
     }
   }
 

@@ -12,8 +12,8 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser._RID
+import godot.readReturnValue_RID
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -33,9 +33,9 @@ public open class OpenXRSpatialComponentParentList : OpenXRSpatialComponentData(
    * Returns the RID for the parent entity at this [index].
    */
   public final fun getParent(index: Long): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
     TransferContext.callMethod(MethodBindings.getParentPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    return TransferContext.readReturnValue_RID()
   }
 
   public companion object {

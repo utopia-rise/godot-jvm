@@ -12,8 +12,8 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser._RID
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments_RID
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -34,9 +34,9 @@ public abstract class PhysicsDirectSpaceState2DExtension : PhysicsDirectSpaceSta
   }
 
   public final fun isBodyExcludedFromQuery(body: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to body)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, body)
     TransferContext.callMethod(MethodBindings.isBodyExcludedFromQueryPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

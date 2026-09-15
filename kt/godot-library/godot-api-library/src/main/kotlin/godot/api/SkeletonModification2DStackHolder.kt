@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -36,7 +38,7 @@ public open class SkeletonModification2DStackHolder : SkeletonModification2D() {
    */
   public final fun setHeldModificationStack(heldModificationStack: SkeletonModificationStack2D?):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to heldModificationStack)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, heldModificationStack)
     TransferContext.callMethod(MethodBindings.setHeldModificationStackPtr)
   }
 
@@ -44,9 +46,9 @@ public open class SkeletonModification2DStackHolder : SkeletonModification2D() {
    * Returns the [SkeletonModificationStack2D] that this modification is holding.
    */
   public final fun getHeldModificationStack(): SkeletonModificationStack2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getHeldModificationStackPtr)
-    return (TransferContext.readReturnValue(OBJECT) as SkeletonModificationStack2D?)
+    return (TransferContext.readReturnValue_OBJECT() as SkeletonModificationStack2D?)
   }
 
   public companion object {

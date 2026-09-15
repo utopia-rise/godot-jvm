@@ -12,10 +12,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.Transform3D
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_TRANSFORM3D
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -35,18 +35,18 @@ public open class OpenXRSpatialComponentBounded3DList : OpenXRSpatialComponentDa
    * Returns the center of our bounding box for the entity at this [index].
    */
   public final fun getCenterPose(index: Long): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
     TransferContext.callMethod(MethodBindings.getCenterPosePtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
+    return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   /**
    * Returns the size of our bounding box for the entity at this [index].
    */
   public final fun getSize(index: Long): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
     TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public companion object {

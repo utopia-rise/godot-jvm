@@ -24,14 +24,27 @@ import godot.core.MethodStringName7
 import godot.core.PackedByteArray
 import godot.core.PackedStringArray
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DICTIONARY
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_BYTE_ARRAY
+import godot.readReturnValue_PACKED_STRING_ARRAY
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_BOOL_PACKED_STRING_ARRAY
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_PACKED_STRING_ARRAY
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_STRING_BOOL
+import godot.writeMethodArguments_STRING_LONG_LONG_BOOL
+import godot.writeMethodArguments_STRING_PACKED_STRING_ARRAY
+import godot.writeMethodArguments_STRING_PACKED_STRING_ARRAY_ARRAY_BOOL_BOOL
+import godot.writeMethodArguments_STRING_PACKED_STRING_ARRAY_BOOL
+import godot.writeMethodArguments_STRING_STRING
+import godot.writeMethodArguments_STRING_STRING_STRING_STRING_LONG_LONG_BOOL
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -447,9 +460,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getEntropy(size: Int): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
     TransferContext.callMethod(MethodBindings.getEntropyPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   /**
@@ -458,9 +471,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getSystemCaCertificates(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSystemCaCertificatesPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -480,9 +493,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getConnectedMidiInputs(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConnectedMidiInputsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -501,7 +514,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun openMidiInputs(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.openMidiInputsPtr)
   }
 
@@ -513,7 +526,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun closeMidiInputs(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.closeMidiInputsPtr)
   }
 
@@ -524,7 +537,7 @@ public object OS : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun alert(text: String, title: String = "Alert!"): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to text, STRING to title)
+    TransferContext.writeMethodArguments_STRING_STRING(ptr, objectID.id, text, title)
     TransferContext.callMethod(MethodBindings.alertPtr)
   }
 
@@ -537,47 +550,47 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun crash(message: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to message)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, message)
     TransferContext.callMethod(MethodBindings.crashPtr)
   }
 
   @JvmStatic
   public final fun setLowProcessorUsageMode(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
     TransferContext.callMethod(MethodBindings.setLowProcessorUsageModePtr)
   }
 
   @JvmStatic
   public final fun isInLowProcessorUsageMode(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isInLowProcessorUsageModePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   @JvmStatic
   public final fun setLowProcessorUsageModeSleepUsec(usec: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to usec.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, usec.toLong())
     TransferContext.callMethod(MethodBindings.setLowProcessorUsageModeSleepUsecPtr)
   }
 
   @JvmStatic
   public final fun getLowProcessorUsageModeSleepUsec(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLowProcessorUsageModeSleepUsecPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   @JvmStatic
   public final fun setDeltaSmoothing(deltaSmoothingEnabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to deltaSmoothingEnabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, deltaSmoothingEnabled)
     TransferContext.callMethod(MethodBindings.setDeltaSmoothingPtr)
   }
 
   @JvmStatic
   public final fun isDeltaSmoothingEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isDeltaSmoothingEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -586,9 +599,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getProcessorCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getProcessorCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -600,9 +613,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getProcessorName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getProcessorNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -612,9 +625,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getSystemFonts(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSystemFontsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -636,9 +649,9 @@ public object OS : Object() {
     stretch: Int = 100,
     italic: Boolean = false,
   ): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to fontName, LONG to weight.toLong(), LONG to stretch.toLong(), BOOL to italic)
+    TransferContext.writeMethodArguments_STRING_LONG_LONG_BOOL(ptr, objectID.id, fontName, weight.toLong(), stretch.toLong(), italic)
     TransferContext.callMethod(MethodBindings.getSystemFontPathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -669,9 +682,9 @@ public object OS : Object() {
     stretch: Int = 100,
     italic: Boolean = false,
   ): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to fontName, STRING to text, STRING to locale, STRING to script, LONG to weight.toLong(), LONG to stretch.toLong(), BOOL to italic)
+    TransferContext.writeMethodArguments_STRING_STRING_STRING_STRING_LONG_LONG_BOOL(ptr, objectID.id, fontName, text, locale, script, weight.toLong(), stretch.toLong(), italic)
     TransferContext.callMethod(MethodBindings.getSystemFontPathForTextPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -682,9 +695,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getExecutablePath(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getExecutablePathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -715,9 +728,9 @@ public object OS : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun readStringFromStdin(bufferSize: Long = 1024): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bufferSize)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bufferSize)
     TransferContext.callMethod(MethodBindings.readStringFromStdinPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -744,9 +757,9 @@ public object OS : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun readBufferFromStdin(bufferSize: Long = 1024): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bufferSize)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bufferSize)
     TransferContext.callMethod(MethodBindings.readBufferFromStdinPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   /**
@@ -760,9 +773,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getStdinType(): StdHandleType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStdinTypePtr)
-    return StdHandleType.from(TransferContext.readReturnValue(LONG) as Long)
+    return StdHandleType.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -772,9 +785,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getStdoutType(): StdHandleType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStdoutTypePtr)
-    return StdHandleType.from(TransferContext.readReturnValue(LONG) as Long)
+    return StdHandleType.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -784,9 +797,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getStderrType(): StdHandleType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStderrTypePtr)
-    return StdHandleType.from(TransferContext.readReturnValue(LONG) as Long)
+    return StdHandleType.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -861,9 +874,9 @@ public object OS : Object() {
     readStderr: Boolean = false,
     openConsole: Boolean = false,
   ): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, PACKED_STRING_ARRAY to arguments, ARRAY to output, BOOL to readStderr, BOOL to openConsole)
+    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY_ARRAY_BOOL_BOOL(ptr, objectID.id, path, arguments, output, readStderr, openConsole)
     TransferContext.callMethod(MethodBindings.executePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -907,9 +920,9 @@ public object OS : Object() {
     arguments: PackedStringArray,
     blocking: Boolean = true,
   ): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, PACKED_STRING_ARRAY to arguments, BOOL to blocking)
+    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY_BOOL(ptr, objectID.id, path, arguments, blocking)
     TransferContext.callMethod(MethodBindings.executeWithPipePtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -951,9 +964,9 @@ public object OS : Object() {
     arguments: PackedStringArray,
     openConsole: Boolean = false,
   ): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, PACKED_STRING_ARRAY to arguments, BOOL to openConsole)
+    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY_BOOL(ptr, objectID.id, path, arguments, openConsole)
     TransferContext.callMethod(MethodBindings.createProcessPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -970,9 +983,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun createInstance(arguments: PackedStringArray): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_STRING_ARRAY to arguments)
+    TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, arguments)
     TransferContext.callMethod(MethodBindings.createInstancePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -987,9 +1000,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun openWithProgram(programPath: String, paths: PackedStringArray): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to programPath, PACKED_STRING_ARRAY to paths)
+    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY(ptr, objectID.id, programPath, paths)
     TransferContext.callMethod(MethodBindings.openWithProgramPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -1002,9 +1015,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun kill(pid: Int): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pid.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pid.toLong())
     TransferContext.callMethod(MethodBindings.killPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -1035,9 +1048,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun shellOpen(uri: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to uri)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, uri)
     TransferContext.callMethod(MethodBindings.shellOpenPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -1057,9 +1070,9 @@ public object OS : Object() {
   @JvmStatic
   public final fun shellShowInFileManager(fileOrDirPath: String, openFolder: Boolean = true):
       Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to fileOrDirPath, BOOL to openFolder)
+    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, fileOrDirPath, openFolder)
     TransferContext.callMethod(MethodBindings.shellShowInFileManagerPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -1070,9 +1083,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun isProcessRunning(pid: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pid.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pid.toLong())
     TransferContext.callMethod(MethodBindings.isProcessRunningPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1088,9 +1101,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getProcessExitCode(pid: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pid.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pid.toLong())
     TransferContext.callMethod(MethodBindings.getProcessExitCodePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -1100,9 +1113,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getProcessId(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getProcessIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -1113,9 +1126,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun hasEnvironment(variable: String): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to variable)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, variable)
     TransferContext.callMethod(MethodBindings.hasEnvironmentPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1129,9 +1142,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getEnvironment(variable: String): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to variable)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, variable)
     TransferContext.callMethod(MethodBindings.getEnvironmentPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1147,7 +1160,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun setEnvironment(variable: String, `value`: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to variable, STRING to value)
+    TransferContext.writeMethodArguments_STRING_STRING(ptr, objectID.id, variable, value)
     TransferContext.callMethod(MethodBindings.setEnvironmentPtr)
   }
 
@@ -1162,7 +1175,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun unsetEnvironment(variable: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to variable)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, variable)
     TransferContext.callMethod(MethodBindings.unsetEnvironmentPtr)
   }
 
@@ -1238,9 +1251,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1256,9 +1269,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getDistributionName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDistributionNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1280,9 +1293,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getVersion(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVersionPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1300,9 +1313,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getVersionAlias(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVersionAliasPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1365,9 +1378,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getCmdlineArgs(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCmdlineArgsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -1387,9 +1400,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getCmdlineUserArgs(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCmdlineUserArgsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -1432,9 +1445,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getVideoAdapterDriverInfo(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVideoAdapterDriverInfoPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -1457,7 +1470,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun setRestartOnExit(restart: Boolean, arguments: PackedStringArray =
       PackedStringArray()): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to restart, PACKED_STRING_ARRAY to arguments)
+    TransferContext.writeMethodArguments_BOOL_PACKED_STRING_ARRAY(ptr, objectID.id, restart, arguments)
     TransferContext.callMethod(MethodBindings.setRestartOnExitPtr)
   }
 
@@ -1467,9 +1480,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun isRestartOnExitSet(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isRestartOnExitSetPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1478,9 +1491,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getRestartOnExitArguments(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRestartOnExitArgumentsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -1499,7 +1512,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun delayUsec(usec: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to usec.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, usec.toLong())
     TransferContext.callMethod(MethodBindings.delayUsecPtr)
   }
 
@@ -1519,7 +1532,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun delayMsec(msec: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to msec.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, msec.toLong())
     TransferContext.callMethod(MethodBindings.delayMsecPtr)
   }
 
@@ -1547,9 +1560,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getLocale(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLocalePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1564,9 +1577,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getLocaleLanguage(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLocaleLanguagePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1577,9 +1590,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getModelName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getModelNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1589,9 +1602,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun isUserfsPersistent(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isUserfsPersistentPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1601,9 +1614,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun isStdoutVerbose(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isStdoutVerbosePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1617,9 +1630,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun isDebugBuild(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isDebugBuildPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1628,9 +1641,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getStaticMemoryUsage(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStaticMemoryUsagePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -1638,9 +1651,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getStaticMemoryPeakUsage(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getStaticMemoryPeakUsagePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -1664,9 +1677,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getMemoryInfo(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMemoryInfoPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -1698,9 +1711,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun moveToTrash(path: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
     TransferContext.callMethod(MethodBindings.moveToTrashPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -1730,9 +1743,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getUserDataDir(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getUserDataDirPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1748,9 +1761,9 @@ public object OS : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getSystemDir(dir: SystemDir, sharedStorage: Boolean = true): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to dir.value, BOOL to sharedStorage)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, dir.value, sharedStorage)
     TransferContext.callMethod(MethodBindings.getSystemDirPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1766,9 +1779,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getConfigDir(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConfigDirPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1783,9 +1796,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getDataDir(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getDataDirPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1800,9 +1813,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getCacheDir(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCacheDirPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1810,9 +1823,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getTempDir(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTempDirPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1829,9 +1842,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getUniqueId(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getUniqueIdPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1856,9 +1869,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getKeycodeString(code: Key): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to code.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, code.value)
     TransferContext.callMethod(MethodBindings.getKeycodeStringPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1883,9 +1896,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun isKeycodeUnicode(code: Long): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to code)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, code)
     TransferContext.callMethod(MethodBindings.isKeycodeUnicodePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1913,9 +1926,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun findKeycodeFromString(string: String): Key {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to string)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, string)
     TransferContext.callMethod(MethodBindings.findKeycodeFromStringPtr)
-    return Key.from(TransferContext.readReturnValue(LONG) as Long)
+    return Key.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -1927,7 +1940,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun setUseFileAccessSaveAndSwap(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
     TransferContext.callMethod(MethodBindings.setUseFileAccessSaveAndSwapPtr)
   }
 
@@ -1937,9 +1950,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun setThreadName(name: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.setThreadNamePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -1950,9 +1963,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getThreadCallerId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getThreadCallerIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -1962,9 +1975,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getMainThreadId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getMainThreadIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -1981,9 +1994,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun hasFeature(tagName: String): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to tagName)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, tagName)
     TransferContext.callMethod(MethodBindings.hasFeaturePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1993,9 +2006,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun isSandboxed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.isSandboxedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -2018,9 +2031,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun requestPermission(name: String): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.requestPermissionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -2034,9 +2047,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun requestPermissions(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.requestPermissionsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -2050,9 +2063,9 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun getGrantedPermissions(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getGrantedPermissionsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -2061,7 +2074,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun revokeGrantedPermissions(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.revokeGrantedPermissionsPtr)
   }
 
@@ -2070,7 +2083,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun addLogger(logger: Logger): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to logger)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, logger)
     TransferContext.callMethod(MethodBindings.addLoggerPtr)
   }
 
@@ -2079,7 +2092,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun removeLogger(logger: Logger): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to logger)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, logger)
     TransferContext.callMethod(MethodBindings.removeLoggerPtr)
   }
 

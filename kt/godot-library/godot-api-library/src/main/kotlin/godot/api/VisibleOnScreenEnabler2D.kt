@@ -14,9 +14,12 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
 import godot.core.asCachedNodePath
+import godot.readReturnValue_LONG
+import godot.readReturnValue_NODE_PATH
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_NODE_PATH
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
@@ -69,25 +72,25 @@ public open class VisibleOnScreenEnabler2D : VisibleOnScreenNotifier2D() {
   }
 
   public final fun setEnableMode(mode: EnableMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
     TransferContext.callMethod(MethodBindings.setEnableModePtr)
   }
 
   public final fun getEnableMode(): EnableMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getEnableModePtr)
-    return EnableMode.from(TransferContext.readReturnValue(LONG) as Long)
+    return EnableMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setEnableNodePath(path: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
     TransferContext.callMethod(MethodBindings.setEnableNodePathPtr)
   }
 
   public final fun getEnableNodePath(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getEnableNodePathPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   public final fun setEnableNodePath(path: String) = setEnableNodePath(path.asCachedNodePath())

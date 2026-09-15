@@ -15,7 +15,9 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Plane
-import godot.core.VariantParser.PLANE
+import godot.readReturnValue_PLANE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_PLANE
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -77,14 +79,14 @@ public open class WorldBoundaryShape3D : Shape3D() {
   }
 
   public final fun setPlane(plane: Plane): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PLANE to plane)
+    TransferContext.writeMethodArguments_PLANE(ptr, objectID.id, plane)
     TransferContext.callMethod(MethodBindings.setPlanePtr)
   }
 
   public final fun getPlane(): Plane {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPlanePtr)
-    return (TransferContext.readReturnValue(PLANE) as Plane)
+    return TransferContext.readReturnValue_PLANE()
   }
 
   public companion object {

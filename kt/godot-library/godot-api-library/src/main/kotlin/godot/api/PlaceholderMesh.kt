@@ -17,6 +17,7 @@ import godot.core.Dictionary
 import godot.core.MethodStringName1
 import godot.core.StringName
 import godot.core.VariantArray
+import godot.writeMethodArguments_AABB
 import kotlin.Any
 import kotlin.Int
 import kotlin.Long
@@ -81,7 +82,7 @@ public open class PlaceholderMesh : Mesh() {
   }
 
   public final fun setAabb(aabb: AABB): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, godot.core.VariantParser.AABB to aabb)
+    TransferContext.writeMethodArguments_AABB(ptr, objectID.id, aabb)
     TransferContext.callMethod(MethodBindings.setAabbPtr)
   }
 

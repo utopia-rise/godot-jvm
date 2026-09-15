@@ -17,15 +17,17 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DICTIONARY
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ARRAY
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_ARRAY
+import godot.writeMethodArguments_OBJECT_LONG_LONG
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -65,9 +67,9 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
   @JvmOverloads
   public final fun createServer(channelsConfig: VariantArray<Any?> = godot.core.variantArrayOf()):
       Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to channelsConfig)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, channelsConfig)
     TransferContext.callMethod(MethodBindings.createServerPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -82,9 +84,9 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
   @JvmOverloads
   public final fun createClient(peerId: Int, channelsConfig: VariantArray<Any?> =
       godot.core.variantArrayOf()): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to peerId.toLong(), ARRAY to channelsConfig)
+    TransferContext.writeMethodArguments_LONG_ARRAY(ptr, objectID.id, peerId.toLong(), channelsConfig)
     TransferContext.callMethod(MethodBindings.createClientPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -94,9 +96,9 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
   @JvmOverloads
   public final fun createMesh(peerId: Int, channelsConfig: VariantArray<Any?> =
       godot.core.variantArrayOf()): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to peerId.toLong(), ARRAY to channelsConfig)
+    TransferContext.writeMethodArguments_LONG_ARRAY(ptr, objectID.id, peerId.toLong(), channelsConfig)
     TransferContext.callMethod(MethodBindings.createMeshPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -113,9 +115,9 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
     peerId: Int,
     unreliableLifetime: Int = 1,
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to peer, LONG to peerId.toLong(), LONG to unreliableLifetime.toLong())
+    TransferContext.writeMethodArguments_OBJECT_LONG_LONG(ptr, objectID.id, peer, peerId.toLong(), unreliableLifetime.toLong())
     TransferContext.callMethod(MethodBindings.addPeerPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -124,7 +126,7 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
    * MultiplayerPeer.peer_disconnected] will be emitted.
    */
   public final fun removePeer(peerId: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to peerId.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, peerId.toLong())
     TransferContext.callMethod(MethodBindings.removePeerPtr)
   }
 
@@ -132,9 +134,9 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
    * Returns `true` if the given [peerId] is in the peers map (it might not be connected though).
    */
   public final fun hasPeer(peerId: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to peerId.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, peerId.toLong())
     TransferContext.callMethod(MethodBindings.hasPeerPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -144,9 +146,9 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
    * connected (all three channels are open).
    */
   public final fun getPeer(peerId: Int): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to peerId.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, peerId.toLong())
     TransferContext.callMethod(MethodBindings.getPeerPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -154,9 +156,9 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
    * [getPeer].
    */
   public final fun getPeers(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getPeersPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   public companion object {

@@ -13,9 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.writeMethodArguments_AABB
+import godot.writeMethodArguments_LONG_VECTOR3
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -53,7 +53,7 @@ public abstract class PhysicsServer3DRenderingServerHandler : Object() {
    * Sets the position for the [SoftBody3D] vertex at the index specified by [vertexId].
    */
   public final fun setVertex(vertexId: Int, vertex: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to vertexId.toLong(), VECTOR3 to vertex)
+    TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, vertexId.toLong(), vertex)
     TransferContext.callMethod(MethodBindings.setVertexPtr)
   }
 
@@ -61,7 +61,7 @@ public abstract class PhysicsServer3DRenderingServerHandler : Object() {
    * Sets the normal for the [SoftBody3D] vertex at the index specified by [vertexId].
    */
   public final fun setNormal(vertexId: Int, normal: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to vertexId.toLong(), VECTOR3 to normal)
+    TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, vertexId.toLong(), normal)
     TransferContext.callMethod(MethodBindings.setNormalPtr)
   }
 
@@ -69,7 +69,7 @@ public abstract class PhysicsServer3DRenderingServerHandler : Object() {
    * Sets the bounding box for the [SoftBody3D].
    */
   public final fun setAabb(aabb: AABB): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, godot.core.VariantParser.AABB to aabb)
+    TransferContext.writeMethodArguments_AABB(ptr, objectID.id, aabb)
     TransferContext.callMethod(MethodBindings.setAabbPtr)
   }
 

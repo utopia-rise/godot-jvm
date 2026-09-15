@@ -11,8 +11,8 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Double
 import kotlin.Suppress
 import kotlin.Unit
@@ -44,9 +44,9 @@ public open class CallbackTweener : Tweener() {
    * ```
    */
   public final fun setDelay(delay: Double): CallbackTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to delay)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, delay)
     TransferContext.callMethod(MethodBindings.setDelayPtr)
-    return (TransferContext.readReturnValue(OBJECT) as CallbackTweener)
+    return (TransferContext.readReturnValue_OBJECT() as CallbackTweener)
   }
 
   public companion object {
