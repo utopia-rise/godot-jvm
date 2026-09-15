@@ -63,8 +63,10 @@ func add_failure(test: Dictionary, reason: String) -> void:
 
 func write() -> String:
 	var label: String = options.get("label", options.get("commit", "run"))
-	var path := "res://results/%s.json" % label
-	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://results"))
+	# An exported game cannot write to res://, so it keeps its results beside its own user data instead.
+	var directory := "res://results" if OS.has_feature("editor") else "user://results"
+	var path := "%s/%s.json" % [directory, label]
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory))
 	var file := FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(JSON.stringify({
 		"schema": SCHEMA,

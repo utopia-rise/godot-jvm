@@ -13,3 +13,4 @@ config_version=5
 config/name="Godot-JVM Stress Test"
 config/features=PackedStringArray("4.7")
 config/icon="res://icon.png"
+run/main_scene="res://runner/Main.tscn"

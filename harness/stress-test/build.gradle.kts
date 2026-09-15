@@ -95,7 +95,7 @@ tasks {
         doLast {
             val command = listOf(
                 editorExecutable().absolutePath, "--headless", "--path", workingDirectory.absolutePath,
-                "-s", "res://runner/StressRunner.gd", "--", "--commit=${gitCommit()}",
+                "--", "--commit=${gitCommit()}",
             ) + extraArgs
             println(command.joinToString(" "))
 
