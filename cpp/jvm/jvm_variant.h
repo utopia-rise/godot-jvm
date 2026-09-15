@@ -30,10 +30,12 @@ class VariantToBuffer {
 
     template<class TNativeCoreType>
     inline static void write_pointer(SharedBuffer* des, TNativeCoreType native_core_type) {
-        des->increment_position(godot::encode_uint64(
-            reinterpret_cast<uintptr_t>(VariantAllocator::alloc(TNativeCoreType(native_core_type))),
-            des->get_cursor()
-        ));
+        des->increment_position(
+            godot::encode_uint64(
+                reinterpret_cast<uintptr_t>(VariantAllocator::alloc(TNativeCoreType(native_core_type))),
+                des->get_cursor()
+            )
+        );
     }
 
     template<
@@ -78,19 +80,23 @@ class VariantToBuffer {
     static void write_array(SharedBuffer* des, const godot::Variant& src) {
         godot::Array arr = src.operator godot::Array();
         set_variant_type(des, godot::Variant::Type::ARRAY);
-        des->increment_position(godot::encode_uint64(
-            reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Array(arr))),
-            des->get_cursor()
-        ));
+        des->increment_position(
+            godot::encode_uint64(
+                reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Array(arr))),
+                des->get_cursor()
+            )
+        );
     }
 
     static void write_dictionary(SharedBuffer* des, const godot::Variant& src) {
         godot::Dictionary dict = src.operator godot::Dictionary();
         set_variant_type(des, godot::Variant::Type::DICTIONARY);
-        des->increment_position(godot::encode_uint64(
-            reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Dictionary(dict))),
-            des->get_cursor()
-        ));
+        des->increment_position(
+            godot::encode_uint64(
+                reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Dictionary(dict))),
+                des->get_cursor()
+            )
+        );
     }
 
     // Takes the raw engine pointer, never a godot-cpp `Object*`: that parameter type is exactly what used to make
