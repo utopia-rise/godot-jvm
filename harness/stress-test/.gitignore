@@ -1,0 +1,10 @@
+.gradle
+.kotlin
+build
+*.log
+/.godot/
+/jvm/
+/addons/
+/results/
+/export/
+graal/*-graal-jni-config.json

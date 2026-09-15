@@ -1,20 +1,20 @@
 package godot.benchmark.bunnymark
 
-import godot.Node2D
-import godot.RandomNumberGenerator
-import godot.ResourceLoader
-import godot.Texture2D
+import godot.api.Node2D
+import godot.api.RandomNumberGenerator
+import godot.api.ResourceLoader
+import godot.api.Texture2D
 import godot.annotation.Script
 import godot.annotation.Register
 import godot.annotation.Emit
 import godot.core.Vector2
-import godot.signals.signal
+import godot.core.signal1
 
 @Script("BunnymarkV1DrawTexture")
 class BunnymarkV1DrawTexture : Node2D() {
 
 	@Emit
-	val benchmarkFinished by signal<Int>("bunnyCount")
+	val benchmarkFinished by signal1<Int>()
 
 	data class Bunny(var position: Vector2, var speed: Vector2)
 

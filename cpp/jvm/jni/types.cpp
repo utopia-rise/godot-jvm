@@ -169,58 +169,27 @@ namespace jni {
     }
 
     void JByteArray::get_array_elements(Env& env, jbyte* arr, const jsize size) {
-        // Convert java array to native array
-        jbyte* nativeArray = env.env->GetByteArrayElements((jbyteArray) obj, nullptr);
-
-        // Copy elements
-        std::copy(nativeArray, nativeArray + size, arr);
-
-        // Release the original Java array
-        env.env->ReleaseByteArrayElements((jbyteArray) obj, nativeArray, 0);
+        env.env->GetByteArrayRegion((jbyteArray) obj, 0, size, arr);
     }
 
     void JIntArray::get_array_elements(Env& env, jint* arr, const jsize size) {
-        // Convert java array to native array
-        jint* nativeArray = env.env->GetIntArrayElements((jintArray) obj, nullptr);
+        env.env->GetIntArrayRegion((jintArray) obj, 0, size, arr);
+    }
 
-        // Copy elements
-        std::copy(nativeArray, nativeArray + size, arr);
-
-        // Release the original Java array
-        env.env->ReleaseIntArrayElements((jintArray) obj, nativeArray, 0);
+    void JLongArray::get_array_region(Env& env, const jsize start, jlong* arr, const jsize size) {
+        env.env->GetLongArrayRegion((jlongArray) obj, start, size, arr);
     }
 
     void JLongArray::get_array_elements(Env& env, jlong* arr, const jsize size) {
-        // Convert java array to native array
-        jlong* nativeArray = env.env->GetLongArrayElements((jlongArray) obj, nullptr);
-
-        // Copy elements
-        std::copy(nativeArray, nativeArray + size, arr);
-
-        // Release the original Java array
-        env.env->ReleaseLongArrayElements((jlongArray) obj, nativeArray, 0);
+        env.env->GetLongArrayRegion((jlongArray) obj, 0, size, arr);
     }
 
     void JFloatArray::get_array_elements(Env& env, jfloat* arr, const jsize size) {
-        // Convert java array to native array
-        jfloat* nativeArray = env.env->GetFloatArrayElements((jfloatArray) obj, nullptr);
-
-        // Copy elements
-        std::copy(nativeArray, nativeArray + size, arr);
-
-        // Release the original Java array
-        env.env->ReleaseFloatArrayElements((jfloatArray) obj, nativeArray, 0);
+        env.env->GetFloatArrayRegion((jfloatArray) obj, 0, size, arr);
     }
 
     void JDoubleArray::get_array_elements(Env& env, jdouble* arr, const jsize size) {
-        // Convert java array to native array
-        jdouble* nativeArray = env.env->GetDoubleArrayElements((jdoubleArray) obj, nullptr);
-
-        // Copy elements
-        std::copy(nativeArray, nativeArray + size, arr);
-
-        // Release the original Java array
-        env.env->ReleaseDoubleArrayElements((jdoubleArray) obj, nativeArray, 0);
+        env.env->GetDoubleArrayRegion((jdoubleArray) obj, 0, size, arr);
     }
 
     void JByteArray::set_array_elements(Env& env, const jbyte* arr, const jsize size) {

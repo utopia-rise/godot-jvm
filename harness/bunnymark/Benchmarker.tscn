@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
 benchmark = "BunnymarkV3"
-language = "gdj"
+language = "kt"
 
 [node name="BenchmarkContainer" type="Node2D" parent="."]
 
