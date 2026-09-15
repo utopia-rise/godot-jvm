@@ -9,6 +9,7 @@
 #include "paths.h"
 
 #include <classes/dir_access.hpp>
+#include <classes/editor_export_platform.hpp>
 #include <classes/file_access.hpp>
 #include <classes/json.hpp>
 #include <classes/project_settings.hpp>
@@ -369,6 +370,10 @@ bool GodotJvmEditorExportPlugin::_should_update_export_options(const Ref<EditorE
     return true;
 }
 
+void GodotJvmEditorExportPlugin::report_export_error(const String& p_message) const {
+    get_export_platform()->add_message(EditorExportPlatform::EXPORT_MESSAGE_ERROR, "Godot-JVM", p_message);
+}
+
 void GodotJvmEditorExportPlugin::_export_begin(
     const PackedStringArray& p_features,
     bool p_debug,
@@ -394,11 +399,12 @@ void GodotJvmEditorExportPlugin::_export_begin(
     // resolved with it in place.
     PackedStringArray missing_editor_jars;
     if (runtime != RUNTIME_NONE && any_missing(desktop_jars(true), missing_editor_jars)) {
-        JVM_ERR_FAIL_MSG(
+        report_export_error(vformat(
             "No debug JVM build at %s. The editor resolves script classes from it, so run the \"Build\" Gradle task "
             "before any export.",
             String(", ").join(missing_editor_jars)
-        );
+        ));
+        return;
     }
 
     if (desktop_files != nullptr) {
@@ -407,20 +413,22 @@ void GodotJvmEditorExportPlugin::_export_begin(
             bool arm64 = universal || p_features.has("arm64");
             bool x86_64 = universal || p_features.has("x86_64");
             if (!arm64 && !x86_64) {
-                JVM_ERR_FAIL_MSG(
+                report_export_error(
                     "This desktop architecture is not supported for export. Only arm64 and x86_64 are "
                     "supported by Godot-JVM!"
                 );
+                return;
             }
 
             // Godot exports the jars itself as regular resources; only their presence has to be checked here.
             PackedStringArray missing;
             if (any_missing(desktop_jars(p_debug), missing)) {
-                JVM_ERR_FAIL_MSG(
+                report_export_error(vformat(
                     "JVM build does not exist at %s! Run the \"%s\" Gradle task before exporting.",
                     String(", ").join(missing),
                     p_debug ? "Build" : "Build Release"
-                );
+                ));
+                return;
             }
 
             // Presets give a bare project-relative export path ("./export/game.exe"), which DirAccess::copy()
@@ -433,10 +441,11 @@ void GodotJvmEditorExportPlugin::_export_begin(
             }
             for (const String& jre_directory : embedded_jre_directories(*desktop_files, arm64, x86_64)) {
                 if (!DirAccess::dir_exists_absolute(jre_directory)) {
-                    JVM_ERR_FAIL_MSG(
+                    report_export_error(vformat(
                         "JRE does not exist at %s! make sure you've created an embedded JRE using jlink!",
                         jre_directory
-                    );
+                    ));
+                    return;
                 }
                 if (os_name == "macOS") {
                     // on macos the embedded jre needs to be added as a plugin file
@@ -445,11 +454,12 @@ void GodotJvmEditorExportPlugin::_export_begin(
                     // on windows and linux the embedded jre is copied next to the exported executable
                     String target_directory = export_directory.path_join(jre_directory.trim_prefix(RES_DIRECTORY));
                     if (copy_directory_recursive(jre_directory, target_directory) != OK) {
-                        JVM_ERR_FAIL_MSG(
+                        report_export_error(vformat(
                             "Cannot copy %s folder to export folder, please make sure you created a JRE directory at "
                             "the root of your project using jlink for the platform you want to export.",
                             jre_directory
-                        );
+                        ));
+                        return;
                     }
                 }
             }
@@ -459,11 +469,12 @@ void GodotJvmEditorExportPlugin::_export_begin(
             // usercode.(so, dll, dylib) is packed into the pck and extracted to user:// at runtime.
             String native_image = String(RES_DIRECTORY) + desktop_files->native_image_file(p_debug);
             if (!FileAccess::file_exists(native_image)) {
-                JVM_ERR_FAIL_MSG(
+                report_export_error(vformat(
                     "Graal native image does not exist at %s! Run the \"%s\" Gradle task before exporting.",
                     native_image,
                     p_debug ? "Build Graal Native Image" : "Build Graal Native Image Release"
-                );
+                ));
+                return;
             }
             add_file(native_image, FileAccess::get_file_as_bytes(native_image), false);
             JVM_LOG_INFO("Exporting %s", native_image);
@@ -476,11 +487,12 @@ void GodotJvmEditorExportPlugin::_export_begin(
         };
         PackedStringArray missing;
         if (any_missing(static_libraries, missing)) {
-            JVM_ERR_FAIL_MSG(
+            report_export_error(vformat(
                 "Missing iOS static library: %s. Run \"%s\" before exporting.",
                 String(", ").join(missing),
                 p_debug ? "Build iOS" : "Build iOS Release"
-            );
+            ));
+            return;
         }
         for (const String& static_library : static_libraries) {
             add_apple_embedded_platform_project_static_lib(static_library);
@@ -489,14 +501,16 @@ void GodotJvmEditorExportPlugin::_export_begin(
         // Godot exports the dex jars itself as regular resources; only their presence has to be checked here.
         PackedStringArray missing;
         if (any_missing(android_jars(p_debug), missing)) {
-            JVM_ERR_FAIL_MSG(
+            report_export_error(vformat(
                 "Android build does not exist at %s! Run the \"%s\" Gradle task before exporting.",
                 String(", ").join(missing),
                 p_debug ? "Build Android" : "Build Android Release"
-            );
+            ));
+            return;
         }
     } else {
-        JVM_ERR_FAIL_MSG("Godot-JVM doesn't handle this platform");
+        report_export_error("Godot-JVM doesn't handle this platform");
+        return;
     }
 
     // Configuration: the project file read at export time, with the preset overrides applied on top. Neither
