@@ -4,9 +4,8 @@
 uint16_t LongStringQueue::max_string_size = 512;
 
 static godot::List<godot::String>& string_queue() {
-    thread_local godot::List<godot::String>* queue = nullptr;
-    if (unlikely(!queue)) { queue = memnew(godot::List<godot::String>); }
-    return *queue;
+    thread_local godot::List<godot::String> queue;
+    return queue;
 }
 
 void LongStringQueue::set_string_max_size(jni::Env& p_env, int max_size) {
