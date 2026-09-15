@@ -55,7 +55,7 @@ public open class AStar2D : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(3, scriptPtr)
+    createNativeObject(1, scriptPtr)
   }
 
   /**

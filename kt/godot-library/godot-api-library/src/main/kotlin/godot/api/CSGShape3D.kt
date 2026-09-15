@@ -177,7 +177,7 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(131, scriptPtr)
+    createNativeObject(129, scriptPtr)
   }
 
   /**

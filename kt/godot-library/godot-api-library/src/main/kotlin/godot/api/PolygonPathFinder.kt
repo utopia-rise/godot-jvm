@@ -35,7 +35,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class PolygonPathFinder : Resource() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(565, scriptPtr)
+    createNativeObject(564, scriptPtr)
   }
 
   /**

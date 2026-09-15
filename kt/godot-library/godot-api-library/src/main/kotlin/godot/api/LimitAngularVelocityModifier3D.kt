@@ -77,7 +77,7 @@ public open class LimitAngularVelocityModifier3D : SkeletonModifier3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(361, scriptPtr)
+    createNativeObject(359, scriptPtr)
   }
 
   /**

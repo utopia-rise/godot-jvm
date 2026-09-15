@@ -65,7 +65,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class PackedDataContainer : Resource() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(500, scriptPtr)
+    createNativeObject(499, scriptPtr)
   }
 
   /**

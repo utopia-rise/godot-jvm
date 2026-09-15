@@ -196,7 +196,7 @@ public open class MultiMesh : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(388, scriptPtr)
+    createNativeObject(386, scriptPtr)
   }
 
   /**

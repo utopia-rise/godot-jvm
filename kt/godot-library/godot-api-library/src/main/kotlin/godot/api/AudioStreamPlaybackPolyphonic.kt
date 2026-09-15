@@ -40,7 +40,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioStreamPlayback() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(94, scriptPtr)
+    createNativeObject(92, scriptPtr)
   }
 
   /**

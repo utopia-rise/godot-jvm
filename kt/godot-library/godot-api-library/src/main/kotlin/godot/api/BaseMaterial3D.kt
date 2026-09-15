@@ -1852,7 +1852,7 @@ public open class BaseMaterial3D internal constructor() : Material() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(108, scriptPtr)
+    createNativeObject(106, scriptPtr)
   }
 
   /**

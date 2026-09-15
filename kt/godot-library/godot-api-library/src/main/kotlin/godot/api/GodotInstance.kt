@@ -25,7 +25,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class GodotInstance internal constructor() : Object() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(275, scriptPtr)
+    createNativeObject(273, scriptPtr)
   }
 
   /**

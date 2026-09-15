@@ -649,7 +649,7 @@ public open class Node : Object() {
       arg8, arg9)
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(421, scriptPtr)
+    createNativeObject(419, scriptPtr)
   }
 
   /**

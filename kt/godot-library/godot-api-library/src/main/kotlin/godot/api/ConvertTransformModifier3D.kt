@@ -70,7 +70,7 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(188, scriptPtr)
+    createNativeObject(186, scriptPtr)
   }
 
   /**

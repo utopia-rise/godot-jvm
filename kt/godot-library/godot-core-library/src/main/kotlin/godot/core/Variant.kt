@@ -1,6 +1,5 @@
 package godot.core
 
-import godot.api.Object
 import godot.common.interop.ObjectID
 import godot.common.interop.VariantConverter
 import godot.common.interop.nullptr
@@ -80,7 +79,7 @@ private var ByteBuffer.stringName: StringName
         toGodotNativeCoreType<StringName>(this, value)
     }
 
-private var ByteBuffer.obj: KtObject?
+private var ByteBuffer.obj: GodotObject?
     get() {
         val constructorIndex = int
         val ptr = long
@@ -363,8 +362,8 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
             buffer.putLong(any.id)
         }
     }
-    data object OBJECT : VariantParser<KtObject?>(24) {
-        override fun toKotlin(buffer: ByteBuffer): KtObject? {
+    data object OBJECT : VariantParser<GodotObject?>(24) {
+        override fun toKotlin(buffer: ByteBuffer): GodotObject? {
             val idInBuffer = buffer.variantType
             // Godot can sometimes send null pointer as NIL variant, so we need to test for that case.
             if (idInBuffer == NIL.id) {
@@ -376,7 +375,7 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
 
         override fun toUnsafeKotlin(buffer: ByteBuffer) = buffer.obj
         override fun toUnsafeGodot(buffer: ByteBuffer, any: Any?) {
-            require(any is KtObject?)
+            require(any is GodotObject?)
             buffer.obj = any
         }
     }
@@ -390,9 +389,8 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
     }
     data object SIGNAL : VariantParser<Signal>(26) {
         override fun toUnsafeKotlin(buffer: ByteBuffer): Signal {
-            val obj = buffer.obj
+            val obj = requireNotNull(buffer.obj)
             val name = buffer.stringName
-            require(obj is Object)
             return Signal(obj, name)
         }
 

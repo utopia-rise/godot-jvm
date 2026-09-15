@@ -99,7 +99,7 @@ public open class CanvasGroup : Node2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(143, scriptPtr)
+    createNativeObject(141, scriptPtr)
   }
 
   public final fun setFitMargin(fitMargin: Float): Unit {

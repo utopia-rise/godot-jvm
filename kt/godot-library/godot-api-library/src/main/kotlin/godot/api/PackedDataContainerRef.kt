@@ -62,7 +62,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class PackedDataContainerRef internal constructor() : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(501, scriptPtr)
+    createNativeObject(500, scriptPtr)
   }
 
   /**

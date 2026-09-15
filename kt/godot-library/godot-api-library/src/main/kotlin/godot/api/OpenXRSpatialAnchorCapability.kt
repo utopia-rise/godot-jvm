@@ -42,7 +42,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(469, scriptPtr)
+    createNativeObject(468, scriptPtr)
   }
 
   /**

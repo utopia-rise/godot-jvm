@@ -2,7 +2,6 @@
 
 package godot.core
 
-import godot.api.Object
 import godot.common.interop.ObjectID
 import godot.common.interop.VoidPtr
 import godot.core.Callable.Bridge
@@ -66,9 +65,9 @@ class VariantCallable : NativeCoreType, Callable {
         return TransferContext.readReturnValue(VariantCaster.INT) as Int
     }
 
-    override fun getObject(): Object {
+    override fun getObject(): GodotObject {
         Bridge.engine_call_get_object(ptr)
-        return TransferContext.readReturnValue(VariantParser.OBJECT) as Object
+        return TransferContext.readReturnValue(VariantParser.OBJECT) as GodotObject
     }
 
     override fun getObjectId(): ObjectID {

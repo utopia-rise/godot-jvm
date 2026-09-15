@@ -36,7 +36,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class PropertyTweener : Tweener() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(575, scriptPtr)
+    createNativeObject(574, scriptPtr)
   }
 
   /**

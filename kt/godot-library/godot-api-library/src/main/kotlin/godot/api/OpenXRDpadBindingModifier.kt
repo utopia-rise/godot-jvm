@@ -146,7 +146,7 @@ public open class OpenXRDpadBindingModifier : OpenXRIPBindingModifier() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(450, scriptPtr)
+    createNativeObject(449, scriptPtr)
   }
 
   public final fun setActionSet(actionSet: OpenXRActionSet?): Unit {

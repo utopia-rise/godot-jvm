@@ -31,7 +31,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class AudioEffectEQ6 : AudioEffectEQ() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(60, scriptPtr)
+    createNativeObject(58, scriptPtr)
   }
 
   public companion object

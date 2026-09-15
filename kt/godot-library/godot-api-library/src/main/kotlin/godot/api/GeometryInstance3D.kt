@@ -291,7 +291,7 @@ public open class GeometryInstance3D : VisualInstance3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(274, scriptPtr)
+    createNativeObject(272, scriptPtr)
   }
 
   /**

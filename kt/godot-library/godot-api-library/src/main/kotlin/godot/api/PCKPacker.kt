@@ -57,7 +57,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class PCKPacker : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(499, scriptPtr)
+    createNativeObject(498, scriptPtr)
   }
 
   /**

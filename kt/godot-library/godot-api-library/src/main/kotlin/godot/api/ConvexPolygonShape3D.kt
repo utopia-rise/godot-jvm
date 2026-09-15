@@ -66,7 +66,7 @@ public open class ConvexPolygonShape3D : Shape3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(190, scriptPtr)
+    createNativeObject(188, scriptPtr)
   }
 
   /**

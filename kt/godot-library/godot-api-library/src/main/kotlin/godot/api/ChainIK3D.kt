@@ -37,7 +37,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class ChainIK3D internal constructor() : IKModifier3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(153, scriptPtr)
+    createNativeObject(151, scriptPtr)
   }
 
   /**

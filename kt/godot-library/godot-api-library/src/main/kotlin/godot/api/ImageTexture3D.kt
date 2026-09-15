@@ -36,7 +36,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class ImageTexture3D : Texture3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(304, scriptPtr)
+    createNativeObject(302, scriptPtr)
   }
 
   /**

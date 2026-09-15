@@ -45,7 +45,7 @@ public open class OpenXRAnchorTracker : OpenXRSpatialEntityTracker() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(443, scriptPtr)
+    createNativeObject(442, scriptPtr)
   }
 
   /**

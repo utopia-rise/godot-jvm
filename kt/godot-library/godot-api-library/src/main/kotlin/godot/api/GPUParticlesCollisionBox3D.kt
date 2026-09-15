@@ -55,7 +55,7 @@ public open class GPUParticlesCollisionBox3D : GPUParticlesCollision3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(266, scriptPtr)
+    createNativeObject(264, scriptPtr)
   }
 
   /**

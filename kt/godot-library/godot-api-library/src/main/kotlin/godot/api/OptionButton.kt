@@ -158,7 +158,7 @@ public open class OptionButton : Button() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(498, scriptPtr)
+    createNativeObject(497, scriptPtr)
   }
 
   /**

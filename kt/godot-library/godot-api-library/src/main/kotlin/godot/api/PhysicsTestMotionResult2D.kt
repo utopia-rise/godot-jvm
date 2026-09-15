@@ -32,7 +32,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class PhysicsTestMotionResult2D : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(548, scriptPtr)
+    createNativeObject(547, scriptPtr)
   }
 
   /**

@@ -67,7 +67,7 @@ public open class CSGMesh3D : CSGPrimitive3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(128, scriptPtr)
+    createNativeObject(126, scriptPtr)
   }
 
   public final fun setMesh(mesh: Mesh?): Unit {

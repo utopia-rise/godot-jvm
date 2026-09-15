@@ -22,7 +22,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class OfflineMultiplayerPeer : MultiplayerPeer() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(433, scriptPtr)
+    createNativeObject(432, scriptPtr)
   }
 
   public companion object

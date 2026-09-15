@@ -28,7 +28,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialCapabilityConfigurationBaseHeader : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(473, scriptPtr)
+    createNativeObject(472, scriptPtr)
   }
 
   /**

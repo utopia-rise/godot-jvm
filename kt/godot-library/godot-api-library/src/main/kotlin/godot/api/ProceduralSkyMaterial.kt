@@ -249,7 +249,7 @@ public open class ProceduralSkyMaterial : Material() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(572, scriptPtr)
+    createNativeObject(571, scriptPtr)
   }
 
   /**

@@ -48,7 +48,7 @@ public open class InputEventGesture internal constructor() : InputEventWithModif
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(313, scriptPtr)
+    createNativeObject(311, scriptPtr)
   }
 
   /**

@@ -154,7 +154,7 @@ public open class GraphElement : Container() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(280, scriptPtr)
+    createNativeObject(278, scriptPtr)
   }
 
   /**

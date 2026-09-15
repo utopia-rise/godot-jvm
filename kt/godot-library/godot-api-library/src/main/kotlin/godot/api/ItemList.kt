@@ -336,7 +336,7 @@ public open class ItemList : Control() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(330, scriptPtr)
+    createNativeObject(328, scriptPtr)
   }
 
   /**

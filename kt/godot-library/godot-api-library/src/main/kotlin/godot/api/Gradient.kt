@@ -104,7 +104,7 @@ public open class Gradient : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(276, scriptPtr)
+    createNativeObject(274, scriptPtr)
   }
 
   /**

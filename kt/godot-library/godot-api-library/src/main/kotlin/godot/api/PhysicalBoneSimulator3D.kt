@@ -31,7 +31,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class PhysicalBoneSimulator3D : SkeletonModifier3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(522, scriptPtr)
+    createNativeObject(521, scriptPtr)
   }
 
   /**

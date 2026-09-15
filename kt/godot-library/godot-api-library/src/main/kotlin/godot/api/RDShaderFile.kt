@@ -49,7 +49,7 @@ public open class RDShaderFile : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(591, scriptPtr)
+    createNativeObject(590, scriptPtr)
   }
 
   /**

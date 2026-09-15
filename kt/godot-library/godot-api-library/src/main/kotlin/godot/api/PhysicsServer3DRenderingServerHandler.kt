@@ -25,7 +25,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public abstract class PhysicsServer3DRenderingServerHandler : Object() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(543, scriptPtr)
+    createNativeObject(542, scriptPtr)
   }
 
   /**

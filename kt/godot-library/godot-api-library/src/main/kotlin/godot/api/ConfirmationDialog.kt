@@ -54,7 +54,7 @@ public open class ConfirmationDialog : AcceptDialog() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(185, scriptPtr)
+    createNativeObject(183, scriptPtr)
   }
 
   /**

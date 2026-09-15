@@ -29,7 +29,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialContextPersistenceConfig : OpenXRStructureBase() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(489, scriptPtr)
+    createNativeObject(488, scriptPtr)
   }
 
   /**

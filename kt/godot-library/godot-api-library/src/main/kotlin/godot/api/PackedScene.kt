@@ -109,7 +109,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class PackedScene : Resource() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(502, scriptPtr)
+    createNativeObject(501, scriptPtr)
   }
 
   /**

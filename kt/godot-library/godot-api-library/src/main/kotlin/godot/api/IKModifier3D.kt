@@ -44,7 +44,7 @@ public open class IKModifier3D internal constructor() : SkeletonModifier3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(298, scriptPtr)
+    createNativeObject(296, scriptPtr)
   }
 
   /**

@@ -81,7 +81,7 @@ public open class ArrayOccluder3D : Occluder3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(44, scriptPtr)
+    createNativeObject(42, scriptPtr)
   }
 
   /**

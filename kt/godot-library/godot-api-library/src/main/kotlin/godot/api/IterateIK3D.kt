@@ -114,7 +114,7 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(331, scriptPtr)
+    createNativeObject(329, scriptPtr)
   }
 
   public final fun setMaxIterations(maxIterations: Int): Unit {

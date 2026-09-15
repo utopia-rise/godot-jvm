@@ -262,7 +262,7 @@ public open class CSGPolygon3D : CSGPrimitive3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(129, scriptPtr)
+    createNativeObject(127, scriptPtr)
   }
 
   /**

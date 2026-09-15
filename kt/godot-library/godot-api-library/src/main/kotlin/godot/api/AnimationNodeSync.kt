@@ -39,7 +39,7 @@ public open class AnimationNodeSync : AnimationNode() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(33, scriptPtr)
+    createNativeObject(31, scriptPtr)
   }
 
   public final fun setUseSync(enable: Boolean): Unit {

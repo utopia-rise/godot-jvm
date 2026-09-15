@@ -131,7 +131,7 @@ public open class GPUParticlesCollisionHeightField3D : GPUParticlesCollision3D()
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(267, scriptPtr)
+    createNativeObject(265, scriptPtr)
   }
 
   /**

@@ -31,7 +31,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialComponentMarkerList : OpenXRSpatialComponentData() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(481, scriptPtr)
+    createNativeObject(480, scriptPtr)
   }
 
   /**

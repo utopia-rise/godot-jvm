@@ -25,7 +25,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialComponentData : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(480, scriptPtr)
+    createNativeObject(479, scriptPtr)
   }
 
   /**

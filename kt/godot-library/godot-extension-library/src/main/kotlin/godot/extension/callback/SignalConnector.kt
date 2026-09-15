@@ -2,7 +2,7 @@
 
 package godot.extension
 
-import godot.api.Object.ConnectFlags
+import godot.core.ConnectFlags
 import godot.core.Callable
 import godot.core.Signal
 import godot.core.Error

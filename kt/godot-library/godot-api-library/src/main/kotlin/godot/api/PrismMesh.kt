@@ -97,7 +97,7 @@ public open class PrismMesh : PrimitiveMesh() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(571, scriptPtr)
+    createNativeObject(570, scriptPtr)
   }
 
   /**

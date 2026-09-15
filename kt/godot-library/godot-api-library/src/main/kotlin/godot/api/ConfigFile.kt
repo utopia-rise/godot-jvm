@@ -191,7 +191,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class ConfigFile : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(184, scriptPtr)
+    createNativeObject(182, scriptPtr)
   }
 
   /**

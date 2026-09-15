@@ -45,7 +45,7 @@ public open class FoldableGroup : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(232, scriptPtr)
+    createNativeObject(230, scriptPtr)
   }
 
   /**

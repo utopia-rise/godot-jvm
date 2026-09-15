@@ -1411,7 +1411,7 @@ public open class Environment : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(219, scriptPtr)
+    createNativeObject(217, scriptPtr)
   }
 
   /**

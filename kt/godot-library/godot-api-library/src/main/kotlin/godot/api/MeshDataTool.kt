@@ -96,7 +96,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class MeshDataTool : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(377, scriptPtr)
+    createNativeObject(375, scriptPtr)
   }
 
   /**

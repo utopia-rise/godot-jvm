@@ -73,7 +73,7 @@ public open class GPUParticlesAttractorVectorField3D : GPUParticlesAttractor3D()
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(264, scriptPtr)
+    createNativeObject(262, scriptPtr)
   }
 
   /**

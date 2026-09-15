@@ -55,7 +55,7 @@ public open class BoxContainer : Container() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(116, scriptPtr)
+    createNativeObject(114, scriptPtr)
   }
 
   /**

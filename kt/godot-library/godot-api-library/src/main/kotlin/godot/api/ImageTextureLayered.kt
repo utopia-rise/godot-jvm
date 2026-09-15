@@ -32,7 +32,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class ImageTextureLayered internal constructor() : TextureLayered() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(305, scriptPtr)
+    createNativeObject(303, scriptPtr)
   }
 
   /**

@@ -54,7 +54,7 @@ public open class ModifierBoneTarget3D : SkeletonModifier3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(386, scriptPtr)
+    createNativeObject(384, scriptPtr)
   }
 
   public final fun setBoneName(boneName: String): Unit {

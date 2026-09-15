@@ -101,7 +101,7 @@ public open class AudioStreamRandomizer : AudioStream() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(102, scriptPtr)
+    createNativeObject(100, scriptPtr)
   }
 
   /**

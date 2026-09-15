@@ -85,6 +85,13 @@ interface BaseMethodeRule {
 class MethodRule : GodotApiRule<EnrichedMethodTask>(), BaseMethodeRule {
     override fun apply(task: EnrichedMethodTask, context: GenerationContext) = with(task.builder) {
         configureMethod(task.method, task.owner, context)
+        if (task.owner.identifier == API.`object`.simpleName && task.method.originalName in API.godotObjectMethods) {
+            addModifiers(KModifier.OVERRIDE)
+            // Kotlin forbids default values on overrides; GodotObject declares them instead.
+            val withoutDefaults = parameters.map { it.toBuilder().defaultValue(null).build() }
+            parameters.clear()
+            parameters.addAll(withoutDefaults)
+        }
     }
 
     override fun FunSpec.Builder.generateParameters(method: EnrichedMethod, context: GenerationContext) {
@@ -259,6 +266,10 @@ class StringOnlyRule : GodotApiRule<EnrichedClassTask>(), BaseMethodeRule {
 class OverLoadRule : GodotApiRule<EnrichedMethodTask>() {
     override fun apply(task: EnrichedMethodTask, context: GenerationContext) = with(task.builder) {
         if (task.method.arguments.none { it.defaultValue != null && it.type.identifier != TypeIdentifier.STRING_NAME.name && it.type.identifier != Core.nodePath.simpleName }) {
+            return@with
+        }
+        // Object's GodotObject overrides carry no defaults of their own; the interface declares them.
+        if (parameters.none { it.defaultValue != null }) {
             return@with
         }
         val jvmOverloadAnnotationSpec = AnnotationSpec.builder(JvmOverloads::class).build()

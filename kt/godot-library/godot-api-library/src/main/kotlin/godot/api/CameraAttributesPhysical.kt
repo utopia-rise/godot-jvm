@@ -160,7 +160,7 @@ public open class CameraAttributesPhysical : CameraAttributes() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(138, scriptPtr)
+    createNativeObject(136, scriptPtr)
   }
 
   public final fun setAperture(aperture: Float): Unit {

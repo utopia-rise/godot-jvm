@@ -73,7 +73,7 @@ public open class OpenXRCompositionLayerCylinder : OpenXRCompositionLayer() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(447, scriptPtr)
+    createNativeObject(446, scriptPtr)
   }
 
   public final fun setRadius(radius: Float): Unit {
