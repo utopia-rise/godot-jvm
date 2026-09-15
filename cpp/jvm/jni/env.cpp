@@ -92,10 +92,8 @@ namespace jni {
 
     JObject Env::new_string(const String& str) {
         const Char16String utf16 = str.utf16();
-        jstring jstr = env->NewString(
-            reinterpret_cast<const jchar*>(utf16.get_data()),
-            static_cast<jsize>(utf16.length())
-        );
+        jstring jstr =
+            env->NewString(reinterpret_cast<const jchar*>(utf16.get_data()), static_cast<jsize>(utf16.length()));
         handle_exception();
         return JObject(jstr);
     }
