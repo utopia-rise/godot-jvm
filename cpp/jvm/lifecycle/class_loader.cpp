@@ -23,7 +23,7 @@ ClassLoader::~ClassLoader() {
 jni::JObject to_java_url(jni::Env& env, const godot::String& bootstrapJar) {
     jni::JClass cls = env.find_class("java/io/File");
     jni::MethodID ctor = cls.get_constructor_method_id(env, "(Ljava/lang/String;)V");
-    jni::JObject path = env.new_string(bootstrapJar.utf8().get_data());
+    jni::JObject path = env.new_string(bootstrapJar);
     jvalue args[1] = {jni::to_jni_arg(path)};
     jni::JObject file = cls.new_instance(env, ctor, args);
     assert(!file.is_null());
@@ -56,7 +56,7 @@ ClassLoader* ClassLoader::create_instance(
         env,
         "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/ClassLoader;)V"
     );
-    jni::JObject jar_path = env.new_string(full_jar_path.utf8().get_data());
+    jni::JObject jar_path = env.new_string(full_jar_path);
     jvalue args[4] = {
         jni::to_jni_arg(jar_path),
         jni::to_jni_arg(jni::JObject(nullptr)),
