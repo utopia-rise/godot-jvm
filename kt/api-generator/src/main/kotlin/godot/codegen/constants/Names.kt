@@ -200,12 +200,12 @@ object VariantConverter {
         "PACKED_VECTOR2_ARRAY", "PACKED_VECTOR3_ARRAY", "PACKED_COLOR_ARRAY", "PACKED_VECTOR4_ARRAY",
     )
 
-    /** Mirrors `BufferToPtr::LAYOUTS` in `cpp/jvm/ptr_converter.h`: what a ptrcall can take and hand back. */
+    /** Mirrors the `Wire` rows in `cpp/jvm/buffer_wire.h`: InlineWire and PointerWire types can be ptrcall arguments, InlineWire types can be ptrcall returns. */
     fun isPtrCallArgument(converter: MemberName) = converter.simpleName in inlineTypes || converter.simpleName in pointerTypes
     fun isPtrCallReturn(converter: MemberName) = converter.simpleName == "NIL" || converter.simpleName in inlineTypes
 
-    /** Godot's Variant::Type ordinal, the return type code a ptrcall announces to the native side. */
-    fun variantOrdinal(converter: MemberName): Int = listOf(
+    /** Godot's Variant::Type ordinals, the return type code a ptrcall announces to the native side. */
+    private val variantOrdinals = listOf(
         "NIL", "BOOL", "LONG", "DOUBLE", "STRING",
         "VECTOR2", "VECTOR2I", "RECT2", "RECT2I", "VECTOR3", "VECTOR3I", "TRANSFORM2D", "VECTOR4", "VECTOR4I",
         "PLANE", "QUATERNION", "AABB", "BASIS", "TRANSFORM3D", "PROJECTION", "COLOR",
@@ -213,10 +213,12 @@ object VariantConverter {
         "PACKED_BYTE_ARRAY", "PACKED_INT_32_ARRAY", "PACKED_INT_64_ARRAY", "PACKED_FLOAT_32_ARRAY",
         "PACKED_FLOAT_64_ARRAY", "PACKED_STRING_ARRAY", "PACKED_VECTOR2_ARRAY", "PACKED_VECTOR3_ARRAY",
         "PACKED_COLOR_ARRAY", "PACKED_VECTOR4_ARRAY",
-    ).indexOf(converter.simpleName).also { require(it >= 0) { "No Variant ordinal for converter ${converter.simpleName}" } }
+    )
 
-    /** Mirrors `TransferContext.REF_COUNTED_RETURN_TYPE`: one past the Variant ordinals. */
-    const val refCountedReturnType = 39
+    val variantOrdinalCount get() = variantOrdinals.size
+
+    fun variantOrdinal(converter: MemberName): Int = variantOrdinals.indexOf(converter.simpleName)
+        .also { require(it >= 0) { "No Variant ordinal for converter ${converter.simpleName}" } }
 
     fun bufferType(converter: MemberName): TypeName = when (converter.simpleName) {
         "BOOL" -> com.squareup.kotlinpoet.BOOLEAN
