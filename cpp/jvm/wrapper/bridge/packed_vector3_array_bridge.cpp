@@ -1,5 +1,7 @@
 #include "packed_vector3_array_bridge.h"
 
+#include "core/variant_allocator.h"
+
 using namespace bridges;
 
 PackedVector3ArrayBridge::~PackedVector3ArrayBridge() = default;

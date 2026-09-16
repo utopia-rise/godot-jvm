@@ -94,12 +94,12 @@ object TransferContext {
 
     /**
      * Unchecked ptrcall. [returnType] is the Variant type ordinal the engine writes its result as, or
-     * [REF_COUNTED_RETURN_TYPE] for an object return that arrives with a reference of its own.
+     * Variant::TYPE_MAX when the method returns a Ref<T>: the engine then stores an owned reference in the return
+     * slot, which the native side releases once the object has been bound. The generator reads TYPE_MAX from
+     * api.json and bakes it into the generated call, as the native side cannot derive it from the method bind or
+     * from the returned pointer; the native TransferContext::REF_COUNTED_RETURN_TYPE is the same VARIANT_MAX.
      */
     fun callPtrMethod(methodPtr: VoidPtr, returnType: Int) = icallPtr(methodPtr, returnType)
-
-    /** One past the Variant type ordinals; mirrors TransferContext::REF_COUNTED_RETURN_TYPE on the native side. */
-    const val REF_COUNTED_RETURN_TYPE = 39
 
     @ExperimentalContracts
     inline fun unsafeRead(block: (ByteBuffer) -> Unit) {

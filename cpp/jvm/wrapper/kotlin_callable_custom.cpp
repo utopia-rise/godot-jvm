@@ -16,7 +16,7 @@ void LambdaContainer::invoke(
 
     if (has_return_value) {
         jni::JObject ret = wrapped.call_object_method<false>(p_env, INVOKE_WITH_RETURN);
-        transfer_context.read_return_value(p_env, r_ret);
+        r_ret = transfer_context.read_return(p_env);
         ret.delete_local_ref(p_env);
 
         return;

@@ -9,8 +9,8 @@
 #include "logging.h"
 
 #include <classes/ref_counted.hpp>
-#include <utility>
 #include <core/object.hpp>
+#include <utility>
 #include <variant/string_name.hpp>
 
 KtObject::KtObject(jni::JObject p_global_ref) : JvmInstanceWrapper(p_global_ref) {}
@@ -64,13 +64,14 @@ void KtObject::create_native_object(JNIEnv* p_raw_env, jobject p_instance, jint 
     if (auto* kotlin_script = bridges::from_uint_to_ptr<godot::JvmScript>(p_script_ptr)) {
         KtObject kt_object = is_rc ? KtObject::create_weak_ref(env, jni::JObject(p_instance))
                                    : KtObject::create_object(env, jni::JObject(p_instance));
-        raw_godot::RawObject(raw_ptr_value).set_script_instance(
-            godot::JvmInstance::create_script_instance(raw_ptr_value, std::move(kt_object), kotlin_script)
-        );
+        raw_godot::RawObject(raw_ptr_value)
+            .set_script_instance(
+                godot::JvmInstance::create_script_instance(raw_ptr_value, std::move(kt_object), kotlin_script)
+            );
     }
 
     TransferContext::get_instance()
-        .write_object_data(env, reinterpret_cast<uintptr_t>(raw_ptr_value), binding->get_object_id());
+        .write_object_info(env, reinterpret_cast<uintptr_t>(raw_ptr_value), binding->get_object_id());
 }
 
 void KtObject::get_singleton(JNIEnv* p_raw_env, jobject, jint p_class_index) {
@@ -91,7 +92,7 @@ void KtObject::get_singleton(JNIEnv* p_raw_env, jobject, jint p_class_index) {
 #endif
 
     jni::Env env(p_raw_env);
-    TransferContext::get_instance().write_object_data(
+    TransferContext::get_instance().write_object_info(
         env,
         reinterpret_cast<uintptr_t>(raw_singleton.ptr()),
         godot::ObjectID(raw_singleton.get_instance_id())

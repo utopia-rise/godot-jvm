@@ -1,6 +1,7 @@
 #include "string_name_bridge.h"
 
 #include "bridges_utils.h"
+#include "core/variant_allocator.h"
 #include "jvm/wrapper/memory/transfer_context.h"
 
 #include <variant/string.hpp>
@@ -31,7 +32,7 @@ uintptr_t StringNameBridge::engine_call_constructor_string(JNIEnv* p_raw_env, jo
 void StringNameBridge::engine_call_operator_string(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant result = godot::String(*from_uint_to_ptr<godot::StringName>(p_raw_ptr));
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 StringNameBridge::~StringNameBridge() = default;

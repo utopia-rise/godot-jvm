@@ -2,6 +2,7 @@
 
 #include "api/script/jvm_script_manager.h"
 #include "bridges_utils.h"
+#include "core/variant_allocator.h"
 #include "jvm/wrapper/memory/transfer_context.h"
 #include "jvm/wrapper/memory/type_manager.h"
 
@@ -36,7 +37,7 @@ uintptr_t VariantArrayBridge::engine_call_constructor_typed(JNIEnv* p_raw_env, j
 void VariantArrayBridge::engine_call_size(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->size();
-    TransferContext::get_instance().write_return_value(env, variant);
+    TransferContext::get_instance().write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_clear(JNIEnv*, jobject, jlong p_raw_ptr) {
@@ -47,13 +48,13 @@ void VariantArrayBridge::engine_call_clear(JNIEnv*, jobject, jlong p_raw_ptr) {
 void VariantArrayBridge::engine_call_is_empty(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->is_empty();
-    TransferContext::get_instance().write_return_value(env, variant);
+    TransferContext::get_instance().write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_hash(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->hash();
-    TransferContext::get_instance().write_return_value(env, variant);
+    TransferContext::get_instance().write_return(env, variant);
 }
 
 // TODO/4.0: modify naming in jvm code
@@ -105,7 +106,7 @@ void VariantArrayBridge::engine_call_bsearch(JNIEnv* p_raw_env, jobject, jlong p
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->bsearch(args[0], args[1].operator bool());
-    transfer_context.write_return_value(env, variant);
+    transfer_context.write_return(env, variant);
 }
 
 // TODO/4.0: modify method signature in jvm code (from object + method name to callable)
@@ -116,7 +117,7 @@ void VariantArrayBridge::engine_call_bsearchCustom(JNIEnv* p_raw_env, jobject, j
     transfer_context.read_args(env, args);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)
                                  ->bsearch_custom(args[0], args[1].operator godot::Callable(), args[2].operator bool());
-    transfer_context.write_return_value(env, variant);
+    transfer_context.write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_count(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -132,7 +133,7 @@ void VariantArrayBridge::engine_call_duplicate(JNIEnv* p_raw_env, jobject, jlong
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->duplicate(args[0].operator bool());
-    transfer_context.write_return_value(env, variant);
+    transfer_context.write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_duplicate_deep(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
@@ -141,7 +142,7 @@ void VariantArrayBridge::engine_call_duplicate_deep(JNIEnv* p_raw_env, jobject p
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->duplicate_deep(args[0].operator int64_t());
-    transfer_context.write_return_value(env, variant);
+    transfer_context.write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_erase(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -157,13 +158,13 @@ void VariantArrayBridge::engine_call_find(JNIEnv* p_raw_env, jobject, jlong p_ra
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->find(args[0], args[1].operator int64_t());
-    transfer_context.write_return_value(env, variant);
+    transfer_context.write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_front(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->front();
-    TransferContext::get_instance().write_return_value(env, variant);
+    TransferContext::get_instance().write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_has(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -172,7 +173,7 @@ void VariantArrayBridge::engine_call_has(JNIEnv* p_raw_env, jobject, jlong p_raw
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->has(args[0]);
-    transfer_context.write_return_value(env, variant);
+    transfer_context.write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_insert(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -185,25 +186,25 @@ void VariantArrayBridge::engine_call_insert(JNIEnv* p_raw_env, jobject, jlong p_
 void VariantArrayBridge::engine_call_max(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->max();
-    TransferContext::get_instance().write_return_value(env, variant);
+    TransferContext::get_instance().write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_min(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->min();
-    TransferContext::get_instance().write_return_value(env, variant);
+    TransferContext::get_instance().write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_popBack(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->pop_back();
-    TransferContext::get_instance().write_return_value(env, variant);
+    TransferContext::get_instance().write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_popFront(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->pop_front();
-    TransferContext::get_instance().write_return_value(env, variant);
+    TransferContext::get_instance().write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_pushBack(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -226,7 +227,7 @@ void VariantArrayBridge::engine_call_rfind(JNIEnv* p_raw_env, jobject, jlong p_r
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->rfind(args[0], args[1].operator int64_t());
-    transfer_context.write_return_value(env, variant);
+    transfer_context.write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_slice(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -240,7 +241,7 @@ void VariantArrayBridge::engine_call_slice(JNIEnv* p_raw_env, jobject, jlong p_r
         args[2].operator int64_t(),
         args[3].operator bool()
     );
-    transfer_context.write_return_value(env, variant);
+    transfer_context.write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_operator_set(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -256,7 +257,7 @@ void VariantArrayBridge::engine_call_operator_get(JNIEnv* p_raw_env, jobject, jl
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->get(args[0]);
-    transfer_context.write_return_value(env, variant);
+    transfer_context.write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_all(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -265,7 +266,7 @@ void VariantArrayBridge::engine_call_all(JNIEnv* p_raw_env, jobject, jlong p_raw
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->all(args[0]);
-    transfer_context.write_return_value(env, variant);
+    transfer_context.write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_any(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -274,7 +275,7 @@ void VariantArrayBridge::engine_call_any(JNIEnv* p_raw_env, jobject, jlong p_raw
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->any(args[0]);
-    transfer_context.write_return_value(env, variant);
+    transfer_context.write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_appendArray(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -288,7 +289,7 @@ void VariantArrayBridge::engine_call_appendArray(JNIEnv* p_raw_env, jobject, jlo
 void VariantArrayBridge::engine_call_back(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant variant = from_uint_to_ptr<godot::Array>(p_raw_ptr)->back();
-    TransferContext::get_instance().write_return_value(env, variant);
+    TransferContext::get_instance().write_return(env, variant);
 }
 
 void VariantArrayBridge::engine_call_fill(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -304,31 +305,31 @@ void VariantArrayBridge::engine_call_filter(JNIEnv* p_raw_env, jobject, jlong p_
     godot::Variant args[1];
     transfer_context.read_args(env, args);
     godot::Variant result = from_uint_to_ptr<godot::Array>(p_raw_ptr)->filter(args[0]);
-    transfer_context.write_return_value(env, result);
+    transfer_context.write_return(env, result);
 }
 
 void VariantArrayBridge::engine_call_getTypedClassName(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant result = from_uint_to_ptr<godot::Array>(p_raw_ptr)->get_typed_class_name();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void VariantArrayBridge::engine_call_getTypedScript(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant result = from_uint_to_ptr<godot::Array>(p_raw_ptr)->get_typed_script();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void VariantArrayBridge::engine_call_isReadOnly(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant result = from_uint_to_ptr<godot::Array>(p_raw_ptr)->is_read_only();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void VariantArrayBridge::engine_call_isTyped(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant result = from_uint_to_ptr<godot::Array>(p_raw_ptr)->is_typed();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void VariantArrayBridge::engine_call_map(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -337,13 +338,13 @@ void VariantArrayBridge::engine_call_map(JNIEnv* p_raw_env, jobject, jlong p_raw
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
     godot::Variant result = from_uint_to_ptr<godot::Array>(p_raw_ptr)->map(args[0]);
-    transfer_context.write_return_value(env, result);
+    transfer_context.write_return(env, result);
 }
 
 void VariantArrayBridge::engine_call_pickRandom(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
     godot::Variant result = from_uint_to_ptr<godot::Array>(p_raw_ptr)->pick_random();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void VariantArrayBridge::engine_call_reduce(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
@@ -352,7 +353,7 @@ void VariantArrayBridge::engine_call_reduce(JNIEnv* p_raw_env, jobject, jlong p_
     TransferContext& transfer_context = TransferContext::get_instance();
     transfer_context.read_args(env, args);
     godot::Variant result = from_uint_to_ptr<godot::Array>(p_raw_ptr)->reduce(args[0], args[1]);
-    transfer_context.write_return_value(env, result);
+    transfer_context.write_return(env, result);
 }
 
 VariantArrayBridge::~VariantArrayBridge() = default;

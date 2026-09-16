@@ -155,8 +155,11 @@ class MethodRule : GodotApiRule<EnrichedMethodTask>(), BaseMethodeRule {
             addStatement("%T.callMethod(%T.%M)", Internal.transferContext, methodBindings, bindingPtr)
             return
         }
+        // A method whose declared return class is a RefCounted returns a Ref<T> in the engine, and a ptrcall encodes
+        // that as an owned reference the native side must release. The pointer bytes cannot show that, so
+        // Variant::TYPE_MAX is sent in place of the OBJECT ordinal to say so.
         val returnType = if (method.type.isObjectSubClass() && context.isRefCounted(method.type.identifier)) {
-            VariantConverter.refCountedReturnType
+            context.refCountedReturnType
         } else {
             VariantConverter.variantOrdinal(returnConverter)
         }

@@ -1,6 +1,7 @@
 #include "packed_float_32_array_bridge.h"
 
 #include "bridges_utils.h"
+#include "core/variant_allocator.h"
 
 using namespace bridges;
 

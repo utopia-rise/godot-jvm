@@ -31,7 +31,7 @@
 
 #define VARIADIC_CASE(n, m_call, m_args)        \
     case n:                                     \
-        m_call(VARIADIC_ARGS_##n(m_args));      \
+        m_call(VARIADIC_ARGS_## n(m_args));      \
         break;
 
 #define CALL_VARIADIC_OR(m_count, m_args, m_call, m_case_0)                 \

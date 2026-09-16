@@ -102,7 +102,7 @@ void CallableBridge::engine_call_bind(JNIEnv* p_raw_env, jobject p_instance, jlo
     const godot::Callable& callable = *from_uint_to_ptr<godot::Callable>(p_raw_ptr);
     godot::Variant result;
     CALL_VARIADIC(args_size, args, result = callable.bind);
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_call(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
@@ -114,7 +114,7 @@ void CallableBridge::engine_call_call(JNIEnv* p_raw_env, jobject p_instance, jlo
     const godot::Callable& callable = *from_uint_to_ptr<godot::Callable>(p_raw_ptr);
     godot::Variant result;
     CALL_VARIADIC(args_size, args, result = callable.call);
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_call_deferred(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
@@ -131,70 +131,70 @@ void CallableBridge::engine_call_get_bound_arguments(JNIEnv* p_raw_env, jobject 
     jni::Env env(p_raw_env);
 
     godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->get_bound_arguments();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_get_bound_arguments_count(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
     godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->get_bound_arguments_count();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_get_method(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
     godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->get_method();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_get_object(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
     godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->get_object();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_get_object_id(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
     godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->get_object_id();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_hash(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
     godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->hash();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_is_custom(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
     godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_custom();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_is_null(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
     godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_null();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_is_standard(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
     godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_standard();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_is_valid(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
     godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_valid();
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 void CallableBridge::engine_call_rpc(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
@@ -224,7 +224,7 @@ void CallableBridge::engine_call_unbind(JNIEnv* p_raw_env, jobject p_instance, j
     TransferContext::get_instance().read_args(env, args);
 
     godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->unbind(args[0]);
-    TransferContext::get_instance().write_return_value(env, result);
+    TransferContext::get_instance().write_return(env, result);
 }
 
 CallableBridge::~CallableBridge() = default;

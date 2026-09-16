@@ -7,10 +7,11 @@ import godot.common.util.toRealT
 import godot.internal.memory.LongStringQueue
 import java.nio.ByteBuffer
 
+// One byte, the engine's own bool layout, so a ptrcall can use the value in place.
 private var ByteBuffer.bool: Boolean
-    get() = int == 1
+    get() = get() != 0.toByte()
     set(value) {
-        putInt(if (value) 1 else 0)
+        put(if (value) 1 else 0)
     }
 
 private var ByteBuffer.vector2: Vector2
