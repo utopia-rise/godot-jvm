@@ -48,6 +48,8 @@ jobs:
           java-version: ${{ inputs.jvm-version }}
 
       - uses: android-actions/setup-android@v4
+        with:
+          packages: platform-tools
 
       - name: Install Android build dependencies
         run: |
