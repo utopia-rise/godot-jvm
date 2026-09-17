@@ -11,13 +11,19 @@ namespace godot {
     public:
         struct JvmInstanceData {
             GodotObject* owner;
-            KtObject* kt_object;
+            KtObject kt_object;
             KtClass* kt_class;
             Ref<JvmScript> script;
-            List<MethodInfo> method_list;
             SafeFlag to_demote_flag;
-            bool delete_flag;
+            SafeFlag demotion_deferred;
+            bool delete_flag = true;
+
+            JvmInstanceData(GodotObject* p_owner, KtObject&& p_kt_object, const JvmScript* p_script);
         };
+
+        // One of these is allocated per scripted object, alongside a JvmBinding: the owner, the JVM reference, the
+        // class, the script, and the three flags in the tail padding. It fits in a cache line; keep it that way.
+        static_assert(sizeof(JvmInstanceData) == 7 * sizeof(void*));
 
     private:
         static GDExtensionBool set(
@@ -150,12 +156,12 @@ namespace godot {
         };
 
         static void promote_reference(JvmInstanceData* instance_data);
-        static void demote_reference(JvmInstanceData* instance_data);
+        // Returns whether the instance leaves the demotion queue.
+        static bool demote_reference(JvmInstanceData* instance_data);
 
-        static JvmInstanceData* create_instance_data(
-            jni::Env& p_env,
+        static GDExtensionScriptInstancePtr create_script_instance(
             GodotObject* p_owner,
-            KtObject* p_kt_object,
+            KtObject&& p_kt_object,
             const JvmScript* p_script
         );
 

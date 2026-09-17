@@ -7,6 +7,8 @@
 
 #include <classes/script_extension.hpp>
 #include <classes/script_language.hpp>
+#include <templates/hash_map.hpp>
+#include <templates/hash_set.hpp>
 
 namespace godot {
 
@@ -27,7 +29,6 @@ namespace godot {
 #ifdef DEBUG_ENABLED
         bool validate_instance_creation() const;
 #endif
-        void* create_jvm_instance(GodotObject* p_raw_owner) const;
 
     public:
         JvmScript();
@@ -86,10 +87,7 @@ namespace godot {
         // This concerns placeholders script instances only
 
     private:
-        mutable HashMap<
-            JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
-            JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>
-            placeholders;
+        mutable HashSet<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*> placeholders;
         mutable HashMap<StringName, Variant> exported_members_default_value_cache;
         StringName last_physical_fqdn;
         uint64_t last_source_modified_time = 0;

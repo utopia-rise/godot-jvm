@@ -66,6 +66,7 @@ namespace jni {
                 JThrowable throwable = exception_occurred();
                 exception_clear();
                 exception_handler(*this, throwable);
+                throwable.delete_local_ref(*this);
             } else {
                 exception_describe();
                 exception_clear();
@@ -89,18 +90,25 @@ namespace jni {
         return env->IsSameObject(obj_1.obj, obj_2.obj);
     }
 
-    JObject Env::new_string(const char* str) {
-        auto jstr = env->NewStringUTF(str);
+    JObject Env::new_string(const String& str) {
+        const Char16String utf16 = str.utf16();
+        jstring jstr =
+            env->NewString(reinterpret_cast<const jchar*>(utf16.get_data()), static_cast<jsize>(utf16.length()));
         handle_exception();
         return JObject(jstr);
     }
 
     String Env::from_jstring(jni::JString str) {
         auto jstr = (jstring) str.obj;
-        auto utfString = env->GetStringUTFChars(jstr, nullptr);
-        String ret = String::utf8(utfString);
+        if (jstr == nullptr) { return String(); }
+
+        jsize length = env->GetStringLength(jstr);
+        const jchar* chars = env->GetStringChars(jstr, nullptr);
         handle_exception();
-        env->ReleaseStringUTFChars(jstr, utfString);
+        if (chars == nullptr) { return String(); }
+
+        String ret = String::utf16(reinterpret_cast<const char16_t*>(chars), length);
+        env->ReleaseStringChars(jstr, chars);
         return ret;
     }
 

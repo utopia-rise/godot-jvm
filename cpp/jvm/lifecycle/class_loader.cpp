@@ -1,5 +1,6 @@
 #include "class_loader.h"
 
+#include "jvm/jni/local_frame.h"
 #include "jvm/jni/methods.h"
 
 #ifdef ANDROID_ENABLED
@@ -22,7 +23,7 @@ ClassLoader::~ClassLoader() {
 jni::JObject to_java_url(jni::Env& env, const godot::String& bootstrapJar) {
     jni::JClass cls = env.find_class("java/io/File");
     jni::MethodID ctor = cls.get_constructor_method_id(env, "(Ljava/lang/String;)V");
-    jni::JObject path = env.new_string(bootstrapJar.utf8().get_data());
+    jni::JObject path = env.new_string(bootstrapJar);
     jvalue args[1] = {jni::to_jni_arg(path)};
     jni::JObject file = cls.new_instance(env, ctor, args);
     assert(!file.is_null());
@@ -40,6 +41,11 @@ ClassLoader* ClassLoader::create_instance(
     const godot::String& full_jar_path,
     const jni::JObject& p_parent_loader
 ) {
+    // A class loader is built from half a dozen intermediate references, and which ones exist depends on the
+    // platform, so they are dropped together rather than one by one down each branch. The loader itself survives:
+    // the ClassLoader constructor promotes it to a global reference before the frame is popped.
+    jni::LocalFrame local_frame(16);
+
 #ifdef ANDROID_ENABLED
     // mark file as read only. Needed since android 14:
     // https://developer.android.com/about/versions/14/behavior-changes-14#safer-dynamic-code-loading
@@ -50,7 +56,7 @@ ClassLoader* ClassLoader::create_instance(
         env,
         "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/ClassLoader;)V"
     );
-    jni::JObject jar_path = env.new_string(full_jar_path.utf8().get_data());
+    jni::JObject jar_path = env.new_string(full_jar_path);
     jvalue args[4] = {
         jni::to_jni_arg(jar_path),
         jni::to_jni_arg(jni::JObject(nullptr)),
@@ -83,11 +89,15 @@ jni::JClass ClassLoader::load_class(jni::Env& env, const char* name) {
     static jni::ObjectMethodID loadClassMethodId;
 
     if (loadClassMethodId.methodId == nullptr) {
-        auto cls = env.find_class("java/lang/ClassLoader");
+        jni::JClass cls = env.find_class("java/lang/ClassLoader");
         loadClassMethodId.methodId = cls.get_method_id(env, "loadClass", "(Ljava/lang/String;)Ljava/lang/Class;");
+        cls.delete_local_ref(env);
     }
-    jvalue args[1] = {static_cast<jni::JValue>(env.new_string(name)).value};
+    jni::JString class_name(env.new_string(name));
+    jvalue args[1] = {jni::to_jni_arg(class_name)};
+    // No frame here: the class is returned as a local reference and belongs to the caller.
     jni::JObject ret = wrapped.call_object_method(env, loadClassMethodId, args);
+    class_name.delete_local_ref(env);
     return jni::JClass((jclass) ret.obj);
 }
 
@@ -105,6 +115,8 @@ void ClassLoader::set_as_context_loader(jni::Env& env) {
     jvalue args[1] = {jni::to_jni_arg(wrapped)};
 
     thread.call_void_method(env, setContextClassLoaderMethod, args);
+    thread.delete_local_ref(env);
+    cls.delete_local_ref(env);
 }
 
 const jni::JObject& ClassLoader::get_wrapped() const {

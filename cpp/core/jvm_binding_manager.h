@@ -25,15 +25,18 @@ namespace godot {
 
         JvmBindingManager& operator=(const JvmBindingManager&) = delete;
 
-        // For instance bindings, they are to bind native Godot objects to their JVM wrappers, not for the scripts.
-        // Takes the raw engine pointer directly — no godot-cpp wrapper is needed (or created) for any of this; see
-        // jvm_binding_manager.cpp for...
-        static JvmBinding* set_instance_binding(GodotObject* p_object);
+        // Delivery of an object to the JVM. Creates the binding on first sight and takes the JVM's native reference
+        // on a RefCounted. Takes the raw engine pointer: no godot-cpp wrapper is needed or created for any of this.
+        static JvmBinding* bind(GodotObject* p_object);
 
-        // Doesn't set the KtObject as it doesn't exist yet, bind_object has be used later.
-        static JvmBinding* get_instance_binding(GodotObject* p_object);
+        // Same for an object the JVM itself just instantiated, whose reference count is not initialized yet.
+        static JvmBinding* bind_created(GodotObject* p_object);
 
-        static void free_binding(GodotObject* p_ref);
+        // Release protocol, see MemoryManager::sync_memory. A binding on a RefCounted owns one native reference:
+        // unbinding drops it.
+        static uint32_t get_deliveries(GodotObject* p_object);
+        static void unbind(GodotObject* p_object);
+        static void unbind_unless_delivered_since(GodotObject* p_object, uint32_t p_deliveries);
     };
 } // namespace godot
 

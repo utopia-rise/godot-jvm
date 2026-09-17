@@ -17,7 +17,12 @@ uintptr_t CallableBridge::engine_call_constructor(JNIEnv* p_raw_env, jobject p_i
     return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(godot::Callable()));
 }
 
-uintptr_t CallableBridge::engine_call_constructor_object_string_name(JNIEnv* p_raw_env, jobject p_instance, jlong object_ptr, jlong method_name_ptr) {
+uintptr_t CallableBridge::engine_call_constructor_object_string_name(
+    JNIEnv* p_raw_env,
+    jobject p_instance,
+    jlong object_ptr,
+    jlong method_name_ptr
+) {
     // object_ptr is the raw engine pointer, and make_callable() issues the same engine constructor godot-cpp's
     // Callable(Object*, StringName) does — without materializing the wrapper it would only read `_owner` off.
     auto* obj = reinterpret_cast<godot::GodotObject*>(object_ptr);
@@ -26,27 +31,31 @@ uintptr_t CallableBridge::engine_call_constructor_object_string_name(JNIEnv* p_r
 }
 
 uintptr_t CallableBridge::engine_call_constructor_lambda_callable(
-  JNIEnv* p_raw_env,
-  jobject p_instance,
-  jobject p_lambda_container,
-  jint p_variant_type_ordinal,
-  jint p_hash_code
+    JNIEnv* p_raw_env,
+    jobject p_instance,
+    jobject p_lambda_container,
+    jint p_variant_type_ordinal,
+    jint p_hash_code
 ) {
     jni::Env env(p_raw_env);
     // has_on_destroy is only used by the cancellable one-shot signal connection below.
     return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(
-      godot::Callable(memnew(
-        KotlinCallableCustom(env, p_lambda_container, static_cast<godot::Variant::Type>(p_variant_type_ordinal), p_hash_code, false)
-      ))
+        godot::Callable(memnew(KotlinCallableCustom(
+            env,
+            p_lambda_container,
+            static_cast<godot::Variant::Type>(p_variant_type_ordinal),
+            p_hash_code,
+            false
+        )))
     ));
 }
 
 void CallableBridge::engine_call_constructor_cancellable(
-  JNIEnv* p_raw_env,
-  jobject p_instance,
-  jobject p_kt_custom_callable_instance,
-  jint p_variant_type_ordinal,
-  jint p_hash_code
+    JNIEnv* p_raw_env,
+    jobject p_instance,
+    jobject p_kt_custom_callable_instance,
+    jint p_variant_type_ordinal,
+    jint p_hash_code
 ) {
     jni::Env env(p_raw_env);
 
@@ -54,17 +63,24 @@ void CallableBridge::engine_call_constructor_cancellable(
     TransferContext::get_instance().read_args(env, args);
     godot::Signal signal = args[0].operator godot::Signal();
 
-    godot::Callable callable = memnew(
-      KotlinCallableCustom(env, p_kt_custom_callable_instance, static_cast<godot::Variant::Type>(p_variant_type_ordinal), p_hash_code, true)
-    );
+    godot::Callable callable = memnew(KotlinCallableCustom(
+        env,
+        p_kt_custom_callable_instance,
+        static_cast<godot::Variant::Type>(p_variant_type_ordinal),
+        p_hash_code,
+        true
+    ));
 
     // Signal::get_object() materializes a godot-cpp wrapper. The id path stays raw instead.
     raw_godot::RawObject owner = raw_godot::RawObject::from_instance_id(signal.get_object_id());
-    if (owner.is_null()) {
-        return;
-    }
+    if (owner.is_null()) { return; }
     if (owner.is_class(SNAME("Node"))) {
-        owner.call_thread_safe(SNAME("connect"), signal.get_name(), callable, static_cast<int64_t>(godot::Object::CONNECT_ONE_SHOT));
+        owner.call_thread_safe(
+            SNAME("connect"),
+            signal.get_name(),
+            callable,
+            static_cast<int64_t>(godot::Object::CONNECT_ONE_SHOT)
+        );
     } else {
         signal.connect(callable, godot::Object::CONNECT_ONE_SHOT);
     }
@@ -149,35 +165,35 @@ void CallableBridge::engine_call_get_object_id(JNIEnv* p_raw_env, jobject p_inst
 void CallableBridge::engine_call_hash(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
-    godot::Variant result =from_uint_to_ptr<godot::Callable>(p_raw_ptr)->hash();
+    godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->hash();
     TransferContext::get_instance().write_return_value(env, result);
 }
 
 void CallableBridge::engine_call_is_custom(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
-    godot::Variant result =from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_custom();
+    godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_custom();
     TransferContext::get_instance().write_return_value(env, result);
 }
 
 void CallableBridge::engine_call_is_null(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
-    godot::Variant result =from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_null();
+    godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_null();
     TransferContext::get_instance().write_return_value(env, result);
 }
 
 void CallableBridge::engine_call_is_standard(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
-    godot::Variant result =from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_standard();
+    godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_standard();
     TransferContext::get_instance().write_return_value(env, result);
 }
 
 void CallableBridge::engine_call_is_valid(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
     jni::Env env(p_raw_env);
 
-    godot::Variant result =from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_valid();
+    godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->is_valid();
     TransferContext::get_instance().write_return_value(env, result);
 }
 
@@ -207,7 +223,7 @@ void CallableBridge::engine_call_unbind(JNIEnv* p_raw_env, jobject p_instance, j
     godot::Variant args[1];
     TransferContext::get_instance().read_args(env, args);
 
-    godot::Variant result =from_uint_to_ptr<godot::Callable>(p_raw_ptr)->unbind(args[0]);
+    godot::Variant result = from_uint_to_ptr<godot::Callable>(p_raw_ptr)->unbind(args[0]);
     TransferContext::get_instance().write_return_value(env, result);
 }
 
