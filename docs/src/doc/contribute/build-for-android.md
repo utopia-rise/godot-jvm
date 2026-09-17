@@ -28,6 +28,6 @@ The libraries are written under `build/android/<debug|release>/<android-abi>`. P
 ./kt/gradlew -p kt :android-plugin:assemble
 ```
 
-The AARs are written to `kt/android-plugin/build/outputs/aar`. For a device test, copy them to `harness/tests/addons/jvm/libs/android/debug` and `harness/tests/addons/jvm/libs/android/release`, install Godot's Android build template, and enable **Use Gradle Build** in the export preset.
+The AARs are written to `kt/android-plugin/build/outputs/aar`. For a device test, copy them to `harness/tests/addons/jvm/libs/android`, install Godot's Android build template, and enable **Use Gradle Build** in the export preset.
 
 The harness has a `tests_android` export preset. After placing the debug AAR in the addon and installing the Android build template, export it with `./gradlew -p harness/tests exportAndroidDebug`, then install `harness/tests/export/tests.apk` on an emulator or device. The exported test runner reports `GODOT_JVM_TEST_RESULT:PASS` or `FAIL` to logcat.

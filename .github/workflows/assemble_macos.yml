@@ -85,25 +85,17 @@ jobs:
       - name: Package macOS libraries
         shell: bash
         run: |
-          for target in debug release; do
-            mkdir -p "package/$target"
-            cp -R "universal/editor/addons" "package/$target/addons"
-            cp -R "universal/debug/addons/jvm/libs/." "package/$target/addons/jvm/libs/"
-            cp -R "universal/release/addons/jvm/libs/." "package/$target/addons/jvm/libs/"
+          mkdir -p package/libs
+          for artifact in editor debug release; do
+            cp -R "universal/$artifact/addons/jvm/libs/." package/libs/
           done
 
       # Upload the raw "addons" folder rather than a pre-made zip: actions/upload-artifact always
       # wraps whatever it's given in its own zip, so uploading a zip here results in a zip nested
       # inside that zip once a human downloads the artifact. The actual release-asset zip gets made
       # once, at the point deploy_godot.yml attaches it to the GitHub release.
-      - name: Upload debug package
+      - name: Upload macOS libraries
         uses: actions/upload-artifact@v7
         with:
-          name: godot-jvm-gdextension-macos-universal-debug-${{ inputs.godot-jvm-version }}
-          path: package/debug
-
-      - name: Upload release package
-        uses: actions/upload-artifact@v7
-        with:
-          name: godot-jvm-gdextension-macos-universal-release-${{ inputs.godot-jvm-version }}
-          path: package/release
+          name: godot-jvm-gdextension-macos-${{ inputs.godot-jvm-version }}
+          path: package/libs

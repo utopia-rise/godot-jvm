@@ -35,40 +35,22 @@ jobs:
       contents: write
     strategy:
       matrix:
-        include:
-          - platform: linuxbsd
-            arch: x86_64
-            target: debug
-          - platform: linuxbsd
-            arch: x86_64
-            target: release
-          - platform: windows
-            arch: x86_64
-            target: debug
-          - platform: windows
-            arch: x86_64
-            target: release
-          - platform: macos
-            arch: universal
-            target: debug
-          - platform: macos
-            arch: universal
-            target: release
+        platform: [android, ios, linux, macos, windows]
     steps:
       - uses: actions/download-artifact@v7
         with:
-          name: godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}
+          name: godot-jvm-gdextension-${{ matrix.platform }}-${{ inputs.godot-jvm-version }}
           path: package
 
       # This is the only point the library actually needs to exist as a real zip file: release assets
       # are downloaded as-is, with no extra wrapping layer from GitHub the way workflow artifacts get.
       - name: Zip library
         shell: bash
-        run: cd package && zip -q -9 -r ../godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}.zip addons
+        run: cd package && zip -q -9 -r ../godot-jvm-gdextension-${{ matrix.platform }}-${{ inputs.godot-jvm-version }}.zip ${{ matrix.platform }}
 
       - name: Upload release asset
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-        run: gh release upload "${{ inputs.godot-jvm-version }}" godot-jvm-gdextension-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}-${{ inputs.godot-jvm-version }}.zip --clobber
+        run: gh release upload "${{ inputs.godot-jvm-version }}" godot-jvm-gdextension-${{ matrix.platform }}-${{ inputs.godot-jvm-version }}.zip --clobber

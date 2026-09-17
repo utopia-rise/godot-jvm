@@ -198,7 +198,7 @@ PackedStringArray GodotJvmEditorExportPlugin::_get_android_libraries(
     const Ref<EditorExportPlatform>&,
     bool p_debug
 ) const {
-    return {p_debug ? "jvm/libs/android/debug/godot-jvm-debug.aar" : "jvm/libs/android/release/godot-jvm-release.aar"};
+    return {p_debug ? "jvm/libs/android/godot-jvm-debug.aar" : "jvm/libs/android/godot-jvm-release.aar"};
 }
 
 TypedArray<Dictionary> GodotJvmEditorExportPlugin::_get_export_options(

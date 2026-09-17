@@ -172,10 +172,8 @@ Package them into the Android plugin AARs:
 Copy the resulting AARs into the addon in the project being tested:
 
 ```bash
-mkdir -p /absolute/path/to/your-project/addons/jvm/libs/android/debug
-mkdir -p /absolute/path/to/your-project/addons/jvm/libs/android/release
-cp kt/android-plugin/build/outputs/aar/godot-jvm-debug.aar /absolute/path/to/your-project/addons/jvm/libs/android/debug/
-cp kt/android-plugin/build/outputs/aar/godot-jvm-release.aar /absolute/path/to/your-project/addons/jvm/libs/android/release/
+mkdir -p /absolute/path/to/your-project/addons/jvm/libs/android
+cp kt/android-plugin/build/outputs/aar/godot-jvm-debug.aar kt/android-plugin/build/outputs/aar/godot-jvm-release.aar /absolute/path/to/your-project/addons/jvm/libs/android/
 ```
 
 In Godot, install the Android build template and enable **Gradle Build > Use Gradle Build** in the Android export preset. Build your project with `buildAndroid` (or `buildAndroidRelease`) before exporting so its JVM code is converted to DEX. The exported APK chooses the matching debug or release AAR automatically.

@@ -85,11 +85,11 @@ jobs:
           name: editor_linux_x86_64
           path: harness/tests/addons
 
-      - name: Download Android addon
+      - name: Download Android libraries
         uses: actions/download-artifact@v7
         with:
           pattern: godot-jvm-gdextension-android-*
-          path: harness/tests
+          path: harness/tests/addons/jvm/libs
           merge-multiple: true
 
       - name: Prepare Android export template

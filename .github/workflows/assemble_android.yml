@@ -34,10 +34,8 @@ jobs:
             -PnativeLibrariesDir="$PWD/native/jvm/bin"
           # Godot loads the Android library from the AAR, so the package carries no bare .so: only
           # the two plugin AARs go out, and the guard below fails the job if anything else sneaks in.
-          for variant in debug release; do
-            mkdir -p "package/addons/jvm/libs/android/$variant"
-            cp "kt/android-plugin/build/outputs/aar/godot-jvm-$variant.aar" "package/addons/jvm/libs/android/$variant/"
-          done
+          mkdir -p package/android
+          cp kt/android-plugin/build/outputs/aar/godot-jvm-debug.aar kt/android-plugin/build/outputs/aar/godot-jvm-release.aar package/android/
           unexpected="$(find package -type f ! -name 'godot-jvm-debug.aar' ! -name 'godot-jvm-release.aar')"
           if [[ -n "$unexpected" ]]; then
             echo "Unexpected files in the Android package:" >&2

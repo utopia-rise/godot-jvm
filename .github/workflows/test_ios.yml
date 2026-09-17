@@ -88,11 +88,12 @@ jobs:
           name: editor_macos_universal
           path: harness/tests/addons
 
-      - name: Download the iOS GDExtension addon
+      - name: Download iOS libraries
         uses: actions/download-artifact@v7
         with:
-          name: godot-jvm-gdextension-ios
-          path: harness/tests
+          pattern: godot-jvm-gdextension-ios-*
+          path: harness/tests/addons/jvm/libs
+          merge-multiple: true
 
       - name: Prepare iOS export template
         run: |

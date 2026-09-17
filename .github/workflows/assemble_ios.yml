@@ -30,8 +30,8 @@ jobs:
             fi
           done
           rm "$ios_libraries"/*.objects.a
-          mkdir -p package/addons
-          cp -R libraries/jvm package/addons/jvm
+          mkdir -p package
+          cp -R "$ios_libraries" package/ios
           # Only the two bare .a archives may ship: no xcframework, no leftover object archives.
           unexpected="$(find package -type f ! -name 'godot.jvm.ios.template_debug.a' ! -name 'godot.jvm.ios.template_release.a')"
           if [[ -n "$unexpected" ]]; then
@@ -44,5 +44,5 @@ jobs:
       # that zip once a human downloads the artifact.
       - uses: actions/upload-artifact@v7
         with:
-          name: godot-jvm-gdextension-ios
+          name: godot-jvm-gdextension-ios-${{ inputs.godot-jvm-version }}
           path: package

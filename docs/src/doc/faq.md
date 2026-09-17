@@ -153,8 +153,8 @@ exporting.
 ### Android export fails because an AAR file is missing
 
 **Symptom:** exporting to Android fails because
-`addons/jvm/libs/android/debug/godot-jvm-debug.aar` or
-`addons/jvm/libs/android/release/godot-jvm-release.aar` is missing.
+`addons/jvm/libs/android/godot-jvm-debug.aar` or
+`addons/jvm/libs/android/godot-jvm-release.aar` is missing.
 
 **Explanation:** Godot adds one of these files automatically during export;
 Godot-JVM's addon package must already contain it.

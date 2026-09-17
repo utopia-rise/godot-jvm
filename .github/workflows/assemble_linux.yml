@@ -13,46 +13,19 @@ jobs:
   assemble-linux:
     runs-on: ubuntu-latest
     steps:
-      - name: Download editor library
+      - name: Download Linux libraries
         uses: actions/download-artifact@v7
         with:
-          name: editor_linux_x86_64
-          path: libraries/editor
-
-      - name: Download release library
-        uses: actions/download-artifact@v7
-        with:
-          name: release_linux_x86_64
-          path: libraries/release
-
-      - name: Download debug library
-        uses: actions/download-artifact@v7
-        with:
-          name: debug_linux_x86_64
-          path: libraries/debug
-
-      - name: Assemble Linux libraries
-        shell: bash
-        run: |
-          for target in debug release; do
-            mkdir -p "package/$target/addons"
-            cp -R "libraries/editor/jvm" "package/$target/addons/jvm"
-            cp -R "libraries/debug/jvm/libs/." "package/$target/addons/jvm/libs/"
-            cp -R "libraries/release/jvm/libs/." "package/$target/addons/jvm/libs/"
-          done
+          pattern: '*_linux_x86_64'
+          path: libraries
+          merge-multiple: true
 
       # Upload the raw "addons" folder rather than a pre-made zip: actions/upload-artifact always
       # wraps whatever it's given in its own zip, so uploading a zip here results in a zip nested
       # inside that zip once a human downloads the artifact. The actual release-asset zip gets made
       # once, at the point deploy_godot.yml attaches it to the GitHub release.
-      - name: Upload debug library
+      - name: Upload Linux libraries
         uses: actions/upload-artifact@v7
         with:
-          name: godot-jvm-gdextension-linuxbsd-x86_64-debug-${{ inputs.godot-jvm-version }}
-          path: package/debug
-
-      - name: Upload release library
-        uses: actions/upload-artifact@v7
-        with:
-          name: godot-jvm-gdextension-linuxbsd-x86_64-release-${{ inputs.godot-jvm-version }}
-          path: package/release
+          name: godot-jvm-gdextension-linux-${{ inputs.godot-jvm-version }}
+          path: libraries/jvm/libs

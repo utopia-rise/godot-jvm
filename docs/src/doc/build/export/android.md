@@ -16,7 +16,7 @@ Android exports require Godot's Gradle build:
 
 Install the Android SDK build tools through Android Studio's SDK manager and set `ANDROID_SDK_ROOT`. The Gradle plugin uses them to convert your JARs to DEX format. It selects the newest installed build tools by default.
 
-During export, Godot adds `addons/jvm/libs/android/debug/godot-jvm-debug.aar` or `addons/jvm/libs/android/release/godot-jvm-release.aar` automatically. If either file is missing, reinstall a complete Godot-JVM addon release before exporting.
+During export, Godot adds `addons/jvm/libs/android/godot-jvm-debug.aar` or `addons/jvm/libs/android/godot-jvm-release.aar` automatically. If either file is missing, reinstall a complete Godot-JVM addon release before exporting.
 
 ## Configuration
 
