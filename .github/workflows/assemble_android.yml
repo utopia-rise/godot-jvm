@@ -32,9 +32,18 @@ jobs:
           ./kt/gradlew -p kt :android-plugin:assemble \
             -PgodotVersion="$godot_maven_version" \
             -PnativeLibrariesDir="$PWD/native/jvm/bin"
-          mkdir -p package/addons/jvm/libs/android/debug package/addons/jvm/libs/android/release
-          cp kt/android-plugin/build/outputs/aar/godot-jvm-debug.aar package/addons/jvm/libs/android/debug/
-          cp kt/android-plugin/build/outputs/aar/godot-jvm-release.aar package/addons/jvm/libs/android/release/
+          # Godot loads the Android library from the AAR, so the package carries no bare .so: only
+          # the two plugin AARs go out, and the guard below fails the job if anything else sneaks in.
+          for variant in debug release; do
+            mkdir -p "package/addons/jvm/libs/android/$variant"
+            cp "kt/android-plugin/build/outputs/aar/godot-jvm-$variant.aar" "package/addons/jvm/libs/android/$variant/"
+          done
+          unexpected="$(find package -type f ! -name 'godot-jvm-debug.aar' ! -name 'godot-jvm-release.aar')"
+          if [[ -n "$unexpected" ]]; then
+            echo "Unexpected files in the Android package:" >&2
+            echo "$unexpected" >&2
+            exit 1
+          fi
       # Upload the raw folder rather than a pre-made zip: actions/upload-artifact always wraps
       # whatever it's given in its own zip, so uploading a zip here results in a zip nested inside
       # that zip once a human downloads the artifact.
