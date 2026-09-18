@@ -128,7 +128,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun getCurrentNode(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurrentNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurrentNodePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -160,7 +160,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun getFadingFromNode(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFadingFromNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getFadingFromNodePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -209,7 +209,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   public final fun getTravelPath(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTravelPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTravelPathPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 

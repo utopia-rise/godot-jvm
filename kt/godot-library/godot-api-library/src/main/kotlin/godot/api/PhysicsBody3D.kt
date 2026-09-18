@@ -213,7 +213,7 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
    */
   public final fun getCollisionExceptions(): VariantArray<PhysicsBody3D> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionExceptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionExceptionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<PhysicsBody3D>)
   }
 

@@ -234,7 +234,7 @@ public open class AudioStreamWAV : AudioStream() {
 
   public final fun getData(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDataPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -311,7 +311,7 @@ public open class AudioStreamWAV : AudioStream() {
 
   public final fun getTags(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTagsPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

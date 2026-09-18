@@ -163,7 +163,7 @@ public open class GLTFMesh : Resource() {
 
   public final fun getBlendWeights(): PackedFloat32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBlendWeightsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBlendWeightsPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
@@ -174,7 +174,7 @@ public open class GLTFMesh : Resource() {
 
   public final fun getInstanceMaterials(): VariantArray<Material> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInstanceMaterialsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInstanceMaterialsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Material>)
   }
 

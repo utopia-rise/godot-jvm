@@ -190,7 +190,7 @@ public open class DPITexture : Texture2D() {
 
   public final fun getColorMap(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorMapPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorMapPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

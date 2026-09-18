@@ -455,7 +455,7 @@ public open class Polygon2D : Node2D() {
 
   public final fun getPolygon(): PackedVector2Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPolygonPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -466,7 +466,7 @@ public open class Polygon2D : Node2D() {
 
   public final fun getUv(): PackedVector2Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUvPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUvPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -488,7 +488,7 @@ public open class Polygon2D : Node2D() {
 
   public final fun getPolygons(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPolygonsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPolygonsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -499,7 +499,7 @@ public open class Polygon2D : Node2D() {
 
   public final fun getVertexColors(): PackedColorArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVertexColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVertexColorsPtr, 37)
     return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 
@@ -613,7 +613,7 @@ public open class Polygon2D : Node2D() {
    */
   public final fun getBonePath(index: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getBonePathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBonePathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -622,7 +622,7 @@ public open class Polygon2D : Node2D() {
    */
   public final fun getBoneWeights(index: Int): PackedFloat32Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneWeightsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneWeightsPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
@@ -665,7 +665,7 @@ public open class Polygon2D : Node2D() {
 
   public final fun getSkeleton(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkeletonPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

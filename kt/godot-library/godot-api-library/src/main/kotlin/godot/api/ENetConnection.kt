@@ -144,7 +144,7 @@ public open class ENetConnection : RefCounted() {
   @JvmOverloads
   public final fun service(timeout: Int = 0): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, timeout.toLong())
-    TransferContext.callMethod(MethodBindings.servicePtr)
+    TransferContext.callPtrMethod(MethodBindings.servicePtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -274,7 +274,7 @@ public open class ENetConnection : RefCounted() {
    */
   public final fun getPeers(): VariantArray<ENetPacketPeer> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPeersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPeersPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<ENetPacketPeer>)
   }
 

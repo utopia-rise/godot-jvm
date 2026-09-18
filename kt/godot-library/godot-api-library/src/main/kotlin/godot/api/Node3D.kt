@@ -1006,7 +1006,7 @@ public open class Node3D : Node() {
 
   public final fun getVisibilityParent(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVisibilityParentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVisibilityParentPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -1034,7 +1034,7 @@ public open class Node3D : Node() {
    */
   public final fun getGizmos(): VariantArray<Node3DGizmo> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGizmosPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGizmosPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Node3DGizmo>)
   }
 

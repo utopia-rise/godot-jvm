@@ -48,7 +48,7 @@ public open class OpenXRSpatialComponentPolygon2DList : OpenXRSpatialComponentDa
    */
   public final fun getVertices(snapshot: RID, index: Long): PackedVector2Array {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, snapshot, index)
-    TransferContext.callMethod(MethodBindings.getVerticesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVerticesPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 

@@ -978,7 +978,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getJoyInfo(device: Int): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.getJoyInfoPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoyInfoPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -1008,7 +1008,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getConnectedJoypads(): VariantArray<Long> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectedJoypadsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectedJoypadsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Long>)
   }
 
@@ -1545,7 +1545,7 @@ public object Input : Object() {
   @JvmStatic
   public final fun getJoyMotionSensorsCalibration(device: Int): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, device.toLong())
-    TransferContext.callMethod(MethodBindings.getJoyMotionSensorsCalibrationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJoyMotionSensorsCalibrationPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

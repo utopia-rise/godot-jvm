@@ -818,7 +818,7 @@ public open class GPUParticles3D : GeometryInstance3D() {
 
   public final fun getSubEmitter(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubEmitterPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSubEmitterPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

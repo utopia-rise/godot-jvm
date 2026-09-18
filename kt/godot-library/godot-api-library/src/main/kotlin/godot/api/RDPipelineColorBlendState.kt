@@ -152,7 +152,7 @@ public open class RDPipelineColorBlendState : RefCounted() {
 
   public final fun getAttachments(): VariantArray<RDPipelineColorBlendStateAttachment> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAttachmentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAttachmentsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RDPipelineColorBlendStateAttachment>)
   }
 

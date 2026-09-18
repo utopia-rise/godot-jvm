@@ -168,7 +168,7 @@ public object JavaScriptBridge : Object() {
   @JvmStatic
   public final fun jsBufferToPackedByteArray(javascriptBuffer: JavaScriptObject?): PackedByteArray {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, javascriptBuffer)
-    TransferContext.callMethod(MethodBindings.jsBufferToPackedByteArrayPtr)
+    TransferContext.callPtrMethod(MethodBindings.jsBufferToPackedByteArrayPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 

@@ -133,7 +133,7 @@ public open class StatusIndicator : Node() {
 
   public final fun getMenu(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMenuPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMenuPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

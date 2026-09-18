@@ -116,7 +116,7 @@ public open class OpenXRActionSet : Resource() {
 
   public final fun getActions(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

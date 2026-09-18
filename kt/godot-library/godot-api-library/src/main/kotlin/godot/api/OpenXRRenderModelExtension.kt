@@ -102,7 +102,7 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    */
   public final fun renderModelGetAll(): VariantArray<RID> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.renderModelGetAllPtr)
+    TransferContext.callPtrMethod(MethodBindings.renderModelGetAllPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
@@ -125,7 +125,7 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    */
   public final fun renderModelGetSubactionPaths(renderModel: RID): PackedStringArray {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callMethod(MethodBindings.renderModelGetSubactionPathsPtr)
+    TransferContext.callPtrMethod(MethodBindings.renderModelGetSubactionPathsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

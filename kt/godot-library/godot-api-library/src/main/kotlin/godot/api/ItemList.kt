@@ -719,7 +719,7 @@ public open class ItemList : Control() {
    */
   public final fun getSelectedItems(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSelectedItemsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectedItemsPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

@@ -198,7 +198,7 @@ public open class Theme : Resource() {
    */
   public final fun getIconTypeList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIconTypeListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIconTypeListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -279,7 +279,7 @@ public open class Theme : Resource() {
    */
   public final fun getStyleboxTypeList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStyleboxTypeListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStyleboxTypeListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -364,7 +364,7 @@ public open class Theme : Resource() {
    */
   public final fun getFontTypeList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFontTypeListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFontTypeListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -449,7 +449,7 @@ public open class Theme : Resource() {
    */
   public final fun getFontSizeTypeList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFontSizeTypeListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFontSizeTypeListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -530,7 +530,7 @@ public open class Theme : Resource() {
    */
   public final fun getColorTypeList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorTypeListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorTypeListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -610,7 +610,7 @@ public open class Theme : Resource() {
    */
   public final fun getConstantTypeList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantTypeListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConstantTypeListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -795,7 +795,7 @@ public open class Theme : Resource() {
    */
   public final fun getThemeItemTypeList(dataType: DataType): PackedStringArray {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, dataType.value)
-    TransferContext.callMethod(MethodBindings.getThemeItemTypeListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getThemeItemTypeListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -840,7 +840,7 @@ public open class Theme : Resource() {
    */
   public final fun getTypeVariationBase(themeType: StringName): StringName {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, themeType)
-    TransferContext.callMethod(MethodBindings.getTypeVariationBasePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTypeVariationBasePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -849,7 +849,7 @@ public open class Theme : Resource() {
    */
   public final fun getTypeVariationList(baseType: StringName): PackedStringArray {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, baseType)
-    TransferContext.callMethod(MethodBindings.getTypeVariationListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTypeVariationListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -893,7 +893,7 @@ public open class Theme : Resource() {
    */
   public final fun getTypeList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTypeListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTypeListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

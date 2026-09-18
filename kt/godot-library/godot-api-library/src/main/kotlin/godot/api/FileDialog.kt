@@ -462,7 +462,7 @@ public open class FileDialog : ConfirmationDialog() {
 
   public final fun getFilters(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFiltersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFiltersPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -499,7 +499,7 @@ public open class FileDialog : ConfirmationDialog() {
    */
   public final fun getOptionValues(option: Int): PackedStringArray {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, option.toLong())
-    TransferContext.callMethod(MethodBindings.getOptionValuesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOptionValuesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -569,7 +569,7 @@ public open class FileDialog : ConfirmationDialog() {
    */
   public final fun getSelectedOptions(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSelectedOptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSelectedOptionsPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -1118,7 +1118,7 @@ public open class FileDialog : ConfirmationDialog() {
     @JvmStatic
     public final fun getFavoriteList(): PackedStringArray {
       TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callMethod(MethodBindings.getFavoriteListPtr)
+      TransferContext.callPtrMethod(MethodBindings.getFavoriteListPtr, 34)
       return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
     }
 
@@ -1144,7 +1144,7 @@ public open class FileDialog : ConfirmationDialog() {
     @JvmStatic
     public final fun getRecentList(): PackedStringArray {
       TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callMethod(MethodBindings.getRecentListPtr)
+      TransferContext.callPtrMethod(MethodBindings.getRecentListPtr, 34)
       return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
     }
 

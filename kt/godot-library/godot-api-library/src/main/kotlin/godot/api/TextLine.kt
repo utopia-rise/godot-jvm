@@ -369,7 +369,7 @@ public open class TextLine : RefCounted() {
    */
   public final fun getObjects(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getObjectsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getObjectsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

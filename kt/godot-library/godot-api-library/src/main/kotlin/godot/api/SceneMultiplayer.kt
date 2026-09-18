@@ -211,7 +211,7 @@ public open class SceneMultiplayer : MultiplayerAPI() {
 
   public final fun getRootPath(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRootPathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -238,7 +238,7 @@ public open class SceneMultiplayer : MultiplayerAPI() {
    */
   public final fun getAuthenticatingPeers(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAuthenticatingPeersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAuthenticatingPeersPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

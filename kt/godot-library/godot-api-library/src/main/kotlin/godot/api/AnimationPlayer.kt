@@ -254,7 +254,7 @@ public open class AnimationPlayer : AnimationMixer() {
    */
   public final fun animationGetNext(animationFrom: StringName): StringName {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, animationFrom)
-    TransferContext.callMethod(MethodBindings.animationGetNextPtr)
+    TransferContext.callPtrMethod(MethodBindings.animationGetNextPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -549,7 +549,7 @@ public open class AnimationPlayer : AnimationMixer() {
 
   public final fun getCurrentAnimation(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurrentAnimationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurrentAnimationPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -560,7 +560,7 @@ public open class AnimationPlayer : AnimationMixer() {
 
   public final fun getAssignedAnimation(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAssignedAnimationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAssignedAnimationPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -581,7 +581,7 @@ public open class AnimationPlayer : AnimationMixer() {
    */
   public final fun getQueue(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getQueuePtr)
+    TransferContext.callPtrMethod(MethodBindings.getQueuePtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
@@ -624,7 +624,7 @@ public open class AnimationPlayer : AnimationMixer() {
 
   public final fun getAutoplay(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutoplayPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAutoplayPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -778,7 +778,7 @@ public open class AnimationPlayer : AnimationMixer() {
    */
   public final fun getRoot(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRootPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

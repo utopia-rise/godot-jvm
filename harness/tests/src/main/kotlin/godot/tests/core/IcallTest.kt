@@ -3,23 +3,50 @@ package godot.tests.core
 import godot.annotation.Emit
 import godot.annotation.Register
 import godot.annotation.Script
+import godot.api.AStar2D
+import godot.api.AudioStreamWAV
 import godot.api.Button
 import godot.api.Control
+import godot.api.GLTFAccessor
+import godot.api.Geometry2D
+import godot.api.Geometry3D
+import godot.api.Gradient
 import godot.api.Image
 import godot.api.ImageTexture
 import godot.api.Label
 import godot.api.Node
 import godot.api.Node3D
 import godot.api.Panel
+import godot.api.RefCounted
 import godot.api.Sprite2D
+import godot.api.SystemFont
 import godot.core.Color
+import godot.core.Dictionary
+import godot.core.NodePath
+import godot.core.PackedByteArray
+import godot.core.PackedColorArray
+import godot.core.PackedFloat32Array
+import godot.core.PackedFloat64Array
+import godot.core.PackedInt32Array
+import godot.core.PackedInt64Array
+import godot.core.PackedStringArray
+import godot.core.PackedVector2Array
+import godot.core.PackedVector3Array
+import godot.core.Plane
 import godot.core.Side
 import godot.core.StringName
 import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.Vector2
 import godot.core.Vector3
+import godot.core.dictionaryOf
 import godot.core.signal2
+import godot.core.toPackedByteArray
+import godot.core.toPackedColorArray
+import godot.core.toPackedFloat32Array
+import godot.core.toPackedFloat64Array
+import godot.core.toPackedVector2Array
+import godot.core.toPackedVector3Array
 import godot.core.variantArrayOf
 import godot.extension.connectLambda
 
@@ -31,6 +58,10 @@ import godot.extension.connectLambda
  *
  * Methods with defaulted trailing parameters are called both with and without those arguments, since
  * the binding always writes the full argument list and a mismatch there is invisible at the call site.
+ *
+ * The pointer-backed core types (StringName, NodePath, Array, Dictionary, packed arrays) cross the ptrcall as the
+ * JVM's native pointer on the way in and as a fresh native allocation on the way out; each is covered as an argument
+ * and as a return. No engine method returns a PackedVector4Array, so that type is only covered as a script return.
  */
 @Script
 class IcallTest : Node() {
@@ -314,5 +345,141 @@ class IcallTest : Node() {
         variadicSignal.connectLambda { count, label -> received = "$label:$count" }
         emitSignal("variadic_signal", 7L, "seven")
         return received
+    }
+
+    // --- ptrcall path, pointer-backed core types as arguments and returns. ---
+
+    @Register
+    fun ptrcallStringNameArgumentAndReturn(): Boolean {
+        val node = Node()
+        node.setName(StringName("PointerBackedName"))
+        val name = node.getName().toString()
+        node.free()
+        return name == "PointerBackedName"
+    }
+
+    @Register
+    fun ptrcallNodePathReturn(): NodePath {
+        val parent = Node()
+        val child = Node()
+        child.setName(StringName("Child"))
+        parent.addChild(child)
+        val path = parent.getPathTo(child)
+        parent.free()
+        return path
+    }
+
+    @Register
+    fun ptrcallNodePathArgument(): Boolean {
+        val parent = Node()
+        val child = Node()
+        child.setName(StringName("Child"))
+        parent.addChild(child)
+        val found = parent.getNodeOrNull(NodePath("Child")) === child
+        parent.free()
+        return found
+    }
+
+    @Register
+    fun ptrcallArrayReturn(): Boolean {
+        val parent = Node()
+        val first = Node()
+        val second = Node()
+        parent.addChild(first)
+        parent.addChild(second)
+        val children = parent.getChildren()
+        val inOrder = children.size == 2 && children[0] === first && children[1] === second
+        parent.free()
+        return inOrder
+    }
+
+    @Register
+    fun ptrcallDictionaryArgumentAndReturn(): Dictionary<Any?, Any?> {
+        val stream = AudioStreamWAV()
+        stream.setTags(dictionaryOf<Any?, Any?>("title" to "icall", "track" to 7L))
+        return stream.getTags()
+    }
+
+    @Register
+    fun ptrcallPackedByteArrayArgumentAndReturn(): PackedByteArray {
+        val stream = AudioStreamWAV()
+        stream.setData(byteArrayOf(1, 2, 3, 4).toPackedByteArray())
+        return stream.getData()
+    }
+
+    @Register
+    fun ptrcallPackedInt32ArrayReturnFromPackedVector2ArrayArgument(): PackedInt32Array {
+        val square = arrayOf(Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1)).toPackedVector2Array()
+        return Geometry2D.triangulatePolygon(square)
+    }
+
+    @Register
+    fun ptrcallPackedInt64ArrayReturn(): PackedInt64Array {
+        val astar = AStar2D()
+        astar.addPoint(3, Vector2(0, 0))
+        astar.addPoint(5, Vector2(1, 1))
+        return astar.getPointIds()
+    }
+
+    @Register
+    fun ptrcallPackedFloat32ArrayArgumentAndReturn(): PackedFloat32Array {
+        val gradient = Gradient()
+        gradient.setOffsets(floatArrayOf(0.0f, 0.25f, 1.0f).toPackedFloat32Array())
+        return gradient.getOffsets()
+    }
+
+    @Register
+    fun ptrcallPackedFloat64ArrayArgumentAndReturn(): PackedFloat64Array {
+        val accessor = GLTFAccessor()
+        accessor.setMin(doubleArrayOf(-1.5, 0.0, 2.5).toPackedFloat64Array())
+        return accessor.getMin()
+    }
+
+    @Register
+    fun ptrcallPackedStringArrayArgumentAndReturn(): PackedStringArray {
+        val font = SystemFont()
+        font.setFontNames(PackedStringArray(variantArrayOf("Sans", "Serif")))
+        return font.getFontNames()
+    }
+
+    @Register
+    fun ptrcallPackedVector2ArrayArgumentAndReturn(): PackedVector2Array {
+        val points = arrayOf(Vector2(0, 0), Vector2(2, 0), Vector2(1, 1), Vector2(2, 2), Vector2(0, 2))
+        return Geometry2D.convexHull(points.toPackedVector2Array())
+    }
+
+    @Register
+    fun ptrcallPackedVector3ArrayArgumentAndReturn(): PackedVector3Array {
+        val quad = arrayOf(Vector3(-1, 0, -1), Vector3(1, 0, -1), Vector3(1, 0, 1), Vector3(-1, 0, 1))
+        return Geometry3D.clipPolygon(quad.toPackedVector3Array(), Plane(Vector3(1, 0, 0), 0))
+    }
+
+    @Register
+    fun ptrcallPackedColorArrayArgumentAndReturn(): PackedColorArray {
+        val gradient = Gradient()
+        gradient.setColors(arrayOf(Color(1, 0, 0, 1), Color(0, 1, 0, 1), Color(0, 0, 1, 1)).toPackedColorArray())
+        return gradient.getColors()
+    }
+
+    // Every pointer-backed return is a native allocation the JVM frees once the wrapper is collected. Leaked
+    // StringNames show up in the engine's exit report as an orphan "BulkName" with a large count, and a leaked
+    // Dictionary keeps the RefCounted it holds alive, which the same report lists as a leaked instance.
+    @Register
+    fun ptrcallStringNameReturnsInBulk(): Int {
+        val node = Node()
+        node.setName(StringName("BulkName"))
+        var matches = 0
+        repeat(10_000) { if (node.getName().toString() == "BulkName") matches++ }
+        node.free()
+        return matches
+    }
+
+    @Register
+    fun ptrcallDictionaryReturnsInBulk(): Int {
+        val stream = AudioStreamWAV()
+        stream.setTags(dictionaryOf<Any?, Any?>("held" to RefCounted()))
+        var matches = 0
+        repeat(10_000) { if (stream.getTags().size == 1) matches++ }
+        return matches
     }
 }

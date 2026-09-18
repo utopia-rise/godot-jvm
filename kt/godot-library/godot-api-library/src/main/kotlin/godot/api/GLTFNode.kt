@@ -509,7 +509,7 @@ public open class GLTFNode : Resource() {
 
   public final fun getChildren(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getChildrenPtr)
+    TransferContext.callPtrMethod(MethodBindings.getChildrenPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -587,7 +587,7 @@ public open class GLTFNode : Resource() {
   public final fun getSceneNodePath(gltfState: GLTFState?, handleSkeletons: Boolean = true):
       NodePath {
     TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, gltfState, handleSkeletons)
-    TransferContext.callMethod(MethodBindings.getSceneNodePathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSceneNodePathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

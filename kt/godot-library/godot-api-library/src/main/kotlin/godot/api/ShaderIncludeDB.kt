@@ -55,7 +55,7 @@ public open class ShaderIncludeDB : Object() {
     @JvmStatic
     public final fun listBuiltInIncludeFiles(): PackedStringArray {
       TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callMethod(MethodBindings.listBuiltInIncludeFilesPtr)
+      TransferContext.callPtrMethod(MethodBindings.listBuiltInIncludeFilesPtr, 34)
       return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
     }
 

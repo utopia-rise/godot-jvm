@@ -502,7 +502,7 @@ public open class TileMapLayer : Node2D() {
    */
   public final fun getUsedCells(): VariantArray<Vector2i> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUsedCellsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUsedCellsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
   }
 
@@ -525,7 +525,7 @@ public open class TileMapLayer : Node2D() {
     alternativeTile: Int = -1,
   ): VariantArray<Vector2i> {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, sourceId.toLong(), atlasCoords, alternativeTile.toLong())
-    TransferContext.callMethod(MethodBindings.getUsedCellsByIdPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUsedCellsByIdPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
   }
 
@@ -680,7 +680,7 @@ public open class TileMapLayer : Node2D() {
    */
   public final fun getSurroundingCells(coords: Vector2i): VariantArray<Vector2i> {
     TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
-    TransferContext.callMethod(MethodBindings.getSurroundingCellsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSurroundingCellsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
   }
 
@@ -725,7 +725,7 @@ public open class TileMapLayer : Node2D() {
 
   public final fun getTileMapDataAsArray(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTileMapDataAsArrayPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTileMapDataAsArrayPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 

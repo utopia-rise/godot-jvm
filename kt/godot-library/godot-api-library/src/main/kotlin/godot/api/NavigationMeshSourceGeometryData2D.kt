@@ -97,7 +97,7 @@ public open class NavigationMeshSourceGeometryData2D : Resource() {
    */
   public final fun getTraversableOutlines(): VariantArray<PackedVector2Array> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTraversableOutlinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTraversableOutlinesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<PackedVector2Array>)
   }
 
@@ -115,7 +115,7 @@ public open class NavigationMeshSourceGeometryData2D : Resource() {
    */
   public final fun getObstructionOutlines(): VariantArray<PackedVector2Array> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getObstructionOutlinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getObstructionOutlinesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<PackedVector2Array>)
   }
 
@@ -208,7 +208,7 @@ public open class NavigationMeshSourceGeometryData2D : Resource() {
    */
   public final fun getProjectedObstructions(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProjectedObstructionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getProjectedObstructionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

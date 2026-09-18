@@ -467,7 +467,7 @@ public open class ShapeCast2D : Node2D() {
 
   public final fun getCollisionResult(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionResultPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionResultPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

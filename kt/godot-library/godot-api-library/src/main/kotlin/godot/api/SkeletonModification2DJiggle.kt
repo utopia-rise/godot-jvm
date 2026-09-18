@@ -180,7 +180,7 @@ public open class SkeletonModification2DJiggle : SkeletonModification2D() {
 
   public final fun getTargetNode(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTargetNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -308,7 +308,7 @@ public open class SkeletonModification2DJiggle : SkeletonModification2D() {
    */
   public final fun getJiggleJointBone2dNode(jointIdx: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, jointIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getJiggleJointBone2dNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getJiggleJointBone2dNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

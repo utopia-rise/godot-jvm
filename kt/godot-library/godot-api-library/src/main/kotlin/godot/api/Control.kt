@@ -2434,7 +2434,7 @@ public open class Control : CanvasItem() {
 
   public final fun getThemeTypeVariation(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getThemeTypeVariationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getThemeTypeVariationPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -2996,7 +2996,7 @@ public open class Control : CanvasItem() {
 
   public final fun getTranslationContext(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTranslationContextPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTranslationContextPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -3044,7 +3044,7 @@ public open class Control : CanvasItem() {
    */
   public final fun getFocusNeighbor(side: Side): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, side.value)
-    TransferContext.callMethod(MethodBindings.getFocusNeighborPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFocusNeighborPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -3055,7 +3055,7 @@ public open class Control : CanvasItem() {
 
   public final fun getFocusNext(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFocusNextPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFocusNextPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -3066,7 +3066,7 @@ public open class Control : CanvasItem() {
 
   public final fun getFocusPrevious(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFocusPreviousPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFocusPreviousPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -3138,7 +3138,7 @@ public open class Control : CanvasItem() {
 
   public final fun getAccessibilityControlsNodes(): VariantArray<NodePath> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAccessibilityControlsNodesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAccessibilityControlsNodesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<NodePath>)
   }
 
@@ -3149,7 +3149,7 @@ public open class Control : CanvasItem() {
 
   public final fun getAccessibilityDescribedByNodes(): VariantArray<NodePath> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAccessibilityDescribedByNodesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAccessibilityDescribedByNodesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<NodePath>)
   }
 
@@ -3160,7 +3160,7 @@ public open class Control : CanvasItem() {
 
   public final fun getAccessibilityLabeledByNodes(): VariantArray<NodePath> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAccessibilityLabeledByNodesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAccessibilityLabeledByNodesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<NodePath>)
   }
 
@@ -3171,7 +3171,7 @@ public open class Control : CanvasItem() {
 
   public final fun getAccessibilityFlowToNodes(): VariantArray<NodePath> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAccessibilityFlowToNodesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAccessibilityFlowToNodesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<NodePath>)
   }
 

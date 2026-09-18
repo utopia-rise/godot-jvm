@@ -234,7 +234,7 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    */
   public final fun getPeers(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPeersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPeersPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -358,7 +358,7 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
     @JvmStatic
     public final fun getDefaultInterface(): StringName {
       TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callMethod(MethodBindings.getDefaultInterfacePtr)
+      TransferContext.callPtrMethod(MethodBindings.getDefaultInterfacePtr, 21)
       return TransferContext.readReturnValue_STRING_NAME()
     }
 

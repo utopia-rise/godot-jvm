@@ -138,7 +138,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
    */
   public final fun mixAudio(rateScale: Float, frames: Int): PackedVector2Array {
     TransferContext.writeMethodArguments_DOUBLE_LONG(ptr, objectID.id, rateScale.toDouble(), frames.toLong())
-    TransferContext.callMethod(MethodBindings.mixAudioPtr)
+    TransferContext.callPtrMethod(MethodBindings.mixAudioPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 

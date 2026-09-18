@@ -351,7 +351,7 @@ public open class TileSetAtlasSource : TileSetSource() {
     textureRegionSize: Vector2i,
   ): PackedVector2Array {
     TransferContext.writeMethodArguments_OBJECT_VECTOR2I_VECTOR2I_VECTOR2I(ptr, objectID.id, texture, margins, separation, textureRegionSize)
-    TransferContext.callMethod(MethodBindings.getTilesToBeRemovedOnChangePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTilesToBeRemovedOnChangePtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 

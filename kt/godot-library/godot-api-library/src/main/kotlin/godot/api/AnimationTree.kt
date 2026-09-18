@@ -101,7 +101,7 @@ public open class AnimationTree : AnimationMixer() {
 
   public final fun getAdvanceExpressionBaseNode(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAdvanceExpressionBaseNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAdvanceExpressionBaseNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -112,7 +112,7 @@ public open class AnimationTree : AnimationMixer() {
 
   public final fun getAnimationPlayer(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationPlayerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnimationPlayerPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

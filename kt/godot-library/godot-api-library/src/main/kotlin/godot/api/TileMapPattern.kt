@@ -106,7 +106,7 @@ public open class TileMapPattern : Resource() {
    */
   public final fun getUsedCells(): VariantArray<Vector2i> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUsedCellsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUsedCellsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
   }
 

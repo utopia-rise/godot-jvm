@@ -207,7 +207,7 @@ public open class AudioEffectCompressor : AudioEffect() {
 
   public final fun getSidechain(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSidechainPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSidechainPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

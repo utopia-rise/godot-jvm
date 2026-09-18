@@ -64,7 +64,7 @@ public open class TriangleMesh : RefCounted() {
    */
   public final fun getFaces(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFacesPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -85,7 +85,7 @@ public open class TriangleMesh : RefCounted() {
    */
   public final fun intersectSegment(begin: Vector3, end: Vector3): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_VECTOR3_VECTOR3(ptr, objectID.id, begin, end)
-    TransferContext.callMethod(MethodBindings.intersectSegmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.intersectSegmentPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -107,7 +107,7 @@ public open class TriangleMesh : RefCounted() {
    */
   public final fun intersectRay(begin: Vector3, dir: Vector3): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_VECTOR3_VECTOR3(ptr, objectID.id, begin, dir)
-    TransferContext.callMethod(MethodBindings.intersectRayPtr)
+    TransferContext.callPtrMethod(MethodBindings.intersectRayPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

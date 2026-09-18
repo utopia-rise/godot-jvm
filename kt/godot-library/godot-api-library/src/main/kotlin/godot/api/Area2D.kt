@@ -538,7 +538,7 @@ public open class Area2D : CollisionObject2D() {
    */
   public final fun getOverlappingBodies(): VariantArray<Node2D> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOverlappingBodiesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOverlappingBodiesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Node2D>)
   }
 
@@ -553,7 +553,7 @@ public open class Area2D : CollisionObject2D() {
    */
   public final fun getOverlappingAreas(): VariantArray<Area2D> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOverlappingAreasPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOverlappingAreasPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Area2D>)
   }
 
@@ -624,7 +624,7 @@ public open class Area2D : CollisionObject2D() {
 
   public final fun getAudioBusName(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAudioBusNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAudioBusNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

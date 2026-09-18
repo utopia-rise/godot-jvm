@@ -247,7 +247,7 @@ public open class AudioStreamMP3 : AudioStream() {
 
   public final fun getData(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDataPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 

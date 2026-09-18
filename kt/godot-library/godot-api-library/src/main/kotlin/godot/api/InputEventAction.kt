@@ -103,7 +103,7 @@ public open class InputEventAction : InputEvent() {
 
   public final fun getAction(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

@@ -112,7 +112,7 @@ public open class OpenXRInteractionProfile : Resource() {
 
   public final fun getBindings(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBindingsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBindingsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -141,7 +141,7 @@ public open class OpenXRInteractionProfile : Resource() {
 
   public final fun getBindingModifiers(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBindingModifiersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBindingModifiersPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

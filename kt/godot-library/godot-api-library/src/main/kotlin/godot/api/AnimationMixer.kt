@@ -337,7 +337,7 @@ public open class AnimationMixer internal constructor() : Node() {
    */
   public final fun getAnimationLibraryList(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationLibraryListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnimationLibraryListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
@@ -365,7 +365,7 @@ public open class AnimationMixer internal constructor() : Node() {
    */
   public final fun getAnimationList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnimationListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -398,7 +398,7 @@ public open class AnimationMixer internal constructor() : Node() {
 
   public final fun getRootNode(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getRootNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -453,7 +453,7 @@ public open class AnimationMixer internal constructor() : Node() {
 
   public final fun getRootMotionTrack(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootMotionTrackPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRootMotionTrackPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -744,7 +744,7 @@ public open class AnimationMixer internal constructor() : Node() {
    */
   public final fun findAnimation(animation: Animation?): StringName {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, animation)
-    TransferContext.callMethod(MethodBindings.findAnimationPtr)
+    TransferContext.callPtrMethod(MethodBindings.findAnimationPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -754,7 +754,7 @@ public open class AnimationMixer internal constructor() : Node() {
    */
   public final fun findAnimationLibrary(animation: Animation?): StringName {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, animation)
-    TransferContext.callMethod(MethodBindings.findAnimationLibraryPtr)
+    TransferContext.callPtrMethod(MethodBindings.findAnimationLibraryPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

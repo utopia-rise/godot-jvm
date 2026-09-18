@@ -271,7 +271,7 @@ public open class Curve2D : Resource() {
    */
   public final fun getBakedPoints(): PackedVector2Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakedPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBakedPointsPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -315,7 +315,7 @@ public open class Curve2D : Resource() {
   public final fun tessellate(maxStages: Int = 5, toleranceDegrees: Float = 4.0f):
       PackedVector2Array {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, maxStages.toLong(), toleranceDegrees.toDouble())
-    TransferContext.callMethod(MethodBindings.tessellatePtr)
+    TransferContext.callPtrMethod(MethodBindings.tessellatePtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -332,7 +332,7 @@ public open class Curve2D : Resource() {
   public final fun tessellateEvenLength(maxStages: Int = 5, toleranceLength: Float = 20.0f):
       PackedVector2Array {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, maxStages.toLong(), toleranceLength.toDouble())
-    TransferContext.callMethod(MethodBindings.tessellateEvenLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.tessellateEvenLengthPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 

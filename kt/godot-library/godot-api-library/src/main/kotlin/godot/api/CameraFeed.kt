@@ -276,7 +276,7 @@ public open class CameraFeed : RefCounted() {
 
   public final fun getFormats(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFormatsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFormatsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

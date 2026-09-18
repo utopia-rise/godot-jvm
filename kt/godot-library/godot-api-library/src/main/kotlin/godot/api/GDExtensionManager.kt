@@ -142,7 +142,7 @@ public object GDExtensionManager : Object() {
   @JvmStatic
   public final fun getLoadedExtensions(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoadedExtensionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLoadedExtensionsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

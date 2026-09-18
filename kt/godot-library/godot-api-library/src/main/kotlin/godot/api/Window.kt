@@ -1611,7 +1611,7 @@ public open class Window : Viewport() {
 
   public final fun getMousePassthroughPolygon(): PackedVector2Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMousePassthroughPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMousePassthroughPolygonPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -1652,7 +1652,7 @@ public open class Window : Viewport() {
 
   public final fun getThemeTypeVariation(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getThemeTypeVariationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getThemeTypeVariationPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

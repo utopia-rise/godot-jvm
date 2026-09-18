@@ -240,7 +240,7 @@ public open class PhysicsRayQueryParameters3D : RefCounted() {
 
   public final fun getExclude(): VariantArray<RID> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExcludePtr)
+    TransferContext.callPtrMethod(MethodBindings.getExcludePtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 

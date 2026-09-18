@@ -176,7 +176,7 @@ public open class BoneAttachment3D : Node3D() {
 
   public final fun getExternalSkeleton(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExternalSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExternalSkeletonPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

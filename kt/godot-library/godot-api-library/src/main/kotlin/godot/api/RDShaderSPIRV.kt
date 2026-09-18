@@ -744,7 +744,7 @@ public open class RDShaderSPIRV : Resource() {
    */
   public final fun getStageBytecode(stage: RenderingDevice.ShaderStage): PackedByteArray {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stage.value)
-    TransferContext.callMethod(MethodBindings.getStageBytecodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getStageBytecodePtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 

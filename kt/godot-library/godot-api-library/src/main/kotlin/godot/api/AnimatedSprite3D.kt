@@ -174,7 +174,7 @@ public open class AnimatedSprite3D : SpriteBase3D() {
 
   public final fun getAnimation(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnimationPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

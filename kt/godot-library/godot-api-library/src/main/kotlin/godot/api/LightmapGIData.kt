@@ -96,7 +96,7 @@ public open class LightmapGIData : Resource() {
 
   public final fun getLightmapTextures(): VariantArray<TextureLayered> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLightmapTexturesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLightmapTexturesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<TextureLayered>)
   }
 
@@ -107,7 +107,7 @@ public open class LightmapGIData : Resource() {
 
   public final fun getShadowmaskTextures(): VariantArray<TextureLayered> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShadowmaskTexturesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShadowmaskTexturesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<TextureLayered>)
   }
 
@@ -162,7 +162,7 @@ public open class LightmapGIData : Resource() {
    */
   public final fun getUserPath(userIdx: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, userIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getUserPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUserPathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

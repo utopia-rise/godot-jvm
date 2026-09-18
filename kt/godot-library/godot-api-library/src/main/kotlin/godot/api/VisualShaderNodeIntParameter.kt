@@ -222,7 +222,7 @@ public open class VisualShaderNodeIntParameter : VisualShaderNodeParameter() {
 
   public final fun getEnumNames(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnumNamesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnumNamesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

@@ -211,7 +211,7 @@ public open class AnimationNodeStateMachineTransition : Resource() {
 
   public final fun getAdvanceCondition(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAdvanceConditionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAdvanceConditionPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

@@ -142,7 +142,7 @@ public open class Image : Resource() {
    */
   public final fun getData(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDataPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -328,7 +328,7 @@ public open class Image : Resource() {
    */
   public final fun savePngToBuffer(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.savePngToBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.savePngToBufferPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -360,7 +360,7 @@ public open class Image : Resource() {
   @JvmOverloads
   public final fun saveJpgToBuffer(quality: Float = 0.75f): PackedByteArray {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, quality.toDouble())
-    TransferContext.callMethod(MethodBindings.saveJpgToBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.saveJpgToBufferPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -407,7 +407,7 @@ public open class Image : Resource() {
     maxLinearValue: Float = -1.0f,
   ): PackedByteArray {
     TransferContext.writeMethodArguments_BOOL_BOOL_DOUBLE(ptr, objectID.id, grayscale, colorImage, maxLinearValue.toDouble())
-    TransferContext.callMethod(MethodBindings.saveExrToBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.saveExrToBufferPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -435,7 +435,7 @@ public open class Image : Resource() {
    */
   public final fun saveDdsToBuffer(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.saveDdsToBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.saveDdsToBufferPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -470,7 +470,7 @@ public open class Image : Resource() {
   public final fun saveWebpToBuffer(lossy: Boolean = false, quality: Float = 0.75f):
       PackedByteArray {
     TransferContext.writeMethodArguments_BOOL_DOUBLE(ptr, objectID.id, lossy, quality.toDouble())
-    TransferContext.callMethod(MethodBindings.saveWebpToBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.saveWebpToBufferPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -674,7 +674,7 @@ public open class Image : Resource() {
   public final fun computeImageMetrics(comparedImage: Image?, useLuma: Boolean):
       Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, comparedImage, useLuma)
-    TransferContext.callMethod(MethodBindings.computeImageMetricsPtr)
+    TransferContext.callPtrMethod(MethodBindings.computeImageMetricsPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

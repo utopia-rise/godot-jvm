@@ -358,7 +358,7 @@ public open class FileAccess internal constructor() : RefCounted() {
    */
   public final fun getBuffer(length: Long): PackedByteArray {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, length)
-    TransferContext.callMethod(MethodBindings.getBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBufferPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 

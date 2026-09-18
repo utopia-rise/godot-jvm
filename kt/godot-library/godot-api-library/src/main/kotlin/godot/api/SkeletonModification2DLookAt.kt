@@ -84,7 +84,7 @@ public open class SkeletonModification2DLookAt : SkeletonModification2D() {
 
   public final fun getBone2dNode(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBone2dNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBone2dNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -106,7 +106,7 @@ public open class SkeletonModification2DLookAt : SkeletonModification2D() {
 
   public final fun getTargetNode(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTargetNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

@@ -835,7 +835,7 @@ public open class TextEdit : Control() {
 
   public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStructuredTextBidiOverrideOptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStructuredTextBidiOverrideOptionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -1643,7 +1643,7 @@ public open class TextEdit : Control() {
   @JvmOverloads
   public final fun getSortedCarets(includeIgnoredCarets: Boolean = false): PackedInt32Array {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, includeIgnoredCarets)
-    TransferContext.callMethod(MethodBindings.getSortedCaretsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSortedCaretsPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -2083,7 +2083,7 @@ public open class TextEdit : Control() {
   public final fun getLineRangesFromCarets(onlySelections: Boolean = false, mergeAdjacent: Boolean =
       true): VariantArray<Vector2i> {
     TransferContext.writeMethodArguments_BOOL_BOOL(ptr, objectID.id, onlySelections, mergeAdjacent)
-    TransferContext.callMethod(MethodBindings.getLineRangesFromCaretsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineRangesFromCaretsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
   }
 
@@ -2263,7 +2263,7 @@ public open class TextEdit : Control() {
    */
   public final fun getLineWrappedText(line: Int): PackedStringArray {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.getLineWrappedTextPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineWrappedTextPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -2972,7 +2972,7 @@ public open class TextEdit : Control() {
    */
   public final fun getCaretIndexEditOrder(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCaretIndexEditOrderPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCaretIndexEditOrderPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

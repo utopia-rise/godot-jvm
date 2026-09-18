@@ -210,7 +210,7 @@ public open class Animation : Resource() {
    */
   public final fun trackGetPath(trackIdx: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callMethod(MethodBindings.trackGetPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.trackGetPathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -630,7 +630,7 @@ public open class Animation : Resource() {
    */
   public final fun methodTrackGetName(trackIdx: Int, keyIdx: Int): StringName {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callMethod(MethodBindings.methodTrackGetNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.methodTrackGetNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -639,7 +639,7 @@ public open class Animation : Resource() {
    */
   public final fun methodTrackGetParams(trackIdx: Int, keyIdx: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callMethod(MethodBindings.methodTrackGetParamsPtr)
+    TransferContext.callPtrMethod(MethodBindings.methodTrackGetParamsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -890,7 +890,7 @@ public open class Animation : Resource() {
    */
   public final fun animationTrackGetKeyAnimation(trackIdx: Int, keyIdx: Int): StringName {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callMethod(MethodBindings.animationTrackGetKeyAnimationPtr)
+    TransferContext.callPtrMethod(MethodBindings.animationTrackGetKeyAnimationPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -924,7 +924,7 @@ public open class Animation : Resource() {
    */
   public final fun getMarkerAtTime(time: Double): StringName {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
-    TransferContext.callMethod(MethodBindings.getMarkerAtTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarkerAtTimePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -934,7 +934,7 @@ public open class Animation : Resource() {
    */
   public final fun getNextMarker(time: Double): StringName {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
-    TransferContext.callMethod(MethodBindings.getNextMarkerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNextMarkerPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -944,7 +944,7 @@ public open class Animation : Resource() {
    */
   public final fun getPrevMarker(time: Double): StringName {
     TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
-    TransferContext.callMethod(MethodBindings.getPrevMarkerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPrevMarkerPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -962,7 +962,7 @@ public open class Animation : Resource() {
    */
   public final fun getMarkerNames(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMarkerNamesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMarkerNamesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

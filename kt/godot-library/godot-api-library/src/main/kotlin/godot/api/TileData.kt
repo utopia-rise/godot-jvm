@@ -523,7 +523,7 @@ public open class TileData : Object() {
    */
   public final fun getCollisionPolygonPoints(layerId: Int, polygonIndex: Int): PackedVector2Array {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, layerId.toLong(), polygonIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getCollisionPolygonPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionPolygonPointsPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 

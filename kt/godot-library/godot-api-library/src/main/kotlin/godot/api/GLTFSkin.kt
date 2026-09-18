@@ -310,7 +310,7 @@ public open class GLTFSkin : Resource() {
 
   public final fun getJointsOriginal(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJointsOriginalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJointsOriginalPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -321,7 +321,7 @@ public open class GLTFSkin : Resource() {
 
   public final fun getInverseBinds(): VariantArray<Transform3D> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInverseBindsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInverseBindsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Transform3D>)
   }
 
@@ -332,7 +332,7 @@ public open class GLTFSkin : Resource() {
 
   public final fun getJoints(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJointsPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -343,7 +343,7 @@ public open class GLTFSkin : Resource() {
 
   public final fun getNonJoints(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNonJointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNonJointsPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -354,7 +354,7 @@ public open class GLTFSkin : Resource() {
 
   public final fun getRoots(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRootsPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -376,7 +376,7 @@ public open class GLTFSkin : Resource() {
 
   public final fun getJointIToBoneI(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJointIToBoneIPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJointIToBoneIPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -387,7 +387,7 @@ public open class GLTFSkin : Resource() {
 
   public final fun getJointIToName(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJointIToNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getJointIToNamePtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

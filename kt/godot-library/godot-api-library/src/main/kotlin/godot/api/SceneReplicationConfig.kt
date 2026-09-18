@@ -44,7 +44,7 @@ public open class SceneReplicationConfig : Resource() {
    */
   public final fun getProperties(): VariantArray<NodePath> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPropertiesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPropertiesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<NodePath>)
   }
 

@@ -75,13 +75,13 @@ public open class PolygonPathFinder : Resource() {
 
   public final fun findPath(from: Vector2, to: Vector2): PackedVector2Array {
     TransferContext.writeMethodArguments_VECTOR2_VECTOR2(ptr, objectID.id, from, to)
-    TransferContext.callMethod(MethodBindings.findPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.findPathPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
   public final fun getIntersections(from: Vector2, to: Vector2): PackedVector2Array {
     TransferContext.writeMethodArguments_VECTOR2_VECTOR2(ptr, objectID.id, from, to)
-    TransferContext.callMethod(MethodBindings.getIntersectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIntersectionsPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 

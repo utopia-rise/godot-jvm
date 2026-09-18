@@ -419,7 +419,7 @@ public open class NavigationPathQueryParameters3D : RefCounted() {
 
   public final fun getIncludedRegions(): VariantArray<RID> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIncludedRegionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIncludedRegionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
@@ -430,7 +430,7 @@ public open class NavigationPathQueryParameters3D : RefCounted() {
 
   public final fun getExcludedRegions(): VariantArray<RID> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExcludedRegionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExcludedRegionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 

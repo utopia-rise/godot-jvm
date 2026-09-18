@@ -319,7 +319,7 @@ public open class Object : KtObject() {
    */
   public final fun getPropertyList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPropertyListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPropertyListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -344,7 +344,7 @@ public open class Object : KtObject() {
    */
   public final fun getMethodList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMethodListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMethodListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -532,7 +532,7 @@ public open class Object : KtObject() {
    */
   public final fun getMetaList(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMetaListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMetaListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
@@ -811,7 +811,7 @@ public open class Object : KtObject() {
    */
   public final fun getSignalList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSignalListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSignalListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -828,7 +828,7 @@ public open class Object : KtObject() {
   public final override fun getSignalConnectionList(signal: StringName):
       VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signal)
-    TransferContext.callMethod(MethodBindings.getSignalConnectionListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSignalConnectionListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -844,7 +844,7 @@ public open class Object : KtObject() {
    */
   public final fun getIncomingConnections(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIncomingConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIncomingConnectionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -1014,7 +1014,7 @@ public open class Object : KtObject() {
    */
   public final fun getTranslationDomain(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTranslationDomainPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTranslationDomainPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

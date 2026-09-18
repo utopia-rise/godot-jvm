@@ -501,7 +501,7 @@ public open class Label : Control() {
 
   public final fun getTabStops(): PackedFloat32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTabStopsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTabStopsPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
@@ -654,7 +654,7 @@ public open class Label : Control() {
 
   public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStructuredTextBidiOverrideOptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStructuredTextBidiOverrideOptionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

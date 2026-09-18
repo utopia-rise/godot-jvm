@@ -219,7 +219,7 @@ public open class CollisionPolygon2D : Node2D() {
 
   public final fun getPolygon(): PackedVector2Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPolygonPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 

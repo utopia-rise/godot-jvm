@@ -1637,7 +1637,7 @@ public open class CPUParticles3D : GeometryInstance3D() {
 
   public final fun getEmissionPoints(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEmissionPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEmissionPointsPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -1648,7 +1648,7 @@ public open class CPUParticles3D : GeometryInstance3D() {
 
   public final fun getEmissionNormals(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEmissionNormalsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEmissionNormalsPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -1659,7 +1659,7 @@ public open class CPUParticles3D : GeometryInstance3D() {
 
   public final fun getEmissionColors(): PackedColorArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEmissionColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEmissionColorsPtr, 37)
     return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 

@@ -475,7 +475,7 @@ public open class SceneTree : MainLoop() {
    */
   public final fun getProcessedTweens(): VariantArray<Tween> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessedTweensPtr)
+    TransferContext.callPtrMethod(MethodBindings.getProcessedTweensPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Tween>)
   }
 
@@ -656,7 +656,7 @@ public open class SceneTree : MainLoop() {
    */
   public final fun getNodesInGroup(group: StringName): VariantArray<Node> {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, group)
-    TransferContext.callMethod(MethodBindings.getNodesInGroupPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodesInGroupPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Node>)
   }
 

@@ -115,7 +115,7 @@ public open class ConvexPolygonShape3D : Shape3D() {
 
   public final fun getPoints(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointsPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 

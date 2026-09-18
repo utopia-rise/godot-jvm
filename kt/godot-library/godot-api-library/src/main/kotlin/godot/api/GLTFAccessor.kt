@@ -319,7 +319,7 @@ public open class GLTFAccessor : Resource() {
    */
   public final fun toDictionary(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.toDictionaryPtr)
+    TransferContext.callPtrMethod(MethodBindings.toDictionaryPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -402,7 +402,7 @@ public open class GLTFAccessor : Resource() {
 
   public final fun getMin(): PackedFloat64Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMinPtr, 33)
     return TransferContext.readReturnValue_PACKED_FLOAT_64_ARRAY()
   }
 
@@ -413,7 +413,7 @@ public open class GLTFAccessor : Resource() {
 
   public final fun getMax(): PackedFloat64Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMaxPtr, 33)
     return TransferContext.readReturnValue_PACKED_FLOAT_64_ARRAY()
   }
 

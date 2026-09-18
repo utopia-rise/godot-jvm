@@ -127,7 +127,7 @@ public open class Shader : Resource() {
   @JvmOverloads
   public final fun getShaderUniformList(getGroups: Boolean = false): VariantArray<Any?> {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, getGroups)
-    TransferContext.callMethod(MethodBindings.getShaderUniformListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShaderUniformListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

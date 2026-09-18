@@ -78,7 +78,7 @@ public open class RDShaderFile : Resource() {
    */
   public final fun getVersionList(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVersionListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVersionListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 

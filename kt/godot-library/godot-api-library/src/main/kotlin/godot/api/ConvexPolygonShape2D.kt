@@ -135,7 +135,7 @@ public open class ConvexPolygonShape2D : Shape2D() {
 
   public final fun getPoints(): PackedVector2Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointsPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 

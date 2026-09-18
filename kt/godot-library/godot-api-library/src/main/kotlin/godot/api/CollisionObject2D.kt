@@ -357,7 +357,7 @@ public open class CollisionObject2D internal constructor() : Node2D() {
    */
   public final fun getShapeOwners(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShapeOwnersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShapeOwnersPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

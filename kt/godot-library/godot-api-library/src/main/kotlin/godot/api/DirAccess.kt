@@ -208,7 +208,7 @@ public open class DirAccess internal constructor() : RefCounted() {
    */
   public final fun getFiles(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFilesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFilesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -223,7 +223,7 @@ public open class DirAccess internal constructor() : RefCounted() {
    */
   public final fun getDirectories(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDirectoriesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDirectoriesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

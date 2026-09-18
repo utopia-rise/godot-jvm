@@ -116,7 +116,7 @@ public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
    */
   public final fun getCollisionExceptions(): VariantArray<PhysicsBody2D> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionExceptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionExceptionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<PhysicsBody2D>)
   }
 

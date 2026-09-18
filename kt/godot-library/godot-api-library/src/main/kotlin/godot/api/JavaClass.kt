@@ -57,7 +57,7 @@ public open class JavaClass : RefCounted() {
    */
   public final fun getJavaMethodList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJavaMethodListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJavaMethodListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 

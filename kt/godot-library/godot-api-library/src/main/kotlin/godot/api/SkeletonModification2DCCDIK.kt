@@ -100,7 +100,7 @@ public open class SkeletonModification2DCCDIK : SkeletonModification2D() {
 
   public final fun getTargetNode(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTargetNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -111,7 +111,7 @@ public open class SkeletonModification2DCCDIK : SkeletonModification2D() {
 
   public final fun getTipNode(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTipNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTipNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -139,7 +139,7 @@ public open class SkeletonModification2DCCDIK : SkeletonModification2D() {
    */
   public final fun getCcdikJointBone2dNode(jointIdx: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, jointIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getCcdikJointBone2dNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCcdikJointBone2dNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

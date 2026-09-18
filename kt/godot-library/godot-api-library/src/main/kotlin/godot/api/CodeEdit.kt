@@ -434,7 +434,7 @@ public open class CodeEdit : TextEdit() {
 
   public final fun getAutoIndentPrefixes(): VariantArray<String> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutoIndentPrefixesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAutoIndentPrefixesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<String>)
   }
 
@@ -518,7 +518,7 @@ public open class CodeEdit : TextEdit() {
 
   public final fun getAutoBraceCompletionPairs(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutoBraceCompletionPairsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAutoBraceCompletionPairsPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -614,7 +614,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun getBreakpointedLines(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBreakpointedLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBreakpointedLinesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -650,7 +650,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun getBookmarkedLines(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBookmarkedLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBookmarkedLinesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -686,7 +686,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun getExecutingLines(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExecutingLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExecutingLinesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -818,7 +818,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun getFoldedLines(): VariantArray<Long> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFoldedLinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFoldedLinesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Long>)
   }
 
@@ -933,7 +933,7 @@ public open class CodeEdit : TextEdit() {
 
   public final fun getStringDelimiters(): VariantArray<String> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStringDelimitersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStringDelimitersPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<String>)
   }
 
@@ -997,7 +997,7 @@ public open class CodeEdit : TextEdit() {
 
   public final fun getCommentDelimiters(): VariantArray<String> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCommentDelimitersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCommentDelimitersPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<String>)
   }
 
@@ -1126,7 +1126,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun getCodeCompletionOptions(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCodeCompletionOptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCodeCompletionOptionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -1147,7 +1147,7 @@ public open class CodeEdit : TextEdit() {
    */
   public final fun getCodeCompletionOption(index: Int): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getCodeCompletionOptionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCodeCompletionOptionPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -1204,7 +1204,7 @@ public open class CodeEdit : TextEdit() {
 
   public final fun getCodeCompletionPrefixes(): VariantArray<String> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCodeCompletionPrefixesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCodeCompletionPrefixesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<String>)
   }
 
@@ -1215,7 +1215,7 @@ public open class CodeEdit : TextEdit() {
 
   public final fun getLineLengthGuidelines(): VariantArray<Long> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLineLengthGuidelinesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineLengthGuidelinesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Long>)
   }
 

@@ -223,7 +223,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun getPointConnections(id: Long): PackedInt64Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.getPointConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointConnectionsPtr, 31)
     return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 
@@ -232,7 +232,7 @@ public open class AStar2D : RefCounted() {
    */
   public final fun getPointIds(): PackedInt64Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPointIdsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointIdsPtr, 31)
     return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 
@@ -428,7 +428,7 @@ public open class AStar2D : RefCounted() {
     allowPartialPath: Boolean = false,
   ): PackedVector2Array {
     TransferContext.writeMethodArguments_LONG_LONG_BOOL(ptr, objectID.id, fromId, toId, allowPartialPath)
-    TransferContext.callMethod(MethodBindings.getPointPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointPathPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -485,7 +485,7 @@ public open class AStar2D : RefCounted() {
     allowPartialPath: Boolean = false,
   ): PackedInt64Array {
     TransferContext.writeMethodArguments_LONG_LONG_BOOL(ptr, objectID.id, fromId, toId, allowPartialPath)
-    TransferContext.callMethod(MethodBindings.getIdPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIdPathPtr, 31)
     return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 

@@ -84,7 +84,7 @@ public open class SyntaxHighlighter : Resource() {
    */
   public final fun getLineSyntaxHighlighting(line: Int): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.getLineSyntaxHighlightingPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineSyntaxHighlightingPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

@@ -236,7 +236,7 @@ public open class PhysicsTestMotionParameters2D : RefCounted() {
 
   public final fun getExcludeBodies(): VariantArray<RID> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExcludeBodiesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExcludeBodiesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
@@ -247,7 +247,7 @@ public open class PhysicsTestMotionParameters2D : RefCounted() {
 
   public final fun getExcludeObjects(): VariantArray<Long> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExcludeObjectsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExcludeObjectsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Long>)
   }
 

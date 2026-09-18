@@ -84,7 +84,7 @@ public open class AudioEffectCapture : AudioEffect() {
    */
   public final fun getBuffer(frames: Int): PackedVector2Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frames.toLong())
-    TransferContext.callMethod(MethodBindings.getBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBufferPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 

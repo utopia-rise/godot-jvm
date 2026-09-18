@@ -722,7 +722,7 @@ public open class GraphEdit : Control() {
 
   public final fun getConnectionList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectionListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -762,7 +762,7 @@ public open class GraphEdit : Control() {
   public final fun getClosestConnectionAtPoint(point: Vector2, maxDistance: Float = 4.0f):
       Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_VECTOR2_DOUBLE(ptr, objectID.id, point, maxDistance.toDouble())
-    TransferContext.callMethod(MethodBindings.getClosestConnectionAtPointPtr)
+    TransferContext.callPtrMethod(MethodBindings.getClosestConnectionAtPointPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -805,7 +805,7 @@ public open class GraphEdit : Control() {
   public final fun getConnectionListFromNode(node: StringName):
       VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, node)
-    TransferContext.callMethod(MethodBindings.getConnectionListFromNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionListFromNodePtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -828,7 +828,7 @@ public open class GraphEdit : Control() {
   public final fun getConnectionsIntersectingWithRect(rect: Rect2):
       VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, rect)
-    TransferContext.callMethod(MethodBindings.getConnectionsIntersectingWithRectPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionsIntersectingWithRectPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -945,7 +945,7 @@ public open class GraphEdit : Control() {
    */
   public final fun getConnectionLine(fromNode: Vector2, toNode: Vector2): PackedVector2Array {
     TransferContext.writeMethodArguments_VECTOR2_VECTOR2(ptr, objectID.id, fromNode, toNode)
-    TransferContext.callMethod(MethodBindings.getConnectionLinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionLinePtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -979,7 +979,7 @@ public open class GraphEdit : Control() {
    */
   public final fun getAttachedNodesOfFrame(frame: StringName): VariantArray<StringName> {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, frame)
-    TransferContext.callMethod(MethodBindings.getAttachedNodesOfFramePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAttachedNodesOfFramePtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
@@ -1232,7 +1232,7 @@ public open class GraphEdit : Control() {
 
   public final fun getTypeNames(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTypeNamesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTypeNamesPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

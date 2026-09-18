@@ -51,7 +51,7 @@ public open class ColorPalette : Resource() {
 
   public final fun getColors(): PackedColorArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorsPtr, 37)
     return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 

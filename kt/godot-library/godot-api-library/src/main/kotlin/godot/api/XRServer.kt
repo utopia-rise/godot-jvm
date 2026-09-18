@@ -430,7 +430,7 @@ public object XRServer : Object() {
   @JvmStatic
   public final fun getInterfaces(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInterfacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInterfacesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -469,7 +469,7 @@ public object XRServer : Object() {
   @JvmStatic
   public final fun getTrackers(trackerTypes: Int): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackerTypes.toLong())
-    TransferContext.callMethod(MethodBindings.getTrackersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTrackersPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

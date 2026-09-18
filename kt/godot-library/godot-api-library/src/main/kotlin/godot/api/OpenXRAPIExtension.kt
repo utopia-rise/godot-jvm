@@ -446,7 +446,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    */
   public final fun getSupportedSwapchainFormats(): PackedInt64Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSupportedSwapchainFormatsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSupportedSwapchainFormatsPtr, 31)
     return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 

@@ -49,7 +49,7 @@ public open class Compositor : Resource() {
 
   public final fun getCompositorEffects(): VariantArray<CompositorEffect> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCompositorEffectsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCompositorEffectsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<CompositorEffect>)
   }
 

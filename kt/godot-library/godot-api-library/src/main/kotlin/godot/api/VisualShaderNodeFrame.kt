@@ -245,7 +245,7 @@ public open class VisualShaderNodeFrame : VisualShaderNodeResizableBase() {
 
   public final fun getAttachedNodes(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAttachedNodesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAttachedNodesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

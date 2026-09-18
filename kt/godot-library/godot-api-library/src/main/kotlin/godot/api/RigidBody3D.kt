@@ -1105,7 +1105,7 @@ public open class RigidBody3D : PhysicsBody3D() {
    */
   public final fun getCollidingBodies(): VariantArray<Node3D> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollidingBodiesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollidingBodiesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Node3D>)
   }
 

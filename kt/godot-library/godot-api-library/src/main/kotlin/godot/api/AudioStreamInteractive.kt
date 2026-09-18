@@ -115,7 +115,7 @@ public open class AudioStreamInteractive : AudioStream() {
    */
   public final fun getClipName(clipIndex: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, clipIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getClipNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getClipNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -232,7 +232,7 @@ public open class AudioStreamInteractive : AudioStream() {
    */
   public final fun getTransitionList(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTransitionListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransitionListPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

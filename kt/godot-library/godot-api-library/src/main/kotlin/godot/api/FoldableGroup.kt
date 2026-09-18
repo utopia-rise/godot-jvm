@@ -66,7 +66,7 @@ public open class FoldableGroup : Resource() {
    */
   public final fun getContainers(): VariantArray<FoldableContainer> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getContainersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getContainersPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<FoldableContainer>)
   }
 

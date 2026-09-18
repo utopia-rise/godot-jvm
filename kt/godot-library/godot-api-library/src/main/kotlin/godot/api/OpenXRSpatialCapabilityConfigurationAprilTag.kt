@@ -56,7 +56,7 @@ public open class OpenXRSpatialCapabilityConfigurationAprilTag :
    */
   public final fun getEnabledComponents(): PackedInt64Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnabledComponentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnabledComponentsPtr, 31)
     return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 

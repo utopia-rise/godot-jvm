@@ -96,7 +96,7 @@ public open class XRNode3D : Node3D() {
 
   public final fun getTracker(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTrackerPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -107,7 +107,7 @@ public open class XRNode3D : Node3D() {
 
   public final fun getPoseName(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPoseNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPoseNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

@@ -62,7 +62,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
   public final fun intersectPoint(parameters: PhysicsPointQueryParameters3D, maxResults: Int = 32):
       VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, parameters, maxResults.toLong())
-    TransferContext.callMethod(MethodBindings.intersectPointPtr)
+    TransferContext.callPtrMethod(MethodBindings.intersectPointPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -92,7 +92,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
    */
   public final fun intersectRay(parameters: PhysicsRayQueryParameters3D): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, parameters)
-    TransferContext.callMethod(MethodBindings.intersectRayPtr)
+    TransferContext.callPtrMethod(MethodBindings.intersectRayPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -118,7 +118,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
   public final fun intersectShape(parameters: PhysicsShapeQueryParameters3D, maxResults: Int = 32):
       VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, parameters, maxResults.toLong())
-    TransferContext.callMethod(MethodBindings.intersectShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.intersectShapePtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -136,7 +136,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
    */
   public final fun castMotion(parameters: PhysicsShapeQueryParameters3D): PackedFloat32Array {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, parameters)
-    TransferContext.callMethod(MethodBindings.castMotionPtr)
+    TransferContext.callPtrMethod(MethodBindings.castMotionPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
@@ -156,7 +156,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
   public final fun collideShape(parameters: PhysicsShapeQueryParameters3D, maxResults: Int = 32):
       VariantArray<Vector3> {
     TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, parameters, maxResults.toLong())
-    TransferContext.callMethod(MethodBindings.collideShapePtr)
+    TransferContext.callPtrMethod(MethodBindings.collideShapePtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3>)
   }
 
@@ -185,7 +185,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
    */
   public final fun getRestInfo(parameters: PhysicsShapeQueryParameters3D): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, parameters)
-    TransferContext.callMethod(MethodBindings.getRestInfoPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRestInfoPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

@@ -265,7 +265,7 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    */
   public final fun getUint8Buffer(spatialSnapshot: RID, bufferId: Long): PackedByteArray {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
-    TransferContext.callMethod(MethodBindings.getUint8BufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUint8BufferPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -274,7 +274,7 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    */
   public final fun getUint16Buffer(spatialSnapshot: RID, bufferId: Long): PackedInt32Array {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
-    TransferContext.callMethod(MethodBindings.getUint16BufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUint16BufferPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -283,7 +283,7 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    */
   public final fun getUint32Buffer(spatialSnapshot: RID, bufferId: Long): PackedInt32Array {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
-    TransferContext.callMethod(MethodBindings.getUint32BufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUint32BufferPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -292,7 +292,7 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    */
   public final fun getFloatBuffer(spatialSnapshot: RID, bufferId: Long): PackedFloat32Array {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
-    TransferContext.callMethod(MethodBindings.getFloatBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFloatBufferPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
@@ -302,7 +302,7 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    */
   public final fun getVector2Buffer(spatialSnapshot: RID, bufferId: Long): PackedVector2Array {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
-    TransferContext.callMethod(MethodBindings.getVector2BufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVector2BufferPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -312,7 +312,7 @@ public open class OpenXRSpatialEntityExtension : OpenXRExtensionWrapper() {
    */
   public final fun getVector3Buffer(spatialSnapshot: RID, bufferId: Long): PackedVector3Array {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, spatialSnapshot, bufferId)
-    TransferContext.callMethod(MethodBindings.getVector3BufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVector3BufferPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 

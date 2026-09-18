@@ -272,7 +272,7 @@ public open class SkeletonIK3D : SkeletonModifier3D() {
 
   public final fun getRootBone(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.getRootBonePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -283,7 +283,7 @@ public open class SkeletonIK3D : SkeletonModifier3D() {
 
   public final fun getTipBone(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTipBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTipBonePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -305,7 +305,7 @@ public open class SkeletonIK3D : SkeletonModifier3D() {
 
   public final fun getTargetNode(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTargetNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

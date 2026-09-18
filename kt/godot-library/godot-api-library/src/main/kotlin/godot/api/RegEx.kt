@@ -235,7 +235,7 @@ public open class RegEx : RefCounted() {
    */
   public final fun getNames(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNamesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNamesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

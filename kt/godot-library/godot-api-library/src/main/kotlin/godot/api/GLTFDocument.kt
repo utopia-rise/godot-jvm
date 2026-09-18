@@ -333,7 +333,7 @@ public open class GLTFDocument : Resource() {
    */
   public final fun generateBuffer(state: GLTFState?): PackedByteArray {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, state)
-    TransferContext.callMethod(MethodBindings.generateBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.generateBufferPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -670,7 +670,7 @@ public open class GLTFDocument : Resource() {
     @JvmStatic
     public final fun getSupportedGltfExtensions(): PackedStringArray {
       TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callMethod(MethodBindings.getSupportedGltfExtensionsPtr)
+      TransferContext.callPtrMethod(MethodBindings.getSupportedGltfExtensionsPtr, 34)
       return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
     }
 

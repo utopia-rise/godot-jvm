@@ -171,7 +171,7 @@ public open class AnimationNodeStateMachine : AnimationRootNode() {
    */
   public final fun getNodeName(node: AnimationNode?): StringName {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, node)
-    TransferContext.callMethod(MethodBindings.getNodeNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -180,7 +180,7 @@ public open class AnimationNodeStateMachine : AnimationRootNode() {
    */
   public final fun getNodeList(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodeListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
@@ -236,7 +236,7 @@ public open class AnimationNodeStateMachine : AnimationRootNode() {
    */
   public final fun getTransitionFrom(idx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getTransitionFromPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransitionFromPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -245,7 +245,7 @@ public open class AnimationNodeStateMachine : AnimationRootNode() {
    */
   public final fun getTransitionTo(idx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getTransitionToPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTransitionToPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

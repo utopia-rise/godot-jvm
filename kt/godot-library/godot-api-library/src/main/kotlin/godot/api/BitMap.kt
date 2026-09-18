@@ -181,7 +181,7 @@ public open class BitMap : Resource() {
   public final fun opaqueToPolygons(rect: Rect2i, epsilon: Float = 2.0f):
       VariantArray<PackedVector2Array> {
     TransferContext.writeMethodArguments_RECT2I_DOUBLE(ptr, objectID.id, rect, epsilon.toDouble())
-    TransferContext.callMethod(MethodBindings.opaqueToPolygonsPtr)
+    TransferContext.callPtrMethod(MethodBindings.opaqueToPolygonsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<PackedVector2Array>)
   }
 

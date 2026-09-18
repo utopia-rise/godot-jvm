@@ -1433,7 +1433,7 @@ public open class CPUParticles2D : Node2D() {
 
   public final fun getEmissionPoints(): PackedVector2Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEmissionPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEmissionPointsPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -1444,7 +1444,7 @@ public open class CPUParticles2D : Node2D() {
 
   public final fun getEmissionNormals(): PackedVector2Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEmissionNormalsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEmissionNormalsPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -1455,7 +1455,7 @@ public open class CPUParticles2D : Node2D() {
 
   public final fun getEmissionColors(): PackedColorArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEmissionColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEmissionColorsPtr, 37)
     return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 

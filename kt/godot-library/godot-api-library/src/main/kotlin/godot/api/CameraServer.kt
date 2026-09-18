@@ -176,7 +176,7 @@ public object CameraServer : Object() {
   @JvmStatic
   public final fun feeds(): VariantArray<CameraFeed> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.feedsPtr)
+    TransferContext.callPtrMethod(MethodBindings.feedsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<CameraFeed>)
   }
 

@@ -121,7 +121,7 @@ public object ResourceSaver : Object() {
   @JvmStatic
   public final fun getRecognizedExtensions(type: Resource): PackedStringArray {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, type)
-    TransferContext.callMethod(MethodBindings.getRecognizedExtensionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRecognizedExtensionsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

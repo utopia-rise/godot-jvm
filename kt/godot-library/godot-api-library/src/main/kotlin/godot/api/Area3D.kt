@@ -647,7 +647,7 @@ public open class Area3D : CollisionObject3D() {
 
   public final fun getWindSourcePath(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWindSourcePathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWindSourcePathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -687,7 +687,7 @@ public open class Area3D : CollisionObject3D() {
    */
   public final fun getOverlappingBodies(): VariantArray<Node3D> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOverlappingBodiesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOverlappingBodiesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Node3D>)
   }
 
@@ -702,7 +702,7 @@ public open class Area3D : CollisionObject3D() {
    */
   public final fun getOverlappingAreas(): VariantArray<Area3D> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOverlappingAreasPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOverlappingAreasPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Area3D>)
   }
 
@@ -789,7 +789,7 @@ public open class Area3D : CollisionObject3D() {
 
   public final fun getAudioBusName(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAudioBusNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getAudioBusNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -811,7 +811,7 @@ public open class Area3D : CollisionObject3D() {
 
   public final fun getReverbBusName(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getReverbBusNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getReverbBusNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

@@ -124,7 +124,7 @@ public open class XRFaceTracker : XRTracker() {
 
   public final fun getBlendShapes(): PackedFloat32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBlendShapesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBlendShapesPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 

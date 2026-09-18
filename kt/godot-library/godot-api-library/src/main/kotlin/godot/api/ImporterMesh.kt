@@ -191,7 +191,7 @@ public open class ImporterMesh : Resource() {
    */
   public final fun getSurfaceArrays(surfaceIdx: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, surfaceIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getSurfaceArraysPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSurfaceArraysPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -201,7 +201,7 @@ public open class ImporterMesh : Resource() {
   public final fun getSurfaceBlendShapeArrays(surfaceIdx: Int, blendShapeIdx: Int):
       VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, surfaceIdx.toLong(), blendShapeIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getSurfaceBlendShapeArraysPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSurfaceBlendShapeArraysPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -228,7 +228,7 @@ public open class ImporterMesh : Resource() {
    */
   public final fun getSurfaceLodIndices(surfaceIdx: Int, lodIdx: Int): PackedInt32Array {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, surfaceIdx.toLong(), lodIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getSurfaceLodIndicesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSurfaceLodIndicesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

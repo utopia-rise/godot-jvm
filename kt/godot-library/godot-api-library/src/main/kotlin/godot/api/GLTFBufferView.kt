@@ -131,7 +131,7 @@ public open class GLTFBufferView : Resource() {
    */
   public final fun loadBufferViewData(state: GLTFState?): PackedByteArray {
     TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, state)
-    TransferContext.callMethod(MethodBindings.loadBufferViewDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.loadBufferViewDataPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -140,7 +140,7 @@ public open class GLTFBufferView : Resource() {
    */
   public final fun toDictionary(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.toDictionaryPtr)
+    TransferContext.callPtrMethod(MethodBindings.toDictionaryPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

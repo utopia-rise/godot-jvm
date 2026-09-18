@@ -80,13 +80,13 @@ public open class RegExMatch : RefCounted() {
 
   public final fun getNames(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNamesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNamesPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   public final fun getStrings(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStringsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStringsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

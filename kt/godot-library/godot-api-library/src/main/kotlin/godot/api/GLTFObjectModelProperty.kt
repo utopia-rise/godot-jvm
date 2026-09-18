@@ -202,7 +202,7 @@ public open class GLTFObjectModelProperty : RefCounted() {
 
   public final fun getNodePaths(): VariantArray<NodePath> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodePathsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodePathsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<NodePath>)
   }
 
@@ -234,7 +234,7 @@ public open class GLTFObjectModelProperty : RefCounted() {
 
   public final fun getJsonPointers(): VariantArray<PackedStringArray> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJsonPointersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getJsonPointersPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<PackedStringArray>)
   }
 

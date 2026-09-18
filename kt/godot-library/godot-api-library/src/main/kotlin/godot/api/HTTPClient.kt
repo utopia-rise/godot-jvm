@@ -273,7 +273,7 @@ public open class HTTPClient : RefCounted() {
    */
   public final fun getResponseHeaders(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResponseHeadersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getResponseHeadersPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -291,7 +291,7 @@ public open class HTTPClient : RefCounted() {
    */
   public final fun getResponseHeadersAsDictionary(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResponseHeadersAsDictionaryPtr)
+    TransferContext.callPtrMethod(MethodBindings.getResponseHeadersAsDictionaryPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -314,7 +314,7 @@ public open class HTTPClient : RefCounted() {
    */
   public final fun readResponseBodyChunk(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.readResponseBodyChunkPtr)
+    TransferContext.callPtrMethod(MethodBindings.readResponseBodyChunkPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 

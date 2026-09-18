@@ -1085,7 +1085,7 @@ public open class NavigationAgent3D : Node() {
    */
   public final fun getCurrentNavigationPath(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurrentNavigationPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCurrentNavigationPathPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 

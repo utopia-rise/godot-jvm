@@ -295,7 +295,7 @@ public open class SoftBody3D : MeshInstance3D() {
 
   public final fun getParentCollisionIgnore(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getParentCollisionIgnorePtr)
+    TransferContext.callPtrMethod(MethodBindings.getParentCollisionIgnorePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -315,7 +315,7 @@ public open class SoftBody3D : MeshInstance3D() {
    */
   public final fun getCollisionExceptions(): VariantArray<PhysicsBody3D> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionExceptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionExceptionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<PhysicsBody3D>)
   }
 

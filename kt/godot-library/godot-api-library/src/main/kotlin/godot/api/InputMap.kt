@@ -126,7 +126,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun getActions(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
@@ -227,7 +227,7 @@ public object InputMap : Object() {
   @JvmStatic
   public final fun actionGetEvents(action: StringName): VariantArray<InputEvent> {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.actionGetEventsPtr)
+    TransferContext.callPtrMethod(MethodBindings.actionGetEventsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<InputEvent>)
   }
 

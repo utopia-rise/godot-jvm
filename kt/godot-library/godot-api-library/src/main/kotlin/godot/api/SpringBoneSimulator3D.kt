@@ -321,7 +321,7 @@ public open class SpringBoneSimulator3D : SkeletonModifier3D() {
    */
   public final fun getCenterNode(index: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getCenterNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getCenterNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -866,7 +866,7 @@ public open class SpringBoneSimulator3D : SkeletonModifier3D() {
    */
   public final fun getExcludeCollisionPath(index: Int, collision: Int): NodePath {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), collision.toLong())
-    TransferContext.callMethod(MethodBindings.getExcludeCollisionPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getExcludeCollisionPathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -917,7 +917,7 @@ public open class SpringBoneSimulator3D : SkeletonModifier3D() {
    */
   public final fun getCollisionPath(index: Int, collision: Int): NodePath {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), collision.toLong())
-    TransferContext.callMethod(MethodBindings.getCollisionPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionPathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

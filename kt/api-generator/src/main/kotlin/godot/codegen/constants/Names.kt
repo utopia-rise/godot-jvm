@@ -200,9 +200,9 @@ object VariantConverter {
         "PACKED_VECTOR2_ARRAY", "PACKED_VECTOR3_ARRAY", "PACKED_COLOR_ARRAY", "PACKED_VECTOR4_ARRAY",
     )
 
-    /** Mirrors the `Wire` rows in `cpp/jvm/buffer_wire.h`: InlineWire and PointerWire types can be ptrcall arguments, InlineWire types can be ptrcall returns. */
+    /** Mirrors the `Wire` rows in `cpp/jvm/buffer_wire.h`: InlineWire and PointerWire types can be ptrcall arguments and returns. */
     fun isPtrCallArgument(converter: MemberName) = converter.simpleName in inlineTypes || converter.simpleName in pointerTypes
-    fun isPtrCallReturn(converter: MemberName) = converter.simpleName == "NIL" || converter.simpleName in inlineTypes
+    fun isPtrCallReturn(converter: MemberName) = converter.simpleName == "NIL" || isPtrCallArgument(converter)
 
     /** Godot's Variant::Type ordinals, the return type code a ptrcall announces to the native side. */
     private val variantOrdinals = listOf(

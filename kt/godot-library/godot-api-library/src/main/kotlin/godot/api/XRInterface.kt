@@ -114,7 +114,7 @@ public open class XRInterface internal constructor() : RefCounted() {
    */
   public final fun getName(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -191,7 +191,7 @@ public open class XRInterface internal constructor() : RefCounted() {
    */
   public final fun getSystemInfo(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSystemInfoPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSystemInfoPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -291,7 +291,7 @@ public open class XRInterface internal constructor() : RefCounted() {
    */
   public final fun getPlayArea(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPlayAreaPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPlayAreaPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -388,7 +388,7 @@ public open class XRInterface internal constructor() : RefCounted() {
    */
   public final fun getSupportedEnvironmentBlendModes(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSupportedEnvironmentBlendModesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSupportedEnvironmentBlendModesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
