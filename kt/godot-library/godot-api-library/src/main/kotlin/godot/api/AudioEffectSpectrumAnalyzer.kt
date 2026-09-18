@@ -13,9 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
 import kotlin.Float
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -61,29 +63,29 @@ public open class AudioEffectSpectrumAnalyzer : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(75, scriptPtr)
+    createNativeObject(73, scriptPtr)
   }
 
   public final fun setBufferLength(seconds: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to seconds.toDouble())
-    TransferContext.callMethod(MethodBindings.setBufferLengthPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, seconds.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setBufferLengthPtr, 0)
   }
 
   public final fun getBufferLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBufferLengthPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFftSize(size: FFTSize): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.value)
-    TransferContext.callMethod(MethodBindings.setFftSizePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.value)
+    TransferContext.callPtrMethod(MethodBindings.setFftSizePtr, 0)
   }
 
   public final fun getFftSize(): FFTSize {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFftSizePtr)
-    return FFTSize.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFftSizePtr, 2)
+    return FFTSize.from(TransferContext.readReturnValue_LONG())
   }
 
   /**

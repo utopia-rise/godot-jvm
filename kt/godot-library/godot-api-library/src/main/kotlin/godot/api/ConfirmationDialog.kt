@@ -12,8 +12,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -54,7 +56,7 @@ public open class ConfirmationDialog : AcceptDialog() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(185, scriptPtr)
+    createNativeObject(183, scriptPtr)
   }
 
   /**
@@ -64,20 +66,20 @@ public open class ConfirmationDialog : AcceptDialog() {
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
   public final fun getCancelButton(): Button? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCancelButtonPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Button?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCancelButtonPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Button?)
   }
 
   public final fun setCancelButtonText(text: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to text)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, text)
     TransferContext.callMethod(MethodBindings.setCancelButtonTextPtr)
   }
 
   public final fun getCancelButtonText(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getCancelButtonTextPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public companion object {

@@ -15,9 +15,12 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedVector3Array
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.PACKED_VECTOR3_ARRAY
 import godot.core.Vector3
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_PACKED_VECTOR3_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_PACKED_VECTOR3_ARRAY
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
@@ -83,7 +86,7 @@ public open class ConcavePolygonShape3D : Shape3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(182, scriptPtr)
+    createNativeObject(180, scriptPtr)
   }
 
   /**
@@ -124,8 +127,8 @@ public open class ConcavePolygonShape3D : Shape3D() {
    * composed of triples such that each triple of vertices defines a triangle.
    */
   public final fun setFaces(faces: PackedVector3Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR3_ARRAY to faces)
-    TransferContext.callMethod(MethodBindings.setFacesPtr)
+    TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY(ptr, objectID.id, faces)
+    TransferContext.callPtrMethod(MethodBindings.setFacesPtr, 0)
   }
 
   /**
@@ -133,20 +136,20 @@ public open class ConcavePolygonShape3D : Shape3D() {
    * by three) is naturally divided into triples; each triple of vertices defines a triangle.
    */
   public final fun getFaces(): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFacesPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFacesPtr, 36)
+    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
   public final fun setBackfaceCollisionEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setBackfaceCollisionEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setBackfaceCollisionEnabledPtr, 0)
   }
 
   public final fun isBackfaceCollisionEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBackfaceCollisionEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isBackfaceCollisionEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

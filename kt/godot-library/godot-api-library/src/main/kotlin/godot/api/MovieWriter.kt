@@ -13,8 +13,8 @@ import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
-import godot.core.VariantParser.OBJECT
 import godot.core.Vector2i
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -78,7 +78,7 @@ import kotlin.jvm.JvmStatic
 @GodotBaseType
 public abstract class MovieWriter : Object() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(387, scriptPtr)
+    createNativeObject(385, scriptPtr)
   }
 
   /**
@@ -150,8 +150,8 @@ public abstract class MovieWriter : Object() {
      */
     @JvmStatic
     public final fun addWriter(writer: MovieWriter?): Unit {
-      TransferContext.writeMethodArguments(0L, 0L, OBJECT to writer)
-      TransferContext.callMethod(MethodBindings.addWriterPtr)
+      TransferContext.writeMethodArguments_OBJECT(0L, 0L, writer)
+      TransferContext.callPtrMethod(MethodBindings.addWriterPtr, 0)
     }
   }
 

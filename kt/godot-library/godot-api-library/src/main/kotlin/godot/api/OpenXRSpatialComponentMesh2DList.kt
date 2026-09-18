@@ -16,11 +16,11 @@ import godot.core.PackedInt32Array
 import godot.core.PackedVector2Array
 import godot.core.RID
 import godot.core.Transform3D
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser._RID
+import godot.readReturnValue_PACKED_INT_32_ARRAY
+import godot.readReturnValue_PACKED_VECTOR2_ARRAY
+import godot.readReturnValue_TRANSFORM3D
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_RID_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -33,34 +33,34 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialComponentMesh2DList : OpenXRSpatialComponentData() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(482, scriptPtr)
+    createNativeObject(481, scriptPtr)
   }
 
   /**
    * Returns the transform for positioning our mesh for the entity at this [index].
    */
   public final fun getTransform(index: Long): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
-    TransferContext.callMethod(MethodBindings.getTransformPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
+    TransferContext.callPtrMethod(MethodBindings.getTransformPtr, 18)
+    return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   /**
    * Returns the mesh vertices for the entity at this [index].
    */
   public final fun getVertices(snapshot: RID, index: Long): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to snapshot, LONG to index)
-    TransferContext.callMethod(MethodBindings.getVerticesPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
+    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, snapshot, index)
+    TransferContext.callPtrMethod(MethodBindings.getVerticesPtr, 35)
+    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
   /**
    * Returns the mesh indices for the entity at this [index].
    */
   public final fun getIndices(snapshot: RID, index: Long): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to snapshot, LONG to index)
-    TransferContext.callMethod(MethodBindings.getIndicesPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
+    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, snapshot, index)
+    TransferContext.callPtrMethod(MethodBindings.getIndicesPtr, 30)
+    return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
   public companion object {

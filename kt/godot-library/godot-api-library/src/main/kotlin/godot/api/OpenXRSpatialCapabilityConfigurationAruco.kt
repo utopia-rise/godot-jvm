@@ -14,8 +14,10 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedInt64Array
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_INT_64_ARRAY
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_INT_64_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -44,7 +46,7 @@ public open class OpenXRSpatialCapabilityConfigurationAruco :
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(472, scriptPtr)
+    createNativeObject(471, scriptPtr)
   }
 
   /**
@@ -53,20 +55,20 @@ public open class OpenXRSpatialCapabilityConfigurationAruco :
    * **Note:** Only valid after this configuration was used to create a spatial context.
    */
   public final fun getEnabledComponents(): PackedInt64Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnabledComponentsPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_64_ARRAY) as PackedInt64Array)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getEnabledComponentsPtr, 31)
+    return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 
   public final fun setArucoDict(arucoDict: ArucoDict): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to arucoDict.value)
-    TransferContext.callMethod(MethodBindings.setArucoDictPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, arucoDict.value)
+    TransferContext.callPtrMethod(MethodBindings.setArucoDictPtr, 0)
   }
 
   public final fun getArucoDict(): ArucoDict {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getArucoDictPtr)
-    return ArucoDict.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getArucoDictPtr, 2)
+    return ArucoDict.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class ArucoDict(

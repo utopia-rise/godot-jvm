@@ -13,9 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
 import kotlin.Float
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -149,40 +151,40 @@ public open class AudioStreamGenerator : AudioStream() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(84, scriptPtr)
+    createNativeObject(82, scriptPtr)
   }
 
   public final fun setMixRate(hz: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to hz.toDouble())
-    TransferContext.callMethod(MethodBindings.setMixRatePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hz.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setMixRatePtr, 0)
   }
 
   public final fun getMixRate(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMixRatePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMixRatePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMixRateMode(mode: AudioStreamGeneratorMixRate): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setMixRateModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setMixRateModePtr, 0)
   }
 
   public final fun getMixRateMode(): AudioStreamGeneratorMixRate {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMixRateModePtr)
-    return AudioStreamGeneratorMixRate.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMixRateModePtr, 2)
+    return AudioStreamGeneratorMixRate.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setBufferLength(seconds: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to seconds.toDouble())
-    TransferContext.callMethod(MethodBindings.setBufferLengthPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, seconds.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setBufferLengthPtr, 0)
   }
 
   public final fun getBufferLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBufferLengthPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**

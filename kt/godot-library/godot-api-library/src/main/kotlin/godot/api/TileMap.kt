@@ -22,18 +22,39 @@ import godot.core.RID
 import godot.core.Rect2i
 import godot.core.Signal0
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.RECT2I
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.VECTOR2
-import godot.core.VariantParser.VECTOR2I
-import godot.core.VariantParser._RID
 import godot.core.Vector2
 import godot.core.Vector2i
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_RECT2I
+import godot.readReturnValue_RID
+import godot.readReturnValue_STRING
+import godot.readReturnValue_VECTOR2
+import godot.readReturnValue_VECTOR2I
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_ARRAY
+import godot.writeMethodArguments_LONG_ARRAY_LONG_LONG_BOOL
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_LONG_COLOR
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_LONG_LONG_VECTOR2I_LONG
+import godot.writeMethodArguments_LONG_RID
+import godot.writeMethodArguments_LONG_STRING
+import godot.writeMethodArguments_LONG_VECTOR2I
+import godot.writeMethodArguments_LONG_VECTOR2I_BOOL
+import godot.writeMethodArguments_LONG_VECTOR2I_LONG_VECTOR2I_LONG
+import godot.writeMethodArguments_LONG_VECTOR2I_OBJECT
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_RID
+import godot.writeMethodArguments_VECTOR2
+import godot.writeMethodArguments_VECTOR2I
+import godot.writeMethodArguments_VECTOR2I_LONG
+import godot.writeMethodArguments_VECTOR2I_VECTOR2I_OBJECT
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -181,8 +202,8 @@ public open class TileMap : Node2D() {
    * Assigns [map] as a [NavigationServer2D] navigation map for the specified TileMap layer [layer].
    */
   public final fun setNavigationMap(layer: Int, map: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), _RID to map)
-    TransferContext.callMethod(MethodBindings.setNavigationMapPtr)
+    TransferContext.writeMethodArguments_LONG_RID(ptr, objectID.id, layer.toLong(), map)
+    TransferContext.callPtrMethod(MethodBindings.setNavigationMapPtr, 0)
   }
 
   /**
@@ -190,9 +211,9 @@ public open class TileMap : Node2D() {
    * layer [layer].
    */
   public final fun getNavigationMap(layer: Int): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.getNavigationMapPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getNavigationMapPtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
@@ -200,39 +221,39 @@ public open class TileMap : Node2D() {
    */
   @JvmOverloads
   public final fun forceUpdate(layer: Int = -1): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.forceUpdatePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.forceUpdatePtr, 0)
   }
 
   public final fun setTileset(tileset: TileSet?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to tileset)
-    TransferContext.callMethod(MethodBindings.setTilesetPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, tileset)
+    TransferContext.callPtrMethod(MethodBindings.setTilesetPtr, 0)
   }
 
   public final fun getTileset(): TileSet? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTilesetPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TileSet?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTilesetPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as TileSet?)
   }
 
   public final fun setRenderingQuadrantSize(size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.toLong())
-    TransferContext.callMethod(MethodBindings.setRenderingQuadrantSizePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setRenderingQuadrantSizePtr, 0)
   }
 
   public final fun getRenderingQuadrantSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRenderingQuadrantSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRenderingQuadrantSizePtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the number of layers in the TileMap.
    */
   public final fun getLayersCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLayersCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getLayersCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -240,24 +261,24 @@ public open class TileMap : Node2D() {
    * position is counted from the end, with `-1` adding the layer at the end of the array.
    */
   public final fun addLayer(toPosition: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to toPosition.toLong())
-    TransferContext.callMethod(MethodBindings.addLayerPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, toPosition.toLong())
+    TransferContext.callPtrMethod(MethodBindings.addLayerPtr, 0)
   }
 
   /**
    * Moves the layer at index [layer] to the given position [toPosition] in the array.
    */
   public final fun moveLayer(layer: Int, toPosition: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), LONG to toPosition.toLong())
-    TransferContext.callMethod(MethodBindings.moveLayerPtr)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, layer.toLong(), toPosition.toLong())
+    TransferContext.callPtrMethod(MethodBindings.moveLayerPtr, 0)
   }
 
   /**
    * Removes the layer at index [layer].
    */
   public final fun removeLayer(layer: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.removeLayerPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.removeLayerPtr, 0)
   }
 
   /**
@@ -266,7 +287,7 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun setLayerName(layer: Int, name: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), STRING to name)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, layer.toLong(), name)
     TransferContext.callMethod(MethodBindings.setLayerNamePtr)
   }
 
@@ -276,9 +297,9 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun getLayerName(layer: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
     TransferContext.callMethod(MethodBindings.getLayerNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -288,8 +309,8 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun setLayerEnabled(layer: Int, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setLayerEnabledPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layer.toLong(), enabled)
+    TransferContext.callPtrMethod(MethodBindings.setLayerEnabledPtr, 0)
   }
 
   /**
@@ -298,9 +319,9 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun isLayerEnabled(layer: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.isLayerEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.isLayerEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -309,8 +330,8 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun setLayerModulate(layer: Int, modulate: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), COLOR to modulate)
-    TransferContext.callMethod(MethodBindings.setLayerModulatePtr)
+    TransferContext.writeMethodArguments_LONG_COLOR(ptr, objectID.id, layer.toLong(), modulate)
+    TransferContext.callPtrMethod(MethodBindings.setLayerModulatePtr, 0)
   }
 
   /**
@@ -319,9 +340,9 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun getLayerModulate(layer: Int): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.getLayerModulatePtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getLayerModulatePtr, 20)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   /**
@@ -335,8 +356,8 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun setLayerYSortEnabled(layer: Int, ySortEnabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), BOOL to ySortEnabled)
-    TransferContext.callMethod(MethodBindings.setLayerYSortEnabledPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layer.toLong(), ySortEnabled)
+    TransferContext.callPtrMethod(MethodBindings.setLayerYSortEnabledPtr, 0)
   }
 
   /**
@@ -345,9 +366,9 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun isLayerYSortEnabled(layer: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.isLayerYSortEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.isLayerYSortEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -360,8 +381,8 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun setLayerYSortOrigin(layer: Int, ySortOrigin: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), LONG to ySortOrigin.toLong())
-    TransferContext.callMethod(MethodBindings.setLayerYSortOriginPtr)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, layer.toLong(), ySortOrigin.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setLayerYSortOriginPtr, 0)
   }
 
   /**
@@ -370,9 +391,9 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun getLayerYSortOrigin(layer: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.getLayerYSortOriginPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getLayerYSortOriginPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -381,8 +402,8 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun setLayerZIndex(layer: Int, zIndex: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), LONG to zIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setLayerZIndexPtr)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, layer.toLong(), zIndex.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setLayerZIndexPtr, 0)
   }
 
   /**
@@ -391,9 +412,9 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun getLayerZIndex(layer: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.getLayerZIndexPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getLayerZIndexPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -401,17 +422,17 @@ public open class TileMap : Node2D() {
    * to bake navigation regions from a TileMap using a [NavigationRegion2D] node.
    */
   public final fun setLayerNavigationEnabled(layer: Int, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setLayerNavigationEnabledPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layer.toLong(), enabled)
+    TransferContext.callPtrMethod(MethodBindings.setLayerNavigationEnabledPtr, 0)
   }
 
   /**
    * Returns if a layer's built-in navigation regions generation is enabled.
    */
   public final fun isLayerNavigationEnabled(layer: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.isLayerNavigationEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.isLayerNavigationEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -427,8 +448,8 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun setLayerNavigationMap(layer: Int, map: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), _RID to map)
-    TransferContext.callMethod(MethodBindings.setLayerNavigationMapPtr)
+    TransferContext.writeMethodArguments_LONG_RID(ptr, objectID.id, layer.toLong(), map)
+    TransferContext.callPtrMethod(MethodBindings.setLayerNavigationMapPtr, 0)
   }
 
   /**
@@ -445,42 +466,42 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun getLayerNavigationMap(layer: Int): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.getLayerNavigationMapPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getLayerNavigationMapPtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   public final fun setCollisionAnimatable(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setCollisionAnimatablePtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionAnimatablePtr, 0)
   }
 
   public final fun isCollisionAnimatable(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollisionAnimatablePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isCollisionAnimatablePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCollisionVisibilityMode(collisionVisibilityMode: VisibilityMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to collisionVisibilityMode.value)
-    TransferContext.callMethod(MethodBindings.setCollisionVisibilityModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionVisibilityMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionVisibilityModePtr, 0)
   }
 
   public final fun getCollisionVisibilityMode(): VisibilityMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionVisibilityModePtr)
-    return VisibilityMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionVisibilityModePtr, 2)
+    return VisibilityMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setNavigationVisibilityMode(navigationVisibilityMode: VisibilityMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to navigationVisibilityMode.value)
-    TransferContext.callMethod(MethodBindings.setNavigationVisibilityModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, navigationVisibilityMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setNavigationVisibilityModePtr, 0)
   }
 
   public final fun getNavigationVisibilityMode(): VisibilityMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNavigationVisibilityModePtr)
-    return VisibilityMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getNavigationVisibilityModePtr, 2)
+    return VisibilityMode.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -511,8 +532,8 @@ public open class TileMap : Node2D() {
     atlasCoords: Vector2i = Vector2i(-1, -1),
     alternativeTile: Int = 0,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), VECTOR2I to coords, LONG to sourceId.toLong(), VECTOR2I to atlasCoords, LONG to alternativeTile.toLong())
-    TransferContext.callMethod(MethodBindings.setCellPtr)
+    TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG_VECTOR2I_LONG(ptr, objectID.id, layer.toLong(), coords, sourceId.toLong(), atlasCoords, alternativeTile.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setCellPtr, 0)
   }
 
   /**
@@ -521,8 +542,8 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun eraseCell(layer: Int, coords: Vector2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), VECTOR2I to coords)
-    TransferContext.callMethod(MethodBindings.eraseCellPtr)
+    TransferContext.writeMethodArguments_LONG_VECTOR2I(ptr, objectID.id, layer.toLong(), coords)
+    TransferContext.callPtrMethod(MethodBindings.eraseCellPtr, 0)
   }
 
   /**
@@ -540,9 +561,9 @@ public open class TileMap : Node2D() {
     coords: Vector2i,
     useProxies: Boolean = false,
   ): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), VECTOR2I to coords, BOOL to useProxies)
-    TransferContext.callMethod(MethodBindings.getCellSourceIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_LONG_VECTOR2I_BOOL(ptr, objectID.id, layer.toLong(), coords, useProxies)
+    TransferContext.callPtrMethod(MethodBindings.getCellSourceIdPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -560,9 +581,9 @@ public open class TileMap : Node2D() {
     coords: Vector2i,
     useProxies: Boolean = false,
   ): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), VECTOR2I to coords, BOOL to useProxies)
-    TransferContext.callMethod(MethodBindings.getCellAtlasCoordsPtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
+    TransferContext.writeMethodArguments_LONG_VECTOR2I_BOOL(ptr, objectID.id, layer.toLong(), coords, useProxies)
+    TransferContext.callPtrMethod(MethodBindings.getCellAtlasCoordsPtr, 6)
+    return TransferContext.readReturnValue_VECTOR2I()
   }
 
   /**
@@ -579,9 +600,9 @@ public open class TileMap : Node2D() {
     coords: Vector2i,
     useProxies: Boolean = false,
   ): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), VECTOR2I to coords, BOOL to useProxies)
-    TransferContext.callMethod(MethodBindings.getCellAlternativeTilePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_LONG_VECTOR2I_BOOL(ptr, objectID.id, layer.toLong(), coords, useProxies)
+    TransferContext.callPtrMethod(MethodBindings.getCellAlternativeTilePtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -608,9 +629,9 @@ public open class TileMap : Node2D() {
     coords: Vector2i,
     useProxies: Boolean = false,
   ): TileData? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), VECTOR2I to coords, BOOL to useProxies)
-    TransferContext.callMethod(MethodBindings.getCellTileDataPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TileData?)
+    TransferContext.writeMethodArguments_LONG_VECTOR2I_BOOL(ptr, objectID.id, layer.toLong(), coords, useProxies)
+    TransferContext.callPtrMethod(MethodBindings.getCellTileDataPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as TileData?)
   }
 
   /**
@@ -623,9 +644,9 @@ public open class TileMap : Node2D() {
     coords: Vector2i,
     useProxies: Boolean = false,
   ): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), VECTOR2I to coords, BOOL to useProxies)
-    TransferContext.callMethod(MethodBindings.isCellFlippedHPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG_VECTOR2I_BOOL(ptr, objectID.id, layer.toLong(), coords, useProxies)
+    TransferContext.callPtrMethod(MethodBindings.isCellFlippedHPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -638,9 +659,9 @@ public open class TileMap : Node2D() {
     coords: Vector2i,
     useProxies: Boolean = false,
   ): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), VECTOR2I to coords, BOOL to useProxies)
-    TransferContext.callMethod(MethodBindings.isCellFlippedVPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG_VECTOR2I_BOOL(ptr, objectID.id, layer.toLong(), coords, useProxies)
+    TransferContext.callPtrMethod(MethodBindings.isCellFlippedVPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -653,9 +674,9 @@ public open class TileMap : Node2D() {
     coords: Vector2i,
     useProxies: Boolean = false,
   ): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), VECTOR2I to coords, BOOL to useProxies)
-    TransferContext.callMethod(MethodBindings.isCellTransposedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG_VECTOR2I_BOOL(ptr, objectID.id, layer.toLong(), coords, useProxies)
+    TransferContext.callPtrMethod(MethodBindings.isCellTransposedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -663,9 +684,9 @@ public open class TileMap : Node2D() {
    * [KinematicCollision2D.getColliderRid], when colliding with a tile.
    */
   public final fun getCoordsForBodyRid(body: RID): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to body)
-    TransferContext.callMethod(MethodBindings.getCoordsForBodyRidPtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, body)
+    TransferContext.callPtrMethod(MethodBindings.getCoordsForBodyRidPtr, 6)
+    return TransferContext.readReturnValue_VECTOR2I()
   }
 
   /**
@@ -673,9 +694,9 @@ public open class TileMap : Node2D() {
    * from [KinematicCollision2D.getColliderRid], when colliding with a tile.
    */
   public final fun getLayerForBodyRid(body: RID): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to body)
-    TransferContext.callMethod(MethodBindings.getLayerForBodyRidPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, body)
+    TransferContext.callPtrMethod(MethodBindings.getLayerForBodyRidPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -684,9 +705,9 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun getPattern(layer: Int, coordsArray: VariantArray<Vector2i>): TileMapPattern? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), ARRAY to coordsArray)
-    TransferContext.callMethod(MethodBindings.getPatternPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TileMapPattern?)
+    TransferContext.writeMethodArguments_LONG_ARRAY(ptr, objectID.id, layer.toLong(), coordsArray)
+    TransferContext.callPtrMethod(MethodBindings.getPatternPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as TileMapPattern?)
   }
 
   /**
@@ -700,9 +721,9 @@ public open class TileMap : Node2D() {
     coordsInPattern: Vector2i,
     pattern: TileMapPattern?,
   ): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to positionInTilemap, VECTOR2I to coordsInPattern, OBJECT to pattern)
-    TransferContext.callMethod(MethodBindings.mapPatternPtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
+    TransferContext.writeMethodArguments_VECTOR2I_VECTOR2I_OBJECT(ptr, objectID.id, positionInTilemap, coordsInPattern, pattern)
+    TransferContext.callPtrMethod(MethodBindings.mapPatternPtr, 6)
+    return TransferContext.readReturnValue_VECTOR2I()
   }
 
   /**
@@ -715,8 +736,8 @@ public open class TileMap : Node2D() {
     position: Vector2i,
     pattern: TileMapPattern?,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), VECTOR2I to position, OBJECT to pattern)
-    TransferContext.callMethod(MethodBindings.setPatternPtr)
+    TransferContext.writeMethodArguments_LONG_VECTOR2I_OBJECT(ptr, objectID.id, layer.toLong(), position, pattern)
+    TransferContext.callPtrMethod(MethodBindings.setPatternPtr, 0)
   }
 
   /**
@@ -741,8 +762,8 @@ public open class TileMap : Node2D() {
     terrain: Int,
     ignoreEmptyTerrains: Boolean = true,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), ARRAY to cells, LONG to terrainSet.toLong(), LONG to terrain.toLong(), BOOL to ignoreEmptyTerrains)
-    TransferContext.callMethod(MethodBindings.setCellsTerrainConnectPtr)
+    TransferContext.writeMethodArguments_LONG_ARRAY_LONG_LONG_BOOL(ptr, objectID.id, layer.toLong(), cells, terrainSet.toLong(), terrain.toLong(), ignoreEmptyTerrains)
+    TransferContext.callPtrMethod(MethodBindings.setCellsTerrainConnectPtr, 0)
   }
 
   /**
@@ -767,16 +788,16 @@ public open class TileMap : Node2D() {
     terrain: Int,
     ignoreEmptyTerrains: Boolean = true,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), ARRAY to path, LONG to terrainSet.toLong(), LONG to terrain.toLong(), BOOL to ignoreEmptyTerrains)
-    TransferContext.callMethod(MethodBindings.setCellsTerrainPathPtr)
+    TransferContext.writeMethodArguments_LONG_ARRAY_LONG_LONG_BOOL(ptr, objectID.id, layer.toLong(), path, terrainSet.toLong(), terrain.toLong(), ignoreEmptyTerrains)
+    TransferContext.callPtrMethod(MethodBindings.setCellsTerrainPathPtr, 0)
   }
 
   /**
    * Clears cells that do not exist in the tileset.
    */
   public final fun fixInvalidTiles(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.fixInvalidTilesPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.fixInvalidTilesPtr, 0)
   }
 
   /**
@@ -785,16 +806,16 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun clearLayer(layer: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.clearLayerPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.clearLayerPtr, 0)
   }
 
   /**
    * Clears all cells.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**
@@ -808,8 +829,8 @@ public open class TileMap : Node2D() {
    * to limit the number of updates and how many tiles they impact.
    */
   public final fun updateInternals(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.updateInternalsPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.updateInternalsPtr, 0)
   }
 
   /**
@@ -827,17 +848,17 @@ public open class TileMap : Node2D() {
    */
   @JvmOverloads
   public final fun notifyRuntimeTileDataUpdate(layer: Int = -1): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.notifyRuntimeTileDataUpdatePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.notifyRuntimeTileDataUpdatePtr, 0)
   }
 
   /**
    * Returns the list of all neighbourings cells to the one at [coords].
    */
   public final fun getSurroundingCells(coords: Vector2i): VariantArray<Vector2i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to coords)
-    TransferContext.callMethod(MethodBindings.getSurroundingCellsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector2i>)
+    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
+    TransferContext.callPtrMethod(MethodBindings.getSurroundingCellsPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
   }
 
   /**
@@ -848,9 +869,9 @@ public open class TileMap : Node2D() {
    * If [layer] is negative, the layers are accessed from the last one.
    */
   public final fun getUsedCells(layer: Int): VariantArray<Vector2i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.getUsedCellsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector2i>)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getUsedCellsPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
   }
 
   /**
@@ -874,18 +895,18 @@ public open class TileMap : Node2D() {
     atlasCoords: Vector2i = Vector2i(-1, -1),
     alternativeTile: Int = -1,
   ): VariantArray<Vector2i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong(), LONG to sourceId.toLong(), VECTOR2I to atlasCoords, LONG to alternativeTile.toLong())
-    TransferContext.callMethod(MethodBindings.getUsedCellsByIdPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector2i>)
+    TransferContext.writeMethodArguments_LONG_LONG_VECTOR2I_LONG(ptr, objectID.id, layer.toLong(), sourceId.toLong(), atlasCoords, alternativeTile.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getUsedCellsByIdPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
   }
 
   /**
    * Returns a rectangle enclosing the used (non-empty) tiles of the map, including all layers.
    */
   public final fun getUsedRect(): Rect2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUsedRectPtr)
-    return (TransferContext.readReturnValue(RECT2I) as Rect2i)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getUsedRectPtr, 8)
+    return TransferContext.readReturnValue_RECT2I()
   }
 
   /**
@@ -896,9 +917,9 @@ public open class TileMap : Node2D() {
    * [TileData.textureOrigin] property of individual tiles.
    */
   public final fun mapToLocal(mapPosition: Vector2i): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to mapPosition)
-    TransferContext.callMethod(MethodBindings.mapToLocalPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, mapPosition)
+    TransferContext.callPtrMethod(MethodBindings.mapToLocalPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   /**
@@ -907,9 +928,9 @@ public open class TileMap : Node2D() {
    * this method. See also [mapToLocal].
    */
   public final fun localToMap(localPosition: Vector2): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to localPosition)
-    TransferContext.callMethod(MethodBindings.localToMapPtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, localPosition)
+    TransferContext.callPtrMethod(MethodBindings.localToMapPtr, 6)
+    return TransferContext.readReturnValue_VECTOR2I()
   }
 
   /**
@@ -917,9 +938,9 @@ public open class TileMap : Node2D() {
    * direction. This method takes into account the different layouts a TileMap can take.
    */
   public final fun getNeighborCell(coords: Vector2i, neighbor: TileSet.CellNeighbor): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to coords, LONG to neighbor.value)
-    TransferContext.callMethod(MethodBindings.getNeighborCellPtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
+    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, coords, neighbor.value)
+    TransferContext.callPtrMethod(MethodBindings.getNeighborCellPtr, 6)
+    return TransferContext.readReturnValue_VECTOR2I()
   }
 
   public enum class VisibilityMode(

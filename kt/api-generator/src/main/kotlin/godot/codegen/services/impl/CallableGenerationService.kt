@@ -192,7 +192,7 @@ object CallableGenerationService : ICallableGenerationService {
         val methodCallableInfo = GenericClassNameInfo(methodCallableClassName, argCount)
         val genericParameters = methodCallableInfo.genericTypes
 
-        val objectType = TypeVariableName("T", API.`object`)
+        val objectType = TypeVariableName("T", Core.godotObject)
 
         val methodCallableClassBuilder = TypeSpec
             .classBuilder(methodCallableClassName)
@@ -208,7 +208,7 @@ object CallableGenerationService : ICallableGenerationService {
                         ParameterSpec
                             .builder(
                                 Generator.targetArgumentName,
-                                API.`object`
+                                Core.godotObject
                             )
                             .build()
                     )
@@ -270,7 +270,7 @@ object CallableGenerationService : ICallableGenerationService {
             .addFunction(
                 methodCallableInfo
                     .toFunSpecBuilder(kotlinJavaHelperName(Core.createUnsafeMethodName), prefix = listOf(returnTypeParameter))
-                    .addParameter(ParameterSpec.builder("godotObject", API.`object`).build())
+                    .addParameter(ParameterSpec.builder("godotObject", Core.godotObject).build())
                     .addParameter(ParameterSpec.builder("methodName", STRING).build())
                     .returns(genericMethodCallable)
                     .addCode(
@@ -312,7 +312,7 @@ object CallableGenerationService : ICallableGenerationService {
         methodCallableClassBuilder.addType(companion.build())
         addType(methodCallableClassBuilder.build())
 
-        val objectGeneric = TypeVariableName("T", API.`object`)
+        val objectGeneric = TypeVariableName("T", Core.godotObject)
         addFunction(
             FunSpec.builder(Generator.methodCallableFunctionName + argCount)
                 .addTypeVariable(objectGeneric)
@@ -353,7 +353,7 @@ object CallableGenerationService : ICallableGenerationService {
         val methodCallableInfo = GenericClassNameInfo(methodStringClassName, argCount)
         val genericParameters = methodCallableInfo.genericTypes
 
-        val objectType = TypeVariableName("T", API.`object`)
+        val objectType = TypeVariableName("T", Core.godotObject)
 
         val classBuilder = methodCallableInfo.toTypeSpecBuilder(prefix = listOf(objectType, returnTypeParameter))
             .primaryConstructor(

@@ -15,7 +15,9 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Quaternion
-import godot.core.VariantParser.QUATERNION
+import godot.readReturnValue_QUATERNION
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_QUATERNION
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -69,14 +71,14 @@ public open class VisualShaderNodeVec4Constant : VisualShaderNodeConstant() {
   }
 
   public final fun setConstant(constant: Quaternion): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, QUATERNION to constant)
-    TransferContext.callMethod(MethodBindings.setConstantPtr)
+    TransferContext.writeMethodArguments_QUATERNION(ptr, objectID.id, constant)
+    TransferContext.callPtrMethod(MethodBindings.setConstantPtr, 0)
   }
 
   public final fun getConstant(): Quaternion {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantPtr)
-    return (TransferContext.readReturnValue(QUATERNION) as Quaternion)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getConstantPtr, 15)
+    return TransferContext.readReturnValue_QUATERNION()
   }
 
   public companion object {

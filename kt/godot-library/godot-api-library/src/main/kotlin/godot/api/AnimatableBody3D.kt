@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -44,18 +46,18 @@ public open class AnimatableBody3D : StaticBody3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(10, scriptPtr)
+    createNativeObject(8, scriptPtr)
   }
 
   public final fun setSyncToPhysics(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setSyncToPhysicsPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setSyncToPhysicsPtr, 0)
   }
 
   public final fun isSyncToPhysicsEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSyncToPhysicsEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isSyncToPhysicsEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

@@ -16,8 +16,11 @@ import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -74,7 +77,7 @@ public open class Path3D : Node3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(516, scriptPtr)
+    createNativeObject(515, scriptPtr)
   }
 
   /**
@@ -98,25 +101,25 @@ public open class Path3D : Node3D() {
   }
 
   public final fun setCurve(curve: Curve3D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to curve)
-    TransferContext.callMethod(MethodBindings.setCurvePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
+    TransferContext.callPtrMethod(MethodBindings.setCurvePtr, 0)
   }
 
   public final fun getCurve(): Curve3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurvePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Curve3D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCurvePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Curve3D?)
   }
 
   public final fun setDebugCustomColor(debugCustomColor: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to debugCustomColor)
-    TransferContext.callMethod(MethodBindings.setDebugCustomColorPtr)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, debugCustomColor)
+    TransferContext.callPtrMethod(MethodBindings.setDebugCustomColorPtr, 0)
   }
 
   public final fun getDebugCustomColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDebugCustomColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDebugCustomColorPtr, 20)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public companion object {

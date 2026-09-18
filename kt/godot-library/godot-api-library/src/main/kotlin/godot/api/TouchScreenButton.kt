@@ -14,10 +14,15 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
@@ -161,111 +166,111 @@ public open class TouchScreenButton : Node2D() {
   }
 
   public final fun setTextureNormal(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to texture)
-    TransferContext.callMethod(MethodBindings.setTextureNormalPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
+    TransferContext.callPtrMethod(MethodBindings.setTextureNormalPtr, 0)
   }
 
   public final fun getTextureNormal(): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureNormalPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTextureNormalPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setTexturePressed(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to texture)
-    TransferContext.callMethod(MethodBindings.setTexturePressedPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePressedPtr, 0)
   }
 
   public final fun getTexturePressed(): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePressedPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePressedPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setBitmask(bitmask: BitMap?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to bitmask)
-    TransferContext.callMethod(MethodBindings.setBitmaskPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, bitmask)
+    TransferContext.callPtrMethod(MethodBindings.setBitmaskPtr, 0)
   }
 
   public final fun getBitmask(): BitMap? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBitmaskPtr)
-    return (TransferContext.readReturnValue(OBJECT) as BitMap?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBitmaskPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as BitMap?)
   }
 
   public final fun setShape(shape: Shape2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to shape)
-    TransferContext.callMethod(MethodBindings.setShapePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, shape)
+    TransferContext.callPtrMethod(MethodBindings.setShapePtr, 0)
   }
 
   public final fun getShape(): Shape2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShapePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Shape2D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getShapePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Shape2D?)
   }
 
   public final fun setShapeCentered(bool: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to bool)
-    TransferContext.callMethod(MethodBindings.setShapeCenteredPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, bool)
+    TransferContext.callPtrMethod(MethodBindings.setShapeCenteredPtr, 0)
   }
 
   public final fun isShapeCentered(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isShapeCenteredPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isShapeCenteredPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setShapeVisible(bool: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to bool)
-    TransferContext.callMethod(MethodBindings.setShapeVisiblePtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, bool)
+    TransferContext.callPtrMethod(MethodBindings.setShapeVisiblePtr, 0)
   }
 
   public final fun isShapeVisible(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isShapeVisiblePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isShapeVisiblePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAction(action: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to action)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, action)
     TransferContext.callMethod(MethodBindings.setActionPtr)
   }
 
   public final fun getAction(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getActionPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setVisibilityMode(mode: VisibilityMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setVisibilityModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setVisibilityModePtr, 0)
   }
 
   public final fun getVisibilityMode(): VisibilityMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVisibilityModePtr)
-    return VisibilityMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVisibilityModePtr, 2)
+    return VisibilityMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPassbyPress(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setPassbyPressPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setPassbyPressPtr, 0)
   }
 
   public final fun isPassbyPressEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPassbyPressEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isPassbyPressEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns `true` if this button is currently pressed.
    */
   public final fun isPressed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPressedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isPressedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class VisibilityMode(

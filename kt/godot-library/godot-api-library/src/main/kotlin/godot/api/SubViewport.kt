@@ -15,10 +15,14 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR2I
 import godot.core.Vector2i
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_VECTOR2I
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_VECTOR2I
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -178,69 +182,69 @@ public open class SubViewport : Viewport() {
   }
 
   public final fun setSize(size: Vector2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, size)
+    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
   }
 
   public final fun getSize(): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 6)
+    return TransferContext.readReturnValue_VECTOR2I()
   }
 
   public final fun setSize2dOverride(size: Vector2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to size)
-    TransferContext.callMethod(MethodBindings.setSize2dOverridePtr)
+    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, size)
+    TransferContext.callPtrMethod(MethodBindings.setSize2dOverridePtr, 0)
   }
 
   public final fun getSize2dOverride(): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSize2dOverridePtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSize2dOverridePtr, 6)
+    return TransferContext.readReturnValue_VECTOR2I()
   }
 
   public final fun setSize2dOverrideStretch(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setSize2dOverrideStretchPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setSize2dOverrideStretchPtr, 0)
   }
 
   public final fun isSize2dOverrideStretchEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSize2dOverrideStretchEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isSize2dOverrideStretchEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setViewCount(viewCount: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to viewCount.toLong())
-    TransferContext.callMethod(MethodBindings.setViewCountPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, viewCount.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setViewCountPtr, 0)
   }
 
   public final fun getViewCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getViewCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getViewCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setUpdateMode(mode: UpdateMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setUpdateModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setUpdateModePtr, 0)
   }
 
   public final fun getUpdateMode(): UpdateMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUpdateModePtr)
-    return UpdateMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getUpdateModePtr, 2)
+    return UpdateMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setClearMode(mode: ClearMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setClearModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setClearModePtr, 0)
   }
 
   public final fun getClearMode(): ClearMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getClearModePtr)
-    return ClearMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getClearModePtr, 2)
+    return ClearMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class ClearMode(

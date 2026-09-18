@@ -23,14 +23,25 @@ import godot.core.Signal1
 import godot.core.Signal2
 import godot.core.Signal3
 import godot.core.Signal4
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.RECT2
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.VECTOR2
-import godot.core.VariantParser._RID
 import godot.core.Vector2
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_RECT2
+import godot.readReturnValue_RID
+import godot.readReturnValue_STRING
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_LONG_STRING
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_OBJECT_BOOL
+import godot.writeMethodArguments_OBJECT_LONG
+import godot.writeMethodArguments_OBJECT_LONG_LONG
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -371,8 +382,8 @@ public open class Tree : Control() {
    * Prints an error and does not allow clearing the tree if called during mouse selection.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**
@@ -390,18 +401,18 @@ public open class Tree : Control() {
    */
   @JvmOverloads
   public final fun createItem(parent: TreeItem? = null, index: Int = -1): TreeItem? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to parent, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.createItemPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TreeItem?)
+    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, parent, index.toLong())
+    TransferContext.callPtrMethod(MethodBindings.createItemPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as TreeItem?)
   }
 
   /**
    * Returns the tree's root item, or `null` if the tree is empty.
    */
   public final fun getRoot(): TreeItem? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TreeItem?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRootPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as TreeItem?)
   }
 
   /**
@@ -410,8 +421,8 @@ public open class Tree : Control() {
    * [Control.sizeFlagsStretchRatio].
    */
   public final fun setColumnCustomMinimumWidth(column: Int, minWidth: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong(), LONG to minWidth.toLong())
-    TransferContext.callMethod(MethodBindings.setColumnCustomMinimumWidthPtr)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, column.toLong(), minWidth.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setColumnCustomMinimumWidthPtr, 0)
   }
 
   /**
@@ -420,60 +431,60 @@ public open class Tree : Control() {
    * [setColumnExpandRatio]).
    */
   public final fun setColumnExpand(column: Int, expand: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong(), BOOL to expand)
-    TransferContext.callMethod(MethodBindings.setColumnExpandPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, column.toLong(), expand)
+    TransferContext.callPtrMethod(MethodBindings.setColumnExpandPtr, 0)
   }
 
   /**
    * Sets the relative expand ratio for a column. See [setColumnExpand].
    */
   public final fun setColumnExpandRatio(column: Int, ratio: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong(), LONG to ratio.toLong())
-    TransferContext.callMethod(MethodBindings.setColumnExpandRatioPtr)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, column.toLong(), ratio.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setColumnExpandRatioPtr, 0)
   }
 
   /**
    * Allows to enable clipping for column's content, making the content size ignored.
    */
   public final fun setColumnClipContent(column: Int, enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong(), BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setColumnClipContentPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, column.toLong(), enable)
+    TransferContext.callPtrMethod(MethodBindings.setColumnClipContentPtr, 0)
   }
 
   /**
    * Returns `true` if the column has enabled expanding (see [setColumnExpand]).
    */
   public final fun isColumnExpanding(column: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong())
-    TransferContext.callMethod(MethodBindings.isColumnExpandingPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, column.toLong())
+    TransferContext.callPtrMethod(MethodBindings.isColumnExpandingPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns `true` if the column has enabled clipping (see [setColumnClipContent]).
    */
   public final fun isColumnClippingContent(column: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong())
-    TransferContext.callMethod(MethodBindings.isColumnClippingContentPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, column.toLong())
+    TransferContext.callPtrMethod(MethodBindings.isColumnClippingContentPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns the expand ratio assigned to the column.
    */
   public final fun getColumnExpandRatio(column: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong())
-    TransferContext.callMethod(MethodBindings.getColumnExpandRatioPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, column.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getColumnExpandRatioPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the column's width in pixels.
    */
   public final fun getColumnWidth(column: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong())
-    TransferContext.callMethod(MethodBindings.getColumnWidthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, column.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getColumnWidthPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -483,20 +494,20 @@ public open class Tree : Control() {
    * **Note:** This canvas item clears automatically on each Tree draw call.
    */
   public final fun getCustomDrawingCanvasItem(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomDrawingCanvasItemPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCustomDrawingCanvasItemPtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   public final fun setHideRoot(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setHideRootPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setHideRootPtr, 0)
   }
 
   public final fun isRootHidden(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRootHiddenPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isRootHiddenPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -505,9 +516,9 @@ public open class Tree : Control() {
    * If [from] is `null`, this returns the first selected item.
    */
   public final fun getNextSelected(from: TreeItem?): TreeItem? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to from)
-    TransferContext.callMethod(MethodBindings.getNextSelectedPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TreeItem?)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, from)
+    TransferContext.callPtrMethod(MethodBindings.getNextSelectedPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as TreeItem?)
   }
 
   /**
@@ -520,17 +531,17 @@ public open class Tree : Control() {
    * To get the currently selected item(s), use [getNextSelected].
    */
   public final fun getSelected(): TreeItem? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSelectedPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TreeItem?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSelectedPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as TreeItem?)
   }
 
   /**
    * Selects the specified [TreeItem] and column.
    */
   public final fun setSelected(item: TreeItem?, column: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to item, LONG to column.toLong())
-    TransferContext.callMethod(MethodBindings.setSelectedPtr)
+    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, item, column.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setSelectedPtr, 0)
   }
 
   /**
@@ -543,29 +554,29 @@ public open class Tree : Control() {
    * To tell whether a column of an item is selected, use [TreeItem.isSelected].
    */
   public final fun getSelectedColumn(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSelectedColumnPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSelectedColumnPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the last pressed button's index.
    */
   public final fun getPressedButton(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPressedButtonPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPressedButtonPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setSelectMode(mode: SelectMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setSelectModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setSelectModePtr, 0)
   }
 
   public final fun getSelectMode(): SelectMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSelectModePtr)
-    return SelectMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSelectModePtr, 2)
+    return SelectMode.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -573,19 +584,19 @@ public open class Tree : Control() {
    * cursor.
    */
   public final fun deselectAll(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.deselectAllPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.deselectAllPtr, 0)
   }
 
   public final fun setColumns(amount: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to amount.toLong())
-    TransferContext.callMethod(MethodBindings.setColumnsPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setColumnsPtr, 0)
   }
 
   public final fun getColumns(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColumnsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getColumnsPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -615,18 +626,18 @@ public open class Tree : Control() {
    * ```
    */
   public final fun getEdited(): TreeItem? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEditedPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TreeItem?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getEditedPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as TreeItem?)
   }
 
   /**
    * Returns the column for the currently edited item.
    */
   public final fun getEditedColumn(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEditedColumnPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getEditedColumnPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -638,9 +649,9 @@ public open class Tree : Control() {
    */
   @JvmOverloads
   public final fun editSelected(forceEdit: Boolean = false): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to forceEdit)
-    TransferContext.callMethod(MethodBindings.editSelectedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, forceEdit)
+    TransferContext.callPtrMethod(MethodBindings.editSelectedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -648,9 +659,9 @@ public open class Tree : Control() {
    * popup. See [TreeItem.setCellMode].
    */
   public final fun getCustomPopupRect(): Rect2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomPopupRectPtr)
-    return (TransferContext.readReturnValue(RECT2) as Rect2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCustomPopupRectPtr, 7)
+    return TransferContext.readReturnValue_RECT2()
   }
 
   /**
@@ -664,27 +675,27 @@ public open class Tree : Control() {
     column: Int = -1,
     buttonIndex: Int = -1,
   ): Rect2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to item, LONG to column.toLong(), LONG to buttonIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getItemAreaRectPtr)
-    return (TransferContext.readReturnValue(RECT2) as Rect2)
+    TransferContext.writeMethodArguments_OBJECT_LONG_LONG(ptr, objectID.id, item, column.toLong(), buttonIndex.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getItemAreaRectPtr, 7)
+    return TransferContext.readReturnValue_RECT2()
   }
 
   /**
    * Returns the tree item at the specified position (relative to the tree origin position).
    */
   public final fun getItemAtPosition(position: Vector2): TreeItem? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to position)
-    TransferContext.callMethod(MethodBindings.getItemAtPositionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TreeItem?)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
+    TransferContext.callPtrMethod(MethodBindings.getItemAtPositionPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as TreeItem?)
   }
 
   /**
    * Returns the column index at [position], or -1 if no item is there.
    */
   public final fun getColumnAtPosition(position: Vector2): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to position)
-    TransferContext.callMethod(MethodBindings.getColumnAtPositionPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
+    TransferContext.callPtrMethod(MethodBindings.getColumnAtPositionPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -708,18 +719,18 @@ public open class Tree : Control() {
    * drop section refers to, use [getItemAtPosition].
    */
   public final fun getDropSectionAtPosition(position: Vector2): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to position)
-    TransferContext.callMethod(MethodBindings.getDropSectionAtPositionPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
+    TransferContext.callPtrMethod(MethodBindings.getDropSectionAtPositionPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the button ID at [position], or -1 if no button is there.
    */
   public final fun getButtonIdAtPosition(position: Vector2): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to position)
-    TransferContext.callMethod(MethodBindings.getButtonIdAtPositionPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
+    TransferContext.callPtrMethod(MethodBindings.getButtonIdAtPositionPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -732,26 +743,26 @@ public open class Tree : Control() {
    * [SELECT_MULTI] mode.
    */
   public final fun ensureCursorIsVisible(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.ensureCursorIsVisiblePtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.ensureCursorIsVisiblePtr, 0)
   }
 
   public final fun setColumnTitlesVisible(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to visible)
-    TransferContext.callMethod(MethodBindings.setColumnTitlesVisiblePtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
+    TransferContext.callPtrMethod(MethodBindings.setColumnTitlesVisiblePtr, 0)
   }
 
   public final fun areColumnTitlesVisible(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.areColumnTitlesVisiblePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.areColumnTitlesVisiblePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Sets the title of a column.
    */
   public final fun setColumnTitle(column: Int, title: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong(), STRING to title)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, column.toLong(), title)
     TransferContext.callMethod(MethodBindings.setColumnTitlePtr)
   }
 
@@ -759,16 +770,16 @@ public open class Tree : Control() {
    * Returns the column's title.
    */
   public final fun getColumnTitle(column: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, column.toLong())
     TransferContext.callMethod(MethodBindings.getColumnTitlePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Sets the column title's tooltip text.
    */
   public final fun setColumnTitleTooltipText(column: Int, tooltipText: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong(), STRING to tooltipText)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, column.toLong(), tooltipText)
     TransferContext.callMethod(MethodBindings.setColumnTitleTooltipTextPtr)
   }
 
@@ -776,9 +787,9 @@ public open class Tree : Control() {
    * Returns the column title's tooltip text.
    */
   public final fun getColumnTitleTooltipText(column: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, column.toLong())
     TransferContext.callMethod(MethodBindings.getColumnTitleTooltipTextPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -786,34 +797,34 @@ public open class Tree : Control() {
    * supported for column titles.
    */
   public final fun setColumnTitleAlignment(column: Int, titleAlignment: HorizontalAlignment): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong(), LONG to titleAlignment.value)
-    TransferContext.callMethod(MethodBindings.setColumnTitleAlignmentPtr)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, column.toLong(), titleAlignment.value)
+    TransferContext.callPtrMethod(MethodBindings.setColumnTitleAlignmentPtr, 0)
   }
 
   /**
    * Returns the column title alignment.
    */
   public final fun getColumnTitleAlignment(column: Int): HorizontalAlignment {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong())
-    TransferContext.callMethod(MethodBindings.getColumnTitleAlignmentPtr)
-    return HorizontalAlignment.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, column.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getColumnTitleAlignmentPtr, 2)
+    return HorizontalAlignment.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Sets column title base writing direction.
    */
   public final fun setColumnTitleDirection(column: Int, direction: Control.TextDirection): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong(), LONG to direction.value)
-    TransferContext.callMethod(MethodBindings.setColumnTitleDirectionPtr)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, column.toLong(), direction.value)
+    TransferContext.callPtrMethod(MethodBindings.setColumnTitleDirectionPtr, 0)
   }
 
   /**
    * Returns column title base writing direction.
    */
   public final fun getColumnTitleDirection(column: Int): Control.TextDirection {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong())
-    TransferContext.callMethod(MethodBindings.getColumnTitleDirectionPtr)
-    return Control.TextDirection.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, column.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getColumnTitleDirectionPtr, 2)
+    return Control.TextDirection.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -821,7 +832,7 @@ public open class Tree : Control() {
    * line-breaking and text shaping algorithms. If [language] is empty, the current locale is used.
    */
   public final fun setColumnTitleLanguage(column: Int, language: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong(), STRING to language)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, column.toLong(), language)
     TransferContext.callMethod(MethodBindings.setColumnTitleLanguagePtr)
   }
 
@@ -829,18 +840,18 @@ public open class Tree : Control() {
    * Returns column title language code.
    */
   public final fun getColumnTitleLanguage(column: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to column.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, column.toLong())
     TransferContext.callMethod(MethodBindings.getColumnTitleLanguagePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Returns the current scrolling position.
    */
   public final fun getScroll(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScrollPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getScrollPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   /**
@@ -848,140 +859,140 @@ public open class Tree : Control() {
    */
   @JvmOverloads
   public final fun scrollToItem(item: TreeItem?, centerOnItem: Boolean = false): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to item, BOOL to centerOnItem)
-    TransferContext.callMethod(MethodBindings.scrollToItemPtr)
+    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, item, centerOnItem)
+    TransferContext.callPtrMethod(MethodBindings.scrollToItemPtr, 0)
   }
 
   public final fun setHScrollEnabled(hScroll: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to hScroll)
-    TransferContext.callMethod(MethodBindings.setHScrollEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, hScroll)
+    TransferContext.callPtrMethod(MethodBindings.setHScrollEnabledPtr, 0)
   }
 
   public final fun isHScrollEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isHScrollEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isHScrollEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setVScrollEnabled(hScroll: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to hScroll)
-    TransferContext.callMethod(MethodBindings.setVScrollEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, hScroll)
+    TransferContext.callPtrMethod(MethodBindings.setVScrollEnabledPtr, 0)
   }
 
   public final fun isVScrollEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isVScrollEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isVScrollEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setScrollHintMode(scrollHintMode: ScrollHintMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to scrollHintMode.value)
-    TransferContext.callMethod(MethodBindings.setScrollHintModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, scrollHintMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setScrollHintModePtr, 0)
   }
 
   public final fun getScrollHintMode(): ScrollHintMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScrollHintModePtr)
-    return ScrollHintMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getScrollHintModePtr, 2)
+    return ScrollHintMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTileScrollHint(tileScrollHint: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to tileScrollHint)
-    TransferContext.callMethod(MethodBindings.setTileScrollHintPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, tileScrollHint)
+    TransferContext.callPtrMethod(MethodBindings.setTileScrollHintPtr, 0)
   }
 
   public final fun isScrollHintTiled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isScrollHintTiledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isScrollHintTiledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHideFolding(hide: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to hide)
-    TransferContext.callMethod(MethodBindings.setHideFoldingPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, hide)
+    TransferContext.callPtrMethod(MethodBindings.setHideFoldingPtr, 0)
   }
 
   public final fun isFoldingHidden(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFoldingHiddenPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isFoldingHiddenPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEnableRecursiveFolding(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setEnableRecursiveFoldingPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setEnableRecursiveFoldingPtr, 0)
   }
 
   public final fun isRecursiveFoldingEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRecursiveFoldingEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isRecursiveFoldingEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEnableDragUnfolding(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setEnableDragUnfoldingPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setEnableDragUnfoldingPtr, 0)
   }
 
   public final fun isDragUnfoldingEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDragUnfoldingEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDragUnfoldingEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDropModeFlags(flags: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flags.toLong())
-    TransferContext.callMethod(MethodBindings.setDropModeFlagsPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flags.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setDropModeFlagsPtr, 0)
   }
 
   public final fun getDropModeFlags(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDropModeFlagsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDropModeFlagsPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setAllowRmbSelect(allow: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to allow)
-    TransferContext.callMethod(MethodBindings.setAllowRmbSelectPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, allow)
+    TransferContext.callPtrMethod(MethodBindings.setAllowRmbSelectPtr, 0)
   }
 
   public final fun getAllowRmbSelect(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAllowRmbSelectPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAllowRmbSelectPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAllowReselect(allow: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to allow)
-    TransferContext.callMethod(MethodBindings.setAllowReselectPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, allow)
+    TransferContext.callPtrMethod(MethodBindings.setAllowReselectPtr, 0)
   }
 
   public final fun getAllowReselect(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAllowReselectPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAllowReselectPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAllowSearch(allow: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to allow)
-    TransferContext.callMethod(MethodBindings.setAllowSearchPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, allow)
+    TransferContext.callPtrMethod(MethodBindings.setAllowSearchPtr, 0)
   }
 
   public final fun getAllowSearch(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAllowSearchPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAllowSearchPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAutoTooltip(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setAutoTooltipPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setAutoTooltipPtr, 0)
   }
 
   public final fun isAutoTooltipEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAutoTooltipEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isAutoTooltipEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class SelectMode(

@@ -12,9 +12,11 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
-import kotlin.Long
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -54,25 +56,25 @@ public open class VisualShaderNodeVarying internal constructor() : VisualShaderN
   }
 
   public final fun setVaryingName(name: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.setVaryingNamePtr)
   }
 
   public final fun getVaryingName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVaryingNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setVaryingType(type: VisualShader.VaryingType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type.value)
-    TransferContext.callMethod(MethodBindings.setVaryingTypePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
+    TransferContext.callPtrMethod(MethodBindings.setVaryingTypePtr, 0)
   }
 
   public final fun getVaryingType(): VisualShader.VaryingType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVaryingTypePtr)
-    return VisualShader.VaryingType.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVaryingTypePtr, 2)
+    return VisualShader.VaryingType.from(TransferContext.readReturnValue_LONG())
   }
 
   public companion object {

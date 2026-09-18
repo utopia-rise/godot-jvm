@@ -15,8 +15,11 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedByteArray
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_BYTE_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_PACKED_BYTE_ARRAY
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -84,7 +87,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class HashingContext : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(295, scriptPtr)
+    createNativeObject(293, scriptPtr)
   }
 
   /**
@@ -92,27 +95,27 @@ public open class HashingContext : RefCounted() {
    * an SHA-256).
    */
   public final fun start(type: HashType): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type.value)
-    TransferContext.callMethod(MethodBindings.startPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
+    TransferContext.callPtrMethod(MethodBindings.startPtr, 2)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Updates the computation with the given [chunk] of data.
    */
   public final fun update(chunk: PackedByteArray): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_BYTE_ARRAY to chunk)
-    TransferContext.callMethod(MethodBindings.updatePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, chunk)
+    TransferContext.callPtrMethod(MethodBindings.updatePtr, 2)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Closes the current context, and return the computed hash.
    */
   public final fun finish(): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.finishPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.finishPtr, 29)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   public enum class HashType(

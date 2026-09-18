@@ -14,8 +14,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -48,7 +50,7 @@ public open class InputEventGesture internal constructor() : InputEventWithModif
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(313, scriptPtr)
+    createNativeObject(311, scriptPtr)
   }
 
   /**
@@ -72,14 +74,14 @@ public open class InputEventGesture internal constructor() : InputEventWithModif
   }
 
   public final fun setPosition(position: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to position)
-    TransferContext.callMethod(MethodBindings.setPositionPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
+    TransferContext.callPtrMethod(MethodBindings.setPositionPtr, 0)
   }
 
   public final fun getPosition(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public companion object {

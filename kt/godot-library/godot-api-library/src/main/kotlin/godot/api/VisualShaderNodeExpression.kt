@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -46,14 +48,14 @@ public open class VisualShaderNodeExpression : VisualShaderNodeGroupBase() {
   }
 
   public final fun setExpression(expression: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to expression)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, expression)
     TransferContext.callMethod(MethodBindings.setExpressionPtr)
   }
 
   public final fun getExpression(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getExpressionPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public companion object {

@@ -13,13 +13,15 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MouseButton
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -94,50 +96,50 @@ public open class InputEventMouseButton : InputEventMouse() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(320, scriptPtr)
+    createNativeObject(318, scriptPtr)
   }
 
   public final fun setFactor(factor: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to factor.toDouble())
-    TransferContext.callMethod(MethodBindings.setFactorPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, factor.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setFactorPtr, 0)
   }
 
   public final fun getFactor(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFactorPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFactorPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setButtonIndex(buttonIndex: MouseButton): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to buttonIndex.value)
-    TransferContext.callMethod(MethodBindings.setButtonIndexPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, buttonIndex.value)
+    TransferContext.callPtrMethod(MethodBindings.setButtonIndexPtr, 0)
   }
 
   public final fun getButtonIndex(): MouseButton {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getButtonIndexPtr)
-    return MouseButton.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getButtonIndexPtr, 2)
+    return MouseButton.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPressed(pressed: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pressed)
-    TransferContext.callMethod(MethodBindings.setPressedPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
+    TransferContext.callPtrMethod(MethodBindings.setPressedPtr, 0)
   }
 
   public final fun setCanceled(canceled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to canceled)
-    TransferContext.callMethod(MethodBindings.setCanceledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, canceled)
+    TransferContext.callPtrMethod(MethodBindings.setCanceledPtr, 0)
   }
 
   public final fun setDoubleClick(doubleClick: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to doubleClick)
-    TransferContext.callMethod(MethodBindings.setDoubleClickPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, doubleClick)
+    TransferContext.callPtrMethod(MethodBindings.setDoubleClickPtr, 0)
   }
 
   public final fun isDoubleClick(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDoubleClickPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDoubleClickPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

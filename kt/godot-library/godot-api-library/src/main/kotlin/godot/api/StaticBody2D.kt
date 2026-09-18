@@ -14,11 +14,14 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -112,36 +115,36 @@ public open class StaticBody2D : PhysicsBody2D() {
   }
 
   public final fun setConstantLinearVelocity(vel: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to vel)
-    TransferContext.callMethod(MethodBindings.setConstantLinearVelocityPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, vel)
+    TransferContext.callPtrMethod(MethodBindings.setConstantLinearVelocityPtr, 0)
   }
 
   public final fun setConstantAngularVelocity(vel: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to vel.toDouble())
-    TransferContext.callMethod(MethodBindings.setConstantAngularVelocityPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, vel.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setConstantAngularVelocityPtr, 0)
   }
 
   public final fun getConstantLinearVelocity(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantLinearVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getConstantLinearVelocityPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun getConstantAngularVelocity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantAngularVelocityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getConstantAngularVelocityPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPhysicsMaterialOverride(physicsMaterialOverride: PhysicsMaterial?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to physicsMaterialOverride)
-    TransferContext.callMethod(MethodBindings.setPhysicsMaterialOverridePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, physicsMaterialOverride)
+    TransferContext.callPtrMethod(MethodBindings.setPhysicsMaterialOverridePtr, 0)
   }
 
   public final fun getPhysicsMaterialOverride(): PhysicsMaterial? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPhysicsMaterialOverridePtr)
-    return (TransferContext.readReturnValue(OBJECT) as PhysicsMaterial?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPhysicsMaterialOverridePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as PhysicsMaterial?)
   }
 
   public companion object {

@@ -16,8 +16,11 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Rect2
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.RECT2
+import godot.readReturnValue_LONG
+import godot.readReturnValue_RECT2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_RECT2
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -68,7 +71,7 @@ public open class BackBufferCopy : Node2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(106, scriptPtr)
+    createNativeObject(104, scriptPtr)
   }
 
   /**
@@ -91,25 +94,25 @@ public open class BackBufferCopy : Node2D() {
   }
 
   public final fun setRect(rect: Rect2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, RECT2 to rect)
-    TransferContext.callMethod(MethodBindings.setRectPtr)
+    TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, rect)
+    TransferContext.callPtrMethod(MethodBindings.setRectPtr, 0)
   }
 
   public final fun getRect(): Rect2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRectPtr)
-    return (TransferContext.readReturnValue(RECT2) as Rect2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRectPtr, 7)
+    return TransferContext.readReturnValue_RECT2()
   }
 
   public final fun setCopyMode(copyMode: CopyMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to copyMode.value)
-    TransferContext.callMethod(MethodBindings.setCopyModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, copyMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setCopyModePtr, 0)
   }
 
   public final fun getCopyMode(): CopyMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCopyModePtr)
-    return CopyMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCopyModePtr, 2)
+    return CopyMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class CopyMode(

@@ -16,7 +16,8 @@ import godot.core.MethodStringName0
 import godot.core.PackedStringArray
 import godot.core.RID
 import godot.core.VariantArray
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
 import kotlin.Any
 import kotlin.Int
 import kotlin.Long
@@ -57,7 +58,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRExtensionWrapper : Object() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(451, scriptPtr)
+    createNativeObject(450, scriptPtr)
   }
 
   /**
@@ -351,9 +352,9 @@ public open class OpenXRExtensionWrapper : Object() {
    * Returns the created [OpenXRAPIExtension], which can be used to access the OpenXR API.
    */
   public final fun getOpenxrApi(): OpenXRAPIExtension? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOpenxrApiPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRAPIExtension?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOpenxrApiPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRAPIExtension?)
   }
 
   /**
@@ -362,8 +363,8 @@ public open class OpenXRExtensionWrapper : Object() {
    * **Note:** This cannot be called once OpenXR has been initialized.
    */
   public final fun registerExtensionWrapper(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.registerExtensionWrapperPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.registerExtensionWrapperPtr, 0)
   }
 
   public companion object {

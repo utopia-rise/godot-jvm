@@ -13,9 +13,12 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -55,7 +58,7 @@ public open class BoxContainer : Container() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(116, scriptPtr)
+    createNativeObject(114, scriptPtr)
   }
 
   /**
@@ -63,31 +66,31 @@ public open class BoxContainer : Container() {
    * [Control] node in front of all other children.
    */
   public final fun addSpacer(begin: Boolean): Control? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to begin)
-    TransferContext.callMethod(MethodBindings.addSpacerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Control?)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, begin)
+    TransferContext.callPtrMethod(MethodBindings.addSpacerPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Control?)
   }
 
   public final fun setAlignment(alignment: AlignmentMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to alignment.value)
-    TransferContext.callMethod(MethodBindings.setAlignmentPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
+    TransferContext.callPtrMethod(MethodBindings.setAlignmentPtr, 0)
   }
 
   public final fun getAlignment(): AlignmentMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAlignmentPtr)
-    return AlignmentMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAlignmentPtr, 2)
+    return AlignmentMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setVertical(vertical: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to vertical)
-    TransferContext.callMethod(MethodBindings.setVerticalPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, vertical)
+    TransferContext.callPtrMethod(MethodBindings.setVerticalPtr, 0)
   }
 
   public final fun isVertical(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isVerticalPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isVerticalPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class AlignmentMode(

@@ -14,9 +14,12 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
 import godot.core.Signal1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.NotImplementedError
@@ -165,7 +168,7 @@ public open class Range : Control() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(599, scriptPtr)
+    createNativeObject(598, scriptPtr)
   }
 
   /**
@@ -177,44 +180,44 @@ public open class Range : Control() {
   }
 
   public final fun getValue(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getValuePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getValuePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getMin(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMinPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getMax(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMaxPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getStep(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStepPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getStepPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getPage(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPagePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPagePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getAsRatio(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAsRatioPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAsRatioPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setValue(`value`: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to value)
-    TransferContext.callMethod(MethodBindings.setValuePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value)
+    TransferContext.callPtrMethod(MethodBindings.setValuePtr, 0)
   }
 
   /**
@@ -222,77 +225,77 @@ public open class Range : Control() {
    * value_changed] signal.
    */
   public final fun setValueNoSignal(`value`: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to value)
-    TransferContext.callMethod(MethodBindings.setValueNoSignalPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value)
+    TransferContext.callPtrMethod(MethodBindings.setValueNoSignalPtr, 0)
   }
 
   public final fun setMin(minimum: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to minimum)
-    TransferContext.callMethod(MethodBindings.setMinPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, minimum)
+    TransferContext.callPtrMethod(MethodBindings.setMinPtr, 0)
   }
 
   public final fun setMax(maximum: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to maximum)
-    TransferContext.callMethod(MethodBindings.setMaxPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, maximum)
+    TransferContext.callPtrMethod(MethodBindings.setMaxPtr, 0)
   }
 
   public final fun setStep(step: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to step)
-    TransferContext.callMethod(MethodBindings.setStepPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, step)
+    TransferContext.callPtrMethod(MethodBindings.setStepPtr, 0)
   }
 
   public final fun setPage(pagesize: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pagesize)
-    TransferContext.callMethod(MethodBindings.setPagePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pagesize)
+    TransferContext.callPtrMethod(MethodBindings.setPagePtr, 0)
   }
 
   public final fun setAsRatio(`value`: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to value)
-    TransferContext.callMethod(MethodBindings.setAsRatioPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, value)
+    TransferContext.callPtrMethod(MethodBindings.setAsRatioPtr, 0)
   }
 
   public final fun setUseRoundedValues(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setUseRoundedValuesPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setUseRoundedValuesPtr, 0)
   }
 
   public final fun isUsingRoundedValues(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingRoundedValuesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isUsingRoundedValuesPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setExpRatio(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setExpRatioPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setExpRatioPtr, 0)
   }
 
   public final fun isRatioExp(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRatioExpPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isRatioExpPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAllowGreater(allow: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to allow)
-    TransferContext.callMethod(MethodBindings.setAllowGreaterPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, allow)
+    TransferContext.callPtrMethod(MethodBindings.setAllowGreaterPtr, 0)
   }
 
   public final fun isGreaterAllowed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isGreaterAllowedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isGreaterAllowedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAllowLesser(allow: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to allow)
-    TransferContext.callMethod(MethodBindings.setAllowLesserPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, allow)
+    TransferContext.callPtrMethod(MethodBindings.setAllowLesserPtr, 0)
   }
 
   public final fun isLesserAllowed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isLesserAllowedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isLesserAllowedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -301,16 +304,16 @@ public open class Range : Control() {
    * group.
    */
   public final fun share(with: Node?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to with)
-    TransferContext.callMethod(MethodBindings.sharePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, with)
+    TransferContext.callPtrMethod(MethodBindings.sharePtr, 0)
   }
 
   /**
    * Stops the [Range] from sharing its member variables with any other.
    */
   public final fun unshare(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.unsharePtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.unsharePtr, 0)
   }
 
   public companion object {

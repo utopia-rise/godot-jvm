@@ -16,14 +16,20 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.Transform3D
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_TRANSFORM3D
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_DOUBLE
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_LONG_TRANSFORM3D
+import godot.writeMethodArguments_LONG_VECTOR3
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -73,110 +79,110 @@ public open class XRHandTracker : XRPositionalTracker() {
   }
 
   public final fun setHasTrackingData(hasData: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to hasData)
-    TransferContext.callMethod(MethodBindings.setHasTrackingDataPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, hasData)
+    TransferContext.callPtrMethod(MethodBindings.setHasTrackingDataPtr, 0)
   }
 
   public final fun getHasTrackingData(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHasTrackingDataPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getHasTrackingDataPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHandTrackingSource(source: HandTrackingSource): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to source.value)
-    TransferContext.callMethod(MethodBindings.setHandTrackingSourcePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, source.value)
+    TransferContext.callPtrMethod(MethodBindings.setHandTrackingSourcePtr, 0)
   }
 
   public final fun getHandTrackingSource(): HandTrackingSource {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHandTrackingSourcePtr)
-    return HandTrackingSource.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getHandTrackingSourcePtr, 2)
+    return HandTrackingSource.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Sets flags about the validity of the tracking data for the given hand joint.
    */
   public final fun setHandJointFlags(joint: HandJoint, flags: HandJointFlags): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to joint.value, LONG to flags.flag)
-    TransferContext.callMethod(MethodBindings.setHandJointFlagsPtr)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, joint.value, flags.flag)
+    TransferContext.callPtrMethod(MethodBindings.setHandJointFlagsPtr, 0)
   }
 
   /**
    * Returns flags about the validity of the tracking data for the given hand joint.
    */
   public final fun getHandJointFlags(joint: HandJoint): HandJointFlags {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to joint.value)
-    TransferContext.callMethod(MethodBindings.getHandJointFlagsPtr)
-    return HandJointFlags(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, joint.value)
+    TransferContext.callPtrMethod(MethodBindings.getHandJointFlagsPtr, 2)
+    return HandJointFlags(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Sets the transform for the given hand joint.
    */
   public final fun setHandJointTransform(joint: HandJoint, transform: Transform3D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to joint.value, TRANSFORM3D to transform)
-    TransferContext.callMethod(MethodBindings.setHandJointTransformPtr)
+    TransferContext.writeMethodArguments_LONG_TRANSFORM3D(ptr, objectID.id, joint.value, transform)
+    TransferContext.callPtrMethod(MethodBindings.setHandJointTransformPtr, 0)
   }
 
   /**
    * Returns the transform for the given hand joint.
    */
   public final fun getHandJointTransform(joint: HandJoint): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to joint.value)
-    TransferContext.callMethod(MethodBindings.getHandJointTransformPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, joint.value)
+    TransferContext.callPtrMethod(MethodBindings.getHandJointTransformPtr, 18)
+    return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   /**
    * Sets the radius of the given hand joint.
    */
   public final fun setHandJointRadius(joint: HandJoint, radius: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to joint.value, DOUBLE to radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setHandJointRadiusPtr)
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, joint.value, radius.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setHandJointRadiusPtr, 0)
   }
 
   /**
    * Returns the radius of the given hand joint.
    */
   public final fun getHandJointRadius(joint: HandJoint): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to joint.value)
-    TransferContext.callMethod(MethodBindings.getHandJointRadiusPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, joint.value)
+    TransferContext.callPtrMethod(MethodBindings.getHandJointRadiusPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
    * Sets the linear velocity for the given hand joint.
    */
   public final fun setHandJointLinearVelocity(joint: HandJoint, linearVelocity: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to joint.value, VECTOR3 to linearVelocity)
-    TransferContext.callMethod(MethodBindings.setHandJointLinearVelocityPtr)
+    TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, joint.value, linearVelocity)
+    TransferContext.callPtrMethod(MethodBindings.setHandJointLinearVelocityPtr, 0)
   }
 
   /**
    * Returns the linear velocity for the given hand joint.
    */
   public final fun getHandJointLinearVelocity(joint: HandJoint): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to joint.value)
-    TransferContext.callMethod(MethodBindings.getHandJointLinearVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, joint.value)
+    TransferContext.callPtrMethod(MethodBindings.getHandJointLinearVelocityPtr, 9)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   /**
    * Sets the angular velocity for the given hand joint.
    */
   public final fun setHandJointAngularVelocity(joint: HandJoint, angularVelocity: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to joint.value, VECTOR3 to angularVelocity)
-    TransferContext.callMethod(MethodBindings.setHandJointAngularVelocityPtr)
+    TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, joint.value, angularVelocity)
+    TransferContext.callPtrMethod(MethodBindings.setHandJointAngularVelocityPtr, 0)
   }
 
   /**
    * Returns the angular velocity for the given hand joint.
    */
   public final fun getHandJointAngularVelocity(joint: HandJoint): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to joint.value)
-    TransferContext.callMethod(MethodBindings.getHandJointAngularVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, joint.value)
+    TransferContext.callPtrMethod(MethodBindings.getHandJointAngularVelocityPtr, 9)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public enum class HandTrackingSource(

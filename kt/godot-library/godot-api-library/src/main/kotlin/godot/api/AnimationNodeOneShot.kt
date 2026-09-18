@@ -13,10 +13,15 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Long
@@ -209,117 +214,117 @@ public open class AnimationNodeOneShot : AnimationNodeSync() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(27, scriptPtr)
+    createNativeObject(25, scriptPtr)
   }
 
   public final fun setFadeinTime(time: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to time)
-    TransferContext.callMethod(MethodBindings.setFadeinTimePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
+    TransferContext.callPtrMethod(MethodBindings.setFadeinTimePtr, 0)
   }
 
   public final fun getFadeinTime(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFadeinTimePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFadeinTimePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setFadeinCurve(curve: Curve?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to curve)
-    TransferContext.callMethod(MethodBindings.setFadeinCurvePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
+    TransferContext.callPtrMethod(MethodBindings.setFadeinCurvePtr, 0)
   }
 
   public final fun getFadeinCurve(): Curve? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFadeinCurvePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Curve?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFadeinCurvePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 
   public final fun setFadeoutTime(time: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to time)
-    TransferContext.callMethod(MethodBindings.setFadeoutTimePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
+    TransferContext.callPtrMethod(MethodBindings.setFadeoutTimePtr, 0)
   }
 
   public final fun getFadeoutTime(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFadeoutTimePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFadeoutTimePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setFadeoutCurve(curve: Curve?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to curve)
-    TransferContext.callMethod(MethodBindings.setFadeoutCurvePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
+    TransferContext.callPtrMethod(MethodBindings.setFadeoutCurvePtr, 0)
   }
 
   public final fun getFadeoutCurve(): Curve? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFadeoutCurvePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Curve?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFadeoutCurvePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 
   public final fun setBreakLoopAtEnd(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setBreakLoopAtEndPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setBreakLoopAtEndPtr, 0)
   }
 
   public final fun isLoopBrokenAtEnd(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isLoopBrokenAtEndPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isLoopBrokenAtEndPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAbortOnReset(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setAbortOnResetPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setAbortOnResetPtr, 0)
   }
 
   public final fun isAbortedOnReset(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAbortedOnResetPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isAbortedOnResetPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAutorestart(active: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to active)
-    TransferContext.callMethod(MethodBindings.setAutorestartPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, active)
+    TransferContext.callPtrMethod(MethodBindings.setAutorestartPtr, 0)
   }
 
   public final fun hasAutorestart(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasAutorestartPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.hasAutorestartPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAutorestartDelay(time: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to time)
-    TransferContext.callMethod(MethodBindings.setAutorestartDelayPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
+    TransferContext.callPtrMethod(MethodBindings.setAutorestartDelayPtr, 0)
   }
 
   public final fun getAutorestartDelay(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutorestartDelayPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAutorestartDelayPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setAutorestartRandomDelay(time: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to time)
-    TransferContext.callMethod(MethodBindings.setAutorestartRandomDelayPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
+    TransferContext.callPtrMethod(MethodBindings.setAutorestartRandomDelayPtr, 0)
   }
 
   public final fun getAutorestartRandomDelay(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutorestartRandomDelayPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAutorestartRandomDelayPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setMixMode(mode: MixMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setMixModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setMixModePtr, 0)
   }
 
   public final fun getMixMode(): MixMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMixModePtr)
-    return MixMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMixModePtr, 2)
+    return MixMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class OneShotRequest(

@@ -13,7 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.core.VariantParser._RID
+import godot.readReturnValue_RID
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_RID
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -46,14 +48,14 @@ public open class Texture2DRD : Texture2D() {
   }
 
   public final fun setTextureRdRid(textureRdRid: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to textureRdRid)
-    TransferContext.callMethod(MethodBindings.setTextureRdRidPtr)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, textureRdRid)
+    TransferContext.callPtrMethod(MethodBindings.setTextureRdRidPtr, 0)
   }
 
   public final fun getTextureRdRid(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureRdRidPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTextureRdRidPtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**

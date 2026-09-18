@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -70,36 +72,36 @@ public open class WorldEnvironment : Node() {
   }
 
   public final fun setEnvironment(env: Environment?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to env)
-    TransferContext.callMethod(MethodBindings.setEnvironmentPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, env)
+    TransferContext.callPtrMethod(MethodBindings.setEnvironmentPtr, 0)
   }
 
   public final fun getEnvironment(): Environment? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnvironmentPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Environment?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getEnvironmentPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Environment?)
   }
 
   public final fun setCameraAttributes(cameraAttributes: CameraAttributes?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to cameraAttributes)
-    TransferContext.callMethod(MethodBindings.setCameraAttributesPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, cameraAttributes)
+    TransferContext.callPtrMethod(MethodBindings.setCameraAttributesPtr, 0)
   }
 
   public final fun getCameraAttributes(): CameraAttributes? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCameraAttributesPtr)
-    return (TransferContext.readReturnValue(OBJECT) as CameraAttributes?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCameraAttributesPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as CameraAttributes?)
   }
 
   public final fun setCompositor(compositor: Compositor?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to compositor)
-    TransferContext.callMethod(MethodBindings.setCompositorPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, compositor)
+    TransferContext.callPtrMethod(MethodBindings.setCompositorPtr, 0)
   }
 
   public final fun getCompositor(): Compositor? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCompositorPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Compositor?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCompositorPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Compositor?)
   }
 
   public companion object {

@@ -14,11 +14,14 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -84,7 +87,7 @@ public open class PointLight2D : Light2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(561, scriptPtr)
+    createNativeObject(560, scriptPtr)
   }
 
   /**
@@ -107,36 +110,36 @@ public open class PointLight2D : Light2D() {
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to texture)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setTextureOffset(textureOffset: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to textureOffset)
-    TransferContext.callMethod(MethodBindings.setTextureOffsetPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, textureOffset)
+    TransferContext.callPtrMethod(MethodBindings.setTextureOffsetPtr, 0)
   }
 
   public final fun getTextureOffset(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTextureOffsetPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setTextureScale(textureScale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to textureScale.toDouble())
-    TransferContext.callMethod(MethodBindings.setTextureScalePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, textureScale.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setTextureScalePtr, 0)
   }
 
   public final fun getTextureScale(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTextureScalePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public companion object {

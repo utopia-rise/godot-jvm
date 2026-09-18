@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -40,18 +42,18 @@ public open class MultiMeshInstance3D : GeometryInstance3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(390, scriptPtr)
+    createNativeObject(388, scriptPtr)
   }
 
   public final fun setMultimesh(multimesh: MultiMesh?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to multimesh)
-    TransferContext.callMethod(MethodBindings.setMultimeshPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, multimesh)
+    TransferContext.callPtrMethod(MethodBindings.setMultimeshPtr, 0)
   }
 
   public final fun getMultimesh(): MultiMesh? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMultimeshPtr)
-    return (TransferContext.readReturnValue(OBJECT) as MultiMesh?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMultimeshPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as MultiMesh?)
   }
 
   public companion object {

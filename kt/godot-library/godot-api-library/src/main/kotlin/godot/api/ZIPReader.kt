@@ -16,14 +16,15 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedByteArray
 import godot.core.PackedStringArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_BYTE_ARRAY
+import godot.readReturnValue_PACKED_STRING_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_STRING_BOOL
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -82,18 +83,18 @@ public open class ZIPReader : RefCounted() {
    * Opens the zip archive at the given [path] and reads its file index.
    */
   public final fun `open`(path: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
     TransferContext.callMethod(MethodBindings.openPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Closes the underlying resources used by this instance.
    */
   public final fun close(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.closePtr, 2)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -102,9 +103,9 @@ public open class ZIPReader : RefCounted() {
    * Must be called after [open].
    */
   public final fun getFiles(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFilesPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFilesPtr, 34)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -114,9 +115,9 @@ public open class ZIPReader : RefCounted() {
    */
   @JvmOverloads
   public final fun readFile(path: String, caseSensitive: Boolean = true): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, BOOL to caseSensitive)
+    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, path, caseSensitive)
     TransferContext.callMethod(MethodBindings.readFilePtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   /**
@@ -126,9 +127,9 @@ public open class ZIPReader : RefCounted() {
    */
   @JvmOverloads
   public final fun fileExists(path: String, caseSensitive: Boolean = true): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, BOOL to caseSensitive)
+    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, path, caseSensitive)
     TransferContext.callMethod(MethodBindings.fileExistsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -137,9 +138,9 @@ public open class ZIPReader : RefCounted() {
    */
   @JvmOverloads
   public final fun getCompressionLevel(path: String, caseSensitive: Boolean = true): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, BOOL to caseSensitive)
+    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, path, caseSensitive)
     TransferContext.callMethod(MethodBindings.getCompressionLevelPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public companion object {

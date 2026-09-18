@@ -13,12 +13,16 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -126,18 +130,18 @@ public open class OccluderInstance3D : VisualInstance3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(431, scriptPtr)
+    createNativeObject(430, scriptPtr)
   }
 
   public final fun setBakeMask(mask: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mask)
-    TransferContext.callMethod(MethodBindings.setBakeMaskPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask)
+    TransferContext.callPtrMethod(MethodBindings.setBakeMaskPtr, 0)
   }
 
   public final fun getBakeMask(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakeMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBakeMaskPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -145,8 +149,8 @@ public open class OccluderInstance3D : VisualInstance3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun setBakeMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong(), BOOL to value)
-    TransferContext.callMethod(MethodBindings.setBakeMaskValuePtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
+    TransferContext.callPtrMethod(MethodBindings.setBakeMaskValuePtr, 0)
   }
 
   /**
@@ -154,31 +158,31 @@ public open class OccluderInstance3D : VisualInstance3D() {
    * between 1 and 32.
    */
   public final fun getBakeMaskValue(layerNumber: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong())
-    TransferContext.callMethod(MethodBindings.getBakeMaskValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getBakeMaskValuePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setBakeSimplificationDistance(simplificationDistance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to simplificationDistance.toDouble())
-    TransferContext.callMethod(MethodBindings.setBakeSimplificationDistancePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, simplificationDistance.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setBakeSimplificationDistancePtr, 0)
   }
 
   public final fun getBakeSimplificationDistance(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakeSimplificationDistancePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBakeSimplificationDistancePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOccluder(occluder: Occluder3D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to occluder)
-    TransferContext.callMethod(MethodBindings.setOccluderPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, occluder)
+    TransferContext.callPtrMethod(MethodBindings.setOccluderPtr, 0)
   }
 
   public final fun getOccluder(): Occluder3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOccluderPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Occluder3D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOccluderPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Occluder3D?)
   }
 
   public companion object {

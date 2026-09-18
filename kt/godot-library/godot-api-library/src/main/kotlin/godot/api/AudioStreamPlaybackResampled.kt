@@ -11,6 +11,7 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
+import godot.writeMethodArguments0
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float
@@ -26,7 +27,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public abstract class AudioStreamPlaybackResampled : AudioStreamPlayback() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(95, scriptPtr)
+    createNativeObject(93, scriptPtr)
   }
 
   /**
@@ -39,8 +40,8 @@ public abstract class AudioStreamPlaybackResampled : AudioStreamPlayback() {
    * mixing by calling [_mixResampled].
    */
   public final fun beginResample(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.beginResamplePtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.beginResamplePtr, 0)
   }
 
   /**

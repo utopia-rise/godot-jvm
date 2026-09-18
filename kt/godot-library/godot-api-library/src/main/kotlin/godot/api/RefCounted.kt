@@ -11,11 +11,11 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -50,7 +50,7 @@ public open class RefCounted : Object() {
   }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(1, scriptPtr)
+    createNativeObject(602, scriptPtr)
   }
 
   /**
@@ -60,9 +60,9 @@ public open class RefCounted : Object() {
    * Returns whether the initialization was successful.
    */
   public final fun initRef(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.initRefPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.initRefPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -71,9 +71,9 @@ public open class RefCounted : Object() {
    * Returns `true` if the increment was successful, `false` otherwise.
    */
   public final fun reference(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.referencePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.referencePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -82,18 +82,18 @@ public open class RefCounted : Object() {
    * Returns `true` if the object should be freed after the decrement, `false` otherwise.
    */
   public final fun unreference(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.unreferencePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.unreferencePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns the current reference count.
    */
   public final fun getReferenceCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getReferenceCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getReferenceCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public companion object {

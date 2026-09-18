@@ -13,9 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_DOUBLE
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -37,17 +37,17 @@ public open class SliderJoint3D : Joint3D() {
    * Assigns [value] to the given parameter.
    */
   public final fun setParam(`param`: Param, `value`: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value, DOUBLE to value.toDouble())
-    TransferContext.callMethod(MethodBindings.setParamPtr)
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, param.value, value.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setParamPtr, 0)
   }
 
   /**
    * Returns the value of the given parameter.
    */
   public final fun getParam(`param`: Param): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value)
-    TransferContext.callMethod(MethodBindings.getParamPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, param.value)
+    TransferContext.callPtrMethod(MethodBindings.getParamPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public enum class Param(

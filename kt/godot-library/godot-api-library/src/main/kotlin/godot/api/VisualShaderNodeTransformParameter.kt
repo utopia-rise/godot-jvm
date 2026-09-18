@@ -15,8 +15,11 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Transform3D
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.TRANSFORM3D
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_TRANSFORM3D
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_TRANSFORM3D
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -83,25 +86,25 @@ public open class VisualShaderNodeTransformParameter : VisualShaderNodeParameter
   }
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setDefaultValueEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValueEnabledPtr, 0)
   }
 
   public final fun isDefaultValueEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDefaultValueEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDefaultValueEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDefaultValue(`value`: Transform3D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, TRANSFORM3D to value)
-    TransferContext.callMethod(MethodBindings.setDefaultValuePtr)
+    TransferContext.writeMethodArguments_TRANSFORM3D(ptr, objectID.id, value)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValuePtr, 0)
   }
 
   public final fun getDefaultValue(): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultValuePtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultValuePtr, 18)
+    return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   public companion object {

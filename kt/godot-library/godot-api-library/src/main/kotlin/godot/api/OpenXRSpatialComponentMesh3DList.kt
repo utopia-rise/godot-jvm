@@ -12,9 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.Transform3D
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.TRANSFORM3D
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_TRANSFORM3D
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -27,25 +27,25 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialComponentMesh3DList : OpenXRSpatialComponentData() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(483, scriptPtr)
+    createNativeObject(482, scriptPtr)
   }
 
   /**
    * Returns the transform for positioning our mesh for the entity at this [index].
    */
   public final fun getTransform(index: Long): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
-    TransferContext.callMethod(MethodBindings.getTransformPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
+    TransferContext.callPtrMethod(MethodBindings.getTransformPtr, 18)
+    return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   /**
    * Returns the mesh for the entity at this [index].
    */
   public final fun getMesh(index: Long): Mesh? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
-    TransferContext.callMethod(MethodBindings.getMeshPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Mesh?)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
+    TransferContext.callPtrMethod(MethodBindings.getMeshPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Mesh?)
   }
 
   public companion object {

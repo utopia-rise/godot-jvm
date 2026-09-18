@@ -16,11 +16,16 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ARRAY
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -120,7 +125,7 @@ public open class PhysicsPointQueryParameters2D : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(535, scriptPtr)
+    createNativeObject(534, scriptPtr)
   }
 
   /**
@@ -143,69 +148,69 @@ public open class PhysicsPointQueryParameters2D : RefCounted() {
   }
 
   public final fun setPosition(position: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to position)
-    TransferContext.callMethod(MethodBindings.setPositionPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
+    TransferContext.callPtrMethod(MethodBindings.setPositionPtr, 0)
   }
 
   public final fun getPosition(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setCanvasInstanceId(canvasInstanceId: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to canvasInstanceId)
-    TransferContext.callMethod(MethodBindings.setCanvasInstanceIdPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, canvasInstanceId)
+    TransferContext.callPtrMethod(MethodBindings.setCanvasInstanceIdPtr, 0)
   }
 
   public final fun getCanvasInstanceId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCanvasInstanceIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCanvasInstanceIdPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setCollisionMask(collisionMask: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to collisionMask)
-    TransferContext.callMethod(MethodBindings.setCollisionMaskPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionMask)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionMaskPtr, 0)
   }
 
   public final fun getCollisionMask(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionMaskPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setExclude(exclude: VariantArray<RID>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to exclude)
-    TransferContext.callMethod(MethodBindings.setExcludePtr)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, exclude)
+    TransferContext.callPtrMethod(MethodBindings.setExcludePtr, 0)
   }
 
   public final fun getExclude(): VariantArray<RID> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExcludePtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<RID>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getExcludePtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
   public final fun setCollideWithBodies(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setCollideWithBodiesPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setCollideWithBodiesPtr, 0)
   }
 
   public final fun isCollideWithBodiesEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollideWithBodiesEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isCollideWithBodiesEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCollideWithAreas(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setCollideWithAreasPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setCollideWithAreasPtr, 0)
   }
 
   public final fun isCollideWithAreasEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollideWithAreasEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isCollideWithAreasEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

@@ -16,10 +16,15 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_VECTOR3
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -131,7 +136,7 @@ public open class GPUParticlesCollisionHeightField3D : GPUParticlesCollision3D()
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(267, scriptPtr)
+    createNativeObject(265, scriptPtr)
   }
 
   /**
@@ -155,47 +160,47 @@ public open class GPUParticlesCollisionHeightField3D : GPUParticlesCollision3D()
   }
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, size)
+    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
   }
 
   public final fun getSize(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 9)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setResolution(resolution: Resolution): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to resolution.value)
-    TransferContext.callMethod(MethodBindings.setResolutionPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, resolution.value)
+    TransferContext.callPtrMethod(MethodBindings.setResolutionPtr, 0)
   }
 
   public final fun getResolution(): Resolution {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResolutionPtr)
-    return Resolution.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getResolutionPtr, 2)
+    return Resolution.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setUpdateMode(updateMode: UpdateMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to updateMode.value)
-    TransferContext.callMethod(MethodBindings.setUpdateModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, updateMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setUpdateModePtr, 0)
   }
 
   public final fun getUpdateMode(): UpdateMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUpdateModePtr)
-    return UpdateMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getUpdateModePtr, 2)
+    return UpdateMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setHeightfieldMask(heightfieldMask: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to heightfieldMask)
-    TransferContext.callMethod(MethodBindings.setHeightfieldMaskPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, heightfieldMask)
+    TransferContext.callPtrMethod(MethodBindings.setHeightfieldMaskPtr, 0)
   }
 
   public final fun getHeightfieldMask(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightfieldMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getHeightfieldMaskPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -203,8 +208,8 @@ public open class GPUParticlesCollisionHeightField3D : GPUParticlesCollision3D()
    * [layerNumber] between `1` and `20`, inclusive.
    */
   public final fun setHeightfieldMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong(), BOOL to value)
-    TransferContext.callMethod(MethodBindings.setHeightfieldMaskValuePtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
+    TransferContext.callPtrMethod(MethodBindings.setHeightfieldMaskValuePtr, 0)
   }
 
   /**
@@ -212,20 +217,20 @@ public open class GPUParticlesCollisionHeightField3D : GPUParticlesCollision3D()
    * [layerNumber] between `1` and `20`, inclusive.
    */
   public final fun getHeightfieldMaskValue(layerNumber: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong())
-    TransferContext.callMethod(MethodBindings.getHeightfieldMaskValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getHeightfieldMaskValuePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFollowCameraEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setFollowCameraEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setFollowCameraEnabledPtr, 0)
   }
 
   public final fun isFollowCameraEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFollowCameraEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isFollowCameraEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class Resolution(

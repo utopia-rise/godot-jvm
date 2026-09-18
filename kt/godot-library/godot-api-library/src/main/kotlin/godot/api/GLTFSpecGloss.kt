@@ -15,10 +15,13 @@ import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
-import kotlin.Double
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_OBJECT
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -103,7 +106,7 @@ public open class GLTFSpecGloss : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(255, scriptPtr)
+    createNativeObject(253, scriptPtr)
   }
 
   /**
@@ -145,58 +148,58 @@ public open class GLTFSpecGloss : Resource() {
   }
 
   public final fun getDiffuseImg(): Image? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDiffuseImgPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Image?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDiffuseImgPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Image?)
   }
 
   public final fun setDiffuseImg(diffuseImg: Image?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to diffuseImg)
-    TransferContext.callMethod(MethodBindings.setDiffuseImgPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, diffuseImg)
+    TransferContext.callPtrMethod(MethodBindings.setDiffuseImgPtr, 0)
   }
 
   public final fun getDiffuseFactor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDiffuseFactorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDiffuseFactorPtr, 20)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setDiffuseFactor(diffuseFactor: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to diffuseFactor)
-    TransferContext.callMethod(MethodBindings.setDiffuseFactorPtr)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, diffuseFactor)
+    TransferContext.callPtrMethod(MethodBindings.setDiffuseFactorPtr, 0)
   }
 
   public final fun getGlossFactor(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlossFactorPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getGlossFactorPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGlossFactor(glossFactor: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to glossFactor.toDouble())
-    TransferContext.callMethod(MethodBindings.setGlossFactorPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, glossFactor.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setGlossFactorPtr, 0)
   }
 
   public final fun getSpecularFactor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpecularFactorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSpecularFactorPtr, 20)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setSpecularFactor(specularFactor: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to specularFactor)
-    TransferContext.callMethod(MethodBindings.setSpecularFactorPtr)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, specularFactor)
+    TransferContext.callPtrMethod(MethodBindings.setSpecularFactorPtr, 0)
   }
 
   public final fun getSpecGlossImg(): Image? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpecGlossImgPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Image?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSpecGlossImgPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Image?)
   }
 
   public final fun setSpecGlossImg(specGlossImg: Image?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to specGlossImg)
-    TransferContext.callMethod(MethodBindings.setSpecGlossImgPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, specGlossImg)
+    TransferContext.callPtrMethod(MethodBindings.setSpecGlossImgPtr, 0)
   }
 
   public companion object {

@@ -16,13 +16,17 @@ import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.NODE_PATH
 import godot.core.asCachedNodePath
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_NODE_PATH
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_NODE_PATH
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.String
 import kotlin.Suppress
@@ -131,58 +135,58 @@ public open class RootMotionView : VisualInstance3D() {
   }
 
   public final fun setAnimationPath(path: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.setAnimationPathPtr)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
+    TransferContext.callPtrMethod(MethodBindings.setAnimationPathPtr, 0)
   }
 
   public final fun getAnimationPath(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationPathPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAnimationPathPtr, 22)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   public final fun setColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.setColorPtr)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
+    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
   }
 
   public final fun getColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getColorPtr, 20)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setCellSize(size: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to size.toDouble())
-    TransferContext.callMethod(MethodBindings.setCellSizePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, size.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setCellSizePtr, 0)
   }
 
   public final fun getCellSize(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCellSizePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCellSizePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRadius(size: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to size.toDouble())
-    TransferContext.callMethod(MethodBindings.setRadiusPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, size.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setRadiusPtr, 0)
   }
 
   public final fun getRadius(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadiusPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRadiusPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setZeroY(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setZeroYPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setZeroYPtr, 0)
   }
 
   public final fun getZeroY(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getZeroYPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getZeroYPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAnimationPath(path: String) = setAnimationPath(path.asCachedNodePath())

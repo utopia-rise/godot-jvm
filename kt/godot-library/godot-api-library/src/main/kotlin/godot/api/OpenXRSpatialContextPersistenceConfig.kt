@@ -14,8 +14,9 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser._RID
+import godot.readReturnValue_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_RID
 import kotlin.Any
 import kotlin.Suppress
 import kotlin.Unit
@@ -29,7 +30,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialContextPersistenceConfig : OpenXRStructureBase() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(489, scriptPtr)
+    createNativeObject(488, scriptPtr)
   }
 
   /**
@@ -38,25 +39,25 @@ public open class OpenXRSpatialContextPersistenceConfig : OpenXRStructureBase() 
    * [OpenXRSpatialAnchorCapability.createPersistenceContext].
    */
   public final fun addPersistenceContext(persistenceContext: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to persistenceContext)
-    TransferContext.callMethod(MethodBindings.addPersistenceContextPtr)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, persistenceContext)
+    TransferContext.callPtrMethod(MethodBindings.addPersistenceContextPtr, 0)
   }
 
   /**
    * Removes a persistence context.
    */
   public final fun removePersistenceContext(persistenceContext: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to persistenceContext)
-    TransferContext.callMethod(MethodBindings.removePersistenceContextPtr)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, persistenceContext)
+    TransferContext.callPtrMethod(MethodBindings.removePersistenceContextPtr, 0)
   }
 
   /**
    * Gets the persistence context(s) (as [RID]s) received by [addPersistenceContext].
    */
   public final fun getPersistenceContexts(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPersistenceContextsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPersistenceContextsPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   public companion object {

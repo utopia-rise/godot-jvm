@@ -16,11 +16,10 @@ import godot.core.MethodStringName5
 import godot.core.RID
 import godot.core.VariantArray
 import godot.core.VariantCallable
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser._RID
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_RID_ARRAY_OBJECT_OBJECT_CALLABLE
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -33,16 +32,16 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class OpenXRSpatialPlaneTrackingCapability : OpenXRExtensionWrapper() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(493, scriptPtr)
+    createNativeObject(492, scriptPtr)
   }
 
   /**
    * Returns `true` if plane tracking is supported by the current device.
    */
   public final fun isSupported(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isSupportedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -75,9 +74,9 @@ public open class OpenXRSpatialPlaneTrackingCapability : OpenXRExtensionWrapper(
     nextSnapshotQuery: OpenXRStructureBase? = null,
     userCallback: Callable = VariantCallable(),
   ): OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext, ARRAY to componentData, OBJECT to nextSnapshotCreate, OBJECT to nextSnapshotQuery, CALLABLE to userCallback)
+    TransferContext.writeMethodArguments_RID_ARRAY_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery, userCallback)
     TransferContext.callMethod(MethodBindings.startEntityDiscoveryPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRFutureResult?)
   }
 
   public companion object {

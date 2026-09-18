@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -39,18 +41,18 @@ public open class AnimationNodeSync : AnimationNode() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(33, scriptPtr)
+    createNativeObject(31, scriptPtr)
   }
 
   public final fun setUseSync(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setUseSyncPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setUseSyncPtr, 0)
   }
 
   public final fun isUsingSync(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingSyncPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isUsingSyncPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

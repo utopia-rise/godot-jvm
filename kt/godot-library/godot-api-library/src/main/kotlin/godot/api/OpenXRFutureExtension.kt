@@ -15,10 +15,11 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.VariantCallable
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_CALLABLE
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -34,7 +35,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(454, scriptPtr)
+    createNativeObject(453, scriptPtr)
   }
 
   /**
@@ -42,9 +43,9 @@ public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
    * return a usable result after OpenXR has been initialized.
    */
   public final fun isActive(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isActivePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isActivePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -68,9 +69,9 @@ public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
   @JvmOverloads
   public final fun registerFuture(future: Long, onSuccess: Callable = VariantCallable()):
       OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to future, CALLABLE to onSuccess)
+    TransferContext.writeMethodArguments_LONG_CALLABLE(ptr, objectID.id, future, onSuccess)
     TransferContext.callMethod(MethodBindings.registerFuturePtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRFutureResult?)
   }
 
   /**
@@ -78,8 +79,8 @@ public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
    * an API that started an asynchronous function.
    */
   public final fun cancelFuture(future: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to future)
-    TransferContext.callMethod(MethodBindings.cancelFuturePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, future)
+    TransferContext.callPtrMethod(MethodBindings.cancelFuturePtr, 0)
   }
 
   public companion object {

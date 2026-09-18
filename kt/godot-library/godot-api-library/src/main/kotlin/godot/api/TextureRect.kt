@@ -13,9 +13,13 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -90,58 +94,58 @@ public open class TextureRect : Control() {
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to texture)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setExpandMode(expandMode: ExpandMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to expandMode.value)
-    TransferContext.callMethod(MethodBindings.setExpandModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, expandMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setExpandModePtr, 0)
   }
 
   public final fun getExpandMode(): ExpandMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExpandModePtr)
-    return ExpandMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getExpandModePtr, 2)
+    return ExpandMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setFlipH(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setFlipHPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setFlipHPtr, 0)
   }
 
   public final fun isFlippedH(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFlippedHPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isFlippedHPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFlipV(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setFlipVPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setFlipVPtr, 0)
   }
 
   public final fun isFlippedV(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFlippedVPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isFlippedVPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setStretchMode(stretchMode: StretchMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stretchMode.value)
-    TransferContext.callMethod(MethodBindings.setStretchModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, stretchMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setStretchModePtr, 0)
   }
 
   public final fun getStretchMode(): StretchMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStretchModePtr)
-    return StretchMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getStretchModePtr, 2)
+    return StretchMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class ExpandMode(

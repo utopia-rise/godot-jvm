@@ -1,6 +1,5 @@
 package godot.core
 
-import godot.api.Object
 import godot.common.interop.ObjectID
 import godot.common.interop.VariantConverter
 import godot.common.interop.nullptr
@@ -8,10 +7,11 @@ import godot.common.util.toRealT
 import godot.internal.memory.LongStringQueue
 import java.nio.ByteBuffer
 
+// One byte, the engine's own bool layout, so a ptrcall can use the value in place.
 private var ByteBuffer.bool: Boolean
-    get() = int == 1
+    get() = get() != 0.toByte()
     set(value) {
-        putInt(if (value) 1 else 0)
+        put(if (value) 1 else 0)
     }
 
 private var ByteBuffer.vector2: Vector2
@@ -80,7 +80,7 @@ private var ByteBuffer.stringName: StringName
         toGodotNativeCoreType<StringName>(this, value)
     }
 
-private var ByteBuffer.obj: KtObject?
+private var ByteBuffer.obj: GodotObject?
     get() {
         val constructorIndex = int
         val ptr = long
@@ -107,6 +107,8 @@ private var ByteBuffer.variantType: Int
  * the JVM type it produces.
  */
 sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
+    // BOOL, LONG and DOUBLE also declare `read`/`write` with primitive signatures. They deliberately override nothing:
+    // a generic `T` would erase them to `Any?` and box, and generated engine calls name their converter statically.
     data object NIL : VariantParser<Unit>(0) {
         override fun toUnsafeKotlin(buffer: ByteBuffer) = Unit
         override fun toUnsafeGodot(buffer: ByteBuffer, any: Any?) {}
@@ -119,6 +121,16 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
             require(any is Boolean)
             buffer.bool = any
         }
+
+        fun read(buffer: ByteBuffer): Boolean {
+            checkType(buffer.variantType)
+            return buffer.bool
+        }
+
+        fun write(buffer: ByteBuffer, value: Boolean) {
+            buffer.variantType = id
+            buffer.bool = value
+        }
     }
     data object LONG : VariantParser<Long>(2) {
         override fun toUnsafeKotlin(buffer: ByteBuffer) = buffer.long
@@ -126,12 +138,32 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
             require(any is Long)
             buffer.putLong(any)
         }
+
+        fun read(buffer: ByteBuffer): Long {
+            checkType(buffer.variantType)
+            return buffer.long
+        }
+
+        fun write(buffer: ByteBuffer, value: Long) {
+            buffer.variantType = id
+            buffer.putLong(value)
+        }
     }
     data object DOUBLE : VariantParser<Double>(3) {
         override fun toUnsafeKotlin(buffer: ByteBuffer) = buffer.double
         override fun toUnsafeGodot(buffer: ByteBuffer, any: Any?) {
             require(any is Double)
             buffer.putDouble(any)
+        }
+
+        fun read(buffer: ByteBuffer): Double {
+            checkType(buffer.variantType)
+            return buffer.double
+        }
+
+        fun write(buffer: ByteBuffer, value: Double) {
+            buffer.variantType = id
+            buffer.putDouble(value)
         }
     }
     data object STRING : VariantParser<String>(4) {
@@ -363,8 +395,8 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
             buffer.putLong(any.id)
         }
     }
-    data object OBJECT : VariantParser<KtObject?>(24) {
-        override fun toKotlin(buffer: ByteBuffer): KtObject? {
+    data object OBJECT : VariantParser<GodotObject?>(24) {
+        override fun toKotlin(buffer: ByteBuffer): GodotObject? {
             val idInBuffer = buffer.variantType
             // Godot can sometimes send null pointer as NIL variant, so we need to test for that case.
             if (idInBuffer == NIL.id) {
@@ -376,11 +408,11 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
 
         override fun toUnsafeKotlin(buffer: ByteBuffer) = buffer.obj
         override fun toUnsafeGodot(buffer: ByteBuffer, any: Any?) {
-            require(any is KtObject?)
+            require(any is GodotObject?)
             buffer.obj = any
         }
     }
-    data object CALLABLE : VariantParser<VariantCallable>(25) {
+    data object CALLABLE : VariantParser<Callable>(25) {
         override fun toUnsafeKotlin(buffer: ByteBuffer) = VariantCallable(buffer.long)
         override fun toUnsafeGodot(buffer: ByteBuffer, any: Any?) {
             require(any is Callable)
@@ -390,9 +422,8 @@ sealed class VariantParser<out T>(override val id: Int) : VariantConverter<T> {
     }
     data object SIGNAL : VariantParser<Signal>(26) {
         override fun toUnsafeKotlin(buffer: ByteBuffer): Signal {
-            val obj = buffer.obj
+            val obj = requireNotNull(buffer.obj)
             val name = buffer.stringName
-            require(obj is Object)
             return Signal(obj, name)
         }
 

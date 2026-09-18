@@ -15,10 +15,12 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MouseButtonMask
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
-import kotlin.Long
+import godot.readReturnValue_LONG
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -88,7 +90,7 @@ public open class InputEventMouse internal constructor() : InputEventWithModifie
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(319, scriptPtr)
+    createNativeObject(317, scriptPtr)
   }
 
   /**
@@ -138,36 +140,36 @@ public open class InputEventMouse internal constructor() : InputEventWithModifie
   }
 
   public final fun setButtonMask(buttonMask: MouseButtonMask): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to buttonMask.flag)
-    TransferContext.callMethod(MethodBindings.setButtonMaskPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, buttonMask.flag)
+    TransferContext.callPtrMethod(MethodBindings.setButtonMaskPtr, 0)
   }
 
   public final fun getButtonMask(): MouseButtonMask {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getButtonMaskPtr)
-    return MouseButtonMask(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getButtonMaskPtr, 2)
+    return MouseButtonMask(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPosition(position: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to position)
-    TransferContext.callMethod(MethodBindings.setPositionPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
+    TransferContext.callPtrMethod(MethodBindings.setPositionPtr, 0)
   }
 
   public final fun getPosition(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setGlobalPosition(globalPosition: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to globalPosition)
-    TransferContext.callMethod(MethodBindings.setGlobalPositionPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, globalPosition)
+    TransferContext.callPtrMethod(MethodBindings.setGlobalPositionPtr, 0)
   }
 
   public final fun getGlobalPosition(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlobalPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getGlobalPositionPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public companion object {

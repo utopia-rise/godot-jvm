@@ -12,8 +12,8 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser._RID
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments_RID
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -30,13 +30,13 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public abstract class PhysicsDirectSpaceState2DExtension : PhysicsDirectSpaceState2D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(531, scriptPtr)
+    createNativeObject(530, scriptPtr)
   }
 
   public final fun isBodyExcludedFromQuery(body: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to body)
-    TransferContext.callMethod(MethodBindings.isBodyExcludedFromQueryPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, body)
+    TransferContext.callPtrMethod(MethodBindings.isBodyExcludedFromQueryPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

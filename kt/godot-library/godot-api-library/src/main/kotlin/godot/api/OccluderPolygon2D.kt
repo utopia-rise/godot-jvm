@@ -16,10 +16,14 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedVector2Array
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
 import godot.core.Vector2
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_VECTOR2_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -76,7 +80,7 @@ public open class OccluderPolygon2D : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(432, scriptPtr)
+    createNativeObject(431, scriptPtr)
   }
 
   /**
@@ -117,36 +121,36 @@ public open class OccluderPolygon2D : Resource() {
   }
 
   public final fun setClosed(closed: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to closed)
-    TransferContext.callMethod(MethodBindings.setClosedPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, closed)
+    TransferContext.callPtrMethod(MethodBindings.setClosedPtr, 0)
   }
 
   public final fun isClosed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isClosedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isClosedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCullMode(cullMode: CullMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to cullMode.value)
-    TransferContext.callMethod(MethodBindings.setCullModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, cullMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setCullModePtr, 0)
   }
 
   public final fun getCullMode(): CullMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCullModePtr)
-    return CullMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCullModePtr, 2)
+    return CullMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPolygon(polygon: PackedVector2Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR2_ARRAY to polygon)
-    TransferContext.callMethod(MethodBindings.setPolygonPtr)
+    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, polygon)
+    TransferContext.callPtrMethod(MethodBindings.setPolygonPtr, 0)
   }
 
   public final fun getPolygon(): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPolygonPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPolygonPtr, 35)
+    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
   public enum class CullMode(

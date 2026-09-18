@@ -13,7 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -42,14 +44,14 @@ public open class VisualShaderNodeUIntFunc : VisualShaderNode() {
   }
 
   public final fun setFunction(func: Function): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to func.value)
-    TransferContext.callMethod(MethodBindings.setFunctionPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, func.value)
+    TransferContext.callPtrMethod(MethodBindings.setFunctionPtr, 0)
   }
 
   public final fun getFunction(): Function {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFunctionPtr)
-    return Function.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFunctionPtr, 2)
+    return Function.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class Function(

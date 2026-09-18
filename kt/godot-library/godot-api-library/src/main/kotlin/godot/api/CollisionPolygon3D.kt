@@ -16,13 +16,17 @@ import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedVector2Array
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
 import godot.core.Vector2
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_PACKED_VECTOR2_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
@@ -131,7 +135,7 @@ public open class CollisionPolygon3D : Node3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(166, scriptPtr)
+    createNativeObject(164, scriptPtr)
   }
 
   /**
@@ -196,69 +200,69 @@ public open class CollisionPolygon3D : Node3D() {
   }
 
   public final fun setDepth(depth: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to depth.toDouble())
-    TransferContext.callMethod(MethodBindings.setDepthPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, depth.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setDepthPtr, 0)
   }
 
   public final fun getDepth(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDepthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPolygon(polygon: PackedVector2Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR2_ARRAY to polygon)
-    TransferContext.callMethod(MethodBindings.setPolygonPtr)
+    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, polygon)
+    TransferContext.callPtrMethod(MethodBindings.setPolygonPtr, 0)
   }
 
   public final fun getPolygon(): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPolygonPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPolygonPtr, 35)
+    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
   public final fun setDisabled(disabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to disabled)
-    TransferContext.callMethod(MethodBindings.setDisabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, disabled)
+    TransferContext.callPtrMethod(MethodBindings.setDisabledPtr, 0)
   }
 
   public final fun isDisabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDisabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDisabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDebugColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.setDebugColorPtr)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
+    TransferContext.callPtrMethod(MethodBindings.setDebugColorPtr, 0)
   }
 
   public final fun getDebugColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDebugColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDebugColorPtr, 20)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setEnableDebugFill(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setEnableDebugFillPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setEnableDebugFillPtr, 0)
   }
 
   public final fun getEnableDebugFill(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableDebugFillPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getEnableDebugFillPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMargin(margin: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to margin.toDouble())
-    TransferContext.callMethod(MethodBindings.setMarginPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, margin.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setMarginPtr, 0)
   }
 
   public final fun getMargin(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMarginPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMarginPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public companion object {

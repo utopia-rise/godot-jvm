@@ -22,25 +22,37 @@ import godot.core.PackedFloat32Array
 import godot.core.PackedInt32Array
 import godot.core.PackedVector2Array
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_COLOR_ARRAY
-import godot.core.VariantParser.PACKED_FLOAT_32_ARRAY
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
 import godot.core.asCachedNodePath
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_NODE_PATH
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_COLOR_ARRAY
+import godot.readReturnValue_PACKED_FLOAT_32_ARRAY
+import godot.readReturnValue_PACKED_VECTOR2_ARRAY
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ARRAY
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_NODE_PATH
+import godot.writeMethodArguments_LONG_PACKED_FLOAT_32_ARRAY
+import godot.writeMethodArguments_NODE_PATH
+import godot.writeMethodArguments_NODE_PATH_PACKED_FLOAT_32_ARRAY
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_PACKED_COLOR_ARRAY
+import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Any
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -279,7 +291,7 @@ public open class Polygon2D : Node2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(563, scriptPtr)
+    createNativeObject(562, scriptPtr)
   }
 
   /**
@@ -437,235 +449,235 @@ public open class Polygon2D : Node2D() {
   }
 
   public final fun setPolygon(polygon: PackedVector2Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR2_ARRAY to polygon)
-    TransferContext.callMethod(MethodBindings.setPolygonPtr)
+    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, polygon)
+    TransferContext.callPtrMethod(MethodBindings.setPolygonPtr, 0)
   }
 
   public final fun getPolygon(): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPolygonPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPolygonPtr, 35)
+    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
   public final fun setUv(uv: PackedVector2Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR2_ARRAY to uv)
-    TransferContext.callMethod(MethodBindings.setUvPtr)
+    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, uv)
+    TransferContext.callPtrMethod(MethodBindings.setUvPtr, 0)
   }
 
   public final fun getUv(): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUvPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getUvPtr, 35)
+    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
   public final fun setColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.setColorPtr)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
+    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
   }
 
   public final fun getColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getColorPtr, 20)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setPolygons(polygons: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to polygons)
-    TransferContext.callMethod(MethodBindings.setPolygonsPtr)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, polygons)
+    TransferContext.callPtrMethod(MethodBindings.setPolygonsPtr, 0)
   }
 
   public final fun getPolygons(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPolygonsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPolygonsPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   public final fun setVertexColors(vertexColors: PackedColorArray): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_COLOR_ARRAY to vertexColors)
-    TransferContext.callMethod(MethodBindings.setVertexColorsPtr)
+    TransferContext.writeMethodArguments_PACKED_COLOR_ARRAY(ptr, objectID.id, vertexColors)
+    TransferContext.callPtrMethod(MethodBindings.setVertexColorsPtr, 0)
   }
 
   public final fun getVertexColors(): PackedColorArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVertexColorsPtr)
-    return (TransferContext.readReturnValue(PACKED_COLOR_ARRAY) as PackedColorArray)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVertexColorsPtr, 37)
+    return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to texture)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setTextureOffset(textureOffset: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to textureOffset)
-    TransferContext.callMethod(MethodBindings.setTextureOffsetPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, textureOffset)
+    TransferContext.callPtrMethod(MethodBindings.setTextureOffsetPtr, 0)
   }
 
   public final fun getTextureOffset(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTextureOffsetPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setTextureRotation(textureRotation: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to textureRotation.toDouble())
-    TransferContext.callMethod(MethodBindings.setTextureRotationPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, textureRotation.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setTextureRotationPtr, 0)
   }
 
   public final fun getTextureRotation(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureRotationPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTextureRotationPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setTextureScale(textureScale: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to textureScale)
-    TransferContext.callMethod(MethodBindings.setTextureScalePtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, textureScale)
+    TransferContext.callPtrMethod(MethodBindings.setTextureScalePtr, 0)
   }
 
   public final fun getTextureScale(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureScalePtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTextureScalePtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setInvertEnabled(invert: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to invert)
-    TransferContext.callMethod(MethodBindings.setInvertEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, invert)
+    TransferContext.callPtrMethod(MethodBindings.setInvertEnabledPtr, 0)
   }
 
   public final fun getInvertEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInvertEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInvertEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAntialiased(antialiased: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to antialiased)
-    TransferContext.callMethod(MethodBindings.setAntialiasedPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, antialiased)
+    TransferContext.callPtrMethod(MethodBindings.setAntialiasedPtr, 0)
   }
 
   public final fun getAntialiased(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAntialiasedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAntialiasedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setInvertBorder(invertBorder: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to invertBorder.toDouble())
-    TransferContext.callMethod(MethodBindings.setInvertBorderPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, invertBorder.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setInvertBorderPtr, 0)
   }
 
   public final fun getInvertBorder(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInvertBorderPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInvertBorderPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOffset(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to offset)
-    TransferContext.callMethod(MethodBindings.setOffsetPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
+    TransferContext.callPtrMethod(MethodBindings.setOffsetPtr, 0)
   }
 
   public final fun getOffset(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOffsetPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   /**
    * Adds a bone with the specified [path] and [weights].
    */
   public final fun addBone(path: NodePath, weights: PackedFloat32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path, PACKED_FLOAT_32_ARRAY to weights)
-    TransferContext.callMethod(MethodBindings.addBonePtr)
+    TransferContext.writeMethodArguments_NODE_PATH_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, path, weights)
+    TransferContext.callPtrMethod(MethodBindings.addBonePtr, 0)
   }
 
   /**
    * Returns the number of bones in this [Polygon2D].
    */
   public final fun getBoneCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBoneCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the path to the node associated with the specified bone.
    */
   public final fun getBonePath(index: Int): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getBonePathPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getBonePathPtr, 22)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   /**
    * Returns the weight values of the specified bone.
    */
   public final fun getBoneWeights(index: Int): PackedFloat32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneWeightsPtr)
-    return (TransferContext.readReturnValue(PACKED_FLOAT_32_ARRAY) as PackedFloat32Array)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getBoneWeightsPtr, 32)
+    return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
   /**
    * Removes the specified bone from this [Polygon2D].
    */
   public final fun eraseBone(index: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.eraseBonePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
+    TransferContext.callPtrMethod(MethodBindings.eraseBonePtr, 0)
   }
 
   /**
    * Removes all bones from this [Polygon2D].
    */
   public final fun clearBones(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearBonesPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.clearBonesPtr, 0)
   }
 
   /**
    * Sets the path to the node associated with the specified bone.
    */
   public final fun setBonePath(index: Int, path: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.setBonePathPtr)
+    TransferContext.writeMethodArguments_LONG_NODE_PATH(ptr, objectID.id, index.toLong(), path)
+    TransferContext.callPtrMethod(MethodBindings.setBonePathPtr, 0)
   }
 
   /**
    * Sets the weight values for the specified bone.
    */
   public final fun setBoneWeights(index: Int, weights: PackedFloat32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), PACKED_FLOAT_32_ARRAY to weights)
-    TransferContext.callMethod(MethodBindings.setBoneWeightsPtr)
+    TransferContext.writeMethodArguments_LONG_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, index.toLong(), weights)
+    TransferContext.callPtrMethod(MethodBindings.setBoneWeightsPtr, 0)
   }
 
   public final fun setSkeleton(skeleton: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to skeleton)
-    TransferContext.callMethod(MethodBindings.setSkeletonPtr)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, skeleton)
+    TransferContext.callPtrMethod(MethodBindings.setSkeletonPtr, 0)
   }
 
   public final fun getSkeleton(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSkeletonPtr, 22)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   public final fun setInternalVertexCount(internalVertexCount: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to internalVertexCount.toLong())
-    TransferContext.callMethod(MethodBindings.setInternalVertexCountPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, internalVertexCount.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setInternalVertexCountPtr, 0)
   }
 
   public final fun getInternalVertexCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInternalVertexCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInternalVertexCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**

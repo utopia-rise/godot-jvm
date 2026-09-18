@@ -14,10 +14,13 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
 import godot.core.StringName
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedNodePath
 import godot.core.asCachedStringName
+import godot.readReturnValue_NODE_PATH
+import godot.readReturnValue_STRING_NAME
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_NODE_PATH
+import godot.writeMethodArguments_STRING_NAME
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -65,25 +68,25 @@ public open class XRFaceModifier3D : Node3D() {
   }
 
   public final fun setFaceTracker(trackerName: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to trackerName)
-    TransferContext.callMethod(MethodBindings.setFaceTrackerPtr)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, trackerName)
+    TransferContext.callPtrMethod(MethodBindings.setFaceTrackerPtr, 0)
   }
 
   public final fun getFaceTracker(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFaceTrackerPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFaceTrackerPtr, 21)
+    return TransferContext.readReturnValue_STRING_NAME()
   }
 
   public final fun setTarget(target: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to target)
-    TransferContext.callMethod(MethodBindings.setTargetPtr)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, target)
+    TransferContext.callPtrMethod(MethodBindings.setTargetPtr, 0)
   }
 
   public final fun getTarget(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTargetPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTargetPtr, 22)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   public final fun setFaceTracker(trackerName: String) =

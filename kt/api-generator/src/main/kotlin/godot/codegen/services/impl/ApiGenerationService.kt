@@ -25,6 +25,7 @@ import godot.codegen.generation.rule.RegistrationRule
 import godot.codegen.generation.rule.SignalRule
 import godot.codegen.generation.rule.StaticRule
 import godot.codegen.generation.rule.StringOnlyRule
+import godot.codegen.generation.rule.TransferRule
 import godot.codegen.generation.rule.UseConnectFlagRule
 import godot.codegen.generation.rule.WarningRule
 import godot.codegen.generation.rule.compile
@@ -87,6 +88,7 @@ class ApiGenerationService(
                 rule(::ImportRule)
             }
             rule(::RegistrationRule)
+            rule(::TransferRule)
         }
     }
 }

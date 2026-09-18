@@ -14,9 +14,9 @@ import godot.core.Error
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments_ARRAY
+import godot.writeMethodArguments_OBJECT_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -32,7 +32,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class ImageTextureLayered internal constructor() : TextureLayered() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(305, scriptPtr)
+    createNativeObject(303, scriptPtr)
   }
 
   /**
@@ -77,9 +77,9 @@ public open class ImageTextureLayered internal constructor() : TextureLayered() 
    * ```
    */
   public final fun createFromImages(images: VariantArray<Image>): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to images)
-    TransferContext.callMethod(MethodBindings.createFromImagesPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, images)
+    TransferContext.callPtrMethod(MethodBindings.createFromImagesPtr, 2)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -94,8 +94,8 @@ public open class ImageTextureLayered internal constructor() : TextureLayered() 
    * The update is immediate: it's synchronized with drawing.
    */
   public final fun updateLayer(image: Image?, layer: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to image, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.updateLayerPtr)
+    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, image, layer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.updateLayerPtr, 0)
   }
 
   /**

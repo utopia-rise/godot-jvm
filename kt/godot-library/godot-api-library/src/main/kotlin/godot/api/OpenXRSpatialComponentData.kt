@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -25,7 +27,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialComponentData : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(480, scriptPtr)
+    createNativeObject(479, scriptPtr)
   }
 
   /**
@@ -56,17 +58,17 @@ public open class OpenXRSpatialComponentData : RefCounted() {
    * initialized with the correct storage.
    */
   public final fun setCapacity(capacity: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to capacity)
-    TransferContext.callMethod(MethodBindings.setCapacityPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, capacity)
+    TransferContext.callPtrMethod(MethodBindings.setCapacityPtr, 0)
   }
 
   /**
    * Gets this [OpenXRSpatialComponentData]'s `XrSpatialComponentTypeEXT`.
    */
   public final fun getComponentType(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getComponentTypePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getComponentTypePtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public companion object {

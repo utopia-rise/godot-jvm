@@ -13,11 +13,12 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_LONG_DOUBLE
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -32,41 +33,41 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class HingeJoint3D : Joint3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(297, scriptPtr)
+    createNativeObject(295, scriptPtr)
   }
 
   /**
    * Sets the value of the specified parameter.
    */
   public final fun setParam(`param`: Param, `value`: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value, DOUBLE to value.toDouble())
-    TransferContext.callMethod(MethodBindings.setParamPtr)
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, param.value, value.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setParamPtr, 0)
   }
 
   /**
    * Returns the value of the specified parameter.
    */
   public final fun getParam(`param`: Param): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value)
-    TransferContext.callMethod(MethodBindings.getParamPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, param.value)
+    TransferContext.callPtrMethod(MethodBindings.getParamPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
    * If `true`, enables the specified flag.
    */
   public final fun setFlag(flag: Flag, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flag.value, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setFlagPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, flag.value, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setFlagPtr, 0)
   }
 
   /**
    * Returns the value of the specified flag.
    */
   public final fun getFlag(flag: Flag): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flag.value)
-    TransferContext.callMethod(MethodBindings.getFlagPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flag.value)
+    TransferContext.callPtrMethod(MethodBindings.getFlagPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class Param(

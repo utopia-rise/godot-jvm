@@ -17,11 +17,11 @@ import godot.core.MethodStringName5
 import godot.core.RID
 import godot.core.VariantArray
 import godot.core.VariantCallable
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser._RID
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_RID_ARRAY_OBJECT_OBJECT
+import godot.writeMethodArguments_RID_ARRAY_OBJECT_OBJECT_CALLABLE
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -34,43 +34,43 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class OpenXRSpatialMarkerTrackingCapability : OpenXRExtensionWrapper() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(492, scriptPtr)
+    createNativeObject(491, scriptPtr)
   }
 
   /**
    * Returns `true` if QR code marker tracking is supported by the current device.
    */
   public final fun isQrcodeSupported(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isQrcodeSupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isQrcodeSupportedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns `true` if micro QR code marker tracking is supported by the current device.
    */
   public final fun isMicroQrcodeSupported(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMicroQrcodeSupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isMicroQrcodeSupportedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns `true` if Aruco marker tracking is supported by the current device.
    */
   public final fun isArucoSupported(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isArucoSupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isArucoSupportedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns `true` if April tag marker tracking is supported by the current device.
    */
   public final fun isAprilTagSupported(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAprilTagSupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isAprilTagSupportedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -103,9 +103,9 @@ public open class OpenXRSpatialMarkerTrackingCapability : OpenXRExtensionWrapper
     nextSnapshotQuery: OpenXRStructureBase? = null,
     userCallback: Callable = VariantCallable(),
   ): OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext, ARRAY to componentData, OBJECT to nextSnapshotCreate, OBJECT to nextSnapshotQuery, CALLABLE to userCallback)
+    TransferContext.writeMethodArguments_RID_ARRAY_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery, userCallback)
     TransferContext.callMethod(MethodBindings.startEntityDiscoveryPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRFutureResult?)
   }
 
   /**
@@ -128,8 +128,8 @@ public open class OpenXRSpatialMarkerTrackingCapability : OpenXRExtensionWrapper
     nextSnapshotCreate: OpenXRStructureBase? = null,
     nextSnapshotQuery: OpenXRStructureBase? = null,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext, ARRAY to componentData, OBJECT to nextSnapshotCreate, OBJECT to nextSnapshotQuery)
-    TransferContext.callMethod(MethodBindings.doEntityUpdatePtr)
+    TransferContext.writeMethodArguments_RID_ARRAY_OBJECT_OBJECT(ptr, objectID.id, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery)
+    TransferContext.callPtrMethod(MethodBindings.doEntityUpdatePtr, 0)
   }
 
   public companion object {

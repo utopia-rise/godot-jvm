@@ -14,8 +14,10 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
 import godot.core.Signal0
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser._RID
+import godot.readReturnValue_RID
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_RID
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -52,27 +54,27 @@ public open class OpenXRRenderModel : Node3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(466, scriptPtr)
+    createNativeObject(465, scriptPtr)
   }
 
   /**
    * Returns the top level path related to this render model.
    */
   public final fun getTopLevelPath(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTopLevelPathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun getRenderModel(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRenderModelPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRenderModelPtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   public final fun setRenderModel(renderModel: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to renderModel)
-    TransferContext.callMethod(MethodBindings.setRenderModelPtr)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
+    TransferContext.callPtrMethod(MethodBindings.setRenderModelPtr, 0)
   }
 
   public companion object {

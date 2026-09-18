@@ -12,9 +12,12 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -68,34 +71,34 @@ public open class GradientTexture1D : Texture2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(277, scriptPtr)
+    createNativeObject(275, scriptPtr)
   }
 
   public final fun setGradient(gradient: Gradient?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to gradient)
-    TransferContext.callMethod(MethodBindings.setGradientPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, gradient)
+    TransferContext.callPtrMethod(MethodBindings.setGradientPtr, 0)
   }
 
   public final fun getGradient(): Gradient? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGradientPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Gradient?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getGradientPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Gradient?)
   }
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong())
-    TransferContext.callMethod(MethodBindings.setWidthPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setWidthPtr, 0)
   }
 
   public final fun setUseHdr(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setUseHdrPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setUseHdrPtr, 0)
   }
 
   public final fun isUsingHdr(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingHdrPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isUsingHdrPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**

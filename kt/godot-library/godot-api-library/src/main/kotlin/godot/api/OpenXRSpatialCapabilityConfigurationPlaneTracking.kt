@@ -12,8 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.PackedInt64Array
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.PACKED_INT_64_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_PACKED_INT_64_ARRAY
+import godot.writeMethodArguments0
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -28,7 +29,7 @@ import kotlin.jvm.JvmField
 public open class OpenXRSpatialCapabilityConfigurationPlaneTracking :
     OpenXRSpatialCapabilityConfigurationBaseHeader() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(475, scriptPtr)
+    createNativeObject(474, scriptPtr)
   }
 
   /**
@@ -36,9 +37,9 @@ public open class OpenXRSpatialCapabilityConfigurationPlaneTracking :
    * started). You can query these using the [OpenXRSpatialComponentMesh2DList] data object.
    */
   public final fun supportsMesh2d(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.supportsMesh2dPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.supportsMesh2dPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -46,9 +47,9 @@ public open class OpenXRSpatialCapabilityConfigurationPlaneTracking :
    * started). You can query these using the [OpenXRSpatialComponentPolygon2DList] data object.
    */
   public final fun supportsPolygons(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.supportsPolygonsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.supportsPolygonsPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -57,9 +58,9 @@ public open class OpenXRSpatialCapabilityConfigurationPlaneTracking :
    * data object.
    */
   public final fun supportsLabels(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.supportsLabelsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.supportsLabelsPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -68,9 +69,9 @@ public open class OpenXRSpatialCapabilityConfigurationPlaneTracking :
    * **Note:** Only valid after this configuration was used to create a spatial context.
    */
   public final fun getEnabledComponents(): PackedInt64Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnabledComponentsPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_64_ARRAY) as PackedInt64Array)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getEnabledComponentsPtr, 31)
+    return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 
   public companion object {

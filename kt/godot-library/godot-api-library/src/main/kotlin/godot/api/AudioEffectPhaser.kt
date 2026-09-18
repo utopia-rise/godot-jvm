@@ -12,8 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -92,62 +93,62 @@ public open class AudioEffectPhaser : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(71, scriptPtr)
+    createNativeObject(69, scriptPtr)
   }
 
   public final fun setRangeMinHz(hz: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to hz.toDouble())
-    TransferContext.callMethod(MethodBindings.setRangeMinHzPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hz.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setRangeMinHzPtr, 0)
   }
 
   public final fun getRangeMinHz(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRangeMinHzPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRangeMinHzPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRangeMaxHz(hz: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to hz.toDouble())
-    TransferContext.callMethod(MethodBindings.setRangeMaxHzPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hz.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setRangeMaxHzPtr, 0)
   }
 
   public final fun getRangeMaxHz(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRangeMaxHzPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRangeMaxHzPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRateHz(hz: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to hz.toDouble())
-    TransferContext.callMethod(MethodBindings.setRateHzPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hz.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setRateHzPtr, 0)
   }
 
   public final fun getRateHz(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRateHzPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRateHzPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFeedback(fbk: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to fbk.toDouble())
-    TransferContext.callMethod(MethodBindings.setFeedbackPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fbk.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setFeedbackPtr, 0)
   }
 
   public final fun getFeedback(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFeedbackPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFeedbackPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDepth(depth: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to depth.toDouble())
-    TransferContext.callMethod(MethodBindings.setDepthPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, depth.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setDepthPtr, 0)
   }
 
   public final fun getDepth(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDepthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**

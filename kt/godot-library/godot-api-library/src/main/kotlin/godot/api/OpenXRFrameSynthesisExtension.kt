@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -53,7 +55,7 @@ public open class OpenXRFrameSynthesisExtension : OpenXRExtensionWrapper() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(453, scriptPtr)
+    createNativeObject(452, scriptPtr)
   }
 
   /**
@@ -61,31 +63,31 @@ public open class OpenXRFrameSynthesisExtension : OpenXRExtensionWrapper() {
    * supports frame synthesis. The value returned will only be valid once OpenXR has been initialized.
    */
   public final fun isAvailable(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAvailablePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isAvailablePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun isEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEnabled(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setEnabledPtr, 0)
   }
 
   public final fun getRelaxFrameInterval(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRelaxFrameIntervalPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRelaxFrameIntervalPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRelaxFrameInterval(relaxFrameInterval: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to relaxFrameInterval)
-    TransferContext.callMethod(MethodBindings.setRelaxFrameIntervalPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, relaxFrameInterval)
+    TransferContext.callPtrMethod(MethodBindings.setRelaxFrameIntervalPtr, 0)
   }
 
   /**
@@ -94,8 +96,8 @@ public open class OpenXRFrameSynthesisExtension : OpenXRExtensionWrapper() {
    * reprojection results due to this movement.
    */
   public final fun skipNextFrame(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.skipNextFramePtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.skipNextFramePtr, 0)
   }
 
   public companion object {

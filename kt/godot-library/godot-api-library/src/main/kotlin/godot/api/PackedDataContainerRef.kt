@@ -13,9 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.VariantArray
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -62,16 +62,16 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class PackedDataContainerRef internal constructor() : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(501, scriptPtr)
+    createNativeObject(500, scriptPtr)
   }
 
   /**
    * Returns the size of the packed container (see [Array.size] and [Dictionary.size]).
    */
   public final fun size(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.sizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.sizePtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public companion object {

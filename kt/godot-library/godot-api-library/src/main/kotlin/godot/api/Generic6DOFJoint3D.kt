@@ -13,11 +13,12 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_LONG_DOUBLE
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -34,73 +35,73 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class Generic6DOFJoint3D : Joint3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(271, scriptPtr)
+    createNativeObject(269, scriptPtr)
   }
 
   public final fun setParamX(`param`: Param, `value`: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value, DOUBLE to value.toDouble())
-    TransferContext.callMethod(MethodBindings.setParamXPtr)
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, param.value, value.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setParamXPtr, 0)
   }
 
   public final fun getParamX(`param`: Param): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value)
-    TransferContext.callMethod(MethodBindings.getParamXPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, param.value)
+    TransferContext.callPtrMethod(MethodBindings.getParamXPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setParamY(`param`: Param, `value`: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value, DOUBLE to value.toDouble())
-    TransferContext.callMethod(MethodBindings.setParamYPtr)
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, param.value, value.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setParamYPtr, 0)
   }
 
   public final fun getParamY(`param`: Param): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value)
-    TransferContext.callMethod(MethodBindings.getParamYPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, param.value)
+    TransferContext.callPtrMethod(MethodBindings.getParamYPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setParamZ(`param`: Param, `value`: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value, DOUBLE to value.toDouble())
-    TransferContext.callMethod(MethodBindings.setParamZPtr)
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, param.value, value.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setParamZPtr, 0)
   }
 
   public final fun getParamZ(`param`: Param): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value)
-    TransferContext.callMethod(MethodBindings.getParamZPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, param.value)
+    TransferContext.callPtrMethod(MethodBindings.getParamZPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFlagX(flag: Flag, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flag.value, BOOL to value)
-    TransferContext.callMethod(MethodBindings.setFlagXPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, flag.value, value)
+    TransferContext.callPtrMethod(MethodBindings.setFlagXPtr, 0)
   }
 
   public final fun getFlagX(flag: Flag): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flag.value)
-    TransferContext.callMethod(MethodBindings.getFlagXPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flag.value)
+    TransferContext.callPtrMethod(MethodBindings.getFlagXPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFlagY(flag: Flag, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flag.value, BOOL to value)
-    TransferContext.callMethod(MethodBindings.setFlagYPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, flag.value, value)
+    TransferContext.callPtrMethod(MethodBindings.setFlagYPtr, 0)
   }
 
   public final fun getFlagY(flag: Flag): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flag.value)
-    TransferContext.callMethod(MethodBindings.getFlagYPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flag.value)
+    TransferContext.callPtrMethod(MethodBindings.getFlagYPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFlagZ(flag: Flag, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flag.value, BOOL to value)
-    TransferContext.callMethod(MethodBindings.setFlagZPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, flag.value, value)
+    TransferContext.callPtrMethod(MethodBindings.setFlagZPtr, 0)
   }
 
   public final fun getFlagZ(flag: Flag): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flag.value)
-    TransferContext.callMethod(MethodBindings.getFlagZPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flag.value)
+    TransferContext.callPtrMethod(MethodBindings.getFlagZPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class Param(

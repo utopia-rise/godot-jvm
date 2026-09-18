@@ -13,8 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Int
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -69,34 +72,34 @@ public open class CurveTexture : Texture2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(199, scriptPtr)
+    createNativeObject(197, scriptPtr)
   }
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong())
-    TransferContext.callMethod(MethodBindings.setWidthPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setWidthPtr, 0)
   }
 
   public final fun setCurve(curve: Curve?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to curve)
-    TransferContext.callMethod(MethodBindings.setCurvePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
+    TransferContext.callPtrMethod(MethodBindings.setCurvePtr, 0)
   }
 
   public final fun getCurve(): Curve? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurvePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Curve?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCurvePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Curve?)
   }
 
   public final fun setTextureMode(textureMode: TextureMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to textureMode.value)
-    TransferContext.callMethod(MethodBindings.setTextureModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, textureMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setTextureModePtr, 0)
   }
 
   public final fun getTextureMode(): TextureMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureModePtr)
-    return TextureMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTextureModePtr, 2)
+    return TextureMode.from(TransferContext.readReturnValue_LONG())
   }
 
   /**

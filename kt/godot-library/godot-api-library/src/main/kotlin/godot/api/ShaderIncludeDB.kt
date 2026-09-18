@@ -13,9 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_PACKED_STRING_ARRAY
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
@@ -52,9 +54,9 @@ public open class ShaderIncludeDB : Object() {
      */
     @JvmStatic
     public final fun listBuiltInIncludeFiles(): PackedStringArray {
-      TransferContext.writeMethodArguments(0L, 0L)
-      TransferContext.callMethod(MethodBindings.listBuiltInIncludeFilesPtr)
-      return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+      TransferContext.writeMethodArguments0(0L, 0L)
+      TransferContext.callPtrMethod(MethodBindings.listBuiltInIncludeFilesPtr, 34)
+      return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
     }
 
     /**
@@ -62,9 +64,9 @@ public open class ShaderIncludeDB : Object() {
      */
     @JvmStatic
     public final fun hasBuiltInIncludeFile(filename: String): Boolean {
-      TransferContext.writeMethodArguments(0L, 0L, STRING to filename)
+      TransferContext.writeMethodArguments_STRING(0L, 0L, filename)
       TransferContext.callMethod(MethodBindings.hasBuiltInIncludeFilePtr)
-      return (TransferContext.readReturnValue(BOOL) as Boolean)
+      return TransferContext.readReturnValue_BOOL()
     }
 
     /**
@@ -73,9 +75,9 @@ public open class ShaderIncludeDB : Object() {
      */
     @JvmStatic
     public final fun getBuiltInIncludeFile(filename: String): String {
-      TransferContext.writeMethodArguments(0L, 0L, STRING to filename)
+      TransferContext.writeMethodArguments_STRING(0L, 0L, filename)
       TransferContext.callMethod(MethodBindings.getBuiltInIncludeFilePtr)
-      return (TransferContext.readReturnValue(STRING) as String)
+      return TransferContext.readReturnValue_STRING()
     }
   }
 

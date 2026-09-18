@@ -15,12 +15,14 @@ import godot.core.MethodStringName1
 import godot.core.Projection
 import godot.core.RID
 import godot.core.Transform3D
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PROJECTION
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser.VECTOR3
-import godot.core.VariantParser._RID
 import godot.core.Vector3
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PROJECTION
+import godot.readReturnValue_RID
+import godot.readReturnValue_TRANSFORM3D
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -45,9 +47,9 @@ public open class RenderSceneData internal constructor() : Object() {
    * **Note:** If more than one view is rendered, this will return a centered transform.
    */
   public final fun getCamTransform(): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCamTransformPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCamTransformPtr, 18)
+    return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   /**
@@ -56,18 +58,18 @@ public open class RenderSceneData internal constructor() : Object() {
    * **Note:** If more than one view is rendered, this will return a combined projection.
    */
   public final fun getCamProjection(): Projection {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCamProjectionPtr)
-    return (TransferContext.readReturnValue(PROJECTION) as Projection)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCamProjectionPtr, 19)
+    return TransferContext.readReturnValue_PROJECTION()
   }
 
   /**
    * Returns the number of views being rendered.
    */
   public final fun getViewCount(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getViewCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getViewCountPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -75,9 +77,9 @@ public open class RenderSceneData internal constructor() : Object() {
    * camera transform and the eye transform.
    */
   public final fun getViewEyeOffset(view: Long): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to view)
-    TransferContext.callMethod(MethodBindings.getViewEyeOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, view)
+    TransferContext.callPtrMethod(MethodBindings.getViewEyeOffsetPtr, 9)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   /**
@@ -87,18 +89,18 @@ public open class RenderSceneData internal constructor() : Object() {
    * view is rendered, this will return a projection for the given view including the eye offset.
    */
   public final fun getViewProjection(view: Long): Projection {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to view)
-    TransferContext.callMethod(MethodBindings.getViewProjectionPtr)
-    return (TransferContext.readReturnValue(PROJECTION) as Projection)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, view)
+    TransferContext.callPtrMethod(MethodBindings.getViewProjectionPtr, 19)
+    return TransferContext.readReturnValue_PROJECTION()
   }
 
   /**
    * Return the [RID] of the uniform buffer containing the scene data as a UBO.
    */
   public final fun getUniformBuffer(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUniformBufferPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getUniformBufferPtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   public companion object {

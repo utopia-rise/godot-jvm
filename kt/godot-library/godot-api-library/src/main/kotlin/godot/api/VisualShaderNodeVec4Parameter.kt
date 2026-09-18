@@ -14,9 +14,12 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.VECTOR4
 import godot.core.Vector4
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_VECTOR4
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_VECTOR4
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -82,25 +85,25 @@ public open class VisualShaderNodeVec4Parameter : VisualShaderNodeParameter() {
   }
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setDefaultValueEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValueEnabledPtr, 0)
   }
 
   public final fun isDefaultValueEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDefaultValueEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDefaultValueEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDefaultValue(`value`: Vector4): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR4 to value)
-    TransferContext.callMethod(MethodBindings.setDefaultValuePtr)
+    TransferContext.writeMethodArguments_VECTOR4(ptr, objectID.id, value)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValuePtr, 0)
   }
 
   public final fun getDefaultValue(): Vector4 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultValuePtr)
-    return (TransferContext.readReturnValue(VECTOR4) as Vector4)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultValuePtr, 12)
+    return TransferContext.readReturnValue_VECTOR4()
   }
 
   public companion object {

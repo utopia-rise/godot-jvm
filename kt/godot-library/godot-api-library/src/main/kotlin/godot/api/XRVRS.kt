@@ -18,13 +18,14 @@ import godot.core.MethodStringName2
 import godot.core.PackedVector2Array
 import godot.core.RID
 import godot.core.Rect2i
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
-import godot.core.VariantParser.RECT2I
-import godot.core.VariantParser.VECTOR2
-import godot.core.VariantParser._RID
 import godot.core.Vector2
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_RECT2I
+import godot.readReturnValue_RID
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_RECT2I
+import godot.writeMethodArguments_VECTOR2_PACKED_VECTOR2_ARRAY
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -104,36 +105,36 @@ public open class XRVRS : Object() {
   }
 
   public final fun getVrsMinRadius(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVrsMinRadiusPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVrsMinRadiusPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVrsMinRadius(radius: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setVrsMinRadiusPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setVrsMinRadiusPtr, 0)
   }
 
   public final fun getVrsStrength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVrsStrengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVrsStrengthPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVrsStrength(strength: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to strength.toDouble())
-    TransferContext.callMethod(MethodBindings.setVrsStrengthPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, strength.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setVrsStrengthPtr, 0)
   }
 
   public final fun getVrsRenderRegion(): Rect2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVrsRenderRegionPtr)
-    return (TransferContext.readReturnValue(RECT2I) as Rect2i)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVrsRenderRegionPtr, 8)
+    return TransferContext.readReturnValue_RECT2I()
   }
 
   public final fun setVrsRenderRegion(renderRegion: Rect2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, RECT2I to renderRegion)
-    TransferContext.callMethod(MethodBindings.setVrsRenderRegionPtr)
+    TransferContext.writeMethodArguments_RECT2I(ptr, objectID.id, renderRegion)
+    TransferContext.callPtrMethod(MethodBindings.setVrsRenderRegionPtr, 0)
   }
 
   /**
@@ -144,9 +145,9 @@ public open class XRVRS : Object() {
    * return the cached RID.
    */
   public final fun makeVrsTexture(targetSize: Vector2, eyeFoci: PackedVector2Array): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to targetSize, PACKED_VECTOR2_ARRAY to eyeFoci)
-    TransferContext.callMethod(MethodBindings.makeVrsTexturePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments_VECTOR2_PACKED_VECTOR2_ARRAY(ptr, objectID.id, targetSize, eyeFoci)
+    TransferContext.callPtrMethod(MethodBindings.makeVrsTexturePtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   public companion object {

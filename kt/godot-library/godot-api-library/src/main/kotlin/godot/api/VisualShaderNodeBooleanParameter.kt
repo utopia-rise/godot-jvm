@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -51,25 +53,25 @@ public open class VisualShaderNodeBooleanParameter : VisualShaderNodeParameter()
   }
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setDefaultValueEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValueEnabledPtr, 0)
   }
 
   public final fun isDefaultValueEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDefaultValueEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDefaultValueEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDefaultValue(`value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to value)
-    TransferContext.callMethod(MethodBindings.setDefaultValuePtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, value)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValuePtr, 0)
   }
 
   public final fun getDefaultValue(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultValuePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

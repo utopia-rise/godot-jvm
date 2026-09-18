@@ -26,19 +26,39 @@ import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
-import godot.core.VariantParser._RID
 import godot.core.asCachedNodePath
 import godot.core.asCachedStringName
 import godot.core.toGodotName
+import godot.readReturnValue_ANY
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_NODE_PATH
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_RID
+import godot.readReturnValue_STRING
+import godot.readReturnValue_STRING_NAME
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_LONG_STRING_NAME_VARARG
+import godot.writeMethodArguments_NODE_PATH
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_OBJECT_BOOL
+import godot.writeMethodArguments_OBJECT_BOOL_LONG
+import godot.writeMethodArguments_OBJECT_LONG
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_STRING_BOOL_BOOL
+import godot.writeMethodArguments_STRING_NAME
+import godot.writeMethodArguments_STRING_NAME_ANY
+import godot.writeMethodArguments_STRING_NAME_ARRAY_BOOL
+import godot.writeMethodArguments_STRING_NAME_BOOL
+import godot.writeMethodArguments_STRING_NAME_VARARG
+import godot.writeMethodArguments_STRING_STRING_BOOL_BOOL
+import godot.writeMethodArguments_STRING_STRING_NAME
+import godot.writeMethodArguments_STRING_STRING_NAME_LONG_STRING_NAME
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -649,7 +669,7 @@ public open class Node : Object() {
       arg8, arg9)
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(421, scriptPtr)
+    createNativeObject(419, scriptPtr)
   }
 
   /**
@@ -901,19 +921,19 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun addSibling(sibling: Node, forceReadableName: Boolean = false): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to sibling, BOOL to forceReadableName)
-    TransferContext.callMethod(MethodBindings.addSiblingPtr)
+    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, sibling, forceReadableName)
+    TransferContext.callPtrMethod(MethodBindings.addSiblingPtr, 0)
   }
 
   public final fun setName(name: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.setNamePtr)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
+    TransferContext.callPtrMethod(MethodBindings.setNamePtr, 0)
   }
 
   public final fun getName(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNamePtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getNamePtr, 21)
+    return TransferContext.readReturnValue_STRING_NAME()
   }
 
   /**
@@ -969,8 +989,8 @@ public open class Node : Object() {
     forceReadableName: Boolean = false,
     `internal`: InternalMode = Node.InternalMode.DISABLED,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to node, BOOL to forceReadableName, LONG to internal.value)
-    TransferContext.callMethod(MethodBindings.addChildPtr)
+    TransferContext.writeMethodArguments_OBJECT_BOOL_LONG(ptr, objectID.id, node, forceReadableName, internal.value)
+    TransferContext.callPtrMethod(MethodBindings.addChildPtr, 0)
   }
 
   /**
@@ -981,8 +1001,8 @@ public open class Node : Object() {
    * (or its descendants) to `null`, if their [owner] is no longer an ancestor (see [isAncestorOf]).
    */
   public final fun removeChild(node: Node): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to node)
-    TransferContext.callMethod(MethodBindings.removeChildPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, node)
+    TransferContext.callPtrMethod(MethodBindings.removeChildPtr, 0)
   }
 
   /**
@@ -1000,8 +1020,8 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun reparent(newParent: Node, keepGlobalTransform: Boolean = true): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to newParent, BOOL to keepGlobalTransform)
-    TransferContext.callMethod(MethodBindings.reparentPtr)
+    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, newParent, keepGlobalTransform)
+    TransferContext.callPtrMethod(MethodBindings.reparentPtr, 0)
   }
 
   /**
@@ -1012,9 +1032,9 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun getChildCount(includeInternal: Boolean = false): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to includeInternal)
-    TransferContext.callMethod(MethodBindings.getChildCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, includeInternal)
+    TransferContext.callPtrMethod(MethodBindings.getChildCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -1025,9 +1045,9 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun getChildren(includeInternal: Boolean = false): VariantArray<Node> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to includeInternal)
-    TransferContext.callMethod(MethodBindings.getChildrenPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Node>)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, includeInternal)
+    TransferContext.callPtrMethod(MethodBindings.getChildrenPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Node>)
   }
 
   /**
@@ -1054,18 +1074,18 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun getChild(idx: Int, includeInternal: Boolean = false): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to idx.toLong(), BOOL to includeInternal)
-    TransferContext.callMethod(MethodBindings.getChildPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, idx.toLong(), includeInternal)
+    TransferContext.callPtrMethod(MethodBindings.getChildPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
    * Returns `true` if the [path] points to a valid node. See also [getNode].
    */
   public final fun hasNode(path: NodePath): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.hasNodePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
+    TransferContext.callPtrMethod(MethodBindings.hasNodePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1132,9 +1152,9 @@ public open class Node : Object() {
    * ```
    */
   public final fun getNode(path: NodePath): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.getNodePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
+    TransferContext.callPtrMethod(MethodBindings.getNodePtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
@@ -1142,18 +1162,18 @@ public open class Node : Object() {
    * does not point to a valid node.
    */
   public final fun getNodeOrNull(path: NodePath): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.getNodeOrNullPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
+    TransferContext.callPtrMethod(MethodBindings.getNodeOrNullPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
    * Returns this node's parent node, or `null` if the node doesn't have a parent.
    */
   public final fun getParent(): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getParentPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getParentPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
@@ -1180,9 +1200,9 @@ public open class Node : Object() {
     recursive: Boolean = true,
     owned: Boolean = true,
   ): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to pattern, BOOL to recursive, BOOL to owned)
+    TransferContext.writeMethodArguments_STRING_BOOL_BOOL(ptr, objectID.id, pattern, recursive, owned)
     TransferContext.callMethod(MethodBindings.findChildPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
@@ -1213,9 +1233,9 @@ public open class Node : Object() {
     recursive: Boolean = true,
     owned: Boolean = true,
   ): VariantArray<Node> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to pattern, STRING to type, BOOL to recursive, BOOL to owned)
+    TransferContext.writeMethodArguments_STRING_STRING_BOOL_BOOL(ptr, objectID.id, pattern, type, recursive, owned)
     TransferContext.callMethod(MethodBindings.findChildrenPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Node>)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Node>)
   }
 
   /**
@@ -1229,9 +1249,9 @@ public open class Node : Object() {
    * [getNode] with unique names (see [uniqueNameInOwner]).
    */
   public final fun findParent(pattern: String): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to pattern)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, pattern)
     TransferContext.callMethod(MethodBindings.findParentPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
@@ -1240,9 +1260,9 @@ public open class Node : Object() {
    * other [Any] types) are not considered. See also [getNodeAndResource].
    */
   public final fun hasNodeAndResource(path: NodePath): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.hasNodeAndResourcePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
+    TransferContext.callPtrMethod(MethodBindings.hasNodeAndResourcePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1295,36 +1315,36 @@ public open class Node : Object() {
    * ```
    */
   public final fun getNodeAndResource(path: NodePath): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.getNodeAndResourcePtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
+    TransferContext.callPtrMethod(MethodBindings.getNodeAndResourcePtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   /**
    * Returns `true` if this node is currently inside a [SceneTree]. See also [getTree].
    */
   public final fun isInsideTree(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isInsideTreePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isInsideTreePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns `true` if the node is part of the scene currently opened in the editor.
    */
   public final fun isPartOfEditedScene(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPartOfEditedScenePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isPartOfEditedScenePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns `true` if the given [node] is a direct or indirect child of this node.
    */
   public final fun isAncestorOf(node: Node): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to node)
-    TransferContext.callMethod(MethodBindings.isAncestorOfPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, node)
+    TransferContext.callPtrMethod(MethodBindings.isAncestorOfPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1332,9 +1352,9 @@ public open class Node : Object() {
    * occurring later is usually processed last.
    */
   public final fun isGreaterThan(node: Node): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to node)
-    TransferContext.callMethod(MethodBindings.isGreaterThanPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, node)
+    TransferContext.callPtrMethod(MethodBindings.isGreaterThanPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1342,9 +1362,9 @@ public open class Node : Object() {
    * the scene tree, this method fails and returns an empty [NodePath].
    */
   public final fun getPath(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPathPtr, 22)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   /**
@@ -1360,9 +1380,9 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun getPathTo(node: Node, useUniquePath: Boolean = false): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to node, BOOL to useUniquePath)
-    TransferContext.callMethod(MethodBindings.getPathToPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, node, useUniquePath)
+    TransferContext.callPtrMethod(MethodBindings.getPathToPtr, 22)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   /**
@@ -1381,8 +1401,8 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun addToGroup(group: StringName, persistent: Boolean = false): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to group, BOOL to persistent)
-    TransferContext.callMethod(MethodBindings.addToGroupPtr)
+    TransferContext.writeMethodArguments_STRING_NAME_BOOL(ptr, objectID.id, group, persistent)
+    TransferContext.callPtrMethod(MethodBindings.addToGroupPtr, 0)
   }
 
   /**
@@ -1390,8 +1410,8 @@ public open class Node : Object() {
    * also notes in the description, and the [SceneTree]'s group methods.
    */
   public final fun removeFromGroup(group: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to group)
-    TransferContext.callMethod(MethodBindings.removeFromGroupPtr)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, group)
+    TransferContext.callPtrMethod(MethodBindings.removeFromGroupPtr, 0)
   }
 
   /**
@@ -1399,9 +1419,9 @@ public open class Node : Object() {
    * [removeFromGroup]. See also notes in the description, and the [SceneTree]'s group methods.
    */
   public final fun isInGroup(group: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to group)
-    TransferContext.callMethod(MethodBindings.isInGroupPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, group)
+    TransferContext.callPtrMethod(MethodBindings.isInGroupPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1414,8 +1434,8 @@ public open class Node : Object() {
    * are also rendered in tree order. See also [processPriority].
    */
   public final fun moveChild(childNode: Node, toIndex: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to childNode, LONG to toIndex.toLong())
-    TransferContext.callMethod(MethodBindings.moveChildPtr)
+    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, childNode, toIndex.toLong())
+    TransferContext.callPtrMethod(MethodBindings.moveChildPtr, 0)
   }
 
   /**
@@ -1449,20 +1469,20 @@ public open class Node : Object() {
    * ```
    */
   public final fun getGroups(): VariantArray<StringName> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGroupsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<StringName>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getGroupsPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
   public final fun setOwner(owner: Node?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to owner)
-    TransferContext.callMethod(MethodBindings.setOwnerPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, owner)
+    TransferContext.callPtrMethod(MethodBindings.setOwnerPtr, 0)
   }
 
   public final fun getOwner(): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOwnerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOwnerPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
@@ -1474,9 +1494,9 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun getIndex(includeInternal: Boolean = false): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to includeInternal)
-    TransferContext.callMethod(MethodBindings.getIndexPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, includeInternal)
+    TransferContext.callPtrMethod(MethodBindings.getIndexPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -1503,8 +1523,8 @@ public open class Node : Object() {
    * ```
    */
   public final fun printTree(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.printTreePtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.printTreePtr, 0)
   }
 
   /**
@@ -1531,8 +1551,8 @@ public open class Node : Object() {
    * ```
    */
   public final fun printTreePretty(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.printTreePrettyPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.printTreePrettyPtr, 0)
   }
 
   /**
@@ -1559,9 +1579,9 @@ public open class Node : Object() {
    * ```
    */
   public final fun getTreeString(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTreeStringPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1588,28 +1608,28 @@ public open class Node : Object() {
    * ```
    */
   public final fun getTreeStringPretty(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTreeStringPrettyPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setSceneFilePath(sceneFilePath: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to sceneFilePath)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, sceneFilePath)
     TransferContext.callMethod(MethodBindings.setSceneFilePathPtr)
   }
 
   public final fun getSceneFilePath(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSceneFilePathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Calls [Object.notification] with [what] on this node and all of its children, recursively.
    */
   public final fun propagateNotification(what: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to what.toLong())
-    TransferContext.callMethod(MethodBindings.propagateNotificationPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, what.toLong())
+    TransferContext.callPtrMethod(MethodBindings.propagateNotificationPtr, 0)
   }
 
   /**
@@ -1625,8 +1645,8 @@ public open class Node : Object() {
     args: VariantArray<Any?> = godot.core.variantArrayOf(),
     parentFirst: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method, ARRAY to args, BOOL to parentFirst)
-    TransferContext.callMethod(MethodBindings.propagateCallPtr)
+    TransferContext.writeMethodArguments_STRING_NAME_ARRAY_BOOL(ptr, objectID.id, method, args, parentFirst)
+    TransferContext.callPtrMethod(MethodBindings.propagateCallPtr, 0)
   }
 
   /**
@@ -1639,8 +1659,8 @@ public open class Node : Object() {
    * [_ready] is called.
    */
   public final fun setPhysicsProcess(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setPhysicsProcessPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setPhysicsProcessPtr, 0)
   }
 
   /**
@@ -1656,18 +1676,18 @@ public open class Node : Object() {
    * methods for this purpose instead, such as [Time.getTicksUsec].
    */
   public final fun getPhysicsProcessDeltaTime(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPhysicsProcessDeltaTimePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPhysicsProcessDeltaTimePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   /**
    * Returns `true` if physics processing is enabled (see [setPhysicsProcess]).
    */
   public final fun isPhysicsProcessing(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPhysicsProcessingPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isPhysicsProcessingPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1683,9 +1703,9 @@ public open class Node : Object() {
    * methods for this purpose instead, such as [Time.getTicksUsec].
    */
   public final fun getProcessDeltaTime(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessDeltaTimePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getProcessDeltaTimePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   /**
@@ -1701,39 +1721,39 @@ public open class Node : Object() {
    * [processMode] to [PROCESS_MODE_DISABLED].
    */
   public final fun setProcess(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setProcessPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setProcessPtr, 0)
   }
 
   public final fun setProcessPriority(priority: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to priority.toLong())
-    TransferContext.callMethod(MethodBindings.setProcessPriorityPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, priority.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setProcessPriorityPtr, 0)
   }
 
   public final fun getProcessPriority(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessPriorityPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getProcessPriorityPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setPhysicsProcessPriority(priority: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to priority.toLong())
-    TransferContext.callMethod(MethodBindings.setPhysicsProcessPriorityPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, priority.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setPhysicsProcessPriorityPtr, 0)
   }
 
   public final fun getPhysicsProcessPriority(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPhysicsProcessPriorityPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPhysicsProcessPriorityPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns `true` if processing is enabled (see [setProcess]).
    */
   public final fun isProcessing(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isProcessingPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isProcessingPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1744,17 +1764,17 @@ public open class Node : Object() {
    * [TextEdit].
    */
   public final fun setProcessInput(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setProcessInputPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setProcessInputPtr, 0)
   }
 
   /**
    * Returns `true` if the node is processing input (see [setProcessInput]).
    */
   public final fun isProcessingInput(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isProcessingInputPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isProcessingInputPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1764,17 +1784,17 @@ public open class Node : Object() {
    * is called.
    */
   public final fun setProcessShortcutInput(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setProcessShortcutInputPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setProcessShortcutInputPtr, 0)
   }
 
   /**
    * Returns `true` if the node is processing shortcuts (see [setProcessShortcutInput]).
    */
   public final fun isProcessingShortcutInput(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isProcessingShortcutInputPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isProcessingShortcutInputPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1786,17 +1806,17 @@ public open class Node : Object() {
    * [Button] and [TextEdit].
    */
   public final fun setProcessUnhandledInput(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setProcessUnhandledInputPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setProcessUnhandledInputPtr, 0)
   }
 
   /**
    * Returns `true` if the node is processing unhandled input (see [setProcessUnhandledInput]).
    */
   public final fun isProcessingUnhandledInput(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isProcessingUnhandledInputPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isProcessingUnhandledInputPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1806,8 +1826,8 @@ public open class Node : Object() {
    * [_ready] is called.
    */
   public final fun setProcessUnhandledKeyInput(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setProcessUnhandledKeyInputPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setProcessUnhandledKeyInputPtr, 0)
   }
 
   /**
@@ -1815,20 +1835,20 @@ public open class Node : Object() {
    * [setProcessUnhandledKeyInput]).
    */
   public final fun isProcessingUnhandledKeyInput(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isProcessingUnhandledKeyInputPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isProcessingUnhandledKeyInputPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setProcessMode(mode: ProcessMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setProcessModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setProcessModePtr, 0)
   }
 
   public final fun getProcessMode(): ProcessMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessModePtr)
-    return ProcessMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getProcessModePtr, 2)
+    return ProcessMode.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -1852,50 +1872,50 @@ public open class Node : Object() {
    * If the node is not inside the tree, returns `false` no matter the value of [processMode].
    */
   public final fun canProcess(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.canProcessPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.canProcessPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setProcessThreadGroup(mode: ProcessThreadGroup): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setProcessThreadGroupPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setProcessThreadGroupPtr, 0)
   }
 
   public final fun getProcessThreadGroup(): ProcessThreadGroup {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessThreadGroupPtr)
-    return ProcessThreadGroup.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getProcessThreadGroupPtr, 2)
+    return ProcessThreadGroup.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setProcessThreadMessages(flags: ProcessThreadMessages): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flags.flag)
-    TransferContext.callMethod(MethodBindings.setProcessThreadMessagesPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flags.flag)
+    TransferContext.callPtrMethod(MethodBindings.setProcessThreadMessagesPtr, 0)
   }
 
   public final fun getProcessThreadMessages(): ProcessThreadMessages {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessThreadMessagesPtr)
-    return ProcessThreadMessages(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getProcessThreadMessagesPtr, 2)
+    return ProcessThreadMessages(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setProcessThreadGroupOrder(order: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to order.toLong())
-    TransferContext.callMethod(MethodBindings.setProcessThreadGroupOrderPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, order.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setProcessThreadGroupOrderPtr, 0)
   }
 
   public final fun getProcessThreadGroupOrder(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessThreadGroupOrderPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getProcessThreadGroupOrderPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Queues an accessibility information update for this node.
    */
   public final fun queueAccessibilityUpdate(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.queueAccessibilityUpdatePtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.queueAccessibilityUpdatePtr, 0)
   }
 
   /**
@@ -1905,9 +1925,9 @@ public open class Node : Object() {
    * ([NOTIFICATION_ACCESSIBILITY_UPDATE]).
    */
   public final fun getAccessibilityElement(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAccessibilityElementPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAccessibilityElementPtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
@@ -1916,8 +1936,8 @@ public open class Node : Object() {
    * release builds. See also [isDisplayedFolded].
    */
   public final fun setDisplayFolded(fold: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to fold)
-    TransferContext.callMethod(MethodBindings.setDisplayFoldedPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, fold)
+    TransferContext.callPtrMethod(MethodBindings.setDisplayFoldedPtr, 0)
   }
 
   /**
@@ -1925,9 +1945,9 @@ public open class Node : Object() {
    * be used in editor plugins and tools. See also [setDisplayFolded].
    */
   public final fun isDisplayedFolded(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDisplayedFoldedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDisplayedFoldedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1940,17 +1960,17 @@ public open class Node : Object() {
    * is unsafe and may lead to unexpected behavior. Use this method if you know what you are doing.
    */
   public final fun setProcessInternal(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setProcessInternalPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setProcessInternalPtr, 0)
   }
 
   /**
    * Returns `true` if internal processing is enabled (see [setProcessInternal]).
    */
   public final fun isProcessingInternal(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isProcessingInternalPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isProcessingInternalPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1963,28 +1983,28 @@ public open class Node : Object() {
    * is unsafe and may lead to unexpected behavior. Use this method if you know what you are doing.
    */
   public final fun setPhysicsProcessInternal(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setPhysicsProcessInternalPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setPhysicsProcessInternalPtr, 0)
   }
 
   /**
    * Returns `true` if internal physics processing is enabled (see [setPhysicsProcessInternal]).
    */
   public final fun isPhysicsProcessingInternal(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPhysicsProcessingInternalPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isPhysicsProcessingInternalPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setPhysicsInterpolationMode(mode: PhysicsInterpolationMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setPhysicsInterpolationModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setPhysicsInterpolationModePtr, 0)
   }
 
   public final fun getPhysicsInterpolationMode(): PhysicsInterpolationMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPhysicsInterpolationModePtr)
-    return PhysicsInterpolationMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPhysicsInterpolationModePtr, 2)
+    return PhysicsInterpolationMode.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -1996,9 +2016,9 @@ public open class Node : Object() {
    * [isPhysicsInterpolatedAndEnabled].
    */
   public final fun isPhysicsInterpolated(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPhysicsInterpolatedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isPhysicsInterpolatedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -2011,9 +2031,9 @@ public open class Node : Object() {
    * See [SceneTree.physicsInterpolation] and [ProjectSettings.physics/common/physicsInterpolation].
    */
   public final fun isPhysicsInterpolatedAndEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPhysicsInterpolatedAndEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isPhysicsInterpolatedAndEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -2030,19 +2050,19 @@ public open class Node : Object() {
    * **Note:** This function should be called **after** moving the node, rather than before.
    */
   public final fun resetPhysicsInterpolation(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.resetPhysicsInterpolationPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.resetPhysicsInterpolationPtr, 0)
   }
 
   public final fun setAutoTranslateMode(mode: AutoTranslateMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setAutoTranslateModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setAutoTranslateModePtr, 0)
   }
 
   public final fun getAutoTranslateMode(): AutoTranslateMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutoTranslateModePtr)
-    return AutoTranslateMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAutoTranslateModePtr, 2)
+    return AutoTranslateMode.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -2050,9 +2070,9 @@ public open class Node : Object() {
    * locale. See [autoTranslateMode], [atr], and [atrN].
    */
   public final fun canAutoTranslate(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.canAutoTranslatePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.canAutoTranslatePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -2063,8 +2083,8 @@ public open class Node : Object() {
    * behavior.
    */
   public final fun setTranslationDomainInherited(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.setTranslationDomainInheritedPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.setTranslationDomainInheritedPtr, 0)
   }
 
   /**
@@ -2072,9 +2092,9 @@ public open class Node : Object() {
    * equivalent to getting the root node (`get_tree().get_root()`).
    */
   public final fun getWindow(): Window? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWindowPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Window?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getWindowPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Window?)
   }
 
   /**
@@ -2082,9 +2102,9 @@ public open class Node : Object() {
    * starting with the one that contains this node.
    */
   public final fun getLastExclusiveWindow(): Window? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLastExclusiveWindowPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Window?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getLastExclusiveWindowPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Window?)
   }
 
   /**
@@ -2092,9 +2112,9 @@ public open class Node : Object() {
    * an error and returns `null`. See also [isInsideTree].
    */
   public final fun getTree(): SceneTree? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTreePtr)
-    return (TransferContext.readReturnValue(OBJECT) as SceneTree?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTreePtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as SceneTree?)
   }
 
   /**
@@ -2119,9 +2139,9 @@ public open class Node : Object() {
    * an unlikely case of using a custom [MainLoop].
    */
   public final fun createTween(): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createTweenPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.createTweenPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Tween)
   }
 
   /**
@@ -2138,9 +2158,9 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun duplicate(flags: Int = 15): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flags.toLong())
-    TransferContext.callMethod(MethodBindings.duplicatePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flags.toLong())
+    TransferContext.callPtrMethod(MethodBindings.duplicatePtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
@@ -2154,8 +2174,8 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun replaceBy(node: Node, keepGroups: Boolean = false): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to node, BOOL to keepGroups)
-    TransferContext.callMethod(MethodBindings.replaceByPtr)
+    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, node, keepGroups)
+    TransferContext.callPtrMethod(MethodBindings.replaceByPtr, 0)
   }
 
   /**
@@ -2163,8 +2183,8 @@ public open class Node : Object() {
    * [PackedScene]. See also [getSceneInstanceLoadPlaceholder].
    */
   public final fun setSceneInstanceLoadPlaceholder(loadPlaceholder: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to loadPlaceholder)
-    TransferContext.callMethod(MethodBindings.setSceneInstanceLoadPlaceholderPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, loadPlaceholder)
+    TransferContext.callPtrMethod(MethodBindings.setSceneInstanceLoadPlaceholderPtr, 0)
   }
 
   /**
@@ -2172,9 +2192,9 @@ public open class Node : Object() {
    * [setSceneInstanceLoadPlaceholder].
    */
   public final fun getSceneInstanceLoadPlaceholder(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSceneInstanceLoadPlaceholderPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSceneInstanceLoadPlaceholderPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -2183,8 +2203,8 @@ public open class Node : Object() {
    * plugins and tools, but it also works in release builds. See also [isEditableInstance].
    */
   public final fun setEditableInstance(node: Node, isEditable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to node, BOOL to isEditable)
-    TransferContext.callMethod(MethodBindings.setEditableInstancePtr)
+    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, node, isEditable)
+    TransferContext.callPtrMethod(MethodBindings.setEditableInstancePtr, 0)
   }
 
   /**
@@ -2192,9 +2212,9 @@ public open class Node : Object() {
    * intended to be used in editor plugins and tools. See also [setEditableInstance].
    */
   public final fun isEditableInstance(node: Node?): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to node)
-    TransferContext.callMethod(MethodBindings.isEditableInstancePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, node)
+    TransferContext.callPtrMethod(MethodBindings.isEditableInstancePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -2202,9 +2222,9 @@ public open class Node : Object() {
    * returns `null`.
    */
   public final fun getViewport(): Viewport? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getViewportPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Viewport?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getViewportPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Viewport?)
   }
 
   /**
@@ -2219,8 +2239,8 @@ public open class Node : Object() {
    * method is not always the same as calling [Object.free] through [Object.callDeferred].
    */
   public final fun queueFree(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.queueFreePtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.queueFreePtr, 0)
   }
 
   /**
@@ -2232,8 +2252,8 @@ public open class Node : Object() {
    * enter the tree again, the order of [_ready] callbacks will be the same as normal.
    */
   public final fun requestReady(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.requestReadyPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.requestReadyPtr, 0)
   }
 
   /**
@@ -2243,9 +2263,9 @@ public open class Node : Object() {
    * [requestReady] resets it back to `false`.
    */
   public final fun isNodeReady(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isNodeReadyPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isNodeReadyPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -2263,32 +2283,32 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun setMultiplayerAuthority(id: Int, recursive: Boolean = true): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong(), BOOL to recursive)
-    TransferContext.callMethod(MethodBindings.setMultiplayerAuthorityPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, id.toLong(), recursive)
+    TransferContext.callPtrMethod(MethodBindings.setMultiplayerAuthorityPtr, 0)
   }
 
   /**
    * Returns the peer ID of the multiplayer authority for this node. See [setMultiplayerAuthority].
    */
   public final fun getMultiplayerAuthority(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMultiplayerAuthorityPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMultiplayerAuthorityPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns `true` if the local system is the multiplayer authority of this node.
    */
   public final fun isMultiplayerAuthority(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMultiplayerAuthorityPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isMultiplayerAuthorityPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun getMultiplayer(): MultiplayerAPI? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMultiplayerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as MultiplayerAPI?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMultiplayerPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as MultiplayerAPI?)
   }
 
   /**
@@ -2309,7 +2329,7 @@ public open class Node : Object() {
    * tutorial.
    */
   public final fun rpcConfig(method: StringName, config: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method, ANY to config)
+    TransferContext.writeMethodArguments_STRING_NAME_ANY(ptr, objectID.id, method, config)
     TransferContext.callMethod(MethodBindings.rpcConfigPtr)
   }
 
@@ -2321,31 +2341,31 @@ public open class Node : Object() {
    * [Script.getRpcConfig] to retrieve the RPCs defined by the [Script].
    */
   public final fun getNodeRpcConfig(): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getNodeRpcConfigPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   public final fun setEditorDescription(editorDescription: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to editorDescription)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, editorDescription)
     TransferContext.callMethod(MethodBindings.setEditorDescriptionPtr)
   }
 
   public final fun getEditorDescription(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getEditorDescriptionPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setUniqueNameInOwner(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setUniqueNameInOwnerPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setUniqueNameInOwnerPtr, 0)
   }
 
   public final fun isUniqueNameInOwner(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUniqueNameInOwnerPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isUniqueNameInOwnerPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -2364,9 +2384,9 @@ public open class Node : Object() {
    * [url=$DOCS_URL/tutorials/i18n/internationalizing_games.html]Internationalizing games[/url].
    */
   public final fun atr(message: String, context: StringName = StringName("")): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to message, STRING_NAME to context)
+    TransferContext.writeMethodArguments_STRING_STRING_NAME(ptr, objectID.id, message, context)
     TransferContext.callMethod(MethodBindings.atrPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -2394,9 +2414,9 @@ public open class Node : Object() {
     n: Int,
     context: StringName = StringName(""),
   ): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to message, STRING_NAME to pluralMessage, LONG to n.toLong(), STRING_NAME to context)
+    TransferContext.writeMethodArguments_STRING_STRING_NAME_LONG_STRING_NAME(ptr, objectID.id, message, pluralMessage, n.toLong(), context)
     TransferContext.callMethod(MethodBindings.atrNPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -2418,9 +2438,9 @@ public open class Node : Object() {
    * (`get_multiplayer().peer.get_connection_status() == CONNECTION_CONNECTED`).
    */
   public final fun rpc(method: StringName, vararg args: Any?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method, *args.map { ANY to it }.toTypedArray())
+    TransferContext.writeMethodArguments_STRING_NAME_VARARG(ptr, objectID.id, method, args)
     TransferContext.callMethod(MethodBindings.rpcPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -2436,9 +2456,9 @@ public open class Node : Object() {
     method: StringName,
     vararg args: Any?,
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to peerId, STRING_NAME to method, *args.map { ANY to it }.toTypedArray())
+    TransferContext.writeMethodArguments_LONG_STRING_NAME_VARARG(ptr, objectID.id, peerId, method, args)
     TransferContext.callMethod(MethodBindings.rpcIdPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -2446,8 +2466,8 @@ public open class Node : Object() {
    * [_getConfigurationWarnings] to customize the warning messages to display.
    */
   public final fun updateConfigurationWarnings(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.updateConfigurationWarningsPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.updateConfigurationWarningsPtr, 0)
   }
 
   /**
@@ -2458,16 +2478,16 @@ public open class Node : Object() {
    * called.
    */
   public final fun callDeferredThreadGroup(method: StringName, vararg args: Any?): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method, *args.map { ANY to it }.toTypedArray())
+    TransferContext.writeMethodArguments_STRING_NAME_VARARG(ptr, objectID.id, method, args)
     TransferContext.callMethod(MethodBindings.callDeferredThreadGroupPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
    * Similar to [callDeferredThreadGroup], but for setting properties.
    */
   public final fun setDeferredThreadGroup(`property`: StringName, `value`: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to property, ANY to value)
+    TransferContext.writeMethodArguments_STRING_NAME_ANY(ptr, objectID.id, property, value)
     TransferContext.callMethod(MethodBindings.setDeferredThreadGroupPtr)
   }
 
@@ -2475,8 +2495,8 @@ public open class Node : Object() {
    * Similar to [callDeferredThreadGroup], but for notifications.
    */
   public final fun notifyDeferredThreadGroup(what: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to what.toLong())
-    TransferContext.callMethod(MethodBindings.notifyDeferredThreadGroupPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, what.toLong())
+    TransferContext.callPtrMethod(MethodBindings.notifyDeferredThreadGroupPtr, 0)
   }
 
   /**
@@ -2485,16 +2505,16 @@ public open class Node : Object() {
    * the call will become deferred. Otherwise, the call will go through directly.
    */
   public final fun callThreadSafe(method: StringName, vararg args: Any?): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method, *args.map { ANY to it }.toTypedArray())
+    TransferContext.writeMethodArguments_STRING_NAME_VARARG(ptr, objectID.id, method, args)
     TransferContext.callMethod(MethodBindings.callThreadSafePtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
    * Similar to [callThreadSafe], but for setting properties.
    */
   public final fun setThreadSafe(`property`: StringName, `value`: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to property, ANY to value)
+    TransferContext.writeMethodArguments_STRING_NAME_ANY(ptr, objectID.id, property, value)
     TransferContext.callMethod(MethodBindings.setThreadSafePtr)
   }
 
@@ -2502,8 +2522,8 @@ public open class Node : Object() {
    * Similar to [callThreadSafe], but for notifications.
    */
   public final fun notifyThreadSafe(what: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to what.toLong())
-    TransferContext.callMethod(MethodBindings.notifyThreadSafePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, what.toLong())
+    TransferContext.callPtrMethod(MethodBindings.notifyThreadSafePtr, 0)
   }
 
   public final fun setName(name: String) = setName(name.asCachedStringName())
@@ -3851,8 +3871,8 @@ public open class Node : Object() {
      */
     @JvmStatic
     public final fun printOrphanNodes(): Unit {
-      TransferContext.writeMethodArguments(0L, 0L)
-      TransferContext.callMethod(MethodBindings.printOrphanNodesPtr)
+      TransferContext.writeMethodArguments0(0L, 0L)
+      TransferContext.callPtrMethod(MethodBindings.printOrphanNodesPtr, 0)
     }
 
     /**
@@ -3863,9 +3883,9 @@ public open class Node : Object() {
      */
     @JvmStatic
     public final fun getOrphanNodeIds(): VariantArray<Long> {
-      TransferContext.writeMethodArguments(0L, 0L)
-      TransferContext.callMethod(MethodBindings.getOrphanNodeIdsPtr)
-      return (TransferContext.readReturnValue(ARRAY) as VariantArray<Long>)
+      TransferContext.writeMethodArguments0(0L, 0L)
+      TransferContext.callPtrMethod(MethodBindings.getOrphanNodeIdsPtr, 28)
+      return (TransferContext.readReturnValue_ARRAY() as VariantArray<Long>)
     }
   }
 

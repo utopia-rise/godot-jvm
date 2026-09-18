@@ -13,10 +13,15 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_OBJECT
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float
@@ -593,77 +598,77 @@ public open class AudioStreamPlaylist : AudioStream() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(100, scriptPtr)
+    createNativeObject(98, scriptPtr)
   }
 
   public final fun setStreamCount(streamCount: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to streamCount.toLong())
-    TransferContext.callMethod(MethodBindings.setStreamCountPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, streamCount.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setStreamCountPtr, 0)
   }
 
   public final fun getStreamCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStreamCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getStreamCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the BPM of the playlist, which can vary depending on the clip being played.
    */
   public final fun getBpm(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBpmPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBpmPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   /**
    * Sets the stream at playback position index.
    */
   public final fun setListStream(streamIndex: Int, audioStream: AudioStream?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to streamIndex.toLong(), OBJECT to audioStream)
-    TransferContext.callMethod(MethodBindings.setListStreamPtr)
+    TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, streamIndex.toLong(), audioStream)
+    TransferContext.callPtrMethod(MethodBindings.setListStreamPtr, 0)
   }
 
   /**
    * Returns the stream at playback position index.
    */
   public final fun getListStream(streamIndex: Int): AudioStream? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to streamIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getListStreamPtr)
-    return (TransferContext.readReturnValue(OBJECT) as AudioStream?)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, streamIndex.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getListStreamPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as AudioStream?)
   }
 
   public final fun setShuffle(shuffle: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to shuffle)
-    TransferContext.callMethod(MethodBindings.setShufflePtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, shuffle)
+    TransferContext.callPtrMethod(MethodBindings.setShufflePtr, 0)
   }
 
   public final fun getShuffle(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShufflePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getShufflePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setFadeTime(dec: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to dec.toDouble())
-    TransferContext.callMethod(MethodBindings.setFadeTimePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, dec.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setFadeTimePtr, 0)
   }
 
   public final fun getFadeTime(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFadeTimePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFadeTimePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setLoop(loop: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to loop)
-    TransferContext.callMethod(MethodBindings.setLoopPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, loop)
+    TransferContext.callPtrMethod(MethodBindings.setLoopPtr, 0)
   }
 
   public final fun hasLoop(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasLoopPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.hasLoopPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**

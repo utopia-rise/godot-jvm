@@ -17,14 +17,21 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.Side
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_DOUBLE
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -434,7 +441,7 @@ public open class Camera2D : Node2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(135, scriptPtr)
+    createNativeObject(133, scriptPtr)
   }
 
   /**
@@ -491,86 +498,86 @@ public open class Camera2D : Node2D() {
   }
 
   public final fun setOffset(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to offset)
-    TransferContext.callMethod(MethodBindings.setOffsetPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
+    TransferContext.callPtrMethod(MethodBindings.setOffsetPtr, 0)
   }
 
   public final fun getOffset(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOffsetPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setAnchorMode(anchorMode: AnchorMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to anchorMode.value)
-    TransferContext.callMethod(MethodBindings.setAnchorModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, anchorMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setAnchorModePtr, 0)
   }
 
   public final fun getAnchorMode(): AnchorMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnchorModePtr)
-    return AnchorMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAnchorModePtr, 2)
+    return AnchorMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setIgnoreRotation(ignore: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to ignore)
-    TransferContext.callMethod(MethodBindings.setIgnoreRotationPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, ignore)
+    TransferContext.callPtrMethod(MethodBindings.setIgnoreRotationPtr, 0)
   }
 
   public final fun isIgnoringRotation(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isIgnoringRotationPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isIgnoringRotationPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setProcessCallback(mode: Camera2DProcessCallback): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setProcessCallbackPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setProcessCallbackPtr, 0)
   }
 
   public final fun getProcessCallback(): Camera2DProcessCallback {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessCallbackPtr)
-    return Camera2DProcessCallback.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getProcessCallbackPtr, 2)
+    return Camera2DProcessCallback.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setEnabledPtr, 0)
   }
 
   public final fun isEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Forces this [Camera2D] to become the current active one. [enabled] must be `true`.
    */
   public final fun makeCurrent(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.makeCurrentPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.makeCurrentPtr, 0)
   }
 
   /**
    * Returns `true` if this [Camera2D] is the active camera (see [Viewport.getCamera2d]).
    */
   public final fun isCurrent(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCurrentPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isCurrentPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setLimitEnabled(limitEnabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to limitEnabled)
-    TransferContext.callMethod(MethodBindings.setLimitEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, limitEnabled)
+    TransferContext.callPtrMethod(MethodBindings.setLimitEnabledPtr, 0)
   }
 
   public final fun isLimitEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isLimitEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isLimitEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -578,8 +585,8 @@ public open class Camera2D : Node2D() {
    * [limitLeft], and [limitRight].
    */
   public final fun setLimit(margin: Side, limit: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.value, LONG to limit.toLong())
-    TransferContext.callMethod(MethodBindings.setLimitPtr)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, margin.value, limit.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setLimitPtr, 0)
   }
 
   /**
@@ -587,64 +594,64 @@ public open class Camera2D : Node2D() {
    * [limitLeft], and [limitRight].
    */
   public final fun getLimit(margin: Side): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.value)
-    TransferContext.callMethod(MethodBindings.getLimitPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
+    TransferContext.callPtrMethod(MethodBindings.getLimitPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setLimitSmoothingEnabled(limitSmoothingEnabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to limitSmoothingEnabled)
-    TransferContext.callMethod(MethodBindings.setLimitSmoothingEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, limitSmoothingEnabled)
+    TransferContext.callPtrMethod(MethodBindings.setLimitSmoothingEnabledPtr, 0)
   }
 
   public final fun isLimitSmoothingEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isLimitSmoothingEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isLimitSmoothingEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDragVerticalEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setDragVerticalEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setDragVerticalEnabledPtr, 0)
   }
 
   public final fun isDragVerticalEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDragVerticalEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDragVerticalEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDragHorizontalEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setDragHorizontalEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setDragHorizontalEnabledPtr, 0)
   }
 
   public final fun isDragHorizontalEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDragHorizontalEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDragHorizontalEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDragVerticalOffset(offset: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setDragVerticalOffsetPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setDragVerticalOffsetPtr, 0)
   }
 
   public final fun getDragVerticalOffset(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDragVerticalOffsetPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDragVerticalOffsetPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDragHorizontalOffset(offset: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setDragHorizontalOffsetPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setDragHorizontalOffsetPtr, 0)
   }
 
   public final fun getDragHorizontalOffset(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDragHorizontalOffsetPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDragHorizontalOffsetPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -652,8 +659,8 @@ public open class Camera2D : Node2D() {
    * [dragLeftMargin], and [dragRightMargin].
    */
   public final fun setDragMargin(margin: Side, dragMargin: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.value, DOUBLE to dragMargin.toDouble())
-    TransferContext.callMethod(MethodBindings.setDragMarginPtr)
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, margin.value, dragMargin.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setDragMarginPtr, 0)
   }
 
   /**
@@ -661,9 +668,9 @@ public open class Camera2D : Node2D() {
    * [dragLeftMargin], and [dragRightMargin].
    */
   public final fun getDragMargin(margin: Side): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.value)
-    TransferContext.callMethod(MethodBindings.getDragMarginPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
+    TransferContext.callPtrMethod(MethodBindings.getDragMarginPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -674,9 +681,9 @@ public open class Camera2D : Node2D() {
    * is `true` (see [getScreenCenterPosition]).
    */
   public final fun getTargetPosition(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTargetPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTargetPositionPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   /**
@@ -685,9 +692,9 @@ public open class Camera2D : Node2D() {
    * **Note:** The exact targeted position of the camera may be different. See [getTargetPosition].
    */
   public final fun getScreenCenterPosition(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScreenCenterPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getScreenCenterPositionPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   /**
@@ -697,83 +704,83 @@ public open class Camera2D : Node2D() {
    * rotating smoothly due to [rotationSmoothingEnabled].
    */
   public final fun getScreenRotation(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScreenRotationPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getScreenRotationPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setZoom(zoom: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to zoom)
-    TransferContext.callMethod(MethodBindings.setZoomPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, zoom)
+    TransferContext.callPtrMethod(MethodBindings.setZoomPtr, 0)
   }
 
   public final fun getZoom(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getZoomPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getZoomPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setCustomViewport(viewport: Node?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to viewport)
-    TransferContext.callMethod(MethodBindings.setCustomViewportPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, viewport)
+    TransferContext.callPtrMethod(MethodBindings.setCustomViewportPtr, 0)
   }
 
   public final fun getCustomViewport(): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomViewportPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCustomViewportPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   public final fun setPositionSmoothingSpeed(positionSmoothingSpeed: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to positionSmoothingSpeed.toDouble())
-    TransferContext.callMethod(MethodBindings.setPositionSmoothingSpeedPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, positionSmoothingSpeed.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setPositionSmoothingSpeedPtr, 0)
   }
 
   public final fun getPositionSmoothingSpeed(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionSmoothingSpeedPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPositionSmoothingSpeedPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPositionSmoothingEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setPositionSmoothingEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setPositionSmoothingEnabledPtr, 0)
   }
 
   public final fun isPositionSmoothingEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPositionSmoothingEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isPositionSmoothingEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRotationSmoothingEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setRotationSmoothingEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setRotationSmoothingEnabledPtr, 0)
   }
 
   public final fun isRotationSmoothingEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRotationSmoothingEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isRotationSmoothingEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setRotationSmoothingSpeed(speed: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to speed.toDouble())
-    TransferContext.callMethod(MethodBindings.setRotationSmoothingSpeedPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, speed.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setRotationSmoothingSpeedPtr, 0)
   }
 
   public final fun getRotationSmoothingSpeed(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRotationSmoothingSpeedPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRotationSmoothingSpeedPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
    * Forces the camera to update scroll immediately.
    */
   public final fun forceUpdateScroll(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.forceUpdateScrollPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.forceUpdateScrollPtr, 0)
   }
 
   /**
@@ -782,8 +789,8 @@ public open class Camera2D : Node2D() {
    * This method has no effect if [positionSmoothingEnabled] is `false`.
    */
   public final fun resetSmoothing(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.resetSmoothingPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.resetSmoothingPtr, 0)
   }
 
   /**
@@ -792,41 +799,41 @@ public open class Camera2D : Node2D() {
    * **Note:** Calling [forceUpdateScroll] after this method is not required.
    */
   public final fun align(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.alignPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.alignPtr, 0)
   }
 
   public final fun setScreenDrawingEnabled(screenDrawingEnabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to screenDrawingEnabled)
-    TransferContext.callMethod(MethodBindings.setScreenDrawingEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, screenDrawingEnabled)
+    TransferContext.callPtrMethod(MethodBindings.setScreenDrawingEnabledPtr, 0)
   }
 
   public final fun isScreenDrawingEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isScreenDrawingEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isScreenDrawingEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setLimitDrawingEnabled(limitDrawingEnabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to limitDrawingEnabled)
-    TransferContext.callMethod(MethodBindings.setLimitDrawingEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, limitDrawingEnabled)
+    TransferContext.callPtrMethod(MethodBindings.setLimitDrawingEnabledPtr, 0)
   }
 
   public final fun isLimitDrawingEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isLimitDrawingEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isLimitDrawingEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMarginDrawingEnabled(marginDrawingEnabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to marginDrawingEnabled)
-    TransferContext.callMethod(MethodBindings.setMarginDrawingEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, marginDrawingEnabled)
+    TransferContext.callPtrMethod(MethodBindings.setMarginDrawingEnabledPtr, 0)
   }
 
   public final fun isMarginDrawingEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMarginDrawingEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isMarginDrawingEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class AnchorMode(

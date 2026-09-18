@@ -17,15 +17,18 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
 import godot.core.Rect2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_COLOR
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -127,58 +130,58 @@ public open class StyleBoxLine : StyleBox() {
   }
 
   public final fun setColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.setColorPtr)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
+    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
   }
 
   public final fun getColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getColorPtr, 20)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public final fun setThickness(thickness: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to thickness.toLong())
-    TransferContext.callMethod(MethodBindings.setThicknessPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, thickness.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setThicknessPtr, 0)
   }
 
   public final fun getThickness(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getThicknessPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getThicknessPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setGrowBegin(offset: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setGrowBeginPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setGrowBeginPtr, 0)
   }
 
   public final fun getGrowBegin(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGrowBeginPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getGrowBeginPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGrowEnd(offset: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setGrowEndPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setGrowEndPtr, 0)
   }
 
   public final fun getGrowEnd(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGrowEndPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getGrowEndPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVertical(vertical: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to vertical)
-    TransferContext.callMethod(MethodBindings.setVerticalPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, vertical)
+    TransferContext.callPtrMethod(MethodBindings.setVerticalPtr, 0)
   }
 
   public final fun isVertical(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isVerticalPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isVerticalPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**

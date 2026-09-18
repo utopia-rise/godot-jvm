@@ -13,12 +13,17 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_LONG_OBJECT
+import godot.writeMethodArguments_OBJECT_LONG
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -75,27 +80,27 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    * Returns the number or scene tiles this TileSet source has.
    */
   public final fun getSceneTilesCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSceneTilesCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSceneTilesCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the scene tile ID of the scene tile at [index].
    */
   public final fun getSceneTileId(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getSceneTileIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getSceneTileIdPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns whether this TileSet source has a scene tile with [id].
    */
   public final fun hasSceneTileId(id: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong())
-    TransferContext.callMethod(MethodBindings.hasSceneTileIdPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
+    TransferContext.callPtrMethod(MethodBindings.hasSceneTileIdPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -105,9 +110,9 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   @JvmOverloads
   public final fun createSceneTile(packedScene: PackedScene?, idOverride: Int = -1): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to packedScene, LONG to idOverride.toLong())
-    TransferContext.callMethod(MethodBindings.createSceneTilePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, packedScene, idOverride.toLong())
+    TransferContext.callPtrMethod(MethodBindings.createSceneTilePtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -115,8 +120,8 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    * an ID equal to [newId].
    */
   public final fun setSceneTileId(id: Int, newId: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong(), LONG to newId.toLong())
-    TransferContext.callMethod(MethodBindings.setSceneTileIdPtr)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, id.toLong(), newId.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setSceneTileIdPtr, 0)
   }
 
   /**
@@ -125,17 +130,17 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    * [TileMapLayer].
    */
   public final fun setSceneTileScene(id: Int, packedScene: PackedScene?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong(), OBJECT to packedScene)
-    TransferContext.callMethod(MethodBindings.setSceneTileScenePtr)
+    TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, id.toLong(), packedScene)
+    TransferContext.callPtrMethod(MethodBindings.setSceneTileScenePtr, 0)
   }
 
   /**
    * Returns the [PackedScene] resource of scene tile with [id].
    */
   public final fun getSceneTileScene(id: Int): PackedScene? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong())
-    TransferContext.callMethod(MethodBindings.getSceneTileScenePtr)
-    return (TransferContext.readReturnValue(OBJECT) as PackedScene?)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getSceneTileScenePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as PackedScene?)
   }
 
   /**
@@ -143,34 +148,34 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    * might be useful for scenes that are not visible.
    */
   public final fun setSceneTileDisplayPlaceholder(id: Int, displayPlaceholder: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong(), BOOL to displayPlaceholder)
-    TransferContext.callMethod(MethodBindings.setSceneTileDisplayPlaceholderPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, id.toLong(), displayPlaceholder)
+    TransferContext.callPtrMethod(MethodBindings.setSceneTileDisplayPlaceholderPtr, 0)
   }
 
   /**
    * Returns whether the scene tile with [id] displays a placeholder in the editor.
    */
   public final fun getSceneTileDisplayPlaceholder(id: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong())
-    TransferContext.callMethod(MethodBindings.getSceneTileDisplayPlaceholderPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getSceneTileDisplayPlaceholderPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Remove the scene tile with [id].
    */
   public final fun removeSceneTile(id: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong())
-    TransferContext.callMethod(MethodBindings.removeSceneTilePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
+    TransferContext.callPtrMethod(MethodBindings.removeSceneTilePtr, 0)
   }
 
   /**
    * Returns the scene ID a following call to [createSceneTile] would return.
    */
   public final fun getNextSceneTileId(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNextSceneTileIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getNextSceneTileIdPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public companion object {

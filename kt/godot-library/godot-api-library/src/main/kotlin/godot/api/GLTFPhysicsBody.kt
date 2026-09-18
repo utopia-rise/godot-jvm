@@ -17,16 +17,23 @@ import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Quaternion
-import godot.core.VariantParser.BASIS
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.QUATERNION
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_BASIS
+import godot.readReturnValue_DICTIONARY
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_QUATERNION
+import godot.readReturnValue_STRING
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BASIS
+import godot.writeMethodArguments_DICTIONARY
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_QUATERNION
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_VECTOR3
 import kotlin.Any
-import kotlin.Double
 import kotlin.Float
 import kotlin.String
 import kotlin.Suppress
@@ -201,7 +208,7 @@ public open class GLTFPhysicsBody : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(251, scriptPtr)
+    createNativeObject(249, scriptPtr)
   }
 
   /**
@@ -339,9 +346,9 @@ public open class GLTFPhysicsBody : Resource() {
    * Converts this GLTFPhysicsBody instance into a Godot [CollisionObject3D] node.
    */
   public final fun toNode(): CollisionObject3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.toNodePtr)
-    return (TransferContext.readReturnValue(OBJECT) as CollisionObject3D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.toNodePtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as CollisionObject3D?)
   }
 
   /**
@@ -349,97 +356,97 @@ public open class GLTFPhysicsBody : Resource() {
    * by the `OMI_physics_body` glTF extension.
    */
   public final fun toDictionary(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.toDictionaryPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.toDictionaryPtr, 27)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   public final fun getBodyType(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getBodyTypePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setBodyType(bodyType: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to bodyType)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, bodyType)
     TransferContext.callMethod(MethodBindings.setBodyTypePtr)
   }
 
   public final fun getMass(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMassPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMassPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMass(mass: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to mass.toDouble())
-    TransferContext.callMethod(MethodBindings.setMassPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, mass.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setMassPtr, 0)
   }
 
   public final fun getLinearVelocity(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLinearVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getLinearVelocityPtr, 9)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setLinearVelocity(linearVelocity: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to linearVelocity)
-    TransferContext.callMethod(MethodBindings.setLinearVelocityPtr)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, linearVelocity)
+    TransferContext.callPtrMethod(MethodBindings.setLinearVelocityPtr, 0)
   }
 
   public final fun getAngularVelocity(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAngularVelocityPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAngularVelocityPtr, 9)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setAngularVelocity(angularVelocity: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to angularVelocity)
-    TransferContext.callMethod(MethodBindings.setAngularVelocityPtr)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, angularVelocity)
+    TransferContext.callPtrMethod(MethodBindings.setAngularVelocityPtr, 0)
   }
 
   public final fun getCenterOfMass(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCenterOfMassPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCenterOfMassPtr, 9)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setCenterOfMass(centerOfMass: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to centerOfMass)
-    TransferContext.callMethod(MethodBindings.setCenterOfMassPtr)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, centerOfMass)
+    TransferContext.callPtrMethod(MethodBindings.setCenterOfMassPtr, 0)
   }
 
   public final fun getInertiaDiagonal(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInertiaDiagonalPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInertiaDiagonalPtr, 9)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setInertiaDiagonal(inertiaDiagonal: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to inertiaDiagonal)
-    TransferContext.callMethod(MethodBindings.setInertiaDiagonalPtr)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, inertiaDiagonal)
+    TransferContext.callPtrMethod(MethodBindings.setInertiaDiagonalPtr, 0)
   }
 
   public final fun getInertiaOrientation(): Quaternion {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInertiaOrientationPtr)
-    return (TransferContext.readReturnValue(QUATERNION) as Quaternion)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInertiaOrientationPtr, 15)
+    return TransferContext.readReturnValue_QUATERNION()
   }
 
   public final fun setInertiaOrientation(inertiaOrientation: Quaternion): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, QUATERNION to inertiaOrientation)
-    TransferContext.callMethod(MethodBindings.setInertiaOrientationPtr)
+    TransferContext.writeMethodArguments_QUATERNION(ptr, objectID.id, inertiaOrientation)
+    TransferContext.callPtrMethod(MethodBindings.setInertiaOrientationPtr, 0)
   }
 
   public final fun getInertiaTensor(): Basis {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInertiaTensorPtr)
-    return (TransferContext.readReturnValue(BASIS) as Basis)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInertiaTensorPtr, 17)
+    return TransferContext.readReturnValue_BASIS()
   }
 
   public final fun setInertiaTensor(inertiaTensor: Basis): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BASIS to inertiaTensor)
-    TransferContext.callMethod(MethodBindings.setInertiaTensorPtr)
+    TransferContext.writeMethodArguments_BASIS(ptr, objectID.id, inertiaTensor)
+    TransferContext.callPtrMethod(MethodBindings.setInertiaTensorPtr, 0)
   }
 
   public companion object {
@@ -530,9 +537,9 @@ public open class GLTFPhysicsBody : Resource() {
      */
     @JvmStatic
     public final fun fromNode(bodyNode: CollisionObject3D?): GLTFPhysicsBody? {
-      TransferContext.writeMethodArguments(0L, 0L, OBJECT to bodyNode)
-      TransferContext.callMethod(MethodBindings.fromNodePtr)
-      return (TransferContext.readReturnValue(OBJECT) as GLTFPhysicsBody?)
+      TransferContext.writeMethodArguments_OBJECT(0L, 0L, bodyNode)
+      TransferContext.callPtrMethod(MethodBindings.fromNodePtr, 39)
+      return (TransferContext.readReturnValue_OBJECT() as GLTFPhysicsBody?)
     }
 
     /**
@@ -541,9 +548,9 @@ public open class GLTFPhysicsBody : Resource() {
      */
     @JvmStatic
     public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFPhysicsBody? {
-      TransferContext.writeMethodArguments(0L, 0L, DICTIONARY to dictionary)
-      TransferContext.callMethod(MethodBindings.fromDictionaryPtr)
-      return (TransferContext.readReturnValue(OBJECT) as GLTFPhysicsBody?)
+      TransferContext.writeMethodArguments_DICTIONARY(0L, 0L, dictionary)
+      TransferContext.callPtrMethod(MethodBindings.fromDictionaryPtr, 39)
+      return (TransferContext.readReturnValue_OBJECT() as GLTFPhysicsBody?)
     }
   }
 

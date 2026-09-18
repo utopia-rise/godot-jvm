@@ -13,9 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
 import kotlin.Float
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -98,51 +100,51 @@ public open class AudioEffectFilter : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(61, scriptPtr)
+    createNativeObject(59, scriptPtr)
   }
 
   public final fun setCutoff(freq: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to freq.toDouble())
-    TransferContext.callMethod(MethodBindings.setCutoffPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, freq.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setCutoffPtr, 0)
   }
 
   public final fun getCutoff(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCutoffPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCutoffPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setResonance(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setResonancePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setResonancePtr, 0)
   }
 
   public final fun getResonance(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResonancePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getResonancePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGain(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setGainPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setGainPtr, 0)
   }
 
   public final fun getGain(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGainPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getGainPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDb(amount: FilterDB): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to amount.value)
-    TransferContext.callMethod(MethodBindings.setDbPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.value)
+    TransferContext.callPtrMethod(MethodBindings.setDbPtr, 0)
   }
 
   public final fun getDb(): FilterDB {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDbPtr)
-    return FilterDB.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDbPtr, 2)
+    return FilterDB.from(TransferContext.readReturnValue_LONG())
   }
 
   /**

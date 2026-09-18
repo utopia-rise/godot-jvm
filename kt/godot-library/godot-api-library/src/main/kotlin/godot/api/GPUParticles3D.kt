@@ -22,16 +22,24 @@ import godot.core.MethodStringName5
 import godot.core.NodePath
 import godot.core.Signal0
 import godot.core.Transform3D
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
 import godot.core.asCachedNodePath
+import godot.readReturnValue_AABB
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_NODE_PATH
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_AABB
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_DOUBLE_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_OBJECT
+import godot.writeMethodArguments_NODE_PATH
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_TRANSFORM3D_VECTOR3_COLOR_COLOR_LONG
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float
@@ -500,7 +508,7 @@ public open class GPUParticles3D : GeometryInstance3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(260, scriptPtr)
+    createNativeObject(258, scriptPtr)
   }
 
   /**
@@ -531,251 +539,251 @@ public open class GPUParticles3D : GeometryInstance3D() {
   }
 
   public final fun setEmitting(emitting: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to emitting)
-    TransferContext.callMethod(MethodBindings.setEmittingPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, emitting)
+    TransferContext.callPtrMethod(MethodBindings.setEmittingPtr, 0)
   }
 
   public final fun setAmount(amount: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to amount.toLong())
-    TransferContext.callMethod(MethodBindings.setAmountPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setAmountPtr, 0)
   }
 
   public final fun setLifetime(secs: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to secs)
-    TransferContext.callMethod(MethodBindings.setLifetimePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, secs)
+    TransferContext.callPtrMethod(MethodBindings.setLifetimePtr, 0)
   }
 
   public final fun setOneShot(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setOneShotPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setOneShotPtr, 0)
   }
 
   public final fun setPreProcessTime(secs: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to secs)
-    TransferContext.callMethod(MethodBindings.setPreProcessTimePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, secs)
+    TransferContext.callPtrMethod(MethodBindings.setPreProcessTimePtr, 0)
   }
 
   public final fun setExplosivenessRatio(ratio: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to ratio.toDouble())
-    TransferContext.callMethod(MethodBindings.setExplosivenessRatioPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setExplosivenessRatioPtr, 0)
   }
 
   public final fun setRandomnessRatio(ratio: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to ratio.toDouble())
-    TransferContext.callMethod(MethodBindings.setRandomnessRatioPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setRandomnessRatioPtr, 0)
   }
 
   public final fun setVisibilityAabb(aabb: AABB): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, godot.core.VariantParser.AABB to aabb)
-    TransferContext.callMethod(MethodBindings.setVisibilityAabbPtr)
+    TransferContext.writeMethodArguments_AABB(ptr, objectID.id, aabb)
+    TransferContext.callPtrMethod(MethodBindings.setVisibilityAabbPtr, 0)
   }
 
   public final fun setUseLocalCoordinates(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setUseLocalCoordinatesPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setUseLocalCoordinatesPtr, 0)
   }
 
   public final fun setFixedFps(fps: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to fps.toLong())
-    TransferContext.callMethod(MethodBindings.setFixedFpsPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fps.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setFixedFpsPtr, 0)
   }
 
   public final fun setFractionalDelta(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setFractionalDeltaPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setFractionalDeltaPtr, 0)
   }
 
   public final fun setInterpolate(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setInterpolatePtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setInterpolatePtr, 0)
   }
 
   public final fun setProcessMaterial(material: Material?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to material)
-    TransferContext.callMethod(MethodBindings.setProcessMaterialPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
+    TransferContext.callPtrMethod(MethodBindings.setProcessMaterialPtr, 0)
   }
 
   public final fun setSpeedScale(scale: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to scale)
-    TransferContext.callMethod(MethodBindings.setSpeedScalePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, scale)
+    TransferContext.callPtrMethod(MethodBindings.setSpeedScalePtr, 0)
   }
 
   public final fun setCollisionBaseSize(size: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to size.toDouble())
-    TransferContext.callMethod(MethodBindings.setCollisionBaseSizePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, size.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setCollisionBaseSizePtr, 0)
   }
 
   public final fun setInterpToEnd(interp: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to interp.toDouble())
-    TransferContext.callMethod(MethodBindings.setInterpToEndPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, interp.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setInterpToEndPtr, 0)
   }
 
   public final fun isEmitting(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEmittingPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isEmittingPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun getAmount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAmountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAmountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun getLifetime(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLifetimePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getLifetimePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getOneShot(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOneShotPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOneShotPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun getPreProcessTime(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPreProcessTimePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPreProcessTimePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getExplosivenessRatio(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExplosivenessRatioPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getExplosivenessRatioPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun getRandomnessRatio(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRandomnessRatioPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRandomnessRatioPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun getVisibilityAabb(): AABB {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVisibilityAabbPtr)
-    return (TransferContext.readReturnValue(godot.core.VariantParser.AABB) as AABB)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVisibilityAabbPtr, 16)
+    return TransferContext.readReturnValue_AABB()
   }
 
   public final fun getUseLocalCoordinates(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUseLocalCoordinatesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getUseLocalCoordinatesPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun getFixedFps(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFixedFpsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFixedFpsPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun getFractionalDelta(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFractionalDeltaPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFractionalDeltaPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun getInterpolate(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInterpolatePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInterpolatePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun getProcessMaterial(): Material? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessMaterialPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Material?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getProcessMaterialPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Material?)
   }
 
   public final fun getSpeedScale(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpeedScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSpeedScalePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun getCollisionBaseSize(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionBaseSizePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionBaseSizePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun getInterpToEnd(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInterpToEndPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInterpToEndPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setUseFixedSeed(useFixedSeed: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to useFixedSeed)
-    TransferContext.callMethod(MethodBindings.setUseFixedSeedPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, useFixedSeed)
+    TransferContext.callPtrMethod(MethodBindings.setUseFixedSeedPtr, 0)
   }
 
   public final fun getUseFixedSeed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUseFixedSeedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getUseFixedSeedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSeed(seed: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to seed)
-    TransferContext.callMethod(MethodBindings.setSeedPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, seed)
+    TransferContext.callPtrMethod(MethodBindings.setSeedPtr, 0)
   }
 
   public final fun getSeed(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSeedPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSeedPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setDrawOrder(order: DrawOrder): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to order.value)
-    TransferContext.callMethod(MethodBindings.setDrawOrderPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, order.value)
+    TransferContext.callPtrMethod(MethodBindings.setDrawOrderPtr, 0)
   }
 
   public final fun getDrawOrder(): DrawOrder {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDrawOrderPtr)
-    return DrawOrder.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDrawOrderPtr, 2)
+    return DrawOrder.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setDrawPasses(passes: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to passes.toLong())
-    TransferContext.callMethod(MethodBindings.setDrawPassesPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, passes.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setDrawPassesPtr, 0)
   }
 
   /**
    * Sets the [Mesh] that is drawn at index [pass].
    */
   public final fun setDrawPassMesh(pass: Int, mesh: Mesh?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pass.toLong(), OBJECT to mesh)
-    TransferContext.callMethod(MethodBindings.setDrawPassMeshPtr)
+    TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, pass.toLong(), mesh)
+    TransferContext.callPtrMethod(MethodBindings.setDrawPassMeshPtr, 0)
   }
 
   public final fun getDrawPasses(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDrawPassesPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDrawPassesPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the [Mesh] that is drawn at index [pass].
    */
   public final fun getDrawPassMesh(pass: Int): Mesh? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pass.toLong())
-    TransferContext.callMethod(MethodBindings.getDrawPassMeshPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Mesh?)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pass.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getDrawPassMeshPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Mesh?)
   }
 
   public final fun setSkin(skin: Skin?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to skin)
-    TransferContext.callMethod(MethodBindings.setSkinPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, skin)
+    TransferContext.callPtrMethod(MethodBindings.setSkinPtr, 0)
   }
 
   public final fun getSkin(): Skin? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkinPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Skin?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSkinPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Skin?)
   }
 
   /**
@@ -789,8 +797,8 @@ public open class GPUParticles3D : GeometryInstance3D() {
    */
   @JvmOverloads
   public final fun restart(keepSeed: Boolean = false): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to keepSeed)
-    TransferContext.callMethod(MethodBindings.restartPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, keepSeed)
+    TransferContext.callPtrMethod(MethodBindings.restartPtr, 0)
   }
 
   /**
@@ -798,20 +806,20 @@ public open class GPUParticles3D : GeometryInstance3D() {
    * current frame.
    */
   public final fun captureAabb(): AABB {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.captureAabbPtr)
-    return (TransferContext.readReturnValue(godot.core.VariantParser.AABB) as AABB)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.captureAabbPtr, 16)
+    return TransferContext.readReturnValue_AABB()
   }
 
   public final fun setSubEmitter(path: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.setSubEmitterPtr)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
+    TransferContext.callPtrMethod(MethodBindings.setSubEmitterPtr, 0)
   }
 
   public final fun getSubEmitter(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubEmitterPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSubEmitterPtr, 22)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   /**
@@ -831,85 +839,85 @@ public open class GPUParticles3D : GeometryInstance3D() {
     custom: Color,
     flags: Long,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, TRANSFORM3D to xform, VECTOR3 to velocity, COLOR to color, COLOR to custom, LONG to flags)
-    TransferContext.callMethod(MethodBindings.emitParticlePtr)
+    TransferContext.writeMethodArguments_TRANSFORM3D_VECTOR3_COLOR_COLOR_LONG(ptr, objectID.id, xform, velocity, color, custom, flags)
+    TransferContext.callPtrMethod(MethodBindings.emitParticlePtr, 0)
   }
 
   public final fun setTrailEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setTrailEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setTrailEnabledPtr, 0)
   }
 
   public final fun setTrailLifetime(secs: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to secs)
-    TransferContext.callMethod(MethodBindings.setTrailLifetimePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, secs)
+    TransferContext.callPtrMethod(MethodBindings.setTrailLifetimePtr, 0)
   }
 
   public final fun isTrailEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isTrailEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isTrailEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun getTrailLifetime(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrailLifetimePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTrailLifetimePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public final fun setTransformAlign(align: TransformAlign): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to align.value)
-    TransferContext.callMethod(MethodBindings.setTransformAlignPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, align.value)
+    TransferContext.callPtrMethod(MethodBindings.setTransformAlignPtr, 0)
   }
 
   public final fun getTransformAlign(): TransformAlign {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTransformAlignPtr)
-    return TransformAlign.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTransformAlignPtr, 2)
+    return TransformAlign.from(TransferContext.readReturnValue_LONG())
   }
 
   public final
       fun setTransformAlignChannelFilter(channelFilter: RenderingServer.ParticlesTransformAlignCustomSrc):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to channelFilter.value)
-    TransferContext.callMethod(MethodBindings.setTransformAlignChannelFilterPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, channelFilter.value)
+    TransferContext.callPtrMethod(MethodBindings.setTransformAlignChannelFilterPtr, 0)
   }
 
   public final fun getTransformAlignChannelFilter():
       RenderingServer.ParticlesTransformAlignCustomSrc {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTransformAlignChannelFilterPtr)
-    return RenderingServer.ParticlesTransformAlignCustomSrc.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTransformAlignChannelFilterPtr, 2)
+    return RenderingServer.ParticlesTransformAlignCustomSrc.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setTransformAlignAxis(align: RenderingServer.ParticlesTransformAlignAxis): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to align.value)
-    TransferContext.callMethod(MethodBindings.setTransformAlignAxisPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, align.value)
+    TransferContext.callPtrMethod(MethodBindings.setTransformAlignAxisPtr, 0)
   }
 
   public final fun getTransformAlignAxis(): RenderingServer.ParticlesTransformAlignAxis {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTransformAlignAxisPtr)
-    return RenderingServer.ParticlesTransformAlignAxis.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTransformAlignAxisPtr, 2)
+    return RenderingServer.ParticlesTransformAlignAxis.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Sets this node's properties to match a given [CPUParticles3D] node.
    */
   public final fun convertFromParticles(particles: Node?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to particles)
-    TransferContext.callMethod(MethodBindings.convertFromParticlesPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, particles)
+    TransferContext.callPtrMethod(MethodBindings.convertFromParticlesPtr, 0)
   }
 
   public final fun setAmountRatio(ratio: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to ratio.toDouble())
-    TransferContext.callMethod(MethodBindings.setAmountRatioPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setAmountRatioPtr, 0)
   }
 
   public final fun getAmountRatio(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAmountRatioPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAmountRatioPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -923,8 +931,8 @@ public open class GPUParticles3D : GeometryInstance3D() {
   @JvmOverloads
   public final fun requestParticlesProcess(processTime: Float, processTimeResidual: Float = 0.0f):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to processTime.toDouble(), DOUBLE to processTimeResidual.toDouble())
-    TransferContext.callMethod(MethodBindings.requestParticlesProcessPtr)
+    TransferContext.writeMethodArguments_DOUBLE_DOUBLE(ptr, objectID.id, processTime.toDouble(), processTimeResidual.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.requestParticlesProcessPtr, 0)
   }
 
   public final fun setSubEmitter(path: String) = setSubEmitter(path.asCachedNodePath())

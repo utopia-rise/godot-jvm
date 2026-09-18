@@ -13,16 +13,19 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
 import godot.core.asCachedNodePath
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_NODE_PATH
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_NODE_PATH
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -75,36 +78,36 @@ public open class SkeletonModification2DLookAt : SkeletonModification2D() {
   }
 
   public final fun setBone2dNode(bone2dNodepath: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to bone2dNodepath)
-    TransferContext.callMethod(MethodBindings.setBone2dNodePtr)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, bone2dNodepath)
+    TransferContext.callPtrMethod(MethodBindings.setBone2dNodePtr, 0)
   }
 
   public final fun getBone2dNode(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBone2dNodePtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBone2dNodePtr, 22)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   public final fun setBoneIndex(boneIdx: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.setBoneIndexPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneIdx.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setBoneIndexPtr, 0)
   }
 
   public final fun getBoneIndex(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneIndexPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBoneIndexPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setTargetNode(targetNodepath: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to targetNodepath)
-    TransferContext.callMethod(MethodBindings.setTargetNodePtr)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, targetNodepath)
+    TransferContext.callPtrMethod(MethodBindings.setTargetNodePtr, 0)
   }
 
   public final fun getTargetNode(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTargetNodePtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   /**
@@ -112,8 +115,8 @@ public open class SkeletonModification2DLookAt : SkeletonModification2D() {
    * This allows for offsetting the results by the inputted rotation amount.
    */
   public final fun setAdditionalRotation(rotation: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to rotation.toDouble())
-    TransferContext.callMethod(MethodBindings.setAdditionalRotationPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, rotation.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setAdditionalRotationPtr, 0)
   }
 
   /**
@@ -121,9 +124,9 @@ public open class SkeletonModification2DLookAt : SkeletonModification2D() {
    * executes.
    */
   public final fun getAdditionalRotation(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAdditionalRotationPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAdditionalRotationPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -131,51 +134,51 @@ public open class SkeletonModification2DLookAt : SkeletonModification2D() {
    * applied when solving the LookAt modification.
    */
   public final fun setEnableConstraint(enableConstraint: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enableConstraint)
-    TransferContext.callMethod(MethodBindings.setEnableConstraintPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enableConstraint)
+    TransferContext.callPtrMethod(MethodBindings.setEnableConstraintPtr, 0)
   }
 
   /**
    * Returns `true` if the LookAt modification is using constraints.
    */
   public final fun getEnableConstraint(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableConstraintPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getEnableConstraintPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Sets the constraint's minimum allowed angle.
    */
   public final fun setConstraintAngleMin(angleMin: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to angleMin.toDouble())
-    TransferContext.callMethod(MethodBindings.setConstraintAngleMinPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angleMin.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setConstraintAngleMinPtr, 0)
   }
 
   /**
    * Returns the constraint's minimum allowed angle.
    */
   public final fun getConstraintAngleMin(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstraintAngleMinPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getConstraintAngleMinPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
    * Sets the constraint's maximum allowed angle.
    */
   public final fun setConstraintAngleMax(angleMax: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to angleMax.toDouble())
-    TransferContext.callMethod(MethodBindings.setConstraintAngleMaxPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angleMax.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setConstraintAngleMaxPtr, 0)
   }
 
   /**
    * Returns the constraint's maximum allowed angle.
    */
   public final fun getConstraintAngleMax(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstraintAngleMaxPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getConstraintAngleMaxPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -186,17 +189,17 @@ public open class SkeletonModification2DLookAt : SkeletonModification2D() {
    * constraint, as it constraints the joint to the outside of the inputted values.
    */
   public final fun setConstraintAngleInvert(invert: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to invert)
-    TransferContext.callMethod(MethodBindings.setConstraintAngleInvertPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, invert)
+    TransferContext.callPtrMethod(MethodBindings.setConstraintAngleInvertPtr, 0)
   }
 
   /**
    * Returns whether the constraints to this modification are inverted or not.
    */
   public final fun getConstraintAngleInvert(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstraintAngleInvertPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getConstraintAngleInvertPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setBone2dNode(bone2dNodepath: String) =

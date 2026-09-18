@@ -14,10 +14,12 @@ import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_DICTIONARY
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_BOOL_OBJECT
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.String
@@ -41,7 +43,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class InstancePlaceholder internal constructor() : Node() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(328, scriptPtr)
+    createNativeObject(326, scriptPtr)
   }
 
   /**
@@ -54,9 +56,9 @@ public open class InstancePlaceholder internal constructor() : Node() {
    */
   @JvmOverloads
   public final fun getStoredValues(withOrder: Boolean = false): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to withOrder)
-    TransferContext.callMethod(MethodBindings.getStoredValuesPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, withOrder)
+    TransferContext.callPtrMethod(MethodBindings.getStoredValuesPtr, 27)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -70,9 +72,9 @@ public open class InstancePlaceholder internal constructor() : Node() {
   @JvmOverloads
   public final fun createInstance(replace: Boolean = false, customScene: PackedScene? = null):
       Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to replace, OBJECT to customScene)
-    TransferContext.callMethod(MethodBindings.createInstancePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
+    TransferContext.writeMethodArguments_BOOL_OBJECT(ptr, objectID.id, replace, customScene)
+    TransferContext.callPtrMethod(MethodBindings.createInstancePtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Node?)
   }
 
   /**
@@ -80,9 +82,9 @@ public open class InstancePlaceholder internal constructor() : Node() {
    * [createInstance]. Not thread-safe. Use [Object.callDeferred] if calling from a thread.
    */
   public final fun getInstancePath(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getInstancePathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public companion object {

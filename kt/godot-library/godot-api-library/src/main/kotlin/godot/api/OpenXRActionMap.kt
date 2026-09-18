@@ -13,13 +13,16 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ARRAY
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_STRING
 import kotlin.Any
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -63,123 +66,123 @@ public open class OpenXRActionMap : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(440, scriptPtr)
+    createNativeObject(439, scriptPtr)
   }
 
   public final fun setActionSets(actionSets: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to actionSets)
-    TransferContext.callMethod(MethodBindings.setActionSetsPtr)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, actionSets)
+    TransferContext.callPtrMethod(MethodBindings.setActionSetsPtr, 0)
   }
 
   public final fun getActionSets(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionSetsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getActionSetsPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   /**
    * Retrieve the number of actions sets in our action map.
    */
   public final fun getActionSetCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionSetCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getActionSetCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Retrieve an action set by name.
    */
   public final fun findActionSet(name: String): OpenXRActionSet? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.findActionSetPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRActionSet?)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRActionSet?)
   }
 
   /**
    * Retrieve the action set at this index.
    */
   public final fun getActionSet(idx: Int): OpenXRActionSet? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to idx.toLong())
-    TransferContext.callMethod(MethodBindings.getActionSetPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRActionSet?)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getActionSetPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRActionSet?)
   }
 
   /**
    * Add an action set.
    */
   public final fun addActionSet(actionSet: OpenXRActionSet?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to actionSet)
-    TransferContext.callMethod(MethodBindings.addActionSetPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, actionSet)
+    TransferContext.callPtrMethod(MethodBindings.addActionSetPtr, 0)
   }
 
   /**
    * Remove an action set.
    */
   public final fun removeActionSet(actionSet: OpenXRActionSet?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to actionSet)
-    TransferContext.callMethod(MethodBindings.removeActionSetPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, actionSet)
+    TransferContext.callPtrMethod(MethodBindings.removeActionSetPtr, 0)
   }
 
   public final fun setInteractionProfiles(interactionProfiles: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to interactionProfiles)
-    TransferContext.callMethod(MethodBindings.setInteractionProfilesPtr)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, interactionProfiles)
+    TransferContext.callPtrMethod(MethodBindings.setInteractionProfilesPtr, 0)
   }
 
   public final fun getInteractionProfiles(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInteractionProfilesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInteractionProfilesPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   /**
    * Retrieve the number of interaction profiles in our action map.
    */
   public final fun getInteractionProfileCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInteractionProfileCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInteractionProfileCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Find an interaction profile by its name (path).
    */
   public final fun findInteractionProfile(name: String): OpenXRInteractionProfile? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.findInteractionProfilePtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRInteractionProfile?)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRInteractionProfile?)
   }
 
   /**
    * Get the interaction profile at this index.
    */
   public final fun getInteractionProfile(idx: Int): OpenXRInteractionProfile? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to idx.toLong())
-    TransferContext.callMethod(MethodBindings.getInteractionProfilePtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRInteractionProfile?)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getInteractionProfilePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRInteractionProfile?)
   }
 
   /**
    * Add an interaction profile.
    */
   public final fun addInteractionProfile(interactionProfile: OpenXRInteractionProfile?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to interactionProfile)
-    TransferContext.callMethod(MethodBindings.addInteractionProfilePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, interactionProfile)
+    TransferContext.callPtrMethod(MethodBindings.addInteractionProfilePtr, 0)
   }
 
   /**
    * Remove an interaction profile.
    */
   public final fun removeInteractionProfile(interactionProfile: OpenXRInteractionProfile?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to interactionProfile)
-    TransferContext.callMethod(MethodBindings.removeInteractionProfilePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, interactionProfile)
+    TransferContext.callPtrMethod(MethodBindings.removeInteractionProfilePtr, 0)
   }
 
   /**
    * Setup this action set with our default actions.
    */
   public final fun createDefaultActionSets(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createDefaultActionSetsPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.createDefaultActionSetsPtr, 0)
   }
 
   public companion object {

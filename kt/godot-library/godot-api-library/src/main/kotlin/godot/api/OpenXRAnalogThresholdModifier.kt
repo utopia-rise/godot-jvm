@@ -12,9 +12,11 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_OBJECT
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -77,51 +79,51 @@ public open class OpenXRAnalogThresholdModifier : OpenXRActionBindingModifier() 
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(442, scriptPtr)
+    createNativeObject(441, scriptPtr)
   }
 
   public final fun setOnThreshold(onThreshold: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to onThreshold.toDouble())
-    TransferContext.callMethod(MethodBindings.setOnThresholdPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, onThreshold.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setOnThresholdPtr, 0)
   }
 
   public final fun getOnThreshold(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOnThresholdPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOnThresholdPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOffThreshold(offThreshold: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to offThreshold.toDouble())
-    TransferContext.callMethod(MethodBindings.setOffThresholdPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offThreshold.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setOffThresholdPtr, 0)
   }
 
   public final fun getOffThreshold(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffThresholdPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOffThresholdPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setOnHaptic(haptic: OpenXRHapticBase?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to haptic)
-    TransferContext.callMethod(MethodBindings.setOnHapticPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, haptic)
+    TransferContext.callPtrMethod(MethodBindings.setOnHapticPtr, 0)
   }
 
   public final fun getOnHaptic(): OpenXRHapticBase? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOnHapticPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRHapticBase?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOnHapticPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRHapticBase?)
   }
 
   public final fun setOffHaptic(haptic: OpenXRHapticBase?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to haptic)
-    TransferContext.callMethod(MethodBindings.setOffHapticPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, haptic)
+    TransferContext.callPtrMethod(MethodBindings.setOffHapticPtr, 0)
   }
 
   public final fun getOffHaptic(): OpenXRHapticBase? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffHapticPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRHapticBase?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOffHapticPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRHapticBase?)
   }
 
   public companion object {

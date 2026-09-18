@@ -17,9 +17,12 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
 import godot.core.Signal1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_COLOR
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -95,7 +98,7 @@ public open class ColorPickerButton : Button() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(171, scriptPtr)
+    createNativeObject(169, scriptPtr)
   }
 
   /**
@@ -118,14 +121,14 @@ public open class ColorPickerButton : Button() {
   }
 
   public final fun setPickColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.setPickColorPtr)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
+    TransferContext.callPtrMethod(MethodBindings.setPickColorPtr, 0)
   }
 
   public final fun getPickColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPickColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPickColorPtr, 20)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   /**
@@ -135,9 +138,9 @@ public open class ColorPickerButton : Button() {
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
   public final fun getPicker(): ColorPicker? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPickerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as ColorPicker?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPickerPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as ColorPicker?)
   }
 
   /**
@@ -148,31 +151,31 @@ public open class ColorPickerButton : Button() {
    * you wish to hide it or any of its children, use their [Window.visible] property.
    */
   public final fun getPopup(): PopupPanel? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPopupPtr)
-    return (TransferContext.readReturnValue(OBJECT) as PopupPanel?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPopupPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as PopupPanel?)
   }
 
   public final fun setEditAlpha(show: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to show)
-    TransferContext.callMethod(MethodBindings.setEditAlphaPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, show)
+    TransferContext.callPtrMethod(MethodBindings.setEditAlphaPtr, 0)
   }
 
   public final fun isEditingAlpha(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEditingAlphaPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isEditingAlphaPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEditIntensity(show: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to show)
-    TransferContext.callMethod(MethodBindings.setEditIntensityPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, show)
+    TransferContext.callPtrMethod(MethodBindings.setEditIntensityPtr, 0)
   }
 
   public final fun isEditingIntensity(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEditingIntensityPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isEditingIntensityPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

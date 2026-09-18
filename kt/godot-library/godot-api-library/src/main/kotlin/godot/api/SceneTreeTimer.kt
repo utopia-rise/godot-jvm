@@ -13,7 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.core.VariantParser.DOUBLE
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Double
 import kotlin.Suppress
 import kotlin.Unit
@@ -75,14 +77,14 @@ public open class SceneTreeTimer internal constructor() : RefCounted() {
   }
 
   public final fun setTimeLeft(time: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to time)
-    TransferContext.callMethod(MethodBindings.setTimeLeftPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
+    TransferContext.callPtrMethod(MethodBindings.setTimeLeftPtr, 0)
   }
 
   public final fun getTimeLeft(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTimeLeftPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTimeLeftPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   public companion object {

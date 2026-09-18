@@ -14,9 +14,12 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_VECTOR3
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -63,7 +66,7 @@ public open class CSGBox3D : CSGPrimitive3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(125, scriptPtr)
+    createNativeObject(123, scriptPtr)
   }
 
   /**
@@ -86,25 +89,25 @@ public open class CSGBox3D : CSGPrimitive3D() {
   }
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, size)
+    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
   }
 
   public final fun getSize(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 9)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   public final fun setMaterial(material: Material?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to material)
-    TransferContext.callMethod(MethodBindings.setMaterialPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
+    TransferContext.callPtrMethod(MethodBindings.setMaterialPtr, 0)
   }
 
   public final fun getMaterial(): Material? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaterialPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Material?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMaterialPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Material?)
   }
 
   public companion object {

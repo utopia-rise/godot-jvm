@@ -14,9 +14,12 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float
@@ -121,31 +124,31 @@ public open class SkeletonModifier3D : Node3D() {
    * Returns the parent [Skeleton3D] node if it exists. Otherwise, returns `null`.
    */
   public final fun getSkeleton(): Skeleton3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Skeleton3D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSkeletonPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as Skeleton3D?)
   }
 
   public final fun setActive(active: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to active)
-    TransferContext.callMethod(MethodBindings.setActivePtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, active)
+    TransferContext.callPtrMethod(MethodBindings.setActivePtr, 0)
   }
 
   public final fun isActive(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isActivePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isActivePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setInfluence(influence: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to influence.toDouble())
-    TransferContext.callMethod(MethodBindings.setInfluencePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, influence.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setInfluencePtr, 0)
   }
 
   public final fun getInfluence(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInfluencePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInfluencePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public enum class BoneAxis(

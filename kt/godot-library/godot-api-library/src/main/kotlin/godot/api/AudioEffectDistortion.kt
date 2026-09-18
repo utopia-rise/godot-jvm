@@ -13,9 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
 import kotlin.Float
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -109,62 +111,62 @@ public open class AudioEffectDistortion : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(56, scriptPtr)
+    createNativeObject(54, scriptPtr)
   }
 
   public final fun setMode(mode: Mode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setModePtr, 0)
   }
 
   public final fun getMode(): Mode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getModePtr)
-    return Mode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getModePtr, 2)
+    return Mode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setPreGain(preGain: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to preGain.toDouble())
-    TransferContext.callMethod(MethodBindings.setPreGainPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, preGain.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setPreGainPtr, 0)
   }
 
   public final fun getPreGain(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPreGainPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPreGainPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setKeepHfHz(keepHfHz: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to keepHfHz.toDouble())
-    TransferContext.callMethod(MethodBindings.setKeepHfHzPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, keepHfHz.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setKeepHfHzPtr, 0)
   }
 
   public final fun getKeepHfHz(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getKeepHfHzPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getKeepHfHzPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setDrive(drive: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to drive.toDouble())
-    TransferContext.callMethod(MethodBindings.setDrivePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, drive.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setDrivePtr, 0)
   }
 
   public final fun getDrive(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDrivePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDrivePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setPostGain(postGain: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to postGain.toDouble())
-    TransferContext.callMethod(MethodBindings.setPostGainPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, postGain.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setPostGainPtr, 0)
   }
 
   public final fun getPostGain(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPostGainPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPostGainPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**

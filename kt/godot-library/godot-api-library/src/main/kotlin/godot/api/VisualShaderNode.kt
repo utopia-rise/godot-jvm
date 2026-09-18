@@ -15,9 +15,13 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName3
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_ANY
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ARRAY
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_ANY_ANY
 import kotlin.Any
 import kotlin.Int
 import kotlin.Long
@@ -75,20 +79,20 @@ public open class VisualShaderNode internal constructor() : Resource() {
    * result of dragging a connection from an existing node to the empty space on the graph.
    */
   public final fun getDefaultInputPort(type: PortType): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type.value)
-    TransferContext.callMethod(MethodBindings.getDefaultInputPortPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultInputPortPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setOutputPortForPreview(port: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong())
-    TransferContext.callMethod(MethodBindings.setOutputPortForPreviewPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, port.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setOutputPortForPreviewPtr, 0)
   }
 
   public final fun getOutputPortForPreview(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOutputPortForPreviewPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOutputPortForPreviewPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -100,7 +104,7 @@ public open class VisualShaderNode internal constructor() : Resource() {
     `value`: Any?,
     prevValue: Any? = null,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong(), ANY to value, ANY to prevValue)
+    TransferContext.writeMethodArguments_LONG_ANY_ANY(ptr, objectID.id, port.toLong(), value, prevValue)
     TransferContext.callMethod(MethodBindings.setInputPortDefaultValuePtr)
   }
 
@@ -108,25 +112,25 @@ public open class VisualShaderNode internal constructor() : Resource() {
    * Returns the default value of the input [port].
    */
   public final fun getInputPortDefaultValue(port: Int): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong())
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, port.toLong())
     TransferContext.callMethod(MethodBindings.getInputPortDefaultValuePtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
    * Removes the default value of the input [port].
    */
   public final fun removeInputPortDefaultValue(port: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong())
-    TransferContext.callMethod(MethodBindings.removeInputPortDefaultValuePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, port.toLong())
+    TransferContext.callPtrMethod(MethodBindings.removeInputPortDefaultValuePtr, 0)
   }
 
   /**
    * Clears the default input ports value.
    */
   public final fun clearDefaultInputValues(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearDefaultInputValuesPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.clearDefaultInputValuesPtr, 0)
   }
 
   /**
@@ -134,8 +138,8 @@ public open class VisualShaderNode internal constructor() : Resource() {
    * index1, value1, ...]`. For example: `[0, Vector3(0, 0, 0), 1, Vector3(0, 0, 0)]`.
    */
   public final fun setDefaultInputValues(values: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to values)
-    TransferContext.callMethod(MethodBindings.setDefaultInputValuesPtr)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, values)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultInputValuesPtr, 0)
   }
 
   /**
@@ -143,20 +147,20 @@ public open class VisualShaderNode internal constructor() : Resource() {
    * the form `[index0, value0, index1, value1, ...]`.
    */
   public final fun getDefaultInputValues(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultInputValuesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultInputValuesPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   public final fun setFrame(frame: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frame.toLong())
-    TransferContext.callMethod(MethodBindings.setFramePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frame.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setFramePtr, 0)
   }
 
   public final fun getFrame(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFramePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFramePtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public enum class PortType(

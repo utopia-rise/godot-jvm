@@ -20,6 +20,10 @@ class ApiTask(
         output.writeTo(apiDir)
     }
 
+    val transferFiles = subTask<TransferTask, _> { output ->
+        output.writeTo(apiDir)
+    }
+
     val files
         get() = coreFiles + apiFiles
 

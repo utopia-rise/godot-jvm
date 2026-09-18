@@ -14,8 +14,11 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -115,73 +118,73 @@ public open class CanvasItemMaterial : Material() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(145, scriptPtr)
+    createNativeObject(143, scriptPtr)
   }
 
   public final fun setBlendMode(blendMode: BlendMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to blendMode.value)
-    TransferContext.callMethod(MethodBindings.setBlendModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, blendMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setBlendModePtr, 0)
   }
 
   public final fun getBlendMode(): BlendMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBlendModePtr)
-    return BlendMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBlendModePtr, 2)
+    return BlendMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setLightMode(lightMode: LightMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to lightMode.value)
-    TransferContext.callMethod(MethodBindings.setLightModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, lightMode.value)
+    TransferContext.callPtrMethod(MethodBindings.setLightModePtr, 0)
   }
 
   public final fun getLightMode(): LightMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLightModePtr)
-    return LightMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getLightModePtr, 2)
+    return LightMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setParticlesAnimation(particlesAnim: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to particlesAnim)
-    TransferContext.callMethod(MethodBindings.setParticlesAnimationPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, particlesAnim)
+    TransferContext.callPtrMethod(MethodBindings.setParticlesAnimationPtr, 0)
   }
 
   public final fun getParticlesAnimation(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getParticlesAnimationPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getParticlesAnimationPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setParticlesAnimHFrames(frames: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frames.toLong())
-    TransferContext.callMethod(MethodBindings.setParticlesAnimHFramesPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frames.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setParticlesAnimHFramesPtr, 0)
   }
 
   public final fun getParticlesAnimHFrames(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getParticlesAnimHFramesPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getParticlesAnimHFramesPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setParticlesAnimVFrames(frames: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to frames.toLong())
-    TransferContext.callMethod(MethodBindings.setParticlesAnimVFramesPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frames.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setParticlesAnimVFramesPtr, 0)
   }
 
   public final fun getParticlesAnimVFrames(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getParticlesAnimVFramesPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getParticlesAnimVFramesPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setParticlesAnimLoop(loop: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to loop)
-    TransferContext.callMethod(MethodBindings.setParticlesAnimLoopPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, loop)
+    TransferContext.callPtrMethod(MethodBindings.setParticlesAnimLoopPtr, 0)
   }
 
   public final fun getParticlesAnimLoop(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getParticlesAnimLoopPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getParticlesAnimLoopPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**

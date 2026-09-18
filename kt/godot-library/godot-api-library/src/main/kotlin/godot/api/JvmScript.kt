@@ -11,7 +11,8 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
-import godot.core.VariantCaster.ANY
+import godot.readReturnValue_ANY
+import godot.writeMethodArguments0
 import kotlin.Any
 import kotlin.Suppress
 import kotlin.Unit
@@ -20,13 +21,13 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class JvmScript internal constructor() : Script() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(346, scriptPtr)
+    createNativeObject(344, scriptPtr)
   }
 
   public final fun new(): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.newPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   public companion object {

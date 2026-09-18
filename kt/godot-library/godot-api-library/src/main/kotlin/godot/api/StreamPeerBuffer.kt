@@ -15,12 +15,14 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedByteArray
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_BYTE_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_PACKED_BYTE_ARRAY
 import kotlin.Byte
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -101,62 +103,62 @@ public open class StreamPeerBuffer : StreamPeer() {
    * Moves the cursor to the specified position. [position] must be a valid index of [dataArray].
    */
   public final fun seek(position: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to position.toLong())
-    TransferContext.callMethod(MethodBindings.seekPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, position.toLong())
+    TransferContext.callPtrMethod(MethodBindings.seekPtr, 0)
   }
 
   /**
    * Returns the size of [dataArray].
    */
   public final fun getSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the current cursor position.
    */
   public final fun getPosition(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Resizes the [dataArray]. This *doesn't* update the cursor.
    */
   public final fun resize(size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.toLong())
-    TransferContext.callMethod(MethodBindings.resizePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
+    TransferContext.callPtrMethod(MethodBindings.resizePtr, 0)
   }
 
   public final fun setDataArray(`data`: PackedByteArray): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_BYTE_ARRAY to data)
-    TransferContext.callMethod(MethodBindings.setDataArrayPtr)
+    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, data)
+    TransferContext.callPtrMethod(MethodBindings.setDataArrayPtr, 0)
   }
 
   public final fun getDataArray(): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDataArrayPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDataArrayPtr, 29)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   /**
    * Clears the [dataArray] and resets the cursor.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
   }
 
   /**
    * Returns a new [StreamPeerBuffer] with the same [dataArray] content.
    */
   public final fun duplicate(): StreamPeerBuffer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.duplicatePtr)
-    return (TransferContext.readReturnValue(OBJECT) as StreamPeerBuffer?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.duplicatePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as StreamPeerBuffer?)
   }
 
   public companion object {

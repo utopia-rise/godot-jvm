@@ -16,11 +16,13 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.PackedStringArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_LONG
+import godot.readReturnValue_PACKED_STRING_ARRAY
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_OBJECT_BOOL
+import godot.writeMethodArguments_OBJECT_STRING_LONG
+import godot.writeMethodArguments_STRING_BOOL
+import godot.writeMethodArguments_STRING_LONG
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
@@ -94,9 +96,9 @@ public object ResourceSaver : Object() {
     path: String = "",
     flags: SaverFlags = ResourceSaver.SaverFlags.FLAG_NONE,
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to resource, STRING to path, LONG to flags.flag)
+    TransferContext.writeMethodArguments_OBJECT_STRING_LONG(ptr, objectID.id, resource, path, flags.flag)
     TransferContext.callMethod(MethodBindings.savePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -108,9 +110,9 @@ public object ResourceSaver : Object() {
    */
   @JvmStatic
   public final fun setUid(resource: String, uid: Long): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to resource, LONG to uid)
+    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, resource, uid)
     TransferContext.callMethod(MethodBindings.setUidPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -118,9 +120,9 @@ public object ResourceSaver : Object() {
    */
   @JvmStatic
   public final fun getRecognizedExtensions(type: Resource): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to type)
-    TransferContext.callMethod(MethodBindings.getRecognizedExtensionsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, type)
+    TransferContext.callPtrMethod(MethodBindings.getRecognizedExtensionsPtr, 34)
+    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
   /**
@@ -134,8 +136,8 @@ public object ResourceSaver : Object() {
   @JvmStatic
   public final fun addResourceFormatSaver(formatSaver: ResourceFormatSaver, atFront: Boolean =
       false): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to formatSaver, BOOL to atFront)
-    TransferContext.callMethod(MethodBindings.addResourceFormatSaverPtr)
+    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, formatSaver, atFront)
+    TransferContext.callPtrMethod(MethodBindings.addResourceFormatSaverPtr, 0)
   }
 
   /**
@@ -143,8 +145,8 @@ public object ResourceSaver : Object() {
    */
   @JvmStatic
   public final fun removeResourceFormatSaver(formatSaver: ResourceFormatSaver): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to formatSaver)
-    TransferContext.callMethod(MethodBindings.removeResourceFormatSaverPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, formatSaver)
+    TransferContext.callPtrMethod(MethodBindings.removeResourceFormatSaverPtr, 0)
   }
 
   /**
@@ -155,9 +157,9 @@ public object ResourceSaver : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getResourceIdForPath(path: String, generate: Boolean = false): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, BOOL to generate)
+    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, path, generate)
     TransferContext.callMethod(MethodBindings.getResourceIdForPathPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public class SaverFlags(

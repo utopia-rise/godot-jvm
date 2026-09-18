@@ -1,5 +1,7 @@
 #include "packed_color_array_bridge.h"
 
+#include "core/variant_allocator.h"
+
 using namespace bridges;
 
 PackedColorArrayBridge::~PackedColorArrayBridge() = default;

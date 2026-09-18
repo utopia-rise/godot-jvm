@@ -12,9 +12,11 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -73,51 +75,51 @@ public open class OpenXRCompositionLayerCylinder : OpenXRCompositionLayer() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(447, scriptPtr)
+    createNativeObject(446, scriptPtr)
   }
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setRadiusPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setRadiusPtr, 0)
   }
 
   public final fun getRadius(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadiusPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRadiusPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAspectRatio(aspectRatio: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to aspectRatio.toDouble())
-    TransferContext.callMethod(MethodBindings.setAspectRatioPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, aspectRatio.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setAspectRatioPtr, 0)
   }
 
   public final fun getAspectRatio(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAspectRatioPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAspectRatioPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setCentralAngle(angle: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to angle.toDouble())
-    TransferContext.callMethod(MethodBindings.setCentralAnglePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setCentralAnglePtr, 0)
   }
 
   public final fun getCentralAngle(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCentralAnglePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCentralAnglePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setFallbackSegments(segments: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to segments)
-    TransferContext.callMethod(MethodBindings.setFallbackSegmentsPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, segments)
+    TransferContext.callPtrMethod(MethodBindings.setFallbackSegmentsPtr, 0)
   }
 
   public final fun getFallbackSegments(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFallbackSegmentsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFallbackSegmentsPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public companion object {

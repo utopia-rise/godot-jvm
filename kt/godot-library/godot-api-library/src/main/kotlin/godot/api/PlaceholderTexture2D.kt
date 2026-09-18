@@ -13,8 +13,8 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -57,7 +57,7 @@ public open class PlaceholderTexture2D : Texture2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(556, scriptPtr)
+    createNativeObject(555, scriptPtr)
   }
 
   /**
@@ -80,8 +80,8 @@ public open class PlaceholderTexture2D : Texture2D() {
   }
 
   public final fun setSize(size: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, size)
+    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
   }
 
   /**

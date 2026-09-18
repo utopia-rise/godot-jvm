@@ -12,8 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.RID
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser._RID
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_RID
+import godot.writeMethodArguments0
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -35,18 +36,18 @@ public open class RenderData internal constructor() : Object() {
    * Returns the [RenderSceneBuffers] object managing the scene buffers for rendering this viewport.
    */
   public final fun getRenderSceneBuffers(): RenderSceneBuffers? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRenderSceneBuffersPtr)
-    return (TransferContext.readReturnValue(OBJECT) as RenderSceneBuffers?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRenderSceneBuffersPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as RenderSceneBuffers?)
   }
 
   /**
    * Returns the [RenderSceneData] object managing this frames scene data.
    */
   public final fun getRenderSceneData(): RenderSceneData? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRenderSceneDataPtr)
-    return (TransferContext.readReturnValue(OBJECT) as RenderSceneData?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRenderSceneDataPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as RenderSceneData?)
   }
 
   /**
@@ -54,9 +55,9 @@ public open class RenderData internal constructor() : Object() {
    * viewport.
    */
   public final fun getEnvironment(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnvironmentPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getEnvironmentPtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
@@ -64,9 +65,9 @@ public open class RenderData internal constructor() : Object() {
    * this viewport.
    */
   public final fun getCameraAttributes(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCameraAttributesPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCameraAttributesPtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   public companion object {

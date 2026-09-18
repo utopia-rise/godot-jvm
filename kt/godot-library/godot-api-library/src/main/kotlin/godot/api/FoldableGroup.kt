@@ -14,9 +14,11 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal1
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -45,16 +47,16 @@ public open class FoldableGroup : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(232, scriptPtr)
+    createNativeObject(230, scriptPtr)
   }
 
   /**
    * Returns the current expanded container.
    */
   public final fun getExpandedContainer(): FoldableContainer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExpandedContainerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as FoldableContainer?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getExpandedContainerPtr, 24)
+    return (TransferContext.readReturnValue_OBJECT() as FoldableContainer?)
   }
 
   /**
@@ -63,20 +65,20 @@ public open class FoldableGroup : Resource() {
    * FoldableContainers.
    */
   public final fun getContainers(): VariantArray<FoldableContainer> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getContainersPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<FoldableContainer>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getContainersPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<FoldableContainer>)
   }
 
   public final fun setAllowFoldingAll(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setAllowFoldingAllPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setAllowFoldingAllPtr, 0)
   }
 
   public final fun isAllowFoldingAll(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAllowFoldingAllPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isAllowFoldingAllPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

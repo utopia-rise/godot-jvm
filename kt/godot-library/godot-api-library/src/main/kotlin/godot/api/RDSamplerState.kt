@@ -12,13 +12,15 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -215,172 +217,172 @@ public open class RDSamplerState : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(590, scriptPtr)
+    createNativeObject(589, scriptPtr)
   }
 
   public final fun setMagFilter(pMember: RenderingDevice.SamplerFilter): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setMagFilterPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
+    TransferContext.callPtrMethod(MethodBindings.setMagFilterPtr, 0)
   }
 
   public final fun getMagFilter(): RenderingDevice.SamplerFilter {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMagFilterPtr)
-    return RenderingDevice.SamplerFilter.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMagFilterPtr, 2)
+    return RenderingDevice.SamplerFilter.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setMinFilter(pMember: RenderingDevice.SamplerFilter): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setMinFilterPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
+    TransferContext.callPtrMethod(MethodBindings.setMinFilterPtr, 0)
   }
 
   public final fun getMinFilter(): RenderingDevice.SamplerFilter {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinFilterPtr)
-    return RenderingDevice.SamplerFilter.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMinFilterPtr, 2)
+    return RenderingDevice.SamplerFilter.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setMipFilter(pMember: RenderingDevice.SamplerFilter): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setMipFilterPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
+    TransferContext.callPtrMethod(MethodBindings.setMipFilterPtr, 0)
   }
 
   public final fun getMipFilter(): RenderingDevice.SamplerFilter {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMipFilterPtr)
-    return RenderingDevice.SamplerFilter.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMipFilterPtr, 2)
+    return RenderingDevice.SamplerFilter.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setRepeatU(pMember: RenderingDevice.SamplerRepeatMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setRepeatUPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
+    TransferContext.callPtrMethod(MethodBindings.setRepeatUPtr, 0)
   }
 
   public final fun getRepeatU(): RenderingDevice.SamplerRepeatMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRepeatUPtr)
-    return RenderingDevice.SamplerRepeatMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRepeatUPtr, 2)
+    return RenderingDevice.SamplerRepeatMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setRepeatV(pMember: RenderingDevice.SamplerRepeatMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setRepeatVPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
+    TransferContext.callPtrMethod(MethodBindings.setRepeatVPtr, 0)
   }
 
   public final fun getRepeatV(): RenderingDevice.SamplerRepeatMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRepeatVPtr)
-    return RenderingDevice.SamplerRepeatMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRepeatVPtr, 2)
+    return RenderingDevice.SamplerRepeatMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setRepeatW(pMember: RenderingDevice.SamplerRepeatMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setRepeatWPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
+    TransferContext.callPtrMethod(MethodBindings.setRepeatWPtr, 0)
   }
 
   public final fun getRepeatW(): RenderingDevice.SamplerRepeatMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRepeatWPtr)
-    return RenderingDevice.SamplerRepeatMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRepeatWPtr, 2)
+    return RenderingDevice.SamplerRepeatMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setLodBias(pMember: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pMember.toDouble())
-    TransferContext.callMethod(MethodBindings.setLodBiasPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pMember.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setLodBiasPtr, 0)
   }
 
   public final fun getLodBias(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLodBiasPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getLodBiasPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setUseAnisotropy(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
-    TransferContext.callMethod(MethodBindings.setUseAnisotropyPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
+    TransferContext.callPtrMethod(MethodBindings.setUseAnisotropyPtr, 0)
   }
 
   public final fun getUseAnisotropy(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUseAnisotropyPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getUseAnisotropyPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAnisotropyMax(pMember: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pMember.toDouble())
-    TransferContext.callMethod(MethodBindings.setAnisotropyMaxPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pMember.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setAnisotropyMaxPtr, 0)
   }
 
   public final fun getAnisotropyMax(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnisotropyMaxPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAnisotropyMaxPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setEnableCompare(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
-    TransferContext.callMethod(MethodBindings.setEnableComparePtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
+    TransferContext.callPtrMethod(MethodBindings.setEnableComparePtr, 0)
   }
 
   public final fun getEnableCompare(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableComparePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getEnableComparePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCompareOp(pMember: RenderingDevice.CompareOperator): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setCompareOpPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
+    TransferContext.callPtrMethod(MethodBindings.setCompareOpPtr, 0)
   }
 
   public final fun getCompareOp(): RenderingDevice.CompareOperator {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCompareOpPtr)
-    return RenderingDevice.CompareOperator.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCompareOpPtr, 2)
+    return RenderingDevice.CompareOperator.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setMinLod(pMember: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pMember.toDouble())
-    TransferContext.callMethod(MethodBindings.setMinLodPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pMember.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setMinLodPtr, 0)
   }
 
   public final fun getMinLod(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinLodPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMinLodPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMaxLod(pMember: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pMember.toDouble())
-    TransferContext.callMethod(MethodBindings.setMaxLodPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pMember.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setMaxLodPtr, 0)
   }
 
   public final fun getMaxLod(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxLodPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMaxLodPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setBorderColor(pMember: RenderingDevice.SamplerBorderColor): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setBorderColorPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
+    TransferContext.callPtrMethod(MethodBindings.setBorderColorPtr, 0)
   }
 
   public final fun getBorderColor(): RenderingDevice.SamplerBorderColor {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBorderColorPtr)
-    return RenderingDevice.SamplerBorderColor.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBorderColorPtr, 2)
+    return RenderingDevice.SamplerBorderColor.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setUnnormalizedUvw(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
-    TransferContext.callMethod(MethodBindings.setUnnormalizedUvwPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
+    TransferContext.callPtrMethod(MethodBindings.setUnnormalizedUvwPtr, 0)
   }
 
   public final fun getUnnormalizedUvw(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUnnormalizedUvwPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getUnnormalizedUvwPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

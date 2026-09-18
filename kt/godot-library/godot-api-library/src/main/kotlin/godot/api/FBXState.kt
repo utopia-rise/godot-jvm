@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -37,18 +39,18 @@ public open class FBXState : GLTFState() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(224, scriptPtr)
+    createNativeObject(222, scriptPtr)
   }
 
   public final fun getAllowGeometryHelperNodes(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAllowGeometryHelperNodesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAllowGeometryHelperNodesPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAllowGeometryHelperNodes(allow: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to allow)
-    TransferContext.callMethod(MethodBindings.setAllowGeometryHelperNodesPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, allow)
+    TransferContext.callPtrMethod(MethodBindings.setAllowGeometryHelperNodesPtr, 0)
   }
 
   public companion object {

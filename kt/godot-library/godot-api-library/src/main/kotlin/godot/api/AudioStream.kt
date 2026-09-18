@@ -14,9 +14,10 @@ import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.Signal0
 import godot.core.VariantArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -40,7 +41,7 @@ public abstract class AudioStream : Resource() {
   public val parameterListChanged: Signal0 by Signal0
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(83, scriptPtr)
+    createNativeObject(81, scriptPtr)
   }
 
   /**
@@ -133,9 +134,9 @@ public abstract class AudioStream : Resource() {
    * indefinite length (such as for [AudioStreamGenerator] and [AudioStreamMicrophone]), returns `0.0`.
    */
   public final fun getLength(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getLengthPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   /**
@@ -143,9 +144,9 @@ public abstract class AudioStream : Resource() {
    * audio stream supports two or more channels (*polyphony*).
    */
   public final fun isMonophonic(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMonophonicPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isMonophonicPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -155,9 +156,9 @@ public abstract class AudioStream : Resource() {
    * `AudioStreamRandomPitch::instantiate_playback`.
    */
   public final fun instantiatePlayback(): AudioStreamPlayback? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.instantiatePlaybackPtr)
-    return (TransferContext.readReturnValue(OBJECT) as AudioStreamPlayback?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.instantiatePlaybackPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as AudioStreamPlayback?)
   }
 
   /**
@@ -165,27 +166,27 @@ public abstract class AudioStream : Resource() {
    * sampled.
    */
   public final fun canBeSampled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.canBeSampledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.canBeSampledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Generates an [AudioSample] based on the current stream.
    */
   public final fun generateSample(): AudioSample? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.generateSamplePtr)
-    return (TransferContext.readReturnValue(OBJECT) as AudioSample?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.generateSamplePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as AudioSample?)
   }
 
   /**
    * Returns `true` if the stream is a collection of other streams, `false` otherwise.
    */
   public final fun isMetaStream(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMetaStreamPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isMetaStreamPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

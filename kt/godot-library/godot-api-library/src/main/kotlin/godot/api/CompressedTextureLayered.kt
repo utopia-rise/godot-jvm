@@ -13,8 +13,10 @@ import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -40,22 +42,22 @@ public open class CompressedTextureLayered internal constructor() : TextureLayer
     get() = getLoadPath()
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(180, scriptPtr)
+    createNativeObject(178, scriptPtr)
   }
 
   /**
    * Loads the texture at [path].
    */
   public final fun load(path: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
     TransferContext.callMethod(MethodBindings.loadPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun getLoadPath(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getLoadPathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**

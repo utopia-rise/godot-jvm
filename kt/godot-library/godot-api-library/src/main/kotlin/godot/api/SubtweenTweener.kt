@@ -11,8 +11,8 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Double
 import kotlin.Suppress
 import kotlin.Unit
@@ -36,9 +36,9 @@ public open class SubtweenTweener : Tweener() {
    * default there's no delay.
    */
   public final fun setDelay(delay: Double): SubtweenTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to delay)
-    TransferContext.callMethod(MethodBindings.setDelayPtr)
-    return (TransferContext.readReturnValue(OBJECT) as SubtweenTweener)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, delay)
+    TransferContext.callPtrMethod(MethodBindings.setDelayPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as SubtweenTweener)
   }
 
   public companion object {

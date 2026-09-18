@@ -12,8 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -54,29 +55,29 @@ public open class AudioEffectAmplify : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(49, scriptPtr)
+    createNativeObject(47, scriptPtr)
   }
 
   public final fun setVolumeDb(volume: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to volume.toDouble())
-    TransferContext.callMethod(MethodBindings.setVolumeDbPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, volume.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setVolumeDbPtr, 0)
   }
 
   public final fun getVolumeDb(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVolumeDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVolumeDbPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setVolumeLinear(volume: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to volume.toDouble())
-    TransferContext.callMethod(MethodBindings.setVolumeLinearPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, volume.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setVolumeLinearPtr, 0)
   }
 
   public final fun getVolumeLinear(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVolumeLinearPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVolumeLinearPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**

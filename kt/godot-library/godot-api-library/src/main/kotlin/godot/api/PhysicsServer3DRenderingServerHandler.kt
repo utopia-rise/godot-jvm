@@ -13,9 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.writeMethodArguments_AABB
+import godot.writeMethodArguments_LONG_VECTOR3
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -25,7 +25,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public abstract class PhysicsServer3DRenderingServerHandler : Object() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(543, scriptPtr)
+    createNativeObject(542, scriptPtr)
   }
 
   /**
@@ -53,24 +53,24 @@ public abstract class PhysicsServer3DRenderingServerHandler : Object() {
    * Sets the position for the [SoftBody3D] vertex at the index specified by [vertexId].
    */
   public final fun setVertex(vertexId: Int, vertex: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to vertexId.toLong(), VECTOR3 to vertex)
-    TransferContext.callMethod(MethodBindings.setVertexPtr)
+    TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, vertexId.toLong(), vertex)
+    TransferContext.callPtrMethod(MethodBindings.setVertexPtr, 0)
   }
 
   /**
    * Sets the normal for the [SoftBody3D] vertex at the index specified by [vertexId].
    */
   public final fun setNormal(vertexId: Int, normal: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to vertexId.toLong(), VECTOR3 to normal)
-    TransferContext.callMethod(MethodBindings.setNormalPtr)
+    TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, vertexId.toLong(), normal)
+    TransferContext.callPtrMethod(MethodBindings.setNormalPtr, 0)
   }
 
   /**
    * Sets the bounding box for the [SoftBody3D].
    */
   public final fun setAabb(aabb: AABB): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, godot.core.VariantParser.AABB to aabb)
-    TransferContext.callMethod(MethodBindings.setAabbPtr)
+    TransferContext.writeMethodArguments_AABB(ptr, objectID.id, aabb)
+    TransferContext.callPtrMethod(MethodBindings.setAabbPtr, 0)
   }
 
   public companion object {

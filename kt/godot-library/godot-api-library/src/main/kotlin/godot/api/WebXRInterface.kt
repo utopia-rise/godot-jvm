@@ -17,15 +17,18 @@ import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.Signal2
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_STRING
 import kotlin.Any
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -384,73 +387,73 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    * result.
    */
   public final fun isSessionSupported(sessionMode: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to sessionMode)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, sessionMode)
     TransferContext.callMethod(MethodBindings.isSessionSupportedPtr)
   }
 
   public final fun setSessionMode(sessionMode: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to sessionMode)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, sessionMode)
     TransferContext.callMethod(MethodBindings.setSessionModePtr)
   }
 
   public final fun getSessionMode(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getSessionModePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setRequiredFeatures(requiredFeatures: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to requiredFeatures)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, requiredFeatures)
     TransferContext.callMethod(MethodBindings.setRequiredFeaturesPtr)
   }
 
   public final fun getRequiredFeatures(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRequiredFeaturesPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setOptionalFeatures(optionalFeatures: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to optionalFeatures)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, optionalFeatures)
     TransferContext.callMethod(MethodBindings.setOptionalFeaturesPtr)
   }
 
   public final fun getOptionalFeatures(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getOptionalFeaturesPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun getReferenceSpaceType(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getReferenceSpaceTypePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun getEnabledFeatures(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getEnabledFeaturesPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setRequestedReferenceSpaceTypes(requestedReferenceSpaceTypes: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to requestedReferenceSpaceTypes)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, requestedReferenceSpaceTypes)
     TransferContext.callMethod(MethodBindings.setRequestedReferenceSpaceTypesPtr)
   }
 
   public final fun getRequestedReferenceSpaceTypes(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getRequestedReferenceSpaceTypesPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Returns `true` if there is an active input source with the given [inputSourceId].
    */
   public final fun isInputSourceActive(inputSourceId: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to inputSourceId.toLong())
-    TransferContext.callMethod(MethodBindings.isInputSourceActivePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, inputSourceId.toLong())
+    TransferContext.callPtrMethod(MethodBindings.isInputSourceActivePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -476,9 +479,9 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    * - [signal squeezestart]
    */
   public final fun getInputSourceTracker(inputSourceId: Int): XRControllerTracker? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to inputSourceId.toLong())
-    TransferContext.callMethod(MethodBindings.getInputSourceTrackerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as XRControllerTracker?)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, inputSourceId.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getInputSourceTrackerPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as XRControllerTracker?)
   }
 
   /**
@@ -489,15 +492,15 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    * for more information.
    */
   public final fun getInputSourceTargetRayMode(inputSourceId: Int): TargetRayMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to inputSourceId.toLong())
-    TransferContext.callMethod(MethodBindings.getInputSourceTargetRayModePtr)
-    return TargetRayMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, inputSourceId.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getInputSourceTargetRayModePtr, 2)
+    return TargetRayMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun getVisibilityState(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getVisibilityStatePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -505,9 +508,9 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    * It may not report an accurate value until after using [setDisplayRefreshRate].
    */
   public final fun getDisplayRefreshRate(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDisplayRefreshRatePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDisplayRefreshRatePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -515,8 +518,8 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    * won't take effect right away until after [signal display_refresh_rate_changed] is emitted.
    */
   public final fun setDisplayRefreshRate(refreshRate: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to refreshRate.toDouble())
-    TransferContext.callMethod(MethodBindings.setDisplayRefreshRatePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, refreshRate.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setDisplayRefreshRatePtr, 0)
   }
 
   /**
@@ -524,9 +527,9 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    * supported by the web browser and after the interface has been initialized.
    */
   public final fun getAvailableDisplayRefreshRates(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAvailableDisplayRefreshRatesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAvailableDisplayRefreshRatesPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   public enum class TargetRayMode(

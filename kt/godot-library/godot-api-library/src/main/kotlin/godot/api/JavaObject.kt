@@ -13,10 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.StringName
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING_NAME
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
@@ -34,25 +35,25 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class JavaObject : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(338, scriptPtr)
+    createNativeObject(336, scriptPtr)
   }
 
   /**
    * Returns the [JavaClass] that this object is an instance of.
    */
   public final fun getJavaClass(): JavaClass? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJavaClassPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaClass?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getJavaClassPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as JavaClass?)
   }
 
   /**
    * Returns `true` if the given [method] name exists in the object's Java methods.
    */
   public final fun hasJavaMethod(method: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method)
-    TransferContext.callMethod(MethodBindings.hasJavaMethodPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, method)
+    TransferContext.callPtrMethod(MethodBindings.hasJavaMethodPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**

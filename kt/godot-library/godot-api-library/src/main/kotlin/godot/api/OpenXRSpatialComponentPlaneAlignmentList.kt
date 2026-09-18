@@ -12,7 +12,8 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -25,16 +26,16 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialComponentPlaneAlignmentList : OpenXRSpatialComponentData() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(486, scriptPtr)
+    createNativeObject(485, scriptPtr)
   }
 
   /**
    * Returns the plane alignment for the parent entity at this [index].
    */
   public final fun getPlaneAlignment(index: Long): PlaneAlignment {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
-    TransferContext.callMethod(MethodBindings.getPlaneAlignmentPtr)
-    return PlaneAlignment.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
+    TransferContext.callPtrMethod(MethodBindings.getPlaneAlignmentPtr, 2)
+    return PlaneAlignment.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class PlaneAlignment(

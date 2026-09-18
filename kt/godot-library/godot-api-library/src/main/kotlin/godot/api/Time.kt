@@ -15,11 +15,19 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_DICTIONARY
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_BOOL_BOOL
+import godot.writeMethodArguments_DICTIONARY
+import godot.writeMethodArguments_DICTIONARY_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_STRING
+import godot.writeMethodArguments_STRING_BOOL
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -156,9 +164,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getDatetimeDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to unixTimeVal)
-    TransferContext.callMethod(MethodBindings.getDatetimeDictFromUnixTimePtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
+    TransferContext.callPtrMethod(MethodBindings.getDatetimeDictFromUnixTimePtr, 27)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -167,9 +175,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getDateDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to unixTimeVal)
-    TransferContext.callMethod(MethodBindings.getDateDictFromUnixTimePtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
+    TransferContext.callPtrMethod(MethodBindings.getDateDictFromUnixTimePtr, 27)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -177,9 +185,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getTimeDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to unixTimeVal)
-    TransferContext.callMethod(MethodBindings.getTimeDictFromUnixTimePtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
+    TransferContext.callPtrMethod(MethodBindings.getTimeDictFromUnixTimePtr, 27)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -192,9 +200,9 @@ public object Time : Object() {
   @JvmStatic
   public final fun getDatetimeStringFromUnixTime(unixTimeVal: Long, useSpace: Boolean = false):
       String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to unixTimeVal, BOOL to useSpace)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, unixTimeVal, useSpace)
     TransferContext.callMethod(MethodBindings.getDatetimeStringFromUnixTimePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -202,9 +210,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getDateStringFromUnixTime(unixTimeVal: Long): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to unixTimeVal)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
     TransferContext.callMethod(MethodBindings.getDateStringFromUnixTimePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -212,9 +220,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getTimeStringFromUnixTime(unixTimeVal: Long): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to unixTimeVal)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
     TransferContext.callMethod(MethodBindings.getTimeStringFromUnixTimePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -229,9 +237,9 @@ public object Time : Object() {
   @JvmStatic
   public final fun getDatetimeDictFromDatetimeString(datetime: String, weekday: Boolean):
       Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to datetime, BOOL to weekday)
+    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, datetime, weekday)
     TransferContext.callMethod(MethodBindings.getDatetimeDictFromDatetimeStringPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -250,9 +258,9 @@ public object Time : Object() {
   @JvmStatic
   public final fun getDatetimeStringFromDatetimeDict(datetime: Dictionary<Any?, Any?>,
       useSpace: Boolean): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DICTIONARY to datetime, BOOL to useSpace)
+    TransferContext.writeMethodArguments_DICTIONARY_BOOL(ptr, objectID.id, datetime, useSpace)
     TransferContext.callMethod(MethodBindings.getDatetimeStringFromDatetimeDictPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -272,9 +280,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getUnixTimeFromDatetimeDict(datetime: Dictionary<Any?, Any?>): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DICTIONARY to datetime)
-    TransferContext.callMethod(MethodBindings.getUnixTimeFromDatetimeDictPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, datetime)
+    TransferContext.callPtrMethod(MethodBindings.getUnixTimeFromDatetimeDictPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -288,9 +296,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getUnixTimeFromDatetimeString(datetime: String): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to datetime)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, datetime)
     TransferContext.callMethod(MethodBindings.getUnixTimeFromDatetimeStringPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -299,9 +307,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getOffsetStringFromOffsetMinutes(offsetMinutes: Long): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to offsetMinutes)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, offsetMinutes)
     TransferContext.callMethod(MethodBindings.getOffsetStringFromOffsetMinutesPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -311,9 +319,9 @@ public object Time : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getDatetimeDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to utc)
-    TransferContext.callMethod(MethodBindings.getDatetimeDictFromSystemPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
+    TransferContext.callPtrMethod(MethodBindings.getDatetimeDictFromSystemPtr, 27)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -325,9 +333,9 @@ public object Time : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getDateDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to utc)
-    TransferContext.callMethod(MethodBindings.getDateDictFromSystemPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
+    TransferContext.callPtrMethod(MethodBindings.getDateDictFromSystemPtr, 27)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -339,9 +347,9 @@ public object Time : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getTimeDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to utc)
-    TransferContext.callMethod(MethodBindings.getTimeDictFromSystemPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
+    TransferContext.callPtrMethod(MethodBindings.getTimeDictFromSystemPtr, 27)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -357,9 +365,9 @@ public object Time : Object() {
   @JvmStatic
   public final fun getDatetimeStringFromSystem(utc: Boolean = false, useSpace: Boolean = false):
       String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to utc, BOOL to useSpace)
+    TransferContext.writeMethodArguments_BOOL_BOOL(ptr, objectID.id, utc, useSpace)
     TransferContext.callMethod(MethodBindings.getDatetimeStringFromSystemPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -371,9 +379,9 @@ public object Time : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getDateStringFromSystem(utc: Boolean = false): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to utc)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
     TransferContext.callMethod(MethodBindings.getDateStringFromSystemPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -385,9 +393,9 @@ public object Time : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getTimeStringFromSystem(utc: Boolean = false): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to utc)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
     TransferContext.callMethod(MethodBindings.getTimeStringFromSystemPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -401,9 +409,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getTimeZoneFromSystem(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTimeZoneFromSystemPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTimeZoneFromSystemPtr, 27)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   /**
@@ -417,9 +425,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getUnixTimeFromSystem(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUnixTimeFromSystemPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getUnixTimeFromSystemPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE()
   }
 
   /**
@@ -430,9 +438,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getTicksMsec(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTicksMsecPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTicksMsecPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -443,9 +451,9 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getTicksUsec(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTicksUsecPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTicksUsecPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public enum class Month(

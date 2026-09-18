@@ -14,13 +14,16 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -97,7 +100,7 @@ public open class InputEventScreenTouch : InputEventFromWindow() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(324, scriptPtr)
+    createNativeObject(322, scriptPtr)
   }
 
   /**
@@ -121,46 +124,46 @@ public open class InputEventScreenTouch : InputEventFromWindow() {
   }
 
   public final fun setIndex(index: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.setIndexPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setIndexPtr, 0)
   }
 
   public final fun getIndex(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIndexPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getIndexPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setPosition(position: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to position)
-    TransferContext.callMethod(MethodBindings.setPositionPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
+    TransferContext.callPtrMethod(MethodBindings.setPositionPtr, 0)
   }
 
   public final fun getPosition(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setPressed(pressed: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pressed)
-    TransferContext.callMethod(MethodBindings.setPressedPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
+    TransferContext.callPtrMethod(MethodBindings.setPressedPtr, 0)
   }
 
   public final fun setCanceled(canceled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to canceled)
-    TransferContext.callMethod(MethodBindings.setCanceledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, canceled)
+    TransferContext.callPtrMethod(MethodBindings.setCanceledPtr, 0)
   }
 
   public final fun setDoubleTap(doubleTap: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to doubleTap)
-    TransferContext.callMethod(MethodBindings.setDoubleTapPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, doubleTap)
+    TransferContext.callPtrMethod(MethodBindings.setDoubleTapPtr, 0)
   }
 
   public final fun isDoubleTap(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDoubleTapPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDoubleTapPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

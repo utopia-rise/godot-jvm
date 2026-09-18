@@ -14,9 +14,12 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.StringName
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING_NAME
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_STRING_NAME
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
@@ -63,25 +66,25 @@ public open class XRHandModifier3D : SkeletonModifier3D() {
   }
 
   public final fun setHandTracker(trackerName: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to trackerName)
-    TransferContext.callMethod(MethodBindings.setHandTrackerPtr)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, trackerName)
+    TransferContext.callPtrMethod(MethodBindings.setHandTrackerPtr, 0)
   }
 
   public final fun getHandTracker(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHandTrackerPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getHandTrackerPtr, 21)
+    return TransferContext.readReturnValue_STRING_NAME()
   }
 
   public final fun setBoneUpdate(boneUpdate: BoneUpdate): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneUpdate.value)
-    TransferContext.callMethod(MethodBindings.setBoneUpdatePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneUpdate.value)
+    TransferContext.callPtrMethod(MethodBindings.setBoneUpdatePtr, 0)
   }
 
   public final fun getBoneUpdate(): BoneUpdate {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneUpdatePtr)
-    return BoneUpdate.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBoneUpdatePtr, 2)
+    return BoneUpdate.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setHandTracker(trackerName: String) =

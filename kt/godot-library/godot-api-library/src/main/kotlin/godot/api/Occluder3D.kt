@@ -13,8 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.PackedInt32Array
 import godot.core.PackedVector3Array
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.PACKED_VECTOR3_ARRAY
+import godot.readReturnValue_PACKED_INT_32_ARRAY
+import godot.readReturnValue_PACKED_VECTOR3_ARRAY
+import godot.writeMethodArguments0
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -27,25 +28,25 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class Occluder3D internal constructor() : Resource() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(430, scriptPtr)
+    createNativeObject(429, scriptPtr)
   }
 
   /**
    * Returns the occluder shape's vertex positions.
    */
   public final fun getVertices(): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVerticesPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVerticesPtr, 36)
+    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
   /**
    * Returns the occluder shape's vertex indices.
    */
   public final fun getIndices(): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIndicesPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getIndicesPtr, 30)
+    return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
   public companion object {

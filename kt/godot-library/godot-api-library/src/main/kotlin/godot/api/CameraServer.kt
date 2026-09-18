@@ -16,10 +16,14 @@ import godot.core.MethodStringName1
 import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -135,15 +139,15 @@ public object CameraServer : Object() {
 
   @JvmStatic
   public final fun setMonitoringFeeds(isMonitoringFeeds: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to isMonitoringFeeds)
-    TransferContext.callMethod(MethodBindings.setMonitoringFeedsPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, isMonitoringFeeds)
+    TransferContext.callPtrMethod(MethodBindings.setMonitoringFeedsPtr, 0)
   }
 
   @JvmStatic
   public final fun isMonitoringFeeds(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMonitoringFeedsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isMonitoringFeedsPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -151,9 +155,9 @@ public object CameraServer : Object() {
    */
   @JvmStatic
   public final fun getFeed(index: Int): CameraFeed? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getFeedPtr)
-    return (TransferContext.readReturnValue(OBJECT) as CameraFeed?)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getFeedPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as CameraFeed?)
   }
 
   /**
@@ -161,9 +165,9 @@ public object CameraServer : Object() {
    */
   @JvmStatic
   public final fun getFeedCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFeedCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFeedCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -171,9 +175,9 @@ public object CameraServer : Object() {
    */
   @JvmStatic
   public final fun feeds(): VariantArray<CameraFeed> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.feedsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<CameraFeed>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.feedsPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<CameraFeed>)
   }
 
   /**
@@ -181,8 +185,8 @@ public object CameraServer : Object() {
    */
   @JvmStatic
   public final fun addFeed(feed: CameraFeed?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to feed)
-    TransferContext.callMethod(MethodBindings.addFeedPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, feed)
+    TransferContext.callPtrMethod(MethodBindings.addFeedPtr, 0)
   }
 
   /**
@@ -190,8 +194,8 @@ public object CameraServer : Object() {
    */
   @JvmStatic
   public final fun removeFeed(feed: CameraFeed?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to feed)
-    TransferContext.callMethod(MethodBindings.removeFeedPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, feed)
+    TransferContext.callPtrMethod(MethodBindings.removeFeedPtr, 0)
   }
 
   public enum class FeedImage(

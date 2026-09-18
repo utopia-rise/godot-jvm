@@ -13,12 +13,15 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -161,88 +164,88 @@ public open class NoiseTexture3D : Texture3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(427, scriptPtr)
+    createNativeObject(425, scriptPtr)
   }
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong())
-    TransferContext.callMethod(MethodBindings.setWidthPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setWidthPtr, 0)
   }
 
   public final fun setHeight(height: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to height.toLong())
-    TransferContext.callMethod(MethodBindings.setHeightPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, height.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setHeightPtr, 0)
   }
 
   public final fun setDepth(depth: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to depth.toLong())
-    TransferContext.callMethod(MethodBindings.setDepthPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, depth.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setDepthPtr, 0)
   }
 
   public final fun setNoise(noise: Noise?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to noise)
-    TransferContext.callMethod(MethodBindings.setNoisePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, noise)
+    TransferContext.callPtrMethod(MethodBindings.setNoisePtr, 0)
   }
 
   public final fun getNoise(): Noise? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNoisePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Noise?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getNoisePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Noise?)
   }
 
   public final fun setColorRamp(gradient: Gradient?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to gradient)
-    TransferContext.callMethod(MethodBindings.setColorRampPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, gradient)
+    TransferContext.callPtrMethod(MethodBindings.setColorRampPtr, 0)
   }
 
   public final fun getColorRamp(): Gradient? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorRampPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Gradient?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getColorRampPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Gradient?)
   }
 
   public final fun setSeamless(seamless: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to seamless)
-    TransferContext.callMethod(MethodBindings.setSeamlessPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, seamless)
+    TransferContext.callPtrMethod(MethodBindings.setSeamlessPtr, 0)
   }
 
   public final fun getSeamless(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSeamlessPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSeamlessPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setInvert(invert: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to invert)
-    TransferContext.callMethod(MethodBindings.setInvertPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, invert)
+    TransferContext.callPtrMethod(MethodBindings.setInvertPtr, 0)
   }
 
   public final fun getInvert(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInvertPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInvertPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setNormalize(normalize: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to normalize)
-    TransferContext.callMethod(MethodBindings.setNormalizePtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, normalize)
+    TransferContext.callPtrMethod(MethodBindings.setNormalizePtr, 0)
   }
 
   public final fun isNormalized(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isNormalizedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isNormalizedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSeamlessBlendSkirt(seamlessBlendSkirt: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to seamlessBlendSkirt.toDouble())
-    TransferContext.callMethod(MethodBindings.setSeamlessBlendSkirtPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, seamlessBlendSkirt.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setSeamlessBlendSkirtPtr, 0)
   }
 
   public final fun getSeamlessBlendSkirt(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSeamlessBlendSkirtPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSeamlessBlendSkirtPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**

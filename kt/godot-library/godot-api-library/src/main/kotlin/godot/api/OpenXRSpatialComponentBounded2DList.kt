@@ -12,10 +12,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.Transform3D
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.readReturnValue_TRANSFORM3D
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -28,25 +28,25 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialComponentBounded2DList : OpenXRSpatialComponentData() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(478, scriptPtr)
+    createNativeObject(477, scriptPtr)
   }
 
   /**
    * Returns the center of our bounding rectangle for the entity at this [index].
    */
   public final fun getCenterPose(index: Long): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
-    TransferContext.callMethod(MethodBindings.getCenterPosePtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
+    TransferContext.callPtrMethod(MethodBindings.getCenterPosePtr, 18)
+    return TransferContext.readReturnValue_TRANSFORM3D()
   }
 
   /**
    * Returns the size of our bounding rectangle for the entity at this [index].
    */
   public final fun getSize(index: Long): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public companion object {

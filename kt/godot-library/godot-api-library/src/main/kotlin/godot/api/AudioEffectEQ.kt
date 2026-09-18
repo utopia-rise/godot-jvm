@@ -13,12 +13,13 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_DOUBLE
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -38,33 +39,33 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class AudioEffectEQ : AudioEffect() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(57, scriptPtr)
+    createNativeObject(55, scriptPtr)
   }
 
   /**
    * Sets band's gain at the specified index, in dB.
    */
   public final fun setBandGainDb(bandIdx: Int, volumeDb: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bandIdx.toLong(), DOUBLE to volumeDb.toDouble())
-    TransferContext.callMethod(MethodBindings.setBandGainDbPtr)
+    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, bandIdx.toLong(), volumeDb.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setBandGainDbPtr, 0)
   }
 
   /**
    * Returns the band's gain at the specified index, in dB.
    */
   public final fun getBandGainDb(bandIdx: Int): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bandIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBandGainDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bandIdx.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getBandGainDbPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
    * Returns the number of bands of the equalizer.
    */
   public final fun getBandCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBandCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBandCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**

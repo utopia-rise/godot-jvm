@@ -13,13 +13,16 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR2I
 import godot.core.Vector2i
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_VECTOR2I
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_VECTOR2I
+import godot.writeMethodArguments_VECTOR2I_LONG
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -50,27 +53,27 @@ public open class TileSetSource internal constructor() : Resource() {
    * Returns how many tiles this atlas source defines (not including alternative tiles).
    */
   public final fun getTilesCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTilesCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTilesCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the tile coordinates ID of the tile with index [index].
    */
   public final fun getTileId(index: Int): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getTileIdPtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getTileIdPtr, 6)
+    return TransferContext.readReturnValue_VECTOR2I()
   }
 
   /**
    * Returns if this atlas has a tile with coordinates ID [atlasCoords].
    */
   public final fun hasTile(atlasCoords: Vector2i): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to atlasCoords)
-    TransferContext.callMethod(MethodBindings.hasTilePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
+    TransferContext.callPtrMethod(MethodBindings.hasTilePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -82,18 +85,18 @@ public open class TileSetSource internal constructor() : Resource() {
    * Returns -1 if there is not tile at the given coords.
    */
   public final fun getAlternativeTilesCount(atlasCoords: Vector2i): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to atlasCoords)
-    TransferContext.callMethod(MethodBindings.getAlternativeTilesCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
+    TransferContext.callPtrMethod(MethodBindings.getAlternativeTilesCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the alternative ID for the tile with coordinates ID [atlasCoords] at index [index].
    */
   public final fun getAlternativeTileId(atlasCoords: Vector2i, index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to atlasCoords, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getAlternativeTileIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, index.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getAlternativeTileIdPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -101,9 +104,9 @@ public open class TileSetSource internal constructor() : Resource() {
    * [alternativeTile].
    */
   public final fun hasAlternativeTile(atlasCoords: Vector2i, alternativeTile: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to atlasCoords, LONG to alternativeTile.toLong())
-    TransferContext.callMethod(MethodBindings.hasAlternativeTilePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, alternativeTile.toLong())
+    TransferContext.callPtrMethod(MethodBindings.hasAlternativeTilePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

@@ -16,14 +16,18 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.Transform3D
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_BOOL
 import kotlin.Any
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -177,71 +181,71 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(131, scriptPtr)
+    createNativeObject(129, scriptPtr)
   }
 
   /**
    * Returns `true` if this is a root shape and is thus the object that is rendered.
    */
   public final fun isRootShape(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRootShapePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isRootShapePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setOperation(operation: Operation): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to operation.value)
-    TransferContext.callMethod(MethodBindings.setOperationPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, operation.value)
+    TransferContext.callPtrMethod(MethodBindings.setOperationPtr, 0)
   }
 
   public final fun getOperation(): Operation {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOperationPtr)
-    return Operation.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOperationPtr, 2)
+    return Operation.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setSnap(snap: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to snap.toDouble())
-    TransferContext.callMethod(MethodBindings.setSnapPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, snap.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setSnapPtr, 0)
   }
 
   public final fun getSnap(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSnapPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSnapPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setUseCollision(operation: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to operation)
-    TransferContext.callMethod(MethodBindings.setUseCollisionPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, operation)
+    TransferContext.callPtrMethod(MethodBindings.setUseCollisionPtr, 0)
   }
 
   public final fun isUsingCollision(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingCollisionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isUsingCollisionPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCollisionLayer(layer: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer)
-    TransferContext.callMethod(MethodBindings.setCollisionLayerPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionLayerPtr, 0)
   }
 
   public final fun getCollisionLayer(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionLayerPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionLayerPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setCollisionMask(mask: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mask)
-    TransferContext.callMethod(MethodBindings.setCollisionMaskPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionMaskPtr, 0)
   }
 
   public final fun getCollisionMask(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionMaskPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -249,8 +253,8 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun setCollisionMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong(), BOOL to value)
-    TransferContext.callMethod(MethodBindings.setCollisionMaskValuePtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionMaskValuePtr, 0)
   }
 
   /**
@@ -258,9 +262,9 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getCollisionMaskValue(layerNumber: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong())
-    TransferContext.callMethod(MethodBindings.getCollisionMaskValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getCollisionMaskValuePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -268,8 +272,8 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun setCollisionLayerValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong(), BOOL to value)
-    TransferContext.callMethod(MethodBindings.setCollisionLayerValuePtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layerNumber.toLong(), value)
+    TransferContext.callPtrMethod(MethodBindings.setCollisionLayerValuePtr, 0)
   }
 
   /**
@@ -277,20 +281,20 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getCollisionLayerValue(layerNumber: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong())
-    TransferContext.callMethod(MethodBindings.getCollisionLayerValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layerNumber.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getCollisionLayerValuePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setCollisionPriority(priority: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to priority.toDouble())
-    TransferContext.callMethod(MethodBindings.setCollisionPriorityPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, priority.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setCollisionPriorityPtr, 0)
   }
 
   public final fun getCollisionPriority(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionPriorityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getCollisionPriorityPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -307,20 +311,20 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
    * properties on the [CSGShape3D].
    */
   public final fun bakeCollisionShape(): ConcavePolygonShape3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.bakeCollisionShapePtr)
-    return (TransferContext.readReturnValue(OBJECT) as ConcavePolygonShape3D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.bakeCollisionShapePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as ConcavePolygonShape3D?)
   }
 
   public final fun setCalculateTangents(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setCalculateTangentsPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setCalculateTangentsPtr, 0)
   }
 
   public final fun isCalculatingTangents(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCalculatingTangentsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isCalculatingTangentsPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -333,9 +337,9 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
    * the [CSGShape3D].
    */
   public final fun getMeshes(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMeshesPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
   /**
@@ -349,31 +353,31 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
    * properties on the [CSGShape3D].
    */
   public final fun bakeStaticMesh(): ArrayMesh? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.bakeStaticMeshPtr)
-    return (TransferContext.readReturnValue(OBJECT) as ArrayMesh?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.bakeStaticMeshPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as ArrayMesh?)
   }
 
   public final fun setAutosmooth(autosmooth: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to autosmooth)
-    TransferContext.callMethod(MethodBindings.setAutosmoothPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, autosmooth)
+    TransferContext.callPtrMethod(MethodBindings.setAutosmoothPtr, 0)
   }
 
   public final fun isAutosmooth(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAutosmoothPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isAutosmoothPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setSmoothingAngle(smoothingAngle: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to smoothingAngle.toDouble())
-    TransferContext.callMethod(MethodBindings.setSmoothingAnglePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, smoothingAngle.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setSmoothingAnglePtr, 0)
   }
 
   public final fun getSmoothingAngle(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSmoothingAnglePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSmoothingAnglePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public enum class Operation(

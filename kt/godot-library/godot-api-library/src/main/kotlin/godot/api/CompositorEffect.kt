@@ -13,8 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -161,7 +164,7 @@ public open class CompositorEffect : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(174, scriptPtr)
+    createNativeObject(172, scriptPtr)
   }
 
   /**
@@ -174,80 +177,80 @@ public open class CompositorEffect : Resource() {
   }
 
   public final fun setEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setEnabledPtr, 0)
   }
 
   public final fun getEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setEffectCallbackType(effectCallbackType: EffectCallbackType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to effectCallbackType.value)
-    TransferContext.callMethod(MethodBindings.setEffectCallbackTypePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, effectCallbackType.value)
+    TransferContext.callPtrMethod(MethodBindings.setEffectCallbackTypePtr, 0)
   }
 
   public final fun getEffectCallbackType(): EffectCallbackType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEffectCallbackTypePtr)
-    return EffectCallbackType.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getEffectCallbackTypePtr, 2)
+    return EffectCallbackType.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setAccessResolvedColor(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setAccessResolvedColorPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setAccessResolvedColorPtr, 0)
   }
 
   public final fun getAccessResolvedColor(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAccessResolvedColorPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAccessResolvedColorPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAccessResolvedDepth(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setAccessResolvedDepthPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setAccessResolvedDepthPtr, 0)
   }
 
   public final fun getAccessResolvedDepth(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAccessResolvedDepthPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAccessResolvedDepthPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setNeedsMotionVectors(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setNeedsMotionVectorsPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setNeedsMotionVectorsPtr, 0)
   }
 
   public final fun getNeedsMotionVectors(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNeedsMotionVectorsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getNeedsMotionVectorsPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setNeedsNormalRoughness(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setNeedsNormalRoughnessPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setNeedsNormalRoughnessPtr, 0)
   }
 
   public final fun getNeedsNormalRoughness(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNeedsNormalRoughnessPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getNeedsNormalRoughnessPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setNeedsSeparateSpecular(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setNeedsSeparateSpecularPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setNeedsSeparateSpecularPtr, 0)
   }
 
   public final fun getNeedsSeparateSpecular(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNeedsSeparateSpecularPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getNeedsSeparateSpecularPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public enum class EffectCallbackType(

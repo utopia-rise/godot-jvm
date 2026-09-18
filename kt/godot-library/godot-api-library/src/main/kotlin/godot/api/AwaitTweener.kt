@@ -11,8 +11,8 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Double
 import kotlin.Suppress
 import kotlin.Unit
@@ -28,7 +28,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class AwaitTweener : Tweener() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(105, scriptPtr)
+    createNativeObject(103, scriptPtr)
   }
 
   /**
@@ -36,9 +36,9 @@ public open class AwaitTweener : Tweener() {
    * signals that may never be emitted. If not specified, the tweener will wait indefinitely.
    */
   public final fun setTimeout(timeout: Double): AwaitTweener? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to timeout)
-    TransferContext.callMethod(MethodBindings.setTimeoutPtr)
-    return (TransferContext.readReturnValue(OBJECT) as AwaitTweener?)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeout)
+    TransferContext.callPtrMethod(MethodBindings.setTimeoutPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as AwaitTweener?)
   }
 
   public companion object {

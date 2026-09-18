@@ -15,8 +15,11 @@ import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_COLOR
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_COLOR
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -82,25 +85,25 @@ public open class VisualShaderNodeColorParameter : VisualShaderNodeParameter() {
   }
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setDefaultValueEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValueEnabledPtr, 0)
   }
 
   public final fun isDefaultValueEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDefaultValueEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDefaultValueEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setDefaultValue(`value`: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to value)
-    TransferContext.callMethod(MethodBindings.setDefaultValuePtr)
+    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, value)
+    TransferContext.callPtrMethod(MethodBindings.setDefaultValuePtr, 0)
   }
 
   public final fun getDefaultValue(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultValuePtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultValuePtr, 20)
+    return TransferContext.readReturnValue_COLOR()
   }
 
   public companion object {

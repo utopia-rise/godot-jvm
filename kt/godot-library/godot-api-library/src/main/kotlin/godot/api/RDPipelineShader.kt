@@ -14,8 +14,11 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser._RID
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_RID
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ARRAY
+import godot.writeMethodArguments_RID
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -53,31 +56,31 @@ public open class RDPipelineShader : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(588, scriptPtr)
+    createNativeObject(587, scriptPtr)
   }
 
   public final fun setShader(pMember: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to pMember)
-    TransferContext.callMethod(MethodBindings.setShaderPtr)
+    TransferContext.writeMethodArguments_RID(ptr, objectID.id, pMember)
+    TransferContext.callPtrMethod(MethodBindings.setShaderPtr, 0)
   }
 
   public final fun getShader(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShaderPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getShaderPtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   public final
       fun setSpecializationConstants(specializationConstants: VariantArray<RDPipelineSpecializationConstant>):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to specializationConstants)
-    TransferContext.callMethod(MethodBindings.setSpecializationConstantsPtr)
+    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, specializationConstants)
+    TransferContext.callPtrMethod(MethodBindings.setSpecializationConstantsPtr, 0)
   }
 
   public final fun getSpecializationConstants(): VariantArray<RDPipelineSpecializationConstant> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpecializationConstantsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<RDPipelineSpecializationConstant>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSpecializationConstantsPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RDPipelineSpecializationConstant>)
   }
 
   public companion object {

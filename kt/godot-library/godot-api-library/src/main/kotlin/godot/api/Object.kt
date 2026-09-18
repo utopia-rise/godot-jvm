@@ -10,8 +10,8 @@ import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
-import godot.core.BitFieldBase
 import godot.core.Callable
+import godot.core.ConnectFlags
 import godot.core.Dictionary
 import godot.core.Error
 import godot.core.KtObject
@@ -25,16 +25,29 @@ import godot.core.Signal
 import godot.core.Signal0
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedNodePath
 import godot.core.asCachedStringName
+import godot.readReturnValue_ANY
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING
+import godot.readReturnValue_STRING_NAME
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_ANY
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG_BOOL
+import godot.writeMethodArguments_NODE_PATH
+import godot.writeMethodArguments_NODE_PATH_ANY
+import godot.writeMethodArguments_STRING_ARRAY
+import godot.writeMethodArguments_STRING_NAME
+import godot.writeMethodArguments_STRING_NAME_ANY
+import godot.writeMethodArguments_STRING_NAME_ARRAY
+import godot.writeMethodArguments_STRING_NAME_CALLABLE
+import godot.writeMethodArguments_STRING_NAME_CALLABLE_LONG
+import godot.writeMethodArguments_STRING_NAME_STRING_NAME
+import godot.writeMethodArguments_STRING_NAME_STRING_NAME_LONG_STRING_NAME
+import godot.writeMethodArguments_STRING_NAME_VARARG
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -44,12 +57,6 @@ import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmOverloads
-
-public infix fun Long.or(other: Object.ConnectFlags): Long = this.or(other.flag)
-
-public infix fun Long.xor(other: Object.ConnectFlags): Long = this.xor(other.flag)
-
-public infix fun Long.and(other: Object.ConnectFlags): Long = this.and(other.flag)
 
 /**
  * An advanced [Any] type. All classes in the engine inherit from Object. Each class may define new
@@ -127,7 +134,7 @@ public open class Object : KtObject() {
   public val propertyListChanged: Signal0 by Signal0
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(0, scriptPtr)
+    createNativeObject(428, scriptPtr)
   }
 
   /**
@@ -137,9 +144,9 @@ public open class Object : KtObject() {
    * `class_name`, the base, built-in class name is returned instead.
    */
   public final fun getGodotClass(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getClassPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -164,9 +171,9 @@ public open class Object : KtObject() {
    * **Note:** This method ignores `class_name` declarations in the object's script.
    */
   public final fun isClass(`class`: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to `class`)
-    TransferContext.callMethod(MethodBindings.isClassPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, `class`)
+    TransferContext.callPtrMethod(MethodBindings.isClassPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -192,7 +199,7 @@ public open class Object : KtObject() {
    * on each call.
    */
   public final fun `set`(`property`: StringName, `value`: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to property, ANY to value)
+    TransferContext.writeMethodArguments_STRING_NAME_ANY(ptr, objectID.id, property, value)
     TransferContext.callMethod(MethodBindings.setPtr)
   }
 
@@ -219,9 +226,9 @@ public open class Object : KtObject() {
    * on each call.
    */
   public final fun `get`(`property`: StringName): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to property)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, property)
     TransferContext.callMethod(MethodBindings.getPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -250,7 +257,7 @@ public open class Object : KtObject() {
    * [StringName] on each call.
    */
   public final fun setIndexed(propertyPath: NodePath, `value`: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to propertyPath, ANY to value)
+    TransferContext.writeMethodArguments_NODE_PATH_ANY(ptr, objectID.id, propertyPath, value)
     TransferContext.callMethod(MethodBindings.setIndexedPtr)
   }
 
@@ -284,9 +291,9 @@ public open class Object : KtObject() {
    * sub-property paths. In the context of nodes, use [Node.getNodeAndResource] instead.
    */
   public final fun getIndexed(propertyPath: NodePath): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to propertyPath)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, propertyPath)
     TransferContext.callMethod(MethodBindings.getIndexedPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -311,9 +318,9 @@ public open class Object : KtObject() {
    * attributes.
    */
   public final fun getPropertyList(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPropertyListPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Dictionary<Any?, Any?>>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPropertyListPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
   /**
@@ -336,9 +343,9 @@ public open class Object : KtObject() {
    * [getPropertyList], although not all entries are used.
    */
   public final fun getMethodList(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMethodListPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Dictionary<Any?, Any?>>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMethodListPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
   /**
@@ -350,9 +357,9 @@ public open class Object : KtObject() {
    * implemented, this method returns `false`.
    */
   public final fun propertyCanRevert(`property`: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to property)
-    TransferContext.callMethod(MethodBindings.propertyCanRevertPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, property)
+    TransferContext.callPtrMethod(MethodBindings.propertyCanRevertPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -364,9 +371,9 @@ public open class Object : KtObject() {
    * implemented, this method returns `null`.
    */
   public final fun propertyGetRevert(`property`: StringName): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to property)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, property)
     TransferContext.callMethod(MethodBindings.propertyGetRevertPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -402,8 +409,8 @@ public open class Object : KtObject() {
    */
   @JvmOverloads
   public final fun notification(what: Int, reversed: Boolean = false): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to what.toLong(), BOOL to reversed)
-    TransferContext.callMethod(MethodBindings.notificationPtr)
+    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, what.toLong(), reversed)
+    TransferContext.callPtrMethod(MethodBindings.notificationPtr, 0)
   }
 
   /**
@@ -411,9 +418,9 @@ public open class Object : KtObject() {
    * [_toString] to customize the string representation of the object.
    */
   public final override fun toString(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.toStringPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -424,9 +431,9 @@ public open class Object : KtObject() {
    * object if the ID is sent over a network, or loaded from a file at a later time.
    */
   public final fun getInstanceId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInstanceIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInstanceIdPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -437,7 +444,7 @@ public open class Object : KtObject() {
    * lost. Built-in property values are still kept.
    */
   public final fun setScript(script: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ANY to script)
+    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, script)
     TransferContext.callMethod(MethodBindings.setScriptPtr)
   }
 
@@ -445,9 +452,9 @@ public open class Object : KtObject() {
    * Returns the object's [Script] instance, or `null` if no script is attached.
    */
   public final fun getScript(): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getScriptPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -465,7 +472,7 @@ public open class Object : KtObject() {
    * still be found by this method.
    */
   public final fun setMeta(name: StringName, `value`: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, ANY to value)
+    TransferContext.writeMethodArguments_STRING_NAME_ANY(ptr, objectID.id, name, value)
     TransferContext.callMethod(MethodBindings.setMetaPtr)
   }
 
@@ -481,8 +488,8 @@ public open class Object : KtObject() {
    * still be found by this method.
    */
   public final fun removeMeta(name: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.removeMetaPtr)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
+    TransferContext.callPtrMethod(MethodBindings.removeMetaPtr, 0)
   }
 
   /**
@@ -498,9 +505,9 @@ public open class Object : KtObject() {
    */
   @JvmOverloads
   public final fun getMeta(name: StringName, default: Any? = null): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, ANY to default)
+    TransferContext.writeMethodArguments_STRING_NAME_ANY(ptr, objectID.id, name, default)
     TransferContext.callMethod(MethodBindings.getMetaPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -515,18 +522,18 @@ public open class Object : KtObject() {
    * still be found by this method.
    */
   public final fun hasMeta(name: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.hasMetaPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
+    TransferContext.callPtrMethod(MethodBindings.hasMetaPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
    * Returns the object's metadata entry names as an [VariantArray] of [StringName]s.
    */
   public final fun getMetaList(): VariantArray<StringName> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMetaListPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<StringName>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMetaListPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
   /**
@@ -562,7 +569,7 @@ public open class Object : KtObject() {
   @JvmOverloads
   public final fun addUserSignal(signal: String, arguments: VariantArray<Any?> =
       godot.core.variantArrayOf()): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to signal, ARRAY to arguments)
+    TransferContext.writeMethodArguments_STRING_ARRAY(ptr, objectID.id, signal, arguments)
     TransferContext.callMethod(MethodBindings.addUserSignalPtr)
   }
 
@@ -571,9 +578,9 @@ public open class Object : KtObject() {
    * [addUserSignal] are included. See also [removeUserSignal].
    */
   public final fun hasUserSignal(signal: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal)
-    TransferContext.callMethod(MethodBindings.hasUserSignalPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signal)
+    TransferContext.callPtrMethod(MethodBindings.hasUserSignalPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -581,8 +588,8 @@ public open class Object : KtObject() {
    * [hasUserSignal].
    */
   public final fun removeUserSignal(signal: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal)
-    TransferContext.callMethod(MethodBindings.removeUserSignalPtr)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signal)
+    TransferContext.callPtrMethod(MethodBindings.removeUserSignalPtr, 0)
   }
 
   /**
@@ -609,10 +616,10 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `SignalName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun emitSignal(signal: StringName, vararg args: Any?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal, *args.map { ANY to it }.toTypedArray())
+  public final override fun emitSignal(signal: StringName, vararg args: Any?): Error {
+    TransferContext.writeMethodArguments_STRING_NAME_VARARG(ptr, objectID.id, signal, args)
     TransferContext.callMethod(MethodBindings.emitSignalPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -635,10 +642,10 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `MethodName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun call(method: StringName, vararg args: Any?): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method, *args.map { ANY to it }.toTypedArray())
+  public final override fun call(method: StringName, vararg args: Any?): Any? {
+    TransferContext.writeMethodArguments_STRING_NAME_VARARG(ptr, objectID.id, method, args)
     TransferContext.callMethod(MethodBindings.callPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -688,10 +695,10 @@ public open class Object : KtObject() {
    * get_tree().process_frame.connect(callable, CONNECT_ONE_SHOT)
    * ```
    */
-  public final fun callDeferred(method: StringName, vararg args: Any?): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method, *args.map { ANY to it }.toTypedArray())
+  public final override fun callDeferred(method: StringName, vararg args: Any?): Any? {
+    TransferContext.writeMethodArguments_STRING_NAME_VARARG(ptr, objectID.id, method, args)
     TransferContext.callMethod(MethodBindings.callDeferredPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -727,7 +734,7 @@ public open class Object : KtObject() {
    * on each call.
    */
   public final fun setDeferred(`property`: StringName, `value`: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to property, ANY to value)
+    TransferContext.writeMethodArguments_STRING_NAME_ANY(ptr, objectID.id, property, value)
     TransferContext.callMethod(MethodBindings.setDeferredPtr)
   }
 
@@ -752,9 +759,9 @@ public open class Object : KtObject() {
    * each call.
    */
   public final fun callv(method: StringName, argArray: VariantArray<Any?>): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method, ARRAY to argArray)
+    TransferContext.writeMethodArguments_STRING_NAME_ARRAY(ptr, objectID.id, method, argArray)
     TransferContext.callMethod(MethodBindings.callvPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -764,10 +771,10 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `MethodName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun hasMethod(method: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method)
-    TransferContext.callMethod(MethodBindings.hasMethodPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+  public final override fun hasMethod(method: StringName): Boolean {
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, method)
+    TransferContext.callPtrMethod(MethodBindings.hasMethodPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -778,9 +785,9 @@ public open class Object : KtObject() {
    * each call.
    */
   public final fun getMethodArgumentCount(method: StringName): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method)
-    TransferContext.callMethod(MethodBindings.getMethodArgumentCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, method)
+    TransferContext.callPtrMethod(MethodBindings.getMethodArgumentCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -790,10 +797,10 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `SignalName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun hasSignal(signal: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal)
-    TransferContext.callMethod(MethodBindings.hasSignalPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+  public final override fun hasSignal(signal: StringName): Boolean {
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signal)
+    TransferContext.callPtrMethod(MethodBindings.hasSignalPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -803,9 +810,9 @@ public open class Object : KtObject() {
    * returned values of [getMethodList].
    */
   public final fun getSignalList(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSignalListPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Dictionary<Any?, Any?>>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSignalListPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
   /**
@@ -818,11 +825,11 @@ public open class Object : KtObject() {
    *
    * - `flags` is a combination of [ConnectFlags].
    */
-  public final fun getSignalConnectionList(signal: StringName):
+  public final override fun getSignalConnectionList(signal: StringName):
       VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal)
-    TransferContext.callMethod(MethodBindings.getSignalConnectionListPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Dictionary<Any?, Any?>>)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signal)
+    TransferContext.callPtrMethod(MethodBindings.getSignalConnectionListPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
   /**
@@ -836,9 +843,9 @@ public open class Object : KtObject() {
    * - `flags` is a combination of [ConnectFlags].
    */
   public final fun getIncomingConnections(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIncomingConnectionsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Dictionary<Any?, Any?>>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getIncomingConnectionsPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
   /**
@@ -857,23 +864,22 @@ public open class Object : KtObject() {
    *
    * **Note:** This method, and all other signal-related methods, are thread-safe.
    */
-  @JvmOverloads
-  public final fun connect(
+  public final override fun connect(
     signal: StringName,
     callable: Callable,
-    flags: ConnectFlags = Object.ConnectFlags.DEFAULT,
+    flags: ConnectFlags,
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal, CALLABLE to callable, LONG to flags.flag)
+    TransferContext.writeMethodArguments_STRING_NAME_CALLABLE_LONG(ptr, objectID.id, signal, callable, flags.flag)
     TransferContext.callMethod(MethodBindings.connectPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Disconnects a [signal] by name from a given [callable]. If the connection does not exist,
    * generates an error. Use [isConnected] to make sure that the connection exists.
    */
-  public final fun disconnect(signal: StringName, callable: Callable): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal, CALLABLE to callable)
+  public final override fun disconnect(signal: StringName, callable: Callable): Unit {
+    TransferContext.writeMethodArguments_STRING_NAME_CALLABLE(ptr, objectID.id, signal, callable)
     TransferContext.callMethod(MethodBindings.disconnectPtr)
   }
 
@@ -884,10 +890,10 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `SignalName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun isConnected(signal: StringName, callable: Callable): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal, CALLABLE to callable)
+  public final override fun isConnected(signal: StringName, callable: Callable): Boolean {
+    TransferContext.writeMethodArguments_STRING_NAME_CALLABLE(ptr, objectID.id, signal, callable)
     TransferContext.callMethod(MethodBindings.isConnectedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -897,10 +903,10 @@ public open class Object : KtObject() {
    * Prefer using the names exposed in the `SignalName` class to avoid allocating a new [StringName] on
    * each call.
    */
-  public final fun hasConnections(signal: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to signal)
-    TransferContext.callMethod(MethodBindings.hasConnectionsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+  public final override fun hasConnections(signal: StringName): Boolean {
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signal)
+    TransferContext.callPtrMethod(MethodBindings.hasConnectionsPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -908,17 +914,17 @@ public open class Object : KtObject() {
    * connections will not work, until it is set to `false`.
    */
   public final fun setBlockSignals(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setBlockSignalsPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setBlockSignalsPtr, 0)
   }
 
   /**
    * Returns `true` if the object is blocking its signals from being emitted. See [setBlockSignals].
    */
   public final fun isBlockingSignals(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBlockingSignalsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isBlockingSignalsPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -926,8 +932,8 @@ public open class Object : KtObject() {
    * that the Inspector and editor plugins are properly updated.
    */
   public final fun notifyPropertyListChanged(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.notifyPropertyListChangedPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.notifyPropertyListChangedPtr, 0)
   }
 
   /**
@@ -935,8 +941,8 @@ public open class Object : KtObject() {
    * default. See also [canTranslateMessages].
    */
   public final fun setMessageTranslation(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setMessageTranslationPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
+    TransferContext.callPtrMethod(MethodBindings.setMessageTranslationPtr, 0)
   }
 
   /**
@@ -944,9 +950,9 @@ public open class Object : KtObject() {
    * [setMessageTranslation].
    */
   public final fun canTranslateMessages(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.canTranslateMessagesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.canTranslateMessagesPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -966,9 +972,9 @@ public open class Object : KtObject() {
    * [TranslationServer.translate].
    */
   public final fun tr(message: StringName, context: StringName = StringName("")): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to message, STRING_NAME to context)
+    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, message, context)
     TransferContext.callMethod(MethodBindings.trPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -997,9 +1003,9 @@ public open class Object : KtObject() {
     n: Int,
     context: StringName = StringName(""),
   ): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to message, STRING_NAME to pluralMessage, LONG to n.toLong(), STRING_NAME to context)
+    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_LONG_STRING_NAME(ptr, objectID.id, message, pluralMessage, n.toLong(), context)
     TransferContext.callMethod(MethodBindings.trNPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -1007,17 +1013,17 @@ public open class Object : KtObject() {
    * [TranslationServer].
    */
   public final fun getTranslationDomain(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTranslationDomainPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTranslationDomainPtr, 21)
+    return TransferContext.readReturnValue_STRING_NAME()
   }
 
   /**
    * Sets the name of the translation domain used by [tr] and [trN]. See also [TranslationServer].
    */
   public final fun setTranslationDomain(domain: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to domain)
-    TransferContext.callMethod(MethodBindings.setTranslationDomainPtr)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, domain)
+    TransferContext.callPtrMethod(MethodBindings.setTranslationDomainPtr, 0)
   }
 
   /**
@@ -1028,9 +1034,9 @@ public open class Object : KtObject() {
    * been called on, even though they will be freed together with the parent.
    */
   public final fun isQueuedForDeletion(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isQueuedForDeletionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isQueuedForDeletionPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -1039,8 +1045,8 @@ public open class Object : KtObject() {
    * the user from freeing objects when they are not intended to.
    */
   public final fun cancelFree(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.cancelFreePtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.cancelFreePtr, 0)
   }
 
   /**
@@ -1486,7 +1492,7 @@ public open class Object : KtObject() {
   public final fun connect(
     signal: String,
     callable: Callable,
-    flags: ConnectFlags = Object.ConnectFlags.DEFAULT,
+    flags: ConnectFlags = ConnectFlags.DEFAULT,
   ): Error = connect(signal.asCachedStringName(), callable, flags)
 
   /**
@@ -1568,72 +1574,6 @@ public open class Object : KtObject() {
    */
   public final fun setTranslationDomain(domain: String) =
       setTranslationDomain(domain.asCachedStringName())
-
-  public class ConnectFlags(
-    flag: Long,
-  ) : BitFieldBase<ConnectFlags>(flag) {
-    protected override fun wrap(flag: Long): ConnectFlags = ConnectFlags(flag)
-
-    public companion object {
-      /**
-       * Default connections that are immediately emitted
-       */
-      @JvmField
-      public val DEFAULT: ConnectFlags = ConnectFlags(0)
-
-      /**
-       * Deferred connections trigger their [Callable]s on idle time (at the end of the frame),
-       * rather than instantly.
-       */
-      @JvmField
-      public val DEFERRED: ConnectFlags = ConnectFlags(1)
-
-      /**
-       * Persisting connections are stored when the object is serialized (such as when using
-       * [PackedScene.pack]). In the editor, connections created through the Signals dock are always
-       * persisting.
-       *
-       * **Note:** Connections to lambda functions (that is, when the function code is embedded in
-       * the [connect] call) cannot be made persistent.
-       */
-      @JvmField
-      public val PERSIST: ConnectFlags = ConnectFlags(2)
-
-      /**
-       * One-shot connections disconnect themselves after emission.
-       */
-      @JvmField
-      public val ONE_SHOT: ConnectFlags = ConnectFlags(4)
-
-      /**
-       * Reference-counted connections can be assigned to the same [Callable] multiple times. Each
-       * disconnection decreases the internal counter. The signal fully disconnects only when the
-       * counter reaches 0.
-       */
-      @JvmField
-      public val REFERENCE_COUNTED: ConnectFlags = ConnectFlags(8)
-
-      /**
-       * On signal emission, the source object is automatically appended after the original
-       * arguments of the signal, regardless of the connected [Callable]'s unbinds which affect only
-       * the original arguments of the signal (see [Callable.unbind],
-       * [Callable.getUnboundArgumentsCount]).
-       *
-       * ```
-       * extends Object
-       *
-       * signal test_signal
-       *
-       * func test():
-       * 	print(self) # Prints e.g. <Object#35332818393>
-       * 	test_signal.connect(prints.unbind(1), CONNECT_APPEND_SOURCE_OBJECT)
-       * 	test_signal.emit("emit_arg_1", "emit_arg_2") # Prints emit_arg_1 <Object#35332818393>
-       * ```
-       */
-      @JvmField
-      public val APPEND_SOURCE_OBJECT: ConnectFlags = ConnectFlags(16)
-    }
-  }
 
   public companion object {
     @JvmField

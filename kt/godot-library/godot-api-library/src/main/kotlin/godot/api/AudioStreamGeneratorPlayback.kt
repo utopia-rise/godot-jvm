@@ -13,15 +13,16 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedVector2Array
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -35,7 +36,7 @@ import kotlin.jvm.JvmField
 public open class AudioStreamGeneratorPlayback internal constructor() :
     AudioStreamPlaybackResampled() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(85, scriptPtr)
+    createNativeObject(83, scriptPtr)
   }
 
   /**
@@ -44,9 +45,9 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    * in GDScript.
    */
   public final fun pushFrame(frame: Vector2): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to frame)
-    TransferContext.callMethod(MethodBindings.pushFramePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, frame)
+    TransferContext.callPtrMethod(MethodBindings.pushFramePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -54,9 +55,9 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    * without overflowing it, `false` otherwise.
    */
   public final fun canPushBuffer(amount: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to amount.toLong())
-    TransferContext.callMethod(MethodBindings.canPushBufferPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
+    TransferContext.callPtrMethod(MethodBindings.canPushBufferPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -65,9 +66,9 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    * GDScript.
    */
   public final fun pushBuffer(frames: PackedVector2Array): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR2_ARRAY to frames)
-    TransferContext.callMethod(MethodBindings.pushBufferPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, frames)
+    TransferContext.callPtrMethod(MethodBindings.pushBufferPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -75,9 +76,9 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    * overflowing it. If the result is `0`, the buffer is full.
    */
   public final fun getFramesAvailable(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFramesAvailablePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFramesAvailablePtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -85,17 +86,17 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    * data. This value is reset at the start of the playback.
    */
   public final fun getSkips(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkipsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSkipsPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Clears the audio sample data buffer.
    */
   public final fun clearBuffer(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearBufferPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.clearBufferPtr, 0)
   }
 
   /**

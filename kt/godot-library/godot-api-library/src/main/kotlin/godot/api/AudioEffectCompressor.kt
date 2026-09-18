@@ -13,10 +13,12 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.StringName
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_STRING_NAME
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_STRING_NAME
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.String
@@ -129,84 +131,84 @@ public open class AudioEffectCompressor : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(54, scriptPtr)
+    createNativeObject(52, scriptPtr)
   }
 
   public final fun setThreshold(threshold: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to threshold.toDouble())
-    TransferContext.callMethod(MethodBindings.setThresholdPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, threshold.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setThresholdPtr, 0)
   }
 
   public final fun getThreshold(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getThresholdPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getThresholdPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setRatio(ratio: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to ratio.toDouble())
-    TransferContext.callMethod(MethodBindings.setRatioPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setRatioPtr, 0)
   }
 
   public final fun getRatio(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRatioPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRatioPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setGain(gain: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to gain.toDouble())
-    TransferContext.callMethod(MethodBindings.setGainPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, gain.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setGainPtr, 0)
   }
 
   public final fun getGain(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGainPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getGainPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAttackUs(attackUs: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to attackUs.toDouble())
-    TransferContext.callMethod(MethodBindings.setAttackUsPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, attackUs.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setAttackUsPtr, 0)
   }
 
   public final fun getAttackUs(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAttackUsPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAttackUsPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setReleaseMs(releaseMs: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to releaseMs.toDouble())
-    TransferContext.callMethod(MethodBindings.setReleaseMsPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, releaseMs.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setReleaseMsPtr, 0)
   }
 
   public final fun getReleaseMs(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getReleaseMsPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getReleaseMsPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMix(mix: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to mix.toDouble())
-    TransferContext.callMethod(MethodBindings.setMixPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, mix.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setMixPtr, 0)
   }
 
   public final fun getMix(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMixPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMixPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setSidechain(sidechain: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to sidechain)
-    TransferContext.callMethod(MethodBindings.setSidechainPtr)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, sidechain)
+    TransferContext.callPtrMethod(MethodBindings.setSidechainPtr, 0)
   }
 
   public final fun getSidechain(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSidechainPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSidechainPtr, 21)
+    return TransferContext.readReturnValue_STRING_NAME()
   }
 
   /**

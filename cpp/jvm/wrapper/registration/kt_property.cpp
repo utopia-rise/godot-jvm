@@ -71,7 +71,7 @@ void KtProperty::call_get(jni::Env& p_env, KtObject* instance, godot::Variant& r
 
     jvalue call_args[1] = {jni::to_jni_arg(instance->get_wrapped())};
     wrapped.call_void_method<false>(p_env, CALL_GET, call_args);
-    TransferContext::get_instance().read_return_value(p_env, r_ret);
+    r_ret = TransferContext::get_instance().read_return(p_env);
 }
 
 void KtProperty::call_set(jni::Env& p_env, KtObject* instance, const godot::Variant& p_value) {

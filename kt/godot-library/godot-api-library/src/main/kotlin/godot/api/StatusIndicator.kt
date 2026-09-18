@@ -15,13 +15,18 @@ import godot.core.MethodStringName1
 import godot.core.NodePath
 import godot.core.Rect2
 import godot.core.Signal2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.RECT2
-import godot.core.VariantParser.STRING
 import godot.core.Vector2i
 import godot.core.asCachedNodePath
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_NODE_PATH
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_RECT2
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_NODE_PATH
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
@@ -89,47 +94,47 @@ public open class StatusIndicator : Node() {
   }
 
   public final fun setTooltip(tooltip: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to tooltip)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, tooltip)
     TransferContext.callMethod(MethodBindings.setTooltipPtr)
   }
 
   public final fun getTooltip(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getTooltipPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setIcon(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to texture)
-    TransferContext.callMethod(MethodBindings.setIconPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
+    TransferContext.callPtrMethod(MethodBindings.setIconPtr, 0)
   }
 
   public final fun getIcon(): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIconPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getIconPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   public final fun setVisible(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to visible)
-    TransferContext.callMethod(MethodBindings.setVisiblePtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
+    TransferContext.callPtrMethod(MethodBindings.setVisiblePtr, 0)
   }
 
   public final fun isVisible(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isVisiblePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isVisiblePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setMenu(menu: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to menu)
-    TransferContext.callMethod(MethodBindings.setMenuPtr)
+    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, menu)
+    TransferContext.callPtrMethod(MethodBindings.setMenuPtr, 0)
   }
 
   public final fun getMenu(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMenuPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMenuPtr, 22)
+    return TransferContext.readReturnValue_NODE_PATH()
   }
 
   /**
@@ -137,9 +142,9 @@ public open class StatusIndicator : Node() {
    * visible, returns an empty [Rect2].
    */
   public final fun getRect(): Rect2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRectPtr)
-    return (TransferContext.readReturnValue(RECT2) as Rect2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRectPtr, 7)
+    return TransferContext.readReturnValue_RECT2()
   }
 
   public final fun setMenu(menu: String) = setMenu(menu.asCachedNodePath())

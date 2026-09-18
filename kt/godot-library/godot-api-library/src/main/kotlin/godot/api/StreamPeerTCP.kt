@@ -14,12 +14,14 @@ import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG_STRING
+import godot.writeMethodArguments_STRING_LONG
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -49,9 +51,9 @@ public open class StreamPeerTCP : StreamPeerSocket() {
    */
   @JvmOverloads
   public final fun bind(port: Int, host: String = "*"): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong(), STRING to host)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, port.toLong(), host)
     TransferContext.callMethod(MethodBindings.bindPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
@@ -59,36 +61,36 @@ public open class StreamPeerTCP : StreamPeerSocket() {
    * on success.
    */
   public final fun connectToHost(host: String, port: Int): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to host, LONG to port.toLong())
+    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, host, port.toLong())
     TransferContext.callMethod(MethodBindings.connectToHostPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Returns the IP of this peer.
    */
   public final fun getConnectedHost(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getConnectedHostPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
    * Returns the port of this peer.
    */
   public final fun getConnectedPort(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectedPortPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getConnectedPortPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
    * Returns the local port to which this peer is bound.
    */
   public final fun getLocalPort(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalPortPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getLocalPortPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -100,8 +102,8 @@ public open class StreamPeerTCP : StreamPeerSocket() {
    * need to transfer a lot of data, as enabling this can decrease the total available bandwidth.
    */
   public final fun setNoDelay(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setNoDelayPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setNoDelayPtr, 0)
   }
 
   public companion object {

@@ -16,13 +16,15 @@ import godot.core.MethodStringName1
 import godot.core.Signal1
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_ARRAY
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_STRING
 import kotlin.Any
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -91,8 +93,8 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun addInterface(`interface`: TextServer?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to `interface`)
-    TransferContext.callMethod(MethodBindings.addInterfacePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, `interface`)
+    TransferContext.callPtrMethod(MethodBindings.addInterfacePtr, 0)
   }
 
   /**
@@ -100,9 +102,9 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun getInterfaceCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInterfaceCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInterfaceCountPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**
@@ -111,8 +113,8 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun removeInterface(`interface`: TextServer?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to `interface`)
-    TransferContext.callMethod(MethodBindings.removeInterfacePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, `interface`)
+    TransferContext.callPtrMethod(MethodBindings.removeInterfacePtr, 0)
   }
 
   /**
@@ -120,9 +122,9 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun getInterface(idx: Int): TextServer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to idx.toLong())
-    TransferContext.callMethod(MethodBindings.getInterfacePtr)
-    return (TransferContext.readReturnValue(OBJECT) as TextServer?)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
+    TransferContext.callPtrMethod(MethodBindings.getInterfacePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as TextServer?)
   }
 
   /**
@@ -130,9 +132,9 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun getInterfaces(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInterfacesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Dictionary<Any?, Any?>>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInterfacesPtr, 28)
+    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
   /**
@@ -140,9 +142,9 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun findInterface(name: String): TextServer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.findInterfacePtr)
-    return (TransferContext.readReturnValue(OBJECT) as TextServer?)
+    return (TransferContext.readReturnValue_OBJECT() as TextServer?)
   }
 
   /**
@@ -150,8 +152,8 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun setPrimaryInterface(index: TextServer?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to index)
-    TransferContext.callMethod(MethodBindings.setPrimaryInterfacePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, index)
+    TransferContext.callPtrMethod(MethodBindings.setPrimaryInterfacePtr, 0)
   }
 
   /**
@@ -159,9 +161,9 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun getPrimaryInterface(): TextServer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPrimaryInterfacePtr)
-    return (TransferContext.readReturnValue(OBJECT) as TextServer?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPrimaryInterfacePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as TextServer?)
   }
 
   public object MethodBindings {

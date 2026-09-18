@@ -12,10 +12,12 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DOUBLE
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -97,73 +99,73 @@ public open class PinJoint2D : Joint2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(550, scriptPtr)
+    createNativeObject(549, scriptPtr)
   }
 
   public final fun setSoftness(softness: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to softness.toDouble())
-    TransferContext.callMethod(MethodBindings.setSoftnessPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, softness.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setSoftnessPtr, 0)
   }
 
   public final fun getSoftness(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSoftnessPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSoftnessPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAngularLimitLower(angularLimitLower: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to angularLimitLower.toDouble())
-    TransferContext.callMethod(MethodBindings.setAngularLimitLowerPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angularLimitLower.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setAngularLimitLowerPtr, 0)
   }
 
   public final fun getAngularLimitLower(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAngularLimitLowerPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAngularLimitLowerPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setAngularLimitUpper(angularLimitUpper: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to angularLimitUpper.toDouble())
-    TransferContext.callMethod(MethodBindings.setAngularLimitUpperPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angularLimitUpper.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setAngularLimitUpperPtr, 0)
   }
 
   public final fun getAngularLimitUpper(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAngularLimitUpperPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getAngularLimitUpperPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMotorTargetVelocity(motorTargetVelocity: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to motorTargetVelocity.toDouble())
-    TransferContext.callMethod(MethodBindings.setMotorTargetVelocityPtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, motorTargetVelocity.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setMotorTargetVelocityPtr, 0)
   }
 
   public final fun getMotorTargetVelocity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMotorTargetVelocityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMotorTargetVelocityPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   public final fun setMotorEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setMotorEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setMotorEnabledPtr, 0)
   }
 
   public final fun isMotorEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMotorEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isMotorEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setAngularLimitEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setAngularLimitEnabledPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
+    TransferContext.callPtrMethod(MethodBindings.setAngularLimitEnabledPtr, 0)
   }
 
   public final fun isAngularLimitEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAngularLimitEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isAngularLimitEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

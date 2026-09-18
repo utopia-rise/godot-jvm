@@ -2,6 +2,7 @@
 #define GODOT_JVM_PACKED_ARRAY_BRIDGE_H
 
 #include "bridges_utils.h"
+#include "core/variant_allocator.h"
 #include "jvm/wrapper/jvm_singleton_wrapper.h"
 #include "jvm/wrapper/memory/transfer_context.h"
 
@@ -192,7 +193,7 @@ namespace bridges {
         jni::Env env(p_raw_env);
         godot::Variant args[1];
         TransferContext::get_instance().read_args(env, args);
-        return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(PackedType(args[0].operator PackedType())));
+        return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(PackedType(static_cast<PackedType>(args[0]))));
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -219,7 +220,7 @@ namespace bridges {
         jni::Env env(p_raw_env);
         godot::Variant args[1];
         TransferContext::get_instance().read_args(env, args);
-        from_uint_to_ptr<PackedType>(p_raw_ptr)->append(args[0].operator T());
+        from_uint_to_ptr<PackedType>(p_raw_ptr)->append(static_cast<T>(args[0]));
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -227,7 +228,7 @@ namespace bridges {
         jni::Env env(p_raw_env);
         godot::Variant args[1];
         TransferContext::get_instance().read_args(env, args);
-        from_uint_to_ptr<PackedType>(p_raw_ptr)->append_array(args[0].operator PackedType());
+        from_uint_to_ptr<PackedType>(p_raw_ptr)->append_array(static_cast<PackedType>(args[0]));
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -236,8 +237,8 @@ namespace bridges {
         godot::Variant args[2];
         TransferContext::get_instance().read_args(env, args);
         godot::Variant ret =
-            from_uint_to_ptr<PackedType>(p_raw_ptr)->bsearch(args[0].operator T(), args[1].operator bool());
-        TransferContext::get_instance().write_return_value(env, ret);
+            from_uint_to_ptr<PackedType>(p_raw_ptr)->bsearch(static_cast<T>(args[0]), args[1].operator bool());
+        TransferContext::get_instance().write_return(env, ret);
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -251,15 +252,15 @@ namespace bridges {
         godot::Variant args[1];
         TransferContext::get_instance().read_args(env, args);
 
-        godot::Variant ret = from_uint_to_ptr<PackedType>(p_raw_ptr)->count(args[0].operator T());
-        TransferContext::get_instance().write_return_value(env, ret);
+        godot::Variant ret = from_uint_to_ptr<PackedType>(p_raw_ptr)->count(static_cast<T>(args[0]));
+        TransferContext::get_instance().write_return(env, ret);
     }
 
     template<class Derived, class T, const char* fq_name>
     void PackedArrayBridge<Derived, T, fq_name>::engine_call_duplicate(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
         jni::Env env(p_raw_env);
         godot::Variant ret = from_uint_to_ptr<PackedType>(p_raw_ptr)->duplicate();
-        TransferContext::get_instance().write_return_value(env, ret);
+        TransferContext::get_instance().write_return(env, ret);
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -267,7 +268,7 @@ namespace bridges {
         jni::Env env(p_raw_env);
         godot::Variant args[1];
         TransferContext::get_instance().read_args(env, args);
-        from_uint_to_ptr<PackedType>(p_raw_ptr)->fill(args[0].operator T());
+        from_uint_to_ptr<PackedType>(p_raw_ptr)->fill(static_cast<T>(args[0]));
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -275,8 +276,8 @@ namespace bridges {
         jni::Env env(p_raw_env);
         godot::Variant args[1];
         TransferContext::get_instance().read_args(env, args);
-        godot::Variant ret = from_uint_to_ptr<PackedType>(p_raw_ptr)->find(args[0].operator T());
-        TransferContext::get_instance().write_return_value(env, ret);
+        godot::Variant ret = from_uint_to_ptr<PackedType>(p_raw_ptr)->find(static_cast<T>(args[0]));
+        TransferContext::get_instance().write_return(env, ret);
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -285,7 +286,7 @@ namespace bridges {
         godot::Variant args[1];
         TransferContext::get_instance().read_args(env, args);
         godot::Variant variant = from_uint_to_ptr<PackedType>(p_raw_ptr)->operator[](args[0].operator unsigned int());
-        TransferContext::get_instance().write_return_value(env, variant);
+        TransferContext::get_instance().write_return(env, variant);
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -293,8 +294,8 @@ namespace bridges {
         jni::Env env(p_raw_env);
         godot::Variant args[1];
         TransferContext::get_instance().read_args(env, args);
-        godot::Variant ret = from_uint_to_ptr<PackedType>(p_raw_ptr)->has(args[0].operator T());
-        TransferContext::get_instance().write_return_value(env, ret);
+        godot::Variant ret = from_uint_to_ptr<PackedType>(p_raw_ptr)->has(static_cast<T>(args[0]));
+        TransferContext::get_instance().write_return(env, ret);
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -302,14 +303,14 @@ namespace bridges {
         jni::Env env(p_raw_env);
         godot::Variant args[2];
         TransferContext::get_instance().read_args(env, args);
-        from_uint_to_ptr<PackedType>(p_raw_ptr)->insert(args[0].operator unsigned int(), args[1].operator T());
+        from_uint_to_ptr<PackedType>(p_raw_ptr)->insert(args[0].operator unsigned int(), static_cast<T>(args[1]));
     }
 
     template<class Derived, class T, const char* fq_name>
     void PackedArrayBridge<Derived, T, fq_name>::engine_call_is_empty(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
         jni::Env env(p_raw_env);
         godot::Variant variant = from_uint_to_ptr<PackedType>(p_raw_ptr)->is_empty();
-        TransferContext::get_instance().write_return_value(env, variant);
+        TransferContext::get_instance().write_return(env, variant);
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -324,8 +325,8 @@ namespace bridges {
         TransferContext::get_instance().read_args(env, args);
 
         godot::Variant ret =
-            from_uint_to_ptr<PackedType>(p_raw_ptr)->rfind(args[0].operator T(), args[1].operator int());
-        TransferContext::get_instance().write_return_value(env, ret);
+            from_uint_to_ptr<PackedType>(p_raw_ptr)->rfind(static_cast<T>(args[0]), args[1].operator int());
+        TransferContext::get_instance().write_return(env, ret);
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -333,7 +334,7 @@ namespace bridges {
         jni::Env env(p_raw_env);
         godot::Variant args[1];
         TransferContext::get_instance().read_args(env, args);
-        from_uint_to_ptr<PackedType>(p_raw_ptr)->push_back(args[0].operator T());
+        from_uint_to_ptr<PackedType>(p_raw_ptr)->push_back(static_cast<T>(args[0]));
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -357,14 +358,14 @@ namespace bridges {
         jni::Env env(p_raw_env);
         godot::Variant args[2];
         TransferContext::get_instance().read_args(env, args);
-        from_uint_to_ptr<PackedType>(p_raw_ptr)->set(args[0].operator unsigned int(), args[1].operator T());
+        from_uint_to_ptr<PackedType>(p_raw_ptr)->set(args[0].operator unsigned int(), static_cast<T>(args[1]));
     }
 
     template<class Derived, class T, const char* fq_name>
     void PackedArrayBridge<Derived, T, fq_name>::engine_call_size(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
         jni::Env env(p_raw_env);
         godot::Variant variant = from_uint_to_ptr<PackedType>(p_raw_ptr)->size();
-        TransferContext::get_instance().write_return_value(env, variant);
+        TransferContext::get_instance().write_return(env, variant);
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -375,7 +376,7 @@ namespace bridges {
 
         godot::Variant ret =
             from_uint_to_ptr<PackedType>(p_raw_ptr)->slice(args[0].operator int(), args[1].operator int());
-        TransferContext::get_instance().write_return_value(env, ret);
+        TransferContext::get_instance().write_return(env, ret);
     }
 
     template<class Derived, class T, const char* fq_name>
@@ -391,7 +392,7 @@ namespace bridges {
     ) {
         jni::Env env(p_raw_env);
         godot::Variant ret = packed_array_to_byte_array(*from_uint_to_ptr<PackedType>(p_raw_ptr));
-        TransferContext::get_instance().write_return_value(env, ret);
+        TransferContext::get_instance().write_return(env, ret);
     }
 
     template<class Derived, class T, const char* fq_name>

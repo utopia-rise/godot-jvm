@@ -18,7 +18,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class AudioBusLayout : Resource() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(47, scriptPtr)
+    createNativeObject(45, scriptPtr)
   }
 
   public companion object

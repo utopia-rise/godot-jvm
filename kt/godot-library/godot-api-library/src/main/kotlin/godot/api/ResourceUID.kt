@@ -13,9 +13,13 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_STRING
+import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
@@ -97,9 +101,9 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun idToText(id: Long): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
     TransferContext.callMethod(MethodBindings.idToTextPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -107,9 +111,9 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun textToId(textId: String): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to textId)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, textId)
     TransferContext.callMethod(MethodBindings.textToIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -120,9 +124,9 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun createId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.createIdPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -131,9 +135,9 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun createIdForPath(path: String): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
     TransferContext.callMethod(MethodBindings.createIdForPathPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    return TransferContext.readReturnValue_LONG()
   }
 
   /**
@@ -141,9 +145,9 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun hasId(id: Long): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id)
-    TransferContext.callMethod(MethodBindings.hasIdPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
+    TransferContext.callPtrMethod(MethodBindings.hasIdPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -154,7 +158,7 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun addId(id: Long, path: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id, STRING to path)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, id, path)
     TransferContext.callMethod(MethodBindings.addIdPtr)
   }
 
@@ -166,7 +170,7 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun setId(id: Long, path: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id, STRING to path)
+    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, id, path)
     TransferContext.callMethod(MethodBindings.setIdPtr)
   }
 
@@ -177,9 +181,9 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun getIdPath(id: Long): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
     TransferContext.callMethod(MethodBindings.getIdPathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -189,8 +193,8 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun removeId(id: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id)
-    TransferContext.callMethod(MethodBindings.removeIdPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
+    TransferContext.callPtrMethod(MethodBindings.removeIdPtr, 0)
   }
 
   /**
@@ -198,9 +202,9 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun uidToPath(uid: String): String {
-    TransferContext.writeMethodArguments(0L, 0L, STRING to uid)
+    TransferContext.writeMethodArguments_STRING(0L, 0L, uid)
     TransferContext.callMethod(MethodBindings.uidToPathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -209,9 +213,9 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun pathToUid(path: String): String {
-    TransferContext.writeMethodArguments(0L, 0L, STRING to path)
+    TransferContext.writeMethodArguments_STRING(0L, 0L, path)
     TransferContext.callMethod(MethodBindings.pathToUidPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   /**
@@ -220,9 +224,9 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun ensurePath(pathOrUid: String): String {
-    TransferContext.writeMethodArguments(0L, 0L, STRING to pathOrUid)
+    TransferContext.writeMethodArguments_STRING(0L, 0L, pathOrUid)
     TransferContext.callMethod(MethodBindings.ensurePathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public object MethodBindings {

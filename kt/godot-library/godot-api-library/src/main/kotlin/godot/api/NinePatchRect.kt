@@ -19,10 +19,16 @@ import godot.core.MethodStringName2
 import godot.core.Rect2
 import godot.core.Side
 import godot.core.Signal0
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.RECT2
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_RECT2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_LONG_LONG
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_RECT2
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -162,7 +168,7 @@ public open class NinePatchRect : Control() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(420, scriptPtr)
+    createNativeObject(418, scriptPtr)
   }
 
   /**
@@ -187,75 +193,75 @@ public open class NinePatchRect : Control() {
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to texture)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
+    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
   }
 
   public final fun getTexture(): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   /**
    * Sets the size of the margin on the specified [Side] to [value] pixels.
    */
   public final fun setPatchMargin(margin: Side, `value`: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.value, LONG to value.toLong())
-    TransferContext.callMethod(MethodBindings.setPatchMarginPtr)
+    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, margin.value, value.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setPatchMarginPtr, 0)
   }
 
   /**
    * Returns the size of the margin on the specified [Side].
    */
   public final fun getPatchMargin(margin: Side): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.value)
-    TransferContext.callMethod(MethodBindings.getPatchMarginPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
+    TransferContext.callPtrMethod(MethodBindings.getPatchMarginPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setRegionRect(rect: Rect2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, RECT2 to rect)
-    TransferContext.callMethod(MethodBindings.setRegionRectPtr)
+    TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, rect)
+    TransferContext.callPtrMethod(MethodBindings.setRegionRectPtr, 0)
   }
 
   public final fun getRegionRect(): Rect2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRegionRectPtr)
-    return (TransferContext.readReturnValue(RECT2) as Rect2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getRegionRectPtr, 7)
+    return TransferContext.readReturnValue_RECT2()
   }
 
   public final fun setDrawCenter(drawCenter: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to drawCenter)
-    TransferContext.callMethod(MethodBindings.setDrawCenterPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, drawCenter)
+    TransferContext.callPtrMethod(MethodBindings.setDrawCenterPtr, 0)
   }
 
   public final fun isDrawCenterEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDrawCenterEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.isDrawCenterEnabledPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setHAxisStretchMode(mode: AxisStretchMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setHAxisStretchModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setHAxisStretchModePtr, 0)
   }
 
   public final fun getHAxisStretchMode(): AxisStretchMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHAxisStretchModePtr)
-    return AxisStretchMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getHAxisStretchModePtr, 2)
+    return AxisStretchMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setVAxisStretchMode(mode: AxisStretchMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setVAxisStretchModePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
+    TransferContext.callPtrMethod(MethodBindings.setVAxisStretchModePtr, 0)
   }
 
   public final fun getVAxisStretchMode(): AxisStretchMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVAxisStretchModePtr)
-    return AxisStretchMode.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVAxisStretchModePtr, 2)
+    return AxisStretchMode.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class AxisStretchMode(

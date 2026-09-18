@@ -14,9 +14,10 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedFloat32Array
 import godot.core.PackedFloat64Array
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.PACKED_FLOAT_32_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.writeMethodArguments_PACKED_FLOAT_32_ARRAY
+import godot.writeMethodArguments_PACKED_FLOAT_32_ARRAY_BOOL
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.NotImplementedError
@@ -33,7 +34,7 @@ import kotlin.jvm.JvmStatic
 @GodotBaseType
 public abstract class AnimationNodeExtension : AnimationNode() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(26, scriptPtr)
+    createNativeObject(24, scriptPtr)
   }
 
   /**
@@ -70,9 +71,9 @@ public abstract class AnimationNodeExtension : AnimationNode() {
      */
     @JvmStatic
     public final fun isLooping(nodeInfo: PackedFloat32Array): Boolean {
-      TransferContext.writeMethodArguments(0L, 0L, PACKED_FLOAT_32_ARRAY to nodeInfo)
-      TransferContext.callMethod(MethodBindings.isLoopingPtr)
-      return (TransferContext.readReturnValue(BOOL) as Boolean)
+      TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(0L, 0L, nodeInfo)
+      TransferContext.callPtrMethod(MethodBindings.isLoopingPtr, 1)
+      return TransferContext.readReturnValue_BOOL()
     }
 
     /**
@@ -82,9 +83,9 @@ public abstract class AnimationNodeExtension : AnimationNode() {
      */
     @JvmStatic
     public final fun getRemainingTime(nodeInfo: PackedFloat32Array, breakLoop: Boolean): Double {
-      TransferContext.writeMethodArguments(0L, 0L, PACKED_FLOAT_32_ARRAY to nodeInfo, BOOL to breakLoop)
-      TransferContext.callMethod(MethodBindings.getRemainingTimePtr)
-      return (TransferContext.readReturnValue(DOUBLE) as Double)
+      TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY_BOOL(0L, 0L, nodeInfo, breakLoop)
+      TransferContext.callPtrMethod(MethodBindings.getRemainingTimePtr, 3)
+      return TransferContext.readReturnValue_DOUBLE()
     }
   }
 

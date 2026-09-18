@@ -14,11 +14,16 @@ import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedByteArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DICTIONARY
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_PACKED_BYTE_ARRAY
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_BOOL
+import godot.writeMethodArguments_DICTIONARY
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -116,7 +121,7 @@ public open class GLTFBufferView : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(242, scriptPtr)
+    createNativeObject(240, scriptPtr)
   }
 
   /**
@@ -125,84 +130,84 @@ public open class GLTFBufferView : Resource() {
    * returned as a [PackedByteArray].
    */
   public final fun loadBufferViewData(state: GLTFState?): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to state)
-    TransferContext.callMethod(MethodBindings.loadBufferViewDataPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, state)
+    TransferContext.callPtrMethod(MethodBindings.loadBufferViewDataPtr, 29)
+    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
   /**
    * Serializes this GLTFBufferView instance into a [Dictionary].
    */
   public final fun toDictionary(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.toDictionaryPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.toDictionaryPtr, 27)
+    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
   public final fun getBuffer(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBufferPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public final fun setBuffer(buffer: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to buffer.toLong())
-    TransferContext.callMethod(MethodBindings.setBufferPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, buffer.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setBufferPtr, 0)
   }
 
   public final fun getByteOffset(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getByteOffsetPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getByteOffsetPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setByteOffset(byteOffset: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to byteOffset)
-    TransferContext.callMethod(MethodBindings.setByteOffsetPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, byteOffset)
+    TransferContext.callPtrMethod(MethodBindings.setByteOffsetPtr, 0)
   }
 
   public final fun getByteLength(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getByteLengthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getByteLengthPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setByteLength(byteLength: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to byteLength)
-    TransferContext.callMethod(MethodBindings.setByteLengthPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, byteLength)
+    TransferContext.callPtrMethod(MethodBindings.setByteLengthPtr, 0)
   }
 
   public final fun getByteStride(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getByteStridePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getByteStridePtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setByteStride(byteStride: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to byteStride)
-    TransferContext.callMethod(MethodBindings.setByteStridePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, byteStride)
+    TransferContext.callPtrMethod(MethodBindings.setByteStridePtr, 0)
   }
 
   public final fun getIndices(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIndicesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getIndicesPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setIndices(indices: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to indices)
-    TransferContext.callMethod(MethodBindings.setIndicesPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, indices)
+    TransferContext.callPtrMethod(MethodBindings.setIndicesPtr, 0)
   }
 
   public final fun getVertexAttributes(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVertexAttributesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getVertexAttributesPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public final fun setVertexAttributes(isAttributes: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to isAttributes)
-    TransferContext.callMethod(MethodBindings.setVertexAttributesPtr)
+    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, isAttributes)
+    TransferContext.callPtrMethod(MethodBindings.setVertexAttributesPtr, 0)
   }
 
   public companion object {
@@ -273,9 +278,9 @@ public open class GLTFBufferView : Resource() {
      */
     @JvmStatic
     public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFBufferView? {
-      TransferContext.writeMethodArguments(0L, 0L, DICTIONARY to dictionary)
-      TransferContext.callMethod(MethodBindings.fromDictionaryPtr)
-      return (TransferContext.readReturnValue(OBJECT) as GLTFBufferView?)
+      TransferContext.writeMethodArguments_DICTIONARY(0L, 0L, dictionary)
+      TransferContext.callPtrMethod(MethodBindings.fromDictionaryPtr, 39)
+      return (TransferContext.readReturnValue_OBJECT() as GLTFBufferView?)
     }
   }
 

@@ -12,9 +12,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.Plane
-import godot.core.VariantParser.PLANE
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
+import godot.readReturnValue_PLANE
+import godot.readReturnValue_VECTOR3
+import godot.writeMethodArguments0
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -44,18 +45,18 @@ public open class XRAnchor3D : XRNode3D() {
    * table in the real world, this is the estimated size of the surface of that table.
    */
   public final fun getSize(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 9)
+    return TransferContext.readReturnValue_VECTOR3()
   }
 
   /**
    * Returns a plane aligned with our anchor; handy for intersection testing.
    */
   public final fun getPlane(): Plane {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPlanePtr)
-    return (TransferContext.readReturnValue(PLANE) as Plane)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPlanePtr, 14)
+    return TransferContext.readReturnValue_PLANE()
   }
 
   public companion object {

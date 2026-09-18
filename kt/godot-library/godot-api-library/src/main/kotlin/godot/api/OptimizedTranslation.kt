@@ -11,8 +11,8 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_BOOL
+import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -29,7 +29,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OptimizedTranslation : Translation() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(497, scriptPtr)
+    createNativeObject(496, scriptPtr)
   }
 
   /**
@@ -42,9 +42,9 @@ public open class OptimizedTranslation : Translation() {
    * exported project.
    */
   public final fun generate(from: Translation?): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to from)
-    TransferContext.callMethod(MethodBindings.generatePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, from)
+    TransferContext.callPtrMethod(MethodBindings.generatePtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   public companion object {

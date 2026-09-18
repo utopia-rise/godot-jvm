@@ -14,8 +14,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_VECTOR2
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -109,7 +111,7 @@ public open class ParallaxLayer : Node2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(513, scriptPtr)
+    createNativeObject(512, scriptPtr)
   }
 
   /**
@@ -189,36 +191,36 @@ public open class ParallaxLayer : Node2D() {
   }
 
   public final fun setMotionScale(scale: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to scale)
-    TransferContext.callMethod(MethodBindings.setMotionScalePtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, scale)
+    TransferContext.callPtrMethod(MethodBindings.setMotionScalePtr, 0)
   }
 
   public final fun getMotionScale(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMotionScalePtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMotionScalePtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setMotionOffset(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to offset)
-    TransferContext.callMethod(MethodBindings.setMotionOffsetPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
+    TransferContext.callPtrMethod(MethodBindings.setMotionOffsetPtr, 0)
   }
 
   public final fun getMotionOffset(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMotionOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMotionOffsetPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public final fun setMirroring(mirror: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to mirror)
-    TransferContext.callMethod(MethodBindings.setMirroringPtr)
+    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, mirror)
+    TransferContext.callPtrMethod(MethodBindings.setMirroringPtr, 0)
   }
 
   public final fun getMirroring(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMirroringPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getMirroringPtr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   public companion object {

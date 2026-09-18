@@ -14,9 +14,9 @@ import godot.core.Error
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName3
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_OBJECT_STRING_OBJECT
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
@@ -39,7 +39,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class PacketPeerDTLS : PacketPeer() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(504, scriptPtr)
+    createNativeObject(503, scriptPtr)
   }
 
   /**
@@ -47,8 +47,8 @@ public open class PacketPeerDTLS : PacketPeer() {
    * and keep the connection working.
    */
   public final fun poll(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pollPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.pollPtr, 0)
   }
 
   /**
@@ -63,26 +63,26 @@ public open class PacketPeerDTLS : PacketPeer() {
     hostname: String,
     clientOptions: TLSOptions? = null,
   ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to packetPeer, STRING to hostname, OBJECT to clientOptions)
+    TransferContext.writeMethodArguments_OBJECT_STRING_OBJECT(ptr, objectID.id, packetPeer, hostname, clientOptions)
     TransferContext.callMethod(MethodBindings.connectToPeerPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
+    return Error.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Returns the status of the connection.
    */
   public final fun getStatus(): Status {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatusPtr)
-    return Status.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getStatusPtr, 2)
+    return Status.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
    * Disconnects this peer, terminating the DTLS session.
    */
   public final fun disconnectFromPeer(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.disconnectFromPeerPtr)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.disconnectFromPeerPtr, 0)
   }
 
   public enum class Status(

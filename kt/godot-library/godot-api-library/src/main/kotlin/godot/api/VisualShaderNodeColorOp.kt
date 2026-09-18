@@ -13,7 +13,9 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -41,14 +43,14 @@ public open class VisualShaderNodeColorOp : VisualShaderNode() {
   }
 
   public final fun setOperator(op: Operator): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to op.value)
-    TransferContext.callMethod(MethodBindings.setOperatorPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, op.value)
+    TransferContext.callPtrMethod(MethodBindings.setOperatorPtr, 0)
   }
 
   public final fun getOperator(): Operator {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOperatorPtr)
-    return Operator.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOperatorPtr, 2)
+    return Operator.from(TransferContext.readReturnValue_LONG())
   }
 
   public enum class Operator(

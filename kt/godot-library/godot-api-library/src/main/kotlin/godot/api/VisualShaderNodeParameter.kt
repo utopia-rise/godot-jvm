@@ -13,8 +13,11 @@ import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
+import godot.readReturnValue_LONG
+import godot.readReturnValue_STRING
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_STRING
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
@@ -69,36 +72,36 @@ public open class VisualShaderNodeParameter internal constructor() : VisualShade
   }
 
   public final fun setParameterName(name: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
+    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.setParameterNamePtr)
   }
 
   public final fun getParameterName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
     TransferContext.callMethod(MethodBindings.getParameterNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
+    return TransferContext.readReturnValue_STRING()
   }
 
   public final fun setQualifier(qualifier: Qualifier): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to qualifier.value)
-    TransferContext.callMethod(MethodBindings.setQualifierPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, qualifier.value)
+    TransferContext.callPtrMethod(MethodBindings.setQualifierPtr, 0)
   }
 
   public final fun getQualifier(): Qualifier {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getQualifierPtr)
-    return Qualifier.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getQualifierPtr, 2)
+    return Qualifier.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setInstanceIndex(instanceIndex: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to instanceIndex.toLong())
-    TransferContext.callMethod(MethodBindings.setInstanceIndexPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, instanceIndex.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setInstanceIndexPtr, 0)
   }
 
   public final fun getInstanceIndex(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInstanceIndexPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getInstanceIndexPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   public enum class Qualifier(

@@ -12,9 +12,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -45,18 +46,18 @@ public open class AudioStreamPolyphonic : AudioStream() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(101, scriptPtr)
+    createNativeObject(99, scriptPtr)
   }
 
   public final fun setPolyphony(voices: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to voices.toLong())
-    TransferContext.callMethod(MethodBindings.setPolyphonyPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, voices.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setPolyphonyPtr, 0)
   }
 
   public final fun getPolyphony(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPolyphonyPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getPolyphonyPtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   /**

@@ -11,9 +11,10 @@ import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR2I
 import godot.core.Vector2i
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments_OBJECT
+import godot.writeMethodArguments_VECTOR2I
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -69,7 +70,7 @@ public open class ImageTexture : Texture2D() {
     get() = getImage()
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(303, scriptPtr)
+    createNativeObject(301, scriptPtr)
   }
 
   /**
@@ -80,8 +81,8 @@ public open class ImageTexture : Texture2D() {
    * [update] instead for better performance.
    */
   public final fun setImage(image: Image?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to image)
-    TransferContext.callMethod(MethodBindings.setImagePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, image)
+    TransferContext.callPtrMethod(MethodBindings.setImagePtr, 0)
   }
 
   /**
@@ -95,16 +96,16 @@ public open class ImageTexture : Texture2D() {
    * than allocating additional memory for a new texture each time.
    */
   public final fun update(image: Image?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to image)
-    TransferContext.callMethod(MethodBindings.updatePtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, image)
+    TransferContext.callPtrMethod(MethodBindings.updatePtr, 0)
   }
 
   /**
    * Resizes the texture to the specified dimensions.
    */
   public final fun setSizeOverride(size: Vector2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to size)
-    TransferContext.callMethod(MethodBindings.setSizeOverridePtr)
+    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, size)
+    TransferContext.callPtrMethod(MethodBindings.setSizeOverridePtr, 0)
   }
 
   /**
@@ -144,9 +145,9 @@ public open class ImageTexture : Texture2D() {
      */
     @JvmStatic
     public final fun createFromImage(image: Image?): ImageTexture? {
-      TransferContext.writeMethodArguments(0L, 0L, OBJECT to image)
-      TransferContext.callMethod(MethodBindings.createFromImagePtr)
-      return (TransferContext.readReturnValue(OBJECT) as ImageTexture?)
+      TransferContext.writeMethodArguments_OBJECT(0L, 0L, image)
+      TransferContext.callPtrMethod(MethodBindings.createFromImagePtr, 39)
+      return (TransferContext.readReturnValue_OBJECT() as ImageTexture?)
     }
   }
 

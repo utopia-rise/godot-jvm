@@ -12,7 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
+import godot.readReturnValue_LONG
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -97,73 +99,73 @@ public open class RDVertexAttribute : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(597, scriptPtr)
+    createNativeObject(596, scriptPtr)
   }
 
   public final fun setBinding(pMember: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember)
-    TransferContext.callMethod(MethodBindings.setBindingPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
+    TransferContext.callPtrMethod(MethodBindings.setBindingPtr, 0)
   }
 
   public final fun getBinding(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBindingPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getBindingPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setLocation(pMember: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember)
-    TransferContext.callMethod(MethodBindings.setLocationPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
+    TransferContext.callPtrMethod(MethodBindings.setLocationPtr, 0)
   }
 
   public final fun getLocation(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocationPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getLocationPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setOffset(pMember: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember)
-    TransferContext.callMethod(MethodBindings.setOffsetPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
+    TransferContext.callPtrMethod(MethodBindings.setOffsetPtr, 0)
   }
 
   public final fun getOffset(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getOffsetPtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setFormat(pMember: RenderingDevice.DataFormat): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setFormatPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
+    TransferContext.callPtrMethod(MethodBindings.setFormatPtr, 0)
   }
 
   public final fun getFormat(): RenderingDevice.DataFormat {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFormatPtr)
-    return RenderingDevice.DataFormat.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
+    return RenderingDevice.DataFormat.from(TransferContext.readReturnValue_LONG())
   }
 
   public final fun setStride(pMember: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember)
-    TransferContext.callMethod(MethodBindings.setStridePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
+    TransferContext.callPtrMethod(MethodBindings.setStridePtr, 0)
   }
 
   public final fun getStride(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStridePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getStridePtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setFrequency(pMember: RenderingDevice.VertexFrequency): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setFrequencyPtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
+    TransferContext.callPtrMethod(MethodBindings.setFrequencyPtr, 0)
   }
 
   public final fun getFrequency(): RenderingDevice.VertexFrequency {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFrequencyPtr)
-    return RenderingDevice.VertexFrequency.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFrequencyPtr, 2)
+    return RenderingDevice.VertexFrequency.from(TransferContext.readReturnValue_LONG())
   }
 
   public companion object {

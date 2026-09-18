@@ -14,7 +14,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class OggPacketSequencePlayback : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(435, scriptPtr)
+    createNativeObject(434, scriptPtr)
   }
 
   public companion object

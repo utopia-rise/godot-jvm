@@ -12,8 +12,10 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_OBJECT
 import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -40,7 +42,7 @@ public open class OpenXRStructureBase : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(495, scriptPtr)
+    createNativeObject(494, scriptPtr)
   }
 
   public open fun _getHeader(next: Long): Long {
@@ -51,20 +53,20 @@ public open class OpenXRStructureBase : RefCounted() {
    * Returns the structure type (OpenXR `XrStructureType`) used for this structure.
    */
   public final fun getStructureType(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStructureTypePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getStructureTypePtr, 2)
+    return TransferContext.readReturnValue_LONG()
   }
 
   public final fun setNext(entity: OpenXRStructureBase?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to entity)
-    TransferContext.callMethod(MethodBindings.setNextPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, entity)
+    TransferContext.callPtrMethod(MethodBindings.setNextPtr, 0)
   }
 
   public final fun getNext(): OpenXRStructureBase? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNextPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRStructureBase?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getNextPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as OpenXRStructureBase?)
   }
 
   public companion object {

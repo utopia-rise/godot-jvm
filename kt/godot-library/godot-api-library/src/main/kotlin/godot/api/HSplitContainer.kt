@@ -19,7 +19,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class HSplitContainer : SplitContainer() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(292, scriptPtr)
+    createNativeObject(290, scriptPtr)
   }
 
   public companion object

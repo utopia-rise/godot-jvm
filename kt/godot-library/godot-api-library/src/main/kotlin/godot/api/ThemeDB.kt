@@ -13,13 +13,15 @@ import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import kotlin.Double
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_OBJECT
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_DOUBLE
+import godot.writeMethodArguments_LONG
+import godot.writeMethodArguments_OBJECT
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -171,9 +173,9 @@ public object ThemeDB : Object() {
    */
   @JvmStatic
   public final fun getDefaultTheme(): Theme? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultThemePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Theme?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultThemePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Theme?)
   }
 
   /**
@@ -184,74 +186,74 @@ public object ThemeDB : Object() {
    */
   @JvmStatic
   public final fun getProjectTheme(): Theme? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProjectThemePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Theme?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getProjectThemePtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Theme?)
   }
 
   @JvmStatic
   public final fun setFallbackBaseScale(baseScale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to baseScale.toDouble())
-    TransferContext.callMethod(MethodBindings.setFallbackBaseScalePtr)
+    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, baseScale.toDouble())
+    TransferContext.callPtrMethod(MethodBindings.setFallbackBaseScalePtr, 0)
   }
 
   @JvmStatic
   public final fun getFallbackBaseScale(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFallbackBaseScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFallbackBaseScalePtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   @JvmStatic
   public final fun setFallbackFont(font: Font?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to font)
-    TransferContext.callMethod(MethodBindings.setFallbackFontPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, font)
+    TransferContext.callPtrMethod(MethodBindings.setFallbackFontPtr, 0)
   }
 
   @JvmStatic
   public final fun getFallbackFont(): Font? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFallbackFontPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Font?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFallbackFontPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Font?)
   }
 
   @JvmStatic
   public final fun setFallbackFontSize(fontSize: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to fontSize.toLong())
-    TransferContext.callMethod(MethodBindings.setFallbackFontSizePtr)
+    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fontSize.toLong())
+    TransferContext.callPtrMethod(MethodBindings.setFallbackFontSizePtr, 0)
   }
 
   @JvmStatic
   public final fun getFallbackFontSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFallbackFontSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFallbackFontSizePtr, 2)
+    return TransferContext.readReturnValue_LONG().toInt()
   }
 
   @JvmStatic
   public final fun setFallbackIcon(icon: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to icon)
-    TransferContext.callMethod(MethodBindings.setFallbackIconPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, icon)
+    TransferContext.callPtrMethod(MethodBindings.setFallbackIconPtr, 0)
   }
 
   @JvmStatic
   public final fun getFallbackIcon(): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFallbackIconPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFallbackIconPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
   }
 
   @JvmStatic
   public final fun setFallbackStylebox(stylebox: StyleBox?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to stylebox)
-    TransferContext.callMethod(MethodBindings.setFallbackStyleboxPtr)
+    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, stylebox)
+    TransferContext.callPtrMethod(MethodBindings.setFallbackStyleboxPtr, 0)
   }
 
   @JvmStatic
   public final fun getFallbackStylebox(): StyleBox? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFallbackStyleboxPtr)
-    return (TransferContext.readReturnValue(OBJECT) as StyleBox?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getFallbackStyleboxPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as StyleBox?)
   }
 
   public object MethodBindings {

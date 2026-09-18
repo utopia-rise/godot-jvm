@@ -12,8 +12,9 @@ import godot.`internal`.reflection.TypeManager
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.RID
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser._RID
+import godot.readReturnValue_OBJECT
+import godot.readReturnValue_RID
+import godot.writeMethodArguments0
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -44,9 +45,9 @@ public open class SkinReference internal constructor() : RefCounted() {
    * Returns the [RID] owned by this SkinReference, as returned by [RenderingServer.skeletonCreate].
    */
   public final fun getSkeleton(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSkeletonPtr, 23)
+    return TransferContext.readReturnValue_RID()
   }
 
   /**
@@ -58,9 +59,9 @@ public open class SkinReference internal constructor() : RefCounted() {
    * by meshes across multiple [Skeleton3D] nodes.
    */
   public final fun getSkin(): Skin? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkinPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Skin?)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getSkinPtr, 39)
+    return (TransferContext.readReturnValue_OBJECT() as Skin?)
   }
 
   public companion object {

@@ -15,19 +15,19 @@ import godot.core.MethodStringName1
 import godot.core.Signal1
 import godot.core.Signal2
 import godot.core.StringName
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING_NAME
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
 import godot.core.asCachedStringName
+import godot.readReturnValue_ANY
+import godot.readReturnValue_BOOL
+import godot.readReturnValue_DOUBLE
+import godot.readReturnValue_LONG
+import godot.readReturnValue_VECTOR2
+import godot.writeMethodArguments0
+import godot.writeMethodArguments_STRING_NAME
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -87,9 +87,9 @@ public open class XRController3D : XRNode3D() {
    * these are the names of actions in the current action set.
    */
   public final fun isButtonPressed(name: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.isButtonPressedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
+    TransferContext.callPtrMethod(MethodBindings.isButtonPressedPtr, 1)
+    return TransferContext.readReturnValue_BOOL()
   }
 
   /**
@@ -100,9 +100,9 @@ public open class XRController3D : XRNode3D() {
    * these are the names of actions in the current action set.
    */
   public final fun getInput(name: StringName): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
     TransferContext.callMethod(MethodBindings.getInputPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
+    return TransferContext.readReturnValue_ANY()
   }
 
   /**
@@ -113,9 +113,9 @@ public open class XRController3D : XRNode3D() {
    * these are the names of actions in the current action set.
    */
   public final fun getFloat(name: StringName): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.getFloatPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
+    TransferContext.callPtrMethod(MethodBindings.getFloatPtr, 3)
+    return TransferContext.readReturnValue_DOUBLE().toFloat()
   }
 
   /**
@@ -126,18 +126,18 @@ public open class XRController3D : XRNode3D() {
    * these are the names of actions in the current action set.
    */
   public final fun getVector2(name: StringName): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.getVector2Ptr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
+    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
+    TransferContext.callPtrMethod(MethodBindings.getVector2Ptr, 5)
+    return TransferContext.readReturnValue_VECTOR2()
   }
 
   /**
    * Returns the hand holding this controller, if known.
    */
   public final fun getTrackerHand(): XRPositionalTracker.TrackerHand {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackerHandPtr)
-    return XRPositionalTracker.TrackerHand.from(TransferContext.readReturnValue(LONG) as Long)
+    TransferContext.writeMethodArguments0(ptr, objectID.id)
+    TransferContext.callPtrMethod(MethodBindings.getTrackerHandPtr, 2)
+    return XRPositionalTracker.TrackerHand.from(TransferContext.readReturnValue_LONG())
   }
 
   /**
