@@ -1,59 +1,59 @@
 using Godot;
 
-// ReSharper disable once CheckNamespace
 public partial class Bunny : Sprite2D
 {
-    public Vector2 Speed = Vector2.Zero;
+    public Vector2 Speed = new();
 
-    private readonly int grav = 500;
-    private Vector2 screenSize;
-    private readonly RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
+    private const float Gravity = 500f;
+    private Vector2 _screenSize;
+    private readonly RandomNumberGenerator _randomNumberGenerator = new();
 
     public override void _Ready()
     {
-        randomNumberGenerator.Randomize();
+        _randomNumberGenerator.Randomize();
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
-        screenSize = GetViewportRect().Size;
-        var pos = Position;
-        var sp = Speed;
+        float dt = (float)delta;
+        _screenSize = GetViewportRect().Size;
+        Vector2 pos = Position;
+        Vector2 sp = Speed;
 
-        pos.x += sp.x * delta;
-        pos.y += sp.y * delta;
+        pos.X += sp.X * dt;
+        pos.Y += sp.Y * dt;
 
-        sp.y += grav * delta;
+        sp.Y += Gravity * dt;
 
-        if (pos.x > screenSize.x)
+        if (pos.X > _screenSize.X)
         {
-            sp.x *= -1f;
-            pos.x = screenSize.x;
+            sp.X *= -1f;
+            pos.X = _screenSize.X;
         }
 
-        if (pos.x < 0)
+        if (pos.X < 0f)
         {
-            sp.x *= -1f;
-            pos.x = 0;
+            sp.X *= -1f;
+            pos.X = 0f;
         }
 
-        if (pos.y > screenSize.y)
+        if (pos.Y > _screenSize.Y)
         {
-            pos.y = screenSize.y;
-            if (randomNumberGenerator.Randf() > 0.5f)
+            pos.Y = _screenSize.Y;
+            if (_randomNumberGenerator.Randf() > 0.5f)
             {
-                sp.y = -(randomNumberGenerator.Randi() % 1100f + 50f);
+                sp.Y = -(_randomNumberGenerator.Randi() % 1100 + 50);
             }
             else
             {
-                sp.y *= -0.85f;
+                sp.Y *= -0.85f;
             }
         }
 
-        if (pos.y < 0)
+        if (pos.Y < 0f)
         {
-            sp.y = 0f;
-            pos.y = 0f;
+            sp.Y = 0f;
+            pos.Y = 0f;
         }
 
         Position = pos;
