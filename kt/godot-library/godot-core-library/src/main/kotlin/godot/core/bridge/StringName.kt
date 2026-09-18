@@ -27,19 +27,23 @@ class StringName : NativeCoreType {
     }
 
     constructor(string: String) {
-        TransferContext.writeArguments(VariantParser.STRING to string)
+        TransferContext.writeArguments(1) {
+            VariantParser.STRING.toGodot(string)
+        }
         ptr = Bridge.engine_call_constructor_string()
         MemoryManager.registerNativeCoreType(this, VariantParser.STRING_NAME)
     }
 
     constructor(stringName: StringName) {
-        TransferContext.writeArguments(VariantParser.STRING_NAME to stringName)
+        TransferContext.writeArguments(1) {
+            VariantParser.STRING_NAME.toGodot(stringName)
+        }
         ptr = Bridge.engine_call_copy_constructor()
         MemoryManager.registerNativeCoreType(this, VariantParser.STRING_NAME)
     }
 
     override fun toString(): String {
-        TransferContext.writeArguments()
+        TransferContext.writeArguments(0) {}
         Bridge.engine_call_operator_string(ptr)
         return TransferContext.readReturnValue(VariantParser.STRING) as String
     }

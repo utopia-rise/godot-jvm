@@ -28,13 +28,17 @@ class NodePath : NativeCoreType {
     }
 
     constructor(from: String) {
-        TransferContext.writeArguments(VariantParser.STRING to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.STRING.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_string()
         MemoryManager.registerNativeCoreType(this, VariantParser.NODE_PATH)
     }
 
     constructor(from: NodePath) {
-        TransferContext.writeArguments(VariantParser.NODE_PATH to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.NODE_PATH.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_node_path()
         MemoryManager.registerNativeCoreType(this, VariantParser.NODE_PATH)
     }
@@ -61,7 +65,9 @@ class NodePath : NativeCoreType {
      * Get the node name indicated by idx (0 to get_name_count)
      */
     fun getName(idx: Int): String {
-        TransferContext.writeArguments(VariantCaster.INT to idx)
+        TransferContext.writeArguments(1) {
+            VariantParser.LONG.write(idx.toLong())
+        }
         Bridge.engine_call_getName(ptr)
         return TransferContext.readReturnValue(VariantParser.STRING) as String
     }
@@ -71,14 +77,16 @@ class NodePath : NativeCoreType {
      */
     fun getNameCount(): Int {
         Bridge.engine_call_getNameCount(ptr)
-        return TransferContext.readReturnValue(VariantCaster.INT) as Int
+        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
     }
 
     /**
      * Get the resource name indicated by idx (0 to get_subname_count)
      */
     fun getSubname(idx: Int): String {
-        TransferContext.writeArguments(VariantCaster.INT to idx)
+        TransferContext.writeArguments(1) {
+            VariantParser.LONG.write(idx.toLong())
+        }
         Bridge.engine_call_getSubname(ptr)
         return TransferContext.readReturnValue(VariantParser.STRING) as String
     }
@@ -88,7 +96,7 @@ class NodePath : NativeCoreType {
      */
     fun getSubnameCount(): Int {
         Bridge.engine_call_getSubnameCount(ptr)
-        return TransferContext.readReturnValue(VariantCaster.INT) as Int
+        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
     }
 
     /**
@@ -96,7 +104,7 @@ class NodePath : NativeCoreType {
      */
     fun isAbsolute(): Boolean {
         Bridge.engine_call_isAbsolute(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
     }
 
     /**
@@ -104,7 +112,7 @@ class NodePath : NativeCoreType {
      */
     fun hash(): Int {
         Bridge.engine_call_hash(ptr)
-        return TransferContext.readReturnValue(VariantCaster.INT) as Int
+        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
     }
 
     /**
@@ -112,7 +120,7 @@ class NodePath : NativeCoreType {
      */
     fun isEmpty(): Boolean {
         Bridge.engine_call_isEmpty(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
     }
 
     /**
@@ -136,9 +144,11 @@ class NodePath : NativeCoreType {
     //UTILITIES
     override fun equals(other: Any?): Boolean {
         return if (other is NodePath) {
-            TransferContext.writeArguments(VariantParser.NODE_PATH to other)
+            TransferContext.writeArguments(1) {
+                VariantParser.NODE_PATH.toGodot(other)
+            }
             Bridge.engine_call_equals(ptr)
-            return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+            return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
         } else {
             false
         }

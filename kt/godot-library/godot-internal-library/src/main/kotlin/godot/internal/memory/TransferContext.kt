@@ -32,12 +32,11 @@ object TransferContext {
         buf
     }
 
-    fun writeArguments(vararg values: Pair<VariantConverter<*>, Any?>) = buffer.let {
-        it.rewind()
-        it.putInt(values.size)
-        for (value in values) {
-            value.first.toGodot(it, value.second)
-        }
+    inline fun writeArguments(argumentCount: Int, write: ByteBuffer.() -> Unit) {
+        val buffer = buffer
+        buffer.rewind()
+        buffer.putInt(argumentCount)
+        buffer.write()
     }
 
     fun writeMethodArguments(callerPtr: VoidPtr, callerId: Long, vararg values: Pair<VariantConverter<*>, Any?>) {
