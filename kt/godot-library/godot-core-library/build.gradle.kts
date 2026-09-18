@@ -16,6 +16,9 @@ kotlinDefinitions {
 
 kotlin {
     jvmToolchain(libs.versions.toolchain.jvm.get().toInt())
+    sourceSets.all {
+        languageSettings.enableLanguageFeature("ContextParameters")
+    }
 }
 
 dependencies {

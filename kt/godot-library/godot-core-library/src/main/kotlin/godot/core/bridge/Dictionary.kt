@@ -38,14 +38,14 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
         keyVariantConverter = keyConverter
         valueVariantConverter = valueConverter
         ptr = if (keyConverter != VariantCaster.ANY || valueConverter != VariantCaster.ANY) {
-            TransferContext.writeArguments(
-                VariantCaster.INT to keyConverter.id,
-                VariantCaster.INT to -1,
-                VariantParser.LONG to nullptr,
-                VariantCaster.INT to valueConverter.id,
-                VariantCaster.INT to -1,
-                VariantParser.LONG to nullptr
-            )
+            TransferContext.writeArguments(6) {
+                VariantParser.LONG.write(keyConverter.id.toLong())
+                VariantParser.LONG.write((-1).toLong())
+                VariantParser.LONG.write(nullptr)
+                VariantParser.LONG.write(valueConverter.id.toLong())
+                VariantParser.LONG.write((-1).toLong())
+                VariantParser.LONG.write(nullptr)
+            }
             Bridge.engine_call_constructor_typed()
         } else {
             Bridge.engine_call_constructor()
@@ -72,14 +72,14 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
         this.valueVariantConverter = valueVariantConverter as VariantConverter<V>
 
         ptr = if (keyVariantConverter != VariantCaster.ANY || valueVariantConverter != VariantCaster.ANY) {
-            TransferContext.writeArguments(
-                VariantCaster.INT to keyVariantConverter.id,
-                VariantCaster.INT to (TypeManager.engineTypeToId[keyClass] ?: -1),
-                VariantParser.LONG to (TypeManager.userClassToScriptPtr[keyClass] ?: nullptr),
-                VariantCaster.INT to valueVariantConverter.id,
-                VariantCaster.INT to (TypeManager.engineTypeToId[valueClass] ?: -1),
-                VariantParser.LONG to (TypeManager.userClassToScriptPtr[valueClass] ?: nullptr)
-            )
+            TransferContext.writeArguments(6) {
+                VariantParser.LONG.write(keyVariantConverter.id.toLong())
+                VariantParser.LONG.write(((TypeManager.engineTypeToId[keyClass] ?: -1)).toLong())
+                VariantParser.LONG.write((TypeManager.userClassToScriptPtr[keyClass] ?: nullptr))
+                VariantParser.LONG.write(valueVariantConverter.id.toLong())
+                VariantParser.LONG.write(((TypeManager.engineTypeToId[valueClass] ?: -1)).toLong())
+                VariantParser.LONG.write((TypeManager.userClassToScriptPtr[valueClass] ?: nullptr))
+            }
             Bridge.engine_call_constructor_typed()
         } else {
             Bridge.engine_call_constructor()
@@ -93,7 +93,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
     override val size: Int
         get() {
             Bridge.engine_call_size(ptr)
-            return TransferContext.readReturnValue(VariantCaster.INT) as Int
+            return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
         }
 
     override val keys: MutableSet<K>
@@ -221,7 +221,9 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
      */
 
     fun duplicate(deep: Boolean): Dictionary<K, V> {
-        TransferContext.writeArguments(VariantParser.BOOL to deep)
+        TransferContext.writeArguments(1) {
+            VariantParser.BOOL.write(deep)
+        }
         Bridge.engine_call_duplicate(ptr)
         @Suppress("UNCHECKED_CAST")
         return (TransferContext.readReturnValue(VariantParser.DICTIONARY) as Dictionary<K, V>).also {
@@ -235,7 +237,9 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
      * deepSubresourceMode must be one of the values from DeepDuplicateMode. By default, only internal resources will be duplicated (recursively).
      */
     fun duplicateDeep(deepSubresourceMode: DeepDuplicateMode): Dictionary<K,V> {
-        TransferContext.writeArguments(VariantParser.LONG to deepSubresourceMode.value)
+        TransferContext.writeArguments(1) {
+            VariantParser.LONG.write(deepSubresourceMode.value)
+        }
         Bridge.engine_call_duplicate_deep(ptr)
         return (TransferContext.readReturnValue(VariantParser.DICTIONARY) as Dictionary<K, V>).also {
             it.keyVariantConverter = keyVariantConverter
@@ -247,12 +251,16 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
      * Erase a dictionary key/value pair by key. Doesn't return a Boolean like the GDScript version because the GDNative function doesn't return anything
      */
     fun erase(key: K) {
-        TransferContext.writeArguments(keyVariantConverter to key)
+        TransferContext.writeArguments(1) {
+            keyVariantConverter.toGodot(key)
+        }
         Bridge.engine_call_erase(ptr)
     }
 
     fun findKey(value: V): K {
-        TransferContext.writeArguments(valueVariantConverter to value)
+        TransferContext.writeArguments(1) {
+            valueVariantConverter.toGodot(value)
+        }
         Bridge.engine_call_find_key(ptr)
         @Suppress("UNCHECKED_CAST")
         return TransferContext.readReturnValue(keyVariantConverter) as K
@@ -263,7 +271,10 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
      * If the key does not exist, the method returns the value of the optional default argument, or null if it is omitted.
      */
     fun get(key: K, default: V?): V? {
-        TransferContext.writeArguments(keyVariantConverter to key, valueVariantConverter to default)
+        TransferContext.writeArguments(2) {
+            keyVariantConverter.toGodot(key)
+            valueVariantConverter.toGodot(default)
+        }
         Bridge.engine_call_get(ptr)
         @Suppress("UNCHECKED_CAST")
         return TransferContext.readReturnValue(valueVariantConverter) as V?
@@ -274,9 +285,11 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
      * Note: This is equivalent to using the in operator as follows:
      */
     fun has(key: K): Boolean {
-        TransferContext.writeArguments(keyVariantConverter to key)
+        TransferContext.writeArguments(1) {
+            keyVariantConverter.toGodot(key)
+        }
         Bridge.engine_call_has(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
     }
 
 
@@ -284,9 +297,11 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
      * Returns true if the dictionary has all of the keys in the given array.
      */
     fun hasAll(keys: VariantArray<K>): Boolean {
-        TransferContext.writeArguments(VariantParser.ARRAY to keys)
+        TransferContext.writeArguments(1) {
+            VariantParser.ARRAY.toGodot(keys)
+        }
         Bridge.engine_call_hasAll(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
     }
 
 
@@ -295,7 +310,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
      */
     fun hash(): Int {
         Bridge.engine_call_hash(ptr)
-        return TransferContext.readReturnValue(VariantCaster.INT) as Int
+        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
     }
 
     /**
@@ -303,7 +318,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
      */
     fun isReadOnly(): Boolean {
         Bridge.engine_call_is_read_only(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
     }
 
     /**
@@ -311,7 +326,7 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
      */
     override fun isEmpty(): Boolean {
         Bridge.engine_call_is_empty(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
     }
 
     /**
@@ -330,7 +345,10 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
     }
 
     fun merge(dictionary: Dictionary<K, V>, overwrite: Boolean = false) {
-        TransferContext.writeArguments(VariantParser.DICTIONARY to dictionary, VariantParser.BOOL to overwrite)
+        TransferContext.writeArguments(2) {
+            VariantParser.DICTIONARY.toGodot(dictionary)
+            VariantParser.BOOL.write(overwrite)
+        }
         Bridge.engine_call_merge(ptr)
     }
 
@@ -370,7 +388,9 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
 
     //UTILITIES
     override operator fun get(key: K): V {
-        TransferContext.writeArguments(keyVariantConverter to key)
+        TransferContext.writeArguments(1) {
+            keyVariantConverter.toGodot(key)
+        }
         Bridge.engine_call_operator_get(ptr)
         @Suppress("UNCHECKED_CAST")
         return TransferContext.readReturnValue(valueVariantConverter) as V
@@ -393,7 +413,10 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
     }
 
     operator fun set(key: K, value: V) {
-        TransferContext.writeArguments(keyVariantConverter to key, valueVariantConverter to value)
+        TransferContext.writeArguments(2) {
+            keyVariantConverter.toGodot(key)
+            valueVariantConverter.toGodot(value)
+        }
         Bridge.engine_call_operator_set(ptr)
     }
 
@@ -403,9 +426,12 @@ class Dictionary<K, V> : NativeCoreType, MutableMap<K, V> {
         if (other == null || other !is Dictionary<*, *>) {
             return false
         }
-        TransferContext.writeArguments(VariantParser.DICTIONARY to this, VariantParser.DICTIONARY to other)
+        TransferContext.writeArguments(2) {
+            VariantParser.DICTIONARY.toGodot(this)
+            VariantParser.DICTIONARY.toGodot(other)
+        }
         Bridge.engine_call_equals(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
     }
 
     override fun hashCode(): Int {

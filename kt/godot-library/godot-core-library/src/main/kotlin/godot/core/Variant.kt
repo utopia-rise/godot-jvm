@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package godot.core
 
 import godot.common.interop.ObjectID
@@ -613,3 +615,14 @@ private inline fun <reified T : NativeCoreType> toGodotNativeCoreType(buffer: By
     buffer.putLong(any.ptr)
 }
 
+context(buffer: ByteBuffer)
+internal inline fun <T> VariantConverter<T>.toGodot(value: T) = toGodot(buffer, value)
+
+context(buffer: ByteBuffer)
+internal inline fun VariantParser.LONG.write(value: Long) = write(buffer, value)
+
+context(buffer: ByteBuffer)
+internal inline fun VariantParser.DOUBLE.write(value: Double) = write(buffer, value)
+
+context(buffer: ByteBuffer)
+internal inline fun VariantParser.BOOL.write(value: Boolean) = write(buffer, value)

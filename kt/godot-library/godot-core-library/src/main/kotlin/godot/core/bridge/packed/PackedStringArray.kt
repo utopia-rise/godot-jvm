@@ -27,7 +27,9 @@ class PackedStringArray : PackedArray<PackedStringArray, String> {
      * Constructs a [PackedStringArray] as a copy of the given [PackedStringArray].
      */
     constructor(from: PackedStringArray) {
-        TransferContext.writeArguments(VariantParser.PACKED_STRING_ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.PACKED_STRING_ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_packed_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_STRING_ARRAY)
     }
@@ -36,7 +38,9 @@ class PackedStringArray : PackedArray<PackedStringArray, String> {
      * Constructs a new [PackedStringArray] by converting a [VariantArray]<[String]>.
      */
     constructor(from: VariantArray<String>) {
-        TransferContext.writeArguments(VariantParser.ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_STRING_ARRAY)
     }

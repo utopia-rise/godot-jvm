@@ -26,7 +26,9 @@ class PackedVector4Array : PackedArray<PackedVector4Array, Vector4> {
      * Constructs a [PackedVector4Array] as a copy of the given [PackedVector4Array].
      */
     constructor(from: PackedVector4Array) {
-        TransferContext.writeArguments(VariantParser.PACKED_VECTOR4_ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.PACKED_VECTOR4_ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_packed_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_VECTOR4_ARRAY)
     }
@@ -35,7 +37,9 @@ class PackedVector4Array : PackedArray<PackedVector4Array, Vector4> {
      * Constructs a new [PackedVector4Array] by converting a [VariantArray]<[Vector4]>.
      */
     constructor(from: VariantArray<Vector4>) {
-        TransferContext.writeArguments(VariantParser.ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_VECTOR4_ARRAY)
     }
