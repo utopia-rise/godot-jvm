@@ -474,7 +474,7 @@ public open class FontFile : Font() {
 
   public final fun getData(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDataPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -700,7 +700,7 @@ public open class FontFile : Font() {
    */
   public final fun getSizeCacheList(cacheIndex: Int): VariantArray<Vector2i> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, cacheIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSizeCacheListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSizeCacheListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
   }
 
@@ -736,7 +736,7 @@ public open class FontFile : Font() {
    */
   public final fun getVariationCoordinates(cacheIndex: Int): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, cacheIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getVariationCoordinatesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVariationCoordinatesPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -1021,7 +1021,7 @@ public open class FontFile : Font() {
     textureIndex: Int,
   ): PackedInt32Array {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, cacheIndex.toLong(), size, textureIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getTextureOffsetsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTextureOffsetsPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -1030,7 +1030,7 @@ public open class FontFile : Font() {
    */
   public final fun getGlyphList(cacheIndex: Int, size: Vector2i): PackedInt32Array {
     TransferContext.writeMethodArguments_LONG_VECTOR2I(ptr, objectID.id, cacheIndex.toLong(), size)
-    TransferContext.callMethod(MethodBindings.getGlyphListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlyphListPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -1199,7 +1199,7 @@ public open class FontFile : Font() {
    */
   public final fun getKerningList(cacheIndex: Int, size: Int): VariantArray<Vector2i> {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, cacheIndex.toLong(), size.toLong())
-    TransferContext.callMethod(MethodBindings.getKerningListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getKerningListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
   }
 
@@ -1304,7 +1304,7 @@ public open class FontFile : Font() {
    */
   public final fun getLanguageSupportOverrides(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLanguageSupportOverridesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLanguageSupportOverridesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -1338,7 +1338,7 @@ public open class FontFile : Font() {
    */
   public final fun getScriptSupportOverrides(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScriptSupportOverridesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getScriptSupportOverridesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -1349,7 +1349,7 @@ public open class FontFile : Font() {
 
   public final fun getOpentypeFeatureOverrides(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOpentypeFeatureOverridesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOpentypeFeatureOverridesPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

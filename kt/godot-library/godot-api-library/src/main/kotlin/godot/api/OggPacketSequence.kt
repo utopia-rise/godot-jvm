@@ -127,7 +127,7 @@ public open class OggPacketSequence : Resource() {
 
   public final fun getPacketData(): VariantArray<VariantArray<Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPacketDataPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<VariantArray<Any?>>)
   }
 
@@ -138,7 +138,7 @@ public open class OggPacketSequence : Resource() {
 
   public final fun getPacketGranulePositions(): PackedInt64Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketGranulePositionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPacketGranulePositionsPtr, 31)
     return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 

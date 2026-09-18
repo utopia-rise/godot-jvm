@@ -159,7 +159,7 @@ public open class VisualShader : Shader() {
    */
   public final fun getNodeList(type: Type): PackedInt32Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
-    TransferContext.callMethod(MethodBindings.getNodeListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeListPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -271,7 +271,7 @@ public open class VisualShader : Shader() {
    */
   public final fun getNodeConnections(type: Type): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.value)
-    TransferContext.callMethod(MethodBindings.getNodeConnectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeConnectionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 

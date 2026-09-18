@@ -557,7 +557,7 @@ public open class TextParagraph : RefCounted() {
    */
   public final fun getLineObjects(line: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callMethod(MethodBindings.getLineObjectsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLineObjectsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

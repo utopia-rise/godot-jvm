@@ -143,7 +143,7 @@ public open class Translation : Resource() {
   public final fun getMessage(srcMessage: StringName, context: StringName = StringName("")):
       StringName {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, srcMessage, context)
-    TransferContext.callMethod(MethodBindings.getMessagePtr)
+    TransferContext.callPtrMethod(MethodBindings.getMessagePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -164,7 +164,7 @@ public open class Translation : Resource() {
     context: StringName = StringName(""),
   ): StringName {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_LONG_STRING_NAME(ptr, objectID.id, srcMessage, srcPluralMessage, n.toLong(), context)
-    TransferContext.callMethod(MethodBindings.getPluralMessagePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPluralMessagePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -199,7 +199,7 @@ public open class Translation : Resource() {
    */
   public final fun getMessageList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMessageListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMessageListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -208,7 +208,7 @@ public open class Translation : Resource() {
    */
   public final fun getTranslatedMessageList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTranslatedMessageListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTranslatedMessageListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

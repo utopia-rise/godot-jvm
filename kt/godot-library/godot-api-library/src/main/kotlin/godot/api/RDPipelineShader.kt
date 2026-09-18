@@ -79,7 +79,7 @@ public open class RDPipelineShader : RefCounted() {
 
   public final fun getSpecializationConstants(): VariantArray<RDPipelineSpecializationConstant> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpecializationConstantsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpecializationConstantsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RDPipelineSpecializationConstant>)
   }
 

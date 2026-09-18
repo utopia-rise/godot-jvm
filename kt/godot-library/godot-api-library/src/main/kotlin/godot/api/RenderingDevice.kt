@@ -330,7 +330,7 @@ public open class RenderingDevice internal constructor() : Object() {
    */
   public final fun textureGetData(texture: RID, layer: Long): PackedByteArray {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, texture, layer)
-    TransferContext.callMethod(MethodBindings.textureGetDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.textureGetDataPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -1025,7 +1025,7 @@ public open class RenderingDevice internal constructor() : Object() {
     sizeBytes: Long = 0,
   ): PackedByteArray {
     TransferContext.writeMethodArguments_RID_LONG_LONG(ptr, objectID.id, buffer, offsetBytes, sizeBytes)
-    TransferContext.callMethod(MethodBindings.bufferGetDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.bufferGetDataPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -1472,7 +1472,7 @@ public open class RenderingDevice internal constructor() : Object() {
     storageTextures: VariantArray<RID> = godot.core.variantArrayOf(),
   ): PackedInt64Array {
     TransferContext.writeMethodArguments_RID_LONG_LONG_LONG_LONG_LONG_PACKED_COLOR_ARRAY_DOUBLE_LONG_RECT2_ARRAY(ptr, objectID.id, framebuffer, splits, initialColorAction.value, finalColorAction.value, initialDepthAction.value, finalDepthAction.value, clearColorValues, clearDepth.toDouble(), clearStencil, region, storageTextures)
-    TransferContext.callMethod(MethodBindings.drawListBeginSplitPtr)
+    TransferContext.callPtrMethod(MethodBindings.drawListBeginSplitPtr, 31)
     return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 
@@ -1625,7 +1625,7 @@ public open class RenderingDevice internal constructor() : Object() {
    */
   public final fun drawListSwitchToNextPassSplit(splits: Long): PackedInt64Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, splits)
-    TransferContext.callMethod(MethodBindings.drawListSwitchToNextPassSplitPtr)
+    TransferContext.callPtrMethod(MethodBindings.drawListSwitchToNextPassSplitPtr, 31)
     return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 

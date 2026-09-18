@@ -162,7 +162,7 @@ public object IP : Object() {
   @JvmStatic
   public final fun getResolveItemAddresses(id: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.getResolveItemAddressesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getResolveItemAddressesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -182,7 +182,7 @@ public object IP : Object() {
   @JvmStatic
   public final fun getLocalAddresses(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalAddressesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocalAddressesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -203,7 +203,7 @@ public object IP : Object() {
   @JvmStatic
   public final fun getLocalInterfaces(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalInterfacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLocalInterfacesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 

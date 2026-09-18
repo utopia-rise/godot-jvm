@@ -366,7 +366,7 @@ public open class SurfaceTool : RefCounted() {
   @JvmOverloads
   public final fun generateLod(ndThreshold: Float, targetIndexCount: Int = 3): PackedInt32Array {
     TransferContext.writeMethodArguments_DOUBLE_LONG(ptr, objectID.id, ndThreshold.toDouble(), targetIndexCount.toLong())
-    TransferContext.callMethod(MethodBindings.generateLodPtr)
+    TransferContext.callPtrMethod(MethodBindings.generateLodPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -463,7 +463,7 @@ public open class SurfaceTool : RefCounted() {
    */
   public final fun commitToArrays(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.commitToArraysPtr)
+    TransferContext.callPtrMethod(MethodBindings.commitToArraysPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

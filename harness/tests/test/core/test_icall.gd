@@ -190,3 +190,115 @@ func test_icall_ref_counted_return_keeps_reference_count() -> void:
     assert_int(_call_on_instance("icall_ref_counted_return_keeps_reference_count"))\
         .override_failure_message("Reading a RefCounted through Object.call must not change its reference count")\
         .is_equal(2)
+
+
+func test_ptrcall_string_name_argument_and_return() -> void:
+    assert_bool(_call_on_instance("ptrcall_string_name_argument_and_return"))\
+        .override_failure_message("A StringName passed to setName and read back through getName should round-trip through the ptrcall")\
+        .is_true()
+
+
+func test_ptrcall_node_path_return() -> void:
+    assert_that(_call_on_instance("ptrcall_node_path_return"))\
+        .override_failure_message("getPathTo should return the child's NodePath through the ptrcall")\
+        .is_equal(NodePath("Child"))
+
+
+func test_ptrcall_node_path_argument() -> void:
+    assert_bool(_call_on_instance("ptrcall_node_path_argument"))\
+        .override_failure_message("getNodeOrNull(NodePath) should resolve the child through the ptrcall")\
+        .is_true()
+
+
+func test_ptrcall_array_return() -> void:
+    assert_bool(_call_on_instance("ptrcall_array_return"))\
+        .override_failure_message("getChildren should return both children in order through the ptrcall")\
+        .is_true()
+
+
+func test_ptrcall_dictionary_argument_and_return() -> void:
+    var tags: Dictionary = _call_on_instance("ptrcall_dictionary_argument_and_return")
+    assert_dict(tags)\
+        .override_failure_message("A Dictionary passed to setTags and read back through getTags should round-trip through the ptrcall")\
+        .is_equal({"title": "icall", "track": 7})
+
+
+func test_ptrcall_packed_byte_array_argument_and_return() -> void:
+    assert_array(_call_on_instance("ptrcall_packed_byte_array_argument_and_return"))\
+        .override_failure_message("A PackedByteArray passed to setData and read back through getData should round-trip through the ptrcall")\
+        .is_equal(PackedByteArray([1, 2, 3, 4]))
+
+
+func test_ptrcall_packed_int32_array_return_from_packed_vector2_array_argument() -> void:
+    var indices: PackedInt32Array = _call_on_instance("ptrcall_packed_int32_array_return_from_packed_vector2_array_argument")
+    assert_int(indices.size())\
+        .override_failure_message("Triangulating a square should yield two triangles, six indices")\
+        .is_equal(6)
+
+
+func test_ptrcall_packed_int64_array_return() -> void:
+    var ids: PackedInt64Array = _call_on_instance("ptrcall_packed_int64_array_return")
+    ids.sort()
+    assert_array(ids)\
+        .override_failure_message("getPointIds should return both point ids through the ptrcall")\
+        .is_equal(PackedInt64Array([3, 5]))
+
+
+func test_ptrcall_packed_float32_array_argument_and_return() -> void:
+    assert_array(_call_on_instance("ptrcall_packed_float32_array_argument_and_return"))\
+        .override_failure_message("A PackedFloat32Array passed to setOffsets and read back through getOffsets should round-trip through the ptrcall")\
+        .is_equal(PackedFloat32Array([0.0, 0.25, 1.0]))
+
+
+func test_ptrcall_packed_float64_array_argument_and_return() -> void:
+    assert_array(_call_on_instance("ptrcall_packed_float64_array_argument_and_return"))\
+        .override_failure_message("A PackedFloat64Array passed to setMin and read back through getMin should round-trip through the ptrcall")\
+        .is_equal(PackedFloat64Array([-1.5, 0.0, 2.5]))
+
+
+func test_ptrcall_packed_string_array_argument_and_return() -> void:
+    assert_array(_call_on_instance("ptrcall_packed_string_array_argument_and_return"))\
+        .override_failure_message("A PackedStringArray passed to setFontNames and read back through getFontNames should round-trip through the ptrcall")\
+        .is_equal(PackedStringArray(["Sans", "Serif"]))
+
+
+func test_ptrcall_packed_vector2_array_argument_and_return() -> void:
+    var hull: PackedVector2Array = _call_on_instance("ptrcall_packed_vector2_array_argument_and_return")
+    assert_bool(hull.has(Vector2(1, 1)))\
+        .override_failure_message("The convex hull must drop the interior point (1, 1)")\
+        .is_false()
+    for corner in [Vector2(0, 0), Vector2(2, 0), Vector2(2, 2), Vector2(0, 2)]:
+        assert_bool(hull.has(corner))\
+            .override_failure_message("The convex hull must keep corner %s" % corner)\
+            .is_true()
+
+
+func test_ptrcall_packed_vector3_array_argument_and_return() -> void:
+    var clipped: PackedVector3Array = _call_on_instance("ptrcall_packed_vector3_array_argument_and_return")
+    assert_int(clipped.size())\
+        .override_failure_message("Clipping a quad through its middle should leave a four-point polygon")\
+        .is_equal(4)
+    var signs := {}
+    for point in clipped:
+        signs[signf(point.x)] = true
+    assert_bool(signs.has(1.0) and signs.has(-1.0))\
+        .override_failure_message("The clipped polygon must lie on one side of the plane, got x values %s" % [clipped])\
+        .is_false()
+
+
+func test_ptrcall_packed_color_array_argument_and_return() -> void:
+    assert_array(_call_on_instance("ptrcall_packed_color_array_argument_and_return"))\
+        .override_failure_message("A PackedColorArray passed to setColors and read back through getColors should round-trip through the ptrcall")\
+        .is_equal(PackedColorArray([Color(1, 0, 0), Color(0, 1, 0), Color(0, 0, 1)]))
+
+
+func test_ptrcall_string_name_returns_in_bulk() -> void:
+    assert_int(_call_on_instance("ptrcall_string_name_returns_in_bulk"))\
+        .override_failure_message("Every getName call through the ptrcall should read back the name")\
+        .is_equal(10000)
+
+
+func test_ptrcall_dictionary_returns_in_bulk() -> void:
+    assert_int(_call_on_instance("ptrcall_dictionary_returns_in_bulk"))\
+        .override_failure_message("Every getTags call through the ptrcall should read back the dictionary")\
+        .is_equal(10000)

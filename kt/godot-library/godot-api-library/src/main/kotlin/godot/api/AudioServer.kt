@@ -509,7 +509,7 @@ public object AudioServer : Object() {
   @JvmStatic
   public final fun getBusSend(busIdx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, busIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBusSendPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBusSendPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -768,7 +768,7 @@ public object AudioServer : Object() {
   @JvmStatic
   public final fun getOutputDeviceList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOutputDeviceListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOutputDeviceListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -829,7 +829,7 @@ public object AudioServer : Object() {
   @JvmStatic
   public final fun getInputDeviceList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInputDeviceListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInputDeviceListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -892,7 +892,7 @@ public object AudioServer : Object() {
   @JvmStatic
   public final fun getInputFrames(frames: Int): PackedVector2Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frames.toLong())
-    TransferContext.callMethod(MethodBindings.getInputFramesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInputFramesPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 

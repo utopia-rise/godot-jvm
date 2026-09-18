@@ -874,7 +874,7 @@ public open class TileSet : Resource() {
   public final fun getCoordsLevelTileProxy(sourceFrom: Int, coordsFrom: Vector2i):
       VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG_VECTOR2I(ptr, objectID.id, sourceFrom.toLong(), coordsFrom)
-    TransferContext.callMethod(MethodBindings.getCoordsLevelTileProxyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCoordsLevelTileProxyPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -925,7 +925,7 @@ public open class TileSet : Resource() {
     alternativeFrom: Int,
   ): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, sourceFrom.toLong(), coordsFrom, alternativeFrom.toLong())
-    TransferContext.callMethod(MethodBindings.getAlternativeLevelTileProxyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAlternativeLevelTileProxyPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -970,7 +970,7 @@ public open class TileSet : Resource() {
     alternativeFrom: Int,
   ): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG_VECTOR2I_LONG(ptr, objectID.id, sourceFrom.toLong(), coordsFrom, alternativeFrom.toLong())
-    TransferContext.callMethod(MethodBindings.mapTileProxyPtr)
+    TransferContext.callPtrMethod(MethodBindings.mapTileProxyPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

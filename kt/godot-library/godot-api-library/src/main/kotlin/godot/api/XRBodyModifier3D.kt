@@ -90,7 +90,7 @@ public open class XRBodyModifier3D : SkeletonModifier3D() {
 
   public final fun getBodyTracker(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBodyTrackerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBodyTrackerPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

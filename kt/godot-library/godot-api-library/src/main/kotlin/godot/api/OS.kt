@@ -461,7 +461,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun getEntropy(size: Int): PackedByteArray {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callMethod(MethodBindings.getEntropyPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEntropyPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -494,7 +494,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun getConnectedMidiInputs(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectedMidiInputsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectedMidiInputsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -626,7 +626,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun getSystemFonts(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSystemFontsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSystemFontsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -758,7 +758,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun readBufferFromStdin(bufferSize: Long = 1024): PackedByteArray {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bufferSize)
-    TransferContext.callMethod(MethodBindings.readBufferFromStdinPtr)
+    TransferContext.callPtrMethod(MethodBindings.readBufferFromStdinPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -1379,7 +1379,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun getCmdlineArgs(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCmdlineArgsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCmdlineArgsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -1401,7 +1401,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun getCmdlineUserArgs(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCmdlineUserArgsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCmdlineUserArgsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -1446,7 +1446,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun getVideoAdapterDriverInfo(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVideoAdapterDriverInfoPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVideoAdapterDriverInfoPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -1492,7 +1492,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun getRestartOnExitArguments(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRestartOnExitArgumentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRestartOnExitArgumentsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -1678,7 +1678,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun getMemoryInfo(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMemoryInfoPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMemoryInfoPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -2064,7 +2064,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun getGrantedPermissions(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGrantedPermissionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGrantedPermissionsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

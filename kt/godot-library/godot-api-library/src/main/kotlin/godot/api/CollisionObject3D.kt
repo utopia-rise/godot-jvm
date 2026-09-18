@@ -345,7 +345,7 @@ public open class CollisionObject3D internal constructor() : Node3D() {
    */
   public final fun getShapeOwners(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShapeOwnersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShapeOwnersPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

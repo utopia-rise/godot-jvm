@@ -343,7 +343,7 @@ public open class NavigationObstacle3D : Node3D() {
 
   public final fun getVertices(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVerticesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVerticesPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 

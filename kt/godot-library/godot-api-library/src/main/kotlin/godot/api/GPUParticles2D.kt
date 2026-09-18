@@ -719,7 +719,7 @@ public open class GPUParticles2D : Node2D() {
 
   public final fun getSubEmitter(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubEmitterPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSubEmitterPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

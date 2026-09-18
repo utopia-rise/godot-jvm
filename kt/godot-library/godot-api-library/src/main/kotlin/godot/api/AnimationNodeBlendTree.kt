@@ -173,7 +173,7 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
    */
   public final fun getNodeList(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodeListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 

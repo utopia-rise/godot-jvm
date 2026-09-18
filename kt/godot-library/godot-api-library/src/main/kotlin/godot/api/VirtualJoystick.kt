@@ -319,7 +319,7 @@ public open class VirtualJoystick : Control() {
 
   public final fun getActionLeft(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionLeftPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionLeftPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -330,7 +330,7 @@ public open class VirtualJoystick : Control() {
 
   public final fun getActionRight(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionRightPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionRightPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -341,7 +341,7 @@ public open class VirtualJoystick : Control() {
 
   public final fun getActionUp(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionUpPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionUpPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -352,7 +352,7 @@ public open class VirtualJoystick : Control() {
 
   public final fun getActionDown(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionDownPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionDownPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

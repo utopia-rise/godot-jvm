@@ -174,7 +174,7 @@ public open class BoneConstraint3D : SkeletonModifier3D() {
    */
   public final fun getReferenceNode(index: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getReferenceNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getReferenceNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

@@ -278,7 +278,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun getAllLanguages(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAllLanguagesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAllLanguagesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -298,7 +298,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun getAllScripts(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAllScriptsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAllScriptsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -318,7 +318,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun getAllCountries(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAllCountriesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAllCountriesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -362,7 +362,7 @@ public object TranslationServer : Object() {
   public final fun translate(message: StringName, context: StringName = StringName("")):
       StringName {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, message, context)
-    TransferContext.callMethod(MethodBindings.translatePtr)
+    TransferContext.callPtrMethod(MethodBindings.translatePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -382,7 +382,7 @@ public object TranslationServer : Object() {
     context: StringName = StringName(""),
   ): StringName {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_LONG_STRING_NAME(ptr, objectID.id, message, pluralMessage, n.toLong(), context)
-    TransferContext.callMethod(MethodBindings.translatePluralPtr)
+    TransferContext.callPtrMethod(MethodBindings.translatePluralPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -422,7 +422,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun getTranslations(): VariantArray<Translation> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTranslationsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTranslationsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Translation>)
   }
 
@@ -507,7 +507,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun getLoadedLocales(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoadedLocalesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLoadedLocalesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -572,7 +572,7 @@ public object TranslationServer : Object() {
   @JvmStatic
   public final fun pseudolocalize(message: StringName): StringName {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, message)
-    TransferContext.callMethod(MethodBindings.pseudolocalizePtr)
+    TransferContext.callPtrMethod(MethodBindings.pseudolocalizePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

@@ -137,7 +137,7 @@ public open class ConcavePolygonShape3D : Shape3D() {
    */
   public final fun getFaces(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFacesPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 

@@ -219,7 +219,7 @@ public open class AnimationNodeBlendSpace1D : AnimationRootNode() {
    */
   public final fun getBlendPointName(point: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, point.toLong())
-    TransferContext.callMethod(MethodBindings.getBlendPointNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBlendPointNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

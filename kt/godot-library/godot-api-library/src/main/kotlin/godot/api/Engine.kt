@@ -629,7 +629,7 @@ public object Engine : Object() {
   @JvmStatic
   public final fun getVersionInfo(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVersionInfoPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVersionInfoPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -641,7 +641,7 @@ public object Engine : Object() {
   @JvmStatic
   public final fun getAuthorInfo(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAuthorInfoPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAuthorInfoPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -663,7 +663,7 @@ public object Engine : Object() {
   @JvmStatic
   public final fun getCopyrightInfo(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCopyrightInfoPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCopyrightInfoPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -676,7 +676,7 @@ public object Engine : Object() {
   @JvmStatic
   public final fun getDonorInfo(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDonorInfoPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDonorInfoPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -689,7 +689,7 @@ public object Engine : Object() {
   @JvmStatic
   public final fun getLicenseInfo(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLicenseInfoPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLicenseInfoPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -817,7 +817,7 @@ public object Engine : Object() {
   @JvmStatic
   public final fun getSingletonList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSingletonListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSingletonListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -901,7 +901,7 @@ public object Engine : Object() {
   public final fun captureScriptBacktraces(includeVariables: Boolean = false):
       VariantArray<ScriptBacktrace> {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, includeVariables)
-    TransferContext.callMethod(MethodBindings.captureScriptBacktracesPtr)
+    TransferContext.callPtrMethod(MethodBindings.captureScriptBacktracesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<ScriptBacktrace>)
   }
 

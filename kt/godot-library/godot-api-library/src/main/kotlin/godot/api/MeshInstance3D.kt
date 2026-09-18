@@ -108,7 +108,7 @@ public open class MeshInstance3D : GeometryInstance3D() {
 
   public final fun getSkeletonPath(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSkeletonPathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

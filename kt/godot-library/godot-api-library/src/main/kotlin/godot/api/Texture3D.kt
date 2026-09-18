@@ -122,7 +122,7 @@ public abstract class Texture3D : Texture() {
    */
   public final fun getData(): VariantArray<Image> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDataPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Image>)
   }
 

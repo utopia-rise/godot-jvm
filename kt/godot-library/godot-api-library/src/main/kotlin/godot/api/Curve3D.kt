@@ -356,7 +356,7 @@ public open class Curve3D : Resource() {
    */
   public final fun getBakedPoints(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakedPointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBakedPointsPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -365,7 +365,7 @@ public open class Curve3D : Resource() {
    */
   public final fun getBakedTilts(): PackedFloat32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakedTiltsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBakedTiltsPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
@@ -376,7 +376,7 @@ public open class Curve3D : Resource() {
    */
   public final fun getBakedUpVectors(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakedUpVectorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBakedUpVectorsPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -421,7 +421,7 @@ public open class Curve3D : Resource() {
   public final fun tessellate(maxStages: Int = 5, toleranceDegrees: Float = 4.0f):
       PackedVector3Array {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, maxStages.toLong(), toleranceDegrees.toDouble())
-    TransferContext.callMethod(MethodBindings.tessellatePtr)
+    TransferContext.callPtrMethod(MethodBindings.tessellatePtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -438,7 +438,7 @@ public open class Curve3D : Resource() {
   public final fun tessellateEvenLength(maxStages: Int = 5, toleranceLength: Float = 0.2f):
       PackedVector3Array {
     TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, maxStages.toLong(), toleranceLength.toDouble())
-    TransferContext.callMethod(MethodBindings.tessellateEvenLengthPtr)
+    TransferContext.callPtrMethod(MethodBindings.tessellateEvenLengthPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 

@@ -244,7 +244,7 @@ public object Performance : Object() {
   @JvmStatic
   public final fun getCustomMonitorNames(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomMonitorNamesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCustomMonitorNamesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
@@ -254,7 +254,7 @@ public object Performance : Object() {
   @JvmStatic
   public final fun getCustomMonitorTypes(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomMonitorTypesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getCustomMonitorTypesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

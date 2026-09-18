@@ -250,7 +250,7 @@ public open class ConfigFile : RefCounted() {
    */
   public final fun getSections(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSectionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSectionsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

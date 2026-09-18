@@ -642,7 +642,7 @@ public open class Camera3D : Node3D() {
    */
   public final fun getFrustum(): VariantArray<Plane> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFrustumPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFrustumPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Plane>)
   }
 

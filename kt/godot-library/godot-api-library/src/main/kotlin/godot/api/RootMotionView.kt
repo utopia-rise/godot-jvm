@@ -141,7 +141,7 @@ public open class RootMotionView : VisualInstance3D() {
 
   public final fun getAnimationPath(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnimationPathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

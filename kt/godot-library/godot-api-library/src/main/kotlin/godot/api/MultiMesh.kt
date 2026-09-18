@@ -472,7 +472,7 @@ public open class MultiMesh : Resource() {
 
   public final fun getBuffer(): PackedFloat32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBufferPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 

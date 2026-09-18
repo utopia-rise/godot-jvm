@@ -131,7 +131,7 @@ public open class Shape2D internal constructor() : Resource() {
     shapeXform: Transform2D,
   ): PackedVector2Array {
     TransferContext.writeMethodArguments_TRANSFORM2D_OBJECT_TRANSFORM2D(ptr, objectID.id, localXform, withShape, shapeXform)
-    TransferContext.callMethod(MethodBindings.collideAndGetContactsPtr)
+    TransferContext.callPtrMethod(MethodBindings.collideAndGetContactsPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -160,7 +160,7 @@ public open class Shape2D internal constructor() : Resource() {
     shapeMotion: Vector2,
   ): PackedVector2Array {
     TransferContext.writeMethodArguments_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2(ptr, objectID.id, localXform, localMotion, withShape, shapeXform, shapeMotion)
-    TransferContext.callMethod(MethodBindings.collideWithMotionAndGetContactsPtr)
+    TransferContext.callPtrMethod(MethodBindings.collideWithMotionAndGetContactsPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 

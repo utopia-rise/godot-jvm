@@ -2520,7 +2520,7 @@ public object DisplayServer : Object() {
   @JvmStatic
   public final fun globalMenuGetSystemMenuRoots(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.globalMenuGetSystemMenuRootsPtr)
+    TransferContext.callPtrMethod(MethodBindings.globalMenuGetSystemMenuRootsPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -2574,7 +2574,7 @@ public object DisplayServer : Object() {
   @JvmStatic
   public final fun ttsGetVoices(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.ttsGetVoicesPtr)
+    TransferContext.callPtrMethod(MethodBindings.ttsGetVoicesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -2901,7 +2901,7 @@ public object DisplayServer : Object() {
   @JvmStatic
   public final fun getDisplayCutouts(): VariantArray<Rect2> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDisplayCutoutsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDisplayCutoutsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Rect2>)
   }
 
@@ -3277,7 +3277,7 @@ public object DisplayServer : Object() {
   @JvmStatic
   public final fun getWindowList(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWindowListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getWindowListPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

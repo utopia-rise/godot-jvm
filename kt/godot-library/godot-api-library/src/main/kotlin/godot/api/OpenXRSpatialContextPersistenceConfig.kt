@@ -56,7 +56,7 @@ public open class OpenXRSpatialContextPersistenceConfig : OpenXRStructureBase() 
    */
   public final fun getPersistenceContexts(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPersistenceContextsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPersistenceContextsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

@@ -369,7 +369,7 @@ public open class ColorPicker : VBoxContainer() {
    */
   public final fun getPresets(): PackedColorArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPresetsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPresetsPtr, 37)
     return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 
@@ -398,7 +398,7 @@ public open class ColorPicker : VBoxContainer() {
    */
   public final fun getRecentPresets(): PackedColorArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRecentPresetsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRecentPresetsPtr, 37)
     return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 

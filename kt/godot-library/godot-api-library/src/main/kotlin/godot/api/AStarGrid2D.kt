@@ -563,7 +563,7 @@ public open class AStarGrid2D : RefCounted() {
    */
   public final fun getPointDataInRegion(region: Rect2i): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments_RECT2I(ptr, objectID.id, region)
-    TransferContext.callMethod(MethodBindings.getPointDataInRegionPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointDataInRegionPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -589,7 +589,7 @@ public open class AStarGrid2D : RefCounted() {
     allowPartialPath: Boolean = false,
   ): PackedVector2Array {
     TransferContext.writeMethodArguments_VECTOR2I_VECTOR2I_BOOL(ptr, objectID.id, fromId, toId, allowPartialPath)
-    TransferContext.callMethod(MethodBindings.getPointPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPointPathPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -612,7 +612,7 @@ public open class AStarGrid2D : RefCounted() {
     allowPartialPath: Boolean = false,
   ): VariantArray<Vector2i> {
     TransferContext.writeMethodArguments_VECTOR2I_VECTOR2I_BOOL(ptr, objectID.id, fromId, toId, allowPartialPath)
-    TransferContext.callMethod(MethodBindings.getIdPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIdPathPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
   }
 

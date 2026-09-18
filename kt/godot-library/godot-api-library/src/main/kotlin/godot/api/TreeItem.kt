@@ -384,7 +384,7 @@ public open class TreeItem internal constructor() : Object() {
    */
   public final fun getStructuredTextBidiOverrideOptions(column: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, column.toLong())
-    TransferContext.callMethod(MethodBindings.getStructuredTextBidiOverrideOptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStructuredTextBidiOverrideOptionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -555,7 +555,7 @@ public open class TreeItem internal constructor() : Object() {
    */
   public final fun getRangeConfig(column: Int): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, column.toLong())
-    TransferContext.callMethod(MethodBindings.getRangeConfigPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRangeConfigPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -1277,7 +1277,7 @@ public open class TreeItem internal constructor() : Object() {
    */
   public final fun getChildren(): VariantArray<TreeItem> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getChildrenPtr)
+    TransferContext.callPtrMethod(MethodBindings.getChildrenPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<TreeItem>)
   }
 

@@ -298,7 +298,7 @@ public open class SplitContainer : Container() {
 
   public final fun getSplitOffsets(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSplitOffsetsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSplitOffsetsPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -420,7 +420,7 @@ public open class SplitContainer : Container() {
    */
   public final fun getDragAreaControls(): VariantArray<Control> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDragAreaControlsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDragAreaControlsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Control>)
   }
 

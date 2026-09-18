@@ -97,7 +97,7 @@ public open class Joint2D internal constructor() : Node2D() {
 
   public final fun getNodeA(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodeAPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeAPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -108,7 +108,7 @@ public open class Joint2D internal constructor() : Node2D() {
 
   public final fun getNodeB(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodeBPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeBPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

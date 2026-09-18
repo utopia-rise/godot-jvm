@@ -1113,7 +1113,7 @@ public open class RichTextLabel : Control() {
 
   public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStructuredTextBidiOverrideOptionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStructuredTextBidiOverrideOptionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -1179,7 +1179,7 @@ public open class RichTextLabel : Control() {
 
   public final fun getTabStops(): PackedFloat32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTabStopsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTabStopsPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
@@ -1770,7 +1770,7 @@ public open class RichTextLabel : Control() {
   public final fun parseExpressionsForValues(expressions: PackedStringArray):
       Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, expressions)
-    TransferContext.callMethod(MethodBindings.parseExpressionsForValuesPtr)
+    TransferContext.callPtrMethod(MethodBindings.parseExpressionsForValuesPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -1781,7 +1781,7 @@ public open class RichTextLabel : Control() {
 
   public final fun getEffects(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEffectsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEffectsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

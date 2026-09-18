@@ -114,7 +114,7 @@ public open class Shortcut : Resource() {
 
   public final fun getEvents(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEventsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEventsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

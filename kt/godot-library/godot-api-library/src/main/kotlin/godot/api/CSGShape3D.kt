@@ -338,7 +338,7 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
    */
   public final fun getMeshes(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMeshesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

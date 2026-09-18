@@ -213,7 +213,7 @@ public open class AudioStreamOggVorbis : AudioStream() {
 
   public final fun getTags(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTagsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTagsPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

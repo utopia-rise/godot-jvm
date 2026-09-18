@@ -207,7 +207,7 @@ public open class MeshLibrary : Resource() {
    */
   public final fun getItemShapes(id: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.getItemShapesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemShapesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -253,7 +253,7 @@ public open class MeshLibrary : Resource() {
    */
   public final fun getItemList(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getItemListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getItemListPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

@@ -1609,7 +1609,7 @@ public open class Viewport internal constructor() : Node() {
    */
   public final fun getEmbeddedSubwindows(): VariantArray<Window> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEmbeddedSubwindowsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEmbeddedSubwindowsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Window>)
   }
 

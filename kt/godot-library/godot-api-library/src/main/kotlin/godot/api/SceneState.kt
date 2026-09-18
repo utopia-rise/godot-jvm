@@ -91,7 +91,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getNodeType(idx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getNodeTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeTypePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -100,7 +100,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getNodeName(idx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getNodeNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -112,7 +112,7 @@ public open class SceneState internal constructor() : RefCounted() {
   @JvmOverloads
   public final fun getNodePath(idx: Int, forParent: Boolean = false): NodePath {
     TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, idx.toLong(), forParent)
-    TransferContext.callMethod(MethodBindings.getNodePathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodePathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -121,7 +121,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getNodeOwnerPath(idx: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getNodeOwnerPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeOwnerPathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -159,7 +159,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getNodeGroups(idx: Int): PackedStringArray {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getNodeGroupsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeGroupsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -192,7 +192,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getNodePropertyName(idx: Int, propIdx: Int): StringName {
     TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, idx.toLong(), propIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getNodePropertyNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodePropertyNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -222,7 +222,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getConnectionSource(idx: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getConnectionSourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionSourcePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -231,7 +231,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getConnectionSignal(idx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getConnectionSignalPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionSignalPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -241,7 +241,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getConnectionTarget(idx: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getConnectionTargetPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionTargetPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -250,7 +250,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getConnectionMethod(idx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getConnectionMethodPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionMethodPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -268,7 +268,7 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   public final fun getConnectionBinds(idx: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getConnectionBindsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConnectionBindsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

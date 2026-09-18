@@ -182,7 +182,7 @@ public open class HeightMapShape3D : Shape3D() {
 
   public final fun getMapData(): PackedFloat32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMapDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMapDataPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 

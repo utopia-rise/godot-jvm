@@ -72,7 +72,7 @@ public open class XRHandModifier3D : SkeletonModifier3D() {
 
   public final fun getHandTracker(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHandTrackerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHandTrackerPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

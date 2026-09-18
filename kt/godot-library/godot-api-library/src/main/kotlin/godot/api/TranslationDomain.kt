@@ -247,7 +247,7 @@ public open class TranslationDomain : RefCounted() {
    */
   public final fun getTranslations(): VariantArray<Translation> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTranslationsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTranslationsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Translation>)
   }
 
@@ -288,7 +288,7 @@ public open class TranslationDomain : RefCounted() {
   public final fun translate(message: StringName, context: StringName = StringName("")):
       StringName {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, message, context)
-    TransferContext.callMethod(MethodBindings.translatePtr)
+    TransferContext.callPtrMethod(MethodBindings.translatePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -305,7 +305,7 @@ public open class TranslationDomain : RefCounted() {
     context: StringName = StringName(""),
   ): StringName {
     TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_LONG_STRING_NAME(ptr, objectID.id, message, messagePlural, n.toLong(), context)
-    TransferContext.callMethod(MethodBindings.translatePluralPtr)
+    TransferContext.callPtrMethod(MethodBindings.translatePluralPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -448,7 +448,7 @@ public open class TranslationDomain : RefCounted() {
    */
   public final fun pseudolocalize(message: StringName): StringName {
     TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, message)
-    TransferContext.callMethod(MethodBindings.pseudolocalizePtr)
+    TransferContext.callPtrMethod(MethodBindings.pseudolocalizePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

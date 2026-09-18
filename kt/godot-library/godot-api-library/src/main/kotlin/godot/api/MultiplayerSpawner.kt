@@ -156,7 +156,7 @@ public open class MultiplayerSpawner : Node() {
 
   public final fun getSpawnPath(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpawnPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSpawnPathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

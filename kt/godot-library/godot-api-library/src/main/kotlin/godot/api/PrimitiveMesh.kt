@@ -183,7 +183,7 @@ public open class PrimitiveMesh : Mesh() {
    */
   public final fun getMeshArrays(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshArraysPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMeshArraysPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

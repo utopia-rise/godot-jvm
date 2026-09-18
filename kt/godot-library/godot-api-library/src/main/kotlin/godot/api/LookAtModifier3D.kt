@@ -469,7 +469,7 @@ public open class LookAtModifier3D : SkeletonModifier3D() {
 
   public final fun getTargetNode(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTargetNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -590,7 +590,7 @@ public open class LookAtModifier3D : SkeletonModifier3D() {
 
   public final fun getOriginExternalNode(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOriginExternalNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getOriginExternalNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

@@ -288,7 +288,7 @@ public open class CodeHighlighter : SyntaxHighlighter() {
 
   public final fun getKeywordColors(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getKeywordColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getKeywordColorsPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -345,7 +345,7 @@ public open class CodeHighlighter : SyntaxHighlighter() {
 
   public final fun getMemberKeywordColors(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMemberKeywordColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMemberKeywordColorsPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -399,7 +399,7 @@ public open class CodeHighlighter : SyntaxHighlighter() {
 
   public final fun getColorRegions(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorRegionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorRegionsPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

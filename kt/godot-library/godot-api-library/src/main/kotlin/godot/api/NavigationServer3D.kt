@@ -774,7 +774,7 @@ public object NavigationServer3D : Object() {
   @JvmStatic
   public final fun getMaps(): VariantArray<RID> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMapsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMapsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
@@ -962,7 +962,7 @@ public object NavigationServer3D : Object() {
     navigationLayers: Long = 1,
   ): PackedVector3Array {
     TransferContext.writeMethodArguments_RID_VECTOR3_VECTOR3_BOOL_LONG(ptr, objectID.id, map, origin, destination, optimize, navigationLayers)
-    TransferContext.callMethod(MethodBindings.mapGetPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.mapGetPathPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -1026,7 +1026,7 @@ public object NavigationServer3D : Object() {
   @JvmStatic
   public final fun mapGetLinks(map: RID): VariantArray<RID> {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callMethod(MethodBindings.mapGetLinksPtr)
+    TransferContext.callPtrMethod(MethodBindings.mapGetLinksPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
@@ -1037,7 +1037,7 @@ public object NavigationServer3D : Object() {
   @JvmStatic
   public final fun mapGetRegions(map: RID): VariantArray<RID> {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callMethod(MethodBindings.mapGetRegionsPtr)
+    TransferContext.callPtrMethod(MethodBindings.mapGetRegionsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
@@ -1048,7 +1048,7 @@ public object NavigationServer3D : Object() {
   @JvmStatic
   public final fun mapGetAgents(map: RID): VariantArray<RID> {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callMethod(MethodBindings.mapGetAgentsPtr)
+    TransferContext.callPtrMethod(MethodBindings.mapGetAgentsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
@@ -1059,7 +1059,7 @@ public object NavigationServer3D : Object() {
   @JvmStatic
   public final fun mapGetObstacles(map: RID): VariantArray<RID> {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callMethod(MethodBindings.mapGetObstaclesPtr)
+    TransferContext.callPtrMethod(MethodBindings.mapGetObstaclesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
@@ -2282,7 +2282,7 @@ public object NavigationServer3D : Object() {
   @JvmStatic
   public final fun obstacleGetVertices(obstacle: RID): PackedVector3Array {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, obstacle)
-    TransferContext.callMethod(MethodBindings.obstacleGetVerticesPtr)
+    TransferContext.callPtrMethod(MethodBindings.obstacleGetVerticesPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -2414,7 +2414,7 @@ public object NavigationServer3D : Object() {
   @JvmStatic
   public final fun simplifyPath(path: PackedVector3Array, epsilon: Float): PackedVector3Array {
     TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY_DOUBLE(ptr, objectID.id, path, epsilon.toDouble())
-    TransferContext.callMethod(MethodBindings.simplifyPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.simplifyPathPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 

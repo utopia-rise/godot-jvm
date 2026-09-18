@@ -276,7 +276,7 @@ public object ProjectSettings : Object() {
   @JvmStatic
   public final fun getGlobalClassList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlobalClassListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlobalClassListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -531,7 +531,7 @@ public object ProjectSettings : Object() {
   @JvmStatic
   public final fun getChangedSettings(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getChangedSettingsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getChangedSettingsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

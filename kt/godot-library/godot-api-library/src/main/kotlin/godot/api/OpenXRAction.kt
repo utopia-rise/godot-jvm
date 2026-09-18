@@ -162,7 +162,7 @@ public open class OpenXRAction : Resource() {
 
   public final fun getToplevelPaths(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getToplevelPathsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getToplevelPathsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

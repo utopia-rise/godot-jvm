@@ -183,7 +183,7 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
    */
   public final fun getTargetNode(index: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getTargetNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

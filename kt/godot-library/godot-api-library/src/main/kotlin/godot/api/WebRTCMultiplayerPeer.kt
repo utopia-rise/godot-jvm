@@ -147,7 +147,7 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
    */
   public final fun getPeer(peerId: Int): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, peerId.toLong())
-    TransferContext.callMethod(MethodBindings.getPeerPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPeerPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -157,7 +157,7 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
    */
   public final fun getPeers(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPeersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPeersPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

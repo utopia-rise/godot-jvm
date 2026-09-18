@@ -446,7 +446,7 @@ public open class SystemFont : Font() {
 
   public final fun getFontNames(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFontNamesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFontNamesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

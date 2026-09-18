@@ -205,7 +205,7 @@ public abstract class Mesh : Resource() {
    */
   public final fun getFaces(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFacesPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -225,7 +225,7 @@ public abstract class Mesh : Resource() {
    */
   public final fun surfaceGetArrays(surfIdx: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, surfIdx.toLong())
-    TransferContext.callMethod(MethodBindings.surfaceGetArraysPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceGetArraysPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -234,7 +234,7 @@ public abstract class Mesh : Resource() {
    */
   public final fun surfaceGetBlendShapeArrays(surfIdx: Int): VariantArray<VariantArray<Any?>> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, surfIdx.toLong())
-    TransferContext.callMethod(MethodBindings.surfaceGetBlendShapeArraysPtr)
+    TransferContext.callPtrMethod(MethodBindings.surfaceGetBlendShapeArraysPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<VariantArray<Any?>>)
   }
 

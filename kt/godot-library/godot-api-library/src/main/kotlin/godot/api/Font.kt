@@ -95,7 +95,7 @@ public open class Font internal constructor() : Resource() {
 
   public final fun getFallbacks(): VariantArray<Font> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFallbacksPtr)
+    TransferContext.callPtrMethod(MethodBindings.getFallbacksPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Font>)
   }
 
@@ -126,7 +126,7 @@ public open class Font internal constructor() : Resource() {
    */
   public final fun getRids(): VariantArray<RID> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRidsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRidsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 
@@ -224,7 +224,7 @@ public open class Font internal constructor() : Resource() {
    */
   public final fun getOtNameStrings(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOtNameStringsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOtNameStringsPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -284,7 +284,7 @@ public open class Font internal constructor() : Resource() {
    */
   public final fun getPaletteColors(index: Long): PackedColorArray {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getPaletteColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPaletteColorsPtr, 37)
     return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 
@@ -304,7 +304,7 @@ public open class Font internal constructor() : Resource() {
    */
   public final fun getOpentypeFeatures(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOpentypeFeaturesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOpentypeFeaturesPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -601,7 +601,7 @@ public open class Font internal constructor() : Resource() {
    */
   public final fun getSupportedFeatureList(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSupportedFeatureListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSupportedFeatureListPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -632,7 +632,7 @@ public open class Font internal constructor() : Resource() {
    */
   public final fun getSupportedVariationList(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSupportedVariationListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSupportedVariationListPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

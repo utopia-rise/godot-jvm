@@ -122,7 +122,7 @@ public open class OpenXRHand : Node3D() {
 
   public final fun getHandSkeleton(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHandSkeletonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHandSkeletonPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

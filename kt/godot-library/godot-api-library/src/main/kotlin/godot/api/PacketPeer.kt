@@ -98,7 +98,7 @@ public open class PacketPeer internal constructor() : RefCounted() {
    */
   public final fun getPacket(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPacketPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 

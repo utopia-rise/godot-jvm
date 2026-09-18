@@ -359,7 +359,7 @@ public open class NavigationPolygon : Resource() {
    */
   public final fun getVertices(): PackedVector2Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVerticesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVerticesPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -385,7 +385,7 @@ public open class NavigationPolygon : Resource() {
    */
   public final fun getPolygon(idx: Int): PackedInt32Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPolygonPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -450,7 +450,7 @@ public open class NavigationPolygon : Resource() {
    */
   public final fun getOutline(idx: Int): PackedVector2Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getOutlinePtr)
+    TransferContext.callPtrMethod(MethodBindings.getOutlinePtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -572,7 +572,7 @@ public open class NavigationPolygon : Resource() {
 
   public final fun getSourceGeometryGroupName(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSourceGeometryGroupNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSourceGeometryGroupNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

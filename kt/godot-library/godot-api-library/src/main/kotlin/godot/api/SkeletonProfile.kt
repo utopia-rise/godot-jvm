@@ -126,7 +126,7 @@ public open class SkeletonProfile : Resource() {
 
   public final fun getRootBone(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.getRootBonePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -137,7 +137,7 @@ public open class SkeletonProfile : Resource() {
 
   public final fun getScaleBaseBone(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScaleBaseBonePtr)
+    TransferContext.callPtrMethod(MethodBindings.getScaleBaseBonePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -158,7 +158,7 @@ public open class SkeletonProfile : Resource() {
    */
   public final fun getGroupName(groupIdx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, groupIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getGroupNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getGroupNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -217,7 +217,7 @@ public open class SkeletonProfile : Resource() {
    */
   public final fun getBoneName(boneIdx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -237,7 +237,7 @@ public open class SkeletonProfile : Resource() {
    */
   public final fun getBoneParent(boneIdx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneParentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneParentPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -275,7 +275,7 @@ public open class SkeletonProfile : Resource() {
    */
   public final fun getBoneTail(boneIdx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneTailPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneTailPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -332,7 +332,7 @@ public open class SkeletonProfile : Resource() {
    */
   public final fun getGroup(boneIdx: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getGroupPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGroupPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

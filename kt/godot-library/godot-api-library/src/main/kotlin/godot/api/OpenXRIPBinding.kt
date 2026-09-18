@@ -189,7 +189,7 @@ public open class OpenXRIPBinding : Resource() {
 
   public final fun getBindingModifiers(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBindingModifiersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBindingModifiersPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -200,7 +200,7 @@ public open class OpenXRIPBinding : Resource() {
 
   public final fun getPaths(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPathsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

@@ -274,7 +274,7 @@ public open class WebSocketMultiplayerPeer : MultiplayerPeer() {
 
   public final fun getSupportedProtocols(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSupportedProtocolsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSupportedProtocolsPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 
@@ -285,7 +285,7 @@ public open class WebSocketMultiplayerPeer : MultiplayerPeer() {
 
   public final fun getHandshakeHeaders(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHandshakeHeadersPtr)
+    TransferContext.callPtrMethod(MethodBindings.getHandshakeHeadersPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

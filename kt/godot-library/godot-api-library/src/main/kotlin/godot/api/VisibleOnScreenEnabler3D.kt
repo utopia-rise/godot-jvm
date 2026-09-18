@@ -90,7 +90,7 @@ public open class VisibleOnScreenEnabler3D : VisibleOnScreenNotifier3D() {
 
   public final fun getEnableNodePath(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableNodePathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnableNodePathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

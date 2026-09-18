@@ -166,7 +166,7 @@ public open class MultiplayerSynchronizer : Node() {
 
   public final fun getRootPath(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getRootPathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

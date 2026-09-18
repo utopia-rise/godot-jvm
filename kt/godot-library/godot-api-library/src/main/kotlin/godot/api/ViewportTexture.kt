@@ -82,7 +82,7 @@ public open class ViewportTexture : Texture2D() {
 
   public final fun getViewportPathInScene(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getViewportPathInScenePtr)
+    TransferContext.callPtrMethod(MethodBindings.getViewportPathInScenePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

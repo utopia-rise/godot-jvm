@@ -148,7 +148,7 @@ public open class VisualShaderNode internal constructor() : Resource() {
    */
   public final fun getDefaultInputValues(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultInputValuesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDefaultInputValuesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

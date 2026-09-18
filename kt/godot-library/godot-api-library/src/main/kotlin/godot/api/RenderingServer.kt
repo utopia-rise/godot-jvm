@@ -3023,7 +3023,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun texture3dGet(texture: RID): VariantArray<Image> {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, texture)
-    TransferContext.callMethod(MethodBindings.texture3dGetPtr)
+    TransferContext.callPtrMethod(MethodBindings.texture3dGetPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Image>)
   }
 
@@ -3216,7 +3216,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun getShaderParameterList(shader: RID): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, shader)
-    TransferContext.callMethod(MethodBindings.getShaderParameterListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getShaderParameterListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -3616,7 +3616,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun meshGetSurface(mesh: RID, surface: Int): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, mesh, surface.toLong())
-    TransferContext.callMethod(MethodBindings.meshGetSurfacePtr)
+    TransferContext.callPtrMethod(MethodBindings.meshGetSurfacePtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -3626,7 +3626,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun meshSurfaceGetArrays(mesh: RID, surface: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, mesh, surface.toLong())
-    TransferContext.callMethod(MethodBindings.meshSurfaceGetArraysPtr)
+    TransferContext.callPtrMethod(MethodBindings.meshSurfaceGetArraysPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -3637,7 +3637,7 @@ public object RenderingServer : Object() {
   public final fun meshSurfaceGetBlendShapeArrays(mesh: RID, surface: Int):
       VariantArray<VariantArray<Any?>> {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, mesh, surface.toLong())
-    TransferContext.callMethod(MethodBindings.meshSurfaceGetBlendShapeArraysPtr)
+    TransferContext.callPtrMethod(MethodBindings.meshSurfaceGetBlendShapeArraysPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<VariantArray<Any?>>)
   }
 
@@ -4120,7 +4120,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun multimeshGetBuffer(multimesh: RID): PackedFloat32Array {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, multimesh)
-    TransferContext.callMethod(MethodBindings.multimeshGetBufferPtr)
+    TransferContext.callPtrMethod(MethodBindings.multimeshGetBufferPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
@@ -4966,7 +4966,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun voxelGiGetOctreeCells(voxelGi: RID): PackedByteArray {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, voxelGi)
-    TransferContext.callMethod(MethodBindings.voxelGiGetOctreeCellsPtr)
+    TransferContext.callPtrMethod(MethodBindings.voxelGiGetOctreeCellsPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -4977,7 +4977,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun voxelGiGetDataCells(voxelGi: RID): PackedByteArray {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, voxelGi)
-    TransferContext.callMethod(MethodBindings.voxelGiGetDataCellsPtr)
+    TransferContext.callPtrMethod(MethodBindings.voxelGiGetDataCellsPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -4988,7 +4988,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun voxelGiGetDistanceField(voxelGi: RID): PackedByteArray {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, voxelGi)
-    TransferContext.callMethod(MethodBindings.voxelGiGetDistanceFieldPtr)
+    TransferContext.callPtrMethod(MethodBindings.voxelGiGetDistanceFieldPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -4999,7 +4999,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun voxelGiGetLevelCounts(voxelGi: RID): PackedInt32Array {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, voxelGi)
-    TransferContext.callMethod(MethodBindings.voxelGiGetLevelCountsPtr)
+    TransferContext.callPtrMethod(MethodBindings.voxelGiGetLevelCountsPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -5177,7 +5177,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun lightmapGetProbeCapturePoints(lightmap: RID): PackedVector3Array {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, lightmap)
-    TransferContext.callMethod(MethodBindings.lightmapGetProbeCapturePointsPtr)
+    TransferContext.callPtrMethod(MethodBindings.lightmapGetProbeCapturePointsPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -5190,7 +5190,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun lightmapGetProbeCaptureSh(lightmap: RID): PackedColorArray {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, lightmap)
-    TransferContext.callMethod(MethodBindings.lightmapGetProbeCaptureShPtr)
+    TransferContext.callPtrMethod(MethodBindings.lightmapGetProbeCaptureShPtr, 37)
     return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 
@@ -5203,7 +5203,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun lightmapGetProbeCaptureTetrahedra(lightmap: RID): PackedInt32Array {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, lightmap)
-    TransferContext.callMethod(MethodBindings.lightmapGetProbeCaptureTetrahedraPtr)
+    TransferContext.callPtrMethod(MethodBindings.lightmapGetProbeCaptureTetrahedraPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -5217,7 +5217,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun lightmapGetProbeCaptureBspTree(lightmap: RID): PackedInt32Array {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, lightmap)
-    TransferContext.callMethod(MethodBindings.lightmapGetProbeCaptureBspTreePtr)
+    TransferContext.callPtrMethod(MethodBindings.lightmapGetProbeCaptureBspTreePtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -7879,7 +7879,7 @@ public object RenderingServer : Object() {
   public final fun instanceGeometryGetShaderParameterList(instance: RID):
       VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, instance)
-    TransferContext.callMethod(MethodBindings.instanceGeometryGetShaderParameterListPtr)
+    TransferContext.callPtrMethod(MethodBindings.instanceGeometryGetShaderParameterListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -7897,7 +7897,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun instancesCullAabb(aabb: AABB, scenario: RID = RID()): PackedInt64Array {
     TransferContext.writeMethodArguments_AABB_RID(ptr, objectID.id, aabb, scenario)
-    TransferContext.callMethod(MethodBindings.instancesCullAabbPtr)
+    TransferContext.callPtrMethod(MethodBindings.instancesCullAabbPtr, 31)
     return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 
@@ -7919,7 +7919,7 @@ public object RenderingServer : Object() {
     scenario: RID = RID(),
   ): PackedInt64Array {
     TransferContext.writeMethodArguments_VECTOR3_VECTOR3_RID(ptr, objectID.id, from, to, scenario)
-    TransferContext.callMethod(MethodBindings.instancesCullRayPtr)
+    TransferContext.callPtrMethod(MethodBindings.instancesCullRayPtr, 31)
     return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 
@@ -7938,7 +7938,7 @@ public object RenderingServer : Object() {
   public final fun instancesCullConvex(convex: VariantArray<Plane>, scenario: RID = RID()):
       PackedInt64Array {
     TransferContext.writeMethodArguments_ARRAY_RID(ptr, objectID.id, convex, scenario)
-    TransferContext.callMethod(MethodBindings.instancesCullConvexPtr)
+    TransferContext.callPtrMethod(MethodBindings.instancesCullConvexPtr, 31)
     return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
   }
 
@@ -7954,7 +7954,7 @@ public object RenderingServer : Object() {
     imageSize: Vector2i,
   ): VariantArray<Image> {
     TransferContext.writeMethodArguments_RID_ARRAY_VECTOR2I(ptr, objectID.id, base, materialOverrides, imageSize)
-    TransferContext.callMethod(MethodBindings.bakeRenderUv2Ptr)
+    TransferContext.callPtrMethod(MethodBindings.bakeRenderUv2Ptr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Image>)
   }
 
@@ -8774,7 +8774,7 @@ public object RenderingServer : Object() {
   public final fun canvasItemGetInstanceShaderParameterList(instance: RID):
       VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments_RID(ptr, objectID.id, instance)
-    TransferContext.callMethod(MethodBindings.canvasItemGetInstanceShaderParameterListPtr)
+    TransferContext.callPtrMethod(MethodBindings.canvasItemGetInstanceShaderParameterListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -9256,7 +9256,7 @@ public object RenderingServer : Object() {
   @JvmStatic
   public final fun globalShaderParameterGetList(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.globalShaderParameterGetListPtr)
+    TransferContext.callPtrMethod(MethodBindings.globalShaderParameterGetListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 

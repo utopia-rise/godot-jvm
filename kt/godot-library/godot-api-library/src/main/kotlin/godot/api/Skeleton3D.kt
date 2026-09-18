@@ -232,7 +232,7 @@ public open class Skeleton3D : Node3D() {
    */
   public final fun getBoneMetaList(boneIdx: Int): VariantArray<StringName> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneMetaListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneMetaListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
@@ -264,7 +264,7 @@ public open class Skeleton3D : Node3D() {
    */
   public final fun getConcatenatedBoneNames(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConcatenatedBoneNamesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getConcatenatedBoneNamesPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -329,7 +329,7 @@ public open class Skeleton3D : Node3D() {
    */
   public final fun getBoneChildren(boneIdx: Int): PackedInt32Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneChildrenPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBoneChildrenPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -340,7 +340,7 @@ public open class Skeleton3D : Node3D() {
    */
   public final fun getParentlessBones(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getParentlessBonesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getParentlessBonesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

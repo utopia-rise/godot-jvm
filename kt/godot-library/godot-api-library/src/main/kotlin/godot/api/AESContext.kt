@@ -134,7 +134,7 @@ public open class AESContext : RefCounted() {
    */
   public final fun update(src: PackedByteArray): PackedByteArray {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, src)
-    TransferContext.callMethod(MethodBindings.updatePtr)
+    TransferContext.callPtrMethod(MethodBindings.updatePtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -147,7 +147,7 @@ public open class AESContext : RefCounted() {
    */
   public final fun getIvState(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIvStatePtr)
+    TransferContext.callPtrMethod(MethodBindings.getIvStatePtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 

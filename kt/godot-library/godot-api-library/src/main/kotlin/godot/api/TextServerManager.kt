@@ -133,7 +133,7 @@ public object TextServerManager : Object() {
   @JvmStatic
   public final fun getInterfaces(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInterfacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInterfacesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 

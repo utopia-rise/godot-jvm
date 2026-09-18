@@ -125,7 +125,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun getInstanceBaseType(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInstanceBaseTypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getInstanceBaseTypePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -154,7 +154,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun getGlobalName(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlobalNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getGlobalNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -184,7 +184,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun getScriptPropertyList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScriptPropertyListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getScriptPropertyListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -196,7 +196,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun getScriptMethodList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScriptMethodListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getScriptMethodListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -208,7 +208,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun getScriptSignalList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScriptSignalListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getScriptSignalListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
   }
 
@@ -217,7 +217,7 @@ public open class Script internal constructor() : Resource() {
    */
   public final fun getScriptConstantMap(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScriptConstantMapPtr)
+    TransferContext.callPtrMethod(MethodBindings.getScriptConstantMapPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

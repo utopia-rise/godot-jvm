@@ -100,7 +100,7 @@ public open class SpriteFrames : Resource() {
    */
   public final fun getAnimationNames(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationNamesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnimationNamesPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

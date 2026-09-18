@@ -345,7 +345,7 @@ public open class OpenXRInterface : XRInterface() {
    */
   public final fun getActionSets(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionSetsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionSetsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -355,7 +355,7 @@ public open class OpenXRInterface : XRInterface() {
    */
   public final fun getAvailableDisplayRefreshRates(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAvailableDisplayRefreshRatesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAvailableDisplayRefreshRatesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

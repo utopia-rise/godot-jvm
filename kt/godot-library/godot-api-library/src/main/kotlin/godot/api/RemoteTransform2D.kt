@@ -102,7 +102,7 @@ public open class RemoteTransform2D : Node2D() {
 
   public final fun getRemoteNode(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRemoteNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getRemoteNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

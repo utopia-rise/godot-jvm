@@ -528,7 +528,7 @@ public open class WebXRInterface internal constructor() : XRInterface() {
    */
   public final fun getAvailableDisplayRefreshRates(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAvailableDisplayRefreshRatesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAvailableDisplayRefreshRatesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

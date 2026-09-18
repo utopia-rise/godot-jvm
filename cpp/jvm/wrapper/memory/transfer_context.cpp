@@ -70,7 +70,7 @@ static void read_ptr_args(SharedBuffer* p_buffer, uint32_t p_count, const void**
 }
 
 // The inline value the engine wrote into caller storage, behind its tag.
-static void write_ptr_return(SharedBuffer* p_buffer, godot::Variant::Type p_type, const PtrInlineValue& p_value) {
+static void write_ptr_return(SharedBuffer* p_buffer, godot::Variant::Type p_type, PtrInlineValue& p_value) {
     static constexpr auto writers = make_ptr_return_writers(VariantTypes());
     write_type(p_buffer, p_type);
     writers[p_type](p_buffer, p_value);
@@ -235,16 +235,18 @@ void TransferContext::icall_ptr(JNIEnv* rawEnv, jobject, jlong j_method_ptr, jin
         return;
     }
 
+    // A pointer-backed or Ref<T> result is assigned over the slot, releasing what it held, so the slot starts as the
+    // empty value: a null pointer in the first word, padding after it in the widest such type.
+    // An inline result only overwrites, so the rest of the slot is left alone.
     PtrInlineValue ret;
+    memset(ret.bytes, 0, PTR_RETURN_NULL_BYTES);
 
     if (p_return_type == REF_COUNTED_RETURN_TYPE) {
         // VARIANT_MAX (39) is not a Variant type: the generator sends it in place of OBJECT when the engine method's
         // declared return class is a RefCounted, meaning the engine encodes a Ref<T> into the slot rather than a
-        // plain pointer. Only the declared type tells the two apart, since both leave the same eight bytes in the
-        // slot, and the engine offers no way to query a method bind's return type at call time.
-        // The Ref is assigned over the slot, releasing whatever it pointed to, so the slot must start null.
+        // plain pointer.
+        // The Ref is assigned over the slot, releasing whatever it pointed to, hence the nulled slot.
         godot::GodotObject** slot = reinterpret_cast<godot::GodotObject**>(ret.bytes);
-        *slot = nullptr;
         receiver.ptrcall_method_bind(method_bind, args, ret.bytes);
         buffer->rewind();
         write_ptr_return(buffer, godot::Variant::OBJECT, ret);

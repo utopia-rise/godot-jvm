@@ -120,7 +120,7 @@ public open class Crypto : RefCounted() {
    */
   public final fun generateRandomBytes(size: Int): PackedByteArray {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callMethod(MethodBindings.generateRandomBytesPtr)
+    TransferContext.callPtrMethod(MethodBindings.generateRandomBytesPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -183,7 +183,7 @@ public open class Crypto : RefCounted() {
     key: CryptoKey?,
   ): PackedByteArray {
     TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_OBJECT(ptr, objectID.id, hashType.value, hash, key)
-    TransferContext.callMethod(MethodBindings.signPtr)
+    TransferContext.callPtrMethod(MethodBindings.signPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -209,7 +209,7 @@ public open class Crypto : RefCounted() {
    */
   public final fun encrypt(key: CryptoKey?, plaintext: PackedByteArray): PackedByteArray {
     TransferContext.writeMethodArguments_OBJECT_PACKED_BYTE_ARRAY(ptr, objectID.id, key, plaintext)
-    TransferContext.callMethod(MethodBindings.encryptPtr)
+    TransferContext.callPtrMethod(MethodBindings.encryptPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -220,7 +220,7 @@ public open class Crypto : RefCounted() {
    */
   public final fun decrypt(key: CryptoKey?, ciphertext: PackedByteArray): PackedByteArray {
     TransferContext.writeMethodArguments_OBJECT_PACKED_BYTE_ARRAY(ptr, objectID.id, key, ciphertext)
-    TransferContext.callMethod(MethodBindings.decryptPtr)
+    TransferContext.callPtrMethod(MethodBindings.decryptPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -236,7 +236,7 @@ public open class Crypto : RefCounted() {
     msg: PackedByteArray,
   ): PackedByteArray {
     TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY(ptr, objectID.id, hashType.value, key, msg)
-    TransferContext.callMethod(MethodBindings.hmacDigestPtr)
+    TransferContext.callPtrMethod(MethodBindings.hmacDigestPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 

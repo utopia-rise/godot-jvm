@@ -165,7 +165,7 @@ public object Time : Object() {
   @JvmStatic
   public final fun getDatetimeDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
-    TransferContext.callMethod(MethodBindings.getDatetimeDictFromUnixTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDatetimeDictFromUnixTimePtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -176,7 +176,7 @@ public object Time : Object() {
   @JvmStatic
   public final fun getDateDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
-    TransferContext.callMethod(MethodBindings.getDateDictFromUnixTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.getDateDictFromUnixTimePtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -186,7 +186,7 @@ public object Time : Object() {
   @JvmStatic
   public final fun getTimeDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
-    TransferContext.callMethod(MethodBindings.getTimeDictFromUnixTimePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTimeDictFromUnixTimePtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -320,7 +320,7 @@ public object Time : Object() {
   @JvmStatic
   public final fun getDatetimeDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
-    TransferContext.callMethod(MethodBindings.getDatetimeDictFromSystemPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDatetimeDictFromSystemPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -334,7 +334,7 @@ public object Time : Object() {
   @JvmStatic
   public final fun getDateDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
-    TransferContext.callMethod(MethodBindings.getDateDictFromSystemPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDateDictFromSystemPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -348,7 +348,7 @@ public object Time : Object() {
   @JvmStatic
   public final fun getTimeDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
-    TransferContext.callMethod(MethodBindings.getTimeDictFromSystemPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTimeDictFromSystemPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -410,7 +410,7 @@ public object Time : Object() {
   @JvmStatic
   public final fun getTimeZoneFromSystem(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTimeZoneFromSystemPtr)
+    TransferContext.callPtrMethod(MethodBindings.getTimeZoneFromSystemPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

@@ -80,7 +80,7 @@ public open class SplineIK3D : ChainIK3D() {
    */
   public final fun getPath3d(index: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getPath3dPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPath3dPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

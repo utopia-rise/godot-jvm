@@ -140,7 +140,7 @@ public open class StreamPeerBuffer : StreamPeer() {
 
   public final fun getDataArray(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDataArrayPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDataArrayPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 

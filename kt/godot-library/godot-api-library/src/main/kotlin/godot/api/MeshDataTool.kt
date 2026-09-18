@@ -297,7 +297,7 @@ public open class MeshDataTool : RefCounted() {
    */
   public final fun getVertexBones(idx: Int): PackedInt32Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getVertexBonesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVertexBonesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -314,7 +314,7 @@ public open class MeshDataTool : RefCounted() {
    */
   public final fun getVertexWeights(idx: Int): PackedFloat32Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getVertexWeightsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVertexWeightsPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
@@ -340,7 +340,7 @@ public open class MeshDataTool : RefCounted() {
    */
   public final fun getVertexEdges(idx: Int): PackedInt32Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getVertexEdgesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVertexEdgesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -349,7 +349,7 @@ public open class MeshDataTool : RefCounted() {
    */
   public final fun getVertexFaces(idx: Int): PackedInt32Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getVertexFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVertexFacesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 
@@ -369,7 +369,7 @@ public open class MeshDataTool : RefCounted() {
    */
   public final fun getEdgeFaces(idx: Int): PackedInt32Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getEdgeFacesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEdgeFacesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

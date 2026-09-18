@@ -932,7 +932,7 @@ public open class Node : Object() {
 
   public final fun getName(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -1046,7 +1046,7 @@ public open class Node : Object() {
   @JvmOverloads
   public final fun getChildren(includeInternal: Boolean = false): VariantArray<Node> {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, includeInternal)
-    TransferContext.callMethod(MethodBindings.getChildrenPtr)
+    TransferContext.callPtrMethod(MethodBindings.getChildrenPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Node>)
   }
 
@@ -1316,7 +1316,7 @@ public open class Node : Object() {
    */
   public final fun getNodeAndResource(path: NodePath): VariantArray<Any?> {
     TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.getNodeAndResourcePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNodeAndResourcePtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -1363,7 +1363,7 @@ public open class Node : Object() {
    */
   public final fun getPath(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -1381,7 +1381,7 @@ public open class Node : Object() {
   @JvmOverloads
   public final fun getPathTo(node: Node, useUniquePath: Boolean = false): NodePath {
     TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, node, useUniquePath)
-    TransferContext.callMethod(MethodBindings.getPathToPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPathToPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -1470,7 +1470,7 @@ public open class Node : Object() {
    */
   public final fun getGroups(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGroupsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getGroupsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 
@@ -3884,7 +3884,7 @@ public open class Node : Object() {
     @JvmStatic
     public final fun getOrphanNodeIds(): VariantArray<Long> {
       TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callMethod(MethodBindings.getOrphanNodeIdsPtr)
+      TransferContext.callPtrMethod(MethodBindings.getOrphanNodeIdsPtr, 28)
       return (TransferContext.readReturnValue_ARRAY() as VariantArray<Long>)
     }
   }

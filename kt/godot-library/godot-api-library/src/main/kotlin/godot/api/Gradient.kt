@@ -247,7 +247,7 @@ public open class Gradient : Resource() {
 
   public final fun getOffsets(): PackedFloat32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOffsetsPtr, 32)
     return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
   }
 
@@ -258,7 +258,7 @@ public open class Gradient : Resource() {
 
   public final fun getColors(): PackedColorArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getColorsPtr, 37)
     return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 

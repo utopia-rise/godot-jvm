@@ -546,7 +546,7 @@ public open class NavigationMesh : Resource() {
 
   public final fun getSourceGroupName(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSourceGroupNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getSourceGroupNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
@@ -772,7 +772,7 @@ public open class NavigationMesh : Resource() {
    */
   public final fun getVertices(): PackedVector3Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVerticesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVerticesPtr, 36)
     return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
   }
 
@@ -798,7 +798,7 @@ public open class NavigationMesh : Resource() {
    */
   public final fun getPolygon(idx: Int): PackedInt32Array {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getPolygonPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPolygonPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

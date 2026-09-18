@@ -595,7 +595,7 @@ public open class GridMap : Node3D() {
    */
   public final fun getUsedCells(): VariantArray<Vector3i> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUsedCellsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUsedCellsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
@@ -604,7 +604,7 @@ public open class GridMap : Node3D() {
    */
   public final fun getUsedCellsByItem(item: Int): VariantArray<Vector3i> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, item.toLong())
-    TransferContext.callMethod(MethodBindings.getUsedCellsByItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUsedCellsByItemPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
@@ -614,7 +614,7 @@ public open class GridMap : Node3D() {
    */
   public final fun getUsedOctants(): VariantArray<Vector3i> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUsedOctantsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUsedOctantsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
@@ -624,7 +624,7 @@ public open class GridMap : Node3D() {
    */
   public final fun getUsedOctantsByItem(item: Int): VariantArray<Vector3i> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, item.toLong())
-    TransferContext.callMethod(MethodBindings.getUsedOctantsByItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUsedOctantsByItemPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
@@ -634,7 +634,7 @@ public open class GridMap : Node3D() {
    */
   public final fun getUsedCellsInOctant(octantCoords: Vector3i): VariantArray<Vector3i> {
     TransferContext.writeMethodArguments_VECTOR3I(ptr, objectID.id, octantCoords)
-    TransferContext.callMethod(MethodBindings.getUsedCellsInOctantPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUsedCellsInOctantPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
@@ -645,7 +645,7 @@ public open class GridMap : Node3D() {
   public final fun getUsedCellsInOctantByItem(octantCoords: Vector3i, item: Int):
       VariantArray<Vector3i> {
     TransferContext.writeMethodArguments_VECTOR3I_LONG(ptr, objectID.id, octantCoords, item.toLong())
-    TransferContext.callMethod(MethodBindings.getUsedCellsInOctantByItemPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUsedCellsInOctantByItemPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
@@ -655,7 +655,7 @@ public open class GridMap : Node3D() {
    */
   public final fun getOctantsInBounds(bounds: AABB): VariantArray<Vector3i> {
     TransferContext.writeMethodArguments_AABB(ptr, objectID.id, bounds)
-    TransferContext.callMethod(MethodBindings.getOctantsInBoundsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOctantsInBoundsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
@@ -665,7 +665,7 @@ public open class GridMap : Node3D() {
    */
   public final fun getUsedOctantsInBounds(bounds: AABB): VariantArray<Vector3i> {
     TransferContext.writeMethodArguments_AABB(ptr, objectID.id, bounds)
-    TransferContext.callMethod(MethodBindings.getUsedOctantsInBoundsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getUsedOctantsInBoundsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector3i>)
   }
 
@@ -686,7 +686,7 @@ public open class GridMap : Node3D() {
    */
   public final fun getMeshes(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getMeshesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -701,7 +701,7 @@ public open class GridMap : Node3D() {
    */
   public final fun getBakeMeshes(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakeMeshesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBakeMeshesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

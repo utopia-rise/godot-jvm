@@ -50,7 +50,7 @@ public open class OpenXRSpatialComponentMesh2DList : OpenXRSpatialComponentData(
    */
   public final fun getVertices(snapshot: RID, index: Long): PackedVector2Array {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, snapshot, index)
-    TransferContext.callMethod(MethodBindings.getVerticesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getVerticesPtr, 35)
     return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
   }
 
@@ -59,7 +59,7 @@ public open class OpenXRSpatialComponentMesh2DList : OpenXRSpatialComponentData(
    */
   public final fun getIndices(snapshot: RID, index: Long): PackedInt32Array {
     TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, snapshot, index)
-    TransferContext.callMethod(MethodBindings.getIndicesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIndicesPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

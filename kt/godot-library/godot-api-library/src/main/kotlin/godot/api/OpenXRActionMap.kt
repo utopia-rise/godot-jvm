@@ -76,7 +76,7 @@ public open class OpenXRActionMap : Resource() {
 
   public final fun getActionSets(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionSetsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getActionSetsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -130,7 +130,7 @@ public open class OpenXRActionMap : Resource() {
 
   public final fun getInteractionProfiles(): VariantArray<Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInteractionProfilesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getInteractionProfilesPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

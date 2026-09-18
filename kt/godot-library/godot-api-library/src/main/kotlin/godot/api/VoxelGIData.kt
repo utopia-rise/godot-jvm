@@ -207,7 +207,7 @@ public open class VoxelGIData : Resource() {
    */
   public final fun getOctreeCells(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOctreeCellsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getOctreeCellsPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -216,7 +216,7 @@ public open class VoxelGIData : Resource() {
    */
   public final fun getDataCells(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDataCellsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDataCellsPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 
@@ -225,7 +225,7 @@ public open class VoxelGIData : Resource() {
    */
   public final fun getLevelCounts(): PackedInt32Array {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLevelCountsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getLevelCountsPtr, 30)
     return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
   }
 

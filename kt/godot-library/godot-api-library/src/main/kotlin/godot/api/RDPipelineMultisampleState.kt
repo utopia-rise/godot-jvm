@@ -181,7 +181,7 @@ public open class RDPipelineMultisampleState : RefCounted() {
 
   public final fun getSampleMasks(): VariantArray<Long> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSampleMasksPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSampleMasksPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Long>)
   }
 

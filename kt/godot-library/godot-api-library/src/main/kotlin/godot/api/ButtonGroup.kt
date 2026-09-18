@@ -69,7 +69,7 @@ public open class ButtonGroup : Resource() {
    */
   public final fun getButtons(): VariantArray<BaseButton> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getButtonsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getButtonsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<BaseButton>)
   }
 

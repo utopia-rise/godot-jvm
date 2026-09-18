@@ -357,7 +357,7 @@ public open class GLTFPhysicsBody : Resource() {
    */
   public final fun toDictionary(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.toDictionaryPtr)
+    TransferContext.callPtrMethod(MethodBindings.toDictionaryPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

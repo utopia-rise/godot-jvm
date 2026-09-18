@@ -25,6 +25,10 @@ struct PtrInlineValue {
     alignas(8) uint8_t bytes[sizeof(godot::Projection)];
 };
 
+// How much of a return slot must be null before the engine assigns a pointer-backed result over it: the size of the
+// widest such type, whose data pointer is its first word.
+constexpr size_t PTR_RETURN_NULL_BYTES = 2 * sizeof(void*);
+
 template<class T>
 static T* read_pointer(SharedBuffer* p_buffer) {
     return reinterpret_cast<T*>(static_cast<uintptr_t>(p_buffer->read<uint64_t>()));
@@ -57,12 +61,12 @@ struct CustomWire {
         return nullptr;
     }
 
-    static void ptr_write(SharedBuffer*, const PtrInlineValue&) {
+    static void ptr_write(SharedBuffer*, PtrInlineValue&) {
         JVM_DEV_ASSERT(false, "A type with a custom wire format cannot be returned from a ptrcall.");
     }
 };
 
-// A value stored inline with the engine's own layout: bool, numbers, math types, RID, and the raw object pointer.
+// A value stored inline with the engine's own layout: bool, numbers, math types and RID.
 // The engine reads and writes exactly these bytes, so a ptrcall copies them as they are.
 template<class T>
 struct InlineWire {
@@ -75,13 +79,14 @@ struct InlineWire {
         return r_storage->bytes;
     }
 
-    static void ptr_write(SharedBuffer* p_buffer, const PtrInlineValue& p_value) {
+    static void ptr_write(SharedBuffer* p_buffer, PtrInlineValue& p_value) {
         p_buffer->write_bytes(p_value.bytes, sizeof(T));
     }
 };
 
 // A native core type the JVM owns a native instance of: sent as a pointer, received as a fresh allocation. A ptrcall
-// argument is that pointer itself; the generator keeps returns of these types on the checked call.
+// argument is that pointer itself; a ptrcall return is the T the engine assigned into the slot, copied out into the
+// JVM's allocation like a checked return, after which the slot's own reference is released.
 template<class T>
 struct PointerWire {
     static godot::Variant read(SharedBuffer* p_buffer) { return *read_pointer<T>(p_buffer); }
@@ -92,8 +97,12 @@ struct PointerWire {
 
     static const void* ptr_read(SharedBuffer* p_buffer, PtrInlineValue*) { return read_pointer<T>(p_buffer); }
 
-    static void ptr_write(SharedBuffer*, const PtrInlineValue&) {
-        JVM_DEV_ASSERT(false, "A pointer-backed type cannot be returned from a ptrcall.");
+    static void ptr_write(SharedBuffer* p_buffer, PtrInlineValue& p_value) {
+        // The engine assigned over a nulled slot, the empty value of a type that is a data pointer plus padding.
+        static_assert(sizeof(T) <= PTR_RETURN_NULL_BYTES, "A pointer-backed return exceeds the nulled slot prefix.");
+        T& value = *reinterpret_cast<T*>(p_value.bytes);
+        write_pointer(p_buffer, value);
+        value.~T();
     }
 };
 
@@ -200,29 +209,35 @@ struct Wire<godot::Variant::NODE_PATH> : PointerWire<godot::NodePath> {};
 template<>
 struct Wire<godot::Variant::RID> : InlineWire<godot::RID> {};
 
-// An object crosses as its raw pointer in both directions: the JVM sends one, a ptrcall wants a pointer to it, and
-// a ptrcall returns one. Towards the JVM the pointer is expanded into the full record of write_object_payload.
+// An object crosses as a pointer, but unlike the other pointer rows the pointer is the value, not the address of a
+// JVM-owned copy: nothing is dereferenced or allocated, a ptrcall wants the address of a slot holding the pointer
+// and returns one. PointerWire is used for readability but require all 4 methods to be overridden.
 template<>
-struct Wire<godot::Variant::OBJECT> : InlineWire<godot::GodotObject*> {
-    static godot::Variant read(SharedBuffer* p_buffer) {
-        return raw_godot::RawObject(read_pointer<godot::GodotObject>(p_buffer)).to_variant();
-    }
+struct Wire<godot::Variant::OBJECT> : PointerWire<godot::GodotObject> {
+    static godot::Variant read(SharedBuffer* p_buffer) { return p_buffer->read<raw_godot::RawObject>().to_variant(); }
 
     static void write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
         write_object_payload(p_buffer, raw_godot::RawObject::from_variant(p_variant));
     }
 
-    static void ptr_write(SharedBuffer* p_buffer, const PtrInlineValue& p_value) {
-        write_object_payload(p_buffer, *reinterpret_cast<godot::GodotObject* const*>(p_value.bytes));
+    static const void* ptr_read(SharedBuffer* p_buffer, PtrInlineValue* r_storage) {
+        *reinterpret_cast<raw_godot::RawObject*>(r_storage->bytes) = p_buffer->read<raw_godot::RawObject>();
+        return r_storage->bytes;
+    }
+
+    static void ptr_write(SharedBuffer* p_buffer, PtrInlineValue& p_value) {
+        write_object_payload(p_buffer, *reinterpret_cast<const raw_godot::RawObject*>(p_value.bytes));
     }
 };
 
-// A Callable's native instance is created on the fly by the JVM: fine to read as a Variant, not stable enough for a
-// ptrcall.
+// A Callable crosses as a pointer to a native instance the JVM creates on the fly: fine to copy out as a Variant, not
+// stable enough for a ptrcall.
 template<>
-struct Wire<godot::Variant::CALLABLE> : PointerWire<godot::Callable> {
-    static const void* ptr_read(SharedBuffer* p_buffer, PtrInlineValue* r_storage) {
-        return CustomWire::ptr_read(p_buffer, r_storage);
+struct Wire<godot::Variant::CALLABLE> : CustomWire {
+    static godot::Variant read(SharedBuffer* p_buffer) { return *read_pointer<godot::Callable>(p_buffer); }
+
+    static void write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
+        write_pointer(p_buffer, static_cast<godot::Callable>(p_variant));
     }
 };
 

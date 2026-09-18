@@ -116,7 +116,7 @@ public open class AnimationLibrary : Resource() {
    */
   public final fun getAnimationList(): VariantArray<StringName> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getAnimationListPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
   }
 

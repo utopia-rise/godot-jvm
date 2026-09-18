@@ -80,7 +80,7 @@ public open class SkeletonModification2DPhysicalBones : SkeletonModification2D()
    */
   public final fun getPhysicalBoneNode(jointIdx: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, jointIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getPhysicalBoneNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPhysicalBoneNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

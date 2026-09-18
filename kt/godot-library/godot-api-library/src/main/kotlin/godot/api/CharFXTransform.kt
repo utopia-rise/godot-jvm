@@ -426,7 +426,7 @@ public open class CharFXTransform : RefCounted() {
 
   public final fun getEnvironment(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnvironmentPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnvironmentPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

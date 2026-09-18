@@ -105,7 +105,7 @@ public open class HMACContext : RefCounted() {
    */
   public final fun finish(): PackedByteArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.finishPtr)
+    TransferContext.callPtrMethod(MethodBindings.finishPtr, 29)
     return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
   }
 

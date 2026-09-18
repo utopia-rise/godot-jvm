@@ -206,7 +206,7 @@ public open class ArrayMesh : Mesh() {
    */
   public final fun getBlendShapeName(index: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getBlendShapeNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBlendShapeNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

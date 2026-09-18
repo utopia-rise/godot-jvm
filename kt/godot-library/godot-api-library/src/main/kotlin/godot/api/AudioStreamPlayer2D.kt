@@ -322,7 +322,7 @@ public open class AudioStreamPlayer2D : Node2D() {
 
   public final fun getBus(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBusPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBusPtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

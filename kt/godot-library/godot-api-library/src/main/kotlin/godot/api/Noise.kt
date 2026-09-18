@@ -158,7 +158,7 @@ public open class Noise internal constructor() : Resource() {
     normalize: Boolean = true,
   ): VariantArray<Image> {
     TransferContext.writeMethodArguments_LONG_LONG_LONG_BOOL_BOOL(ptr, objectID.id, width.toLong(), height.toLong(), depth.toLong(), invert, normalize)
-    TransferContext.callMethod(MethodBindings.getImage3dPtr)
+    TransferContext.callPtrMethod(MethodBindings.getImage3dPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Image>)
   }
 
@@ -179,7 +179,7 @@ public open class Noise internal constructor() : Resource() {
     normalize: Boolean = true,
   ): VariantArray<Image> {
     TransferContext.writeMethodArguments_LONG_LONG_LONG_BOOL_DOUBLE_BOOL(ptr, objectID.id, width.toLong(), height.toLong(), depth.toLong(), invert, skirt.toDouble(), normalize)
-    TransferContext.callMethod(MethodBindings.getSeamlessImage3dPtr)
+    TransferContext.callPtrMethod(MethodBindings.getSeamlessImage3dPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Image>)
   }
 

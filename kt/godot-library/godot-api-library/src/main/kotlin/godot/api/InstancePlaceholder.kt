@@ -57,7 +57,7 @@ public open class InstancePlaceholder internal constructor() : Node() {
   @JvmOverloads
   public final fun getStoredValues(withOrder: Boolean = false): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, withOrder)
-    TransferContext.callMethod(MethodBindings.getStoredValuesPtr)
+    TransferContext.callPtrMethod(MethodBindings.getStoredValuesPtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 

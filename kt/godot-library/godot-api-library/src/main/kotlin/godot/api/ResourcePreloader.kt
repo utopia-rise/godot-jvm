@@ -92,7 +92,7 @@ public open class ResourcePreloader : Node() {
    */
   public final fun getResourceList(): PackedStringArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResourceListPtr)
+    TransferContext.callPtrMethod(MethodBindings.getResourceListPtr, 34)
     return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
   }
 

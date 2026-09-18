@@ -100,7 +100,7 @@ public open class RDUniform : RefCounted() {
    */
   public final fun getIds(): VariantArray<RID> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIdsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getIdsPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
   }
 

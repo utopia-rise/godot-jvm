@@ -294,7 +294,7 @@ public open class FontVariation : Font() {
 
   public final fun getVariationOpentype(): Dictionary<Any?, Any?> {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVariationOpentypePtr)
+    TransferContext.callPtrMethod(MethodBindings.getVariationOpentypePtr, 27)
     return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
   }
 
@@ -368,7 +368,7 @@ public open class FontVariation : Font() {
 
   public final fun getPaletteCustomColors(): PackedColorArray {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPaletteCustomColorsPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPaletteCustomColorsPtr, 37)
     return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
   }
 

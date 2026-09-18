@@ -84,7 +84,7 @@ public open class StreamPeer internal constructor() : RefCounted() {
    */
   public final fun putPartialData(`data`: PackedByteArray): VariantArray<Any?> {
     TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, data)
-    TransferContext.callMethod(MethodBindings.putPartialDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.putPartialDataPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -95,7 +95,7 @@ public open class StreamPeer internal constructor() : RefCounted() {
    */
   public final fun getData(bytes: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bytes.toLong())
-    TransferContext.callMethod(MethodBindings.getDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getDataPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 
@@ -106,7 +106,7 @@ public open class StreamPeer internal constructor() : RefCounted() {
    */
   public final fun getPartialData(bytes: Int): VariantArray<Any?> {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bytes.toLong())
-    TransferContext.callMethod(MethodBindings.getPartialDataPtr)
+    TransferContext.callPtrMethod(MethodBindings.getPartialDataPtr, 28)
     return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
   }
 

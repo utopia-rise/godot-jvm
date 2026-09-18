@@ -98,7 +98,7 @@ public open class XRTracker internal constructor() : RefCounted() {
 
   public final fun getTrackerName(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackerNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTrackerNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

@@ -89,7 +89,7 @@ public open class VisibleOnScreenEnabler2D : VisibleOnScreenNotifier2D() {
 
   public final fun getEnableNodePath(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableNodePathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getEnableNodePathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

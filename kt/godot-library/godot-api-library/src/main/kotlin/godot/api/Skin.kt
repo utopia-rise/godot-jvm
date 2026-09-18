@@ -76,7 +76,7 @@ public open class Skin : Resource() {
 
   public final fun getBindName(bindIndex: Int): StringName {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bindIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getBindNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getBindNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 

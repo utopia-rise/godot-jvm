@@ -160,7 +160,7 @@ public open class PhysicalBone2D : RigidBody2D() {
 
   public final fun getBone2dNodepath(): NodePath {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBone2dNodepathPtr)
+    TransferContext.callPtrMethod(MethodBindings.getBone2dNodepathPtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

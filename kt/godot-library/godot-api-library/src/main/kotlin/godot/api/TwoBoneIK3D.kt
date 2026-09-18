@@ -79,7 +79,7 @@ public open class TwoBoneIK3D : IKModifier3D() {
    */
   public final fun getTargetNode(index: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getTargetNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 
@@ -98,7 +98,7 @@ public open class TwoBoneIK3D : IKModifier3D() {
    */
   public final fun getPoleNode(index: Int): NodePath {
     TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getPoleNodePtr)
+    TransferContext.callPtrMethod(MethodBindings.getPoleNodePtr, 22)
     return TransferContext.readReturnValue_NODE_PATH()
   }
 

@@ -230,7 +230,7 @@ public open class XRPose : RefCounted() {
 
   public final fun getName(): StringName {
     TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNamePtr)
+    TransferContext.callPtrMethod(MethodBindings.getNamePtr, 21)
     return TransferContext.readReturnValue_STRING_NAME()
   }
 
