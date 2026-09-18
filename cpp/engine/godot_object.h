@@ -7,6 +7,7 @@
 #include <core/builtin_ptrcall.hpp>
 #include <core/engine_ptrcall.hpp>
 #include <core/error_macros.hpp>
+#include <core/type_info.hpp>
 #include <godot.hpp>
 #include <variant/callable.hpp>
 #include <variant/signal.hpp>
@@ -350,5 +351,11 @@ namespace raw_godot {
     static_assert(sizeof(RawObject) == sizeof(GodotObject*), "RawObject must stay pointer-sized.");
     static_assert(std::is_trivially_copyable_v<RawObject>, "RawObject must stay trivially copyable.");
 } // namespace raw_godot
+
+// A RawObject is an engine object pointer, so it is what a Variant of type OBJECT holds. Declaring it to godot-cpp
+// lets the shared-buffer layer resolve its wire row from the type alone, as it does for every other Variant type.
+namespace godot {
+    MAKE_TYPE_INFO(raw_godot::RawObject, GDEXTENSION_VARIANT_TYPE_OBJECT)
+} // namespace godot
 
 #endif // GODOT_JVM_GODOT_OBJECT_H

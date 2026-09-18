@@ -21,15 +21,15 @@ uintptr_t PackedVector2ArrayBridge::engine_convert_to_godot(JNIEnv* p_raw_env, j
     return reinterpret_cast<uintptr_t>(vector_packed);
 }
 
-jfloatArray PackedVector2ArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
+jfloatArray PackedVector2ArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, jobject, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::PackedVector2Array* vector_packed = from_uint_to_ptr<godot::PackedVector2Array>(p_raw_ptr);
+    godot::PackedVector2Array& vector_packed = native<godot::PackedVector2Array>(p_handle);
 
-    uint64_t vector_size = vector_packed->size();
+    uint64_t vector_size = vector_packed.size();
     jint float_size = vector_size * 2;
 
     jni::JFloatArray arr(env, float_size);
-    const godot::Vector2* ptr = vector_packed->ptr();
+    const godot::Vector2* ptr = vector_packed.ptr();
     arr.set_array_elements(env, reinterpret_cast<const jfloat*>(ptr), float_size);
 
     return reinterpret_cast<jfloatArray>(arr.get_wrapped());

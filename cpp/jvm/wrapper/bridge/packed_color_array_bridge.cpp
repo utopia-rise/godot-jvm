@@ -21,15 +21,15 @@ uintptr_t PackedColorArrayBridge::engine_convert_to_godot(JNIEnv* p_raw_env, job
     return reinterpret_cast<uintptr_t>(color_packed);
 }
 
-jfloatArray PackedColorArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+jfloatArray PackedColorArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::PackedColorArray* color_packed = from_uint_to_ptr<godot::PackedColorArray>(p_raw_ptr);
+    godot::PackedColorArray& color_packed = native<godot::PackedColorArray>(p_handle);
 
-    uint64_t color_size = color_packed->size();
+    uint64_t color_size = color_packed.size();
     jint float_size = color_size * 4;
 
     jni::JFloatArray arr(env, float_size);
-    const godot::Color* ptr = color_packed->ptr();
+    const godot::Color* ptr = color_packed.ptr();
     arr.set_array_elements(env, reinterpret_cast<const jfloat*>(ptr), float_size);
 
     return reinterpret_cast<jfloatArray>(arr.get_wrapped());

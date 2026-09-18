@@ -65,9 +65,17 @@
 
 namespace bridges {
 
+    // The native core type a JNI handle names: the JVM holds it as the jlong the allocator returned, never zero.
     template<class T>
-    static inline T* from_uint_to_ptr(jlong raw_ptr) {
-        return reinterpret_cast<T*>(static_cast<uintptr_t>(raw_ptr));
+    static T& native(jlong p_handle) {
+        return *reinterpret_cast<T*>(static_cast<uintptr_t>(p_handle));
+    }
+
+    // A handle the JVM sends as zero when there is no object behind it, such as the script a typed container is
+    // constrained to.
+    template<class T>
+    static T* native_or_null(jlong p_handle) {
+        return reinterpret_cast<T*>(static_cast<uintptr_t>(p_handle));
     }
 } // namespace bridges
 

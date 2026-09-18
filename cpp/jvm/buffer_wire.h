@@ -16,9 +16,11 @@
 // What a Variant type looks like on the shared buffer. A value is a 4-byte Variant::Type tag followed by a payload;
 // the tag is written and read by TransferContext, which dispatches on it to the row for the type. The file has two
 // layers:
-//   1. payload primitives shared by several rows (pointers, the object record);
-//   2. one Wire<T> row per Variant::Type, encoding that type's payload both ways for the checked call (read/write, as a
-//      Variant) and for the ptrcall (ptr_read/ptr_write, as the native value the engine expects).
+//   1. payload primitives shared by several rows (the type tag, pointers, the object record);
+//   2. one Wire<T> row per Variant::Type, encoding that type's payload both ways for the checked call
+//   (variant_read/variant_write, as a
+//      Variant), for the ptrcall (ptr_read/ptr_write, as the native value the engine expects) and for a bridge with a
+//      fixed signature (value_read/value_write, as the native value with no Variant in between).
 
 // Storage for one inline value a ptrcall argument or return is copied into, sized for the largest of them.
 struct PtrInlineValue {
@@ -28,6 +30,14 @@ struct PtrInlineValue {
 // How much of a return slot must be null before the engine assigns a pointer-backed result over it: the size of the
 // widest such type, whose data pointer is its first word.
 constexpr size_t PTR_RETURN_NULL_BYTES = 2 * sizeof(void*);
+
+static godot::Variant::Type read_type(SharedBuffer* p_buffer) {
+    return static_cast<godot::Variant::Type>(p_buffer->read<uint32_t>());
+}
+
+static void write_type(SharedBuffer* p_buffer, godot::Variant::Type p_type) {
+    p_buffer->write<uint32_t>(p_type);
+}
 
 template<class T>
 static T* read_pointer(SharedBuffer* p_buffer) {
@@ -53,8 +63,9 @@ static void write_object_payload(SharedBuffer* p_buffer, raw_godot::RawObject p_
     p_buffer->write<uint64_t>(binding->get_object_id());
 }
 
-// A type whose wire format is its own (NIL, String, Callable, Signal) is read and written as a Variant only. The
-// generator never emits a ptrcall for such a type, so reaching these is a generator bug.
+// A type the engine cannot take through a ptrcall, either because its payload has no native layout (String) or
+// because the instance behind it is not stable enough (Callable, Signal). The generator never emits a ptrcall for
+// such a type, so reaching these is a generator bug. Rows in this category still carry the full value pair.
 struct CustomWire {
     static const void* ptr_read(SharedBuffer*, PtrInlineValue*) {
         JVM_DEV_ASSERT(false, "A type with a custom wire format cannot be passed to a ptrcall.");
@@ -70,9 +81,15 @@ struct CustomWire {
 // The engine reads and writes exactly these bytes, so a ptrcall copies them as they are.
 template<class T>
 struct InlineWire {
-    static godot::Variant read(SharedBuffer* p_buffer) { return p_buffer->read<T>(); }
+    static godot::Variant variant_read(SharedBuffer* p_buffer) { return value_read(p_buffer); }
 
-    static void write(SharedBuffer* p_buffer, const godot::Variant& p_variant) { p_buffer->write<T>(p_variant); }
+    static void variant_write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
+        value_write(p_buffer, p_variant);
+    }
+
+    static T value_read(SharedBuffer* p_buffer) { return p_buffer->read<T>(); }
+
+    static void value_write(SharedBuffer* p_buffer, const T& p_value) { p_buffer->write<T>(p_value); }
 
     static const void* ptr_read(SharedBuffer* p_buffer, PtrInlineValue* r_storage) {
         memcpy(r_storage->bytes, p_buffer->read_bytes(sizeof(T)), sizeof(T));
@@ -89,11 +106,15 @@ struct InlineWire {
 // JVM's allocation like a checked return, after which the slot's own reference is released.
 template<class T>
 struct PointerWire {
-    static godot::Variant read(SharedBuffer* p_buffer) { return *read_pointer<T>(p_buffer); }
+    static godot::Variant variant_read(SharedBuffer* p_buffer) { return value_read(p_buffer); }
 
-    static void write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
-        write_pointer(p_buffer, static_cast<T>(p_variant));
+    static void variant_write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
+        value_write(p_buffer, static_cast<T>(p_variant));
     }
+
+    static T& value_read(SharedBuffer* p_buffer) { return *read_pointer<T>(p_buffer); }
+
+    static void value_write(SharedBuffer* p_buffer, const T& p_value) { write_pointer(p_buffer, p_value); }
 
     static const void* ptr_read(SharedBuffer* p_buffer, PtrInlineValue*) { return read_pointer<T>(p_buffer); }
 
@@ -112,9 +133,9 @@ struct Wire;
 
 template<>
 struct Wire<godot::Variant::NIL> : CustomWire {
-    static godot::Variant read(SharedBuffer*) { return godot::Variant(); }
+    static godot::Variant variant_read(SharedBuffer*) { return godot::Variant(); }
 
-    static void write(SharedBuffer*, const godot::Variant&) {}
+    static void variant_write(SharedBuffer*, const godot::Variant&) {}
 };
 
 template<>
@@ -129,21 +150,26 @@ struct Wire<godot::Variant::FLOAT> : InlineWire<double> {};
 // A string travels inline as UTF-8 behind a one-byte flag, or through the LongStringQueue when it exceeds the limit.
 template<>
 struct Wire<godot::Variant::STRING> : CustomWire {
-    static godot::Variant read(SharedBuffer* p_buffer) {
+    static godot::Variant variant_read(SharedBuffer* p_buffer) { return value_read(p_buffer); }
+
+    static void variant_write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
+        value_write(p_buffer, static_cast<godot::String>(p_variant));
+    }
+
+    static godot::String value_read(SharedBuffer* p_buffer) {
         bool is_long = p_buffer->read<uint8_t>() != 0;
         if (unlikely(is_long)) { return LongStringQueue::get_instance().poll_string(); }
         uint32_t size = p_buffer->read<uint32_t>();
         return godot::String::utf8(reinterpret_cast<const char*>(p_buffer->read_bytes(size)), size);
     }
 
-    static void write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
-        godot::String str = p_variant;
-        const godot::CharString& char_string = str.utf8();
+    static void value_write(SharedBuffer* p_buffer, const godot::String& p_value) {
+        const godot::CharString& char_string = p_value.utf8();
         int size = char_string.size();
         if (unlikely(size > LongStringQueue::max_string_size)) {
             p_buffer->write<uint8_t>(1);
             jni::Env env = jni::Jvm::current_env();
-            LongStringQueue::get_instance().send_string_to_jvm(env, str);
+            LongStringQueue::get_instance().send_string_to_jvm(env, p_value);
             return;
         }
         p_buffer->write<uint8_t>(0);
@@ -211,13 +237,19 @@ struct Wire<godot::Variant::RID> : InlineWire<godot::RID> {};
 
 // An object crosses as a pointer, but unlike the other pointer rows the pointer is the value, not the address of a
 // JVM-owned copy: nothing is dereferenced or allocated, a ptrcall wants the address of a slot holding the pointer
-// and returns one. PointerWire is used for readability but require all 4 methods to be overridden.
+// and returns one. PointerWire is used for readability but requires every method to be overridden.
 template<>
-struct Wire<godot::Variant::OBJECT> : PointerWire<godot::GodotObject> {
-    static godot::Variant read(SharedBuffer* p_buffer) { return p_buffer->read<raw_godot::RawObject>().to_variant(); }
+struct Wire<godot::Variant::OBJECT> : PointerWire<raw_godot::RawObject> {
+    static godot::Variant variant_read(SharedBuffer* p_buffer) { return value_read(p_buffer).to_variant(); }
 
-    static void write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
-        write_object_payload(p_buffer, raw_godot::RawObject::from_variant(p_variant));
+    static void variant_write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
+        value_write(p_buffer, raw_godot::RawObject::from_variant(p_variant));
+    }
+
+    static raw_godot::RawObject value_read(SharedBuffer* p_buffer) { return p_buffer->read<raw_godot::RawObject>(); }
+
+    static void value_write(SharedBuffer* p_buffer, raw_godot::RawObject p_object) {
+        write_object_payload(p_buffer, p_object);
     }
 
     static const void* ptr_read(SharedBuffer* p_buffer, PtrInlineValue* r_storage) {
@@ -226,37 +258,45 @@ struct Wire<godot::Variant::OBJECT> : PointerWire<godot::GodotObject> {
     }
 
     static void ptr_write(SharedBuffer* p_buffer, PtrInlineValue& p_value) {
-        write_object_payload(p_buffer, *reinterpret_cast<const raw_godot::RawObject*>(p_value.bytes));
+        value_write(p_buffer, *reinterpret_cast<const raw_godot::RawObject*>(p_value.bytes));
     }
 };
 
-// A Callable crosses as a pointer to a native instance the JVM creates on the fly: fine to copy out as a Variant, not
-// stable enough for a ptrcall.
+// A Callable is a pointer to a native instance the JVM creates on the fly, so it reads and writes like any
+// pointer-backed type. It stays off the ptrcall deliberately: that instance is owned by a JVM wrapper which is
+// already unreachable once its pointer reaches the buffer, so the binding keeps the engine reading a copy it made
+// here rather than handing it the instance itself.
 template<>
 struct Wire<godot::Variant::CALLABLE> : CustomWire {
-    static godot::Variant read(SharedBuffer* p_buffer) { return *read_pointer<godot::Callable>(p_buffer); }
+    static godot::Variant variant_read(SharedBuffer* p_buffer) { return value_read(p_buffer); }
 
-    static void write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
-        write_pointer(p_buffer, static_cast<godot::Callable>(p_variant));
+    static void variant_write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
+        value_write(p_buffer, static_cast<godot::Callable>(p_variant));
+    }
+
+    static godot::Callable& value_read(SharedBuffer* p_buffer) { return *read_pointer<godot::Callable>(p_buffer); }
+
+    static void value_write(SharedBuffer* p_buffer, const godot::Callable& p_value) {
+        write_pointer(p_buffer, p_value);
     }
 };
 
 template<>
 struct Wire<godot::Variant::SIGNAL> : CustomWire {
-    static godot::Variant read(SharedBuffer* p_buffer) {
+    static godot::Variant variant_read(SharedBuffer* p_buffer) { return value_read(p_buffer); }
+
+    static void variant_write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
+        value_write(p_buffer, static_cast<godot::Signal>(p_variant));
+    }
+
+    static godot::Signal value_read(SharedBuffer* p_buffer) {
         raw_godot::RawObject object = read_pointer<godot::GodotObject>(p_buffer);
         const godot::StringName name = *read_pointer<godot::StringName>(p_buffer);
         return object.to_signal(name);
     }
 
-    static void write(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
-        godot::Signal signal = p_variant.operator godot::Signal();
-        // get_object_id() rather than get_object(): the latter returns a godot-cpp wrapper.
-        const int64_t object_id = signal.get_object_id();
-        write_object_payload(
-            p_buffer,
-            object_id != 0 ? raw_godot::RawObject::from_instance_id(object_id) : raw_godot::RawObject()
-        );
+    static void value_write(SharedBuffer* p_buffer, const godot::Signal& signal) {
+        write_object_payload(p_buffer, signal.get_object());
         write_pointer(p_buffer, signal.get_name());
     }
 };

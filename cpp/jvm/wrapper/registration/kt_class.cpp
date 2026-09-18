@@ -174,7 +174,7 @@ void KtClass::do_notification(jni::Env& env, KtObject* p_instance, int p_notific
     const int arg_size = 2;
     const godot::Variant* args[arg_size] = {&notification, &reversed};
 
-    TransferContext::get_instance().write_args(env, args, arg_size);
+    TransferContext::get_instance().write_variants(env, args, arg_size);
 
     jvalue call_args[1] = {jni::to_jni_arg(p_instance->get_wrapped())};
     wrapped.call_void_method(env, DO_NOTIFICATION, call_args);
