@@ -17,12 +17,12 @@ using VariantTypes = std::make_index_sequence<godot::Variant::VARIANT_MAX>;
 
 template<size_t... I>
 static constexpr auto make_variant_readers(std::index_sequence<I...>) {
-    return std::array {&Wire<static_cast<godot::Variant::Type>(I)>::read...};
+    return std::array {&Wire<static_cast<godot::Variant::Type>(I)>::variant_read...};
 }
 
 template<size_t... I>
 static constexpr auto make_variant_writers(std::index_sequence<I...>) {
-    return std::array {&Wire<static_cast<godot::Variant::Type>(I)>::write...};
+    return std::array {&Wire<static_cast<godot::Variant::Type>(I)>::variant_write...};
 }
 
 template<size_t... I>
@@ -35,20 +35,12 @@ static constexpr auto make_ptr_return_writers(std::index_sequence<I...>) {
     return std::array {&Wire<static_cast<godot::Variant::Type>(I)>::ptr_write...};
 }
 
-static godot::Variant::Type read_type(SharedBuffer* p_buffer) {
-    return static_cast<godot::Variant::Type>(p_buffer->read<uint32_t>());
-}
-
-static void write_type(SharedBuffer* p_buffer, godot::Variant::Type p_type) {
-    p_buffer->write<uint32_t>(p_type);
-}
-
-static godot::Variant read_variant(SharedBuffer* p_buffer) {
+godot::Variant TransferContext::decode_variant(SharedBuffer* p_buffer) {
     static constexpr auto readers = make_variant_readers(VariantTypes());
     return readers[read_type(p_buffer)](p_buffer);
 }
 
-static void write_variant(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
+void TransferContext::encode_variant(SharedBuffer* p_buffer, const godot::Variant& p_variant) {
     static constexpr auto writers = make_variant_writers(VariantTypes());
     write_type(p_buffer, p_variant.get_type());
     writers[p_variant.get_type()](p_buffer, p_variant);
@@ -78,9 +70,9 @@ static void write_ptr_return(SharedBuffer* p_buffer, godot::Variant::Type p_type
 
 TransferContext::~TransferContext() = default;
 
-SharedBuffer* TransferContext::get_and_rewind_buffer(jni::Env& p_env) const {
+SharedBuffer* TransferContext::get_and_rewind_buffer(jni::Env& p_env) {
     if (unlikely(!shared_buffer.is_init())) {
-        jni::JObject buffer = wrapped.call_object_method(p_env, GET_BUFFER);
+        jni::JObject buffer = get_instance().wrapped.call_object_method(p_env, GET_BUFFER);
         JVM_DEV_ASSERT(!buffer.is_null(), "Buffer is null");
         auto* address = static_cast<uint8_t*>(p_env.get_direct_buffer_address(buffer));
 #ifdef DEBUG_ENABLED
@@ -94,32 +86,28 @@ SharedBuffer* TransferContext::get_and_rewind_buffer(jni::Env& p_env) const {
     return &shared_buffer;
 }
 
-void TransferContext::write_args(jni::Env& p_env, const godot::Variant** p_args, int args_size) const {
+void TransferContext::write_variants(jni::Env& p_env, const godot::Variant** p_args, int args_size) {
     SharedBuffer* buffer = get_and_rewind_buffer(p_env);
     buffer->write<uint32_t>(args_size);
     for (auto i = 0; i < args_size; ++i) {
-        write_variant(buffer, *p_args[i]);
+        encode_variant(buffer, *p_args[i]);
     }
 }
 
-uint32_t TransferContext::read_args(jni::Env& p_env, godot::Variant* args) const {
+uint32_t TransferContext::read_variants(jni::Env& p_env, godot::Variant* args) {
     SharedBuffer* buffer = get_and_rewind_buffer(p_env);
     uint32_t size = buffer->read<uint32_t>();
     for (uint32_t i = 0; i < size; ++i) {
-        args[i] = read_variant(buffer);
+        args[i] = decode_variant(buffer);
     }
     return size;
 }
 
-void TransferContext::write_return(jni::Env& p_env, godot::Variant& variant) const {
-    write_variant(get_and_rewind_buffer(p_env), variant);
+godot::Variant TransferContext::read_variant(jni::Env& p_env) {
+    return decode_variant(get_and_rewind_buffer(p_env));
 }
 
-godot::Variant TransferContext::read_return(jni::Env& p_env) const {
-    return read_variant(get_and_rewind_buffer(p_env));
-}
-
-void TransferContext::write_object_info(jni::Env& p_env, uintptr_t ptr, godot::ObjectID id) const {
+void TransferContext::write_object_info(jni::Env& p_env, uintptr_t ptr, godot::ObjectID id) {
     SharedBuffer* buffer = get_and_rewind_buffer(p_env);
     buffer->write<uint64_t>(ptr);
     buffer->write<uint64_t>(id);
@@ -134,7 +122,7 @@ bool TransferContext::read_receiver(jni::Env& p_env, SharedBuffer* p_buffer, raw
     if (unlikely(r_receiver != raw_godot::RawObject::from_instance_id(receiver_id))) {
         p_buffer->rewind();
         godot::Variant return_value;
-        write_variant(p_buffer, return_value);
+        encode_variant(p_buffer, return_value);
         constexpr const char* message = "Cannot call a method on a previously freed instance.";
         JVM_ERR_PRINT("%s", message);
         p_env.throw_new(message);
@@ -146,7 +134,7 @@ bool TransferContext::read_receiver(jni::Env& p_env, SharedBuffer* p_buffer, raw
 
 void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
     jni::Env env(rawEnv);
-    SharedBuffer* buffer = get_instance().get_and_rewind_buffer(env);
+    SharedBuffer* buffer = get_and_rewind_buffer(env);
 
     raw_godot::RawObject receiver;
     if (unlikely(!read_receiver(env, buffer, receiver))) { return; }
@@ -168,7 +156,7 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
     VariantStack::Slots slots = VariantStack::push(args_size);
     if (likely(slots.is_valid())) {
         for (uint32_t i = 0; i < args_size; ++i) {
-            slots.args[i] = read_variant(buffer);
+            slots.args[i] = decode_variant(buffer);
         }
         receiver.call_method_bind(
             method_bind,
@@ -182,7 +170,7 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
         godot::Variant args[MAX_FUNCTION_ARG_COUNT];
         const godot::Variant* args_ptr[MAX_FUNCTION_ARG_COUNT];
         for (uint32_t i = 0; i < args_size; ++i) {
-            args[i] = read_variant(buffer);
+            args[i] = decode_variant(buffer);
             args_ptr[i] = &args[i];
         }
         receiver.call_method_bind(
@@ -195,7 +183,7 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
     }
 
     buffer->rewind();
-    write_variant(buffer, ret_value);
+    encode_variant(buffer, ret_value);
 
 #ifdef DEBUG_ENABLED
     JVM_ERR_FAIL_COND_MSG(
@@ -208,7 +196,7 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
 
 void TransferContext::icall_ptr(JNIEnv* rawEnv, jobject, jlong j_method_ptr, jint p_return_type) {
     jni::Env env(rawEnv);
-    SharedBuffer* buffer = get_instance().get_and_rewind_buffer(env);
+    SharedBuffer* buffer = get_and_rewind_buffer(env);
 
     raw_godot::RawObject receiver;
     if (unlikely(!read_receiver(env, buffer, receiver))) { return; }

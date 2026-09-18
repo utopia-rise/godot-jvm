@@ -61,22 +61,22 @@ namespace bridges {
 
         static uintptr_t engine_call_copy_constructor(JNIEnv * p_raw_env, jobject p_instance);
 
-        static void engine_call_bind(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_call(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_call_deferred(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_get_bound_arguments(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_get_bound_arguments_count(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_get_method(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_get_object(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_get_object_id(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_hash(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_is_custom(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_is_null(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_is_standard(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_is_valid(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_rpc(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_rpc_id(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_unbind(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
+        static void engine_call_bind(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_call(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_call_deferred(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_get_bound_arguments(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_get_bound_arguments_count(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_get_method(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_get_object(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_get_object_id(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_hash(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_is_custom(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_is_null(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_is_standard(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_is_valid(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_rpc(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_rpc_id(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_unbind(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
     };
 } // namespace bridges
 
