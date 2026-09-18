@@ -1,95 +1,106 @@
-using Godot;
-using System;
 using System.Collections.Generic;
+using Godot;
 
 public partial class BunnymarkV1Sprites : Node2D
 {
-    private class Pair
+    private sealed class BunnyData
     {
-        public Sprite2D Sprite2D;
-        public Vector2 Vector;
+        public Sprite2D Sprite;
+        public Vector2 Speed;
+
+        public BunnyData(Sprite2D sprite, Vector2 speed)
+        {
+            Sprite = sprite;
+            Speed = speed;
+        }
     }
 
-    List<Pair> bunnies = new List<Pair>();
-    Vector2 screenSize;
+    private readonly List<BunnyData> _bunnies = new();
+    private const float Gravity = 500f;
+    private readonly Texture2D _bunnyTexture = ResourceLoader.Load<Texture2D>("res://images/godot_bunny.png");
+    private readonly RandomNumberGenerator _randomNumberGenerator = new();
 
-    Texture2D bunnyTexture = (Texture2D)GD.Load("res://images/godot_bunny.png");
-    Random random = new Random();
-    int gravity = 500;
+    private Vector2 _screenSize;
 
-    public override void _Process(float delta)
+    public override void _Ready()
     {
-        screenSize = GetViewportRect().Size;
+        _randomNumberGenerator.Randomize();
+    }
 
-        foreach (var bunny in bunnies)
+    public override void _Process(double delta)
+    {
+        float dt = (float)delta;
+        _screenSize = GetViewportRect().Size;
+
+        foreach (BunnyData bunny in _bunnies)
         {
-            var position = bunny.Sprite2D.Position;
-            var newPosition = bunny.Vector;
+            Vector2 pos = bunny.Sprite.Position;
+            Vector2 speed = bunny.Speed;
 
-            position.x += newPosition.x * delta;
-            position.y += newPosition.y * delta;
+            pos.X += speed.X * dt;
+            pos.Y += speed.Y * dt;
 
-            newPosition.y += gravity * delta;
+            speed.Y += Gravity * dt;
 
-            if (position.x > screenSize.x)
+            if (pos.X > _screenSize.X)
             {
-                newPosition.x *= -1;
-                position.x = screenSize.x;
+                speed.X *= -1f;
+                pos.X = _screenSize.X;
             }
 
-            if (position.x < 0)
+            if (pos.X < 0f)
             {
-                newPosition.x *= -1;
-                position.x = 0;
+                speed.X *= -1f;
+                pos.X = 0f;
             }
 
-            if (position.y > screenSize.y)
+            if (pos.Y > _screenSize.Y)
             {
-                position.y = screenSize.y;
-                if (random.NextDouble() > 0.5)
+                pos.Y = _screenSize.Y;
+                if (_randomNumberGenerator.Randf() > 0.5f)
                 {
-                    newPosition.y = (random.Next() % 1100 + 50);
+                    speed.Y = -(_randomNumberGenerator.Randi() % 1100 + 50);
                 }
                 else
                 {
-                    newPosition.y *= -0.85f;
+                    speed.Y *= -0.85f;
                 }
             }
 
-            if (position.y < 0)
+            if (pos.Y < 0f)
             {
-                newPosition.y = 0;
-                position.y = 0;
+                speed.Y = 0f;
+                pos.Y = 0f;
             }
 
-            bunny.Sprite2D.Position = position;
-            bunny.Vector = newPosition;
+            bunny.Sprite.Position = pos;
+            bunny.Speed = speed;
         }
     }
 
     public void add_bunny()
     {
         var bunny = new Sprite2D();
-        bunny.SetTexture(bunnyTexture);
+        bunny.Texture = _bunnyTexture;
         AddChild(bunny);
-        bunny.Position = new Vector2(screenSize.x / 2, screenSize.y / 2);
-        bunnies.Add(new Pair() { Sprite2D = bunny, Vector = new Vector2(random.Next() % 200 + 50, random.Next() % 200 + 50) });
+        bunny.Position = new Vector2(_screenSize.X / 2, _screenSize.Y / 2);
+        _bunnies.Add(new BunnyData(
+            bunny,
+            new Vector2(_randomNumberGenerator.Randi() % 200 + 50, _randomNumberGenerator.Randi() % 200 + 50)
+        ));
     }
 
     public void remove_bunny()
     {
-        if (bunnies.Count == 0) {
-			return;
-		}
-
-        var bunny = bunnies[bunnies.Count - 1];
-        bunnies.RemoveAt(bunnies.Count - 1);
-        RemoveChild(bunny.Sprite2D);
-        bunny.Sprite2D.QueueFree();
+        if (_bunnies.Count == 0) return;
+        BunnyData bunny = _bunnies[_bunnies.Count - 1];
+        RemoveChild(bunny.Sprite);
+        _bunnies.RemoveAt(_bunnies.Count - 1);
+        bunny.Sprite.QueueFree();
     }
 
     public void finish()
     {
-        EmitSignal("benchmark_finished", bunnies.Count);
+        EmitSignal("benchmark_finished", _bunnies.Count);
     }
 }

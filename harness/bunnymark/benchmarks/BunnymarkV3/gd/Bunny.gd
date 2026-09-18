@@ -1,46 +1,43 @@
 class_name Bunny
 extends Sprite2D
 
+var speed: Vector2 = Vector2()
 
-var speed := Vector2()
-var grav := 500
-var screen_size := Vector2()
+var gravity: float = 500.0
+var screen_size: Vector2
+var random_number_generator: RandomNumberGenerator = RandomNumberGenerator.new()
 
+func _ready() -> void:
+	random_number_generator.randomize()
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-    pass # Replace with function body.
+func _process(delta: float) -> void:
+	screen_size = get_viewport_rect().size
+	var pos: Vector2 = position
+	var sp: Vector2 = speed
 
+	pos.x += sp.x * delta
+	pos.y += sp.y * delta
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-    screen_size = get_viewport_rect().size
-    var pos: Vector2 = self.position
-    var speeds: Vector2 = self.speed
-        
-    pos.x += speed.x * delta
-    pos.y += speed.y * delta
+	sp.y += gravity * delta
 
-    speed.y += grav * delta
+	if pos.x > screen_size.x:
+		sp.x *= -1.0
+		pos.x = screen_size.x
 
-    if pos.x > screen_size.x:
-        speed.x *= -1
-        pos.x = screen_size.x
-    
-    if pos.x < 0:
-        speed.x *= -1
-        pos.x = 0
-        
-    if pos.y > screen_size.y:
-        pos.y = screen_size.y
-        if randf() > 0.5:
-            speed.y = -(randi() % 1100 + 50)
-        else:
-            speed.y *= -0.85
-        
-    if pos.y < 0:
-        speed.y = 0
-        pos.y = 0
+	if pos.x < 0.0:
+		sp.x *= -1.0
+		pos.x = 0.0
 
-    self.speed = speed
-    self.position = pos
+	if pos.y > screen_size.y:
+		pos.y = screen_size.y
+		if random_number_generator.randf() > 0.5:
+			sp.y = -float(random_number_generator.randi() % 1100 + 50)
+		else:
+			sp.y *= -0.85
+
+	if pos.y < 0.0:
+		sp.y = 0.0
+		pos.y = 0.0
+
+	position = pos
+	speed = sp
