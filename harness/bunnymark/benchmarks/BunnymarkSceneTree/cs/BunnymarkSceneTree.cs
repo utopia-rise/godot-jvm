@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class BunnymarkV2 : Node2D
+public partial class BunnymarkSceneTree : Node2D
 {
     private const float Gravity = 500f;
     private readonly List<Vector2> _bunnySpeeds = new();

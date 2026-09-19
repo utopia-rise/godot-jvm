@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class BunnymarkV3 : Node2D
+public partial class BunnymarkScripts : Node2D
 {
     private readonly RandomNumberGenerator _randomNumberGenerator = new();
     private readonly Texture2D _bunnyTexture = ResourceLoader.Load<Texture2D>("res://images/godot_bunny.png");

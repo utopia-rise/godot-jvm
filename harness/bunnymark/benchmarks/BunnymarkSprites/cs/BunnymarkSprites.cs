@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class BunnymarkV1Sprites : Node2D
+public partial class BunnymarkSprites : Node2D
 {
     private sealed class BunnyData
     {

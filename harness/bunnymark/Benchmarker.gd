@@ -21,14 +21,19 @@ var benchmark_is_bunnymark := false
 var bunnymark_update_interval := 1.0
 var bunnymark_update_elapsed_time := 0.0
 
-## Bunnies each benchmark is roughly expected to hold. Only the first spawn: the ramp converges from any starting
-## point, this just saves it two or three steps. Half the expected count, so the ramp always closes in from below.
+## Bunnies each benchmark is expected to hold in the SLOWEST language, which is what the first spawn is sized
+## from. It has to stay under every language's real capacity: the ramp only ever adds, so a first spawn that
+## already sinks the frame rate would report itself as the answer. Everything above it the ramp finds on its own.
 var bunnymark_expected := {
-    "BunnymarkV2": 32000,
-    "BunnymarkV1Sprites": 50000,
-    "BunnymarkV1DrawTexture": 180000,
-    "BunnymarkV3": 33000,
+    "BunnymarkSceneTree": 37000,
+    "BunnymarkSprites": 33000,
+    "BunnymarkDrawTexture": 50000,
+    "BunnymarkScripts": 34000,
+    "BunnymarkComputation": 23000,
 }
+## Set while the first spawn has not yet been shown to leave headroom.
+var seed_unconfirmed := false
+var seed_used := false
 ## Enough to reach the target from just under it, so a run always terminates.
 var bunnymark_minimum_spawn := 200
 ## Ceiling on one step, so a single bad frame-rate reading cannot fling the count past the target.
@@ -47,8 +52,8 @@ var warm_up_override := ""
 ## A throwaway population run before anything is measured, so the scripting runtime has compiled its hot paths and
 ## Godot is past its first slow moments. Discarded before the measured ramp starts. Common to every benchmark, as
 ## is [member bunnymark_stable_time].
-var bunnymark_warm_up_bunnies := 10000
-var bunnymark_warm_up_time := 10.0
+var bunnymark_warm_up_bunnies := 20000
+var bunnymark_warm_up_time := 20.0
 var warm_up_elapsed_time := 0.0
 var warm_up_cleared := false
 var warmed_up := false
@@ -65,7 +70,7 @@ var awaiting_settle := false
 
 var bunny_number := 0
 
-@export_enum("BunnymarkV2", "BunnymarkV1Sprites", "BunnymarkV1DrawTexture", "BunnymarkV3") var benchmark: String = "BunnymarkV2"
+@export_enum("BunnymarkSceneTree", "BunnymarkSprites", "BunnymarkDrawTexture", "BunnymarkScripts", "BunnymarkComputation") var benchmark: String = "BunnymarkSceneTree"
 @export_enum("gd", "kt", "cs") var language: String = "gd"
 
 func _ready():
@@ -126,6 +131,8 @@ func start_benchmark(benchmark_name: String, language: String):
         bunnymark_warm_up_enabled = warm_up_override == "true"
     warm_up_elapsed_time = 0.0
     warm_up_cleared = false
+    seed_unconfirmed = false
+    seed_used = false
     warmed_up = not bunnymark_warm_up_enabled
     print("Target: " + str(bunnymark_target) + " fps, warm up: " + str(bunnymark_warm_up_enabled))
     if benchmark_node.has_method("add_bunny"):
@@ -175,7 +182,12 @@ func update_bunnymark(delta):
     bunnymark_update_elapsed_time = 0.0
 
     if bunny_number == 0:
-        spawn_bunnies(int(bunnymark_expected.get(benchmark, 10000)) / 2)
+        if seed_used:
+            spawn_bunnies(bunnymark_minimum_spawn)
+        else:
+            spawn_bunnies(int(bunnymark_expected.get(benchmark, 10000)) / 2)
+            seed_used = true
+            seed_unconfirmed = true
         return
 
     if awaiting_settle:
@@ -183,6 +195,16 @@ func update_bunnymark(delta):
         return
 
     var fps: float = Engine.get_frames_per_second()
+    if fps <= bunnymark_target and seed_unconfirmed:
+        # The first spawn alone already sank the frame rate, so its count says nothing about where the target is.
+        # Clear the scene and let the ramp climb from the floor instead of reporting a number that is too high.
+        print("Seed of " + str(bunny_number) + " overshot, restarting the ramp from the floor")
+        for i in range(bunny_number):
+            benchmark_node.call("remove_bunny")
+        bunny_number = 0
+        seed_unconfirmed = false
+        return
+    seed_unconfirmed = false
     if fps <= bunnymark_target:
         below_target_time += bunnymark_update_interval
         print("At target: " + str(bunny_number) + " bunnies, " + str(fps) + " fps")

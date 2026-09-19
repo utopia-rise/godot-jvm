@@ -7,16 +7,16 @@ import godot.annotation.Register
 import godot.annotation.Emit
 import godot.core.signal1
 
-@Script("BunnymarkV2")
-class BunnymarkV2 : Node2D() {
+@Script("BunnymarkSprites")
+class BunnymarkSprites : Node2D() {
 
 	@Emit
 	val benchmarkFinished by signal1<Int>()
 
+	private data class Bunny(var sprite: Sprite2D, var speed: Vector2)
+
+	private val bunnies = mutableListOf<Bunny>()
 	private val gravity = 500
-	private val bunnySpeeds = mutableListOf<Vector2>()
-	private val label = Label()
-	private val bunnies = Node2D()
 	private val bunnyTexture = ResourceLoader.load("res://images/godot_bunny.png") as Texture2D
 	private val randomNumberGenerator = RandomNumberGenerator()
 
@@ -25,21 +25,15 @@ class BunnymarkV2 : Node2D() {
 	@Register
 	override fun _ready() {
 		randomNumberGenerator.randomize()
-		addChild(bunnies)
-		label.setPosition(Vector2(0, 20))
-		addChild(label)
 	}
 
 	@Register
 	override fun _process(delta: Double) {
 		screenSize = getViewportRect().size
-		label.text = "Bunnies: " + bunnies.getChildCount().toString()
 
-		val bunnyChildren = bunnies.getChildren()
-		for (i in 0 until bunnyChildren.size) {
-			val bunny = bunnyChildren[i] as Sprite2D
-			val pos = bunny.position
-			val speed = bunnySpeeds[i]
+		for (bunny in bunnies) {
+			val pos = bunny.sprite.position
+			val speed = bunny.speed
 
 			pos.x += speed.x * delta
 			pos.y += speed.y * delta
@@ -70,8 +64,8 @@ class BunnymarkV2 : Node2D() {
 				pos.y = 0.0
 			}
 
-			bunny.position = pos
-			bunnySpeeds[i] = speed
+			bunny.sprite.position = pos
+			bunny.speed = speed
 		}
 	}
 
@@ -79,29 +73,28 @@ class BunnymarkV2 : Node2D() {
 	fun addBunny() {
 		val bunny = Sprite2D()
 		bunny.texture = bunnyTexture
-		bunnies.addChild(bunny)
+		addChild(bunny)
 		bunny.position = Vector2(screenSize.x / 2, screenSize.y / 2)
-		bunnySpeeds.add(
-			Vector2(randomNumberGenerator.randi() % 200 + 50, randomNumberGenerator.randi() % 200 + 50)
+		bunnies.add(
+			Bunny(
+				bunny,
+				Vector2(randomNumberGenerator.randi() % 200 + 50, randomNumberGenerator.randi() % 200 + 50)
+			)
 		)
 	}
 
 	@Register
 	fun removeBunny() {
-		val childCount = bunnies.getChildCount()
-		if (childCount == 0) return
-		bunnies
-			.getChild(childCount - 1)
-			?.let { bunny ->
-				bunnies.removeChild(bunny)
-                bunny.queueFree()
-			}
-		bunnySpeeds.removeAt(childCount.toInt() - 1)
+		if (bunnies.size == 0) return
+		val bunny = bunnies[bunnies.size - 1]
+		removeChild(bunny.sprite)
+		bunnies.removeAt(bunnies.size - 1)
+        bunny.sprite.queueFree()
 	}
 
 	@Register
 	fun finish() {
-        benchmarkFinished.emit(bunnySpeeds.size)
+        benchmarkFinished.emit(bunnies.size)
 	}
 }
 
