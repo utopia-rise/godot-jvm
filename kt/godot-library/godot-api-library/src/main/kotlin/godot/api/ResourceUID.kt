@@ -9,17 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_STRING
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_STRING_ret_LONG
+import godot.callMethod_STRING_ret_STRING
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_STRING
-import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
@@ -100,21 +100,15 @@ public object ResourceUID : Object() {
    * Converts the given UID to a `uid://` string value.
    */
   @JvmStatic
-  public final fun idToText(id: Long): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.idToTextPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun idToText(id: Long): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.idToTextPtr, id)
 
   /**
    * Extracts the UID value from the given `uid://` string.
    */
   @JvmStatic
-  public final fun textToId(textId: String): Long {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, textId)
-    TransferContext.callMethod(MethodBindings.textToIdPtr)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun textToId(textId: String): Long =
+      TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.textToIdPtr, textId)
 
   /**
    * Generates a random resource UID which is guaranteed to be unique within the list of currently
@@ -123,32 +117,23 @@ public object ResourceUID : Object() {
    * In order for this UID to be registered, you must call [addId] or [setId].
    */
   @JvmStatic
-  public final fun createId(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.createIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun createId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.createIdPtr)
 
   /**
    * Like [createId], but the UID is seeded with the provided [path] and project name. UIDs
    * generated for that path will be always the same within the current project.
    */
   @JvmStatic
-  public final fun createIdForPath(path: String): Long {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.createIdForPathPtr)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun createIdForPath(path: String): Long =
+      TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.createIdForPathPtr, path)
 
   /**
    * Returns whether the given UID value is known to the cache.
    */
   @JvmStatic
-  public final fun hasId(id: Long): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callPtrMethod(MethodBindings.hasIdPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasId(id: Long): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.hasIdPtr, id)
 
   /**
    * Adds a new UID value which is mapped to the given resource path.
@@ -158,8 +143,7 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun addId(id: Long, path: String): Unit {
-    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, id, path)
-    TransferContext.callMethod(MethodBindings.addIdPtr)
+    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.addIdPtr, id, path)
   }
 
   /**
@@ -170,8 +154,7 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun setId(id: Long, path: String): Unit {
-    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, id, path)
-    TransferContext.callMethod(MethodBindings.setIdPtr)
+    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setIdPtr, id, path)
   }
 
   /**
@@ -180,11 +163,8 @@ public object ResourceUID : Object() {
    * Fails with an error if the UID does not exist, so be sure to check [hasId] beforehand.
    */
   @JvmStatic
-  public final fun getIdPath(id: Long): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.getIdPathPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getIdPath(id: Long): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getIdPathPtr, id)
 
   /**
    * Removes a loaded UID value from the cache.
@@ -193,41 +173,31 @@ public object ResourceUID : Object() {
    */
   @JvmStatic
   public final fun removeId(id: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id)
-    TransferContext.callPtrMethod(MethodBindings.removeIdPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeIdPtr, id)
   }
 
   /**
    * Converts the provided [uid] to a path. Prints an error if the UID is invalid.
    */
   @JvmStatic
-  public final fun uidToPath(uid: String): String {
-    TransferContext.writeMethodArguments_STRING(0L, 0L, uid)
-    TransferContext.callMethod(MethodBindings.uidToPathPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun uidToPath(uid: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(0L, 0L, MethodBindings.uidToPathPtr, uid)
 
   /**
    * Converts the provided resource [path] to a UID. Returns the unchanged path if it has no
    * associated UID.
    */
   @JvmStatic
-  public final fun pathToUid(path: String): String {
-    TransferContext.writeMethodArguments_STRING(0L, 0L, path)
-    TransferContext.callMethod(MethodBindings.pathToUidPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun pathToUid(path: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(0L, 0L, MethodBindings.pathToUidPtr, path)
 
   /**
    * Returns a path, converting [pathOrUid] if necessary. Fails and returns an empty string if an
    * invalid UID is provided.
    */
   @JvmStatic
-  public final fun ensurePath(pathOrUid: String): String {
-    TransferContext.writeMethodArguments_STRING(0L, 0L, pathOrUid)
-    TransferContext.callMethod(MethodBindings.ensurePathPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun ensurePath(pathOrUid: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(0L, 0L, MethodBindings.ensurePathPtr, pathOrUid)
 
   public object MethodBindings {
     internal val idToTextPtr: VoidPtr =

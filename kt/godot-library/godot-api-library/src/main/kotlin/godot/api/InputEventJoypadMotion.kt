@@ -9,15 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.JoyAxis
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -58,26 +57,18 @@ public open class InputEventJoypadMotion : InputEvent() {
   }
 
   public final fun setAxis(axis: JoyAxis): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, axis.value)
-    TransferContext.callPtrMethod(MethodBindings.setAxisPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAxisPtr, axis.value)
   }
 
-  public final fun getAxis(): JoyAxis {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAxisPtr, 2)
-    return JoyAxis.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getAxis(): JoyAxis =
+      JoyAxis.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAxisPtr))
 
   public final fun setAxisValue(axisValue: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, axisValue.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setAxisValuePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAxisValuePtr, axisValue.toDouble())
   }
 
-  public final fun getAxisValue(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAxisValuePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getAxisValue(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAxisValuePtr).toFloat()
 
   public companion object {
     @JvmField

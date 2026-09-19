@@ -9,6 +9,29 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_ANY_VECTOR2_LONG_DOUBLE_ret_BOOL
+import godot.callMethod_ANY_VECTOR2_LONG_LONG_DOUBLE_ret_BOOL
+import godot.callMethod_ANY_ret_BOOL
+import godot.callMethod_ANY_ret_RECT2
+import godot.callMethod_STRING
+import godot.callMethod_STRING_OBJECT_LONG_STRING_ANY_ret_BOOL
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_DOUBLE_ret_LONG
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY
+import godot.callPtrMethod_RID_VECTOR2_COLOR_DOUBLE
+import godot.callPtrMethod_RID_VECTOR2_LONG_COLOR_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.HorizontalAlignment
@@ -22,28 +45,6 @@ import godot.core.RID
 import godot.core.Rect2
 import godot.core.VariantArray
 import godot.core.Vector2
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_RECT2
-import godot.readReturnValue_RID
-import godot.readReturnValue_STRING
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ANY
-import godot.writeMethodArguments_ANY_VECTOR2_LONG_DOUBLE
-import godot.writeMethodArguments_ANY_VECTOR2_LONG_LONG_DOUBLE
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_PACKED_FLOAT_32_ARRAY
-import godot.writeMethodArguments_RID_VECTOR2_COLOR_DOUBLE
-import godot.writeMethodArguments_RID_VECTOR2_LONG_COLOR_DOUBLE
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_OBJECT_LONG_STRING_ANY
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Float
@@ -167,71 +168,48 @@ public open class TextLine : RefCounted() {
    * Clears text line (removes text and inline objects).
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
   }
 
   /**
    * Duplicates this [TextLine].
    */
-  public final fun duplicate(): TextLine? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.duplicatePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as TextLine?)
-  }
+  public final fun duplicate(): TextLine? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.duplicatePtr) as TextLine?)
 
   public final fun setDirection(direction: TextServer.Direction): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, direction.value)
-    TransferContext.callPtrMethod(MethodBindings.setDirectionPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDirectionPtr, direction.value)
   }
 
-  public final fun getDirection(): TextServer.Direction {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDirectionPtr, 2)
-    return TextServer.Direction.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getDirection(): TextServer.Direction =
+      TextServer.Direction.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDirectionPtr))
 
   /**
    * Returns the text writing direction inferred by the BiDi algorithm.
    */
-  public final fun getInferredDirection(): TextServer.Direction {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getInferredDirectionPtr, 2)
-    return TextServer.Direction.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getInferredDirection(): TextServer.Direction =
+      TextServer.Direction.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInferredDirectionPtr))
 
   public final fun setOrientation(orientation: TextServer.Orientation): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, orientation.value)
-    TransferContext.callPtrMethod(MethodBindings.setOrientationPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOrientationPtr, orientation.value)
   }
 
-  public final fun getOrientation(): TextServer.Orientation {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOrientationPtr, 2)
-    return TextServer.Orientation.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getOrientation(): TextServer.Orientation =
+      TextServer.Orientation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOrientationPtr))
 
   public final fun setPreserveInvalid(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setPreserveInvalidPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPreserveInvalidPtr, enabled)
   }
 
-  public final fun getPreserveInvalid(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPreserveInvalidPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getPreserveInvalid(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getPreserveInvalidPtr)
 
   public final fun setPreserveControl(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setPreserveControlPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPreserveControlPtr, enabled)
   }
 
-  public final fun getPreserveControl(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPreserveControlPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getPreserveControl(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getPreserveControlPtr)
 
   /**
    * Overrides BiDi for the structured text.
@@ -240,8 +218,7 @@ public open class TextLine : RefCounted() {
    * each range separately.
    */
   public final fun setBidiOverride(`override`: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, override)
-    TransferContext.callPtrMethod(MethodBindings.setBidiOverridePtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setBidiOverridePtr, override)
   }
 
   /**
@@ -254,11 +231,8 @@ public open class TextLine : RefCounted() {
     fontSize: Int,
     language: String = "",
     meta: Any? = null,
-  ): Boolean {
-    TransferContext.writeMethodArguments_STRING_OBJECT_LONG_STRING_ANY(ptr, objectID.id, text, font, fontSize.toLong(), language, meta)
-    TransferContext.callMethod(MethodBindings.addStringPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  ): Boolean =
+      TransferContext.callMethod_STRING_OBJECT_LONG_STRING_ANY_ret_BOOL(ptr, objectID.id, MethodBindings.addStringPtr, text, font, fontSize.toLong(), language, meta)
 
   /**
    * Adds inline object to the text buffer, [key] must be unique. In the text, object is represented
@@ -271,11 +245,8 @@ public open class TextLine : RefCounted() {
     inlineAlign: InlineAlignment = InlineAlignment.CENTER,
     length: Int = 1,
     baseline: Float = 0.0f,
-  ): Boolean {
-    TransferContext.writeMethodArguments_ANY_VECTOR2_LONG_LONG_DOUBLE(ptr, objectID.id, key, size, inlineAlign.value, length.toLong(), baseline.toDouble())
-    TransferContext.callMethod(MethodBindings.addObjectPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  ): Boolean =
+      TransferContext.callMethod_ANY_VECTOR2_LONG_LONG_DOUBLE_ret_BOOL(ptr, objectID.id, MethodBindings.addObjectPtr, key, size, inlineAlign.value, length.toLong(), baseline.toDouble())
 
   /**
    * Sets new size and alignment of embedded object.
@@ -286,166 +257,112 @@ public open class TextLine : RefCounted() {
     size: Vector2,
     inlineAlign: InlineAlignment = InlineAlignment.CENTER,
     baseline: Float = 0.0f,
-  ): Boolean {
-    TransferContext.writeMethodArguments_ANY_VECTOR2_LONG_DOUBLE(ptr, objectID.id, key, size, inlineAlign.value, baseline.toDouble())
-    TransferContext.callMethod(MethodBindings.resizeObjectPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  ): Boolean =
+      TransferContext.callMethod_ANY_VECTOR2_LONG_DOUBLE_ret_BOOL(ptr, objectID.id, MethodBindings.resizeObjectPtr, key, size, inlineAlign.value, baseline.toDouble())
 
   /**
    * Returns `true` if an object with [key] is embedded in this line.
    */
-  public final fun hasObject(key: Any?): Boolean {
-    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, key)
-    TransferContext.callMethod(MethodBindings.hasObjectPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasObject(key: Any?): Boolean =
+      TransferContext.callMethod_ANY_ret_BOOL(ptr, objectID.id, MethodBindings.hasObjectPtr, key)
 
   public final fun setWidth(width: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, width.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setWidthPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setWidthPtr, width.toDouble())
   }
 
-  public final fun getWidth(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWidthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getWidth(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWidthPtr).toFloat()
 
   public final fun setHorizontalAlignment(alignment: HorizontalAlignment): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
-    TransferContext.callPtrMethod(MethodBindings.setHorizontalAlignmentPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHorizontalAlignmentPtr, alignment.value)
   }
 
-  public final fun getHorizontalAlignment(): HorizontalAlignment {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHorizontalAlignmentPtr, 2)
-    return HorizontalAlignment.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getHorizontalAlignment(): HorizontalAlignment =
+      HorizontalAlignment.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHorizontalAlignmentPtr))
 
   /**
    * Aligns text to the given tab-stops.
    */
   public final fun tabAlign(tabStops: PackedFloat32Array): Unit {
-    TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, tabStops)
-    TransferContext.callPtrMethod(MethodBindings.tabAlignPtr, 0)
+    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.tabAlignPtr, tabStops)
   }
 
   public final fun setFlags(flags: TextServer.JustificationFlag): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, flags.flag)
-    TransferContext.callPtrMethod(MethodBindings.setFlagsPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFlagsPtr, flags.flag)
   }
 
-  public final fun getFlags(): TextServer.JustificationFlag {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFlagsPtr, 2)
-    return TextServer.JustificationFlag(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getFlags(): TextServer.JustificationFlag =
+      TextServer.JustificationFlag(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFlagsPtr))
 
   public final fun setTextOverrunBehavior(overrunBehavior: TextServer.OverrunBehavior): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, overrunBehavior.value)
-    TransferContext.callPtrMethod(MethodBindings.setTextOverrunBehaviorPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextOverrunBehaviorPtr, overrunBehavior.value)
   }
 
-  public final fun getTextOverrunBehavior(): TextServer.OverrunBehavior {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTextOverrunBehaviorPtr, 2)
-    return TextServer.OverrunBehavior.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTextOverrunBehavior(): TextServer.OverrunBehavior =
+      TextServer.OverrunBehavior.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextOverrunBehaviorPtr))
 
   public final fun setEllipsisChar(char: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, char)
-    TransferContext.callMethod(MethodBindings.setEllipsisCharPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setEllipsisCharPtr, char)
   }
 
-  public final fun getEllipsisChar(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEllipsisCharPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getEllipsisChar(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getEllipsisCharPtr)
 
   /**
    * Returns array of inline objects.
    */
-  public final fun getObjects(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getObjectsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun getObjects(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getObjectsPtr) as VariantArray<Any?>)
 
   /**
    * Returns bounding rectangle of the inline object.
    */
-  public final fun getObjectRect(key: Any?): Rect2 {
-    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, key)
-    TransferContext.callMethod(MethodBindings.getObjectRectPtr)
-    return TransferContext.readReturnValue_RECT2()
-  }
+  public final fun getObjectRect(key: Any?): Rect2 =
+      TransferContext.callMethod_ANY_ret_RECT2(ptr, objectID.id, MethodBindings.getObjectRectPtr, key)
 
   /**
    * Returns size of the bounding box of the text.
    */
-  public final fun getSize(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getSize(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getSizePtr)
 
   /**
    * Returns TextServer buffer RID.
    */
-  public final fun getRid(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRidPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getRid(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getRidPtr)
 
   /**
    * Returns the text ascent (number of pixels above the baseline for horizontal layout or to the
    * left of baseline for vertical).
    */
-  public final fun getLineAscent(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLineAscentPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getLineAscent(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineAscentPtr).toFloat()
 
   /**
    * Returns the text descent (number of pixels below the baseline for horizontal layout or to the
    * right of baseline for vertical).
    */
-  public final fun getLineDescent(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLineDescentPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getLineDescent(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineDescentPtr).toFloat()
 
   /**
    * Returns width (for horizontal layout) or height (for vertical) of the text.
    */
-  public final fun getLineWidth(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLineWidthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getLineWidth(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineWidthPtr).toFloat()
 
   /**
    * Returns pixel offset of the underline below the baseline.
    */
-  public final fun getLineUnderlinePosition(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLineUnderlinePositionPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getLineUnderlinePosition(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineUnderlinePositionPtr).toFloat()
 
   /**
    * Returns thickness of the underline.
    */
-  public final fun getLineUnderlineThickness(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLineUnderlineThicknessPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getLineUnderlineThickness(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineUnderlineThicknessPtr).toFloat()
 
   /**
    * Draw text into a canvas item at a given position, with [color]. [pos] specifies the top left
@@ -459,8 +376,7 @@ public open class TextLine : RefCounted() {
     color: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR2_COLOR_DOUBLE(ptr, objectID.id, canvas, pos, color, oversampling.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.drawPtr, 0)
+    TransferContext.callPtrMethod_RID_VECTOR2_COLOR_DOUBLE(ptr, objectID.id, MethodBindings.drawPtr, canvas, pos, color, oversampling.toDouble())
   }
 
   /**
@@ -476,19 +392,15 @@ public open class TextLine : RefCounted() {
     color: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR2_LONG_COLOR_DOUBLE(ptr, objectID.id, canvas, pos, outlineSize.toLong(), color, oversampling.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.drawOutlinePtr, 0)
+    TransferContext.callPtrMethod_RID_VECTOR2_LONG_COLOR_DOUBLE(ptr, objectID.id, MethodBindings.drawOutlinePtr, canvas, pos, outlineSize.toLong(), color, oversampling.toDouble())
   }
 
   /**
    * Returns caret character offset at the specified pixel offset at the baseline. This function
    * always returns a valid position.
    */
-  public final fun hitTest(coords: Float): Int {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, coords.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.hitTestPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun hitTest(coords: Float): Int =
+      TransferContext.callPtrMethod_DOUBLE_ret_LONG(ptr, objectID.id, MethodBindings.hitTestPtr, coords.toDouble()).toInt()
 
   public companion object {
     @JvmField

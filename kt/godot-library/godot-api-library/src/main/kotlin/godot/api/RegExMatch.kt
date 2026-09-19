@@ -9,17 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_ANY_ret_LONG
+import godot.callMethod_ANY_ret_STRING
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_STRING_ARRAY
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ANY
 import kotlin.Any
 import kotlin.Int
 import kotlin.String
@@ -63,32 +63,20 @@ public open class RegExMatch : RefCounted() {
     createNativeObject(606, scriptPtr)
   }
 
-  public final fun getSubject(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubjectPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getSubject(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSubjectPtr)
 
   /**
    * Returns the number of capturing groups.
    */
-  public final fun getGroupCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGroupCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getGroupCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getGroupCountPtr).toInt()
 
-  public final fun getNames(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getNamesPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getNames(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getNamesPtr) as Dictionary<Any?, Any?>)
 
-  public final fun getStrings(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStringsPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getStrings(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getStringsPtr)
 
   /**
    * Returns the substring of the match from the source string. Capturing groups can be retrieved by
@@ -98,11 +86,8 @@ public open class RegExMatch : RefCounted() {
    * Returns an empty string if the group did not match or doesn't exist.
    */
   @JvmOverloads
-  public final fun getString(name: Any? = 0): String {
-    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getStringPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getString(name: Any? = 0): String =
+      TransferContext.callMethod_ANY_ret_STRING(ptr, objectID.id, MethodBindings.getStringPtr, name)
 
   /**
    * Returns the starting position of the match within the source string. The starting position of
@@ -112,11 +97,8 @@ public open class RegExMatch : RefCounted() {
    * Returns -1 if the group did not match or doesn't exist.
    */
   @JvmOverloads
-  public final fun getStart(name: Any? = 0): Int {
-    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getStartPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getStart(name: Any? = 0): Int =
+      TransferContext.callMethod_ANY_ret_LONG(ptr, objectID.id, MethodBindings.getStartPtr, name).toInt()
 
   /**
    * Returns the end position of the match within the source string. The end position of capturing
@@ -126,11 +108,8 @@ public open class RegExMatch : RefCounted() {
    * Returns -1 if the group did not match or doesn't exist.
    */
   @JvmOverloads
-  public final fun getEnd(name: Any? = 0): Int {
-    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getEndPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getEnd(name: Any? = 0): Int =
+      TransferContext.callMethod_ANY_ret_LONG(ptr, objectID.id, MethodBindings.getEndPtr, name).toInt()
 
   public companion object {
     @JvmField

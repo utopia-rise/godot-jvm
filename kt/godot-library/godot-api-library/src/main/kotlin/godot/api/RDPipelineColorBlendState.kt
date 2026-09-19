@@ -11,20 +11,19 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_COLOR
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantArray
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_COLOR
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_COLOR
-import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -112,49 +111,33 @@ public open class RDPipelineColorBlendState : RefCounted() {
   }
 
   public final fun setEnableLogicOp(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setEnableLogicOpPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableLogicOpPtr, pMember)
   }
 
-  public final fun getEnableLogicOp(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnableLogicOpPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getEnableLogicOp(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableLogicOpPtr)
 
   public final fun setLogicOp(pMember: RenderingDevice.LogicOperation): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setLogicOpPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLogicOpPtr, pMember.value)
   }
 
-  public final fun getLogicOp(): RenderingDevice.LogicOperation {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLogicOpPtr, 2)
-    return RenderingDevice.LogicOperation.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getLogicOp(): RenderingDevice.LogicOperation =
+      RenderingDevice.LogicOperation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLogicOpPtr))
 
   public final fun setBlendConstant(pMember: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setBlendConstantPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setBlendConstantPtr, pMember)
   }
 
-  public final fun getBlendConstant(): Color {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBlendConstantPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getBlendConstant(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getBlendConstantPtr)
 
   public final fun setAttachments(attachments: VariantArray<RDPipelineColorBlendStateAttachment>):
       Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, attachments)
-    TransferContext.callPtrMethod(MethodBindings.setAttachmentsPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setAttachmentsPtr, attachments)
   }
 
-  public final fun getAttachments(): VariantArray<RDPipelineColorBlendStateAttachment> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAttachmentsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RDPipelineColorBlendStateAttachment>)
-  }
+  public final fun getAttachments(): VariantArray<RDPipelineColorBlendStateAttachment> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getAttachmentsPtr) as VariantArray<RDPipelineColorBlendStateAttachment>)
 
   public companion object {
     @JvmField

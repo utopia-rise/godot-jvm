@@ -9,6 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_OBJECT_ANY_ret_LONG
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_PACKED_INT_32_ARRAY
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod_LONG_OBJECT_STRING_NAME_ARRAY_ret_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
@@ -23,16 +32,6 @@ import godot.core.Signal1
 import godot.core.StringName
 import godot.core.VariantArray
 import godot.core.asCachedStringName
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_INT_32_ARRAY
-import godot.readReturnValue_STRING_NAME
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG_OBJECT_STRING_NAME_ARRAY
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_ANY
-import godot.writeMethodArguments_STRING_NAME
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -114,41 +113,28 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
   /**
    * Returns `true` if there is a [multiplayerPeer] set.
    */
-  public final fun hasMultiplayerPeer(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasMultiplayerPeerPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasMultiplayerPeer(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasMultiplayerPeerPtr)
 
-  public final fun getMultiplayerPeer(): MultiplayerPeer? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMultiplayerPeerPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as MultiplayerPeer?)
-  }
+  public final fun getMultiplayerPeer(): MultiplayerPeer? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMultiplayerPeerPtr) as MultiplayerPeer?)
 
   public final fun setMultiplayerPeer(peer: MultiplayerPeer?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, peer)
-    TransferContext.callPtrMethod(MethodBindings.setMultiplayerPeerPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMultiplayerPeerPtr, peer)
   }
 
   /**
    * Returns the unique peer ID of this MultiplayerAPI's [multiplayerPeer].
    */
-  public final fun getUniqueId(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getUniqueIdPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getUniqueId(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUniqueIdPtr).toInt()
 
   /**
    * Returns `true` if this MultiplayerAPI's [multiplayerPeer] is valid and in server mode
    * (listening for connections).
    */
-  public final fun isServer(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isServerPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isServer(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isServerPtr)
 
   /**
    * Returns the sender's peer ID for the RPC currently being executed.
@@ -156,11 +142,8 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    * **Note:** This method returns `0` when called outside of an RPC. As such, the original peer ID
    * may be lost when code execution is delayed (such as with GDScript's `await` keyword).
    */
-  public final fun getRemoteSenderId(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRemoteSenderIdPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getRemoteSenderId(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRemoteSenderIdPtr).toInt()
 
   /**
    * Method used for polling the MultiplayerAPI. You only need to worry about this if you set
@@ -170,11 +153,8 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    * **Note:** This method results in RPCs being called, so they will be executed in the same
    * context of this function (e.g. `_process`, `physics`, [Thread]).
    */
-  public final fun poll(): Error {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.pollPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun poll(): Error =
+      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.pollPtr))
 
   /**
    * Sends an RPC to the target [peer]. The given [method] will be called on the remote [object]
@@ -191,11 +171,8 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
     `object`: Object?,
     method: StringName,
     arguments: VariantArray<Any?> = godot.core.variantArrayOf(),
-  ): Error {
-    TransferContext.writeMethodArguments_LONG_OBJECT_STRING_NAME_ARRAY(ptr, objectID.id, peer.toLong(), `object`, method, arguments)
-    TransferContext.callPtrMethod(MethodBindings.rpcPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_OBJECT_STRING_NAME_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.rpcPtr, peer.toLong(), `object`, method, arguments))
 
   /**
    * Notifies the MultiplayerAPI of a new [configuration] for the given [object]. This method is
@@ -207,11 +184,8 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    * **Note:** This method is mostly relevant when extending or overriding the MultiplayerAPI
    * behavior via [MultiplayerAPIExtension].
    */
-  public final fun objectConfigurationAdd(`object`: Object?, configuration: Any?): Error {
-    TransferContext.writeMethodArguments_OBJECT_ANY(ptr, objectID.id, `object`, configuration)
-    TransferContext.callMethod(MethodBindings.objectConfigurationAddPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun objectConfigurationAdd(`object`: Object?, configuration: Any?): Error =
+      Error.from(TransferContext.callMethod_OBJECT_ANY_ret_LONG(ptr, objectID.id, MethodBindings.objectConfigurationAddPtr, `object`, configuration))
 
   /**
    * Notifies the MultiplayerAPI to remove a [configuration] for the given [object]. This method is
@@ -223,20 +197,14 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
    * **Note:** This method is mostly relevant when extending or overriding the MultiplayerAPI
    * behavior via [MultiplayerAPIExtension].
    */
-  public final fun objectConfigurationRemove(`object`: Object?, configuration: Any?): Error {
-    TransferContext.writeMethodArguments_OBJECT_ANY(ptr, objectID.id, `object`, configuration)
-    TransferContext.callMethod(MethodBindings.objectConfigurationRemovePtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun objectConfigurationRemove(`object`: Object?, configuration: Any?): Error =
+      Error.from(TransferContext.callMethod_OBJECT_ANY_ret_LONG(ptr, objectID.id, MethodBindings.objectConfigurationRemovePtr, `object`, configuration))
 
   /**
    * Returns the peer IDs of all connected peers of this MultiplayerAPI's [multiplayerPeer].
    */
-  public final fun getPeers(): PackedInt32Array {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPeersPtr, 30)
-    return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
-  }
+  public final fun getPeers(): PackedInt32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getPeersPtr)
 
   /**
    * Sends an RPC to the target [peer]. The given [method] will be called on the remote [object]
@@ -347,8 +315,7 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
      */
     @JvmStatic
     public final fun setDefaultInterface(interfaceName: StringName): Unit {
-      TransferContext.writeMethodArguments_STRING_NAME(0L, 0L, interfaceName)
-      TransferContext.callPtrMethod(MethodBindings.setDefaultInterfacePtr, 0)
+      TransferContext.callPtrMethod_STRING_NAME(0L, 0L, MethodBindings.setDefaultInterfacePtr, interfaceName)
     }
 
     /**
@@ -356,21 +323,15 @@ public open class MultiplayerAPI internal constructor() : RefCounted() {
      * `"SceneMultiplayer"` when [SceneMultiplayer] is available. See [setDefaultInterface].
      */
     @JvmStatic
-    public final fun getDefaultInterface(): StringName {
-      TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callPtrMethod(MethodBindings.getDefaultInterfacePtr, 21)
-      return TransferContext.readReturnValue_STRING_NAME()
-    }
+    public final fun getDefaultInterface(): StringName =
+        TransferContext.callPtrMethod0_ret_STRING_NAME(0L, 0L, MethodBindings.getDefaultInterfacePtr)
 
     /**
      * Returns a new instance of the default MultiplayerAPI.
      */
     @JvmStatic
-    public final fun createDefaultInterface(): MultiplayerAPI? {
-      TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callPtrMethod(MethodBindings.createDefaultInterfacePtr, 39)
-      return (TransferContext.readReturnValue_OBJECT() as MultiplayerAPI?)
-    }
+    public final fun createDefaultInterface(): MultiplayerAPI? =
+        (TransferContext.callPtrMethod0_ret_OBJECT_REF(0L, 0L, MethodBindings.createDefaultInterfacePtr) as MultiplayerAPI?)
 
     /**
      * Sets the default MultiplayerAPI implementation class. This method can be used by modules and

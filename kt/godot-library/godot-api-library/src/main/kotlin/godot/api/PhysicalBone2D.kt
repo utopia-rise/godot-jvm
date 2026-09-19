@@ -9,19 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_NODE_PATH
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
 import godot.core.asCachedNodePath
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_NODE_PATH
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_NODE_PATH
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
@@ -115,76 +114,50 @@ public open class PhysicalBone2D : RigidBody2D() {
    * Returns the first [Joint2D] child node, if one exists. This is mainly a helper function to make
    * it easier to get the [Joint2D] that the [PhysicalBone2D] is autoconfiguring.
    */
-  public final fun getJoint(): Joint2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getJointPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Joint2D?)
-  }
+  public final fun getJoint(): Joint2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getJointPtr) as Joint2D?)
 
-  public final fun getAutoConfigureJoint(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAutoConfigureJointPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getAutoConfigureJoint(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAutoConfigureJointPtr)
 
   public final fun setAutoConfigureJoint(autoConfigureJoint: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, autoConfigureJoint)
-    TransferContext.callPtrMethod(MethodBindings.setAutoConfigureJointPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoConfigureJointPtr, autoConfigureJoint)
   }
 
   public final fun setSimulatePhysics(simulatePhysics: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, simulatePhysics)
-    TransferContext.callPtrMethod(MethodBindings.setSimulatePhysicsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSimulatePhysicsPtr, simulatePhysics)
   }
 
-  public final fun getSimulatePhysics(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSimulatePhysicsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getSimulatePhysics(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSimulatePhysicsPtr)
 
   /**
    * Returns a boolean that indicates whether the [PhysicalBone2D] is running and simulating using
    * the Godot 2D physics engine. When `true`, the PhysicalBone2D node is using physics.
    */
-  public final fun isSimulatingPhysics(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isSimulatingPhysicsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isSimulatingPhysics(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSimulatingPhysicsPtr)
 
   public final fun setBone2dNodepath(nodepath: NodePath): Unit {
-    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, nodepath)
-    TransferContext.callPtrMethod(MethodBindings.setBone2dNodepathPtr, 0)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setBone2dNodepathPtr, nodepath)
   }
 
-  public final fun getBone2dNodepath(): NodePath {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBone2dNodepathPtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun getBone2dNodepath(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getBone2dNodepathPtr)
 
   public final fun setBone2dIndex(boneIndex: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, boneIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setBone2dIndexPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBone2dIndexPtr, boneIndex.toLong())
   }
 
-  public final fun getBone2dIndex(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBone2dIndexPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getBone2dIndex(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBone2dIndexPtr).toInt()
 
   public final fun setFollowBoneWhenSimulating(followBone: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, followBone)
-    TransferContext.callPtrMethod(MethodBindings.setFollowBoneWhenSimulatingPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFollowBoneWhenSimulatingPtr, followBone)
   }
 
-  public final fun getFollowBoneWhenSimulating(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFollowBoneWhenSimulatingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getFollowBoneWhenSimulating(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getFollowBoneWhenSimulatingPtr)
 
   public final fun setBone2dNodepath(nodepath: String) =
       setBone2dNodepath(nodepath.asCachedNodePath())

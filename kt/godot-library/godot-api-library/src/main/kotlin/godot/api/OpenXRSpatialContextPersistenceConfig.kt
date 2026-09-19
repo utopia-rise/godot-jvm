@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
 import godot.core.VariantArray
-import godot.readReturnValue_ARRAY
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_RID
 import kotlin.Any
 import kotlin.Suppress
 import kotlin.Unit
@@ -39,26 +38,21 @@ public open class OpenXRSpatialContextPersistenceConfig : OpenXRStructureBase() 
    * [OpenXRSpatialAnchorCapability.createPersistenceContext].
    */
   public final fun addPersistenceContext(persistenceContext: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, persistenceContext)
-    TransferContext.callPtrMethod(MethodBindings.addPersistenceContextPtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.addPersistenceContextPtr, persistenceContext)
   }
 
   /**
    * Removes a persistence context.
    */
   public final fun removePersistenceContext(persistenceContext: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, persistenceContext)
-    TransferContext.callPtrMethod(MethodBindings.removePersistenceContextPtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.removePersistenceContextPtr, persistenceContext)
   }
 
   /**
    * Gets the persistence context(s) (as [RID]s) received by [addPersistenceContext].
    */
-  public final fun getPersistenceContexts(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPersistenceContextsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun getPersistenceContexts(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getPersistenceContextsPtr) as VariantArray<Any?>)
 
   public companion object {
     @JvmField

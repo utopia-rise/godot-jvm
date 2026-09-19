@@ -11,6 +11,54 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_OBJECT_VECTOR2_STRING_LONG_COLOR_DOUBLE
+import godot.callMethod_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_COLOR_LONG_LONG_LONG_DOUBLE
+import godot.callMethod_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_DOUBLE
+import godot.callMethod_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE
+import godot.callMethod_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE
+import godot.callMethod_OBJECT_VECTOR2_STRING_LONG_LONG_COLOR_DOUBLE
+import godot.callMethod_STRING_NAME_ANY
+import godot.callMethod_STRING_NAME_ret_ANY
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_COLOR
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_RECT2
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod0_ret_TRANSFORM2D
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_DOUBLE_DOUBLE_DOUBLE_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_OBJECT
+import godot.callPtrMethod_OBJECT_OBJECT_TRANSFORM2D_COLOR
+import godot.callPtrMethod_OBJECT_RECT2
+import godot.callPtrMethod_OBJECT_RECT2_BOOL_COLOR_BOOL
+import godot.callPtrMethod_OBJECT_RECT2_RECT2_COLOR
+import godot.callPtrMethod_OBJECT_RECT2_RECT2_COLOR_BOOL_BOOL
+import godot.callPtrMethod_OBJECT_RECT2_RECT2_COLOR_DOUBLE_DOUBLE_DOUBLE
+import godot.callPtrMethod_OBJECT_VECTOR2_COLOR
+import godot.callPtrMethod_OBJECT_ret_OBJECT_REF
+import godot.callPtrMethod_PACKED_VECTOR2_ARRAY_COLOR_DOUBLE_BOOL
+import godot.callPtrMethod_PACKED_VECTOR2_ARRAY_COLOR_PACKED_VECTOR2_ARRAY_OBJECT
+import godot.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_DOUBLE_BOOL
+import godot.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_PACKED_VECTOR2_ARRAY_OBJECT
+import godot.callPtrMethod_RECT2_COLOR_BOOL_DOUBLE_BOOL
+import godot.callPtrMethod_TRANSFORM2D
+import godot.callPtrMethod_VECTOR2_DOUBLE_COLOR_BOOL_DOUBLE_BOOL
+import godot.callPtrMethod_VECTOR2_DOUBLE_DOUBLE_COLOR_BOOL_DOUBLE_BOOL
+import godot.callPtrMethod_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE_LONG_COLOR_DOUBLE_BOOL
+import godot.callPtrMethod_VECTOR2_DOUBLE_DOUBLE_DOUBLE_LONG_COLOR_DOUBLE_BOOL
+import godot.callPtrMethod_VECTOR2_DOUBLE_VECTOR2
+import godot.callPtrMethod_VECTOR2_VECTOR2_COLOR_DOUBLE_BOOL
+import godot.callPtrMethod_VECTOR2_VECTOR2_COLOR_DOUBLE_DOUBLE_BOOL_BOOL
+import godot.callPtrMethod_VECTOR2_ret_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.GodotEnum
@@ -38,52 +86,6 @@ import godot.core.StringName
 import godot.core.Transform2D
 import godot.core.Vector2
 import godot.core.asCachedStringName
-import godot.readReturnValue_ANY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_COLOR
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_RECT2
-import godot.readReturnValue_RID
-import godot.readReturnValue_TRANSFORM2D
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_COLOR
-import godot.writeMethodArguments_DOUBLE_DOUBLE_DOUBLE_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_OBJECT
-import godot.writeMethodArguments_OBJECT_OBJECT_TRANSFORM2D_COLOR
-import godot.writeMethodArguments_OBJECT_RECT2
-import godot.writeMethodArguments_OBJECT_RECT2_BOOL_COLOR_BOOL
-import godot.writeMethodArguments_OBJECT_RECT2_RECT2_COLOR
-import godot.writeMethodArguments_OBJECT_RECT2_RECT2_COLOR_BOOL_BOOL
-import godot.writeMethodArguments_OBJECT_RECT2_RECT2_COLOR_DOUBLE_DOUBLE_DOUBLE
-import godot.writeMethodArguments_OBJECT_VECTOR2_COLOR
-import godot.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_COLOR_DOUBLE
-import godot.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_COLOR_LONG_LONG_LONG_DOUBLE
-import godot.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_DOUBLE
-import godot.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE
-import godot.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE
-import godot.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_LONG_COLOR_DOUBLE
-import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY_COLOR_DOUBLE_BOOL
-import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY_COLOR_PACKED_VECTOR2_ARRAY_OBJECT
-import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_DOUBLE_BOOL
-import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_PACKED_VECTOR2_ARRAY_OBJECT
-import godot.writeMethodArguments_RECT2_COLOR_BOOL_DOUBLE_BOOL
-import godot.writeMethodArguments_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_ANY
-import godot.writeMethodArguments_TRANSFORM2D
-import godot.writeMethodArguments_VECTOR2
-import godot.writeMethodArguments_VECTOR2_DOUBLE_COLOR_BOOL_DOUBLE_BOOL
-import godot.writeMethodArguments_VECTOR2_DOUBLE_DOUBLE_COLOR_BOOL_DOUBLE_BOOL
-import godot.writeMethodArguments_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE_LONG_COLOR_DOUBLE_BOOL
-import godot.writeMethodArguments_VECTOR2_DOUBLE_DOUBLE_DOUBLE_LONG_COLOR_DOUBLE_BOOL
-import godot.writeMethodArguments_VECTOR2_DOUBLE_VECTOR2
-import godot.writeMethodArguments_VECTOR2_VECTOR2_COLOR_DOUBLE_BOOL
-import godot.writeMethodArguments_VECTOR2_VECTOR2_COLOR_DOUBLE_DOUBLE_BOOL_BOOL
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -458,22 +460,15 @@ public open class CanvasItem internal constructor() : Node() {
   /**
    * Returns the internal canvas item [RID] used by the [RenderingServer] for this node.
    */
-  public final fun getCanvasItem(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCanvasItemPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getCanvasItem(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getCanvasItemPtr)
 
   public final fun setVisible(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
-    TransferContext.callPtrMethod(MethodBindings.setVisiblePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setVisiblePtr, visible)
   }
 
-  public final fun isVisible(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isVisiblePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isVisible(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isVisiblePtr)
 
   /**
    * Returns `true` if the node is present in the [SceneTree], its [visible] property is `true` and
@@ -487,11 +482,8 @@ public open class CanvasItem internal constructor() : Node() {
    * **Note:** This method does not take [visibilityLayer] into account, so even if this method
    * returns `true`, the node might end up not being rendered.
    */
-  public final fun isVisibleInTree(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isVisibleInTreePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isVisibleInTree(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isVisibleInTreePtr)
 
   /**
    * Show the [CanvasItem] if it's currently hidden. This is equivalent to setting [visible] to
@@ -501,8 +493,7 @@ public open class CanvasItem internal constructor() : Node() {
    * one of the multiple `popup*()` functions instead.
    */
   public final fun show(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.showPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.showPtr)
   }
 
   /**
@@ -510,8 +501,7 @@ public open class CanvasItem internal constructor() : Node() {
    * `false`.
    */
   public final fun hide(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hidePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.hidePtr)
   }
 
   /**
@@ -520,8 +510,7 @@ public open class CanvasItem internal constructor() : Node() {
    * this method has been called multiple times.
    */
   public final fun queueRedraw(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.queueRedrawPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.queueRedrawPtr)
   }
 
   /**
@@ -529,97 +518,64 @@ public open class CanvasItem internal constructor() : Node() {
    * Does nothing if this node does not have a parent. See also [Node.moveChild].
    */
   public final fun moveToFront(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.moveToFrontPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.moveToFrontPtr)
   }
 
   public final fun setAsTopLevel(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setAsTopLevelPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAsTopLevelPtr, enable)
   }
 
-  public final fun isSetAsTopLevel(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isSetAsTopLevelPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isSetAsTopLevel(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSetAsTopLevelPtr)
 
   public final fun setLightMask(lightMask: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, lightMask.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setLightMaskPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLightMaskPtr, lightMask.toLong())
   }
 
-  public final fun getLightMask(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLightMaskPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getLightMask(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLightMaskPtr).toInt()
 
   public final fun setModulate(modulate: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, modulate)
-    TransferContext.callPtrMethod(MethodBindings.setModulatePtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setModulatePtr, modulate)
   }
 
-  public final fun getModulate(): Color {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getModulatePtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getModulate(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getModulatePtr)
 
   public final fun setSelfModulate(selfModulate: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, selfModulate)
-    TransferContext.callPtrMethod(MethodBindings.setSelfModulatePtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setSelfModulatePtr, selfModulate)
   }
 
-  public final fun getSelfModulate(): Color {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSelfModulatePtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getSelfModulate(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getSelfModulatePtr)
 
   public final fun setZIndex(zIndex: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, zIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setZIndexPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setZIndexPtr, zIndex.toLong())
   }
 
-  public final fun getZIndex(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getZIndexPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getZIndex(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getZIndexPtr).toInt()
 
   public final fun setZAsRelative(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setZAsRelativePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setZAsRelativePtr, enable)
   }
 
-  public final fun isZRelative(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isZRelativePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isZRelative(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isZRelativePtr)
 
   public final fun setYSortEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setYSortEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setYSortEnabledPtr, enabled)
   }
 
-  public final fun isYSortEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isYSortEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isYSortEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isYSortEnabledPtr)
 
   public final fun setDrawBehindParent(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setDrawBehindParentPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDrawBehindParentPtr, enable)
   }
 
-  public final fun isDrawBehindParentEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDrawBehindParentEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDrawBehindParentEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDrawBehindParentEnabledPtr)
 
   /**
    * Draws a line from a 2D point to another, with a given color and width. It can be optionally
@@ -638,8 +594,7 @@ public open class CanvasItem internal constructor() : Node() {
     width: Float = -1.0f,
     antialiased: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_VECTOR2_VECTOR2_COLOR_DOUBLE_BOOL(ptr, objectID.id, from, to, color, width.toDouble(), antialiased)
-    TransferContext.callPtrMethod(MethodBindings.drawLinePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2_VECTOR2_COLOR_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.drawLinePtr, from, to, color, width.toDouble(), antialiased)
   }
 
   /**
@@ -673,8 +628,7 @@ public open class CanvasItem internal constructor() : Node() {
     aligned: Boolean = true,
     antialiased: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_VECTOR2_VECTOR2_COLOR_DOUBLE_DOUBLE_BOOL_BOOL(ptr, objectID.id, from, to, color, width.toDouble(), dash.toDouble(), aligned, antialiased)
-    TransferContext.callPtrMethod(MethodBindings.drawDashedLinePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2_VECTOR2_COLOR_DOUBLE_DOUBLE_BOOL_BOOL(ptr, objectID.id, MethodBindings.drawDashedLinePtr, from, to, color, width.toDouble(), dash.toDouble(), aligned, antialiased)
   }
 
   /**
@@ -695,8 +649,7 @@ public open class CanvasItem internal constructor() : Node() {
     width: Float = -1.0f,
     antialiased: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY_COLOR_DOUBLE_BOOL(ptr, objectID.id, points, color, width.toDouble(), antialiased)
-    TransferContext.callPtrMethod(MethodBindings.drawPolylinePtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_COLOR_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.drawPolylinePtr, points, color, width.toDouble(), antialiased)
   }
 
   /**
@@ -719,8 +672,7 @@ public open class CanvasItem internal constructor() : Node() {
     width: Float = -1.0f,
     antialiased: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_DOUBLE_BOOL(ptr, objectID.id, points, colors, width.toDouble(), antialiased)
-    TransferContext.callPtrMethod(MethodBindings.drawPolylineColorsPtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.drawPolylineColorsPtr, points, colors, width.toDouble(), antialiased)
   }
 
   /**
@@ -749,8 +701,7 @@ public open class CanvasItem internal constructor() : Node() {
     width: Float = -1.0f,
     antialiased: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE_LONG_COLOR_DOUBLE_BOOL(ptr, objectID.id, center, major.toDouble(), minor.toDouble(), startAngle.toDouble(), endAngle.toDouble(), pointCount.toLong(), color, width.toDouble(), antialiased)
-    TransferContext.callPtrMethod(MethodBindings.drawEllipseArcPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE_LONG_COLOR_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.drawEllipseArcPtr, center, major.toDouble(), minor.toDouble(), startAngle.toDouble(), endAngle.toDouble(), pointCount.toLong(), color, width.toDouble(), antialiased)
   }
 
   /**
@@ -779,8 +730,7 @@ public open class CanvasItem internal constructor() : Node() {
     width: Float = -1.0f,
     antialiased: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_VECTOR2_DOUBLE_DOUBLE_DOUBLE_LONG_COLOR_DOUBLE_BOOL(ptr, objectID.id, center, radius.toDouble(), startAngle.toDouble(), endAngle.toDouble(), pointCount.toLong(), color, width.toDouble(), antialiased)
-    TransferContext.callPtrMethod(MethodBindings.drawArcPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2_DOUBLE_DOUBLE_DOUBLE_LONG_COLOR_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.drawArcPtr, center, radius.toDouble(), startAngle.toDouble(), endAngle.toDouble(), pointCount.toLong(), color, width.toDouble(), antialiased)
   }
 
   /**
@@ -802,8 +752,7 @@ public open class CanvasItem internal constructor() : Node() {
     width: Float = -1.0f,
     antialiased: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY_COLOR_DOUBLE_BOOL(ptr, objectID.id, points, color, width.toDouble(), antialiased)
-    TransferContext.callPtrMethod(MethodBindings.drawMultilinePtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_COLOR_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.drawMultilinePtr, points, color, width.toDouble(), antialiased)
   }
 
   /**
@@ -827,8 +776,7 @@ public open class CanvasItem internal constructor() : Node() {
     width: Float = -1.0f,
     antialiased: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_DOUBLE_BOOL(ptr, objectID.id, points, colors, width.toDouble(), antialiased)
-    TransferContext.callPtrMethod(MethodBindings.drawMultilineColorsPtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.drawMultilineColorsPtr, points, colors, width.toDouble(), antialiased)
   }
 
   /**
@@ -856,8 +804,7 @@ public open class CanvasItem internal constructor() : Node() {
     width: Float = -1.0f,
     antialiased: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_RECT2_COLOR_BOOL_DOUBLE_BOOL(ptr, objectID.id, rect, color, filled, width.toDouble(), antialiased)
-    TransferContext.callPtrMethod(MethodBindings.drawRectPtr, 0)
+    TransferContext.callPtrMethod_RECT2_COLOR_BOOL_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.drawRectPtr, rect, color, filled, width.toDouble(), antialiased)
   }
 
   /**
@@ -885,8 +832,7 @@ public open class CanvasItem internal constructor() : Node() {
     width: Float = -1.0f,
     antialiased: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_VECTOR2_DOUBLE_COLOR_BOOL_DOUBLE_BOOL(ptr, objectID.id, position, radius.toDouble(), color, filled, width.toDouble(), antialiased)
-    TransferContext.callPtrMethod(MethodBindings.drawCirclePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2_DOUBLE_COLOR_BOOL_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.drawCirclePtr, position, radius.toDouble(), color, filled, width.toDouble(), antialiased)
   }
 
   /**
@@ -915,8 +861,7 @@ public open class CanvasItem internal constructor() : Node() {
     width: Float = -1.0f,
     antialiased: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_VECTOR2_DOUBLE_DOUBLE_COLOR_BOOL_DOUBLE_BOOL(ptr, objectID.id, position, major.toDouble(), minor.toDouble(), color, filled, width.toDouble(), antialiased)
-    TransferContext.callPtrMethod(MethodBindings.drawEllipsePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2_DOUBLE_DOUBLE_COLOR_BOOL_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.drawEllipsePtr, position, major.toDouble(), minor.toDouble(), color, filled, width.toDouble(), antialiased)
   }
 
   /**
@@ -933,8 +878,7 @@ public open class CanvasItem internal constructor() : Node() {
     position: Vector2,
     modulate: Color = Color(Color(1, 1, 1, 1)),
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_VECTOR2_COLOR(ptr, objectID.id, texture, position, modulate)
-    TransferContext.callPtrMethod(MethodBindings.drawTexturePtr, 0)
+    TransferContext.callPtrMethod_OBJECT_VECTOR2_COLOR(ptr, objectID.id, MethodBindings.drawTexturePtr, texture, position, modulate)
   }
 
   /**
@@ -955,8 +899,7 @@ public open class CanvasItem internal constructor() : Node() {
     modulate: Color = Color(Color(1, 1, 1, 1)),
     transpose: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_RECT2_BOOL_COLOR_BOOL(ptr, objectID.id, texture, rect, tile, modulate, transpose)
-    TransferContext.callPtrMethod(MethodBindings.drawTextureRectPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_RECT2_BOOL_COLOR_BOOL(ptr, objectID.id, MethodBindings.drawTextureRectPtr, texture, rect, tile, modulate, transpose)
   }
 
   /**
@@ -978,8 +921,7 @@ public open class CanvasItem internal constructor() : Node() {
     transpose: Boolean = false,
     clipUv: Boolean = true,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_RECT2_RECT2_COLOR_BOOL_BOOL(ptr, objectID.id, texture, rect, srcRect, modulate, transpose, clipUv)
-    TransferContext.callPtrMethod(MethodBindings.drawTextureRectRegionPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_RECT2_RECT2_COLOR_BOOL_BOOL(ptr, objectID.id, MethodBindings.drawTextureRectRegionPtr, texture, rect, srcRect, modulate, transpose, clipUv)
   }
 
   /**
@@ -1009,8 +951,7 @@ public open class CanvasItem internal constructor() : Node() {
     pixelRange: Double = 4.0,
     scale: Double = 1.0,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_RECT2_RECT2_COLOR_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, texture, rect, srcRect, modulate, outline, pixelRange, scale)
-    TransferContext.callPtrMethod(MethodBindings.drawMsdfTextureRectRegionPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_RECT2_RECT2_COLOR_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.drawMsdfTextureRectRegionPtr, texture, rect, srcRect, modulate, outline, pixelRange, scale)
   }
 
   /**
@@ -1039,8 +980,7 @@ public open class CanvasItem internal constructor() : Node() {
     srcRect: Rect2,
     modulate: Color = Color(Color(1, 1, 1, 1)),
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_RECT2_RECT2_COLOR(ptr, objectID.id, texture, rect, srcRect, modulate)
-    TransferContext.callPtrMethod(MethodBindings.drawLcdTextureRectRegionPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_RECT2_RECT2_COLOR(ptr, objectID.id, MethodBindings.drawLcdTextureRectRegionPtr, texture, rect, srcRect, modulate)
   }
 
   /**
@@ -1052,8 +992,7 @@ public open class CanvasItem internal constructor() : Node() {
    * variables get destroyed before the rendering takes place.
    */
   public final fun drawStyleBox(styleBox: StyleBox, rect: Rect2): Unit {
-    TransferContext.writeMethodArguments_OBJECT_RECT2(ptr, objectID.id, styleBox, rect)
-    TransferContext.callPtrMethod(MethodBindings.drawStyleBoxPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_RECT2(ptr, objectID.id, MethodBindings.drawStyleBoxPtr, styleBox, rect)
   }
 
   /**
@@ -1074,8 +1013,7 @@ public open class CanvasItem internal constructor() : Node() {
     uvs: PackedVector2Array,
     texture: Texture2D? = null,
   ): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_PACKED_VECTOR2_ARRAY_OBJECT(ptr, objectID.id, points, colors, uvs, texture)
-    TransferContext.callPtrMethod(MethodBindings.drawPrimitivePtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_PACKED_VECTOR2_ARRAY_OBJECT(ptr, objectID.id, MethodBindings.drawPrimitivePtr, points, colors, uvs, texture)
   }
 
   /**
@@ -1100,8 +1038,7 @@ public open class CanvasItem internal constructor() : Node() {
     uvs: PackedVector2Array = PackedVector2Array(),
     texture: Texture2D? = null,
   ): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_PACKED_VECTOR2_ARRAY_OBJECT(ptr, objectID.id, points, colors, uvs, texture)
-    TransferContext.callPtrMethod(MethodBindings.drawPolygonPtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_PACKED_VECTOR2_ARRAY_OBJECT(ptr, objectID.id, MethodBindings.drawPolygonPtr, points, colors, uvs, texture)
   }
 
   /**
@@ -1125,8 +1062,7 @@ public open class CanvasItem internal constructor() : Node() {
     uvs: PackedVector2Array = PackedVector2Array(),
     texture: Texture2D? = null,
   ): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY_COLOR_PACKED_VECTOR2_ARRAY_OBJECT(ptr, objectID.id, points, color, uvs, texture)
-    TransferContext.callPtrMethod(MethodBindings.drawColoredPolygonPtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_COLOR_PACKED_VECTOR2_ARRAY_OBJECT(ptr, objectID.id, MethodBindings.drawColoredPolygonPtr, points, color, uvs, texture)
   }
 
   /**
@@ -1166,8 +1102,7 @@ public open class CanvasItem internal constructor() : Node() {
     orientation: TextServer.Orientation = TextServer.Orientation.HORIZONTAL,
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_COLOR_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, font, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), modulate, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
-    TransferContext.callMethod(MethodBindings.drawStringPtr)
+    TransferContext.callMethod_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_COLOR_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.drawStringPtr, font, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), modulate, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
   }
 
   /**
@@ -1193,8 +1128,7 @@ public open class CanvasItem internal constructor() : Node() {
     orientation: TextServer.Orientation = TextServer.Orientation.HORIZONTAL,
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, font, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), maxLines.toLong(), modulate, brkFlags.flag, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
-    TransferContext.callMethod(MethodBindings.drawMultilineStringPtr)
+    TransferContext.callMethod_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.drawMultilineStringPtr, font, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), maxLines.toLong(), modulate, brkFlags.flag, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
   }
 
   /**
@@ -1219,8 +1153,7 @@ public open class CanvasItem internal constructor() : Node() {
     orientation: TextServer.Orientation = TextServer.Orientation.HORIZONTAL,
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, font, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), size.toLong(), modulate, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
-    TransferContext.callMethod(MethodBindings.drawStringOutlinePtr)
+    TransferContext.callMethod_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.drawStringOutlinePtr, font, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), size.toLong(), modulate, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
   }
 
   /**
@@ -1247,8 +1180,7 @@ public open class CanvasItem internal constructor() : Node() {
     orientation: TextServer.Orientation = TextServer.Orientation.HORIZONTAL,
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, font, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), maxLines.toLong(), size.toLong(), modulate, brkFlags.flag, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
-    TransferContext.callMethod(MethodBindings.drawMultilineStringOutlinePtr)
+    TransferContext.callMethod_OBJECT_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.drawMultilineStringOutlinePtr, font, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), maxLines.toLong(), size.toLong(), modulate, brkFlags.flag, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
   }
 
   /**
@@ -1265,8 +1197,7 @@ public open class CanvasItem internal constructor() : Node() {
     modulate: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_COLOR_DOUBLE(ptr, objectID.id, font, pos, char, fontSize.toLong(), modulate, oversampling.toDouble())
-    TransferContext.callMethod(MethodBindings.drawCharPtr)
+    TransferContext.callMethod_OBJECT_VECTOR2_STRING_LONG_COLOR_DOUBLE(ptr, objectID.id, MethodBindings.drawCharPtr, font, pos, char, fontSize.toLong(), modulate, oversampling.toDouble())
   }
 
   /**
@@ -1284,8 +1215,7 @@ public open class CanvasItem internal constructor() : Node() {
     modulate: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_VECTOR2_STRING_LONG_LONG_COLOR_DOUBLE(ptr, objectID.id, font, pos, char, fontSize.toLong(), size.toLong(), modulate, oversampling.toDouble())
-    TransferContext.callMethod(MethodBindings.drawCharOutlinePtr)
+    TransferContext.callMethod_OBJECT_VECTOR2_STRING_LONG_LONG_COLOR_DOUBLE(ptr, objectID.id, MethodBindings.drawCharOutlinePtr, font, pos, char, fontSize.toLong(), size.toLong(), modulate, oversampling.toDouble())
   }
 
   /**
@@ -1304,8 +1234,7 @@ public open class CanvasItem internal constructor() : Node() {
     transform: Transform2D = Transform2D(),
     modulate: Color = Color(Color(1, 1, 1, 1)),
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT_TRANSFORM2D_COLOR(ptr, objectID.id, mesh, texture, transform, modulate)
-    TransferContext.callPtrMethod(MethodBindings.drawMeshPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_OBJECT_TRANSFORM2D_COLOR(ptr, objectID.id, MethodBindings.drawMeshPtr, mesh, texture, transform, modulate)
   }
 
   /**
@@ -1318,8 +1247,7 @@ public open class CanvasItem internal constructor() : Node() {
    * variables get destroyed before the rendering takes place.
    */
   public final fun drawMultimesh(multimesh: MultiMesh, texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT(ptr, objectID.id, multimesh, texture)
-    TransferContext.callPtrMethod(MethodBindings.drawMultimeshPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_OBJECT(ptr, objectID.id, MethodBindings.drawMultimeshPtr, multimesh, texture)
   }
 
   /**
@@ -1340,8 +1268,7 @@ public open class CanvasItem internal constructor() : Node() {
     rotation: Float = 0.0f,
     scale: Vector2 = Vector2(1, 1),
   ): Unit {
-    TransferContext.writeMethodArguments_VECTOR2_DOUBLE_VECTOR2(ptr, objectID.id, position, rotation.toDouble(), scale)
-    TransferContext.callPtrMethod(MethodBindings.drawSetTransformPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2_DOUBLE_VECTOR2(ptr, objectID.id, MethodBindings.drawSetTransformPtr, position, rotation.toDouble(), scale)
   }
 
   /**
@@ -1349,8 +1276,7 @@ public open class CanvasItem internal constructor() : Node() {
    * transformed by this.
    */
   public final fun drawSetTransformMatrix(xform: Transform2D): Unit {
-    TransferContext.writeMethodArguments_TRANSFORM2D(ptr, objectID.id, xform)
-    TransferContext.callPtrMethod(MethodBindings.drawSetTransformMatrixPtr, 0)
+    TransferContext.callPtrMethod_TRANSFORM2D(ptr, objectID.id, MethodBindings.drawSetTransformMatrixPtr, xform)
   }
 
   /**
@@ -1365,8 +1291,7 @@ public open class CanvasItem internal constructor() : Node() {
     sliceEnd: Double,
     offset: Double = 0.0,
   ): Unit {
-    TransferContext.writeMethodArguments_DOUBLE_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, animationLength, sliceBegin, sliceEnd, offset)
-    TransferContext.callPtrMethod(MethodBindings.drawAnimationSlicePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.drawAnimationSlicePtr, animationLength, sliceBegin, sliceEnd, offset)
   }
 
   /**
@@ -1376,69 +1301,50 @@ public open class CanvasItem internal constructor() : Node() {
    * not required.
    */
   public final fun drawEndAnimation(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.drawEndAnimationPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.drawEndAnimationPtr)
   }
 
   /**
    * Returns the transform matrix of this [CanvasItem].
    */
-  public final fun getTransform(): Transform2D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTransformPtr, 11)
-    return TransferContext.readReturnValue_TRANSFORM2D()
-  }
+  public final fun getTransform(): Transform2D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getTransformPtr)
 
   /**
    * Returns the global transform matrix of this item, i.e. the combined transform up to the topmost
    * [CanvasItem] node. The topmost item is a [CanvasItem] that either has no parent, has
    * non-[CanvasItem] parent or it has [topLevel] enabled.
    */
-  public final fun getGlobalTransform(): Transform2D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGlobalTransformPtr, 11)
-    return TransferContext.readReturnValue_TRANSFORM2D()
-  }
+  public final fun getGlobalTransform(): Transform2D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getGlobalTransformPtr)
 
   /**
    * Returns the transform from the local coordinate system of this [CanvasItem] to the [Viewport]s
    * coordinate system.
    */
-  public final fun getGlobalTransformWithCanvas(): Transform2D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGlobalTransformWithCanvasPtr, 11)
-    return TransferContext.readReturnValue_TRANSFORM2D()
-  }
+  public final fun getGlobalTransformWithCanvas(): Transform2D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getGlobalTransformWithCanvasPtr)
 
   /**
    * Returns the transform of this node, converted from its registered canvas's coordinate system to
    * its viewport embedder's coordinate system. See also [Viewport.getFinalTransform] and
    * [Node.getViewport].
    */
-  public final fun getViewportTransform(): Transform2D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getViewportTransformPtr, 11)
-    return TransferContext.readReturnValue_TRANSFORM2D()
-  }
+  public final fun getViewportTransform(): Transform2D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getViewportTransformPtr)
 
   /**
    * Returns this node's viewport boundaries as a [Rect2]. See also [Node.getViewport].
    */
-  public final fun getViewportRect(): Rect2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getViewportRectPtr, 7)
-    return TransferContext.readReturnValue_RECT2()
-  }
+  public final fun getViewportRect(): Rect2 =
+      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getViewportRectPtr)
 
   /**
    * Returns the transform of this node, converted from its registered canvas's coordinate system to
    * its viewport's coordinate system. See also [Node.getViewport].
    */
-  public final fun getCanvasTransform(): Transform2D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCanvasTransformPtr, 11)
-    return TransferContext.readReturnValue_TRANSFORM2D()
-  }
+  public final fun getCanvasTransform(): Transform2D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getCanvasTransformPtr)
 
   /**
    * Returns the transform of this [CanvasItem] in global screen coordinates (i.e. taking window
@@ -1447,21 +1353,15 @@ public open class CanvasItem internal constructor() : Node() {
    * Equivalent to [getGlobalTransformWithCanvas] if the window is embedded (see
    * [Viewport.guiEmbedSubwindows]).
    */
-  public final fun getScreenTransform(): Transform2D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScreenTransformPtr, 11)
-    return TransferContext.readReturnValue_TRANSFORM2D()
-  }
+  public final fun getScreenTransform(): Transform2D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getScreenTransformPtr)
 
   /**
    * Returns the mouse's position in this [CanvasItem] using the local coordinate system of this
    * [CanvasItem].
    */
-  public final fun getLocalMousePosition(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLocalMousePositionPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getLocalMousePosition(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getLocalMousePositionPtr)
 
   /**
    * Returns mouse cursor's global position relative to the [CanvasLayer] that contains this node.
@@ -1469,31 +1369,22 @@ public open class CanvasItem internal constructor() : Node() {
    * **Note:** For screen-space coordinates (e.g. when using a non-embedded [Popup]), you can use
    * [DisplayServer.mouseGetPosition].
    */
-  public final fun getGlobalMousePosition(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGlobalMousePositionPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getGlobalMousePosition(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getGlobalMousePositionPtr)
 
   /**
    * Returns the [RID] of the [World2D] canvas where this node is registered to, used by the
    * [RenderingServer].
    */
-  public final fun getCanvas(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCanvasPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getCanvas(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getCanvasPtr)
 
   /**
    * Returns the [CanvasLayer] that contains this node, or `null` if the node is not in any
    * [CanvasLayer].
    */
-  public final fun getCanvasLayerNode(): CanvasLayer? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCanvasLayerNodePtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as CanvasLayer?)
-  }
+  public final fun getCanvasLayerNode(): CanvasLayer? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getCanvasLayerNodePtr) as CanvasLayer?)
 
   /**
    * Returns the [World2D] this node is registered to.
@@ -1501,22 +1392,15 @@ public open class CanvasItem internal constructor() : Node() {
    * Usually, this is the same as this node's viewport (see [Node.getViewport] and
    * [Viewport.findWorld2d]).
    */
-  public final fun getWorld2d(): World2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWorld2dPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as World2D?)
-  }
+  public final fun getWorld2d(): World2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getWorld2dPtr) as World2D?)
 
   public final fun setMaterial(material: Material?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
-    TransferContext.callPtrMethod(MethodBindings.setMaterialPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMaterialPtr, material)
   }
 
-  public final fun getMaterial(): Material? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMaterialPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Material?)
-  }
+  public final fun getMaterial(): Material? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMaterialPtr) as Material?)
 
   /**
    * Set the value of a shader uniform for this instance only
@@ -1531,29 +1415,21 @@ public open class CanvasItem internal constructor() : Node() {
    * (not the capitalized name in the inspector).
    */
   public final fun setInstanceShaderParameter(name: StringName, `value`: Any?): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_ANY(ptr, objectID.id, name, value)
-    TransferContext.callMethod(MethodBindings.setInstanceShaderParameterPtr)
+    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setInstanceShaderParameterPtr, name, value)
   }
 
   /**
    * Get the value of a shader parameter as set on this instance.
    */
-  public final fun getInstanceShaderParameter(name: StringName): Any? {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getInstanceShaderParameterPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun getInstanceShaderParameter(name: StringName): Any? =
+      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getInstanceShaderParameterPtr, name)
 
   public final fun setUseParentMaterial(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setUseParentMaterialPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseParentMaterialPtr, enable)
   }
 
-  public final fun getUseParentMaterial(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getUseParentMaterialPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getUseParentMaterial(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseParentMaterialPtr)
 
   /**
    * If `true`, the node will receive [NOTIFICATION_LOCAL_TRANSFORM_CHANGED] whenever its local
@@ -1563,19 +1439,15 @@ public open class CanvasItem internal constructor() : Node() {
    * order to function correctly.
    */
   public final fun setNotifyLocalTransform(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setNotifyLocalTransformPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setNotifyLocalTransformPtr, enable)
   }
 
   /**
    * Returns `true` if the node receives [NOTIFICATION_LOCAL_TRANSFORM_CHANGED] whenever its local
    * transform changes. This is enabled with [setNotifyLocalTransform].
    */
-  public final fun isLocalTransformNotificationEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isLocalTransformNotificationEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isLocalTransformNotificationEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isLocalTransformNotificationEnabledPtr)
 
   /**
    * If `true`, the node will receive [NOTIFICATION_TRANSFORM_CHANGED] whenever its global transform
@@ -1585,19 +1457,15 @@ public open class CanvasItem internal constructor() : Node() {
    * to function correctly.
    */
   public final fun setNotifyTransform(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setNotifyTransformPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setNotifyTransformPtr, enable)
   }
 
   /**
    * Returns `true` if the node receives [NOTIFICATION_TRANSFORM_CHANGED] whenever its global
    * transform changes. This is enabled with [setNotifyTransform].
    */
-  public final fun isTransformNotificationEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isTransformNotificationEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isTransformNotificationEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTransformNotificationEnabledPtr)
 
   /**
    * Forces the node's transform to update. Fails if the node is not inside the tree. See also
@@ -1608,8 +1476,7 @@ public open class CanvasItem internal constructor() : Node() {
    * use this method only when you need an up-to-date transform (such as during physics operations).
    */
   public final fun forceUpdateTransform(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.forceUpdateTransformPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.forceUpdateTransformPtr)
   }
 
   /**
@@ -1621,94 +1488,64 @@ public open class CanvasItem internal constructor() : Node() {
    * var viewport_point = get_global_transform_with_canvas() * local_point
    * ```
    */
-  public final fun makeCanvasPositionLocal(viewportPoint: Vector2): Vector2 {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, viewportPoint)
-    TransferContext.callPtrMethod(MethodBindings.makeCanvasPositionLocalPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun makeCanvasPositionLocal(viewportPoint: Vector2): Vector2 =
+      TransferContext.callPtrMethod_VECTOR2_ret_VECTOR2(ptr, objectID.id, MethodBindings.makeCanvasPositionLocalPtr, viewportPoint)
 
   /**
    * Returns a copy of the given [event] with its coordinates converted from global space to this
    * [CanvasItem]'s local space. If not possible, returns the same [InputEvent] unchanged.
    */
-  public final fun makeInputLocal(event: InputEvent): InputEvent {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, event)
-    TransferContext.callPtrMethod(MethodBindings.makeInputLocalPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as InputEvent)
-  }
+  public final fun makeInputLocal(event: InputEvent): InputEvent =
+      (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.makeInputLocalPtr, event) as InputEvent)
 
   public final fun setVisibilityLayer(layer: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer)
-    TransferContext.callPtrMethod(MethodBindings.setVisibilityLayerPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVisibilityLayerPtr, layer)
   }
 
-  public final fun getVisibilityLayer(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVisibilityLayerPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getVisibilityLayer(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibilityLayerPtr)
 
   /**
    * Set/clear individual bits on the rendering visibility layer. This simplifies editing this
    * [CanvasItem]'s visibility layer.
    */
   public final fun setVisibilityLayerBit(layer: Long, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layer, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setVisibilityLayerBitPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setVisibilityLayerBitPtr, layer, enabled)
   }
 
   /**
    * Returns `true` if the layer at the given index is set in [visibilityLayer].
    */
-  public final fun getVisibilityLayerBit(layer: Long): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer)
-    TransferContext.callPtrMethod(MethodBindings.getVisibilityLayerBitPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getVisibilityLayerBit(layer: Long): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getVisibilityLayerBitPtr, layer)
 
   public final fun setTextureFilter(mode: TextureFilter): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setTextureFilterPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureFilterPtr, mode.value)
   }
 
-  public final fun getTextureFilter(): TextureFilter {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTextureFilterPtr, 2)
-    return TextureFilter.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTextureFilter(): TextureFilter =
+      TextureFilter.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureFilterPtr))
 
   public final fun setTextureRepeat(mode: TextureRepeat): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setTextureRepeatPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureRepeatPtr, mode.value)
   }
 
-  public final fun getTextureRepeat(): TextureRepeat {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTextureRepeatPtr, 2)
-    return TextureRepeat.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTextureRepeat(): TextureRepeat =
+      TextureRepeat.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureRepeatPtr))
 
   public final fun setClipChildrenMode(mode: ClipChildrenMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setClipChildrenModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setClipChildrenModePtr, mode.value)
   }
 
-  public final fun getClipChildrenMode(): ClipChildrenMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getClipChildrenModePtr, 2)
-    return ClipChildrenMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getClipChildrenMode(): ClipChildrenMode =
+      ClipChildrenMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getClipChildrenModePtr))
 
   public final fun setOversamplingWithScale(enabled: OversamplingWithScale): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, enabled.value)
-    TransferContext.callPtrMethod(MethodBindings.setOversamplingWithScalePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOversamplingWithScalePtr, enabled.value)
   }
 
-  public final fun getOversamplingWithScale(): OversamplingWithScale {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOversamplingWithScalePtr, 2)
-    return OversamplingWithScale.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getOversamplingWithScale(): OversamplingWithScale =
+      OversamplingWithScale.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOversamplingWithScalePtr))
 
   /**
    * Set the value of a shader uniform for this instance only

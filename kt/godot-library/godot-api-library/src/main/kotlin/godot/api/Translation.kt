@@ -9,6 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_STRING_NAME_PACKED_STRING_ARRAY_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_STRING_NAME_LONG_STRING_NAME_ret_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_STRING_NAME_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -18,16 +27,6 @@ import godot.core.MethodStringName4
 import godot.core.PackedStringArray
 import godot.core.StringName
 import godot.core.asCachedStringName
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_STRING_ARRAY
-import godot.readReturnValue_STRING
-import godot.readReturnValue_STRING_NAME
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_NAME_PACKED_STRING_ARRAY_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_STRING_NAME_LONG_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_STRING_NAME_STRING_NAME
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.String
@@ -97,15 +96,11 @@ public open class Translation : Resource() {
   }
 
   public final fun setLocale(locale: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, locale)
-    TransferContext.callMethod(MethodBindings.setLocalePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLocalePtr, locale)
   }
 
-  public final fun getLocale(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getLocale(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLocalePtr)
 
   /**
    * Adds a message if nonexistent, followed by its translation.
@@ -118,8 +113,7 @@ public open class Translation : Resource() {
     xlatedMessage: StringName,
     context: StringName = StringName(""),
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_STRING_NAME(ptr, objectID.id, srcMessage, xlatedMessage, context)
-    TransferContext.callPtrMethod(MethodBindings.addMessagePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.addMessagePtr, srcMessage, xlatedMessage, context)
   }
 
   /**
@@ -133,19 +127,15 @@ public open class Translation : Resource() {
     xlatedMessages: PackedStringArray,
     context: StringName = StringName(""),
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_PACKED_STRING_ARRAY_STRING_NAME(ptr, objectID.id, srcMessage, xlatedMessages, context)
-    TransferContext.callPtrMethod(MethodBindings.addPluralMessagePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_PACKED_STRING_ARRAY_STRING_NAME(ptr, objectID.id, MethodBindings.addPluralMessagePtr, srcMessage, xlatedMessages, context)
   }
 
   /**
    * Returns a message's translation.
    */
   public final fun getMessage(srcMessage: StringName, context: StringName = StringName("")):
-      StringName {
-    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, srcMessage, context)
-    TransferContext.callPtrMethod(MethodBindings.getMessagePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+      StringName =
+      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getMessagePtr, srcMessage, context)
 
   /**
    * Returns a message's translation involving plurals.
@@ -162,19 +152,15 @@ public open class Translation : Resource() {
     srcPluralMessage: StringName,
     n: Int,
     context: StringName = StringName(""),
-  ): StringName {
-    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_LONG_STRING_NAME(ptr, objectID.id, srcMessage, srcPluralMessage, n.toLong(), context)
-    TransferContext.callPtrMethod(MethodBindings.getPluralMessagePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  ): StringName =
+      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_LONG_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getPluralMessagePtr, srcMessage, srcPluralMessage, n.toLong(), context)
 
   /**
    * Erases a message.
    */
   public final fun eraseMessage(srcMessage: StringName, context: StringName = StringName("")):
       Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, srcMessage, context)
-    TransferContext.callPtrMethod(MethodBindings.eraseMessagePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.eraseMessagePtr, srcMessage, context)
   }
 
   /**
@@ -197,40 +183,27 @@ public open class Translation : Resource() {
    * 		print("Message &#37;s with context &#37;s" &#37; [untranslated, context])
    * ```
    */
-  public final fun getMessageList(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMessageListPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getMessageList(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getMessageListPtr)
 
   /**
    * Returns all the translated strings.
    */
-  public final fun getTranslatedMessageList(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTranslatedMessageListPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getTranslatedMessageList(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getTranslatedMessageListPtr)
 
   /**
    * Returns the number of existing messages.
    */
-  public final fun getMessageCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMessageCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMessageCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMessageCountPtr).toInt()
 
   public final fun setPluralRulesOverride(rules: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, rules)
-    TransferContext.callMethod(MethodBindings.setPluralRulesOverridePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setPluralRulesOverridePtr, rules)
   }
 
-  public final fun getPluralRulesOverride(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPluralRulesOverridePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getPluralRulesOverride(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPluralRulesOverridePtr)
 
   /**
    * Adds a message if nonexistent, followed by its translation.

@@ -9,6 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_ANY_ANY_ret_DICTIONARY
+import godot.callMethod_ANY_BOOL_ret_ANY
+import godot.callMethod_LONG_STRING_ANY_ret_DICTIONARY
+import godot.callMethod_STRING_ANY_ANY_ret_DICTIONARY
+import godot.callMethod_STRING_ANY_ret_DICTIONARY
+import godot.callMethod_STRING_CALLABLE
+import godot.callMethod_STRING_ret_STRING
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.Dictionary
@@ -16,16 +23,6 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
-import godot.readReturnValue_ANY
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments_ANY_ANY
-import godot.writeMethodArguments_ANY_BOOL
-import godot.writeMethodArguments_LONG_STRING_ANY
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_ANY
-import godot.writeMethodArguments_STRING_ANY_ANY
-import godot.writeMethodArguments_STRING_CALLABLE
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -57,8 +54,7 @@ public open class JSONRPC : Object() {
    * - [callback]: The callback which will handle the specified method.
    */
   public final fun setMethod(name: String, callback: Callable): Unit {
-    TransferContext.writeMethodArguments_STRING_CALLABLE(ptr, objectID.id, name, callback)
-    TransferContext.callMethod(MethodBindings.setMethodPtr)
+    TransferContext.callMethod_STRING_CALLABLE(ptr, objectID.id, MethodBindings.setMethodPtr, name, callback)
   }
 
   /**
@@ -73,17 +69,11 @@ public open class JSONRPC : Object() {
    * notification.
    */
   @JvmOverloads
-  public final fun processAction(action: Any?, recurse: Boolean = false): Any? {
-    TransferContext.writeMethodArguments_ANY_BOOL(ptr, objectID.id, action, recurse)
-    TransferContext.callMethod(MethodBindings.processActionPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun processAction(action: Any?, recurse: Boolean = false): Any? =
+      TransferContext.callMethod_ANY_BOOL_ret_ANY(ptr, objectID.id, MethodBindings.processActionPtr, action, recurse)
 
-  public final fun processString(action: String): String {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, action)
-    TransferContext.callMethod(MethodBindings.processStringPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun processString(action: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.processStringPtr, action)
 
   /**
    * Returns a dictionary in the form of a JSON-RPC request. Requests are sent to a server with the
@@ -101,11 +91,8 @@ public open class JSONRPC : Object() {
     method: String,
     params: Any?,
     id: Any?,
-  ): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_STRING_ANY_ANY(ptr, objectID.id, method, params, id)
-    TransferContext.callMethod(MethodBindings.makeRequestPtr)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  ): Dictionary<Any?, Any?> =
+      (TransferContext.callMethod_STRING_ANY_ANY_ret_DICTIONARY(ptr, objectID.id, MethodBindings.makeRequestPtr, method, params, id) as Dictionary<Any?, Any?>)
 
   /**
    * When a server has received and processed a request, it is expected to send a response. If you
@@ -115,11 +102,8 @@ public open class JSONRPC : Object() {
    *
    * - [id]: The ID of the request this response is targeted to.
    */
-  public final fun makeResponse(result: Any?, id: Any?): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_ANY_ANY(ptr, objectID.id, result, id)
-    TransferContext.callMethod(MethodBindings.makeResponsePtr)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun makeResponse(result: Any?, id: Any?): Dictionary<Any?, Any?> =
+      (TransferContext.callMethod_ANY_ANY_ret_DICTIONARY(ptr, objectID.id, MethodBindings.makeResponsePtr, result, id) as Dictionary<Any?, Any?>)
 
   /**
    * Returns a dictionary in the form of a JSON-RPC notification. Notifications are one-shot
@@ -129,11 +113,8 @@ public open class JSONRPC : Object() {
    *
    * - [params]: An array or dictionary of parameters being passed to the method.
    */
-  public final fun makeNotification(method: String, params: Any?): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_STRING_ANY(ptr, objectID.id, method, params)
-    TransferContext.callMethod(MethodBindings.makeNotificationPtr)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun makeNotification(method: String, params: Any?): Dictionary<Any?, Any?> =
+      (TransferContext.callMethod_STRING_ANY_ret_DICTIONARY(ptr, objectID.id, MethodBindings.makeNotificationPtr, method, params) as Dictionary<Any?, Any?>)
 
   /**
    * Creates a response which indicates a previous reply has failed in some way.
@@ -150,11 +131,8 @@ public open class JSONRPC : Object() {
     code: Int,
     message: String,
     id: Any? = null,
-  ): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_LONG_STRING_ANY(ptr, objectID.id, code.toLong(), message, id)
-    TransferContext.callMethod(MethodBindings.makeResponseErrorPtr)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  ): Dictionary<Any?, Any?> =
+      (TransferContext.callMethod_LONG_STRING_ANY_ret_DICTIONARY(ptr, objectID.id, MethodBindings.makeResponseErrorPtr, code.toLong(), message, id) as Dictionary<Any?, Any?>)
 
   public enum class ErrorCode(
     public override val `value`: Long,

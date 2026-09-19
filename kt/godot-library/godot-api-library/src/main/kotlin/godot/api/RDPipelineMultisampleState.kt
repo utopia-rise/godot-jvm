@@ -9,19 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantArray
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Long
@@ -120,70 +119,46 @@ public open class RDPipelineMultisampleState : RefCounted() {
   }
 
   public final fun setSampleCount(pMember: RenderingDevice.TextureSamples): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setSampleCountPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSampleCountPtr, pMember.value)
   }
 
-  public final fun getSampleCount(): RenderingDevice.TextureSamples {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSampleCountPtr, 2)
-    return RenderingDevice.TextureSamples.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getSampleCount(): RenderingDevice.TextureSamples =
+      RenderingDevice.TextureSamples.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSampleCountPtr))
 
   public final fun setEnableSampleShading(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setEnableSampleShadingPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableSampleShadingPtr, pMember)
   }
 
-  public final fun getEnableSampleShading(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnableSampleShadingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getEnableSampleShading(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableSampleShadingPtr)
 
   public final fun setMinSampleShading(pMember: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pMember.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setMinSampleShadingPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMinSampleShadingPtr, pMember.toDouble())
   }
 
-  public final fun getMinSampleShading(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMinSampleShadingPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getMinSampleShading(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMinSampleShadingPtr).toFloat()
 
   public final fun setEnableAlphaToCoverage(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setEnableAlphaToCoveragePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableAlphaToCoveragePtr, pMember)
   }
 
-  public final fun getEnableAlphaToCoverage(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnableAlphaToCoveragePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getEnableAlphaToCoverage(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableAlphaToCoveragePtr)
 
   public final fun setEnableAlphaToOne(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setEnableAlphaToOnePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableAlphaToOnePtr, pMember)
   }
 
-  public final fun getEnableAlphaToOne(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnableAlphaToOnePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getEnableAlphaToOne(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableAlphaToOnePtr)
 
   public final fun setSampleMasks(masks: VariantArray<Long>): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, masks)
-    TransferContext.callPtrMethod(MethodBindings.setSampleMasksPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setSampleMasksPtr, masks)
   }
 
-  public final fun getSampleMasks(): VariantArray<Long> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSampleMasksPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Long>)
-  }
+  public final fun getSampleMasks(): VariantArray<Long> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getSampleMasksPtr) as VariantArray<Long>)
 
   public companion object {
     @JvmField

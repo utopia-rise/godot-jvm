@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -44,15 +43,11 @@ public open class VisualShaderNodeComment : VisualShaderNodeFrame() {
   }
 
   public final fun setDescription(description: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, description)
-    TransferContext.callMethod(MethodBindings.setDescriptionPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setDescriptionPtr, description)
   }
 
-  public final fun getDescription(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDescriptionPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getDescription(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDescriptionPtr)
 
   public companion object {
     @JvmField

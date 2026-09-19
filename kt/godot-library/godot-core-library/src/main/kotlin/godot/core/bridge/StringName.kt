@@ -43,9 +43,9 @@ class StringName : NativeCoreType {
     }
 
     override fun toString(): String {
-        TransferContext.writeArguments(0) {}
-        Bridge.engine_call_operator_string(ptr)
-        return TransferContext.readReturnValue(VariantParser.STRING) as String
+        return TransferContext.callBridge(0, VariantParser.STRING) {
+            Bridge.engine_call_operator_string(ptr)
+        } as String
     }
 
     /**

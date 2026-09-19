@@ -9,12 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
@@ -47,27 +47,22 @@ public open class Semaphore : RefCounted() {
    * Waits for the [Semaphore], if its value is zero, blocks until non-zero.
    */
   public final fun waitFor(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.waitPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.waitPtr)
   }
 
   /**
    * Like [wait], but won't block, so if the value is zero, fails immediately and returns `false`.
    * If non-zero, it returns `true` to report success.
    */
-  public final fun tryWait(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.tryWaitPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun tryWait(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.tryWaitPtr)
 
   /**
    * Lowers the [Semaphore], allowing one thread in, or more if [count] is specified.
    */
   @JvmOverloads
   public final fun post(count: Int = 1): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callPtrMethod(MethodBindings.postPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.postPtr, count.toLong())
   }
 
   public companion object {

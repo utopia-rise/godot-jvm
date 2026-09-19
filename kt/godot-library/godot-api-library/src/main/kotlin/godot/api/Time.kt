@@ -9,25 +9,25 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_BOOL_BOOL_ret_STRING
+import godot.callMethod_BOOL_ret_STRING
+import godot.callMethod_DICTIONARY_BOOL_ret_STRING
+import godot.callMethod_LONG_BOOL_ret_STRING
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_STRING_BOOL_ret_DICTIONARY
+import godot.callMethod_STRING_ret_LONG
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL_ret_DICTIONARY
+import godot.callPtrMethod_DICTIONARY_ret_LONG
+import godot.callPtrMethod_LONG_ret_DICTIONARY
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_BOOL_BOOL
-import godot.writeMethodArguments_DICTIONARY
-import godot.writeMethodArguments_DICTIONARY_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_BOOL
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -163,32 +163,23 @@ public object Time : Object() {
    * determined from the epoch.
    */
   @JvmStatic
-  public final fun getDatetimeDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
-    TransferContext.callPtrMethod(MethodBindings.getDatetimeDictFromUnixTimePtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getDatetimeDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_LONG_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getDatetimeDictFromUnixTimePtr, unixTimeVal) as Dictionary<Any?, Any?>)
 
   /**
    * Converts the given Unix timestamp to a dictionary of keys: `year`, `month`, `day`, and
    * `weekday`.
    */
   @JvmStatic
-  public final fun getDateDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
-    TransferContext.callPtrMethod(MethodBindings.getDateDictFromUnixTimePtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getDateDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_LONG_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getDateDictFromUnixTimePtr, unixTimeVal) as Dictionary<Any?, Any?>)
 
   /**
    * Converts the given time to a dictionary of keys: `hour`, `minute`, and `second`.
    */
   @JvmStatic
-  public final fun getTimeDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
-    TransferContext.callPtrMethod(MethodBindings.getTimeDictFromUnixTimePtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getTimeDictFromUnixTime(unixTimeVal: Long): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_LONG_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getTimeDictFromUnixTimePtr, unixTimeVal) as Dictionary<Any?, Any?>)
 
   /**
    * Converts the given Unix timestamp to an ISO 8601 date and time string (YYYY-MM-DDTHH:MM:SS).
@@ -199,31 +190,22 @@ public object Time : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getDatetimeStringFromUnixTime(unixTimeVal: Long, useSpace: Boolean = false):
-      String {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, unixTimeVal, useSpace)
-    TransferContext.callMethod(MethodBindings.getDatetimeStringFromUnixTimePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+      String =
+      TransferContext.callMethod_LONG_BOOL_ret_STRING(ptr, objectID.id, MethodBindings.getDatetimeStringFromUnixTimePtr, unixTimeVal, useSpace)
 
   /**
    * Converts the given Unix timestamp to an ISO 8601 date string (YYYY-MM-DD).
    */
   @JvmStatic
-  public final fun getDateStringFromUnixTime(unixTimeVal: Long): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
-    TransferContext.callMethod(MethodBindings.getDateStringFromUnixTimePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getDateStringFromUnixTime(unixTimeVal: Long): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getDateStringFromUnixTimePtr, unixTimeVal)
 
   /**
    * Converts the given Unix timestamp to an ISO 8601 time string (HH:MM:SS).
    */
   @JvmStatic
-  public final fun getTimeStringFromUnixTime(unixTimeVal: Long): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, unixTimeVal)
-    TransferContext.callMethod(MethodBindings.getTimeStringFromUnixTimePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getTimeStringFromUnixTime(unixTimeVal: Long): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getTimeStringFromUnixTimePtr, unixTimeVal)
 
   /**
    * Converts the given ISO 8601 date and time string (YYYY-MM-DDTHH:MM:SS) to a dictionary of keys:
@@ -236,11 +218,8 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getDatetimeDictFromDatetimeString(datetime: String, weekday: Boolean):
-      Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, datetime, weekday)
-    TransferContext.callMethod(MethodBindings.getDatetimeDictFromDatetimeStringPtr)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+      Dictionary<Any?, Any?> =
+      (TransferContext.callMethod_STRING_BOOL_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getDatetimeDictFromDatetimeStringPtr, datetime, weekday) as Dictionary<Any?, Any?>)
 
   /**
    * Converts the given dictionary of keys to an ISO 8601 date and time string
@@ -257,11 +236,8 @@ public object Time : Object() {
    */
   @JvmStatic
   public final fun getDatetimeStringFromDatetimeDict(datetime: Dictionary<Any?, Any?>,
-      useSpace: Boolean): String {
-    TransferContext.writeMethodArguments_DICTIONARY_BOOL(ptr, objectID.id, datetime, useSpace)
-    TransferContext.callMethod(MethodBindings.getDatetimeStringFromDatetimeDictPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+      useSpace: Boolean): String =
+      TransferContext.callMethod_DICTIONARY_BOOL_ret_STRING(ptr, objectID.id, MethodBindings.getDatetimeStringFromDatetimeDictPtr, datetime, useSpace)
 
   /**
    * Converts a dictionary of time values to a Unix timestamp.
@@ -279,11 +255,8 @@ public object Time : Object() {
    * the timestamp will be in the same timezone as the given datetime dictionary.
    */
   @JvmStatic
-  public final fun getUnixTimeFromDatetimeDict(datetime: Dictionary<Any?, Any?>): Long {
-    TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, datetime)
-    TransferContext.callPtrMethod(MethodBindings.getUnixTimeFromDatetimeDictPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getUnixTimeFromDatetimeDict(datetime: Dictionary<Any?, Any?>): Long =
+      TransferContext.callPtrMethod_DICTIONARY_ret_LONG(ptr, objectID.id, MethodBindings.getUnixTimeFromDatetimeDictPtr, datetime)
 
   /**
    * Converts the given ISO 8601 date and/or time string to a Unix timestamp. The string can contain
@@ -295,22 +268,16 @@ public object Time : Object() {
    * **Note:** Any decimal fraction in the time string will be ignored silently.
    */
   @JvmStatic
-  public final fun getUnixTimeFromDatetimeString(datetime: String): Long {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, datetime)
-    TransferContext.callMethod(MethodBindings.getUnixTimeFromDatetimeStringPtr)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getUnixTimeFromDatetimeString(datetime: String): Long =
+      TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.getUnixTimeFromDatetimeStringPtr, datetime)
 
   /**
    * Converts the given timezone offset in minutes to a timezone offset string. For example, -480
    * returns "-08:00", 345 returns "+05:45", and 0 returns "+00:00".
    */
   @JvmStatic
-  public final fun getOffsetStringFromOffsetMinutes(offsetMinutes: Long): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, offsetMinutes)
-    TransferContext.callMethod(MethodBindings.getOffsetStringFromOffsetMinutesPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getOffsetStringFromOffsetMinutes(offsetMinutes: Long): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getOffsetStringFromOffsetMinutesPtr, offsetMinutes)
 
   /**
    * Returns the current date as a dictionary of keys: `year`, `month`, `day`, `weekday`, `hour`,
@@ -318,11 +285,8 @@ public object Time : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun getDatetimeDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
-    TransferContext.callPtrMethod(MethodBindings.getDatetimeDictFromSystemPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getDatetimeDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_BOOL_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getDatetimeDictFromSystemPtr, utc) as Dictionary<Any?, Any?>)
 
   /**
    * Returns the current date as a dictionary of keys: `year`, `month`, `day`, and `weekday`.
@@ -332,11 +296,8 @@ public object Time : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun getDateDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
-    TransferContext.callPtrMethod(MethodBindings.getDateDictFromSystemPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getDateDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_BOOL_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getDateDictFromSystemPtr, utc) as Dictionary<Any?, Any?>)
 
   /**
    * Returns the current time as a dictionary of keys: `hour`, `minute`, and `second`.
@@ -346,11 +307,8 @@ public object Time : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun getTimeDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
-    TransferContext.callPtrMethod(MethodBindings.getTimeDictFromSystemPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getTimeDictFromSystem(utc: Boolean = false): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_BOOL_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getTimeDictFromSystemPtr, utc) as Dictionary<Any?, Any?>)
 
   /**
    * Returns the current date and time as an ISO 8601 date and time string (YYYY-MM-DDTHH:MM:SS).
@@ -364,11 +322,8 @@ public object Time : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun getDatetimeStringFromSystem(utc: Boolean = false, useSpace: Boolean = false):
-      String {
-    TransferContext.writeMethodArguments_BOOL_BOOL(ptr, objectID.id, utc, useSpace)
-    TransferContext.callMethod(MethodBindings.getDatetimeStringFromSystemPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+      String =
+      TransferContext.callMethod_BOOL_BOOL_ret_STRING(ptr, objectID.id, MethodBindings.getDatetimeStringFromSystemPtr, utc, useSpace)
 
   /**
    * Returns the current date as an ISO 8601 date string (YYYY-MM-DD).
@@ -378,11 +333,8 @@ public object Time : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun getDateStringFromSystem(utc: Boolean = false): String {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
-    TransferContext.callMethod(MethodBindings.getDateStringFromSystemPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getDateStringFromSystem(utc: Boolean = false): String =
+      TransferContext.callMethod_BOOL_ret_STRING(ptr, objectID.id, MethodBindings.getDateStringFromSystemPtr, utc)
 
   /**
    * Returns the current time as an ISO 8601 time string (HH:MM:SS).
@@ -392,11 +344,8 @@ public object Time : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun getTimeStringFromSystem(utc: Boolean = false): String {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, utc)
-    TransferContext.callMethod(MethodBindings.getTimeStringFromSystemPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getTimeStringFromSystem(utc: Boolean = false): String =
+      TransferContext.callMethod_BOOL_ret_STRING(ptr, objectID.id, MethodBindings.getTimeStringFromSystemPtr, utc)
 
   /**
    * Returns the current time zone as a dictionary of keys: `bias` and `name`.
@@ -408,11 +357,8 @@ public object Time : Object() {
    * current user.
    */
   @JvmStatic
-  public final fun getTimeZoneFromSystem(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTimeZoneFromSystemPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getTimeZoneFromSystem(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getTimeZoneFromSystemPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns the current Unix timestamp in seconds based on the system time in UTC. This method is
@@ -424,11 +370,8 @@ public object Time : Object() {
    * as a [Double] for sub-second precision.
    */
   @JvmStatic
-  public final fun getUnixTimeFromSystem(): Double {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getUnixTimeFromSystemPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getUnixTimeFromSystem(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getUnixTimeFromSystemPtr)
 
   /**
    * Returns the amount of time passed in milliseconds since the engine started.
@@ -437,11 +380,8 @@ public object Time : Object() {
    * years).
    */
   @JvmStatic
-  public final fun getTicksMsec(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTicksMsecPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getTicksMsec(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTicksMsecPtr)
 
   /**
    * Returns the amount of time passed in microseconds since the engine started.
@@ -450,11 +390,8 @@ public object Time : Object() {
    * years).
    */
   @JvmStatic
-  public final fun getTicksUsec(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTicksUsecPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getTicksUsec(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTicksUsecPtr)
 
   public enum class Month(
     public override val `value`: Long,

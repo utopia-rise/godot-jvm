@@ -9,17 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_ANY_BOOL_ret_STRING
+import godot.callMethod_PACKED_BYTE_ARRAY_ret_STRING
+import godot.callMethod_STRING_BOOL_ret_ANY
+import godot.callMethod_STRING_ret_PACKED_BYTE_ARRAY
+import godot.callMethod_STRING_ret_STRING
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedByteArray
-import godot.readReturnValue_ANY
-import godot.readReturnValue_PACKED_BYTE_ARRAY
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments_ANY_BOOL
-import godot.writeMethodArguments_PACKED_BYTE_ARRAY
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_BOOL
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.String
@@ -70,11 +68,8 @@ public object Marshalls : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun variantToBase64(variant: Any?, fullObjects: Boolean = false): String {
-    TransferContext.writeMethodArguments_ANY_BOOL(ptr, objectID.id, variant, fullObjects)
-    TransferContext.callMethod(MethodBindings.variantToBase64Ptr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun variantToBase64(variant: Any?, fullObjects: Boolean = false): String =
+      TransferContext.callMethod_ANY_BOOL_ret_STRING(ptr, objectID.id, MethodBindings.variantToBase64Ptr, variant, fullObjects)
 
   /**
    * Returns a decoded [Any] corresponding to the Base64-encoded string [base64Str]. If
@@ -88,51 +83,36 @@ public object Marshalls : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun base64ToVariant(base64Str: String, allowObjects: Boolean = false): Any? {
-    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, base64Str, allowObjects)
-    TransferContext.callMethod(MethodBindings.base64ToVariantPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun base64ToVariant(base64Str: String, allowObjects: Boolean = false): Any? =
+      TransferContext.callMethod_STRING_BOOL_ret_ANY(ptr, objectID.id, MethodBindings.base64ToVariantPtr, base64Str, allowObjects)
 
   /**
    * Returns a Base64-encoded string of a given [PackedByteArray].
    */
   @JvmStatic
-  public final fun rawToBase64(array: PackedByteArray): String {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, array)
-    TransferContext.callMethod(MethodBindings.rawToBase64Ptr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun rawToBase64(array: PackedByteArray): String =
+      TransferContext.callMethod_PACKED_BYTE_ARRAY_ret_STRING(ptr, objectID.id, MethodBindings.rawToBase64Ptr, array)
 
   /**
    * Returns a decoded [PackedByteArray] corresponding to the Base64-encoded string [base64Str].
    */
   @JvmStatic
-  public final fun base64ToRaw(base64Str: String): PackedByteArray {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, base64Str)
-    TransferContext.callMethod(MethodBindings.base64ToRawPtr)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun base64ToRaw(base64Str: String): PackedByteArray =
+      TransferContext.callMethod_STRING_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.base64ToRawPtr, base64Str)
 
   /**
    * Returns a Base64-encoded string of the UTF-8 string [utf8Str].
    */
   @JvmStatic
-  public final fun utf8ToBase64(utf8Str: String): String {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, utf8Str)
-    TransferContext.callMethod(MethodBindings.utf8ToBase64Ptr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun utf8ToBase64(utf8Str: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.utf8ToBase64Ptr, utf8Str)
 
   /**
    * Returns a decoded string corresponding to the Base64-encoded string [base64Str].
    */
   @JvmStatic
-  public final fun base64ToUtf8(base64Str: String): String {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, base64Str)
-    TransferContext.callMethod(MethodBindings.base64ToUtf8Ptr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun base64ToUtf8(base64Str: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.base64ToUtf8Ptr, base64Str)
 
   public object MethodBindings {
     internal val variantToBase64Ptr: VoidPtr =

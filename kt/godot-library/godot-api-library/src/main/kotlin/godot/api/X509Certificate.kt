@@ -9,14 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -39,39 +37,27 @@ public open class X509Certificate : Resource() {
   /**
    * Saves a certificate to the given [path] (should be a "*.crt" file).
    */
-  public final fun save(path: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.savePtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun save(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.savePtr, path))
 
   /**
    * Loads a certificate from [path] ("*.crt" file).
    */
-  public final fun load(path: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.loadPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun load(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.loadPtr, path))
 
   /**
    * Returns a string representation of the certificate, or an empty string if the certificate is
    * invalid.
    */
-  public final fun saveToString(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.saveToStringPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun saveToString(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.saveToStringPtr)
 
   /**
    * Loads a certificate from the given [string].
    */
-  public final fun loadFromString(string: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, string)
-    TransferContext.callMethod(MethodBindings.loadFromStringPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadFromString(string: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.loadFromStringPtr, string))
 
   public companion object {
     @JvmField

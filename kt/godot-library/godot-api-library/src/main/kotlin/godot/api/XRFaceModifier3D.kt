@@ -9,6 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod_NODE_PATH
+import godot.callPtrMethod_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -16,11 +20,6 @@ import godot.core.NodePath
 import godot.core.StringName
 import godot.core.asCachedNodePath
 import godot.core.asCachedStringName
-import godot.readReturnValue_NODE_PATH
-import godot.readReturnValue_STRING_NAME
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_NODE_PATH
-import godot.writeMethodArguments_STRING_NAME
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -68,26 +67,18 @@ public open class XRFaceModifier3D : Node3D() {
   }
 
   public final fun setFaceTracker(trackerName: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, trackerName)
-    TransferContext.callPtrMethod(MethodBindings.setFaceTrackerPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setFaceTrackerPtr, trackerName)
   }
 
-  public final fun getFaceTracker(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFaceTrackerPtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getFaceTracker(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getFaceTrackerPtr)
 
   public final fun setTarget(target: NodePath): Unit {
-    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, target)
-    TransferContext.callPtrMethod(MethodBindings.setTargetPtr, 0)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setTargetPtr, target)
   }
 
-  public final fun getTarget(): NodePath {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTargetPtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun getTarget(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getTargetPtr)
 
   public final fun setFaceTracker(trackerName: String) =
       setFaceTracker(trackerName.asCachedStringName())

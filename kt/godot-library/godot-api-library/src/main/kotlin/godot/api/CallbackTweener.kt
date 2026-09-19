@@ -9,10 +9,9 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_DOUBLE_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Double
 import kotlin.Suppress
 import kotlin.Unit
@@ -43,11 +42,8 @@ public open class CallbackTweener : Tweener() {
    * tween.tween_callback(queue_free).set_delay(2)
    * ```
    */
-  public final fun setDelay(delay: Double): CallbackTweener {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, delay)
-    TransferContext.callPtrMethod(MethodBindings.setDelayPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as CallbackTweener)
-  }
+  public final fun setDelay(delay: Double): CallbackTweener =
+      (TransferContext.callPtrMethod_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setDelayPtr, delay) as CallbackTweener)
 
   public companion object {
     @JvmField

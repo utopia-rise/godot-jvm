@@ -9,18 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantArray
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_STRING
 import kotlin.Any
 import kotlin.Int
 import kotlin.String
@@ -77,73 +75,49 @@ public open class OpenXRInteractionProfile : Resource() {
   }
 
   public final fun setInteractionProfilePath(interactionProfilePath: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, interactionProfilePath)
-    TransferContext.callMethod(MethodBindings.setInteractionProfilePathPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setInteractionProfilePathPtr, interactionProfilePath)
   }
 
-  public final fun getInteractionProfilePath(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInteractionProfilePathPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getInteractionProfilePath(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getInteractionProfilePathPtr)
 
   /**
    * Get the number of bindings in this interaction profile.
    */
-  public final fun getBindingCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBindingCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getBindingCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBindingCountPtr).toInt()
 
   /**
    * Retrieve the binding at this index.
    */
-  public final fun getBinding(index: Int): OpenXRIPBinding? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getBindingPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as OpenXRIPBinding?)
-  }
+  public final fun getBinding(index: Int): OpenXRIPBinding? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBindingPtr, index.toLong()) as OpenXRIPBinding?)
 
   public final fun setBindings(bindings: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, bindings)
-    TransferContext.callPtrMethod(MethodBindings.setBindingsPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setBindingsPtr, bindings)
   }
 
-  public final fun getBindings(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBindingsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun getBindings(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getBindingsPtr) as VariantArray<Any?>)
 
   /**
    * Get the number of binding modifiers in this interaction profile.
    */
-  public final fun getBindingModifierCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBindingModifierCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getBindingModifierCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBindingModifierCountPtr).toInt()
 
   /**
    * Get the [OpenXRBindingModifier] at this index.
    */
-  public final fun getBindingModifier(index: Int): OpenXRIPBindingModifier? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getBindingModifierPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as OpenXRIPBindingModifier?)
-  }
+  public final fun getBindingModifier(index: Int): OpenXRIPBindingModifier? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBindingModifierPtr, index.toLong()) as OpenXRIPBindingModifier?)
 
   public final fun setBindingModifiers(bindingModifiers: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, bindingModifiers)
-    TransferContext.callPtrMethod(MethodBindings.setBindingModifiersPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setBindingModifiersPtr, bindingModifiers)
   }
 
-  public final fun getBindingModifiers(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBindingModifiersPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun getBindingModifiers(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getBindingModifiersPtr) as VariantArray<Any?>)
 
   public companion object {
     @JvmField

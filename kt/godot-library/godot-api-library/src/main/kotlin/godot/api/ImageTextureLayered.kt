@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_ARRAY_ret_LONG
+import godot.callPtrMethod_OBJECT_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.VariantArray
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_OBJECT_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -76,11 +75,8 @@ public open class ImageTextureLayered internal constructor() : TextureLayered() 
    * ResourceSaver.save(cubemap_array, "res://cubemap_array.res", ResourceSaver.FLAG_COMPRESS)
    * ```
    */
-  public final fun createFromImages(images: VariantArray<Image>): Error {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, images)
-    TransferContext.callPtrMethod(MethodBindings.createFromImagesPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun createFromImages(images: VariantArray<Image>): Error =
+      Error.from(TransferContext.callPtrMethod_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.createFromImagesPtr, images))
 
   /**
    * Replaces the existing [Image] data at the given [layer] with this new image.
@@ -94,8 +90,7 @@ public open class ImageTextureLayered internal constructor() : TextureLayered() 
    * The update is immediate: it's synchronized with drawing.
    */
   public final fun updateLayer(image: Image?, layer: Int): Unit {
-    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, image, layer.toLong())
-    TransferContext.callPtrMethod(MethodBindings.updateLayerPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_LONG(ptr, objectID.id, MethodBindings.updateLayerPtr, image, layer.toLong())
   }
 
   /**

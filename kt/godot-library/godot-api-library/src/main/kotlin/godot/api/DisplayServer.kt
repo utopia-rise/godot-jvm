@@ -9,6 +9,112 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_CALLABLE
+import godot.callMethod_CALLABLE_CALLABLE
+import godot.callMethod_CALLABLE_LONG
+import godot.callMethod_CALLABLE_ret_BOOL
+import godot.callMethod_LONG_CALLABLE
+import godot.callMethod_LONG_STRING
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_OBJECT_STRING_CALLABLE_ret_LONG
+import godot.callMethod_RID_ANY
+import godot.callMethod_RID_LONG_CALLABLE
+import godot.callMethod_RID_LONG_STRING
+import godot.callMethod_RID_STRING
+import godot.callMethod_RID_ret_ANY
+import godot.callMethod_STRING
+import godot.callMethod_STRING_ANY_ret_LONG
+import godot.callMethod_STRING_CALLABLE_CALLABLE
+import godot.callMethod_STRING_LONG
+import godot.callMethod_STRING_LONG_ANY
+import godot.callMethod_STRING_LONG_BOOL
+import godot.callMethod_STRING_LONG_CALLABLE
+import godot.callMethod_STRING_LONG_LONG
+import godot.callMethod_STRING_LONG_OBJECT
+import godot.callMethod_STRING_LONG_STRING
+import godot.callMethod_STRING_LONG_ret_ANY
+import godot.callMethod_STRING_LONG_ret_BOOL
+import godot.callMethod_STRING_LONG_ret_CALLABLE
+import godot.callMethod_STRING_LONG_ret_LONG
+import godot.callMethod_STRING_LONG_ret_OBJECT_REF
+import godot.callMethod_STRING_LONG_ret_STRING
+import godot.callMethod_STRING_LONG_ret_VECTOR2I
+import godot.callMethod_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG
+import godot.callMethod_STRING_RECT2_LONG_LONG_LONG_LONG
+import godot.callMethod_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG
+import godot.callMethod_STRING_STRING_LONG_DOUBLE_DOUBLE_LONG_BOOL
+import godot.callMethod_STRING_STRING_LONG_LONG_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG
+import godot.callMethod_STRING_STRING_PACKED_STRING_ARRAY_CALLABLE_ret_LONG
+import godot.callMethod_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_CALLABLE_LONG_ret_LONG
+import godot.callMethod_STRING_STRING_STRING_CALLABLE_ret_LONG
+import godot.callMethod_STRING_STRING_STRING_LONG_ret_LONG
+import godot.callMethod_STRING_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_ARRAY_CALLABLE_LONG_ret_LONG
+import godot.callMethod_STRING_STRING_ret_LONG
+import godot.callMethod_STRING_ret_LONG
+import godot.callMethod_STRING_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_COLOR
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_PACKED_INT_32_ARRAY
+import godot.callPtrMethod0_ret_RECT2I
+import godot.callPtrMethod0_ret_VECTOR2I
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_BOOL_LONG
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_DOUBLE_LONG
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_BOOL_LONG
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_LONG_ret_LONG
+import godot.callPtrMethod_LONG_LONG_ret_RID
+import godot.callPtrMethod_LONG_OBJECT
+import godot.callPtrMethod_LONG_RECT2I
+import godot.callPtrMethod_LONG_RECT2_RECT2
+import godot.callPtrMethod_LONG_RID
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_ret_RECT2
+import godot.callPtrMethod_LONG_ret_RECT2I
+import godot.callPtrMethod_LONG_ret_RID
+import godot.callPtrMethod_LONG_ret_VECTOR2I
+import godot.callPtrMethod_LONG_ret_VECTOR3I
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_LONG
+import godot.callPtrMethod_OBJECT_LONG_VECTOR2
+import godot.callPtrMethod_PACKED_VECTOR2_ARRAY_LONG
+import godot.callPtrMethod_RECT2I_ret_OBJECT_REF
+import godot.callPtrMethod_RECT2_ret_LONG
+import godot.callPtrMethod_RID
+import godot.callPtrMethod_RID_BOOL
+import godot.callPtrMethod_RID_BOOL_BOOL_BOOL
+import godot.callPtrMethod_RID_COLOR
+import godot.callPtrMethod_RID_DOUBLE
+import godot.callPtrMethod_RID_DOUBLE_DOUBLE
+import godot.callPtrMethod_RID_LONG
+import godot.callPtrMethod_RID_LONG_BOOL
+import godot.callPtrMethod_RID_LONG_LONG
+import godot.callPtrMethod_RID_LONG_LONG_ret_RID
+import godot.callPtrMethod_RID_RECT2
+import godot.callPtrMethod_RID_RID
+import godot.callPtrMethod_RID_RID_DOUBLE_LONG_BOOL_ret_RID
+import godot.callPtrMethod_RID_RID_LONG_RID_LONG
+import godot.callPtrMethod_RID_TRANSFORM2D
+import godot.callPtrMethod_RID_ret_BOOL
+import godot.callPtrMethod_VECTOR2I
+import godot.callPtrMethod_VECTOR2I_LONG
+import godot.callPtrMethod_VECTOR2I_ret_COLOR
+import godot.callPtrMethod_VECTOR2I_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.Color
@@ -42,90 +148,6 @@ import godot.core.VariantCallable
 import godot.core.Vector2
 import godot.core.Vector2i
 import godot.core.Vector3i
-import godot.readReturnValue_ANY
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_CALLABLE
-import godot.readReturnValue_COLOR
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_INT_32_ARRAY
-import godot.readReturnValue_PACKED_STRING_ARRAY
-import godot.readReturnValue_RECT2
-import godot.readReturnValue_RECT2I
-import godot.readReturnValue_RID
-import godot.readReturnValue_STRING
-import godot.readReturnValue_VECTOR2I
-import godot.readReturnValue_VECTOR3I
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_BOOL_LONG
-import godot.writeMethodArguments_CALLABLE
-import godot.writeMethodArguments_CALLABLE_CALLABLE
-import godot.writeMethodArguments_CALLABLE_LONG
-import godot.writeMethodArguments_COLOR
-import godot.writeMethodArguments_DOUBLE_LONG
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_LONG_BOOL_LONG
-import godot.writeMethodArguments_LONG_CALLABLE
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_LONG_LONG_LONG
-import godot.writeMethodArguments_LONG_OBJECT
-import godot.writeMethodArguments_LONG_RECT2I
-import godot.writeMethodArguments_LONG_RECT2_RECT2
-import godot.writeMethodArguments_LONG_RID
-import godot.writeMethodArguments_LONG_STRING
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_LONG
-import godot.writeMethodArguments_OBJECT_LONG_VECTOR2
-import godot.writeMethodArguments_OBJECT_STRING_CALLABLE
-import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY_LONG
-import godot.writeMethodArguments_RECT2
-import godot.writeMethodArguments_RECT2I
-import godot.writeMethodArguments_RID
-import godot.writeMethodArguments_RID_ANY
-import godot.writeMethodArguments_RID_BOOL
-import godot.writeMethodArguments_RID_BOOL_BOOL_BOOL
-import godot.writeMethodArguments_RID_COLOR
-import godot.writeMethodArguments_RID_DOUBLE
-import godot.writeMethodArguments_RID_DOUBLE_DOUBLE
-import godot.writeMethodArguments_RID_LONG
-import godot.writeMethodArguments_RID_LONG_BOOL
-import godot.writeMethodArguments_RID_LONG_CALLABLE
-import godot.writeMethodArguments_RID_LONG_LONG
-import godot.writeMethodArguments_RID_LONG_STRING
-import godot.writeMethodArguments_RID_RECT2
-import godot.writeMethodArguments_RID_RID
-import godot.writeMethodArguments_RID_RID_DOUBLE_LONG_BOOL
-import godot.writeMethodArguments_RID_RID_LONG_RID_LONG
-import godot.writeMethodArguments_RID_STRING
-import godot.writeMethodArguments_RID_TRANSFORM2D
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_ANY
-import godot.writeMethodArguments_STRING_CALLABLE_CALLABLE
-import godot.writeMethodArguments_STRING_LONG
-import godot.writeMethodArguments_STRING_LONG_ANY
-import godot.writeMethodArguments_STRING_LONG_BOOL
-import godot.writeMethodArguments_STRING_LONG_CALLABLE
-import godot.writeMethodArguments_STRING_LONG_LONG
-import godot.writeMethodArguments_STRING_LONG_OBJECT
-import godot.writeMethodArguments_STRING_LONG_STRING
-import godot.writeMethodArguments_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG
-import godot.writeMethodArguments_STRING_RECT2_LONG_LONG_LONG_LONG
-import godot.writeMethodArguments_STRING_STRING
-import godot.writeMethodArguments_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG
-import godot.writeMethodArguments_STRING_STRING_LONG_DOUBLE_DOUBLE_LONG_BOOL
-import godot.writeMethodArguments_STRING_STRING_LONG_LONG_CALLABLE_CALLABLE_ANY_LONG_LONG
-import godot.writeMethodArguments_STRING_STRING_PACKED_STRING_ARRAY_CALLABLE
-import godot.writeMethodArguments_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_CALLABLE_LONG
-import godot.writeMethodArguments_STRING_STRING_STRING_CALLABLE
-import godot.writeMethodArguments_STRING_STRING_STRING_LONG
-import godot.writeMethodArguments_STRING_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_ARRAY_CALLABLE_LONG
-import godot.writeMethodArguments_VECTOR2I
-import godot.writeMethodArguments_VECTOR2I_LONG
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -1474,11 +1496,8 @@ public object DisplayServer : Object() {
    * otherwise.
    */
   @JvmStatic
-  public final fun hasFeature(feature: Feature): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, feature.value)
-    TransferContext.callPtrMethod(MethodBindings.hasFeaturePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasFeature(feature: Feature): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.hasFeaturePtr, feature.value)
 
   /**
    * Returns the name of the [DisplayServer] currently in use. Most operating systems only have a
@@ -1490,11 +1509,8 @@ public object DisplayServer : Object() {
    * [url=$DOCS_URL/tutorials/editor/command_line_tutorial.html]command line argument[/url]).
    */
   @JvmStatic
-  public final fun getName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getNamePtr)
 
   /**
    * Sets native help system search callbacks.
@@ -1511,8 +1527,7 @@ public object DisplayServer : Object() {
   @JvmStatic
   public final fun helpSetSearchCallbacks(searchCallback: Callable, actionCallback: Callable):
       Unit {
-    TransferContext.writeMethodArguments_CALLABLE_CALLABLE(ptr, objectID.id, searchCallback, actionCallback)
-    TransferContext.callMethod(MethodBindings.helpSetSearchCallbacksPtr)
+    TransferContext.callMethod_CALLABLE_CALLABLE(ptr, objectID.id, MethodBindings.helpSetSearchCallbacksPtr, searchCallback, actionCallback)
   }
 
   /**
@@ -1525,8 +1540,7 @@ public object DisplayServer : Object() {
     openCallback: Callable,
     closeCallback: Callable,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_CALLABLE_CALLABLE(ptr, objectID.id, menuRoot, openCallback, closeCallback)
-    TransferContext.callMethod(MethodBindings.globalMenuSetPopupCallbacksPtr)
+    TransferContext.callMethod_STRING_CALLABLE_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuSetPopupCallbacksPtr, menuRoot, openCallback, closeCallback)
   }
 
   /**
@@ -1560,11 +1574,8 @@ public object DisplayServer : Object() {
     label: String,
     submenu: String,
     index: Int = -1,
-  ): Int {
-    TransferContext.writeMethodArguments_STRING_STRING_STRING_LONG(ptr, objectID.id, menuRoot, label, submenu, index.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuAddSubmenuItemPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_STRING_STRING_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddSubmenuItemPtr, menuRoot, label, submenu, index.toLong()).toInt()
 
   /**
    * Adds a new item with text [label] to the global menu with ID [menuRoot].
@@ -1607,11 +1618,8 @@ public object DisplayServer : Object() {
     tag: Any? = null,
     accelerator: Key = Key.NONE,
     index: Int = -1,
-  ): Int {
-    TransferContext.writeMethodArguments_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG(ptr, objectID.id, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuAddItemPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddItemPtr, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new checkable item with text [label] to the global menu with ID [menuRoot].
@@ -1654,11 +1662,8 @@ public object DisplayServer : Object() {
     tag: Any? = null,
     accelerator: Key = Key.NONE,
     index: Int = -1,
-  ): Int {
-    TransferContext.writeMethodArguments_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG(ptr, objectID.id, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuAddCheckItemPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddCheckItemPtr, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new item with text [label] and icon [icon] to the global menu with ID [menuRoot].
@@ -1702,11 +1707,8 @@ public object DisplayServer : Object() {
     tag: Any? = null,
     accelerator: Key = Key.NONE,
     index: Int = -1,
-  ): Int {
-    TransferContext.writeMethodArguments_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG(ptr, objectID.id, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuAddIconItemPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddIconItemPtr, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new checkable item with text [label] and icon [icon] to the global menu with ID
@@ -1751,11 +1753,8 @@ public object DisplayServer : Object() {
     tag: Any? = null,
     accelerator: Key = Key.NONE,
     index: Int = -1,
-  ): Int {
-    TransferContext.writeMethodArguments_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG(ptr, objectID.id, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuAddIconCheckItemPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddIconCheckItemPtr, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new radio-checkable item with text [label] to the global menu with ID [menuRoot].
@@ -1802,11 +1801,8 @@ public object DisplayServer : Object() {
     tag: Any? = null,
     accelerator: Key = Key.NONE,
     index: Int = -1,
-  ): Int {
-    TransferContext.writeMethodArguments_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG(ptr, objectID.id, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuAddRadioCheckItemPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddRadioCheckItemPtr, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new radio-checkable item with text [label] and icon [icon] to the global menu with ID
@@ -1855,11 +1851,8 @@ public object DisplayServer : Object() {
     tag: Any? = null,
     accelerator: Key = Key.NONE,
     index: Int = -1,
-  ): Int {
-    TransferContext.writeMethodArguments_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG(ptr, objectID.id, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuAddIconRadioCheckItemPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddIconRadioCheckItemPtr, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new item with text [label] to the global menu with ID [menuRoot].
@@ -1911,11 +1904,8 @@ public object DisplayServer : Object() {
     tag: Any? = null,
     accelerator: Key = Key.NONE,
     index: Int = -1,
-  ): Int {
-    TransferContext.writeMethodArguments_STRING_STRING_LONG_LONG_CALLABLE_CALLABLE_ANY_LONG_LONG(ptr, objectID.id, menuRoot, label, maxStates.toLong(), defaultState.toLong(), callback, keyCallback, tag, accelerator.value, index.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuAddMultistateItemPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_STRING_STRING_LONG_LONG_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddMultistateItemPtr, menuRoot, label, maxStates.toLong(), defaultState.toLong(), callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a separator between items to the global menu with ID [menuRoot]. Separators also occupy an
@@ -1943,11 +1933,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun globalMenuAddSeparator(menuRoot: String, index: Int = -1): Int {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, index.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuAddSeparatorPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun globalMenuAddSeparator(menuRoot: String, index: Int = -1): Int =
+      TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddSeparatorPtr, menuRoot, index.toLong()).toInt()
 
   /**
    * Returns the index of the item with the specified [text]. Indices are automatically assigned to
@@ -1956,11 +1943,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemIndexFromText(menuRoot: String, text: String): Int {
-    TransferContext.writeMethodArguments_STRING_STRING(ptr, objectID.id, menuRoot, text)
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemIndexFromTextPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun globalMenuGetItemIndexFromText(menuRoot: String, text: String): Int =
+      TransferContext.callMethod_STRING_STRING_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemIndexFromTextPtr, menuRoot, text).toInt()
 
   /**
    * Returns the index of the item with the specified [tag]. Indices are automatically assigned to
@@ -1969,11 +1953,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemIndexFromTag(menuRoot: String, tag: Any?): Int {
-    TransferContext.writeMethodArguments_STRING_ANY(ptr, objectID.id, menuRoot, tag)
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemIndexFromTagPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun globalMenuGetItemIndexFromTag(menuRoot: String, tag: Any?): Int =
+      TransferContext.callMethod_STRING_ANY_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemIndexFromTagPtr, menuRoot, tag).toInt()
 
   /**
    * Returns `true` if the item at index [idx] is checked.
@@ -1981,11 +1962,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuIsItemChecked(menuRoot: String, idx: Int): Boolean {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuIsItemCheckedPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun globalMenuIsItemChecked(menuRoot: String, idx: Int): Boolean =
+      TransferContext.callMethod_STRING_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.globalMenuIsItemCheckedPtr, menuRoot, idx.toLong())
 
   /**
    * Returns `true` if the item at index [idx] is checkable in some way, i.e. if it has a checkbox
@@ -1994,11 +1972,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuIsItemCheckable(menuRoot: String, idx: Int): Boolean {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuIsItemCheckablePtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun globalMenuIsItemCheckable(menuRoot: String, idx: Int): Boolean =
+      TransferContext.callMethod_STRING_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.globalMenuIsItemCheckablePtr, menuRoot, idx.toLong())
 
   /**
    * Returns `true` if the item at index [idx] has radio button-style checkability.
@@ -2009,11 +1984,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuIsItemRadioCheckable(menuRoot: String, idx: Int): Boolean {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuIsItemRadioCheckablePtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun globalMenuIsItemRadioCheckable(menuRoot: String, idx: Int): Boolean =
+      TransferContext.callMethod_STRING_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.globalMenuIsItemRadioCheckablePtr, menuRoot, idx.toLong())
 
   /**
    * Returns the callback of the item at index [idx].
@@ -2021,11 +1993,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemCallback(menuRoot: String, idx: Int): Callable {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemCallbackPtr)
-    return TransferContext.readReturnValue_CALLABLE()
-  }
+  public final fun globalMenuGetItemCallback(menuRoot: String, idx: Int): Callable =
+      TransferContext.callMethod_STRING_LONG_ret_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuGetItemCallbackPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the callback of the item accelerator at index [idx].
@@ -2033,11 +2002,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemKeyCallback(menuRoot: String, idx: Int): Callable {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemKeyCallbackPtr)
-    return TransferContext.readReturnValue_CALLABLE()
-  }
+  public final fun globalMenuGetItemKeyCallback(menuRoot: String, idx: Int): Callable =
+      TransferContext.callMethod_STRING_LONG_ret_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuGetItemKeyCallbackPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the metadata of the specified item, which might be of any type. You can set it with
@@ -2046,11 +2012,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemTag(menuRoot: String, idx: Int): Any? {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemTagPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun globalMenuGetItemTag(menuRoot: String, idx: Int): Any? =
+      TransferContext.callMethod_STRING_LONG_ret_ANY(ptr, objectID.id, MethodBindings.globalMenuGetItemTagPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the text of the item at index [idx].
@@ -2058,11 +2021,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemText(menuRoot: String, idx: Int): String {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemTextPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun globalMenuGetItemText(menuRoot: String, idx: Int): String =
+      TransferContext.callMethod_STRING_LONG_ret_STRING(ptr, objectID.id, MethodBindings.globalMenuGetItemTextPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the submenu ID of the item at index [idx]. See [globalMenuAddSubmenuItem] for more info
@@ -2071,11 +2031,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemSubmenu(menuRoot: String, idx: Int): String {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemSubmenuPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun globalMenuGetItemSubmenu(menuRoot: String, idx: Int): String =
+      TransferContext.callMethod_STRING_LONG_ret_STRING(ptr, objectID.id, MethodBindings.globalMenuGetItemSubmenuPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the accelerator of the item at index [idx]. Accelerators are special combinations of
@@ -2084,11 +2041,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemAccelerator(menuRoot: String, idx: Int): Key {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemAcceleratorPtr)
-    return Key.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun globalMenuGetItemAccelerator(menuRoot: String, idx: Int): Key =
+      Key.from(TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemAcceleratorPtr, menuRoot, idx.toLong()))
 
   /**
    * Returns `true` if the item at index [idx] is disabled. When it is disabled it can't be
@@ -2099,11 +2053,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuIsItemDisabled(menuRoot: String, idx: Int): Boolean {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuIsItemDisabledPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun globalMenuIsItemDisabled(menuRoot: String, idx: Int): Boolean =
+      TransferContext.callMethod_STRING_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.globalMenuIsItemDisabledPtr, menuRoot, idx.toLong())
 
   /**
    * Returns `true` if the item at index [idx] is hidden.
@@ -2113,11 +2064,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuIsItemHidden(menuRoot: String, idx: Int): Boolean {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuIsItemHiddenPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun globalMenuIsItemHidden(menuRoot: String, idx: Int): Boolean =
+      TransferContext.callMethod_STRING_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.globalMenuIsItemHiddenPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the tooltip associated with the specified index [idx].
@@ -2125,11 +2073,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemTooltip(menuRoot: String, idx: Int): String {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemTooltipPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun globalMenuGetItemTooltip(menuRoot: String, idx: Int): String =
+      TransferContext.callMethod_STRING_LONG_ret_STRING(ptr, objectID.id, MethodBindings.globalMenuGetItemTooltipPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the state of a multistate item. See [globalMenuAddMultistateItem] for details.
@@ -2137,11 +2082,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemState(menuRoot: String, idx: Int): Int {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemStatePtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun globalMenuGetItemState(menuRoot: String, idx: Int): Int =
+      TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemStatePtr, menuRoot, idx.toLong()).toInt()
 
   /**
    * Returns number of states of a multistate item. See [globalMenuAddMultistateItem] for details.
@@ -2149,11 +2091,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemMaxStates(menuRoot: String, idx: Int): Int {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemMaxStatesPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun globalMenuGetItemMaxStates(menuRoot: String, idx: Int): Int =
+      TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemMaxStatesPtr, menuRoot, idx.toLong()).toInt()
 
   /**
    * Returns the icon of the item at index [idx].
@@ -2161,11 +2100,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemIcon(menuRoot: String, idx: Int): Texture2D? {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemIconPtr)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun globalMenuGetItemIcon(menuRoot: String, idx: Int): Texture2D? =
+      (TransferContext.callMethod_STRING_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.globalMenuGetItemIconPtr, menuRoot, idx.toLong()) as Texture2D?)
 
   /**
    * Returns the horizontal offset of the item at the given [idx].
@@ -2173,11 +2109,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemIndentationLevel(menuRoot: String, idx: Int): Int {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemIndentationLevelPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun globalMenuGetItemIndentationLevel(menuRoot: String, idx: Int): Int =
+      TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemIndentationLevelPtr, menuRoot, idx.toLong()).toInt()
 
   /**
    * Sets the checkstate status of the item at index [idx].
@@ -2190,8 +2123,7 @@ public object DisplayServer : Object() {
     idx: Int,
     checked: Boolean,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_BOOL(ptr, objectID.id, menuRoot, idx.toLong(), checked)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemCheckedPtr)
+    TransferContext.callMethod_STRING_LONG_BOOL(ptr, objectID.id, MethodBindings.globalMenuSetItemCheckedPtr, menuRoot, idx.toLong(), checked)
   }
 
   /**
@@ -2206,8 +2138,7 @@ public object DisplayServer : Object() {
     idx: Int,
     checkable: Boolean,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_BOOL(ptr, objectID.id, menuRoot, idx.toLong(), checkable)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemCheckablePtr)
+    TransferContext.callMethod_STRING_LONG_BOOL(ptr, objectID.id, MethodBindings.globalMenuSetItemCheckablePtr, menuRoot, idx.toLong(), checkable)
   }
 
   /**
@@ -2225,8 +2156,7 @@ public object DisplayServer : Object() {
     idx: Int,
     checkable: Boolean,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_BOOL(ptr, objectID.id, menuRoot, idx.toLong(), checkable)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemRadioCheckablePtr)
+    TransferContext.callMethod_STRING_LONG_BOOL(ptr, objectID.id, MethodBindings.globalMenuSetItemRadioCheckablePtr, menuRoot, idx.toLong(), checkable)
   }
 
   /**
@@ -2244,8 +2174,7 @@ public object DisplayServer : Object() {
     idx: Int,
     callback: Callable,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_CALLABLE(ptr, objectID.id, menuRoot, idx.toLong(), callback)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemCallbackPtr)
+    TransferContext.callMethod_STRING_LONG_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuSetItemCallbackPtr, menuRoot, idx.toLong(), callback)
   }
 
   /**
@@ -2263,8 +2192,7 @@ public object DisplayServer : Object() {
     idx: Int,
     callback: Callable,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_CALLABLE(ptr, objectID.id, menuRoot, idx.toLong(), callback)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemHoverCallbacksPtr)
+    TransferContext.callMethod_STRING_LONG_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuSetItemHoverCallbacksPtr, menuRoot, idx.toLong(), callback)
   }
 
   /**
@@ -2283,8 +2211,7 @@ public object DisplayServer : Object() {
     idx: Int,
     keyCallback: Callable,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_CALLABLE(ptr, objectID.id, menuRoot, idx.toLong(), keyCallback)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemKeyCallbackPtr)
+    TransferContext.callMethod_STRING_LONG_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuSetItemKeyCallbackPtr, menuRoot, idx.toLong(), keyCallback)
   }
 
   /**
@@ -2299,8 +2226,7 @@ public object DisplayServer : Object() {
     idx: Int,
     tag: Any?,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_ANY(ptr, objectID.id, menuRoot, idx.toLong(), tag)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemTagPtr)
+    TransferContext.callMethod_STRING_LONG_ANY(ptr, objectID.id, MethodBindings.globalMenuSetItemTagPtr, menuRoot, idx.toLong(), tag)
   }
 
   /**
@@ -2314,8 +2240,7 @@ public object DisplayServer : Object() {
     idx: Int,
     text: String,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_STRING(ptr, objectID.id, menuRoot, idx.toLong(), text)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemTextPtr)
+    TransferContext.callMethod_STRING_LONG_STRING(ptr, objectID.id, MethodBindings.globalMenuSetItemTextPtr, menuRoot, idx.toLong(), text)
   }
 
   /**
@@ -2330,8 +2255,7 @@ public object DisplayServer : Object() {
     idx: Int,
     submenu: String,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_STRING(ptr, objectID.id, menuRoot, idx.toLong(), submenu)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemSubmenuPtr)
+    TransferContext.callMethod_STRING_LONG_STRING(ptr, objectID.id, MethodBindings.globalMenuSetItemSubmenuPtr, menuRoot, idx.toLong(), submenu)
   }
 
   /**
@@ -2347,8 +2271,7 @@ public object DisplayServer : Object() {
     idx: Int,
     keycode: Key,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_LONG(ptr, objectID.id, menuRoot, idx.toLong(), keycode.value)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemAcceleratorPtr)
+    TransferContext.callMethod_STRING_LONG_LONG(ptr, objectID.id, MethodBindings.globalMenuSetItemAcceleratorPtr, menuRoot, idx.toLong(), keycode.value)
   }
 
   /**
@@ -2363,8 +2286,7 @@ public object DisplayServer : Object() {
     idx: Int,
     disabled: Boolean,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_BOOL(ptr, objectID.id, menuRoot, idx.toLong(), disabled)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemDisabledPtr)
+    TransferContext.callMethod_STRING_LONG_BOOL(ptr, objectID.id, MethodBindings.globalMenuSetItemDisabledPtr, menuRoot, idx.toLong(), disabled)
   }
 
   /**
@@ -2379,8 +2301,7 @@ public object DisplayServer : Object() {
     idx: Int,
     hidden: Boolean,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_BOOL(ptr, objectID.id, menuRoot, idx.toLong(), hidden)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemHiddenPtr)
+    TransferContext.callMethod_STRING_LONG_BOOL(ptr, objectID.id, MethodBindings.globalMenuSetItemHiddenPtr, menuRoot, idx.toLong(), hidden)
   }
 
   /**
@@ -2394,8 +2315,7 @@ public object DisplayServer : Object() {
     idx: Int,
     tooltip: String,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_STRING(ptr, objectID.id, menuRoot, idx.toLong(), tooltip)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemTooltipPtr)
+    TransferContext.callMethod_STRING_LONG_STRING(ptr, objectID.id, MethodBindings.globalMenuSetItemTooltipPtr, menuRoot, idx.toLong(), tooltip)
   }
 
   /**
@@ -2409,8 +2329,7 @@ public object DisplayServer : Object() {
     idx: Int,
     state: Int,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_LONG(ptr, objectID.id, menuRoot, idx.toLong(), state.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemStatePtr)
+    TransferContext.callMethod_STRING_LONG_LONG(ptr, objectID.id, MethodBindings.globalMenuSetItemStatePtr, menuRoot, idx.toLong(), state.toLong())
   }
 
   /**
@@ -2424,8 +2343,7 @@ public object DisplayServer : Object() {
     idx: Int,
     maxStates: Int,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_LONG(ptr, objectID.id, menuRoot, idx.toLong(), maxStates.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemMaxStatesPtr)
+    TransferContext.callMethod_STRING_LONG_LONG(ptr, objectID.id, MethodBindings.globalMenuSetItemMaxStatesPtr, menuRoot, idx.toLong(), maxStates.toLong())
   }
 
   /**
@@ -2441,8 +2359,7 @@ public object DisplayServer : Object() {
     idx: Int,
     icon: Texture2D?,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_OBJECT(ptr, objectID.id, menuRoot, idx.toLong(), icon)
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemIconPtr)
+    TransferContext.callMethod_STRING_LONG_OBJECT(ptr, objectID.id, MethodBindings.globalMenuSetItemIconPtr, menuRoot, idx.toLong(), icon)
   }
 
   /**
@@ -2456,8 +2373,7 @@ public object DisplayServer : Object() {
     idx: Int,
     level: Int,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_LONG(ptr, objectID.id, menuRoot, idx.toLong(), level.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuSetItemIndentationLevelPtr)
+    TransferContext.callMethod_STRING_LONG_LONG(ptr, objectID.id, MethodBindings.globalMenuSetItemIndentationLevelPtr, menuRoot, idx.toLong(), level.toLong())
   }
 
   /**
@@ -2466,11 +2382,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetItemCount(menuRoot: String): Int {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, menuRoot)
-    TransferContext.callMethod(MethodBindings.globalMenuGetItemCountPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun globalMenuGetItemCount(menuRoot: String): Int =
+      TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemCountPtr, menuRoot).toInt()
 
   /**
    * Removes the item at index [idx] from the global menu [menuRoot].
@@ -2481,8 +2394,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuRemoveItem(menuRoot: String, idx: Int): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, menuRoot, idx.toLong())
-    TransferContext.callMethod(MethodBindings.globalMenuRemoveItemPtr)
+    TransferContext.callMethod_STRING_LONG(ptr, objectID.id, MethodBindings.globalMenuRemoveItemPtr, menuRoot, idx.toLong())
   }
 
   /**
@@ -2508,8 +2420,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuClear(menuRoot: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, menuRoot)
-    TransferContext.callMethod(MethodBindings.globalMenuClearPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.globalMenuClearPtr, menuRoot)
   }
 
   /**
@@ -2518,11 +2429,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun globalMenuGetSystemMenuRoots(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.globalMenuGetSystemMenuRootsPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun globalMenuGetSystemMenuRoots(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.globalMenuGetSystemMenuRootsPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns `true` if the synthesizer is generating speech, or have utterance waiting in the queue.
@@ -2531,11 +2439,8 @@ public object DisplayServer : Object() {
    * Windows.
    */
   @JvmStatic
-  public final fun ttsIsSpeaking(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.ttsIsSpeakingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun ttsIsSpeaking(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.ttsIsSpeakingPtr)
 
   /**
    * Returns `true` if the synthesizer is in a paused state.
@@ -2544,11 +2449,8 @@ public object DisplayServer : Object() {
    * Windows.
    */
   @JvmStatic
-  public final fun ttsIsPaused(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.ttsIsPausedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun ttsIsPaused(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.ttsIsPausedPtr)
 
   /**
    * Returns an [VariantArray] of voice information dictionaries.
@@ -2572,11 +2474,8 @@ public object DisplayServer : Object() {
    * Windows.
    */
   @JvmStatic
-  public final fun ttsGetVoices(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.ttsGetVoicesPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+  public final fun ttsGetVoices(): VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.ttsGetVoicesPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns a [PackedStringArray] of voice identifiers for the [language].
@@ -2585,11 +2484,8 @@ public object DisplayServer : Object() {
    * Windows.
    */
   @JvmStatic
-  public final fun ttsGetVoicesForLanguage(language: String): PackedStringArray {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, language)
-    TransferContext.callMethod(MethodBindings.ttsGetVoicesForLanguagePtr)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun ttsGetVoicesForLanguage(language: String): PackedStringArray =
+      TransferContext.callMethod_STRING_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.ttsGetVoicesForLanguagePtr, language)
 
   /**
    * Adds an utterance to the queue. If [interrupt] is `true`, the queue is cleared first.
@@ -2628,8 +2524,7 @@ public object DisplayServer : Object() {
     utteranceId: Long = 0,
     interrupt: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_STRING_LONG_DOUBLE_DOUBLE_LONG_BOOL(ptr, objectID.id, text, voice, volume.toLong(), pitch.toDouble(), rate.toDouble(), utteranceId, interrupt)
-    TransferContext.callMethod(MethodBindings.ttsSpeakPtr)
+    TransferContext.callMethod_STRING_STRING_LONG_DOUBLE_DOUBLE_LONG_BOOL(ptr, objectID.id, MethodBindings.ttsSpeakPtr, text, voice, volume.toLong(), pitch.toDouble(), rate.toDouble(), utteranceId, interrupt)
   }
 
   /**
@@ -2640,8 +2535,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun ttsPause(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.ttsPausePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.ttsPausePtr)
   }
 
   /**
@@ -2652,8 +2546,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun ttsResume(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.ttsResumePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.ttsResumePtr)
   }
 
   /**
@@ -2664,8 +2557,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun ttsStop(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.ttsStopPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.ttsStopPtr)
   }
 
   /**
@@ -2685,8 +2577,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun ttsSetUtteranceCallback(event: TTSUtteranceEvent, callable: Callable): Unit {
-    TransferContext.writeMethodArguments_LONG_CALLABLE(ptr, objectID.id, event.value, callable)
-    TransferContext.callMethod(MethodBindings.ttsSetUtteranceCallbackPtr)
+    TransferContext.callMethod_LONG_CALLABLE(ptr, objectID.id, MethodBindings.ttsSetUtteranceCallbackPtr, event.value, callable)
   }
 
   /**
@@ -2695,11 +2586,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on Android, iOS, macOS, Windows, and Linux (X11/Wayland).
    */
   @JvmStatic
-  public final fun isDarkModeSupported(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDarkModeSupportedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDarkModeSupported(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDarkModeSupportedPtr)
 
   /**
    * Returns `true` if OS is using dark mode.
@@ -2707,11 +2595,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on Android, iOS, macOS, Windows, and Linux (X11/Wayland).
    */
   @JvmStatic
-  public final fun isDarkMode(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDarkModePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDarkMode(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDarkModePtr)
 
   /**
    * Returns OS theme accent color. Returns `Color(0, 0, 0, 0)`, if accent color is unknown.
@@ -2719,11 +2604,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on macOS, Windows, Android, and Linux (X11/Wayland).
    */
   @JvmStatic
-  public final fun getAccentColor(): Color {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAccentColorPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getAccentColor(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getAccentColorPtr)
 
   /**
    * Returns the OS theme base color (default control background). Returns `Color(0, 0, 0, 0)` if
@@ -2732,11 +2614,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on macOS, Windows, and Android.
    */
   @JvmStatic
-  public final fun getBaseColor(): Color {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBaseColorPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getBaseColor(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getBaseColorPtr)
 
   /**
    * Sets the callback that should be called when the system's theme settings are changed.
@@ -2746,8 +2625,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun setSystemThemeChangeCallback(callable: Callable): Unit {
-    TransferContext.writeMethodArguments_CALLABLE(ptr, objectID.id, callable)
-    TransferContext.callMethod(MethodBindings.setSystemThemeChangeCallbackPtr)
+    TransferContext.callMethod_CALLABLE(ptr, objectID.id, MethodBindings.setSystemThemeChangeCallbackPtr, callable)
   }
 
   /**
@@ -2755,19 +2633,15 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun mouseSetMode(mouseMode: MouseMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mouseMode.value)
-    TransferContext.callPtrMethod(MethodBindings.mouseSetModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.mouseSetModePtr, mouseMode.value)
   }
 
   /**
    * Returns the current mouse mode. See also [mouseSetMode].
    */
   @JvmStatic
-  public final fun mouseGetMode(): MouseMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.mouseGetModePtr, 2)
-    return MouseMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun mouseGetMode(): MouseMode =
+      MouseMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.mouseGetModePtr))
 
   /**
    * Sets the mouse cursor position to the given [position] relative to an origin at the upper left
@@ -2778,19 +2652,15 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun warpMouse(position: Vector2i): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, position)
-    TransferContext.callPtrMethod(MethodBindings.warpMousePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.warpMousePtr, position)
   }
 
   /**
    * Returns the mouse cursor's current position in screen coordinates.
    */
   @JvmStatic
-  public final fun mouseGetPosition(): Vector2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.mouseGetPositionPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun mouseGetPosition(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.mouseGetPositionPtr)
 
   /**
    * Returns the current state of mouse buttons (whether each button is pressed) as a bitmask. If
@@ -2798,30 +2668,23 @@ public object DisplayServer : Object() {
    * [Input.getMouseButtonMask].
    */
   @JvmStatic
-  public final fun mouseGetButtonState(): MouseButtonMask {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.mouseGetButtonStatePtr, 2)
-    return MouseButtonMask(TransferContext.readReturnValue_LONG())
-  }
+  public final fun mouseGetButtonState(): MouseButtonMask =
+      MouseButtonMask(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.mouseGetButtonStatePtr))
 
   /**
    * Sets the user's clipboard content to the given string.
    */
   @JvmStatic
   public final fun clipboardSet(clipboard: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, clipboard)
-    TransferContext.callMethod(MethodBindings.clipboardSetPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.clipboardSetPtr, clipboard)
   }
 
   /**
    * Returns the user's clipboard as a string if possible.
    */
   @JvmStatic
-  public final fun clipboardGet(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clipboardGetPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun clipboardGet(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.clipboardGetPtr)
 
   /**
    * Returns the user's clipboard as an image if possible.
@@ -2830,31 +2693,22 @@ public object DisplayServer : Object() {
    * browser, not an image file copied from file explorer.
    */
   @JvmStatic
-  public final fun clipboardGetImage(): Image? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clipboardGetImagePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Image?)
-  }
+  public final fun clipboardGetImage(): Image? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.clipboardGetImagePtr) as Image?)
 
   /**
    * Returns `true` if there is a text content on the user's clipboard.
    */
   @JvmStatic
-  public final fun clipboardHas(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clipboardHasPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun clipboardHas(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.clipboardHasPtr)
 
   /**
    * Returns `true` if there is an image content on the user's clipboard.
    */
   @JvmStatic
-  public final fun clipboardHasImage(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clipboardHasImagePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun clipboardHasImage(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.clipboardHasImagePtr)
 
   /**
    * Sets the user's
@@ -2868,8 +2722,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun clipboardSetPrimary(clipboardPrimary: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, clipboardPrimary)
-    TransferContext.callMethod(MethodBindings.clipboardSetPrimaryPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.clipboardSetPrimaryPtr, clipboardPrimary)
   }
 
   /**
@@ -2883,11 +2736,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is only implemented on Linux (X11/Wayland).
    */
   @JvmStatic
-  public final fun clipboardGetPrimary(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clipboardGetPrimaryPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun clipboardGetPrimary(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.clipboardGetPrimaryPtr)
 
   /**
    * Returns an [VariantArray] of [Rect2], each of which is the bounding rectangle for a display
@@ -2899,11 +2749,8 @@ public object DisplayServer : Object() {
    * even if they do have display cutouts or notches.
    */
   @JvmStatic
-  public final fun getDisplayCutouts(): VariantArray<Rect2> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDisplayCutoutsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Rect2>)
-  }
+  public final fun getDisplayCutouts(): VariantArray<Rect2> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getDisplayCutoutsPtr) as VariantArray<Rect2>)
 
   /**
    * Returns the unobscured area of the display where interactive controls should be rendered. See
@@ -2914,11 +2761,8 @@ public object DisplayServer : Object() {
    * [screenGetUsableRect].
    */
   @JvmStatic
-  public final fun getDisplaySafeArea(): Rect2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDisplaySafeAreaPtr, 8)
-    return TransferContext.readReturnValue_RECT2I()
-  }
+  public final fun getDisplaySafeArea(): Rect2i =
+      TransferContext.callPtrMethod0_ret_RECT2I(ptr, objectID.id, MethodBindings.getDisplaySafeAreaPtr)
 
   /**
    * Returns the number of displays available.
@@ -2927,11 +2771,8 @@ public object DisplayServer : Object() {
    * platforms, this method always returns `1`.
    */
   @JvmStatic
-  public final fun getScreenCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScreenCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getScreenCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getScreenCountPtr).toInt()
 
   /**
    * Returns the index of the primary screen.
@@ -2940,11 +2781,8 @@ public object DisplayServer : Object() {
    * method always returns `0`.
    */
   @JvmStatic
-  public final fun getPrimaryScreen(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPrimaryScreenPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getPrimaryScreen(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPrimaryScreenPtr).toInt()
 
   /**
    * Returns the index of the screen containing the window with the keyboard focus, or the primary
@@ -2954,22 +2792,16 @@ public object DisplayServer : Object() {
    * method always returns the primary screen.
    */
   @JvmStatic
-  public final fun getKeyboardFocusScreen(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getKeyboardFocusScreenPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getKeyboardFocusScreen(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getKeyboardFocusScreenPtr).toInt()
 
   /**
    * Returns the index of the screen that overlaps the most with the given rectangle. Returns
    * [INVALID_SCREEN] if the rectangle doesn't overlap with any screen or has no area.
    */
   @JvmStatic
-  public final fun getScreenFromRect(rect: Rect2): Int {
-    TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, rect)
-    TransferContext.callPtrMethod(MethodBindings.getScreenFromRectPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getScreenFromRect(rect: Rect2): Int =
+      TransferContext.callPtrMethod_RECT2_ret_LONG(ptr, objectID.id, MethodBindings.getScreenFromRectPtr, rect).toInt()
 
   /**
    * Returns the screen's top-left corner position in pixels. Returns [Vector2i.ZERO] if [screen] is
@@ -3000,11 +2832,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun screenGetPosition(screen: Int = -1): Vector2i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, screen.toLong())
-    TransferContext.callPtrMethod(MethodBindings.screenGetPositionPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun screenGetPosition(screen: Int = -1): Vector2i =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.screenGetPositionPtr, screen.toLong())
 
   /**
    * Returns the screen's size in pixels. See also [screenGetPosition] and [screenGetUsableRect].
@@ -3015,11 +2844,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun screenGetSize(screen: Int = -1): Vector2i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, screen.toLong())
-    TransferContext.callPtrMethod(MethodBindings.screenGetSizePtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun screenGetSize(screen: Int = -1): Vector2i =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.screenGetSizePtr, screen.toLong())
 
   /**
    * Returns the portion of the screen that is not obstructed by a status bar in pixels. See also
@@ -3033,11 +2859,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun screenGetUsableRect(screen: Int = -1): Rect2i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, screen.toLong())
-    TransferContext.callPtrMethod(MethodBindings.screenGetUsableRectPtr, 8)
-    return TransferContext.readReturnValue_RECT2I()
-  }
+  public final fun screenGetUsableRect(screen: Int = -1): Rect2i =
+      TransferContext.callPtrMethod_LONG_ret_RECT2I(ptr, objectID.id, MethodBindings.screenGetUsableRectPtr, screen.toLong())
 
   /**
    * Returns the dots per inch density of the specified screen. Returns platform specific default
@@ -3072,11 +2895,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun screenGetDpi(screen: Int = -1): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, screen.toLong())
-    TransferContext.callPtrMethod(MethodBindings.screenGetDpiPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun screenGetDpi(screen: Int = -1): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.screenGetDpiPtr, screen.toLong()).toInt()
 
   /**
    * Returns the scale factor of the specified screen by index. Returns `1.0` if [screen] is
@@ -3097,22 +2917,16 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun screenGetScale(screen: Int = -1): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, screen.toLong())
-    TransferContext.callPtrMethod(MethodBindings.screenGetScalePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun screenGetScale(screen: Int = -1): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.screenGetScalePtr, screen.toLong()).toFloat()
 
   /**
    * Returns `true` if touch events are available (Android or iOS), the capability is detected on
    * the Web platform or if [ProjectSettings.inputDevices/pointing/emulateTouchFromMouse] is `true`.
    */
   @JvmStatic
-  public final fun isTouchscreenAvailable(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isTouchscreenAvailablePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isTouchscreenAvailable(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTouchscreenAvailablePtr)
 
   /**
    * Returns the greatest scale factor of all screens. See also [screenGetScale].
@@ -3121,11 +2935,8 @@ public object DisplayServer : Object() {
    * in the system, and `1.0` in all other cases.
    */
   @JvmStatic
-  public final fun screenGetMaxScale(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.screenGetMaxScalePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun screenGetMaxScale(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.screenGetMaxScalePtr).toFloat()
 
   /**
    * Returns the current refresh rate of the specified screen. When V-Sync is enabled, this returns
@@ -3148,11 +2959,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun screenGetRefreshRate(screen: Int = -1): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, screen.toLong())
-    TransferContext.callPtrMethod(MethodBindings.screenGetRefreshRatePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun screenGetRefreshRate(screen: Int = -1): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.screenGetRefreshRatePtr, screen.toLong()).toFloat()
 
   /**
    * Returns the color of the pixel at the given screen [position]. On multi-monitor setups, the
@@ -3166,11 +2974,8 @@ public object DisplayServer : Object() {
    * windows or OS elements not related to the application.
    */
   @JvmStatic
-  public final fun screenGetPixel(position: Vector2i): Color {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, position)
-    TransferContext.callPtrMethod(MethodBindings.screenGetPixelPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun screenGetPixel(position: Vector2i): Color =
+      TransferContext.callPtrMethod_VECTOR2I_ret_COLOR(ptr, objectID.id, MethodBindings.screenGetPixelPtr, position)
 
   /**
    * Returns a screenshot of the [screen]. Returns `null` if [screen] is invalid or the
@@ -3188,11 +2993,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun screenGetImage(screen: Int = -1): Image? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, screen.toLong())
-    TransferContext.callPtrMethod(MethodBindings.screenGetImagePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Image?)
-  }
+  public final fun screenGetImage(screen: Int = -1): Image? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.screenGetImagePtr, screen.toLong()) as Image?)
 
   /**
    * Returns a screenshot of the screen region defined by [rect]. Returns `null` if [rect] is
@@ -3206,11 +3008,8 @@ public object DisplayServer : Object() {
    * OS elements not related to the application.
    */
   @JvmStatic
-  public final fun screenGetImageRect(rect: Rect2i): Image? {
-    TransferContext.writeMethodArguments_RECT2I(ptr, objectID.id, rect)
-    TransferContext.callPtrMethod(MethodBindings.screenGetImageRectPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Image?)
-  }
+  public final fun screenGetImageRect(rect: Rect2i): Image? =
+      (TransferContext.callPtrMethod_RECT2I_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.screenGetImageRectPtr, rect) as Image?)
 
   /**
    * Sets the [screen]'s [orientation]. See also [screenGetOrientation].
@@ -3226,8 +3025,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun screenSetOrientation(orientation: ScreenOrientation, screen: Int = -1): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, orientation.value, screen.toLong())
-    TransferContext.callPtrMethod(MethodBindings.screenSetOrientationPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.screenSetOrientationPtr, orientation.value, screen.toLong())
   }
 
   /**
@@ -3242,11 +3040,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun screenGetOrientation(screen: Int = -1): ScreenOrientation {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, screen.toLong())
-    TransferContext.callPtrMethod(MethodBindings.screenGetOrientationPtr, 2)
-    return ScreenOrientation.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun screenGetOrientation(screen: Int = -1): ScreenOrientation =
+      ScreenOrientation.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.screenGetOrientationPtr, screen.toLong()))
 
   /**
    * Sets whether the screen should never be turned off by the operating system's power-saving
@@ -3254,8 +3049,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun screenSetKeepOn(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.screenSetKeepOnPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.screenSetKeepOnPtr, enable)
   }
 
   /**
@@ -3263,11 +3057,8 @@ public object DisplayServer : Object() {
    * measures. See also [screenSetKeepOn].
    */
   @JvmStatic
-  public final fun screenIsKeptOn(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.screenIsKeptOnPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun screenIsKeptOn(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.screenIsKeptOnPtr)
 
   /**
    * Returns the list of Godot window IDs belonging to this process.
@@ -3275,11 +3066,8 @@ public object DisplayServer : Object() {
    * **Note:** Native dialogs are not included in this list.
    */
   @JvmStatic
-  public final fun getWindowList(): PackedInt32Array {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWindowListPtr, 30)
-    return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
-  }
+  public final fun getWindowList(): PackedInt32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getWindowListPtr)
 
   /**
    * Returns the ID of the window at the specified screen [position] (in pixels). On multi-monitor
@@ -3304,11 +3092,8 @@ public object DisplayServer : Object() {
    * ```
    */
   @JvmStatic
-  public final fun getWindowAtScreenPosition(position: Vector2i): Int {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, position)
-    TransferContext.callPtrMethod(MethodBindings.getWindowAtScreenPositionPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getWindowAtScreenPosition(position: Vector2i): Int =
+      TransferContext.callPtrMethod_VECTOR2I_ret_LONG(ptr, objectID.id, MethodBindings.getWindowAtScreenPositionPtr, position).toInt()
 
   /**
    * Returns internal structure pointers for use in plugins.
@@ -3317,21 +3102,15 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetNativeHandle(handleType: HandleType, windowId: Int = 0): Long {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, handleType.value, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetNativeHandlePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun windowGetNativeHandle(handleType: HandleType, windowId: Int = 0): Long =
+      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.windowGetNativeHandlePtr, handleType.value, windowId.toLong())
 
   /**
    * Returns ID of the active popup window, or [INVALID_WINDOW_ID] if there is none.
    */
   @JvmStatic
-  public final fun windowGetActivePopup(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.windowGetActivePopupPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun windowGetActivePopup(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.windowGetActivePopupPtr).toInt()
 
   /**
    * Sets the bounding box of control, or menu item that was used to open the popup window, in the
@@ -3339,8 +3118,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun windowSetPopupSafeRect(window: Int, rect: Rect2i): Unit {
-    TransferContext.writeMethodArguments_LONG_RECT2I(ptr, objectID.id, window.toLong(), rect)
-    TransferContext.callPtrMethod(MethodBindings.windowSetPopupSafeRectPtr, 0)
+    TransferContext.callPtrMethod_LONG_RECT2I(ptr, objectID.id, MethodBindings.windowSetPopupSafeRectPtr, window.toLong(), rect)
   }
 
   /**
@@ -3348,11 +3126,8 @@ public object DisplayServer : Object() {
    * the screen coordinate system.
    */
   @JvmStatic
-  public final fun windowGetPopupSafeRect(window: Int): Rect2i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, window.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetPopupSafeRectPtr, 8)
-    return TransferContext.readReturnValue_RECT2I()
-  }
+  public final fun windowGetPopupSafeRect(window: Int): Rect2i =
+      TransferContext.callPtrMethod_LONG_ret_RECT2I(ptr, objectID.id, MethodBindings.windowGetPopupSafeRectPtr, window.toLong())
 
   /**
    * Sets the title of the given window to [title].
@@ -3365,8 +3140,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetTitle(title: String, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, title, windowId.toLong())
-    TransferContext.callMethod(MethodBindings.windowSetTitlePtr)
+    TransferContext.callMethod_STRING_LONG(ptr, objectID.id, MethodBindings.windowSetTitlePtr, title, windowId.toLong())
   }
 
   /**
@@ -3377,11 +3151,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetTitleSize(title: String, windowId: Int = 0): Vector2i {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, title, windowId.toLong())
-    TransferContext.callMethod(MethodBindings.windowGetTitleSizePtr)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun windowGetTitleSize(title: String, windowId: Int = 0): Vector2i =
+      TransferContext.callMethod_STRING_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetTitleSizePtr, title, windowId.toLong())
 
   /**
    * Sets a polygonal region of the window which accepts mouse events. Mouse events outside the
@@ -3422,8 +3193,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetMousePassthrough(region: PackedVector2Array, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY_LONG(ptr, objectID.id, region, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetMousePassthroughPtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_LONG(ptr, objectID.id, MethodBindings.windowSetMousePassthroughPtr, region, windowId.toLong())
   }
 
   /**
@@ -3436,11 +3206,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetCurrentScreen(windowId: Int = 0): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetCurrentScreenPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun windowGetCurrentScreen(windowId: Int = 0): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.windowGetCurrentScreenPtr, windowId.toLong()).toInt()
 
   /**
    * Moves the window specified by [windowId] to the specified [screen]. See also
@@ -3454,8 +3221,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetCurrentScreen(screen: Int, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, screen.toLong(), windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetCurrentScreenPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowSetCurrentScreenPtr, screen.toLong(), windowId.toLong())
   }
 
   /**
@@ -3463,11 +3229,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetPosition(windowId: Int = 0): Vector2i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetPositionPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun windowGetPosition(windowId: Int = 0): Vector2i =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetPositionPtr, windowId.toLong())
 
   /**
    * Returns the position of the given window on the screen including the borders drawn by the
@@ -3475,11 +3238,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetPositionWithDecorations(windowId: Int = 0): Vector2i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetPositionWithDecorationsPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun windowGetPositionWithDecorations(windowId: Int = 0): Vector2i =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetPositionWithDecorationsPtr, windowId.toLong())
 
   /**
    * Sets the position of the given window to [position]. On multi-monitor setups, the screen
@@ -3511,8 +3271,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetPosition(position: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, position, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetPositionPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetPositionPtr, position, windowId.toLong())
   }
 
   /**
@@ -3522,11 +3281,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetSize(windowId: Int = 0): Vector2i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetSizePtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun windowGetSize(windowId: Int = 0): Vector2i =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetSizePtr, windowId.toLong())
 
   /**
    * Sets the size of the given window to [size] (in pixels). See also [windowGetSize] and
@@ -3537,8 +3293,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetSize(size: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, size, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetSizePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetSizePtr, size, windowId.toLong())
   }
 
   /**
@@ -3551,8 +3306,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetRectChangedCallback(callback: Callable, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_CALLABLE_LONG(ptr, objectID.id, callback, windowId.toLong())
-    TransferContext.callMethod(MethodBindings.windowSetRectChangedCallbackPtr)
+    TransferContext.callMethod_CALLABLE_LONG(ptr, objectID.id, MethodBindings.windowSetRectChangedCallbackPtr, callback, windowId.toLong())
   }
 
   /**
@@ -3565,8 +3319,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetWindowEventCallback(callback: Callable, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_CALLABLE_LONG(ptr, objectID.id, callback, windowId.toLong())
-    TransferContext.callMethod(MethodBindings.windowSetWindowEventCallbackPtr)
+    TransferContext.callMethod_CALLABLE_LONG(ptr, objectID.id, MethodBindings.windowSetWindowEventCallbackPtr, callback, windowId.toLong())
   }
 
   /**
@@ -3579,8 +3332,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetInputEventCallback(callback: Callable, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_CALLABLE_LONG(ptr, objectID.id, callback, windowId.toLong())
-    TransferContext.callMethod(MethodBindings.windowSetInputEventCallbackPtr)
+    TransferContext.callMethod_CALLABLE_LONG(ptr, objectID.id, MethodBindings.windowSetInputEventCallbackPtr, callback, windowId.toLong())
   }
 
   /**
@@ -3593,8 +3345,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetInputTextCallback(callback: Callable, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_CALLABLE_LONG(ptr, objectID.id, callback, windowId.toLong())
-    TransferContext.callMethod(MethodBindings.windowSetInputTextCallbackPtr)
+    TransferContext.callMethod_CALLABLE_LONG(ptr, objectID.id, MethodBindings.windowSetInputTextCallbackPtr, callback, windowId.toLong())
   }
 
   /**
@@ -3610,8 +3361,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetDropFilesCallback(callback: Callable, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_CALLABLE_LONG(ptr, objectID.id, callback, windowId.toLong())
-    TransferContext.callMethod(MethodBindings.windowSetDropFilesCallbackPtr)
+    TransferContext.callMethod_CALLABLE_LONG(ptr, objectID.id, MethodBindings.windowSetDropFilesCallbackPtr, callback, windowId.toLong())
   }
 
   /**
@@ -3619,22 +3369,16 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetAttachedInstanceId(windowId: Int = 0): Long {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetAttachedInstanceIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun windowGetAttachedInstanceId(windowId: Int = 0): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.windowGetAttachedInstanceIdPtr, windowId.toLong())
 
   /**
    * Returns the window's maximum size (in pixels). See also [windowSetMaxSize].
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetMaxSize(windowId: Int = 0): Vector2i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetMaxSizePtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun windowGetMaxSize(windowId: Int = 0): Vector2i =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetMaxSizePtr, windowId.toLong())
 
   /**
    * Sets the maximum size of the window specified by [windowId] in pixels. Normally, the user will
@@ -3649,8 +3393,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetMaxSize(maxSize: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, maxSize, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetMaxSizePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetMaxSizePtr, maxSize, windowId.toLong())
   }
 
   /**
@@ -3658,11 +3401,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetMinSize(windowId: Int = 0): Vector2i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetMinSizePtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun windowGetMinSize(windowId: Int = 0): Vector2i =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetMinSizePtr, windowId.toLong())
 
   /**
    * Sets the minimum size for the given window to [minSize] in pixels. Normally, the user will not
@@ -3680,8 +3420,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetMinSize(minSize: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, minSize, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetMinSizePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetMinSizePtr, minSize, windowId.toLong())
   }
 
   /**
@@ -3690,22 +3429,16 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetSizeWithDecorations(windowId: Int = 0): Vector2i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetSizeWithDecorationsPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun windowGetSizeWithDecorations(windowId: Int = 0): Vector2i =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetSizeWithDecorationsPtr, windowId.toLong())
 
   /**
    * Returns the mode of the given window.
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetMode(windowId: Int = 0): WindowMode {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetModePtr, 2)
-    return WindowMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun windowGetMode(windowId: Int = 0): WindowMode =
+      WindowMode.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.windowGetModePtr, windowId.toLong()))
 
   /**
    * Sets window mode for the given window to [mode].
@@ -3719,8 +3452,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetMode(mode: WindowMode, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, mode.value, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetModePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowSetModePtr, mode.value, windowId.toLong())
   }
 
   /**
@@ -3733,8 +3465,7 @@ public object DisplayServer : Object() {
     enabled: Boolean,
     windowId: Int = 0,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL_LONG(ptr, objectID.id, flag.value, enabled, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetFlagPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL_LONG(ptr, objectID.id, MethodBindings.windowSetFlagPtr, flag.value, enabled, windowId.toLong())
   }
 
   /**
@@ -3742,11 +3473,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetFlag(flag: WindowFlags, windowId: Int = 0): Boolean {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, flag.value, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetFlagPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun windowGetFlag(flag: WindowFlags, windowId: Int = 0): Boolean =
+      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowGetFlagPtr, flag.value, windowId.toLong())
 
   /**
    * Sets the window icon (usually displayed in the top-left corner) for the window specified by
@@ -3757,8 +3485,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetIcon(icon: Image?, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, icon, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetIconPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_LONG(ptr, objectID.id, MethodBindings.windowSetIconPtr, icon, windowId.toLong())
   }
 
   /**
@@ -3770,8 +3497,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetWindowButtonsOffset(offset: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, offset, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetWindowButtonsOffsetPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetWindowButtonsOffsetPtr, offset, windowId.toLong())
   }
 
   /**
@@ -3780,11 +3506,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetSafeTitleMargins(windowId: Int = 0): Vector3i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetSafeTitleMarginsPtr, 10)
-    return TransferContext.readReturnValue_VECTOR3I()
-  }
+  public final fun windowGetSafeTitleMargins(windowId: Int = 0): Vector3i =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR3I(ptr, objectID.id, MethodBindings.windowGetSafeTitleMarginsPtr, windowId.toLong())
 
   /**
    * Makes the window specified by [windowId] request attention, which is materialized by the window
@@ -3794,8 +3517,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowRequestAttention(windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowRequestAttentionPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.windowRequestAttentionPtr, windowId.toLong())
   }
 
   /**
@@ -3811,8 +3533,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetTaskbarProgressValue(`value`: Float, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_DOUBLE_LONG(ptr, objectID.id, value.toDouble(), windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetTaskbarProgressValuePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE_LONG(ptr, objectID.id, MethodBindings.windowSetTaskbarProgressValuePtr, value.toDouble(), windowId.toLong())
   }
 
   /**
@@ -3826,8 +3547,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetTaskbarProgressState(state: ProgressState, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, state.value, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetTaskbarProgressStatePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowSetTaskbarProgressStatePtr, state.value, windowId.toLong())
   }
 
   /**
@@ -3837,8 +3557,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowMoveToForeground(windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowMoveToForegroundPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.windowMoveToForegroundPtr, windowId.toLong())
   }
 
   /**
@@ -3846,11 +3565,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowIsFocused(windowId: Int = 0): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowIsFocusedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun windowIsFocused(windowId: Int = 0): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowIsFocusedPtr, windowId.toLong())
 
   /**
    * Returns `true` if anything can be drawn in the window specified by [windowId], `false`
@@ -3859,11 +3575,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowCanDraw(windowId: Int = 0): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowCanDrawPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun windowCanDraw(windowId: Int = 0): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowCanDrawPtr, windowId.toLong())
 
   /**
    * Sets window transient parent. Transient window will be destroyed with its transient parent and
@@ -3876,8 +3589,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun windowSetTransient(windowId: Int, parentWindowId: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, windowId.toLong(), parentWindowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetTransientPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowSetTransientPtr, windowId.toLong(), parentWindowId.toLong())
   }
 
   /**
@@ -3891,8 +3603,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun windowSetExclusive(windowId: Int, exclusive: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, windowId.toLong(), exclusive)
-    TransferContext.callPtrMethod(MethodBindings.windowSetExclusivePtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.windowSetExclusivePtr, windowId.toLong(), exclusive)
   }
 
   /**
@@ -3902,8 +3613,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetImeActive(active: Boolean, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_BOOL_LONG(ptr, objectID.id, active, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetImeActivePtr, 0)
+    TransferContext.callPtrMethod_BOOL_LONG(ptr, objectID.id, MethodBindings.windowSetImeActivePtr, active, windowId.toLong())
   }
 
   /**
@@ -3914,8 +3624,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetImePosition(position: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, position, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetImePositionPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetImePositionPtr, position, windowId.toLong())
   }
 
   /**
@@ -3931,8 +3640,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetVsyncMode(vsyncMode: VSyncMode, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, vsyncMode.value, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetVsyncModePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowSetVsyncModePtr, vsyncMode.value, windowId.toLong())
   }
 
   /**
@@ -3940,11 +3648,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetVsyncMode(windowId: Int = 0): VSyncMode {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetVsyncModePtr, 2)
-    return VSyncMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun windowGetVsyncMode(windowId: Int = 0): VSyncMode =
+      VSyncMode.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.windowGetVsyncModePtr, windowId.toLong()))
 
   /**
    * Returns `true` if the window specified by [windowId] supports HDR output. This depends on the
@@ -3952,11 +3657,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowIsHdrOutputSupported(windowId: Int = 0): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowIsHdrOutputSupportedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun windowIsHdrOutputSupported(windowId: Int = 0): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowIsHdrOutputSupportedPtr, windowId.toLong())
 
   /**
    * If [enable] is `true`, HDR output is requested for the window specified by [windowId]. The
@@ -3969,8 +3671,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowRequestHdrOutput(enable: Boolean, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_BOOL_LONG(ptr, objectID.id, enable, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowRequestHdrOutputPtr, 0)
+    TransferContext.callPtrMethod_BOOL_LONG(ptr, objectID.id, MethodBindings.windowRequestHdrOutputPtr, enable, windowId.toLong())
   }
 
   /**
@@ -3979,11 +3680,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowIsHdrOutputRequested(windowId: Int = 0): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowIsHdrOutputRequestedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun windowIsHdrOutputRequested(windowId: Int = 0): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowIsHdrOutputRequestedPtr, windowId.toLong())
 
   /**
    * Returns `true` if HDR output is currently enabled for the window specified by [windowId]. The
@@ -3992,11 +3690,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowIsHdrOutputEnabled(windowId: Int = 0): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowIsHdrOutputEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun windowIsHdrOutputEnabled(windowId: Int = 0): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowIsHdrOutputEnabledPtr, windowId.toLong())
 
   /**
    * Sets the reference white luminance in nits (cd/m²) for HDR output by the window specified by
@@ -4014,8 +3709,7 @@ public object DisplayServer : Object() {
   @JvmStatic
   public final fun windowSetHdrOutputReferenceLuminance(referenceLuminance: Float, windowId: Int =
       0): Unit {
-    TransferContext.writeMethodArguments_DOUBLE_LONG(ptr, objectID.id, referenceLuminance.toDouble(), windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetHdrOutputReferenceLuminancePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE_LONG(ptr, objectID.id, MethodBindings.windowSetHdrOutputReferenceLuminancePtr, referenceLuminance.toDouble(), windowId.toLong())
   }
 
   /**
@@ -4025,11 +3719,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetHdrOutputReferenceLuminance(windowId: Int = 0): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetHdrOutputReferenceLuminancePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun windowGetHdrOutputReferenceLuminance(windowId: Int = 0): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.windowGetHdrOutputReferenceLuminancePtr, windowId.toLong()).toFloat()
 
   /**
    * When [windowIsHdrOutputEnabled] returns `true`, this returns the current reference white
@@ -4044,11 +3735,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetHdrOutputCurrentReferenceLuminance(windowId: Int = 0): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetHdrOutputCurrentReferenceLuminancePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun windowGetHdrOutputCurrentReferenceLuminance(windowId: Int = 0): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.windowGetHdrOutputCurrentReferenceLuminancePtr, windowId.toLong()).toFloat()
 
   /**
    * Sets the maximum luminance in nits (cd/m²) for HDR output by the window specified by
@@ -4065,8 +3753,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetHdrOutputMaxLuminance(maxLuminance: Float, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_DOUBLE_LONG(ptr, objectID.id, maxLuminance.toDouble(), windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowSetHdrOutputMaxLuminancePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE_LONG(ptr, objectID.id, MethodBindings.windowSetHdrOutputMaxLuminancePtr, maxLuminance.toDouble(), windowId.toLong())
   }
 
   /**
@@ -4076,11 +3763,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetHdrOutputMaxLuminance(windowId: Int = 0): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetHdrOutputMaxLuminancePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun windowGetHdrOutputMaxLuminance(windowId: Int = 0): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.windowGetHdrOutputMaxLuminancePtr, windowId.toLong()).toFloat()
 
   /**
    * When [windowIsHdrOutputEnabled] returns `true`, this returns the current maximum luminance in
@@ -4094,11 +3778,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetHdrOutputCurrentMaxLuminance(windowId: Int = 0): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetHdrOutputCurrentMaxLuminancePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun windowGetHdrOutputCurrentMaxLuminance(windowId: Int = 0): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.windowGetHdrOutputCurrentMaxLuminancePtr, windowId.toLong()).toFloat()
 
   /**
    * Returns the maximum value for linear color components that can be displayed for the window
@@ -4112,22 +3793,16 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowGetOutputMaxLinearValue(windowId: Int = 0): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowGetOutputMaxLinearValuePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun windowGetOutputMaxLinearValue(windowId: Int = 0): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.windowGetOutputMaxLinearValuePtr, windowId.toLong()).toFloat()
 
   /**
    * Returns `true` if the given window can be maximized (the maximize button is enabled).
    */
   @JvmOverloads
   @JvmStatic
-  public final fun windowIsMaximizeAllowed(windowId: Int = 0): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowIsMaximizeAllowedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun windowIsMaximizeAllowed(windowId: Int = 0): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowIsMaximizeAllowedPtr, windowId.toLong())
 
   /**
    * Returns `true` if double-clicking on a window's title should maximize it.
@@ -4135,11 +3810,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun windowMaximizeOnTitleDblClick(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.windowMaximizeOnTitleDblClickPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun windowMaximizeOnTitleDblClick(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.windowMaximizeOnTitleDblClickPtr)
 
   /**
    * Returns `true` if double-clicking on a window's title should minimize it.
@@ -4147,11 +3819,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun windowMinimizeOnTitleDblClick(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.windowMinimizeOnTitleDblClickPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun windowMinimizeOnTitleDblClick(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.windowMinimizeOnTitleDblClickPtr)
 
   /**
    * Starts an interactive drag operation on the window with the given [windowId], using the current
@@ -4164,8 +3833,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowStartDrag(windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowStartDragPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.windowStartDragPtr, windowId.toLong())
   }
 
   /**
@@ -4178,8 +3846,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowStartResize(edge: WindowResizeEdge, windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, edge.value, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.windowStartResizePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowStartResizePtr, edge.value, windowId.toLong())
   }
 
   /**
@@ -4189,8 +3856,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun windowSetColor(color: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callPtrMethod(MethodBindings.windowSetColorPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.windowSetColorPtr, color)
   }
 
   /**
@@ -4200,11 +3866,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on Linux (X11/Wayland, GNOME), macOS, and Windows.
    */
   @JvmStatic
-  public final fun accessibilityShouldIncreaseContrast(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityShouldIncreaseContrastPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun accessibilityShouldIncreaseContrast(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.accessibilityShouldIncreaseContrastPtr).toInt()
 
   /**
    * Returns `1` if flashing, blinking, and other moving content that can cause seizures in users
@@ -4213,11 +3876,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on macOS and Windows.
    */
   @JvmStatic
-  public final fun accessibilityShouldReduceAnimation(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityShouldReduceAnimationPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun accessibilityShouldReduceAnimation(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.accessibilityShouldReduceAnimationPtr).toInt()
 
   /**
    * Returns `1` if background images, transparency, and other features that can reduce the contrast
@@ -4227,11 +3887,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on macOS and Windows.
    */
   @JvmStatic
-  public final fun accessibilityShouldReduceTransparency(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityShouldReduceTransparencyPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun accessibilityShouldReduceTransparency(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.accessibilityShouldReduceTransparencyPtr).toInt()
 
   /**
    * Returns `1` if a screen reader, Braille display or other assistive app is active, `0`
@@ -4245,11 +3902,8 @@ public object DisplayServer : Object() {
    * [ProjectSettings.accessibility/general/accessibilitySupport] to `1`.
    */
   @JvmStatic
-  public final fun accessibilityScreenReaderActive(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityScreenReaderActivePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun accessibilityScreenReaderActive(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.accessibilityScreenReaderActivePtr).toInt()
 
   /**
    * Creates a new, empty accessibility element resource.
@@ -4258,11 +3912,8 @@ public object DisplayServer : Object() {
    * general, this function should not be called manually.
    */
   @JvmStatic
-  public final fun accessibilityCreateElement(windowId: Int, role: AccessibilityRole): RID {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, windowId.toLong(), role.value)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityCreateElementPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun accessibilityCreateElement(windowId: Int, role: AccessibilityRole): RID =
+      TransferContext.callPtrMethod_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.accessibilityCreateElementPtr, windowId.toLong(), role.value)
 
   /**
    * Creates a new, empty accessibility sub-element resource. Sub-elements can be used to provide
@@ -4276,11 +3927,8 @@ public object DisplayServer : Object() {
     parentRid: RID,
     role: AccessibilityRole,
     insertPos: Int = -1,
-  ): RID {
-    TransferContext.writeMethodArguments_RID_LONG_LONG(ptr, objectID.id, parentRid, role.value, insertPos.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityCreateSubElementPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  ): RID =
+      TransferContext.callPtrMethod_RID_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.accessibilityCreateSubElementPtr, parentRid, role.value, insertPos.toLong())
 
   /**
    * Creates a new, empty accessibility sub-element from the shaped text buffer. Sub-elements are
@@ -4298,21 +3946,15 @@ public object DisplayServer : Object() {
     minHeight: Float,
     insertPos: Int = -1,
     isLastLine: Boolean = false,
-  ): RID {
-    TransferContext.writeMethodArguments_RID_RID_DOUBLE_LONG_BOOL(ptr, objectID.id, parentRid, shapedText, minHeight.toDouble(), insertPos.toLong(), isLastLine)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityCreateSubTextEditElementsPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  ): RID =
+      TransferContext.callPtrMethod_RID_RID_DOUBLE_LONG_BOOL_ret_RID(ptr, objectID.id, MethodBindings.accessibilityCreateSubTextEditElementsPtr, parentRid, shapedText, minHeight.toDouble(), insertPos.toLong(), isLastLine)
 
   /**
    * Returns `true` if [id] is a valid accessibility element.
    */
   @JvmStatic
-  public final fun accessibilityHasElement(id: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, id)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityHasElementPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun accessibilityHasElement(id: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.accessibilityHasElementPtr, id)
 
   /**
    * Frees the accessibility element [id] created by [accessibilityCreateElement],
@@ -4320,8 +3962,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityFreeElement(id: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, id)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityFreeElementPtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.accessibilityFreeElementPtr, id)
   }
 
   /**
@@ -4329,19 +3970,15 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityElementSetMeta(id: RID, meta: Any?): Unit {
-    TransferContext.writeMethodArguments_RID_ANY(ptr, objectID.id, id, meta)
-    TransferContext.callMethod(MethodBindings.accessibilityElementSetMetaPtr)
+    TransferContext.callMethod_RID_ANY(ptr, objectID.id, MethodBindings.accessibilityElementSetMetaPtr, id, meta)
   }
 
   /**
    * Returns the metadata of the accessibility element [id].
    */
   @JvmStatic
-  public final fun accessibilityElementGetMeta(id: RID): Any? {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, id)
-    TransferContext.callMethod(MethodBindings.accessibilityElementGetMetaPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun accessibilityElementGetMeta(id: RID): Any? =
+      TransferContext.callMethod_RID_ret_ANY(ptr, objectID.id, MethodBindings.accessibilityElementGetMetaPtr, id)
 
   /**
    * Sets window outer (with decorations) and inner (without decorations) bounds for assistive apps.
@@ -4356,8 +3993,7 @@ public object DisplayServer : Object() {
     rectOut: Rect2,
     rectIn: Rect2,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_RECT2_RECT2(ptr, objectID.id, windowId.toLong(), rectOut, rectIn)
-    TransferContext.callPtrMethod(MethodBindings.accessibilitySetWindowRectPtr, 0)
+    TransferContext.callPtrMethod_LONG_RECT2_RECT2(ptr, objectID.id, MethodBindings.accessibilitySetWindowRectPtr, windowId.toLong(), rectOut, rectIn)
   }
 
   /**
@@ -4369,8 +4005,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilitySetWindowFocused(windowId: Int, focused: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, windowId.toLong(), focused)
-    TransferContext.callPtrMethod(MethodBindings.accessibilitySetWindowFocusedPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.accessibilitySetWindowFocusedPtr, windowId.toLong(), focused)
   }
 
   /**
@@ -4378,27 +4013,22 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetFocus(id: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, id)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetFocusPtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetFocusPtr, id)
   }
 
   /**
    * Returns the main accessibility element of the OS native window.
    */
   @JvmStatic
-  public final fun accessibilityGetWindowRoot(windowId: Int): RID {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityGetWindowRootPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun accessibilityGetWindowRoot(windowId: Int): RID =
+      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.accessibilityGetWindowRootPtr, windowId.toLong())
 
   /**
    * Sets element accessibility role.
    */
   @JvmStatic
   public final fun accessibilityUpdateSetRole(id: RID, role: AccessibilityRole): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, id, role.value)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetRolePtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetRolePtr, id, role.value)
   }
 
   /**
@@ -4406,8 +4036,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetName(id: RID, name: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, name)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetNamePtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNamePtr, id, name)
   }
 
   /**
@@ -4415,8 +4044,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetExtraInfo(id: RID, name: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, name)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetExtraInfoPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetExtraInfoPtr, id, name)
   }
 
   /**
@@ -4424,8 +4052,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetDescription(id: RID, description: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, description)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetDescriptionPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetDescriptionPtr, id, description)
   }
 
   /**
@@ -4433,8 +4060,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetValue(id: RID, `value`: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, value)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetValuePtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetValuePtr, id, value)
   }
 
   /**
@@ -4442,8 +4068,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTooltip(id: RID, tooltip: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, tooltip)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetTooltipPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTooltipPtr, id, tooltip)
   }
 
   /**
@@ -4451,8 +4076,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetBounds(id: RID, rect: Rect2): Unit {
-    TransferContext.writeMethodArguments_RID_RECT2(ptr, objectID.id, id, rect)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetBoundsPtr, 0)
+    TransferContext.callPtrMethod_RID_RECT2(ptr, objectID.id, MethodBindings.accessibilityUpdateSetBoundsPtr, id, rect)
   }
 
   /**
@@ -4460,8 +4084,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTransform(id: RID, transform: Transform2D): Unit {
-    TransferContext.writeMethodArguments_RID_TRANSFORM2D(ptr, objectID.id, id, transform)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetTransformPtr, 0)
+    TransferContext.callPtrMethod_RID_TRANSFORM2D(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTransformPtr, id, transform)
   }
 
   /**
@@ -4471,8 +4094,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddChild(id: RID, childId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, childId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateAddChildPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddChildPtr, id, childId)
   }
 
   /**
@@ -4480,8 +4102,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedControls(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, relatedId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateAddRelatedControlsPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedControlsPtr, id, relatedId)
   }
 
   /**
@@ -4489,8 +4110,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedDetails(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, relatedId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateAddRelatedDetailsPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedDetailsPtr, id, relatedId)
   }
 
   /**
@@ -4498,8 +4118,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedDescribedBy(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, relatedId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateAddRelatedDescribedByPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedDescribedByPtr, id, relatedId)
   }
 
   /**
@@ -4507,8 +4126,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedFlowTo(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, relatedId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateAddRelatedFlowToPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedFlowToPtr, id, relatedId)
   }
 
   /**
@@ -4516,8 +4134,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedLabeledBy(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, relatedId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateAddRelatedLabeledByPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedLabeledByPtr, id, relatedId)
   }
 
   /**
@@ -4528,8 +4145,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedRadioGroup(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, relatedId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateAddRelatedRadioGroupPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedRadioGroupPtr, id, relatedId)
   }
 
   /**
@@ -4537,8 +4153,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetActiveDescendant(id: RID, otherId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, otherId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetActiveDescendantPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetActiveDescendantPtr, id, otherId)
   }
 
   /**
@@ -4546,8 +4161,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetNextOnLine(id: RID, otherId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, otherId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetNextOnLinePtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNextOnLinePtr, id, otherId)
   }
 
   /**
@@ -4555,8 +4169,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetPreviousOnLine(id: RID, otherId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, otherId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetPreviousOnLinePtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetPreviousOnLinePtr, id, otherId)
   }
 
   /**
@@ -4564,8 +4177,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetMemberOf(id: RID, groupId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, groupId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetMemberOfPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetMemberOfPtr, id, groupId)
   }
 
   /**
@@ -4573,8 +4185,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetInPageLinkTarget(id: RID, otherId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, otherId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetInPageLinkTargetPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetInPageLinkTargetPtr, id, otherId)
   }
 
   /**
@@ -4582,8 +4193,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetErrorMessage(id: RID, otherId: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, id, otherId)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetErrorMessagePtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetErrorMessagePtr, id, otherId)
   }
 
   /**
@@ -4591,8 +4201,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetLive(id: RID, live: AccessibilityLiveMode): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, id, live.value)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetLivePtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetLivePtr, id, live.value)
   }
 
   /**
@@ -4606,8 +4215,7 @@ public object DisplayServer : Object() {
     action: AccessibilityAction,
     callable: Callable,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_LONG_CALLABLE(ptr, objectID.id, id, action.value, callable)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateAddActionPtr)
+    TransferContext.callMethod_RID_LONG_CALLABLE(ptr, objectID.id, MethodBindings.accessibilityUpdateAddActionPtr, id, action.value, callable)
   }
 
   /**
@@ -4620,8 +4228,7 @@ public object DisplayServer : Object() {
     actionId: Int,
     actionDescription: String,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_LONG_STRING(ptr, objectID.id, id, actionId.toLong(), actionDescription)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateAddCustomActionPtr)
+    TransferContext.callMethod_RID_LONG_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateAddCustomActionPtr, id, actionId.toLong(), actionDescription)
   }
 
   /**
@@ -4629,8 +4236,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTableRowCount(id: RID, count: Int): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, id, count.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetTableRowCountPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableRowCountPtr, id, count.toLong())
   }
 
   /**
@@ -4638,8 +4244,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTableColumnCount(id: RID, count: Int): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, id, count.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetTableColumnCountPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableColumnCountPtr, id, count.toLong())
   }
 
   /**
@@ -4647,8 +4252,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTableRowIndex(id: RID, index: Int): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetTableRowIndexPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableRowIndexPtr, id, index.toLong())
   }
 
   /**
@@ -4656,8 +4260,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTableColumnIndex(id: RID, index: Int): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetTableColumnIndexPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableColumnIndexPtr, id, index.toLong())
   }
 
   /**
@@ -4669,8 +4272,7 @@ public object DisplayServer : Object() {
     rowIndex: Int,
     columnIndex: Int,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_LONG_LONG(ptr, objectID.id, id, rowIndex.toLong(), columnIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetTableCellPositionPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableCellPositionPtr, id, rowIndex.toLong(), columnIndex.toLong())
   }
 
   /**
@@ -4682,8 +4284,7 @@ public object DisplayServer : Object() {
     rowSpan: Int,
     columnSpan: Int,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_LONG_LONG(ptr, objectID.id, id, rowSpan.toLong(), columnSpan.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetTableCellSpanPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableCellSpanPtr, id, rowSpan.toLong(), columnSpan.toLong())
   }
 
   /**
@@ -4691,8 +4292,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListItemCount(id: RID, size: Int): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, id, size.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetListItemCountPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListItemCountPtr, id, size.toLong())
   }
 
   /**
@@ -4700,8 +4300,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListItemIndex(id: RID, index: Int): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetListItemIndexPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListItemIndexPtr, id, index.toLong())
   }
 
   /**
@@ -4709,8 +4308,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListItemLevel(id: RID, level: Int): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, id, level.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetListItemLevelPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListItemLevelPtr, id, level.toLong())
   }
 
   /**
@@ -4718,8 +4316,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListItemSelected(id: RID, selected: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, id, selected)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetListItemSelectedPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListItemSelectedPtr, id, selected)
   }
 
   /**
@@ -4727,8 +4324,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListItemExpanded(id: RID, expanded: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, id, expanded)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetListItemExpandedPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListItemExpandedPtr, id, expanded)
   }
 
   /**
@@ -4736,8 +4332,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetPopupType(id: RID, popup: AccessibilityPopupType): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, id, popup.value)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetPopupTypePtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetPopupTypePtr, id, popup.value)
   }
 
   /**
@@ -4745,8 +4340,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetChecked(id: RID, checekd: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, id, checekd)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetCheckedPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetCheckedPtr, id, checekd)
   }
 
   /**
@@ -4754,8 +4348,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetNumValue(id: RID, position: Double): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, id, position)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetNumValuePtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNumValuePtr, id, position)
   }
 
   /**
@@ -4767,8 +4360,7 @@ public object DisplayServer : Object() {
     min: Double,
     max: Double,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE_DOUBLE(ptr, objectID.id, id, min, max)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetNumRangePtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNumRangePtr, id, min, max)
   }
 
   /**
@@ -4776,8 +4368,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetNumStep(id: RID, step: Double): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, id, step)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetNumStepPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNumStepPtr, id, step)
   }
 
   /**
@@ -4785,8 +4376,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetNumJump(id: RID, jump: Double): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, id, jump)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetNumJumpPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNumJumpPtr, id, jump)
   }
 
   /**
@@ -4794,8 +4384,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetScrollX(id: RID, position: Double): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, id, position)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetScrollXPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetScrollXPtr, id, position)
   }
 
   /**
@@ -4807,8 +4396,7 @@ public object DisplayServer : Object() {
     min: Double,
     max: Double,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE_DOUBLE(ptr, objectID.id, id, min, max)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetScrollXRangePtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetScrollXRangePtr, id, min, max)
   }
 
   /**
@@ -4816,8 +4404,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetScrollY(id: RID, position: Double): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, id, position)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetScrollYPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetScrollYPtr, id, position)
   }
 
   /**
@@ -4829,8 +4416,7 @@ public object DisplayServer : Object() {
     min: Double,
     max: Double,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE_DOUBLE(ptr, objectID.id, id, min, max)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetScrollYRangePtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetScrollYRangePtr, id, min, max)
   }
 
   /**
@@ -4843,8 +4429,7 @@ public object DisplayServer : Object() {
     strikethrough: Boolean,
     overline: Boolean,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL_BOOL_BOOL(ptr, objectID.id, id, underline, strikethrough, overline)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetTextDecorationsPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL_BOOL_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTextDecorationsPtr, id, underline, strikethrough, overline)
   }
 
   /**
@@ -4852,8 +4437,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTextAlign(id: RID, align: HorizontalAlignment): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, id, align.value)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetTextAlignPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTextAlignPtr, id, align.value)
   }
 
   /**
@@ -4869,8 +4453,7 @@ public object DisplayServer : Object() {
     textEndId: RID,
     endChar: Int,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_RID_LONG_RID_LONG(ptr, objectID.id, id, textStartId, startChar.toLong(), textEndId, endChar.toLong())
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetTextSelectionPtr, 0)
+    TransferContext.callPtrMethod_RID_RID_LONG_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTextSelectionPtr, id, textStartId, startChar.toLong(), textEndId, endChar.toLong())
   }
 
   /**
@@ -4882,8 +4465,7 @@ public object DisplayServer : Object() {
     flag: AccessibilityFlags,
     `value`: Boolean,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_LONG_BOOL(ptr, objectID.id, id, flag.value, value)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetFlagPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetFlagPtr, id, flag.value, value)
   }
 
   /**
@@ -4891,8 +4473,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetClassname(id: RID, classname: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, classname)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetClassnamePtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetClassnamePtr, id, classname)
   }
 
   /**
@@ -4900,8 +4481,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetPlaceholder(id: RID, placeholder: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, placeholder)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetPlaceholderPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetPlaceholderPtr, id, placeholder)
   }
 
   /**
@@ -4909,8 +4489,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetLanguage(id: RID, language: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, language)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetLanguagePtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetLanguagePtr, id, language)
   }
 
   /**
@@ -4918,8 +4497,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTextOrientation(id: RID, vertical: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, id, vertical)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetTextOrientationPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTextOrientationPtr, id, vertical)
   }
 
   /**
@@ -4927,8 +4505,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListOrientation(id: RID, vertical: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, id, vertical)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetListOrientationPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListOrientationPtr, id, vertical)
   }
 
   /**
@@ -4936,8 +4513,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetShortcut(id: RID, shortcut: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, shortcut)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetShortcutPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetShortcutPtr, id, shortcut)
   }
 
   /**
@@ -4945,8 +4521,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetUrl(id: RID, url: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, url)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetUrlPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetUrlPtr, id, url)
   }
 
   /**
@@ -4954,8 +4529,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetRoleDescription(id: RID, description: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, description)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetRoleDescriptionPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetRoleDescriptionPtr, id, description)
   }
 
   /**
@@ -4963,8 +4537,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetStateDescription(id: RID, description: String): Unit {
-    TransferContext.writeMethodArguments_RID_STRING(ptr, objectID.id, id, description)
-    TransferContext.callMethod(MethodBindings.accessibilityUpdateSetStateDescriptionPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetStateDescriptionPtr, id, description)
   }
 
   /**
@@ -4972,8 +4545,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetColorValue(id: RID, color: Color): Unit {
-    TransferContext.writeMethodArguments_RID_COLOR(ptr, objectID.id, id, color)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetColorValuePtr, 0)
+    TransferContext.callPtrMethod_RID_COLOR(ptr, objectID.id, MethodBindings.accessibilityUpdateSetColorValuePtr, id, color)
   }
 
   /**
@@ -4981,8 +4553,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetBackgroundColor(id: RID, color: Color): Unit {
-    TransferContext.writeMethodArguments_RID_COLOR(ptr, objectID.id, id, color)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetBackgroundColorPtr, 0)
+    TransferContext.callPtrMethod_RID_COLOR(ptr, objectID.id, MethodBindings.accessibilityUpdateSetBackgroundColorPtr, id, color)
   }
 
   /**
@@ -4990,8 +4561,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetForegroundColor(id: RID, color: Color): Unit {
-    TransferContext.writeMethodArguments_RID_COLOR(ptr, objectID.id, id, color)
-    TransferContext.callPtrMethod(MethodBindings.accessibilityUpdateSetForegroundColorPtr, 0)
+    TransferContext.callPtrMethod_RID_COLOR(ptr, objectID.id, MethodBindings.accessibilityUpdateSetForegroundColorPtr, id, color)
   }
 
   /**
@@ -5002,11 +4572,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun imeGetSelection(): Vector2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.imeGetSelectionPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun imeGetSelection(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.imeGetSelectionPtr)
 
   /**
    * Returns the composition string contained within the
@@ -5015,11 +4582,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun imeGetText(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.imeGetTextPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun imeGetText(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.imeGetTextPtr)
 
   /**
    * Shows the virtual keyboard if the platform has one.
@@ -5050,8 +4614,7 @@ public object DisplayServer : Object() {
     cursorStart: Int = -1,
     cursorEnd: Int = -1,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_RECT2_LONG_LONG_LONG_LONG(ptr, objectID.id, existingText, position, type.value, maxLength.toLong(), cursorStart.toLong(), cursorEnd.toLong())
-    TransferContext.callMethod(MethodBindings.virtualKeyboardShowPtr)
+    TransferContext.callMethod_STRING_RECT2_LONG_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.virtualKeyboardShowPtr, existingText, position, type.value, maxLength.toLong(), cursorStart.toLong(), cursorEnd.toLong())
   }
 
   /**
@@ -5059,8 +4622,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun virtualKeyboardHide(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.virtualKeyboardHidePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.virtualKeyboardHidePtr)
   }
 
   /**
@@ -5071,11 +4633,8 @@ public object DisplayServer : Object() {
    * opened in non-immersive mode. This behavior does not occur in immersive mode.
    */
   @JvmStatic
-  public final fun virtualKeyboardGetHeight(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.virtualKeyboardGetHeightPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun virtualKeyboardGetHeight(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.virtualKeyboardGetHeightPtr).toInt()
 
   /**
    * Returns `true` if a hardware keyboard is connected.
@@ -5084,11 +4643,8 @@ public object DisplayServer : Object() {
    * returns `true`.
    */
   @JvmStatic
-  public final fun hasHardwareKeyboard(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasHardwareKeyboardPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasHardwareKeyboard(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasHardwareKeyboardPtr)
 
   /**
    * Sets the callback that should be called when a hardware keyboard is connected or disconnected.
@@ -5099,8 +4655,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun setHardwareKeyboardConnectionChangeCallback(callable: Callable): Unit {
-    TransferContext.writeMethodArguments_CALLABLE(ptr, objectID.id, callable)
-    TransferContext.callMethod(MethodBindings.setHardwareKeyboardConnectionChangeCallbackPtr)
+    TransferContext.callMethod_CALLABLE(ptr, objectID.id, MethodBindings.setHardwareKeyboardConnectionChangeCallbackPtr, callable)
   }
 
   /**
@@ -5109,19 +4664,15 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun cursorSetShape(shape: CursorShape): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, shape.value)
-    TransferContext.callPtrMethod(MethodBindings.cursorSetShapePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.cursorSetShapePtr, shape.value)
   }
 
   /**
    * Returns the default mouse cursor shape set by [cursorSetShape].
    */
   @JvmStatic
-  public final fun cursorGetShape(): CursorShape {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.cursorGetShapePtr, 2)
-    return CursorShape.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun cursorGetShape(): CursorShape =
+      CursorShape.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.cursorGetShapePtr))
 
   /**
    * Sets a custom mouse cursor image for the given [shape]. This means the user's operating system
@@ -5141,8 +4692,7 @@ public object DisplayServer : Object() {
     shape: CursorShape = DisplayServer.CursorShape.ARROW,
     hotspot: Vector2 = Vector2(0, 0),
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_LONG_VECTOR2(ptr, objectID.id, cursor, shape.value, hotspot)
-    TransferContext.callPtrMethod(MethodBindings.cursorSetCustomImagePtr, 0)
+    TransferContext.callPtrMethod_OBJECT_LONG_VECTOR2(ptr, objectID.id, MethodBindings.cursorSetCustomImagePtr, cursor, shape.value, hotspot)
   }
 
   /**
@@ -5154,11 +4704,8 @@ public object DisplayServer : Object() {
    * [DisplayServer.dialogShow].
    */
   @JvmStatic
-  public final fun getSwapCancelOk(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSwapCancelOkPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getSwapCancelOk(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSwapCancelOkPtr)
 
   /**
    * Allows the [processId] PID to steal focus from this window. In other words, this disables the
@@ -5168,8 +4715,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun enableForStealingFocus(processId: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, processId)
-    TransferContext.callPtrMethod(MethodBindings.enableForStealingFocusPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.enableForStealingFocusPtr, processId)
   }
 
   /**
@@ -5185,11 +4731,8 @@ public object DisplayServer : Object() {
     description: String,
     buttons: PackedStringArray,
     callback: Callable,
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_STRING_PACKED_STRING_ARRAY_CALLABLE(ptr, objectID.id, title, description, buttons, callback)
-    TransferContext.callMethod(MethodBindings.dialogShowPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_STRING_PACKED_STRING_ARRAY_CALLABLE_ret_LONG(ptr, objectID.id, MethodBindings.dialogShowPtr, title, description, buttons, callback))
 
   /**
    * Shows a text input dialog which uses the operating system's native look-and-feel. [callback]
@@ -5204,11 +4747,8 @@ public object DisplayServer : Object() {
     description: String,
     existingText: String,
     callback: Callable,
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_STRING_STRING_CALLABLE(ptr, objectID.id, title, description, existingText, callback)
-    TransferContext.callMethod(MethodBindings.dialogInputTextPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_STRING_STRING_CALLABLE_ret_LONG(ptr, objectID.id, MethodBindings.dialogInputTextPtr, title, description, existingText, callback))
 
   /**
    * Displays OS native dialog for selecting files or directories in the file system.
@@ -5272,11 +4812,8 @@ public object DisplayServer : Object() {
     filters: PackedStringArray,
     callback: Callable,
     parentWindowId: Int = 0,
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_CALLABLE_LONG(ptr, objectID.id, title, currentDirectory, filename, showHidden, mode.value, filters, callback, parentWindowId.toLong())
-    TransferContext.callMethod(MethodBindings.fileDialogShowPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_CALLABLE_LONG_ret_LONG(ptr, objectID.id, MethodBindings.fileDialogShowPtr, title, currentDirectory, filename, showHidden, mode.value, filters, callback, parentWindowId.toLong()))
 
   /**
    * Displays OS native dialog for selecting files or directories in the file system with additional
@@ -5328,11 +4865,8 @@ public object DisplayServer : Object() {
     options: VariantArray<Dictionary<Any?, Any?>>,
     callback: Callable,
     parentWindowId: Int = 0,
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_ARRAY_CALLABLE_LONG(ptr, objectID.id, title, currentDirectory, root, filename, showHidden, mode.value, filters, options, callback, parentWindowId.toLong())
-    TransferContext.callMethod(MethodBindings.fileDialogWithOptionsShowPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_ARRAY_CALLABLE_LONG_ret_LONG(ptr, objectID.id, MethodBindings.fileDialogWithOptionsShowPtr, title, currentDirectory, root, filename, showHidden, mode.value, filters, options, callback, parentWindowId.toLong()))
 
   /**
    * Plays the beep sound from the operative system, if possible. Because it comes from the OS, the
@@ -5343,8 +4877,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun beep(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.beepPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.beepPtr)
   }
 
   /**
@@ -5353,11 +4886,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on Linux (X11/Wayland), macOS and Windows.
    */
   @JvmStatic
-  public final fun keyboardGetLayoutCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.keyboardGetLayoutCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun keyboardGetLayoutCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.keyboardGetLayoutCountPtr).toInt()
 
   /**
    * Returns active keyboard layout index.
@@ -5365,11 +4895,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on Linux (X11/Wayland), macOS, and Windows.
    */
   @JvmStatic
-  public final fun keyboardGetCurrentLayout(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.keyboardGetCurrentLayoutPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun keyboardGetCurrentLayout(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.keyboardGetCurrentLayoutPtr).toInt()
 
   /**
    * Sets the active keyboard layout.
@@ -5378,8 +4905,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun keyboardSetCurrentLayout(index: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.keyboardSetCurrentLayoutPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.keyboardSetCurrentLayoutPtr, index.toLong())
   }
 
   /**
@@ -5388,11 +4914,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on Linux (X11/Wayland), macOS and Windows.
    */
   @JvmStatic
-  public final fun keyboardGetLayoutLanguage(index: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.keyboardGetLayoutLanguagePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun keyboardGetLayoutLanguage(index: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.keyboardGetLayoutLanguagePtr, index.toLong())
 
   /**
    * Returns the localized name of the keyboard layout at position [index].
@@ -5400,11 +4923,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on Linux (X11/Wayland), macOS and Windows.
    */
   @JvmStatic
-  public final fun keyboardGetLayoutName(index: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.keyboardGetLayoutNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun keyboardGetLayoutName(index: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.keyboardGetLayoutNamePtr, index.toLong())
 
   /**
    * Converts a physical (US QWERTY) [keycode] to one in the active keyboard layout.
@@ -5412,11 +4932,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on Linux (X11/Wayland), macOS and Windows.
    */
   @JvmStatic
-  public final fun keyboardGetKeycodeFromPhysical(keycode: Key): Key {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, keycode.value)
-    TransferContext.callPtrMethod(MethodBindings.keyboardGetKeycodeFromPhysicalPtr, 2)
-    return Key.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun keyboardGetKeycodeFromPhysical(keycode: Key): Key =
+      Key.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.keyboardGetKeycodeFromPhysicalPtr, keycode.value))
 
   /**
    * Converts a physical (US QWERTY) [keycode] to localized label printed on the key in the active
@@ -5425,11 +4942,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on Linux (X11/Wayland), macOS and Windows.
    */
   @JvmStatic
-  public final fun keyboardGetLabelFromPhysical(keycode: Key): Key {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, keycode.value)
-    TransferContext.callPtrMethod(MethodBindings.keyboardGetLabelFromPhysicalPtr, 2)
-    return Key.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun keyboardGetLabelFromPhysical(keycode: Key): Key =
+      Key.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.keyboardGetLabelFromPhysicalPtr, keycode.value))
 
   /**
    * Opens system emoji and symbol picker.
@@ -5438,8 +4952,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun showEmojiAndSymbolPicker(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.showEmojiAndSymbolPickerPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.showEmojiAndSymbolPickerPtr)
   }
 
   /**
@@ -5453,11 +4966,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is only implemented on Linux (X11/Wayland).
    */
   @JvmStatic
-  public final fun colorPicker(callback: Callable): Boolean {
-    TransferContext.writeMethodArguments_CALLABLE(ptr, objectID.id, callback)
-    TransferContext.callMethod(MethodBindings.colorPickerPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun colorPicker(callback: Callable): Boolean =
+      TransferContext.callMethod_CALLABLE_ret_BOOL(ptr, objectID.id, MethodBindings.colorPickerPtr, callback)
 
   /**
    * Perform window manager processing, including input flushing. See also
@@ -5465,8 +4975,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun processEvents(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.processEventsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.processEventsPtr)
   }
 
   /**
@@ -5476,8 +4985,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun forceProcessAndDropEvents(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.forceProcessAndDropEventsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.forceProcessAndDropEventsPtr)
   }
 
   /**
@@ -5492,8 +5000,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun setNativeIcon(filename: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, filename)
-    TransferContext.callMethod(MethodBindings.setNativeIconPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setNativeIconPtr, filename)
   }
 
   /**
@@ -5504,8 +5011,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun setIcon(image: Image?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, image)
-    TransferContext.callPtrMethod(MethodBindings.setIconPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setIconPtr, image)
   }
 
   /**
@@ -5520,11 +5026,8 @@ public object DisplayServer : Object() {
     icon: Texture2D?,
     tooltip: String,
     callback: Callable,
-  ): Int {
-    TransferContext.writeMethodArguments_OBJECT_STRING_CALLABLE(ptr, objectID.id, icon, tooltip, callback)
-    TransferContext.callMethod(MethodBindings.createStatusIndicatorPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_OBJECT_STRING_CALLABLE_ret_LONG(ptr, objectID.id, MethodBindings.createStatusIndicatorPtr, icon, tooltip, callback).toInt()
 
   /**
    * Sets the application status indicator icon.
@@ -5533,8 +5036,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun statusIndicatorSetIcon(id: Int, icon: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, id.toLong(), icon)
-    TransferContext.callPtrMethod(MethodBindings.statusIndicatorSetIconPtr, 0)
+    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.statusIndicatorSetIconPtr, id.toLong(), icon)
   }
 
   /**
@@ -5544,8 +5046,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun statusIndicatorSetTooltip(id: Int, tooltip: String): Unit {
-    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, id.toLong(), tooltip)
-    TransferContext.callMethod(MethodBindings.statusIndicatorSetTooltipPtr)
+    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.statusIndicatorSetTooltipPtr, id.toLong(), tooltip)
   }
 
   /**
@@ -5563,8 +5064,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun statusIndicatorSetMenu(id: Int, menuRid: RID): Unit {
-    TransferContext.writeMethodArguments_LONG_RID(ptr, objectID.id, id.toLong(), menuRid)
-    TransferContext.callPtrMethod(MethodBindings.statusIndicatorSetMenuPtr, 0)
+    TransferContext.callPtrMethod_LONG_RID(ptr, objectID.id, MethodBindings.statusIndicatorSetMenuPtr, id.toLong(), menuRid)
   }
 
   /**
@@ -5576,8 +5076,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun statusIndicatorSetCallback(id: Int, callback: Callable): Unit {
-    TransferContext.writeMethodArguments_LONG_CALLABLE(ptr, objectID.id, id.toLong(), callback)
-    TransferContext.callMethod(MethodBindings.statusIndicatorSetCallbackPtr)
+    TransferContext.callMethod_LONG_CALLABLE(ptr, objectID.id, MethodBindings.statusIndicatorSetCallbackPtr, id.toLong(), callback)
   }
 
   /**
@@ -5587,19 +5086,15 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on macOS and Windows.
    */
   @JvmStatic
-  public final fun statusIndicatorGetRect(id: Int): Rect2 {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callPtrMethod(MethodBindings.statusIndicatorGetRectPtr, 7)
-    return TransferContext.readReturnValue_RECT2()
-  }
+  public final fun statusIndicatorGetRect(id: Int): Rect2 =
+      TransferContext.callPtrMethod_LONG_ret_RECT2(ptr, objectID.id, MethodBindings.statusIndicatorGetRectPtr, id.toLong())
 
   /**
    * Removes the application status indicator.
    */
   @JvmStatic
   public final fun deleteStatusIndicator(id: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callPtrMethod(MethodBindings.deleteStatusIndicatorPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.deleteStatusIndicatorPtr, id.toLong())
   }
 
   /**
@@ -5608,11 +5103,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on Windows.
    */
   @JvmStatic
-  public final fun tabletGetDriverCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.tabletGetDriverCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun tabletGetDriverCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.tabletGetDriverCountPtr).toInt()
 
   /**
    * Returns the tablet driver name for the given index.
@@ -5620,11 +5112,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on Windows.
    */
   @JvmStatic
-  public final fun tabletGetDriverName(idx: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.tabletGetDriverNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun tabletGetDriverName(idx: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.tabletGetDriverNamePtr, idx.toLong())
 
   /**
    * Returns current active tablet driver name.
@@ -5632,11 +5121,8 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on Windows.
    */
   @JvmStatic
-  public final fun tabletGetCurrentDriver(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.tabletGetCurrentDriverPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun tabletGetCurrentDriver(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.tabletGetCurrentDriverPtr)
 
   /**
    * Set active tablet driver name.
@@ -5653,8 +5139,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun tabletSetCurrentDriver(name: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.tabletSetCurrentDriverPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.tabletSetCurrentDriverPtr, name)
   }
 
   /**
@@ -5663,11 +5148,8 @@ public object DisplayServer : Object() {
    * transparency is not supported by the renderer or OS compositor.
    */
   @JvmStatic
-  public final fun isWindowTransparencyAvailable(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isWindowTransparencyAvailablePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isWindowTransparencyAvailable(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isWindowTransparencyAvailablePtr)
 
   /**
    * Registers an [Object] which represents an additional output that will be rendered too, beyond
@@ -5678,8 +5160,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun registerAdditionalOutput(`object`: Object?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, `object`)
-    TransferContext.callPtrMethod(MethodBindings.registerAdditionalOutputPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.registerAdditionalOutputPtr, `object`)
   }
 
   /**
@@ -5688,19 +5169,15 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun unregisterAdditionalOutput(`object`: Object?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, `object`)
-    TransferContext.callPtrMethod(MethodBindings.unregisterAdditionalOutputPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.unregisterAdditionalOutputPtr, `object`)
   }
 
   /**
    * Returns `true` if any additional outputs have been registered via [registerAdditionalOutput].
    */
   @JvmStatic
-  public final fun hasAdditionalOutputs(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasAdditionalOutputsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasAdditionalOutputs(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasAdditionalOutputsPtr)
 
   /**
    * Returns `true` if the application is in picture-in-picture mode.
@@ -5709,11 +5186,8 @@ public object DisplayServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun isInPipMode(windowId: Int = 0): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.isInPipModePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInPipMode(windowId: Int = 0): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isInPipModePtr, windowId.toLong())
 
   /**
    * Enters picture-in-picture mode.
@@ -5723,8 +5197,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun pipModeEnter(windowId: Int = 0): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.pipModeEnterPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.pipModeEnterPtr, windowId.toLong())
   }
 
   /**
@@ -5739,8 +5212,7 @@ public object DisplayServer : Object() {
     denominator: Int,
     windowId: Int = 0,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_LONG(ptr, objectID.id, numerator.toLong(), denominator.toLong(), windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.pipModeSetAspectRatioPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.pipModeSetAspectRatioPtr, numerator.toLong(), denominator.toLong(), windowId.toLong())
   }
 
   /**
@@ -5753,8 +5225,7 @@ public object DisplayServer : Object() {
   @JvmStatic
   public final fun pipModeSetAutoEnterOnBackground(autoEnterOnBackground: Boolean, windowId: Int =
       0): Unit {
-    TransferContext.writeMethodArguments_BOOL_LONG(ptr, objectID.id, autoEnterOnBackground, windowId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.pipModeSetAutoEnterOnBackgroundPtr, 0)
+    TransferContext.callPtrMethod_BOOL_LONG(ptr, objectID.id, MethodBindings.pipModeSetAutoEnterOnBackgroundPtr, autoEnterOnBackground, windowId.toLong())
   }
 
   public enum class Feature(

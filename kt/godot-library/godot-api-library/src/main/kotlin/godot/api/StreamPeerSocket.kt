@@ -9,12 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -32,27 +32,20 @@ public open class StreamPeerSocket internal constructor() : StreamPeer() {
   /**
    * Polls the socket, updating its state. See [getStatus].
    */
-  public final fun poll(): Error {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.pollPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun poll(): Error =
+      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.pollPtr))
 
   /**
    * Returns the status of the connection.
    */
-  public final fun getStatus(): Status {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStatusPtr, 2)
-    return Status.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getStatus(): Status =
+      Status.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStatusPtr))
 
   /**
    * Disconnects from host.
    */
   public final fun disconnectFromHost(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.disconnectFromHostPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.disconnectFromHostPtr)
   }
 
   public enum class Status(

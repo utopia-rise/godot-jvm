@@ -9,19 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DICTIONARY_ret_OBJECT_REF
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_OBJECT_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DICTIONARY
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_OBJECT
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Float
@@ -106,74 +105,48 @@ public open class GLTFCamera : Resource() {
   /**
    * Converts this GLTFCamera instance into a Godot [Camera3D] node.
    */
-  public final fun toNode(): Camera3D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.toNodePtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Camera3D?)
-  }
+  public final fun toNode(): Camera3D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.toNodePtr) as Camera3D?)
 
   /**
    * Serializes this GLTFCamera instance into a [Dictionary].
    */
-  public final fun toDictionary(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.toDictionaryPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun toDictionary(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.toDictionaryPtr) as Dictionary<Any?, Any?>)
 
-  public final fun getPerspective(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPerspectivePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getPerspective(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getPerspectivePtr)
 
   public final fun setPerspective(perspective: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, perspective)
-    TransferContext.callPtrMethod(MethodBindings.setPerspectivePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPerspectivePtr, perspective)
   }
 
-  public final fun getFov(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFovPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFov(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFovPtr).toFloat()
 
   public final fun setFov(fov: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fov.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setFovPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFovPtr, fov.toDouble())
   }
 
-  public final fun getSizeMag(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSizeMagPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getSizeMag(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSizeMagPtr).toFloat()
 
   public final fun setSizeMag(sizeMag: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, sizeMag.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setSizeMagPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSizeMagPtr, sizeMag.toDouble())
   }
 
-  public final fun getDepthFar(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDepthFarPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDepthFar(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDepthFarPtr).toFloat()
 
   public final fun setDepthFar(zdepthFar: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, zdepthFar.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setDepthFarPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDepthFarPtr, zdepthFar.toDouble())
   }
 
-  public final fun getDepthNear(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDepthNearPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDepthNear(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDepthNearPtr).toFloat()
 
   public final fun setDepthNear(zdepthNear: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, zdepthNear.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setDepthNearPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDepthNearPtr, zdepthNear.toDouble())
   }
 
   public companion object {
@@ -238,21 +211,15 @@ public open class GLTFCamera : Resource() {
      * Create a new GLTFCamera instance from the given Godot [Camera3D] node.
      */
     @JvmStatic
-    public final fun fromNode(cameraNode: Camera3D?): GLTFCamera? {
-      TransferContext.writeMethodArguments_OBJECT(0L, 0L, cameraNode)
-      TransferContext.callPtrMethod(MethodBindings.fromNodePtr, 39)
-      return (TransferContext.readReturnValue_OBJECT() as GLTFCamera?)
-    }
+    public final fun fromNode(cameraNode: Camera3D?): GLTFCamera? =
+        (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(0L, 0L, MethodBindings.fromNodePtr, cameraNode) as GLTFCamera?)
 
     /**
      * Creates a new GLTFCamera instance by parsing the given [Dictionary].
      */
     @JvmStatic
-    public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFCamera? {
-      TransferContext.writeMethodArguments_DICTIONARY(0L, 0L, dictionary)
-      TransferContext.callPtrMethod(MethodBindings.fromDictionaryPtr, 39)
-      return (TransferContext.readReturnValue_OBJECT() as GLTFCamera?)
-    }
+    public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFCamera? =
+        (TransferContext.callPtrMethod_DICTIONARY_ret_OBJECT_REF(0L, 0L, MethodBindings.fromDictionaryPtr, dictionary) as GLTFCamera?)
   }
 
   public object MethodBindings {

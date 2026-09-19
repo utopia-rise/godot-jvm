@@ -9,6 +9,34 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_LONG_BOOL_ret_STRING
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_BOOL_ret_LONG
+import godot.callMethod_STRING_LONG_LONG_BOOL_ret_STRING
+import godot.callMethod_STRING_PACKED_STRING_ARRAY_ARRAY_BOOL_BOOL_ret_LONG
+import godot.callMethod_STRING_PACKED_STRING_ARRAY_BOOL_ret_DICTIONARY
+import godot.callMethod_STRING_PACKED_STRING_ARRAY_BOOL_ret_LONG
+import godot.callMethod_STRING_PACKED_STRING_ARRAY_ret_LONG
+import godot.callMethod_STRING_STRING
+import godot.callMethod_STRING_STRING_STRING_STRING_LONG_LONG_BOOL_ret_PACKED_STRING_ARRAY
+import godot.callMethod_STRING_ret_BOOL
+import godot.callMethod_STRING_ret_LONG
+import godot.callMethod_STRING_ret_STRING
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_BOOL_PACKED_STRING_ARRAY
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_PACKED_STRING_ARRAY_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.Error
@@ -24,27 +52,6 @@ import godot.core.MethodStringName7
 import godot.core.PackedByteArray
 import godot.core.PackedStringArray
 import godot.core.VariantArray
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_BYTE_ARRAY
-import godot.readReturnValue_PACKED_STRING_ARRAY
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_BOOL_PACKED_STRING_ARRAY
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_PACKED_STRING_ARRAY
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_BOOL
-import godot.writeMethodArguments_STRING_LONG_LONG_BOOL
-import godot.writeMethodArguments_STRING_PACKED_STRING_ARRAY
-import godot.writeMethodArguments_STRING_PACKED_STRING_ARRAY_ARRAY_BOOL_BOOL
-import godot.writeMethodArguments_STRING_PACKED_STRING_ARRAY_BOOL
-import godot.writeMethodArguments_STRING_STRING
-import godot.writeMethodArguments_STRING_STRING_STRING_STRING_LONG_LONG_BOOL
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -459,22 +466,16 @@ public object OS : Object() {
    * most cases.
    */
   @JvmStatic
-  public final fun getEntropy(size: Int): PackedByteArray {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getEntropyPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun getEntropy(size: Int): PackedByteArray =
+      TransferContext.callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getEntropyPtr, size.toLong())
 
   /**
    * Returns the list of certification authorities trusted by the operating system as a string of
    * concatenated certificates in PEM format.
    */
   @JvmStatic
-  public final fun getSystemCaCertificates(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSystemCaCertificatesPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getSystemCaCertificates(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSystemCaCertificatesPtr)
 
   /**
    * Returns an array of connected MIDI device names, if they exist. Returns an empty array if the
@@ -492,11 +493,8 @@ public object OS : Object() {
    * refrain from processing MIDI input until the user accepts the permission request.
    */
   @JvmStatic
-  public final fun getConnectedMidiInputs(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getConnectedMidiInputsPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getConnectedMidiInputs(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getConnectedMidiInputsPtr)
 
   /**
    * Initializes the singleton for the system MIDI driver, allowing Godot to receive
@@ -514,8 +512,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun openMidiInputs(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.openMidiInputsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.openMidiInputsPtr)
   }
 
   /**
@@ -526,8 +523,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun closeMidiInputs(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.closeMidiInputsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.closeMidiInputsPtr)
   }
 
   /**
@@ -537,8 +533,7 @@ public object OS : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun alert(text: String, title: String = "Alert!"): Unit {
-    TransferContext.writeMethodArguments_STRING_STRING(ptr, objectID.id, text, title)
-    TransferContext.callMethod(MethodBindings.alertPtr)
+    TransferContext.callMethod_STRING_STRING(ptr, objectID.id, MethodBindings.alertPtr, text, title)
   }
 
   /**
@@ -550,59 +545,43 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun crash(message: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, message)
-    TransferContext.callMethod(MethodBindings.crashPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.crashPtr, message)
   }
 
   @JvmStatic
   public final fun setLowProcessorUsageMode(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setLowProcessorUsageModePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setLowProcessorUsageModePtr, enable)
   }
 
   @JvmStatic
-  public final fun isInLowProcessorUsageMode(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isInLowProcessorUsageModePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInLowProcessorUsageMode(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInLowProcessorUsageModePtr)
 
   @JvmStatic
   public final fun setLowProcessorUsageModeSleepUsec(usec: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, usec.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setLowProcessorUsageModeSleepUsecPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLowProcessorUsageModeSleepUsecPtr, usec.toLong())
   }
 
   @JvmStatic
-  public final fun getLowProcessorUsageModeSleepUsec(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLowProcessorUsageModeSleepUsecPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getLowProcessorUsageModeSleepUsec(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLowProcessorUsageModeSleepUsecPtr).toInt()
 
   @JvmStatic
   public final fun setDeltaSmoothing(deltaSmoothingEnabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, deltaSmoothingEnabled)
-    TransferContext.callPtrMethod(MethodBindings.setDeltaSmoothingPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDeltaSmoothingPtr, deltaSmoothingEnabled)
   }
 
   @JvmStatic
-  public final fun isDeltaSmoothingEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDeltaSmoothingEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDeltaSmoothingEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDeltaSmoothingEnabledPtr)
 
   /**
    * Returns the number of *logical* CPU cores available on the host machine. On CPUs with
    * HyperThreading enabled, this number will be greater than the number of *physical* CPU cores.
    */
   @JvmStatic
-  public final fun getProcessorCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getProcessorCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getProcessorCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProcessorCountPtr).toInt()
 
   /**
    * Returns the full name of the CPU model on the host machine (e.g. `"Intel(R) Core(TM) i7-6700K
@@ -612,11 +591,8 @@ public object OS : Object() {
    * [getProcessorName] returns an empty string.
    */
   @JvmStatic
-  public final fun getProcessorName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessorNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getProcessorName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getProcessorNamePtr)
 
   /**
    * Returns the list of font family names available.
@@ -624,11 +600,8 @@ public object OS : Object() {
    * **Note:** This method is implemented on Android, iOS, Linux, macOS and Windows.
    */
   @JvmStatic
-  public final fun getSystemFonts(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSystemFontsPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getSystemFonts(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getSystemFontsPtr)
 
   /**
    * Returns the path to the system font file with [fontName] and style. Returns an empty string if
@@ -648,11 +621,8 @@ public object OS : Object() {
     weight: Int = 400,
     stretch: Int = 100,
     italic: Boolean = false,
-  ): String {
-    TransferContext.writeMethodArguments_STRING_LONG_LONG_BOOL(ptr, objectID.id, fontName, weight.toLong(), stretch.toLong(), italic)
-    TransferContext.callMethod(MethodBindings.getSystemFontPathPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  ): String =
+      TransferContext.callMethod_STRING_LONG_LONG_BOOL_ret_STRING(ptr, objectID.id, MethodBindings.getSystemFontPathPtr, fontName, weight.toLong(), stretch.toLong(), italic)
 
   /**
    * Returns an array of the system substitute font file paths, which are similar to the font with
@@ -681,11 +651,8 @@ public object OS : Object() {
     weight: Int = 400,
     stretch: Int = 100,
     italic: Boolean = false,
-  ): PackedStringArray {
-    TransferContext.writeMethodArguments_STRING_STRING_STRING_STRING_LONG_LONG_BOOL(ptr, objectID.id, fontName, text, locale, script, weight.toLong(), stretch.toLong(), italic)
-    TransferContext.callMethod(MethodBindings.getSystemFontPathForTextPtr)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  ): PackedStringArray =
+      TransferContext.callMethod_STRING_STRING_STRING_STRING_LONG_LONG_BOOL_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getSystemFontPathForTextPtr, fontName, text, locale, script, weight.toLong(), stretch.toLong(), italic)
 
   /**
    * Returns the file path to the current engine executable.
@@ -694,11 +661,8 @@ public object OS : Object() {
    * [createInstance] instead of relying on the executable path.
    */
   @JvmStatic
-  public final fun getExecutablePath(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExecutablePathPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getExecutablePath(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getExecutablePathPtr)
 
   /**
    * Reads a user input as a UTF-8 encoded string from the standard input. This operation can be
@@ -727,11 +691,8 @@ public object OS : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun readStringFromStdin(bufferSize: Long = 1024): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bufferSize)
-    TransferContext.callMethod(MethodBindings.readStringFromStdinPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun readStringFromStdin(bufferSize: Long = 1024): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.readStringFromStdinPtr, bufferSize)
 
   /**
    * Reads a user input as raw data from the standard input. This operation can be *blocking*, which
@@ -756,11 +717,8 @@ public object OS : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun readBufferFromStdin(bufferSize: Long = 1024): PackedByteArray {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bufferSize)
-    TransferContext.callPtrMethod(MethodBindings.readBufferFromStdinPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun readBufferFromStdin(bufferSize: Long = 1024): PackedByteArray =
+      TransferContext.callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.readBufferFromStdinPtr, bufferSize)
 
   /**
    * Returns the type of the standard input device.
@@ -772,11 +730,8 @@ public object OS : Object() {
    * the `windows_subsystem=console` flag.
    */
   @JvmStatic
-  public final fun getStdinType(): StdHandleType {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStdinTypePtr, 2)
-    return StdHandleType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getStdinType(): StdHandleType =
+      StdHandleType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStdinTypePtr))
 
   /**
    * Returns the type of the standard output device.
@@ -784,11 +739,8 @@ public object OS : Object() {
    * **Note:** This method is implemented on Linux, macOS, and Windows.
    */
   @JvmStatic
-  public final fun getStdoutType(): StdHandleType {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStdoutTypePtr, 2)
-    return StdHandleType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getStdoutType(): StdHandleType =
+      StdHandleType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStdoutTypePtr))
 
   /**
    * Returns the type of the standard error device.
@@ -796,11 +748,8 @@ public object OS : Object() {
    * **Note:** This method is implemented on Linux, macOS, and Windows.
    */
   @JvmStatic
-  public final fun getStderrType(): StdHandleType {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStderrTypePtr, 2)
-    return StdHandleType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getStderrType(): StdHandleType =
+      StdHandleType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStderrTypePtr))
 
   /**
    * Executes the given process in a *blocking* way. The file specified in [path] must exist and be
@@ -873,11 +822,8 @@ public object OS : Object() {
     output: VariantArray<Any?> = godot.core.variantArrayOf(),
     readStderr: Boolean = false,
     openConsole: Boolean = false,
-  ): Int {
-    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY_ARRAY_BOOL_BOOL(ptr, objectID.id, path, arguments, output, readStderr, openConsole)
-    TransferContext.callMethod(MethodBindings.executePtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_STRING_PACKED_STRING_ARRAY_ARRAY_BOOL_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.executePtr, path, arguments, output, readStderr, openConsole).toInt()
 
   /**
    * Creates a new process that runs independently of Godot with redirected IO. It will not
@@ -919,11 +865,8 @@ public object OS : Object() {
     path: String,
     arguments: PackedStringArray,
     blocking: Boolean = true,
-  ): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY_BOOL(ptr, objectID.id, path, arguments, blocking)
-    TransferContext.callMethod(MethodBindings.executeWithPipePtr)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  ): Dictionary<Any?, Any?> =
+      (TransferContext.callMethod_STRING_PACKED_STRING_ARRAY_BOOL_ret_DICTIONARY(ptr, objectID.id, MethodBindings.executeWithPipePtr, path, arguments, blocking) as Dictionary<Any?, Any?>)
 
   /**
    * Creates a new process that runs independently of Godot. It will not terminate when Godot
@@ -963,11 +906,8 @@ public object OS : Object() {
     path: String,
     arguments: PackedStringArray,
     openConsole: Boolean = false,
-  ): Int {
-    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY_BOOL(ptr, objectID.id, path, arguments, openConsole)
-    TransferContext.callMethod(MethodBindings.createProcessPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_STRING_PACKED_STRING_ARRAY_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.createProcessPtr, path, arguments, openConsole).toInt()
 
   /**
    * Creates a new instance of Godot that runs independently. The [arguments] are used in the given
@@ -982,11 +922,8 @@ public object OS : Object() {
    * **Note:** This method is implemented on Android, Linux, macOS and Windows.
    */
   @JvmStatic
-  public final fun createInstance(arguments: PackedStringArray): Int {
-    TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, arguments)
-    TransferContext.callPtrMethod(MethodBindings.createInstancePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun createInstance(arguments: PackedStringArray): Int =
+      TransferContext.callPtrMethod_PACKED_STRING_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.createInstancePtr, arguments).toInt()
 
   /**
    * Opens one or more files/directories with the specified application. The [programPath] specifies
@@ -999,11 +936,8 @@ public object OS : Object() {
    * **Note:** On macOS, [programPath] should ideally be the path to a `.app` bundle.
    */
   @JvmStatic
-  public final fun openWithProgram(programPath: String, paths: PackedStringArray): Error {
-    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY(ptr, objectID.id, programPath, paths)
-    TransferContext.callMethod(MethodBindings.openWithProgramPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun openWithProgram(programPath: String, paths: PackedStringArray): Error =
+      Error.from(TransferContext.callMethod_STRING_PACKED_STRING_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.openWithProgramPtr, programPath, paths))
 
   /**
    * Kill (terminate) the process identified by the given process ID ([pid]), such as the ID
@@ -1014,11 +948,8 @@ public object OS : Object() {
    * **Note:** This method is implemented on Android, iOS, Linux, macOS and Windows.
    */
   @JvmStatic
-  public final fun kill(pid: Int): Error {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pid.toLong())
-    TransferContext.callPtrMethod(MethodBindings.killPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun kill(pid: Int): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.killPtr, pid.toLong()))
 
   /**
    * Requests the OS to open a resource identified by [uri] with the most appropriate program. For
@@ -1047,11 +978,8 @@ public object OS : Object() {
    * **Note:** This method is implemented on Android, iOS, Web, Linux, macOS and Windows.
    */
   @JvmStatic
-  public final fun shellOpen(uri: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, uri)
-    TransferContext.callMethod(MethodBindings.shellOpenPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun shellOpen(uri: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.shellOpenPtr, uri))
 
   /**
    * Requests the OS to open the file manager, navigate to the given [fileOrDirPath] and select the
@@ -1068,12 +996,9 @@ public object OS : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun shellShowInFileManager(fileOrDirPath: String, openFolder: Boolean = true):
-      Error {
-    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, fileOrDirPath, openFolder)
-    TransferContext.callMethod(MethodBindings.shellShowInFileManagerPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun shellShowInFileManager(fileOrDirPath: String, openFolder: Boolean = true): Error
+      =
+      Error.from(TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.shellShowInFileManagerPtr, fileOrDirPath, openFolder))
 
   /**
    * Returns `true` if the child process ID ([pid]) is still running or `false` if it has
@@ -1082,11 +1007,8 @@ public object OS : Object() {
    * **Note:** This method is implemented on Android, iOS, Linux, macOS, and Windows.
    */
   @JvmStatic
-  public final fun isProcessRunning(pid: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pid.toLong())
-    TransferContext.callPtrMethod(MethodBindings.isProcessRunningPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isProcessRunning(pid: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isProcessRunningPtr, pid.toLong())
 
   /**
    * Returns the exit code of a spawned process once it has finished running (see
@@ -1100,11 +1022,8 @@ public object OS : Object() {
    * **Note:** This method is implemented on Android, Linux, macOS and Windows.
    */
   @JvmStatic
-  public final fun getProcessExitCode(pid: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pid.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getProcessExitCodePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getProcessExitCode(pid: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getProcessExitCodePtr, pid.toLong()).toInt()
 
   /**
    * Returns the number used by the host machine to uniquely identify this application.
@@ -1112,11 +1031,8 @@ public object OS : Object() {
    * **Note:** On Web, this method always returns `0`.
    */
   @JvmStatic
-  public final fun getProcessId(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getProcessIdPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getProcessId(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProcessIdPtr).toInt()
 
   /**
    * Returns `true` if the environment variable with the name [variable] exists.
@@ -1125,11 +1041,8 @@ public object OS : Object() {
    * on all platforms except Windows.
    */
   @JvmStatic
-  public final fun hasEnvironment(variable: String): Boolean {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, variable)
-    TransferContext.callMethod(MethodBindings.hasEnvironmentPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasEnvironment(variable: String): Boolean =
+      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasEnvironmentPtr, variable)
 
   /**
    * Returns the value of the given environment variable, or an empty string if [variable] doesn't
@@ -1141,11 +1054,8 @@ public object OS : Object() {
    * **Note:** On macOS, applications do not have access to shell environment variables.
    */
   @JvmStatic
-  public final fun getEnvironment(variable: String): String {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, variable)
-    TransferContext.callMethod(MethodBindings.getEnvironmentPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getEnvironment(variable: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.getEnvironmentPtr, variable)
 
   /**
    * Sets the value of the environment variable [variable] to [value]. The environment variable will
@@ -1160,8 +1070,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun setEnvironment(variable: String, `value`: String): Unit {
-    TransferContext.writeMethodArguments_STRING_STRING(ptr, objectID.id, variable, value)
-    TransferContext.callMethod(MethodBindings.setEnvironmentPtr)
+    TransferContext.callMethod_STRING_STRING(ptr, objectID.id, MethodBindings.setEnvironmentPtr, variable, value)
   }
 
   /**
@@ -1175,8 +1084,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun unsetEnvironment(variable: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, variable)
-    TransferContext.callMethod(MethodBindings.unsetEnvironmentPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.unsetEnvironmentPtr, variable)
   }
 
   /**
@@ -1250,11 +1158,8 @@ public object OS : Object() {
    * feature tags. See [hasFeature].
    */
   @JvmStatic
-  public final fun getName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getNamePtr)
 
   /**
    * Returns the name of the distribution for Linux and BSD platforms (e.g. "Ubuntu", "Manjaro",
@@ -1268,11 +1173,8 @@ public object OS : Object() {
    * **Note:** This method is not supported on the Web platform. It returns an empty string.
    */
   @JvmStatic
-  public final fun getDistributionName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDistributionNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getDistributionName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDistributionNamePtr)
 
   /**
    * Returns the exact production and build version of the operating system. This is different from
@@ -1292,11 +1194,8 @@ public object OS : Object() {
    * **Note:** This method is not supported on the Web platform. It returns an empty string.
    */
   @JvmStatic
-  public final fun getVersion(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVersionPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getVersion(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getVersionPtr)
 
   /**
    * Returns the branded version used in marketing, followed by the build number (on Windows), the
@@ -1312,11 +1211,8 @@ public object OS : Object() {
    * systems, it returns the same value as [getVersion].
    */
   @JvmStatic
-  public final fun getVersionAlias(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVersionAliasPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getVersionAlias(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getVersionAliasPtr)
 
   /**
    * Returns the command-line arguments passed to the engine, excluding arguments processed by the
@@ -1377,11 +1273,8 @@ public object OS : Object() {
    * which the engine will ignore by design. These can be read via [getCmdlineUserArgs].
    */
   @JvmStatic
-  public final fun getCmdlineArgs(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCmdlineArgsPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getCmdlineArgs(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getCmdlineArgsPtr)
 
   /**
    * Returns the command-line user arguments passed to the engine. User arguments are ignored by the
@@ -1399,11 +1292,8 @@ public object OS : Object() {
    * To get arguments passed before `--` or `++`, use [getCmdlineArgs].
    */
   @JvmStatic
-  public final fun getCmdlineUserArgs(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCmdlineUserArgsPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getCmdlineUserArgs(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getCmdlineUserArgsPtr)
 
   /**
    * Returns the video adapter driver name and version for the user's currently active graphics
@@ -1444,11 +1334,8 @@ public object OS : Object() {
    * ```
    */
   @JvmStatic
-  public final fun getVideoAdapterDriverInfo(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVideoAdapterDriverInfoPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getVideoAdapterDriverInfo(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getVideoAdapterDriverInfoPtr)
 
   /**
    * If [restart] is `true`, restarts the project automatically when it is exited with
@@ -1470,8 +1357,7 @@ public object OS : Object() {
   @JvmStatic
   public final fun setRestartOnExit(restart: Boolean, arguments: PackedStringArray =
       PackedStringArray()): Unit {
-    TransferContext.writeMethodArguments_BOOL_PACKED_STRING_ARRAY(ptr, objectID.id, restart, arguments)
-    TransferContext.callPtrMethod(MethodBindings.setRestartOnExitPtr, 0)
+    TransferContext.callPtrMethod_BOOL_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setRestartOnExitPtr, restart, arguments)
   }
 
   /**
@@ -1479,22 +1365,16 @@ public object OS : Object() {
    * otherwise. See also [setRestartOnExit] and [getRestartOnExitArguments].
    */
   @JvmStatic
-  public final fun isRestartOnExitSet(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isRestartOnExitSetPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isRestartOnExitSet(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRestartOnExitSetPtr)
 
   /**
    * Returns the list of command line arguments that will be used when the project automatically
    * restarts using [setRestartOnExit]. See also [isRestartOnExitSet].
    */
   @JvmStatic
-  public final fun getRestartOnExitArguments(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRestartOnExitArgumentsPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getRestartOnExitArguments(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getRestartOnExitArgumentsPtr)
 
   /**
    * Delays execution of the current thread by [usec] microseconds. [usec] must be greater than or
@@ -1512,8 +1392,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun delayUsec(usec: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, usec.toLong())
-    TransferContext.callPtrMethod(MethodBindings.delayUsecPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.delayUsecPtr, usec.toLong())
   }
 
   /**
@@ -1532,8 +1411,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun delayMsec(msec: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, msec.toLong())
-    TransferContext.callPtrMethod(MethodBindings.delayMsecPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.delayMsecPtr, msec.toLong())
   }
 
   /**
@@ -1559,11 +1437,8 @@ public object OS : Object() {
    * [getLocaleLanguage].
    */
   @JvmStatic
-  public final fun getLocale(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getLocale(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLocalePtr)
 
   /**
    * Returns the host OS locale's 2 or 3-letter
@@ -1576,11 +1451,8 @@ public object OS : Object() {
    * for a French Canadian user with `fr_CA` locale, this would return `fr`.
    */
   @JvmStatic
-  public final fun getLocaleLanguage(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocaleLanguagePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getLocaleLanguage(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLocaleLanguagePtr)
 
   /**
    * Returns the model name of the current device.
@@ -1589,11 +1461,8 @@ public object OS : Object() {
    * `"GenericDevice"` on unsupported platforms.
    */
   @JvmStatic
-  public final fun getModelName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getModelNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getModelName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getModelNamePtr)
 
   /**
    * Returns `true` if the `user://` file system is persistent, that is, its state is the same after
@@ -1601,11 +1470,8 @@ public object OS : Object() {
    * be unavailable.
    */
   @JvmStatic
-  public final fun isUserfsPersistent(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUserfsPersistentPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUserfsPersistent(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUserfsPersistentPtr)
 
   /**
    * Returns `true` if the engine was executed with the `--verbose` or `-v` command line argument,
@@ -1613,11 +1479,8 @@ public object OS : Object() {
    * [@GlobalScope.printVerbose].
    */
   @JvmStatic
-  public final fun isStdoutVerbose(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isStdoutVerbosePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isStdoutVerbose(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isStdoutVerbosePtr)
 
   /**
    * Returns `true` if the Godot binary used to run the project is a *debug* export template, or
@@ -1629,32 +1492,23 @@ public object OS : Object() {
    * (debug or release), use `OS.has_feature("template")` instead.
    */
   @JvmStatic
-  public final fun isDebugBuild(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDebugBuildPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDebugBuild(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDebugBuildPtr)
 
   /**
    * Returns the amount of static memory being used by the program in bytes. Only works in debug
    * builds.
    */
   @JvmStatic
-  public final fun getStaticMemoryUsage(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStaticMemoryUsagePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getStaticMemoryUsage(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStaticMemoryUsagePtr)
 
   /**
    * Returns the maximum amount of static memory used. Only works in debug builds.
    */
   @JvmStatic
-  public final fun getStaticMemoryPeakUsage(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStaticMemoryPeakUsagePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getStaticMemoryPeakUsage(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStaticMemoryPeakUsagePtr)
 
   /**
    * Returns a [Dictionary] containing information about the current memory with the following
@@ -1676,11 +1530,8 @@ public object OS : Object() {
    * **Note:** Each entry's value may be `-1` if it is unknown.
    */
   @JvmStatic
-  public final fun getMemoryInfo(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMemoryInfoPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getMemoryInfo(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getMemoryInfoPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Moves the file or directory at the given [path] to the system's recycle bin. See also
@@ -1710,11 +1561,8 @@ public object OS : Object() {
    * permanently deleted instead.
    */
   @JvmStatic
-  public final fun moveToTrash(path: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.moveToTrashPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun moveToTrash(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.moveToTrashPtr, path))
 
   /**
    * Returns the absolute directory path where user data is written (the `user://` directory in
@@ -1742,11 +1590,8 @@ public object OS : Object() {
    * home directory.
    */
   @JvmStatic
-  public final fun getUserDataDir(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUserDataDirPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getUserDataDir(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getUserDataDirPtr)
 
   /**
    * Returns the path to commonly used folders across different platforms, as defined by [dir]. See
@@ -1760,11 +1605,8 @@ public object OS : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun getSystemDir(dir: SystemDir, sharedStorage: Boolean = true): String {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, dir.value, sharedStorage)
-    TransferContext.callMethod(MethodBindings.getSystemDirPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getSystemDir(dir: SystemDir, sharedStorage: Boolean = true): String =
+      TransferContext.callMethod_LONG_BOOL_ret_STRING(ptr, objectID.id, MethodBindings.getSystemDirPtr, dir.value, sharedStorage)
 
   /**
    * Returns the *global* user configuration directory according to the operating system's
@@ -1778,11 +1620,8 @@ public object OS : Object() {
    * Not to be confused with [getUserDataDir], which returns the *project-specific* user data path.
    */
   @JvmStatic
-  public final fun getConfigDir(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConfigDirPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getConfigDir(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getConfigDirPtr)
 
   /**
    * Returns the *global* user data directory according to the operating system's standards.
@@ -1795,11 +1634,8 @@ public object OS : Object() {
    * Not to be confused with [getUserDataDir], which returns the *project-specific* user data path.
    */
   @JvmStatic
-  public final fun getDataDir(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDataDirPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getDataDir(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDataDirPtr)
 
   /**
    * Returns the *global* cache data directory according to the operating system's standards.
@@ -1812,21 +1648,15 @@ public object OS : Object() {
    * Not to be confused with [getUserDataDir], which returns the *project-specific* user data path.
    */
   @JvmStatic
-  public final fun getCacheDir(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCacheDirPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getCacheDir(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCacheDirPtr)
 
   /**
    * Returns the *global* temporary data directory according to the operating system's standards.
    */
   @JvmStatic
-  public final fun getTempDir(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTempDirPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getTempDir(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTempDirPtr)
 
   /**
    * Returns a string that is unique to the device.
@@ -1841,11 +1671,8 @@ public object OS : Object() {
    * implemented for security reasons.
    */
   @JvmStatic
-  public final fun getUniqueId(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUniqueIdPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getUniqueId(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getUniqueIdPtr)
 
   /**
    * Returns the given keycode as a [String].
@@ -1868,11 +1695,8 @@ public object OS : Object() {
    * [InputEventKey.getKeycodeWithModifiers].
    */
   @JvmStatic
-  public final fun getKeycodeString(code: Key): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, code.value)
-    TransferContext.callMethod(MethodBindings.getKeycodeStringPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getKeycodeString(code: Key): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getKeycodeStringPtr, code.value)
 
   /**
    * Returns `true` if the input keycode corresponds to a Unicode character. For a list of codes,
@@ -1895,11 +1719,8 @@ public object OS : Object() {
    * ```
    */
   @JvmStatic
-  public final fun isKeycodeUnicode(code: Long): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, code)
-    TransferContext.callPtrMethod(MethodBindings.isKeycodeUnicodePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isKeycodeUnicode(code: Long): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isKeycodeUnicodePtr, code)
 
   /**
    * Finds the keycode for the given string. The returned values are equivalent to the [Key]
@@ -1925,11 +1746,8 @@ public object OS : Object() {
    * See also [getKeycodeString].
    */
   @JvmStatic
-  public final fun findKeycodeFromString(string: String): Key {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, string)
-    TransferContext.callMethod(MethodBindings.findKeycodeFromStringPtr)
-    return Key.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun findKeycodeFromString(string: String): Key =
+      Key.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.findKeycodeFromStringPtr, string))
 
   /**
    * If [enabled] is `true`, when opening a file for writing, a temporary file is used in its place.
@@ -1940,8 +1758,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun setUseFileAccessSaveAndSwap(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setUseFileAccessSaveAndSwapPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseFileAccessSaveAndSwapPtr, enabled)
   }
 
   /**
@@ -1949,11 +1766,8 @@ public object OS : Object() {
    * current platform.
    */
   @JvmStatic
-  public final fun setThreadName(name: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.setThreadNamePtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun setThreadName(name: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.setThreadNamePtr, name))
 
   /**
    * Returns the ID of the current thread. This can be used in logs to ease debugging of
@@ -1962,11 +1776,8 @@ public object OS : Object() {
    * **Note:** Thread IDs are not deterministic and may be reused across application restarts.
    */
   @JvmStatic
-  public final fun getThreadCallerId(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getThreadCallerIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getThreadCallerId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getThreadCallerIdPtr)
 
   /**
    * Returns the ID of the main thread. See [getThreadCallerId].
@@ -1974,11 +1785,8 @@ public object OS : Object() {
    * **Note:** Thread IDs are not deterministic and may be reused across application restarts.
    */
   @JvmStatic
-  public final fun getMainThreadId(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMainThreadIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getMainThreadId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMainThreadIdPtr)
 
   /**
    * Returns `true` if the feature for the given feature tag is supported in the currently running
@@ -1993,11 +1801,8 @@ public object OS : Object() {
    * host platform: `web_android`, `web_ios`, `web_linuxbsd`, `web_macos`, or `web_windows`.
    */
   @JvmStatic
-  public final fun hasFeature(tagName: String): Boolean {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, tagName)
-    TransferContext.callMethod(MethodBindings.hasFeaturePtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasFeature(tagName: String): Boolean =
+      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasFeaturePtr, tagName)
 
   /**
    * Returns `true` if the application is running in the sandbox.
@@ -2005,11 +1810,8 @@ public object OS : Object() {
    * **Note:** This method is only implemented on macOS and Linux.
    */
   @JvmStatic
-  public final fun isSandboxed(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isSandboxedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isSandboxed(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSandboxedPtr)
 
   /**
    * Requests permission from the OS for the given [name]. Returns `true` if the permission has
@@ -2030,11 +1832,8 @@ public object OS : Object() {
    * **Note:** This method is implemented on Android, macOS, and visionOS platforms.
    */
   @JvmStatic
-  public final fun requestPermission(name: String): Boolean {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.requestPermissionPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun requestPermission(name: String): Boolean =
+      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.requestPermissionPtr, name)
 
   /**
    * Requests *dangerous* permissions from the OS. Returns `true` if permissions have already been
@@ -2046,11 +1845,8 @@ public object OS : Object() {
    * granted at install time in Android applications.
    */
   @JvmStatic
-  public final fun requestPermissions(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.requestPermissionsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun requestPermissions(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.requestPermissionsPtr)
 
   /**
    * On Android devices: Returns the list of dangerous permissions that have been granted.
@@ -2062,11 +1858,8 @@ public object OS : Object() {
    * On iOS, visionOS: Returns the list of granted permissions.
    */
   @JvmStatic
-  public final fun getGrantedPermissions(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGrantedPermissionsPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getGrantedPermissions(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getGrantedPermissionsPtr)
 
   /**
    * On macOS (sandboxed applications only), this function clears list of user selected folders
@@ -2074,8 +1867,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun revokeGrantedPermissions(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.revokeGrantedPermissionsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.revokeGrantedPermissionsPtr)
   }
 
   /**
@@ -2083,8 +1875,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun addLogger(logger: Logger): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, logger)
-    TransferContext.callPtrMethod(MethodBindings.addLoggerPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addLoggerPtr, logger)
   }
 
   /**
@@ -2092,8 +1883,7 @@ public object OS : Object() {
    */
   @JvmStatic
   public final fun removeLogger(logger: Logger): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, logger)
-    TransferContext.callPtrMethod(MethodBindings.removeLoggerPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeLoggerPtr, logger)
   }
 
   public enum class RenderingDriver(

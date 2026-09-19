@@ -11,6 +11,28 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_VECTOR2I
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_VECTOR2I_VECTOR2I_VECTOR2I_ret_PACKED_VECTOR2_ARRAY
+import godot.callPtrMethod_VECTOR2I
+import godot.callPtrMethod_VECTOR2I_DOUBLE
+import godot.callPtrMethod_VECTOR2I_LONG
+import godot.callPtrMethod_VECTOR2I_LONG_DOUBLE
+import godot.callPtrMethod_VECTOR2I_LONG_LONG
+import godot.callPtrMethod_VECTOR2I_LONG_ret_DOUBLE
+import godot.callPtrMethod_VECTOR2I_LONG_ret_LONG
+import godot.callPtrMethod_VECTOR2I_LONG_ret_OBJECT
+import godot.callPtrMethod_VECTOR2I_LONG_ret_RECT2I
+import godot.callPtrMethod_VECTOR2I_VECTOR2I
+import godot.callPtrMethod_VECTOR2I_VECTOR2I_LONG_VECTOR2I_LONG_VECTOR2I_ret_BOOL
+import godot.callPtrMethod_VECTOR2I_VECTOR2I_VECTOR2I
+import godot.callPtrMethod_VECTOR2I_ret_DOUBLE
+import godot.callPtrMethod_VECTOR2I_ret_LONG
+import godot.callPtrMethod_VECTOR2I_ret_VECTOR2I
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -22,25 +44,6 @@ import godot.core.MethodStringName6
 import godot.core.PackedVector2Array
 import godot.core.Rect2i
 import godot.core.Vector2i
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_VECTOR2_ARRAY
-import godot.readReturnValue_RECT2I
-import godot.readReturnValue_VECTOR2I
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_VECTOR2I_VECTOR2I_VECTOR2I
-import godot.writeMethodArguments_VECTOR2I
-import godot.writeMethodArguments_VECTOR2I_DOUBLE
-import godot.writeMethodArguments_VECTOR2I_LONG
-import godot.writeMethodArguments_VECTOR2I_LONG_DOUBLE
-import godot.writeMethodArguments_VECTOR2I_LONG_LONG
-import godot.writeMethodArguments_VECTOR2I_VECTOR2I
-import godot.writeMethodArguments_VECTOR2I_VECTOR2I_LONG_VECTOR2I_LONG_VECTOR2I
-import godot.writeMethodArguments_VECTOR2I_VECTOR2I_VECTOR2I
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -220,75 +223,53 @@ public open class TileSetAtlasSource : TileSetSource() {
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
   }
 
-  public final fun getTexture(): Texture2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getTexture(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture2D?)
 
   public final fun setMargins(margins: Vector2i): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, margins)
-    TransferContext.callPtrMethod(MethodBindings.setMarginsPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setMarginsPtr, margins)
   }
 
-  public final fun getMargins(): Vector2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMarginsPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getMargins(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getMarginsPtr)
 
   public final fun setSeparation(separation: Vector2i): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, separation)
-    TransferContext.callPtrMethod(MethodBindings.setSeparationPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setSeparationPtr, separation)
   }
 
-  public final fun getSeparation(): Vector2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSeparationPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getSeparation(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getSeparationPtr)
 
   public final fun setTextureRegionSize(textureRegionSize: Vector2i): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, textureRegionSize)
-    TransferContext.callPtrMethod(MethodBindings.setTextureRegionSizePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setTextureRegionSizePtr, textureRegionSize)
   }
 
-  public final fun getTextureRegionSize(): Vector2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTextureRegionSizePtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getTextureRegionSize(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getTextureRegionSizePtr)
 
   public final fun setUseTexturePadding(useTexturePadding: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, useTexturePadding)
-    TransferContext.callPtrMethod(MethodBindings.setUseTexturePaddingPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseTexturePaddingPtr, useTexturePadding)
   }
 
-  public final fun getUseTexturePadding(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getUseTexturePaddingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getUseTexturePadding(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseTexturePaddingPtr)
 
   /**
    * Creates a new tile at coordinates [atlasCoords] with the given [size].
    */
   @JvmOverloads
   public final fun createTile(atlasCoords: Vector2i, size: Vector2i = Vector2i(1, 1)): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_VECTOR2I(ptr, objectID.id, atlasCoords, size)
-    TransferContext.callPtrMethod(MethodBindings.createTilePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_VECTOR2I(ptr, objectID.id, MethodBindings.createTilePtr, atlasCoords, size)
   }
 
   /**
    * Remove a tile and its alternative at coordinates [atlasCoords].
    */
   public final fun removeTile(atlasCoords: Vector2i): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callPtrMethod(MethodBindings.removeTilePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.removeTilePtr, atlasCoords)
   }
 
   /**
@@ -307,18 +288,14 @@ public open class TileSetAtlasSource : TileSetSource() {
     newAtlasCoords: Vector2i = Vector2i(-1, -1),
     newSize: Vector2i = Vector2i(-1, -1),
   ): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_VECTOR2I_VECTOR2I(ptr, objectID.id, atlasCoords, newAtlasCoords, newSize)
-    TransferContext.callPtrMethod(MethodBindings.moveTileInAtlasPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_VECTOR2I_VECTOR2I(ptr, objectID.id, MethodBindings.moveTileInAtlasPtr, atlasCoords, newAtlasCoords, newSize)
   }
 
   /**
    * Returns the size of the tile (in the grid coordinates system) at coordinates [atlasCoords].
    */
-  public final fun getTileSizeInAtlas(atlasCoords: Vector2i): Vector2i {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callPtrMethod(MethodBindings.getTileSizeInAtlasPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getTileSizeInAtlas(atlasCoords: Vector2i): Vector2i =
+      TransferContext.callPtrMethod_VECTOR2I_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getTileSizeInAtlasPtr, atlasCoords)
 
   /**
    * Returns whether there is enough room in an atlas to create/modify a tile with the given
@@ -333,11 +310,8 @@ public open class TileSetAtlasSource : TileSetSource() {
     animationSeparation: Vector2i,
     framesCount: Int,
     ignoredTile: Vector2i = Vector2i(-1, -1),
-  ): Boolean {
-    TransferContext.writeMethodArguments_VECTOR2I_VECTOR2I_LONG_VECTOR2I_LONG_VECTOR2I(ptr, objectID.id, atlasCoords, size, animationColumns.toLong(), animationSeparation, framesCount.toLong(), ignoredTile)
-    TransferContext.callPtrMethod(MethodBindings.hasRoomForTilePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  ): Boolean =
+      TransferContext.callPtrMethod_VECTOR2I_VECTOR2I_LONG_VECTOR2I_LONG_VECTOR2I_ret_BOOL(ptr, objectID.id, MethodBindings.hasRoomForTilePtr, atlasCoords, size, animationColumns.toLong(), animationSeparation, framesCount.toLong(), ignoredTile)
 
   /**
    * Returns an array of tiles coordinates ID that will be automatically removed when modifying one
@@ -349,39 +323,29 @@ public open class TileSetAtlasSource : TileSetSource() {
     margins: Vector2i,
     separation: Vector2i,
     textureRegionSize: Vector2i,
-  ): PackedVector2Array {
-    TransferContext.writeMethodArguments_OBJECT_VECTOR2I_VECTOR2I_VECTOR2I(ptr, objectID.id, texture, margins, separation, textureRegionSize)
-    TransferContext.callPtrMethod(MethodBindings.getTilesToBeRemovedOnChangePtr, 35)
-    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
-  }
+  ): PackedVector2Array =
+      TransferContext.callPtrMethod_OBJECT_VECTOR2I_VECTOR2I_VECTOR2I_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getTilesToBeRemovedOnChangePtr, texture, margins, separation, textureRegionSize)
 
   /**
    * If there is a tile covering the [atlasCoords] coordinates, returns the top-left coordinates of
    * the tile (thus its coordinate ID). Returns `Vector2i(-1, -1)` otherwise.
    */
-  public final fun getTileAtCoords(atlasCoords: Vector2i): Vector2i {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callPtrMethod(MethodBindings.getTileAtCoordsPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getTileAtCoords(atlasCoords: Vector2i): Vector2i =
+      TransferContext.callPtrMethod_VECTOR2I_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getTileAtCoordsPtr, atlasCoords)
 
   /**
    * Checks if the source has any tiles that don't fit the texture area (either partially or
    * completely).
    */
-  public final fun hasTilesOutsideTexture(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasTilesOutsideTexturePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasTilesOutsideTexture(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasTilesOutsideTexturePtr)
 
   /**
    * Removes all tiles that don't fit the available texture area. This method iterates over all the
    * source's tiles, so it's advised to use [hasTilesOutsideTexture] beforehand.
    */
   public final fun clearTilesOutsideTexture(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearTilesOutsideTexturePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearTilesOutsideTexturePtr)
   }
 
   /**
@@ -390,89 +354,69 @@ public open class TileSetAtlasSource : TileSetSource() {
    * the atlas.
    */
   public final fun setTileAnimationColumns(atlasCoords: Vector2i, frameColumns: Int): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, frameColumns.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setTileAnimationColumnsPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.setTileAnimationColumnsPtr, atlasCoords, frameColumns.toLong())
   }
 
   /**
    * Returns how many columns the tile at [atlasCoords] has in its animation layout.
    */
-  public final fun getTileAnimationColumns(atlasCoords: Vector2i): Int {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callPtrMethod(MethodBindings.getTileAnimationColumnsPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTileAnimationColumns(atlasCoords: Vector2i): Int =
+      TransferContext.callPtrMethod_VECTOR2I_ret_LONG(ptr, objectID.id, MethodBindings.getTileAnimationColumnsPtr, atlasCoords).toInt()
 
   /**
    * Sets the margin (in grid tiles) between each tile in the animation layout of the tile at
    * coordinates [atlasCoords] has.
    */
   public final fun setTileAnimationSeparation(atlasCoords: Vector2i, separation: Vector2i): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_VECTOR2I(ptr, objectID.id, atlasCoords, separation)
-    TransferContext.callPtrMethod(MethodBindings.setTileAnimationSeparationPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_VECTOR2I(ptr, objectID.id, MethodBindings.setTileAnimationSeparationPtr, atlasCoords, separation)
   }
 
   /**
    * Returns the separation (as in the atlas grid) between each frame of an animated tile at
    * coordinates [atlasCoords].
    */
-  public final fun getTileAnimationSeparation(atlasCoords: Vector2i): Vector2i {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callPtrMethod(MethodBindings.getTileAnimationSeparationPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getTileAnimationSeparation(atlasCoords: Vector2i): Vector2i =
+      TransferContext.callPtrMethod_VECTOR2I_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getTileAnimationSeparationPtr, atlasCoords)
 
   /**
    * Sets the animation speed of the tile at coordinates [atlasCoords] has.
    */
   public final fun setTileAnimationSpeed(atlasCoords: Vector2i, speed: Float): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_DOUBLE(ptr, objectID.id, atlasCoords, speed.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setTileAnimationSpeedPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_DOUBLE(ptr, objectID.id, MethodBindings.setTileAnimationSpeedPtr, atlasCoords, speed.toDouble())
   }
 
   /**
    * Returns the animation speed of the tile at coordinates [atlasCoords].
    */
-  public final fun getTileAnimationSpeed(atlasCoords: Vector2i): Float {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callPtrMethod(MethodBindings.getTileAnimationSpeedPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getTileAnimationSpeed(atlasCoords: Vector2i): Float =
+      TransferContext.callPtrMethod_VECTOR2I_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTileAnimationSpeedPtr, atlasCoords).toFloat()
 
   /**
    * Sets the tile animation mode of the tile at [atlasCoords] to [mode]. See also
    * [getTileAnimationMode].
    */
   public final fun setTileAnimationMode(atlasCoords: Vector2i, mode: TileAnimationMode): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setTileAnimationModePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.setTileAnimationModePtr, atlasCoords, mode.value)
   }
 
   /**
    * Returns the tile animation mode of the tile at [atlasCoords]. See also [setTileAnimationMode].
    */
-  public final fun getTileAnimationMode(atlasCoords: Vector2i): TileAnimationMode {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callPtrMethod(MethodBindings.getTileAnimationModePtr, 2)
-    return TileAnimationMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTileAnimationMode(atlasCoords: Vector2i): TileAnimationMode =
+      TileAnimationMode.from(TransferContext.callPtrMethod_VECTOR2I_ret_LONG(ptr, objectID.id, MethodBindings.getTileAnimationModePtr, atlasCoords))
 
   /**
    * Sets how many animation frames the tile at coordinates [atlasCoords] has.
    */
   public final fun setTileAnimationFramesCount(atlasCoords: Vector2i, framesCount: Int): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, framesCount.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setTileAnimationFramesCountPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.setTileAnimationFramesCountPtr, atlasCoords, framesCount.toLong())
   }
 
   /**
    * Returns how many animation frames has the tile at coordinates [atlasCoords].
    */
-  public final fun getTileAnimationFramesCount(atlasCoords: Vector2i): Int {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callPtrMethod(MethodBindings.getTileAnimationFramesCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTileAnimationFramesCount(atlasCoords: Vector2i): Int =
+      TransferContext.callPtrMethod_VECTOR2I_ret_LONG(ptr, objectID.id, MethodBindings.getTileAnimationFramesCountPtr, atlasCoords).toInt()
 
   /**
    * Sets the animation frame [duration] of frame [frameIndex] for the tile at coordinates
@@ -483,29 +427,22 @@ public open class TileSetAtlasSource : TileSetSource() {
     frameIndex: Int,
     duration: Float,
   ): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG_DOUBLE(ptr, objectID.id, atlasCoords, frameIndex.toLong(), duration.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setTileAnimationFrameDurationPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setTileAnimationFrameDurationPtr, atlasCoords, frameIndex.toLong(), duration.toDouble())
   }
 
   /**
    * Returns the animation frame duration of frame [frameIndex] for the tile at coordinates
    * [atlasCoords].
    */
-  public final fun getTileAnimationFrameDuration(atlasCoords: Vector2i, frameIndex: Int): Float {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, frameIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getTileAnimationFrameDurationPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getTileAnimationFrameDuration(atlasCoords: Vector2i, frameIndex: Int): Float =
+      TransferContext.callPtrMethod_VECTOR2I_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTileAnimationFrameDurationPtr, atlasCoords, frameIndex.toLong()).toFloat()
 
   /**
    * Returns the sum of the sum of the frame durations of the tile at coordinates [atlasCoords].
    * This value needs to be divided by the animation speed to get the actual animation loop duration.
    */
-  public final fun getTileAnimationTotalDuration(atlasCoords: Vector2i): Float {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callPtrMethod(MethodBindings.getTileAnimationTotalDurationPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getTileAnimationTotalDuration(atlasCoords: Vector2i): Float =
+      TransferContext.callPtrMethod_VECTOR2I_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTileAnimationTotalDurationPtr, atlasCoords).toFloat()
 
   /**
    * Creates an alternative tile for the tile at coordinates [atlasCoords]. If
@@ -517,11 +454,8 @@ public open class TileSetAtlasSource : TileSetSource() {
    */
   @JvmOverloads
   public final fun createAlternativeTile(atlasCoords: Vector2i, alternativeIdOverride: Int = -1):
-      Int {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, alternativeIdOverride.toLong())
-    TransferContext.callPtrMethod(MethodBindings.createAlternativeTilePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+      Int =
+      TransferContext.callPtrMethod_VECTOR2I_LONG_ret_LONG(ptr, objectID.id, MethodBindings.createAlternativeTilePtr, atlasCoords, alternativeIdOverride.toLong()).toInt()
 
   /**
    * Remove a tile's alternative with alternative ID [alternativeTile].
@@ -530,8 +464,7 @@ public open class TileSetAtlasSource : TileSetSource() {
    * alternative cannot be removed.
    */
   public final fun removeAlternativeTile(atlasCoords: Vector2i, alternativeTile: Int): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, alternativeTile.toLong())
-    TransferContext.callPtrMethod(MethodBindings.removeAlternativeTilePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.removeAlternativeTilePtr, atlasCoords, alternativeTile.toLong())
   }
 
   /**
@@ -545,58 +478,42 @@ public open class TileSetAtlasSource : TileSetSource() {
     alternativeTile: Int,
     newId: Int,
   ): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG_LONG(ptr, objectID.id, atlasCoords, alternativeTile.toLong(), newId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setAlternativeTileIdPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG_LONG(ptr, objectID.id, MethodBindings.setAlternativeTileIdPtr, atlasCoords, alternativeTile.toLong(), newId.toLong())
   }
 
   /**
    * Returns the alternative ID a following call to [createAlternativeTile] would return.
    */
-  public final fun getNextAlternativeTileId(atlasCoords: Vector2i): Int {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, atlasCoords)
-    TransferContext.callPtrMethod(MethodBindings.getNextAlternativeTileIdPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getNextAlternativeTileId(atlasCoords: Vector2i): Int =
+      TransferContext.callPtrMethod_VECTOR2I_ret_LONG(ptr, objectID.id, MethodBindings.getNextAlternativeTileIdPtr, atlasCoords).toInt()
 
   /**
    * Returns the [TileData] object for the given atlas coordinates and alternative ID.
    */
-  public final fun getTileData(atlasCoords: Vector2i, alternativeTile: Int): TileData? {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, alternativeTile.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getTileDataPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as TileData?)
-  }
+  public final fun getTileData(atlasCoords: Vector2i, alternativeTile: Int): TileData? =
+      (TransferContext.callPtrMethod_VECTOR2I_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getTileDataPtr, atlasCoords, alternativeTile.toLong()) as TileData?)
 
   /**
    * Returns the atlas grid size, which depends on how many tiles can fit in the texture. It thus
    * depends on the [texture]'s size, the atlas [margins], and the tiles' [textureRegionSize].
    */
-  public final fun getAtlasGridSize(): Vector2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAtlasGridSizePtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getAtlasGridSize(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getAtlasGridSizePtr)
 
   /**
    * Returns a tile's texture region in the atlas texture. For animated tiles, a [frame] argument
    * might be provided for the different frames of the animation.
    */
   @JvmOverloads
-  public final fun getTileTextureRegion(atlasCoords: Vector2i, frame: Int = 0): Rect2i {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, frame.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getTileTextureRegionPtr, 8)
-    return TransferContext.readReturnValue_RECT2I()
-  }
+  public final fun getTileTextureRegion(atlasCoords: Vector2i, frame: Int = 0): Rect2i =
+      TransferContext.callPtrMethod_VECTOR2I_LONG_ret_RECT2I(ptr, objectID.id, MethodBindings.getTileTextureRegionPtr, atlasCoords, frame.toLong())
 
   /**
    * If [useTexturePadding] is `false`, returns [texture]. Otherwise, returns an internal
    * [ImageTexture] created that includes the padding.
    */
-  public final fun getRuntimeTexture(): Texture2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRuntimeTexturePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getRuntimeTexture(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getRuntimeTexturePtr) as Texture2D?)
 
   /**
    * Returns the region of the tile at coordinates [atlasCoords] for the given [frame] inside the
@@ -604,11 +521,8 @@ public open class TileSetAtlasSource : TileSetSource() {
    *
    * **Note:** If [useTexturePadding] is `false`, returns the same as [getTileTextureRegion].
    */
-  public final fun getRuntimeTileTextureRegion(atlasCoords: Vector2i, frame: Int): Rect2i {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG(ptr, objectID.id, atlasCoords, frame.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getRuntimeTileTextureRegionPtr, 8)
-    return TransferContext.readReturnValue_RECT2I()
-  }
+  public final fun getRuntimeTileTextureRegion(atlasCoords: Vector2i, frame: Int): Rect2i =
+      TransferContext.callPtrMethod_VECTOR2I_LONG_ret_RECT2I(ptr, objectID.id, MethodBindings.getRuntimeTileTextureRegionPtr, atlasCoords, frame.toLong())
 
   public enum class TileAnimationMode(
     public override val `value`: Long,

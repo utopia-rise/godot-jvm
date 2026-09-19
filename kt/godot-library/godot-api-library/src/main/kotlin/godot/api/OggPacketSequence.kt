@@ -11,18 +11,17 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_PACKED_INT_64_ARRAY
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_PACKED_INT_64_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedInt64Array
 import godot.core.VariantArray
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_PACKED_INT_64_ARRAY
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_PACKED_INT_64_ARRAY
 import kotlin.Any
 import kotlin.Float
 import kotlin.Int
@@ -121,46 +120,31 @@ public open class OggPacketSequence : Resource() {
   }
 
   public final fun setPacketData(packetData: VariantArray<VariantArray<Any?>>): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, packetData)
-    TransferContext.callPtrMethod(MethodBindings.setPacketDataPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setPacketDataPtr, packetData)
   }
 
-  public final fun getPacketData(): VariantArray<VariantArray<Any?>> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPacketDataPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<VariantArray<Any?>>)
-  }
+  public final fun getPacketData(): VariantArray<VariantArray<Any?>> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getPacketDataPtr) as VariantArray<VariantArray<Any?>>)
 
   public final fun setPacketGranulePositions(granulePositions: PackedInt64Array): Unit {
-    TransferContext.writeMethodArguments_PACKED_INT_64_ARRAY(ptr, objectID.id, granulePositions)
-    TransferContext.callPtrMethod(MethodBindings.setPacketGranulePositionsPtr, 0)
+    TransferContext.callPtrMethod_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.setPacketGranulePositionsPtr, granulePositions)
   }
 
-  public final fun getPacketGranulePositions(): PackedInt64Array {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPacketGranulePositionsPtr, 31)
-    return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
-  }
+  public final fun getPacketGranulePositions(): PackedInt64Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.getPacketGranulePositionsPtr)
 
   public final fun setSamplingRate(samplingRate: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, samplingRate.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setSamplingRatePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSamplingRatePtr, samplingRate.toDouble())
   }
 
-  public final fun getSamplingRate(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSamplingRatePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getSamplingRate(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSamplingRatePtr).toFloat()
 
   /**
    * The length of this stream, in seconds.
    */
-  public final fun getLength(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLengthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
 
   public companion object {
     @JvmField

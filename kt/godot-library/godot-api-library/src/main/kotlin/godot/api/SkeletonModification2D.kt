@@ -9,18 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE_DOUBLE_DOUBLE_BOOL_ret_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName4
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE_DOUBLE_DOUBLE_BOOL
-import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float
@@ -95,25 +93,18 @@ public open class SkeletonModification2D : Resource() {
   }
 
   public final fun setEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnabledPtr, enabled)
   }
 
-  public final fun getEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnabledPtr)
 
   /**
    * Returns the [SkeletonModificationStack2D] that this modification is bound to. Through the
    * modification stack, you can access the Skeleton2D the modification is operating on.
    */
-  public final fun getModificationStack(): SkeletonModificationStack2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getModificationStackPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as SkeletonModificationStack2D?)
-  }
+  public final fun getModificationStack(): SkeletonModificationStack2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getModificationStackPtr) as SkeletonModificationStack2D?)
 
   /**
    * Manually allows you to set the setup state of the modification. This function should only
@@ -121,29 +112,21 @@ public open class SkeletonModification2D : Resource() {
    * setting the modification up.
    */
   public final fun setIsSetup(isSetup: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, isSetup)
-    TransferContext.callPtrMethod(MethodBindings.setIsSetupPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIsSetupPtr, isSetup)
   }
 
   /**
    * Returns whether this modification has been successfully setup or not.
    */
-  public final fun getIsSetup(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getIsSetupPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getIsSetup(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getIsSetupPtr)
 
   public final fun setExecutionMode(executionMode: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, executionMode.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setExecutionModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setExecutionModePtr, executionMode.toLong())
   }
 
-  public final fun getExecutionMode(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getExecutionModePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getExecutionMode(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getExecutionModePtr).toInt()
 
   /**
    * Takes an angle and clamps it so it is within the passed-in [min] and [max] range. [invert] will
@@ -154,30 +137,23 @@ public open class SkeletonModification2D : Resource() {
     min: Float,
     max: Float,
     invert: Boolean,
-  ): Float {
-    TransferContext.writeMethodArguments_DOUBLE_DOUBLE_DOUBLE_BOOL(ptr, objectID.id, angle.toDouble(), min.toDouble(), max.toDouble(), invert)
-    TransferContext.callPtrMethod(MethodBindings.clampAnglePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  ): Float =
+      TransferContext.callPtrMethod_DOUBLE_DOUBLE_DOUBLE_BOOL_ret_DOUBLE(ptr, objectID.id, MethodBindings.clampAnglePtr, angle.toDouble(), min.toDouble(), max.toDouble(), invert).toFloat()
 
   /**
    * Sets whether this modification will call [_drawEditorGizmo] in the Godot editor to draw
    * modification-specific gizmos.
    */
   public final fun setEditorDrawGizmo(drawGizmo: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, drawGizmo)
-    TransferContext.callPtrMethod(MethodBindings.setEditorDrawGizmoPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditorDrawGizmoPtr, drawGizmo)
   }
 
   /**
    * Returns whether this modification will call [_drawEditorGizmo] in the Godot editor to draw
    * modification-specific gizmos.
    */
-  public final fun getEditorDrawGizmo(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEditorDrawGizmoPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getEditorDrawGizmo(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEditorDrawGizmoPtr)
 
   public companion object {
     @JvmField

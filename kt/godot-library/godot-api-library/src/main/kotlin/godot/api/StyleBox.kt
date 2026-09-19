@@ -9,6 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_RID_RECT2
+import godot.callPtrMethod_VECTOR2_RECT2_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -17,16 +24,6 @@ import godot.core.RID
 import godot.core.Rect2
 import godot.core.Side
 import godot.core.Vector2
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_DOUBLE
-import godot.writeMethodArguments_RID_RECT2
-import godot.writeMethodArguments_VECTOR2_RECT2
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.NotImplementedError
@@ -137,57 +134,43 @@ public abstract class StyleBox : Resource() {
   /**
    * Returns the minimum size that this stylebox can be shrunk to.
    */
-  public final fun getMinimumSize(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMinimumSizePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getMinimumSize(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getMinimumSizePtr)
 
   /**
    * Sets the default value of the specified [Side] to [offset] pixels.
    */
   public final fun setContentMargin(margin: Side, offset: Float): Unit {
-    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, margin.value, offset.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setContentMarginPtr, 0)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setContentMarginPtr, margin.value, offset.toDouble())
   }
 
   /**
    * Sets the default margin to [offset] pixels for all sides.
    */
   public final fun setContentMarginAll(offset: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setContentMarginAllPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setContentMarginAllPtr, offset.toDouble())
   }
 
   /**
    * Returns the default margin of the specified [Side].
    */
-  public final fun getContentMargin(margin: Side): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
-    TransferContext.callPtrMethod(MethodBindings.getContentMarginPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getContentMargin(margin: Side): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getContentMarginPtr, margin.value).toFloat()
 
   /**
    * Returns the content margin offset for the specified [Side].
    *
    * Positive values reduce size inwards, unlike [Control]'s margin values.
    */
-  public final fun getMargin(margin: Side): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
-    TransferContext.callPtrMethod(MethodBindings.getMarginPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getMargin(margin: Side): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMarginPtr, margin.value).toFloat()
 
   /**
    * Returns the "offset" of a stylebox. This helper function returns a value equivalent to
    * `Vector2(style.get_margin(MARGIN_LEFT), style.get_margin(MARGIN_TOP))`.
    */
-  public final fun getOffset(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOffsetPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getOffset(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getOffsetPtr)
 
   /**
    * Draws this stylebox using a canvas item identified by the given [RID].
@@ -197,28 +180,21 @@ public abstract class StyleBox : Resource() {
    * [RenderingServer.canvasItemCreate].
    */
   public final fun draw(canvasItem: RID, rect: Rect2): Unit {
-    TransferContext.writeMethodArguments_RID_RECT2(ptr, objectID.id, canvasItem, rect)
-    TransferContext.callPtrMethod(MethodBindings.drawPtr, 0)
+    TransferContext.callPtrMethod_RID_RECT2(ptr, objectID.id, MethodBindings.drawPtr, canvasItem, rect)
   }
 
   /**
    * Returns the [CanvasItem] that handles its [CanvasItem.NOTIFICATION_DRAW] or [CanvasItem.Draw]
    * callback at this moment.
    */
-  public final fun getCurrentItemDrawn(): CanvasItem? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurrentItemDrawnPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as CanvasItem?)
-  }
+  public final fun getCurrentItemDrawn(): CanvasItem? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getCurrentItemDrawnPtr) as CanvasItem?)
 
   /**
    * Test a position in a rectangle, return whether it passes the mask test.
    */
-  public final fun testMask(point: Vector2, rect: Rect2): Boolean {
-    TransferContext.writeMethodArguments_VECTOR2_RECT2(ptr, objectID.id, point, rect)
-    TransferContext.callPtrMethod(MethodBindings.testMaskPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun testMask(point: Vector2, rect: Rect2): Boolean =
+      TransferContext.callPtrMethod_VECTOR2_RECT2_ret_BOOL(ptr, objectID.id, MethodBindings.testMaskPtr, point, rect)
 
   public companion object {
     @JvmField

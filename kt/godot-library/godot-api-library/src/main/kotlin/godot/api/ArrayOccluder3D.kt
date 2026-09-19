@@ -11,15 +11,15 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY_PACKED_INT_32_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedInt32Array
 import godot.core.PackedVector3Array
 import godot.core.Vector3
-import godot.writeMethodArguments_PACKED_INT_32_ARRAY
-import godot.writeMethodArguments_PACKED_VECTOR3_ARRAY
-import godot.writeMethodArguments_PACKED_VECTOR3_ARRAY_PACKED_INT_32_ARRAY
 import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
@@ -182,18 +182,15 @@ public open class ArrayOccluder3D : Occluder3D() {
    * are set.
    */
   public final fun setArrays(vertices: PackedVector3Array, indices: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, vertices, indices)
-    TransferContext.callPtrMethod(MethodBindings.setArraysPtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setArraysPtr, vertices, indices)
   }
 
   public final fun setVertices(vertices: PackedVector3Array): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY(ptr, objectID.id, vertices)
-    TransferContext.callPtrMethod(MethodBindings.setVerticesPtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.setVerticesPtr, vertices)
   }
 
   public final fun setIndices(indices: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, indices)
-    TransferContext.callPtrMethod(MethodBindings.setIndicesPtr, 0)
+    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setIndicesPtr, indices)
   }
 
   public companion object {

@@ -9,17 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_PACKED_VECTOR2_ARRAY_ret_BOOL
+import godot.callPtrMethod_VECTOR2_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedVector2Array
 import godot.core.Vector2
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY
-import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -44,59 +43,43 @@ public open class AudioStreamGeneratorPlayback internal constructor() :
    * [pushBuffer] in C# and compiled languages via GDExtension, but [pushFrame] may be *more* efficient
    * in GDScript.
    */
-  public final fun pushFrame(frame: Vector2): Boolean {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, frame)
-    TransferContext.callPtrMethod(MethodBindings.pushFramePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun pushFrame(frame: Vector2): Boolean =
+      TransferContext.callPtrMethod_VECTOR2_ret_BOOL(ptr, objectID.id, MethodBindings.pushFramePtr, frame)
 
   /**
    * Returns `true` if a buffer of the size [amount] can be pushed to the audio sample data buffer
    * without overflowing it, `false` otherwise.
    */
-  public final fun canPushBuffer(amount: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
-    TransferContext.callPtrMethod(MethodBindings.canPushBufferPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun canPushBuffer(amount: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.canPushBufferPtr, amount.toLong())
 
   /**
    * Pushes several audio data frames to the buffer. This is usually more efficient than [pushFrame]
    * in C# and compiled languages via GDExtension, but [pushBuffer] may be *less* efficient in
    * GDScript.
    */
-  public final fun pushBuffer(frames: PackedVector2Array): Boolean {
-    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY(ptr, objectID.id, frames)
-    TransferContext.callPtrMethod(MethodBindings.pushBufferPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun pushBuffer(frames: PackedVector2Array): Boolean =
+      TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_ret_BOOL(ptr, objectID.id, MethodBindings.pushBufferPtr, frames)
 
   /**
    * Returns the number of frames that can be pushed to the audio sample data buffer without
    * overflowing it. If the result is `0`, the buffer is full.
    */
-  public final fun getFramesAvailable(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFramesAvailablePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getFramesAvailable(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFramesAvailablePtr).toInt()
 
   /**
    * Returns the number of times the playback skipped due to a buffer underrun in the audio sample
    * data. This value is reset at the start of the playback.
    */
-  public final fun getSkips(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSkipsPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getSkips(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSkipsPtr).toInt()
 
   /**
    * Clears the audio sample data buffer.
    */
   public final fun clearBuffer(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearBufferPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearBufferPtr)
   }
 
   /**

@@ -9,6 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_NODE_PATH
+import godot.callPtrMethod_LONG_VECTOR2
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_NODE_PATH
+import godot.callPtrMethod_LONG_ret_VECTOR2
+import godot.callPtrMethod_NODE_PATH
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -16,17 +28,6 @@ import godot.core.MethodStringName2
 import godot.core.NodePath
 import godot.core.Vector2
 import godot.core.asCachedNodePath
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_NODE_PATH
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_LONG_NODE_PATH
-import godot.writeMethodArguments_LONG_VECTOR2
-import godot.writeMethodArguments_NODE_PATH
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
@@ -87,78 +88,58 @@ public open class SkeletonModification2DFABRIK : SkeletonModification2D() {
   }
 
   public final fun setTargetNode(targetNodepath: NodePath): Unit {
-    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, targetNodepath)
-    TransferContext.callPtrMethod(MethodBindings.setTargetNodePtr, 0)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setTargetNodePtr, targetNodepath)
   }
 
-  public final fun getTargetNode(): NodePath {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun getTargetNode(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getTargetNodePtr)
 
   public final fun setFabrikDataChainLength(length: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, length.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setFabrikDataChainLengthPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFabrikDataChainLengthPtr, length.toLong())
   }
 
-  public final fun getFabrikDataChainLength(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFabrikDataChainLengthPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getFabrikDataChainLength(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFabrikDataChainLengthPtr).toInt()
 
   /**
    * Sets the [Bone2D] node assigned to the FABRIK joint at [jointIdx].
    */
   public final fun setFabrikJointBone2dNode(jointIdx: Int, bone2dNodepath: NodePath): Unit {
-    TransferContext.writeMethodArguments_LONG_NODE_PATH(ptr, objectID.id, jointIdx.toLong(), bone2dNodepath)
-    TransferContext.callPtrMethod(MethodBindings.setFabrikJointBone2dNodePtr, 0)
+    TransferContext.callPtrMethod_LONG_NODE_PATH(ptr, objectID.id, MethodBindings.setFabrikJointBone2dNodePtr, jointIdx.toLong(), bone2dNodepath)
   }
 
   /**
    * Returns the [Bone2D] node assigned to the FABRIK joint at [jointIdx].
    */
-  public final fun getFabrikJointBone2dNode(jointIdx: Int): NodePath {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, jointIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getFabrikJointBone2dNodePtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun getFabrikJointBone2dNode(jointIdx: Int): NodePath =
+      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getFabrikJointBone2dNodePtr, jointIdx.toLong())
 
   /**
    * Sets the bone index, [boneIdx], of the FABRIK joint at [jointIdx]. When possible, this will
    * also update the `bone2d_node` of the FABRIK joint based on data provided by the linked skeleton.
    */
   public final fun setFabrikJointBoneIndex(jointIdx: Int, boneIdx: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, jointIdx.toLong(), boneIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setFabrikJointBoneIndexPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setFabrikJointBoneIndexPtr, jointIdx.toLong(), boneIdx.toLong())
   }
 
   /**
    * Returns the index of the [Bone2D] node assigned to the FABRIK joint at [jointIdx].
    */
-  public final fun getFabrikJointBoneIndex(jointIdx: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, jointIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getFabrikJointBoneIndexPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getFabrikJointBoneIndex(jointIdx: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getFabrikJointBoneIndexPtr, jointIdx.toLong()).toInt()
 
   /**
    * Sets the magnet position vector for the joint at [jointIdx].
    */
   public final fun setFabrikJointMagnetPosition(jointIdx: Int, magnetPosition: Vector2): Unit {
-    TransferContext.writeMethodArguments_LONG_VECTOR2(ptr, objectID.id, jointIdx.toLong(), magnetPosition)
-    TransferContext.callPtrMethod(MethodBindings.setFabrikJointMagnetPositionPtr, 0)
+    TransferContext.callPtrMethod_LONG_VECTOR2(ptr, objectID.id, MethodBindings.setFabrikJointMagnetPositionPtr, jointIdx.toLong(), magnetPosition)
   }
 
   /**
    * Returns the magnet position vector for the joint at [jointIdx].
    */
-  public final fun getFabrikJointMagnetPosition(jointIdx: Int): Vector2 {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, jointIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getFabrikJointMagnetPositionPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getFabrikJointMagnetPosition(jointIdx: Int): Vector2 =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getFabrikJointMagnetPositionPtr, jointIdx.toLong())
 
   /**
    * Sets whether the joint at [jointIdx] will use the target node's rotation rather than letting
@@ -169,19 +150,15 @@ public open class SkeletonModification2DFABRIK : SkeletonModification2D() {
    */
   public final fun setFabrikJointUseTargetRotation(jointIdx: Int, useTargetRotation: Boolean):
       Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, jointIdx.toLong(), useTargetRotation)
-    TransferContext.callPtrMethod(MethodBindings.setFabrikJointUseTargetRotationPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setFabrikJointUseTargetRotationPtr, jointIdx.toLong(), useTargetRotation)
   }
 
   /**
    * Returns whether the joint is using the target's rotation rather than allowing FABRIK to rotate
    * the joint. This option only applies to the tip/final joint in the chain.
    */
-  public final fun getFabrikJointUseTargetRotation(jointIdx: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, jointIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getFabrikJointUseTargetRotationPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getFabrikJointUseTargetRotation(jointIdx: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getFabrikJointUseTargetRotationPtr, jointIdx.toLong())
 
   public final fun setTargetNode(targetNodepath: String) =
       setTargetNode(targetNodepath.asCachedNodePath())

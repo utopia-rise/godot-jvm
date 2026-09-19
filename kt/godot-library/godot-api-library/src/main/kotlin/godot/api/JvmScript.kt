@@ -9,10 +9,9 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_ANY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
-import godot.readReturnValue_ANY
-import godot.writeMethodArguments0
 import kotlin.Any
 import kotlin.Suppress
 import kotlin.Unit
@@ -24,11 +23,8 @@ public open class JvmScript internal constructor() : Script() {
     createNativeObject(344, scriptPtr)
   }
 
-  public final fun new(): Any? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.newPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun new(): Any? =
+      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.newPtr)
 
   public companion object {
     @JvmField

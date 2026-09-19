@@ -9,18 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.Signal1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -101,26 +101,18 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
   }
 
   public final fun setTransferChannel(channel: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, channel.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setTransferChannelPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTransferChannelPtr, channel.toLong())
   }
 
-  public final fun getTransferChannel(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTransferChannelPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTransferChannel(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTransferChannelPtr).toInt()
 
   public final fun setTransferMode(mode: TransferMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setTransferModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTransferModePtr, mode.value)
   }
 
-  public final fun getTransferMode(): TransferMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTransferModePtr, 2)
-    return TransferMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTransferMode(): TransferMode =
+      TransferMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTransferModePtr))
 
   /**
    * Sets the peer to which packets will be sent.
@@ -131,46 +123,35 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    * peer is [TARGET_PEER_BROADCAST].
    */
   public final fun setTargetPeer(id: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setTargetPeerPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTargetPeerPtr, id.toLong())
   }
 
   /**
    * Returns the ID of the [MultiplayerPeer] who sent the next available packet. See
    * [PacketPeer.getAvailablePacketCount].
    */
-  public final fun getPacketPeer(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPacketPeerPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getPacketPeer(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPacketPeerPtr).toInt()
 
   /**
    * Returns the channel over which the next available packet was received. See
    * [PacketPeer.getAvailablePacketCount].
    */
-  public final fun getPacketChannel(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPacketChannelPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getPacketChannel(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPacketChannelPtr).toInt()
 
   /**
    * Returns the transfer mode the remote peer used to send the next available packet. See
    * [PacketPeer.getAvailablePacketCount].
    */
-  public final fun getPacketMode(): TransferMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPacketModePtr, 2)
-    return TransferMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getPacketMode(): TransferMode =
+      TransferMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPacketModePtr))
 
   /**
    * Waits up to 1 second to receive a new network event.
    */
   public final fun poll(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.pollPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pollPtr)
   }
 
   /**
@@ -178,8 +159,7 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    * Connected peers will be dropped without emitting [signal peer_disconnected].
    */
   public final fun close(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.closePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.closePtr)
   }
 
   /**
@@ -188,58 +168,41 @@ public open class MultiplayerPeer internal constructor() : PacketPeer() {
    */
   @JvmOverloads
   public final fun disconnectPeer(peer: Int, force: Boolean = false): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, peer.toLong(), force)
-    TransferContext.callPtrMethod(MethodBindings.disconnectPeerPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.disconnectPeerPtr, peer.toLong(), force)
   }
 
   /**
    * Returns the current state of the connection.
    */
-  public final fun getConnectionStatus(): ConnectionStatus {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getConnectionStatusPtr, 2)
-    return ConnectionStatus.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getConnectionStatus(): ConnectionStatus =
+      ConnectionStatus.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConnectionStatusPtr))
 
   /**
    * Returns the ID of this [MultiplayerPeer].
    */
-  public final fun getUniqueId(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getUniqueIdPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getUniqueId(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUniqueIdPtr).toInt()
 
   /**
    * Returns a randomly generated integer that can be used as a network unique ID.
    */
-  public final fun generateUniqueId(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.generateUniqueIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun generateUniqueId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.generateUniqueIdPtr)
 
   public final fun setRefuseNewConnections(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setRefuseNewConnectionsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRefuseNewConnectionsPtr, enable)
   }
 
-  public final fun isRefusingNewConnections(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isRefusingNewConnectionsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isRefusingNewConnections(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRefusingNewConnectionsPtr)
 
   /**
    * Returns `true` if the server can act as a relay in the current configuration. That is, if the
    * higher level [MultiplayerAPI] should notify connected clients of other peers, and implement a
    * relay protocol to allow communication between them.
    */
-  public final fun isServerRelaySupported(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isServerRelaySupportedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isServerRelaySupported(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isServerRelaySupportedPtr)
 
   public enum class ConnectionStatus(
     public override val `value`: Long,

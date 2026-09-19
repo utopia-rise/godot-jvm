@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -33,29 +32,20 @@ public open class OpenXRSpatialQueryResultData : OpenXRSpatialComponentData() {
   /**
    * Returns the number of entities that were retrieved.
    */
-  public final fun getCapacity(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCapacityPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getCapacity(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCapacityPtr)
 
   /**
    * Returns the entity id (`XrSpatialEntityIdEXT`) for the entity at this [index].
    */
-  public final fun getEntityId(index: Long): Long {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callPtrMethod(MethodBindings.getEntityIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getEntityId(index: Long): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getEntityIdPtr, index)
 
   /**
    * Returns the entity state for the entity at this [index].
    */
-  public final fun getEntityState(index: Long): OpenXRSpatialEntityTracker.EntityTrackingState {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callPtrMethod(MethodBindings.getEntityStatePtr, 2)
-    return OpenXRSpatialEntityTracker.EntityTrackingState.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getEntityState(index: Long): OpenXRSpatialEntityTracker.EntityTrackingState =
+      OpenXRSpatialEntityTracker.EntityTrackingState.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getEntityStatePtr, index))
 
   public companion object {
     @JvmField

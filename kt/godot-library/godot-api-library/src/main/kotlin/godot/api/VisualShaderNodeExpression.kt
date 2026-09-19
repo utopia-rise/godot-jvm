@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -48,15 +47,11 @@ public open class VisualShaderNodeExpression : VisualShaderNodeGroupBase() {
   }
 
   public final fun setExpression(expression: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, expression)
-    TransferContext.callMethod(MethodBindings.setExpressionPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setExpressionPtr, expression)
   }
 
-  public final fun getExpression(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExpressionPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getExpression(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getExpressionPtr)
 
   public companion object {
     @JvmField

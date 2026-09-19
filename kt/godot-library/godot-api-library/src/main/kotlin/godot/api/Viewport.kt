@@ -11,6 +11,32 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_ANY
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_RECT2
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod0_ret_TRANSFORM2D
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_BOOL
+import godot.callPtrMethod_TRANSFORM2D
+import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -23,28 +49,6 @@ import godot.core.Signal1
 import godot.core.Transform2D
 import godot.core.VariantArray
 import godot.core.Vector2
-import godot.readReturnValue_ANY
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_RECT2
-import godot.readReturnValue_RID
-import godot.readReturnValue_STRING
-import godot.readReturnValue_TRANSFORM2D
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_BOOL
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_TRANSFORM2D
-import godot.writeMethodArguments_VECTOR2
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Float
@@ -921,47 +925,32 @@ public open class Viewport internal constructor() : Node() {
   }
 
   public final fun setWorld2d(world2d: World2D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, world2d)
-    TransferContext.callPtrMethod(MethodBindings.setWorld2dPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setWorld2dPtr, world2d)
   }
 
-  public final fun getWorld2d(): World2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWorld2dPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as World2D?)
-  }
+  public final fun getWorld2d(): World2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getWorld2dPtr) as World2D?)
 
   /**
    * Returns the first valid [World2D] for this viewport, searching the [world2d] property of itself
    * and any Viewport ancestor.
    */
-  public final fun findWorld2d(): World2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.findWorld2dPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as World2D?)
-  }
+  public final fun findWorld2d(): World2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.findWorld2dPtr) as World2D?)
 
   public final fun setCanvasTransform(xform: Transform2D): Unit {
-    TransferContext.writeMethodArguments_TRANSFORM2D(ptr, objectID.id, xform)
-    TransferContext.callPtrMethod(MethodBindings.setCanvasTransformPtr, 0)
+    TransferContext.callPtrMethod_TRANSFORM2D(ptr, objectID.id, MethodBindings.setCanvasTransformPtr, xform)
   }
 
-  public final fun getCanvasTransform(): Transform2D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCanvasTransformPtr, 11)
-    return TransferContext.readReturnValue_TRANSFORM2D()
-  }
+  public final fun getCanvasTransform(): Transform2D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getCanvasTransformPtr)
 
   public final fun setGlobalCanvasTransform(xform: Transform2D): Unit {
-    TransferContext.writeMethodArguments_TRANSFORM2D(ptr, objectID.id, xform)
-    TransferContext.callPtrMethod(MethodBindings.setGlobalCanvasTransformPtr, 0)
+    TransferContext.callPtrMethod_TRANSFORM2D(ptr, objectID.id, MethodBindings.setGlobalCanvasTransformPtr, xform)
   }
 
-  public final fun getGlobalCanvasTransform(): Transform2D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGlobalCanvasTransformPtr, 11)
-    return TransferContext.readReturnValue_TRANSFORM2D()
-  }
+  public final fun getGlobalCanvasTransform(): Transform2D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getGlobalCanvasTransformPtr)
 
   /**
    * Returns the automatically computed 2D stretch transform, taking the [Viewport]'s stretch
@@ -977,179 +966,117 @@ public open class Viewport internal constructor() : Node() {
    * ratio. If [Window.contentScaleAspect] is [Window.CONTENT_SCALE_ASPECT_IGNORE], the X and Y scale
    * may differ *significantly*.
    */
-  public final fun getStretchTransform(): Transform2D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStretchTransformPtr, 11)
-    return TransferContext.readReturnValue_TRANSFORM2D()
-  }
+  public final fun getStretchTransform(): Transform2D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getStretchTransformPtr)
 
   /**
    * Returns the transform from the viewport's coordinate system to the embedder's coordinate
    * system.
    */
-  public final fun getFinalTransform(): Transform2D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFinalTransformPtr, 11)
-    return TransferContext.readReturnValue_TRANSFORM2D()
-  }
+  public final fun getFinalTransform(): Transform2D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getFinalTransformPtr)
 
   /**
    * Returns the transform from the Viewport's coordinates to the screen coordinates of the
    * containing window manager window.
    */
-  public final fun getScreenTransform(): Transform2D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScreenTransformPtr, 11)
-    return TransferContext.readReturnValue_TRANSFORM2D()
-  }
+  public final fun getScreenTransform(): Transform2D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getScreenTransformPtr)
 
   /**
    * Returns the visible rectangle in global screen coordinates.
    */
-  public final fun getVisibleRect(): Rect2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVisibleRectPtr, 7)
-    return TransferContext.readReturnValue_RECT2()
-  }
+  public final fun getVisibleRect(): Rect2 =
+      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getVisibleRectPtr)
 
   public final fun setTransparentBackground(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setTransparentBackgroundPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTransparentBackgroundPtr, enable)
   }
 
-  public final fun hasTransparentBackground(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasTransparentBackgroundPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasTransparentBackground(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasTransparentBackgroundPtr)
 
   public final fun setUseHdr2d(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setUseHdr2dPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseHdr2dPtr, enable)
   }
 
-  public final fun isUsingHdr2d(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingHdr2dPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingHdr2d(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingHdr2dPtr)
 
   public final fun setMsaa2d(msaa: MSAA): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, msaa.value)
-    TransferContext.callPtrMethod(MethodBindings.setMsaa2dPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMsaa2dPtr, msaa.value)
   }
 
-  public final fun getMsaa2d(): MSAA {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMsaa2dPtr, 2)
-    return MSAA.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getMsaa2d(): MSAA =
+      MSAA.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMsaa2dPtr))
 
   public final fun setMsaa3d(msaa: MSAA): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, msaa.value)
-    TransferContext.callPtrMethod(MethodBindings.setMsaa3dPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMsaa3dPtr, msaa.value)
   }
 
-  public final fun getMsaa3d(): MSAA {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMsaa3dPtr, 2)
-    return MSAA.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getMsaa3d(): MSAA =
+      MSAA.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMsaa3dPtr))
 
   public final fun setScreenSpaceAa(screenSpaceAa: ScreenSpaceAA): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, screenSpaceAa.value)
-    TransferContext.callPtrMethod(MethodBindings.setScreenSpaceAaPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setScreenSpaceAaPtr, screenSpaceAa.value)
   }
 
-  public final fun getScreenSpaceAa(): ScreenSpaceAA {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScreenSpaceAaPtr, 2)
-    return ScreenSpaceAA.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getScreenSpaceAa(): ScreenSpaceAA =
+      ScreenSpaceAA.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getScreenSpaceAaPtr))
 
   public final fun setUseTaa(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setUseTaaPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseTaaPtr, enable)
   }
 
-  public final fun isUsingTaa(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingTaaPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingTaa(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingTaaPtr)
 
   public final fun setUseDebanding(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setUseDebandingPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseDebandingPtr, enable)
   }
 
-  public final fun isUsingDebanding(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingDebandingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingDebanding(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingDebandingPtr)
 
   public final fun setUseOcclusionCulling(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setUseOcclusionCullingPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseOcclusionCullingPtr, enable)
   }
 
-  public final fun isUsingOcclusionCulling(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingOcclusionCullingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingOcclusionCulling(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingOcclusionCullingPtr)
 
   public final fun setDebugDraw(debugDraw: DebugDraw): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, debugDraw.value)
-    TransferContext.callPtrMethod(MethodBindings.setDebugDrawPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDebugDrawPtr, debugDraw.value)
   }
 
-  public final fun getDebugDraw(): DebugDraw {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDebugDrawPtr, 2)
-    return DebugDraw.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getDebugDraw(): DebugDraw =
+      DebugDraw.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDebugDrawPtr))
 
   public final fun setUseOversampling(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setUseOversamplingPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseOversamplingPtr, enable)
   }
 
-  public final fun isUsingOversampling(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingOversamplingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingOversampling(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingOversamplingPtr)
 
   public final fun setOversamplingOverride(oversampling: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, oversampling.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setOversamplingOverridePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setOversamplingOverridePtr, oversampling.toDouble())
   }
 
-  public final fun getOversamplingOverride(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOversamplingOverridePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getOversamplingOverride(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOversamplingOverridePtr).toFloat()
 
   /**
    * Returns viewport oversampling factor.
    */
-  public final fun getOversampling(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOversamplingPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getOversampling(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOversamplingPtr).toFloat()
 
   /**
    * Returns rendering statistics of the given type.
    */
-  public final fun getRenderInfo(type: RenderInfoType, info: RenderInfo): Int {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, type.value, info.value)
-    TransferContext.callPtrMethod(MethodBindings.getRenderInfoPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getRenderInfo(type: RenderInfoType, info: RenderInfo): Int =
+      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getRenderInfoPtr, type.value, info.value).toInt()
 
   /**
    * Returns the viewport's texture.
@@ -1178,61 +1105,42 @@ public open class Viewport internal constructor() : Node() {
    * **Note:** When [useHdr2d] is `true` the returned texture will be an HDR image using linear
    * encoding.
    */
-  public final fun getTexture(): ViewportTexture? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as ViewportTexture?)
-  }
+  public final fun getTexture(): ViewportTexture? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as ViewportTexture?)
 
   public final fun setPhysicsObjectPicking(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setPhysicsObjectPickingPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPhysicsObjectPickingPtr, enable)
   }
 
-  public final fun getPhysicsObjectPicking(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPhysicsObjectPickingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getPhysicsObjectPicking(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getPhysicsObjectPickingPtr)
 
   public final fun setPhysicsObjectPickingSort(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setPhysicsObjectPickingSortPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPhysicsObjectPickingSortPtr, enable)
   }
 
-  public final fun getPhysicsObjectPickingSort(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPhysicsObjectPickingSortPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getPhysicsObjectPickingSort(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getPhysicsObjectPickingSortPtr)
 
   public final fun setPhysicsObjectPickingFirstOnly(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setPhysicsObjectPickingFirstOnlyPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPhysicsObjectPickingFirstOnlyPtr, enable)
   }
 
-  public final fun getPhysicsObjectPickingFirstOnly(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPhysicsObjectPickingFirstOnlyPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getPhysicsObjectPickingFirstOnly(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getPhysicsObjectPickingFirstOnlyPtr)
 
   /**
    * Returns the viewport's RID from the [RenderingServer].
    */
-  public final fun getViewportRid(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getViewportRidPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getViewportRid(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getViewportRidPtr)
 
   /**
    * Helper method which calls the `set_text()` method on the currently focused [Control], provided
    * that it is defined (e.g. if the focused Control is [Button] or [LineEdit]).
    */
   public final fun pushTextInput(text: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, text)
-    TransferContext.callMethod(MethodBindings.pushTextInputPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.pushTextInputPtr, text)
   }
 
   /**
@@ -1268,8 +1176,7 @@ public open class Viewport internal constructor() : Node() {
    */
   @JvmOverloads
   public final fun pushInput(event: InputEvent, inLocalCoords: Boolean = false): Unit {
-    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, event, inLocalCoords)
-    TransferContext.callPtrMethod(MethodBindings.pushInputPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_BOOL(ptr, objectID.id, MethodBindings.pushInputPtr, event, inLocalCoords)
   }
 
   /**
@@ -1299,8 +1206,7 @@ public open class Viewport internal constructor() : Node() {
    */
   @JvmOverloads
   public final fun pushUnhandledInput(event: InputEvent, inLocalCoords: Boolean = false): Unit {
-    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, event, inLocalCoords)
-    TransferContext.callPtrMethod(MethodBindings.pushUnhandledInputPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_BOOL(ptr, objectID.id, MethodBindings.pushUnhandledInputPtr, event, inLocalCoords)
   }
 
   /**
@@ -1314,8 +1220,7 @@ public open class Viewport internal constructor() : Node() {
    * with an [Area3D] that forwards input events.
    */
   public final fun notifyMouseEntered(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.notifyMouseEnteredPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.notifyMouseEnteredPtr)
   }
 
   /**
@@ -1329,18 +1234,14 @@ public open class Viewport internal constructor() : Node() {
    * with an [Area3D] that forwards input events.
    */
   public final fun notifyMouseExited(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.notifyMouseExitedPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.notifyMouseExitedPtr)
   }
 
   /**
    * Returns the mouse's position in this [Viewport] using the coordinate system of this [Viewport].
    */
-  public final fun getMousePosition(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMousePositionPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getMousePosition(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getMousePositionPtr)
 
   /**
    * Moves the mouse pointer to the specified position in this [Viewport] using the coordinate
@@ -1350,8 +1251,7 @@ public open class Viewport internal constructor() : Node() {
    * Android, iOS and Web.
    */
   public final fun warpMouse(position: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, position)
-    TransferContext.callPtrMethod(MethodBindings.warpMousePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.warpMousePtr, position)
   }
 
   /**
@@ -1361,8 +1261,7 @@ public open class Viewport internal constructor() : Node() {
    * Window.mouse_entered] signals and their respective `mouse_exited` counterparts.
    */
   public final fun updateMouseCursorState(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.updateMouseCursorStatePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.updateMouseCursorStatePtr)
   }
 
   /**
@@ -1370,34 +1269,26 @@ public open class Viewport internal constructor() : Node() {
    * with [Control.forceDrag].
    */
   public final fun guiCancelDrag(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.guiCancelDragPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.guiCancelDragPtr)
   }
 
   /**
    * Returns the drag data from the GUI, that was previously returned by [Control.GetDragData].
    */
-  public final fun guiGetDragData(): Any? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.guiGetDragDataPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun guiGetDragData(): Any? =
+      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.guiGetDragDataPtr)
 
   /**
    * Returns the human-readable description of the drag data, used for assistive apps.
    */
-  public final fun guiGetDragDescription(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.guiGetDragDescriptionPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun guiGetDragDescription(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.guiGetDragDescriptionPtr)
 
   /**
    * Sets the human-readable description of the drag data to [description], used for assistive apps.
    */
   public final fun guiSetDragDescription(description: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, description)
-    TransferContext.callMethod(MethodBindings.guiSetDragDescriptionPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.guiSetDragDescriptionPtr, description)
   }
 
   /**
@@ -1407,39 +1298,29 @@ public open class Viewport internal constructor() : Node() {
    * Alternative to [Node.NOTIFICATION_DRAG_BEGIN] and [Node.NOTIFICATION_DRAG_END] when you prefer
    * polling the value.
    */
-  public final fun guiIsDragging(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.guiIsDraggingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun guiIsDragging(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.guiIsDraggingPtr)
 
   /**
    * Returns `true` if the drag operation is successful.
    */
-  public final fun guiIsDragSuccessful(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.guiIsDragSuccessfulPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun guiIsDragSuccessful(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.guiIsDragSuccessfulPtr)
 
   /**
    * Removes the focus from the currently focused [Control] within this viewport. If no [Control]
    * has the focus, does nothing.
    */
   public final fun guiReleaseFocus(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.guiReleaseFocusPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.guiReleaseFocusPtr)
   }
 
   /**
    * Returns the currently focused [Control] within this viewport. If no [Control] is focused,
    * returns `null`.
    */
-  public final fun guiGetFocusOwner(): Control? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.guiGetFocusOwnerPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Control?)
-  }
+  public final fun guiGetFocusOwner(): Control? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.guiGetFocusOwnerPtr) as Control?)
 
   /**
    * Returns the [Control] that the mouse is currently hovering over in this viewport. If no
@@ -1449,77 +1330,50 @@ public open class Viewport internal constructor() : Node() {
    * very useful when used together with [Node.isAncestorOf] to find if the mouse is within a control
    * tree.
    */
-  public final fun guiGetHoveredControl(): Control? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.guiGetHoveredControlPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Control?)
-  }
+  public final fun guiGetHoveredControl(): Control? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.guiGetHoveredControlPtr) as Control?)
 
   public final fun setDisableInput(disable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, disable)
-    TransferContext.callPtrMethod(MethodBindings.setDisableInputPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDisableInputPtr, disable)
   }
 
-  public final fun isInputDisabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isInputDisabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInputDisabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInputDisabledPtr)
 
   public final fun setPositionalShadowAtlasSize(size: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setPositionalShadowAtlasSizePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPositionalShadowAtlasSizePtr, size.toLong())
   }
 
-  public final fun getPositionalShadowAtlasSize(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPositionalShadowAtlasSizePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getPositionalShadowAtlasSize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPositionalShadowAtlasSizePtr).toInt()
 
   public final fun setPositionalShadowAtlas16Bits(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setPositionalShadowAtlas16BitsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPositionalShadowAtlas16BitsPtr, enable)
   }
 
-  public final fun getPositionalShadowAtlas16Bits(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPositionalShadowAtlas16BitsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getPositionalShadowAtlas16Bits(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getPositionalShadowAtlas16BitsPtr)
 
   public final fun setSnapControlsToPixels(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setSnapControlsToPixelsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSnapControlsToPixelsPtr, enabled)
   }
 
-  public final fun isSnapControlsToPixelsEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isSnapControlsToPixelsEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isSnapControlsToPixelsEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSnapControlsToPixelsEnabledPtr)
 
   public final fun setSnap2dTransformsToPixel(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setSnap2dTransformsToPixelPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSnap2dTransformsToPixelPtr, enabled)
   }
 
-  public final fun isSnap2dTransformsToPixelEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isSnap2dTransformsToPixelEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isSnap2dTransformsToPixelEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSnap2dTransformsToPixelEnabledPtr)
 
   public final fun setSnap2dVerticesToPixel(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setSnap2dVerticesToPixelPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSnap2dVerticesToPixelPtr, enabled)
   }
 
-  public final fun isSnap2dVerticesToPixelEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isSnap2dVerticesToPixelEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isSnap2dVerticesToPixelEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSnap2dVerticesToPixelEnabledPtr)
 
   /**
    * Sets the number of subdivisions to use in the specified quadrant. A higher number of
@@ -1529,19 +1383,15 @@ public open class Viewport internal constructor() : Node() {
    */
   public final fun setPositionalShadowAtlasQuadrantSubdiv(quadrant: Int,
       subdiv: PositionalShadowAtlasQuadrantSubdiv): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, quadrant.toLong(), subdiv.value)
-    TransferContext.callPtrMethod(MethodBindings.setPositionalShadowAtlasQuadrantSubdivPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setPositionalShadowAtlasQuadrantSubdivPtr, quadrant.toLong(), subdiv.value)
   }
 
   /**
    * Returns the positional shadow atlas quadrant subdivision of the specified quadrant.
    */
   public final fun getPositionalShadowAtlasQuadrantSubdiv(quadrant: Int):
-      PositionalShadowAtlasQuadrantSubdiv {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, quadrant.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getPositionalShadowAtlasQuadrantSubdivPtr, 2)
-    return PositionalShadowAtlasQuadrantSubdiv.from(TransferContext.readReturnValue_LONG())
-  }
+      PositionalShadowAtlasQuadrantSubdiv =
+      PositionalShadowAtlasQuadrantSubdiv.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getPositionalShadowAtlasQuadrantSubdivPtr, quadrant.toLong()))
 
   /**
    * Stops the input from propagating further up the [SceneTree].
@@ -1549,8 +1399,7 @@ public open class Viewport internal constructor() : Node() {
    * **Note:** This does not affect the methods in [Input], only the way events are propagated.
    */
   public final fun setInputAsHandled(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.setInputAsHandledPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.setInputAsHandledPtr)
   }
 
   /**
@@ -1563,160 +1412,107 @@ public open class Viewport internal constructor() : Node() {
    * If [handleInputLocally] is set to `false`, this method will try finding the first parent
    * viewport that is set to handle input locally, and return its value for [isInputHandled] instead.
    */
-  public final fun isInputHandled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isInputHandledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInputHandled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInputHandledPtr)
 
   public final fun setHandleInputLocally(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setHandleInputLocallyPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setHandleInputLocallyPtr, enable)
   }
 
-  public final fun isHandlingInputLocally(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isHandlingInputLocallyPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isHandlingInputLocally(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isHandlingInputLocallyPtr)
 
   public final fun setDefaultCanvasItemTextureFilter(mode: DefaultCanvasItemTextureFilter): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setDefaultCanvasItemTextureFilterPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDefaultCanvasItemTextureFilterPtr, mode.value)
   }
 
-  public final fun getDefaultCanvasItemTextureFilter(): DefaultCanvasItemTextureFilter {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDefaultCanvasItemTextureFilterPtr, 2)
-    return DefaultCanvasItemTextureFilter.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getDefaultCanvasItemTextureFilter(): DefaultCanvasItemTextureFilter =
+      DefaultCanvasItemTextureFilter.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDefaultCanvasItemTextureFilterPtr))
 
   public final fun setEmbeddingSubwindows(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setEmbeddingSubwindowsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEmbeddingSubwindowsPtr, enable)
   }
 
-  public final fun isEmbeddingSubwindows(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isEmbeddingSubwindowsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isEmbeddingSubwindows(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEmbeddingSubwindowsPtr)
 
   /**
    * Returns a list of the visible embedded [Window]s inside the viewport.
    *
    * **Note:** [Window]s inside other viewports will not be listed.
    */
-  public final fun getEmbeddedSubwindows(): VariantArray<Window> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEmbeddedSubwindowsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Window>)
-  }
+  public final fun getEmbeddedSubwindows(): VariantArray<Window> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getEmbeddedSubwindowsPtr) as VariantArray<Window>)
 
   public final fun setDragThreshold(threshold: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, threshold.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setDragThresholdPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDragThresholdPtr, threshold.toLong())
   }
 
-  public final fun getDragThreshold(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDragThresholdPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getDragThreshold(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDragThresholdPtr).toInt()
 
   public final fun setCanvasCullMask(mask: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask)
-    TransferContext.callPtrMethod(MethodBindings.setCanvasCullMaskPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCanvasCullMaskPtr, mask)
   }
 
-  public final fun getCanvasCullMask(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCanvasCullMaskPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getCanvasCullMask(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCanvasCullMaskPtr)
 
   /**
    * Set/clear individual bits on the rendering layer mask. This simplifies editing this
    * [Viewport]'s layers.
    */
   public final fun setCanvasCullMaskBit(layer: Long, enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, layer, enable)
-    TransferContext.callPtrMethod(MethodBindings.setCanvasCullMaskBitPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCanvasCullMaskBitPtr, layer, enable)
   }
 
   /**
    * Returns an individual bit on the rendering layer mask.
    */
-  public final fun getCanvasCullMaskBit(layer: Long): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, layer)
-    TransferContext.callPtrMethod(MethodBindings.getCanvasCullMaskBitPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getCanvasCullMaskBit(layer: Long): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getCanvasCullMaskBitPtr, layer)
 
   public final fun setDefaultCanvasItemTextureRepeat(mode: DefaultCanvasItemTextureRepeat): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setDefaultCanvasItemTextureRepeatPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDefaultCanvasItemTextureRepeatPtr, mode.value)
   }
 
-  public final fun getDefaultCanvasItemTextureRepeat(): DefaultCanvasItemTextureRepeat {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDefaultCanvasItemTextureRepeatPtr, 2)
-    return DefaultCanvasItemTextureRepeat.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getDefaultCanvasItemTextureRepeat(): DefaultCanvasItemTextureRepeat =
+      DefaultCanvasItemTextureRepeat.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDefaultCanvasItemTextureRepeatPtr))
 
   public final fun setSdfOversize(oversize: SDFOversize): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, oversize.value)
-    TransferContext.callPtrMethod(MethodBindings.setSdfOversizePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSdfOversizePtr, oversize.value)
   }
 
-  public final fun getSdfOversize(): SDFOversize {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSdfOversizePtr, 2)
-    return SDFOversize.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getSdfOversize(): SDFOversize =
+      SDFOversize.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSdfOversizePtr))
 
   public final fun setSdfScale(scale: SDFScale): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, scale.value)
-    TransferContext.callPtrMethod(MethodBindings.setSdfScalePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSdfScalePtr, scale.value)
   }
 
-  public final fun getSdfScale(): SDFScale {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSdfScalePtr, 2)
-    return SDFScale.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getSdfScale(): SDFScale =
+      SDFScale.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSdfScalePtr))
 
   public final fun setMeshLodThreshold(pixels: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pixels.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setMeshLodThresholdPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMeshLodThresholdPtr, pixels.toDouble())
   }
 
-  public final fun getMeshLodThreshold(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMeshLodThresholdPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getMeshLodThreshold(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMeshLodThresholdPtr).toFloat()
 
   public final fun setAsAudioListener2d(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setAsAudioListener2dPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAsAudioListener2dPtr, enable)
   }
 
-  public final fun isAudioListener2d(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isAudioListener2dPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isAudioListener2d(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAudioListener2dPtr)
 
   /**
    * Returns the currently active 2D audio listener. Returns `null` if there are no active 2D audio
    * listeners, in which case the active 2D camera will be treated as listener.
    */
-  public final fun getAudioListener2d(): AudioListener2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAudioListener2dPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as AudioListener2D?)
-  }
+  public final fun getAudioListener2d(): AudioListener2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getAudioListener2dPtr) as AudioListener2D?)
 
   /**
    * Returns the currently active 2D camera. Returns `null` if there are no active cameras.
@@ -1726,53 +1522,36 @@ public open class Viewport internal constructor() : Node() {
    * or to check that the cached value is still a valid instance and is the current camera before use.
    * See [@GlobalScope.isInstanceValid] and [Camera2D.isCurrent].
    */
-  public final fun getCamera2d(): Camera2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCamera2dPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Camera2D?)
-  }
+  public final fun getCamera2d(): Camera2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getCamera2dPtr) as Camera2D?)
 
   public final fun setWorld3d(world3d: World3D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, world3d)
-    TransferContext.callPtrMethod(MethodBindings.setWorld3dPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setWorld3dPtr, world3d)
   }
 
-  public final fun getWorld3d(): World3D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWorld3dPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as World3D?)
-  }
+  public final fun getWorld3d(): World3D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getWorld3dPtr) as World3D?)
 
   /**
    * Returns the first valid [World3D] for this viewport, searching the [world3d] property of itself
    * and any Viewport ancestor.
    */
-  public final fun findWorld3d(): World3D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.findWorld3dPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as World3D?)
-  }
+  public final fun findWorld3d(): World3D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.findWorld3dPtr) as World3D?)
 
   public final fun setUseOwnWorld3d(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setUseOwnWorld3dPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseOwnWorld3dPtr, enable)
   }
 
-  public final fun isUsingOwnWorld3d(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingOwnWorld3dPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingOwnWorld3d(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingOwnWorld3dPtr)
 
   /**
    * Returns the currently active 3D audio listener. Returns `null` if there are no active 3D audio
    * listeners, in which case the active 3D camera will be treated as listener.
    */
-  public final fun getAudioListener3d(): AudioListener3D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAudioListener3dPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as AudioListener3D?)
-  }
+  public final fun getAudioListener3d(): AudioListener3D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getAudioListener3dPtr) as AudioListener3D?)
 
   /**
    * Returns the currently active 3D camera. Returns `null` if there are no active cameras.
@@ -1782,133 +1561,86 @@ public open class Viewport internal constructor() : Node() {
    * or to check that the cached value is a valid instance and is the current camera before use. See
    * [@GlobalScope.isInstanceValid] and [Camera3D.current].
    */
-  public final fun getCamera3d(): Camera3D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCamera3dPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Camera3D?)
-  }
+  public final fun getCamera3d(): Camera3D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getCamera3dPtr) as Camera3D?)
 
   public final fun setAsAudioListener3d(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setAsAudioListener3dPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAsAudioListener3dPtr, enable)
   }
 
-  public final fun isAudioListener3d(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isAudioListener3dPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isAudioListener3d(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAudioListener3dPtr)
 
   public final fun setDisable3d(disable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, disable)
-    TransferContext.callPtrMethod(MethodBindings.setDisable3dPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDisable3dPtr, disable)
   }
 
-  public final fun is3dDisabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.is3dDisabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun is3dDisabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.is3dDisabledPtr)
 
   public final fun setUseXr(use: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, use)
-    TransferContext.callPtrMethod(MethodBindings.setUseXrPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseXrPtr, use)
   }
 
-  public final fun isUsingXr(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingXrPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingXr(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingXrPtr)
 
   public final fun setScaling3dMode(scaling3dMode: Scaling3DMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, scaling3dMode.value)
-    TransferContext.callPtrMethod(MethodBindings.setScaling3dModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setScaling3dModePtr, scaling3dMode.value)
   }
 
-  public final fun getScaling3dMode(): Scaling3DMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScaling3dModePtr, 2)
-    return Scaling3DMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getScaling3dMode(): Scaling3DMode =
+      Scaling3DMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getScaling3dModePtr))
 
   public final fun setScaling3dScale(scale: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, scale.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setScaling3dScalePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setScaling3dScalePtr, scale.toDouble())
   }
 
-  public final fun getScaling3dScale(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScaling3dScalePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getScaling3dScale(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getScaling3dScalePtr).toFloat()
 
   public final fun setFsrSharpness(fsrSharpness: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fsrSharpness.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setFsrSharpnessPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFsrSharpnessPtr, fsrSharpness.toDouble())
   }
 
-  public final fun getFsrSharpness(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFsrSharpnessPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFsrSharpness(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFsrSharpnessPtr).toFloat()
 
   public final fun setTextureMipmapBias(textureMipmapBias: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, textureMipmapBias.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setTextureMipmapBiasPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTextureMipmapBiasPtr, textureMipmapBias.toDouble())
   }
 
-  public final fun getTextureMipmapBias(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTextureMipmapBiasPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getTextureMipmapBias(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTextureMipmapBiasPtr).toFloat()
 
   public final fun setAnisotropicFilteringLevel(anisotropicFilteringLevel: AnisotropicFiltering):
       Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, anisotropicFilteringLevel.value)
-    TransferContext.callPtrMethod(MethodBindings.setAnisotropicFilteringLevelPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAnisotropicFilteringLevelPtr, anisotropicFilteringLevel.value)
   }
 
-  public final fun getAnisotropicFilteringLevel(): AnisotropicFiltering {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAnisotropicFilteringLevelPtr, 2)
-    return AnisotropicFiltering.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getAnisotropicFilteringLevel(): AnisotropicFiltering =
+      AnisotropicFiltering.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAnisotropicFilteringLevelPtr))
 
   public final fun setVrsMode(mode: VRSMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setVrsModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVrsModePtr, mode.value)
   }
 
-  public final fun getVrsMode(): VRSMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVrsModePtr, 2)
-    return VRSMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getVrsMode(): VRSMode =
+      VRSMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVrsModePtr))
 
   public final fun setVrsUpdateMode(mode: VRSUpdateMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setVrsUpdateModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVrsUpdateModePtr, mode.value)
   }
 
-  public final fun getVrsUpdateMode(): VRSUpdateMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVrsUpdateModePtr, 2)
-    return VRSUpdateMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getVrsUpdateMode(): VRSUpdateMode =
+      VRSUpdateMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVrsUpdateModePtr))
 
   public final fun setVrsTexture(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callPtrMethod(MethodBindings.setVrsTexturePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setVrsTexturePtr, texture)
   }
 
-  public final fun getVrsTexture(): Texture2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVrsTexturePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getVrsTexture(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getVrsTexturePtr) as Texture2D?)
 
   public enum class PositionalShadowAtlasQuadrantSubdiv(
     public override val `value`: Long,

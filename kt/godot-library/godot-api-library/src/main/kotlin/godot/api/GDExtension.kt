@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -39,21 +38,15 @@ public open class GDExtension : Resource() {
   /**
    * Returns `true` if this extension's library has been opened.
    */
-  public final fun isLibraryOpen(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isLibraryOpenPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isLibraryOpen(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isLibraryOpenPtr)
 
   /**
    * Returns the lowest level required for this extension to be properly initialized (see the
    * [InitializationLevel] enum).
    */
-  public final fun getMinimumLibraryInitializationLevel(): InitializationLevel {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMinimumLibraryInitializationLevelPtr, 2)
-    return InitializationLevel.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getMinimumLibraryInitializationLevel(): InitializationLevel =
+      InitializationLevel.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMinimumLibraryInitializationLevelPtr))
 
   public enum class InitializationLevel(
     public override val `value`: Long,

@@ -9,6 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName2
@@ -16,12 +22,6 @@ import godot.core.Signal1
 import godot.core.StringName
 import godot.core.VariantArray
 import godot.core.asCachedStringName
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_STRING_NAME
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING_NAME_BOOL
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.String
@@ -79,8 +79,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   @JvmOverloads
   public final fun travel(toNode: StringName, resetOnTeleport: Boolean = true): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_BOOL(ptr, objectID.id, toNode, resetOnTeleport)
-    TransferContext.callPtrMethod(MethodBindings.travelPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_BOOL(ptr, objectID.id, MethodBindings.travelPtr, toNode, resetOnTeleport)
   }
 
   /**
@@ -90,8 +89,7 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    */
   @JvmOverloads
   public final fun start(node: StringName, reset: Boolean = true): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_BOOL(ptr, objectID.id, node, reset)
-    TransferContext.callPtrMethod(MethodBindings.startPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_BOOL(ptr, objectID.id, MethodBindings.startPtr, node, reset)
   }
 
   /**
@@ -99,26 +97,21 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    * state to the next state.
    */
   public final fun next(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.nextPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.nextPtr)
   }
 
   /**
    * Stops the currently playing animation.
    */
   public final fun stop(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.stopPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
   }
 
   /**
    * Returns `true` if an animation is playing.
    */
-  public final fun isPlaying(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPlayingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPlaying(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPlayingPtr)
 
   /**
    * Returns the currently playing animation state.
@@ -126,20 +119,14 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    * **Note:** When using a cross-fade, the current state changes to the next state immediately
    * after the cross-fade begins.
    */
-  public final fun getCurrentNode(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurrentNodePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getCurrentNode(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getCurrentNodePtr)
 
   /**
    * Returns the playback position within the current animation state.
    */
-  public final fun getCurrentPlayPosition(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurrentPlayPositionPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getCurrentPlayPosition(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCurrentPlayPositionPtr).toFloat()
 
   /**
    * Returns the current state length.
@@ -149,69 +136,48 @@ public open class AnimationNodeStateMachinePlayback : Resource() {
    * priority depends on the nodes connected inside it. Also, if a transition does not reset, the
    * remaining length at that point will be returned.
    */
-  public final fun getCurrentLength(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurrentLengthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getCurrentLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCurrentLengthPtr).toFloat()
 
   /**
    * Returns the starting state of currently fading animation.
    */
-  public final fun getFadingFromNode(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFadingFromNodePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getFadingFromNode(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getFadingFromNodePtr)
 
   /**
    * Returns the playback position of the node from [getFadingFromNode]. Returns `0` if no animation
    * fade is occurring.
    */
-  public final fun getFadingFromPlayPosition(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFadingFromPlayPositionPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFadingFromPlayPosition(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFadingFromPlayPositionPtr).toFloat()
 
   /**
    * Returns the playback state length of the node from [getFadingFromNode]. Returns `0` if no
    * animation fade is occurring.
    */
-  public final fun getFadingFromLength(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFadingFromLengthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFadingFromLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFadingFromLengthPtr).toFloat()
 
   /**
    * Returns the playback position of the current fade animation. Returns `0` if no animation fade
    * is occurring.
    */
-  public final fun getFadingPosition(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFadingPositionPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFadingPosition(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFadingPositionPtr).toFloat()
 
   /**
    * Returns the length of the current fade animation. Returns `0` if no animation fade is
    * occurring.
    */
-  public final fun getFadingLength(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFadingLengthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFadingLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFadingLengthPtr).toFloat()
 
   /**
    * Returns the current travel path as computed internally by the A* algorithm.
    */
-  public final fun getTravelPath(): VariantArray<StringName> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTravelPathPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
-  }
+  public final fun getTravelPath(): VariantArray<StringName> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getTravelPathPtr) as VariantArray<StringName>)
 
   /**
    * Transitions from the current state to another one, following the shortest path.

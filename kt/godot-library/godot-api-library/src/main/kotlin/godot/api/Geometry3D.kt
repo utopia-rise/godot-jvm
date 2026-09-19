@@ -9,6 +9,19 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_VECTOR3_VECTOR3_VECTOR3_VECTOR3_VECTOR3_ret_ANY
+import godot.callPtrMethod_ARRAY_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_DOUBLE_DOUBLE_LONG_LONG_LONG_ret_ARRAY
+import godot.callPtrMethod_DOUBLE_DOUBLE_LONG_LONG_ret_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY_PLANE_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY_ret_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_VECTOR3_VECTOR3_ARRAY_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_VECTOR3_VECTOR3_DOUBLE_DOUBLE_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_VECTOR3_VECTOR3_VECTOR3_DOUBLE_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_VECTOR3_VECTOR3_VECTOR3_VECTOR3_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_VECTOR3_VECTOR3_VECTOR3_VECTOR3_ret_VECTOR3
+import godot.callPtrMethod_VECTOR3_VECTOR3_VECTOR3_ret_VECTOR3
+import godot.callPtrMethod_VECTOR3_ret_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
@@ -20,23 +33,6 @@ import godot.core.PackedVector3Array
 import godot.core.Plane
 import godot.core.VariantArray
 import godot.core.Vector3
-import godot.readReturnValue_ANY
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_PACKED_INT_32_ARRAY
-import godot.readReturnValue_PACKED_VECTOR3_ARRAY
-import godot.readReturnValue_VECTOR3
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_DOUBLE_DOUBLE_LONG_LONG
-import godot.writeMethodArguments_DOUBLE_DOUBLE_LONG_LONG_LONG
-import godot.writeMethodArguments_PACKED_VECTOR3_ARRAY
-import godot.writeMethodArguments_PACKED_VECTOR3_ARRAY_PLANE
-import godot.writeMethodArguments_VECTOR3
-import godot.writeMethodArguments_VECTOR3_VECTOR3_ARRAY
-import godot.writeMethodArguments_VECTOR3_VECTOR3_DOUBLE_DOUBLE
-import godot.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3
-import godot.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_DOUBLE
-import godot.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3
-import godot.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3_VECTOR3
 import kotlin.Any
 import kotlin.Float
 import kotlin.Int
@@ -134,11 +130,8 @@ public object Geometry3D : Object() {
    * Calculates and returns all the vertex points of a convex shape defined by an array of [planes].
    */
   @JvmStatic
-  public final fun computeConvexMeshPoints(planes: VariantArray<Plane>): PackedVector3Array {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, planes)
-    TransferContext.callPtrMethod(MethodBindings.computeConvexMeshPointsPtr, 36)
-    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
-  }
+  public final fun computeConvexMeshPoints(planes: VariantArray<Plane>): PackedVector3Array =
+      TransferContext.callPtrMethod_ARRAY_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.computeConvexMeshPointsPtr, planes)
 
   /**
    * Returns an array with 6 [Plane]s that describe the sides of a box centered at the origin. The
@@ -146,11 +139,8 @@ public object Geometry3D : Object() {
    * actual size).
    */
   @JvmStatic
-  public final fun buildBoxPlanes(extents: Vector3): VariantArray<Plane> {
-    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, extents)
-    TransferContext.callPtrMethod(MethodBindings.buildBoxPlanesPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Plane>)
-  }
+  public final fun buildBoxPlanes(extents: Vector3): VariantArray<Plane> =
+      (TransferContext.callPtrMethod_VECTOR3_ret_ARRAY(ptr, objectID.id, MethodBindings.buildBoxPlanesPtr, extents) as VariantArray<Plane>)
 
   /**
    * Returns an array of [Plane]s closely bounding a faceted cylinder centered at the origin with
@@ -165,11 +155,8 @@ public object Geometry3D : Object() {
     height: Float,
     sides: Int,
     axis: Vector3.Axis = Vector3.Axis.Z,
-  ): VariantArray<Plane> {
-    TransferContext.writeMethodArguments_DOUBLE_DOUBLE_LONG_LONG(ptr, objectID.id, radius.toDouble(), height.toDouble(), sides.toLong(), axis.value)
-    TransferContext.callPtrMethod(MethodBindings.buildCylinderPlanesPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Plane>)
-  }
+  ): VariantArray<Plane> =
+      (TransferContext.callPtrMethod_DOUBLE_DOUBLE_LONG_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.buildCylinderPlanesPtr, radius.toDouble(), height.toDouble(), sides.toLong(), axis.value) as VariantArray<Plane>)
 
   /**
    * Returns an array of [Plane]s closely bounding a faceted capsule centered at the origin with
@@ -186,11 +173,8 @@ public object Geometry3D : Object() {
     sides: Int,
     lats: Int,
     axis: Vector3.Axis = Vector3.Axis.Z,
-  ): VariantArray<Plane> {
-    TransferContext.writeMethodArguments_DOUBLE_DOUBLE_LONG_LONG_LONG(ptr, objectID.id, radius.toDouble(), height.toDouble(), sides.toLong(), lats.toLong(), axis.value)
-    TransferContext.callPtrMethod(MethodBindings.buildCapsulePlanesPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Plane>)
-  }
+  ): VariantArray<Plane> =
+      (TransferContext.callPtrMethod_DOUBLE_DOUBLE_LONG_LONG_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.buildCapsulePlanesPtr, radius.toDouble(), height.toDouble(), sides.toLong(), lats.toLong(), axis.value) as VariantArray<Plane>)
 
   /**
    * Given the two 3D segments ([p1], [p2]) and ([q1], [q2]), finds those two points on the two
@@ -203,11 +187,8 @@ public object Geometry3D : Object() {
     p2: Vector3,
     q1: Vector3,
     q2: Vector3,
-  ): PackedVector3Array {
-    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, p1, p2, q1, q2)
-    TransferContext.callPtrMethod(MethodBindings.getClosestPointsBetweenSegmentsPtr, 36)
-    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
-  }
+  ): PackedVector3Array =
+      TransferContext.callPtrMethod_VECTOR3_VECTOR3_VECTOR3_VECTOR3_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getClosestPointsBetweenSegmentsPtr, p1, p2, q1, q2)
 
   /**
    * Returns the 3D point on the 3D segment ([s1], [s2]) that is closest to [point]. The returned
@@ -218,11 +199,8 @@ public object Geometry3D : Object() {
     point: Vector3,
     s1: Vector3,
     s2: Vector3,
-  ): Vector3 {
-    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, point, s1, s2)
-    TransferContext.callPtrMethod(MethodBindings.getClosestPointToSegmentPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  ): Vector3 =
+      TransferContext.callPtrMethod_VECTOR3_VECTOR3_VECTOR3_ret_VECTOR3(ptr, objectID.id, MethodBindings.getClosestPointToSegmentPtr, point, s1, s2)
 
   /**
    * Returns the 3D point on the 3D line defined by ([s1], [s2]) that is closest to [point]. The
@@ -234,11 +212,8 @@ public object Geometry3D : Object() {
     point: Vector3,
     s1: Vector3,
     s2: Vector3,
-  ): Vector3 {
-    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, point, s1, s2)
-    TransferContext.callPtrMethod(MethodBindings.getClosestPointToSegmentUncappedPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  ): Vector3 =
+      TransferContext.callPtrMethod_VECTOR3_VECTOR3_VECTOR3_ret_VECTOR3(ptr, objectID.id, MethodBindings.getClosestPointToSegmentUncappedPtr, point, s1, s2)
 
   /**
    * Returns a [Vector3] containing weights based on how close a 3D position ([point]) is to a
@@ -255,11 +230,8 @@ public object Geometry3D : Object() {
     a: Vector3,
     b: Vector3,
     c: Vector3,
-  ): Vector3 {
-    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, point, a, b, c)
-    TransferContext.callPtrMethod(MethodBindings.getTriangleBarycentricCoordsPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  ): Vector3 =
+      TransferContext.callPtrMethod_VECTOR3_VECTOR3_VECTOR3_VECTOR3_ret_VECTOR3(ptr, objectID.id, MethodBindings.getTriangleBarycentricCoordsPtr, point, a, b, c)
 
   /**
    * Tests if the 3D ray starting at [from] with the direction of [dir] intersects the triangle
@@ -273,11 +245,8 @@ public object Geometry3D : Object() {
     a: Vector3,
     b: Vector3,
     c: Vector3,
-  ): Any? {
-    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, from, dir, a, b, c)
-    TransferContext.callMethod(MethodBindings.rayIntersectsTrianglePtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  ): Any? =
+      TransferContext.callMethod_VECTOR3_VECTOR3_VECTOR3_VECTOR3_VECTOR3_ret_ANY(ptr, objectID.id, MethodBindings.rayIntersectsTrianglePtr, from, dir, a, b, c)
 
   /**
    * Tests if the segment ([from], [to]) intersects the triangle [a], [b], [c]. If yes, returns the
@@ -290,11 +259,8 @@ public object Geometry3D : Object() {
     a: Vector3,
     b: Vector3,
     c: Vector3,
-  ): Any? {
-    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_VECTOR3_VECTOR3(ptr, objectID.id, from, to, a, b, c)
-    TransferContext.callMethod(MethodBindings.segmentIntersectsTrianglePtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  ): Any? =
+      TransferContext.callMethod_VECTOR3_VECTOR3_VECTOR3_VECTOR3_VECTOR3_ret_ANY(ptr, objectID.id, MethodBindings.segmentIntersectsTrianglePtr, from, to, a, b, c)
 
   /**
    * Checks if the segment ([from], [to]) intersects the sphere that is located at [spherePosition]
@@ -308,11 +274,8 @@ public object Geometry3D : Object() {
     to: Vector3,
     spherePosition: Vector3,
     sphereRadius: Float,
-  ): PackedVector3Array {
-    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_VECTOR3_DOUBLE(ptr, objectID.id, from, to, spherePosition, sphereRadius.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.segmentIntersectsSpherePtr, 36)
-    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
-  }
+  ): PackedVector3Array =
+      TransferContext.callPtrMethod_VECTOR3_VECTOR3_VECTOR3_DOUBLE_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.segmentIntersectsSpherePtr, from, to, spherePosition, sphereRadius.toDouble())
 
   /**
    * Checks if the segment ([from], [to]) intersects the cylinder with height [height] that is
@@ -326,11 +289,8 @@ public object Geometry3D : Object() {
     to: Vector3,
     height: Float,
     radius: Float,
-  ): PackedVector3Array {
-    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_DOUBLE_DOUBLE(ptr, objectID.id, from, to, height.toDouble(), radius.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.segmentIntersectsCylinderPtr, 36)
-    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
-  }
+  ): PackedVector3Array =
+      TransferContext.callPtrMethod_VECTOR3_VECTOR3_DOUBLE_DOUBLE_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.segmentIntersectsCylinderPtr, from, to, height.toDouble(), radius.toDouble())
 
   /**
    * Given a convex hull defined though the [Plane]s in the array [planes], tests if the segment
@@ -343,22 +303,16 @@ public object Geometry3D : Object() {
     from: Vector3,
     to: Vector3,
     planes: VariantArray<Plane>,
-  ): PackedVector3Array {
-    TransferContext.writeMethodArguments_VECTOR3_VECTOR3_ARRAY(ptr, objectID.id, from, to, planes)
-    TransferContext.callPtrMethod(MethodBindings.segmentIntersectsConvexPtr, 36)
-    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
-  }
+  ): PackedVector3Array =
+      TransferContext.callPtrMethod_VECTOR3_VECTOR3_ARRAY_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.segmentIntersectsConvexPtr, from, to, planes)
 
   /**
    * Clips the polygon defined by the points in [points] against the [plane] and returns the points
    * of the clipped polygon.
    */
   @JvmStatic
-  public final fun clipPolygon(points: PackedVector3Array, plane: Plane): PackedVector3Array {
-    TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY_PLANE(ptr, objectID.id, points, plane)
-    TransferContext.callPtrMethod(MethodBindings.clipPolygonPtr, 36)
-    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
-  }
+  public final fun clipPolygon(points: PackedVector3Array, plane: Plane): PackedVector3Array =
+      TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY_PLANE_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.clipPolygonPtr, points, plane)
 
   /**
    * Tetrahedralizes the volume specified by a discrete set of [points] in 3D space, ensuring that
@@ -368,11 +322,8 @@ public object Geometry3D : Object() {
    * found). If the tetrahedralization is unsuccessful, an empty [PackedInt32Array] is returned.
    */
   @JvmStatic
-  public final fun tetrahedralizeDelaunay(points: PackedVector3Array): PackedInt32Array {
-    TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY(ptr, objectID.id, points)
-    TransferContext.callPtrMethod(MethodBindings.tetrahedralizeDelaunayPtr, 30)
-    return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
-  }
+  public final fun tetrahedralizeDelaunay(points: PackedVector3Array): PackedInt32Array =
+      TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.tetrahedralizeDelaunayPtr, points)
 
   public object MethodBindings {
     internal val computeConvexMeshPointsPtr: VoidPtr =

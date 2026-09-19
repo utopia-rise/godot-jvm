@@ -9,14 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_RID
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -95,62 +95,38 @@ public open class World3D : Resource() {
     createNativeObject(930, scriptPtr)
   }
 
-  public final fun getSpace(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSpacePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getSpace(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getSpacePtr)
 
-  public final fun getNavigationMap(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getNavigationMapPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getNavigationMap(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getNavigationMapPtr)
 
-  public final fun getScenario(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScenarioPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getScenario(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getScenarioPtr)
 
   public final fun setEnvironment(env: Environment?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, env)
-    TransferContext.callPtrMethod(MethodBindings.setEnvironmentPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setEnvironmentPtr, env)
   }
 
-  public final fun getEnvironment(): Environment? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnvironmentPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Environment?)
-  }
+  public final fun getEnvironment(): Environment? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getEnvironmentPtr) as Environment?)
 
   public final fun setFallbackEnvironment(env: Environment?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, env)
-    TransferContext.callPtrMethod(MethodBindings.setFallbackEnvironmentPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setFallbackEnvironmentPtr, env)
   }
 
-  public final fun getFallbackEnvironment(): Environment? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFallbackEnvironmentPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Environment?)
-  }
+  public final fun getFallbackEnvironment(): Environment? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFallbackEnvironmentPtr) as Environment?)
 
   public final fun setCameraAttributes(attributes: CameraAttributes?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, attributes)
-    TransferContext.callPtrMethod(MethodBindings.setCameraAttributesPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCameraAttributesPtr, attributes)
   }
 
-  public final fun getCameraAttributes(): CameraAttributes? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCameraAttributesPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as CameraAttributes?)
-  }
+  public final fun getCameraAttributes(): CameraAttributes? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCameraAttributesPtr) as CameraAttributes?)
 
-  public final fun getDirectSpaceState(): PhysicsDirectSpaceState3D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDirectSpaceStatePtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as PhysicsDirectSpaceState3D?)
-  }
+  public final fun getDirectSpaceState(): PhysicsDirectSpaceState3D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getDirectSpaceStatePtr) as PhysicsDirectSpaceState3D?)
 
   public companion object {
     @JvmField

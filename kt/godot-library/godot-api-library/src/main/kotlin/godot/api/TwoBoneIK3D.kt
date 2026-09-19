@@ -9,25 +9,24 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_STRING
+import godot.callMethod_LONG_ret_STRING
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_NODE_PATH
+import godot.callPtrMethod_LONG_VECTOR3
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_NODE_PATH
+import godot.callPtrMethod_LONG_ret_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.NodePath
 import godot.core.Vector3
 import godot.core.asCachedNodePath
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_NODE_PATH
-import godot.readReturnValue_STRING
-import godot.readReturnValue_VECTOR3
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_LONG_DOUBLE
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_LONG_NODE_PATH
-import godot.writeMethodArguments_LONG_STRING
-import godot.writeMethodArguments_LONG_VECTOR3
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -70,71 +69,55 @@ public open class TwoBoneIK3D : IKModifier3D() {
    * Sets the target node that the end bone is trying to reach.
    */
   public final fun setTargetNode(index: Int, targetNode: NodePath): Unit {
-    TransferContext.writeMethodArguments_LONG_NODE_PATH(ptr, objectID.id, index.toLong(), targetNode)
-    TransferContext.callPtrMethod(MethodBindings.setTargetNodePtr, 0)
+    TransferContext.callPtrMethod_LONG_NODE_PATH(ptr, objectID.id, MethodBindings.setTargetNodePtr, index.toLong(), targetNode)
   }
 
   /**
    * Returns the target node that the end bone is trying to reach.
    */
-  public final fun getTargetNode(index: Int): NodePath {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun getTargetNode(index: Int): NodePath =
+      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getTargetNodePtr, index.toLong())
 
   /**
    * Sets the pole target node that constructs a plane which the joints are all on and the pole is
    * trying to direct.
    */
   public final fun setPoleNode(index: Int, poleNode: NodePath): Unit {
-    TransferContext.writeMethodArguments_LONG_NODE_PATH(ptr, objectID.id, index.toLong(), poleNode)
-    TransferContext.callPtrMethod(MethodBindings.setPoleNodePtr, 0)
+    TransferContext.callPtrMethod_LONG_NODE_PATH(ptr, objectID.id, MethodBindings.setPoleNodePtr, index.toLong(), poleNode)
   }
 
   /**
    * Returns the pole target node that constructs a plane which the joints are all on and the pole
    * is trying to direct.
    */
-  public final fun getPoleNode(index: Int): NodePath {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getPoleNodePtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun getPoleNode(index: Int): NodePath =
+      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getPoleNodePtr, index.toLong())
 
   /**
    * Sets the root bone name.
    */
   public final fun setRootBoneName(index: Int, boneName: String): Unit {
-    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, index.toLong(), boneName)
-    TransferContext.callMethod(MethodBindings.setRootBoneNamePtr)
+    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setRootBoneNamePtr, index.toLong(), boneName)
   }
 
   /**
    * Returns the root bone name.
    */
-  public final fun getRootBoneName(index: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getRootBoneNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getRootBoneName(index: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getRootBoneNamePtr, index.toLong())
 
   /**
    * Sets the root bone index.
    */
   public final fun setRootBone(index: Int, bone: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), bone.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setRootBonePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setRootBonePtr, index.toLong(), bone.toLong())
   }
 
   /**
    * Returns the root bone index.
    */
-  public final fun getRootBone(index: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getRootBonePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getRootBone(index: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getRootBonePtr, index.toLong()).toInt()
 
   /**
    * Sets the middle bone name.
@@ -142,35 +125,27 @@ public open class TwoBoneIK3D : IKModifier3D() {
    * **Note:** The middle bone must be a child of the root bone.
    */
   public final fun setMiddleBoneName(index: Int, boneName: String): Unit {
-    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, index.toLong(), boneName)
-    TransferContext.callMethod(MethodBindings.setMiddleBoneNamePtr)
+    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setMiddleBoneNamePtr, index.toLong(), boneName)
   }
 
   /**
    * Returns the middle bone name.
    */
-  public final fun getMiddleBoneName(index: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getMiddleBoneNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getMiddleBoneName(index: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getMiddleBoneNamePtr, index.toLong())
 
   /**
    * Sets the middle bone index.
    */
   public final fun setMiddleBone(index: Int, bone: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), bone.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setMiddleBonePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setMiddleBonePtr, index.toLong(), bone.toLong())
   }
 
   /**
    * Returns the middle bone index.
    */
-  public final fun getMiddleBone(index: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getMiddleBonePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMiddleBone(index: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getMiddleBonePtr, index.toLong()).toInt()
 
   /**
    * Sets the pole direction.
@@ -184,18 +159,14 @@ public open class TwoBoneIK3D : IKModifier3D() {
    */
   public final fun setPoleDirection(index: Int, direction: SkeletonModifier3D.SecondaryDirection):
       Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), direction.value)
-    TransferContext.callPtrMethod(MethodBindings.setPoleDirectionPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setPoleDirectionPtr, index.toLong(), direction.value)
   }
 
   /**
    * Returns the pole direction.
    */
-  public final fun getPoleDirection(index: Int): SkeletonModifier3D.SecondaryDirection {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getPoleDirectionPtr, 2)
-    return SkeletonModifier3D.SecondaryDirection.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getPoleDirection(index: Int): SkeletonModifier3D.SecondaryDirection =
+      SkeletonModifier3D.SecondaryDirection.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getPoleDirectionPtr, index.toLong()))
 
   /**
    * Sets the pole direction vector.
@@ -206,8 +177,7 @@ public open class TwoBoneIK3D : IKModifier3D() {
    * [SkeletonModifier3D.SECONDARY_DIRECTION_NONE].
    */
   public final fun setPoleDirectionVector(index: Int, vector: Vector3): Unit {
-    TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, index.toLong(), vector)
-    TransferContext.callPtrMethod(MethodBindings.setPoleDirectionVectorPtr, 0)
+    TransferContext.callPtrMethod_LONG_VECTOR3(ptr, objectID.id, MethodBindings.setPoleDirectionVectorPtr, index.toLong(), vector)
   }
 
   /**
@@ -216,11 +186,8 @@ public open class TwoBoneIK3D : IKModifier3D() {
    * If [getPoleDirection] is [SkeletonModifier3D.SECONDARY_DIRECTION_NONE], this method returns
    * `Vector3(0, 0, 0)`.
    */
-  public final fun getPoleDirectionVector(index: Int): Vector3 {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getPoleDirectionVectorPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getPoleDirectionVector(index: Int): Vector3 =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getPoleDirectionVectorPtr, index.toLong())
 
   /**
    * Sets the end bone name.
@@ -228,104 +195,80 @@ public open class TwoBoneIK3D : IKModifier3D() {
    * **Note:** The end bone must be a child of the middle bone.
    */
   public final fun setEndBoneName(index: Int, boneName: String): Unit {
-    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, index.toLong(), boneName)
-    TransferContext.callMethod(MethodBindings.setEndBoneNamePtr)
+    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setEndBoneNamePtr, index.toLong(), boneName)
   }
 
   /**
    * Returns the end bone name.
    */
-  public final fun getEndBoneName(index: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callMethod(MethodBindings.getEndBoneNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getEndBoneName(index: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getEndBoneNamePtr, index.toLong())
 
   /**
    * Sets the end bone index.
    */
   public final fun setEndBone(index: Int, bone: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), bone.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setEndBonePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setEndBonePtr, index.toLong(), bone.toLong())
   }
 
   /**
    * Returns the end bone index.
    */
-  public final fun getEndBone(index: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getEndBonePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getEndBone(index: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getEndBonePtr, index.toLong()).toInt()
 
   /**
    * If [enabled] is `true`, the end bone is extended from the middle bone as a virtual bone.
    */
   public final fun setUseVirtualEnd(index: Int, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callPtrMethod(MethodBindings.setUseVirtualEndPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setUseVirtualEndPtr, index.toLong(), enabled)
   }
 
   /**
    * Returns `true` if the end bone is extended from the middle bone as a virtual bone.
    */
-  public final fun isUsingVirtualEnd(index: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.isUsingVirtualEndPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingVirtualEnd(index: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingVirtualEndPtr, index.toLong())
 
   /**
    * If [enabled] is `true`, the end bone is extended to have a tail.
    */
   public final fun setExtendEndBone(index: Int, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, index.toLong(), enabled)
-    TransferContext.callPtrMethod(MethodBindings.setExtendEndBonePtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setExtendEndBonePtr, index.toLong(), enabled)
   }
 
   /**
    * Returns `true` if the end bone is extended to have a tail.
    */
-  public final fun isEndBoneExtended(index: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.isEndBoneExtendedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isEndBoneExtended(index: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isEndBoneExtendedPtr, index.toLong())
 
   /**
    * Sets the end bone tail direction when [isEndBoneExtended] is `true`.
    */
   public final fun setEndBoneDirection(index: Int, boneDirection: SkeletonModifier3D.BoneDirection):
       Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, index.toLong(), boneDirection.value)
-    TransferContext.callPtrMethod(MethodBindings.setEndBoneDirectionPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setEndBoneDirectionPtr, index.toLong(), boneDirection.value)
   }
 
   /**
    * Returns the end bone's tail direction when [isEndBoneExtended] is `true`.
    */
-  public final fun getEndBoneDirection(index: Int): SkeletonModifier3D.BoneDirection {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getEndBoneDirectionPtr, 2)
-    return SkeletonModifier3D.BoneDirection.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getEndBoneDirection(index: Int): SkeletonModifier3D.BoneDirection =
+      SkeletonModifier3D.BoneDirection.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getEndBoneDirectionPtr, index.toLong()))
 
   /**
    * Sets the end bone tail length when [isEndBoneExtended] is `true`.
    */
   public final fun setEndBoneLength(index: Int, length: Float): Unit {
-    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, index.toLong(), length.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setEndBoneLengthPtr, 0)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setEndBoneLengthPtr, index.toLong(), length.toDouble())
   }
 
   /**
    * Returns the end bone tail length of the bone chain when [isEndBoneExtended] is `true`.
    */
-  public final fun getEndBoneLength(index: Int): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getEndBoneLengthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getEndBoneLength(index: Int): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEndBoneLengthPtr, index.toLong()).toFloat()
 
   /**
    * Sets the target node that the end bone is trying to reach.

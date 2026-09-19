@@ -2,6 +2,7 @@ package godot.codegen.generation.rule
 
 import com.squareup.kotlinpoet.ANY
 import com.squareup.kotlinpoet.AnnotationSpec
+import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.LONG
@@ -119,72 +120,46 @@ class MethodRule : GodotApiRule<EnrichedMethodTask>(), BaseMethodeRule {
     }
 
     override fun FunSpec.Builder.writeCode(method: EnrichedMethod, clazz: EnrichedClass, context: GenerationContext) {
-        generateWriteArgument(method, clazz, context)
-        generateMethodCall(method, clazz, context)
-        if (method.type.getVariantConverter() != VariantConverter.NIL) {
-            generateReturn(method, clazz, context)
-        }
-    }
-
-    private fun FunSpec.Builder.generateWriteArgument(method: EnrichedMethod, clazz: EnrichedClass, context: GenerationContext) {
-        val signature = TransferSignature(method.arguments.map { it.type.getVariantConverter() }, method.isVararg)
+        val converter = method.type.getVariantConverter()
+        val signature = TransferSignature(
+            method.arguments.map { it.type.getVariantConverter() },
+            method.isVararg,
+            converter,
+            method.type.isObjectSubClass() && context.isRefCounted(method.type.identifier),
+        )
         context.methodSignatures.add(signature)
 
-        val arguments = buildString {
-            append(if (method.isStatic) "0L,·0L" else "ptr,·objectID.id")
-            for (argument in method.arguments) {
-                append(",·").append(argument.name).append(argument.getToBufferCastingMethod())
-                if (argument.type.isEnum()) append(".value")
-                if (argument.type.isBitField()) append(".flag")
-            }
-            if (method.isVararg) append(",·args")
-        }
-        addStatement("%T.%M($arguments)", Internal.transferContext, MemberName(godotPackage, signature.writerName))
-    }
+        val call = CodeBlock.of(
+            "%T.%M(${callArguments(method)})",
+            Internal.transferContext,
+            MemberName(godotPackage, signature.name),
+            clazz.className.nestedClass(API.methodBindingsInnerClassName),
+            MemberName(API.`object`.packageName, "${method.name}Ptr"),
+        )
 
-    // A ptrcall reads the arguments where the buffer holds them, so it is only for methods whose every type is already
-    // in native layout there; variadic tails, Variants, Strings, Callables and Signals take the Variant call.
-    private fun FunSpec.Builder.generateMethodCall(method: EnrichedMethod, clazz: EnrichedClass, context: GenerationContext) {
-        val returnConverter = method.type.getVariantConverter()
-        val usesVariantCall = method.isVararg
-            || !VariantConverter.isPtrCallReturn(returnConverter)
-            || method.arguments.any { !VariantConverter.isPtrCallArgument(it.type.getVariantConverter()) }
-        val bindingPtr = MemberName(API.`object`.packageName, "${method.name}Ptr")
-        val methodBindings = clazz.className.nestedClass(API.methodBindingsInnerClassName)
-        if (usesVariantCall) {
-            addStatement("%T.callMethod(%T.%M)", Internal.transferContext, methodBindings, bindingPtr)
-            return
-        }
-        // A method whose declared return class is a RefCounted returns a Ref<T> in the engine, and a ptrcall encodes
-        // that as an owned reference the native side must release. The pointer bytes cannot show that, so
-        // Variant::TYPE_MAX is sent in place of the OBJECT ordinal to say so.
-        val returnType = if (method.type.isObjectSubClass() && context.isRefCounted(method.type.identifier)) {
-            context.refCountedReturnType
-        } else {
-            VariantConverter.variantOrdinal(returnConverter)
-        }
-        addStatement("%T.callPtrMethod(%T.%M,·$returnType)", Internal.transferContext, methodBindings, bindingPtr)
-    }
-
-    private fun FunSpec.Builder.generateReturn(method: EnrichedMethod, clazz: EnrichedClass, context: GenerationContext) {
-        val converter = method.type.getVariantConverter()
-        context.returnConverters.add(converter)
-        val reader = MemberName(godotPackage, TransferSignature.readerName(converter))
-
-        if (method.type.isEnum()) {
-            addStatement("return·%T.from(%T.%M())", method.getBufferClass(), Internal.transferContext, reader)
+        if (!signature.returnsValue) {
+            addStatement("%L", call)
+        } else if (method.type.isEnum()) {
+            addStatement("return·%T.from(%L)", method.getBufferClass(), call)
         } else if (method.type.isBitField()) {
-            addStatement("return·%T(%T.%M())", method.getBufferClass(), Internal.transferContext, reader)
+            addStatement("return·%T(%L)", method.getBufferClass(), call)
         } else if (method.getTypeName() == VariantConverter.bufferType(converter)) {
-            addStatement("return·%T.%M()${method.getFromBufferCastingMethod()}", Internal.transferContext, reader)
+            addStatement("return·%L${method.getFromBufferCastingMethod()}", call)
         } else {
-            addStatement(
-                "return·(%T.%M()·as·%T)${method.getFromBufferCastingMethod()}",
-                Internal.transferContext,
-                reader,
-                method.getTypeName()
-            )
+            addStatement("return·(%L·as·%T)${method.getFromBufferCastingMethod()}", call, method.getTypeName())
         }
+    }
+
+    /** The caller, the method bind and then the arguments; the method bind carries its own `%T.%M` placeholders. */
+    private fun callArguments(method: EnrichedMethod) = buildString {
+        append(if (method.isStatic) "0L,·0L" else "ptr,·objectID.id")
+        append(",·%T.%M")
+        for (argument in method.arguments) {
+            append(",·").append(argument.name).append(argument.getToBufferCastingMethod())
+            if (argument.type.isEnum()) append(".value")
+            if (argument.type.isBitField()) append(".flag")
+        }
+        if (method.isVararg) append(",·args")
     }
 }
 

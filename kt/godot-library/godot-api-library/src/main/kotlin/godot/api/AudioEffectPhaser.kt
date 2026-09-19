@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_DOUBLE
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -97,59 +96,39 @@ public open class AudioEffectPhaser : AudioEffect() {
   }
 
   public final fun setRangeMinHz(hz: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hz.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setRangeMinHzPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRangeMinHzPtr, hz.toDouble())
   }
 
-  public final fun getRangeMinHz(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRangeMinHzPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getRangeMinHz(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRangeMinHzPtr).toFloat()
 
   public final fun setRangeMaxHz(hz: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hz.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setRangeMaxHzPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRangeMaxHzPtr, hz.toDouble())
   }
 
-  public final fun getRangeMaxHz(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRangeMaxHzPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getRangeMaxHz(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRangeMaxHzPtr).toFloat()
 
   public final fun setRateHz(hz: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hz.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setRateHzPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRateHzPtr, hz.toDouble())
   }
 
-  public final fun getRateHz(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRateHzPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getRateHz(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRateHzPtr).toFloat()
 
   public final fun setFeedback(fbk: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fbk.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setFeedbackPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFeedbackPtr, fbk.toDouble())
   }
 
-  public final fun getFeedback(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFeedbackPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFeedback(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFeedbackPtr).toFloat()
 
   public final fun setDepth(depth: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, depth.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setDepthPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDepthPtr, depth.toDouble())
   }
 
-  public final fun getDepth(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDepth(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDepthPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

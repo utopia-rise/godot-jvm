@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Suppress
@@ -105,37 +104,25 @@ public open class CanvasGroup : Node2D() {
   }
 
   public final fun setFitMargin(fitMargin: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fitMargin.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setFitMarginPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFitMarginPtr, fitMargin.toDouble())
   }
 
-  public final fun getFitMargin(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFitMarginPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFitMargin(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFitMarginPtr).toFloat()
 
   public final fun setClearMargin(clearMargin: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, clearMargin.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setClearMarginPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setClearMarginPtr, clearMargin.toDouble())
   }
 
-  public final fun getClearMargin(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getClearMarginPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getClearMargin(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getClearMarginPtr).toFloat()
 
   public final fun setUseMipmaps(useMipmaps: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, useMipmaps)
-    TransferContext.callPtrMethod(MethodBindings.setUseMipmapsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseMipmapsPtr, useMipmaps)
   }
 
-  public final fun isUsingMipmaps(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingMipmapsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingMipmaps(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingMipmapsPtr)
 
   public companion object {
     @JvmField

@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_LONG_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
 import godot.core.VariantArray
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments_LONG
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -292,11 +291,8 @@ public open class VisualShaderNodeCustom : VisualShaderNode() {
    * Returns the selected index of the drop-down list option within a graph. You may use this
    * function to define the specific behavior in the [_getCode] or [_getGlobalCode].
    */
-  public final fun getOptionIndex(option: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, option.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getOptionIndexPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getOptionIndex(option: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getOptionIndexPtr, option.toLong()).toInt()
 
   public companion object {
     @JvmField

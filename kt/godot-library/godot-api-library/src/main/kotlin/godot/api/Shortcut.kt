@@ -9,16 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_OBJECT_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantArray
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_OBJECT
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.String
@@ -108,43 +107,30 @@ public open class Shortcut : Resource() {
   }
 
   public final fun setEvents(events: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, events)
-    TransferContext.callPtrMethod(MethodBindings.setEventsPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setEventsPtr, events)
   }
 
-  public final fun getEvents(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEventsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun getEvents(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getEventsPtr) as VariantArray<Any?>)
 
   /**
    * Returns whether [events] contains an [InputEvent] which is valid.
    */
-  public final fun hasValidEvent(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasValidEventPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasValidEvent(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasValidEventPtr)
 
   /**
    * Returns whether any [InputEvent] in [events] equals [event]. This uses [InputEvent.isMatch] to
    * compare events.
    */
-  public final fun matchesEvent(event: InputEvent?): Boolean {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, event)
-    TransferContext.callPtrMethod(MethodBindings.matchesEventPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun matchesEvent(event: InputEvent?): Boolean =
+      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.matchesEventPtr, event)
 
   /**
    * Returns the shortcut's first valid [InputEvent] as a [String].
    */
-  public final fun getAsText(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAsTextPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getAsText(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getAsTextPtr)
 
   public companion object {
     @JvmField

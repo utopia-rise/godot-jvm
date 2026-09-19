@@ -11,26 +11,28 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_BOOL_ret_OBJECT
+import godot.callPtrMethod_BOOL_ret_OBJECT_REF
+import godot.callPtrMethod_DICTIONARY_ret_OBJECT_REF
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_ret_OBJECT_REF
+import godot.callPtrMethod_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Vector3
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_STRING
-import godot.readReturnValue_VECTOR3
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DICTIONARY
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_VECTOR3
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Float
@@ -174,107 +176,70 @@ public open class GLTFPhysicsShape : Resource() {
    * Converts this GLTFPhysicsShape instance into a Godot [CollisionShape3D] node.
    */
   @JvmOverloads
-  public final fun toNode(cacheShapes: Boolean = false): CollisionShape3D? {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, cacheShapes)
-    TransferContext.callPtrMethod(MethodBindings.toNodePtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as CollisionShape3D?)
-  }
+  public final fun toNode(cacheShapes: Boolean = false): CollisionShape3D? =
+      (TransferContext.callPtrMethod_BOOL_ret_OBJECT(ptr, objectID.id, MethodBindings.toNodePtr, cacheShapes) as CollisionShape3D?)
 
   /**
    * Converts this GLTFPhysicsShape instance into a Godot [Shape3D] resource.
    */
   @JvmOverloads
-  public final fun toResource(cacheShapes: Boolean = false): Shape3D? {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, cacheShapes)
-    TransferContext.callPtrMethod(MethodBindings.toResourcePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Shape3D?)
-  }
+  public final fun toResource(cacheShapes: Boolean = false): Shape3D? =
+      (TransferContext.callPtrMethod_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.toResourcePtr, cacheShapes) as Shape3D?)
 
   /**
    * Serializes this GLTFPhysicsShape instance into a [Dictionary] in the format defined by
    * `OMI_physics_shape`.
    */
-  public final fun toDictionary(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.toDictionaryPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun toDictionary(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.toDictionaryPtr) as Dictionary<Any?, Any?>)
 
-  public final fun getShapeType(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShapeTypePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getShapeType(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getShapeTypePtr)
 
   public final fun setShapeType(shapeType: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, shapeType)
-    TransferContext.callMethod(MethodBindings.setShapeTypePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setShapeTypePtr, shapeType)
   }
 
-  public final fun getSize(): Vector3 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getSize(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getSizePtr)
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, size)
-    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setSizePtr, size)
   }
 
-  public final fun getRadius(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRadiusPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getRadius(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setRadiusPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, radius.toDouble())
   }
 
-  public final fun getHeight(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getHeight(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHeightPtr).toFloat()
 
   public final fun setHeight(height: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, height.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setHeightPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHeightPtr, height.toDouble())
   }
 
-  public final fun getIsTrigger(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getIsTriggerPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getIsTrigger(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getIsTriggerPtr)
 
   public final fun setIsTrigger(isTrigger: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, isTrigger)
-    TransferContext.callPtrMethod(MethodBindings.setIsTriggerPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIsTriggerPtr, isTrigger)
   }
 
-  public final fun getMeshIndex(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMeshIndexPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMeshIndex(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMeshIndexPtr).toInt()
 
   public final fun setMeshIndex(meshIndex: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, meshIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setMeshIndexPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMeshIndexPtr, meshIndex.toLong())
   }
 
-  public final fun getImporterMesh(): ImporterMesh? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getImporterMeshPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as ImporterMesh?)
-  }
+  public final fun getImporterMesh(): ImporterMesh? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getImporterMeshPtr) as ImporterMesh?)
 
   public final fun setImporterMesh(importerMesh: ImporterMesh?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, importerMesh)
-    TransferContext.callPtrMethod(MethodBindings.setImporterMeshPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setImporterMeshPtr, importerMesh)
   }
 
   public companion object {
@@ -364,31 +329,22 @@ public open class GLTFPhysicsShape : Resource() {
      * Creates a new GLTFPhysicsShape instance from the given Godot [CollisionShape3D] node.
      */
     @JvmStatic
-    public final fun fromNode(shapeNode: CollisionShape3D?): GLTFPhysicsShape? {
-      TransferContext.writeMethodArguments_OBJECT(0L, 0L, shapeNode)
-      TransferContext.callPtrMethod(MethodBindings.fromNodePtr, 39)
-      return (TransferContext.readReturnValue_OBJECT() as GLTFPhysicsShape?)
-    }
+    public final fun fromNode(shapeNode: CollisionShape3D?): GLTFPhysicsShape? =
+        (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(0L, 0L, MethodBindings.fromNodePtr, shapeNode) as GLTFPhysicsShape?)
 
     /**
      * Creates a new GLTFPhysicsShape instance from the given Godot [Shape3D] resource.
      */
     @JvmStatic
-    public final fun fromResource(shapeResource: Shape3D?): GLTFPhysicsShape? {
-      TransferContext.writeMethodArguments_OBJECT(0L, 0L, shapeResource)
-      TransferContext.callPtrMethod(MethodBindings.fromResourcePtr, 39)
-      return (TransferContext.readReturnValue_OBJECT() as GLTFPhysicsShape?)
-    }
+    public final fun fromResource(shapeResource: Shape3D?): GLTFPhysicsShape? =
+        (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(0L, 0L, MethodBindings.fromResourcePtr, shapeResource) as GLTFPhysicsShape?)
 
     /**
      * Creates a new GLTFPhysicsShape instance by parsing the given [Dictionary].
      */
     @JvmStatic
-    public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFPhysicsShape? {
-      TransferContext.writeMethodArguments_DICTIONARY(0L, 0L, dictionary)
-      TransferContext.callPtrMethod(MethodBindings.fromDictionaryPtr, 39)
-      return (TransferContext.readReturnValue_OBJECT() as GLTFPhysicsShape?)
-    }
+    public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFPhysicsShape? =
+        (TransferContext.callPtrMethod_DICTIONARY_ret_OBJECT_REF(0L, 0L, MethodBindings.fromDictionaryPtr, dictionary) as GLTFPhysicsShape?)
   }
 
   public object MethodBindings {

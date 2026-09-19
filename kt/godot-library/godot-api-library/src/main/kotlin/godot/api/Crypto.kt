@@ -9,22 +9,20 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_OBJECT_STRING_STRING_STRING_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY_OBJECT_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_OBJECT_ret_BOOL
+import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_OBJECT_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.PackedByteArray
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_BYTE_ARRAY
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_OBJECT
-import godot.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY
-import godot.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_OBJECT
-import godot.writeMethodArguments_OBJECT_PACKED_BYTE_ARRAY
-import godot.writeMethodArguments_OBJECT_STRING_STRING_STRING
-import godot.writeMethodArguments_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
@@ -118,21 +116,15 @@ public open class Crypto : RefCounted() {
   /**
    * Generates a [PackedByteArray] of cryptographically secure random bytes with given [size].
    */
-  public final fun generateRandomBytes(size: Int): PackedByteArray {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callPtrMethod(MethodBindings.generateRandomBytesPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun generateRandomBytes(size: Int): PackedByteArray =
+      TransferContext.callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.generateRandomBytesPtr, size.toLong())
 
   /**
    * Generates an RSA [CryptoKey] that can be used for creating self-signed certificates and passed
    * to [StreamPeerTLS.acceptStream].
    */
-  public final fun generateRsa(size: Int): CryptoKey? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, size.toLong())
-    TransferContext.callPtrMethod(MethodBindings.generateRsaPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as CryptoKey?)
-  }
+  public final fun generateRsa(size: Int): CryptoKey? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.generateRsaPtr, size.toLong()) as CryptoKey?)
 
   /**
    * Generates a self-signed [X509Certificate] from the given [CryptoKey] and [issuerName]. The
@@ -168,11 +160,8 @@ public open class Crypto : RefCounted() {
     issuerName: String = "CN=myserver,O=myorganisation,C=IT",
     notBefore: String = "20140101000000",
     notAfter: String = "20340101000000",
-  ): X509Certificate? {
-    TransferContext.writeMethodArguments_OBJECT_STRING_STRING_STRING(ptr, objectID.id, key, issuerName, notBefore, notAfter)
-    TransferContext.callMethod(MethodBindings.generateSelfSignedCertificatePtr)
-    return (TransferContext.readReturnValue_OBJECT() as X509Certificate?)
-  }
+  ): X509Certificate? =
+      (TransferContext.callMethod_OBJECT_STRING_STRING_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.generateSelfSignedCertificatePtr, key, issuerName, notBefore, notAfter) as X509Certificate?)
 
   /**
    * Sign a given [hash] of type [hashType] with the provided private [key].
@@ -181,11 +170,8 @@ public open class Crypto : RefCounted() {
     hashType: HashingContext.HashType,
     hash: PackedByteArray,
     key: CryptoKey?,
-  ): PackedByteArray {
-    TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_OBJECT(ptr, objectID.id, hashType.value, hash, key)
-    TransferContext.callPtrMethod(MethodBindings.signPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  ): PackedByteArray =
+      TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_OBJECT_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.signPtr, hashType.value, hash, key)
 
   /**
    * Verify that a given [signature] for [hash] of type [hashType] against the provided public
@@ -196,33 +182,24 @@ public open class Crypto : RefCounted() {
     hash: PackedByteArray,
     signature: PackedByteArray,
     key: CryptoKey?,
-  ): Boolean {
-    TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_OBJECT(ptr, objectID.id, hashType.value, hash, signature, key)
-    TransferContext.callPtrMethod(MethodBindings.verifyPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  ): Boolean =
+      TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.verifyPtr, hashType.value, hash, signature, key)
 
   /**
    * Encrypt the given [plaintext] with the provided public [key].
    *
    * **Note:** The maximum size of accepted plaintext is limited by the key size.
    */
-  public final fun encrypt(key: CryptoKey?, plaintext: PackedByteArray): PackedByteArray {
-    TransferContext.writeMethodArguments_OBJECT_PACKED_BYTE_ARRAY(ptr, objectID.id, key, plaintext)
-    TransferContext.callPtrMethod(MethodBindings.encryptPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun encrypt(key: CryptoKey?, plaintext: PackedByteArray): PackedByteArray =
+      TransferContext.callPtrMethod_OBJECT_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.encryptPtr, key, plaintext)
 
   /**
    * Decrypt the given [ciphertext] with the provided private [key].
    *
    * **Note:** The maximum size of accepted ciphertext is limited by the key size.
    */
-  public final fun decrypt(key: CryptoKey?, ciphertext: PackedByteArray): PackedByteArray {
-    TransferContext.writeMethodArguments_OBJECT_PACKED_BYTE_ARRAY(ptr, objectID.id, key, ciphertext)
-    TransferContext.callPtrMethod(MethodBindings.decryptPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun decrypt(key: CryptoKey?, ciphertext: PackedByteArray): PackedByteArray =
+      TransferContext.callPtrMethod_OBJECT_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.decryptPtr, key, ciphertext)
 
   /**
    * Generates an [url=https://en.wikipedia.org/wiki/HMAC]HMAC[/url] digest of [msg] using [key].
@@ -234,11 +211,8 @@ public open class Crypto : RefCounted() {
     hashType: HashingContext.HashType,
     key: PackedByteArray,
     msg: PackedByteArray,
-  ): PackedByteArray {
-    TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY(ptr, objectID.id, hashType.value, key, msg)
-    TransferContext.callPtrMethod(MethodBindings.hmacDigestPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  ): PackedByteArray =
+      TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.hmacDigestPtr, hashType.value, key, msg)
 
   /**
    * Compares two [PackedByteArray]s for equality without leaking timing information in order to
@@ -248,12 +222,9 @@ public open class Crypto : RefCounted() {
    * [url=https://paragonie.com/blog/2015/11/preventing-timing-attacks-on-string-comparison-with-double-hmac-strategy]this
    * blog post[/url] for more information.
    */
-  public final fun constantTimeCompare(trusted: PackedByteArray, received: PackedByteArray):
-      Boolean {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY(ptr, objectID.id, trusted, received)
-    TransferContext.callPtrMethod(MethodBindings.constantTimeComparePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun constantTimeCompare(trusted: PackedByteArray, received: PackedByteArray): Boolean
+      =
+      TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_BOOL(ptr, objectID.id, MethodBindings.constantTimeComparePtr, trusted, received)
 
   public companion object {
     @JvmField

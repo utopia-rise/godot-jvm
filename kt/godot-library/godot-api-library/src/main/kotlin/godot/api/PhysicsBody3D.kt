@@ -9,6 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_TRANSFORM3D_VECTOR3_OBJECT_DOUBLE_BOOL_LONG_ret_BOOL
+import godot.callPtrMethod_VECTOR3_BOOL_DOUBLE_BOOL_LONG_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -18,16 +25,6 @@ import godot.core.MethodStringName6
 import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.Vector3
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_VECTOR3
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_TRANSFORM3D_VECTOR3_OBJECT_DOUBLE_BOOL_LONG
-import godot.writeMethodArguments_VECTOR3_BOOL_DOUBLE_BOOL_LONG
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -142,11 +139,8 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
     safeMargin: Float = 0.001f,
     recoveryAsCollision: Boolean = false,
     maxCollisions: Int = 1,
-  ): KinematicCollision3D? {
-    TransferContext.writeMethodArguments_VECTOR3_BOOL_DOUBLE_BOOL_LONG(ptr, objectID.id, motion, testOnly, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong())
-    TransferContext.callPtrMethod(MethodBindings.moveAndCollidePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as KinematicCollision3D?)
-  }
+  ): KinematicCollision3D? =
+      (TransferContext.callPtrMethod_VECTOR3_BOOL_DOUBLE_BOOL_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.moveAndCollidePtr, motion, testOnly, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong()) as KinematicCollision3D?)
 
   /**
    * Checks for collisions without moving the body. In order to be frame rate independent in
@@ -175,62 +169,47 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
     safeMargin: Float = 0.001f,
     recoveryAsCollision: Boolean = false,
     maxCollisions: Int = 1,
-  ): Boolean {
-    TransferContext.writeMethodArguments_TRANSFORM3D_VECTOR3_OBJECT_DOUBLE_BOOL_LONG(ptr, objectID.id, from, motion, collision, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong())
-    TransferContext.callPtrMethod(MethodBindings.testMovePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  ): Boolean =
+      TransferContext.callPtrMethod_TRANSFORM3D_VECTOR3_OBJECT_DOUBLE_BOOL_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.testMovePtr, from, motion, collision, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong())
 
   /**
    * Returns the gravity vector computed from all sources that can affect the body, including all
    * gravity overrides from [Area3D] nodes and the global world gravity.
    */
-  public final fun getGravity(): Vector3 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGravityPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getGravity(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getGravityPtr)
 
   /**
    * Locks or unlocks the specified linear or rotational [axis] depending on the value of [lock].
    */
   public final fun setAxisLock(axis: PhysicsServer3D.BodyAxis, lock: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, axis.value, lock)
-    TransferContext.callPtrMethod(MethodBindings.setAxisLockPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAxisLockPtr, axis.value, lock)
   }
 
   /**
    * Returns `true` if the specified linear or rotational [axis] is locked.
    */
-  public final fun getAxisLock(axis: PhysicsServer3D.BodyAxis): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, axis.value)
-    TransferContext.callPtrMethod(MethodBindings.getAxisLockPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getAxisLock(axis: PhysicsServer3D.BodyAxis): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getAxisLockPtr, axis.value)
 
   /**
    * Returns an array of nodes that were added as collision exceptions for this body.
    */
-  public final fun getCollisionExceptions(): VariantArray<PhysicsBody3D> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCollisionExceptionsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<PhysicsBody3D>)
-  }
+  public final fun getCollisionExceptions(): VariantArray<PhysicsBody3D> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getCollisionExceptionsPtr) as VariantArray<PhysicsBody3D>)
 
   /**
    * Adds a body to the list of bodies that this body can't collide with.
    */
   public final fun addCollisionExceptionWith(body: Node): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, body)
-    TransferContext.callPtrMethod(MethodBindings.addCollisionExceptionWithPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addCollisionExceptionWithPtr, body)
   }
 
   /**
    * Removes a body from the list of bodies that this body can't collide with.
    */
   public final fun removeCollisionExceptionWith(body: Node): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, body)
-    TransferContext.callPtrMethod(MethodBindings.removeCollisionExceptionWithPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeCollisionExceptionWithPtr, body)
   }
 
   public companion object {

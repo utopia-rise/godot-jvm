@@ -9,6 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_TRANSFORM2D_VECTOR2_OBJECT_DOUBLE_BOOL_ret_BOOL
+import godot.callPtrMethod_VECTOR2_BOOL_DOUBLE_BOOL_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -17,14 +22,6 @@ import godot.core.MethodStringName5
 import godot.core.Transform2D
 import godot.core.VariantArray
 import godot.core.Vector2
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_TRANSFORM2D_VECTOR2_OBJECT_DOUBLE_BOOL
-import godot.writeMethodArguments_VECTOR2_BOOL_DOUBLE_BOOL
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Suppress
@@ -65,11 +62,8 @@ public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
     testOnly: Boolean = false,
     safeMargin: Float = 0.08f,
     recoveryAsCollision: Boolean = false,
-  ): KinematicCollision2D? {
-    TransferContext.writeMethodArguments_VECTOR2_BOOL_DOUBLE_BOOL(ptr, objectID.id, motion, testOnly, safeMargin.toDouble(), recoveryAsCollision)
-    TransferContext.callPtrMethod(MethodBindings.moveAndCollidePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as KinematicCollision2D?)
-  }
+  ): KinematicCollision2D? =
+      (TransferContext.callPtrMethod_VECTOR2_BOOL_DOUBLE_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.moveAndCollidePtr, motion, testOnly, safeMargin.toDouble(), recoveryAsCollision) as KinematicCollision2D?)
 
   /**
    * Checks for collisions without moving the body. In order to be frame rate independent in
@@ -95,45 +89,34 @@ public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
     collision: KinematicCollision2D? = null,
     safeMargin: Float = 0.08f,
     recoveryAsCollision: Boolean = false,
-  ): Boolean {
-    TransferContext.writeMethodArguments_TRANSFORM2D_VECTOR2_OBJECT_DOUBLE_BOOL(ptr, objectID.id, from, motion, collision, safeMargin.toDouble(), recoveryAsCollision)
-    TransferContext.callPtrMethod(MethodBindings.testMovePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  ): Boolean =
+      TransferContext.callPtrMethod_TRANSFORM2D_VECTOR2_OBJECT_DOUBLE_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.testMovePtr, from, motion, collision, safeMargin.toDouble(), recoveryAsCollision)
 
   /**
    * Returns the gravity vector computed from all sources that can affect the body, including all
    * gravity overrides from [Area2D] nodes and the global world gravity.
    */
-  public final fun getGravity(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGravityPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getGravity(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getGravityPtr)
 
   /**
    * Returns an array of nodes that were added as collision exceptions for this body.
    */
-  public final fun getCollisionExceptions(): VariantArray<PhysicsBody2D> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCollisionExceptionsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<PhysicsBody2D>)
-  }
+  public final fun getCollisionExceptions(): VariantArray<PhysicsBody2D> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getCollisionExceptionsPtr) as VariantArray<PhysicsBody2D>)
 
   /**
    * Adds a body to the list of bodies that this body can't collide with.
    */
   public final fun addCollisionExceptionWith(body: Node): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, body)
-    TransferContext.callPtrMethod(MethodBindings.addCollisionExceptionWithPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addCollisionExceptionWithPtr, body)
   }
 
   /**
    * Removes a body from the list of bodies that this body can't collide with.
    */
   public final fun removeCollisionExceptionWith(body: Node): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, body)
-    TransferContext.callPtrMethod(MethodBindings.removeCollisionExceptionWithPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeCollisionExceptionWithPtr, body)
   }
 
   public companion object {

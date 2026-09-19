@@ -9,11 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_LONG_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.readReturnValue_RID
-import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -32,11 +31,8 @@ public open class OpenXRSpatialComponentParentList : OpenXRSpatialComponentData(
   /**
    * Returns the RID for the parent entity at this [index].
    */
-  public final fun getParent(index: Long): RID {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callPtrMethod(MethodBindings.getParentPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getParent(index: Long): RID =
+      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.getParentPtr, index)
 
   public companion object {
     @JvmField

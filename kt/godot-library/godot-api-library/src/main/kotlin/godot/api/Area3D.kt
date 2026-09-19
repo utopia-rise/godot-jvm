@@ -11,6 +11,20 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_NODE_PATH
+import godot.callPtrMethod_OBJECT_ret_BOOL
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -24,21 +38,6 @@ import godot.core.VariantArray
 import godot.core.Vector3
 import godot.core.asCachedNodePath
 import godot.core.asCachedStringName
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_NODE_PATH
-import godot.readReturnValue_STRING_NAME
-import godot.readReturnValue_VECTOR3
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_NODE_PATH
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_STRING_NAME
-import godot.writeMethodArguments_VECTOR3
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -498,180 +497,116 @@ public open class Area3D : CollisionObject3D() {
   }
 
   public final fun setGravitySpaceOverrideMode(spaceOverrideMode: SpaceOverride): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, spaceOverrideMode.value)
-    TransferContext.callPtrMethod(MethodBindings.setGravitySpaceOverrideModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setGravitySpaceOverrideModePtr, spaceOverrideMode.value)
   }
 
-  public final fun getGravitySpaceOverrideMode(): SpaceOverride {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGravitySpaceOverrideModePtr, 2)
-    return SpaceOverride.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getGravitySpaceOverrideMode(): SpaceOverride =
+      SpaceOverride.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getGravitySpaceOverrideModePtr))
 
   public final fun setGravityIsPoint(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setGravityIsPointPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setGravityIsPointPtr, enable)
   }
 
-  public final fun isGravityAPoint(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isGravityAPointPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isGravityAPoint(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isGravityAPointPtr)
 
   public final fun setGravityPointUnitDistance(distanceScale: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distanceScale.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setGravityPointUnitDistancePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setGravityPointUnitDistancePtr, distanceScale.toDouble())
   }
 
-  public final fun getGravityPointUnitDistance(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGravityPointUnitDistancePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getGravityPointUnitDistance(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getGravityPointUnitDistancePtr).toFloat()
 
   public final fun setGravityPointCenter(center: Vector3): Unit {
-    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, center)
-    TransferContext.callPtrMethod(MethodBindings.setGravityPointCenterPtr, 0)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setGravityPointCenterPtr, center)
   }
 
-  public final fun getGravityPointCenter(): Vector3 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGravityPointCenterPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getGravityPointCenter(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getGravityPointCenterPtr)
 
   public final fun setGravityDirection(direction: Vector3): Unit {
-    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, direction)
-    TransferContext.callPtrMethod(MethodBindings.setGravityDirectionPtr, 0)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setGravityDirectionPtr, direction)
   }
 
-  public final fun getGravityDirection(): Vector3 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGravityDirectionPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getGravityDirection(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getGravityDirectionPtr)
 
   public final fun setGravity(gravity: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, gravity.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setGravityPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setGravityPtr, gravity.toDouble())
   }
 
-  public final fun getGravity(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGravityPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getGravity(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getGravityPtr).toFloat()
 
   public final fun setLinearDampSpaceOverrideMode(spaceOverrideMode: SpaceOverride): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, spaceOverrideMode.value)
-    TransferContext.callPtrMethod(MethodBindings.setLinearDampSpaceOverrideModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLinearDampSpaceOverrideModePtr, spaceOverrideMode.value)
   }
 
-  public final fun getLinearDampSpaceOverrideMode(): SpaceOverride {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLinearDampSpaceOverrideModePtr, 2)
-    return SpaceOverride.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getLinearDampSpaceOverrideMode(): SpaceOverride =
+      SpaceOverride.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLinearDampSpaceOverrideModePtr))
 
   public final fun setAngularDampSpaceOverrideMode(spaceOverrideMode: SpaceOverride): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, spaceOverrideMode.value)
-    TransferContext.callPtrMethod(MethodBindings.setAngularDampSpaceOverrideModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAngularDampSpaceOverrideModePtr, spaceOverrideMode.value)
   }
 
-  public final fun getAngularDampSpaceOverrideMode(): SpaceOverride {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAngularDampSpaceOverrideModePtr, 2)
-    return SpaceOverride.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getAngularDampSpaceOverrideMode(): SpaceOverride =
+      SpaceOverride.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAngularDampSpaceOverrideModePtr))
 
   public final fun setAngularDamp(angularDamp: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angularDamp.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setAngularDampPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAngularDampPtr, angularDamp.toDouble())
   }
 
-  public final fun getAngularDamp(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAngularDampPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getAngularDamp(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAngularDampPtr).toFloat()
 
   public final fun setLinearDamp(linearDamp: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, linearDamp.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setLinearDampPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLinearDampPtr, linearDamp.toDouble())
   }
 
-  public final fun getLinearDamp(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLinearDampPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getLinearDamp(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLinearDampPtr).toFloat()
 
   public final fun setPriority(priority: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, priority.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setPriorityPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPriorityPtr, priority.toLong())
   }
 
-  public final fun getPriority(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPriorityPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getPriority(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPriorityPtr).toInt()
 
   public final fun setWindForceMagnitude(windForceMagnitude: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, windForceMagnitude.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setWindForceMagnitudePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setWindForceMagnitudePtr, windForceMagnitude.toDouble())
   }
 
-  public final fun getWindForceMagnitude(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWindForceMagnitudePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getWindForceMagnitude(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWindForceMagnitudePtr).toFloat()
 
   public final fun setWindAttenuationFactor(windAttenuationFactor: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, windAttenuationFactor.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setWindAttenuationFactorPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setWindAttenuationFactorPtr, windAttenuationFactor.toDouble())
   }
 
-  public final fun getWindAttenuationFactor(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWindAttenuationFactorPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getWindAttenuationFactor(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWindAttenuationFactorPtr).toFloat()
 
   public final fun setWindSourcePath(windSourcePath: NodePath): Unit {
-    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, windSourcePath)
-    TransferContext.callPtrMethod(MethodBindings.setWindSourcePathPtr, 0)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setWindSourcePathPtr, windSourcePath)
   }
 
-  public final fun getWindSourcePath(): NodePath {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWindSourcePathPtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun getWindSourcePath(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getWindSourcePathPtr)
 
   public final fun setMonitorable(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setMonitorablePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMonitorablePtr, enable)
   }
 
-  public final fun isMonitorable(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isMonitorablePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isMonitorable(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMonitorablePtr)
 
   public final fun setMonitoring(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setMonitoringPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMonitoringPtr, enable)
   }
 
-  public final fun isMonitoring(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isMonitoringPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isMonitoring(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMonitoringPtr)
 
   /**
    * Returns a list of intersecting [PhysicsBody3D]s, [SoftBody3D]s, and [GridMap]s. The overlapping
@@ -685,11 +620,8 @@ public open class Area3D : CollisionObject3D() {
    * **Note:** Godot Physics does not support reporting overlaps with [SoftBody3D], so will not
    * return any such bodies.
    */
-  public final fun getOverlappingBodies(): VariantArray<Node3D> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOverlappingBodiesPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Node3D>)
-  }
+  public final fun getOverlappingBodies(): VariantArray<Node3D> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getOverlappingBodiesPtr) as VariantArray<Node3D>)
 
   /**
    * Returns a list of intersecting [Area3D]s. The overlapping area's
@@ -700,11 +632,8 @@ public open class Area3D : CollisionObject3D() {
    * once during the physics step, not immediately after objects are moved. Consider using signals
    * instead.
    */
-  public final fun getOverlappingAreas(): VariantArray<Area3D> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOverlappingAreasPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Area3D>)
-  }
+  public final fun getOverlappingAreas(): VariantArray<Area3D> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getOverlappingAreasPtr) as VariantArray<Area3D>)
 
   /**
    * Returns `true` if intersecting any [PhysicsBody3D]s, [SoftBody3D]s, or [GridMap]s, otherwise
@@ -718,11 +647,8 @@ public open class Area3D : CollisionObject3D() {
    * **Note:** Godot Physics does not support reporting overlaps with [SoftBody3D], so will not
    * consider such bodies.
    */
-  public final fun hasOverlappingBodies(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasOverlappingBodiesPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasOverlappingBodies(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasOverlappingBodiesPtr)
 
   /**
    * Returns `true` if intersecting any [Area3D]s, otherwise returns `false`. The overlapping area's
@@ -733,11 +659,8 @@ public open class Area3D : CollisionObject3D() {
    * areas is modified once during the physics step, not immediately after objects are moved. Consider
    * using signals instead.
    */
-  public final fun hasOverlappingAreas(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasOverlappingAreasPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasOverlappingAreas(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasOverlappingAreasPtr)
 
   /**
    * Returns `true` if the given physics body intersects or overlaps this [Area3D], `false`
@@ -753,11 +676,8 @@ public open class Area3D : CollisionObject3D() {
    * **Note:** Godot Physics does not support reporting overlaps with [SoftBody3D], so will return
    * `false` in such cases.
    */
-  public final fun overlapsBody(body: Node): Boolean {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, body)
-    TransferContext.callPtrMethod(MethodBindings.overlapsBodyPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun overlapsBody(body: Node): Boolean =
+      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.overlapsBodyPtr, body)
 
   /**
    * Returns `true` if the given [Area3D] intersects or overlaps this [Area3D], `false` otherwise.
@@ -765,77 +685,50 @@ public open class Area3D : CollisionObject3D() {
    * **Note:** The result of this test is not immediate after moving objects. For performance, list
    * of overlaps is updated once per frame and before the physics step. Consider using signals instead.
    */
-  public final fun overlapsArea(area: Node): Boolean {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, area)
-    TransferContext.callPtrMethod(MethodBindings.overlapsAreaPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun overlapsArea(area: Node): Boolean =
+      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.overlapsAreaPtr, area)
 
   public final fun setAudioBusOverride(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setAudioBusOverridePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAudioBusOverridePtr, enable)
   }
 
-  public final fun isOverridingAudioBus(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isOverridingAudioBusPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isOverridingAudioBus(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOverridingAudioBusPtr)
 
   public final fun setAudioBusName(name: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.setAudioBusNamePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setAudioBusNamePtr, name)
   }
 
-  public final fun getAudioBusName(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAudioBusNamePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getAudioBusName(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getAudioBusNamePtr)
 
   public final fun setUseReverbBus(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setUseReverbBusPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseReverbBusPtr, enable)
   }
 
-  public final fun isUsingReverbBus(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingReverbBusPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingReverbBus(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingReverbBusPtr)
 
   public final fun setReverbBusName(name: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.setReverbBusNamePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setReverbBusNamePtr, name)
   }
 
-  public final fun getReverbBusName(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getReverbBusNamePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getReverbBusName(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getReverbBusNamePtr)
 
   public final fun setReverbAmount(amount: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setReverbAmountPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setReverbAmountPtr, amount.toDouble())
   }
 
-  public final fun getReverbAmount(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getReverbAmountPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getReverbAmount(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getReverbAmountPtr).toFloat()
 
   public final fun setReverbUniformity(amount: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setReverbUniformityPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setReverbUniformityPtr, amount.toDouble())
   }
 
-  public final fun getReverbUniformity(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getReverbUniformityPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getReverbUniformity(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getReverbUniformityPtr).toFloat()
 
   public final fun setWindSourcePath(windSourcePath: String) =
       setWindSourcePath(windSourcePath.asCachedNodePath())

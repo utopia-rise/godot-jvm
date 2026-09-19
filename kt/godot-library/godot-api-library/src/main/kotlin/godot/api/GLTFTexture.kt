@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
 import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
@@ -51,26 +50,18 @@ public open class GLTFTexture : Resource() {
     createNativeObject(255, scriptPtr)
   }
 
-  public final fun getSrcImage(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSrcImagePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getSrcImage(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSrcImagePtr).toInt()
 
   public final fun setSrcImage(srcImage: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, srcImage.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setSrcImagePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSrcImagePtr, srcImage.toLong())
   }
 
-  public final fun getSampler(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSamplerPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getSampler(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSamplerPtr).toInt()
 
   public final fun setSampler(sampler: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, sampler.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setSamplerPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSamplerPtr, sampler.toLong())
   }
 
   public companion object {

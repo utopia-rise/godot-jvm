@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
@@ -85,48 +84,32 @@ public open class MissingNode : Node() {
   }
 
   public final fun setOriginalClass(name: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.setOriginalClassPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOriginalClassPtr, name)
   }
 
-  public final fun getOriginalClass(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOriginalClassPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getOriginalClass(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOriginalClassPtr)
 
   public final fun setOriginalScene(name: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.setOriginalScenePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOriginalScenePtr, name)
   }
 
-  public final fun getOriginalScene(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOriginalScenePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getOriginalScene(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOriginalScenePtr)
 
   public final fun setRecordingProperties(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setRecordingPropertiesPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRecordingPropertiesPtr, enable)
   }
 
-  public final fun isRecordingProperties(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isRecordingPropertiesPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isRecordingProperties(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRecordingPropertiesPtr)
 
   public final fun setRecordingSignals(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setRecordingSignalsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRecordingSignalsPtr, enable)
   }
 
-  public final fun isRecordingSignals(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isRecordingSignalsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isRecordingSignals(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRecordingSignalsPtr)
 
   public companion object {
     @JvmField

@@ -9,21 +9,21 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.HorizontalAlignment
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
@@ -148,105 +148,71 @@ public open class FoldableContainer : Container() {
    * Folds the container and emits [signal folding_changed].
    */
   public final fun fold(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.foldPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.foldPtr)
   }
 
   /**
    * Expands the container and emits [signal folding_changed].
    */
   public final fun expand(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.expandPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.expandPtr)
   }
 
   public final fun setFolded(folded: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, folded)
-    TransferContext.callPtrMethod(MethodBindings.setFoldedPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFoldedPtr, folded)
   }
 
-  public final fun isFolded(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isFoldedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isFolded(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFoldedPtr)
 
   public final fun setFoldableGroup(buttonGroup: FoldableGroup?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, buttonGroup)
-    TransferContext.callPtrMethod(MethodBindings.setFoldableGroupPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setFoldableGroupPtr, buttonGroup)
   }
 
-  public final fun getFoldableGroup(): FoldableGroup? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFoldableGroupPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as FoldableGroup?)
-  }
+  public final fun getFoldableGroup(): FoldableGroup? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFoldableGroupPtr) as FoldableGroup?)
 
   public final fun setTitle(text: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, text)
-    TransferContext.callMethod(MethodBindings.setTitlePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTitlePtr, text)
   }
 
-  public final fun getTitle(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTitlePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getTitle(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTitlePtr)
 
   public final fun setTitleAlignment(alignment: HorizontalAlignment): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
-    TransferContext.callPtrMethod(MethodBindings.setTitleAlignmentPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTitleAlignmentPtr, alignment.value)
   }
 
-  public final fun getTitleAlignment(): HorizontalAlignment {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTitleAlignmentPtr, 2)
-    return HorizontalAlignment.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTitleAlignment(): HorizontalAlignment =
+      HorizontalAlignment.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTitleAlignmentPtr))
 
   public final fun setLanguage(language: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, language)
-    TransferContext.callMethod(MethodBindings.setLanguagePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLanguagePtr, language)
   }
 
-  public final fun getLanguage(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLanguagePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getLanguage(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLanguagePtr)
 
   public final fun setTitleTextDirection(textDirection: Control.TextDirection): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, textDirection.value)
-    TransferContext.callPtrMethod(MethodBindings.setTitleTextDirectionPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTitleTextDirectionPtr, textDirection.value)
   }
 
-  public final fun getTitleTextDirection(): Control.TextDirection {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTitleTextDirectionPtr, 2)
-    return Control.TextDirection.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTitleTextDirection(): Control.TextDirection =
+      Control.TextDirection.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTitleTextDirectionPtr))
 
   public final fun setTitleTextOverrunBehavior(overrunBehavior: TextServer.OverrunBehavior): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, overrunBehavior.value)
-    TransferContext.callPtrMethod(MethodBindings.setTitleTextOverrunBehaviorPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTitleTextOverrunBehaviorPtr, overrunBehavior.value)
   }
 
-  public final fun getTitleTextOverrunBehavior(): TextServer.OverrunBehavior {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTitleTextOverrunBehaviorPtr, 2)
-    return TextServer.OverrunBehavior.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTitleTextOverrunBehavior(): TextServer.OverrunBehavior =
+      TextServer.OverrunBehavior.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTitleTextOverrunBehaviorPtr))
 
   public final fun setTitlePosition(titlePosition: TitlePosition): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, titlePosition.value)
-    TransferContext.callPtrMethod(MethodBindings.setTitlePositionPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTitlePositionPtr, titlePosition.value)
   }
 
-  public final fun getTitlePosition(): TitlePosition {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTitlePositionPtr, 2)
-    return TitlePosition.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTitlePosition(): TitlePosition =
+      TitlePosition.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTitlePositionPtr))
 
   /**
    * Adds a [Control] that will be placed next to the container's title, obscuring the clickable
@@ -257,8 +223,7 @@ public open class FoldableContainer : Container() {
    * the leftmost one.
    */
   public final fun addTitleBarControl(control: Control?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, control)
-    TransferContext.callPtrMethod(MethodBindings.addTitleBarControlPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addTitleBarControlPtr, control)
   }
 
   /**
@@ -266,8 +231,7 @@ public open class FoldableContainer : Container() {
    * need to use [Node.queueFree].
    */
   public final fun removeTitleBarControl(control: Control?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, control)
-    TransferContext.callPtrMethod(MethodBindings.removeTitleBarControlPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeTitleBarControlPtr, control)
   }
 
   public enum class TitlePosition(

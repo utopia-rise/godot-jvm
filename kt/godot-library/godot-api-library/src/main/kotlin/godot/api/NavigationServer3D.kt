@@ -9,6 +9,42 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_OBJECT_OBJECT_CALLABLE
+import godot.callMethod_OBJECT_OBJECT_OBJECT_CALLABLE
+import godot.callMethod_RID_CALLABLE
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_OBJECT_OBJECT
+import godot.callPtrMethod_OBJECT_ret_BOOL
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY_DOUBLE_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_RID
+import godot.callPtrMethod_RID_BOOL
+import godot.callPtrMethod_RID_DOUBLE
+import godot.callPtrMethod_RID_LONG
+import godot.callPtrMethod_RID_LONG_BOOL_ret_VECTOR3
+import godot.callPtrMethod_RID_LONG_ret_VECTOR3
+import godot.callPtrMethod_RID_OBJECT
+import godot.callPtrMethod_RID_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_RID_RID
+import godot.callPtrMethod_RID_TRANSFORM3D
+import godot.callPtrMethod_RID_VECTOR3
+import godot.callPtrMethod_RID_VECTOR3_VECTOR3_BOOL_LONG_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_RID_VECTOR3_VECTOR3_BOOL_ret_VECTOR3
+import godot.callPtrMethod_RID_VECTOR3_ret_BOOL
+import godot.callPtrMethod_RID_VECTOR3_ret_RID
+import godot.callPtrMethod_RID_VECTOR3_ret_VECTOR3
+import godot.callPtrMethod_RID_ret_AABB
+import godot.callPtrMethod_RID_ret_ARRAY
+import godot.callPtrMethod_RID_ret_BOOL
+import godot.callPtrMethod_RID_ret_DOUBLE
+import godot.callPtrMethod_RID_ret_LONG
+import godot.callPtrMethod_RID_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_RID_ret_RID
+import godot.callPtrMethod_RID_ret_TRANSFORM3D
+import godot.callPtrMethod_RID_ret_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.Callable
@@ -27,36 +63,6 @@ import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.VariantCallable
 import godot.core.Vector3
-import godot.readReturnValue_AABB
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_VECTOR3_ARRAY
-import godot.readReturnValue_RID
-import godot.readReturnValue_TRANSFORM3D
-import godot.readReturnValue_VECTOR3
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_OBJECT
-import godot.writeMethodArguments_OBJECT_OBJECT_CALLABLE
-import godot.writeMethodArguments_OBJECT_OBJECT_OBJECT_CALLABLE
-import godot.writeMethodArguments_PACKED_VECTOR3_ARRAY_DOUBLE
-import godot.writeMethodArguments_RID
-import godot.writeMethodArguments_RID_BOOL
-import godot.writeMethodArguments_RID_CALLABLE
-import godot.writeMethodArguments_RID_DOUBLE
-import godot.writeMethodArguments_RID_LONG
-import godot.writeMethodArguments_RID_LONG_BOOL
-import godot.writeMethodArguments_RID_OBJECT
-import godot.writeMethodArguments_RID_PACKED_VECTOR3_ARRAY
-import godot.writeMethodArguments_RID_RID
-import godot.writeMethodArguments_RID_TRANSFORM3D
-import godot.writeMethodArguments_RID_VECTOR3
-import godot.writeMethodArguments_RID_VECTOR3_VECTOR3_BOOL
-import godot.writeMethodArguments_RID_VECTOR3_VECTOR3_BOOL_LONG
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -772,59 +778,45 @@ public object NavigationServer3D : Object() {
    * created navigation maps as there is technically no distinction between them.
    */
   @JvmStatic
-  public final fun getMaps(): VariantArray<RID> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMapsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
-  }
+  public final fun getMaps(): VariantArray<RID> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getMapsPtr) as VariantArray<RID>)
 
   /**
    * Create a new map.
    */
   @JvmStatic
-  public final fun mapCreate(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.mapCreatePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun mapCreate(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.mapCreatePtr)
 
   /**
    * Sets the map active.
    */
   @JvmStatic
   public final fun mapSetActive(map: RID, active: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, map, active)
-    TransferContext.callPtrMethod(MethodBindings.mapSetActivePtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.mapSetActivePtr, map, active)
   }
 
   /**
    * Returns `true` if the map is active.
    */
   @JvmStatic
-  public final fun mapIsActive(map: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapIsActivePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun mapIsActive(map: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.mapIsActivePtr, map)
 
   /**
    * Sets the map up direction.
    */
   @JvmStatic
   public final fun mapSetUp(map: RID, up: Vector3): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, map, up)
-    TransferContext.callPtrMethod(MethodBindings.mapSetUpPtr, 0)
+    TransferContext.callPtrMethod_RID_VECTOR3(ptr, objectID.id, MethodBindings.mapSetUpPtr, map, up)
   }
 
   /**
    * Returns the map's up direction.
    */
   @JvmStatic
-  public final fun mapGetUp(map: RID): Vector3 {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetUpPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun mapGetUp(map: RID): Vector3 =
+      TransferContext.callPtrMethod_RID_ret_VECTOR3(ptr, objectID.id, MethodBindings.mapGetUpPtr, map)
 
   /**
    * Sets the map cell size used to rasterize the navigation mesh vertices on the XZ plane. Must
@@ -832,19 +824,15 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun mapSetCellSize(map: RID, cellSize: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, map, cellSize.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.mapSetCellSizePtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.mapSetCellSizePtr, map, cellSize.toDouble())
   }
 
   /**
    * Returns the map cell size used to rasterize the navigation mesh vertices on the XZ plane.
    */
   @JvmStatic
-  public final fun mapGetCellSize(map: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetCellSizePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun mapGetCellSize(map: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.mapGetCellSizePtr, map).toFloat()
 
   /**
    * Sets the map cell height used to rasterize the navigation mesh vertices on the Y axis. Must
@@ -852,38 +840,30 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun mapSetCellHeight(map: RID, cellHeight: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, map, cellHeight.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.mapSetCellHeightPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.mapSetCellHeightPtr, map, cellHeight.toDouble())
   }
 
   /**
    * Returns the map cell height used to rasterize the navigation mesh vertices on the Y axis.
    */
   @JvmStatic
-  public final fun mapGetCellHeight(map: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetCellHeightPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun mapGetCellHeight(map: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.mapGetCellHeightPtr, map).toFloat()
 
   /**
    * Set the map's internal merge rasterizer cell scale used to control merging sensitivity.
    */
   @JvmStatic
   public final fun mapSetMergeRasterizerCellScale(map: RID, scale: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, map, scale.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.mapSetMergeRasterizerCellScalePtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.mapSetMergeRasterizerCellScalePtr, map, scale.toDouble())
   }
 
   /**
    * Returns map's internal merge rasterizer cell scale.
    */
   @JvmStatic
-  public final fun mapGetMergeRasterizerCellScale(map: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetMergeRasterizerCellScalePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun mapGetMergeRasterizerCellScale(map: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.mapGetMergeRasterizerCellScalePtr, map).toFloat()
 
   /**
    * Set the navigation [map] edge connection use. If [enabled] is `true`, the navigation map allows
@@ -892,8 +872,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun mapSetUseEdgeConnections(map: RID, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, map, enabled)
-    TransferContext.callPtrMethod(MethodBindings.mapSetUseEdgeConnectionsPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.mapSetUseEdgeConnectionsPtr, map, enabled)
   }
 
   /**
@@ -902,19 +881,15 @@ public object NavigationServer3D : Object() {
    * margin.
    */
   @JvmStatic
-  public final fun mapGetUseEdgeConnections(map: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetUseEdgeConnectionsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun mapGetUseEdgeConnections(map: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.mapGetUseEdgeConnectionsPtr, map)
 
   /**
    * Set the map edge connection margin used to weld the compatible region edges.
    */
   @JvmStatic
   public final fun mapSetEdgeConnectionMargin(map: RID, margin: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, map, margin.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.mapSetEdgeConnectionMarginPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.mapSetEdgeConnectionMarginPtr, map, margin.toDouble())
   }
 
   /**
@@ -922,19 +897,15 @@ public object NavigationServer3D : Object() {
    * needed to connect two edges from different regions.
    */
   @JvmStatic
-  public final fun mapGetEdgeConnectionMargin(map: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetEdgeConnectionMarginPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun mapGetEdgeConnectionMargin(map: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.mapGetEdgeConnectionMarginPtr, map).toFloat()
 
   /**
    * Set the map's link connection radius used to connect links to navigation polygons.
    */
   @JvmStatic
   public final fun mapSetLinkConnectionRadius(map: RID, radius: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, map, radius.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.mapSetLinkConnectionRadiusPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.mapSetLinkConnectionRadiusPtr, map, radius.toDouble())
   }
 
   /**
@@ -942,11 +913,8 @@ public object NavigationServer3D : Object() {
    * search for navigation mesh polygons to connect to.
    */
   @JvmStatic
-  public final fun mapGetLinkConnectionRadius(map: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetLinkConnectionRadiusPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun mapGetLinkConnectionRadius(map: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.mapGetLinkConnectionRadiusPtr, map).toFloat()
 
   /**
    * Returns the navigation path to reach the destination from the origin. [navigationLayers] is a
@@ -960,11 +928,8 @@ public object NavigationServer3D : Object() {
     destination: Vector3,
     optimize: Boolean,
     navigationLayers: Long = 1,
-  ): PackedVector3Array {
-    TransferContext.writeMethodArguments_RID_VECTOR3_VECTOR3_BOOL_LONG(ptr, objectID.id, map, origin, destination, optimize, navigationLayers)
-    TransferContext.callPtrMethod(MethodBindings.mapGetPathPtr, 36)
-    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
-  }
+  ): PackedVector3Array =
+      TransferContext.callPtrMethod_RID_VECTOR3_VECTOR3_BOOL_LONG_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.mapGetPathPtr, map, origin, destination, optimize, navigationLayers)
 
   /**
    * Returns the navigation mesh surface point closest to the provided [start] and [end] segment on
@@ -980,88 +945,64 @@ public object NavigationServer3D : Object() {
     start: Vector3,
     end: Vector3,
     useCollision: Boolean = false,
-  ): Vector3 {
-    TransferContext.writeMethodArguments_RID_VECTOR3_VECTOR3_BOOL(ptr, objectID.id, map, start, end, useCollision)
-    TransferContext.callPtrMethod(MethodBindings.mapGetClosestPointToSegmentPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  ): Vector3 =
+      TransferContext.callPtrMethod_RID_VECTOR3_VECTOR3_BOOL_ret_VECTOR3(ptr, objectID.id, MethodBindings.mapGetClosestPointToSegmentPtr, map, start, end, useCollision)
 
   /**
    * Returns the navigation mesh surface point closest to the provided [toPoint] on the navigation
    * [map].
    */
   @JvmStatic
-  public final fun mapGetClosestPoint(map: RID, toPoint: Vector3): Vector3 {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, map, toPoint)
-    TransferContext.callPtrMethod(MethodBindings.mapGetClosestPointPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun mapGetClosestPoint(map: RID, toPoint: Vector3): Vector3 =
+      TransferContext.callPtrMethod_RID_VECTOR3_ret_VECTOR3(ptr, objectID.id, MethodBindings.mapGetClosestPointPtr, map, toPoint)
 
   /**
    * Returns the navigation mesh surface normal closest to the provided [toPoint] on the navigation
    * [map].
    */
   @JvmStatic
-  public final fun mapGetClosestPointNormal(map: RID, toPoint: Vector3): Vector3 {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, map, toPoint)
-    TransferContext.callPtrMethod(MethodBindings.mapGetClosestPointNormalPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun mapGetClosestPointNormal(map: RID, toPoint: Vector3): Vector3 =
+      TransferContext.callPtrMethod_RID_VECTOR3_ret_VECTOR3(ptr, objectID.id, MethodBindings.mapGetClosestPointNormalPtr, map, toPoint)
 
   /**
    * Returns the owner region RID for the navigation mesh surface point closest to the provided
    * [toPoint] on the navigation [map].
    */
   @JvmStatic
-  public final fun mapGetClosestPointOwner(map: RID, toPoint: Vector3): RID {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, map, toPoint)
-    TransferContext.callPtrMethod(MethodBindings.mapGetClosestPointOwnerPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun mapGetClosestPointOwner(map: RID, toPoint: Vector3): RID =
+      TransferContext.callPtrMethod_RID_VECTOR3_ret_RID(ptr, objectID.id, MethodBindings.mapGetClosestPointOwnerPtr, map, toPoint)
 
   /**
    * Returns all navigation link [RID]s that are currently assigned to the requested navigation
    * [map].
    */
   @JvmStatic
-  public final fun mapGetLinks(map: RID): VariantArray<RID> {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetLinksPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
-  }
+  public final fun mapGetLinks(map: RID): VariantArray<RID> =
+      (TransferContext.callPtrMethod_RID_ret_ARRAY(ptr, objectID.id, MethodBindings.mapGetLinksPtr, map) as VariantArray<RID>)
 
   /**
    * Returns all navigation regions [RID]s that are currently assigned to the requested navigation
    * [map].
    */
   @JvmStatic
-  public final fun mapGetRegions(map: RID): VariantArray<RID> {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetRegionsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
-  }
+  public final fun mapGetRegions(map: RID): VariantArray<RID> =
+      (TransferContext.callPtrMethod_RID_ret_ARRAY(ptr, objectID.id, MethodBindings.mapGetRegionsPtr, map) as VariantArray<RID>)
 
   /**
    * Returns all navigation agents [RID]s that are currently assigned to the requested navigation
    * [map].
    */
   @JvmStatic
-  public final fun mapGetAgents(map: RID): VariantArray<RID> {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetAgentsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
-  }
+  public final fun mapGetAgents(map: RID): VariantArray<RID> =
+      (TransferContext.callPtrMethod_RID_ret_ARRAY(ptr, objectID.id, MethodBindings.mapGetAgentsPtr, map) as VariantArray<RID>)
 
   /**
    * Returns all navigation obstacle [RID]s that are currently assigned to the requested navigation
    * [map].
    */
   @JvmStatic
-  public final fun mapGetObstacles(map: RID): VariantArray<RID> {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetObstaclesPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
-  }
+  public final fun mapGetObstacles(map: RID): VariantArray<RID> =
+      (TransferContext.callPtrMethod_RID_ret_ARRAY(ptr, objectID.id, MethodBindings.mapGetObstaclesPtr, map) as VariantArray<RID>)
 
   /**
    * This function immediately forces synchronization of the specified navigation [map] [RID]. By
@@ -1089,8 +1030,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun mapForceUpdate(map: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapForceUpdatePtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.mapForceUpdatePtr, map)
   }
 
   /**
@@ -1101,11 +1041,8 @@ public object NavigationServer3D : Object() {
    * **Note:** The iteration id will wrap back to 1 after reaching its range limit.
    */
   @JvmStatic
-  public final fun mapGetIterationId(map: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetIterationIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun mapGetIterationId(map: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.mapGetIterationIdPtr, map)
 
   /**
    * If [enabled] is `true` the [map] synchronization uses an async process that runs on a
@@ -1113,8 +1050,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun mapSetUseAsyncIterations(map: RID, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, map, enabled)
-    TransferContext.callPtrMethod(MethodBindings.mapSetUseAsyncIterationsPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.mapSetUseAsyncIterationsPtr, map, enabled)
   }
 
   /**
@@ -1122,11 +1058,8 @@ public object NavigationServer3D : Object() {
    * thread.
    */
   @JvmStatic
-  public final fun mapGetUseAsyncIterations(map: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, map)
-    TransferContext.callPtrMethod(MethodBindings.mapGetUseAsyncIterationsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun mapGetUseAsyncIterations(map: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.mapGetUseAsyncIterationsPtr, map)
 
   /**
    * Returns a random position picked from all map region polygons with matching [navigationLayers].
@@ -1141,11 +1074,8 @@ public object NavigationServer3D : Object() {
     map: RID,
     navigationLayers: Long,
     uniformly: Boolean,
-  ): Vector3 {
-    TransferContext.writeMethodArguments_RID_LONG_BOOL(ptr, objectID.id, map, navigationLayers, uniformly)
-    TransferContext.callPtrMethod(MethodBindings.mapGetRandomPointPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  ): Vector3 =
+      TransferContext.callPtrMethod_RID_LONG_BOOL_ret_VECTOR3(ptr, objectID.id, MethodBindings.mapGetRandomPointPtr, map, navigationLayers, uniformly)
 
   /**
    * Queries a path in a given navigation map. Start and target position and other parameters are
@@ -1160,19 +1090,15 @@ public object NavigationServer3D : Object() {
     result: NavigationPathQueryResult3D?,
     callback: Callable = VariantCallable(),
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, parameters, result, callback)
-    TransferContext.callMethod(MethodBindings.queryPathPtr)
+    TransferContext.callMethod_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, MethodBindings.queryPathPtr, parameters, result, callback)
   }
 
   /**
    * Creates a new region.
    */
   @JvmStatic
-  public final fun regionCreate(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.regionCreatePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun regionCreate(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.regionCreatePtr)
 
   /**
    * Returns the current iteration ID of the navigation region. Every time the navigation region
@@ -1182,11 +1108,8 @@ public object NavigationServer3D : Object() {
    * **Note:** The iteration ID will wrap around to `1` after reaching its range limit.
    */
   @JvmStatic
-  public final fun regionGetIterationId(region: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetIterationIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun regionGetIterationId(region: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.regionGetIterationIdPtr, region)
 
   /**
    * If [enabled] is `true` the [region] uses an async synchronization process that runs on a
@@ -1194,8 +1117,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun regionSetUseAsyncIterations(region: RID, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, region, enabled)
-    TransferContext.callPtrMethod(MethodBindings.regionSetUseAsyncIterationsPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.regionSetUseAsyncIterationsPtr, region, enabled)
   }
 
   /**
@@ -1203,30 +1125,23 @@ public object NavigationServer3D : Object() {
    * thread.
    */
   @JvmStatic
-  public final fun regionGetUseAsyncIterations(region: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetUseAsyncIterationsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun regionGetUseAsyncIterations(region: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.regionGetUseAsyncIterationsPtr, region)
 
   /**
    * If [enabled] is `true`, the specified [region] will contribute to its current navigation map.
    */
   @JvmStatic
   public final fun regionSetEnabled(region: RID, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, region, enabled)
-    TransferContext.callPtrMethod(MethodBindings.regionSetEnabledPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.regionSetEnabledPtr, region, enabled)
   }
 
   /**
    * Returns `true` if the specified [region] is enabled.
    */
   @JvmStatic
-  public final fun regionGetEnabled(region: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun regionGetEnabled(region: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.regionGetEnabledPtr, region)
 
   /**
    * If [enabled] is `true`, the navigation [region] will use edge connections to connect with other
@@ -1234,8 +1149,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun regionSetUseEdgeConnections(region: RID, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, region, enabled)
-    TransferContext.callPtrMethod(MethodBindings.regionSetUseEdgeConnectionsPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.regionSetUseEdgeConnectionsPtr, region, enabled)
   }
 
   /**
@@ -1243,68 +1157,53 @@ public object NavigationServer3D : Object() {
    * navigation regions within proximity of the navigation map edge connection margin.
    */
   @JvmStatic
-  public final fun regionGetUseEdgeConnections(region: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetUseEdgeConnectionsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun regionGetUseEdgeConnections(region: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.regionGetUseEdgeConnectionsPtr, region)
 
   /**
    * Sets the [enterCost] for this [region].
    */
   @JvmStatic
   public final fun regionSetEnterCost(region: RID, enterCost: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, region, enterCost.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.regionSetEnterCostPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.regionSetEnterCostPtr, region, enterCost.toDouble())
   }
 
   /**
    * Returns the enter cost of this [region].
    */
   @JvmStatic
-  public final fun regionGetEnterCost(region: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetEnterCostPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun regionGetEnterCost(region: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.regionGetEnterCostPtr, region).toFloat()
 
   /**
    * Sets the [travelCost] for this [region].
    */
   @JvmStatic
   public final fun regionSetTravelCost(region: RID, travelCost: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, region, travelCost.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.regionSetTravelCostPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.regionSetTravelCostPtr, region, travelCost.toDouble())
   }
 
   /**
    * Returns the travel cost of this [region].
    */
   @JvmStatic
-  public final fun regionGetTravelCost(region: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetTravelCostPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun regionGetTravelCost(region: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.regionGetTravelCostPtr, region).toFloat()
 
   /**
    * Set the `ObjectID` of the object which manages this region.
    */
   @JvmStatic
   public final fun regionSetOwnerId(region: RID, ownerId: Long): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, region, ownerId)
-    TransferContext.callPtrMethod(MethodBindings.regionSetOwnerIdPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.regionSetOwnerIdPtr, region, ownerId)
   }
 
   /**
    * Returns the `ObjectID` of the object which manages this region.
    */
   @JvmStatic
-  public final fun regionGetOwnerId(region: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetOwnerIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun regionGetOwnerId(region: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.regionGetOwnerIdPtr, region)
 
   /**
    * Returns `true` if the provided [point] in world space is currently owned by the provided
@@ -1321,30 +1220,23 @@ public object NavigationServer3D : Object() {
    * avoided in general) the result might not be what is expected.
    */
   @JvmStatic
-  public final fun regionOwnsPoint(region: RID, point: Vector3): Boolean {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, region, point)
-    TransferContext.callPtrMethod(MethodBindings.regionOwnsPointPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun regionOwnsPoint(region: RID, point: Vector3): Boolean =
+      TransferContext.callPtrMethod_RID_VECTOR3_ret_BOOL(ptr, objectID.id, MethodBindings.regionOwnsPointPtr, region, point)
 
   /**
    * Sets the map for the region.
    */
   @JvmStatic
   public final fun regionSetMap(region: RID, map: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, region, map)
-    TransferContext.callPtrMethod(MethodBindings.regionSetMapPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.regionSetMapPtr, region, map)
   }
 
   /**
    * Returns the navigation map [RID] the requested [region] is currently assigned to.
    */
   @JvmStatic
-  public final fun regionGetMap(region: RID): RID {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetMapPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun regionGetMap(region: RID): RID =
+      TransferContext.callPtrMethod_RID_ret_RID(ptr, objectID.id, MethodBindings.regionGetMapPtr, region)
 
   /**
    * Set the region's navigation layers. This allows selecting regions from a path request (when
@@ -1352,46 +1244,37 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun regionSetNavigationLayers(region: RID, navigationLayers: Long): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, region, navigationLayers)
-    TransferContext.callPtrMethod(MethodBindings.regionSetNavigationLayersPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.regionSetNavigationLayersPtr, region, navigationLayers)
   }
 
   /**
    * Returns the region's navigation layers.
    */
   @JvmStatic
-  public final fun regionGetNavigationLayers(region: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetNavigationLayersPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun regionGetNavigationLayers(region: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.regionGetNavigationLayersPtr, region)
 
   /**
    * Sets the global transformation for the region.
    */
   @JvmStatic
   public final fun regionSetTransform(region: RID, transform: Transform3D): Unit {
-    TransferContext.writeMethodArguments_RID_TRANSFORM3D(ptr, objectID.id, region, transform)
-    TransferContext.callPtrMethod(MethodBindings.regionSetTransformPtr, 0)
+    TransferContext.callPtrMethod_RID_TRANSFORM3D(ptr, objectID.id, MethodBindings.regionSetTransformPtr, region, transform)
   }
 
   /**
    * Returns the global transformation of this [region].
    */
   @JvmStatic
-  public final fun regionGetTransform(region: RID): Transform3D {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetTransformPtr, 18)
-    return TransferContext.readReturnValue_TRANSFORM3D()
-  }
+  public final fun regionGetTransform(region: RID): Transform3D =
+      TransferContext.callPtrMethod_RID_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.regionGetTransformPtr, region)
 
   /**
    * Sets the navigation mesh for the region.
    */
   @JvmStatic
   public final fun regionSetNavigationMesh(region: RID, navigationMesh: NavigationMesh?): Unit {
-    TransferContext.writeMethodArguments_RID_OBJECT(ptr, objectID.id, region, navigationMesh)
-    TransferContext.callPtrMethod(MethodBindings.regionSetNavigationMeshPtr, 0)
+    TransferContext.callPtrMethod_RID_OBJECT(ptr, objectID.id, MethodBindings.regionSetNavigationMeshPtr, region, navigationMesh)
   }
 
   /**
@@ -1400,41 +1283,31 @@ public object NavigationServer3D : Object() {
   @JvmStatic
   public final fun regionBakeNavigationMesh(navigationMesh: NavigationMesh?, rootNode: Node?):
       Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT(ptr, objectID.id, navigationMesh, rootNode)
-    TransferContext.callPtrMethod(MethodBindings.regionBakeNavigationMeshPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_OBJECT(ptr, objectID.id, MethodBindings.regionBakeNavigationMeshPtr, navigationMesh, rootNode)
   }
 
   /**
    * Returns how many connections this [region] has with other regions in the map.
    */
   @JvmStatic
-  public final fun regionGetConnectionsCount(region: RID): Int {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetConnectionsCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun regionGetConnectionsCount(region: RID): Int =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.regionGetConnectionsCountPtr, region).toInt()
 
   /**
    * Returns the starting point of a connection door. [connection] is an index between 0 and the
    * return value of [regionGetConnectionsCount].
    */
   @JvmStatic
-  public final fun regionGetConnectionPathwayStart(region: RID, connection: Int): Vector3 {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, region, connection.toLong())
-    TransferContext.callPtrMethod(MethodBindings.regionGetConnectionPathwayStartPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun regionGetConnectionPathwayStart(region: RID, connection: Int): Vector3 =
+      TransferContext.callPtrMethod_RID_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.regionGetConnectionPathwayStartPtr, region, connection.toLong())
 
   /**
    * Returns the ending point of a connection door. [connection] is an index between 0 and the
    * return value of [regionGetConnectionsCount].
    */
   @JvmStatic
-  public final fun regionGetConnectionPathwayEnd(region: RID, connection: Int): Vector3 {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, region, connection.toLong())
-    TransferContext.callPtrMethod(MethodBindings.regionGetConnectionPathwayEndPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun regionGetConnectionPathwayEnd(region: RID, connection: Int): Vector3 =
+      TransferContext.callPtrMethod_RID_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.regionGetConnectionPathwayEndPtr, region, connection.toLong())
 
   /**
    * Returns the navigation mesh surface point closest to the provided [start] and [end] segment on
@@ -1450,33 +1323,24 @@ public object NavigationServer3D : Object() {
     start: Vector3,
     end: Vector3,
     useCollision: Boolean = false,
-  ): Vector3 {
-    TransferContext.writeMethodArguments_RID_VECTOR3_VECTOR3_BOOL(ptr, objectID.id, region, start, end, useCollision)
-    TransferContext.callPtrMethod(MethodBindings.regionGetClosestPointToSegmentPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  ): Vector3 =
+      TransferContext.callPtrMethod_RID_VECTOR3_VECTOR3_BOOL_ret_VECTOR3(ptr, objectID.id, MethodBindings.regionGetClosestPointToSegmentPtr, region, start, end, useCollision)
 
   /**
    * Returns the navigation mesh surface point closest to the provided [toPoint] on the navigation
    * [region].
    */
   @JvmStatic
-  public final fun regionGetClosestPoint(region: RID, toPoint: Vector3): Vector3 {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, region, toPoint)
-    TransferContext.callPtrMethod(MethodBindings.regionGetClosestPointPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun regionGetClosestPoint(region: RID, toPoint: Vector3): Vector3 =
+      TransferContext.callPtrMethod_RID_VECTOR3_ret_VECTOR3(ptr, objectID.id, MethodBindings.regionGetClosestPointPtr, region, toPoint)
 
   /**
    * Returns the navigation mesh surface normal closest to the provided [toPoint] on the navigation
    * [region].
    */
   @JvmStatic
-  public final fun regionGetClosestPointNormal(region: RID, toPoint: Vector3): Vector3 {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, region, toPoint)
-    TransferContext.callPtrMethod(MethodBindings.regionGetClosestPointNormalPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun regionGetClosestPointNormal(region: RID, toPoint: Vector3): Vector3 =
+      TransferContext.callPtrMethod_RID_VECTOR3_ret_VECTOR3(ptr, objectID.id, MethodBindings.regionGetClosestPointNormalPtr, region, toPoint)
 
   /**
    * Returns a random position picked from all region polygons with matching [navigationLayers].
@@ -1491,31 +1355,22 @@ public object NavigationServer3D : Object() {
     region: RID,
     navigationLayers: Long,
     uniformly: Boolean,
-  ): Vector3 {
-    TransferContext.writeMethodArguments_RID_LONG_BOOL(ptr, objectID.id, region, navigationLayers, uniformly)
-    TransferContext.callPtrMethod(MethodBindings.regionGetRandomPointPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  ): Vector3 =
+      TransferContext.callPtrMethod_RID_LONG_BOOL_ret_VECTOR3(ptr, objectID.id, MethodBindings.regionGetRandomPointPtr, region, navigationLayers, uniformly)
 
   /**
    * Returns the axis-aligned bounding box for the [region]'s transformed navigation mesh.
    */
   @JvmStatic
-  public final fun regionGetBounds(region: RID): AABB {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.regionGetBoundsPtr, 16)
-    return TransferContext.readReturnValue_AABB()
-  }
+  public final fun regionGetBounds(region: RID): AABB =
+      TransferContext.callPtrMethod_RID_ret_AABB(ptr, objectID.id, MethodBindings.regionGetBoundsPtr, region)
 
   /**
    * Create a new link between two positions on a map.
    */
   @JvmStatic
-  public final fun linkCreate(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.linkCreatePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun linkCreate(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.linkCreatePtr)
 
   /**
    * Returns the current iteration ID of the navigation link. Every time the navigation link changes
@@ -1525,68 +1380,53 @@ public object NavigationServer3D : Object() {
    * **Note:** The iteration ID will wrap around to `1` after reaching its range limit.
    */
   @JvmStatic
-  public final fun linkGetIterationId(link: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, link)
-    TransferContext.callPtrMethod(MethodBindings.linkGetIterationIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun linkGetIterationId(link: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.linkGetIterationIdPtr, link)
 
   /**
    * Sets the navigation map [RID] for the link.
    */
   @JvmStatic
   public final fun linkSetMap(link: RID, map: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, link, map)
-    TransferContext.callPtrMethod(MethodBindings.linkSetMapPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.linkSetMapPtr, link, map)
   }
 
   /**
    * Returns the navigation map [RID] the requested [link] is currently assigned to.
    */
   @JvmStatic
-  public final fun linkGetMap(link: RID): RID {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, link)
-    TransferContext.callPtrMethod(MethodBindings.linkGetMapPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun linkGetMap(link: RID): RID =
+      TransferContext.callPtrMethod_RID_ret_RID(ptr, objectID.id, MethodBindings.linkGetMapPtr, link)
 
   /**
    * If [enabled] is `true`, the specified [link] will contribute to its current navigation map.
    */
   @JvmStatic
   public final fun linkSetEnabled(link: RID, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, link, enabled)
-    TransferContext.callPtrMethod(MethodBindings.linkSetEnabledPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.linkSetEnabledPtr, link, enabled)
   }
 
   /**
    * Returns `true` if the specified [link] is enabled.
    */
   @JvmStatic
-  public final fun linkGetEnabled(link: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, link)
-    TransferContext.callPtrMethod(MethodBindings.linkGetEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun linkGetEnabled(link: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.linkGetEnabledPtr, link)
 
   /**
    * Sets whether this [link] can be travelled in both directions.
    */
   @JvmStatic
   public final fun linkSetBidirectional(link: RID, bidirectional: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, link, bidirectional)
-    TransferContext.callPtrMethod(MethodBindings.linkSetBidirectionalPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.linkSetBidirectionalPtr, link, bidirectional)
   }
 
   /**
    * Returns whether this [link] can be travelled in both directions.
    */
   @JvmStatic
-  public final fun linkIsBidirectional(link: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, link)
-    TransferContext.callPtrMethod(MethodBindings.linkIsBidirectionalPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun linkIsBidirectional(link: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.linkIsBidirectionalPtr, link)
 
   /**
    * Set the links's navigation layers. This allows selecting links from a path request (when using
@@ -1594,143 +1434,112 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun linkSetNavigationLayers(link: RID, navigationLayers: Long): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, link, navigationLayers)
-    TransferContext.callPtrMethod(MethodBindings.linkSetNavigationLayersPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.linkSetNavigationLayersPtr, link, navigationLayers)
   }
 
   /**
    * Returns the navigation layers for this [link].
    */
   @JvmStatic
-  public final fun linkGetNavigationLayers(link: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, link)
-    TransferContext.callPtrMethod(MethodBindings.linkGetNavigationLayersPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun linkGetNavigationLayers(link: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.linkGetNavigationLayersPtr, link)
 
   /**
    * Sets the entry position for this [link].
    */
   @JvmStatic
   public final fun linkSetStartPosition(link: RID, position: Vector3): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, link, position)
-    TransferContext.callPtrMethod(MethodBindings.linkSetStartPositionPtr, 0)
+    TransferContext.callPtrMethod_RID_VECTOR3(ptr, objectID.id, MethodBindings.linkSetStartPositionPtr, link, position)
   }
 
   /**
    * Returns the starting position of this [link].
    */
   @JvmStatic
-  public final fun linkGetStartPosition(link: RID): Vector3 {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, link)
-    TransferContext.callPtrMethod(MethodBindings.linkGetStartPositionPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun linkGetStartPosition(link: RID): Vector3 =
+      TransferContext.callPtrMethod_RID_ret_VECTOR3(ptr, objectID.id, MethodBindings.linkGetStartPositionPtr, link)
 
   /**
    * Sets the exit position for the [link].
    */
   @JvmStatic
   public final fun linkSetEndPosition(link: RID, position: Vector3): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, link, position)
-    TransferContext.callPtrMethod(MethodBindings.linkSetEndPositionPtr, 0)
+    TransferContext.callPtrMethod_RID_VECTOR3(ptr, objectID.id, MethodBindings.linkSetEndPositionPtr, link, position)
   }
 
   /**
    * Returns the ending position of this [link].
    */
   @JvmStatic
-  public final fun linkGetEndPosition(link: RID): Vector3 {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, link)
-    TransferContext.callPtrMethod(MethodBindings.linkGetEndPositionPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun linkGetEndPosition(link: RID): Vector3 =
+      TransferContext.callPtrMethod_RID_ret_VECTOR3(ptr, objectID.id, MethodBindings.linkGetEndPositionPtr, link)
 
   /**
    * Sets the [enterCost] for this [link].
    */
   @JvmStatic
   public final fun linkSetEnterCost(link: RID, enterCost: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, link, enterCost.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.linkSetEnterCostPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.linkSetEnterCostPtr, link, enterCost.toDouble())
   }
 
   /**
    * Returns the enter cost of this [link].
    */
   @JvmStatic
-  public final fun linkGetEnterCost(link: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, link)
-    TransferContext.callPtrMethod(MethodBindings.linkGetEnterCostPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun linkGetEnterCost(link: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.linkGetEnterCostPtr, link).toFloat()
 
   /**
    * Sets the [travelCost] for this [link].
    */
   @JvmStatic
   public final fun linkSetTravelCost(link: RID, travelCost: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, link, travelCost.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.linkSetTravelCostPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.linkSetTravelCostPtr, link, travelCost.toDouble())
   }
 
   /**
    * Returns the travel cost of this [link].
    */
   @JvmStatic
-  public final fun linkGetTravelCost(link: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, link)
-    TransferContext.callPtrMethod(MethodBindings.linkGetTravelCostPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun linkGetTravelCost(link: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.linkGetTravelCostPtr, link).toFloat()
 
   /**
    * Set the `ObjectID` of the object which manages this link.
    */
   @JvmStatic
   public final fun linkSetOwnerId(link: RID, ownerId: Long): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, link, ownerId)
-    TransferContext.callPtrMethod(MethodBindings.linkSetOwnerIdPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.linkSetOwnerIdPtr, link, ownerId)
   }
 
   /**
    * Returns the `ObjectID` of the object which manages this link.
    */
   @JvmStatic
-  public final fun linkGetOwnerId(link: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, link)
-    TransferContext.callPtrMethod(MethodBindings.linkGetOwnerIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun linkGetOwnerId(link: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.linkGetOwnerIdPtr, link)
 
   /**
    * Creates the agent.
    */
   @JvmStatic
-  public final fun agentCreate(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.agentCreatePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun agentCreate(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.agentCreatePtr)
 
   /**
    * If [enabled] is `true`, the provided [agent] calculates avoidance.
    */
   @JvmStatic
   public final fun agentSetAvoidanceEnabled(agent: RID, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, agent, enabled)
-    TransferContext.callPtrMethod(MethodBindings.agentSetAvoidanceEnabledPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.agentSetAvoidanceEnabledPtr, agent, enabled)
   }
 
   /**
    * Returns `true` if the provided [agent] has avoidance enabled.
    */
   @JvmStatic
-  public final fun agentGetAvoidanceEnabled(agent: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetAvoidanceEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun agentGetAvoidanceEnabled(agent: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.agentGetAvoidanceEnabledPtr, agent)
 
   /**
    * Sets if the agent uses the 2D avoidance or the 3D avoidance while avoidance is enabled.
@@ -1749,8 +1558,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun agentSetUse3dAvoidance(agent: RID, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, agent, enabled)
-    TransferContext.callPtrMethod(MethodBindings.agentSetUse3dAvoidancePtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.agentSetUse3dAvoidancePtr, agent, enabled)
   }
 
   /**
@@ -1758,30 +1566,23 @@ public object NavigationServer3D : Object() {
    * horizontal 2D Vector2(x,y) / Vector3(x,0.0,z).
    */
   @JvmStatic
-  public final fun agentGetUse3dAvoidance(agent: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetUse3dAvoidancePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun agentGetUse3dAvoidance(agent: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.agentGetUse3dAvoidancePtr, agent)
 
   /**
    * Puts the agent in the map.
    */
   @JvmStatic
   public final fun agentSetMap(agent: RID, map: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, agent, map)
-    TransferContext.callPtrMethod(MethodBindings.agentSetMapPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.agentSetMapPtr, agent, map)
   }
 
   /**
    * Returns the navigation map [RID] the requested [agent] is currently assigned to.
    */
   @JvmStatic
-  public final fun agentGetMap(agent: RID): RID {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetMapPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun agentGetMap(agent: RID): RID =
+      TransferContext.callPtrMethod_RID_ret_RID(ptr, objectID.id, MethodBindings.agentGetMapPtr, agent)
 
   /**
    * If [paused] is `true` the specified [agent] will not be processed. For example, it will not
@@ -1789,19 +1590,15 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun agentSetPaused(agent: RID, paused: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, agent, paused)
-    TransferContext.callPtrMethod(MethodBindings.agentSetPausedPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.agentSetPausedPtr, agent, paused)
   }
 
   /**
    * Returns `true` if the specified [agent] is paused.
    */
   @JvmStatic
-  public final fun agentGetPaused(agent: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetPausedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun agentGetPaused(agent: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.agentGetPausedPtr, agent)
 
   /**
    * Sets the maximum distance to other agents this agent takes into account in the navigation. The
@@ -1810,8 +1607,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun agentSetNeighborDistance(agent: RID, distance: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, agent, distance.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.agentSetNeighborDistancePtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.agentSetNeighborDistancePtr, agent, distance.toDouble())
   }
 
   /**
@@ -1819,11 +1615,8 @@ public object NavigationServer3D : Object() {
    * navigation.
    */
   @JvmStatic
-  public final fun agentGetNeighborDistance(agent: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetNeighborDistancePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun agentGetNeighborDistance(agent: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.agentGetNeighborDistancePtr, agent).toFloat()
 
   /**
    * Sets the maximum number of other agents the agent takes into account in the navigation. The
@@ -1832,8 +1625,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun agentSetMaxNeighbors(agent: RID, count: Int): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, agent, count.toLong())
-    TransferContext.callPtrMethod(MethodBindings.agentSetMaxNeighborsPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.agentSetMaxNeighborsPtr, agent, count.toLong())
   }
 
   /**
@@ -1841,11 +1633,8 @@ public object NavigationServer3D : Object() {
    * navigation.
    */
   @JvmStatic
-  public final fun agentGetMaxNeighbors(agent: RID): Int {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetMaxNeighborsPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun agentGetMaxNeighbors(agent: RID): Int =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.agentGetMaxNeighborsPtr, agent).toInt()
 
   /**
    * The minimal amount of time for which the agent's velocities that are computed by the simulation
@@ -1855,8 +1644,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun agentSetTimeHorizonAgents(agent: RID, timeHorizon: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, agent, timeHorizon.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.agentSetTimeHorizonAgentsPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.agentSetTimeHorizonAgentsPtr, agent, timeHorizon.toDouble())
   }
 
   /**
@@ -1864,11 +1652,8 @@ public object NavigationServer3D : Object() {
    * computed by the simulation are safe with respect to other agents.
    */
   @JvmStatic
-  public final fun agentGetTimeHorizonAgents(agent: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetTimeHorizonAgentsPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun agentGetTimeHorizonAgents(agent: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.agentGetTimeHorizonAgentsPtr, agent).toFloat()
 
   /**
    * The minimal amount of time for which the agent's velocities that are computed by the simulation
@@ -1879,8 +1664,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun agentSetTimeHorizonObstacles(agent: RID, timeHorizon: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, agent, timeHorizon.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.agentSetTimeHorizonObstaclesPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.agentSetTimeHorizonObstaclesPtr, agent, timeHorizon.toDouble())
   }
 
   /**
@@ -1888,68 +1672,53 @@ public object NavigationServer3D : Object() {
    * computed by the simulation are safe with respect to static avoidance obstacles.
    */
   @JvmStatic
-  public final fun agentGetTimeHorizonObstacles(agent: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetTimeHorizonObstaclesPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun agentGetTimeHorizonObstacles(agent: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.agentGetTimeHorizonObstaclesPtr, agent).toFloat()
 
   /**
    * Sets the radius of the agent.
    */
   @JvmStatic
   public final fun agentSetRadius(agent: RID, radius: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, agent, radius.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.agentSetRadiusPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.agentSetRadiusPtr, agent, radius.toDouble())
   }
 
   /**
    * Returns the radius of the specified [agent].
    */
   @JvmStatic
-  public final fun agentGetRadius(agent: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetRadiusPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun agentGetRadius(agent: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.agentGetRadiusPtr, agent).toFloat()
 
   /**
    * Updates the provided [agent] [height].
    */
   @JvmStatic
   public final fun agentSetHeight(agent: RID, height: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, agent, height.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.agentSetHeightPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.agentSetHeightPtr, agent, height.toDouble())
   }
 
   /**
    * Returns the `height` of the specified [agent].
    */
   @JvmStatic
-  public final fun agentGetHeight(agent: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetHeightPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun agentGetHeight(agent: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.agentGetHeightPtr, agent).toFloat()
 
   /**
    * Sets the maximum speed of the agent. Must be positive.
    */
   @JvmStatic
   public final fun agentSetMaxSpeed(agent: RID, maxSpeed: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, agent, maxSpeed.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.agentSetMaxSpeedPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.agentSetMaxSpeedPtr, agent, maxSpeed.toDouble())
   }
 
   /**
    * Returns the maximum speed of the specified [agent].
    */
   @JvmStatic
-  public final fun agentGetMaxSpeed(agent: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetMaxSpeedPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun agentGetMaxSpeed(agent: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.agentGetMaxSpeedPtr, agent).toFloat()
 
   /**
    * Replaces the internal velocity in the collision avoidance simulation with [velocity] for the
@@ -1958,8 +1727,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun agentSetVelocityForced(agent: RID, velocity: Vector3): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, agent, velocity)
-    TransferContext.callPtrMethod(MethodBindings.agentSetVelocityForcedPtr, 0)
+    TransferContext.callPtrMethod_RID_VECTOR3(ptr, objectID.id, MethodBindings.agentSetVelocityForcedPtr, agent, velocity)
   }
 
   /**
@@ -1970,48 +1738,37 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun agentSetVelocity(agent: RID, velocity: Vector3): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, agent, velocity)
-    TransferContext.callPtrMethod(MethodBindings.agentSetVelocityPtr, 0)
+    TransferContext.callPtrMethod_RID_VECTOR3(ptr, objectID.id, MethodBindings.agentSetVelocityPtr, agent, velocity)
   }
 
   /**
    * Returns the velocity of the specified [agent].
    */
   @JvmStatic
-  public final fun agentGetVelocity(agent: RID): Vector3 {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetVelocityPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun agentGetVelocity(agent: RID): Vector3 =
+      TransferContext.callPtrMethod_RID_ret_VECTOR3(ptr, objectID.id, MethodBindings.agentGetVelocityPtr, agent)
 
   /**
    * Sets the position of the agent in world space.
    */
   @JvmStatic
   public final fun agentSetPosition(agent: RID, position: Vector3): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, agent, position)
-    TransferContext.callPtrMethod(MethodBindings.agentSetPositionPtr, 0)
+    TransferContext.callPtrMethod_RID_VECTOR3(ptr, objectID.id, MethodBindings.agentSetPositionPtr, agent, position)
   }
 
   /**
    * Returns the position of the specified [agent] in world space.
    */
   @JvmStatic
-  public final fun agentGetPosition(agent: RID): Vector3 {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetPositionPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun agentGetPosition(agent: RID): Vector3 =
+      TransferContext.callPtrMethod_RID_ret_VECTOR3(ptr, objectID.id, MethodBindings.agentGetPositionPtr, agent)
 
   /**
    * Returns `true` if the map got changed the previous frame.
    */
   @JvmStatic
-  public final fun agentIsMapChanged(agent: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentIsMapChangedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun agentIsMapChanged(agent: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.agentIsMapChangedPtr, agent)
 
   /**
    * Sets the callback [Callable] that gets called after each avoidance processing step for the
@@ -2024,57 +1781,45 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun agentSetAvoidanceCallback(agent: RID, callback: Callable): Unit {
-    TransferContext.writeMethodArguments_RID_CALLABLE(ptr, objectID.id, agent, callback)
-    TransferContext.callMethod(MethodBindings.agentSetAvoidanceCallbackPtr)
+    TransferContext.callMethod_RID_CALLABLE(ptr, objectID.id, MethodBindings.agentSetAvoidanceCallbackPtr, agent, callback)
   }
 
   /**
    * Return `true` if the specified [agent] has an avoidance callback.
    */
   @JvmStatic
-  public final fun agentHasAvoidanceCallback(agent: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentHasAvoidanceCallbackPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun agentHasAvoidanceCallback(agent: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.agentHasAvoidanceCallbackPtr, agent)
 
   /**
    * Set the agent's `avoidance_layers` bitmask.
    */
   @JvmStatic
   public final fun agentSetAvoidanceLayers(agent: RID, layers: Long): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, agent, layers)
-    TransferContext.callPtrMethod(MethodBindings.agentSetAvoidanceLayersPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.agentSetAvoidanceLayersPtr, agent, layers)
   }
 
   /**
    * Returns the `avoidance_layers` bitmask of the specified [agent].
    */
   @JvmStatic
-  public final fun agentGetAvoidanceLayers(agent: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetAvoidanceLayersPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun agentGetAvoidanceLayers(agent: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.agentGetAvoidanceLayersPtr, agent)
 
   /**
    * Set the agent's `avoidance_mask` bitmask.
    */
   @JvmStatic
   public final fun agentSetAvoidanceMask(agent: RID, mask: Long): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, agent, mask)
-    TransferContext.callPtrMethod(MethodBindings.agentSetAvoidanceMaskPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.agentSetAvoidanceMaskPtr, agent, mask)
   }
 
   /**
    * Returns the `avoidance_mask` bitmask of the specified [agent].
    */
   @JvmStatic
-  public final fun agentGetAvoidanceMask(agent: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetAvoidanceMaskPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun agentGetAvoidanceMask(agent: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.agentGetAvoidanceMaskPtr, agent)
 
   /**
    * Set the agent's `avoidance_priority` with a [priority] between 0.0 (lowest priority) to 1.0
@@ -2086,56 +1831,44 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun agentSetAvoidancePriority(agent: RID, priority: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, agent, priority.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.agentSetAvoidancePriorityPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.agentSetAvoidancePriorityPtr, agent, priority.toDouble())
   }
 
   /**
    * Returns the `avoidance_priority` of the specified [agent].
    */
   @JvmStatic
-  public final fun agentGetAvoidancePriority(agent: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, agent)
-    TransferContext.callPtrMethod(MethodBindings.agentGetAvoidancePriorityPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun agentGetAvoidancePriority(agent: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.agentGetAvoidancePriorityPtr, agent).toFloat()
 
   /**
    * Creates a new obstacle.
    */
   @JvmStatic
-  public final fun obstacleCreate(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.obstacleCreatePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun obstacleCreate(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.obstacleCreatePtr)
 
   /**
    * If [enabled] is `true`, the provided [obstacle] affects avoidance using agents.
    */
   @JvmStatic
   public final fun obstacleSetAvoidanceEnabled(obstacle: RID, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, obstacle, enabled)
-    TransferContext.callPtrMethod(MethodBindings.obstacleSetAvoidanceEnabledPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.obstacleSetAvoidanceEnabledPtr, obstacle, enabled)
   }
 
   /**
    * Returns `true` if the provided [obstacle] has avoidance enabled.
    */
   @JvmStatic
-  public final fun obstacleGetAvoidanceEnabled(obstacle: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, obstacle)
-    TransferContext.callPtrMethod(MethodBindings.obstacleGetAvoidanceEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun obstacleGetAvoidanceEnabled(obstacle: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.obstacleGetAvoidanceEnabledPtr, obstacle)
 
   /**
    * Sets if the [obstacle] uses the 2D avoidance or the 3D avoidance while avoidance is enabled.
    */
   @JvmStatic
   public final fun obstacleSetUse3dAvoidance(obstacle: RID, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, obstacle, enabled)
-    TransferContext.callPtrMethod(MethodBindings.obstacleSetUse3dAvoidancePtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.obstacleSetUse3dAvoidancePtr, obstacle, enabled)
   }
 
   /**
@@ -2143,30 +1876,23 @@ public object NavigationServer3D : Object() {
    * horizontal 2D Vector2(x,y) / Vector3(x,0.0,z).
    */
   @JvmStatic
-  public final fun obstacleGetUse3dAvoidance(obstacle: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, obstacle)
-    TransferContext.callPtrMethod(MethodBindings.obstacleGetUse3dAvoidancePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun obstacleGetUse3dAvoidance(obstacle: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.obstacleGetUse3dAvoidancePtr, obstacle)
 
   /**
    * Assigns the [obstacle] to a navigation map.
    */
   @JvmStatic
   public final fun obstacleSetMap(obstacle: RID, map: RID): Unit {
-    TransferContext.writeMethodArguments_RID_RID(ptr, objectID.id, obstacle, map)
-    TransferContext.callPtrMethod(MethodBindings.obstacleSetMapPtr, 0)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.obstacleSetMapPtr, obstacle, map)
   }
 
   /**
    * Returns the navigation map [RID] the requested [obstacle] is currently assigned to.
    */
   @JvmStatic
-  public final fun obstacleGetMap(obstacle: RID): RID {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, obstacle)
-    TransferContext.callPtrMethod(MethodBindings.obstacleGetMapPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun obstacleGetMap(obstacle: RID): RID =
+      TransferContext.callPtrMethod_RID_ret_RID(ptr, objectID.id, MethodBindings.obstacleGetMapPtr, obstacle)
 
   /**
    * If [paused] is `true` the specified [obstacle] will not be processed. For example, it will no
@@ -2174,38 +1900,30 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun obstacleSetPaused(obstacle: RID, paused: Boolean): Unit {
-    TransferContext.writeMethodArguments_RID_BOOL(ptr, objectID.id, obstacle, paused)
-    TransferContext.callPtrMethod(MethodBindings.obstacleSetPausedPtr, 0)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.obstacleSetPausedPtr, obstacle, paused)
   }
 
   /**
    * Returns `true` if the specified [obstacle] is paused.
    */
   @JvmStatic
-  public final fun obstacleGetPaused(obstacle: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, obstacle)
-    TransferContext.callPtrMethod(MethodBindings.obstacleGetPausedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun obstacleGetPaused(obstacle: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.obstacleGetPausedPtr, obstacle)
 
   /**
    * Sets the radius of the dynamic obstacle.
    */
   @JvmStatic
   public final fun obstacleSetRadius(obstacle: RID, radius: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, obstacle, radius.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.obstacleSetRadiusPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.obstacleSetRadiusPtr, obstacle, radius.toDouble())
   }
 
   /**
    * Returns the radius of the specified dynamic [obstacle].
    */
   @JvmStatic
-  public final fun obstacleGetRadius(obstacle: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, obstacle)
-    TransferContext.callPtrMethod(MethodBindings.obstacleGetRadiusPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun obstacleGetRadius(obstacle: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.obstacleGetRadiusPtr, obstacle).toFloat()
 
   /**
    * Sets the [height] for the [obstacle]. In 3D agents will ignore obstacles that are above or
@@ -2213,19 +1931,15 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun obstacleSetHeight(obstacle: RID, height: Float): Unit {
-    TransferContext.writeMethodArguments_RID_DOUBLE(ptr, objectID.id, obstacle, height.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.obstacleSetHeightPtr, 0)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.obstacleSetHeightPtr, obstacle, height.toDouble())
   }
 
   /**
    * Returns the `height` of the specified [obstacle].
    */
   @JvmStatic
-  public final fun obstacleGetHeight(obstacle: RID): Float {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, obstacle)
-    TransferContext.callPtrMethod(MethodBindings.obstacleGetHeightPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun obstacleGetHeight(obstacle: RID): Float =
+      TransferContext.callPtrMethod_RID_ret_DOUBLE(ptr, objectID.id, MethodBindings.obstacleGetHeightPtr, obstacle).toFloat()
 
   /**
    * Sets [velocity] of the dynamic [obstacle]. Allows other agents to better predict the movement
@@ -2233,38 +1947,30 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun obstacleSetVelocity(obstacle: RID, velocity: Vector3): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, obstacle, velocity)
-    TransferContext.callPtrMethod(MethodBindings.obstacleSetVelocityPtr, 0)
+    TransferContext.callPtrMethod_RID_VECTOR3(ptr, objectID.id, MethodBindings.obstacleSetVelocityPtr, obstacle, velocity)
   }
 
   /**
    * Returns the velocity of the specified dynamic [obstacle].
    */
   @JvmStatic
-  public final fun obstacleGetVelocity(obstacle: RID): Vector3 {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, obstacle)
-    TransferContext.callPtrMethod(MethodBindings.obstacleGetVelocityPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun obstacleGetVelocity(obstacle: RID): Vector3 =
+      TransferContext.callPtrMethod_RID_ret_VECTOR3(ptr, objectID.id, MethodBindings.obstacleGetVelocityPtr, obstacle)
 
   /**
    * Updates the [position] in world space for the [obstacle].
    */
   @JvmStatic
   public final fun obstacleSetPosition(obstacle: RID, position: Vector3): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR3(ptr, objectID.id, obstacle, position)
-    TransferContext.callPtrMethod(MethodBindings.obstacleSetPositionPtr, 0)
+    TransferContext.callPtrMethod_RID_VECTOR3(ptr, objectID.id, MethodBindings.obstacleSetPositionPtr, obstacle, position)
   }
 
   /**
    * Returns the position of the specified [obstacle] in world space.
    */
   @JvmStatic
-  public final fun obstacleGetPosition(obstacle: RID): Vector3 {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, obstacle)
-    TransferContext.callPtrMethod(MethodBindings.obstacleGetPositionPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun obstacleGetPosition(obstacle: RID): Vector3 =
+      TransferContext.callPtrMethod_RID_ret_VECTOR3(ptr, objectID.id, MethodBindings.obstacleGetPositionPtr, obstacle)
 
   /**
    * Sets the outline vertices for the obstacle. If the vertices are winded in clockwise order
@@ -2272,38 +1978,30 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun obstacleSetVertices(obstacle: RID, vertices: PackedVector3Array): Unit {
-    TransferContext.writeMethodArguments_RID_PACKED_VECTOR3_ARRAY(ptr, objectID.id, obstacle, vertices)
-    TransferContext.callPtrMethod(MethodBindings.obstacleSetVerticesPtr, 0)
+    TransferContext.callPtrMethod_RID_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.obstacleSetVerticesPtr, obstacle, vertices)
   }
 
   /**
    * Returns the outline vertices for the specified [obstacle].
    */
   @JvmStatic
-  public final fun obstacleGetVertices(obstacle: RID): PackedVector3Array {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, obstacle)
-    TransferContext.callPtrMethod(MethodBindings.obstacleGetVerticesPtr, 36)
-    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
-  }
+  public final fun obstacleGetVertices(obstacle: RID): PackedVector3Array =
+      TransferContext.callPtrMethod_RID_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.obstacleGetVerticesPtr, obstacle)
 
   /**
    * Set the obstacles's `avoidance_layers` bitmask.
    */
   @JvmStatic
   public final fun obstacleSetAvoidanceLayers(obstacle: RID, layers: Long): Unit {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, obstacle, layers)
-    TransferContext.callPtrMethod(MethodBindings.obstacleSetAvoidanceLayersPtr, 0)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.obstacleSetAvoidanceLayersPtr, obstacle, layers)
   }
 
   /**
    * Returns the `avoidance_layers` bitmask of the specified [obstacle].
    */
   @JvmStatic
-  public final fun obstacleGetAvoidanceLayers(obstacle: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, obstacle)
-    TransferContext.callPtrMethod(MethodBindings.obstacleGetAvoidanceLayersPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun obstacleGetAvoidanceLayers(obstacle: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.obstacleGetAvoidanceLayersPtr, obstacle)
 
   /**
    * Parses the [SceneTree] for source geometry according to the properties of [navigationMesh].
@@ -2327,8 +2025,7 @@ public object NavigationServer3D : Object() {
     rootNode: Node?,
     callback: Callable = VariantCallable(),
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, navigationMesh, sourceGeometryData, rootNode, callback)
-    TransferContext.callMethod(MethodBindings.parseSourceGeometryDataPtr)
+    TransferContext.callMethod_OBJECT_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, MethodBindings.parseSourceGeometryDataPtr, navigationMesh, sourceGeometryData, rootNode, callback)
   }
 
   /**
@@ -2342,8 +2039,7 @@ public object NavigationServer3D : Object() {
     sourceGeometryData: NavigationMeshSourceGeometryData3D?,
     callback: Callable = VariantCallable(),
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, navigationMesh, sourceGeometryData, callback)
-    TransferContext.callMethod(MethodBindings.bakeFromSourceGeometryDataPtr)
+    TransferContext.callMethod_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, MethodBindings.bakeFromSourceGeometryDataPtr, navigationMesh, sourceGeometryData, callback)
   }
 
   /**
@@ -2358,19 +2054,15 @@ public object NavigationServer3D : Object() {
     sourceGeometryData: NavigationMeshSourceGeometryData3D?,
     callback: Callable = VariantCallable(),
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, navigationMesh, sourceGeometryData, callback)
-    TransferContext.callMethod(MethodBindings.bakeFromSourceGeometryDataAsyncPtr)
+    TransferContext.callMethod_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, MethodBindings.bakeFromSourceGeometryDataAsyncPtr, navigationMesh, sourceGeometryData, callback)
   }
 
   /**
    * Returns `true` when the provided navigation mesh is being baked on a background thread.
    */
   @JvmStatic
-  public final fun isBakingNavigationMesh(navigationMesh: NavigationMesh?): Boolean {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, navigationMesh)
-    TransferContext.callPtrMethod(MethodBindings.isBakingNavigationMeshPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isBakingNavigationMesh(navigationMesh: NavigationMesh?): Boolean =
+      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.isBakingNavigationMeshPtr, navigationMesh)
 
   /**
    * Creates a new source geometry parser. If a [Callable] is set for the parser with
@@ -2378,11 +2070,8 @@ public object NavigationServer3D : Object() {
    * parsed whenever [parseSourceGeometryData] is used.
    */
   @JvmStatic
-  public final fun sourceGeometryParserCreate(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.sourceGeometryParserCreatePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun sourceGeometryParserCreate(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.sourceGeometryParserCreatePtr)
 
   /**
    * Sets the [callback] [Callable] for the specific source geometry [parser]. The [Callable] will
@@ -2398,8 +2087,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun sourceGeometryParserSetCallback(parser: RID, callback: Callable): Unit {
-    TransferContext.writeMethodArguments_RID_CALLABLE(ptr, objectID.id, parser, callback)
-    TransferContext.callMethod(MethodBindings.sourceGeometryParserSetCallbackPtr)
+    TransferContext.callMethod_RID_CALLABLE(ptr, objectID.id, MethodBindings.sourceGeometryParserSetCallbackPtr, parser, callback)
   }
 
   /**
@@ -2412,19 +2100,15 @@ public object NavigationServer3D : Object() {
    * fields".
    */
   @JvmStatic
-  public final fun simplifyPath(path: PackedVector3Array, epsilon: Float): PackedVector3Array {
-    TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY_DOUBLE(ptr, objectID.id, path, epsilon.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.simplifyPathPtr, 36)
-    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
-  }
+  public final fun simplifyPath(path: PackedVector3Array, epsilon: Float): PackedVector3Array =
+      TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY_DOUBLE_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.simplifyPathPtr, path, epsilon.toDouble())
 
   /**
    * Destroys the given RID.
    */
   @JvmStatic
   public final fun freeRid(rid: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, rid)
-    TransferContext.callPtrMethod(MethodBindings.freeRidPtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.freeRidPtr, rid)
   }
 
   /**
@@ -2432,8 +2116,7 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun setActive(active: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, active)
-    TransferContext.callPtrMethod(MethodBindings.setActivePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setActivePtr, active)
   }
 
   /**
@@ -2441,29 +2124,22 @@ public object NavigationServer3D : Object() {
    */
   @JvmStatic
   public final fun setDebugEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setDebugEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDebugEnabledPtr, enabled)
   }
 
   /**
    * Returns `true` when the NavigationServer has debug enabled.
    */
   @JvmStatic
-  public final fun getDebugEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDebugEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getDebugEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getDebugEnabledPtr)
 
   /**
    * Returns information about the current state of the NavigationServer.
    */
   @JvmStatic
-  public final fun getProcessInfo(processInfo: ProcessInfo): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, processInfo.value)
-    TransferContext.callPtrMethod(MethodBindings.getProcessInfoPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getProcessInfo(processInfo: ProcessInfo): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getProcessInfoPtr, processInfo.value).toInt()
 
   public enum class ProcessInfo(
     public override val `value`: Long,

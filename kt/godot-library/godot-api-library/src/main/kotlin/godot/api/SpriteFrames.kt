@@ -9,6 +9,20 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_BOOL
+import godot.callPtrMethod_STRING_NAME_DOUBLE
+import godot.callPtrMethod_STRING_NAME_LONG
+import godot.callPtrMethod_STRING_NAME_LONG_OBJECT_DOUBLE
+import godot.callPtrMethod_STRING_NAME_LONG_ret_DOUBLE
+import godot.callPtrMethod_STRING_NAME_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_STRING_NAME_OBJECT_DOUBLE_LONG
+import godot.callPtrMethod_STRING_NAME_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_ret_DOUBLE
+import godot.callPtrMethod_STRING_NAME_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -18,19 +32,6 @@ import godot.core.MethodStringName4
 import godot.core.PackedStringArray
 import godot.core.StringName
 import godot.core.asCachedStringName
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_STRING_ARRAY
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_BOOL
-import godot.writeMethodArguments_STRING_NAME_DOUBLE
-import godot.writeMethodArguments_STRING_NAME_LONG
-import godot.writeMethodArguments_STRING_NAME_LONG_OBJECT_DOUBLE
-import godot.writeMethodArguments_STRING_NAME_OBJECT_DOUBLE_LONG
-import godot.writeMethodArguments_STRING_NAME_STRING_NAME
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float
@@ -56,70 +57,56 @@ public open class SpriteFrames : Resource() {
    * Adds a new [anim] animation to the library.
    */
   public final fun addAnimation(anim: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, anim)
-    TransferContext.callPtrMethod(MethodBindings.addAnimationPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.addAnimationPtr, anim)
   }
 
   /**
    * Returns `true` if the [anim] animation exists.
    */
-  public final fun hasAnimation(anim: StringName): Boolean {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, anim)
-    TransferContext.callPtrMethod(MethodBindings.hasAnimationPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasAnimation(anim: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasAnimationPtr, anim)
 
   /**
    * Duplicates the animation [animFrom] to a new animation named [animTo]. Fails if [animTo]
    * already exists, or if [animFrom] does not exist.
    */
   public final fun duplicateAnimation(animFrom: StringName, animTo: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, animFrom, animTo)
-    TransferContext.callPtrMethod(MethodBindings.duplicateAnimationPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.duplicateAnimationPtr, animFrom, animTo)
   }
 
   /**
    * Removes the [anim] animation.
    */
   public final fun removeAnimation(anim: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, anim)
-    TransferContext.callPtrMethod(MethodBindings.removeAnimationPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeAnimationPtr, anim)
   }
 
   /**
    * Changes the [anim] animation's name to [newname].
    */
   public final fun renameAnimation(anim: StringName, newname: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, anim, newname)
-    TransferContext.callPtrMethod(MethodBindings.renameAnimationPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.renameAnimationPtr, anim, newname)
   }
 
   /**
    * Returns an array containing the names associated to each animation. Values are placed in
    * alphabetical order.
    */
-  public final fun getAnimationNames(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAnimationNamesPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getAnimationNames(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getAnimationNamesPtr)
 
   /**
    * Sets the speed for the [anim] animation in frames per second.
    */
   public final fun setAnimationSpeed(anim: StringName, fps: Double): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_DOUBLE(ptr, objectID.id, anim, fps)
-    TransferContext.callPtrMethod(MethodBindings.setAnimationSpeedPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_DOUBLE(ptr, objectID.id, MethodBindings.setAnimationSpeedPtr, anim, fps)
   }
 
   /**
    * Returns the speed in frames per second for the [anim] animation.
    */
-  public final fun getAnimationSpeed(anim: StringName): Double {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, anim)
-    TransferContext.callPtrMethod(MethodBindings.getAnimationSpeedPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getAnimationSpeed(anim: StringName): Double =
+      TransferContext.callPtrMethod_STRING_NAME_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAnimationSpeedPtr, anim)
 
   /**
    * If [loop] is `false` equivalent to `set_animation_loop_mode(LOOP_NONE)`.
@@ -127,35 +114,27 @@ public open class SpriteFrames : Resource() {
    * If [loop] is `true` equivalent to `set_animation_loop_mode(LOOP_LINEAR)`.
    */
   public final fun setAnimationLoop(anim: StringName, loop: Boolean): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_BOOL(ptr, objectID.id, anim, loop)
-    TransferContext.callPtrMethod(MethodBindings.setAnimationLoopPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_BOOL(ptr, objectID.id, MethodBindings.setAnimationLoopPtr, anim, loop)
   }
 
   /**
    * Returns `true` if `get_animation_loop_mode(anim) == LOOP_LINEAR`. Otherwise, returns `false`.
    */
-  public final fun getAnimationLoop(anim: StringName): Boolean {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, anim)
-    TransferContext.callPtrMethod(MethodBindings.getAnimationLoopPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getAnimationLoop(anim: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.getAnimationLoopPtr, anim)
 
   /**
    * Sets the [loopMode] for the [anim] animation.
    */
   public final fun setAnimationLoopMode(anim: StringName, loopMode: LoopMode): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_LONG(ptr, objectID.id, anim, loopMode.value)
-    TransferContext.callPtrMethod(MethodBindings.setAnimationLoopModePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.setAnimationLoopModePtr, anim, loopMode.value)
   }
 
   /**
    * Returns the loop mode for the [anim] animation.
    */
-  public final fun getAnimationLoopMode(anim: StringName): LoopMode {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, anim)
-    TransferContext.callPtrMethod(MethodBindings.getAnimationLoopModePtr, 2)
-    return LoopMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getAnimationLoopMode(anim: StringName): LoopMode =
+      LoopMode.from(TransferContext.callPtrMethod_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.getAnimationLoopModePtr, anim))
 
   /**
    * Adds a frame to the [anim] animation. If [atPosition] is `-1`, the frame will be added to the
@@ -169,8 +148,7 @@ public open class SpriteFrames : Resource() {
     duration: Float = 1.0f,
     atPosition: Int = -1,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_OBJECT_DOUBLE_LONG(ptr, objectID.id, anim, texture, duration.toDouble(), atPosition.toLong())
-    TransferContext.callPtrMethod(MethodBindings.addFramePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_OBJECT_DOUBLE_LONG(ptr, objectID.id, MethodBindings.addFramePtr, anim, texture, duration.toDouble(), atPosition.toLong())
   }
 
   /**
@@ -184,35 +162,27 @@ public open class SpriteFrames : Resource() {
     texture: Texture2D?,
     duration: Float = 1.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_LONG_OBJECT_DOUBLE(ptr, objectID.id, anim, idx.toLong(), texture, duration.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setFramePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_LONG_OBJECT_DOUBLE(ptr, objectID.id, MethodBindings.setFramePtr, anim, idx.toLong(), texture, duration.toDouble())
   }
 
   /**
    * Removes the [anim] animation's frame [idx].
    */
   public final fun removeFrame(anim: StringName, idx: Int): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_LONG(ptr, objectID.id, anim, idx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.removeFramePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.removeFramePtr, anim, idx.toLong())
   }
 
   /**
    * Returns the number of frames for the [anim] animation.
    */
-  public final fun getFrameCount(anim: StringName): Int {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, anim)
-    TransferContext.callPtrMethod(MethodBindings.getFrameCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getFrameCount(anim: StringName): Int =
+      TransferContext.callPtrMethod_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.getFrameCountPtr, anim).toInt()
 
   /**
    * Returns the texture of the frame [idx] in the [anim] animation.
    */
-  public final fun getFrameTexture(anim: StringName, idx: Int): Texture2D? {
-    TransferContext.writeMethodArguments_STRING_NAME_LONG(ptr, objectID.id, anim, idx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getFrameTexturePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getFrameTexture(anim: StringName, idx: Int): Texture2D? =
+      (TransferContext.callPtrMethod_STRING_NAME_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFrameTexturePtr, anim, idx.toLong()) as Texture2D?)
 
   /**
    * Returns a relative duration of the frame [idx] in the [anim] animation (defaults to `1.0`). For
@@ -227,26 +197,21 @@ public open class SpriteFrames : Resource() {
    * In this example, `playing_speed` refers to either [AnimatedSprite2D.getPlayingSpeed] or
    * [AnimatedSprite3D.getPlayingSpeed].
    */
-  public final fun getFrameDuration(anim: StringName, idx: Int): Float {
-    TransferContext.writeMethodArguments_STRING_NAME_LONG(ptr, objectID.id, anim, idx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getFrameDurationPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFrameDuration(anim: StringName, idx: Int): Float =
+      TransferContext.callPtrMethod_STRING_NAME_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFrameDurationPtr, anim, idx.toLong()).toFloat()
 
   /**
    * Removes all frames from the [anim] animation.
    */
   public final fun clear(anim: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, anim)
-    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.clearPtr, anim)
   }
 
   /**
    * Removes all animations. An empty `default` animation will be created.
    */
   public final fun clearAll(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearAllPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearAllPtr)
   }
 
   /**

@@ -9,15 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_ret_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_DOUBLE
 import kotlin.Float
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -46,27 +44,20 @@ public open class AudioEffectEQ : AudioEffect() {
    * Sets band's gain at the specified index, in dB.
    */
   public final fun setBandGainDb(bandIdx: Int, volumeDb: Float): Unit {
-    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, bandIdx.toLong(), volumeDb.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setBandGainDbPtr, 0)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setBandGainDbPtr, bandIdx.toLong(), volumeDb.toDouble())
   }
 
   /**
    * Returns the band's gain at the specified index, in dB.
    */
-  public final fun getBandGainDb(bandIdx: Int): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bandIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getBandGainDbPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getBandGainDb(bandIdx: Int): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBandGainDbPtr, bandIdx.toLong()).toFloat()
 
   /**
    * Returns the number of bands of the equalizer.
    */
-  public final fun getBandCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBandCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getBandCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBandCountPtr).toInt()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

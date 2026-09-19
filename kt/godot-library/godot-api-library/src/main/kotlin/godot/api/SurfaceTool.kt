@@ -9,6 +9,29 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_OBJECT_LONG_STRING
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_AABB
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_ARRAY_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_DOUBLE_LONG_ret_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_COLOR
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_LONG
+import godot.callPtrMethod_OBJECT_LONG_TRANSFORM3D
+import godot.callPtrMethod_OBJECT_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY
+import godot.callPtrMethod_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_PACKED_VECTOR2_ARRAY_PACKED_VECTOR3_ARRAY_ARRAY
+import godot.callPtrMethod_PLANE
+import godot.callPtrMethod_VECTOR2
+import godot.callPtrMethod_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.Color
@@ -28,29 +51,6 @@ import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.Vector2
 import godot.core.Vector3
-import godot.readReturnValue_AABB
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_INT_32_ARRAY
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ARRAY_LONG
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_COLOR
-import godot.writeMethodArguments_DOUBLE_LONG
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_COLOR
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_LONG
-import godot.writeMethodArguments_OBJECT_LONG_STRING
-import godot.writeMethodArguments_OBJECT_LONG_TRANSFORM3D
-import godot.writeMethodArguments_PACKED_FLOAT_32_ARRAY
-import godot.writeMethodArguments_PACKED_INT_32_ARRAY
-import godot.writeMethodArguments_PACKED_VECTOR3_ARRAY_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_PACKED_VECTOR2_ARRAY_PACKED_VECTOR3_ARRAY_ARRAY
-import godot.writeMethodArguments_PLANE
-import godot.writeMethodArguments_VECTOR2
-import godot.writeMethodArguments_VECTOR3
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Float
@@ -115,8 +115,7 @@ public open class SurfaceTool : RefCounted() {
    * **Note:** This function takes an enum, not the exact number of weights.
    */
   public final fun setSkinWeightCount(count: SkinWeightCount): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.value)
-    TransferContext.callPtrMethod(MethodBindings.setSkinWeightCountPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSkinWeightCountPtr, count.value)
   }
 
   /**
@@ -126,11 +125,8 @@ public open class SurfaceTool : RefCounted() {
    *
    * **Note:** This function returns an enum, not the exact number of weights.
    */
-  public final fun getSkinWeightCount(): SkinWeightCount {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSkinWeightCountPtr, 2)
-    return SkinWeightCount.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getSkinWeightCount(): SkinWeightCount =
+      SkinWeightCount.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSkinWeightCountPtr))
 
   /**
    * Sets the color format for this custom [channelIndex]. Use [CUSTOM_MAX] to disable.
@@ -138,27 +134,22 @@ public open class SurfaceTool : RefCounted() {
    * Must be invoked after [begin] and should be set before [commit] or [commitToArrays].
    */
   public final fun setCustomFormat(channelIndex: Int, format: CustomFormat): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, channelIndex.toLong(), format.value)
-    TransferContext.callPtrMethod(MethodBindings.setCustomFormatPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setCustomFormatPtr, channelIndex.toLong(), format.value)
   }
 
   /**
    * Returns the format for custom [channelIndex] (currently up to 4). Returns [CUSTOM_MAX] if this
    * custom channel is unused.
    */
-  public final fun getCustomFormat(channelIndex: Int): CustomFormat {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, channelIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getCustomFormatPtr, 2)
-    return CustomFormat.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getCustomFormat(channelIndex: Int): CustomFormat =
+      CustomFormat.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getCustomFormatPtr, channelIndex.toLong()))
 
   /**
    * Called before adding any vertices. Takes the primitive type as an argument (e.g.
    * [Mesh.PRIMITIVE_TRIANGLES]).
    */
   public final fun begin(primitive: Mesh.PrimitiveType): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, primitive.value)
-    TransferContext.callPtrMethod(MethodBindings.beginPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.beginPtr, primitive.value)
   }
 
   /**
@@ -166,8 +157,7 @@ public open class SurfaceTool : RefCounted() {
    * properties (e.g. Color, UV).
    */
   public final fun addVertex(vertex: Vector3): Unit {
-    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, vertex)
-    TransferContext.callPtrMethod(MethodBindings.addVertexPtr, 0)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.addVertexPtr, vertex)
   }
 
   /**
@@ -179,8 +169,7 @@ public open class SurfaceTool : RefCounted() {
    * color to be visible.
    */
   public final fun setColor(color: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setColorPtr, color)
   }
 
   /**
@@ -188,8 +177,7 @@ public open class SurfaceTool : RefCounted() {
    * set and you fail to submit it for the first vertex, this information may not be used at all.
    */
   public final fun setNormal(normal: Vector3): Unit {
-    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, normal)
-    TransferContext.callPtrMethod(MethodBindings.setNormalPtr, 0)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setNormalPtr, normal)
   }
 
   /**
@@ -202,8 +190,7 @@ public open class SurfaceTool : RefCounted() {
    * either `-1` or `1`. See also [Mesh.ARRAY_TANGENT].
    */
   public final fun setTangent(tangent: Plane): Unit {
-    TransferContext.writeMethodArguments_PLANE(ptr, objectID.id, tangent)
-    TransferContext.callPtrMethod(MethodBindings.setTangentPtr, 0)
+    TransferContext.callPtrMethod_PLANE(ptr, objectID.id, MethodBindings.setTangentPtr, tangent)
   }
 
   /**
@@ -212,8 +199,7 @@ public open class SurfaceTool : RefCounted() {
    * used at all.
    */
   public final fun setUv(uv: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, uv)
-    TransferContext.callPtrMethod(MethodBindings.setUvPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setUvPtr, uv)
   }
 
   /**
@@ -222,16 +208,14 @@ public open class SurfaceTool : RefCounted() {
    * information may not be used at all.
    */
   public final fun setUv2(uv2: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, uv2)
-    TransferContext.callPtrMethod(MethodBindings.setUv2Ptr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setUv2Ptr, uv2)
   }
 
   /**
    * Specifies an array of bones to use for the *next* vertex. [bones] must contain 4 integers.
    */
   public final fun setBones(bones: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments_PACKED_INT_32_ARRAY(ptr, objectID.id, bones)
-    TransferContext.callPtrMethod(MethodBindings.setBonesPtr, 0)
+    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setBonesPtr, bones)
   }
 
   /**
@@ -240,8 +224,7 @@ public open class SurfaceTool : RefCounted() {
    * information may not be used at all.
    */
   public final fun setWeights(weights: PackedFloat32Array): Unit {
-    TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, weights)
-    TransferContext.callPtrMethod(MethodBindings.setWeightsPtr, 0)
+    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setWeightsPtr, weights)
   }
 
   /**
@@ -251,8 +234,7 @@ public open class SurfaceTool : RefCounted() {
    * ignore other color channels.
    */
   public final fun setCustom(channelIndex: Int, customColor: Color): Unit {
-    TransferContext.writeMethodArguments_LONG_COLOR(ptr, objectID.id, channelIndex.toLong(), customColor)
-    TransferContext.callPtrMethod(MethodBindings.setCustomPtr, 0)
+    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.setCustomPtr, channelIndex.toLong(), customColor)
   }
 
   /**
@@ -264,8 +246,7 @@ public open class SurfaceTool : RefCounted() {
    * instead of `-1` to produce a mesh with flat normals.
    */
   public final fun setSmoothGroup(index: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callPtrMethod(MethodBindings.setSmoothGroupPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSmoothGroupPtr, index)
   }
 
   /**
@@ -282,8 +263,7 @@ public open class SurfaceTool : RefCounted() {
     normals: PackedVector3Array = PackedVector3Array(),
     tangents: VariantArray<Plane> = godot.core.variantArrayOf(),
   ): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_PACKED_VECTOR2_ARRAY_PACKED_VECTOR3_ARRAY_ARRAY(ptr, objectID.id, vertices, uvs, colors, uv2s, normals, tangents)
-    TransferContext.callPtrMethod(MethodBindings.addTriangleFanPtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY_PACKED_VECTOR2_ARRAY_PACKED_COLOR_ARRAY_PACKED_VECTOR2_ARRAY_PACKED_VECTOR3_ARRAY_ARRAY(ptr, objectID.id, MethodBindings.addTriangleFanPtr, vertices, uvs, colors, uv2s, normals, tangents)
   }
 
   /**
@@ -291,8 +271,7 @@ public open class SurfaceTool : RefCounted() {
    * before adding vertices.
    */
   public final fun addIndex(index: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.addIndexPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.addIndexPtr, index.toLong())
   }
 
   /**
@@ -300,16 +279,14 @@ public open class SurfaceTool : RefCounted() {
    * vertex reuse.
    */
   public final fun index(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.indexPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.indexPtr)
   }
 
   /**
    * Removes the index array by expanding the vertex array.
    */
   public final fun deindex(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.deindexPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.deindexPtr)
   }
 
   /**
@@ -328,8 +305,7 @@ public open class SurfaceTool : RefCounted() {
    */
   @JvmOverloads
   public final fun generateNormals(flip: Boolean = false): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, flip)
-    TransferContext.callPtrMethod(MethodBindings.generateNormalsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.generateNormalsPtr, flip)
   }
 
   /**
@@ -337,8 +313,7 @@ public open class SurfaceTool : RefCounted() {
    * normals set (see [generateNormals]).
    */
   public final fun generateTangents(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.generateTangentsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.generateTangentsPtr)
   }
 
   /**
@@ -346,61 +321,48 @@ public open class SurfaceTool : RefCounted() {
    * [Mesh.PRIMITIVE_TRIANGLES].
    */
   public final fun optimizeIndicesForCache(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.optimizeIndicesForCachePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.optimizeIndicesForCachePtr)
   }
 
   /**
    * Returns the axis-aligned bounding box of the vertex positions.
    */
-  public final fun getAabb(): AABB {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAabbPtr, 16)
-    return TransferContext.readReturnValue_AABB()
-  }
+  public final fun getAabb(): AABB =
+      TransferContext.callPtrMethod0_ret_AABB(ptr, objectID.id, MethodBindings.getAabbPtr)
 
   /**
    * Generates an LOD for a given [ndThreshold] in linear units (square root of quadric error
    * metric), using at most [targetIndexCount] indices.
    */
   @JvmOverloads
-  public final fun generateLod(ndThreshold: Float, targetIndexCount: Int = 3): PackedInt32Array {
-    TransferContext.writeMethodArguments_DOUBLE_LONG(ptr, objectID.id, ndThreshold.toDouble(), targetIndexCount.toLong())
-    TransferContext.callPtrMethod(MethodBindings.generateLodPtr, 30)
-    return TransferContext.readReturnValue_PACKED_INT_32_ARRAY()
-  }
+  public final fun generateLod(ndThreshold: Float, targetIndexCount: Int = 3): PackedInt32Array =
+      TransferContext.callPtrMethod_DOUBLE_LONG_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.generateLodPtr, ndThreshold.toDouble(), targetIndexCount.toLong())
 
   /**
    * Sets [Material] to be used by the [Mesh] you are constructing.
    */
   public final fun setMaterial(material: Material?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, material)
-    TransferContext.callPtrMethod(MethodBindings.setMaterialPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMaterialPtr, material)
   }
 
   /**
    * Returns the type of mesh geometry, such as [Mesh.PRIMITIVE_TRIANGLES].
    */
-  public final fun getPrimitiveType(): Mesh.PrimitiveType {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPrimitiveTypePtr, 2)
-    return Mesh.PrimitiveType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getPrimitiveType(): Mesh.PrimitiveType =
+      Mesh.PrimitiveType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPrimitiveTypePtr))
 
   /**
    * Clear all information passed into the surface tool so far.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
   }
 
   /**
    * Creates a vertex array from an existing [Mesh].
    */
   public final fun createFrom(existing: Mesh?, surface: Int): Unit {
-    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, existing, surface.toLong())
-    TransferContext.callPtrMethod(MethodBindings.createFromPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_LONG(ptr, objectID.id, MethodBindings.createFromPtr, existing, surface.toLong())
   }
 
   /**
@@ -412,8 +374,7 @@ public open class SurfaceTool : RefCounted() {
   @JvmOverloads
   public final fun createFromArrays(arrays: VariantArray<Any?>, primitiveType: Mesh.PrimitiveType =
       Mesh.PrimitiveType.TRIANGLES): Unit {
-    TransferContext.writeMethodArguments_ARRAY_LONG(ptr, objectID.id, arrays, primitiveType.value)
-    TransferContext.callPtrMethod(MethodBindings.createFromArraysPtr, 0)
+    TransferContext.callPtrMethod_ARRAY_LONG(ptr, objectID.id, MethodBindings.createFromArraysPtr, arrays, primitiveType.value)
   }
 
   /**
@@ -425,8 +386,7 @@ public open class SurfaceTool : RefCounted() {
     surface: Int,
     blendShape: String,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_LONG_STRING(ptr, objectID.id, existing, surface.toLong(), blendShape)
-    TransferContext.callMethod(MethodBindings.createFromBlendShapePtr)
+    TransferContext.callMethod_OBJECT_LONG_STRING(ptr, objectID.id, MethodBindings.createFromBlendShapePtr, existing, surface.toLong(), blendShape)
   }
 
   /**
@@ -438,8 +398,7 @@ public open class SurfaceTool : RefCounted() {
     surface: Int,
     transform: Transform3D,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_LONG_TRANSFORM3D(ptr, objectID.id, existing, surface.toLong(), transform)
-    TransferContext.callPtrMethod(MethodBindings.appendFromPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_LONG_TRANSFORM3D(ptr, objectID.id, MethodBindings.appendFromPtr, existing, surface.toLong(), transform)
   }
 
   /**
@@ -450,22 +409,16 @@ public open class SurfaceTool : RefCounted() {
    * [Mesh.ARRAY_FLAG_USE_8_BONE_WEIGHTS], or [Mesh.ARRAY_FLAG_USES_EMPTY_VERTEX_ARRAY].
    */
   @JvmOverloads
-  public final fun commit(existing: ArrayMesh? = null, flags: Long = 0): ArrayMesh? {
-    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, existing, flags)
-    TransferContext.callPtrMethod(MethodBindings.commitPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as ArrayMesh?)
-  }
+  public final fun commit(existing: ArrayMesh? = null, flags: Long = 0): ArrayMesh? =
+      (TransferContext.callPtrMethod_OBJECT_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.commitPtr, existing, flags) as ArrayMesh?)
 
   /**
    * Commits the data to the same format used by [ArrayMesh.addSurfaceFromArrays],
    * [ImporterMesh.addSurface], and [createFromArrays]. This way you can further process the mesh data
    * using the [ArrayMesh] or [ImporterMesh] APIs.
    */
-  public final fun commitToArrays(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.commitToArraysPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun commitToArrays(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.commitToArraysPtr) as VariantArray<Any?>)
 
   public enum class CustomFormat(
     public override val `value`: Long,

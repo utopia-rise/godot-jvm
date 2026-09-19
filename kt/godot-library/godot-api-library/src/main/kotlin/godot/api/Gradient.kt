@@ -11,6 +11,19 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_COLOR_ARRAY
+import godot.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY
+import godot.callPtrMethod_DOUBLE_COLOR
+import godot.callPtrMethod_DOUBLE_ret_COLOR
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_COLOR
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_ret_COLOR
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_PACKED_COLOR_ARRAY
+import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.GodotEnum
@@ -19,19 +32,6 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedColorArray
 import godot.core.PackedFloat32Array
-import godot.readReturnValue_COLOR
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_COLOR_ARRAY
-import godot.readReturnValue_PACKED_FLOAT_32_ARRAY
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_DOUBLE_COLOR
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_COLOR
-import godot.writeMethodArguments_LONG_DOUBLE
-import godot.writeMethodArguments_PACKED_COLOR_ARRAY
-import godot.writeMethodArguments_PACKED_FLOAT_32_ARRAY
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -161,34 +161,28 @@ public open class Gradient : Resource() {
    * Adds the specified color to the gradient, with the specified offset.
    */
   public final fun addPoint(offset: Float, color: Color): Unit {
-    TransferContext.writeMethodArguments_DOUBLE_COLOR(ptr, objectID.id, offset.toDouble(), color)
-    TransferContext.callPtrMethod(MethodBindings.addPointPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE_COLOR(ptr, objectID.id, MethodBindings.addPointPtr, offset.toDouble(), color)
   }
 
   /**
    * Removes the color at index [point].
    */
   public final fun removePoint(point: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, point.toLong())
-    TransferContext.callPtrMethod(MethodBindings.removePointPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removePointPtr, point.toLong())
   }
 
   /**
    * Sets the offset for the gradient color at index [point].
    */
   public final fun setOffset(point: Int, offset: Float): Unit {
-    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, point.toLong(), offset.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setOffsetPtr, 0)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setOffsetPtr, point.toLong(), offset.toDouble())
   }
 
   /**
    * Returns the offset of the gradient color at index [point].
    */
-  public final fun getOffset(point: Int): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, point.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getOffsetPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getOffset(point: Int): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOffsetPtr, point.toLong()).toFloat()
 
   /**
    * Reverses/mirrors the gradient.
@@ -197,26 +191,21 @@ public open class Gradient : Resource() {
    * unexpected results when [interpolationMode] is set to [GRADIENT_INTERPOLATE_CONSTANT].
    */
   public final fun reverse(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.reversePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.reversePtr)
   }
 
   /**
    * Sets the color of the gradient color at index [point].
    */
   public final fun setColor(point: Int, color: Color): Unit {
-    TransferContext.writeMethodArguments_LONG_COLOR(ptr, objectID.id, point.toLong(), color)
-    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
+    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.setColorPtr, point.toLong(), color)
   }
 
   /**
    * Returns the color of the gradient color at index [point].
    */
-  public final fun getColor(point: Int): Color {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, point.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getColorPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getColor(point: Int): Color =
+      TransferContext.callPtrMethod_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getColorPtr, point.toLong())
 
   /**
    * Returns the interpolated color specified by [offset]. [offset] should be between `0.0` and
@@ -225,64 +214,42 @@ public open class Gradient : Resource() {
    * this range, consider using [@GlobalScope.remap] on the input value with output values set to `0.0`
    * and `1.0`.
    */
-  public final fun sample(offset: Float): Color {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.samplePtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun sample(offset: Float): Color =
+      TransferContext.callPtrMethod_DOUBLE_ret_COLOR(ptr, objectID.id, MethodBindings.samplePtr, offset.toDouble())
 
   /**
    * Returns the number of colors in the gradient.
    */
-  public final fun getPointCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPointCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getPointCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPointCountPtr).toInt()
 
   public final fun setOffsets(offsets: PackedFloat32Array): Unit {
-    TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, offsets)
-    TransferContext.callPtrMethod(MethodBindings.setOffsetsPtr, 0)
+    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setOffsetsPtr, offsets)
   }
 
-  public final fun getOffsets(): PackedFloat32Array {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOffsetsPtr, 32)
-    return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
-  }
+  public final fun getOffsets(): PackedFloat32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.getOffsetsPtr)
 
   public final fun setColors(colors: PackedColorArray): Unit {
-    TransferContext.writeMethodArguments_PACKED_COLOR_ARRAY(ptr, objectID.id, colors)
-    TransferContext.callPtrMethod(MethodBindings.setColorsPtr, 0)
+    TransferContext.callPtrMethod_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.setColorsPtr, colors)
   }
 
-  public final fun getColors(): PackedColorArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getColorsPtr, 37)
-    return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
-  }
+  public final fun getColors(): PackedColorArray =
+      TransferContext.callPtrMethod0_ret_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.getColorsPtr)
 
   public final fun setInterpolationMode(interpolationMode: InterpolationMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, interpolationMode.value)
-    TransferContext.callPtrMethod(MethodBindings.setInterpolationModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInterpolationModePtr, interpolationMode.value)
   }
 
-  public final fun getInterpolationMode(): InterpolationMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getInterpolationModePtr, 2)
-    return InterpolationMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getInterpolationMode(): InterpolationMode =
+      InterpolationMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInterpolationModePtr))
 
   public final fun setInterpolationColorSpace(interpolationColorSpace: ColorSpace): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, interpolationColorSpace.value)
-    TransferContext.callPtrMethod(MethodBindings.setInterpolationColorSpacePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInterpolationColorSpacePtr, interpolationColorSpace.value)
   }
 
-  public final fun getInterpolationColorSpace(): ColorSpace {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getInterpolationColorSpacePtr, 2)
-    return ColorSpace.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getInterpolationColorSpace(): ColorSpace =
+      ColorSpace.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInterpolationColorSpacePtr))
 
   public enum class InterpolationMode(
     public override val `value`: Long,

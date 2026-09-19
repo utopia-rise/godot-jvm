@@ -9,17 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callPtrMethod_BOOL_OBJECT_ret_OBJECT
+import godot.callPtrMethod_BOOL_ret_DICTIONARY
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_BOOL_OBJECT
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.String
@@ -55,11 +52,8 @@ public open class InstancePlaceholder internal constructor() : Node() {
    * in which properties will be applied (with index 0 being the first).
    */
   @JvmOverloads
-  public final fun getStoredValues(withOrder: Boolean = false): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, withOrder)
-    TransferContext.callPtrMethod(MethodBindings.getStoredValuesPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getStoredValues(withOrder: Boolean = false): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_BOOL_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getStoredValuesPtr, withOrder) as Dictionary<Any?, Any?>)
 
   /**
    * Call this method to actually load in the node. The created node will be placed as a sibling
@@ -70,22 +64,16 @@ public open class InstancePlaceholder internal constructor() : Node() {
    * thread.
    */
   @JvmOverloads
-  public final fun createInstance(replace: Boolean = false, customScene: PackedScene? = null):
-      Node? {
-    TransferContext.writeMethodArguments_BOOL_OBJECT(ptr, objectID.id, replace, customScene)
-    TransferContext.callPtrMethod(MethodBindings.createInstancePtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Node?)
-  }
+  public final fun createInstance(replace: Boolean = false, customScene: PackedScene? = null): Node?
+      =
+      (TransferContext.callPtrMethod_BOOL_OBJECT_ret_OBJECT(ptr, objectID.id, MethodBindings.createInstancePtr, replace, customScene) as Node?)
 
   /**
    * Gets the path to the [PackedScene] resource file that is loaded by default when calling
    * [createInstance]. Not thread-safe. Use [Object.callDeferred] if calling from a thread.
    */
-  public final fun getInstancePath(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInstancePathPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getInstancePath(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getInstancePathPtr)
 
   public companion object {
     @JvmField

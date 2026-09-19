@@ -9,6 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_OBJECT_STRING_LONG_ret_LONG
+import godot.callMethod_STRING_BOOL_ret_LONG
+import godot.callMethod_STRING_LONG_ret_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_BOOL
+import godot.callPtrMethod_OBJECT_ret_PACKED_STRING_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.BitFieldBase
 import godot.core.Error
@@ -16,13 +22,6 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.PackedStringArray
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_STRING_ARRAY
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_BOOL
-import godot.writeMethodArguments_OBJECT_STRING_LONG
-import godot.writeMethodArguments_STRING_BOOL
-import godot.writeMethodArguments_STRING_LONG
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
@@ -95,11 +94,8 @@ public object ResourceSaver : Object() {
     resource: Resource,
     path: String = "",
     flags: SaverFlags = ResourceSaver.SaverFlags.FLAG_NONE,
-  ): Error {
-    TransferContext.writeMethodArguments_OBJECT_STRING_LONG(ptr, objectID.id, resource, path, flags.flag)
-    TransferContext.callMethod(MethodBindings.savePtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_OBJECT_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.savePtr, resource, path, flags.flag))
 
   /**
    * Sets the UID of the given [resource] path to [uid]. You can generate a new UID using
@@ -109,21 +105,15 @@ public object ResourceSaver : Object() {
    * specific cases.
    */
   @JvmStatic
-  public final fun setUid(resource: String, uid: Long): Error {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, resource, uid)
-    TransferContext.callMethod(MethodBindings.setUidPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun setUid(resource: String, uid: Long): Error =
+      Error.from(TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.setUidPtr, resource, uid))
 
   /**
    * Returns the list of extensions available for saving a resource of a given type.
    */
   @JvmStatic
-  public final fun getRecognizedExtensions(type: Resource): PackedStringArray {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, type)
-    TransferContext.callPtrMethod(MethodBindings.getRecognizedExtensionsPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getRecognizedExtensions(type: Resource): PackedStringArray =
+      TransferContext.callPtrMethod_OBJECT_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getRecognizedExtensionsPtr, type)
 
   /**
    * Registers a new [ResourceFormatSaver]. The ResourceSaver will use the ResourceFormatSaver as
@@ -136,8 +126,7 @@ public object ResourceSaver : Object() {
   @JvmStatic
   public final fun addResourceFormatSaver(formatSaver: ResourceFormatSaver, atFront: Boolean =
       false): Unit {
-    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, formatSaver, atFront)
-    TransferContext.callPtrMethod(MethodBindings.addResourceFormatSaverPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_BOOL(ptr, objectID.id, MethodBindings.addResourceFormatSaverPtr, formatSaver, atFront)
   }
 
   /**
@@ -145,8 +134,7 @@ public object ResourceSaver : Object() {
    */
   @JvmStatic
   public final fun removeResourceFormatSaver(formatSaver: ResourceFormatSaver): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, formatSaver)
-    TransferContext.callPtrMethod(MethodBindings.removeResourceFormatSaverPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeResourceFormatSaverPtr, formatSaver)
   }
 
   /**
@@ -156,11 +144,8 @@ public object ResourceSaver : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun getResourceIdForPath(path: String, generate: Boolean = false): Long {
-    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, path, generate)
-    TransferContext.callMethod(MethodBindings.getResourceIdForPathPtr)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getResourceIdForPath(path: String, generate: Boolean = false): Long =
+      TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.getResourceIdForPathPtr, path, generate)
 
   public class SaverFlags(
     flag: Long,

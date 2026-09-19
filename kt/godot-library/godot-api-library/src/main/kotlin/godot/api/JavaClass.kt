@@ -9,6 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
@@ -16,12 +20,6 @@ import godot.core.MethodStringName1
 import godot.core.StringName
 import godot.core.VariantArray
 import godot.core.asCachedStringName
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING_NAME
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.String
@@ -45,39 +43,27 @@ public open class JavaClass : RefCounted() {
   /**
    * Returns the Java class name.
    */
-  public final fun getJavaClassName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJavaClassNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getJavaClassName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getJavaClassNamePtr)
 
   /**
    * Returns the object's Java methods and their signatures as an [VariantArray] of dictionaries, in
    * the same format as [Object.getMethodList].
    */
-  public final fun getJavaMethodList(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getJavaMethodListPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+  public final fun getJavaMethodList(): VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getJavaMethodListPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns a [JavaClass] representing the Java parent class of this class.
    */
-  public final fun getJavaParentClass(): JavaClass? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getJavaParentClassPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as JavaClass?)
-  }
+  public final fun getJavaParentClass(): JavaClass? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getJavaParentClassPtr) as JavaClass?)
 
   /**
    * Returns `true` if the given [method] name exists in the object's Java methods.
    */
-  public final fun hasJavaMethod(method: StringName): Boolean {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, method)
-    TransferContext.callPtrMethod(MethodBindings.hasJavaMethodPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasJavaMethod(method: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasJavaMethodPtr, method)
 
   /**
    * Returns `true` if the given [method] name exists in the object's Java methods.

@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_ANY
+import godot.callMethod_ANY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_ANY
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ANY
-import godot.writeMethodArguments_LONG
 import kotlin.Any
 import kotlin.Long
 import kotlin.Suppress
@@ -63,26 +62,18 @@ public open class RDPipelineSpecializationConstant : RefCounted() {
   }
 
   public final fun setValue(`value`: Any?): Unit {
-    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, value)
-    TransferContext.callMethod(MethodBindings.setValuePtr)
+    TransferContext.callMethod_ANY(ptr, objectID.id, MethodBindings.setValuePtr, value)
   }
 
-  public final fun getValue(): Any? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getValuePtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun getValue(): Any? =
+      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.getValuePtr)
 
   public final fun setConstantId(constantId: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, constantId)
-    TransferContext.callPtrMethod(MethodBindings.setConstantIdPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setConstantIdPtr, constantId)
   }
 
-  public final fun getConstantId(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getConstantIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getConstantId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConstantIdPtr)
 
   public companion object {
     @JvmField

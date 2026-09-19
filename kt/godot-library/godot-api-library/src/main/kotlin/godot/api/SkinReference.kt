@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.RID
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_RID
-import godot.writeMethodArguments0
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -44,11 +43,8 @@ public open class SkinReference internal constructor() : RefCounted() {
   /**
    * Returns the [RID] owned by this SkinReference, as returned by [RenderingServer.skeletonCreate].
    */
-  public final fun getSkeleton(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSkeletonPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getSkeleton(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getSkeletonPtr)
 
   /**
    * Returns the [Skin] connected to this SkinReference. In the case of [MeshInstance3D] with no
@@ -58,11 +54,8 @@ public open class SkinReference internal constructor() : RefCounted() {
    * Note that a single [Skin] may have more than one [SkinReference] in the case that it is shared
    * by meshes across multiple [Skeleton3D] nodes.
    */
-  public final fun getSkin(): Skin? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSkinPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Skin?)
-  }
+  public final fun getSkin(): Skin? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSkinPtr) as Skin?)
 
   public companion object {
     @JvmField

@@ -11,14 +11,13 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Vector2
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_VECTOR2
 import kotlin.Int
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -83,8 +82,7 @@ public open class ExternalTexture : Texture2D() {
   }
 
   public final fun setSize(size: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, size)
-    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setSizePtr, size)
   }
 
   /**
@@ -93,11 +91,8 @@ public open class ExternalTexture : Texture2D() {
    * Depending on your use case, you may need to pass this to platform APIs, for example, when
    * creating an `android.graphics.SurfaceTexture` on Android.
    */
-  public final fun getExternalTextureId(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getExternalTextureIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getExternalTextureId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getExternalTextureIdPtr)
 
   /**
    * Sets the external buffer ID.
@@ -106,8 +101,7 @@ public open class ExternalTexture : Texture2D() {
    * for example, `SurfaceTexture.getHardwareBuffer()` on Android.
    */
   public final fun setExternalBufferId(externalBufferId: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, externalBufferId)
-    TransferContext.callPtrMethod(MethodBindings.setExternalBufferIdPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setExternalBufferIdPtr, externalBufferId)
   }
 
   /**

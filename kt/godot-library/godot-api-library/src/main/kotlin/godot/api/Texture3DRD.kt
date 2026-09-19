@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
 import godot.core.VariantArray
-import godot.readReturnValue_RID
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_RID
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -50,15 +49,11 @@ public open class Texture3DRD : Texture3D() {
   }
 
   public final fun setTextureRdRid(textureRdRid: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, textureRdRid)
-    TransferContext.callPtrMethod(MethodBindings.setTextureRdRidPtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setTextureRdRidPtr, textureRdRid)
   }
 
-  public final fun getTextureRdRid(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTextureRdRidPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getTextureRdRid(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getTextureRdRidPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

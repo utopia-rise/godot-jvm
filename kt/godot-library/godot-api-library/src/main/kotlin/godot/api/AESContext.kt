@@ -9,6 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_LONG
+import godot.callPtrMethod_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
@@ -16,11 +20,6 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName3
 import godot.core.PackedByteArray
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_BYTE_ARRAY
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY
-import godot.writeMethodArguments_PACKED_BYTE_ARRAY
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -120,11 +119,8 @@ public open class AESContext : RefCounted() {
     mode: Mode,
     key: PackedByteArray,
     iv: PackedByteArray = PackedByteArray(),
-  ): Error {
-    TransferContext.writeMethodArguments_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY(ptr, objectID.id, mode.value, key, iv)
-    TransferContext.callPtrMethod(MethodBindings.startPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.startPtr, mode.value, key, iv))
 
   /**
    * Run the desired operation for this AES context. Will return a [PackedByteArray] containing the
@@ -132,11 +128,8 @@ public open class AESContext : RefCounted() {
    *
    * **Note:** The size of [src] must be a multiple of 16. Apply some padding if needed.
    */
-  public final fun update(src: PackedByteArray): PackedByteArray {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, src)
-    TransferContext.callPtrMethod(MethodBindings.updatePtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun update(src: PackedByteArray): PackedByteArray =
+      TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.updatePtr, src)
 
   /**
    * Get the current IV state for this context (IV gets updated when calling [update]). You normally
@@ -145,18 +138,14 @@ public open class AESContext : RefCounted() {
    * **Note:** This function only makes sense when the context is started with [MODE_CBC_ENCRYPT] or
    * [MODE_CBC_DECRYPT].
    */
-  public final fun getIvState(): PackedByteArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getIvStatePtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun getIvState(): PackedByteArray =
+      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getIvStatePtr)
 
   /**
    * Close this AES context so it can be started again. See [start].
    */
   public final fun finish(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.finishPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.finishPtr)
   }
 
   public enum class Mode(

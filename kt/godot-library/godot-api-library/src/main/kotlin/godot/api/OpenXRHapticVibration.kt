@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -70,37 +69,25 @@ public open class OpenXRHapticVibration : OpenXRHapticBase() {
   }
 
   public final fun setDuration(duration: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, duration)
-    TransferContext.callPtrMethod(MethodBindings.setDurationPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDurationPtr, duration)
   }
 
-  public final fun getDuration(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDurationPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getDuration(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDurationPtr)
 
   public final fun setFrequency(frequency: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, frequency.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setFrequencyPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFrequencyPtr, frequency.toDouble())
   }
 
-  public final fun getFrequency(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFrequencyPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFrequency(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFrequencyPtr).toFloat()
 
   public final fun setAmplitude(amplitude: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amplitude.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setAmplitudePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAmplitudePtr, amplitude.toDouble())
   }
 
-  public final fun getAmplitude(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAmplitudePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getAmplitude(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAmplitudePtr).toFloat()
 
   public companion object {
     @JvmField

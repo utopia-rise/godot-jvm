@@ -9,17 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_OBJECT
 import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
@@ -172,11 +171,8 @@ public object ThemeDB : Object() {
    * out-of-the-box look of [Control] nodes and cannot be overridden.
    */
   @JvmStatic
-  public final fun getDefaultTheme(): Theme? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDefaultThemePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Theme?)
-  }
+  public final fun getDefaultTheme(): Theme? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getDefaultThemePtr) as Theme?)
 
   /**
    * Returns a reference to the custom project [Theme]. This theme resources allows to override the
@@ -185,76 +181,53 @@ public object ThemeDB : Object() {
    * To set the project theme, see [ProjectSettings.gui/theme/custom].
    */
   @JvmStatic
-  public final fun getProjectTheme(): Theme? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getProjectThemePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Theme?)
-  }
+  public final fun getProjectTheme(): Theme? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getProjectThemePtr) as Theme?)
 
   @JvmStatic
   public final fun setFallbackBaseScale(baseScale: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, baseScale.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setFallbackBaseScalePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFallbackBaseScalePtr, baseScale.toDouble())
   }
 
   @JvmStatic
-  public final fun getFallbackBaseScale(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFallbackBaseScalePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFallbackBaseScale(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFallbackBaseScalePtr).toFloat()
 
   @JvmStatic
   public final fun setFallbackFont(font: Font?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, font)
-    TransferContext.callPtrMethod(MethodBindings.setFallbackFontPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setFallbackFontPtr, font)
   }
 
   @JvmStatic
-  public final fun getFallbackFont(): Font? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFallbackFontPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Font?)
-  }
+  public final fun getFallbackFont(): Font? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFallbackFontPtr) as Font?)
 
   @JvmStatic
   public final fun setFallbackFontSize(fontSize: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fontSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setFallbackFontSizePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFallbackFontSizePtr, fontSize.toLong())
   }
 
   @JvmStatic
-  public final fun getFallbackFontSize(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFallbackFontSizePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getFallbackFontSize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFallbackFontSizePtr).toInt()
 
   @JvmStatic
   public final fun setFallbackIcon(icon: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, icon)
-    TransferContext.callPtrMethod(MethodBindings.setFallbackIconPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setFallbackIconPtr, icon)
   }
 
   @JvmStatic
-  public final fun getFallbackIcon(): Texture2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFallbackIconPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getFallbackIcon(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFallbackIconPtr) as Texture2D?)
 
   @JvmStatic
   public final fun setFallbackStylebox(stylebox: StyleBox?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, stylebox)
-    TransferContext.callPtrMethod(MethodBindings.setFallbackStyleboxPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setFallbackStyleboxPtr, stylebox)
   }
 
   @JvmStatic
-  public final fun getFallbackStylebox(): StyleBox? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFallbackStyleboxPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as StyleBox?)
-  }
+  public final fun getFallbackStylebox(): StyleBox? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFallbackStyleboxPtr) as StyleBox?)
 
   public object MethodBindings {
     internal val getDefaultThemePtr: VoidPtr =

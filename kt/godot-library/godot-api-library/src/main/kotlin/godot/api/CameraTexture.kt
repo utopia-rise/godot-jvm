@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -71,37 +70,25 @@ public open class CameraTexture : Texture2D() {
   }
 
   public final fun setCameraFeedId(feedId: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, feedId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setCameraFeedIdPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCameraFeedIdPtr, feedId.toLong())
   }
 
-  public final fun getCameraFeedId(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCameraFeedIdPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getCameraFeedId(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCameraFeedIdPtr).toInt()
 
   public final fun setWhichFeed(whichFeed: CameraServer.FeedImage): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, whichFeed.value)
-    TransferContext.callPtrMethod(MethodBindings.setWhichFeedPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWhichFeedPtr, whichFeed.value)
   }
 
-  public final fun getWhichFeed(): CameraServer.FeedImage {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWhichFeedPtr, 2)
-    return CameraServer.FeedImage.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getWhichFeed(): CameraServer.FeedImage =
+      CameraServer.FeedImage.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWhichFeedPtr))
 
   public final fun setCameraActive(active: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, active)
-    TransferContext.callPtrMethod(MethodBindings.setCameraActivePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCameraActivePtr, active)
   }
 
-  public final fun getCameraActive(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCameraActivePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getCameraActive(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getCameraActivePtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

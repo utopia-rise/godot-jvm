@@ -9,6 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_RID_LONG_ret_STRING
+import godot.callMethod_RID_ret_STRING
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_LONG_ret_RID
+import godot.callPtrMethod_RID
+import godot.callPtrMethod_RID_LONG_ret_BOOL
+import godot.callPtrMethod_RID_LONG_ret_TRANSFORM3D
+import godot.callPtrMethod_RID_ret_LONG
+import godot.callPtrMethod_RID_ret_OBJECT
+import godot.callPtrMethod_RID_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_RID_ret_TRANSFORM3D
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -18,18 +30,6 @@ import godot.core.RID
 import godot.core.Signal1
 import godot.core.Transform3D
 import godot.core.VariantArray
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_STRING_ARRAY
-import godot.readReturnValue_RID
-import godot.readReturnValue_STRING
-import godot.readReturnValue_TRANSFORM3D
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_RID
-import godot.writeMethodArguments_RID_LONG
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
@@ -67,11 +67,8 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    *
    * **Note:** This only returns a valid value after OpenXR has been initialized.
    */
-  public final fun isActive(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isActivePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isActive(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isActivePtr)
 
   /**
    * Creates a render model object within OpenXR using a render model id.
@@ -79,11 +76,8 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    * **Note:** This function is exposed for dependent OpenXR extensions that provide render model
    * ids to be used with the render model extension.
    */
-  public final fun renderModelCreate(renderModelId: Long): RID {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, renderModelId)
-    TransferContext.callPtrMethod(MethodBindings.renderModelCreatePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun renderModelCreate(renderModelId: Long): RID =
+      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.renderModelCreatePtr, renderModelId)
 
   /**
    * Destroys a render model object within OpenXR that was previously created with
@@ -93,28 +87,21 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    * ids to be used with the render model extension.
    */
   public final fun renderModelDestroy(renderModel: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callPtrMethod(MethodBindings.renderModelDestroyPtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.renderModelDestroyPtr, renderModel)
   }
 
   /**
    * Returns an array of all currently active render models registered with this extension.
    */
-  public final fun renderModelGetAll(): VariantArray<RID> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.renderModelGetAllPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
-  }
+  public final fun renderModelGetAll(): VariantArray<RID> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.renderModelGetAllPtr) as VariantArray<RID>)
 
   /**
    * Returns an instance of a subscene that contains all [MeshInstance3D] nodes that allow you to
    * visualize the render model.
    */
-  public final fun renderModelNewSceneInstance(renderModel: RID): Node3D? {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callPtrMethod(MethodBindings.renderModelNewSceneInstancePtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Node3D?)
-  }
+  public final fun renderModelNewSceneInstance(renderModel: RID): Node3D? =
+      (TransferContext.callPtrMethod_RID_ret_OBJECT(ptr, objectID.id, MethodBindings.renderModelNewSceneInstancePtr, renderModel) as Node3D?)
 
   /**
    * Returns a list of active subaction paths for this [renderModel].
@@ -123,77 +110,53 @@ public open class OpenXRRenderModelExtension : OpenXRExtensionWrapper() {
    * interaction bindings, this information shows paths related to the interaction bindings being
    * mimicked by that device.
    */
-  public final fun renderModelGetSubactionPaths(renderModel: RID): PackedStringArray {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callPtrMethod(MethodBindings.renderModelGetSubactionPathsPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun renderModelGetSubactionPaths(renderModel: RID): PackedStringArray =
+      TransferContext.callPtrMethod_RID_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.renderModelGetSubactionPathsPtr, renderModel)
 
   /**
    * Returns the top level path associated with this [renderModel]. If provided this identifies
    * whether the render model is associated with the player's hands or other body part.
    */
-  public final fun renderModelGetTopLevelPath(renderModel: RID): String {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callMethod(MethodBindings.renderModelGetTopLevelPathPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun renderModelGetTopLevelPath(renderModel: RID): String =
+      TransferContext.callMethod_RID_ret_STRING(ptr, objectID.id, MethodBindings.renderModelGetTopLevelPathPtr, renderModel)
 
   /**
    * Returns the tracking confidence of the tracking data for the render model.
    */
-  public final fun renderModelGetConfidence(renderModel: RID): XRPose.TrackingConfidence {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callPtrMethod(MethodBindings.renderModelGetConfidencePtr, 2)
-    return XRPose.TrackingConfidence.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun renderModelGetConfidence(renderModel: RID): XRPose.TrackingConfidence =
+      XRPose.TrackingConfidence.from(TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.renderModelGetConfidencePtr, renderModel))
 
   /**
    * Returns the root transform of a render model. This is the tracked position relative to our
    * [XROrigin3D] node.
    */
-  public final fun renderModelGetRootTransform(renderModel: RID): Transform3D {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callPtrMethod(MethodBindings.renderModelGetRootTransformPtr, 18)
-    return TransferContext.readReturnValue_TRANSFORM3D()
-  }
+  public final fun renderModelGetRootTransform(renderModel: RID): Transform3D =
+      TransferContext.callPtrMethod_RID_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.renderModelGetRootTransformPtr, renderModel)
 
   /**
    * Returns the number of animatable nodes this render model has.
    */
-  public final fun renderModelGetAnimatableNodeCount(renderModel: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderModel)
-    TransferContext.callPtrMethod(MethodBindings.renderModelGetAnimatableNodeCountPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun renderModelGetAnimatableNodeCount(renderModel: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.renderModelGetAnimatableNodeCountPtr, renderModel)
 
   /**
    * Returns the name of the given animatable node.
    */
-  public final fun renderModelGetAnimatableNodeName(renderModel: RID, index: Long): String {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, renderModel, index)
-    TransferContext.callMethod(MethodBindings.renderModelGetAnimatableNodeNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun renderModelGetAnimatableNodeName(renderModel: RID, index: Long): String =
+      TransferContext.callMethod_RID_LONG_ret_STRING(ptr, objectID.id, MethodBindings.renderModelGetAnimatableNodeNamePtr, renderModel, index)
 
   /**
    * Returns `true` if this animatable node should be visible.
    */
-  public final fun renderModelIsAnimatableNodeVisible(renderModel: RID, index: Long): Boolean {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, renderModel, index)
-    TransferContext.callPtrMethod(MethodBindings.renderModelIsAnimatableNodeVisiblePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun renderModelIsAnimatableNodeVisible(renderModel: RID, index: Long): Boolean =
+      TransferContext.callPtrMethod_RID_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.renderModelIsAnimatableNodeVisiblePtr, renderModel, index)
 
   /**
    * Returns the current local transform for an animatable node. This is updated every frame.
    */
-  public final fun renderModelGetAnimatableNodeTransform(renderModel: RID, index: Long):
-      Transform3D {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, renderModel, index)
-    TransferContext.callPtrMethod(MethodBindings.renderModelGetAnimatableNodeTransformPtr, 18)
-    return TransferContext.readReturnValue_TRANSFORM3D()
-  }
+  public final fun renderModelGetAnimatableNodeTransform(renderModel: RID, index: Long): Transform3D
+      =
+      TransferContext.callPtrMethod_RID_LONG_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.renderModelGetAnimatableNodeTransformPtr, renderModel, index)
 
   public companion object {
     @JvmField

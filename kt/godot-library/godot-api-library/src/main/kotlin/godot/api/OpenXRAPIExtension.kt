@@ -9,6 +9,28 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_LONG_STRING
+import godot.callMethod_LONG_STRING_ARRAY_ret_BOOL
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_RID_ret_RID
+import godot.callMethod_STRING_ret_LONG
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_INT_64_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_BOOL_ret_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_LONG_LONG_LONG_LONG_LONG_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_RID
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_RECT2I
+import godot.callPtrMethod_RID
+import godot.callPtrMethod_RID_ret_LONG
+import godot.callPtrMethod_VECTOR2I
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -22,24 +44,6 @@ import godot.core.Rect2i
 import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.Vector2i
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_INT_64_ARRAY
-import godot.readReturnValue_RID
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_LONG_LONG_LONG_LONG_LONG_LONG
-import godot.writeMethodArguments_LONG_LONG_STRING
-import godot.writeMethodArguments_LONG_STRING_ARRAY
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_RECT2I
-import godot.writeMethodArguments_RID
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_RID
-import godot.writeMethodArguments_VECTOR2I
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -70,44 +74,32 @@ public open class OpenXRAPIExtension : RefCounted() {
    * [url=https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_MAKE_VERSION]XR_MAKE_VERSION[/url]
    * for how the version is calculated.
    */
-  public final fun getOpenxrVersion(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOpenxrVersionPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getOpenxrVersion(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOpenxrVersionPtr)
 
   /**
    * Returns the
    * [url=https://registry.khronos.org/OpenXR/specs/1.0/man/html/XrInstance.html]XrInstance[/url]
    * created during the initialization of the OpenXR API.
    */
-  public final fun getInstance(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getInstancePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getInstance(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInstancePtr)
 
   /**
    * Returns the ID of the system, which is an
    * [url=https://registry.khronos.org/OpenXR/specs/1.0/man/html/XrSystemId.html]XrSystemId[/url] cast
    * to an integer.
    */
-  public final fun getSystemId(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSystemIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getSystemId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSystemIdPtr)
 
   /**
    * Returns the OpenXR session, which is an
    * [url=https://registry.khronos.org/OpenXR/specs/1.0/man/html/XrSession.html]XrSession[/url] cast to
    * an integer.
    */
-  public final fun getSession(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSessionPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getSession(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSessionPtr)
 
   /**
    * Returns `true` if the provided
@@ -120,11 +112,8 @@ public open class OpenXRAPIExtension : RefCounted() {
     result: Long,
     format: String,
     args: VariantArray<Any?>,
-  ): Boolean {
-    TransferContext.writeMethodArguments_LONG_STRING_ARRAY(ptr, objectID.id, result, format, args)
-    TransferContext.callMethod(MethodBindings.xrResultPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  ): Boolean =
+      TransferContext.callMethod_LONG_STRING_ARRAY_ret_BOOL(ptr, objectID.id, MethodBindings.xrResultPtr, result, format, args)
 
   /**
    * Returns the function pointer of the OpenXR function with the specified name, cast to an
@@ -133,30 +122,21 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** `openxr/util.h` contains utility macros for acquiring OpenXR functions, e.g.
    * `GDEXTENSION_INIT_XR_FUNC_V(xrCreateAction)`.
    */
-  public final fun getInstanceProcAddr(name: String): Long {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getInstanceProcAddrPtr)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getInstanceProcAddr(name: String): Long =
+      TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.getInstanceProcAddrPtr, name)
 
   /**
    * Returns an error string for the given
    * [url=https://registry.khronos.org/OpenXR/specs/1.0/man/html/XrResult.html]XrResult[/url].
    */
-  public final fun getErrorString(result: Long): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, result)
-    TransferContext.callMethod(MethodBindings.getErrorStringPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getErrorString(result: Long): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getErrorStringPtr, result)
 
   /**
    * Returns the name of the specified swapchain format.
    */
-  public final fun getSwapchainFormatName(swapchainFormat: Long): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchainFormat)
-    TransferContext.callMethod(MethodBindings.getSwapchainFormatNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getSwapchainFormatName(swapchainFormat: Long): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getSwapchainFormatNamePtr, swapchainFormat)
 
   /**
    * Set the object name of an OpenXR object, used for debug output. [objectType] must be a valid
@@ -167,8 +147,7 @@ public open class OpenXRAPIExtension : RefCounted() {
     objectHandle: Long,
     objectName: String,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_STRING(ptr, objectID.id, objectType, objectHandle, objectName)
-    TransferContext.callMethod(MethodBindings.setObjectNamePtr)
+    TransferContext.callMethod_LONG_LONG_STRING(ptr, objectID.id, MethodBindings.setObjectNamePtr, objectType, objectHandle, objectName)
   }
 
   /**
@@ -176,8 +155,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * following this until [endDebugLabelRegion] is called. Debug labels can be stacked.
    */
   public final fun beginDebugLabelRegion(labelName: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, labelName)
-    TransferContext.callMethod(MethodBindings.beginDebugLabelRegionPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.beginDebugLabelRegionPtr, labelName)
   }
 
   /**
@@ -185,8 +163,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * [beginDebugLabelRegion].
    */
   public final fun endDebugLabelRegion(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.endDebugLabelRegionPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.endDebugLabelRegionPtr)
   }
 
   /**
@@ -195,116 +172,82 @@ public open class OpenXRAPIExtension : RefCounted() {
    * [insertDebugLabel] is called.
    */
   public final fun insertDebugLabel(labelName: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, labelName)
-    TransferContext.callMethod(MethodBindings.insertDebugLabelPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.insertDebugLabelPtr, labelName)
   }
 
   /**
    * Returns the number of views. It is usually two, one for each eye, but may differ with different
    * view configurations.
    */
-  public final fun getViewCount(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getViewCountPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getViewCount(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getViewCountPtr)
 
   /**
    * Returns the view configuration type, which is an
    * [url=https://registry.khronos.org/OpenXR/specs/1.0/man/html/XrViewConfigurationType.html]XrViewConfigurationType[/url]
    * cast to an integer.
    */
-  public final fun getViewConfiguration(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getViewConfigurationPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getViewConfiguration(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getViewConfigurationPtr)
 
   /**
    * Returns `true` if OpenXR is initialized.
    */
-  public final fun isInitialized(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isInitializedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInitialized(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInitializedPtr)
 
   /**
    * Returns `true` if OpenXR is running
    * ([url=https://registry.khronos.org/OpenXR/specs/1.0/man/html/xrBeginSession.html]xrBeginSession[/url]
    * was successfully called and the swapchains were created).
    */
-  public final fun isRunning(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isRunningPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isRunning(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRunningPtr)
 
   /**
    * Returns the play space, which is an
    * [url=https://registry.khronos.org/OpenXR/specs/1.0/man/html/XrSpace.html]XrSpace[/url] cast to an
    * integer.
    */
-  public final fun getPlaySpace(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPlaySpacePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getPlaySpace(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPlaySpacePtr)
 
   /**
    * Returns the predicted display timing for the current frame.
    */
-  public final fun getPredictedDisplayTime(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPredictedDisplayTimePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getPredictedDisplayTime(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPredictedDisplayTimePtr)
 
   /**
    * Returns the predicted display timing for the next frame.
    */
-  public final fun getNextFrameTime(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getNextFrameTimePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getNextFrameTime(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getNextFrameTimePtr)
 
   /**
    * Returns `true` if OpenXR is initialized for rendering with an XR viewport.
    */
-  public final fun canRender(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.canRenderPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun canRender(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.canRenderPtr)
 
   /**
    * Returns the [RID] corresponding to an `Action` of a matching name, optionally limited to a
    * specified action set.
    */
-  public final fun findAction(name: String, actionSet: RID): RID {
-    TransferContext.writeMethodArguments_STRING_RID(ptr, objectID.id, name, actionSet)
-    TransferContext.callMethod(MethodBindings.findActionPtr)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun findAction(name: String, actionSet: RID): RID =
+      TransferContext.callMethod_STRING_RID_ret_RID(ptr, objectID.id, MethodBindings.findActionPtr, name, actionSet)
 
   /**
    * Returns the corresponding `XrAction` OpenXR handle for the given action RID.
    */
-  public final fun actionGetHandle(action: RID): Long {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, action)
-    TransferContext.callPtrMethod(MethodBindings.actionGetHandlePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun actionGetHandle(action: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.actionGetHandlePtr, action)
 
   /**
    * Returns the corresponding `XRHandTrackerEXT` handle for the given hand index value.
    */
-  public final fun getHandTracker(handIndex: Int): Long {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, handIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getHandTrackerPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getHandTracker(handIndex: Int): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getHandTrackerPtr, handIndex.toLong())
 
   /**
    * Registers the given extension as a composition layer provider.
@@ -313,8 +256,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * in [OpenXRExtensionWrapper.OnSessionCreated].
    */
   public final fun registerCompositionLayerProvider(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callPtrMethod(MethodBindings.registerCompositionLayerProviderPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.registerCompositionLayerProviderPtr, extension)
   }
 
   /**
@@ -323,8 +265,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** This cannot be called while the OpenXR session is still running.
    */
   public final fun unregisterCompositionLayerProvider(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callPtrMethod(MethodBindings.unregisterCompositionLayerProviderPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.unregisterCompositionLayerProviderPtr, extension)
   }
 
   /**
@@ -334,8 +275,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * in [OpenXRExtensionWrapper.OnSessionCreated].
    */
   public final fun registerProjectionViewsExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callPtrMethod(MethodBindings.registerProjectionViewsExtensionPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.registerProjectionViewsExtensionPtr, extension)
   }
 
   /**
@@ -345,8 +285,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** This cannot be called while the OpenXR session is still running.
    */
   public final fun unregisterProjectionViewsExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callPtrMethod(MethodBindings.unregisterProjectionViewsExtensionPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.unregisterProjectionViewsExtensionPtr, extension)
   }
 
   /**
@@ -359,8 +298,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * in [OpenXRExtensionWrapper.OnSessionCreated].
    */
   public final fun registerFrameInfoExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callPtrMethod(MethodBindings.registerFrameInfoExtensionPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.registerFrameInfoExtensionPtr, extension)
   }
 
   /**
@@ -369,8 +307,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** This cannot be called while the OpenXR session is still running.
    */
   public final fun unregisterFrameInfoExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callPtrMethod(MethodBindings.unregisterFrameInfoExtensionPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.unregisterFrameInfoExtensionPtr, extension)
   }
 
   /**
@@ -381,8 +318,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * in [OpenXRExtensionWrapper.OnSessionCreated].
    */
   public final fun registerProjectionLayerExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callPtrMethod(MethodBindings.registerProjectionLayerExtensionPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.registerProjectionLayerExtensionPtr, extension)
   }
 
   /**
@@ -391,8 +327,7 @@ public open class OpenXRAPIExtension : RefCounted() {
    * **Note:** This cannot be called while the OpenXR session is still running.
    */
   public final fun unregisterProjectionLayerExtension(extension: OpenXRExtensionWrapper?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, extension)
-    TransferContext.callPtrMethod(MethodBindings.unregisterProjectionLayerExtensionPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.unregisterProjectionLayerExtensionPtr, extension)
   }
 
   /**
@@ -400,55 +335,43 @@ public open class OpenXRAPIExtension : RefCounted() {
    *
    * **Note:** This is only accessible in the render thread.
    */
-  public final fun getRenderStateZNear(): Double {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRenderStateZNearPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getRenderStateZNear(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRenderStateZNearPtr)
 
   /**
    * Returns the far boundary value of the camera frustum.
    *
    * **Note:** This is only accessible in the render thread.
    */
-  public final fun getRenderStateZFar(): Double {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRenderStateZFarPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getRenderStateZFar(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRenderStateZFarPtr)
 
   /**
    * Sets the render target of the velocity texture.
    */
   public final fun setVelocityTexture(renderTarget: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderTarget)
-    TransferContext.callPtrMethod(MethodBindings.setVelocityTexturePtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setVelocityTexturePtr, renderTarget)
   }
 
   /**
    * Sets the render target of the velocity depth texture.
    */
   public final fun setVelocityDepthTexture(renderTarget: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderTarget)
-    TransferContext.callPtrMethod(MethodBindings.setVelocityDepthTexturePtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setVelocityDepthTexturePtr, renderTarget)
   }
 
   /**
    * Sets the target size of the velocity and velocity depth textures.
    */
   public final fun setVelocityTargetSize(targetSize: Vector2i): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, targetSize)
-    TransferContext.callPtrMethod(MethodBindings.setVelocityTargetSizePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setVelocityTargetSizePtr, targetSize)
   }
 
   /**
    * Returns an array of supported swapchain formats.
    */
-  public final fun getSupportedSwapchainFormats(): PackedInt64Array {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSupportedSwapchainFormatsPtr, 31)
-    return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
-  }
+  public final fun getSupportedSwapchainFormats(): PackedInt64Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.getSupportedSwapchainFormatsPtr)
 
   /**
    * Returns a pointer to a new swapchain created using the provided parameters.
@@ -461,52 +384,40 @@ public open class OpenXRAPIExtension : RefCounted() {
     height: Long,
     sampleCount: Long,
     arraySize: Long,
-  ): Long {
-    TransferContext.writeMethodArguments_LONG_LONG_LONG_LONG_LONG_LONG_LONG(ptr, objectID.id, createFlags, usageFlags, swapchainFormat, width, height, sampleCount, arraySize)
-    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainCreatePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  ): Long =
+      TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_LONG_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.openxrSwapchainCreatePtr, createFlags, usageFlags, swapchainFormat, width, height, sampleCount, arraySize)
 
   /**
    * Destroys the provided swapchain and frees it from memory.
    */
   public final fun openxrSwapchainFree(swapchain: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
-    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainFreePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.openxrSwapchainFreePtr, swapchain)
   }
 
   /**
    * Returns the `XrSwapchain` handle of the provided swapchain.
    */
-  public final fun openxrSwapchainGetSwapchain(swapchain: Long): Long {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
-    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainGetSwapchainPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun openxrSwapchainGetSwapchain(swapchain: Long): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.openxrSwapchainGetSwapchainPtr, swapchain)
 
   /**
    * Acquires the image of the provided swapchain.
    */
   public final fun openxrSwapchainAcquire(swapchain: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
-    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainAcquirePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.openxrSwapchainAcquirePtr, swapchain)
   }
 
   /**
    * Returns the RID of the provided swapchain's image.
    */
-  public final fun openxrSwapchainGetImage(swapchain: Long): RID {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
-    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainGetImagePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun openxrSwapchainGetImage(swapchain: Long): RID =
+      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.openxrSwapchainGetImagePtr, swapchain)
 
   /**
    * Releases the image of the provided swapchain.
    */
   public final fun openxrSwapchainRelease(swapchain: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, swapchain)
-    TransferContext.callPtrMethod(MethodBindings.openxrSwapchainReleasePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.openxrSwapchainReleasePtr, swapchain)
   }
 
   /**
@@ -514,18 +425,14 @@ public open class OpenXRAPIExtension : RefCounted() {
    *
    * **Note:** This method should only be called from the rendering thread.
    */
-  public final fun getProjectionLayer(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getProjectionLayerPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getProjectionLayer(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProjectionLayerPtr)
 
   /**
    * Sets the render region to [renderRegion], overriding the normal render target's rect.
    */
   public final fun setRenderRegion(renderRegion: Rect2i): Unit {
-    TransferContext.writeMethodArguments_RECT2I(ptr, objectID.id, renderRegion)
-    TransferContext.callPtrMethod(MethodBindings.setRenderRegionPtr, 0)
+    TransferContext.callPtrMethod_RECT2I(ptr, objectID.id, MethodBindings.setRenderRegionPtr, renderRegion)
   }
 
   /**
@@ -533,27 +440,22 @@ public open class OpenXRAPIExtension : RefCounted() {
    * [XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND] blend mode.
    */
   public final fun setEmulateEnvironmentBlendModeAlphaBlend(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setEmulateEnvironmentBlendModeAlphaBlendPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEmulateEnvironmentBlendModeAlphaBlendPtr, enabled)
   }
 
   /**
    * Returns [OpenXRAPIExtension.OpenXRAlphaBlendModeSupport] denoting if
    * [XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND] is really supported, emulated or not supported at all.
    */
-  public final fun isEnvironmentBlendModeAlphaSupported(): OpenXRAlphaBlendModeSupport {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isEnvironmentBlendModeAlphaSupportedPtr, 2)
-    return OpenXRAlphaBlendModeSupport.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun isEnvironmentBlendModeAlphaSupported(): OpenXRAlphaBlendModeSupport =
+      OpenXRAlphaBlendModeSupport.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.isEnvironmentBlendModeAlphaSupportedPtr))
 
   /**
    * Request the recommended resolution from the OpenXR runtime and update the main swapchain size
    * if it has changed.
    */
   public final fun updateMainSwapchainSize(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.updateMainSwapchainSizePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.updateMainSwapchainSizePtr)
   }
 
   public enum class OpenXRAlphaBlendModeSupport(
@@ -793,11 +695,8 @@ public open class OpenXRAPIExtension : RefCounted() {
      * Returns `true` if OpenXR is enabled.
      */
     @JvmStatic
-    public final fun openxrIsEnabled(checkRunInEditor: Boolean): Boolean {
-      TransferContext.writeMethodArguments_BOOL(0L, 0L, checkRunInEditor)
-      TransferContext.callPtrMethod(MethodBindings.openxrIsEnabledPtr, 1)
-      return TransferContext.readReturnValue_BOOL()
-    }
+    public final fun openxrIsEnabled(checkRunInEditor: Boolean): Boolean =
+        TransferContext.callPtrMethod_BOOL_ret_BOOL(0L, 0L, MethodBindings.openxrIsEnabledPtr, checkRunInEditor)
   }
 
   public object MethodBindings {

@@ -9,18 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_LONG_STRING_BOOL_ret_LONG
+import godot.callMethod_STRING_PACKED_BYTE_ARRAY_BOOL_ret_LONG
+import godot.callMethod_STRING_STRING_BOOL_ret_LONG
+import godot.callMethod_STRING_ret_LONG
+import godot.callPtrMethod_BOOL_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
 import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.PackedByteArray
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_LONG_STRING_BOOL
-import godot.writeMethodArguments_STRING_PACKED_BYTE_ARRAY_BOOL
-import godot.writeMethodArguments_STRING_STRING_BOOL
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
@@ -71,11 +70,8 @@ public open class PCKPacker : RefCounted() {
     alignment: Int = 32,
     key: String = "0000000000000000000000000000000000000000000000000000000000000000",
     encryptDirectory: Boolean = false,
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_LONG_STRING_BOOL(ptr, objectID.id, pckPath, alignment.toLong(), key, encryptDirectory)
-    TransferContext.callMethod(MethodBindings.pckStartPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_LONG_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.pckStartPtr, pckPath, alignment.toLong(), key, encryptDirectory))
 
   /**
    * Adds the [sourcePath] file to the current PCK package at the [targetPath] internal path. The
@@ -87,11 +83,8 @@ public open class PCKPacker : RefCounted() {
     targetPath: String,
     sourcePath: String,
     encrypt: Boolean = false,
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_STRING_BOOL(ptr, objectID.id, targetPath, sourcePath, encrypt)
-    TransferContext.callMethod(MethodBindings.addFilePtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.addFilePtr, targetPath, sourcePath, encrypt))
 
   /**
    * Adds the [data] to the current PCK package at the [targetPath] internal path. The `res://`
@@ -103,22 +96,16 @@ public open class PCKPacker : RefCounted() {
     targetPath: String,
     `data`: PackedByteArray,
     encrypt: Boolean = false,
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_PACKED_BYTE_ARRAY_BOOL(ptr, objectID.id, targetPath, data, encrypt)
-    TransferContext.callMethod(MethodBindings.addFileFromBufferPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_PACKED_BYTE_ARRAY_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.addFileFromBufferPtr, targetPath, data, encrypt))
 
   /**
    * Registers a file removal of the [targetPath] internal path to the PCK. This is mainly used for
    * patches. If the file at this path has been loaded from a previous PCK, it will be removed. The
    * `res://` prefix for [targetPath] is optional and stripped internally.
    */
-  public final fun addFileRemoval(targetPath: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, targetPath)
-    TransferContext.callMethod(MethodBindings.addFileRemovalPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun addFileRemoval(targetPath: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.addFileRemovalPtr, targetPath))
 
   /**
    * Writes the file directory and closes the PCK. If [verbose] is `true`, a list of files added
@@ -129,11 +116,8 @@ public open class PCKPacker : RefCounted() {
    * either with the `using` statement or by calling the `Dispose` method directly.
    */
   @JvmOverloads
-  public final fun flush(verbose: Boolean = false): Error {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, verbose)
-    TransferContext.callPtrMethod(MethodBindings.flushPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun flush(verbose: Boolean = false): Error =
+      Error.from(TransferContext.callPtrMethod_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.flushPtr, verbose))
 
   public companion object {
     @JvmField

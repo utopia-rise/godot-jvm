@@ -9,6 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -16,17 +27,6 @@ import godot.core.MethodStringName1
 import godot.core.Signal0
 import godot.core.StringName
 import godot.core.asCachedStringName
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_STRING_NAME
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_STRING_NAME
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -201,56 +201,39 @@ public open class AudioStreamPlayer : Node() {
   }
 
   public final fun setStream(stream: AudioStream?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, stream)
-    TransferContext.callPtrMethod(MethodBindings.setStreamPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setStreamPtr, stream)
   }
 
-  public final fun getStream(): AudioStream? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStreamPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as AudioStream?)
-  }
+  public final fun getStream(): AudioStream? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getStreamPtr) as AudioStream?)
 
   public final fun setVolumeDb(volumeDb: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, volumeDb.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setVolumeDbPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVolumeDbPtr, volumeDb.toDouble())
   }
 
-  public final fun getVolumeDb(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVolumeDbPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getVolumeDb(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVolumeDbPtr).toFloat()
 
   public final fun setVolumeLinear(volumeLinear: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, volumeLinear.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setVolumeLinearPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVolumeLinearPtr, volumeLinear.toDouble())
   }
 
-  public final fun getVolumeLinear(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVolumeLinearPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getVolumeLinear(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVolumeLinearPtr).toFloat()
 
   public final fun setPitchScale(pitchScale: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pitchScale.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setPitchScalePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPitchScalePtr, pitchScale.toDouble())
   }
 
-  public final fun getPitchScale(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPitchScalePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getPitchScale(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPitchScalePtr).toFloat()
 
   /**
    * Plays a sound from the beginning, or the given [fromPosition] in seconds.
    */
   @JvmOverloads
   public final fun play(fromPosition: Float = 0.0f): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, fromPosition.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.playPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.playPtr, fromPosition.toDouble())
   }
 
   /**
@@ -258,23 +241,18 @@ public open class AudioStreamPlayer : Node() {
    * sounds are playing.
    */
   public final fun seek(toPosition: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, toPosition.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.seekPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.seekPtr, toPosition.toDouble())
   }
 
   /**
    * Stops all sounds from this node.
    */
   public final fun stop(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.stopPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
   }
 
-  public final fun isPlaying(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPlayingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPlaying(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPlayingPtr)
 
   /**
    * Returns the position in the [AudioStream] of the latest sound, in seconds. Returns `0.0` if no
@@ -287,102 +265,68 @@ public open class AudioStreamPlayer : Node() {
    * **Note:** This method always returns `0.0` if the [stream] is an [AudioStreamInteractive],
    * since it can have multiple clips playing at once.
    */
-  public final fun getPlaybackPosition(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPlaybackPositionPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getPlaybackPosition(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPlaybackPositionPtr).toFloat()
 
   public final fun setBus(bus: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, bus)
-    TransferContext.callPtrMethod(MethodBindings.setBusPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setBusPtr, bus)
   }
 
-  public final fun getBus(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBusPtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getBus(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getBusPtr)
 
   public final fun setAutoplay(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setAutoplayPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoplayPtr, enable)
   }
 
-  public final fun isAutoplayEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isAutoplayEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isAutoplayEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAutoplayEnabledPtr)
 
   public final fun setMixTarget(mixTarget: MixTarget): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mixTarget.value)
-    TransferContext.callPtrMethod(MethodBindings.setMixTargetPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMixTargetPtr, mixTarget.value)
   }
 
-  public final fun getMixTarget(): MixTarget {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMixTargetPtr, 2)
-    return MixTarget.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getMixTarget(): MixTarget =
+      MixTarget.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMixTargetPtr))
 
   public final fun setPlaying(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setPlayingPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPlayingPtr, enable)
   }
 
   public final fun setStreamPaused(pause: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pause)
-    TransferContext.callPtrMethod(MethodBindings.setStreamPausedPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setStreamPausedPtr, pause)
   }
 
-  public final fun getStreamPaused(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStreamPausedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getStreamPaused(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getStreamPausedPtr)
 
   public final fun setMaxPolyphony(maxPolyphony: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxPolyphony.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setMaxPolyphonyPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxPolyphonyPtr, maxPolyphony.toLong())
   }
 
-  public final fun getMaxPolyphony(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMaxPolyphonyPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMaxPolyphony(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxPolyphonyPtr).toInt()
 
   /**
    * Returns `true` if any sound is active, even if [streamPaused] is set to `true`. See also
    * [playing] and [getStreamPlayback].
    */
-  public final fun hasStreamPlayback(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasStreamPlaybackPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasStreamPlayback(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasStreamPlaybackPtr)
 
   /**
    * Returns the latest [AudioStreamPlayback] of this node, usually the most recently created by
    * [play]. If no sounds are playing, this method fails and returns an empty playback.
    */
-  public final fun getStreamPlayback(): AudioStreamPlayback? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStreamPlaybackPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as AudioStreamPlayback?)
-  }
+  public final fun getStreamPlayback(): AudioStreamPlayback? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getStreamPlaybackPtr) as AudioStreamPlayback?)
 
   public final fun setPlaybackType(playbackType: AudioServer.PlaybackType): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, playbackType.value)
-    TransferContext.callPtrMethod(MethodBindings.setPlaybackTypePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPlaybackTypePtr, playbackType.value)
   }
 
-  public final fun getPlaybackType(): AudioServer.PlaybackType {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPlaybackTypePtr, 2)
-    return AudioServer.PlaybackType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getPlaybackType(): AudioServer.PlaybackType =
+      AudioServer.PlaybackType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPlaybackTypePtr))
 
   public final fun setBus(bus: String) = setBus(bus.asCachedStringName())
 

@@ -9,19 +9,22 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_STRING_ret_BOOL
+import godot.callMethod_STRING_ret_LONG
+import godot.callMethod_STRING_ret_STRING
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedByteArray
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_PACKED_BYTE_ARRAY
-import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -83,20 +86,14 @@ public open class XMLParser : RefCounted() {
   /**
    * Parses the next node in the file. This method returns an error code.
    */
-  public final fun read(): Error {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.readPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun read(): Error =
+      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.readPtr))
 
   /**
    * Returns the type of the current node. Compare with [NodeType] constants.
    */
-  public final fun getNodeType(): NodeType {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getNodeTypePtr, 2)
-    return NodeType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getNodeType(): NodeType =
+      NodeType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getNodeTypePtr))
 
   /**
    * Returns the name of a node. This method will raise an error if the currently parsed node is a
@@ -105,31 +102,22 @@ public open class XMLParser : RefCounted() {
    * **Note:** The content of a [NODE_CDATA] node and the comment string of a [NODE_COMMENT] node
    * are also considered names.
    */
-  public final fun getNodeName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodeNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getNodeName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getNodeNamePtr)
 
   /**
    * Returns the contents of a text node. This method will raise an error if the current parsed node
    * is of any other type.
    */
-  public final fun getNodeData(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodeDataPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getNodeData(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getNodeDataPtr)
 
   /**
    * Returns the byte offset of the currently parsed node since the beginning of the file or buffer.
    * This is usually equivalent to the number of characters before the read position.
    */
-  public final fun getNodeOffset(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getNodeOffsetPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getNodeOffset(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getNodeOffsetPtr)
 
   /**
    * Returns the number of attributes in the currently parsed element.
@@ -137,114 +125,80 @@ public open class XMLParser : RefCounted() {
    * **Note:** If this method is used while the currently parsed node is not [NODE_ELEMENT] or
    * [NODE_ELEMENT_END], this count will not be updated and will still reflect the last element.
    */
-  public final fun getAttributeCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAttributeCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getAttributeCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAttributeCountPtr).toInt()
 
   /**
    * Returns the name of an attribute of the currently parsed element, specified by the [idx] index.
    */
-  public final fun getAttributeName(idx: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getAttributeNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getAttributeName(idx: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getAttributeNamePtr, idx.toLong())
 
   /**
    * Returns the value of an attribute of the currently parsed element, specified by the [idx]
    * index.
    */
-  public final fun getAttributeValue(idx: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callMethod(MethodBindings.getAttributeValuePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getAttributeValue(idx: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getAttributeValuePtr, idx.toLong())
 
   /**
    * Returns `true` if the currently parsed element has an attribute with the [name].
    */
-  public final fun hasAttribute(name: String): Boolean {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.hasAttributePtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasAttribute(name: String): Boolean =
+      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasAttributePtr, name)
 
   /**
    * Returns the value of an attribute of the currently parsed element, specified by its [name].
    * This method will raise an error if the element has no such attribute.
    */
-  public final fun getNamedAttributeValue(name: String): String {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getNamedAttributeValuePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getNamedAttributeValue(name: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.getNamedAttributeValuePtr, name)
 
   /**
    * Returns the value of an attribute of the currently parsed element, specified by its [name].
    * This method will return an empty string if the element has no such attribute.
    */
-  public final fun getNamedAttributeValueSafe(name: String): String {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, name)
-    TransferContext.callMethod(MethodBindings.getNamedAttributeValueSafePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getNamedAttributeValueSafe(name: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.getNamedAttributeValueSafePtr, name)
 
   /**
    * Returns `true` if the currently parsed element is empty, e.g. `<element />`.
    */
-  public final fun isEmpty(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isEmptyPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isEmpty(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEmptyPtr)
 
   /**
    * Returns the current line in the parsed file, counting from 0.
    */
-  public final fun getCurrentLine(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurrentLinePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getCurrentLine(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCurrentLinePtr).toInt()
 
   /**
    * Skips the current section. If the currently parsed node contains more inner nodes, they will be
    * ignored and the cursor will go to the closing of the current element.
    */
   public final fun skipSection(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.skipSectionPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.skipSectionPtr)
   }
 
   /**
    * Moves the buffer cursor to a certain offset (since the beginning) and reads the next node
    * there. This method returns an error code.
    */
-  public final fun seek(position: Long): Error {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, position)
-    TransferContext.callPtrMethod(MethodBindings.seekPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun seek(position: Long): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.seekPtr, position))
 
   /**
    * Opens an XML [file] for parsing. This method returns an error code.
    */
-  public final fun `open`(`file`: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, file)
-    TransferContext.callMethod(MethodBindings.openPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun `open`(`file`: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.openPtr, file))
 
   /**
    * Opens an XML raw [buffer] for parsing. This method returns an error code.
    */
-  public final fun openBuffer(buffer: PackedByteArray): Error {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callPtrMethod(MethodBindings.openBufferPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun openBuffer(buffer: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.openBufferPtr, buffer))
 
   public enum class NodeType(
     public override val `value`: Long,

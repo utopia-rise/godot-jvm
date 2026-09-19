@@ -9,17 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
 import godot.core.Signal1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -108,59 +107,39 @@ public open class Slider internal constructor() : Range() {
   }
 
   public final fun setTicks(count: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setTicksPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTicksPtr, count.toLong())
   }
 
-  public final fun getTicks(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTicksPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTicks(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTicksPtr).toInt()
 
-  public final fun getTicksOnBorders(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTicksOnBordersPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getTicksOnBorders(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getTicksOnBordersPtr)
 
   public final fun setTicksOnBorders(ticksOnBorder: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, ticksOnBorder)
-    TransferContext.callPtrMethod(MethodBindings.setTicksOnBordersPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTicksOnBordersPtr, ticksOnBorder)
   }
 
-  public final fun getTicksPosition(): TickPosition {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTicksPositionPtr, 2)
-    return TickPosition.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTicksPosition(): TickPosition =
+      TickPosition.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTicksPositionPtr))
 
   public final fun setTicksPosition(ticksOnBorder: TickPosition): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, ticksOnBorder.value)
-    TransferContext.callPtrMethod(MethodBindings.setTicksPositionPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTicksPositionPtr, ticksOnBorder.value)
   }
 
   public final fun setEditable(editable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, editable)
-    TransferContext.callPtrMethod(MethodBindings.setEditablePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditablePtr, editable)
   }
 
-  public final fun isEditable(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isEditablePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isEditable(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEditablePtr)
 
   public final fun setScrollable(scrollable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, scrollable)
-    TransferContext.callPtrMethod(MethodBindings.setScrollablePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setScrollablePtr, scrollable)
   }
 
-  public final fun isScrollable(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isScrollablePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isScrollable(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isScrollablePtr)
 
   public enum class TickPosition(
     public override val `value`: Long,

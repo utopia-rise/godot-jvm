@@ -9,6 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_ARRAY_OBJECT_BOOL_BOOL_ret_ANY
+import godot.callMethod_STRING_PACKED_STRING_ARRAY_ret_LONG
+import godot.callPtrMethod0_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
@@ -16,13 +20,6 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName4
 import godot.core.PackedStringArray
 import godot.core.VariantArray
-import godot.readReturnValue_ANY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ARRAY_OBJECT_BOOL_BOOL
-import godot.writeMethodArguments_STRING_PACKED_STRING_ARRAY
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.String
@@ -96,11 +93,8 @@ public open class Expression : RefCounted() {
    */
   @JvmOverloads
   public final fun parse(expression: String, inputNames: PackedStringArray = PackedStringArray()):
-      Error {
-    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY(ptr, objectID.id, expression, inputNames)
-    TransferContext.callMethod(MethodBindings.parsePtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+      Error =
+      Error.from(TransferContext.callMethod_STRING_PACKED_STRING_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.parsePtr, expression, inputNames))
 
   /**
    * Executes the expression that was previously parsed by [parse] and returns the result. Before
@@ -115,29 +109,20 @@ public open class Expression : RefCounted() {
     baseInstance: Object? = null,
     showError: Boolean = true,
     constCallsOnly: Boolean = false,
-  ): Any? {
-    TransferContext.writeMethodArguments_ARRAY_OBJECT_BOOL_BOOL(ptr, objectID.id, inputs, baseInstance, showError, constCallsOnly)
-    TransferContext.callMethod(MethodBindings.executePtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  ): Any? =
+      TransferContext.callMethod_ARRAY_OBJECT_BOOL_BOOL_ret_ANY(ptr, objectID.id, MethodBindings.executePtr, inputs, baseInstance, showError, constCallsOnly)
 
   /**
    * Returns `true` if [execute] has failed.
    */
-  public final fun hasExecuteFailed(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasExecuteFailedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasExecuteFailed(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasExecuteFailedPtr)
 
   /**
    * Returns the error text if [parse] or [execute] has failed.
    */
-  public final fun getErrorText(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getErrorTextPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getErrorText(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getErrorTextPtr)
 
   public companion object {
     @JvmField

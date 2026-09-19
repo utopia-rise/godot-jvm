@@ -11,6 +11,18 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_NODE_PATH
+import godot.callPtrMethod_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -18,19 +30,6 @@ import godot.core.MethodStringName1
 import godot.core.NodePath
 import godot.core.Vector3
 import godot.core.asCachedNodePath
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_NODE_PATH
-import godot.readReturnValue_STRING
-import godot.readReturnValue_VECTOR3
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_NODE_PATH
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_VECTOR3
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -463,343 +462,220 @@ public open class LookAtModifier3D : SkeletonModifier3D() {
   }
 
   public final fun setTargetNode(targetNode: NodePath): Unit {
-    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, targetNode)
-    TransferContext.callPtrMethod(MethodBindings.setTargetNodePtr, 0)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setTargetNodePtr, targetNode)
   }
 
-  public final fun getTargetNode(): NodePath {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun getTargetNode(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getTargetNodePtr)
 
   public final fun setBoneName(boneName: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, boneName)
-    TransferContext.callMethod(MethodBindings.setBoneNamePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBoneNamePtr, boneName)
   }
 
-  public final fun getBoneName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getBoneName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getBoneNamePtr)
 
   public final fun setBone(bone: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bone.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setBonePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBonePtr, bone.toLong())
   }
 
-  public final fun getBone(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBonePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getBone(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBonePtr).toInt()
 
   public final fun setForwardAxis(forwardAxis: SkeletonModifier3D.BoneAxis): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, forwardAxis.value)
-    TransferContext.callPtrMethod(MethodBindings.setForwardAxisPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setForwardAxisPtr, forwardAxis.value)
   }
 
-  public final fun getForwardAxis(): SkeletonModifier3D.BoneAxis {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getForwardAxisPtr, 2)
-    return SkeletonModifier3D.BoneAxis.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getForwardAxis(): SkeletonModifier3D.BoneAxis =
+      SkeletonModifier3D.BoneAxis.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getForwardAxisPtr))
 
   public final fun setPrimaryRotationAxis(axis: Vector3.Axis): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, axis.value)
-    TransferContext.callPtrMethod(MethodBindings.setPrimaryRotationAxisPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPrimaryRotationAxisPtr, axis.value)
   }
 
-  public final fun getPrimaryRotationAxis(): Vector3.Axis {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPrimaryRotationAxisPtr, 2)
-    return Vector3.Axis.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getPrimaryRotationAxis(): Vector3.Axis =
+      Vector3.Axis.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPrimaryRotationAxisPtr))
 
   public final fun setUseSecondaryRotation(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setUseSecondaryRotationPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseSecondaryRotationPtr, enabled)
   }
 
-  public final fun isUsingSecondaryRotation(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingSecondaryRotationPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingSecondaryRotation(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingSecondaryRotationPtr)
 
   public final fun setRelative(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setRelativePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRelativePtr, enabled)
   }
 
-  public final fun isRelative(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isRelativePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isRelative(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRelativePtr)
 
   public final fun setOriginSafeMargin(margin: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, margin.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setOriginSafeMarginPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setOriginSafeMarginPtr, margin.toDouble())
   }
 
-  public final fun getOriginSafeMargin(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOriginSafeMarginPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getOriginSafeMargin(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOriginSafeMarginPtr).toFloat()
 
   public final fun setOriginFrom(originFrom: OriginFrom): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, originFrom.value)
-    TransferContext.callPtrMethod(MethodBindings.setOriginFromPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOriginFromPtr, originFrom.value)
   }
 
-  public final fun getOriginFrom(): OriginFrom {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOriginFromPtr, 2)
-    return OriginFrom.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getOriginFrom(): OriginFrom =
+      OriginFrom.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOriginFromPtr))
 
   public final fun setOriginBoneName(boneName: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, boneName)
-    TransferContext.callMethod(MethodBindings.setOriginBoneNamePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOriginBoneNamePtr, boneName)
   }
 
-  public final fun getOriginBoneName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOriginBoneNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getOriginBoneName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOriginBoneNamePtr)
 
   public final fun setOriginBone(bone: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bone.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setOriginBonePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOriginBonePtr, bone.toLong())
   }
 
-  public final fun getOriginBone(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOriginBonePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getOriginBone(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOriginBonePtr).toInt()
 
   public final fun setOriginExternalNode(externalNode: NodePath): Unit {
-    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, externalNode)
-    TransferContext.callPtrMethod(MethodBindings.setOriginExternalNodePtr, 0)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setOriginExternalNodePtr, externalNode)
   }
 
-  public final fun getOriginExternalNode(): NodePath {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOriginExternalNodePtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun getOriginExternalNode(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getOriginExternalNodePtr)
 
   public final fun setOriginOffset(offset: Vector3): Unit {
-    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, offset)
-    TransferContext.callPtrMethod(MethodBindings.setOriginOffsetPtr, 0)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setOriginOffsetPtr, offset)
   }
 
-  public final fun getOriginOffset(): Vector3 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOriginOffsetPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getOriginOffset(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getOriginOffsetPtr)
 
   public final fun setDuration(duration: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, duration.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setDurationPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDurationPtr, duration.toDouble())
   }
 
-  public final fun getDuration(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDurationPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDuration(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDurationPtr).toFloat()
 
   public final fun setTransitionType(transitionType: Tween.TransitionType): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, transitionType.value)
-    TransferContext.callPtrMethod(MethodBindings.setTransitionTypePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTransitionTypePtr, transitionType.value)
   }
 
-  public final fun getTransitionType(): Tween.TransitionType {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTransitionTypePtr, 2)
-    return Tween.TransitionType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTransitionType(): Tween.TransitionType =
+      Tween.TransitionType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTransitionTypePtr))
 
   public final fun setEaseType(easeType: Tween.EaseType): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, easeType.value)
-    TransferContext.callPtrMethod(MethodBindings.setEaseTypePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setEaseTypePtr, easeType.value)
   }
 
-  public final fun getEaseType(): Tween.EaseType {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEaseTypePtr, 2)
-    return Tween.EaseType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getEaseType(): Tween.EaseType =
+      Tween.EaseType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEaseTypePtr))
 
   public final fun setUseAngleLimitation(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setUseAngleLimitationPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseAngleLimitationPtr, enabled)
   }
 
-  public final fun isUsingAngleLimitation(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingAngleLimitationPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingAngleLimitation(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingAngleLimitationPtr)
 
   public final fun setSymmetryLimitation(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setSymmetryLimitationPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSymmetryLimitationPtr, enabled)
   }
 
-  public final fun isLimitationSymmetry(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isLimitationSymmetryPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isLimitationSymmetry(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isLimitationSymmetryPtr)
 
   public final fun setPrimaryLimitAngle(angle: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setPrimaryLimitAnglePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPrimaryLimitAnglePtr, angle.toDouble())
   }
 
-  public final fun getPrimaryLimitAngle(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPrimaryLimitAnglePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getPrimaryLimitAngle(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPrimaryLimitAnglePtr).toFloat()
 
   public final fun setPrimaryDampThreshold(power: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, power.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setPrimaryDampThresholdPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPrimaryDampThresholdPtr, power.toDouble())
   }
 
-  public final fun getPrimaryDampThreshold(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPrimaryDampThresholdPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getPrimaryDampThreshold(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPrimaryDampThresholdPtr).toFloat()
 
   public final fun setPrimaryPositiveLimitAngle(angle: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setPrimaryPositiveLimitAnglePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPrimaryPositiveLimitAnglePtr, angle.toDouble())
   }
 
-  public final fun getPrimaryPositiveLimitAngle(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPrimaryPositiveLimitAnglePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getPrimaryPositiveLimitAngle(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPrimaryPositiveLimitAnglePtr).toFloat()
 
   public final fun setPrimaryPositiveDampThreshold(power: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, power.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setPrimaryPositiveDampThresholdPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPrimaryPositiveDampThresholdPtr, power.toDouble())
   }
 
-  public final fun getPrimaryPositiveDampThreshold(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPrimaryPositiveDampThresholdPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getPrimaryPositiveDampThreshold(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPrimaryPositiveDampThresholdPtr).toFloat()
 
   public final fun setPrimaryNegativeLimitAngle(angle: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setPrimaryNegativeLimitAnglePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPrimaryNegativeLimitAnglePtr, angle.toDouble())
   }
 
-  public final fun getPrimaryNegativeLimitAngle(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPrimaryNegativeLimitAnglePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getPrimaryNegativeLimitAngle(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPrimaryNegativeLimitAnglePtr).toFloat()
 
   public final fun setPrimaryNegativeDampThreshold(power: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, power.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setPrimaryNegativeDampThresholdPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPrimaryNegativeDampThresholdPtr, power.toDouble())
   }
 
-  public final fun getPrimaryNegativeDampThreshold(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPrimaryNegativeDampThresholdPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getPrimaryNegativeDampThreshold(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPrimaryNegativeDampThresholdPtr).toFloat()
 
   public final fun setSecondaryLimitAngle(angle: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setSecondaryLimitAnglePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSecondaryLimitAnglePtr, angle.toDouble())
   }
 
-  public final fun getSecondaryLimitAngle(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSecondaryLimitAnglePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getSecondaryLimitAngle(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSecondaryLimitAnglePtr).toFloat()
 
   public final fun setSecondaryDampThreshold(power: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, power.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setSecondaryDampThresholdPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSecondaryDampThresholdPtr, power.toDouble())
   }
 
-  public final fun getSecondaryDampThreshold(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSecondaryDampThresholdPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getSecondaryDampThreshold(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSecondaryDampThresholdPtr).toFloat()
 
   public final fun setSecondaryPositiveLimitAngle(angle: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setSecondaryPositiveLimitAnglePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSecondaryPositiveLimitAnglePtr, angle.toDouble())
   }
 
-  public final fun getSecondaryPositiveLimitAngle(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSecondaryPositiveLimitAnglePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getSecondaryPositiveLimitAngle(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSecondaryPositiveLimitAnglePtr).toFloat()
 
   public final fun setSecondaryPositiveDampThreshold(power: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, power.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setSecondaryPositiveDampThresholdPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSecondaryPositiveDampThresholdPtr, power.toDouble())
   }
 
-  public final fun getSecondaryPositiveDampThreshold(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSecondaryPositiveDampThresholdPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getSecondaryPositiveDampThreshold(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSecondaryPositiveDampThresholdPtr).toFloat()
 
   public final fun setSecondaryNegativeLimitAngle(angle: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setSecondaryNegativeLimitAnglePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSecondaryNegativeLimitAnglePtr, angle.toDouble())
   }
 
-  public final fun getSecondaryNegativeLimitAngle(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSecondaryNegativeLimitAnglePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getSecondaryNegativeLimitAngle(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSecondaryNegativeLimitAnglePtr).toFloat()
 
   public final fun setSecondaryNegativeDampThreshold(power: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, power.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setSecondaryNegativeDampThresholdPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSecondaryNegativeDampThresholdPtr, power.toDouble())
   }
 
-  public final fun getSecondaryNegativeDampThreshold(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSecondaryNegativeDampThresholdPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getSecondaryNegativeDampThreshold(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSecondaryNegativeDampThresholdPtr).toFloat()
 
   /**
    * Returns the remaining seconds of the time-based interpolation.
    */
-  public final fun getInterpolationRemaining(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getInterpolationRemainingPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getInterpolationRemaining(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getInterpolationRemainingPtr).toFloat()
 
   /**
    * Returns `true` if time-based interpolation is running. If `true`, it is equivalent to
@@ -807,11 +683,8 @@ public open class LookAtModifier3D : SkeletonModifier3D() {
    *
    * This is useful to determine whether a [LookAtModifier3D] can be removed safely.
    */
-  public final fun isInterpolating(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isInterpolatingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInterpolating(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInterpolatingPtr)
 
   /**
    * Returns whether the target is within the angle limitations. It is useful for unsetting the
@@ -820,11 +693,8 @@ public open class LookAtModifier3D : SkeletonModifier3D() {
    * **Note:** The value is updated after [SkeletonModifier3D.ProcessModification]. To retrieve this
    * value correctly, we recommend using the signal [signal SkeletonModifier3D.modification_processed].
    */
-  public final fun isTargetWithinLimitation(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isTargetWithinLimitationPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isTargetWithinLimitation(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTargetWithinLimitationPtr)
 
   public final fun setTargetNode(targetNode: String) = setTargetNode(targetNode.asCachedNodePath())
 

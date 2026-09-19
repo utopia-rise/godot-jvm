@@ -81,8 +81,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      */
     override val size: Int
         get() {
-            Bridge.engine_call_size(ptr)
-            return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+            return TransferContext.callBridge(VariantParser.LONG) { Bridge.engine_call_size(ptr) }.toInt()
         }
 
     /**
@@ -118,16 +117,14 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * Returns true if the array is empty.
      */
     override fun isEmpty(): Boolean {
-        Bridge.engine_call_isEmpty(ptr)
-        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
+        return TransferContext.callBridge(VariantParser.BOOL) { Bridge.engine_call_isEmpty(ptr) }
     }
 
     /**
      * Returns true if the array is read-only.
      */
     fun isReadOnly(): Boolean {
-        Bridge.engine_call_isReadOnly(ptr)
-        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
+        return TransferContext.callBridge(VariantParser.BOOL) { Bridge.engine_call_isReadOnly(ptr) }
     }
 
     /**
@@ -135,16 +132,14 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * type safety for the [get] operator.
      */
     fun isTyped(): Boolean {
-        Bridge.engine_call_isTyped(ptr)
-        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
+        return TransferContext.callBridge(VariantParser.BOOL) { Bridge.engine_call_isTyped(ptr) }
     }
 
     /**
      * Returns a hashed integer value representing the array contents.
      */
     fun hash(): Int {
-        Bridge.engine_call_hash(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+        return TransferContext.callBridge(VariantParser.LONG) { Bridge.engine_call_hash(ptr) }.toInt()
     }
 
     /**
@@ -251,11 +246,10 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * **Note**: For an empty array, this method always returns `true`.
      */
     fun all(callable: Callable): Boolean {
-        TransferContext.writeArguments(1) {
+        return TransferContext.callBridge(1, VariantParser.BOOL) {
             VariantParser.CALLABLE.toGodot(callable)
+            Bridge.engine_call_all(ptr)
         }
-        Bridge.engine_call_all(ptr)
-        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
     }
 
     /**
@@ -273,11 +267,10 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * Note: For an empty array, this method always returns `false`.
      */
     fun any(callable: Callable): Boolean {
-        TransferContext.writeArguments(1) {
+        return TransferContext.callBridge(1, VariantParser.BOOL) {
             VariantParser.CALLABLE.toGodot(callable)
+            Bridge.engine_call_any(ptr)
         }
-        Bridge.engine_call_any(ptr)
-        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
     }
 
     /**
@@ -304,8 +297,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * Returns the last element of the array. Prints an error and returns `null` if the array is empty.
      */
     fun back(): T {
-        Bridge.engine_call_back(ptr)
-        return TransferContext.readReturnValue(variantConverter) as T
+        return TransferContext.callBridge(variantConverter) { Bridge.engine_call_back(ptr) } as T
     }
 
     /**
@@ -316,12 +308,11 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      */
     @JvmOverloads
     fun bsearch(value: T, before: Boolean = true): Int {
-        TransferContext.writeArguments(2) {
+        return TransferContext.callBridge(2, VariantParser.LONG) {
             variantConverter.toGodot(value)
             VariantParser.BOOL.write(before)
-        }
-        Bridge.engine_call_bsearch(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+            Bridge.engine_call_bsearch(ptr)
+        }.toInt()
     }
 
     /**
@@ -333,25 +324,23 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      */
     @JvmOverloads
     fun bsearchCustom(value: T, obj: KtObject, func: String, before: Boolean = true): Int {
-        TransferContext.writeArguments(4) {
+        return TransferContext.callBridge(4, VariantParser.LONG) {
             variantConverter.toGodot(value)
             VariantParser.OBJECT.toGodot(obj)
             VariantParser.STRING.toGodot(func)
             VariantParser.BOOL.write(before)
-        }
-        Bridge.engine_call_bsearchCustom(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+            Bridge.engine_call_bsearchCustom(ptr)
+        }.toInt()
     }
 
     /**
      * Returns the number of times an element is in the array.
      */
     fun count(value: T): Int {
-        TransferContext.writeArguments(1) {
+        return TransferContext.callBridge(1, VariantParser.LONG) {
             variantConverter.toGodot(value)
-        }
-        Bridge.engine_call_count(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+            Bridge.engine_call_count(ptr)
+        }.toInt()
     }
 
 
@@ -362,11 +351,10 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * If false, a shallow copy is made and references to the original nested arrays and dictionaries are kept, so that modifying a sub-array or dictionary in the copy will also impact those referenced in the source array.
      */
     fun duplicate(deep: Boolean): VariantArray<T> {
-        TransferContext.writeArguments(1) {
+        return (TransferContext.callBridge(1, VariantParser.ARRAY) {
             VariantParser.BOOL.write(deep)
-        }
-        Bridge.engine_call_duplicate(ptr)
-        return (TransferContext.readReturnValue(VariantParser.ARRAY) as VariantArray<T>).also {
+            Bridge.engine_call_duplicate(ptr)
+        } as VariantArray<T>).also {
             it.variantConverter = variantConverter
         }
     }
@@ -376,11 +364,10 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * deepSubresourceMode must be one of the values from DeepDuplicateMode. By default, only internal resources will be duplicated (recursively).
     */
     fun duplicateDeep(deepSubresourceMode: DeepDuplicateMode): VariantArray<T> {
-        TransferContext.writeArguments(1) {
+        return (TransferContext.callBridge(1, VariantParser.ARRAY) {
             VariantParser.LONG.write(deepSubresourceMode.value)
-        }
-        Bridge.engine_call_duplicate_deep(ptr)
-        return (TransferContext.readReturnValue(VariantParser.ARRAY) as VariantArray<T>).also {
+            Bridge.engine_call_duplicate_deep(ptr)
+        } as VariantArray<T>).also {
             it.variantConverter = variantConverter
         }
     }
@@ -418,11 +405,10 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * See also [any], [all], [map] and [reduce].
      */
     fun filter(callable: Callable): VariantArray<T> {
-        TransferContext.writeArguments(1) {
+        return (TransferContext.callBridge(1, VariantParser.ARRAY) {
             VariantParser.CALLABLE.toGodot(callable)
-        }
-        Bridge.engine_call_filter(ptr)
-        return (TransferContext.readReturnValue(VariantParser.ARRAY) as VariantArray<T>).also {
+            Bridge.engine_call_filter(ptr)
+        } as VariantArray<T>).also {
             it.variantConverter = variantConverter
         }
     }
@@ -432,20 +418,18 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * Optionally, the initial search index can be passed.
      */
     fun find(what: T, from: Int): Int {
-        TransferContext.writeArguments(2) {
+        return TransferContext.callBridge(2, VariantParser.LONG) {
             variantConverter.toGodot(what)
             VariantParser.LONG.write(from.toLong())
-        }
-        Bridge.engine_call_find(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+            Bridge.engine_call_find(ptr)
+        }.toInt()
     }
 
     /**
      * Returns the first element of the array, or null if the array is empty.
      */
     fun front(): T? {
-        Bridge.engine_call_front(ptr)
-        return TransferContext.readReturnValue(variantConverter) as T?
+        return TransferContext.callBridge(variantConverter) { Bridge.engine_call_front(ptr) } as T?
     }
 
     /**
@@ -457,27 +441,24 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * Returns a class name of a typed [VariantArray] of type [VariantParser.OBJECT].
      */
     fun getTypedClassName(): StringName {
-        Bridge.engine_call_getTypedClassName(ptr)
-        return TransferContext.readReturnValue(VariantParser.STRING_NAME) as StringName
+        return TransferContext.callBridge(VariantParser.STRING_NAME) { Bridge.engine_call_getTypedClassName(ptr) } as StringName
     }
 
     /**
      * Returns the script associated with a typed array tied to a class name.
      */
     fun getTypedScript(): Any {
-        Bridge.engine_call_getTypedScript(ptr)
-        return TransferContext.readReturnValue(VariantCaster.ANY) as Any
+        return TransferContext.callBridge(VariantCaster.ANY) { Bridge.engine_call_getTypedScript(ptr) } as Any
     }
 
     /**
      * Returns true if the array contains the given value.
      */
     fun has(value: T): Boolean {
-        TransferContext.writeArguments(1) {
+        return TransferContext.callBridge(1, VariantParser.BOOL) {
             variantConverter.toGodot(value)
+            Bridge.engine_call_has(ptr)
         }
-        Bridge.engine_call_has(ptr)
-        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
     }
 
     /**
@@ -499,11 +480,10 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * The callable's method should take one Variant parameter (the current array element) and can return any Variant.
      */
     fun map(callable: Callable): VariantArray<Any?> {
-        TransferContext.writeArguments(1) {
+        return (TransferContext.callBridge(1, VariantParser.ARRAY) {
             VariantParser.CALLABLE.toGodot(callable)
-        }
-        Bridge.engine_call_map(ptr)
-        return (TransferContext.readReturnValue(VariantParser.ARRAY) as VariantArray<Any?>).also {
+            Bridge.engine_call_map(ptr)
+        } as VariantArray<Any?>).also {
             it.variantConverter = VariantCaster.ANY
         }
     }
@@ -513,8 +493,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * If the elements can't be compared, null is returned.
      */
     fun max(): T? {
-        Bridge.engine_call_max(ptr)
-        return TransferContext.readReturnValue(variantConverter) as T?
+        return TransferContext.callBridge(variantConverter) { Bridge.engine_call_max(ptr) } as T?
     }
 
     /**
@@ -522,16 +501,14 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * If the elements can't be compared, null is returned.
      */
     fun min(): T? {
-        Bridge.engine_call_min(ptr)
-        return TransferContext.readReturnValue(variantConverter) as T?
+        return TransferContext.callBridge(variantConverter) { Bridge.engine_call_min(ptr) } as T?
     }
 
     /**
      * Returns a random value from the target array.
      */
     fun pickRandom(): T? {
-        Bridge.engine_call_pickRandom(ptr)
-        return TransferContext.readReturnValue(variantConverter) as T?
+        return TransferContext.callBridge(variantConverter) { Bridge.engine_call_pickRandom(ptr) } as T?
     }
 
     /**
@@ -539,8 +516,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * Returns null if the array is empty.
      */
     fun popBack(): T? {
-        Bridge.engine_call_popBack(ptr)
-        return TransferContext.readReturnValue(variantConverter) as T?
+        return TransferContext.callBridge(variantConverter) { Bridge.engine_call_popBack(ptr) } as T?
     }
 
     /**
@@ -548,8 +524,7 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * Returns null if the array is empty.
      */
     fun popFront(): T? {
-        Bridge.engine_call_popFront(ptr)
-        return TransferContext.readReturnValue(variantConverter) as T?
+        return TransferContext.callBridge(variantConverter) { Bridge.engine_call_popFront(ptr) } as T?
     }
 
     /**
@@ -573,12 +548,11 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
     }
 
     fun reduce(callable: Callable, accum: Any?): Any? {
-        TransferContext.writeArguments(2) {
+        return TransferContext.callBridge(2, VariantCaster.ANY) {
             VariantParser.CALLABLE.toGodot(callable)
             VariantCaster.ANY.toGodot(accum)
+            Bridge.engine_call_reduce(ptr)
         }
-        Bridge.engine_call_reduce(ptr)
-        return TransferContext.readReturnValue(VariantCaster.ANY)
     }
 
     /**
@@ -587,12 +561,11 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * If negative, the start index is considered relative to the end of the array.
      */
     fun rfind(what: T, from: Int): Int {
-        TransferContext.writeArguments(2) {
+        return TransferContext.callBridge(2, VariantParser.LONG) {
             variantConverter.toGodot(what)
             VariantParser.LONG.write(from.toLong())
-        }
-        Bridge.engine_call_rfind(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+            Bridge.engine_call_rfind(ptr)
+        }.toInt()
     }
 
     /**
@@ -607,14 +580,13 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
      * If deep is `true`, each element will be copied by value rather than by reference.
      */
     fun slice(begin: Int, end: Int, step: Int, deep: Boolean): VariantArray<T> {
-        TransferContext.writeArguments(4) {
+        return (TransferContext.callBridge(4, VariantParser.ARRAY) {
             VariantParser.LONG.write(begin.toLong())
             VariantParser.LONG.write(end.toLong())
             VariantParser.LONG.write(step.toLong())
             VariantParser.BOOL.write(deep)
-        }
-        Bridge.engine_call_slice(ptr)
-        return (TransferContext.readReturnValue(VariantParser.ARRAY) as VariantArray<T>).also {
+            Bridge.engine_call_slice(ptr)
+        } as VariantArray<T>).also {
             it.variantConverter = variantConverter
         }
     }
@@ -646,11 +618,10 @@ class VariantArray<T> : NativeCoreType, MutableCollection<T> {
     }
 
     operator fun get(idx: Int): T {
-        TransferContext.writeArguments(1) {
+        return TransferContext.callBridge(1, variantConverter) {
             VariantParser.LONG.write(idx.toLong())
-        }
-        Bridge.engine_call_operator_get(ptr)
-        return TransferContext.readReturnValue(variantConverter) as T
+            Bridge.engine_call_operator_get(ptr)
+        } as T
     }
 
     operator fun plus(other: T) {

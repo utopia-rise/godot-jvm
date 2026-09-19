@@ -11,6 +11,13 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_OBJECT_LONG_BOOL_DOUBLE
+import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -18,14 +25,6 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName4
 import godot.core.Vector2
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG_DOUBLE
-import godot.writeMethodArguments_OBJECT_LONG_BOOL_DOUBLE
-import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -127,40 +126,28 @@ public open class PortableCompressedTexture2D : Texture2D() {
     normalMap: Boolean = false,
     lossyQuality: Float = 0.8f,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_LONG_BOOL_DOUBLE(ptr, objectID.id, image, compressionMode.value, normalMap, lossyQuality.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.createFromImagePtr, 0)
+    TransferContext.callPtrMethod_OBJECT_LONG_BOOL_DOUBLE(ptr, objectID.id, MethodBindings.createFromImagePtr, image, compressionMode.value, normalMap, lossyQuality.toDouble())
   }
 
   /**
    * Return the compression mode used (valid after initialized).
    */
-  public final fun getCompressionMode(): CompressionMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCompressionModePtr, 2)
-    return CompressionMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getCompressionMode(): CompressionMode =
+      CompressionMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCompressionModePtr))
 
   public final fun setSizeOverride(size: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, size)
-    TransferContext.callPtrMethod(MethodBindings.setSizeOverridePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setSizeOverridePtr, size)
   }
 
-  public final fun getSizeOverride(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSizeOverridePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getSizeOverride(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getSizeOverridePtr)
 
   public final fun setKeepCompressedBuffer(keep: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, keep)
-    TransferContext.callPtrMethod(MethodBindings.setKeepCompressedBufferPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setKeepCompressedBufferPtr, keep)
   }
 
-  public final fun isKeepingCompressedBuffer(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isKeepingCompressedBufferPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isKeepingCompressedBuffer(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isKeepingCompressedBufferPtr)
 
   /**
    * Sets the compressor parameters for Basis Universal compression. See also the settings in
@@ -169,8 +156,7 @@ public open class PortableCompressedTexture2D : Texture2D() {
    * **Note:** This method must be called before [createFromImage] for this to work.
    */
   public final fun setBasisuCompressorParams(uastcLevel: Int, rdoQualityLoss: Float): Unit {
-    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, uastcLevel.toLong(), rdoQualityLoss.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setBasisuCompressorParamsPtr, 0)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setBasisuCompressorParamsPtr, uastcLevel.toLong(), rdoQualityLoss.toDouble())
   }
 
   /**
@@ -255,19 +241,15 @@ public open class PortableCompressedTexture2D : Texture2D() {
      */
     @JvmStatic
     public final fun setKeepAllCompressedBuffers(keep: Boolean): Unit {
-      TransferContext.writeMethodArguments_BOOL(0L, 0L, keep)
-      TransferContext.callPtrMethod(MethodBindings.setKeepAllCompressedBuffersPtr, 0)
+      TransferContext.callPtrMethod_BOOL(0L, 0L, MethodBindings.setKeepAllCompressedBuffersPtr, keep)
     }
 
     /**
      * Returns `true` if the flag is overridden for all textures of this type.
      */
     @JvmStatic
-    public final fun isKeepingAllCompressedBuffers(): Boolean {
-      TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callPtrMethod(MethodBindings.isKeepingAllCompressedBuffersPtr, 1)
-      return TransferContext.readReturnValue_BOOL()
-    }
+    public final fun isKeepingAllCompressedBuffers(): Boolean =
+        TransferContext.callPtrMethod0_ret_BOOL(0L, 0L, MethodBindings.isKeepingAllCompressedBuffersPtr)
   }
 
   public object MethodBindings {

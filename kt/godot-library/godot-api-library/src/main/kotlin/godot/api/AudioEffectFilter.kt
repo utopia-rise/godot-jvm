@@ -9,15 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
 import kotlin.Float
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -104,48 +103,32 @@ public open class AudioEffectFilter : AudioEffect() {
   }
 
   public final fun setCutoff(freq: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, freq.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setCutoffPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCutoffPtr, freq.toDouble())
   }
 
-  public final fun getCutoff(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCutoffPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getCutoff(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCutoffPtr).toFloat()
 
   public final fun setResonance(amount: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setResonancePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setResonancePtr, amount.toDouble())
   }
 
-  public final fun getResonance(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getResonancePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getResonance(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getResonancePtr).toFloat()
 
   public final fun setGain(amount: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setGainPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setGainPtr, amount.toDouble())
   }
 
-  public final fun getGain(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGainPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getGain(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getGainPtr).toFloat()
 
   public final fun setDb(amount: FilterDB): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.value)
-    TransferContext.callPtrMethod(MethodBindings.setDbPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDbPtr, amount.value)
   }
 
-  public final fun getDb(): FilterDB {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDbPtr, 2)
-    return FilterDB.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getDb(): FilterDB =
+      FilterDB.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDbPtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

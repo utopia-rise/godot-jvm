@@ -48,8 +48,7 @@ class NodePath : NativeCoreType {
     //PROPERTIES
     val path: String
         get() {
-            Bridge.engine_call_path(ptr)
-            return TransferContext.readReturnValue(VariantParser.STRING) as String
+            return TransferContext.callBridge(VariantParser.STRING) { Bridge.engine_call_path(ptr) } as String
         }
 
     /**
@@ -57,78 +56,69 @@ class NodePath : NativeCoreType {
      * name (defaults to resolving from the current node).
      */
     fun getAsPropertyPath(): NodePath {
-        Bridge.engine_call_getAsPropertyPath(ptr)
-        return TransferContext.readReturnValue(VariantParser.NODE_PATH) as NodePath
+        return TransferContext.callBridge(VariantParser.NODE_PATH) { Bridge.engine_call_getAsPropertyPath(ptr) } as NodePath
     }
 
     /**
      * Get the node name indicated by idx (0 to get_name_count)
      */
     fun getName(idx: Int): String {
-        TransferContext.writeArguments(1) {
+        return TransferContext.callBridge(1, VariantParser.STRING) {
             VariantParser.LONG.write(idx.toLong())
-        }
-        Bridge.engine_call_getName(ptr)
-        return TransferContext.readReturnValue(VariantParser.STRING) as String
+            Bridge.engine_call_getName(ptr)
+        } as String
     }
 
     /**
      * Get the number of node names which make up the path.
      */
     fun getNameCount(): Int {
-        Bridge.engine_call_getNameCount(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+        return TransferContext.callBridge(VariantParser.LONG) { Bridge.engine_call_getNameCount(ptr) }.toInt()
     }
 
     /**
      * Get the resource name indicated by idx (0 to get_subname_count)
      */
     fun getSubname(idx: Int): String {
-        TransferContext.writeArguments(1) {
+        return TransferContext.callBridge(1, VariantParser.STRING) {
             VariantParser.LONG.write(idx.toLong())
-        }
-        Bridge.engine_call_getSubname(ptr)
-        return TransferContext.readReturnValue(VariantParser.STRING) as String
+            Bridge.engine_call_getSubname(ptr)
+        } as String
     }
 
     /**
      * Get the number of resource names in the path.
      */
     fun getSubnameCount(): Int {
-        Bridge.engine_call_getSubnameCount(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+        return TransferContext.callBridge(VariantParser.LONG) { Bridge.engine_call_getSubnameCount(ptr) }.toInt()
     }
 
     /**
      * Return true if the node path is absolute (not relative).
      */
     fun isAbsolute(): Boolean {
-        Bridge.engine_call_isAbsolute(ptr)
-        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
+        return TransferContext.callBridge(VariantParser.BOOL) { Bridge.engine_call_isAbsolute(ptr) }
     }
 
     /**
      * Returns the 32-bit hash value representing the NodePath's contents.
      */
     fun hash(): Int {
-        Bridge.engine_call_hash(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+        return TransferContext.callBridge(VariantParser.LONG) { Bridge.engine_call_hash(ptr) }.toInt()
     }
 
     /**
      * Return true if the node path is empty.
      */
     fun isEmpty(): Boolean {
-        Bridge.engine_call_isEmpty(ptr)
-        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
+        return TransferContext.callBridge(VariantParser.BOOL) { Bridge.engine_call_isEmpty(ptr) }
     }
 
     /**
      * Returns all paths concatenated with a slash character (/) as separator without subnames.
      */
     fun getConcatenatedNames(): StringName {
-        Bridge.engine_call_getConcatenatedNames(ptr)
-        return TransferContext.readReturnValue(VariantParser.STRING_NAME) as StringName
+        return TransferContext.callBridge(VariantParser.STRING_NAME) { Bridge.engine_call_getConcatenatedNames(ptr) } as StringName
     }
 
     /**
@@ -136,19 +126,17 @@ class NodePath : NativeCoreType {
      * in a node path.
      */
     fun getConcatenatedSubnames(): StringName {
-        Bridge.engine_call_getConcatenatedSubnames(ptr)
-        return TransferContext.readReturnValue(VariantParser.STRING_NAME) as StringName
+        return TransferContext.callBridge(VariantParser.STRING_NAME) { Bridge.engine_call_getConcatenatedSubnames(ptr) } as StringName
     }
 
 
     //UTILITIES
     override fun equals(other: Any?): Boolean {
         return if (other is NodePath) {
-            TransferContext.writeArguments(1) {
+            return TransferContext.callBridge(1, VariantParser.BOOL) {
                 VariantParser.NODE_PATH.toGodot(other)
+                Bridge.engine_call_equals(ptr)
             }
-            Bridge.engine_call_equals(ptr)
-            return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
         } else {
             false
         }

@@ -9,6 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_CALLABLE
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_OBJECT_STRING_NAME_ANY
+import godot.callMethod_STRING_LONG_BOOL
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.GodotEnum
@@ -18,16 +29,6 @@ import godot.core.MethodStringName3
 import godot.core.Signal0
 import godot.core.StringName
 import godot.core.asCachedStringName
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_CALLABLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_STRING_NAME_ANY
-import godot.writeMethodArguments_STRING_LONG_BOOL
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -185,8 +186,7 @@ public open class UndoRedo : Object() {
     mergeMode: MergeMode = UndoRedo.MergeMode.DISABLE,
     backwardUndoOps: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG_BOOL(ptr, objectID.id, name, mergeMode.value, backwardUndoOps)
-    TransferContext.callMethod(MethodBindings.createActionPtr)
+    TransferContext.callMethod_STRING_LONG_BOOL(ptr, objectID.id, MethodBindings.createActionPtr, name, mergeMode.value, backwardUndoOps)
   }
 
   /**
@@ -195,34 +195,28 @@ public open class UndoRedo : Object() {
    */
   @JvmOverloads
   public final fun commitAction(execute: Boolean = true): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, execute)
-    TransferContext.callPtrMethod(MethodBindings.commitActionPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.commitActionPtr, execute)
   }
 
   /**
    * Returns `true` if the [UndoRedo] is currently committing the action, i.e. running its "do"
    * method or property change (see [commitAction]).
    */
-  public final fun isCommittingAction(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isCommittingActionPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isCommittingAction(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCommittingActionPtr)
 
   /**
    * Register a [Callable] that will be called when the action is committed.
    */
   public final fun addDoMethod(callable: Callable): Unit {
-    TransferContext.writeMethodArguments_CALLABLE(ptr, objectID.id, callable)
-    TransferContext.callMethod(MethodBindings.addDoMethodPtr)
+    TransferContext.callMethod_CALLABLE(ptr, objectID.id, MethodBindings.addDoMethodPtr, callable)
   }
 
   /**
    * Register a [Callable] that will be called when the action is undone.
    */
   public final fun addUndoMethod(callable: Callable): Unit {
-    TransferContext.writeMethodArguments_CALLABLE(ptr, objectID.id, callable)
-    TransferContext.callMethod(MethodBindings.addUndoMethodPtr)
+    TransferContext.callMethod_CALLABLE(ptr, objectID.id, MethodBindings.addUndoMethodPtr, callable)
   }
 
   /**
@@ -233,8 +227,7 @@ public open class UndoRedo : Object() {
     `property`: StringName,
     `value`: Any?,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_STRING_NAME_ANY(ptr, objectID.id, `object`, property, value)
-    TransferContext.callMethod(MethodBindings.addDoPropertyPtr)
+    TransferContext.callMethod_OBJECT_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.addDoPropertyPtr, `object`, property, value)
   }
 
   /**
@@ -245,8 +238,7 @@ public open class UndoRedo : Object() {
     `property`: StringName,
     `value`: Any?,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_STRING_NAME_ANY(ptr, objectID.id, `object`, property, value)
-    TransferContext.callMethod(MethodBindings.addUndoPropertyPtr)
+    TransferContext.callMethod_OBJECT_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.addUndoPropertyPtr, `object`, property, value)
   }
 
   /**
@@ -266,8 +258,7 @@ public open class UndoRedo : Object() {
    * ```
    */
   public final fun addDoReference(`object`: Object?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, `object`)
-    TransferContext.callPtrMethod(MethodBindings.addDoReferencePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addDoReferencePtr, `object`)
   }
 
   /**
@@ -287,8 +278,7 @@ public open class UndoRedo : Object() {
    * ```
    */
   public final fun addUndoReference(`object`: Object?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, `object`)
-    TransferContext.callPtrMethod(MethodBindings.addUndoReferencePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addUndoReferencePtr, `object`)
   }
 
   /**
@@ -296,8 +286,7 @@ public open class UndoRedo : Object() {
    * another in the [MERGE_ENDS] mode. Return to normal operation using [endForceKeepInMergeEnds].
    */
   public final fun startForceKeepInMergeEnds(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.startForceKeepInMergeEndsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.startForceKeepInMergeEndsPtr)
   }
 
   /**
@@ -305,36 +294,26 @@ public open class UndoRedo : Object() {
    * [MERGE_ENDS] mode. See [startForceKeepInMergeEnds].
    */
   public final fun endForceKeepInMergeEnds(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.endForceKeepInMergeEndsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.endForceKeepInMergeEndsPtr)
   }
 
   /**
    * Returns how many elements are in the history.
    */
-  public final fun getHistoryCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHistoryCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getHistoryCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHistoryCountPtr).toInt()
 
   /**
    * Gets the index of the current action.
    */
-  public final fun getCurrentAction(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurrentActionPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getCurrentAction(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCurrentActionPtr).toInt()
 
   /**
    * Gets the action name from its index.
    */
-  public final fun getActionName(id: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.getActionNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getActionName(id: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getActionNamePtr, id.toLong())
 
   /**
    * Clear the undo/redo history and associated references.
@@ -344,36 +323,26 @@ public open class UndoRedo : Object() {
    */
   @JvmOverloads
   public final fun clearHistory(increaseVersion: Boolean = true): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, increaseVersion)
-    TransferContext.callPtrMethod(MethodBindings.clearHistoryPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.clearHistoryPtr, increaseVersion)
   }
 
   /**
    * Gets the name of the current action, equivalent to `get_action_name(get_current_action())`.
    */
-  public final fun getCurrentActionName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurrentActionNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getCurrentActionName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCurrentActionNamePtr)
 
   /**
    * Returns `true` if an "undo" action is available.
    */
-  public final fun hasUndo(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasUndoPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasUndo(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasUndoPtr)
 
   /**
    * Returns `true` if a "redo" action is available.
    */
-  public final fun hasRedo(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasRedoPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasRedo(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasRedoPtr)
 
   /**
    * Gets the version. Every time a new action is committed, the [UndoRedo]'s version number is
@@ -381,40 +350,27 @@ public open class UndoRedo : Object() {
    *
    * This is useful mostly to check if something changed from a saved version.
    */
-  public final fun getVersion(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVersionPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getVersion(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVersionPtr)
 
   public final fun setMaxSteps(maxSteps: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxSteps.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setMaxStepsPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxStepsPtr, maxSteps.toLong())
   }
 
-  public final fun getMaxSteps(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMaxStepsPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMaxSteps(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxStepsPtr).toInt()
 
   /**
    * Redo the last action. Returns `false` if there was no action to redo.
    */
-  public final fun redo(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.redoPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun redo(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.redoPtr)
 
   /**
    * Undo the last action. Returns `false` if there was no action to undo.
    */
-  public final fun undo(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.undoPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun undo(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.undoPtr)
 
   /**
    * Register a [property] that would change its value to [value] when the action is committed.
