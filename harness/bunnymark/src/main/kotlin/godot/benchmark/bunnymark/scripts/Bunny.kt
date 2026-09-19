@@ -1,4 +1,4 @@
-package godot.benchmark.bunnymark.v3
+package godot.benchmark.bunnymark.scripts
 
 import godot.api.RandomNumberGenerator
 import godot.api.Sprite2D

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class BunnymarkV1DrawTexture : Node2D
+public partial class BunnymarkDrawTexture : Node2D
 {
     private sealed class BunnyData
     {

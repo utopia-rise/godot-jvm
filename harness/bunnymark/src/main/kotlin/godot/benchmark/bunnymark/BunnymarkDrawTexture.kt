@@ -1,19 +1,22 @@
 package godot.benchmark.bunnymark
 
-import godot.core.*
-import godot.api.*
+import godot.api.Node2D
+import godot.api.RandomNumberGenerator
+import godot.api.ResourceLoader
+import godot.api.Texture2D
 import godot.annotation.Script
 import godot.annotation.Register
 import godot.annotation.Emit
+import godot.core.Vector2
 import godot.core.signal1
 
-@Script("BunnymarkV1Sprites")
-class BunnymarkV1Sprites : Node2D() {
+@Script("BunnymarkDrawTexture")
+class BunnymarkDrawTexture : Node2D() {
 
 	@Emit
 	val benchmarkFinished by signal1<Int>()
 
-	private data class Bunny(var sprite: Sprite2D, var speed: Vector2)
+	data class Bunny(var position: Vector2, var speed: Vector2)
 
 	private val bunnies = mutableListOf<Bunny>()
 	private val gravity = 500
@@ -28,11 +31,18 @@ class BunnymarkV1Sprites : Node2D() {
 	}
 
 	@Register
+	override fun _draw() {
+		for (bunny in bunnies) {
+			drawTexture(bunnyTexture, bunny.position)
+		}
+	}
+
+	@Register
 	override fun _process(delta: Double) {
 		screenSize = getViewportRect().size
 
 		for (bunny in bunnies) {
-			val pos = bunny.sprite.position
+			val pos = bunny.position
 			val speed = bunny.speed
 
 			pos.x += speed.x * delta
@@ -64,20 +74,17 @@ class BunnymarkV1Sprites : Node2D() {
 				pos.y = 0.0
 			}
 
-			bunny.sprite.position = pos
+			bunny.position = pos
 			bunny.speed = speed
 		}
+		queueRedraw()
 	}
 
 	@Register
 	fun addBunny() {
-		val bunny = Sprite2D()
-		bunny.texture = bunnyTexture
-		addChild(bunny)
-		bunny.position = Vector2(screenSize.x / 2, screenSize.y / 2)
 		bunnies.add(
 			Bunny(
-				bunny,
+				Vector2(screenSize.x / 2, screenSize.y / 2),
 				Vector2(randomNumberGenerator.randi() % 200 + 50, randomNumberGenerator.randi() % 200 + 50)
 			)
 		)
@@ -86,10 +93,7 @@ class BunnymarkV1Sprites : Node2D() {
 	@Register
 	fun removeBunny() {
 		if (bunnies.size == 0) return
-		val bunny = bunnies[bunnies.size - 1]
-		removeChild(bunny.sprite)
 		bunnies.removeAt(bunnies.size - 1)
-        bunny.sprite.queueFree()
 	}
 
 	@Register
