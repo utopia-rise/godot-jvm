@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" uid="uid://rpq5yfx8hlbw" path="res://Benchmarker.tscn" id="1_base"]
+
+[node name="Benchmarker" instance=ExtResource("1_base")]
+benchmark = "BunnymarkComputation"
+language = "gd"
