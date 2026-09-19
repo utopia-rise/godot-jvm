@@ -9,14 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -44,51 +46,41 @@ public open class IKModifier3D internal constructor() : SkeletonModifier3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(298, scriptPtr)
+    createNativeObject(296, scriptPtr)
   }
 
   /**
    * Sets the number of settings.
    */
   public final fun setSettingCount(count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to count.toLong())
-    TransferContext.callMethod(MethodBindings.setSettingCountPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSettingCountPtr, count.toLong())
   }
 
   /**
    * Returns the number of settings.
    */
-  public final fun getSettingCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSettingCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSettingCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSettingCountPtr).toInt()
 
   /**
    * Clears all settings.
    */
   public final fun clearSettings(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearSettingsPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearSettingsPtr)
   }
 
   public final fun setMutableBoneAxes(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setMutableBoneAxesPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMutableBoneAxesPtr, enabled)
   }
 
-  public final fun areBoneAxesMutable(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.areBoneAxesMutablePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun areBoneAxesMutable(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.areBoneAxesMutablePtr)
 
   /**
    * Resets a state with respect to the current bone pose.
    */
   public final fun reset(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.resetPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.resetPtr)
   }
 
   public companion object {

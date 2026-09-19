@@ -9,16 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_OBJECT
+import godot.callPtrMethod_STRING_NAME_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedStringArray
 import godot.core.StringName
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.Boolean
 import kotlin.String
@@ -46,52 +48,40 @@ public open class ResourcePreloader : Node() {
    * starting from 2.
    */
   public final fun addResource(name: StringName, resource: Resource?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, OBJECT to resource)
-    TransferContext.callMethod(MethodBindings.addResourcePtr)
+    TransferContext.callPtrMethod_STRING_NAME_OBJECT(ptr, objectID.id, MethodBindings.addResourcePtr, name, resource)
   }
 
   /**
    * Removes the resource associated to [name] from the preloader.
    */
   public final fun removeResource(name: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.removeResourcePtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeResourcePtr, name)
   }
 
   /**
    * Renames a resource inside the preloader from [name] to [newname].
    */
   public final fun renameResource(name: StringName, newname: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, STRING_NAME to newname)
-    TransferContext.callMethod(MethodBindings.renameResourcePtr)
+    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.renameResourcePtr, name, newname)
   }
 
   /**
    * Returns `true` if the preloader contains a resource associated to [name].
    */
-  public final fun hasResource(name: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.hasResourcePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasResource(name: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasResourcePtr, name)
 
   /**
    * Returns the resource associated to [name].
    */
-  public final fun getResource(name: StringName): Resource? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.getResourcePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Resource?)
-  }
+  public final fun getResource(name: StringName): Resource? =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getResourcePtr, name) as Resource?)
 
   /**
    * Returns the list of resources inside the preloader.
    */
-  public final fun getResourceList(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResourceListPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getResourceList(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getResourceListPtr)
 
   /**
    * Adds a resource to the preloader with the given [name]. If a resource with the given [name]

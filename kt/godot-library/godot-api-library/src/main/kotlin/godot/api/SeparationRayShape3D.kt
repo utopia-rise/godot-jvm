@@ -9,13 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -60,26 +61,18 @@ public open class SeparationRayShape3D : Shape3D() {
   }
 
   public final fun setLength(length: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to length.toDouble())
-    TransferContext.callMethod(MethodBindings.setLengthPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLengthPtr, length.toDouble())
   }
 
-  public final fun getLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
 
   public final fun setSlideOnSlope(active: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to active)
-    TransferContext.callMethod(MethodBindings.setSlideOnSlopePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSlideOnSlopePtr, active)
   }
 
-  public final fun getSlideOnSlope(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSlideOnSlopePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getSlideOnSlope(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSlideOnSlopePtr)
 
   public companion object {
     @JvmField

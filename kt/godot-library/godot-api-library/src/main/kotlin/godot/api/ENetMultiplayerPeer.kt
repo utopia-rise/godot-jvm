@@ -9,6 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING
+import godot.callMethod_STRING_LONG_LONG_LONG_LONG_LONG_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_LONG_LONG_LONG_LONG_ret_LONG
+import godot.callPtrMethod_LONG_OBJECT_ret_LONG
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
@@ -16,11 +23,7 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName5
 import godot.core.MethodStringName6
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -47,7 +50,7 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
     get() = getHost()
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(213, scriptPtr)
+    createNativeObject(211, scriptPtr)
   }
 
   /**
@@ -69,11 +72,8 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
     maxChannels: Int = 0,
     inBandwidth: Int = 0,
     outBandwidth: Int = 0,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong(), LONG to maxClients.toLong(), LONG to maxChannels.toLong(), LONG to inBandwidth.toLong(), LONG to outBandwidth.toLong())
-    TransferContext.callMethod(MethodBindings.createServerPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.createServerPtr, port.toLong(), maxClients.toLong(), maxChannels.toLong(), inBandwidth.toLong(), outBandwidth.toLong()))
 
   /**
    * Create client that connects to a server at [address] using specified [port]. The given address
@@ -99,11 +99,8 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
     inBandwidth: Int = 0,
     outBandwidth: Int = 0,
     localPort: Int = 0,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to address, LONG to port.toLong(), LONG to channelCount.toLong(), LONG to inBandwidth.toLong(), LONG to outBandwidth.toLong(), LONG to localPort.toLong())
-    TransferContext.callMethod(MethodBindings.createClientPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_LONG_LONG_LONG_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.createClientPtr, address, port.toLong(), channelCount.toLong(), inBandwidth.toLong(), outBandwidth.toLong(), localPort.toLong()))
 
   /**
    * Initialize this [MultiplayerPeer] in mesh mode. The provided [uniqueId] will be used as the
@@ -113,22 +110,16 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
    * connection process (e.g. when dealing with NAT punch-through) and for better distribution of the
    * network load (which would otherwise be more taxing on the server).
    */
-  public final fun createMesh(uniqueId: Int): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to uniqueId.toLong())
-    TransferContext.callMethod(MethodBindings.createMeshPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun createMesh(uniqueId: Int): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.createMeshPtr, uniqueId.toLong()))
 
   /**
    * Add a new remote peer with the given [peerId] connected to the given [host].
    *
    * **Note:** The [host] must have exactly one peer in the [ENetPacketPeer.STATE_CONNECTED] state.
    */
-  public final fun addMeshPeer(peerId: Int, host: ENetConnection?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to peerId.toLong(), OBJECT to host)
-    TransferContext.callMethod(MethodBindings.addMeshPeerPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun addMeshPeer(peerId: Int, host: ENetConnection?): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.addMeshPeerPtr, peerId.toLong(), host))
 
   /**
    * The IP used when creating a server. This is set to the wildcard `"*"` by default, which binds
@@ -136,24 +127,17 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
    * `"192.168.1.1"`.
    */
   public final fun setBindIp(ip: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to ip)
-    TransferContext.callMethod(MethodBindings.setBindIpPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBindIpPtr, ip)
   }
 
-  public final fun getHost(): ENetConnection? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHostPtr)
-    return (TransferContext.readReturnValue(OBJECT) as ENetConnection?)
-  }
+  public final fun getHost(): ENetConnection? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getHostPtr) as ENetConnection?)
 
   /**
    * Returns the [ENetPacketPeer] associated to the given [id].
    */
-  public final fun getPeer(id: Int): ENetPacketPeer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id.toLong())
-    TransferContext.callMethod(MethodBindings.getPeerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as ENetPacketPeer?)
-  }
+  public final fun getPeer(id: Int): ENetPacketPeer? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPeerPtr, id.toLong()) as ENetPacketPeer?)
 
   public companion object {
     @JvmField

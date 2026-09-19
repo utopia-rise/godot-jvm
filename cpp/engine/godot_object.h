@@ -7,6 +7,7 @@
 #include <core/builtin_ptrcall.hpp>
 #include <core/engine_ptrcall.hpp>
 #include <core/error_macros.hpp>
+#include <core/type_info.hpp>
 #include <godot.hpp>
 #include <variant/callable.hpp>
 #include <variant/signal.hpp>
@@ -274,6 +275,16 @@ namespace raw_godot {
             );
         }
 
+        // The unchecked variant of call_method_bind: arguments and return are the native types the bind declares, not
+        // Variants, and the engine validates neither their count nor their types.
+        _ALWAYS_INLINE_ void ptrcall_method_bind(
+            GDExtensionMethodBindPtr p_method_bind,
+            const GDExtensionConstTypePtr* p_args,
+            GDExtensionTypePtr r_return
+        ) const {
+            internal::gdextension_interface_object_method_bind_ptrcall(p_method_bind, _ptr, p_args, r_return);
+        }
+
     private:
         template<typename... Args>
         _ALWAYS_INLINE_ void call_vararg(
@@ -340,5 +351,11 @@ namespace raw_godot {
     static_assert(sizeof(RawObject) == sizeof(GodotObject*), "RawObject must stay pointer-sized.");
     static_assert(std::is_trivially_copyable_v<RawObject>, "RawObject must stay trivially copyable.");
 } // namespace raw_godot
+
+// A RawObject is an engine object pointer, so it is what a Variant of type OBJECT holds. Declaring it to godot-cpp
+// lets the shared-buffer layer resolve its wire row from the type alone, as it does for every other Variant type.
+namespace godot {
+    MAKE_TYPE_INFO(raw_godot::RawObject, GDEXTENSION_VARIANT_TYPE_OBJECT)
+} // namespace godot
 
 #endif // GODOT_JVM_GODOT_OBJECT_H

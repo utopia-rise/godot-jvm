@@ -9,6 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_LONG_LONG_COLOR_BOOL
+import godot.callPtrMethod_RECT2I_ARRAY_ARRAY_COLOR_LONG_OBJECT
+import godot.callPtrMethod_RECT2I_OBJECT_COLOR_LONG_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.GodotEnum
@@ -18,12 +25,6 @@ import godot.core.MethodStringName5
 import godot.core.MethodStringName6
 import godot.core.Rect2i
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.RECT2I
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -44,33 +45,28 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class DrawableTexture2D : Texture2D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(211, scriptPtr)
+    createNativeObject(209, scriptPtr)
   }
 
   /**
    * Sets the format of this DrawableTexture.
    */
   public final fun setFormat(format: DrawableFormat): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to format.value)
-    TransferContext.callMethod(MethodBindings.setFormatPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFormatPtr, format.value)
   }
 
   /**
    * Sets if mipmaps should be used on this DrawableTexture.
    */
   public final fun setUseMipmaps(mipmaps: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to mipmaps)
-    TransferContext.callMethod(MethodBindings.setUseMipmapsPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseMipmapsPtr, mipmaps)
   }
 
   /**
    * Returns `true` if mipmaps are set to be used on this DrawableTexture.
    */
-  public final fun getUseMipmaps(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUseMipmapsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getUseMipmaps(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseMipmapsPtr)
 
   /**
    * Initializes the DrawableTexture to a White texture of the given [width], [height], and
@@ -84,8 +80,7 @@ public open class DrawableTexture2D : Texture2D() {
     color: Color = Color(Color(1, 1, 1, 1)),
     useMipmaps: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong(), LONG to height.toLong(), LONG to format.value, COLOR to color, BOOL to useMipmaps)
-    TransferContext.callMethod(MethodBindings.setupPtr)
+    TransferContext.callPtrMethod_LONG_LONG_LONG_COLOR_BOOL(ptr, objectID.id, MethodBindings.setupPtr, width.toLong(), height.toLong(), format.value, color, useMipmaps)
   }
 
   /**
@@ -102,8 +97,7 @@ public open class DrawableTexture2D : Texture2D() {
     mipmap: Int = 0,
     material: Material? = null,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, RECT2I to rect, OBJECT to source, COLOR to modulate, LONG to mipmap.toLong(), OBJECT to material)
-    TransferContext.callMethod(MethodBindings.blitRectPtr)
+    TransferContext.callPtrMethod_RECT2I_OBJECT_COLOR_LONG_OBJECT(ptr, objectID.id, MethodBindings.blitRectPtr, rect, source, modulate, mipmap.toLong(), material)
   }
 
   /**
@@ -121,16 +115,14 @@ public open class DrawableTexture2D : Texture2D() {
     mipmap: Int = 0,
     material: Material? = null,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, RECT2I to rect, ARRAY to sources, ARRAY to extraTargets, COLOR to modulate, LONG to mipmap.toLong(), OBJECT to material)
-    TransferContext.callMethod(MethodBindings.blitRectMultiPtr)
+    TransferContext.callPtrMethod_RECT2I_ARRAY_ARRAY_COLOR_LONG_OBJECT(ptr, objectID.id, MethodBindings.blitRectMultiPtr, rect, sources, extraTargets, modulate, mipmap.toLong(), material)
   }
 
   /**
    * Re-calculates the mipmaps for this texture on demand.
    */
   public final fun generateMipmaps(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.generateMipmapsPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.generateMipmapsPtr)
   }
 
   /**

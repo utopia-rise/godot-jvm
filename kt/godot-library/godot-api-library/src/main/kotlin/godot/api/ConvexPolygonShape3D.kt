@@ -11,11 +11,12 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedVector3Array
-import godot.core.VariantParser.PACKED_VECTOR3_ARRAY
 import godot.core.Vector3
 import kotlin.Int
 import kotlin.Suppress
@@ -66,7 +67,7 @@ public open class ConvexPolygonShape3D : Shape3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(190, scriptPtr)
+    createNativeObject(188, scriptPtr)
   }
 
   /**
@@ -107,15 +108,11 @@ public open class ConvexPolygonShape3D : Shape3D() {
   }
 
   public final fun setPoints(points: PackedVector3Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR3_ARRAY to points)
-    TransferContext.callMethod(MethodBindings.setPointsPtr)
+    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.setPointsPtr, points)
   }
 
-  public final fun getPoints(): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPointsPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
-  }
+  public final fun getPoints(): PackedVector3Array =
+      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getPointsPtr)
 
   public companion object {
     @JvmField

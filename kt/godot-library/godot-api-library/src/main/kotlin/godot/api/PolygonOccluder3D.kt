@@ -11,11 +11,12 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR2_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedVector2Array
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
 import godot.core.Vector2
 import kotlin.Int
 import kotlin.Suppress
@@ -59,7 +60,7 @@ public open class PolygonOccluder3D : Occluder3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(564, scriptPtr)
+    createNativeObject(563, scriptPtr)
   }
 
   /**
@@ -108,15 +109,11 @@ public open class PolygonOccluder3D : Occluder3D() {
   }
 
   public final fun setPolygon(polygon: PackedVector2Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR2_ARRAY to polygon)
-    TransferContext.callMethod(MethodBindings.setPolygonPtr)
+    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setPolygonPtr, polygon)
   }
 
-  public final fun getPolygon(): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPolygonPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
-  }
+  public final fun getPolygon(): PackedVector2Array =
+      TransferContext.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getPolygonPtr)
 
   public companion object {
     @JvmField

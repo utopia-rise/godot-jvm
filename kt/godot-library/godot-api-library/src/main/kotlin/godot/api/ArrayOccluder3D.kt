@@ -11,13 +11,14 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY_PACKED_INT_32_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedInt32Array
 import godot.core.PackedVector3Array
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.PACKED_VECTOR3_ARRAY
 import godot.core.Vector3
 import kotlin.Int
 import kotlin.Suppress
@@ -81,7 +82,7 @@ public open class ArrayOccluder3D : Occluder3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(44, scriptPtr)
+    createNativeObject(42, scriptPtr)
   }
 
   /**
@@ -181,18 +182,15 @@ public open class ArrayOccluder3D : Occluder3D() {
    * are set.
    */
   public final fun setArrays(vertices: PackedVector3Array, indices: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR3_ARRAY to vertices, PACKED_INT_32_ARRAY to indices)
-    TransferContext.callMethod(MethodBindings.setArraysPtr)
+    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setArraysPtr, vertices, indices)
   }
 
   public final fun setVertices(vertices: PackedVector3Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR3_ARRAY to vertices)
-    TransferContext.callMethod(MethodBindings.setVerticesPtr)
+    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.setVerticesPtr, vertices)
   }
 
   public final fun setIndices(indices: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_INT_32_ARRAY to indices)
-    TransferContext.callMethod(MethodBindings.setIndicesPtr)
+    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setIndicesPtr, indices)
   }
 
   public companion object {

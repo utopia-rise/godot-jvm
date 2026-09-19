@@ -9,14 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -46,66 +48,46 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
   /**
    * Reserved, but not used for now.
    */
-  public final fun poll(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pollPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun poll(): Error =
+      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.pollPtr))
 
   /**
    * Closes this data channel, notifying the other peer.
    */
   public final fun close(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closePtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.closePtr)
   }
 
   /**
    * Returns `true` if the last received packet was transferred as text. See [writeMode].
    */
-  public final fun wasStringPacket(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.wasStringPacketPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun wasStringPacket(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.wasStringPacketPtr)
 
   public final fun setWriteMode(writeMode: WriteMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to writeMode.value)
-    TransferContext.callMethod(MethodBindings.setWriteModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWriteModePtr, writeMode.value)
   }
 
-  public final fun getWriteMode(): WriteMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWriteModePtr)
-    return WriteMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getWriteMode(): WriteMode =
+      WriteMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWriteModePtr))
 
   /**
    * Returns the current state of this channel.
    */
-  public final fun getReadyState(): ChannelState {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getReadyStatePtr)
-    return ChannelState.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getReadyState(): ChannelState =
+      ChannelState.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getReadyStatePtr))
 
   /**
    * Returns the label assigned to this channel during creation.
    */
-  public final fun getLabel(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLabelPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getLabel(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLabelPtr)
 
   /**
    * Returns `true` if this channel was created with ordering enabled (default).
    */
-  public final fun isOrdered(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isOrderedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isOrdered(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOrderedPtr)
 
   /**
    * Returns the ID assigned to this channel during creation (or auto-assigned during negotiation).
@@ -113,61 +95,43 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
    * If the channel is not negotiated out-of-band the ID will only be available after the connection
    * is established (will return `65535` until then).
    */
-  public final fun getId(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getId(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getIdPtr).toInt()
 
   /**
    * Returns the `maxPacketLifeTime` value assigned to this channel during creation.
    *
    * Will be `65535` if not specified.
    */
-  public final fun getMaxPacketLifeTime(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxPacketLifeTimePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getMaxPacketLifeTime(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxPacketLifeTimePtr).toInt()
 
   /**
    * Returns the `maxRetransmits` value assigned to this channel during creation.
    *
    * Will be `65535` if not specified.
    */
-  public final fun getMaxRetransmits(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxRetransmitsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getMaxRetransmits(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxRetransmitsPtr).toInt()
 
   /**
    * Returns the sub-protocol assigned to this channel during creation. An empty string if not
    * specified.
    */
-  public final fun getProtocol(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProtocolPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getProtocol(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getProtocolPtr)
 
   /**
    * Returns `true` if this channel was created with out-of-band configuration.
    */
-  public final fun isNegotiated(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isNegotiatedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isNegotiated(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isNegotiatedPtr)
 
   /**
    * Returns the number of bytes currently queued to be sent over this channel.
    */
-  public final fun getBufferedAmount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferedAmountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getBufferedAmount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBufferedAmountPtr).toInt()
 
   public enum class WriteMode(
     public override val `value`: Long,

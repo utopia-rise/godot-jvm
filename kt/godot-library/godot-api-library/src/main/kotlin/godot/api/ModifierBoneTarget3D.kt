@@ -9,13 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -54,30 +55,22 @@ public open class ModifierBoneTarget3D : SkeletonModifier3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(386, scriptPtr)
+    createNativeObject(384, scriptPtr)
   }
 
   public final fun setBoneName(boneName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to boneName)
-    TransferContext.callMethod(MethodBindings.setBoneNamePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBoneNamePtr, boneName)
   }
 
-  public final fun getBoneName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getBoneName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getBoneNamePtr)
 
   public final fun setBone(bone: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bone.toLong())
-    TransferContext.callMethod(MethodBindings.setBonePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBonePtr, bone.toLong())
   }
 
-  public final fun getBone(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBonePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getBone(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBonePtr).toInt()
 
   public companion object {
     @JvmField

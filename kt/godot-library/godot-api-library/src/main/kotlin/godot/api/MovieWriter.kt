@@ -9,11 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
-import godot.core.VariantParser.OBJECT
 import godot.core.Vector2i
 import kotlin.Boolean
 import kotlin.Long
@@ -78,7 +78,7 @@ import kotlin.jvm.JvmStatic
 @GodotBaseType
 public abstract class MovieWriter : Object() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(387, scriptPtr)
+    createNativeObject(385, scriptPtr)
   }
 
   /**
@@ -150,8 +150,7 @@ public abstract class MovieWriter : Object() {
      */
     @JvmStatic
     public final fun addWriter(writer: MovieWriter?): Unit {
-      TransferContext.writeMethodArguments(0L, 0L, OBJECT to writer)
-      TransferContext.callMethod(MethodBindings.addWriterPtr)
+      TransferContext.callPtrMethod_OBJECT(0L, 0L, MethodBindings.addWriterPtr, writer)
     }
   }
 

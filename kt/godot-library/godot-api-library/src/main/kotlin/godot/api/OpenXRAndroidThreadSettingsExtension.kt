@@ -9,11 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_LONG_LONG_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -30,7 +29,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class OpenXRAndroidThreadSettingsExtension : OpenXRExtensionWrapper() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(444, scriptPtr)
+    createNativeObject(443, scriptPtr)
   }
 
   /**
@@ -43,11 +42,8 @@ public open class OpenXRAndroidThreadSettingsExtension : OpenXRExtensionWrapper(
    * **NOTE:** The id returned by [Thread.getId] is incompatible with [threadId].
    */
   @JvmOverloads
-  public final fun setApplicationThreadType(threadType: ThreadType, threadId: Long = 0): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to threadType.value, LONG to threadId)
-    TransferContext.callMethod(MethodBindings.setApplicationThreadTypePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun setApplicationThreadType(threadType: ThreadType, threadId: Long = 0): Boolean =
+      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.setApplicationThreadTypePtr, threadType.value, threadId)
 
   public enum class ThreadType(
     public override val `value`: Long,

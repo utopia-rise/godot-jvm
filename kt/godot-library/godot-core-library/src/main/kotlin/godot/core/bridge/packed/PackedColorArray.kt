@@ -27,7 +27,9 @@ class PackedColorArray : PackedArray<PackedColorArray, Color> {
      * Constructs a [PackedColorArray] as a copy of the given [PackedColorArray].
      */
     constructor(from: PackedColorArray) {
-        TransferContext.writeArguments(VariantParser.PACKED_COLOR_ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.PACKED_COLOR_ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_packed_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_COLOR_ARRAY)
     }
@@ -36,7 +38,9 @@ class PackedColorArray : PackedArray<PackedColorArray, Color> {
      * Constructs a new [PackedColorArray] by converting a [VariantArray]<[Color]>.
      */
     constructor(from: VariantArray<Color>) {
-        TransferContext.writeArguments(VariantParser.ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_COLOR_ARRAY)
     }

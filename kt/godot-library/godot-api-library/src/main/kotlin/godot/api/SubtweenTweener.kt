@@ -9,10 +9,9 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_DOUBLE_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
 import kotlin.Double
 import kotlin.Suppress
 import kotlin.Unit
@@ -35,11 +34,8 @@ public open class SubtweenTweener : Tweener() {
    * Sets the time in seconds after which the [SubtweenTweener] will start running the subtween. By
    * default there's no delay.
    */
-  public final fun setDelay(delay: Double): SubtweenTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to delay)
-    TransferContext.callMethod(MethodBindings.setDelayPtr)
-    return (TransferContext.readReturnValue(OBJECT) as SubtweenTweener)
-  }
+  public final fun setDelay(delay: Double): SubtweenTweener =
+      (TransferContext.callPtrMethod_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setDelayPtr, delay) as SubtweenTweener)
 
   public companion object {
     @JvmField

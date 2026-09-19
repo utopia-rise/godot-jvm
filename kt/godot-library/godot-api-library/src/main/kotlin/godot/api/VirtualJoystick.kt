@@ -11,6 +11,14 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -18,13 +26,8 @@ import godot.core.MethodStringName1
 import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.StringName
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING_NAME
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
 import godot.core.asCachedStringName
-import kotlin.Double
 import kotlin.Float
 import kotlin.Long
 import kotlin.String
@@ -243,125 +246,81 @@ public open class VirtualJoystick : Control() {
   }
 
   public final fun setJoystickMode(mode: JoystickMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setJoystickModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setJoystickModePtr, mode.value)
   }
 
-  public final fun getJoystickMode(): JoystickMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJoystickModePtr)
-    return JoystickMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getJoystickMode(): JoystickMode =
+      JoystickMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getJoystickModePtr))
 
   public final fun setJoystickSize(size: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to size.toDouble())
-    TransferContext.callMethod(MethodBindings.setJoystickSizePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setJoystickSizePtr, size.toDouble())
   }
 
-  public final fun getJoystickSize(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJoystickSizePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getJoystickSize(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getJoystickSizePtr).toFloat()
 
   public final fun setTipSize(size: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to size.toDouble())
-    TransferContext.callMethod(MethodBindings.setTipSizePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTipSizePtr, size.toDouble())
   }
 
-  public final fun getTipSize(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTipSizePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getTipSize(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTipSizePtr).toFloat()
 
   public final fun setDeadzoneRatio(ratio: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to ratio.toDouble())
-    TransferContext.callMethod(MethodBindings.setDeadzoneRatioPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDeadzoneRatioPtr, ratio.toDouble())
   }
 
-  public final fun getDeadzoneRatio(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDeadzoneRatioPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDeadzoneRatio(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDeadzoneRatioPtr).toFloat()
 
   public final fun setClampzoneRatio(ratio: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to ratio.toDouble())
-    TransferContext.callMethod(MethodBindings.setClampzoneRatioPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setClampzoneRatioPtr, ratio.toDouble())
   }
 
-  public final fun getClampzoneRatio(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getClampzoneRatioPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getClampzoneRatio(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getClampzoneRatioPtr).toFloat()
 
   public final fun setInitialOffsetRatio(ratio: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to ratio)
-    TransferContext.callMethod(MethodBindings.setInitialOffsetRatioPtr)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setInitialOffsetRatioPtr, ratio)
   }
 
-  public final fun getInitialOffsetRatio(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInitialOffsetRatioPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
-  }
+  public final fun getInitialOffsetRatio(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getInitialOffsetRatioPtr)
 
   public final fun setActionLeft(action: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action)
-    TransferContext.callMethod(MethodBindings.setActionLeftPtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setActionLeftPtr, action)
   }
 
-  public final fun getActionLeft(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionLeftPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getActionLeft(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getActionLeftPtr)
 
   public final fun setActionRight(action: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action)
-    TransferContext.callMethod(MethodBindings.setActionRightPtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setActionRightPtr, action)
   }
 
-  public final fun getActionRight(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionRightPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getActionRight(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getActionRightPtr)
 
   public final fun setActionUp(action: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action)
-    TransferContext.callMethod(MethodBindings.setActionUpPtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setActionUpPtr, action)
   }
 
-  public final fun getActionUp(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionUpPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getActionUp(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getActionUpPtr)
 
   public final fun setActionDown(action: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action)
-    TransferContext.callMethod(MethodBindings.setActionDownPtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setActionDownPtr, action)
   }
 
-  public final fun getActionDown(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionDownPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getActionDown(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getActionDownPtr)
 
   public final fun setVisibilityMode(mode: VisibilityMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setVisibilityModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVisibilityModePtr, mode.value)
   }
 
-  public final fun getVisibilityMode(): VisibilityMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVisibilityModePtr)
-    return VisibilityMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getVisibilityMode(): VisibilityMode =
+      VisibilityMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibilityModePtr))
 
   public final fun setActionLeft(action: String) = setActionLeft(action.asCachedStringName())
 

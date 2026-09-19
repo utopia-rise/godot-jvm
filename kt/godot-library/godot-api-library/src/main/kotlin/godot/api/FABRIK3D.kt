@@ -23,7 +23,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class FABRIK3D : IterateIK3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(222, scriptPtr)
+    createNativeObject(220, scriptPtr)
   }
 
   public companion object

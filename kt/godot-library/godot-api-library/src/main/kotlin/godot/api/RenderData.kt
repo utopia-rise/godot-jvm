@@ -9,11 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.RID
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser._RID
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -34,40 +35,28 @@ public open class RenderData internal constructor() : Object() {
   /**
    * Returns the [RenderSceneBuffers] object managing the scene buffers for rendering this viewport.
    */
-  public final fun getRenderSceneBuffers(): RenderSceneBuffers? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRenderSceneBuffersPtr)
-    return (TransferContext.readReturnValue(OBJECT) as RenderSceneBuffers?)
-  }
+  public final fun getRenderSceneBuffers(): RenderSceneBuffers? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getRenderSceneBuffersPtr) as RenderSceneBuffers?)
 
   /**
    * Returns the [RenderSceneData] object managing this frames scene data.
    */
-  public final fun getRenderSceneData(): RenderSceneData? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRenderSceneDataPtr)
-    return (TransferContext.readReturnValue(OBJECT) as RenderSceneData?)
-  }
+  public final fun getRenderSceneData(): RenderSceneData? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getRenderSceneDataPtr) as RenderSceneData?)
 
   /**
    * Returns the [RID] of the environment object in the [RenderingServer] being used to render this
    * viewport.
    */
-  public final fun getEnvironment(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnvironmentPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun getEnvironment(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getEnvironmentPtr)
 
   /**
    * Returns the [RID] of the camera attributes object in the [RenderingServer] being used to render
    * this viewport.
    */
-  public final fun getCameraAttributes(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCameraAttributesPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun getCameraAttributes(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getCameraAttributesPtr)
 
   public companion object {
     @JvmField

@@ -14,8 +14,7 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
     //PROPERTIES
     val size: Int
         get() {
-            bridge.engine_call_size(ptr)
-            return TransferContext.readReturnValue(VariantCaster.INT) as Int
+            return TransferContext.callBridge(VariantParser.LONG) { bridge.engine_call_size(ptr) }.toInt()
         }
 
     //POOL ARRAY API SHARED
@@ -23,7 +22,9 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * Appends an element at the end of the array (alias of push_back).
      */
     fun append(value: T) {
-        TransferContext.writeArguments(bridge.elementVariantType to value)
+        TransferContext.writeArguments(1) {
+            bridge.elementVariantType.toGodot(value)
+        }
         bridge.engine_call_append(ptr)
     }
 
@@ -32,7 +33,9 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * Appends a PoolArray at the end of this array.
      */
     fun appendArray(array: Derived) {
-        TransferContext.writeArguments(bridge.packedArrayVariantType to array)
+        TransferContext.writeArguments(1) {
+            bridge.packedArrayVariantType.toGodot(array)
+        }
         bridge.engine_call_appendArray(ptr)
     }
 
@@ -44,9 +47,11 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * Note: Calling [bsearch] on an unsorted array results in unexpected behavior.
      */
     fun bsearch(value: T, before: Boolean = true): Int {
-        TransferContext.writeArguments(bridge.elementVariantType to value, VariantParser.BOOL to before)
-        bridge.engine_call_bsearch(ptr)
-        return TransferContext.readReturnValue(VariantCaster.INT) as Int
+        return TransferContext.callBridge(2, VariantParser.LONG) {
+            bridge.elementVariantType.toGodot(value)
+            VariantParser.BOOL.write(before)
+            bridge.engine_call_bsearch(ptr)
+        }.toInt()
     }
 
     /**
@@ -60,9 +65,10 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * Returns the number of times an element is in the array.
      */
     fun count(value: T): Int {
-        TransferContext.writeArguments(bridge.elementVariantType to value)
-        bridge.engine_call_count(ptr)
-        return TransferContext.readReturnValue(VariantCaster.INT) as Int
+        return TransferContext.callBridge(1, VariantParser.LONG) {
+            bridge.elementVariantType.toGodot(value)
+            bridge.engine_call_count(ptr)
+        }.toInt()
     }
 
     /**
@@ -70,8 +76,7 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      */
     @Suppress("UNCHECKED_CAST")
     fun duplicate(): Derived {
-        bridge.engine_call_duplicate(ptr)
-        return TransferContext.readReturnValue(bridge.packedArrayVariantType) as Derived
+        return TransferContext.callBridge(bridge.packedArrayVariantType) { bridge.engine_call_duplicate(ptr) } as Derived
     }
 
     /**
@@ -79,7 +84,9 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * an array with a given size and initialized elements.
      */
     fun fill(value: T) {
-        TransferContext.writeArguments(bridge.elementVariantType to value)
+        TransferContext.writeArguments(1) {
+            bridge.elementVariantType.toGodot(value)
+        }
         bridge.engine_call_fill(ptr)
     }
 
@@ -88,9 +95,10 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * be passed.
      */
     fun find(value: T): Int {
-        TransferContext.writeArguments(bridge.elementVariantType to value)
-        bridge.engine_call_find(ptr)
-        return TransferContext.readReturnValue(VariantCaster.INT) as Int
+        return TransferContext.callBridge(1, VariantParser.LONG) {
+            bridge.elementVariantType.toGodot(value)
+            bridge.engine_call_find(ptr)
+        }.toInt()
     }
 
     /**
@@ -98,18 +106,20 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      */
     @Suppress("UNCHECKED_CAST")
     operator fun get(idx: Int): T {
-        TransferContext.writeArguments(VariantCaster.INT to idx)
-        bridge.engine_call_get(ptr)
-        return TransferContext.readReturnValue(bridge.elementVariantType) as T
+        return TransferContext.callBridge(1, bridge.elementVariantType) {
+            VariantParser.LONG.write(idx.toLong())
+            bridge.engine_call_get(ptr)
+        } as T
     }
 
     /**
      * Returns `true` if the array contains [value].
      */
     fun has(value: T): Boolean {
-        TransferContext.writeArguments(bridge.elementVariantType to value)
-        bridge.engine_call_has(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return TransferContext.callBridge(1, VariantParser.BOOL) {
+            bridge.elementVariantType.toGodot(value)
+            bridge.engine_call_has(ptr)
+        }
     }
 
     /**
@@ -117,7 +127,10 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * The position must be valid, or at the end of the array (idx == size()).
      */
     fun insert(idx: Int, data: T) {
-        TransferContext.writeArguments(VariantCaster.INT to idx, bridge.elementVariantType to data)
+        TransferContext.writeArguments(2) {
+            VariantParser.LONG.write(idx.toLong())
+            bridge.elementVariantType.toGodot(data)
+        }
         bridge.engine_call_insert(ptr)
     }
 
@@ -125,15 +138,16 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * Returns true if the array is empty.
      */
     fun isEmpty(): Boolean {
-        bridge.engine_call_is_empty(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return TransferContext.callBridge(VariantParser.BOOL) { bridge.engine_call_is_empty(ptr) }
     }
 
     /**
      * Appends a value to the array.
      */
     fun pushBack(data: T) {
-        TransferContext.writeArguments(bridge.elementVariantType to data)
+        TransferContext.writeArguments(1) {
+            bridge.elementVariantType.toGodot(data)
+        }
         bridge.engine_call_pushback(ptr)
     }
 
@@ -141,7 +155,9 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * Removes an element from the array by index.
      */
     fun removeAt(idx: Int) {
-        TransferContext.writeArguments(VariantCaster.INT to idx)
+        TransferContext.writeArguments(1) {
+            VariantParser.LONG.write(idx.toLong())
+        }
         bridge.engine_call_remove_at(ptr)
     }
 
@@ -150,7 +166,9 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * If the array is shrunk, truncates the array to the new size.
      */
     fun resize(size: Int) {
-        TransferContext.writeArguments(VariantCaster.INT to size)
+        TransferContext.writeArguments(1) {
+            VariantParser.LONG.write(size.toLong())
+        }
         bridge.engine_call_resize(ptr)
     }
 
@@ -166,16 +184,21 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * is considered relative to the end of the array.
      */
     fun rfind(value: T, from: Int = -1): Int {
-        TransferContext.writeArguments(bridge.elementVariantType to value, VariantCaster.INT to from)
-        bridge.engine_call_rfind(ptr)
-        return TransferContext.readReturnValue(VariantCaster.INT) as Int
+        return TransferContext.callBridge(2, VariantParser.LONG) {
+            bridge.elementVariantType.toGodot(value)
+            VariantParser.LONG.write(from.toLong())
+            bridge.engine_call_rfind(ptr)
+        }.toInt()
     }
 
     /**
      * Changes the integer at the given index.
      */
     operator fun set(idx: Int, data: T) {
-        TransferContext.writeArguments(VariantCaster.INT to idx, bridge.elementVariantType to data)
+        TransferContext.writeArguments(2) {
+            VariantParser.LONG.write(idx.toLong())
+            bridge.elementVariantType.toGodot(data)
+        }
         bridge.engine_call_set(ptr)
     }
 
@@ -190,9 +213,11 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      */
     @Suppress("UNCHECKED_CAST")
     fun slice(begin: Int, end: Int = Int.MAX_VALUE): Derived {
-        TransferContext.writeArguments(VariantCaster.INT to begin, VariantCaster.INT to end)
-        bridge.engine_call_slice(ptr)
-        return TransferContext.readReturnValue(bridge.packedArrayVariantType) as Derived
+        return TransferContext.callBridge(2, bridge.packedArrayVariantType) {
+            VariantParser.LONG.write(begin.toLong())
+            VariantParser.LONG.write(end.toLong())
+            bridge.engine_call_slice(ptr)
+        } as Derived
     }
 
     fun sort() {
@@ -200,8 +225,7 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
     }
 
     fun toPackedByteArray(): PackedByteArray {
-        bridge.engine_call_to_byte_array(ptr)
-        return TransferContext.readReturnValue(VariantParser.PACKED_BYTE_ARRAY) as PackedByteArray
+        return TransferContext.callBridge(VariantParser.PACKED_BYTE_ARRAY) { bridge.engine_call_to_byte_array(ptr) } as PackedByteArray
     }
 
     //UTILITIES

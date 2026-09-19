@@ -9,6 +9,23 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_OBJECT
+import godot.callPtrMethod_LONG_STRING_NAME
+import godot.callPtrMethod_LONG_TRANSFORM3D
+import godot.callPtrMethod_LONG_VECTOR2
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_ret_STRING_NAME
+import godot.callPtrMethod_LONG_ret_TRANSFORM3D
+import godot.callPtrMethod_LONG_ret_VECTOR2
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -17,12 +34,6 @@ import godot.core.MethodStringName2
 import godot.core.Signal0
 import godot.core.StringName
 import godot.core.Transform3D
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING_NAME
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
 import godot.core.asCachedStringName
 import kotlin.Boolean
@@ -111,106 +122,76 @@ public open class SkeletonProfile : Resource() {
   }
 
   public final fun setRootBone(boneName: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to boneName)
-    TransferContext.callMethod(MethodBindings.setRootBonePtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setRootBonePtr, boneName)
   }
 
-  public final fun getRootBone(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootBonePtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getRootBone(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getRootBonePtr)
 
   public final fun setScaleBaseBone(boneName: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to boneName)
-    TransferContext.callMethod(MethodBindings.setScaleBaseBonePtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setScaleBaseBonePtr, boneName)
   }
 
-  public final fun getScaleBaseBone(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScaleBaseBonePtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getScaleBaseBone(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getScaleBaseBonePtr)
 
   public final fun setGroupSize(size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.toLong())
-    TransferContext.callMethod(MethodBindings.setGroupSizePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setGroupSizePtr, size.toLong())
   }
 
-  public final fun getGroupSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGroupSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getGroupSize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getGroupSizePtr).toInt()
 
   /**
    * Returns the name of the group at [groupIdx] that will be the drawing group in the [BoneMap]
    * editor.
    */
-  public final fun getGroupName(groupIdx: Int): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to groupIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getGroupNamePtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getGroupName(groupIdx: Int): StringName =
+      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getGroupNamePtr, groupIdx.toLong())
 
   /**
    * Sets the name of the group at [groupIdx] that will be the drawing group in the [BoneMap]
    * editor.
    */
   public final fun setGroupName(groupIdx: Int, groupName: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to groupIdx.toLong(), STRING_NAME to groupName)
-    TransferContext.callMethod(MethodBindings.setGroupNamePtr)
+    TransferContext.callPtrMethod_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.setGroupNamePtr, groupIdx.toLong(), groupName)
   }
 
   /**
    * Returns the texture of the group at [groupIdx] that will be the drawing group background image
    * in the [BoneMap] editor.
    */
-  public final fun getTexture(groupIdx: Int): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to groupIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getTexturePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
-  }
+  public final fun getTexture(groupIdx: Int): Texture2D? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr, groupIdx.toLong()) as Texture2D?)
 
   /**
    * Sets the texture of the group at [groupIdx] that will be the drawing group background image in
    * the [BoneMap] editor.
    */
   public final fun setTexture(groupIdx: Int, texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to groupIdx.toLong(), OBJECT to texture)
-    TransferContext.callMethod(MethodBindings.setTexturePtr)
+    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, groupIdx.toLong(), texture)
   }
 
   public final fun setBoneSize(size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.toLong())
-    TransferContext.callMethod(MethodBindings.setBoneSizePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBoneSizePtr, size.toLong())
   }
 
-  public final fun getBoneSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getBoneSize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBoneSizePtr).toInt()
 
   /**
    * Returns the bone index that matches [boneName] as its name.
    */
-  public final fun findBone(boneName: StringName): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to boneName)
-    TransferContext.callMethod(MethodBindings.findBonePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun findBone(boneName: StringName): Int =
+      TransferContext.callPtrMethod_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.findBonePtr, boneName).toInt()
 
   /**
    * Returns the name of the bone at [boneIdx] that will be the key name in the [BoneMap].
    *
    * In the retargeting process, the returned bone name is the bone name of the target skeleton.
    */
-  public final fun getBoneName(boneIdx: Int): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneNamePtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getBoneName(boneIdx: Int): StringName =
+      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getBoneNamePtr, boneIdx.toLong())
 
   /**
    * Sets the name of the bone at [boneIdx] that will be the key name in the [BoneMap].
@@ -218,37 +199,29 @@ public open class SkeletonProfile : Resource() {
    * In the retargeting process, the setting bone name is the bone name of the target skeleton.
    */
   public final fun setBoneName(boneIdx: Int, boneName: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong(), STRING_NAME to boneName)
-    TransferContext.callMethod(MethodBindings.setBoneNamePtr)
+    TransferContext.callPtrMethod_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.setBoneNamePtr, boneIdx.toLong(), boneName)
   }
 
   /**
    * Returns the name of the bone which is the parent to the bone at [boneIdx]. The result is empty
    * if the bone has no parent.
    */
-  public final fun getBoneParent(boneIdx: Int): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneParentPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getBoneParent(boneIdx: Int): StringName =
+      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getBoneParentPtr, boneIdx.toLong())
 
   /**
    * Sets the bone with name [boneParent] as the parent of the bone at [boneIdx]. If an empty string
    * is passed, then the bone has no parent.
    */
   public final fun setBoneParent(boneIdx: Int, boneParent: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong(), STRING_NAME to boneParent)
-    TransferContext.callMethod(MethodBindings.setBoneParentPtr)
+    TransferContext.callPtrMethod_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.setBoneParentPtr, boneIdx.toLong(), boneParent)
   }
 
   /**
    * Returns the tail direction of the bone at [boneIdx].
    */
-  public final fun getTailDirection(boneIdx: Int): TailDirection {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getTailDirectionPtr)
-    return TailDirection.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getTailDirection(boneIdx: Int): TailDirection =
+      TailDirection.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getTailDirectionPtr, boneIdx.toLong()))
 
   /**
    * Sets the tail direction of the bone at [boneIdx].
@@ -257,42 +230,33 @@ public open class SkeletonProfile : Resource() {
    * be stored in an external skeleton, so the calculation itself needs to be done externally.
    */
   public final fun setTailDirection(boneIdx: Int, tailDirection: TailDirection): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong(), LONG to tailDirection.value)
-    TransferContext.callMethod(MethodBindings.setTailDirectionPtr)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setTailDirectionPtr, boneIdx.toLong(), tailDirection.value)
   }
 
   /**
    * Returns the name of the bone which is the tail of the bone at [boneIdx].
    */
-  public final fun getBoneTail(boneIdx: Int): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBoneTailPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getBoneTail(boneIdx: Int): StringName =
+      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getBoneTailPtr, boneIdx.toLong())
 
   /**
    * Sets the bone with name [boneTail] as the tail of the bone at [boneIdx].
    */
   public final fun setBoneTail(boneIdx: Int, boneTail: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong(), STRING_NAME to boneTail)
-    TransferContext.callMethod(MethodBindings.setBoneTailPtr)
+    TransferContext.callPtrMethod_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.setBoneTailPtr, boneIdx.toLong(), boneTail)
   }
 
   /**
    * Returns the reference pose transform for bone [boneIdx].
    */
-  public final fun getReferencePose(boneIdx: Int): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getReferencePosePtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
-  }
+  public final fun getReferencePose(boneIdx: Int): Transform3D =
+      TransferContext.callPtrMethod_LONG_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getReferencePosePtr, boneIdx.toLong())
 
   /**
    * Sets the reference pose transform for bone [boneIdx].
    */
   public final fun setReferencePose(boneIdx: Int, boneName: Transform3D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong(), TRANSFORM3D to boneName)
-    TransferContext.callMethod(MethodBindings.setReferencePosePtr)
+    TransferContext.callPtrMethod_LONG_TRANSFORM3D(ptr, objectID.id, MethodBindings.setReferencePosePtr, boneIdx.toLong(), boneName)
   }
 
   /**
@@ -301,11 +265,8 @@ public open class SkeletonProfile : Resource() {
    *
    * This is the offset with origin at the top left corner of the square.
    */
-  public final fun getHandleOffset(boneIdx: Int): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getHandleOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
-  }
+  public final fun getHandleOffset(boneIdx: Int): Vector2 =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getHandleOffsetPtr, boneIdx.toLong())
 
   /**
    * Sets the offset of the bone at [boneIdx] that will be the button position in the [BoneMap]
@@ -314,25 +275,20 @@ public open class SkeletonProfile : Resource() {
    * This is the offset with origin at the top left corner of the square.
    */
   public final fun setHandleOffset(boneIdx: Int, handleOffset: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong(), VECTOR2 to handleOffset)
-    TransferContext.callMethod(MethodBindings.setHandleOffsetPtr)
+    TransferContext.callPtrMethod_LONG_VECTOR2(ptr, objectID.id, MethodBindings.setHandleOffsetPtr, boneIdx.toLong(), handleOffset)
   }
 
   /**
    * Returns the group of the bone at [boneIdx].
    */
-  public final fun getGroup(boneIdx: Int): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getGroupPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getGroup(boneIdx: Int): StringName =
+      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getGroupPtr, boneIdx.toLong())
 
   /**
    * Sets the group of the bone at [boneIdx].
    */
   public final fun setGroup(boneIdx: Int, group: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong(), STRING_NAME to group)
-    TransferContext.callMethod(MethodBindings.setGroupPtr)
+    TransferContext.callPtrMethod_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.setGroupPtr, boneIdx.toLong(), group)
   }
 
   /**
@@ -341,18 +297,14 @@ public open class SkeletonProfile : Resource() {
    * This value is used by the bone map editor. If this method returns `true`, and no bone is
    * assigned, the handle color will be red on the bone map editor.
    */
-  public final fun isRequired(boneIdx: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong())
-    TransferContext.callMethod(MethodBindings.isRequiredPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isRequired(boneIdx: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isRequiredPtr, boneIdx.toLong())
 
   /**
    * Sets the required status for bone [boneIdx] to [required].
    */
   public final fun setRequired(boneIdx: Int, required: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneIdx.toLong(), BOOL to required)
-    TransferContext.callMethod(MethodBindings.setRequiredPtr)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setRequiredPtr, boneIdx.toLong(), required)
   }
 
   public final fun setRootBone(boneName: String) = setRootBone(boneName.asCachedStringName())

@@ -9,6 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_CALLABLE_ret_OBJECT_REF
+import godot.callMethod_LONG_CALLABLE_ret_OBJECT_REF
+import godot.callMethod_OBJECT_RID_CALLABLE_ret_OBJECT_REF
+import godot.callMethod_RID_ARRAY_OBJECT_OBJECT_CALLABLE_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_RID
+import godot.callPtrMethod_RID_ARRAY_OBJECT_OBJECT
+import godot.callPtrMethod_RID_ret_LONG
+import godot.callPtrMethod_TRANSFORM3D_RID_OBJECT_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.GodotEnum
@@ -22,13 +33,6 @@ import godot.core.RID
 import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.VariantCallable
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser._RID
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -42,39 +46,30 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(469, scriptPtr)
+    createNativeObject(468, scriptPtr)
   }
 
   /**
    * Returns `true` if spatial anchors are supported by the hardware. Only returns a valid value
    * after OpenXR has been initialized.
    */
-  public final fun isSpatialAnchorSupported(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSpatialAnchorSupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isSpatialAnchorSupported(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSpatialAnchorSupportedPtr)
 
   /**
    * Returns `true` if persistent spatial anchors are supported by the hardware. Only returns a
    * valid value after OpenXR has been initialized.
    */
-  public final fun isSpatialPersistenceSupported(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSpatialPersistenceSupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isSpatialPersistenceSupported(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSpatialPersistenceSupportedPtr)
 
   /**
    * Returns `true` if this persistence scope is supported by our spatial anchor capability.
    *
    * **Note:** Only valid after an OpenXR instance has been created.
    */
-  public final fun isPersistenceScopeSupported(scope: PersistenceScope): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to scope.value)
-    TransferContext.callMethod(MethodBindings.isPersistenceScopeSupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isPersistenceScopeSupported(scope: PersistenceScope): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isPersistenceScopeSupportedPtr, scope.value)
 
   /**
    * Calls [createPersistenceContext] with a configuration that likely works with the XR runtime.
@@ -83,11 +78,8 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
    */
   @JvmOverloads
   public final fun createDefaultPersistenceContext(userCallback: Callable = VariantCallable()):
-      OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to userCallback)
-    TransferContext.callMethod(MethodBindings.createDefaultPersistenceContextPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
-  }
+      OpenXRFutureResult? =
+      (TransferContext.callMethod_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createDefaultPersistenceContextPtr, userCallback) as OpenXRFutureResult?)
 
   /**
    * Creates a new persistence context for storing persistent data.
@@ -99,29 +91,22 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
    */
   @JvmOverloads
   public final fun createPersistenceContext(scope: PersistenceScope, userCallback: Callable =
-      VariantCallable()): OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to scope.value, CALLABLE to userCallback)
-    TransferContext.callMethod(MethodBindings.createPersistenceContextPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
-  }
+      VariantCallable()): OpenXRFutureResult? =
+      (TransferContext.callMethod_LONG_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createPersistenceContextPtr, scope.value, userCallback) as OpenXRFutureResult?)
 
   /**
    * Returns the internal handle for this persistence context.
    *
    * **Note:** For GDExtension implementations.
    */
-  public final fun getPersistenceContextHandle(persistenceContext: RID): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to persistenceContext)
-    TransferContext.callMethod(MethodBindings.getPersistenceContextHandlePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getPersistenceContextHandle(persistenceContext: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.getPersistenceContextHandlePtr, persistenceContext)
 
   /**
    * Frees a persistence context previously created with [createPersistenceContext].
    */
   public final fun freePersistenceContext(persistenceContext: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to persistenceContext)
-    TransferContext.callMethod(MethodBindings.freePersistenceContextPtr)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.freePersistenceContextPtr, persistenceContext)
   }
 
   /**
@@ -138,19 +123,15 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
     transform: Transform3D,
     spatialContext: RID = RID(),
     next: OpenXRStructureBase? = null,
-  ): OpenXRAnchorTracker? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, TRANSFORM3D to transform, _RID to spatialContext, OBJECT to next)
-    TransferContext.callMethod(MethodBindings.createNewAnchorPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRAnchorTracker?)
-  }
+  ): OpenXRAnchorTracker? =
+      (TransferContext.callPtrMethod_TRANSFORM3D_RID_OBJECT_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createNewAnchorPtr, transform, spatialContext, next) as OpenXRAnchorTracker?)
 
   /**
    * Remove an anchor previously created with [createNewAnchor]. If this anchor was persistent you
    * must first call [unpersistAnchor] and await its callback.
    */
   public final fun removeAnchor(anchorTracker: OpenXRAnchorTracker?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to anchorTracker)
-    TransferContext.callMethod(MethodBindings.removeAnchorPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeAnchorPtr, anchorTracker)
   }
 
   /**
@@ -169,11 +150,8 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
     anchorTracker: OpenXRAnchorTracker?,
     persistenceContext: RID = RID(),
     userCallback: Callable = VariantCallable(),
-  ): OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to anchorTracker, _RID to persistenceContext, CALLABLE to userCallback)
-    TransferContext.callMethod(MethodBindings.persistAnchorPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
-  }
+  ): OpenXRFutureResult? =
+      (TransferContext.callMethod_OBJECT_RID_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.persistAnchorPtr, anchorTracker, persistenceContext, userCallback) as OpenXRFutureResult?)
 
   /**
    * Removes the persistent data from this anchor. The runtime will not recreate the anchor when
@@ -190,11 +168,8 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
     anchorTracker: OpenXRAnchorTracker?,
     persistenceContext: RID = RID(),
     userCallback: Callable = VariantCallable(),
-  ): OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to anchorTracker, _RID to persistenceContext, CALLABLE to userCallback)
-    TransferContext.callMethod(MethodBindings.unpersistAnchorPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
-  }
+  ): OpenXRFutureResult? =
+      (TransferContext.callMethod_OBJECT_RID_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.unpersistAnchorPtr, anchorTracker, persistenceContext, userCallback) as OpenXRFutureResult?)
 
   /**
    * Calls [OpenXRSpatialEntityExtension.discoverSpatialEntities] and
@@ -225,11 +200,8 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
     nextSnapshotCreate: OpenXRStructureBase? = null,
     nextSnapshotQuery: OpenXRStructureBase? = null,
     userCallback: Callable = VariantCallable(),
-  ): OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext, ARRAY to componentData, OBJECT to nextSnapshotCreate, OBJECT to nextSnapshotQuery, CALLABLE to userCallback)
-    TransferContext.callMethod(MethodBindings.startEntityDiscoveryPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
-  }
+  ): OpenXRFutureResult? =
+      (TransferContext.callMethod_RID_ARRAY_OBJECT_OBJECT_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.startEntityDiscoveryPtr, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery, userCallback) as OpenXRFutureResult?)
 
   /**
    * Calls [OpenXRSpatialEntityExtension.updateSpatialEntities] and
@@ -251,8 +223,7 @@ public open class OpenXRSpatialAnchorCapability : OpenXRExtensionWrapper() {
     nextSnapshotCreate: OpenXRStructureBase? = null,
     nextSnapshotQuery: OpenXRStructureBase? = null,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext, ARRAY to componentData, OBJECT to nextSnapshotCreate, OBJECT to nextSnapshotQuery)
-    TransferContext.callMethod(MethodBindings.doEntityUpdatePtr)
+    TransferContext.callPtrMethod_RID_ARRAY_OBJECT_OBJECT(ptr, objectID.id, MethodBindings.doEntityUpdatePtr, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery)
   }
 
   public enum class PersistenceScope(

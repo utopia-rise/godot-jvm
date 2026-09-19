@@ -9,15 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -65,41 +67,29 @@ public open class LightOccluder2D : Node2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(355, scriptPtr)
+    createNativeObject(353, scriptPtr)
   }
 
   public final fun setOccluderPolygon(polygon: OccluderPolygon2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to polygon)
-    TransferContext.callMethod(MethodBindings.setOccluderPolygonPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setOccluderPolygonPtr, polygon)
   }
 
-  public final fun getOccluderPolygon(): OccluderPolygon2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOccluderPolygonPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OccluderPolygon2D?)
-  }
+  public final fun getOccluderPolygon(): OccluderPolygon2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOccluderPolygonPtr) as OccluderPolygon2D?)
 
   public final fun setOccluderLightMask(mask: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mask.toLong())
-    TransferContext.callMethod(MethodBindings.setOccluderLightMaskPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOccluderLightMaskPtr, mask.toLong())
   }
 
-  public final fun getOccluderLightMask(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOccluderLightMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getOccluderLightMask(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOccluderLightMaskPtr).toInt()
 
   public final fun setAsSdfCollision(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setAsSdfCollisionPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAsSdfCollisionPtr, enable)
   }
 
-  public final fun isSetAsSdfCollision(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSetAsSdfCollisionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isSetAsSdfCollision(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSetAsSdfCollisionPtr)
 
   public companion object {
     @JvmField

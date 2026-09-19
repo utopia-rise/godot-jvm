@@ -11,6 +11,21 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_AABB
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY
+import godot.callPtrMethod0_ret_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_ARRAY_TRANSFORM3D
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_TRANSFORM3D
+import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY
+import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY_DOUBLE_DOUBLE_BOOL
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY_TRANSFORM3D
 import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.Dictionary
@@ -23,14 +38,6 @@ import godot.core.PackedInt32Array
 import godot.core.PackedVector3Array
 import godot.core.Transform3D
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_FLOAT_32_ARRAY
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.PACKED_VECTOR3_ARRAY
-import godot.core.VariantParser.TRANSFORM3D
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Float
@@ -92,7 +99,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(406, scriptPtr)
+    createNativeObject(404, scriptPtr)
   }
 
   /**
@@ -169,18 +176,14 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    * libraries.
    */
   public final fun setVertices(vertices: PackedFloat32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_FLOAT_32_ARRAY to vertices)
-    TransferContext.callMethod(MethodBindings.setVerticesPtr)
+    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setVerticesPtr, vertices)
   }
 
   /**
    * Returns the parsed source geometry data vertices array.
    */
-  public final fun getVertices(): PackedFloat32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVerticesPtr)
-    return (TransferContext.readReturnValue(PACKED_FLOAT_32_ARRAY) as PackedFloat32Array)
-  }
+  public final fun getVertices(): PackedFloat32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.getVerticesPtr)
 
   /**
    * Sets the parsed source geometry data indices. The indices need to be matched with appropriated
@@ -190,44 +193,35 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    * libraries.
    */
   public final fun setIndices(indices: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_INT_32_ARRAY to indices)
-    TransferContext.callMethod(MethodBindings.setIndicesPtr)
+    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setIndicesPtr, indices)
   }
 
   /**
    * Returns the parsed source geometry data indices array.
    */
-  public final fun getIndices(): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIndicesPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
-  }
+  public final fun getIndices(): PackedInt32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getIndicesPtr)
 
   /**
    * Appends arrays of [vertices] and [indices] at the end of the existing arrays. Adds the existing
    * index as an offset to the appended indices.
    */
   public final fun appendArrays(vertices: PackedFloat32Array, indices: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_FLOAT_32_ARRAY to vertices, PACKED_INT_32_ARRAY to indices)
-    TransferContext.callMethod(MethodBindings.appendArraysPtr)
+    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.appendArraysPtr, vertices, indices)
   }
 
   /**
    * Clears the internal data.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
   }
 
   /**
    * Returns `true` when parsed source geometry data exists.
    */
-  public final fun hasData(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasDataPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasData(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasDataPtr)
 
   /**
    * Adds the geometry data of a [Mesh] resource to the navigation mesh baking data. The mesh must
@@ -235,8 +229,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    * transform, all vertex positions need to be offset by the node's transform using [xform].
    */
   public final fun addMesh(mesh: Mesh?, xform: Transform3D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to mesh, TRANSFORM3D to xform)
-    TransferContext.callMethod(MethodBindings.addMeshPtr)
+    TransferContext.callPtrMethod_OBJECT_TRANSFORM3D(ptr, objectID.id, MethodBindings.addMeshPtr, mesh, xform)
   }
 
   /**
@@ -247,8 +240,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    * [xform].
    */
   public final fun addMeshArray(meshArray: VariantArray<Any?>, xform: Transform3D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to meshArray, TRANSFORM3D to xform)
-    TransferContext.callMethod(MethodBindings.addMeshArrayPtr)
+    TransferContext.callPtrMethod_ARRAY_TRANSFORM3D(ptr, objectID.id, MethodBindings.addMeshArrayPtr, meshArray, xform)
   }
 
   /**
@@ -258,8 +250,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    * by the node's transform using [xform].
    */
   public final fun addFaces(faces: PackedVector3Array, xform: Transform3D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR3_ARRAY to faces, TRANSFORM3D to xform)
-    TransferContext.callMethod(MethodBindings.addFacesPtr)
+    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY_TRANSFORM3D(ptr, objectID.id, MethodBindings.addFacesPtr, faces, xform)
   }
 
   /**
@@ -267,8 +258,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    * baking data.
    */
   public final fun merge(otherGeometry: NavigationMeshSourceGeometryData3D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to otherGeometry)
-    TransferContext.callMethod(MethodBindings.mergePtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.mergePtr, otherGeometry)
   }
 
   /**
@@ -283,16 +273,14 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
     height: Float,
     carve: Boolean,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR3_ARRAY to vertices, DOUBLE to elevation.toDouble(), DOUBLE to height.toDouble(), BOOL to carve)
-    TransferContext.callMethod(MethodBindings.addProjectedObstructionPtr)
+    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY_DOUBLE_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.addProjectedObstructionPtr, vertices, elevation.toDouble(), height.toDouble(), carve)
   }
 
   /**
    * Clears all projected obstructions.
    */
   public final fun clearProjectedObstructions(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearProjectedObstructionsPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearProjectedObstructionsPtr)
   }
 
   /**
@@ -308,8 +296,7 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    * ```
    */
   public final fun setProjectedObstructions(projectedObstructions: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to projectedObstructions)
-    TransferContext.callMethod(MethodBindings.setProjectedObstructionsPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setProjectedObstructionsPtr, projectedObstructions)
   }
 
   /**
@@ -325,22 +312,16 @@ public open class NavigationMeshSourceGeometryData3D : Resource() {
    * - `carve` - A [Boolean] that defines how the obstacle affects the navigation mesh baking. If
    * `true` the projected shape will not be affected by addition offsets, e.g. agent radius.
    */
-  public final fun getProjectedObstructions(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProjectedObstructionsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
-  }
+  public final fun getProjectedObstructions(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getProjectedObstructionsPtr) as VariantArray<Any?>)
 
   /**
    * Returns an axis-aligned bounding box that covers all the stored geometry data. The bounds are
    * calculated when calling this function with the result cached until further geometry changes are
    * made.
    */
-  public final fun getBounds(): AABB {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoundsPtr)
-    return (TransferContext.readReturnValue(godot.core.VariantParser.AABB) as AABB)
-  }
+  public final fun getBounds(): AABB =
+      TransferContext.callPtrMethod0_ret_AABB(ptr, objectID.id, MethodBindings.getBoundsPtr)
 
   public companion object {
     @JvmField

@@ -9,10 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -58,41 +59,29 @@ public open class RDAttachmentFormat : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(580, scriptPtr)
+    createNativeObject(579, scriptPtr)
   }
 
   public final fun setFormat(pMember: RenderingDevice.DataFormat): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setFormatPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFormatPtr, pMember.value)
   }
 
-  public final fun getFormat(): RenderingDevice.DataFormat {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFormatPtr)
-    return RenderingDevice.DataFormat.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getFormat(): RenderingDevice.DataFormat =
+      RenderingDevice.DataFormat.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr))
 
   public final fun setSamples(pMember: RenderingDevice.TextureSamples): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setSamplesPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSamplesPtr, pMember.value)
   }
 
-  public final fun getSamples(): RenderingDevice.TextureSamples {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSamplesPtr)
-    return RenderingDevice.TextureSamples.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getSamples(): RenderingDevice.TextureSamples =
+      RenderingDevice.TextureSamples.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSamplesPtr))
 
   public final fun setUsageFlags(pMember: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember)
-    TransferContext.callMethod(MethodBindings.setUsageFlagsPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setUsageFlagsPtr, pMember)
   }
 
-  public final fun getUsageFlags(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUsageFlagsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getUsageFlags(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUsageFlagsPtr)
 
   public companion object {
     @JvmField

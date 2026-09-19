@@ -9,6 +9,21 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_LONG_LONG_LONG_LONG_LONG_ret_LONG
+import godot.callMethod_STRING_LONG_LONG_LONG_ret_OBJECT_REF
+import godot.callMethod_STRING_LONG_PACKED_BYTE_ARRAY
+import godot.callMethod_STRING_OBJECT_ret_LONG
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_LONG_LONG_ret_LONG
+import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG
+import godot.callPtrMethod_LONG_ret_ARRAY
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_OBJECT_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
@@ -20,13 +35,6 @@ import godot.core.MethodStringName4
 import godot.core.MethodStringName6
 import godot.core.PackedByteArray
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -45,7 +53,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class ENetConnection : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(212, scriptPtr)
+    createNativeObject(210, scriptPtr)
   }
 
   /**
@@ -64,11 +72,8 @@ public open class ENetConnection : RefCounted() {
     maxChannels: Int = 0,
     inBandwidth: Int = 0,
     outBandwidth: Int = 0,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to bindAddress, LONG to bindPort.toLong(), LONG to maxPeers.toLong(), LONG to maxChannels.toLong(), LONG to inBandwidth.toLong(), LONG to outBandwidth.toLong())
-    TransferContext.callMethod(MethodBindings.createHostBoundPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_LONG_LONG_LONG_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.createHostBoundPtr, bindAddress, bindPort.toLong(), maxPeers.toLong(), maxChannels.toLong(), inBandwidth.toLong(), outBandwidth.toLong()))
 
   /**
    * Creates an ENetHost that allows up to [maxPeers] connected peers, each allocating up to
@@ -87,18 +92,14 @@ public open class ENetConnection : RefCounted() {
     maxChannels: Int = 0,
     inBandwidth: Int = 0,
     outBandwidth: Int = 0,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxPeers.toLong(), LONG to maxChannels.toLong(), LONG to inBandwidth.toLong(), LONG to outBandwidth.toLong())
-    TransferContext.callMethod(MethodBindings.createHostPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.createHostPtr, maxPeers.toLong(), maxChannels.toLong(), inBandwidth.toLong(), outBandwidth.toLong()))
 
   /**
    * Destroys the host and all resources associated with it.
    */
   public final fun destroy(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.destroyPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.destroyPtr)
   }
 
   /**
@@ -115,11 +116,8 @@ public open class ENetConnection : RefCounted() {
     port: Int,
     channels: Int = 0,
     `data`: Int = 0,
-  ): ENetPacketPeer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to address, LONG to port.toLong(), LONG to channels.toLong(), LONG to data.toLong())
-    TransferContext.callMethod(MethodBindings.connectToHostPtr)
-    return (TransferContext.readReturnValue(OBJECT) as ENetPacketPeer?)
-  }
+  ): ENetPacketPeer? =
+      (TransferContext.callMethod_STRING_LONG_LONG_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.connectToHostPtr, address, port.toLong(), channels.toLong(), data.toLong()) as ENetPacketPeer?)
 
   /**
    * Waits for events on this connection and shuttles packets between the host and its peers, with
@@ -134,18 +132,14 @@ public open class ENetConnection : RefCounted() {
    * hosts).
    */
   @JvmOverloads
-  public final fun service(timeout: Int = 0): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to timeout.toLong())
-    TransferContext.callMethod(MethodBindings.servicePtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
-  }
+  public final fun service(timeout: Int = 0): VariantArray<Any?> =
+      (TransferContext.callPtrMethod_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.servicePtr, timeout.toLong()) as VariantArray<Any?>)
 
   /**
    * Sends any queued packets on the host specified to its designated peers.
    */
   public final fun flush(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.flushPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.flushPtr)
   }
 
   /**
@@ -153,16 +147,14 @@ public open class ENetConnection : RefCounted() {
    */
   @JvmOverloads
   public final fun bandwidthLimit(inBandwidth: Int = 0, outBandwidth: Int = 0): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to inBandwidth.toLong(), LONG to outBandwidth.toLong())
-    TransferContext.callMethod(MethodBindings.bandwidthLimitPtr)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.bandwidthLimitPtr, inBandwidth.toLong(), outBandwidth.toLong())
   }
 
   /**
    * Limits the maximum allowed channels of future incoming connections.
    */
   public final fun channelLimit(limit: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to limit.toLong())
-    TransferContext.callMethod(MethodBindings.channelLimitPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.channelLimitPtr, limit.toLong())
   }
 
   /**
@@ -174,8 +166,7 @@ public open class ENetConnection : RefCounted() {
     packet: PackedByteArray,
     flags: Int,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to channel.toLong(), PACKED_BYTE_ARRAY to packet, LONG to flags.toLong())
-    TransferContext.callMethod(MethodBindings.broadcastPtr)
+    TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG(ptr, objectID.id, MethodBindings.broadcastPtr, channel.toLong(), packet, flags.toLong())
   }
 
   /**
@@ -192,8 +183,7 @@ public open class ENetConnection : RefCounted() {
    * one set on the server.
    */
   public final fun compress(mode: CompressionMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.compressPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.compressPtr, mode.value)
   }
 
   /**
@@ -201,11 +191,8 @@ public open class ENetConnection : RefCounted() {
    * servers. Call this right after [createHostBound] to have ENet expect peers to connect using DTLS.
    * See [TLSOptions.server].
    */
-  public final fun dtlsServerSetup(serverOptions: TLSOptions?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to serverOptions)
-    TransferContext.callMethod(MethodBindings.dtlsServerSetupPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun dtlsServerSetup(serverOptions: TLSOptions?): Error =
+      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.dtlsServerSetupPtr, serverOptions))
 
   /**
    * Configure this ENetHost to use the custom Godot extension allowing DTLS encryption for ENet
@@ -215,11 +202,8 @@ public open class ENetConnection : RefCounted() {
    * [TLSOptions.client] and [TLSOptions.clientUnsafe].
    */
   @JvmOverloads
-  public final fun dtlsClientSetup(hostname: String, clientOptions: TLSOptions? = null): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to hostname, OBJECT to clientOptions)
-    TransferContext.callMethod(MethodBindings.dtlsClientSetupPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun dtlsClientSetup(hostname: String, clientOptions: TLSOptions? = null): Error =
+      Error.from(TransferContext.callMethod_STRING_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.dtlsClientSetupPtr, hostname, clientOptions))
 
   /**
    * Configures the DTLS server to automatically drop new connections.
@@ -227,36 +211,26 @@ public open class ENetConnection : RefCounted() {
    * **Note:** This method is only relevant after calling [dtlsServerSetup].
    */
   public final fun refuseNewConnections(refuse: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to refuse)
-    TransferContext.callMethod(MethodBindings.refuseNewConnectionsPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.refuseNewConnectionsPtr, refuse)
   }
 
   /**
    * Returns and resets host statistics.
    */
-  public final fun popStatistic(statistic: HostStatistic): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to statistic.value)
-    TransferContext.callMethod(MethodBindings.popStatisticPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
-  }
+  public final fun popStatistic(statistic: HostStatistic): Double =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.popStatisticPtr, statistic.value)
 
   /**
    * Returns the maximum number of channels allowed for connected peers.
    */
-  public final fun getMaxChannels(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxChannelsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getMaxChannels(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxChannelsPtr).toInt()
 
   /**
    * Returns the local port to which this peer is bound.
    */
-  public final fun getLocalPort(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalPortPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getLocalPort(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLocalPortPtr).toInt()
 
   /**
    * Returns the list of peers associated with this host.
@@ -264,11 +238,8 @@ public open class ENetConnection : RefCounted() {
    * **Note:** This list might include some peers that are not fully connected or are still being
    * disconnected.
    */
-  public final fun getPeers(): VariantArray<ENetPacketPeer> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPeersPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<ENetPacketPeer>)
-  }
+  public final fun getPeers(): VariantArray<ENetPacketPeer> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getPeersPtr) as VariantArray<ENetPacketPeer>)
 
   /**
    * Sends a [packet] toward a destination from the address and port currently bound by this
@@ -290,8 +261,7 @@ public open class ENetConnection : RefCounted() {
     destinationPort: Int,
     packet: PackedByteArray,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to destinationAddress, LONG to destinationPort.toLong(), PACKED_BYTE_ARRAY to packet)
-    TransferContext.callMethod(MethodBindings.socketSendPtr)
+    TransferContext.callMethod_STRING_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.socketSendPtr, destinationAddress, destinationPort.toLong(), packet)
   }
 
   public enum class CompressionMode(

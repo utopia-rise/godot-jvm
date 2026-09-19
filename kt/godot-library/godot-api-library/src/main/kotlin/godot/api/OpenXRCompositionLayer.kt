@@ -11,25 +11,30 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_COLOR
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_VECTOR2I
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_VECTOR2I
+import godot.callPtrMethod_VECTOR3_VECTOR3_ret_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR2
-import godot.core.VariantParser.VECTOR2I
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector2
 import godot.core.Vector2i
 import godot.core.Vector3
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -331,7 +336,7 @@ public open class OpenXRCompositionLayer internal constructor() : Node3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(446, scriptPtr)
+    createNativeObject(445, scriptPtr)
   }
 
   /**
@@ -379,70 +384,46 @@ public open class OpenXRCompositionLayer internal constructor() : Node3D() {
   }
 
   public final fun setLayerViewport(viewport: SubViewport?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to viewport)
-    TransferContext.callMethod(MethodBindings.setLayerViewportPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setLayerViewportPtr, viewport)
   }
 
-  public final fun getLayerViewport(): SubViewport? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLayerViewportPtr)
-    return (TransferContext.readReturnValue(OBJECT) as SubViewport?)
-  }
+  public final fun getLayerViewport(): SubViewport? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getLayerViewportPtr) as SubViewport?)
 
   public final fun setUseAndroidSurface(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setUseAndroidSurfacePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseAndroidSurfacePtr, enable)
   }
 
-  public final fun getUseAndroidSurface(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUseAndroidSurfacePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getUseAndroidSurface(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseAndroidSurfacePtr)
 
   public final fun setAndroidSurfaceSize(size: Vector2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to size)
-    TransferContext.callMethod(MethodBindings.setAndroidSurfaceSizePtr)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setAndroidSurfaceSizePtr, size)
   }
 
-  public final fun getAndroidSurfaceSize(): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAndroidSurfaceSizePtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
-  }
+  public final fun getAndroidSurfaceSize(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getAndroidSurfaceSizePtr)
 
   public final fun setEnableHolePunch(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setEnableHolePunchPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableHolePunchPtr, enable)
   }
 
-  public final fun getEnableHolePunch(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableHolePunchPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getEnableHolePunch(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableHolePunchPtr)
 
   public final fun setSortOrder(order: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to order.toLong())
-    TransferContext.callMethod(MethodBindings.setSortOrderPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSortOrderPtr, order.toLong())
   }
 
-  public final fun getSortOrder(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSortOrderPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSortOrder(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSortOrderPtr).toInt()
 
   public final fun setAlphaBlend(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setAlphaBlendPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAlphaBlendPtr, enabled)
   }
 
-  public final fun getAlphaBlend(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAlphaBlendPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getAlphaBlend(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAlphaBlendPtr)
 
   /**
    * Returns a [JavaObject] representing an `android.view.Surface` if [useAndroidSurface] is enabled
@@ -452,165 +433,107 @@ public open class OpenXRCompositionLayer internal constructor() : Node3D() {
    * [useAndroidSurface] is enabled outside of an OpenXR session, it won't be created until a new
    * session fully starts.
    */
-  public final fun getAndroidSurface(): JavaObject? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAndroidSurfacePtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaObject?)
-  }
+  public final fun getAndroidSurface(): JavaObject? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getAndroidSurfacePtr) as JavaObject?)
 
   /**
    * Returns `true` if the OpenXR runtime natively supports this composition layer type.
    *
    * **Note:** This will only return an accurate result after the OpenXR session has started.
    */
-  public final fun isNativelySupported(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isNativelySupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isNativelySupported(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isNativelySupportedPtr)
 
-  public final fun isProtectedContent(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isProtectedContentPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isProtectedContent(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isProtectedContentPtr)
 
   public final fun setProtectedContent(protectedContent: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to protectedContent)
-    TransferContext.callMethod(MethodBindings.setProtectedContentPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setProtectedContentPtr, protectedContent)
   }
 
   public final fun setMinFilter(mode: Filter): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setMinFilterPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMinFilterPtr, mode.value)
   }
 
-  public final fun getMinFilter(): Filter {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinFilterPtr)
-    return Filter.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getMinFilter(): Filter =
+      Filter.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMinFilterPtr))
 
   public final fun setMagFilter(mode: Filter): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setMagFilterPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMagFilterPtr, mode.value)
   }
 
-  public final fun getMagFilter(): Filter {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMagFilterPtr)
-    return Filter.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getMagFilter(): Filter =
+      Filter.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMagFilterPtr))
 
   public final fun setMipmapMode(mode: MipmapMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setMipmapModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMipmapModePtr, mode.value)
   }
 
-  public final fun getMipmapMode(): MipmapMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMipmapModePtr)
-    return MipmapMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getMipmapMode(): MipmapMode =
+      MipmapMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMipmapModePtr))
 
   public final fun setHorizontalWrap(mode: Wrap): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setHorizontalWrapPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHorizontalWrapPtr, mode.value)
   }
 
-  public final fun getHorizontalWrap(): Wrap {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHorizontalWrapPtr)
-    return Wrap.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getHorizontalWrap(): Wrap =
+      Wrap.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHorizontalWrapPtr))
 
   public final fun setVerticalWrap(mode: Wrap): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setVerticalWrapPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVerticalWrapPtr, mode.value)
   }
 
-  public final fun getVerticalWrap(): Wrap {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVerticalWrapPtr)
-    return Wrap.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getVerticalWrap(): Wrap =
+      Wrap.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVerticalWrapPtr))
 
   public final fun setRedSwizzle(mode: Swizzle): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setRedSwizzlePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRedSwizzlePtr, mode.value)
   }
 
-  public final fun getRedSwizzle(): Swizzle {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRedSwizzlePtr)
-    return Swizzle.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getRedSwizzle(): Swizzle =
+      Swizzle.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRedSwizzlePtr))
 
   public final fun setGreenSwizzle(mode: Swizzle): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setGreenSwizzlePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setGreenSwizzlePtr, mode.value)
   }
 
-  public final fun getGreenSwizzle(): Swizzle {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGreenSwizzlePtr)
-    return Swizzle.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getGreenSwizzle(): Swizzle =
+      Swizzle.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getGreenSwizzlePtr))
 
   public final fun setBlueSwizzle(mode: Swizzle): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setBlueSwizzlePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBlueSwizzlePtr, mode.value)
   }
 
-  public final fun getBlueSwizzle(): Swizzle {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBlueSwizzlePtr)
-    return Swizzle.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getBlueSwizzle(): Swizzle =
+      Swizzle.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBlueSwizzlePtr))
 
   public final fun setAlphaSwizzle(mode: Swizzle): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setAlphaSwizzlePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAlphaSwizzlePtr, mode.value)
   }
 
-  public final fun getAlphaSwizzle(): Swizzle {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAlphaSwizzlePtr)
-    return Swizzle.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getAlphaSwizzle(): Swizzle =
+      Swizzle.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAlphaSwizzlePtr))
 
   public final fun setMaxAnisotropy(`value`: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to value.toDouble())
-    TransferContext.callMethod(MethodBindings.setMaxAnisotropyPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMaxAnisotropyPtr, value.toDouble())
   }
 
-  public final fun getMaxAnisotropy(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxAnisotropyPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getMaxAnisotropy(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMaxAnisotropyPtr).toFloat()
 
   public final fun setBorderColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.setBorderColorPtr)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setBorderColorPtr, color)
   }
 
-  public final fun getBorderColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBorderColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
-  }
+  public final fun getBorderColor(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getBorderColorPtr)
 
   public final fun setEyeVisibility(eyeVisibility: EyeVisibility): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to eyeVisibility.value)
-    TransferContext.callMethod(MethodBindings.setEyeVisibilityPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setEyeVisibilityPtr, eyeVisibility.value)
   }
 
-  public final fun getEyeVisibility(): EyeVisibility {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEyeVisibilityPtr)
-    return EyeVisibility.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getEyeVisibility(): EyeVisibility =
+      EyeVisibility.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEyeVisibilityPtr))
 
   /**
    * Returns UV coordinates where the given ray intersects with the composition layer. [origin] and
@@ -618,11 +541,8 @@ public open class OpenXRCompositionLayer internal constructor() : Node3D() {
    *
    * Returns `Vector2(-1.0, -1.0)` if the ray doesn't intersect.
    */
-  public final fun intersectsRay(origin: Vector3, direction: Vector3): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to origin, VECTOR3 to direction)
-    TransferContext.callMethod(MethodBindings.intersectsRayPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
-  }
+  public final fun intersectsRay(origin: Vector3, direction: Vector3): Vector2 =
+      TransferContext.callPtrMethod_VECTOR3_VECTOR3_ret_VECTOR2(ptr, objectID.id, MethodBindings.intersectsRayPtr, origin, direction)
 
   public enum class Filter(
     public override val `value`: Long,

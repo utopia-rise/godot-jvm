@@ -11,10 +11,11 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
 import kotlin.Suppress
 import kotlin.Unit
@@ -50,7 +51,7 @@ public open class RectangleShape2D : Shape2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(602, scriptPtr)
+    createNativeObject(601, scriptPtr)
   }
 
   /**
@@ -73,15 +74,11 @@ public open class RectangleShape2D : Shape2D() {
   }
 
   public final fun setSize(size: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
-  }
+  public final fun getSize(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getSizePtr)
 
   public companion object {
     @JvmField

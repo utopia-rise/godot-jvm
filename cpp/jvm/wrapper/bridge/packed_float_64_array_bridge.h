@@ -18,7 +18,7 @@ namespace bridges {
 
     public:
         static uintptr_t engine_convert_to_godot(JNIEnv * p_raw_env, jobject p_instance, jdoubleArray p_array);
-        static jdoubleArray engine_convert_to_jvm(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
+        static jdoubleArray engine_convert_to_jvm(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
     };
 } // namespace bridges
 

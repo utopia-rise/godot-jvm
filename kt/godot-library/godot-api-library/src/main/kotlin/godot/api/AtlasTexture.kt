@@ -11,13 +11,16 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_RECT2
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_RECT2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Rect2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.RECT2
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -106,7 +109,7 @@ public open class AtlasTexture : Texture2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(46, scriptPtr)
+    createNativeObject(44, scriptPtr)
   }
 
   /**
@@ -153,48 +156,32 @@ public open class AtlasTexture : Texture2D() {
   }
 
   public final fun setAtlas(atlas: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to atlas)
-    TransferContext.callMethod(MethodBindings.setAtlasPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setAtlasPtr, atlas)
   }
 
-  public final fun getAtlas(): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAtlasPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
-  }
+  public final fun getAtlas(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getAtlasPtr) as Texture2D?)
 
   public final fun setRegion(region: Rect2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, RECT2 to region)
-    TransferContext.callMethod(MethodBindings.setRegionPtr)
+    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setRegionPtr, region)
   }
 
-  public final fun getRegion(): Rect2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRegionPtr)
-    return (TransferContext.readReturnValue(RECT2) as Rect2)
-  }
+  public final fun getRegion(): Rect2 =
+      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRegionPtr)
 
   public final fun setMargin(margin: Rect2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, RECT2 to margin)
-    TransferContext.callMethod(MethodBindings.setMarginPtr)
+    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setMarginPtr, margin)
   }
 
-  public final fun getMargin(): Rect2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMarginPtr)
-    return (TransferContext.readReturnValue(RECT2) as Rect2)
-  }
+  public final fun getMargin(): Rect2 =
+      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getMarginPtr)
 
   public final fun setFilterClip(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setFilterClipPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFilterClipPtr, enable)
   }
 
-  public final fun hasFilterClip(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasFilterClipPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasFilterClip(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasFilterClipPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

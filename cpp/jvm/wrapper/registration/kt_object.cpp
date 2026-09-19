@@ -9,8 +9,8 @@
 #include "logging.h"
 
 #include <classes/ref_counted.hpp>
-#include <utility>
 #include <core/object.hpp>
+#include <utility>
 #include <variant/string_name.hpp>
 
 KtObject::KtObject(jni::JObject p_global_ref) : JvmInstanceWrapper(p_global_ref) {}
@@ -61,16 +61,17 @@ void KtObject::create_native_object(JNIEnv* p_raw_env, jobject p_instance, jint 
     godot::JvmBinding* binding = godot::JvmBindingManager::bind_created(raw_ptr_value);
     bool is_rc = binding->get_object_id().is_ref_counted();
 
-    if (auto* kotlin_script = bridges::from_uint_to_ptr<godot::JvmScript>(p_script_ptr)) {
+    if (auto* kotlin_script = bridges::native_or_null<godot::JvmScript>(p_script_ptr)) {
         KtObject kt_object = is_rc ? KtObject::create_weak_ref(env, jni::JObject(p_instance))
                                    : KtObject::create_object(env, jni::JObject(p_instance));
-        raw_godot::RawObject(raw_ptr_value).set_script_instance(
-            godot::JvmInstance::create_script_instance(raw_ptr_value, std::move(kt_object), kotlin_script)
-        );
+        raw_godot::RawObject(raw_ptr_value)
+            .set_script_instance(
+                godot::JvmInstance::create_script_instance(raw_ptr_value, std::move(kt_object), kotlin_script)
+            );
     }
 
     TransferContext::get_instance()
-        .write_object_data(env, reinterpret_cast<uintptr_t>(raw_ptr_value), binding->get_object_id());
+        .write_object_info(env, reinterpret_cast<uintptr_t>(raw_ptr_value), binding->get_object_id());
 }
 
 void KtObject::get_singleton(JNIEnv* p_raw_env, jobject, jint p_class_index) {
@@ -91,18 +92,18 @@ void KtObject::get_singleton(JNIEnv* p_raw_env, jobject, jint p_class_index) {
 #endif
 
     jni::Env env(p_raw_env);
-    TransferContext::get_instance().write_object_data(
+    TransferContext::get_instance().write_object_info(
         env,
         reinterpret_cast<uintptr_t>(raw_singleton.ptr()),
         godot::ObjectID(raw_singleton.get_instance_id())
     );
 }
 
-void KtObject::free_object(JNIEnv*, jobject, jlong p_raw_ptr) {
+void KtObject::free_object(JNIEnv*, jobject, jlong p_handle) {
     // Stays on the raw engine pointer throughout: get_object_instance_binding() would materialize a godot-cpp
     // wrapper (and its instance binding) purely to destroy it one line later, and memdelete() on such a wrapper is
     // itself specialized to forward to object_destroy(_owner) anyway.
-    auto* raw_ptr_value = reinterpret_cast<godot::GodotObject*>(static_cast<uintptr_t>(p_raw_ptr));
+    auto* raw_ptr_value = reinterpret_cast<godot::GodotObject*>(static_cast<uintptr_t>(p_handle));
 
 #ifdef DEBUG_ENABLED
     JVM_ERR_FAIL_COND_MSG(

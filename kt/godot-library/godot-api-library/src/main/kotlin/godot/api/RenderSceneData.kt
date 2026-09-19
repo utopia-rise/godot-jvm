@@ -9,17 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PROJECTION
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod0_ret_TRANSFORM3D
+import godot.callPtrMethod_LONG_ret_PROJECTION
+import godot.callPtrMethod_LONG_ret_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Projection
 import godot.core.RID
 import godot.core.Transform3D
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PROJECTION
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser.VECTOR3
-import godot.core.VariantParser._RID
 import godot.core.Vector3
 import kotlin.Long
 import kotlin.Suppress
@@ -44,41 +45,29 @@ public open class RenderSceneData internal constructor() : Object() {
    *
    * **Note:** If more than one view is rendered, this will return a centered transform.
    */
-  public final fun getCamTransform(): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCamTransformPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
-  }
+  public final fun getCamTransform(): Transform3D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getCamTransformPtr)
 
   /**
    * Returns the camera projection used to render this frame.
    *
    * **Note:** If more than one view is rendered, this will return a combined projection.
    */
-  public final fun getCamProjection(): Projection {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCamProjectionPtr)
-    return (TransferContext.readReturnValue(PROJECTION) as Projection)
-  }
+  public final fun getCamProjection(): Projection =
+      TransferContext.callPtrMethod0_ret_PROJECTION(ptr, objectID.id, MethodBindings.getCamProjectionPtr)
 
   /**
    * Returns the number of views being rendered.
    */
-  public final fun getViewCount(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getViewCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getViewCount(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getViewCountPtr)
 
   /**
    * Returns the eye offset per view used to render this frame. This is the offset between our
    * camera transform and the eye transform.
    */
-  public final fun getViewEyeOffset(view: Long): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to view)
-    TransferContext.callMethod(MethodBindings.getViewEyeOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getViewEyeOffset(view: Long): Vector3 =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getViewEyeOffsetPtr, view)
 
   /**
    * Returns the view projection per view used to render this frame.
@@ -86,20 +75,14 @@ public open class RenderSceneData internal constructor() : Object() {
    * **Note:** If a single view is rendered, this returns the camera projection. If more than one
    * view is rendered, this will return a projection for the given view including the eye offset.
    */
-  public final fun getViewProjection(view: Long): Projection {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to view)
-    TransferContext.callMethod(MethodBindings.getViewProjectionPtr)
-    return (TransferContext.readReturnValue(PROJECTION) as Projection)
-  }
+  public final fun getViewProjection(view: Long): Projection =
+      TransferContext.callPtrMethod_LONG_ret_PROJECTION(ptr, objectID.id, MethodBindings.getViewProjectionPtr, view)
 
   /**
    * Return the [RID] of the uniform buffer containing the scene data as a UBO.
    */
-  public final fun getUniformBuffer(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUniformBufferPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun getUniformBuffer(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getUniformBufferPtr)
 
   public companion object {
     @JvmField

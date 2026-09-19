@@ -27,7 +27,9 @@ class PackedInt32Array : PackedArray<PackedInt32Array, Int> {
      * Constructs a [PackedInt32Array] as a copy of the given [PackedInt32Array].
      */
     constructor(from: PackedInt32Array) {
-        TransferContext.writeArguments(VariantParser.PACKED_INT_32_ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.PACKED_INT_32_ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_packed_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_INT_32_ARRAY)
     }
@@ -36,7 +38,9 @@ class PackedInt32Array : PackedArray<PackedInt32Array, Int> {
      * Constructs a new [PackedInt32Array] by converting a [VariantArray]<[Int]>.
      */
     constructor(from: VariantArray<Int>) {
-        TransferContext.writeArguments(VariantParser.ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_INT_32_ARRAY)
     }

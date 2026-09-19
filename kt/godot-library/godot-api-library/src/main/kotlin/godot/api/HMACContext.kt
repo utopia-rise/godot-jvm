@@ -9,15 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY_ret_LONG
+import godot.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedByteArray
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -75,37 +75,28 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class HMACContext : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(288, scriptPtr)
+    createNativeObject(286, scriptPtr)
   }
 
   /**
    * Initializes the HMACContext. This method cannot be called again on the same HMACContext until
    * [finish] has been called.
    */
-  public final fun start(hashType: HashingContext.HashType, key: PackedByteArray): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to hashType.value, PACKED_BYTE_ARRAY to key)
-    TransferContext.callMethod(MethodBindings.startPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun start(hashType: HashingContext.HashType, key: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.startPtr, hashType.value, key))
 
   /**
    * Updates the message to be HMACed. This can be called multiple times before [finish] is called
    * to append [data] to the message, but cannot be called until [start] has been called.
    */
-  public final fun update(`data`: PackedByteArray): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_BYTE_ARRAY to data)
-    TransferContext.callMethod(MethodBindings.updatePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun update(`data`: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.updatePtr, data))
 
   /**
    * Returns the resulting HMAC. If the HMAC failed, an empty [PackedByteArray] is returned.
    */
-  public final fun finish(): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.finishPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
-  }
+  public final fun finish(): PackedByteArray =
+      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.finishPtr)
 
   public companion object {
     @JvmField

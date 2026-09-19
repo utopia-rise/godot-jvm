@@ -149,7 +149,6 @@ class DocumentationRule : GodotApiRule<ApiTask>() {
         }
 
         for (clazz in classes) {
-            if (clazz.className.packageName == godotCorePackage) continue
             val documentation = (listOf(clazz) + clazz.methods + clazz.properties + clazz.constants + clazz.signals)
                 .joinToString(" ") { it.description ?: "" }
             for (match in referenceRegex.findAll(documentation)) {

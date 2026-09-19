@@ -13,94 +13,94 @@ uintptr_t NodePathBridge::engine_call_constructor(JNIEnv* p_raw_env, jobject p_i
 
 uintptr_t NodePathBridge::engine_call_constructor_string(JNIEnv* p_raw_env, jobject p_instance) {
     jni::Env env(p_raw_env);
-    godot::Variant args[1];
-    TransferContext::get_instance().read_args(env, args);
-    return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(NodePath(args[0].operator godot::String())));
+    String path;
+    TransferContext::read_values(env, path);
+    return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(NodePath(path)));
 }
 
 uintptr_t NodePathBridge::engine_call_constructor_node_path(JNIEnv* p_raw_env, jobject p_instance) {
     jni::Env env(p_raw_env);
-    godot::Variant args[1];
-    TransferContext::get_instance().read_args(env, args);
-    return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(NodePath(args[0].operator NodePath())));
+    NodePath path;
+    TransferContext::read_values(env, path);
+    return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(NodePath(path)));
 }
 
-void NodePathBridge::engine_call_path(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_path(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant variant = godot::String(*from_uint_to_ptr<NodePath>(p_raw_ptr));
-    TransferContext::get_instance().write_return_value(env, variant);
+    String path = String(native<NodePath>(p_handle));
+    TransferContext::write_value(env, path);
 }
 
-void NodePathBridge::engine_call_getAsPropertyPath(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_getAsPropertyPath(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant variant = from_uint_to_ptr<NodePath>(p_raw_ptr)->get_as_property_path();
-    TransferContext::get_instance().write_return_value(env, variant);
+    NodePath property_path = native<NodePath>(p_handle).get_as_property_path();
+    TransferContext::write_value(env, property_path);
 }
 
-void NodePathBridge::engine_call_getName(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_getName(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant args[1];
-    TransferContext::get_instance().read_args(env, args);
-    godot::Variant variant = from_uint_to_ptr<NodePath>(p_raw_ptr)->get_name(args[0].operator signed int());
-    TransferContext::get_instance().write_return_value(env, variant);
+    int64_t index;
+    TransferContext::read_values(env, index);
+    StringName name = native<NodePath>(p_handle).get_name(index);
+    TransferContext::write_value(env, name);
 }
 
-void NodePathBridge::engine_call_getNameCount(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_getNameCount(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant variant = from_uint_to_ptr<NodePath>(p_raw_ptr)->get_name_count();
-    TransferContext::get_instance().write_return_value(env, variant);
+    int64_t count = native<NodePath>(p_handle).get_name_count();
+    TransferContext::write_value(env, count);
 }
 
-void NodePathBridge::engine_call_getSubname(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_getSubname(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant args[1];
-    TransferContext::get_instance().read_args(env, args);
-    godot::Variant variant = from_uint_to_ptr<NodePath>(p_raw_ptr)->get_subname(args[0].operator signed int());
-    TransferContext::get_instance().write_return_value(env, variant);
+    int64_t index;
+    TransferContext::read_values(env, index);
+    StringName subname = native<NodePath>(p_handle).get_subname(index);
+    TransferContext::write_value(env, subname);
 }
 
-void NodePathBridge::engine_call_getSubnameCount(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_getSubnameCount(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant variant = from_uint_to_ptr<NodePath>(p_raw_ptr)->get_subname_count();
-    TransferContext::get_instance().write_return_value(env, variant);
+    int64_t count = native<NodePath>(p_handle).get_subname_count();
+    TransferContext::write_value(env, count);
 }
 
-void NodePathBridge::engine_call_isAbsolute(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_isAbsolute(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant variant = from_uint_to_ptr<NodePath>(p_raw_ptr)->is_absolute();
-    TransferContext::get_instance().write_return_value(env, variant);
+    bool absolute = native<NodePath>(p_handle).is_absolute();
+    TransferContext::write_value(env, absolute);
 }
 
-void NodePathBridge::engine_call_hash(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_hash(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant variant = from_uint_to_ptr<NodePath>(p_raw_ptr)->hash();
-    TransferContext::get_instance().write_return_value(env, variant);
+    int64_t hash = native<NodePath>(p_handle).hash();
+    TransferContext::write_value(env, hash);
 }
 
-void NodePathBridge::engine_call_isEmpty(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_isEmpty(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant variant = from_uint_to_ptr<NodePath>(p_raw_ptr)->is_empty();
-    TransferContext::get_instance().write_return_value(env, variant);
+    bool empty = native<NodePath>(p_handle).is_empty();
+    TransferContext::write_value(env, empty);
 }
 
-void NodePathBridge::engine_call_getConcatenatedNames(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_getConcatenatedNames(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant variant = from_uint_to_ptr<NodePath>(p_raw_ptr)->get_concatenated_names();
-    TransferContext::get_instance().write_return_value(env, variant);
+    StringName names = native<NodePath>(p_handle).get_concatenated_names();
+    TransferContext::write_value(env, names);
 }
 
-void NodePathBridge::engine_call_getConcatenatedSubnames(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_getConcatenatedSubnames(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant variant = from_uint_to_ptr<NodePath>(p_raw_ptr)->get_concatenated_subnames();
-    TransferContext::get_instance().write_return_value(env, variant);
+    StringName subnames = native<NodePath>(p_handle).get_concatenated_subnames();
+    TransferContext::write_value(env, subnames);
 }
 
-void NodePathBridge::engine_call_equals(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr) {
+void NodePathBridge::engine_call_equals(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::Variant args[1];
-    TransferContext::get_instance().read_args(env, args);
-    godot::Variant variant = *from_uint_to_ptr<NodePath>(p_raw_ptr) == args[0].operator NodePath();
-    TransferContext::get_instance().write_return_value(env, variant);
+    NodePath other;
+    TransferContext::read_values(env, other);
+    bool equal = native<NodePath>(p_handle) == other;
+    TransferContext::write_value(env, equal);
 }
 
 NodePathBridge::~NodePathBridge() = default;

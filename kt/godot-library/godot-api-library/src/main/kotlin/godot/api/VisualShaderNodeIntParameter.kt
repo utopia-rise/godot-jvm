@@ -11,14 +11,17 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_PACKED_STRING_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_STRING_ARRAY
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -168,81 +171,53 @@ public open class VisualShaderNodeIntParameter : VisualShaderNodeParameter() {
   }
 
   public final fun setHint(hint: Hint): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to hint.value)
-    TransferContext.callMethod(MethodBindings.setHintPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHintPtr, hint.value)
   }
 
-  public final fun getHint(): Hint {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHintPtr)
-    return Hint.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getHint(): Hint =
+      Hint.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHintPtr))
 
   public final fun setMin(`value`: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to value.toLong())
-    TransferContext.callMethod(MethodBindings.setMinPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMinPtr, value.toLong())
   }
 
-  public final fun getMin(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getMin(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMinPtr).toInt()
 
   public final fun setMax(`value`: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to value.toLong())
-    TransferContext.callMethod(MethodBindings.setMaxPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxPtr, value.toLong())
   }
 
-  public final fun getMax(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getMax(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxPtr).toInt()
 
   public final fun setStep(`value`: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to value.toLong())
-    TransferContext.callMethod(MethodBindings.setStepPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStepPtr, value.toLong())
   }
 
-  public final fun getStep(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStepPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getStep(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStepPtr).toInt()
 
   public final fun setEnumNames(names: PackedStringArray): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_STRING_ARRAY to names)
-    TransferContext.callMethod(MethodBindings.setEnumNamesPtr)
+    TransferContext.callPtrMethod_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setEnumNamesPtr, names)
   }
 
-  public final fun getEnumNames(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnumNamesPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getEnumNames(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getEnumNamesPtr)
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setDefaultValueEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDefaultValueEnabledPtr, enabled)
   }
 
-  public final fun isDefaultValueEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDefaultValueEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isDefaultValueEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDefaultValueEnabledPtr)
 
   public final fun setDefaultValue(`value`: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to value.toLong())
-    TransferContext.callMethod(MethodBindings.setDefaultValuePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDefaultValuePtr, value.toLong())
   }
 
-  public final fun getDefaultValue(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultValuePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getDefaultValue(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDefaultValuePtr).toInt()
 
   public enum class Hint(
     public override val `value`: Long,

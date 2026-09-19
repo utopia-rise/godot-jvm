@@ -9,10 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -44,19 +45,15 @@ public open class CSGPrimitive3D internal constructor() : CSGShape3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(130, scriptPtr)
+    createNativeObject(128, scriptPtr)
   }
 
   public final fun setFlipFaces(flipFaces: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to flipFaces)
-    TransferContext.callMethod(MethodBindings.setFlipFacesPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFlipFacesPtr, flipFaces)
   }
 
-  public final fun getFlipFaces(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFlipFacesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getFlipFaces(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getFlipFacesPtr)
 
   public companion object {
     @JvmField

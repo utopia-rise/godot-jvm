@@ -9,11 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -54,30 +54,22 @@ public open class AudioEffectAmplify : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(49, scriptPtr)
+    createNativeObject(47, scriptPtr)
   }
 
   public final fun setVolumeDb(volume: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to volume.toDouble())
-    TransferContext.callMethod(MethodBindings.setVolumeDbPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVolumeDbPtr, volume.toDouble())
   }
 
-  public final fun getVolumeDb(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVolumeDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getVolumeDb(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVolumeDbPtr).toFloat()
 
   public final fun setVolumeLinear(volume: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to volume.toDouble())
-    TransferContext.callMethod(MethodBindings.setVolumeLinearPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVolumeLinearPtr, volume.toDouble())
   }
 
-  public final fun getVolumeLinear(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVolumeLinearPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getVolumeLinear(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVolumeLinearPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

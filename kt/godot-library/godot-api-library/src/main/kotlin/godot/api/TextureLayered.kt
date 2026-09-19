@@ -9,13 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -81,66 +81,45 @@ public abstract class TextureLayered : Texture() {
   /**
    * Returns the current format being used by this texture.
    */
-  public final fun getFormat(): Image.Format {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFormatPtr)
-    return Image.Format.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getFormat(): Image.Format =
+      Image.Format.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr))
 
   /**
    * Returns the [TextureLayered]'s type. The type determines how the data is accessed, with
    * cubemaps having special types.
    */
-  public final fun getLayeredType(): LayeredType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLayeredTypePtr)
-    return LayeredType.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getLayeredType(): LayeredType =
+      LayeredType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLayeredTypePtr))
 
   /**
    * Returns the width of the texture in pixels. Width is typically represented by the X axis.
    */
-  public final fun getWidth(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWidthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getWidth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWidthPtr).toInt()
 
   /**
    * Returns the height of the texture in pixels. Height is typically represented by the Y axis.
    */
-  public final fun getHeight(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getHeight(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHeightPtr).toInt()
 
   /**
    * Returns the number of referenced [Image]s.
    */
-  public final fun getLayers(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLayersPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getLayers(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLayersPtr).toInt()
 
   /**
    * Returns `true` if the layers have generated mipmaps.
    */
-  public final fun hasMipmaps(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasMipmapsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasMipmaps(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasMipmapsPtr)
 
   /**
    * Returns an [Image] resource with the data from specified [layer].
    */
-  public final fun getLayerData(layer: Int): Image? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layer.toLong())
-    TransferContext.callMethod(MethodBindings.getLayerDataPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Image?)
-  }
+  public final fun getLayerData(layer: Int): Image? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getLayerDataPtr, layer.toLong()) as Image?)
 
   public enum class LayeredType(
     public override val `value`: Long,

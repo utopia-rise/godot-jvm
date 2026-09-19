@@ -9,6 +9,28 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_BOOL_ret_ARRAY
+import godot.callMethod_STRING_BOOL_ret_BOOL
+import godot.callMethod_STRING_BOOL_ret_STRING
+import godot.callMethod_STRING_STRING_ret_LONG
+import godot.callMethod_STRING_STRING_ret_STRING
+import godot.callMethod_STRING_ret_OBJECT_REF
+import godot.callMethod_STRING_ret_STRING
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_ret_BOOL
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_STRING_NAME_LONG_STRING_NAME_ret_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_ret_OBJECT_REF
+import godot.callPtrMethod_STRING_NAME_ret_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -17,17 +39,9 @@ import godot.core.MethodStringName4
 import godot.core.PackedStringArray
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -213,8 +227,7 @@ public object TranslationServer : Object() {
    */
   @JvmStatic
   public final fun setLocale(locale: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to locale)
-    TransferContext.callMethod(MethodBindings.setLocalePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLocalePtr, locale)
   }
 
   /**
@@ -223,11 +236,8 @@ public object TranslationServer : Object() {
    * See also [OS.getLocale] and [OS.getLocaleLanguage] to query the locale of the user system.
    */
   @JvmStatic
-  public final fun getLocale(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocalePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getLocale(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLocalePtr)
 
   /**
    * Returns the current locale of the editor.
@@ -235,22 +245,16 @@ public object TranslationServer : Object() {
    * **Note:** When called from an exported project returns the same value as [getLocale].
    */
   @JvmStatic
-  public final fun getToolLocale(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getToolLocalePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getToolLocale(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getToolLocalePtr)
 
   /**
    * Compares two locales and returns a similarity score between `0` (no match) and `10` (full
    * match).
    */
   @JvmStatic
-  public final fun compareLocales(localeA: String, localeB: String): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to localeA, STRING to localeB)
-    TransferContext.callMethod(MethodBindings.compareLocalesPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun compareLocales(localeA: String, localeB: String): Int =
+      TransferContext.callMethod_STRING_STRING_ret_LONG(ptr, objectID.id, MethodBindings.compareLocalesPtr, localeA, localeB).toInt()
 
   /**
    * Returns a [locale] string standardized to match known locales (e.g. `en-US` would be matched to
@@ -258,92 +262,65 @@ public object TranslationServer : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun standardizeLocale(locale: String, addDefaults: Boolean = false): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to locale, BOOL to addDefaults)
-    TransferContext.callMethod(MethodBindings.standardizeLocalePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun standardizeLocale(locale: String, addDefaults: Boolean = false): String =
+      TransferContext.callMethod_STRING_BOOL_ret_STRING(ptr, objectID.id, MethodBindings.standardizeLocalePtr, locale, addDefaults)
 
   /**
    * Returns array of known language codes.
    */
   @JvmStatic
-  public final fun getAllLanguages(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAllLanguagesPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getAllLanguages(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getAllLanguagesPtr)
 
   /**
    * Returns a readable language name for the [language] code.
    */
   @JvmStatic
-  public final fun getLanguageName(language: String): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to language)
-    TransferContext.callMethod(MethodBindings.getLanguageNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getLanguageName(language: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.getLanguageNamePtr, language)
 
   /**
    * Returns an array of known script codes.
    */
   @JvmStatic
-  public final fun getAllScripts(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAllScriptsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getAllScripts(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getAllScriptsPtr)
 
   /**
    * Returns a readable script name for the [script] code.
    */
   @JvmStatic
-  public final fun getScriptName(script: String): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to script)
-    TransferContext.callMethod(MethodBindings.getScriptNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getScriptName(script: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.getScriptNamePtr, script)
 
   /**
    * Returns an array of known country codes.
    */
   @JvmStatic
-  public final fun getAllCountries(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAllCountriesPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getAllCountries(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getAllCountriesPtr)
 
   /**
    * Returns a readable country name for the [country] code.
    */
   @JvmStatic
-  public final fun getCountryName(country: String): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to country)
-    TransferContext.callMethod(MethodBindings.getCountryNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getCountryName(country: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.getCountryNamePtr, country)
 
   /**
    * Returns a locale's language and its variant (e.g. `"en_US"` would return `"English (United
    * States)"`).
    */
   @JvmStatic
-  public final fun getLocaleName(locale: String): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to locale)
-    TransferContext.callMethod(MethodBindings.getLocaleNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getLocaleName(locale: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.getLocaleNamePtr, locale)
 
   /**
    * Returns the default plural rules for the [locale].
    */
   @JvmStatic
-  public final fun getPluralRules(locale: String): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to locale)
-    TransferContext.callMethod(MethodBindings.getPluralRulesPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getPluralRules(locale: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.getPluralRulesPtr, locale)
 
   /**
    * Returns the current locale's translation for the given message and context.
@@ -351,12 +328,9 @@ public object TranslationServer : Object() {
    * **Note:** This method always uses the main translation domain.
    */
   @JvmStatic
-  public final fun translate(message: StringName, context: StringName = StringName("")):
-      StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to message, STRING_NAME to context)
-    TransferContext.callMethod(MethodBindings.translatePtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun translate(message: StringName, context: StringName = StringName("")): StringName
+      =
+      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.translatePtr, message, context)
 
   /**
    * Returns the current locale's translation for the given message, plural message and context.
@@ -372,19 +346,15 @@ public object TranslationServer : Object() {
     pluralMessage: StringName,
     n: Int,
     context: StringName = StringName(""),
-  ): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to message, STRING_NAME to pluralMessage, LONG to n.toLong(), STRING_NAME to context)
-    TransferContext.callMethod(MethodBindings.translatePluralPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  ): StringName =
+      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_LONG_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.translatePluralPtr, message, pluralMessage, n.toLong(), context)
 
   /**
    * Adds a translation to the main translation domain.
    */
   @JvmStatic
   public final fun addTranslation(translation: Translation?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to translation)
-    TransferContext.callMethod(MethodBindings.addTranslationPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addTranslationPtr, translation)
   }
 
   /**
@@ -392,8 +362,7 @@ public object TranslationServer : Object() {
    */
   @JvmStatic
   public final fun removeTranslation(translation: Translation?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to translation)
-    TransferContext.callMethod(MethodBindings.removeTranslationPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeTranslationPtr, translation)
   }
 
   /**
@@ -401,22 +370,16 @@ public object TranslationServer : Object() {
    * Returns `null` if there are no matches.
    */
   @JvmStatic
-  public final fun getTranslationObject(locale: String): Translation? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to locale)
-    TransferContext.callMethod(MethodBindings.getTranslationObjectPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Translation?)
-  }
+  public final fun getTranslationObject(locale: String): Translation? =
+      (TransferContext.callMethod_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTranslationObjectPtr, locale) as Translation?)
 
   /**
    * Returns all available [Translation] instances in the main translation domain as added by
    * [addTranslation].
    */
   @JvmStatic
-  public final fun getTranslations(): VariantArray<Translation> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTranslationsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Translation>)
-  }
+  public final fun getTranslations(): VariantArray<Translation> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getTranslationsPtr) as VariantArray<Translation>)
 
   /**
    * Returns the [Translation] instances in the main translation domain that match [locale] (see
@@ -424,11 +387,8 @@ public object TranslationServer : Object() {
    * be returned.
    */
   @JvmStatic
-  public final fun findTranslations(locale: String, exact: Boolean): VariantArray<Translation> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to locale, BOOL to exact)
-    TransferContext.callMethod(MethodBindings.findTranslationsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Translation>)
-  }
+  public final fun findTranslations(locale: String, exact: Boolean): VariantArray<Translation> =
+      (TransferContext.callMethod_STRING_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.findTranslationsPtr, locale, exact) as VariantArray<Translation>)
 
   /**
    * Returns `true` if there are any [Translation] instances in the main translation domain that
@@ -436,42 +396,30 @@ public object TranslationServer : Object() {
    * equals [locale] are considered.
    */
   @JvmStatic
-  public final fun hasTranslationForLocale(locale: String, exact: Boolean): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to locale, BOOL to exact)
-    TransferContext.callMethod(MethodBindings.hasTranslationForLocalePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasTranslationForLocale(locale: String, exact: Boolean): Boolean =
+      TransferContext.callMethod_STRING_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.hasTranslationForLocalePtr, locale, exact)
 
   /**
    * Returns `true` if the main translation domain contains the given [translation].
    */
   @JvmStatic
-  public final fun hasTranslation(translation: Translation?): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to translation)
-    TransferContext.callMethod(MethodBindings.hasTranslationPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasTranslation(translation: Translation?): Boolean =
+      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.hasTranslationPtr, translation)
 
   /**
    * Returns `true` if a translation domain with the specified name exists.
    */
   @JvmStatic
-  public final fun hasDomain(domain: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to domain)
-    TransferContext.callMethod(MethodBindings.hasDomainPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasDomain(domain: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasDomainPtr, domain)
 
   /**
    * Returns the translation domain with the specified name. An empty translation domain will be
    * created and added if it does not exist.
    */
   @JvmStatic
-  public final fun getOrAddDomain(domain: StringName): TranslationDomain? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to domain)
-    TransferContext.callMethod(MethodBindings.getOrAddDomainPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TranslationDomain?)
-  }
+  public final fun getOrAddDomain(domain: StringName): TranslationDomain? =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOrAddDomainPtr, domain) as TranslationDomain?)
 
   /**
    * Removes the translation domain with the specified name.
@@ -480,8 +428,7 @@ public object TranslationServer : Object() {
    */
   @JvmStatic
   public final fun removeDomain(domain: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to domain)
-    TransferContext.callMethod(MethodBindings.removeDomainPtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeDomainPtr, domain)
   }
 
   /**
@@ -489,61 +436,44 @@ public object TranslationServer : Object() {
    */
   @JvmStatic
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
   }
 
   /**
    * Returns an array of all loaded locales of the project.
    */
   @JvmStatic
-  public final fun getLoadedLocales(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoadedLocalesPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getLoadedLocales(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getLoadedLocalesPtr)
 
   /**
    * Converts a number from Western Arabic (0..9) to the numeral system used in the given [locale].
    */
   @JvmStatic
-  public final fun formatNumber(number: String, locale: String): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to number, STRING to locale)
-    TransferContext.callMethod(MethodBindings.formatNumberPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun formatNumber(number: String, locale: String): String =
+      TransferContext.callMethod_STRING_STRING_ret_STRING(ptr, objectID.id, MethodBindings.formatNumberPtr, number, locale)
 
   /**
    * Returns the percent sign used in the given [locale].
    */
   @JvmStatic
-  public final fun getPercentSign(locale: String): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to locale)
-    TransferContext.callMethod(MethodBindings.getPercentSignPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getPercentSign(locale: String): String =
+      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.getPercentSignPtr, locale)
 
   /**
    * Converts [number] from the numeral system used in the given [locale] to Western Arabic (0..9).
    */
   @JvmStatic
-  public final fun parseNumber(number: String, locale: String): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to number, STRING to locale)
-    TransferContext.callMethod(MethodBindings.parseNumberPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun parseNumber(number: String, locale: String): String =
+      TransferContext.callMethod_STRING_STRING_ret_STRING(ptr, objectID.id, MethodBindings.parseNumberPtr, number, locale)
 
   @JvmStatic
-  public final fun isPseudolocalizationEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPseudolocalizationEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isPseudolocalizationEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPseudolocalizationEnabledPtr)
 
   @JvmStatic
   public final fun setPseudolocalizationEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setPseudolocalizationEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPseudolocalizationEnabledPtr, enabled)
   }
 
   /**
@@ -552,8 +482,7 @@ public object TranslationServer : Object() {
    */
   @JvmStatic
   public final fun reloadPseudolocalization(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.reloadPseudolocalizationPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.reloadPseudolocalizationPtr)
   }
 
   /**
@@ -562,11 +491,8 @@ public object TranslationServer : Object() {
    * **Note:** This method always uses the main translation domain.
    */
   @JvmStatic
-  public final fun pseudolocalize(message: StringName): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to message)
-    TransferContext.callMethod(MethodBindings.pseudolocalizePtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun pseudolocalize(message: StringName): StringName =
+      TransferContext.callPtrMethod_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.pseudolocalizePtr, message)
 
   /**
    * Returns the current locale's translation for the given message and context.

@@ -9,19 +9,21 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_NODE_PATH
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
 import godot.core.RID
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser._RID
 import godot.core.asCachedNodePath
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -90,61 +92,42 @@ public open class Joint3D internal constructor() : Node3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(343, scriptPtr)
+    createNativeObject(341, scriptPtr)
   }
 
   public final fun setNodeA(node: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to node)
-    TransferContext.callMethod(MethodBindings.setNodeAPtr)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setNodeAPtr, node)
   }
 
-  public final fun getNodeA(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodeAPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
-  }
+  public final fun getNodeA(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getNodeAPtr)
 
   public final fun setNodeB(node: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to node)
-    TransferContext.callMethod(MethodBindings.setNodeBPtr)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setNodeBPtr, node)
   }
 
-  public final fun getNodeB(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodeBPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
-  }
+  public final fun getNodeB(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getNodeBPtr)
 
   public final fun setSolverPriority(priority: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to priority.toLong())
-    TransferContext.callMethod(MethodBindings.setSolverPriorityPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSolverPriorityPtr, priority.toLong())
   }
 
-  public final fun getSolverPriority(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSolverPriorityPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSolverPriority(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSolverPriorityPtr).toInt()
 
   public final fun setExcludeNodesFromCollision(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setExcludeNodesFromCollisionPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setExcludeNodesFromCollisionPtr, enable)
   }
 
-  public final fun getExcludeNodesFromCollision(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExcludeNodesFromCollisionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getExcludeNodesFromCollision(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getExcludeNodesFromCollisionPtr)
 
   /**
    * Returns the joint's internal [RID] from the [PhysicsServer3D].
    */
-  public final fun getRid(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRidPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun getRid(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getRidPtr)
 
   public final fun setNodeA(node: String) = setNodeA(node.asCachedNodePath())
 

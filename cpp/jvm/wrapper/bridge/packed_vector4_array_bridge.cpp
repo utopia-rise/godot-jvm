@@ -1,5 +1,7 @@
 #include "packed_vector4_array_bridge.h"
 
+#include "core/variant_allocator.h"
+
 using namespace bridges;
 
 PackedVector4ArrayBridge::~PackedVector4ArrayBridge() = default;
@@ -19,15 +21,15 @@ uintptr_t PackedVector4ArrayBridge::engine_convert_to_godot(JNIEnv* p_raw_env, j
     return reinterpret_cast<uintptr_t>(vector_packed);
 }
 
-jfloatArray PackedVector4ArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, jobject, jlong p_raw_ptr) {
+jfloatArray PackedVector4ArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, jobject, jlong p_handle) {
     jni::Env env(p_raw_env);
-    godot::PackedVector4Array* vector_packed = from_uint_to_ptr<godot::PackedVector4Array>(p_raw_ptr);
+    godot::PackedVector4Array& vector_packed = native<godot::PackedVector4Array>(p_handle);
 
-    uint64_t vector_size = vector_packed->size();
+    uint64_t vector_size = vector_packed.size();
     jint float_size = vector_size * 4;
 
     jni::JFloatArray arr(env, float_size);
-    const godot::Vector4* ptr = vector_packed->ptr();
+    const godot::Vector4* ptr = vector_packed.ptr();
     arr.set_array_elements(env, reinterpret_cast<const jfloat*>(ptr), float_size);
 
     return reinterpret_cast<jfloatArray>(arr.get_wrapped());

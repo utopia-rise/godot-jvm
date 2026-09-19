@@ -11,11 +11,13 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_VECTOR4
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_VECTOR4
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.VECTOR4
 import godot.core.Vector4
 import kotlin.Boolean
 import kotlin.Suppress
@@ -82,26 +84,18 @@ public open class VisualShaderNodeVec4Parameter : VisualShaderNodeParameter() {
   }
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setDefaultValueEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDefaultValueEnabledPtr, enabled)
   }
 
-  public final fun isDefaultValueEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDefaultValueEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isDefaultValueEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDefaultValueEnabledPtr)
 
   public final fun setDefaultValue(`value`: Vector4): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR4 to value)
-    TransferContext.callMethod(MethodBindings.setDefaultValuePtr)
+    TransferContext.callPtrMethod_VECTOR4(ptr, objectID.id, MethodBindings.setDefaultValuePtr, value)
   }
 
-  public final fun getDefaultValue(): Vector4 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDefaultValuePtr)
-    return (TransferContext.readReturnValue(VECTOR4) as Vector4)
-  }
+  public final fun getDefaultValue(): Vector4 =
+      TransferContext.callPtrMethod0_ret_VECTOR4(ptr, objectID.id, MethodBindings.getDefaultValuePtr)
 
   public companion object {
     @JvmField

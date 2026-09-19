@@ -11,21 +11,25 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_ret_BOOL
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_PACKED_STRING_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -97,7 +101,7 @@ public open class OpenXRIPBinding : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(459, scriptPtr)
+    createNativeObject(458, scriptPtr)
   }
 
   /**
@@ -138,99 +142,69 @@ public open class OpenXRIPBinding : Resource() {
   }
 
   public final fun setAction(action: OpenXRAction?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to action)
-    TransferContext.callMethod(MethodBindings.setActionPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setActionPtr, action)
   }
 
-  public final fun getAction(): OpenXRAction? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRAction?)
-  }
+  public final fun getAction(): OpenXRAction? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getActionPtr) as OpenXRAction?)
 
   public final fun setBindingPath(bindingPath: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to bindingPath)
-    TransferContext.callMethod(MethodBindings.setBindingPathPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBindingPathPtr, bindingPath)
   }
 
-  public final fun getBindingPath(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBindingPathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getBindingPath(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getBindingPathPtr)
 
   /**
    * Get the number of binding modifiers for this binding.
    */
-  public final fun getBindingModifierCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBindingModifierCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getBindingModifierCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBindingModifierCountPtr).toInt()
 
   /**
    * Get the [OpenXRBindingModifier] at this index.
    */
-  public final fun getBindingModifier(index: Int): OpenXRActionBindingModifier? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getBindingModifierPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRActionBindingModifier?)
-  }
+  public final fun getBindingModifier(index: Int): OpenXRActionBindingModifier? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBindingModifierPtr, index.toLong()) as OpenXRActionBindingModifier?)
 
   public final fun setBindingModifiers(bindingModifiers: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to bindingModifiers)
-    TransferContext.callMethod(MethodBindings.setBindingModifiersPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setBindingModifiersPtr, bindingModifiers)
   }
 
-  public final fun getBindingModifiers(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBindingModifiersPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
-  }
+  public final fun getBindingModifiers(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getBindingModifiersPtr) as VariantArray<Any?>)
 
   public final fun setPaths(paths: PackedStringArray): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_STRING_ARRAY to paths)
-    TransferContext.callMethod(MethodBindings.setPathsPtr)
+    TransferContext.callPtrMethod_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setPathsPtr, paths)
   }
 
-  public final fun getPaths(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getPaths(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getPathsPtr)
 
   /**
    * Get the number of input/output paths in this binding.
    */
-  public final fun getPathCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPathCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getPathCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPathCountPtr).toInt()
 
   /**
    * Returns `true` if this input/output path is part of this binding.
    */
-  public final fun hasPath(path: String): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.hasPathPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasPath(path: String): Boolean =
+      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasPathPtr, path)
 
   /**
    * Add an input/output path to this binding.
    */
   public final fun addPath(path: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.addPathPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.addPathPtr, path)
   }
 
   /**
    * Removes this input/output path from this binding.
    */
   public final fun removePath(path: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.removePathPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.removePathPtr, path)
   }
 
   public companion object {

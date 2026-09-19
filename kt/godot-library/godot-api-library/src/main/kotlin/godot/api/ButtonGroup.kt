@@ -9,14 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal1
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -49,38 +50,28 @@ public open class ButtonGroup : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(121, scriptPtr)
+    createNativeObject(119, scriptPtr)
   }
 
   /**
    * Returns the current pressed button.
    */
-  public final fun getPressedButton(): BaseButton? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPressedButtonPtr)
-    return (TransferContext.readReturnValue(OBJECT) as BaseButton?)
-  }
+  public final fun getPressedButton(): BaseButton? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getPressedButtonPtr) as BaseButton?)
 
   /**
    * Returns an [VariantArray] of [Button]s who have this as their [ButtonGroup] (see
    * [BaseButton.buttonGroup]).
    */
-  public final fun getButtons(): VariantArray<BaseButton> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getButtonsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<BaseButton>)
-  }
+  public final fun getButtons(): VariantArray<BaseButton> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getButtonsPtr) as VariantArray<BaseButton>)
 
   public final fun setAllowUnpress(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setAllowUnpressPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllowUnpressPtr, enabled)
   }
 
-  public final fun isAllowUnpress(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAllowUnpressPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isAllowUnpress(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAllowUnpressPtr)
 
   public companion object {
     @JvmField

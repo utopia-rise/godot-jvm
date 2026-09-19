@@ -9,10 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -37,19 +38,15 @@ public open class InputEventFromWindow internal constructor() : InputEvent() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(312, scriptPtr)
+    createNativeObject(310, scriptPtr)
   }
 
   public final fun setWindowId(id: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id)
-    TransferContext.callMethod(MethodBindings.setWindowIdPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWindowIdPtr, id)
   }
 
-  public final fun getWindowId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWindowIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getWindowId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWindowIdPtr)
 
   public companion object {
     @JvmField

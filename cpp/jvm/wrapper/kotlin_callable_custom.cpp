@@ -10,13 +10,13 @@ void LambdaContainer::invoke(
     godot::Variant& r_ret
 ) const {
     TransferContext& transfer_context = TransferContext::get_instance();
-    transfer_context.write_args(p_env, p_args, args_count);
+    transfer_context.write_variants(p_env, p_args, args_count);
 
     has_been_called = true;
 
     if (has_return_value) {
         jni::JObject ret = wrapped.call_object_method<false>(p_env, INVOKE_WITH_RETURN);
-        transfer_context.read_return_value(p_env, r_ret);
+        r_ret = transfer_context.read_variant(p_env);
         ret.delete_local_ref(p_env);
 
         return;

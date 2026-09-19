@@ -9,6 +9,8 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_ANY_ret_LONG
+import godot.callPtrMethod0_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.Error
@@ -16,11 +18,8 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.LONG
 import kotlin.Any
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -65,7 +64,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class PackedDataContainer : Resource() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(500, scriptPtr)
+    createNativeObject(499, scriptPtr)
   }
 
   /**
@@ -74,20 +73,14 @@ public open class PackedDataContainer : Resource() {
    *
    * **Note:** Subsequent calls to this method will overwrite the existing data.
    */
-  public final fun pack(`value`: Any?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ANY to value)
-    TransferContext.callMethod(MethodBindings.packPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun pack(`value`: Any?): Error =
+      Error.from(TransferContext.callMethod_ANY_ret_LONG(ptr, objectID.id, MethodBindings.packPtr, value))
 
   /**
    * Returns the size of the packed container (see [Array.size] and [Dictionary.size]).
    */
-  public final fun size(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.sizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun size(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.sizePtr).toInt()
 
   public companion object {
     @JvmField

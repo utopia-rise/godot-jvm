@@ -9,6 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -16,10 +22,6 @@ import godot.core.MethodStringName1
 import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -135,54 +137,40 @@ public object CameraServer : Object() {
 
   @JvmStatic
   public final fun setMonitoringFeeds(isMonitoringFeeds: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to isMonitoringFeeds)
-    TransferContext.callMethod(MethodBindings.setMonitoringFeedsPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMonitoringFeedsPtr, isMonitoringFeeds)
   }
 
   @JvmStatic
-  public final fun isMonitoringFeeds(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isMonitoringFeedsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isMonitoringFeeds(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMonitoringFeedsPtr)
 
   /**
    * Returns the [CameraFeed] corresponding to the camera with the given [index].
    */
   @JvmStatic
-  public final fun getFeed(index: Int): CameraFeed? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getFeedPtr)
-    return (TransferContext.readReturnValue(OBJECT) as CameraFeed?)
-  }
+  public final fun getFeed(index: Int): CameraFeed? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFeedPtr, index.toLong()) as CameraFeed?)
 
   /**
    * Returns the number of [CameraFeed]s registered.
    */
   @JvmStatic
-  public final fun getFeedCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFeedCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getFeedCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFeedCountPtr).toInt()
 
   /**
    * Returns an array of [CameraFeed]s.
    */
   @JvmStatic
-  public final fun feeds(): VariantArray<CameraFeed> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.feedsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<CameraFeed>)
-  }
+  public final fun feeds(): VariantArray<CameraFeed> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.feedsPtr) as VariantArray<CameraFeed>)
 
   /**
    * Adds the camera [feed] to the camera server.
    */
   @JvmStatic
   public final fun addFeed(feed: CameraFeed?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to feed)
-    TransferContext.callMethod(MethodBindings.addFeedPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addFeedPtr, feed)
   }
 
   /**
@@ -190,8 +178,7 @@ public object CameraServer : Object() {
    */
   @JvmStatic
   public final fun removeFeed(feed: CameraFeed?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to feed)
-    TransferContext.callMethod(MethodBindings.removeFeedPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeFeedPtr, feed)
   }
 
   public enum class FeedImage(

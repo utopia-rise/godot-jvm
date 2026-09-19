@@ -11,13 +11,17 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_COLOR
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.OBJECT
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -93,7 +97,7 @@ public open class CollisionShape3D : Node3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(168, scriptPtr)
+    createNativeObject(166, scriptPtr)
   }
 
   /**
@@ -124,62 +128,44 @@ public open class CollisionShape3D : Node3D() {
    * This method does nothing.
    */
   public final fun resourceChanged(resource: Resource?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to resource)
-    TransferContext.callMethod(MethodBindings.resourceChangedPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.resourceChangedPtr, resource)
   }
 
   public final fun setShape(shape: Shape3D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to shape)
-    TransferContext.callMethod(MethodBindings.setShapePtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setShapePtr, shape)
   }
 
-  public final fun getShape(): Shape3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShapePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Shape3D?)
-  }
+  public final fun getShape(): Shape3D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getShapePtr) as Shape3D?)
 
   public final fun setDisabled(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setDisabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDisabledPtr, enable)
   }
 
-  public final fun isDisabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDisabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isDisabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDisabledPtr)
 
   /**
    * Sets the collision shape's shape to the addition of all its convexed [MeshInstance3D] siblings
    * geometry.
    */
   public final fun makeConvexFromSiblings(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.makeConvexFromSiblingsPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.makeConvexFromSiblingsPtr)
   }
 
   public final fun setDebugColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.setDebugColorPtr)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setDebugColorPtr, color)
   }
 
-  public final fun getDebugColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDebugColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
-  }
+  public final fun getDebugColor(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getDebugColorPtr)
 
   public final fun setEnableDebugFill(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setEnableDebugFillPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableDebugFillPtr, enable)
   }
 
-  public final fun getEnableDebugFill(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableDebugFillPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getEnableDebugFill(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableDebugFillPtr)
 
   public companion object {
     @JvmField

@@ -9,12 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_STRING
+import godot.callMethod_STRING_STRING_STRING
+import godot.callMethod_STRING_STRING_STRING_STRING_STRING_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName6
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -29,7 +30,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRInteractionProfileMetadata : Object() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(462, scriptPtr)
+    createNativeObject(461, scriptPtr)
   }
 
   /**
@@ -37,8 +38,7 @@ public open class OpenXRInteractionProfileMetadata : Object() {
    * older action maps.
    */
   public final fun registerProfileRename(oldName: String, newName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to oldName, STRING to newName)
-    TransferContext.callMethod(MethodBindings.registerProfileRenamePtr)
+    TransferContext.callMethod_STRING_STRING(ptr, objectID.id, MethodBindings.registerProfileRenamePtr, oldName, newName)
   }
 
   /**
@@ -46,8 +46,7 @@ public open class OpenXRInteractionProfileMetadata : Object() {
    * action maps.
    */
   public final fun registerPathRename(oldName: String, newName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to oldName, STRING to newName)
-    TransferContext.callMethod(MethodBindings.registerPathRenamePtr)
+    TransferContext.callMethod_STRING_STRING(ptr, objectID.id, MethodBindings.registerPathRenamePtr, oldName, newName)
   }
 
   /**
@@ -67,8 +66,7 @@ public open class OpenXRInteractionProfileMetadata : Object() {
     openxrPath: String,
     openxrExtensionNames: String,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to displayName, STRING to openxrPath, STRING to openxrExtensionNames)
-    TransferContext.callMethod(MethodBindings.registerTopLevelPathPtr)
+    TransferContext.callMethod_STRING_STRING_STRING(ptr, objectID.id, MethodBindings.registerTopLevelPathPtr, displayName, openxrPath, openxrExtensionNames)
   }
 
   /**
@@ -86,8 +84,7 @@ public open class OpenXRInteractionProfileMetadata : Object() {
     openxrPath: String,
     openxrExtensionNames: String,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to displayName, STRING to openxrPath, STRING to openxrExtensionNames)
-    TransferContext.callMethod(MethodBindings.registerInteractionProfilePtr)
+    TransferContext.callMethod_STRING_STRING_STRING(ptr, objectID.id, MethodBindings.registerInteractionProfilePtr, displayName, openxrPath, openxrExtensionNames)
   }
 
   /**
@@ -109,8 +106,7 @@ public open class OpenXRInteractionProfileMetadata : Object() {
     openxrExtensionNames: String,
     actionType: OpenXRAction.ActionType,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to interactionProfile, STRING to displayName, STRING to toplevelPath, STRING to openxrPath, STRING to openxrExtensionNames, LONG to actionType.value)
-    TransferContext.callMethod(MethodBindings.registerIoPathPtr)
+    TransferContext.callMethod_STRING_STRING_STRING_STRING_STRING_LONG(ptr, objectID.id, MethodBindings.registerIoPathPtr, interactionProfile, displayName, toplevelPath, openxrPath, openxrExtensionNames, actionType.value)
   }
 
   public companion object {

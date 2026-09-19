@@ -22,7 +22,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class AudioEffectNotchFilter : AudioEffectFilter() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(69, scriptPtr)
+    createNativeObject(67, scriptPtr)
   }
 
   public companion object

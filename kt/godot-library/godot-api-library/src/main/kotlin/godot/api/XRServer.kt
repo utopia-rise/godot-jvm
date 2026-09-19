@@ -11,6 +11,22 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_ret_OBJECT_REF
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_TRANSFORM3D
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_ret_DICTIONARY
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_STRING_NAME_ret_OBJECT_REF
+import godot.callPtrMethod_TRANSFORM3D
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.GodotEnum
@@ -23,15 +39,6 @@ import godot.core.Signal2
 import godot.core.StringName
 import godot.core.Transform3D
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
-import godot.core.VariantParser.TRANSFORM3D
 import godot.core.asCachedStringName
 import kotlin.Any
 import kotlin.Boolean
@@ -280,29 +287,21 @@ public object XRServer : Object() {
   }
 
   @JvmStatic
-  public final fun getWorldScale(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWorldScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
-  }
+  public final fun getWorldScale(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWorldScalePtr)
 
   @JvmStatic
   public final fun setWorldScale(scale: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to scale)
-    TransferContext.callMethod(MethodBindings.setWorldScalePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setWorldScalePtr, scale)
   }
 
   @JvmStatic
-  public final fun getWorldOrigin(): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWorldOriginPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
-  }
+  public final fun getWorldOrigin(): Transform3D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getWorldOriginPtr)
 
   @JvmStatic
   public final fun setWorldOrigin(worldOrigin: Transform3D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, TRANSFORM3D to worldOrigin)
-    TransferContext.callMethod(MethodBindings.setWorldOriginPtr)
+    TransferContext.callPtrMethod_TRANSFORM3D(ptr, objectID.id, MethodBindings.setWorldOriginPtr, worldOrigin)
   }
 
   /**
@@ -310,19 +309,15 @@ public object XRServer : Object() {
    * interfaces.
    */
   @JvmStatic
-  public final fun getReferenceFrame(): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getReferenceFramePtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
-  }
+  public final fun getReferenceFrame(): Transform3D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getReferenceFramePtr)
 
   /**
    * Clears the reference frame that was set by previous calls to [centerOnHmd].
    */
   @JvmStatic
   public final fun clearReferenceFrame(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearReferenceFramePtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearReferenceFramePtr)
   }
 
   /**
@@ -349,40 +344,31 @@ public object XRServer : Object() {
    */
   @JvmStatic
   public final fun centerOnHmd(rotationMode: RotationMode, keepHeight: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to rotationMode.value, BOOL to keepHeight)
-    TransferContext.callMethod(MethodBindings.centerOnHmdPtr)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.centerOnHmdPtr, rotationMode.value, keepHeight)
   }
 
   /**
    * Returns the primary interface's transformation.
    */
   @JvmStatic
-  public final fun getHmdTransform(): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHmdTransformPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
-  }
+  public final fun getHmdTransform(): Transform3D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getHmdTransformPtr)
 
   @JvmStatic
   public final fun setCameraLockedToOrigin(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setCameraLockedToOriginPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCameraLockedToOriginPtr, enabled)
   }
 
   @JvmStatic
-  public final fun isCameraLockedToOrigin(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCameraLockedToOriginPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isCameraLockedToOrigin(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCameraLockedToOriginPtr)
 
   /**
    * Registers an [XRInterface] object.
    */
   @JvmStatic
   public final fun addInterface(`interface`: XRInterface?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to `interface`)
-    TransferContext.callMethod(MethodBindings.addInterfacePtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addInterfacePtr, `interface`)
   }
 
   /**
@@ -392,59 +378,45 @@ public object XRServer : Object() {
    * that returns `true`.
    */
   @JvmStatic
-  public final fun getInterfaceCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInterfaceCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getInterfaceCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInterfaceCountPtr).toInt()
 
   /**
    * Removes this [interface].
    */
   @JvmStatic
   public final fun removeInterface(`interface`: XRInterface?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to `interface`)
-    TransferContext.callMethod(MethodBindings.removeInterfacePtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeInterfacePtr, `interface`)
   }
 
   /**
    * Returns the interface registered at the given [idx] index in the list of interfaces.
    */
   @JvmStatic
-  public final fun getInterface(idx: Int): XRInterface? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to idx.toLong())
-    TransferContext.callMethod(MethodBindings.getInterfacePtr)
-    return (TransferContext.readReturnValue(OBJECT) as XRInterface?)
-  }
+  public final fun getInterface(idx: Int): XRInterface? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getInterfacePtr, idx.toLong()) as XRInterface?)
 
   /**
    * Returns a list of available interfaces the ID and name of each interface.
    */
   @JvmStatic
-  public final fun getInterfaces(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInterfacesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Dictionary<Any?, Any?>>)
-  }
+  public final fun getInterfaces(): VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getInterfacesPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Finds an interface by its [name]. For example, if your project uses capabilities of an AR/VR
    * platform, you can find the interface for that platform by name and initialize it.
    */
   @JvmStatic
-  public final fun findInterface(name: String): XRInterface? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
-    TransferContext.callMethod(MethodBindings.findInterfacePtr)
-    return (TransferContext.readReturnValue(OBJECT) as XRInterface?)
-  }
+  public final fun findInterface(name: String): XRInterface? =
+      (TransferContext.callMethod_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.findInterfacePtr, name) as XRInterface?)
 
   /**
    * Registers a new [XRTracker] that tracks a physical object.
    */
   @JvmStatic
   public final fun addTracker(tracker: XRTracker?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to tracker)
-    TransferContext.callMethod(MethodBindings.addTrackerPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addTrackerPtr, tracker)
   }
 
   /**
@@ -452,41 +424,30 @@ public object XRServer : Object() {
    */
   @JvmStatic
   public final fun removeTracker(tracker: XRTracker?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to tracker)
-    TransferContext.callMethod(MethodBindings.removeTrackerPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeTrackerPtr, tracker)
   }
 
   /**
    * Returns a dictionary of trackers for [trackerTypes].
    */
   @JvmStatic
-  public final fun getTrackers(trackerTypes: Int): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to trackerTypes.toLong())
-    TransferContext.callMethod(MethodBindings.getTrackersPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
-  }
+  public final fun getTrackers(trackerTypes: Int): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_LONG_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getTrackersPtr, trackerTypes.toLong()) as Dictionary<Any?, Any?>)
 
   /**
    * Returns the positional tracker with the given [trackerName].
    */
   @JvmStatic
-  public final fun getTracker(trackerName: StringName): XRTracker? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to trackerName)
-    TransferContext.callMethod(MethodBindings.getTrackerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as XRTracker?)
-  }
+  public final fun getTracker(trackerName: StringName): XRTracker? =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTrackerPtr, trackerName) as XRTracker?)
 
   @JvmStatic
-  public final fun getPrimaryInterface(): XRInterface? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPrimaryInterfacePtr)
-    return (TransferContext.readReturnValue(OBJECT) as XRInterface?)
-  }
+  public final fun getPrimaryInterface(): XRInterface? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPrimaryInterfacePtr) as XRInterface?)
 
   @JvmStatic
   public final fun setPrimaryInterface(`interface`: XRInterface?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to `interface`)
-    TransferContext.callMethod(MethodBindings.setPrimaryInterfacePtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setPrimaryInterfacePtr, `interface`)
   }
 
   /**

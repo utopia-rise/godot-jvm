@@ -19,7 +19,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class AudioStreamPlaybackOggVorbis : AudioStreamPlaybackResampled() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(92, scriptPtr)
+    createNativeObject(90, scriptPtr)
   }
 
   /**

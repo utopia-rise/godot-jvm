@@ -9,13 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_NODE_PATH
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
 import godot.core.asCachedNodePath
 import kotlin.Long
 import kotlin.String
@@ -69,26 +71,18 @@ public open class VisibleOnScreenEnabler2D : VisibleOnScreenNotifier2D() {
   }
 
   public final fun setEnableMode(mode: EnableMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setEnableModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setEnableModePtr, mode.value)
   }
 
-  public final fun getEnableMode(): EnableMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableModePtr)
-    return EnableMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getEnableMode(): EnableMode =
+      EnableMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEnableModePtr))
 
   public final fun setEnableNodePath(path: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.setEnableNodePathPtr)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setEnableNodePathPtr, path)
   }
 
-  public final fun getEnableNodePath(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableNodePathPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
-  }
+  public final fun getEnableNodePath(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getEnableNodePathPtr)
 
   public final fun setEnableNodePath(path: String) = setEnableNodePath(path.asCachedNodePath())
 

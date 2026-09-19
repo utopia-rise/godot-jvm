@@ -2,7 +2,6 @@
 
 package godot.core
 
-import godot.api.Object
 import godot.common.interop.ObjectID
 import godot.common.interop.VoidPtr
 
@@ -59,7 +58,7 @@ interface Callable : CoreType {
     fun getMethod(): StringName
 
     /**Returns the object on which this Callable is called.*/
-    fun getObject(): Object?
+    fun getObject(): GodotObject?
 
     /**Returns the ID of this Callable's object (see [Object.getInstanceId]).*/
     fun getObjectId(): ObjectID
@@ -162,4 +161,4 @@ interface Callable : CoreType {
     }
 }
 
-fun unsafeCallable(target: Object, methodName: StringName) = MethodCallable(target, methodName)
+fun unsafeCallable(target: GodotObject, methodName: StringName) = MethodCallable(target, methodName)

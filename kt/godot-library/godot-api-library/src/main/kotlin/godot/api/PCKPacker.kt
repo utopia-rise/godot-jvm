@@ -9,19 +9,19 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_LONG_STRING_BOOL_ret_LONG
+import godot.callMethod_STRING_PACKED_BYTE_ARRAY_BOOL_ret_LONG
+import godot.callMethod_STRING_STRING_BOOL_ret_LONG
+import godot.callMethod_STRING_ret_LONG
+import godot.callPtrMethod_BOOL_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
 import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.PackedByteArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -57,7 +57,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class PCKPacker : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(499, scriptPtr)
+    createNativeObject(498, scriptPtr)
   }
 
   /**
@@ -70,11 +70,8 @@ public open class PCKPacker : RefCounted() {
     alignment: Int = 32,
     key: String = "0000000000000000000000000000000000000000000000000000000000000000",
     encryptDirectory: Boolean = false,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to pckPath, LONG to alignment.toLong(), STRING to key, BOOL to encryptDirectory)
-    TransferContext.callMethod(MethodBindings.pckStartPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_LONG_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.pckStartPtr, pckPath, alignment.toLong(), key, encryptDirectory))
 
   /**
    * Adds the [sourcePath] file to the current PCK package at the [targetPath] internal path. The
@@ -86,11 +83,8 @@ public open class PCKPacker : RefCounted() {
     targetPath: String,
     sourcePath: String,
     encrypt: Boolean = false,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to targetPath, STRING to sourcePath, BOOL to encrypt)
-    TransferContext.callMethod(MethodBindings.addFilePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.addFilePtr, targetPath, sourcePath, encrypt))
 
   /**
    * Adds the [data] to the current PCK package at the [targetPath] internal path. The `res://`
@@ -102,22 +96,16 @@ public open class PCKPacker : RefCounted() {
     targetPath: String,
     `data`: PackedByteArray,
     encrypt: Boolean = false,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to targetPath, PACKED_BYTE_ARRAY to data, BOOL to encrypt)
-    TransferContext.callMethod(MethodBindings.addFileFromBufferPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_PACKED_BYTE_ARRAY_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.addFileFromBufferPtr, targetPath, data, encrypt))
 
   /**
    * Registers a file removal of the [targetPath] internal path to the PCK. This is mainly used for
    * patches. If the file at this path has been loaded from a previous PCK, it will be removed. The
    * `res://` prefix for [targetPath] is optional and stripped internally.
    */
-  public final fun addFileRemoval(targetPath: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to targetPath)
-    TransferContext.callMethod(MethodBindings.addFileRemovalPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun addFileRemoval(targetPath: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.addFileRemovalPtr, targetPath))
 
   /**
    * Writes the file directory and closes the PCK. If [verbose] is `true`, a list of files added
@@ -128,11 +116,8 @@ public open class PCKPacker : RefCounted() {
    * either with the `using` statement or by calling the `Dispose` method directly.
    */
   @JvmOverloads
-  public final fun flush(verbose: Boolean = false): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to verbose)
-    TransferContext.callMethod(MethodBindings.flushPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun flush(verbose: Boolean = false): Error =
+      Error.from(TransferContext.callPtrMethod_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.flushPtr, verbose))
 
   public companion object {
     @JvmField

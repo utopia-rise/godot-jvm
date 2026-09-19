@@ -9,6 +9,32 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_RID_ANY
+import godot.callMethod_RID_LONG_CALLABLE
+import godot.callMethod_RID_LONG_STRING
+import godot.callMethod_RID_STRING
+import godot.callMethod_RID_ret_ANY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_LONG_ret_RID
+import godot.callPtrMethod_LONG_RECT2_RECT2
+import godot.callPtrMethod_LONG_ret_RID
+import godot.callPtrMethod_RID
+import godot.callPtrMethod_RID_BOOL
+import godot.callPtrMethod_RID_BOOL_BOOL_BOOL_COLOR
+import godot.callPtrMethod_RID_COLOR
+import godot.callPtrMethod_RID_DOUBLE
+import godot.callPtrMethod_RID_DOUBLE_DOUBLE
+import godot.callPtrMethod_RID_LONG
+import godot.callPtrMethod_RID_LONG_BOOL
+import godot.callPtrMethod_RID_LONG_LONG
+import godot.callPtrMethod_RID_LONG_LONG_ret_RID
+import godot.callPtrMethod_RID_RECT2
+import godot.callPtrMethod_RID_RID
+import godot.callPtrMethod_RID_RID_DOUBLE_LONG_BOOL_ret_RID
+import godot.callPtrMethod_RID_RID_LONG_RID_LONG
+import godot.callPtrMethod_RID_TRANSFORM2D
+import godot.callPtrMethod_RID_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.Color
@@ -22,16 +48,6 @@ import godot.core.MethodStringName5
 import godot.core.RID
 import godot.core.Rect2
 import godot.core.Transform2D
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.RECT2
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.TRANSFORM2D
-import godot.core.VariantParser._RID
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -375,11 +391,8 @@ public object AccessibilityServer : Object() {
    * Returns `true` if screen reader is support by this implementation.
    */
   @JvmStatic
-  public final fun isSupported(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isSupported(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSupportedPtr)
 
   /**
    * Creates a new, empty accessibility element resource.
@@ -388,11 +401,8 @@ public object AccessibilityServer : Object() {
    * general, this function should not be called manually.
    */
   @JvmStatic
-  public final fun createElement(windowId: Int, role: AccessibilityRole): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to windowId.toLong(), LONG to role.value)
-    TransferContext.callMethod(MethodBindings.createElementPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun createElement(windowId: Int, role: AccessibilityRole): RID =
+      TransferContext.callPtrMethod_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.createElementPtr, windowId.toLong(), role.value)
 
   /**
    * Creates a new, empty accessibility sub-element resource. Sub-elements can be used to provide
@@ -406,11 +416,8 @@ public object AccessibilityServer : Object() {
     parentRid: RID,
     role: AccessibilityRole,
     insertPos: Int = -1,
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to parentRid, LONG to role.value, LONG to insertPos.toLong())
-    TransferContext.callMethod(MethodBindings.createSubElementPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_RID_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.createSubElementPtr, parentRid, role.value, insertPos.toLong())
 
   /**
    * Creates a new, empty accessibility sub-element from the shaped text buffer. Sub-elements are
@@ -428,21 +435,15 @@ public object AccessibilityServer : Object() {
     minHeight: Float,
     insertPos: Int = -1,
     isLastLine: Boolean = false,
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to parentRid, _RID to shapedText, DOUBLE to minHeight.toDouble(), LONG to insertPos.toLong(), BOOL to isLastLine)
-    TransferContext.callMethod(MethodBindings.createSubTextEditElementsPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_RID_RID_DOUBLE_LONG_BOOL_ret_RID(ptr, objectID.id, MethodBindings.createSubTextEditElementsPtr, parentRid, shapedText, minHeight.toDouble(), insertPos.toLong(), isLastLine)
 
   /**
    * Returns `true` if [id] is a valid accessibility element.
    */
   @JvmStatic
-  public final fun hasElement(id: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id)
-    TransferContext.callMethod(MethodBindings.hasElementPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasElement(id: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.hasElementPtr, id)
 
   /**
    * Frees the accessibility element [id] created by [createElement], [createSubElement], or
@@ -450,8 +451,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun freeElement(id: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id)
-    TransferContext.callMethod(MethodBindings.freeElementPtr)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.freeElementPtr, id)
   }
 
   /**
@@ -459,19 +459,15 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun elementSetMeta(id: RID, meta: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, ANY to meta)
-    TransferContext.callMethod(MethodBindings.elementSetMetaPtr)
+    TransferContext.callMethod_RID_ANY(ptr, objectID.id, MethodBindings.elementSetMetaPtr, id, meta)
   }
 
   /**
    * Returns the metadata of the accessibility element [id].
    */
   @JvmStatic
-  public final fun elementGetMeta(id: RID): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id)
-    TransferContext.callMethod(MethodBindings.elementGetMetaPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun elementGetMeta(id: RID): Any? =
+      TransferContext.callMethod_RID_ret_ANY(ptr, objectID.id, MethodBindings.elementGetMetaPtr, id)
 
   /**
    * Sets window outer (with decorations) and inner (without decorations) bounds for assistive apps.
@@ -486,8 +482,7 @@ public object AccessibilityServer : Object() {
     rectOut: Rect2,
     rectIn: Rect2,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to windowId.toLong(), RECT2 to rectOut, RECT2 to rectIn)
-    TransferContext.callMethod(MethodBindings.setWindowRectPtr)
+    TransferContext.callPtrMethod_LONG_RECT2_RECT2(ptr, objectID.id, MethodBindings.setWindowRectPtr, windowId.toLong(), rectOut, rectIn)
   }
 
   /**
@@ -499,8 +494,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun setWindowFocused(windowId: Int, focused: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to windowId.toLong(), BOOL to focused)
-    TransferContext.callMethod(MethodBindings.setWindowFocusedPtr)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setWindowFocusedPtr, windowId.toLong(), focused)
   }
 
   /**
@@ -508,27 +502,22 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetFocus(id: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id)
-    TransferContext.callMethod(MethodBindings.updateSetFocusPtr)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.updateSetFocusPtr, id)
   }
 
   /**
    * Returns the main accessibility element of the OS native window.
    */
   @JvmStatic
-  public final fun getWindowRoot(windowId: Int): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to windowId.toLong())
-    TransferContext.callMethod(MethodBindings.getWindowRootPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun getWindowRoot(windowId: Int): RID =
+      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.getWindowRootPtr, windowId.toLong())
 
   /**
    * Sets element accessibility role.
    */
   @JvmStatic
   public final fun updateSetRole(id: RID, role: AccessibilityRole): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to role.value)
-    TransferContext.callMethod(MethodBindings.updateSetRolePtr)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.updateSetRolePtr, id, role.value)
   }
 
   /**
@@ -536,8 +525,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetName(id: RID, name: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to name)
-    TransferContext.callMethod(MethodBindings.updateSetNamePtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetNamePtr, id, name)
   }
 
   /**
@@ -545,8 +533,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetBrailleLabel(id: RID, name: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to name)
-    TransferContext.callMethod(MethodBindings.updateSetBrailleLabelPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetBrailleLabelPtr, id, name)
   }
 
   /**
@@ -554,8 +541,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetBrailleRoleDescription(id: RID, description: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to description)
-    TransferContext.callMethod(MethodBindings.updateSetBrailleRoleDescriptionPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetBrailleRoleDescriptionPtr, id, description)
   }
 
   /**
@@ -563,8 +549,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetExtraInfo(id: RID, name: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to name)
-    TransferContext.callMethod(MethodBindings.updateSetExtraInfoPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetExtraInfoPtr, id, name)
   }
 
   /**
@@ -572,8 +557,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetDescription(id: RID, description: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to description)
-    TransferContext.callMethod(MethodBindings.updateSetDescriptionPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetDescriptionPtr, id, description)
   }
 
   /**
@@ -581,8 +565,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetValue(id: RID, `value`: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to value)
-    TransferContext.callMethod(MethodBindings.updateSetValuePtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetValuePtr, id, value)
   }
 
   /**
@@ -590,8 +573,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetTooltip(id: RID, tooltip: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to tooltip)
-    TransferContext.callMethod(MethodBindings.updateSetTooltipPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetTooltipPtr, id, tooltip)
   }
 
   /**
@@ -599,8 +581,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetBounds(id: RID, rect: Rect2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, RECT2 to rect)
-    TransferContext.callMethod(MethodBindings.updateSetBoundsPtr)
+    TransferContext.callPtrMethod_RID_RECT2(ptr, objectID.id, MethodBindings.updateSetBoundsPtr, id, rect)
   }
 
   /**
@@ -608,8 +589,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetTransform(id: RID, transform: Transform2D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, TRANSFORM2D to transform)
-    TransferContext.callMethod(MethodBindings.updateSetTransformPtr)
+    TransferContext.callPtrMethod_RID_TRANSFORM2D(ptr, objectID.id, MethodBindings.updateSetTransformPtr, id, transform)
   }
 
   /**
@@ -619,8 +599,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateAddChild(id: RID, childId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to childId)
-    TransferContext.callMethod(MethodBindings.updateAddChildPtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateAddChildPtr, id, childId)
   }
 
   /**
@@ -628,8 +607,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateAddRelatedControls(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to relatedId)
-    TransferContext.callMethod(MethodBindings.updateAddRelatedControlsPtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateAddRelatedControlsPtr, id, relatedId)
   }
 
   /**
@@ -637,8 +615,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateAddRelatedDetails(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to relatedId)
-    TransferContext.callMethod(MethodBindings.updateAddRelatedDetailsPtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateAddRelatedDetailsPtr, id, relatedId)
   }
 
   /**
@@ -646,8 +623,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateAddRelatedDescribedBy(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to relatedId)
-    TransferContext.callMethod(MethodBindings.updateAddRelatedDescribedByPtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateAddRelatedDescribedByPtr, id, relatedId)
   }
 
   /**
@@ -655,8 +631,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateAddRelatedFlowTo(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to relatedId)
-    TransferContext.callMethod(MethodBindings.updateAddRelatedFlowToPtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateAddRelatedFlowToPtr, id, relatedId)
   }
 
   /**
@@ -664,8 +639,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateAddRelatedLabeledBy(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to relatedId)
-    TransferContext.callMethod(MethodBindings.updateAddRelatedLabeledByPtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateAddRelatedLabeledByPtr, id, relatedId)
   }
 
   /**
@@ -676,8 +650,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateAddRelatedRadioGroup(id: RID, relatedId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to relatedId)
-    TransferContext.callMethod(MethodBindings.updateAddRelatedRadioGroupPtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateAddRelatedRadioGroupPtr, id, relatedId)
   }
 
   /**
@@ -685,8 +658,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetActiveDescendant(id: RID, otherId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to otherId)
-    TransferContext.callMethod(MethodBindings.updateSetActiveDescendantPtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateSetActiveDescendantPtr, id, otherId)
   }
 
   /**
@@ -694,8 +666,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetNextOnLine(id: RID, otherId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to otherId)
-    TransferContext.callMethod(MethodBindings.updateSetNextOnLinePtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateSetNextOnLinePtr, id, otherId)
   }
 
   /**
@@ -703,8 +674,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetPreviousOnLine(id: RID, otherId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to otherId)
-    TransferContext.callMethod(MethodBindings.updateSetPreviousOnLinePtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateSetPreviousOnLinePtr, id, otherId)
   }
 
   /**
@@ -712,8 +682,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetMemberOf(id: RID, groupId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to groupId)
-    TransferContext.callMethod(MethodBindings.updateSetMemberOfPtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateSetMemberOfPtr, id, groupId)
   }
 
   /**
@@ -721,8 +690,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetInPageLinkTarget(id: RID, otherId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to otherId)
-    TransferContext.callMethod(MethodBindings.updateSetInPageLinkTargetPtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateSetInPageLinkTargetPtr, id, otherId)
   }
 
   /**
@@ -730,8 +698,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetErrorMessage(id: RID, otherId: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to otherId)
-    TransferContext.callMethod(MethodBindings.updateSetErrorMessagePtr)
+    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.updateSetErrorMessagePtr, id, otherId)
   }
 
   /**
@@ -739,8 +706,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetLive(id: RID, live: AccessibilityLiveMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to live.value)
-    TransferContext.callMethod(MethodBindings.updateSetLivePtr)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.updateSetLivePtr, id, live.value)
   }
 
   /**
@@ -754,8 +720,7 @@ public object AccessibilityServer : Object() {
     action: AccessibilityAction,
     callable: Callable,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to action.value, CALLABLE to callable)
-    TransferContext.callMethod(MethodBindings.updateAddActionPtr)
+    TransferContext.callMethod_RID_LONG_CALLABLE(ptr, objectID.id, MethodBindings.updateAddActionPtr, id, action.value, callable)
   }
 
   /**
@@ -768,8 +733,7 @@ public object AccessibilityServer : Object() {
     actionId: Int,
     actionDescription: String,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to actionId.toLong(), STRING to actionDescription)
-    TransferContext.callMethod(MethodBindings.updateAddCustomActionPtr)
+    TransferContext.callMethod_RID_LONG_STRING(ptr, objectID.id, MethodBindings.updateAddCustomActionPtr, id, actionId.toLong(), actionDescription)
   }
 
   /**
@@ -777,8 +741,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetTableRowCount(id: RID, count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to count.toLong())
-    TransferContext.callMethod(MethodBindings.updateSetTableRowCountPtr)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.updateSetTableRowCountPtr, id, count.toLong())
   }
 
   /**
@@ -786,8 +749,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetTableColumnCount(id: RID, count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to count.toLong())
-    TransferContext.callMethod(MethodBindings.updateSetTableColumnCountPtr)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.updateSetTableColumnCountPtr, id, count.toLong())
   }
 
   /**
@@ -795,8 +757,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetTableRowIndex(id: RID, index: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.updateSetTableRowIndexPtr)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.updateSetTableRowIndexPtr, id, index.toLong())
   }
 
   /**
@@ -804,8 +765,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetTableColumnIndex(id: RID, index: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.updateSetTableColumnIndexPtr)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.updateSetTableColumnIndexPtr, id, index.toLong())
   }
 
   /**
@@ -817,8 +777,7 @@ public object AccessibilityServer : Object() {
     rowIndex: Int,
     columnIndex: Int,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to rowIndex.toLong(), LONG to columnIndex.toLong())
-    TransferContext.callMethod(MethodBindings.updateSetTableCellPositionPtr)
+    TransferContext.callPtrMethod_RID_LONG_LONG(ptr, objectID.id, MethodBindings.updateSetTableCellPositionPtr, id, rowIndex.toLong(), columnIndex.toLong())
   }
 
   /**
@@ -830,8 +789,7 @@ public object AccessibilityServer : Object() {
     rowSpan: Int,
     columnSpan: Int,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to rowSpan.toLong(), LONG to columnSpan.toLong())
-    TransferContext.callMethod(MethodBindings.updateSetTableCellSpanPtr)
+    TransferContext.callPtrMethod_RID_LONG_LONG(ptr, objectID.id, MethodBindings.updateSetTableCellSpanPtr, id, rowSpan.toLong(), columnSpan.toLong())
   }
 
   /**
@@ -839,8 +797,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetListItemCount(id: RID, size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to size.toLong())
-    TransferContext.callMethod(MethodBindings.updateSetListItemCountPtr)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.updateSetListItemCountPtr, id, size.toLong())
   }
 
   /**
@@ -848,8 +805,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetListItemIndex(id: RID, index: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.updateSetListItemIndexPtr)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.updateSetListItemIndexPtr, id, index.toLong())
   }
 
   /**
@@ -857,8 +813,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetListItemLevel(id: RID, level: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to level.toLong())
-    TransferContext.callMethod(MethodBindings.updateSetListItemLevelPtr)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.updateSetListItemLevelPtr, id, level.toLong())
   }
 
   /**
@@ -866,8 +821,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetListItemSelected(id: RID, selected: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, BOOL to selected)
-    TransferContext.callMethod(MethodBindings.updateSetListItemSelectedPtr)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.updateSetListItemSelectedPtr, id, selected)
   }
 
   /**
@@ -875,8 +829,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetListItemExpanded(id: RID, expanded: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, BOOL to expanded)
-    TransferContext.callMethod(MethodBindings.updateSetListItemExpandedPtr)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.updateSetListItemExpandedPtr, id, expanded)
   }
 
   /**
@@ -884,8 +837,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetPopupType(id: RID, popup: AccessibilityPopupType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to popup.value)
-    TransferContext.callMethod(MethodBindings.updateSetPopupTypePtr)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.updateSetPopupTypePtr, id, popup.value)
   }
 
   /**
@@ -893,8 +845,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetChecked(id: RID, checekd: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, BOOL to checekd)
-    TransferContext.callMethod(MethodBindings.updateSetCheckedPtr)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.updateSetCheckedPtr, id, checekd)
   }
 
   /**
@@ -902,8 +853,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetNumValue(id: RID, position: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, DOUBLE to position)
-    TransferContext.callMethod(MethodBindings.updateSetNumValuePtr)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.updateSetNumValuePtr, id, position)
   }
 
   /**
@@ -915,8 +865,7 @@ public object AccessibilityServer : Object() {
     min: Double,
     max: Double,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, DOUBLE to min, DOUBLE to max)
-    TransferContext.callMethod(MethodBindings.updateSetNumRangePtr)
+    TransferContext.callPtrMethod_RID_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.updateSetNumRangePtr, id, min, max)
   }
 
   /**
@@ -924,8 +873,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetNumStep(id: RID, step: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, DOUBLE to step)
-    TransferContext.callMethod(MethodBindings.updateSetNumStepPtr)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.updateSetNumStepPtr, id, step)
   }
 
   /**
@@ -933,8 +881,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetNumJump(id: RID, jump: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, DOUBLE to jump)
-    TransferContext.callMethod(MethodBindings.updateSetNumJumpPtr)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.updateSetNumJumpPtr, id, jump)
   }
 
   /**
@@ -942,8 +889,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetScrollX(id: RID, position: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, DOUBLE to position)
-    TransferContext.callMethod(MethodBindings.updateSetScrollXPtr)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.updateSetScrollXPtr, id, position)
   }
 
   /**
@@ -955,8 +901,7 @@ public object AccessibilityServer : Object() {
     min: Double,
     max: Double,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, DOUBLE to min, DOUBLE to max)
-    TransferContext.callMethod(MethodBindings.updateSetScrollXRangePtr)
+    TransferContext.callPtrMethod_RID_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.updateSetScrollXRangePtr, id, min, max)
   }
 
   /**
@@ -964,8 +909,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetScrollY(id: RID, position: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, DOUBLE to position)
-    TransferContext.callMethod(MethodBindings.updateSetScrollYPtr)
+    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.updateSetScrollYPtr, id, position)
   }
 
   /**
@@ -977,8 +921,7 @@ public object AccessibilityServer : Object() {
     min: Double,
     max: Double,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, DOUBLE to min, DOUBLE to max)
-    TransferContext.callMethod(MethodBindings.updateSetScrollYRangePtr)
+    TransferContext.callPtrMethod_RID_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.updateSetScrollYRangePtr, id, min, max)
   }
 
   /**
@@ -993,8 +936,7 @@ public object AccessibilityServer : Object() {
     overline: Boolean,
     color: Color = Color(Color(0, 0, 0, 1)),
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, BOOL to underline, BOOL to strikethrough, BOOL to overline, COLOR to color)
-    TransferContext.callMethod(MethodBindings.updateSetTextDecorationsPtr)
+    TransferContext.callPtrMethod_RID_BOOL_BOOL_BOOL_COLOR(ptr, objectID.id, MethodBindings.updateSetTextDecorationsPtr, id, underline, strikethrough, overline, color)
   }
 
   /**
@@ -1002,8 +944,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetTextAlign(id: RID, align: HorizontalAlignment): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to align.value)
-    TransferContext.callMethod(MethodBindings.updateSetTextAlignPtr)
+    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.updateSetTextAlignPtr, id, align.value)
   }
 
   /**
@@ -1018,8 +959,7 @@ public object AccessibilityServer : Object() {
     textEndId: RID,
     endChar: Int,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, _RID to textStartId, LONG to startChar.toLong(), _RID to textEndId, LONG to endChar.toLong())
-    TransferContext.callMethod(MethodBindings.updateSetTextSelectionPtr)
+    TransferContext.callPtrMethod_RID_RID_LONG_RID_LONG(ptr, objectID.id, MethodBindings.updateSetTextSelectionPtr, id, textStartId, startChar.toLong(), textEndId, endChar.toLong())
   }
 
   /**
@@ -1031,8 +971,7 @@ public object AccessibilityServer : Object() {
     flag: AccessibilityFlags,
     `value`: Boolean,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, LONG to flag.value, BOOL to value)
-    TransferContext.callMethod(MethodBindings.updateSetFlagPtr)
+    TransferContext.callPtrMethod_RID_LONG_BOOL(ptr, objectID.id, MethodBindings.updateSetFlagPtr, id, flag.value, value)
   }
 
   /**
@@ -1040,8 +979,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetClassname(id: RID, classname: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to classname)
-    TransferContext.callMethod(MethodBindings.updateSetClassnamePtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetClassnamePtr, id, classname)
   }
 
   /**
@@ -1049,8 +987,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetPlaceholder(id: RID, placeholder: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to placeholder)
-    TransferContext.callMethod(MethodBindings.updateSetPlaceholderPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetPlaceholderPtr, id, placeholder)
   }
 
   /**
@@ -1058,8 +995,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetLanguage(id: RID, language: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to language)
-    TransferContext.callMethod(MethodBindings.updateSetLanguagePtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetLanguagePtr, id, language)
   }
 
   /**
@@ -1067,8 +1003,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetTextOrientation(id: RID, vertical: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, BOOL to vertical)
-    TransferContext.callMethod(MethodBindings.updateSetTextOrientationPtr)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.updateSetTextOrientationPtr, id, vertical)
   }
 
   /**
@@ -1076,8 +1011,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetListOrientation(id: RID, vertical: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, BOOL to vertical)
-    TransferContext.callMethod(MethodBindings.updateSetListOrientationPtr)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.updateSetListOrientationPtr, id, vertical)
   }
 
   /**
@@ -1085,8 +1019,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetShortcut(id: RID, shortcut: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to shortcut)
-    TransferContext.callMethod(MethodBindings.updateSetShortcutPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetShortcutPtr, id, shortcut)
   }
 
   /**
@@ -1094,8 +1027,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetUrl(id: RID, url: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to url)
-    TransferContext.callMethod(MethodBindings.updateSetUrlPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetUrlPtr, id, url)
   }
 
   /**
@@ -1103,8 +1035,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetRoleDescription(id: RID, description: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to description)
-    TransferContext.callMethod(MethodBindings.updateSetRoleDescriptionPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetRoleDescriptionPtr, id, description)
   }
 
   /**
@@ -1112,8 +1043,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetStateDescription(id: RID, description: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to description)
-    TransferContext.callMethod(MethodBindings.updateSetStateDescriptionPtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.updateSetStateDescriptionPtr, id, description)
   }
 
   /**
@@ -1121,8 +1051,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetColorValue(id: RID, color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.updateSetColorValuePtr)
+    TransferContext.callPtrMethod_RID_COLOR(ptr, objectID.id, MethodBindings.updateSetColorValuePtr, id, color)
   }
 
   /**
@@ -1130,8 +1059,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetBackgroundColor(id: RID, color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.updateSetBackgroundColorPtr)
+    TransferContext.callPtrMethod_RID_COLOR(ptr, objectID.id, MethodBindings.updateSetBackgroundColorPtr, id, color)
   }
 
   /**
@@ -1139,8 +1067,7 @@ public object AccessibilityServer : Object() {
    */
   @JvmStatic
   public final fun updateSetForegroundColor(id: RID, color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.updateSetForegroundColorPtr)
+    TransferContext.callPtrMethod_RID_COLOR(ptr, objectID.id, MethodBindings.updateSetForegroundColorPtr, id, color)
   }
 
   public enum class AccessibilityRole(

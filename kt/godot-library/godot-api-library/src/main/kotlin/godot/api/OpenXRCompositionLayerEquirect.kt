@@ -9,12 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -86,63 +87,43 @@ public open class OpenXRCompositionLayerEquirect : OpenXRCompositionLayer() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(448, scriptPtr)
+    createNativeObject(447, scriptPtr)
   }
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setRadiusPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, radius.toDouble())
   }
 
-  public final fun getRadius(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRadiusPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getRadius(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setCentralHorizontalAngle(angle: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to angle.toDouble())
-    TransferContext.callMethod(MethodBindings.setCentralHorizontalAnglePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCentralHorizontalAnglePtr, angle.toDouble())
   }
 
-  public final fun getCentralHorizontalAngle(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCentralHorizontalAnglePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getCentralHorizontalAngle(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCentralHorizontalAnglePtr).toFloat()
 
   public final fun setUpperVerticalAngle(angle: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to angle.toDouble())
-    TransferContext.callMethod(MethodBindings.setUpperVerticalAnglePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setUpperVerticalAnglePtr, angle.toDouble())
   }
 
-  public final fun getUpperVerticalAngle(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUpperVerticalAnglePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getUpperVerticalAngle(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getUpperVerticalAnglePtr).toFloat()
 
   public final fun setLowerVerticalAngle(angle: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to angle.toDouble())
-    TransferContext.callMethod(MethodBindings.setLowerVerticalAnglePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLowerVerticalAnglePtr, angle.toDouble())
   }
 
-  public final fun getLowerVerticalAngle(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLowerVerticalAnglePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getLowerVerticalAngle(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLowerVerticalAnglePtr).toFloat()
 
   public final fun setFallbackSegments(segments: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to segments)
-    TransferContext.callMethod(MethodBindings.setFallbackSegmentsPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFallbackSegmentsPtr, segments)
   }
 
-  public final fun getFallbackSegments(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFallbackSegmentsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getFallbackSegments(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFallbackSegmentsPtr)
 
   public companion object {
     @JvmField

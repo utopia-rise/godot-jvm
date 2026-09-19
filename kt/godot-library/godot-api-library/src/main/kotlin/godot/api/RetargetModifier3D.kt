@@ -9,13 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.BitFieldBase
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -96,88 +99,64 @@ public open class RetargetModifier3D : SkeletonModifier3D() {
   }
 
   public final fun setProfile(profile: SkeletonProfile?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to profile)
-    TransferContext.callMethod(MethodBindings.setProfilePtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setProfilePtr, profile)
   }
 
-  public final fun getProfile(): SkeletonProfile? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProfilePtr)
-    return (TransferContext.readReturnValue(OBJECT) as SkeletonProfile?)
-  }
+  public final fun getProfile(): SkeletonProfile? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getProfilePtr) as SkeletonProfile?)
 
   public final fun setUseGlobalPose(useGlobalPose: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to useGlobalPose)
-    TransferContext.callMethod(MethodBindings.setUseGlobalPosePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseGlobalPosePtr, useGlobalPose)
   }
 
-  public final fun isUsingGlobalPose(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isUsingGlobalPosePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isUsingGlobalPose(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingGlobalPosePtr)
 
   public final fun setEnableFlags(enableFlags: TransformFlag): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to enableFlags.flag)
-    TransferContext.callMethod(MethodBindings.setEnableFlagsPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setEnableFlagsPtr, enableFlags.flag)
   }
 
-  public final fun getEnableFlags(): TransformFlag {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableFlagsPtr)
-    return TransformFlag(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getEnableFlags(): TransformFlag =
+      TransformFlag(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEnableFlagsPtr))
 
   /**
    * Sets [TRANSFORM_FLAG_POSITION] into [enable].
    */
   public final fun setPositionEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setPositionEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPositionEnabledPtr, enabled)
   }
 
   /**
    * Returns `true` if [enable] has [TRANSFORM_FLAG_POSITION].
    */
-  public final fun isPositionEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPositionEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isPositionEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPositionEnabledPtr)
 
   /**
    * Sets [TRANSFORM_FLAG_ROTATION] into [enable].
    */
   public final fun setRotationEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setRotationEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRotationEnabledPtr, enabled)
   }
 
   /**
    * Returns `true` if [enable] has [TRANSFORM_FLAG_ROTATION].
    */
-  public final fun isRotationEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRotationEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isRotationEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRotationEnabledPtr)
 
   /**
    * Sets [TRANSFORM_FLAG_SCALE] into [enable].
    */
   public final fun setScaleEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setScaleEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setScaleEnabledPtr, enabled)
   }
 
   /**
    * Returns `true` if [enable] has [TRANSFORM_FLAG_SCALE].
    */
-  public final fun isScaleEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isScaleEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isScaleEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isScaleEnabledPtr)
 
   public class TransformFlag(
     flag: Long,

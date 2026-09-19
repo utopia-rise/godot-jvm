@@ -11,19 +11,19 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT_DOUBLE_DOUBLE
+import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName3
 import godot.core.PackedFloat32Array
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_FLOAT_32_ARRAY
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -112,7 +112,7 @@ public open class HeightMapShape3D : Shape3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(296, scriptPtr)
+    createNativeObject(294, scriptPtr)
   }
 
   /**
@@ -153,55 +153,37 @@ public open class HeightMapShape3D : Shape3D() {
   }
 
   public final fun setMapWidth(width: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong())
-    TransferContext.callMethod(MethodBindings.setMapWidthPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMapWidthPtr, width.toLong())
   }
 
-  public final fun getMapWidth(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMapWidthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getMapWidth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMapWidthPtr).toInt()
 
   public final fun setMapDepth(height: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to height.toLong())
-    TransferContext.callMethod(MethodBindings.setMapDepthPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMapDepthPtr, height.toLong())
   }
 
-  public final fun getMapDepth(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMapDepthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getMapDepth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMapDepthPtr).toInt()
 
   public final fun setMapData(`data`: PackedFloat32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_FLOAT_32_ARRAY to data)
-    TransferContext.callMethod(MethodBindings.setMapDataPtr)
+    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setMapDataPtr, data)
   }
 
-  public final fun getMapData(): PackedFloat32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMapDataPtr)
-    return (TransferContext.readReturnValue(PACKED_FLOAT_32_ARRAY) as PackedFloat32Array)
-  }
+  public final fun getMapData(): PackedFloat32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.getMapDataPtr)
 
   /**
    * Returns the smallest height value found in [mapData]. Recalculates only when [mapData] changes.
    */
-  public final fun getMinHeight(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinHeightPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getMinHeight(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMinHeightPtr).toFloat()
 
   /**
    * Returns the largest height value found in [mapData]. Recalculates only when [mapData] changes.
    */
-  public final fun getMaxHeight(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxHeightPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getMaxHeight(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMaxHeightPtr).toFloat()
 
   /**
    * Updates [mapData] with data read from an [Image] reference. Automatically resizes heightmap
@@ -223,8 +205,7 @@ public open class HeightMapShape3D : Shape3D() {
     heightMin: Float,
     heightMax: Float,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to image, DOUBLE to heightMin.toDouble(), DOUBLE to heightMax.toDouble())
-    TransferContext.callMethod(MethodBindings.updateMapDataFromImagePtr)
+    TransferContext.callPtrMethod_OBJECT_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.updateMapDataFromImagePtr, image, heightMin.toDouble(), heightMax.toDouble())
   }
 
   public companion object {

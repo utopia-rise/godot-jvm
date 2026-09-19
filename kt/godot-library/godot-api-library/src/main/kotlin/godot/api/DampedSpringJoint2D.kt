@@ -9,11 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -76,52 +76,36 @@ public open class DampedSpringJoint2D : Joint2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(205, scriptPtr)
+    createNativeObject(203, scriptPtr)
   }
 
   public final fun setLength(length: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to length.toDouble())
-    TransferContext.callMethod(MethodBindings.setLengthPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLengthPtr, length.toDouble())
   }
 
-  public final fun getLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
 
   public final fun setRestLength(restLength: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to restLength.toDouble())
-    TransferContext.callMethod(MethodBindings.setRestLengthPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRestLengthPtr, restLength.toDouble())
   }
 
-  public final fun getRestLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRestLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getRestLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRestLengthPtr).toFloat()
 
   public final fun setStiffness(stiffness: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to stiffness.toDouble())
-    TransferContext.callMethod(MethodBindings.setStiffnessPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setStiffnessPtr, stiffness.toDouble())
   }
 
-  public final fun getStiffness(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStiffnessPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getStiffness(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStiffnessPtr).toFloat()
 
   public final fun setDamping(damping: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to damping.toDouble())
-    TransferContext.callMethod(MethodBindings.setDampingPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDampingPtr, damping.toDouble())
   }
 
-  public final fun getDamping(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDampingPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDamping(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDampingPtr).toFloat()
 
   public companion object {
     @JvmField

@@ -11,13 +11,16 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_VECTOR2
+import godot.callPtrMethod_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR2
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector2
 import godot.core.Vector3
 import kotlin.Int
@@ -110,7 +113,7 @@ public open class PlaneMesh : PrimitiveMesh() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(560, scriptPtr)
+    createNativeObject(559, scriptPtr)
   }
 
   /**
@@ -152,59 +155,39 @@ public open class PlaneMesh : PrimitiveMesh() {
   }
 
   public final fun setSize(size: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
-  }
+  public final fun getSize(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getSizePtr)
 
   public final fun setSubdivideWidth(subdivide: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to subdivide.toLong())
-    TransferContext.callMethod(MethodBindings.setSubdivideWidthPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSubdivideWidthPtr, subdivide.toLong())
   }
 
-  public final fun getSubdivideWidth(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubdivideWidthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSubdivideWidth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSubdivideWidthPtr).toInt()
 
   public final fun setSubdivideDepth(subdivide: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to subdivide.toLong())
-    TransferContext.callMethod(MethodBindings.setSubdivideDepthPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSubdivideDepthPtr, subdivide.toLong())
   }
 
-  public final fun getSubdivideDepth(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubdivideDepthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSubdivideDepth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSubdivideDepthPtr).toInt()
 
   public final fun setCenterOffset(offset: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to offset)
-    TransferContext.callMethod(MethodBindings.setCenterOffsetPtr)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setCenterOffsetPtr, offset)
   }
 
-  public final fun getCenterOffset(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCenterOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getCenterOffset(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getCenterOffsetPtr)
 
   public final fun setOrientation(orientation: Orientation): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to orientation.value)
-    TransferContext.callMethod(MethodBindings.setOrientationPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOrientationPtr, orientation.value)
   }
 
-  public final fun getOrientation(): Orientation {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOrientationPtr)
-    return Orientation.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getOrientation(): Orientation =
+      Orientation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOrientationPtr))
 
   public enum class Orientation(
     public override val `value`: Long,

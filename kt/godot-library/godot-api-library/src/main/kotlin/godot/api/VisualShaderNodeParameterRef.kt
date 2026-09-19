@@ -9,10 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -41,15 +42,11 @@ public open class VisualShaderNodeParameterRef : VisualShaderNode() {
   }
 
   public final fun setParameterName(name: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
-    TransferContext.callMethod(MethodBindings.setParameterNamePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setParameterNamePtr, name)
   }
 
-  public final fun getParameterName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getParameterNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getParameterName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getParameterNamePtr)
 
   public companion object {
     @JvmField

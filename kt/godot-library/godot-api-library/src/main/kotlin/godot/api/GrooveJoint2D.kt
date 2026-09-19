@@ -9,11 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -52,30 +52,22 @@ public open class GrooveJoint2D : Joint2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(285, scriptPtr)
+    createNativeObject(283, scriptPtr)
   }
 
   public final fun setLength(length: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to length.toDouble())
-    TransferContext.callMethod(MethodBindings.setLengthPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLengthPtr, length.toDouble())
   }
 
-  public final fun getLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
 
   public final fun setInitialOffset(offset: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setInitialOffsetPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setInitialOffsetPtr, offset.toDouble())
   }
 
-  public final fun getInitialOffset(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInitialOffsetPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getInitialOffset(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getInitialOffsetPtr).toFloat()
 
   public companion object {
     @JvmField

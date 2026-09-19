@@ -11,13 +11,14 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_STRING
+import godot.callMethod_LONG_ret_STRING
+import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedByteArray
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.Byte
 import kotlin.Int
 import kotlin.String
@@ -348,7 +349,7 @@ public open class RDShaderSPIRV : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(592, scriptPtr)
+    createNativeObject(591, scriptPtr)
   }
 
   /**
@@ -732,19 +733,15 @@ public open class RDShaderSPIRV : Resource() {
    */
   public final fun setStageBytecode(stage: RenderingDevice.ShaderStage, bytecode: PackedByteArray):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value, PACKED_BYTE_ARRAY to bytecode)
-    TransferContext.callMethod(MethodBindings.setStageBytecodePtr)
+    TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.setStageBytecodePtr, stage.value, bytecode)
   }
 
   /**
    * Equivalent to getting one of [bytecodeCompute], [bytecodeFragment],
    * [bytecodeTesselationControl], [bytecodeTesselationEvaluation], [bytecodeVertex].
    */
-  public final fun getStageBytecode(stage: RenderingDevice.ShaderStage): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value)
-    TransferContext.callMethod(MethodBindings.getStageBytecodePtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
-  }
+  public final fun getStageBytecode(stage: RenderingDevice.ShaderStage): PackedByteArray =
+      TransferContext.callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getStageBytecodePtr, stage.value)
 
   /**
    * Sets the compilation error message for the given shader [stage] to [compileError]. Equivalent
@@ -753,8 +750,7 @@ public open class RDShaderSPIRV : Resource() {
    */
   public final fun setStageCompileError(stage: RenderingDevice.ShaderStage, compileError: String):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value, STRING to compileError)
-    TransferContext.callMethod(MethodBindings.setStageCompileErrorPtr)
+    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setStageCompileErrorPtr, stage.value, compileError)
   }
 
   /**
@@ -762,11 +758,8 @@ public open class RDShaderSPIRV : Resource() {
    * of [compileErrorCompute], [compileErrorFragment], [compileErrorTesselationControl],
    * [compileErrorTesselationEvaluation], [compileErrorVertex].
    */
-  public final fun getStageCompileError(stage: RenderingDevice.ShaderStage): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value)
-    TransferContext.callMethod(MethodBindings.getStageCompileErrorPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getStageCompileError(stage: RenderingDevice.ShaderStage): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getStageCompileErrorPtr, stage.value)
 
   public companion object {
     @JvmField

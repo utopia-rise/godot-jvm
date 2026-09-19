@@ -1,6 +1,9 @@
 package godot.codegen.generation
 
+import com.squareup.kotlinpoet.MemberName
+import godot.codegen.constants.API
 import godot.codegen.constants.TypeIdentifier
+import godot.codegen.constants.VariantConverter
 import godot.codegen.exceptions.NoMatchingEnumFound
 import godot.codegen.models.ApiDescription
 import godot.codegen.models.enriched.EnrichedClass
@@ -22,6 +25,31 @@ class GenerationContext(
     val classMap = mutableMapOf<String, EnrichedClass>()
     val classList = mutableListOf<EnrichedClass>()
 
+    val methodSignatures = LinkedHashSet<TransferSignature>()
+
+    /**
+     * Variant::TYPE_MAX, one past the last Variant ordinal and so never a real type tag. A ptrcall announces it in
+     * place of the OBJECT ordinal when the method returns a Ref<T>, mirroring TransferContext::REF_COUNTED_RETURN_TYPE
+     * on the native side, which is defined as VARIANT_MAX too. Taken from api.json so both sides move together.
+     */
+    val refCountedReturnType: Int = api.globalEnums
+        .first { it.name == "Variant.Type" }.values
+        .first { it.name == "TYPE_MAX" }.value.toInt()
+        .also {
+            require(it == VariantConverter.variantOrdinalCount) {
+                "api.json declares $it Variant types but the generator knows ${VariantConverter.variantOrdinalCount}"
+            }
+        }
+
+
+    fun isRefCounted(className: String): Boolean {
+        var clazz = classMap[className]
+        while (clazz != null) {
+            if (clazz.identifier == API.refCounted.simpleName) return true
+            clazz = clazz.parent
+        }
+        return false
+    }
 
     fun getNextEngineClassIndex() = nextEngineClassIndex++
     fun getNextSingletonIndex(): Int {

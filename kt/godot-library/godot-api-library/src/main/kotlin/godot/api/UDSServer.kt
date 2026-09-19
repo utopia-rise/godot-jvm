@@ -9,14 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -42,20 +40,14 @@ public open class UDSServer : SocketServer() {
    * **Note:** The socket file must not already exist at the specified path. You may need to remove
    * any existing socket file before calling this method.
    */
-  public final fun listen(path: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.listenPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun listen(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.listenPtr, path))
 
   /**
    * If a connection is available, returns a StreamPeerUDS with the connection.
    */
-  public final fun takeConnection(): StreamPeerUDS? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.takeConnectionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as StreamPeerUDS?)
-  }
+  public final fun takeConnection(): StreamPeerUDS? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.takeConnectionPtr) as StreamPeerUDS?)
 
   public companion object {
     @JvmField

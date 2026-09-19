@@ -9,6 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL_ret_ARRAY
+import godot.callPtrMethod_STRING_NAME_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_STRING_NAME_OBJECT_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -17,12 +24,6 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.Any
 import kotlin.Boolean
@@ -64,22 +65,15 @@ public open class Shader : Resource() {
   /**
    * Returns the shader mode for the shader.
    */
-  public final fun getMode(): Mode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getModePtr)
-    return Mode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getMode(): Mode =
+      Mode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getModePtr))
 
   public final fun setCode(code: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to code)
-    TransferContext.callMethod(MethodBindings.setCodePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setCodePtr, code)
   }
 
-  public final fun getCode(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCodePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getCode(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCodePtr)
 
   /**
    * Sets the default texture to be used with a texture uniform. The default is used if a texture is
@@ -95,8 +89,7 @@ public open class Shader : Resource() {
     texture: Texture?,
     index: Int = 0,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, OBJECT to texture, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.setDefaultTextureParameterPtr)
+    TransferContext.callPtrMethod_STRING_NAME_OBJECT_LONG(ptr, objectID.id, MethodBindings.setDefaultTextureParameterPtr, name, texture, index.toLong())
   }
 
   /**
@@ -107,11 +100,8 @@ public open class Shader : Resource() {
    * **Note:** If the sampler array is used use [index] to access the specified texture.
    */
   @JvmOverloads
-  public final fun getDefaultTextureParameter(name: StringName, index: Int = 0): Texture? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getDefaultTextureParameterPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture?)
-  }
+  public final fun getDefaultTextureParameter(name: StringName, index: Int = 0): Texture? =
+      (TransferContext.callPtrMethod_STRING_NAME_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getDefaultTextureParameterPtr, name, index.toLong()) as Texture?)
 
   /**
    * Returns the list of shader uniforms that can be assigned to a [ShaderMaterial], for use with
@@ -122,11 +112,8 @@ public open class Shader : Resource() {
    * If argument [getGroups] is `true`, parameter grouping hints are also included in the list.
    */
   @JvmOverloads
-  public final fun getShaderUniformList(getGroups: Boolean = false): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to getGroups)
-    TransferContext.callMethod(MethodBindings.getShaderUniformListPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
-  }
+  public final fun getShaderUniformList(getGroups: Boolean = false): VariantArray<Any?> =
+      (TransferContext.callPtrMethod_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.getShaderUniformListPtr, getGroups) as VariantArray<Any?>)
 
   /**
    * Only available when running in the editor. Opens a popup that visualizes the generated shader
@@ -134,8 +121,7 @@ public open class Shader : Resource() {
    * [Material.inspectNativeShaderCode].
    */
   public final fun inspectNativeShaderCode(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.inspectNativeShaderCodePtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.inspectNativeShaderCodePtr)
   }
 
   /**

@@ -9,11 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -125,96 +125,64 @@ public open class AudioEffectReverb : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(74, scriptPtr)
+    createNativeObject(72, scriptPtr)
   }
 
   public final fun setPredelayMsec(msec: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to msec.toDouble())
-    TransferContext.callMethod(MethodBindings.setPredelayMsecPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPredelayMsecPtr, msec.toDouble())
   }
 
-  public final fun getPredelayMsec(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPredelayMsecPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getPredelayMsec(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPredelayMsecPtr).toFloat()
 
   public final fun setPredelayFeedback(feedback: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to feedback.toDouble())
-    TransferContext.callMethod(MethodBindings.setPredelayFeedbackPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPredelayFeedbackPtr, feedback.toDouble())
   }
 
-  public final fun getPredelayFeedback(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPredelayFeedbackPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getPredelayFeedback(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPredelayFeedbackPtr).toFloat()
 
   public final fun setRoomSize(size: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to size.toDouble())
-    TransferContext.callMethod(MethodBindings.setRoomSizePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRoomSizePtr, size.toDouble())
   }
 
-  public final fun getRoomSize(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRoomSizePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getRoomSize(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRoomSizePtr).toFloat()
 
   public final fun setDamping(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setDampingPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDampingPtr, amount.toDouble())
   }
 
-  public final fun getDamping(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDampingPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDamping(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDampingPtr).toFloat()
 
   public final fun setSpread(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setSpreadPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSpreadPtr, amount.toDouble())
   }
 
-  public final fun getSpread(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpreadPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getSpread(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSpreadPtr).toFloat()
 
   public final fun setDry(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setDryPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDryPtr, amount.toDouble())
   }
 
-  public final fun getDry(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDryPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDry(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDryPtr).toFloat()
 
   public final fun setWet(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setWetPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setWetPtr, amount.toDouble())
   }
 
-  public final fun getWet(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWetPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getWet(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWetPtr).toFloat()
 
   public final fun setHpf(amount: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to amount.toDouble())
-    TransferContext.callMethod(MethodBindings.setHpfPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHpfPtr, amount.toDouble())
   }
 
-  public final fun getHpf(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHpfPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getHpf(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHpfPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

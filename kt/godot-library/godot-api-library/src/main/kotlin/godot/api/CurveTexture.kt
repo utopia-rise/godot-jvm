@@ -9,12 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
 import kotlin.Int
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -69,35 +71,26 @@ public open class CurveTexture : Texture2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(199, scriptPtr)
+    createNativeObject(197, scriptPtr)
   }
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong())
-    TransferContext.callMethod(MethodBindings.setWidthPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWidthPtr, width.toLong())
   }
 
   public final fun setCurve(curve: Curve?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to curve)
-    TransferContext.callMethod(MethodBindings.setCurvePtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurvePtr, curve)
   }
 
-  public final fun getCurve(): Curve? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCurvePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Curve?)
-  }
+  public final fun getCurve(): Curve? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurvePtr) as Curve?)
 
   public final fun setTextureMode(textureMode: TextureMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to textureMode.value)
-    TransferContext.callMethod(MethodBindings.setTextureModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureModePtr, textureMode.value)
   }
 
-  public final fun getTextureMode(): TextureMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureModePtr)
-    return TextureMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getTextureMode(): TextureMode =
+      TextureMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureModePtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

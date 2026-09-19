@@ -11,11 +11,12 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_COLOR
+import godot.callPtrMethod_COLOR
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.COLOR
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -71,15 +72,11 @@ public open class VisualShaderNodeColorConstant : VisualShaderNodeConstant() {
   }
 
   public final fun setConstant(constant: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to constant)
-    TransferContext.callMethod(MethodBindings.setConstantPtr)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setConstantPtr, constant)
   }
 
-  public final fun getConstant(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
-  }
+  public final fun getConstant(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getConstantPtr)
 
   public companion object {
     @JvmField

@@ -9,10 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -42,19 +43,15 @@ public open class EncodedObjectAsID : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(215, scriptPtr)
+    createNativeObject(213, scriptPtr)
   }
 
   public final fun setObjectId(id: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to id)
-    TransferContext.callMethod(MethodBindings.setObjectIdPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setObjectIdPtr, id)
   }
 
-  public final fun getObjectId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getObjectIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getObjectId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getObjectIdPtr)
 
   public companion object {
     @JvmField

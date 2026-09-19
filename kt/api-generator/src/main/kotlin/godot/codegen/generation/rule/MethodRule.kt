@@ -2,6 +2,7 @@ package godot.codegen.generation.rule
 
 import com.squareup.kotlinpoet.ANY
 import com.squareup.kotlinpoet.AnnotationSpec
+import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.LONG
@@ -16,12 +17,14 @@ import godot.codegen.constants.TypeIdentifier
 import godot.codegen.constants.Utils
 import godot.codegen.constants.VariantConverter
 import godot.codegen.generation.GenerationContext
+import godot.codegen.generation.TransferSignature
 import godot.codegen.generation.task.EnrichedClassTask
 import godot.codegen.generation.task.EnrichedMethodTask
 import godot.codegen.models.enriched.EnrichedArgument
 import godot.codegen.models.enriched.EnrichedClass
 import godot.codegen.models.enriched.EnrichedMethod
 import godot.codegen.models.traits.addKdoc
+import godot.tools.common.constants.godotPackage
 
 interface BaseMethodeRule {
     fun FunSpec.Builder.configureMethod(method: EnrichedMethod, clazz: EnrichedClass, context: GenerationContext) {
@@ -60,13 +63,13 @@ interface BaseMethodeRule {
             addKdoc(method)
         } else {
             addModifiers(KModifier.FINAL)
-            writeCode(method, clazz)
+            writeCode(method, clazz, context)
             addKdoc(method)
         }
     }
 
     fun FunSpec.Builder.generateParameters(method: EnrichedMethod, context: GenerationContext)
-    fun FunSpec.Builder.writeCode(method: EnrichedMethod, clazz: EnrichedClass)
+    fun FunSpec.Builder.writeCode(method: EnrichedMethod, clazz: EnrichedClass, context: GenerationContext)
 
     fun ParameterSpec.Builder.applyDefault(argument: EnrichedArgument, context: GenerationContext): ParameterSpec.Builder {
         val defaultValueKotlinCode = argument.getDefaultValue()
@@ -85,6 +88,13 @@ interface BaseMethodeRule {
 class MethodRule : GodotApiRule<EnrichedMethodTask>(), BaseMethodeRule {
     override fun apply(task: EnrichedMethodTask, context: GenerationContext) = with(task.builder) {
         configureMethod(task.method, task.owner, context)
+        if (task.owner.identifier == API.`object`.simpleName && task.method.originalName in API.godotObjectMethods) {
+            addModifiers(KModifier.OVERRIDE)
+            // Kotlin forbids default values on overrides; GodotObject declares them instead.
+            val withoutDefaults = parameters.map { it.toBuilder().defaultValue(null).build() }
+            parameters.clear()
+            parameters.addAll(withoutDefaults)
+        }
     }
 
     override fun FunSpec.Builder.generateParameters(method: EnrichedMethod, context: GenerationContext) {
@@ -109,83 +119,47 @@ class MethodRule : GodotApiRule<EnrichedMethodTask>(), BaseMethodeRule {
         }
     }
 
-    override fun FunSpec.Builder.writeCode(method: EnrichedMethod, clazz: EnrichedClass) {
-        generateWriteArgument(method)
-        generateMethodCall(method, clazz)
-        if (method.type.getVariantConverter() != VariantConverter.NIL) {
-            generateReturn(method)
-        }
-    }
-
-    private fun FunSpec.Builder.generateWriteArgument(method: EnrichedMethod) {
-        val caller = if (method.isStatic) "0L,·0L" else "ptr,·objectID.id"
-        val arguments = buildString {
-            method.arguments.withIndex().forEach {
-                val index = it.index
-                val argument = it.value
-
-                if (index != 0) append(",·")
-                append("%M·to·${method.arguments[index].name}${argument.getToBufferCastingMethod()}")
-
-                if (argument.type.isEnum()) append(".value")
-                if (argument.type.isBitField()) append(".flag")
-            }
-        }
-
-        val ktVariantClassNames = method.arguments.map { it.type.getVariantConverter() }.toTypedArray()
-
-        if (method.isVararg) {
-            val varargPrefix = if (method.arguments.isNotEmpty()) ",·" else ""
-            addStatement(
-                "%T.writeMethodArguments($caller,·$arguments$varargPrefix*args.map·{·%M·to·it·}.toTypedArray())",
-                Internal.transferContext,
-                *ktVariantClassNames,
-                VariantConverter.ANY
-            )
-        } else {
-            val callerAndArguments = if (arguments.isEmpty()) caller else "$caller,·$arguments"
-            addStatement(
-                "%T.writeMethodArguments($callerAndArguments)",
-                Internal.transferContext,
-                *ktVariantClassNames
-            )
-        }
-    }
-
-    private fun FunSpec.Builder.generateMethodCall(method: EnrichedMethod, clazz: EnrichedClass) {
-        addStatement(
-            "%T.callMethod(%T.%M)",
-            Internal.transferContext,
-            clazz.className.nestedClass(API.methodBindingsInnerClassName),
-            MemberName(API.`object`.packageName, "${method.name}Ptr")
+    override fun FunSpec.Builder.writeCode(method: EnrichedMethod, clazz: EnrichedClass, context: GenerationContext) {
+        val converter = method.type.getVariantConverter()
+        val signature = TransferSignature(
+            method.arguments.map { it.type.getVariantConverter() },
+            method.isVararg,
+            converter,
+            method.type.isObjectSubClass() && context.isRefCounted(method.type.identifier),
         )
+        context.methodSignatures.add(signature)
+
+        val call = CodeBlock.of(
+            "%T.%M(${callArguments(method)})",
+            Internal.transferContext,
+            MemberName(godotPackage, signature.name),
+            clazz.className.nestedClass(API.methodBindingsInnerClassName),
+            MemberName(API.`object`.packageName, "${method.name}Ptr"),
+        )
+
+        if (!signature.returnsValue) {
+            addStatement("%L", call)
+        } else if (method.type.isEnum()) {
+            addStatement("return·%T.from(%L)", method.getBufferClass(), call)
+        } else if (method.type.isBitField()) {
+            addStatement("return·%T(%L)", method.getBufferClass(), call)
+        } else if (method.getTypeName() == VariantConverter.bufferType(converter)) {
+            addStatement("return·%L${method.getFromBufferCastingMethod()}", call)
+        } else {
+            addStatement("return·(%L·as·%T)${method.getFromBufferCastingMethod()}", call, method.getTypeName())
+        }
     }
 
-    private fun FunSpec.Builder.generateReturn(method: EnrichedMethod) {
-        if (method.type.isEnum()) {
-            addStatement(
-                "return·%T.from(%T.readReturnValue(%M)·as·%T)",
-                method.getBufferClass(),
-                Internal.transferContext,
-                VariantConverter.LONG,
-                LONG
-            )
-        } else if (method.type.isBitField()) {
-            addStatement(
-                "return·%T(%T.readReturnValue(%M)·as·%T)",
-                method.getBufferClass(),
-                Internal.transferContext,
-                VariantConverter.LONG,
-                LONG
-            )
-        } else {
-            addStatement(
-                "return·(%T.readReturnValue(%M)·as·%T)${method.getFromBufferCastingMethod()}",
-                Internal.transferContext,
-                method.type.getVariantConverter(),
-                method.getTypeName()
-            )
+    /** The caller, the method bind and then the arguments; the method bind carries its own `%T.%M` placeholders. */
+    private fun callArguments(method: EnrichedMethod) = buildString {
+        append(if (method.isStatic) "0L,·0L" else "ptr,·objectID.id")
+        append(",·%T.%M")
+        for (argument in method.arguments) {
+            append(",·").append(argument.name).append(argument.getToBufferCastingMethod())
+            if (argument.type.isEnum()) append(".value")
+            if (argument.type.isBitField()) append(".flag")
         }
+        if (method.isVararg) append(",·args")
     }
 }
 
@@ -232,7 +206,7 @@ class StringOnlyRule : GodotApiRule<EnrichedClassTask>(), BaseMethodeRule {
         }
     }
 
-    override fun FunSpec.Builder.writeCode(method: EnrichedMethod, clazz: EnrichedClass) {
+    override fun FunSpec.Builder.writeCode(method: EnrichedMethod, clazz: EnrichedClass, context: GenerationContext) {
         val arguments = buildString {
             method.arguments.withIndex().forEach {
                 val index = it.index
@@ -259,6 +233,10 @@ class StringOnlyRule : GodotApiRule<EnrichedClassTask>(), BaseMethodeRule {
 class OverLoadRule : GodotApiRule<EnrichedMethodTask>() {
     override fun apply(task: EnrichedMethodTask, context: GenerationContext) = with(task.builder) {
         if (task.method.arguments.none { it.defaultValue != null && it.type.identifier != TypeIdentifier.STRING_NAME.name && it.type.identifier != Core.nodePath.simpleName }) {
+            return@with
+        }
+        // Object's GodotObject overrides carry no defaults of their own; the interface declares them.
+        if (parameters.none { it.defaultValue != null }) {
             return@with
         }
         val jvmOverloadAnnotationSpec = AnnotationSpec.builder(JvmOverloads::class).build()

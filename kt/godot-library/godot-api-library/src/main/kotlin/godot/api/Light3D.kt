@@ -11,19 +11,25 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_COLOR
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -445,7 +451,7 @@ public open class Light3D internal constructor() : VisualInstance3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(354, scriptPtr)
+    createNativeObject(352, scriptPtr)
   }
 
   /**
@@ -469,186 +475,123 @@ public open class Light3D internal constructor() : VisualInstance3D() {
   }
 
   public final fun setEditorOnly(editorOnly: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to editorOnly)
-    TransferContext.callMethod(MethodBindings.setEditorOnlyPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditorOnlyPtr, editorOnly)
   }
 
-  public final fun isEditorOnly(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEditorOnlyPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isEditorOnly(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEditorOnlyPtr)
 
   /**
    * Sets the value of the specified [Light3D.Param] parameter.
    */
   public final fun setParam(`param`: Param, `value`: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value, DOUBLE to value.toDouble())
-    TransferContext.callMethod(MethodBindings.setParamPtr)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setParamPtr, param.value, value.toDouble())
   }
 
   /**
    * Returns the value of the specified [Light3D.Param] parameter.
    */
-  public final fun getParam(`param`: Param): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to param.value)
-    TransferContext.callMethod(MethodBindings.getParamPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getParam(`param`: Param): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getParamPtr, param.value).toFloat()
 
   public final fun setShadow(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setShadowPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShadowPtr, enabled)
   }
 
-  public final fun hasShadow(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasShadowPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasShadow(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasShadowPtr)
 
   public final fun setNegative(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setNegativePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setNegativePtr, enabled)
   }
 
-  public final fun isNegative(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isNegativePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isNegative(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isNegativePtr)
 
   public final fun setCullMask(cullMask: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to cullMask)
-    TransferContext.callMethod(MethodBindings.setCullMaskPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCullMaskPtr, cullMask)
   }
 
-  public final fun getCullMask(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCullMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCullMask(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCullMaskPtr)
 
   public final fun setEnableDistanceFade(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setEnableDistanceFadePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableDistanceFadePtr, enable)
   }
 
-  public final fun isDistanceFadeEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDistanceFadeEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isDistanceFadeEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDistanceFadeEnabledPtr)
 
   public final fun setDistanceFadeBegin(distance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to distance.toDouble())
-    TransferContext.callMethod(MethodBindings.setDistanceFadeBeginPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDistanceFadeBeginPtr, distance.toDouble())
   }
 
-  public final fun getDistanceFadeBegin(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDistanceFadeBeginPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDistanceFadeBegin(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDistanceFadeBeginPtr).toFloat()
 
   public final fun setDistanceFadeShadow(distance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to distance.toDouble())
-    TransferContext.callMethod(MethodBindings.setDistanceFadeShadowPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDistanceFadeShadowPtr, distance.toDouble())
   }
 
-  public final fun getDistanceFadeShadow(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDistanceFadeShadowPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDistanceFadeShadow(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDistanceFadeShadowPtr).toFloat()
 
   public final fun setDistanceFadeLength(distance: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to distance.toDouble())
-    TransferContext.callMethod(MethodBindings.setDistanceFadeLengthPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDistanceFadeLengthPtr, distance.toDouble())
   }
 
-  public final fun getDistanceFadeLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDistanceFadeLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDistanceFadeLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDistanceFadeLengthPtr).toFloat()
 
   public final fun setColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.setColorPtr)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setColorPtr, color)
   }
 
-  public final fun getColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
-  }
+  public final fun getColor(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getColorPtr)
 
   public final fun setShadowReverseCullFace(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setShadowReverseCullFacePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShadowReverseCullFacePtr, enable)
   }
 
-  public final fun getShadowReverseCullFace(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShadowReverseCullFacePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getShadowReverseCullFace(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getShadowReverseCullFacePtr)
 
   public final fun setShadowCasterMask(casterMask: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to casterMask)
-    TransferContext.callMethod(MethodBindings.setShadowCasterMaskPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setShadowCasterMaskPtr, casterMask)
   }
 
-  public final fun getShadowCasterMask(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShadowCasterMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getShadowCasterMask(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getShadowCasterMaskPtr)
 
   public final fun setBakeMode(bakeMode: BakeMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bakeMode.value)
-    TransferContext.callMethod(MethodBindings.setBakeModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBakeModePtr, bakeMode.value)
   }
 
-  public final fun getBakeMode(): BakeMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakeModePtr)
-    return BakeMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getBakeMode(): BakeMode =
+      BakeMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBakeModePtr))
 
   public final fun setProjector(projector: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to projector)
-    TransferContext.callMethod(MethodBindings.setProjectorPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setProjectorPtr, projector)
   }
 
-  public final fun getProjector(): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProjectorPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
-  }
+  public final fun getProjector(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getProjectorPtr) as Texture2D?)
 
   public final fun setTemperature(temperature: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to temperature.toDouble())
-    TransferContext.callMethod(MethodBindings.setTemperaturePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTemperaturePtr, temperature.toDouble())
   }
 
-  public final fun getTemperature(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTemperaturePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getTemperature(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTemperaturePtr).toFloat()
 
   /**
    * Returns the [Color] of an idealized blackbody at the given [lightTemperature]. This value is
    * calculated internally based on the [lightTemperature]. This [Color] is multiplied by [lightColor]
    * before being sent to the [RenderingServer].
    */
-  public final fun getCorrelatedColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCorrelatedColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
-  }
+  public final fun getCorrelatedColor(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getCorrelatedColorPtr)
 
   public enum class Param(
     public override val `value`: Long,

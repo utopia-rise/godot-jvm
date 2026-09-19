@@ -9,18 +9,24 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_AABB
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_RID
 import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.RID
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser._RID
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -110,91 +116,65 @@ public open class VisualInstance3D : Node3D() {
    * handles the [VisualInstance3D] under the hood. Equivalent to [RenderingServer.instanceSetBase].
    */
   public final fun setBase(base: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to base)
-    TransferContext.callMethod(MethodBindings.setBasePtr)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setBasePtr, base)
   }
 
   /**
    * Returns the RID of the resource associated with this [VisualInstance3D]. For example, if the
    * Node is a [MeshInstance3D], this will return the RID of the associated [Mesh].
    */
-  public final fun getBase(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBasePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun getBase(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getBasePtr)
 
   /**
    * Returns the RID of this instance. This RID is the same as the RID returned by
    * [RenderingServer.instanceCreate]. This RID is needed if you want to call [RenderingServer]
    * functions directly on this [VisualInstance3D].
    */
-  public final fun getInstance(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInstancePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun getInstance(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getInstancePtr)
 
   public final fun setLayerMask(mask: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mask)
-    TransferContext.callMethod(MethodBindings.setLayerMaskPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLayerMaskPtr, mask)
   }
 
-  public final fun getLayerMask(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLayerMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getLayerMask(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLayerMaskPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [layers], given a
    * [layerNumber] between 1 and 20.
    */
   public final fun setLayerMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong(), BOOL to value)
-    TransferContext.callMethod(MethodBindings.setLayerMaskValuePtr)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setLayerMaskValuePtr, layerNumber.toLong(), value)
   }
 
   /**
    * Returns whether or not the specified layer of the [layers] is enabled, given a [layerNumber]
    * between 1 and 20.
    */
-  public final fun getLayerMaskValue(layerNumber: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong())
-    TransferContext.callMethod(MethodBindings.getLayerMaskValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getLayerMaskValue(layerNumber: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getLayerMaskValuePtr, layerNumber.toLong())
 
   public final fun setSortingOffset(offset: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to offset.toDouble())
-    TransferContext.callMethod(MethodBindings.setSortingOffsetPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSortingOffsetPtr, offset.toDouble())
   }
 
-  public final fun getSortingOffset(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSortingOffsetPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getSortingOffset(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSortingOffsetPtr).toFloat()
 
   public final fun setSortingUseAabbCenter(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setSortingUseAabbCenterPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSortingUseAabbCenterPtr, enabled)
   }
 
-  public final fun isSortingUseAabbCenter(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSortingUseAabbCenterPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isSortingUseAabbCenter(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSortingUseAabbCenterPtr)
 
   /**
    * Returns the [AABB] (also known as the bounding box) for this [VisualInstance3D].
    */
-  public final fun getAabb(): AABB {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAabbPtr)
-    return (TransferContext.readReturnValue(godot.core.VariantParser.AABB) as AABB)
-  }
+  public final fun getAabb(): AABB =
+      TransferContext.callPtrMethod0_ret_AABB(ptr, objectID.id, MethodBindings.getAabbPtr)
 
   public companion object {
     @JvmField

@@ -9,13 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_STRING
+import godot.callMethod_LONG_ret_STRING
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -153,7 +154,7 @@ public open class RDShaderSource : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(593, scriptPtr)
+    createNativeObject(592, scriptPtr)
   }
 
   /**
@@ -165,8 +166,7 @@ public open class RDShaderSource : RefCounted() {
    * remove the Godot-specific hint `#[compute]`.
    */
   public final fun setStageSource(stage: RenderingDevice.ShaderStage, source: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value, STRING to source)
-    TransferContext.callMethod(MethodBindings.setStageSourcePtr)
+    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setStageSourcePtr, stage.value, source)
   }
 
   /**
@@ -174,22 +174,15 @@ public open class RDShaderSource : RefCounted() {
    * [sourceCompute], [sourceFragment], [sourceTesselationControl], [sourceTesselationEvaluation] or
    * [sourceVertex].
    */
-  public final fun getStageSource(stage: RenderingDevice.ShaderStage): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stage.value)
-    TransferContext.callMethod(MethodBindings.getStageSourcePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getStageSource(stage: RenderingDevice.ShaderStage): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getStageSourcePtr, stage.value)
 
   public final fun setLanguage(language: RenderingDevice.ShaderLanguage): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to language.value)
-    TransferContext.callMethod(MethodBindings.setLanguagePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLanguagePtr, language.value)
   }
 
-  public final fun getLanguage(): RenderingDevice.ShaderLanguage {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLanguagePtr)
-    return RenderingDevice.ShaderLanguage.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getLanguage(): RenderingDevice.ShaderLanguage =
+      RenderingDevice.ShaderLanguage.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLanguagePtr))
 
   public companion object {
     @JvmField

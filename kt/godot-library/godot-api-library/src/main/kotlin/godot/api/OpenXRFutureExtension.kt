@@ -9,16 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_CALLABLE_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.VariantCallable
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -34,18 +33,15 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(454, scriptPtr)
+    createNativeObject(453, scriptPtr)
   }
 
   /**
    * Returns `true` if futures are available in the OpenXR runtime used. This function will only
    * return a usable result after OpenXR has been initialized.
    */
-  public final fun isActive(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isActivePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isActive(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isActivePtr)
 
   /**
    * Register an OpenXR Future object so we monitor for completion. [future] must be an
@@ -67,19 +63,15 @@ public open class OpenXRFutureExtension : OpenXRExtensionWrapper() {
    */
   @JvmOverloads
   public final fun registerFuture(future: Long, onSuccess: Callable = VariantCallable()):
-      OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to future, CALLABLE to onSuccess)
-    TransferContext.callMethod(MethodBindings.registerFuturePtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
-  }
+      OpenXRFutureResult? =
+      (TransferContext.callMethod_LONG_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.registerFuturePtr, future, onSuccess) as OpenXRFutureResult?)
 
   /**
    * Cancels an in-progress future. [future] must be an `XrFutureEXT` value previously returned by
    * an API that started an asynchronous function.
    */
   public final fun cancelFuture(future: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to future)
-    TransferContext.callMethod(MethodBindings.cancelFuturePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.cancelFuturePtr, future)
   }
 
   public companion object {

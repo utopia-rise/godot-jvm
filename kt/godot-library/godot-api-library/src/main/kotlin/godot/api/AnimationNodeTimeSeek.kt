@@ -9,10 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -64,19 +65,15 @@ public open class AnimationNodeTimeSeek : AnimationNode() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(35, scriptPtr)
+    createNativeObject(33, scriptPtr)
   }
 
   public final fun setExplicitElapse(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setExplicitElapsePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setExplicitElapsePtr, enable)
   }
 
-  public final fun isExplicitElapse(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isExplicitElapsePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isExplicitElapse(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isExplicitElapsePtr)
 
   public companion object {
     @JvmField

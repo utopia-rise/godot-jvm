@@ -9,6 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_NODE_PATH
+import godot.callPtrMethod_NODE_PATH_STRING_NAME
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -18,12 +28,6 @@ import godot.core.NodePath
 import godot.core.PackedStringArray
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING_NAME
 import godot.core.VariantType
 import godot.core.asCachedNodePath
 import godot.core.asCachedStringName
@@ -138,7 +142,7 @@ public open class GLTFObjectModelProperty : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(250, scriptPtr)
+    createNativeObject(248, scriptPtr)
   }
 
   /**
@@ -148,8 +152,7 @@ public open class GLTFObjectModelProperty : RefCounted() {
    * order does not matter).
    */
   public final fun appendNodePath(nodePath: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to nodePath)
-    TransferContext.callMethod(MethodBindings.appendNodePathPtr)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.appendNodePathPtr, nodePath)
   }
 
   /**
@@ -158,8 +161,7 @@ public open class GLTFObjectModelProperty : RefCounted() {
    * call [setTypes] once (the order does not matter).
    */
   public final fun appendPathToProperty(nodePath: NodePath, propName: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to nodePath, STRING_NAME to propName)
-    TransferContext.callMethod(MethodBindings.appendPathToPropertyPtr)
+    TransferContext.callPtrMethod_NODE_PATH_STRING_NAME(ptr, objectID.id, MethodBindings.appendPathToPropertyPtr, nodePath, propName)
   }
 
   /**
@@ -167,96 +169,63 @@ public open class GLTFObjectModelProperty : RefCounted() {
    * [GLTFAccessor.accessorType] for possible values, and see [GLTFObjectModelType] for how the object
    * model type maps to accessor types.
    */
-  public final fun getAccessorType(): GLTFAccessor.GLTFAccessorType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAccessorTypePtr)
-    return GLTFAccessor.GLTFAccessorType.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getAccessorType(): GLTFAccessor.GLTFAccessorType =
+      GLTFAccessor.GLTFAccessorType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAccessorTypePtr))
 
-  public final fun getGltfToGodotExpression(): Expression? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGltfToGodotExpressionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Expression?)
-  }
+  public final fun getGltfToGodotExpression(): Expression? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getGltfToGodotExpressionPtr) as Expression?)
 
   public final fun setGltfToGodotExpression(gltfToGodotExpr: Expression?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to gltfToGodotExpr)
-    TransferContext.callMethod(MethodBindings.setGltfToGodotExpressionPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setGltfToGodotExpressionPtr, gltfToGodotExpr)
   }
 
-  public final fun getGodotToGltfExpression(): Expression? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGodotToGltfExpressionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Expression?)
-  }
+  public final fun getGodotToGltfExpression(): Expression? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getGodotToGltfExpressionPtr) as Expression?)
 
   public final fun setGodotToGltfExpression(godotToGltfExpr: Expression?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to godotToGltfExpr)
-    TransferContext.callMethod(MethodBindings.setGodotToGltfExpressionPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setGodotToGltfExpressionPtr, godotToGltfExpr)
   }
 
-  public final fun getNodePaths(): VariantArray<NodePath> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodePathsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<NodePath>)
-  }
+  public final fun getNodePaths(): VariantArray<NodePath> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getNodePathsPtr) as VariantArray<NodePath>)
 
   /**
    * Returns `true` if [nodePaths] is not empty. This is used during import to determine if a
    * [GLTFObjectModelProperty] can handle converting a glTF object model property to a Godot property.
    */
-  public final fun hasNodePaths(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasNodePathsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasNodePaths(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasNodePathsPtr)
 
   public final fun setNodePaths(nodePaths: VariantArray<NodePath>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to nodePaths)
-    TransferContext.callMethod(MethodBindings.setNodePathsPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setNodePathsPtr, nodePaths)
   }
 
-  public final fun getObjectModelType(): GLTFObjectModelType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getObjectModelTypePtr)
-    return GLTFObjectModelType.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getObjectModelType(): GLTFObjectModelType =
+      GLTFObjectModelType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getObjectModelTypePtr))
 
   public final fun setObjectModelType(type: GLTFObjectModelType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type.value)
-    TransferContext.callMethod(MethodBindings.setObjectModelTypePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setObjectModelTypePtr, type.value)
   }
 
-  public final fun getJsonPointers(): VariantArray<PackedStringArray> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJsonPointersPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<PackedStringArray>)
-  }
+  public final fun getJsonPointers(): VariantArray<PackedStringArray> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getJsonPointersPtr) as VariantArray<PackedStringArray>)
 
   /**
    * Returns `true` if [jsonPointers] is not empty. This is used during export to determine if a
    * [GLTFObjectModelProperty] can handle converting a Godot property to a glTF object model property.
    */
-  public final fun hasJsonPointers(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasJsonPointersPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasJsonPointers(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasJsonPointersPtr)
 
   public final fun setJsonPointers(jsonPointers: VariantArray<PackedStringArray>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to jsonPointers)
-    TransferContext.callMethod(MethodBindings.setJsonPointersPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setJsonPointersPtr, jsonPointers)
   }
 
-  public final fun getVariantType(): VariantType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVariantTypePtr)
-    return VariantType.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getVariantType(): VariantType =
+      VariantType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVariantTypePtr))
 
   public final fun setVariantType(variantType: VariantType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to variantType.value)
-    TransferContext.callMethod(MethodBindings.setVariantTypePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVariantTypePtr, variantType.value)
   }
 
   /**
@@ -265,8 +234,7 @@ public open class GLTFObjectModelProperty : RefCounted() {
    * be called once. Calling it again with the same values will have no effect.
    */
   public final fun setTypes(variantType: VariantType, objModelType: GLTFObjectModelType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to variantType.value, LONG to objModelType.value)
-    TransferContext.callMethod(MethodBindings.setTypesPtr)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setTypesPtr, variantType.value, objModelType.value)
   }
 
   /**

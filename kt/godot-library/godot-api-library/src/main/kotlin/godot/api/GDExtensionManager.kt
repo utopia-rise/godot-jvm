@@ -9,6 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_ret_BOOL
+import godot.callMethod_STRING_ret_LONG
+import godot.callMethod_STRING_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -16,11 +20,6 @@ import godot.core.MethodStringName1
 import godot.core.PackedStringArray
 import godot.core.Signal0
 import godot.core.Signal1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
@@ -92,11 +91,8 @@ public object GDExtensionManager : Object() {
    * Returns [LOAD_STATUS_OK] if successful.
    */
   @JvmStatic
-  public final fun loadExtension(path: String): LoadStatus {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.loadExtensionPtr)
-    return LoadStatus.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun loadExtension(path: String): LoadStatus =
+      LoadStatus.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.loadExtensionPtr, path))
 
   /**
    * Reloads the extension at the given file path. The [path] needs to point to a valid
@@ -107,54 +103,39 @@ public object GDExtensionManager : Object() {
    * fails and returns [LOAD_STATUS_FAILED].
    */
   @JvmStatic
-  public final fun reloadExtension(path: String): LoadStatus {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.reloadExtensionPtr)
-    return LoadStatus.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun reloadExtension(path: String): LoadStatus =
+      LoadStatus.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.reloadExtensionPtr, path))
 
   /**
    * Unloads an extension by file path. The [path] needs to point to an already loaded
    * [GDExtension], otherwise this method returns [LOAD_STATUS_NOT_LOADED].
    */
   @JvmStatic
-  public final fun unloadExtension(path: String): LoadStatus {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.unloadExtensionPtr)
-    return LoadStatus.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun unloadExtension(path: String): LoadStatus =
+      LoadStatus.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.unloadExtensionPtr, path))
 
   /**
    * Returns `true` if the extension at the given file [path] has already been loaded successfully.
    * See also [getLoadedExtensions].
    */
   @JvmStatic
-  public final fun isExtensionLoaded(path: String): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.isExtensionLoadedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isExtensionLoaded(path: String): Boolean =
+      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.isExtensionLoadedPtr, path)
 
   /**
    * Returns the file paths of all currently loaded extensions.
    */
   @JvmStatic
-  public final fun getLoadedExtensions(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoadedExtensionsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getLoadedExtensions(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getLoadedExtensionsPtr)
 
   /**
    * Returns the [GDExtension] at the given file [path], or `null` if it has not been loaded or does
    * not exist.
    */
   @JvmStatic
-  public final fun getExtension(path: String): GDExtension? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.getExtensionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as GDExtension?)
-  }
+  public final fun getExtension(path: String): GDExtension? =
+      (TransferContext.callMethod_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getExtensionPtr, path) as GDExtension?)
 
   public enum class LoadStatus(
     public override val `value`: Long,

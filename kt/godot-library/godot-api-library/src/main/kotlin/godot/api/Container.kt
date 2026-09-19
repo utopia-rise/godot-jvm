@@ -9,6 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_OBJECT_RECT2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -16,9 +20,6 @@ import godot.core.MethodStringName2
 import godot.core.PackedInt32Array
 import godot.core.Rect2
 import godot.core.Signal0
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.RECT2
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -57,7 +58,7 @@ public open class Container : Control() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(186, scriptPtr)
+    createNativeObject(184, scriptPtr)
   }
 
   /**
@@ -89,8 +90,7 @@ public open class Container : Control() {
    * upon request.
    */
   public final fun queueSort(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.queueSortPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.queueSortPtr)
   }
 
   /**
@@ -98,20 +98,15 @@ public open class Container : Control() {
    * classes.
    */
   public final fun fitChildInRect(child: Control, rect: Rect2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to child, RECT2 to rect)
-    TransferContext.callMethod(MethodBindings.fitChildInRectPtr)
+    TransferContext.callPtrMethod_OBJECT_RECT2(ptr, objectID.id, MethodBindings.fitChildInRectPtr, child, rect)
   }
 
   public final fun setAccessibilityRegion(region: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to region)
-    TransferContext.callMethod(MethodBindings.setAccessibilityRegionPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAccessibilityRegionPtr, region)
   }
 
-  public final fun isAccessibilityRegion(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAccessibilityRegionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isAccessibilityRegion(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAccessibilityRegionPtr)
 
   public companion object {
     @JvmField

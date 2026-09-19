@@ -9,25 +9,23 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_NAME_ret_ANY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_ret_DOUBLE
+import godot.callPtrMethod_STRING_NAME_ret_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal1
 import godot.core.Signal2
 import godot.core.StringName
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING_NAME
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
 import godot.core.asCachedStringName
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -86,11 +84,8 @@ public open class XRController3D : XRNode3D() {
    * **Note:** The current [XRInterface] defines the [name] for each input. In the case of OpenXR,
    * these are the names of actions in the current action set.
    */
-  public final fun isButtonPressed(name: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.isButtonPressedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isButtonPressed(name: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.isButtonPressedPtr, name)
 
   /**
    * Returns a [Any] for the input with the given [name]. This works for any input type, the variant
@@ -99,11 +94,8 @@ public open class XRController3D : XRNode3D() {
    * **Note:** The current [XRInterface] defines the [name] for each input. In the case of OpenXR,
    * these are the names of actions in the current action set.
    */
-  public final fun getInput(name: StringName): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.getInputPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun getInput(name: StringName): Any? =
+      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getInputPtr, name)
 
   /**
    * Returns a numeric value for the input with the given [name]. This is used for triggers and grip
@@ -112,11 +104,8 @@ public open class XRController3D : XRNode3D() {
    * **Note:** The current [XRInterface] defines the [name] for each input. In the case of OpenXR,
    * these are the names of actions in the current action set.
    */
-  public final fun getFloat(name: StringName): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.getFloatPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getFloat(name: StringName): Float =
+      TransferContext.callPtrMethod_STRING_NAME_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFloatPtr, name).toFloat()
 
   /**
    * Returns a [Vector2] for the input with the given [name]. This is used for thumbsticks and
@@ -125,20 +114,14 @@ public open class XRController3D : XRNode3D() {
    * **Note:** The current [XRInterface] defines the [name] for each input. In the case of OpenXR,
    * these are the names of actions in the current action set.
    */
-  public final fun getVector2(name: StringName): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.getVector2Ptr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
-  }
+  public final fun getVector2(name: StringName): Vector2 =
+      TransferContext.callPtrMethod_STRING_NAME_ret_VECTOR2(ptr, objectID.id, MethodBindings.getVector2Ptr, name)
 
   /**
    * Returns the hand holding this controller, if known.
    */
-  public final fun getTrackerHand(): XRPositionalTracker.TrackerHand {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackerHandPtr)
-    return XRPositionalTracker.TrackerHand.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getTrackerHand(): XRPositionalTracker.TrackerHand =
+      XRPositionalTracker.TrackerHand.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTrackerHandPtr))
 
   /**
    * Returns `true` if the button with the given [name] is pressed.

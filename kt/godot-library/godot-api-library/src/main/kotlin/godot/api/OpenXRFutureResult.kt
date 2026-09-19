@@ -9,13 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_ANY
+import godot.callMethod_ANY
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal1
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.LONG
 import kotlin.Any
 import kotlin.Long
 import kotlin.Suppress
@@ -34,33 +36,26 @@ public open class OpenXRFutureResult internal constructor() : RefCounted() {
   public val completed: Signal1<OpenXRFutureResult> by Signal1
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(455, scriptPtr)
+    createNativeObject(454, scriptPtr)
   }
 
   /**
    * Returns the status of this result.
    */
-  public final fun getStatus(): ResultStatus {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatusPtr)
-    return ResultStatus.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getStatus(): ResultStatus =
+      ResultStatus.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStatusPtr))
 
   /**
    * Return the `XrFutureEXT` value this result relates to.
    */
-  public final fun getFuture(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFuturePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getFuture(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFuturePtr)
 
   /**
    * Cancel this future, this will interrupt and stop the asynchronous function.
    */
   public final fun cancelFuture(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.cancelFuturePtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.cancelFuturePtr)
   }
 
   /**
@@ -70,8 +65,7 @@ public open class OpenXRFutureResult internal constructor() : RefCounted() {
    * asynchronous function.
    */
   public final fun setResultValue(resultValue: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ANY to resultValue)
-    TransferContext.callMethod(MethodBindings.setResultValuePtr)
+    TransferContext.callMethod_ANY(ptr, objectID.id, MethodBindings.setResultValuePtr, resultValue)
   }
 
   /**
@@ -79,11 +73,8 @@ public open class OpenXRFutureResult internal constructor() : RefCounted() {
    * this result value depends on the function being called. Consult the documentation of the relevant
    * function.
    */
-  public final fun getResultValue(): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResultValuePtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun getResultValue(): Any? =
+      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.getResultValuePtr)
 
   public enum class ResultStatus(
     public override val `value`: Long,

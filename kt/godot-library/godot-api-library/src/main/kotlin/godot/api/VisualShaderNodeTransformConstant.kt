@@ -11,11 +11,12 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_TRANSFORM3D
+import godot.callPtrMethod_TRANSFORM3D
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Transform3D
-import godot.core.VariantParser.TRANSFORM3D
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -69,15 +70,11 @@ public open class VisualShaderNodeTransformConstant : VisualShaderNodeConstant()
   }
 
   public final fun setConstant(constant: Transform3D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, TRANSFORM3D to constant)
-    TransferContext.callMethod(MethodBindings.setConstantPtr)
+    TransferContext.callPtrMethod_TRANSFORM3D(ptr, objectID.id, MethodBindings.setConstantPtr, constant)
   }
 
-  public final fun getConstant(): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
-  }
+  public final fun getConstant(): Transform3D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getConstantPtr)
 
   public companion object {
     @JvmField

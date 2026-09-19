@@ -11,10 +11,11 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
 import kotlin.Suppress
 import kotlin.Unit
@@ -46,7 +47,7 @@ public open class OpenXRCompositionLayerQuad : OpenXRCompositionLayer() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(449, scriptPtr)
+    createNativeObject(448, scriptPtr)
   }
 
   /**
@@ -69,15 +70,11 @@ public open class OpenXRCompositionLayerQuad : OpenXRCompositionLayer() {
   }
 
   public final fun setQuadSize(size: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to size)
-    TransferContext.callMethod(MethodBindings.setQuadSizePtr)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setQuadSizePtr, size)
   }
 
-  public final fun getQuadSize(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getQuadSizePtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
-  }
+  public final fun getQuadSize(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getQuadSizePtr)
 
   public companion object {
     @JvmField

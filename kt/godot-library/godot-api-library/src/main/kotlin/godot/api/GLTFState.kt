@@ -11,6 +11,30 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_BOOL
+import godot.callMethod_STRING_NAME_ANY
+import godot.callMethod_STRING_NAME_ret_ANY
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod0_ret_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DICTIONARY
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_OBJECT
+import godot.callPtrMethod_OBJECT_OBJECT_LONG_ret_LONG
+import godot.callPtrMethod_OBJECT_ret_LONG
+import godot.callPtrMethod_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_PACKED_BYTE_ARRAY_BOOL_ret_LONG
+import godot.callPtrMethod_PACKED_INT_32_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.GodotEnum
@@ -22,17 +46,6 @@ import godot.core.PackedByteArray
 import godot.core.PackedInt32Array
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.Any
 import kotlin.Boolean
@@ -370,7 +383,7 @@ public open class GLTFState : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(256, scriptPtr)
+    createNativeObject(254, scriptPtr)
   }
 
   /**
@@ -460,8 +473,7 @@ public open class GLTFState : Resource() {
    * final list is sorted alphabetically.
    */
   public final fun addUsedExtension(extensionName: String, required: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to extensionName, BOOL to required)
-    TransferContext.callMethod(MethodBindings.addUsedExtensionPtr)
+    TransferContext.callMethod_STRING_BOOL(ptr, objectID.id, MethodBindings.addUsedExtensionPtr, extensionName, required)
   }
 
   /**
@@ -469,11 +481,8 @@ public open class GLTFState : Resource() {
    * index of the destination [GLTFBufferView] is returned. If [deduplication] is `true`, the buffers
    * are first searched for duplicate data, otherwise new bytes are always appended.
    */
-  public final fun appendDataToBuffers(`data`: PackedByteArray, deduplication: Boolean): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_BYTE_ARRAY to data, BOOL to deduplication)
-    TransferContext.callMethod(MethodBindings.appendDataToBuffersPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun appendDataToBuffers(`data`: PackedByteArray, deduplication: Boolean): Int =
+      TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.appendDataToBuffersPtr, data, deduplication).toInt()
 
   /**
    * Appends the given [GLTFNode] to the state, and returns its new index. This can be used to
@@ -494,76 +503,49 @@ public open class GLTFState : Resource() {
     gltfNode: GLTFNode?,
     godotSceneNode: Node?,
     parentNodeIndex: Int,
-  ): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to gltfNode, OBJECT to godotSceneNode, LONG to parentNodeIndex.toLong())
-    TransferContext.callMethod(MethodBindings.appendGltfNodePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  ): Int =
+      TransferContext.callPtrMethod_OBJECT_OBJECT_LONG_ret_LONG(ptr, objectID.id, MethodBindings.appendGltfNodePtr, gltfNode, godotSceneNode, parentNodeIndex.toLong()).toInt()
 
-  public final fun getJson(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getJsonPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
-  }
+  public final fun getJson(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getJsonPtr) as Dictionary<Any?, Any?>)
 
   public final fun setJson(json: Dictionary<Any?, Any?>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DICTIONARY to json)
-    TransferContext.callMethod(MethodBindings.setJsonPtr)
+    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setJsonPtr, json)
   }
 
-  public final fun getMajorVersion(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMajorVersionPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getMajorVersion(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMajorVersionPtr).toInt()
 
   public final fun setMajorVersion(majorVersion: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to majorVersion.toLong())
-    TransferContext.callMethod(MethodBindings.setMajorVersionPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMajorVersionPtr, majorVersion.toLong())
   }
 
-  public final fun getMinorVersion(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinorVersionPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getMinorVersion(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMinorVersionPtr).toInt()
 
   public final fun setMinorVersion(minorVersion: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to minorVersion.toLong())
-    TransferContext.callMethod(MethodBindings.setMinorVersionPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMinorVersionPtr, minorVersion.toLong())
   }
 
-  public final fun getCopyright(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCopyrightPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getCopyright(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCopyrightPtr)
 
   public final fun setCopyright(copyright: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to copyright)
-    TransferContext.callMethod(MethodBindings.setCopyrightPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setCopyrightPtr, copyright)
   }
 
-  public final fun getGlbData(): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGlbDataPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
-  }
+  public final fun getGlbData(): PackedByteArray =
+      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getGlbDataPtr)
 
   public final fun setGlbData(glbData: PackedByteArray): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_BYTE_ARRAY to glbData)
-    TransferContext.callMethod(MethodBindings.setGlbDataPtr)
+    TransferContext.callPtrMethod_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.setGlbDataPtr, glbData)
   }
 
-  public final fun getUseNamedSkinBinds(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUseNamedSkinBindsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getUseNamedSkinBinds(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseNamedSkinBindsPtr)
 
   public final fun setUseNamedSkinBinds(useNamedSkinBinds: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to useNamedSkinBinds)
-    TransferContext.callMethod(MethodBindings.setUseNamedSkinBindsPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseNamedSkinBindsPtr, useNamedSkinBinds)
   }
 
   /**
@@ -571,11 +553,8 @@ public open class GLTFState : Resource() {
    * [GLTFNode.children] and [rootNodes] refer to. This includes nodes that may not be generated in the
    * Godot scene, or nodes that may generate multiple Godot scene nodes.
    */
-  public final fun getNodes(): VariantArray<GLTFNode> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNodesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<GLTFNode>)
-  }
+  public final fun getNodes(): VariantArray<GLTFNode> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getNodesPtr) as VariantArray<GLTFNode>)
 
   /**
    * Sets the [GLTFNode]s in the state. These are the nodes that [GLTFNode.children] and [rootNodes]
@@ -583,316 +562,229 @@ public open class GLTFState : Resource() {
    * multiple Godot scene nodes.
    */
   public final fun setNodes(nodes: VariantArray<GLTFNode>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to nodes)
-    TransferContext.callMethod(MethodBindings.setNodesPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setNodesPtr, nodes)
   }
 
-  public final fun getBuffers(): VariantArray<PackedByteArray> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBuffersPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<PackedByteArray>)
-  }
+  public final fun getBuffers(): VariantArray<PackedByteArray> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getBuffersPtr) as VariantArray<PackedByteArray>)
 
   public final fun setBuffers(buffers: VariantArray<PackedByteArray>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to buffers)
-    TransferContext.callMethod(MethodBindings.setBuffersPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setBuffersPtr, buffers)
   }
 
-  public final fun getBufferViews(): VariantArray<GLTFBufferView> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferViewsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<GLTFBufferView>)
-  }
+  public final fun getBufferViews(): VariantArray<GLTFBufferView> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getBufferViewsPtr) as VariantArray<GLTFBufferView>)
 
   public final fun setBufferViews(bufferViews: VariantArray<GLTFBufferView>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to bufferViews)
-    TransferContext.callMethod(MethodBindings.setBufferViewsPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setBufferViewsPtr, bufferViews)
   }
 
-  public final fun getAccessors(): VariantArray<GLTFAccessor> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAccessorsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<GLTFAccessor>)
-  }
+  public final fun getAccessors(): VariantArray<GLTFAccessor> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getAccessorsPtr) as VariantArray<GLTFAccessor>)
 
   public final fun setAccessors(accessors: VariantArray<GLTFAccessor>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to accessors)
-    TransferContext.callMethod(MethodBindings.setAccessorsPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setAccessorsPtr, accessors)
   }
 
   /**
    * Returns an array of all [GLTFMesh]es in the glTF file. These are the meshes that the
    * [GLTFNode.mesh] index refers to.
    */
-  public final fun getMeshes(): VariantArray<GLTFMesh> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<GLTFMesh>)
-  }
+  public final fun getMeshes(): VariantArray<GLTFMesh> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getMeshesPtr) as VariantArray<GLTFMesh>)
 
   /**
    * Sets the [GLTFMesh]es in the state. These are the meshes that the [GLTFNode.mesh] index refers
    * to.
    */
   public final fun setMeshes(meshes: VariantArray<GLTFMesh>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to meshes)
-    TransferContext.callMethod(MethodBindings.setMeshesPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setMeshesPtr, meshes)
   }
 
   /**
    * Returns the number of [AnimationPlayer] nodes in this [GLTFState]. These nodes are only used
    * during the export process when converting Godot [AnimationPlayer] nodes to glTF animations.
    */
-  public final fun getAnimationPlayersCount(animPlayerIndex: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to animPlayerIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getAnimationPlayersCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getAnimationPlayersCount(animPlayerIndex: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getAnimationPlayersCountPtr, animPlayerIndex.toLong()).toInt()
 
   /**
    * Returns the [AnimationPlayer] node with the given index. These nodes are only used during the
    * export process when converting Godot [AnimationPlayer] nodes to glTF animations.
    */
-  public final fun getAnimationPlayer(animPlayerIndex: Int): AnimationPlayer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to animPlayerIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getAnimationPlayerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as AnimationPlayer?)
-  }
+  public final fun getAnimationPlayer(animPlayerIndex: Int): AnimationPlayer? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getAnimationPlayerPtr, animPlayerIndex.toLong()) as AnimationPlayer?)
 
-  public final fun getMaterials(): VariantArray<Material> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaterialsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Material>)
-  }
+  public final fun getMaterials(): VariantArray<Material> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getMaterialsPtr) as VariantArray<Material>)
 
   public final fun setMaterials(materials: VariantArray<Material>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to materials)
-    TransferContext.callMethod(MethodBindings.setMaterialsPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setMaterialsPtr, materials)
   }
 
-  public final fun getSceneName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSceneNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getSceneName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSceneNamePtr)
 
   public final fun setSceneName(sceneName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to sceneName)
-    TransferContext.callMethod(MethodBindings.setSceneNamePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setSceneNamePtr, sceneName)
   }
 
-  public final fun getBasePath(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBasePathPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getBasePath(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getBasePathPtr)
 
   public final fun setBasePath(basePath: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to basePath)
-    TransferContext.callMethod(MethodBindings.setBasePathPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBasePathPtr, basePath)
   }
 
-  public final fun getFilename(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFilenamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getFilename(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getFilenamePtr)
 
   public final fun setFilename(filename: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to filename)
-    TransferContext.callMethod(MethodBindings.setFilenamePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setFilenamePtr, filename)
   }
 
-  public final fun getRootNodes(): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootNodesPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
-  }
+  public final fun getRootNodes(): PackedInt32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getRootNodesPtr)
 
   public final fun setRootNodes(rootNodes: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_INT_32_ARRAY to rootNodes)
-    TransferContext.callMethod(MethodBindings.setRootNodesPtr)
+    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setRootNodesPtr, rootNodes)
   }
 
-  public final fun getTextures(): VariantArray<GLTFTexture> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTexturesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<GLTFTexture>)
-  }
+  public final fun getTextures(): VariantArray<GLTFTexture> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getTexturesPtr) as VariantArray<GLTFTexture>)
 
   public final fun setTextures(textures: VariantArray<GLTFTexture>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to textures)
-    TransferContext.callMethod(MethodBindings.setTexturesPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setTexturesPtr, textures)
   }
 
   /**
    * Retrieves the array of texture samplers that are used by the textures contained in the glTF.
    */
-  public final fun getTextureSamplers(): VariantArray<GLTFTextureSampler> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureSamplersPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<GLTFTextureSampler>)
-  }
+  public final fun getTextureSamplers(): VariantArray<GLTFTextureSampler> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getTextureSamplersPtr) as VariantArray<GLTFTextureSampler>)
 
   /**
    * Sets the array of texture samplers that are used by the textures contained in the glTF.
    */
   public final fun setTextureSamplers(textureSamplers: VariantArray<GLTFTextureSampler>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to textureSamplers)
-    TransferContext.callMethod(MethodBindings.setTextureSamplersPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setTextureSamplersPtr, textureSamplers)
   }
 
   /**
    * Gets the images of the glTF file as an array of [Texture2D]s. These are the images that the
    * [GLTFTexture.srcImage] index refers to.
    */
-  public final fun getImages(): VariantArray<Texture2D> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getImagesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Texture2D>)
-  }
+  public final fun getImages(): VariantArray<Texture2D> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getImagesPtr) as VariantArray<Texture2D>)
 
   /**
    * Sets the images in the state stored as an array of [Texture2D]s. This can be used during
    * export. These are the images that the [GLTFTexture.srcImage] index refers to.
    */
   public final fun setImages(images: VariantArray<Texture2D>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to images)
-    TransferContext.callMethod(MethodBindings.setImagesPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setImagesPtr, images)
   }
 
   /**
    * Returns an array of all [GLTFSkin]s in the glTF file. These are the skins that the
    * [GLTFNode.skin] index refers to.
    */
-  public final fun getSkins(): VariantArray<GLTFSkin> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkinsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<GLTFSkin>)
-  }
+  public final fun getSkins(): VariantArray<GLTFSkin> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getSkinsPtr) as VariantArray<GLTFSkin>)
 
   /**
    * Sets the [GLTFSkin]s in the state. These are the skins that the [GLTFNode.skin] index refers
    * to.
    */
   public final fun setSkins(skins: VariantArray<GLTFSkin>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to skins)
-    TransferContext.callMethod(MethodBindings.setSkinsPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setSkinsPtr, skins)
   }
 
   /**
    * Returns an array of all [GLTFCamera]s in the glTF file. These are the cameras that the
    * [GLTFNode.camera] index refers to.
    */
-  public final fun getCameras(): VariantArray<GLTFCamera> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCamerasPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<GLTFCamera>)
-  }
+  public final fun getCameras(): VariantArray<GLTFCamera> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getCamerasPtr) as VariantArray<GLTFCamera>)
 
   /**
    * Sets the [GLTFCamera]s in the state. These are the cameras that the [GLTFNode.camera] index
    * refers to.
    */
   public final fun setCameras(cameras: VariantArray<GLTFCamera>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to cameras)
-    TransferContext.callMethod(MethodBindings.setCamerasPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setCamerasPtr, cameras)
   }
 
   /**
    * Returns an array of all [GLTFLight]s in the glTF file. These are the lights that the
    * [GLTFNode.light] index refers to.
    */
-  public final fun getLights(): VariantArray<GLTFLight> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLightsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<GLTFLight>)
-  }
+  public final fun getLights(): VariantArray<GLTFLight> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getLightsPtr) as VariantArray<GLTFLight>)
 
   /**
    * Sets the [GLTFLight]s in the state. These are the lights that the [GLTFNode.light] index refers
    * to.
    */
   public final fun setLights(lights: VariantArray<GLTFLight>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to lights)
-    TransferContext.callMethod(MethodBindings.setLightsPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setLightsPtr, lights)
   }
 
   /**
    * Returns an array of unique node names. This is used in both the import process and export
    * process.
    */
-  public final fun getUniqueNames(): VariantArray<String> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUniqueNamesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<String>)
-  }
+  public final fun getUniqueNames(): VariantArray<String> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getUniqueNamesPtr) as VariantArray<String>)
 
   /**
    * Sets the unique node names in the state. This is used in both the import process and export
    * process.
    */
   public final fun setUniqueNames(uniqueNames: VariantArray<String>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to uniqueNames)
-    TransferContext.callMethod(MethodBindings.setUniqueNamesPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setUniqueNamesPtr, uniqueNames)
   }
 
   /**
    * Returns an array of unique animation names. This is only used during the import process.
    */
-  public final fun getUniqueAnimationNames(): VariantArray<String> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUniqueAnimationNamesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<String>)
-  }
+  public final fun getUniqueAnimationNames(): VariantArray<String> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getUniqueAnimationNamesPtr) as VariantArray<String>)
 
   /**
    * Sets the unique animation names in the state. This is only used during the import process.
    */
   public final fun setUniqueAnimationNames(uniqueAnimationNames: VariantArray<String>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to uniqueAnimationNames)
-    TransferContext.callMethod(MethodBindings.setUniqueAnimationNamesPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setUniqueAnimationNamesPtr, uniqueAnimationNames)
   }
 
   /**
    * Returns an array of all [GLTFSkeleton]s in the glTF file. These are the skeletons that the
    * [GLTFNode.skeleton] index refers to.
    */
-  public final fun getSkeletons(): VariantArray<GLTFSkeleton> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<GLTFSkeleton>)
-  }
+  public final fun getSkeletons(): VariantArray<GLTFSkeleton> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getSkeletonsPtr) as VariantArray<GLTFSkeleton>)
 
   /**
    * Sets the [GLTFSkeleton]s in the state. These are the skeletons that the [GLTFNode.skeleton]
    * index refers to.
    */
   public final fun setSkeletons(skeletons: VariantArray<GLTFSkeleton>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to skeletons)
-    TransferContext.callMethod(MethodBindings.setSkeletonsPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setSkeletonsPtr, skeletons)
   }
 
-  public final fun getCreateAnimations(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCreateAnimationsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getCreateAnimations(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getCreateAnimationsPtr)
 
   public final fun setCreateAnimations(createAnimations: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to createAnimations)
-    TransferContext.callMethod(MethodBindings.setCreateAnimationsPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCreateAnimationsPtr, createAnimations)
   }
 
-  public final fun getImportAsSkeletonBones(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getImportAsSkeletonBonesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getImportAsSkeletonBones(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getImportAsSkeletonBonesPtr)
 
   public final fun setImportAsSkeletonBones(importAsSkeletonBones: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to importAsSkeletonBones)
-    TransferContext.callMethod(MethodBindings.setImportAsSkeletonBonesPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setImportAsSkeletonBonesPtr, importAsSkeletonBones)
   }
 
   /**
@@ -900,11 +792,8 @@ public open class GLTFState : Resource() {
    * generated as animations in an [AnimationPlayer] node. When exporting, these will be generated from
    * Godot [AnimationPlayer] nodes.
    */
-  public final fun getAnimations(): VariantArray<GLTFAnimation> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<GLTFAnimation>)
-  }
+  public final fun getAnimations(): VariantArray<GLTFAnimation> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getAnimationsPtr) as VariantArray<GLTFAnimation>)
 
   /**
    * Sets the [GLTFAnimation]s in the state. When importing, these will be generated as animations
@@ -912,8 +801,7 @@ public open class GLTFState : Resource() {
    * nodes.
    */
   public final fun setAnimations(animations: VariantArray<GLTFAnimation>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to animations)
-    TransferContext.callMethod(MethodBindings.setAnimationsPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setAnimationsPtr, animations)
   }
 
   /**
@@ -924,11 +812,8 @@ public open class GLTFState : Resource() {
    * node will have a corresponding [GLTFNode]. If there is no scene node for this [GLTFNode] index,
    * `null` is returned.
    */
-  public final fun getSceneNode(gltfNodeIndex: Int): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to gltfNodeIndex.toLong())
-    TransferContext.callMethod(MethodBindings.getSceneNodePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
-  }
+  public final fun getSceneNode(gltfNodeIndex: Int): Node? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getSceneNodePtr, gltfNodeIndex.toLong()) as Node?)
 
   /**
    * Returns the index of the [GLTFNode] corresponding to this Godot scene node. This is the inverse
@@ -938,11 +823,8 @@ public open class GLTFState : Resource() {
    * [GLTFNode] will have a scene node generated. If there is no [GLTFNode] index for this scene node,
    * `-1` is returned.
    */
-  public final fun getNodeIndex(sceneNode: Node?): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to sceneNode)
-    TransferContext.callMethod(MethodBindings.getNodeIndexPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getNodeIndex(sceneNode: Node?): Int =
+      TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.getNodeIndexPtr, sceneNode).toInt()
 
   /**
    * Gets additional arbitrary data in this [GLTFState] instance. This can be used to keep per-file
@@ -952,11 +834,8 @@ public open class GLTFState : Resource() {
    * name in the glTF file), and the return value can be anything you set. If nothing was set, the
    * return value is `null`.
    */
-  public final fun getAdditionalData(extensionName: StringName): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to extensionName)
-    TransferContext.callMethod(MethodBindings.getAdditionalDataPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun getAdditionalData(extensionName: StringName): Any? =
+      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getAdditionalDataPtr, extensionName)
 
   /**
    * Sets additional arbitrary data in this [GLTFState] instance. This can be used to keep per-file
@@ -966,42 +845,30 @@ public open class GLTFState : Resource() {
    * extension name in the glTF file), and the second argument can be anything you want.
    */
   public final fun setAdditionalData(extensionName: StringName, additionalData: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to extensionName, ANY to additionalData)
-    TransferContext.callMethod(MethodBindings.setAdditionalDataPtr)
+    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setAdditionalDataPtr, extensionName, additionalData)
   }
 
-  public final fun getHandleBinaryImageMode(): HandleBinaryImageMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHandleBinaryImageModePtr)
-    return HandleBinaryImageMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getHandleBinaryImageMode(): HandleBinaryImageMode =
+      HandleBinaryImageMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHandleBinaryImageModePtr))
 
   public final fun setHandleBinaryImageMode(method: HandleBinaryImageMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to method.value)
-    TransferContext.callMethod(MethodBindings.setHandleBinaryImageModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHandleBinaryImageModePtr, method.value)
   }
 
   public final fun setBakeFps(`value`: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to value)
-    TransferContext.callMethod(MethodBindings.setBakeFpsPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBakeFpsPtr, value)
   }
 
-  public final fun getBakeFps(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBakeFpsPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
-  }
+  public final fun getBakeFps(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBakeFpsPtr)
 
   /**
    * Deprecated untyped alias for [handleBinaryImageMode]. When importing a glTF file with
    * unimported raw binary images embedded inside of binary blob buffers, in data URIs, or separate
    * files not imported by Godot, this controls how the images are handled.
    */
-  public final fun getHandleBinaryImage(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHandleBinaryImagePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getHandleBinaryImage(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHandleBinaryImagePtr).toInt()
 
   /**
    * Deprecated untyped alias for [handleBinaryImageMode]. When importing a glTF file with
@@ -1009,8 +876,7 @@ public open class GLTFState : Resource() {
    * files not imported by Godot, this controls how the images are handled.
    */
   public final fun setHandleBinaryImage(method: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to method.toLong())
-    TransferContext.callMethod(MethodBindings.setHandleBinaryImagePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHandleBinaryImagePtr, method.toLong())
   }
 
   /**

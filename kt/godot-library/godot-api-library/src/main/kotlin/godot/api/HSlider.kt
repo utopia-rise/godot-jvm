@@ -18,7 +18,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class HSlider : Slider() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(291, scriptPtr)
+    createNativeObject(289, scriptPtr)
   }
 
   public companion object

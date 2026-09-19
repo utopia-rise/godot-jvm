@@ -12,7 +12,7 @@ import kotlin.contracts.ExperimentalContracts
 
 @OptIn(ExperimentalContracts::class)
 @Suppress("LeakingThis", "FunctionName")
-abstract class KtObject : NativeWrapper {
+abstract class KtObject : GodotObject {
 
     /** Used to prevent the new method to be executed when called from instantiateWith
      * Instead we use the values set in that class  */

@@ -9,6 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_NAME_CALLABLE_ARRAY_LONG
+import godot.callMethod_STRING_NAME_ret_ANY
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.GodotEnum
@@ -18,14 +26,6 @@ import godot.core.MethodStringName4
 import godot.core.PackedInt32Array
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.Any
 import kotlin.Boolean
@@ -112,11 +112,8 @@ public object Performance : Object() {
    * See [getCustomMonitor] to query custom performance monitors' values.
    */
   @JvmStatic
-  public final fun getMonitor(monitor: Monitor): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to monitor.value)
-    TransferContext.callMethod(MethodBindings.getMonitorPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
-  }
+  public final fun getMonitor(monitor: Monitor): Double =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMonitorPtr, monitor.value)
 
   /**
    * Adds a custom monitor with the name [id]. You can specify the category of the monitor using
@@ -190,8 +187,7 @@ public object Performance : Object() {
     arguments: VariantArray<Any?> = godot.core.variantArrayOf(),
     type: MonitorType = Performance.MonitorType.QUANTITY,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to id, CALLABLE to callable, ARRAY to arguments, LONG to type.value)
-    TransferContext.callMethod(MethodBindings.addCustomMonitorPtr)
+    TransferContext.callMethod_STRING_NAME_CALLABLE_ARRAY_LONG(ptr, objectID.id, MethodBindings.addCustomMonitorPtr, id, callable, arguments, type.value)
   }
 
   /**
@@ -200,61 +196,45 @@ public object Performance : Object() {
    */
   @JvmStatic
   public final fun removeCustomMonitor(id: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to id)
-    TransferContext.callMethod(MethodBindings.removeCustomMonitorPtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeCustomMonitorPtr, id)
   }
 
   /**
    * Returns `true` if custom monitor with the given [id] is present, `false` otherwise.
    */
   @JvmStatic
-  public final fun hasCustomMonitor(id: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to id)
-    TransferContext.callMethod(MethodBindings.hasCustomMonitorPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasCustomMonitor(id: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasCustomMonitorPtr, id)
 
   /**
    * Returns the value of custom monitor with given [id]. The callable is called to get the value of
    * custom monitor. See also [hasCustomMonitor]. Prints an error if the given [id] is absent.
    */
   @JvmStatic
-  public final fun getCustomMonitor(id: StringName): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to id)
-    TransferContext.callMethod(MethodBindings.getCustomMonitorPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun getCustomMonitor(id: StringName): Any? =
+      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getCustomMonitorPtr, id)
 
   /**
    * Returns the last tick in which custom monitor was added/removed (in microseconds since the
    * engine started). This is set to [Time.getTicksUsec] when the monitor is updated.
    */
   @JvmStatic
-  public final fun getMonitorModificationTime(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMonitorModificationTimePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getMonitorModificationTime(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMonitorModificationTimePtr)
 
   /**
    * Returns the names of active custom monitors in an [VariantArray].
    */
   @JvmStatic
-  public final fun getCustomMonitorNames(): VariantArray<StringName> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomMonitorNamesPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<StringName>)
-  }
+  public final fun getCustomMonitorNames(): VariantArray<StringName> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getCustomMonitorNamesPtr) as VariantArray<StringName>)
 
   /**
    * Returns the [MonitorType] values of active custom monitors in an [VariantArray].
    */
   @JvmStatic
-  public final fun getCustomMonitorTypes(): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCustomMonitorTypesPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
-  }
+  public final fun getCustomMonitorTypes(): PackedInt32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getCustomMonitorTypesPtr)
 
   /**
    * Adds a custom monitor with the name [id]. You can specify the category of the monitor using

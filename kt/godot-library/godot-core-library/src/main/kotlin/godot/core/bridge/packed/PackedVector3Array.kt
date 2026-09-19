@@ -28,7 +28,9 @@ class PackedVector3Array : PackedArray<PackedVector3Array, Vector3> {
      * Constructs a [PackedVector3Array] as a copy of the given [PackedVector3Array].
      */
     constructor(from: PackedVector3Array) {
-        TransferContext.writeArguments(VariantParser.PACKED_VECTOR3_ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.PACKED_VECTOR3_ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_packed_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_VECTOR3_ARRAY)
     }
@@ -37,7 +39,9 @@ class PackedVector3Array : PackedArray<PackedVector3Array, Vector3> {
      * Constructs a new [PackedVector3Array] by converting a [VariantArray]<[Vector3]>.
      */
     constructor(from: VariantArray<Vector3>) {
-        TransferContext.writeArguments(VariantParser.ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_VECTOR3_ARRAY)
     }

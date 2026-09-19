@@ -9,13 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_ARRAY_ARRAY_LONG_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName3
 import godot.core.RID
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser._RID
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -30,7 +28,7 @@ import kotlin.jvm.JvmStatic
 @GodotBaseType
 public open class FramebufferCacheRD : Object() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(236, scriptPtr)
+    createNativeObject(234, scriptPtr)
   }
 
   public companion object {
@@ -51,11 +49,8 @@ public open class FramebufferCacheRD : Object() {
       textures: VariantArray<RID>,
       passes: VariantArray<RDFramebufferPass>,
       views: Long,
-    ): RID {
-      TransferContext.writeMethodArguments(0L, 0L, ARRAY to textures, ARRAY to passes, LONG to views)
-      TransferContext.callMethod(MethodBindings.getCacheMultipassPtr)
-      return (TransferContext.readReturnValue(_RID) as RID)
-    }
+    ): RID =
+        TransferContext.callPtrMethod_ARRAY_ARRAY_LONG_ret_RID(0L, 0L, MethodBindings.getCacheMultipassPtr, textures, passes, views)
   }
 
   public object MethodBindings {

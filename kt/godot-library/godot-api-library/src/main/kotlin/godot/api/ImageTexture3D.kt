@@ -9,17 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_LONG_LONG_LONG_LONG_BOOL_ARRAY_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
 import godot.core.MethodStringName6
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -36,7 +34,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class ImageTexture3D : Texture3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(304, scriptPtr)
+    createNativeObject(302, scriptPtr)
   }
 
   /**
@@ -50,11 +48,8 @@ public open class ImageTexture3D : Texture3D() {
     depth: Int,
     useMipmaps: Boolean,
     `data`: VariantArray<Image>,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to format.value, LONG to width.toLong(), LONG to height.toLong(), LONG to depth.toLong(), BOOL to useMipmaps, ARRAY to data)
-    TransferContext.callMethod(MethodBindings.createPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_BOOL_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.createPtr, format.value, width.toLong(), height.toLong(), depth.toLong(), useMipmaps, data))
 
   /**
    * Replaces the texture's existing data with the layers specified in [data]. The size of [data]
@@ -62,8 +57,7 @@ public open class ImageTexture3D : Texture3D() {
    * resized or have its format changed by calling [update].
    */
   public final fun update(`data`: VariantArray<Image>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to data)
-    TransferContext.callMethod(MethodBindings.updatePtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.updatePtr, data)
   }
 
   /**

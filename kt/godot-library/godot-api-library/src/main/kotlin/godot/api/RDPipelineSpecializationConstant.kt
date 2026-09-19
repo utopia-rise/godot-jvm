@@ -9,11 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_ANY
+import godot.callMethod_ANY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.LONG
 import kotlin.Any
 import kotlin.Long
 import kotlin.Suppress
@@ -56,30 +58,22 @@ public open class RDPipelineSpecializationConstant : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(589, scriptPtr)
+    createNativeObject(588, scriptPtr)
   }
 
   public final fun setValue(`value`: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ANY to value)
-    TransferContext.callMethod(MethodBindings.setValuePtr)
+    TransferContext.callMethod_ANY(ptr, objectID.id, MethodBindings.setValuePtr, value)
   }
 
-  public final fun getValue(): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getValuePtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun getValue(): Any? =
+      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.getValuePtr)
 
   public final fun setConstantId(constantId: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to constantId)
-    TransferContext.callMethod(MethodBindings.setConstantIdPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setConstantIdPtr, constantId)
   }
 
-  public final fun getConstantId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConstantIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getConstantId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConstantIdPtr)
 
   public companion object {
     @JvmField

@@ -9,17 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.JoyButton
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -62,34 +62,25 @@ public open class InputEventJoypadButton : InputEvent() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(314, scriptPtr)
+    createNativeObject(312, scriptPtr)
   }
 
   public final fun setButtonIndex(buttonIndex: JoyButton): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to buttonIndex.value)
-    TransferContext.callMethod(MethodBindings.setButtonIndexPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setButtonIndexPtr, buttonIndex.value)
   }
 
-  public final fun getButtonIndex(): JoyButton {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getButtonIndexPtr)
-    return JoyButton.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getButtonIndex(): JoyButton =
+      JoyButton.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getButtonIndexPtr))
 
   public final fun setPressure(pressure: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pressure.toDouble())
-    TransferContext.callMethod(MethodBindings.setPressurePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPressurePtr, pressure.toDouble())
   }
 
-  public final fun getPressure(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPressurePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getPressure(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPressurePtr).toFloat()
 
   public final fun setPressed(pressed: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pressed)
-    TransferContext.callMethod(MethodBindings.setPressedPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPressedPtr, pressed)
   }
 
   public companion object {

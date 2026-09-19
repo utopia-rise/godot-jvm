@@ -11,11 +11,13 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -72,7 +74,7 @@ public open class MeshTexture : Texture2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(381, scriptPtr)
+    createNativeObject(379, scriptPtr)
   }
 
   /**
@@ -95,37 +97,25 @@ public open class MeshTexture : Texture2D() {
   }
 
   public final fun setMesh(mesh: Mesh?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to mesh)
-    TransferContext.callMethod(MethodBindings.setMeshPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMeshPtr, mesh)
   }
 
-  public final fun getMesh(): Mesh? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Mesh?)
-  }
+  public final fun getMesh(): Mesh? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMeshPtr) as Mesh?)
 
   public final fun setImageSize(size: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to size)
-    TransferContext.callMethod(MethodBindings.setImageSizePtr)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setImageSizePtr, size)
   }
 
-  public final fun getImageSize(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getImageSizePtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
-  }
+  public final fun getImageSize(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getImageSizePtr)
 
   public final fun setBaseTexture(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to texture)
-    TransferContext.callMethod(MethodBindings.setBaseTexturePtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setBaseTexturePtr, texture)
   }
 
-  public final fun getBaseTexture(): Texture2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBaseTexturePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture2D?)
-  }
+  public final fun getBaseTexture(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBaseTexturePtr) as Texture2D?)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

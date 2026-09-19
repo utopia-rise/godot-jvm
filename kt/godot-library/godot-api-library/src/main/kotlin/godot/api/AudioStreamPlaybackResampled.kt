@@ -9,6 +9,7 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import kotlin.Boolean
@@ -26,7 +27,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public abstract class AudioStreamPlaybackResampled : AudioStreamPlayback() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(95, scriptPtr)
+    createNativeObject(93, scriptPtr)
   }
 
   /**
@@ -39,8 +40,7 @@ public abstract class AudioStreamPlaybackResampled : AudioStreamPlayback() {
    * mixing by calling [_mixResampled].
    */
   public final fun beginResample(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.beginResamplePtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.beginResamplePtr)
   }
 
   /**

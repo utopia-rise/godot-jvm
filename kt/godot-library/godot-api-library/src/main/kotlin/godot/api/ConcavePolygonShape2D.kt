@@ -11,11 +11,12 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR2_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedVector2Array
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
 import godot.core.Vector2
 import kotlin.Int
 import kotlin.Suppress
@@ -71,7 +72,7 @@ public open class ConcavePolygonShape2D : Shape2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(181, scriptPtr)
+    createNativeObject(179, scriptPtr)
   }
 
   /**
@@ -116,15 +117,11 @@ public open class ConcavePolygonShape2D : Shape2D() {
   }
 
   public final fun setSegments(segments: PackedVector2Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_VECTOR2_ARRAY to segments)
-    TransferContext.callMethod(MethodBindings.setSegmentsPtr)
+    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setSegmentsPtr, segments)
   }
 
-  public final fun getSegments(): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSegmentsPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
-  }
+  public final fun getSegments(): PackedVector2Array =
+      TransferContext.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getSegmentsPtr)
 
   public companion object {
     @JvmField

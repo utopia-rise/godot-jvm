@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY_BOOL_ret_DOUBLE
+import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedFloat32Array
 import godot.core.PackedFloat64Array
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.PACKED_FLOAT_32_ARRAY
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.NotImplementedError
@@ -33,7 +32,7 @@ import kotlin.jvm.JvmStatic
 @GodotBaseType
 public abstract class AnimationNodeExtension : AnimationNode() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(26, scriptPtr)
+    createNativeObject(24, scriptPtr)
   }
 
   /**
@@ -69,11 +68,8 @@ public abstract class AnimationNodeExtension : AnimationNode() {
      * Returns `true` if the animation for the given [nodeInfo] is looping.
      */
     @JvmStatic
-    public final fun isLooping(nodeInfo: PackedFloat32Array): Boolean {
-      TransferContext.writeMethodArguments(0L, 0L, PACKED_FLOAT_32_ARRAY to nodeInfo)
-      TransferContext.callMethod(MethodBindings.isLoopingPtr)
-      return (TransferContext.readReturnValue(BOOL) as Boolean)
-    }
+    public final fun isLooping(nodeInfo: PackedFloat32Array): Boolean =
+        TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY_ret_BOOL(0L, 0L, MethodBindings.isLoopingPtr, nodeInfo)
 
     /**
      * Returns the animation's remaining time for the given node info. For looping animations, it
@@ -81,11 +77,8 @@ public abstract class AnimationNodeExtension : AnimationNode() {
      * returned otherwise.
      */
     @JvmStatic
-    public final fun getRemainingTime(nodeInfo: PackedFloat32Array, breakLoop: Boolean): Double {
-      TransferContext.writeMethodArguments(0L, 0L, PACKED_FLOAT_32_ARRAY to nodeInfo, BOOL to breakLoop)
-      TransferContext.callMethod(MethodBindings.getRemainingTimePtr)
-      return (TransferContext.readReturnValue(DOUBLE) as Double)
-    }
+    public final fun getRemainingTime(nodeInfo: PackedFloat32Array, breakLoop: Boolean): Double =
+        TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY_BOOL_ret_DOUBLE(0L, 0L, MethodBindings.getRemainingTimePtr, nodeInfo, breakLoop)
   }
 
   public object MethodBindings {

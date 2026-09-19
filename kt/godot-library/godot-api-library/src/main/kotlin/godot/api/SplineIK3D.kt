@@ -9,17 +9,19 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_NODE_PATH
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_NODE_PATH
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.NodePath
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
 import godot.core.asCachedNodePath
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -68,35 +70,27 @@ public open class SplineIK3D : ChainIK3D() {
    * Sets the node path of the [Path3D] which is describing the path.
    */
   public final fun setPath3d(index: Int, path3d: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), NODE_PATH to path3d)
-    TransferContext.callMethod(MethodBindings.setPath3dPtr)
+    TransferContext.callPtrMethod_LONG_NODE_PATH(ptr, objectID.id, MethodBindings.setPath3dPtr, index.toLong(), path3d)
   }
 
   /**
    * Returns the node path of the [Path3D] which is describing the path.
    */
-  public final fun getPath3d(index: Int): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getPath3dPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
-  }
+  public final fun getPath3d(index: Int): NodePath =
+      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getPath3dPtr, index.toLong())
 
   /**
    * Sets if the tilt property of the [Curve3D] should affect the bone twist.
    */
   public final fun setTiltEnabled(index: Int, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setTiltEnabledPtr)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setTiltEnabledPtr, index.toLong(), enabled)
   }
 
   /**
    * Returns if the tilt property of the [Curve3D] affects the bone twist.
    */
-  public final fun isTiltEnabled(index: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.isTiltEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isTiltEnabled(index: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isTiltEnabledPtr, index.toLong())
 
   /**
    * If [size] is greater than `0`, the tilt is interpolated between [size] start bones from the
@@ -109,19 +103,15 @@ public open class SplineIK3D : ChainIK3D() {
    * [Curve3D] are `0.0`.
    */
   public final fun setTiltFadeIn(index: Int, size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to size.toLong())
-    TransferContext.callMethod(MethodBindings.setTiltFadeInPtr)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setTiltFadeInPtr, index.toLong(), size.toLong())
   }
 
   /**
    * Returns the tilt interpolation method used between the root bone and the start point of the
    * [Curve3D] when they are apart. See also [setTiltFadeIn].
    */
-  public final fun getTiltFadeIn(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getTiltFadeInPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getTiltFadeIn(index: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getTiltFadeInPtr, index.toLong()).toInt()
 
   /**
    * If [size] is greater than `0`, the tilt is interpolated between [size] end bones from the end
@@ -134,19 +124,15 @@ public open class SplineIK3D : ChainIK3D() {
    * are `0.0`.
    */
   public final fun setTiltFadeOut(index: Int, size: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to size.toLong())
-    TransferContext.callMethod(MethodBindings.setTiltFadeOutPtr)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setTiltFadeOutPtr, index.toLong(), size.toLong())
   }
 
   /**
    * Returns the tilt interpolation method used between the end bone and the end point of the
    * [Curve3D] when they are apart. See also [setTiltFadeOut].
    */
-  public final fun getTiltFadeOut(index: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getTiltFadeOutPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getTiltFadeOut(index: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getTiltFadeOutPtr, index.toLong()).toInt()
 
   /**
    * Sets the node path of the [Path3D] which is describing the path.

@@ -32,22 +32,37 @@ object TransferContext {
         buf
     }
 
-    fun writeArguments(vararg values: Pair<VariantConverter<*>, Any?>) = buffer.let {
-        it.rewind()
-        it.putInt(values.size)
-        for (value in values) {
-            value.first.toGodot(it, value.second)
-        }
+    inline fun writeArguments(argumentCount: Int, write: ByteBuffer.() -> Unit) {
+        val buffer = buffer
+        buffer.rewind()
+        buffer.putInt(argumentCount)
+        buffer.write()
     }
 
-    fun writeMethodArguments(callerPtr: VoidPtr, callerId: Long, vararg values: Pair<VariantConverter<*>, Any?>) = buffer.let {
+    /**
+     * One bridge crossing on a single buffer lookup: [call] writes the arguments and then invokes the bridge, and
+     * what the engine wrote back is decoded through [returns]. The caller never sees the buffer.
+     */
+    inline fun <T> callBridge(argumentCount: Int, returns: VariantConverter<T>, call: ByteBuffer.() -> Unit): T {
+        val buffer = buffer
+        buffer.rewind()
+        buffer.putInt(argumentCount)
+        buffer.call()
+        return returns.toKotlin(buffer.rewind())
+    }
+
+    /** The result of a bridge that takes no arguments, on the same single lookup. */
+    inline fun <T> callBridge(returns: VariantConverter<T>, call: () -> Unit): T {
+        val buffer = buffer
+        call()
+        return returns.toKotlin(buffer.rewind())
+    }
+
+    fun beginMethodCall(callerPtr: VoidPtr, callerId: Long, argumentCount: Int): ByteBuffer = buffer.also {
         it.rewind()
         it.putLong(callerPtr)
         it.putLong(callerId)
-        it.putInt(values.size)
-        for (value in values) {
-            value.first.toGodot(it, value.second)
-        }
+        it.putInt(argumentCount)
     }
 
     fun readSetterArgument(variantConverter: VariantConverter<*>) = buffer.let {
@@ -81,12 +96,21 @@ object TransferContext {
         type.toGodot(it, value)
     }
 
-    fun readReturnValue(type: VariantConverter<*>) = buffer.let {
-        it.rewind()
-        type.toKotlin(it)
-    }
+    fun readReturnValue(type: VariantConverter<*>) = type.toKotlin(beginReturnValueRead())
 
+    fun beginReturnValueRead(): ByteBuffer = buffer.rewind()
+
+    /** Checked Variant call: variadic methods, and methods taking or returning a Variant. */
     fun callMethod(methodPtr: VoidPtr) = icall(methodPtr)
+
+    /**
+     * Unchecked ptrcall. [returnType] is the Variant type ordinal the engine writes its result as, or
+     * Variant::TYPE_MAX when the method returns a Ref<T>: the engine then stores an owned reference in the return
+     * slot, which the native side releases once the object has been bound. The generator reads TYPE_MAX from
+     * api.json and bakes it into the generated call, as the native side cannot derive it from the method bind or
+     * from the returned pointer; the native TransferContext::REF_COUNTED_RETURN_TYPE is the same VARIANT_MAX.
+     */
+    fun callPtrMethod(methodPtr: VoidPtr, returnType: Int) = icallPtr(methodPtr, returnType)
 
     @ExperimentalContracts
     inline fun unsafeRead(block: (ByteBuffer) -> Unit) {
@@ -100,4 +124,5 @@ object TransferContext {
     }
 
     private external fun icall(methodPtr: VoidPtr)
+    private external fun icallPtr(methodPtr: VoidPtr, returnType: Int)
 }

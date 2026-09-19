@@ -9,6 +9,22 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_OBJECT
+import godot.callPtrMethod_LONG_LONG_QUATERNION
+import godot.callPtrMethod_LONG_LONG_VECTOR3
+import godot.callPtrMethod_LONG_LONG_ret_LONG
+import godot.callPtrMethod_LONG_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_LONG_ret_QUATERNION
+import godot.callPtrMethod_LONG_LONG_ret_VECTOR3
+import godot.callPtrMethod_LONG_NODE_PATH
+import godot.callPtrMethod_LONG_ret_NODE_PATH
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -16,19 +32,11 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.NodePath
 import godot.core.Quaternion
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.QUATERNION
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
 import godot.core.asCachedNodePath
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -114,69 +122,49 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(331, scriptPtr)
+    createNativeObject(329, scriptPtr)
   }
 
   public final fun setMaxIterations(maxIterations: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxIterations.toLong())
-    TransferContext.callMethod(MethodBindings.setMaxIterationsPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxIterationsPtr, maxIterations.toLong())
   }
 
-  public final fun getMaxIterations(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMaxIterationsPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getMaxIterations(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxIterationsPtr).toInt()
 
   public final fun setMinDistance(minDistance: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to minDistance)
-    TransferContext.callMethod(MethodBindings.setMinDistancePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMinDistancePtr, minDistance)
   }
 
-  public final fun getMinDistance(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMinDistancePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
-  }
+  public final fun getMinDistance(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMinDistancePtr)
 
   public final fun setAngularDeltaLimit(angularDeltaLimit: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to angularDeltaLimit)
-    TransferContext.callMethod(MethodBindings.setAngularDeltaLimitPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAngularDeltaLimitPtr, angularDeltaLimit)
   }
 
-  public final fun getAngularDeltaLimit(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAngularDeltaLimitPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
-  }
+  public final fun getAngularDeltaLimit(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAngularDeltaLimitPtr)
 
   public final fun setDeterministic(deterministic: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to deterministic)
-    TransferContext.callMethod(MethodBindings.setDeterministicPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDeterministicPtr, deterministic)
   }
 
-  public final fun isDeterministic(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDeterministicPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isDeterministic(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDeterministicPtr)
 
   /**
    * Sets the target node that the end bone is trying to reach.
    */
   public final fun setTargetNode(index: Int, targetNode: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), NODE_PATH to targetNode)
-    TransferContext.callMethod(MethodBindings.setTargetNodePtr)
+    TransferContext.callPtrMethod_LONG_NODE_PATH(ptr, objectID.id, MethodBindings.setTargetNodePtr, index.toLong(), targetNode)
   }
 
   /**
    * Returns the target node that the end bone is trying to reach.
    */
-  public final fun getTargetNode(index: Int): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getTargetNodePtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
-  }
+  public final fun getTargetNode(index: Int): NodePath =
+      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getTargetNodePtr, index.toLong())
 
   /**
    * Sets the rotation axis at [joint] in the bone chain's joint list.
@@ -194,18 +182,14 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
     joint: Int,
     axis: SkeletonModifier3D.RotationAxis,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong(), LONG to axis.value)
-    TransferContext.callMethod(MethodBindings.setJointRotationAxisPtr)
+    TransferContext.callPtrMethod_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.setJointRotationAxisPtr, index.toLong(), joint.toLong(), axis.value)
   }
 
   /**
    * Returns the rotation axis at [joint] in the bone chain's joint list.
    */
-  public final fun getJointRotationAxis(index: Int, joint: Int): SkeletonModifier3D.RotationAxis {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong())
-    TransferContext.callMethod(MethodBindings.getJointRotationAxisPtr)
-    return SkeletonModifier3D.RotationAxis.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getJointRotationAxis(index: Int, joint: Int): SkeletonModifier3D.RotationAxis =
+      SkeletonModifier3D.RotationAxis.from(TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getJointRotationAxisPtr, index.toLong(), joint.toLong()))
 
   /**
    * Sets the rotation axis vector for the specified joint in the bone chain.
@@ -221,8 +205,7 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
     joint: Int,
     axisVector: Vector3,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong(), VECTOR3 to axisVector)
-    TransferContext.callMethod(MethodBindings.setJointRotationAxisVectorPtr)
+    TransferContext.callPtrMethod_LONG_LONG_VECTOR3(ptr, objectID.id, MethodBindings.setJointRotationAxisVectorPtr, index.toLong(), joint.toLong(), axisVector)
   }
 
   /**
@@ -233,11 +216,8 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
    * If [getJointRotationAxis] is [SkeletonModifier3D.ROTATION_AXIS_ALL], this method returns
    * `Vector3(0, 0, 0)`.
    */
-  public final fun getJointRotationAxisVector(index: Int, joint: Int): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong())
-    TransferContext.callMethod(MethodBindings.getJointRotationAxisVectorPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getJointRotationAxisVector(index: Int, joint: Int): Vector3 =
+      TransferContext.callPtrMethod_LONG_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getJointRotationAxisVectorPtr, index.toLong(), joint.toLong())
 
   /**
    * Sets the joint limitation at [joint] in the bone chain's joint list.
@@ -247,18 +227,14 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
     joint: Int,
     limitation: JointLimitation3D?,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong(), OBJECT to limitation)
-    TransferContext.callMethod(MethodBindings.setJointLimitationPtr)
+    TransferContext.callPtrMethod_LONG_LONG_OBJECT(ptr, objectID.id, MethodBindings.setJointLimitationPtr, index.toLong(), joint.toLong(), limitation)
   }
 
   /**
    * Returns the joint limitation at [joint] in the bone chain's joint list.
    */
-  public final fun getJointLimitation(index: Int, joint: Int): JointLimitation3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong())
-    TransferContext.callMethod(MethodBindings.getJointLimitationPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JointLimitation3D?)
-  }
+  public final fun getJointLimitation(index: Int, joint: Int): JointLimitation3D? =
+      (TransferContext.callPtrMethod_LONG_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getJointLimitationPtr, index.toLong(), joint.toLong()) as JointLimitation3D?)
 
   /**
    * Sets the joint limitation right axis at [joint] in the bone chain's joint list.
@@ -268,19 +244,15 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
     joint: Int,
     direction: SkeletonModifier3D.SecondaryDirection,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong(), LONG to direction.value)
-    TransferContext.callMethod(MethodBindings.setJointLimitationRightAxisPtr)
+    TransferContext.callPtrMethod_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.setJointLimitationRightAxisPtr, index.toLong(), joint.toLong(), direction.value)
   }
 
   /**
    * Returns the joint limitation right axis at [joint] in the bone chain's joint list.
    */
   public final fun getJointLimitationRightAxis(index: Int, joint: Int):
-      SkeletonModifier3D.SecondaryDirection {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong())
-    TransferContext.callMethod(MethodBindings.getJointLimitationRightAxisPtr)
-    return SkeletonModifier3D.SecondaryDirection.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+      SkeletonModifier3D.SecondaryDirection =
+      SkeletonModifier3D.SecondaryDirection.from(TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getJointLimitationRightAxisPtr, index.toLong(), joint.toLong()))
 
   /**
    * Sets the optional joint limitation right axis vector at [joint] in the bone chain's joint list.
@@ -290,8 +262,7 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
     joint: Int,
     vector: Vector3,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong(), VECTOR3 to vector)
-    TransferContext.callMethod(MethodBindings.setJointLimitationRightAxisVectorPtr)
+    TransferContext.callPtrMethod_LONG_LONG_VECTOR3(ptr, objectID.id, MethodBindings.setJointLimitationRightAxisVectorPtr, index.toLong(), joint.toLong(), vector)
   }
 
   /**
@@ -300,11 +271,8 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
    * If [getJointLimitationRightAxis] is [SkeletonModifier3D.SECONDARY_DIRECTION_NONE], this method
    * returns `Vector3(0, 0, 0)`.
    */
-  public final fun getJointLimitationRightAxisVector(index: Int, joint: Int): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong())
-    TransferContext.callMethod(MethodBindings.getJointLimitationRightAxisVectorPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getJointLimitationRightAxisVector(index: Int, joint: Int): Vector3 =
+      TransferContext.callPtrMethod_LONG_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getJointLimitationRightAxisVectorPtr, index.toLong(), joint.toLong())
 
   /**
    * Sets the joint limitation rotation offset at [joint] in the bone chain's joint list.
@@ -326,8 +294,7 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
     joint: Int,
     offset: Quaternion,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong(), QUATERNION to offset)
-    TransferContext.callMethod(MethodBindings.setJointLimitationRotationOffsetPtr)
+    TransferContext.callPtrMethod_LONG_LONG_QUATERNION(ptr, objectID.id, MethodBindings.setJointLimitationRotationOffsetPtr, index.toLong(), joint.toLong(), offset)
   }
 
   /**
@@ -345,11 +312,8 @@ public open class IterateIK3D internal constructor() : ChainIK3D() {
    *
    * In here, the reference pose is the bone pose immediately before processing IK.
    */
-  public final fun getJointLimitationRotationOffset(index: Int, joint: Int): Quaternion {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), LONG to joint.toLong())
-    TransferContext.callMethod(MethodBindings.getJointLimitationRotationOffsetPtr)
-    return (TransferContext.readReturnValue(QUATERNION) as Quaternion)
-  }
+  public final fun getJointLimitationRotationOffset(index: Int, joint: Int): Quaternion =
+      TransferContext.callPtrMethod_LONG_LONG_ret_QUATERNION(ptr, objectID.id, MethodBindings.getJointLimitationRotationOffsetPtr, index.toLong(), joint.toLong())
 
   /**
    * Sets the target node that the end bone is trying to reach.
