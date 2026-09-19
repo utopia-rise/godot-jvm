@@ -17,8 +17,8 @@ language = "kt"
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_right = 83.0
-offset_bottom = 14.0
+offset_right = 300.0
+offset_bottom = 20.0
 
 [node name="FPS" type="Label" parent="Panel"]
 layout_mode = 0
