@@ -3,8 +3,6 @@
 
 namespace jni {
 
-#define LOCAL_FRAME(size) jni::LocalFrame frame = jni::LocalFrame(size)
-
     /*
      * Set ups a local frame and pop it when the object is destroyed. The semantics
      * are similar to:

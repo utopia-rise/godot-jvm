@@ -1,12 +1,7 @@
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV2 --lang=gd
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV2 --lang=kt
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV2 --lang=cs
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV1Sprites --lang=gd
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV1Sprites --lang=kt
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV1Sprites --lang=cs
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV1DrawTexture --lang=gd
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV1DrawTexture --lang=kt
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV1DrawTexture --lang=cs
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV3 --lang=gd
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV3 --lang=kt
-../../../../bin/godot.x11.opt.tools.64.mono --bench=BunnymarkV3 --lang=cs
+#!/usr/bin/env bash
+set -e
+for bench in BunnymarkV2 BunnymarkV1Sprites BunnymarkV1DrawTexture BunnymarkV3; do
+    for lang in gd kt; do
+        "$GODOT_EDITOR" --path . -- --bench=$bench --lang=$lang
+    done
+done
