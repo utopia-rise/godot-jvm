@@ -9,13 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -44,15 +43,11 @@ public open class VisualShaderNodeParticleAccelerator : VisualShaderNode() {
   }
 
   public final fun setMode(mode: Mode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setModePtr, mode.value)
   }
 
-  public final fun getMode(): Mode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getModePtr, 2)
-    return Mode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getMode(): Mode =
+      Mode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getModePtr))
 
   public enum class Mode(
     public override val `value`: Long,

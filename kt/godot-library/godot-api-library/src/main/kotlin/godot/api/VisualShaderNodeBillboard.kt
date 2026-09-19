@@ -9,15 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -59,26 +58,18 @@ public open class VisualShaderNodeBillboard : VisualShaderNode() {
   }
 
   public final fun setBillboardType(billboardType: BillboardType): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, billboardType.value)
-    TransferContext.callPtrMethod(MethodBindings.setBillboardTypePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBillboardTypePtr, billboardType.value)
   }
 
-  public final fun getBillboardType(): BillboardType {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBillboardTypePtr, 2)
-    return BillboardType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getBillboardType(): BillboardType =
+      BillboardType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBillboardTypePtr))
 
   public final fun setKeepScaleEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setKeepScaleEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setKeepScaleEnabledPtr, enabled)
   }
 
-  public final fun isKeepScaleEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isKeepScaleEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isKeepScaleEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isKeepScaleEnabledPtr)
 
   public enum class BillboardType(
     public override val `value`: Long,

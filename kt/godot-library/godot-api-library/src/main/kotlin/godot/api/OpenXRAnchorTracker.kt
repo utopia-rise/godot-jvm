@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
@@ -53,22 +52,15 @@ public open class OpenXRAnchorTracker : OpenXRSpatialEntityTracker() {
   /**
    * Returns `true` if a non-zero UUID is set.
    */
-  public final fun hasUuid(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasUuidPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasUuid(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasUuidPtr)
 
   public final fun setUuid(uuid: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, uuid)
-    TransferContext.callMethod(MethodBindings.setUuidPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setUuidPtr, uuid)
   }
 
-  public final fun getUuid(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUuidPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getUuid(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getUuidPtr)
 
   public companion object {
     @JvmField

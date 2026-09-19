@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_DOUBLE_DOUBLE_LONG_ret_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName3
 import godot.core.Vector2
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments_DOUBLE_DOUBLE_LONG
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -47,11 +46,8 @@ public open class AudioEffectSpectrumAnalyzerInstance internal constructor() : A
     fromHz: Float,
     toHz: Float,
     mode: MagnitudeMode = AudioEffectSpectrumAnalyzerInstance.MagnitudeMode.MAX,
-  ): Vector2 {
-    TransferContext.writeMethodArguments_DOUBLE_DOUBLE_LONG(ptr, objectID.id, fromHz.toDouble(), toHz.toDouble(), mode.value)
-    TransferContext.callPtrMethod(MethodBindings.getMagnitudeForFrequencyRangePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  ): Vector2 =
+      TransferContext.callPtrMethod_DOUBLE_DOUBLE_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getMagnitudeForFrequencyRangePtr, fromHz.toDouble(), toHz.toDouble(), mode.value)
 
   public enum class MagnitudeMode(
     public override val `value`: Long,

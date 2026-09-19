@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod_LONG_ret_DICTIONARY
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
 import kotlin.Any
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -82,11 +81,8 @@ public open class SyntaxHighlighter : Resource() {
    * }
    * ```
    */
-  public final fun getLineSyntaxHighlighting(line: Int): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getLineSyntaxHighlightingPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getLineSyntaxHighlighting(line: Int): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_LONG_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getLineSyntaxHighlightingPtr, line.toLong()) as Dictionary<Any?, Any?>)
 
   /**
    * Clears then updates the [SyntaxHighlighter] caches. Override [_updateCache] for a callback.
@@ -95,8 +91,7 @@ public open class SyntaxHighlighter : Resource() {
    * cache.
    */
   public final fun updateCache(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.updateCachePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.updateCachePtr)
   }
 
   /**
@@ -105,18 +100,14 @@ public open class SyntaxHighlighter : Resource() {
    * Then calls overridable method [_clearHighlightingCache].
    */
   public final fun clearHighlightingCache(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearHighlightingCachePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearHighlightingCachePtr)
   }
 
   /**
    * Returns the associated [TextEdit] node.
    */
-  public final fun getTextEdit(): TextEdit? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTextEditPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as TextEdit?)
-  }
+  public final fun getTextEdit(): TextEdit? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getTextEditPtr) as TextEdit?)
 
   public companion object {
     @JvmField

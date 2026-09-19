@@ -11,6 +11,16 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_RECT2
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_RECT2
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -19,16 +29,6 @@ import godot.core.MethodStringName2
 import godot.core.Rect2
 import godot.core.Side
 import godot.core.Signal0
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_RECT2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_RECT2
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -193,76 +193,52 @@ public open class NinePatchRect : Control() {
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
   }
 
-  public final fun getTexture(): Texture2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getTexture(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture2D?)
 
   /**
    * Sets the size of the margin on the specified [Side] to [value] pixels.
    */
   public final fun setPatchMargin(margin: Side, `value`: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, margin.value, value.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setPatchMarginPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setPatchMarginPtr, margin.value, value.toLong())
   }
 
   /**
    * Returns the size of the margin on the specified [Side].
    */
-  public final fun getPatchMargin(margin: Side): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
-    TransferContext.callPtrMethod(MethodBindings.getPatchMarginPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getPatchMargin(margin: Side): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getPatchMarginPtr, margin.value).toInt()
 
   public final fun setRegionRect(rect: Rect2): Unit {
-    TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, rect)
-    TransferContext.callPtrMethod(MethodBindings.setRegionRectPtr, 0)
+    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setRegionRectPtr, rect)
   }
 
-  public final fun getRegionRect(): Rect2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRegionRectPtr, 7)
-    return TransferContext.readReturnValue_RECT2()
-  }
+  public final fun getRegionRect(): Rect2 =
+      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRegionRectPtr)
 
   public final fun setDrawCenter(drawCenter: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, drawCenter)
-    TransferContext.callPtrMethod(MethodBindings.setDrawCenterPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDrawCenterPtr, drawCenter)
   }
 
-  public final fun isDrawCenterEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDrawCenterEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDrawCenterEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDrawCenterEnabledPtr)
 
   public final fun setHAxisStretchMode(mode: AxisStretchMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setHAxisStretchModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHAxisStretchModePtr, mode.value)
   }
 
-  public final fun getHAxisStretchMode(): AxisStretchMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHAxisStretchModePtr, 2)
-    return AxisStretchMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getHAxisStretchMode(): AxisStretchMode =
+      AxisStretchMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHAxisStretchModePtr))
 
   public final fun setVAxisStretchMode(mode: AxisStretchMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setVAxisStretchModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVAxisStretchModePtr, mode.value)
   }
 
-  public final fun getVAxisStretchMode(): AxisStretchMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVAxisStretchModePtr, 2)
-    return AxisStretchMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getVAxisStretchMode(): AxisStretchMode =
+      AxisStretchMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVAxisStretchModePtr))
 
   public enum class AxisStretchMode(
     public override val `value`: Long,

@@ -9,6 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_ANY
+import godot.callMethod0_ret_STRING
+import godot.callMethod_CALLABLE_LONG_ret_LONG
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.Error
@@ -16,13 +21,6 @@ import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.readReturnValue_ANY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_CALLABLE_LONG
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Long
@@ -62,32 +60,23 @@ public open class Thread : RefCounted() {
    * Returns [OK] on success, or [ERR_CANT_CREATE] on failure.
    */
   @JvmOverloads
-  public final fun start(callable: Callable, priority: Priority = Thread.Priority.NORMAL): Error {
-    TransferContext.writeMethodArguments_CALLABLE_LONG(ptr, objectID.id, callable, priority.value)
-    TransferContext.callMethod(MethodBindings.startPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun start(callable: Callable, priority: Priority = Thread.Priority.NORMAL): Error =
+      Error.from(TransferContext.callMethod_CALLABLE_LONG_ret_LONG(ptr, objectID.id, MethodBindings.startPtr, callable, priority.value))
 
   /**
    * Returns the current [Thread]'s ID, uniquely identifying it among all threads. If the [Thread]
    * has not started running or if [waitToFinish] has been called, this returns an empty string.
    */
-  public final fun getId(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIdPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getId(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getIdPtr)
 
   /**
    * Returns `true` if this [Thread] has been started. Once started, this will return `true` until
    * it is joined using [waitToFinish]. For checking if a [Thread] is still executing its task, use
    * [isAlive].
    */
-  public final fun isStarted(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isStartedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isStarted(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isStartedPtr)
 
   /**
    * Returns `true` if this [Thread] is currently running the provided function. This is useful for
@@ -95,11 +84,8 @@ public open class Thread : RefCounted() {
    *
    * To check if a [Thread] is joinable, use [isStarted].
    */
-  public final fun isAlive(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isAlivePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isAlive(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAlivePtr)
 
   /**
    * Joins the [Thread] and waits for it to finish. Returns the output of the [Callable] passed to
@@ -111,11 +97,8 @@ public open class Thread : RefCounted() {
    * To determine if this can be called without blocking the calling thread, check if [isAlive] is
    * `false`.
    */
-  public final fun waitToFinish(): Any? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.waitToFinishPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun waitToFinish(): Any? =
+      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.waitToFinishPtr)
 
   public enum class Priority(
     public override val `value`: Long,
@@ -195,8 +178,7 @@ public open class Thread : RefCounted() {
      */
     @JvmStatic
     public final fun setThreadSafetyChecksEnabled(enabled: Boolean): Unit {
-      TransferContext.writeMethodArguments_BOOL(0L, 0L, enabled)
-      TransferContext.callPtrMethod(MethodBindings.setThreadSafetyChecksEnabledPtr, 0)
+      TransferContext.callPtrMethod_BOOL(0L, 0L, MethodBindings.setThreadSafetyChecksEnabledPtr, enabled)
     }
 
     /**
@@ -205,11 +187,8 @@ public open class Thread : RefCounted() {
      * **Note:** This is a static method and isn't associated with a specific [Thread] object.
      */
     @JvmStatic
-    public final fun isMainThread(): Boolean {
-      TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callPtrMethod(MethodBindings.isMainThreadPtr, 1)
-      return TransferContext.readReturnValue_BOOL()
-    }
+    public final fun isMainThread(): Boolean =
+        TransferContext.callPtrMethod0_ret_BOOL(0L, 0L, MethodBindings.isMainThreadPtr)
   }
 
   public object MethodBindings {

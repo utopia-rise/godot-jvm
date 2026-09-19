@@ -9,6 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_VECTOR2I
+import godot.callPtrMethod_VECTOR2I
+import godot.callPtrMethod_VECTOR2I_BOOL
+import godot.callPtrMethod_VECTOR2I_LONG_VECTOR2I_LONG
+import godot.callPtrMethod_VECTOR2I_ret_BOOL
+import godot.callPtrMethod_VECTOR2I_ret_LONG
+import godot.callPtrMethod_VECTOR2I_ret_VECTOR2I
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -16,14 +25,6 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName4
 import godot.core.VariantArray
 import godot.core.Vector2i
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_VECTOR2I
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_VECTOR2I
-import godot.writeMethodArguments_VECTOR2I_BOOL
-import godot.writeMethodArguments_VECTOR2I_LONG_VECTOR2I_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
@@ -53,88 +54,64 @@ public open class TileMapPattern : Resource() {
     atlasCoords: Vector2i = Vector2i(-1, -1),
     alternativeTile: Int = -1,
   ): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_LONG_VECTOR2I_LONG(ptr, objectID.id, coords, sourceId.toLong(), atlasCoords, alternativeTile.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setCellPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_LONG_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.setCellPtr, coords, sourceId.toLong(), atlasCoords, alternativeTile.toLong())
   }
 
   /**
    * Returns whether the pattern has a tile at the given coordinates.
    */
-  public final fun hasCell(coords: Vector2i): Boolean {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
-    TransferContext.callPtrMethod(MethodBindings.hasCellPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasCell(coords: Vector2i): Boolean =
+      TransferContext.callPtrMethod_VECTOR2I_ret_BOOL(ptr, objectID.id, MethodBindings.hasCellPtr, coords)
 
   /**
    * Remove the cell at the given coordinates.
    */
   public final fun removeCell(coords: Vector2i, updateSize: Boolean): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_BOOL(ptr, objectID.id, coords, updateSize)
-    TransferContext.callPtrMethod(MethodBindings.removeCellPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_BOOL(ptr, objectID.id, MethodBindings.removeCellPtr, coords, updateSize)
   }
 
   /**
    * Returns the tile source ID of the cell at [coords].
    */
-  public final fun getCellSourceId(coords: Vector2i): Int {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
-    TransferContext.callPtrMethod(MethodBindings.getCellSourceIdPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getCellSourceId(coords: Vector2i): Int =
+      TransferContext.callPtrMethod_VECTOR2I_ret_LONG(ptr, objectID.id, MethodBindings.getCellSourceIdPtr, coords).toInt()
 
   /**
    * Returns the tile atlas coordinates ID of the cell at [coords].
    */
-  public final fun getCellAtlasCoords(coords: Vector2i): Vector2i {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
-    TransferContext.callPtrMethod(MethodBindings.getCellAtlasCoordsPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getCellAtlasCoords(coords: Vector2i): Vector2i =
+      TransferContext.callPtrMethod_VECTOR2I_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getCellAtlasCoordsPtr, coords)
 
   /**
    * Returns the tile alternative ID of the cell at [coords].
    */
-  public final fun getCellAlternativeTile(coords: Vector2i): Int {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
-    TransferContext.callPtrMethod(MethodBindings.getCellAlternativeTilePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getCellAlternativeTile(coords: Vector2i): Int =
+      TransferContext.callPtrMethod_VECTOR2I_ret_LONG(ptr, objectID.id, MethodBindings.getCellAlternativeTilePtr, coords).toInt()
 
   /**
    * Returns the list of used cell coordinates in the pattern.
    */
-  public final fun getUsedCells(): VariantArray<Vector2i> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getUsedCellsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2i>)
-  }
+  public final fun getUsedCells(): VariantArray<Vector2i> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getUsedCellsPtr) as VariantArray<Vector2i>)
 
   /**
    * Returns the size, in cells, of the pattern.
    */
-  public final fun getSize(): Vector2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getSize(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getSizePtr)
 
   /**
    * Sets the size of the pattern.
    */
   public final fun setSize(size: Vector2i): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, size)
-    TransferContext.callPtrMethod(MethodBindings.setSizePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setSizePtr, size)
   }
 
   /**
    * Returns whether the pattern is empty or not.
    */
-  public final fun isEmpty(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isEmptyPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isEmpty(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEmptyPtr)
 
   public companion object {
     @JvmField

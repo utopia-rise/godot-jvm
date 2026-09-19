@@ -9,15 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_ret_BOOL
+import godot.callMethod_STRING_ret_STRING
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedStringArray
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_PACKED_STRING_ARRAY
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
@@ -53,32 +51,23 @@ public open class ShaderIncludeDB : Object() {
      * Returns a list of built-in include files that are currently registered.
      */
     @JvmStatic
-    public final fun listBuiltInIncludeFiles(): PackedStringArray {
-      TransferContext.writeMethodArguments0(0L, 0L)
-      TransferContext.callPtrMethod(MethodBindings.listBuiltInIncludeFilesPtr, 34)
-      return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-    }
+    public final fun listBuiltInIncludeFiles(): PackedStringArray =
+        TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(0L, 0L, MethodBindings.listBuiltInIncludeFilesPtr)
 
     /**
      * Returns `true` if an include file with this name exists.
      */
     @JvmStatic
-    public final fun hasBuiltInIncludeFile(filename: String): Boolean {
-      TransferContext.writeMethodArguments_STRING(0L, 0L, filename)
-      TransferContext.callMethod(MethodBindings.hasBuiltInIncludeFilePtr)
-      return TransferContext.readReturnValue_BOOL()
-    }
+    public final fun hasBuiltInIncludeFile(filename: String): Boolean =
+        TransferContext.callMethod_STRING_ret_BOOL(0L, 0L, MethodBindings.hasBuiltInIncludeFilePtr, filename)
 
     /**
      * Returns the code for the built-in shader fragment. You can also access this in your shader
      * code through `#include "filename"`.
      */
     @JvmStatic
-    public final fun getBuiltInIncludeFile(filename: String): String {
-      TransferContext.writeMethodArguments_STRING(0L, 0L, filename)
-      TransferContext.callMethod(MethodBindings.getBuiltInIncludeFilePtr)
-      return TransferContext.readReturnValue_STRING()
-    }
+    public final fun getBuiltInIncludeFile(filename: String): String =
+        TransferContext.callMethod_STRING_ret_STRING(0L, 0L, MethodBindings.getBuiltInIncludeFilePtr, filename)
   }
 
   public object MethodBindings {

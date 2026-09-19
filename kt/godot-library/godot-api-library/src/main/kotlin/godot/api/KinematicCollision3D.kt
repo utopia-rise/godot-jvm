@@ -9,20 +9,20 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_LONG_VECTOR3_ret_DOUBLE
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_OBJECT
+import godot.callPtrMethod_LONG_ret_RID
+import godot.callPtrMethod_LONG_ret_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.RID
 import godot.core.Vector3
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_RID
-import godot.readReturnValue_VECTOR3
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_VECTOR3
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -48,148 +48,106 @@ public open class KinematicCollision3D : RefCounted() {
   /**
    * Returns the moving object's travel before collision.
    */
-  public final fun getTravel(): Vector3 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTravelPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getTravel(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getTravelPtr)
 
   /**
    * Returns the moving object's remaining movement vector.
    */
-  public final fun getRemainder(): Vector3 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRemainderPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getRemainder(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getRemainderPtr)
 
   /**
    * Returns the colliding body's length of overlap along the collision normal.
    */
-  public final fun getDepth(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDepth(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDepthPtr).toFloat()
 
   /**
    * Returns the number of detected collisions.
    */
-  public final fun getCollisionCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCollisionCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getCollisionCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionCountPtr).toInt()
 
   /**
    * Returns the point of collision in global coordinates given a collision index (the deepest
    * collision by default).
    */
   @JvmOverloads
-  public final fun getPosition(collisionIndex: Int = 0): Vector3 {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getPositionPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getPosition(collisionIndex: Int = 0): Vector3 =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getPositionPtr, collisionIndex.toLong())
 
   /**
    * Returns the colliding body's shape's normal at the point of collision given a collision index
    * (the deepest collision by default).
    */
   @JvmOverloads
-  public final fun getNormal(collisionIndex: Int = 0): Vector3 {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getNormalPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getNormal(collisionIndex: Int = 0): Vector3 =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getNormalPtr, collisionIndex.toLong())
 
   /**
    * Returns the collision angle according to [upDirection], which is [Vector3.UP] by default. This
    * value is always positive.
    */
   @JvmOverloads
-  public final fun getAngle(collisionIndex: Int = 0, upDirection: Vector3 = Vector3(0, 1, 0)):
-      Float {
-    TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, collisionIndex.toLong(), upDirection)
-    TransferContext.callPtrMethod(MethodBindings.getAnglePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getAngle(collisionIndex: Int = 0, upDirection: Vector3 = Vector3(0, 1, 0)): Float
+      =
+      TransferContext.callPtrMethod_LONG_VECTOR3_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAnglePtr, collisionIndex.toLong(), upDirection).toFloat()
 
   /**
    * Returns the moving object's colliding shape given a collision index (the deepest collision by
    * default).
    */
   @JvmOverloads
-  public final fun getLocalShape(collisionIndex: Int = 0): Object? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getLocalShapePtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Object?)
-  }
+  public final fun getLocalShape(collisionIndex: Int = 0): Object? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getLocalShapePtr, collisionIndex.toLong()) as Object?)
 
   /**
    * Returns the colliding body's attached [Object] given a collision index (the deepest collision
    * by default).
    */
   @JvmOverloads
-  public final fun getCollider(collisionIndex: Int = 0): Object? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getColliderPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Object?)
-  }
+  public final fun getCollider(collisionIndex: Int = 0): Object? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getColliderPtr, collisionIndex.toLong()) as Object?)
 
   /**
    * Returns the unique instance ID of the colliding body's attached [Object] given a collision
    * index (the deepest collision by default). See [Object.getInstanceId].
    */
   @JvmOverloads
-  public final fun getColliderId(collisionIndex: Int = 0): Long {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getColliderIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getColliderId(collisionIndex: Int = 0): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getColliderIdPtr, collisionIndex.toLong())
 
   /**
    * Returns the colliding body's [RID] used by the [PhysicsServer3D] given a collision index (the
    * deepest collision by default).
    */
   @JvmOverloads
-  public final fun getColliderRid(collisionIndex: Int = 0): RID {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getColliderRidPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getColliderRid(collisionIndex: Int = 0): RID =
+      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.getColliderRidPtr, collisionIndex.toLong())
 
   /**
    * Returns the colliding body's shape given a collision index (the deepest collision by default).
    */
   @JvmOverloads
-  public final fun getColliderShape(collisionIndex: Int = 0): Object? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getColliderShapePtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Object?)
-  }
+  public final fun getColliderShape(collisionIndex: Int = 0): Object? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getColliderShapePtr, collisionIndex.toLong()) as Object?)
 
   /**
    * Returns the colliding body's shape index given a collision index (the deepest collision by
    * default). See [CollisionObject3D].
    */
   @JvmOverloads
-  public final fun getColliderShapeIndex(collisionIndex: Int = 0): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getColliderShapeIndexPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getColliderShapeIndex(collisionIndex: Int = 0): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getColliderShapeIndexPtr, collisionIndex.toLong()).toInt()
 
   /**
    * Returns the colliding body's velocity given a collision index (the deepest collision by
    * default).
    */
   @JvmOverloads
-  public final fun getColliderVelocity(collisionIndex: Int = 0): Vector3 {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, collisionIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getColliderVelocityPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getColliderVelocity(collisionIndex: Int = 0): Vector3 =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getColliderVelocityPtr, collisionIndex.toLong())
 
   public companion object {
     @JvmField

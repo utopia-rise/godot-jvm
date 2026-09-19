@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Suppress
@@ -174,103 +173,67 @@ public open class CameraAttributesPractical : CameraAttributes() {
   }
 
   public final fun setDofBlurFarEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setDofBlurFarEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDofBlurFarEnabledPtr, enabled)
   }
 
-  public final fun isDofBlurFarEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDofBlurFarEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDofBlurFarEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDofBlurFarEnabledPtr)
 
   public final fun setDofBlurFarDistance(distance: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setDofBlurFarDistancePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDofBlurFarDistancePtr, distance.toDouble())
   }
 
-  public final fun getDofBlurFarDistance(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDofBlurFarDistancePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDofBlurFarDistance(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDofBlurFarDistancePtr).toFloat()
 
   public final fun setDofBlurFarTransition(distance: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setDofBlurFarTransitionPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDofBlurFarTransitionPtr, distance.toDouble())
   }
 
-  public final fun getDofBlurFarTransition(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDofBlurFarTransitionPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDofBlurFarTransition(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDofBlurFarTransitionPtr).toFloat()
 
   public final fun setDofBlurNearEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setDofBlurNearEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDofBlurNearEnabledPtr, enabled)
   }
 
-  public final fun isDofBlurNearEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDofBlurNearEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDofBlurNearEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDofBlurNearEnabledPtr)
 
   public final fun setDofBlurNearDistance(distance: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setDofBlurNearDistancePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDofBlurNearDistancePtr, distance.toDouble())
   }
 
-  public final fun getDofBlurNearDistance(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDofBlurNearDistancePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDofBlurNearDistance(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDofBlurNearDistancePtr).toFloat()
 
   public final fun setDofBlurNearTransition(distance: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, distance.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setDofBlurNearTransitionPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDofBlurNearTransitionPtr, distance.toDouble())
   }
 
-  public final fun getDofBlurNearTransition(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDofBlurNearTransitionPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDofBlurNearTransition(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDofBlurNearTransitionPtr).toFloat()
 
   public final fun setDofBlurAmount(amount: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, amount.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setDofBlurAmountPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDofBlurAmountPtr, amount.toDouble())
   }
 
-  public final fun getDofBlurAmount(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDofBlurAmountPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDofBlurAmount(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDofBlurAmountPtr).toFloat()
 
   public final fun setAutoExposureMaxSensitivity(maxSensitivity: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, maxSensitivity.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setAutoExposureMaxSensitivityPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAutoExposureMaxSensitivityPtr, maxSensitivity.toDouble())
   }
 
-  public final fun getAutoExposureMaxSensitivity(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAutoExposureMaxSensitivityPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getAutoExposureMaxSensitivity(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAutoExposureMaxSensitivityPtr).toFloat()
 
   public final fun setAutoExposureMinSensitivity(minSensitivity: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, minSensitivity.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setAutoExposureMinSensitivityPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAutoExposureMinSensitivityPtr, minSensitivity.toDouble())
   }
 
-  public final fun getAutoExposureMinSensitivity(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAutoExposureMinSensitivityPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getAutoExposureMinSensitivity(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAutoExposureMinSensitivityPtr).toFloat()
 
   public companion object {
     @JvmField

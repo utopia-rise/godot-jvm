@@ -9,6 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_RECT2
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_VECTOR2_VECTOR2_ret_PACKED_VECTOR2_ARRAY
+import godot.callPtrMethod_VECTOR2_ret_BOOL
+import godot.callPtrMethod_VECTOR2_ret_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -17,17 +24,6 @@ import godot.core.PackedInt32Array
 import godot.core.PackedVector2Array
 import godot.core.Rect2
 import godot.core.Vector2
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_PACKED_VECTOR2_ARRAY
-import godot.readReturnValue_RECT2
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_DOUBLE
-import godot.writeMethodArguments_PACKED_VECTOR2_ARRAY_PACKED_INT_32_ARRAY
-import godot.writeMethodArguments_VECTOR2
-import godot.writeMethodArguments_VECTOR2_VECTOR2
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -69,27 +65,17 @@ public open class PolygonPathFinder : Resource() {
    * ```
    */
   public final fun setup(points: PackedVector2Array, connections: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments_PACKED_VECTOR2_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, points, connections)
-    TransferContext.callPtrMethod(MethodBindings.setupPtr, 0)
+    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setupPtr, points, connections)
   }
 
-  public final fun findPath(from: Vector2, to: Vector2): PackedVector2Array {
-    TransferContext.writeMethodArguments_VECTOR2_VECTOR2(ptr, objectID.id, from, to)
-    TransferContext.callPtrMethod(MethodBindings.findPathPtr, 35)
-    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
-  }
+  public final fun findPath(from: Vector2, to: Vector2): PackedVector2Array =
+      TransferContext.callPtrMethod_VECTOR2_VECTOR2_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.findPathPtr, from, to)
 
-  public final fun getIntersections(from: Vector2, to: Vector2): PackedVector2Array {
-    TransferContext.writeMethodArguments_VECTOR2_VECTOR2(ptr, objectID.id, from, to)
-    TransferContext.callPtrMethod(MethodBindings.getIntersectionsPtr, 35)
-    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
-  }
+  public final fun getIntersections(from: Vector2, to: Vector2): PackedVector2Array =
+      TransferContext.callPtrMethod_VECTOR2_VECTOR2_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getIntersectionsPtr, from, to)
 
-  public final fun getClosestPoint(point: Vector2): Vector2 {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, point)
-    TransferContext.callPtrMethod(MethodBindings.getClosestPointPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getClosestPoint(point: Vector2): Vector2 =
+      TransferContext.callPtrMethod_VECTOR2_ret_VECTOR2(ptr, objectID.id, MethodBindings.getClosestPointPtr, point)
 
   /**
    * Returns `true` if [point] falls inside the polygon area.
@@ -119,28 +105,18 @@ public open class PolygonPathFinder : Resource() {
    * GD.Print(polygonPathFinder.IsPointInside(new Vector2(1.0f, 1.0f))); // Prints False
    * ```
    */
-  public final fun isPointInside(point: Vector2): Boolean {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, point)
-    TransferContext.callPtrMethod(MethodBindings.isPointInsidePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPointInside(point: Vector2): Boolean =
+      TransferContext.callPtrMethod_VECTOR2_ret_BOOL(ptr, objectID.id, MethodBindings.isPointInsidePtr, point)
 
   public final fun setPointPenalty(idx: Int, penalty: Float): Unit {
-    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, idx.toLong(), penalty.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setPointPenaltyPtr, 0)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setPointPenaltyPtr, idx.toLong(), penalty.toDouble())
   }
 
-  public final fun getPointPenalty(idx: Int): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, idx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getPointPenaltyPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getPointPenalty(idx: Int): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPointPenaltyPtr, idx.toLong()).toFloat()
 
-  public final fun getBounds(): Rect2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBoundsPtr, 7)
-    return TransferContext.readReturnValue_RECT2()
-  }
+  public final fun getBounds(): Rect2 =
+      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getBoundsPtr)
 
   public companion object {
     @JvmField

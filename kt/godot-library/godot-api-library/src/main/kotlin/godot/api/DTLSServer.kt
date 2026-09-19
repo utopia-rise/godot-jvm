@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_OBJECT_ret_LONG
+import godot.callPtrMethod_OBJECT_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments_OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -181,11 +180,8 @@ public open class DTLSServer : RefCounted() {
   /**
    * Setup the DTLS server to use the given [serverOptions]. See [TLSOptions.server].
    */
-  public final fun setup(serverOptions: TLSOptions?): Error {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, serverOptions)
-    TransferContext.callPtrMethod(MethodBindings.setupPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun setup(serverOptions: TLSOptions?): Error =
+      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.setupPtr, serverOptions))
 
   /**
    * Try to initiate the DTLS handshake with the given [udpPeer] which must be already connected
@@ -195,11 +191,8 @@ public open class DTLSServer : RefCounted() {
    * [PacketPeerDTLS.STATUS_HANDSHAKING], as it is normal that 50&#37; of the new connections will be
    * invalid due to cookie exchange.
    */
-  public final fun takeConnection(udpPeer: PacketPeerUDP?): PacketPeerDTLS? {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, udpPeer)
-    TransferContext.callPtrMethod(MethodBindings.takeConnectionPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as PacketPeerDTLS?)
-  }
+  public final fun takeConnection(udpPeer: PacketPeerUDP?): PacketPeerDTLS? =
+      (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.takeConnectionPtr, udpPeer) as PacketPeerDTLS?)
 
   public companion object {
     @JvmField

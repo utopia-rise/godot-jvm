@@ -9,15 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_INT_64_ARRAY
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedInt64Array
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_INT_64_ARRAY
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -54,22 +53,15 @@ public open class OpenXRSpatialCapabilityConfigurationAprilTag :
    *
    * **Note:** Only valid after this configuration was used to create a spatial context.
    */
-  public final fun getEnabledComponents(): PackedInt64Array {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnabledComponentsPtr, 31)
-    return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
-  }
+  public final fun getEnabledComponents(): PackedInt64Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.getEnabledComponentsPtr)
 
   public final fun setAprilDict(aprilDict: AprilTagDict): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, aprilDict.value)
-    TransferContext.callPtrMethod(MethodBindings.setAprilDictPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAprilDictPtr, aprilDict.value)
   }
 
-  public final fun getAprilDict(): AprilTagDict {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAprilDictPtr, 2)
-    return AprilTagDict.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getAprilDict(): AprilTagDict =
+      AprilTagDict.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAprilDictPtr))
 
   public enum class AprilTagDict(
     public override val `value`: Long,

@@ -9,16 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.readReturnValue_BOOL
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_RID
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -39,18 +39,14 @@ public open class PhysicalBoneSimulator3D : SkeletonModifier3D() {
    * Returns a boolean that indicates whether the [PhysicalBoneSimulator3D] is running and
    * simulating.
    */
-  public final fun isSimulatingPhysics(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isSimulatingPhysicsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isSimulatingPhysics(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSimulatingPhysicsPtr)
 
   /**
    * Tells the [PhysicalBone3D] nodes in the Skeleton to stop simulating.
    */
   public final fun physicalBonesStopSimulation(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.physicalBonesStopSimulationPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.physicalBonesStopSimulationPtr)
   }
 
   /**
@@ -63,8 +59,7 @@ public open class PhysicalBoneSimulator3D : SkeletonModifier3D() {
   @JvmOverloads
   public final fun physicalBonesStartSimulation(bones: VariantArray<StringName> =
       godot.core.variantArrayOf()): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, bones)
-    TransferContext.callPtrMethod(MethodBindings.physicalBonesStartSimulationPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.physicalBonesStartSimulationPtr, bones)
   }
 
   /**
@@ -73,8 +68,7 @@ public open class PhysicalBoneSimulator3D : SkeletonModifier3D() {
    * Works just like the [RigidBody3D] node.
    */
   public final fun physicalBonesAddCollisionException(exception: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, exception)
-    TransferContext.callPtrMethod(MethodBindings.physicalBonesAddCollisionExceptionPtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.physicalBonesAddCollisionExceptionPtr, exception)
   }
 
   /**
@@ -83,8 +77,7 @@ public open class PhysicalBoneSimulator3D : SkeletonModifier3D() {
    * Works just like the [RigidBody3D] node.
    */
   public final fun physicalBonesRemoveCollisionException(exception: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, exception)
-    TransferContext.callPtrMethod(MethodBindings.physicalBonesRemoveCollisionExceptionPtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.physicalBonesRemoveCollisionExceptionPtr, exception)
   }
 
   public companion object {

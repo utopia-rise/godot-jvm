@@ -9,10 +9,9 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_OBJECT_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -41,11 +40,8 @@ public open class OptimizedTranslation : Translation() {
    * **Note:** This method is intended to be used in the editor. It does nothing when called from an
    * exported project.
    */
-  public final fun generate(from: Translation?): Boolean {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, from)
-    TransferContext.callPtrMethod(MethodBindings.generatePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun generate(from: Translation?): Boolean =
+      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.generatePtr, from)
 
   public companion object {
     @JvmField

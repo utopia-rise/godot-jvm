@@ -9,13 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -70,35 +69,24 @@ public open class Shape3D internal constructor() : Resource() {
   }
 
   public final fun setCustomSolverBias(bias: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, bias.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setCustomSolverBiasPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCustomSolverBiasPtr, bias.toDouble())
   }
 
-  public final fun getCustomSolverBias(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCustomSolverBiasPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getCustomSolverBias(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCustomSolverBiasPtr).toFloat()
 
   public final fun setMargin(margin: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, margin.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setMarginPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMarginPtr, margin.toDouble())
   }
 
-  public final fun getMargin(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMarginPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getMargin(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMarginPtr).toFloat()
 
   /**
    * Returns the [ArrayMesh] used to draw the debug collision for this [Shape3D].
    */
-  public final fun getDebugMesh(): ArrayMesh? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDebugMeshPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as ArrayMesh?)
-  }
+  public final fun getDebugMesh(): ArrayMesh? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getDebugMeshPtr) as ArrayMesh?)
 
   public companion object {
     @JvmField

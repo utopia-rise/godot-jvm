@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.RID
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_RID
-import godot.writeMethodArguments0
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -61,29 +60,17 @@ public open class World2D : Resource() {
     createNativeObject(929, scriptPtr)
   }
 
-  public final fun getCanvas(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCanvasPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getCanvas(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getCanvasPtr)
 
-  public final fun getNavigationMap(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getNavigationMapPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getNavigationMap(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getNavigationMapPtr)
 
-  public final fun getSpace(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSpacePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getSpace(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getSpacePtr)
 
-  public final fun getDirectSpaceState(): PhysicsDirectSpaceState2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDirectSpaceStatePtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as PhysicsDirectSpaceState2D?)
-  }
+  public final fun getDirectSpaceState(): PhysicsDirectSpaceState2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getDirectSpaceStatePtr) as PhysicsDirectSpaceState2D?)
 
   public companion object {
     @JvmField

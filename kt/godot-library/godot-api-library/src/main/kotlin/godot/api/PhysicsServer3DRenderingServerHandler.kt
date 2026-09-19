@@ -9,13 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_AABB
+import godot.callPtrMethod_LONG_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.Vector3
-import godot.writeMethodArguments_AABB
-import godot.writeMethodArguments_LONG_VECTOR3
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -53,24 +53,21 @@ public abstract class PhysicsServer3DRenderingServerHandler : Object() {
    * Sets the position for the [SoftBody3D] vertex at the index specified by [vertexId].
    */
   public final fun setVertex(vertexId: Int, vertex: Vector3): Unit {
-    TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, vertexId.toLong(), vertex)
-    TransferContext.callPtrMethod(MethodBindings.setVertexPtr, 0)
+    TransferContext.callPtrMethod_LONG_VECTOR3(ptr, objectID.id, MethodBindings.setVertexPtr, vertexId.toLong(), vertex)
   }
 
   /**
    * Sets the normal for the [SoftBody3D] vertex at the index specified by [vertexId].
    */
   public final fun setNormal(vertexId: Int, normal: Vector3): Unit {
-    TransferContext.writeMethodArguments_LONG_VECTOR3(ptr, objectID.id, vertexId.toLong(), normal)
-    TransferContext.callPtrMethod(MethodBindings.setNormalPtr, 0)
+    TransferContext.callPtrMethod_LONG_VECTOR3(ptr, objectID.id, MethodBindings.setNormalPtr, vertexId.toLong(), normal)
   }
 
   /**
    * Sets the bounding box for the [SoftBody3D].
    */
   public final fun setAabb(aabb: AABB): Unit {
-    TransferContext.writeMethodArguments_AABB(ptr, objectID.id, aabb)
-    TransferContext.callPtrMethod(MethodBindings.setAabbPtr, 0)
+    TransferContext.callPtrMethod_AABB(ptr, objectID.id, MethodBindings.setAabbPtr, aabb)
   }
 
   public companion object {

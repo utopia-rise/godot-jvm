@@ -9,6 +9,46 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_BOOL_BOOL_DOUBLE_ret_LONG
+import godot.callMethod_STRING_BOOL_DOUBLE_ret_LONG
+import godot.callMethod_STRING_DOUBLE_ret_LONG
+import godot.callMethod_STRING_ret_LONG
+import godot.callMethod_STRING_ret_OBJECT_REF
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod0_ret_RECT2I
+import godot.callPtrMethod0_ret_VECTOR2I
+import godot.callPtrMethod_BOOL_BOOL_DOUBLE_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_BOOL_DOUBLE_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_BOOL_LONG
+import godot.callPtrMethod_BOOL_ret_LONG
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_DOUBLE_DOUBLE_DOUBLE
+import godot.callPtrMethod_DOUBLE_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_BOOL_LONG_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_LONG_LONG_BOOL_LONG_PACKED_BYTE_ARRAY_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_LONG_BOOL_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_LONG_COLOR
+import godot.callPtrMethod_LONG_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_LONG_ret_LONG
+import godot.callPtrMethod_LONG_LONG_ret_COLOR
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_BOOL_ret_DICTIONARY
+import godot.callPtrMethod_OBJECT_OBJECT_RECT2I_VECTOR2I
+import godot.callPtrMethod_OBJECT_RECT2I_VECTOR2I
+import godot.callPtrMethod_PACKED_BYTE_ARRAY_DOUBLE_ret_LONG
+import godot.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG
+import godot.callPtrMethod_RECT2I_COLOR
+import godot.callPtrMethod_RECT2I_ret_OBJECT_REF
+import godot.callPtrMethod_VECTOR2I_COLOR
+import godot.callPtrMethod_VECTOR2I_ret_COLOR
 import godot.common.interop.VoidPtr
 import godot.core.ClockDirection
 import godot.core.Color
@@ -24,42 +64,6 @@ import godot.core.MethodStringName5
 import godot.core.PackedByteArray
 import godot.core.Rect2i
 import godot.core.Vector2i
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_COLOR
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_BYTE_ARRAY
-import godot.readReturnValue_RECT2I
-import godot.readReturnValue_VECTOR2I
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_BOOL_BOOL_DOUBLE
-import godot.writeMethodArguments_BOOL_DOUBLE
-import godot.writeMethodArguments_BOOL_LONG
-import godot.writeMethodArguments_COLOR
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_DOUBLE_DOUBLE_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_LONG_LONG_BOOL_LONG
-import godot.writeMethodArguments_LONG_LONG_BOOL_LONG_PACKED_BYTE_ARRAY
-import godot.writeMethodArguments_LONG_LONG_COLOR
-import godot.writeMethodArguments_LONG_LONG_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_BOOL
-import godot.writeMethodArguments_OBJECT_OBJECT_RECT2I_VECTOR2I
-import godot.writeMethodArguments_OBJECT_RECT2I_VECTOR2I
-import godot.writeMethodArguments_PACKED_BYTE_ARRAY
-import godot.writeMethodArguments_PACKED_BYTE_ARRAY_DOUBLE
-import godot.writeMethodArguments_RECT2I
-import godot.writeMethodArguments_RECT2I_COLOR
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_BOOL_BOOL_DOUBLE
-import godot.writeMethodArguments_STRING_BOOL_DOUBLE
-import godot.writeMethodArguments_STRING_DOUBLE
-import godot.writeMethodArguments_VECTOR2I
-import godot.writeMethodArguments_VECTOR2I_COLOR
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Float
@@ -95,72 +99,50 @@ public open class Image : Resource() {
   /**
    * Returns the image's width.
    */
-  public final fun getWidth(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWidthPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getWidth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWidthPtr).toInt()
 
   /**
    * Returns the image's height.
    */
-  public final fun getHeight(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getHeight(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHeightPtr).toInt()
 
   /**
    * Returns the image's size (width and height).
    */
-  public final fun getSize(): Vector2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getSize(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getSizePtr)
 
   /**
    * Returns `true` if the image has generated mipmaps.
    */
-  public final fun hasMipmaps(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasMipmapsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasMipmaps(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasMipmapsPtr)
 
   /**
    * Returns this image's format.
    */
-  public final fun getFormat(): Format {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
-    return Format.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getFormat(): Format =
+      Format.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr))
 
   /**
    * Returns a copy of the image's raw data.
    */
-  public final fun getData(): PackedByteArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDataPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun getData(): PackedByteArray =
+      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getDataPtr)
 
   /**
    * Returns size (in bytes) of the image's raw data.
    */
-  public final fun getDataSize(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDataSizePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getDataSize(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDataSizePtr)
 
   /**
    * Converts this image's format to the given [format].
    */
   public final fun convert(format: Format): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, format.value)
-    TransferContext.callPtrMethod(MethodBindings.convertPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.convertPtr, format.value)
   }
 
   /**
@@ -168,21 +150,15 @@ public open class Image : Resource() {
    * image is not counted as a mipmap level by this method, so if you want to include it you can add 1
    * to this count.
    */
-  public final fun getMipmapCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMipmapCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMipmapCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMipmapCountPtr).toInt()
 
   /**
    * Returns the offset where the image's mipmap with index [mipmap] is stored in the [data]
    * dictionary.
    */
-  public final fun getMipmapOffset(mipmap: Int): Long {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mipmap.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getMipmapOffsetPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getMipmapOffset(mipmap: Int): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getMipmapOffsetPtr, mipmap.toLong())
 
   /**
    * Resizes the image to the nearest power of 2 for the width and height. If [square] is `true`,
@@ -192,8 +168,7 @@ public open class Image : Resource() {
   @JvmOverloads
   public final fun resizeToPo2(square: Boolean = false, interpolation: Interpolation =
       Image.Interpolation.INTERPOLATE_BILINEAR): Unit {
-    TransferContext.writeMethodArguments_BOOL_LONG(ptr, objectID.id, square, interpolation.value)
-    TransferContext.callPtrMethod(MethodBindings.resizeToPo2Ptr, 0)
+    TransferContext.callPtrMethod_BOOL_LONG(ptr, objectID.id, MethodBindings.resizeToPo2Ptr, square, interpolation.value)
   }
 
   /**
@@ -210,16 +185,14 @@ public open class Image : Resource() {
     height: Int,
     interpolation: Interpolation = Image.Interpolation.INTERPOLATE_BILINEAR,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_LONG(ptr, objectID.id, width.toLong(), height.toLong(), interpolation.value)
-    TransferContext.callPtrMethod(MethodBindings.resizePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.resizePtr, width.toLong(), height.toLong(), interpolation.value)
   }
 
   /**
    * Shrinks the image by a factor of 2 on each axis (this divides the pixel count by 4).
    */
   public final fun shrinkX2(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.shrinkX2Ptr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.shrinkX2Ptr)
   }
 
   /**
@@ -227,24 +200,21 @@ public open class Image : Resource() {
    * current size, the extra area is filled with black pixels.
    */
   public final fun crop(width: Int, height: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, width.toLong(), height.toLong())
-    TransferContext.callPtrMethod(MethodBindings.cropPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.cropPtr, width.toLong(), height.toLong())
   }
 
   /**
    * Flips the image horizontally.
    */
   public final fun flipX(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.flipXPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.flipXPtr)
   }
 
   /**
    * Flips the image vertically.
    */
   public final fun flipY(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.flipYPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.flipYPtr)
   }
 
   /**
@@ -260,18 +230,14 @@ public open class Image : Resource() {
    * the image.
    */
   @JvmOverloads
-  public final fun generateMipmaps(renormalize: Boolean = false): Error {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, renormalize)
-    TransferContext.callPtrMethod(MethodBindings.generateMipmapsPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun generateMipmaps(renormalize: Boolean = false): Error =
+      Error.from(TransferContext.callPtrMethod_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.generateMipmapsPtr, renormalize))
 
   /**
    * Removes the image's mipmaps.
    */
   public final fun clearMipmaps(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearMipmapsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearMipmapsPtr)
   }
 
   /**
@@ -284,18 +250,14 @@ public open class Image : Resource() {
     format: Format,
     `data`: PackedByteArray,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_BOOL_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, width.toLong(), height.toLong(), useMipmaps, format.value, data)
-    TransferContext.callPtrMethod(MethodBindings.setDataPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_BOOL_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.setDataPtr, width.toLong(), height.toLong(), useMipmaps, format.value, data)
   }
 
   /**
    * Returns `true` if the image has no data.
    */
-  public final fun isEmpty(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isEmptyPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isEmpty(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEmptyPtr)
 
   /**
    * Loads an image from file [path]. See
@@ -308,29 +270,20 @@ public open class Image : Resource() {
    *
    * See also [ImageTexture] description for usage examples.
    */
-  public final fun load(path: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.loadPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun load(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.loadPtr, path))
 
   /**
    * Saves the image as a PNG file to the file at [path].
    */
-  public final fun savePng(path: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.savePngPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun savePng(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.savePngPtr, path))
 
   /**
    * Saves the image as a PNG file to a byte array.
    */
-  public final fun savePngToBuffer(): PackedByteArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.savePngToBufferPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun savePngToBuffer(): PackedByteArray =
+      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.savePngToBufferPtr)
 
   /**
    * Saves the image as a JPEG file to [path] with the specified [quality] between `0.01` and `1.0`
@@ -342,11 +295,8 @@ public open class Image : Resource() {
    * image will still be saved, but the resulting JPEG file won't contain the alpha channel.
    */
   @JvmOverloads
-  public final fun saveJpg(path: String, quality: Float = 0.75f): Error {
-    TransferContext.writeMethodArguments_STRING_DOUBLE(ptr, objectID.id, path, quality.toDouble())
-    TransferContext.callMethod(MethodBindings.saveJpgPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun saveJpg(path: String, quality: Float = 0.75f): Error =
+      Error.from(TransferContext.callMethod_STRING_DOUBLE_ret_LONG(ptr, objectID.id, MethodBindings.saveJpgPtr, path, quality.toDouble()))
 
   /**
    * Saves the image as a JPEG file to a byte array with the specified [quality] between `0.01` and
@@ -358,11 +308,8 @@ public open class Image : Resource() {
    * image will still be saved, but the resulting byte array won't contain the alpha channel.
    */
   @JvmOverloads
-  public final fun saveJpgToBuffer(quality: Float = 0.75f): PackedByteArray {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, quality.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.saveJpgToBufferPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun saveJpgToBuffer(quality: Float = 0.75f): PackedByteArray =
+      TransferContext.callPtrMethod_DOUBLE_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.saveJpgToBufferPtr, quality.toDouble())
 
   /**
    * Saves the image as an EXR file to [path]. If [grayscale] is `true` and the image has only one
@@ -382,11 +329,8 @@ public open class Image : Resource() {
     grayscale: Boolean = false,
     colorImage: Boolean = false,
     maxLinearValue: Float = -1.0f,
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_BOOL_BOOL_DOUBLE(ptr, objectID.id, path, grayscale, colorImage, maxLinearValue.toDouble())
-    TransferContext.callMethod(MethodBindings.saveExrPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_BOOL_BOOL_DOUBLE_ret_LONG(ptr, objectID.id, MethodBindings.saveExrPtr, path, grayscale, colorImage, maxLinearValue.toDouble()))
 
   /**
    * Saves the image as an EXR file to a byte array. If [grayscale] is `true` and the image has only
@@ -405,11 +349,8 @@ public open class Image : Resource() {
     grayscale: Boolean = false,
     colorImage: Boolean = false,
     maxLinearValue: Float = -1.0f,
-  ): PackedByteArray {
-    TransferContext.writeMethodArguments_BOOL_BOOL_DOUBLE(ptr, objectID.id, grayscale, colorImage, maxLinearValue.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.saveExrToBufferPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  ): PackedByteArray =
+      TransferContext.callPtrMethod_BOOL_BOOL_DOUBLE_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.saveExrToBufferPtr, grayscale, colorImage, maxLinearValue.toDouble())
 
   /**
    * Saves the image as a DDS (DirectDraw Surface) file to [path]. DDS is a container format that
@@ -419,11 +360,8 @@ public open class Image : Resource() {
    * **Note:** The DDS module may be disabled in certain builds, which means [saveDds] will return
    * [ERR_UNAVAILABLE] when it is called from an exported project.
    */
-  public final fun saveDds(path: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.saveDdsPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun saveDds(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.saveDdsPtr, path))
 
   /**
    * Saves the image as a DDS (DirectDraw Surface) file to a byte array. DDS is a container format
@@ -433,11 +371,8 @@ public open class Image : Resource() {
    * **Note:** The DDS module may be disabled in certain builds, which means [saveDdsToBuffer] will
    * return an empty byte array when it is called from an exported project.
    */
-  public final fun saveDdsToBuffer(): PackedByteArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.saveDdsToBufferPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun saveDdsToBuffer(): PackedByteArray =
+      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.saveDdsToBufferPtr)
 
   /**
    * Saves the image as a WebP (Web Picture) file to the file at [path]. By default it will save
@@ -452,11 +387,8 @@ public open class Image : Resource() {
     path: String,
     lossy: Boolean = false,
     quality: Float = 0.75f,
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_BOOL_DOUBLE(ptr, objectID.id, path, lossy, quality.toDouble())
-    TransferContext.callMethod(MethodBindings.saveWebpPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_BOOL_DOUBLE_ret_LONG(ptr, objectID.id, MethodBindings.saveWebpPtr, path, lossy, quality.toDouble()))
 
   /**
    * Saves the image as a WebP (Web Picture) file to a byte array. By default it will save lossless.
@@ -467,33 +399,24 @@ public open class Image : Resource() {
    * images.
    */
   @JvmOverloads
-  public final fun saveWebpToBuffer(lossy: Boolean = false, quality: Float = 0.75f):
-      PackedByteArray {
-    TransferContext.writeMethodArguments_BOOL_DOUBLE(ptr, objectID.id, lossy, quality.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.saveWebpToBufferPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun saveWebpToBuffer(lossy: Boolean = false, quality: Float = 0.75f): PackedByteArray
+      =
+      TransferContext.callPtrMethod_BOOL_DOUBLE_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.saveWebpToBufferPtr, lossy, quality.toDouble())
 
   /**
    * Returns [ALPHA_BLEND] if the image has data for alpha values. Returns [ALPHA_BIT] if all the
    * alpha values are stored in a single bit. Returns [ALPHA_NONE] if no data for alpha values is
    * found.
    */
-  public final fun detectAlpha(): AlphaMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.detectAlphaPtr, 2)
-    return AlphaMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun detectAlpha(): AlphaMode =
+      AlphaMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.detectAlphaPtr))
 
   /**
    * Returns `true` if all the image's pixels have an alpha value of 0. Returns `false` if any pixel
    * has an alpha value higher than 0.
    */
-  public final fun isInvisible(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isInvisiblePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInvisible(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInvisiblePtr)
 
   /**
    * Returns the color channels used by this image. If the image is compressed, the original
@@ -501,11 +424,8 @@ public open class Image : Resource() {
    */
   @JvmOverloads
   public final fun detectUsedChannels(source: CompressSource = Image.CompressSource.GENERIC):
-      UsedChannels {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, source.value)
-    TransferContext.callPtrMethod(MethodBindings.detectUsedChannelsPtr, 2)
-    return UsedChannels.from(TransferContext.readReturnValue_LONG())
-  }
+      UsedChannels =
+      UsedChannels.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.detectUsedChannelsPtr, source.value))
 
   /**
    * Compresses the image with a VRAM-compressed format to use less memory. Can not directly access
@@ -526,11 +446,8 @@ public open class Image : Resource() {
     mode: CompressMode,
     source: CompressSource = Image.CompressSource.GENERIC,
     astcFormat: ASTCFormat = Image.ASTCFormat.ASTC_FORMAT_4x4,
-  ): Error {
-    TransferContext.writeMethodArguments_LONG_LONG_LONG(ptr, objectID.id, mode.value, source.value, astcFormat.value)
-    TransferContext.callPtrMethod(MethodBindings.compressPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.compressPtr, mode.value, source.value, astcFormat.value))
 
   /**
    * Compresses the image with a VRAM-compressed format to use less memory. Can not directly access
@@ -552,11 +469,8 @@ public open class Image : Resource() {
     mode: CompressMode,
     channels: UsedChannels,
     astcFormat: ASTCFormat = Image.ASTCFormat.ASTC_FORMAT_4x4,
-  ): Error {
-    TransferContext.writeMethodArguments_LONG_LONG_LONG(ptr, objectID.id, mode.value, channels.value, astcFormat.value)
-    TransferContext.callPtrMethod(MethodBindings.compressFromChannelsPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.compressFromChannelsPtr, mode.value, channels.value, astcFormat.value))
 
   /**
    * Decompresses the image if it is VRAM-compressed in a supported format. This increases memory
@@ -564,44 +478,35 @@ public open class Image : Resource() {
    * [ERR_UNAVAILABLE]. All VRAM-compressed formats supported by Godot can be decompressed with this
    * method, except [FORMAT_ETC2_R11S], [FORMAT_ETC2_RG11S], and [FORMAT_ETC2_RGB8A1].
    */
-  public final fun decompress(): Error {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.decompressPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun decompress(): Error =
+      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.decompressPtr))
 
   /**
    * Returns `true` if the image is compressed.
    */
-  public final fun isCompressed(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isCompressedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isCompressed(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCompressedPtr)
 
   /**
    * Rotates the image in the specified [direction] by `90` degrees. The width and height of the
    * image must be greater than `1`. If the width and height are not equal, the image will be resized.
    */
   public final fun rotate90(direction: ClockDirection): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, direction.value)
-    TransferContext.callPtrMethod(MethodBindings.rotate90Ptr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.rotate90Ptr, direction.value)
   }
 
   /**
    * Rotates the image by `180` degrees. The width and height of the image must be greater than `1`.
    */
   public final fun rotate180(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.rotate180Ptr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.rotate180Ptr)
   }
 
   /**
    * Blends low-alpha pixels with nearby pixels.
    */
   public final fun fixAlphaEdges(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.fixAlphaEdgesPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.fixAlphaEdgesPtr)
   }
 
   /**
@@ -609,8 +514,7 @@ public open class Image : Resource() {
    * alpha)/256`. See also [CanvasItemMaterial.blendMode].
    */
   public final fun premultiplyAlpha(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.premultiplyAlphaPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.premultiplyAlphaPtr)
   }
 
   /**
@@ -622,8 +526,7 @@ public open class Image : Resource() {
    * maintain image quality, this method should not be used.
    */
   public final fun srgbToLinear(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.srgbToLinearPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.srgbToLinearPtr)
   }
 
   /**
@@ -631,8 +534,7 @@ public open class Image : Resource() {
    * table. Only works on images with [FORMAT_RGB8] or [FORMAT_RGBA8] formats.
    */
   public final fun linearToSrgb(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.linearToSrgbPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.linearToSrgbPtr)
   }
 
   /**
@@ -641,19 +543,15 @@ public open class Image : Resource() {
    * the polygon count.
    */
   public final fun normalMapToXy(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.normalMapToXyPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.normalMapToXyPtr)
   }
 
   /**
    * Converts a standard linear RGBE (Red Green Blue Exponent) image to an image that uses nonlinear
    * sRGB encoding.
    */
-  public final fun rgbeToSrgb(): Image? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.rgbeToSrgbPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Image?)
-  }
+  public final fun rgbeToSrgb(): Image? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.rgbeToSrgbPtr) as Image?)
 
   /**
    * Converts a bump map to a normal map. A bump map provides a height offset per-pixel, while a
@@ -661,8 +559,7 @@ public open class Image : Resource() {
    */
   @JvmOverloads
   public final fun bumpMapToNormalMap(bumpScale: Float = 1.0f): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, bumpScale.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.bumpMapToNormalMapPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.bumpMapToNormalMapPtr, bumpScale.toDouble())
   }
 
   /**
@@ -672,11 +569,8 @@ public open class Image : Resource() {
    * The dictionary contains `max`, `mean`, `mean_squared`, `root_mean_squared` and `peak_snr`.
    */
   public final fun computeImageMetrics(comparedImage: Image?, useLuma: Boolean):
-      Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_OBJECT_BOOL(ptr, objectID.id, comparedImage, useLuma)
-    TransferContext.callPtrMethod(MethodBindings.computeImageMetricsPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+      Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_OBJECT_BOOL_ret_DICTIONARY(ptr, objectID.id, MethodBindings.computeImageMetricsPtr, comparedImage, useLuma) as Dictionary<Any?, Any?>)
 
   /**
    * Copies [srcRect] from [src] image to this image at coordinates [dst], clipped accordingly to
@@ -691,8 +585,7 @@ public open class Image : Resource() {
     srcRect: Rect2i,
     dst: Vector2i,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_RECT2I_VECTOR2I(ptr, objectID.id, src, srcRect, dst)
-    TransferContext.callPtrMethod(MethodBindings.blitRectPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_RECT2I_VECTOR2I(ptr, objectID.id, MethodBindings.blitRectPtr, src, srcRect, dst)
   }
 
   /**
@@ -708,8 +601,7 @@ public open class Image : Resource() {
     srcRect: Rect2i,
     dst: Vector2i,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT_RECT2I_VECTOR2I(ptr, objectID.id, src, mask, srcRect, dst)
-    TransferContext.callPtrMethod(MethodBindings.blitRectMaskPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_OBJECT_RECT2I_VECTOR2I(ptr, objectID.id, MethodBindings.blitRectMaskPtr, src, mask, srcRect, dst)
   }
 
   /**
@@ -722,8 +614,7 @@ public open class Image : Resource() {
     srcRect: Rect2i,
     dst: Vector2i,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_RECT2I_VECTOR2I(ptr, objectID.id, src, srcRect, dst)
-    TransferContext.callPtrMethod(MethodBindings.blendRectPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_RECT2I_VECTOR2I(ptr, objectID.id, MethodBindings.blendRectPtr, src, srcRect, dst)
   }
 
   /**
@@ -740,51 +631,41 @@ public open class Image : Resource() {
     srcRect: Rect2i,
     dst: Vector2i,
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT_RECT2I_VECTOR2I(ptr, objectID.id, src, mask, srcRect, dst)
-    TransferContext.callPtrMethod(MethodBindings.blendRectMaskPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_OBJECT_RECT2I_VECTOR2I(ptr, objectID.id, MethodBindings.blendRectMaskPtr, src, mask, srcRect, dst)
   }
 
   /**
    * Fills the image with [color].
    */
   public final fun fill(color: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callPtrMethod(MethodBindings.fillPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.fillPtr, color)
   }
 
   /**
    * Fills [rect] with [color].
    */
   public final fun fillRect(rect: Rect2i, color: Color): Unit {
-    TransferContext.writeMethodArguments_RECT2I_COLOR(ptr, objectID.id, rect, color)
-    TransferContext.callPtrMethod(MethodBindings.fillRectPtr, 0)
+    TransferContext.callPtrMethod_RECT2I_COLOR(ptr, objectID.id, MethodBindings.fillRectPtr, rect, color)
   }
 
   /**
    * Returns a [Rect2i] enclosing the visible portion of the image, considering each pixel with a
    * non-zero alpha channel as visible.
    */
-  public final fun getUsedRect(): Rect2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getUsedRectPtr, 8)
-    return TransferContext.readReturnValue_RECT2I()
-  }
+  public final fun getUsedRect(): Rect2i =
+      TransferContext.callPtrMethod0_ret_RECT2I(ptr, objectID.id, MethodBindings.getUsedRectPtr)
 
   /**
    * Returns a new [Image] that is a copy of this [Image]'s area specified with [region].
    */
-  public final fun getRegion(region: Rect2i): Image? {
-    TransferContext.writeMethodArguments_RECT2I(ptr, objectID.id, region)
-    TransferContext.callPtrMethod(MethodBindings.getRegionPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Image?)
-  }
+  public final fun getRegion(region: Rect2i): Image? =
+      (TransferContext.callPtrMethod_RECT2I_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getRegionPtr, region) as Image?)
 
   /**
    * Copies [src] image to this image.
    */
   public final fun copyFrom(src: Image?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, src)
-    TransferContext.callPtrMethod(MethodBindings.copyFromPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.copyFromPtr, src)
   }
 
   /**
@@ -793,11 +674,8 @@ public open class Image : Resource() {
    * This is the same as [getPixel], but with a [Vector2i] argument instead of two integer
    * arguments.
    */
-  public final fun getPixelv(point: Vector2i): Color {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, point)
-    TransferContext.callPtrMethod(MethodBindings.getPixelvPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getPixelv(point: Vector2i): Color =
+      TransferContext.callPtrMethod_VECTOR2I_ret_COLOR(ptr, objectID.id, MethodBindings.getPixelvPtr, point)
 
   /**
    * Returns the color of the pixel at `(x, y)`.
@@ -805,11 +683,8 @@ public open class Image : Resource() {
    * This is the same as [getPixelv], but with two integer arguments instead of a [Vector2i]
    * argument.
    */
-  public final fun getPixel(x: Int, y: Int): Color {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, x.toLong(), y.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getPixelPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getPixel(x: Int, y: Int): Color =
+      TransferContext.callPtrMethod_LONG_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getPixelPtr, x.toLong(), y.toLong())
 
   /**
    * Sets the [Color] of the pixel at [point] to [color].
@@ -843,8 +718,7 @@ public open class Image : Resource() {
    * relevant). The green and blue channels are ignored.
    */
   public final fun setPixelv(point: Vector2i, color: Color): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I_COLOR(ptr, objectID.id, point, color)
-    TransferContext.callPtrMethod(MethodBindings.setPixelvPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I_COLOR(ptr, objectID.id, MethodBindings.setPixelvPtr, point, color)
   }
 
   /**
@@ -883,8 +757,7 @@ public open class Image : Resource() {
     y: Int,
     color: Color,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_COLOR(ptr, objectID.id, x.toLong(), y.toLong(), color)
-    TransferContext.callPtrMethod(MethodBindings.setPixelPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_COLOR(ptr, objectID.id, MethodBindings.setPixelPtr, x.toLong(), y.toLong(), color)
   }
 
   /**
@@ -896,36 +769,26 @@ public open class Image : Resource() {
     contrast: Float,
     saturation: Float,
   ): Unit {
-    TransferContext.writeMethodArguments_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, brightness.toDouble(), contrast.toDouble(), saturation.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.adjustBcsPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.adjustBcsPtr, brightness.toDouble(), contrast.toDouble(), saturation.toDouble())
   }
 
   /**
    * Loads an image from the binary contents of a PNG file.
    */
-  public final fun loadPngFromBuffer(buffer: PackedByteArray): Error {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callPtrMethod(MethodBindings.loadPngFromBufferPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadPngFromBuffer(buffer: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.loadPngFromBufferPtr, buffer))
 
   /**
    * Loads an image from the binary contents of a JPEG file.
    */
-  public final fun loadJpgFromBuffer(buffer: PackedByteArray): Error {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callPtrMethod(MethodBindings.loadJpgFromBufferPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadJpgFromBuffer(buffer: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.loadJpgFromBufferPtr, buffer))
 
   /**
    * Loads an image from the binary contents of a WebP file.
    */
-  public final fun loadWebpFromBuffer(buffer: PackedByteArray): Error {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callPtrMethod(MethodBindings.loadWebpFromBufferPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadWebpFromBuffer(buffer: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.loadWebpFromBufferPtr, buffer))
 
   /**
    * Loads an image from the binary contents of a TGA file.
@@ -934,11 +797,8 @@ public open class Image : Resource() {
    * default, the TGA module is enabled, but it can be disabled at build-time using the
    * `module_tga_enabled=no` SCons option.
    */
-  public final fun loadTgaFromBuffer(buffer: PackedByteArray): Error {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callPtrMethod(MethodBindings.loadTgaFromBufferPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadTgaFromBuffer(buffer: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.loadTgaFromBufferPtr, buffer))
 
   /**
    * Loads an image from the binary contents of a BMP file.
@@ -950,11 +810,8 @@ public open class Image : Resource() {
    * default, the BMP module is enabled, but it can be disabled at build-time using the
    * `module_bmp_enabled=no` SCons option.
    */
-  public final fun loadBmpFromBuffer(buffer: PackedByteArray): Error {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callPtrMethod(MethodBindings.loadBmpFromBufferPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadBmpFromBuffer(buffer: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.loadBmpFromBufferPtr, buffer))
 
   /**
    * Loads an image from the binary contents of a
@@ -968,11 +825,8 @@ public open class Image : Resource() {
    * default, the KTX module is enabled, but it can be disabled at build-time using the
    * `module_ktx_enabled=no` SCons option.
    */
-  public final fun loadKtxFromBuffer(buffer: PackedByteArray): Error {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callPtrMethod(MethodBindings.loadKtxFromBufferPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadKtxFromBuffer(buffer: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.loadKtxFromBufferPtr, buffer))
 
   /**
    * Loads an image from the binary contents of a DDS file.
@@ -981,20 +835,14 @@ public open class Image : Resource() {
    * default, the DDS module is enabled, but it can be disabled at build-time using the
    * `module_dds_enabled=no` SCons option.
    */
-  public final fun loadDdsFromBuffer(buffer: PackedByteArray): Error {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callPtrMethod(MethodBindings.loadDdsFromBufferPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadDdsFromBuffer(buffer: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.loadDdsFromBufferPtr, buffer))
 
   /**
    * Loads an image from the binary contents of an OpenEXR file.
    */
-  public final fun loadExrFromBuffer(buffer: PackedByteArray): Error {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callPtrMethod(MethodBindings.loadExrFromBufferPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadExrFromBuffer(buffer: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.loadExrFromBufferPtr, buffer))
 
   /**
    * Loads an image from the UTF-8 binary contents of an **uncompressed** SVG file (**.svg**).
@@ -1007,11 +855,8 @@ public open class Image : Resource() {
    * `module_svg_enabled=no` SCons option.
    */
   @JvmOverloads
-  public final fun loadSvgFromBuffer(buffer: PackedByteArray, scale: Float = 1.0f): Error {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY_DOUBLE(ptr, objectID.id, buffer, scale.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.loadSvgFromBufferPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadSvgFromBuffer(buffer: PackedByteArray, scale: Float = 1.0f): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_DOUBLE_ret_LONG(ptr, objectID.id, MethodBindings.loadSvgFromBufferPtr, buffer, scale.toDouble()))
 
   /**
    * Loads an image from the string contents of an SVG file (**.svg**).
@@ -1021,11 +866,8 @@ public open class Image : Resource() {
    * `module_svg_enabled=no` SCons option.
    */
   @JvmOverloads
-  public final fun loadSvgFromString(svgStr: String, scale: Float = 1.0f): Error {
-    TransferContext.writeMethodArguments_STRING_DOUBLE(ptr, objectID.id, svgStr, scale.toDouble())
-    TransferContext.callMethod(MethodBindings.loadSvgFromStringPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadSvgFromString(svgStr: String, scale: Float = 1.0f): Error =
+      Error.from(TransferContext.callMethod_STRING_DOUBLE_ret_LONG(ptr, objectID.id, MethodBindings.loadSvgFromStringPtr, svgStr, scale.toDouble()))
 
   public enum class Format(
     public override val `value`: Long,
@@ -1864,11 +1706,8 @@ public open class Image : Resource() {
       height: Int,
       useMipmaps: Boolean,
       format: Format,
-    ): Image? {
-      TransferContext.writeMethodArguments_LONG_LONG_BOOL_LONG(0L, 0L, width.toLong(), height.toLong(), useMipmaps, format.value)
-      TransferContext.callPtrMethod(MethodBindings.createPtr, 39)
-      return (TransferContext.readReturnValue_OBJECT() as Image?)
-    }
+    ): Image? =
+        (TransferContext.callPtrMethod_LONG_LONG_BOOL_LONG_ret_OBJECT_REF(0L, 0L, MethodBindings.createPtr, width.toLong(), height.toLong(), useMipmaps, format.value) as Image?)
 
     /**
      * Creates an empty image of the given size and format. If [useMipmaps] is `true`, generates
@@ -1880,11 +1719,8 @@ public open class Image : Resource() {
       height: Int,
       useMipmaps: Boolean,
       format: Format,
-    ): Image? {
-      TransferContext.writeMethodArguments_LONG_LONG_BOOL_LONG(0L, 0L, width.toLong(), height.toLong(), useMipmaps, format.value)
-      TransferContext.callPtrMethod(MethodBindings.createEmptyPtr, 39)
-      return (TransferContext.readReturnValue_OBJECT() as Image?)
-    }
+    ): Image? =
+        (TransferContext.callPtrMethod_LONG_LONG_BOOL_LONG_ret_OBJECT_REF(0L, 0L, MethodBindings.createEmptyPtr, width.toLong(), height.toLong(), useMipmaps, format.value) as Image?)
 
     /**
      * Creates a new image of the given size and format. Fills the image with the given raw data. If
@@ -1897,21 +1733,15 @@ public open class Image : Resource() {
       useMipmaps: Boolean,
       format: Format,
       `data`: PackedByteArray,
-    ): Image? {
-      TransferContext.writeMethodArguments_LONG_LONG_BOOL_LONG_PACKED_BYTE_ARRAY(0L, 0L, width.toLong(), height.toLong(), useMipmaps, format.value, data)
-      TransferContext.callPtrMethod(MethodBindings.createFromDataPtr, 39)
-      return (TransferContext.readReturnValue_OBJECT() as Image?)
-    }
+    ): Image? =
+        (TransferContext.callPtrMethod_LONG_LONG_BOOL_LONG_PACKED_BYTE_ARRAY_ret_OBJECT_REF(0L, 0L, MethodBindings.createFromDataPtr, width.toLong(), height.toLong(), useMipmaps, format.value, data) as Image?)
 
     /**
      * Creates a new [Image] and loads data from the specified file.
      */
     @JvmStatic
-    public final fun loadFromFile(path: String): Image? {
-      TransferContext.writeMethodArguments_STRING(0L, 0L, path)
-      TransferContext.callMethod(MethodBindings.loadFromFilePtr)
-      return (TransferContext.readReturnValue_OBJECT() as Image?)
-    }
+    public final fun loadFromFile(path: String): Image? =
+        (TransferContext.callMethod_STRING_ret_OBJECT_REF(0L, 0L, MethodBindings.loadFromFilePtr, path) as Image?)
   }
 
   public object MethodBindings {

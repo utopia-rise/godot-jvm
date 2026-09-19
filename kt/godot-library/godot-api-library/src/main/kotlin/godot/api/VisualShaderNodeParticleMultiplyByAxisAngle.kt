@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -43,15 +42,11 @@ public open class VisualShaderNodeParticleMultiplyByAxisAngle : VisualShaderNode
   }
 
   public final fun setDegreesMode(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setDegreesModePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDegreesModePtr, enabled)
   }
 
-  public final fun isDegreesMode(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDegreesModePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDegreesMode(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDegreesModePtr)
 
   public companion object {
     @JvmField

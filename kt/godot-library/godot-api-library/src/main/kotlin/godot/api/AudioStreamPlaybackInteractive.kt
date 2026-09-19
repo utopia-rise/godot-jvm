@@ -9,15 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.StringName
 import godot.core.asCachedStringName
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_STRING_NAME
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
@@ -41,16 +40,14 @@ public open class AudioStreamPlaybackInteractive internal constructor() : AudioS
    * Switch to a clip (by name).
    */
   public final fun switchToClipByName(clipName: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, clipName)
-    TransferContext.callPtrMethod(MethodBindings.switchToClipByNamePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.switchToClipByNamePtr, clipName)
   }
 
   /**
    * Switch to a clip (by index).
    */
   public final fun switchToClip(clipIndex: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, clipIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.switchToClipPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.switchToClipPtr, clipIndex.toLong())
   }
 
   /**
@@ -64,11 +61,8 @@ public open class AudioStreamPlaybackInteractive internal constructor() : AudioS
    * var playing_clip_name = stream.get_clip_name(get_stream_playback().get_current_clip_index())
    * ```
    */
-  public final fun getCurrentClipIndex(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurrentClipIndexPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getCurrentClipIndex(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCurrentClipIndexPtr).toInt()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

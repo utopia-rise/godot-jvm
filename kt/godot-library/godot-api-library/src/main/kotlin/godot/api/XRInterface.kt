@@ -9,6 +9,19 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_STRING_NAME_DOUBLE_DOUBLE_DOUBLE_DOUBLE
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG_DOUBLE_DOUBLE_DOUBLE_ret_PROJECTION
+import godot.callPtrMethod_LONG_TRANSFORM3D_ret_TRANSFORM3D
+import godot.callPtrMethod_LONG_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.GodotEnum
@@ -25,21 +38,6 @@ import godot.core.Transform3D
 import godot.core.VariantArray
 import godot.core.Vector2
 import godot.core.asCachedStringName
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_VECTOR3_ARRAY
-import godot.readReturnValue_PROJECTION
-import godot.readReturnValue_STRING_NAME
-import godot.readReturnValue_TRANSFORM3D
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_DOUBLE_DOUBLE_DOUBLE
-import godot.writeMethodArguments_LONG_TRANSFORM3D
-import godot.writeMethodArguments_STRING_STRING_NAME_DOUBLE_DOUBLE_DOUBLE_DOUBLE
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -112,41 +110,28 @@ public open class XRInterface internal constructor() : RefCounted() {
   /**
    * Returns the name of this interface (`"OpenXR"`, `"OpenVR"`, `"OpenHMD"`, `"ARKit"`, etc.).
    */
-  public final fun getName(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getNamePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getName(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getNamePtr)
 
   /**
    * Returns a combination of [Capabilities] flags providing information about the capabilities of
    * this interface.
    */
-  public final fun getCapabilities(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCapabilitiesPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getCapabilities(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCapabilitiesPtr)
 
-  public final fun isPrimary(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPrimaryPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPrimary(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPrimaryPtr)
 
   public final fun setPrimary(primary: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, primary)
-    TransferContext.callPtrMethod(MethodBindings.setPrimaryPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPrimaryPtr, primary)
   }
 
   /**
    * Returns `true` if this interface has been initialized.
    */
-  public final fun isInitialized(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isInitializedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInitialized(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInitializedPtr)
 
   /**
    * Call this to initialize this interface. The first interface that is initialized is identified
@@ -168,18 +153,14 @@ public open class XRInterface internal constructor() : RefCounted() {
    * you want to track controllers from other platforms. However, at this point in time only one
    * interface can render to an HMD.
    */
-  public final fun initialize(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.initializePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun initialize(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.initializePtr)
 
   /**
    * Turns the interface off.
    */
   public final fun uninitialize(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.uninitializePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.uninitializePtr)
   }
 
   /**
@@ -189,41 +170,29 @@ public open class XRInterface internal constructor() : RefCounted() {
    *
    * **Note:**This information may only be available after [initialize] was successfully called.
    */
-  public final fun getSystemInfo(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSystemInfoPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getSystemInfo(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getSystemInfoPtr) as Dictionary<Any?, Any?>)
 
   /**
    * If supported, returns the status of our tracking. This will allow you to provide feedback to
    * the user whether there are issues with positional tracking.
    */
-  public final fun getTrackingStatus(): TrackingStatus {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTrackingStatusPtr, 2)
-    return TrackingStatus.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTrackingStatus(): TrackingStatus =
+      TrackingStatus.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTrackingStatusPtr))
 
   /**
    * Returns the resolution at which we should render our intermediate results before things like
    * lens distortion are applied by the VR platform.
    */
-  public final fun getRenderTargetSize(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRenderTargetSizePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getRenderTargetSize(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getRenderTargetSizePtr)
 
   /**
    * Returns the number of views that need to be rendered for this device. 1 for Monoscopic, 2 for
    * Stereoscopic.
    */
-  public final fun getViewCount(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getViewCountPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getViewCount(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getViewCountPtr)
 
   /**
    * Triggers a haptic pulse on a device associated with this interface.
@@ -250,24 +219,17 @@ public open class XRInterface internal constructor() : RefCounted() {
     durationSec: Double,
     delaySec: Double,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_STRING_NAME_DOUBLE_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, actionName, trackerName, frequency, amplitude, durationSec, delaySec)
-    TransferContext.callMethod(MethodBindings.triggerHapticPulsePtr)
+    TransferContext.callMethod_STRING_STRING_NAME_DOUBLE_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.triggerHapticPulsePtr, actionName, trackerName, frequency, amplitude, durationSec, delaySec)
   }
 
   /**
    * Call this to find out if a given play area mode is supported by this interface.
    */
-  public final fun supportsPlayAreaMode(mode: PlayAreaMode): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.supportsPlayAreaModePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun supportsPlayAreaMode(mode: PlayAreaMode): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.supportsPlayAreaModePtr, mode.value)
 
-  public final fun getPlayAreaMode(): PlayAreaMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPlayAreaModePtr, 2)
-    return PlayAreaMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getPlayAreaMode(): PlayAreaMode =
+      PlayAreaMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPlayAreaModePtr))
 
   /**
    * Sets the active play area mode, will return `false` if the mode can't be used with this
@@ -277,11 +239,8 @@ public open class XRInterface internal constructor() : RefCounted() {
    * player, so it's recommended to recenter on the HMD with [XRServer.centerOnHmd] (if switching to
    * [XRInterface.XR_PLAY_AREA_STAGE]) or make the switch during a scene change.
    */
-  public final fun setPlayAreaMode(mode: PlayAreaMode): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setPlayAreaModePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun setPlayAreaMode(mode: PlayAreaMode): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.setPlayAreaModePtr, mode.value)
 
   /**
    * Returns an array of vectors that represent the physical play area mapped to the virtual space
@@ -289,50 +248,34 @@ public open class XRInterface internal constructor() : RefCounted() {
    * visualize the play area. This returns an empty array if this feature is not supported or if the
    * information is not yet available.
    */
-  public final fun getPlayArea(): PackedVector3Array {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPlayAreaPtr, 36)
-    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
-  }
+  public final fun getPlayArea(): PackedVector3Array =
+      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getPlayAreaPtr)
 
-  public final fun getAnchorDetectionIsEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAnchorDetectionIsEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getAnchorDetectionIsEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAnchorDetectionIsEnabledPtr)
 
   public final fun setAnchorDetectionIsEnabled(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setAnchorDetectionIsEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAnchorDetectionIsEnabledPtr, enable)
   }
 
   /**
    * If this is an AR interface that requires displaying a camera feed as the background, this
    * method returns the feed ID in the [CameraServer] for this interface.
    */
-  public final fun getCameraFeedId(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCameraFeedIdPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getCameraFeedId(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCameraFeedIdPtr).toInt()
 
   /**
    * Returns `true` if this interface supports passthrough.
    */
-  public final fun isPassthroughSupported(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPassthroughSupportedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPassthroughSupported(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPassthroughSupportedPtr)
 
   /**
    * Returns `true` if passthrough is enabled.
    */
-  public final fun isPassthroughEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPassthroughEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPassthroughEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPassthroughEnabledPtr)
 
   /**
    * Starts passthrough, will return `false` if passthrough couldn't be started.
@@ -340,18 +283,14 @@ public open class XRInterface internal constructor() : RefCounted() {
    * **Note:** The viewport used for XR must have a transparent background, otherwise passthrough
    * may not properly render.
    */
-  public final fun startPassthrough(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.startPassthroughPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun startPassthrough(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.startPassthroughPtr)
 
   /**
    * Stops passthrough.
    */
   public final fun stopPassthrough(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.stopPassthroughPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPassthroughPtr)
   }
 
   /**
@@ -362,11 +301,8 @@ public open class XRInterface internal constructor() : RefCounted() {
    * [camTransform] is the transform that maps device coordinates to scene coordinates, typically
    * the [Node3D.globalTransform] of the current XROrigin3D.
    */
-  public final fun getTransformForView(view: Long, camTransform: Transform3D): Transform3D {
-    TransferContext.writeMethodArguments_LONG_TRANSFORM3D(ptr, objectID.id, view, camTransform)
-    TransferContext.callPtrMethod(MethodBindings.getTransformForViewPtr, 18)
-    return TransferContext.readReturnValue_TRANSFORM3D()
-  }
+  public final fun getTransformForView(view: Long, camTransform: Transform3D): Transform3D =
+      TransferContext.callPtrMethod_LONG_TRANSFORM3D_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getTransformForViewPtr, view, camTransform)
 
   /**
    * Returns the projection matrix for a view/eye.
@@ -376,21 +312,15 @@ public open class XRInterface internal constructor() : RefCounted() {
     aspect: Double,
     near: Double,
     far: Double,
-  ): Projection {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, view, aspect, near, far)
-    TransferContext.callPtrMethod(MethodBindings.getProjectionForViewPtr, 19)
-    return TransferContext.readReturnValue_PROJECTION()
-  }
+  ): Projection =
+      TransferContext.callPtrMethod_LONG_DOUBLE_DOUBLE_DOUBLE_ret_PROJECTION(ptr, objectID.id, MethodBindings.getProjectionForViewPtr, view, aspect, near, far)
 
   /**
    * Returns the an array of supported environment blend modes, see
    * [XRInterface.EnvironmentBlendMode].
    */
-  public final fun getSupportedEnvironmentBlendModes(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSupportedEnvironmentBlendModesPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun getSupportedEnvironmentBlendModes(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getSupportedEnvironmentBlendModesPtr) as VariantArray<Any?>)
 
   /**
    * Sets the active environment blend mode.
@@ -415,17 +345,11 @@ public open class XRInterface internal constructor() : RefCounted() {
    * 				break
    * ```
    */
-  public final fun setEnvironmentBlendMode(mode: EnvironmentBlendMode): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.value)
-    TransferContext.callPtrMethod(MethodBindings.setEnvironmentBlendModePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun setEnvironmentBlendMode(mode: EnvironmentBlendMode): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.setEnvironmentBlendModePtr, mode.value)
 
-  public final fun getEnvironmentBlendMode(): EnvironmentBlendMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnvironmentBlendModePtr, 2)
-    return EnvironmentBlendMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getEnvironmentBlendMode(): EnvironmentBlendMode =
+      EnvironmentBlendMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEnvironmentBlendModePtr))
 
   /**
    * Triggers a haptic pulse on a device associated with this interface.

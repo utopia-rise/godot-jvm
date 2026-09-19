@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Suppress
@@ -88,48 +87,32 @@ public open class SpringBoneCollisionCapsule3D : SpringBoneCollision3D() {
   }
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setRadiusPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, radius.toDouble())
   }
 
-  public final fun getRadius(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRadiusPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getRadius(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setHeight(height: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, height.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setHeightPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHeightPtr, height.toDouble())
   }
 
-  public final fun getHeight(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getHeight(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHeightPtr).toFloat()
 
   public final fun setMidHeight(midHeight: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, midHeight.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setMidHeightPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMidHeightPtr, midHeight.toDouble())
   }
 
-  public final fun getMidHeight(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMidHeightPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getMidHeight(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMidHeightPtr).toFloat()
 
   public final fun setInside(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setInsidePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setInsidePtr, enabled)
   }
 
-  public final fun isInside(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isInsidePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInside(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInsidePtr)
 
   public companion object {
     @JvmField

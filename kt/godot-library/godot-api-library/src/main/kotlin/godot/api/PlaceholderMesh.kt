@@ -11,13 +11,13 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_AABB
 import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.Dictionary
 import godot.core.MethodStringName1
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.writeMethodArguments_AABB
 import kotlin.Any
 import kotlin.Int
 import kotlin.Long
@@ -82,8 +82,7 @@ public open class PlaceholderMesh : Mesh() {
   }
 
   public final fun setAabb(aabb: AABB): Unit {
-    TransferContext.writeMethodArguments_AABB(ptr, objectID.id, aabb)
-    TransferContext.callPtrMethod(MethodBindings.setAabbPtr, 0)
+    TransferContext.callPtrMethod_AABB(ptr, objectID.id, MethodBindings.setAabbPtr, aabb)
   }
 
   /**

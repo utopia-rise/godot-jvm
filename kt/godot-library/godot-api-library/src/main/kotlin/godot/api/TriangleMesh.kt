@@ -9,6 +9,9 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod_PACKED_VECTOR3_ARRAY_ret_BOOL
+import godot.callPtrMethod_VECTOR3_VECTOR3_ret_DICTIONARY
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
@@ -16,12 +19,6 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedVector3Array
 import godot.core.Vector3
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_PACKED_VECTOR3_ARRAY
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_PACKED_VECTOR3_ARRAY
-import godot.writeMethodArguments_VECTOR3_VECTOR3
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Suppress
@@ -52,21 +49,15 @@ public open class TriangleMesh : RefCounted() {
    *
    * Returns `true` if the tree is successfully built, `false` otherwise.
    */
-  public final fun createFromFaces(faces: PackedVector3Array): Boolean {
-    TransferContext.writeMethodArguments_PACKED_VECTOR3_ARRAY(ptr, objectID.id, faces)
-    TransferContext.callPtrMethod(MethodBindings.createFromFacesPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun createFromFaces(faces: PackedVector3Array): Boolean =
+      TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY_ret_BOOL(ptr, objectID.id, MethodBindings.createFromFacesPtr, faces)
 
   /**
    * Returns a copy of the geometry faces. Each 3 vertices of the array represent one triangle
    * (face).
    */
-  public final fun getFaces(): PackedVector3Array {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFacesPtr, 36)
-    return TransferContext.readReturnValue_PACKED_VECTOR3_ARRAY()
-  }
+  public final fun getFaces(): PackedVector3Array =
+      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getFacesPtr)
 
   /**
    * Tests for intersection with a segment going from [begin] to [end].
@@ -83,11 +74,8 @@ public open class TriangleMesh : RefCounted() {
    *
    * See also [intersectRay], which is similar but uses an infinite-length ray.
    */
-  public final fun intersectSegment(begin: Vector3, end: Vector3): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_VECTOR3_VECTOR3(ptr, objectID.id, begin, end)
-    TransferContext.callPtrMethod(MethodBindings.intersectSegmentPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun intersectSegment(begin: Vector3, end: Vector3): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_VECTOR3_VECTOR3_ret_DICTIONARY(ptr, objectID.id, MethodBindings.intersectSegmentPtr, begin, end) as Dictionary<Any?, Any?>)
 
   /**
    * Tests for intersection with a ray starting at [begin] and facing [dir] and extending toward
@@ -105,11 +93,8 @@ public open class TriangleMesh : RefCounted() {
    *
    * See also [intersectSegment], which is similar but uses a finite-length segment.
    */
-  public final fun intersectRay(begin: Vector3, dir: Vector3): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_VECTOR3_VECTOR3(ptr, objectID.id, begin, dir)
-    TransferContext.callPtrMethod(MethodBindings.intersectRayPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun intersectRay(begin: Vector3, dir: Vector3): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_VECTOR3_VECTOR3_ret_DICTIONARY(ptr, objectID.id, MethodBindings.intersectRayPtr, begin, dir) as Dictionary<Any?, Any?>)
 
   public companion object {
     @JvmField

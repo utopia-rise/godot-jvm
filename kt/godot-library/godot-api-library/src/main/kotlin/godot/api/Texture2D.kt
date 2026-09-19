@@ -9,6 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_RID_RECT2_BOOL_COLOR_BOOL
+import godot.callPtrMethod_RID_RECT2_RECT2_COLOR_BOOL_BOOL
+import godot.callPtrMethod_RID_VECTOR2_COLOR_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.MethodStringName0
@@ -18,14 +25,6 @@ import godot.core.MethodStringName6
 import godot.core.RID
 import godot.core.Rect2
 import godot.core.Vector2
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_RID_RECT2_BOOL_COLOR_BOOL
-import godot.writeMethodArguments_RID_RECT2_RECT2_COLOR_BOOL_BOOL
-import godot.writeMethodArguments_RID_VECTOR2_COLOR_BOOL
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -161,65 +160,44 @@ public abstract class Texture2D : Texture() {
   /**
    * Returns the image format of the texture.
    */
-  public final fun getFormat(): Image.Format {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
-    return Image.Format.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getFormat(): Image.Format =
+      Image.Format.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr))
 
   /**
    * Returns the number of mipmaps of the texture.
    */
-  public final fun getMipmapCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMipmapCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMipmapCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMipmapCountPtr).toInt()
 
   /**
    * Returns the texture width in pixels.
    */
-  public final fun getWidth(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWidthPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getWidth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWidthPtr).toInt()
 
   /**
    * Returns the texture height in pixels.
    */
-  public final fun getHeight(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getHeight(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHeightPtr).toInt()
 
   /**
    * Returns the texture size in pixels.
    */
-  public final fun getSize(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSizePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getSize(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getSizePtr)
 
   /**
    * Returns `true` if this [Texture2D] has an alpha channel.
    */
-  public final fun hasAlpha(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasAlphaPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasAlpha(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasAlphaPtr)
 
   /**
    * Returns `true` if the texture has mipmaps.
    */
-  public final fun hasMipmaps(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasMipmapsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasMipmaps(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasMipmapsPtr)
 
   /**
    * Draws the texture using a [CanvasItem] with the [RenderingServer] API at the specified
@@ -232,8 +210,7 @@ public abstract class Texture2D : Texture() {
     modulate: Color = Color(Color(1, 1, 1, 1)),
     transpose: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR2_COLOR_BOOL(ptr, objectID.id, canvasItem, position, modulate, transpose)
-    TransferContext.callPtrMethod(MethodBindings.drawPtr, 0)
+    TransferContext.callPtrMethod_RID_VECTOR2_COLOR_BOOL(ptr, objectID.id, MethodBindings.drawPtr, canvasItem, position, modulate, transpose)
   }
 
   /**
@@ -247,8 +224,7 @@ public abstract class Texture2D : Texture() {
     modulate: Color = Color(Color(1, 1, 1, 1)),
     transpose: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_RECT2_BOOL_COLOR_BOOL(ptr, objectID.id, canvasItem, rect, tile, modulate, transpose)
-    TransferContext.callPtrMethod(MethodBindings.drawRectPtr, 0)
+    TransferContext.callPtrMethod_RID_RECT2_BOOL_COLOR_BOOL(ptr, objectID.id, MethodBindings.drawRectPtr, canvasItem, rect, tile, modulate, transpose)
   }
 
   /**
@@ -263,8 +239,7 @@ public abstract class Texture2D : Texture() {
     transpose: Boolean = false,
     clipUv: Boolean = true,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_RECT2_RECT2_COLOR_BOOL_BOOL(ptr, objectID.id, canvasItem, rect, srcRect, modulate, transpose, clipUv)
-    TransferContext.callPtrMethod(MethodBindings.drawRectRegionPtr, 0)
+    TransferContext.callPtrMethod_RID_RECT2_RECT2_COLOR_BOOL_BOOL(ptr, objectID.id, MethodBindings.drawRectRegionPtr, canvasItem, rect, srcRect, modulate, transpose, clipUv)
   }
 
   /**
@@ -276,20 +251,14 @@ public abstract class Texture2D : Texture() {
    * **Note:** This will fetch the texture data from the GPU, which might cause performance problems
    * when overused. Avoid calling [getImage] every frame, especially on large textures.
    */
-  public final fun getImage(): Image? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getImagePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Image?)
-  }
+  public final fun getImage(): Image? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getImagePtr) as Image?)
 
   /**
    * Creates a placeholder version of this resource ([PlaceholderTexture2D]).
    */
-  public final fun createPlaceholder(): Resource? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.createPlaceholderPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Resource?)
-  }
+  public final fun createPlaceholder(): Resource? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createPlaceholderPtr) as Resource?)
 
   public companion object {
     @JvmField

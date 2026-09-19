@@ -9,16 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Long
@@ -277,235 +276,151 @@ public open class RDPipelineDepthStencilState : RefCounted() {
   }
 
   public final fun setEnableDepthTest(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setEnableDepthTestPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableDepthTestPtr, pMember)
   }
 
-  public final fun getEnableDepthTest(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnableDepthTestPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getEnableDepthTest(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableDepthTestPtr)
 
   public final fun setEnableDepthWrite(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setEnableDepthWritePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableDepthWritePtr, pMember)
   }
 
-  public final fun getEnableDepthWrite(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnableDepthWritePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getEnableDepthWrite(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableDepthWritePtr)
 
   public final fun setDepthCompareOperator(pMember: RenderingDevice.CompareOperator): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setDepthCompareOperatorPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDepthCompareOperatorPtr, pMember.value)
   }
 
-  public final fun getDepthCompareOperator(): RenderingDevice.CompareOperator {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDepthCompareOperatorPtr, 2)
-    return RenderingDevice.CompareOperator.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getDepthCompareOperator(): RenderingDevice.CompareOperator =
+      RenderingDevice.CompareOperator.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDepthCompareOperatorPtr))
 
   public final fun setEnableDepthRange(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setEnableDepthRangePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableDepthRangePtr, pMember)
   }
 
-  public final fun getEnableDepthRange(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnableDepthRangePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getEnableDepthRange(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableDepthRangePtr)
 
   public final fun setDepthRangeMin(pMember: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pMember.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setDepthRangeMinPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDepthRangeMinPtr, pMember.toDouble())
   }
 
-  public final fun getDepthRangeMin(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDepthRangeMinPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDepthRangeMin(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDepthRangeMinPtr).toFloat()
 
   public final fun setDepthRangeMax(pMember: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pMember.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setDepthRangeMaxPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDepthRangeMaxPtr, pMember.toDouble())
   }
 
-  public final fun getDepthRangeMax(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDepthRangeMaxPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDepthRangeMax(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDepthRangeMaxPtr).toFloat()
 
   public final fun setEnableStencil(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setEnableStencilPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableStencilPtr, pMember)
   }
 
-  public final fun getEnableStencil(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnableStencilPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getEnableStencil(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableStencilPtr)
 
   public final fun setFrontOpFail(pMember: RenderingDevice.StencilOperation): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setFrontOpFailPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFrontOpFailPtr, pMember.value)
   }
 
-  public final fun getFrontOpFail(): RenderingDevice.StencilOperation {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFrontOpFailPtr, 2)
-    return RenderingDevice.StencilOperation.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getFrontOpFail(): RenderingDevice.StencilOperation =
+      RenderingDevice.StencilOperation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFrontOpFailPtr))
 
   public final fun setFrontOpPass(pMember: RenderingDevice.StencilOperation): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setFrontOpPassPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFrontOpPassPtr, pMember.value)
   }
 
-  public final fun getFrontOpPass(): RenderingDevice.StencilOperation {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFrontOpPassPtr, 2)
-    return RenderingDevice.StencilOperation.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getFrontOpPass(): RenderingDevice.StencilOperation =
+      RenderingDevice.StencilOperation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFrontOpPassPtr))
 
   public final fun setFrontOpDepthFail(pMember: RenderingDevice.StencilOperation): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setFrontOpDepthFailPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFrontOpDepthFailPtr, pMember.value)
   }
 
-  public final fun getFrontOpDepthFail(): RenderingDevice.StencilOperation {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFrontOpDepthFailPtr, 2)
-    return RenderingDevice.StencilOperation.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getFrontOpDepthFail(): RenderingDevice.StencilOperation =
+      RenderingDevice.StencilOperation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFrontOpDepthFailPtr))
 
   public final fun setFrontOpCompare(pMember: RenderingDevice.CompareOperator): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setFrontOpComparePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFrontOpComparePtr, pMember.value)
   }
 
-  public final fun getFrontOpCompare(): RenderingDevice.CompareOperator {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFrontOpComparePtr, 2)
-    return RenderingDevice.CompareOperator.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getFrontOpCompare(): RenderingDevice.CompareOperator =
+      RenderingDevice.CompareOperator.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFrontOpComparePtr))
 
   public final fun setFrontOpCompareMask(pMember: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setFrontOpCompareMaskPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFrontOpCompareMaskPtr, pMember)
   }
 
-  public final fun getFrontOpCompareMask(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFrontOpCompareMaskPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getFrontOpCompareMask(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFrontOpCompareMaskPtr)
 
   public final fun setFrontOpWriteMask(pMember: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setFrontOpWriteMaskPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFrontOpWriteMaskPtr, pMember)
   }
 
-  public final fun getFrontOpWriteMask(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFrontOpWriteMaskPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getFrontOpWriteMask(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFrontOpWriteMaskPtr)
 
   public final fun setFrontOpReference(pMember: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setFrontOpReferencePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFrontOpReferencePtr, pMember)
   }
 
-  public final fun getFrontOpReference(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFrontOpReferencePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getFrontOpReference(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFrontOpReferencePtr)
 
   public final fun setBackOpFail(pMember: RenderingDevice.StencilOperation): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setBackOpFailPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBackOpFailPtr, pMember.value)
   }
 
-  public final fun getBackOpFail(): RenderingDevice.StencilOperation {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBackOpFailPtr, 2)
-    return RenderingDevice.StencilOperation.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getBackOpFail(): RenderingDevice.StencilOperation =
+      RenderingDevice.StencilOperation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBackOpFailPtr))
 
   public final fun setBackOpPass(pMember: RenderingDevice.StencilOperation): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setBackOpPassPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBackOpPassPtr, pMember.value)
   }
 
-  public final fun getBackOpPass(): RenderingDevice.StencilOperation {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBackOpPassPtr, 2)
-    return RenderingDevice.StencilOperation.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getBackOpPass(): RenderingDevice.StencilOperation =
+      RenderingDevice.StencilOperation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBackOpPassPtr))
 
   public final fun setBackOpDepthFail(pMember: RenderingDevice.StencilOperation): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setBackOpDepthFailPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBackOpDepthFailPtr, pMember.value)
   }
 
-  public final fun getBackOpDepthFail(): RenderingDevice.StencilOperation {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBackOpDepthFailPtr, 2)
-    return RenderingDevice.StencilOperation.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getBackOpDepthFail(): RenderingDevice.StencilOperation =
+      RenderingDevice.StencilOperation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBackOpDepthFailPtr))
 
   public final fun setBackOpCompare(pMember: RenderingDevice.CompareOperator): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setBackOpComparePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBackOpComparePtr, pMember.value)
   }
 
-  public final fun getBackOpCompare(): RenderingDevice.CompareOperator {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBackOpComparePtr, 2)
-    return RenderingDevice.CompareOperator.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getBackOpCompare(): RenderingDevice.CompareOperator =
+      RenderingDevice.CompareOperator.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBackOpComparePtr))
 
   public final fun setBackOpCompareMask(pMember: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setBackOpCompareMaskPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBackOpCompareMaskPtr, pMember)
   }
 
-  public final fun getBackOpCompareMask(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBackOpCompareMaskPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getBackOpCompareMask(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBackOpCompareMaskPtr)
 
   public final fun setBackOpWriteMask(pMember: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setBackOpWriteMaskPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBackOpWriteMaskPtr, pMember)
   }
 
-  public final fun getBackOpWriteMask(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBackOpWriteMaskPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getBackOpWriteMask(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBackOpWriteMaskPtr)
 
   public final fun setBackOpReference(pMember: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setBackOpReferencePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBackOpReferencePtr, pMember)
   }
 
-  public final fun getBackOpReference(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBackOpReferencePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getBackOpReference(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBackOpReferencePtr)
 
   public companion object {
     @JvmField

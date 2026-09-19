@@ -9,6 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_LONG_ret_LONG
+import godot.callMethod_STRING_LONG_ret_PACKED_STRING_ARRAY
+import godot.callMethod_STRING_LONG_ret_STRING
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_ret_ARRAY
+import godot.callPtrMethod_LONG_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.GodotEnum
@@ -17,14 +27,6 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedStringArray
 import godot.core.VariantArray
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_STRING_ARRAY
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_LONG
 import kotlin.Any
 import kotlin.Int
 import kotlin.Long
@@ -103,11 +105,8 @@ public object IP : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun resolveHostname(host: String, ipType: Type = IP.Type.ANY): String {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, host, ipType.value)
-    TransferContext.callMethod(MethodBindings.resolveHostnamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun resolveHostname(host: String, ipType: Type = IP.Type.ANY): String =
+      TransferContext.callMethod_STRING_LONG_ret_STRING(ptr, objectID.id, MethodBindings.resolveHostnamePtr, host, ipType.value)
 
   /**
    * Resolves a given hostname in a blocking way. Addresses are returned as an [VariantArray] of
@@ -116,11 +115,8 @@ public object IP : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun resolveHostnameAddresses(host: String, ipType: Type = IP.Type.ANY):
-      PackedStringArray {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, host, ipType.value)
-    TransferContext.callMethod(MethodBindings.resolveHostnameAddressesPtr)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+      PackedStringArray =
+      TransferContext.callMethod_STRING_LONG_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.resolveHostnameAddressesPtr, host, ipType.value)
 
   /**
    * Creates a queue item to resolve a hostname to an IPv4 or IPv6 address depending on the [Type]
@@ -128,43 +124,31 @@ public object IP : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun resolveHostnameQueueItem(host: String, ipType: Type = IP.Type.ANY): Int {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, host, ipType.value)
-    TransferContext.callMethod(MethodBindings.resolveHostnameQueueItemPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun resolveHostnameQueueItem(host: String, ipType: Type = IP.Type.ANY): Int =
+      TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.resolveHostnameQueueItemPtr, host, ipType.value).toInt()
 
   /**
    * Returns a queued hostname's status as a [ResolverStatus] constant, given its queue [id].
    */
   @JvmStatic
-  public final fun getResolveItemStatus(id: Int): ResolverStatus {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getResolveItemStatusPtr, 2)
-    return ResolverStatus.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getResolveItemStatus(id: Int): ResolverStatus =
+      ResolverStatus.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getResolveItemStatusPtr, id.toLong()))
 
   /**
    * Returns a queued hostname's IP address, given its queue [id]. Returns an empty string on error
    * or if resolution hasn't happened yet (see [getResolveItemStatus]).
    */
   @JvmStatic
-  public final fun getResolveItemAddress(id: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callMethod(MethodBindings.getResolveItemAddressPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getResolveItemAddress(id: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getResolveItemAddressPtr, id.toLong())
 
   /**
    * Returns resolved addresses, or an empty array if an error happened or resolution didn't happen
    * yet (see [getResolveItemStatus]).
    */
   @JvmStatic
-  public final fun getResolveItemAddresses(id: Int): VariantArray<Any?> {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getResolveItemAddressesPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun getResolveItemAddresses(id: Int): VariantArray<Any?> =
+      (TransferContext.callPtrMethod_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.getResolveItemAddressesPtr, id.toLong()) as VariantArray<Any?>)
 
   /**
    * Removes a given item [id] from the queue. This should be used to free a queue after it has
@@ -172,19 +156,15 @@ public object IP : Object() {
    */
   @JvmStatic
   public final fun eraseResolveItem(id: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, id.toLong())
-    TransferContext.callPtrMethod(MethodBindings.eraseResolveItemPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.eraseResolveItemPtr, id.toLong())
   }
 
   /**
    * Returns all the user's current IPv4 and IPv6 addresses as an array.
    */
   @JvmStatic
-  public final fun getLocalAddresses(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLocalAddressesPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getLocalAddresses(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getLocalAddressesPtr)
 
   /**
    * Returns all network adapters as an array.
@@ -201,11 +181,8 @@ public object IP : Object() {
    * ```
    */
   @JvmStatic
-  public final fun getLocalInterfaces(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLocalInterfacesPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+  public final fun getLocalInterfaces(): VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getLocalInterfacesPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Removes all of a [hostname]'s cached references. If no [hostname] is given, all cached IP
@@ -214,8 +191,7 @@ public object IP : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun clearCache(hostname: String = ""): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, hostname)
-    TransferContext.callMethod(MethodBindings.clearCachePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.clearCachePtr, hostname)
   }
 
   public enum class ResolverStatus(

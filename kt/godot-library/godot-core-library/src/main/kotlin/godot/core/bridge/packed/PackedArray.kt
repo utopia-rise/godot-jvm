@@ -14,8 +14,7 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
     //PROPERTIES
     val size: Int
         get() {
-            bridge.engine_call_size(ptr)
-            return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+            return TransferContext.callBridge(VariantParser.LONG) { bridge.engine_call_size(ptr) }.toInt()
         }
 
     //POOL ARRAY API SHARED
@@ -48,12 +47,11 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * Note: Calling [bsearch] on an unsorted array results in unexpected behavior.
      */
     fun bsearch(value: T, before: Boolean = true): Int {
-        TransferContext.writeArguments(2) {
+        return TransferContext.callBridge(2, VariantParser.LONG) {
             bridge.elementVariantType.toGodot(value)
             VariantParser.BOOL.write(before)
-        }
-        bridge.engine_call_bsearch(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+            bridge.engine_call_bsearch(ptr)
+        }.toInt()
     }
 
     /**
@@ -67,11 +65,10 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * Returns the number of times an element is in the array.
      */
     fun count(value: T): Int {
-        TransferContext.writeArguments(1) {
+        return TransferContext.callBridge(1, VariantParser.LONG) {
             bridge.elementVariantType.toGodot(value)
-        }
-        bridge.engine_call_count(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+            bridge.engine_call_count(ptr)
+        }.toInt()
     }
 
     /**
@@ -79,8 +76,7 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      */
     @Suppress("UNCHECKED_CAST")
     fun duplicate(): Derived {
-        bridge.engine_call_duplicate(ptr)
-        return TransferContext.readReturnValue(bridge.packedArrayVariantType) as Derived
+        return TransferContext.callBridge(bridge.packedArrayVariantType) { bridge.engine_call_duplicate(ptr) } as Derived
     }
 
     /**
@@ -99,11 +95,10 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * be passed.
      */
     fun find(value: T): Int {
-        TransferContext.writeArguments(1) {
+        return TransferContext.callBridge(1, VariantParser.LONG) {
             bridge.elementVariantType.toGodot(value)
-        }
-        bridge.engine_call_find(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+            bridge.engine_call_find(ptr)
+        }.toInt()
     }
 
     /**
@@ -111,22 +106,20 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      */
     @Suppress("UNCHECKED_CAST")
     operator fun get(idx: Int): T {
-        TransferContext.writeArguments(1) {
+        return TransferContext.callBridge(1, bridge.elementVariantType) {
             VariantParser.LONG.write(idx.toLong())
-        }
-        bridge.engine_call_get(ptr)
-        return TransferContext.readReturnValue(bridge.elementVariantType) as T
+            bridge.engine_call_get(ptr)
+        } as T
     }
 
     /**
      * Returns `true` if the array contains [value].
      */
     fun has(value: T): Boolean {
-        TransferContext.writeArguments(1) {
+        return TransferContext.callBridge(1, VariantParser.BOOL) {
             bridge.elementVariantType.toGodot(value)
+            bridge.engine_call_has(ptr)
         }
-        bridge.engine_call_has(ptr)
-        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
     }
 
     /**
@@ -145,8 +138,7 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * Returns true if the array is empty.
      */
     fun isEmpty(): Boolean {
-        bridge.engine_call_is_empty(ptr)
-        return VariantParser.BOOL.read(TransferContext.beginReturnValueRead())
+        return TransferContext.callBridge(VariantParser.BOOL) { bridge.engine_call_is_empty(ptr) }
     }
 
     /**
@@ -192,12 +184,11 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      * is considered relative to the end of the array.
      */
     fun rfind(value: T, from: Int = -1): Int {
-        TransferContext.writeArguments(2) {
+        return TransferContext.callBridge(2, VariantParser.LONG) {
             bridge.elementVariantType.toGodot(value)
             VariantParser.LONG.write(from.toLong())
-        }
-        bridge.engine_call_rfind(ptr)
-        return VariantParser.LONG.read(TransferContext.beginReturnValueRead()).toInt()
+            bridge.engine_call_rfind(ptr)
+        }.toInt()
     }
 
     /**
@@ -222,12 +213,11 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
      */
     @Suppress("UNCHECKED_CAST")
     fun slice(begin: Int, end: Int = Int.MAX_VALUE): Derived {
-        TransferContext.writeArguments(2) {
+        return TransferContext.callBridge(2, bridge.packedArrayVariantType) {
             VariantParser.LONG.write(begin.toLong())
             VariantParser.LONG.write(end.toLong())
-        }
-        bridge.engine_call_slice(ptr)
-        return TransferContext.readReturnValue(bridge.packedArrayVariantType) as Derived
+            bridge.engine_call_slice(ptr)
+        } as Derived
     }
 
     fun sort() {
@@ -235,8 +225,7 @@ abstract class PackedArray<Derived : PackedArray<Derived, T>, T> internal constr
     }
 
     fun toPackedByteArray(): PackedByteArray {
-        bridge.engine_call_to_byte_array(ptr)
-        return TransferContext.readReturnValue(VariantParser.PACKED_BYTE_ARRAY) as PackedByteArray
+        return TransferContext.callBridge(VariantParser.PACKED_BYTE_ARRAY) { bridge.engine_call_to_byte_array(ptr) } as PackedByteArray
     }
 
     //UTILITIES

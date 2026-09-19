@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_DOUBLE
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -45,15 +44,11 @@ public open class JointLimitationCone3D : JointLimitation3D() {
   }
 
   public final fun setAngle(angle: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, angle.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setAnglePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAnglePtr, angle.toDouble())
   }
 
-  public final fun getAngle(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAnglePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getAngle(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAnglePtr).toFloat()
 
   public companion object {
     @JvmField

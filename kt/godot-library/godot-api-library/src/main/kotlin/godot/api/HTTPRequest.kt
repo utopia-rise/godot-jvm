@@ -9,6 +9,19 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_LONG
+import godot.callMethod_STRING_PACKED_STRING_ARRAY_LONG_PACKED_BYTE_ARRAY_ret_LONG
+import godot.callMethod_STRING_PACKED_STRING_ARRAY_LONG_STRING_ret_LONG
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
@@ -19,19 +32,6 @@ import godot.core.MethodStringName4
 import godot.core.PackedByteArray
 import godot.core.PackedStringArray
 import godot.core.Signal4
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_LONG
-import godot.writeMethodArguments_STRING_PACKED_STRING_ARRAY_LONG_PACKED_BYTE_ARRAY
-import godot.writeMethodArguments_STRING_PACKED_STRING_ARRAY_LONG_STRING
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
@@ -345,11 +345,8 @@ public open class HTTPRequest : Node() {
     customHeaders: PackedStringArray = PackedStringArray(),
     method: HTTPClient.Method = HTTPClient.Method.GET,
     requestData: String = "",
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY_LONG_STRING(ptr, objectID.id, url, customHeaders, method.value, requestData)
-    TransferContext.callMethod(MethodBindings.requestPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_PACKED_STRING_ARRAY_LONG_STRING_ret_LONG(ptr, objectID.id, MethodBindings.requestPtr, url, customHeaders, method.value, requestData))
 
   /**
    * Creates request on the underlying [HTTPClient] using a raw array of bytes for the request body.
@@ -367,100 +364,69 @@ public open class HTTPRequest : Node() {
     customHeaders: PackedStringArray = PackedStringArray(),
     method: HTTPClient.Method = HTTPClient.Method.GET,
     requestDataRaw: PackedByteArray = PackedByteArray(),
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_PACKED_STRING_ARRAY_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, url, customHeaders, method.value, requestDataRaw)
-    TransferContext.callMethod(MethodBindings.requestRawPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_PACKED_STRING_ARRAY_LONG_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.requestRawPtr, url, customHeaders, method.value, requestDataRaw))
 
   /**
    * Cancels the current request.
    */
   public final fun cancelRequest(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.cancelRequestPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.cancelRequestPtr)
   }
 
   /**
    * Sets the [TLSOptions] to be used when connecting to an HTTPS server. See [TLSOptions.client].
    */
   public final fun setTlsOptions(clientOptions: TLSOptions?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, clientOptions)
-    TransferContext.callPtrMethod(MethodBindings.setTlsOptionsPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTlsOptionsPtr, clientOptions)
   }
 
   /**
    * Returns the current status of the underlying [HTTPClient].
    */
-  public final fun getHttpClientStatus(): HTTPClient.Status {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHttpClientStatusPtr, 2)
-    return HTTPClient.Status.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getHttpClientStatus(): HTTPClient.Status =
+      HTTPClient.Status.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHttpClientStatusPtr))
 
   public final fun setUseThreads(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setUseThreadsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseThreadsPtr, enable)
   }
 
-  public final fun isUsingThreads(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingThreadsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingThreads(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingThreadsPtr)
 
   public final fun setAcceptGzip(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setAcceptGzipPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAcceptGzipPtr, enable)
   }
 
-  public final fun isAcceptingGzip(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isAcceptingGzipPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isAcceptingGzip(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAcceptingGzipPtr)
 
   public final fun setBodySizeLimit(bytes: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bytes.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setBodySizeLimitPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBodySizeLimitPtr, bytes.toLong())
   }
 
-  public final fun getBodySizeLimit(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBodySizeLimitPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getBodySizeLimit(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBodySizeLimitPtr).toInt()
 
   public final fun setMaxRedirects(amount: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setMaxRedirectsPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxRedirectsPtr, amount.toLong())
   }
 
-  public final fun getMaxRedirects(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMaxRedirectsPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMaxRedirects(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxRedirectsPtr).toInt()
 
   public final fun setDownloadFile(path: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.setDownloadFilePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setDownloadFilePtr, path)
   }
 
-  public final fun getDownloadFile(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDownloadFilePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getDownloadFile(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDownloadFilePtr)
 
   /**
    * Returns the number of bytes this HTTPRequest downloaded.
    */
-  public final fun getDownloadedBytes(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDownloadedBytesPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getDownloadedBytes(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDownloadedBytesPtr).toInt()
 
   /**
    * Returns the response body length.
@@ -468,33 +434,22 @@ public open class HTTPRequest : Node() {
    * **Note:** Some Web servers may not send a body length. In this case, the value returned will be
    * `-1`. If using chunked transfer encoding, the body length will also be `-1`.
    */
-  public final fun getBodySize(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBodySizePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getBodySize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBodySizePtr).toInt()
 
   public final fun setTimeout(timeout: Double): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeout)
-    TransferContext.callPtrMethod(MethodBindings.setTimeoutPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTimeoutPtr, timeout)
   }
 
-  public final fun getTimeout(): Double {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTimeoutPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getTimeout(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTimeoutPtr)
 
   public final fun setDownloadChunkSize(chunkSize: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, chunkSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setDownloadChunkSizePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDownloadChunkSizePtr, chunkSize.toLong())
   }
 
-  public final fun getDownloadChunkSize(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDownloadChunkSizePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getDownloadChunkSize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDownloadChunkSizePtr).toInt()
 
   /**
    * Sets the proxy server for HTTP requests.
@@ -502,8 +457,7 @@ public open class HTTPRequest : Node() {
    * The proxy server is unset if [host] is empty or [port] is -1.
    */
   public final fun setHttpProxy(host: String, port: Int): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, host, port.toLong())
-    TransferContext.callMethod(MethodBindings.setHttpProxyPtr)
+    TransferContext.callMethod_STRING_LONG(ptr, objectID.id, MethodBindings.setHttpProxyPtr, host, port.toLong())
   }
 
   /**
@@ -512,8 +466,7 @@ public open class HTTPRequest : Node() {
    * The proxy server is unset if [host] is empty or [port] is -1.
    */
   public final fun setHttpsProxy(host: String, port: Int): Unit {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, host, port.toLong())
-    TransferContext.callMethod(MethodBindings.setHttpsProxyPtr)
+    TransferContext.callMethod_STRING_LONG(ptr, objectID.id, MethodBindings.setHttpsProxyPtr, host, port.toLong())
   }
 
   public enum class Result(

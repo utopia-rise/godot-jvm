@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_DOUBLE
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -57,26 +56,18 @@ public open class GrooveJoint2D : Joint2D() {
   }
 
   public final fun setLength(length: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, length.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setLengthPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLengthPtr, length.toDouble())
   }
 
-  public final fun getLength(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLengthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
 
   public final fun setInitialOffset(offset: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, offset.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setInitialOffsetPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setInitialOffsetPtr, offset.toDouble())
   }
 
-  public final fun getInitialOffset(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getInitialOffsetPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getInitialOffset(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getInitialOffsetPtr).toFloat()
 
   public companion object {
     @JvmField

@@ -9,14 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.String
@@ -65,17 +63,11 @@ public open class CompressedTexture2D : Texture2D() {
   /**
    * Loads the texture from the specified [path].
    */
-  public final fun load(path: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.loadPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun load(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.loadPtr, path))
 
-  public final fun getLoadPath(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoadPathPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getLoadPath(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLoadPathPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

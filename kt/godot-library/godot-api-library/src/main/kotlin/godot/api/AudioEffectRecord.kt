@@ -9,15 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -60,38 +59,27 @@ public open class AudioEffectRecord : AudioEffect() {
    * previously recorded sample.
    */
   public final fun setRecordingActive(record: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, record)
-    TransferContext.callPtrMethod(MethodBindings.setRecordingActivePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRecordingActivePtr, record)
   }
 
   /**
    * Returns whether the recording is active or not.
    */
-  public final fun isRecordingActive(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isRecordingActivePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isRecordingActive(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRecordingActivePtr)
 
   public final fun setFormat(format: AudioStreamWAV.Format): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, format.value)
-    TransferContext.callPtrMethod(MethodBindings.setFormatPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFormatPtr, format.value)
   }
 
-  public final fun getFormat(): AudioStreamWAV.Format {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
-    return AudioStreamWAV.Format.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getFormat(): AudioStreamWAV.Format =
+      AudioStreamWAV.Format.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr))
 
   /**
    * Returns the recorded sample.
    */
-  public final fun getRecording(): AudioStreamWAV? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRecordingPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as AudioStreamWAV?)
-  }
+  public final fun getRecording(): AudioStreamWAV? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getRecordingPtr) as AudioStreamWAV?)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

@@ -9,6 +9,9 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_OBJECT_LONG_ret_ARRAY
+import godot.callPtrMethod_OBJECT_ret_DICTIONARY
+import godot.callPtrMethod_OBJECT_ret_PACKED_FLOAT_32_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName1
@@ -17,11 +20,6 @@ import godot.core.PackedFloat32Array
 import godot.core.RID
 import godot.core.VariantArray
 import godot.core.Vector2
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_PACKED_FLOAT_32_ARRAY
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_LONG
 import kotlin.Any
 import kotlin.Int
 import kotlin.Suppress
@@ -63,11 +61,8 @@ public open class PhysicsDirectSpaceState2D internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun intersectPoint(parameters: PhysicsPointQueryParameters2D, maxResults: Int = 32):
-      VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, parameters, maxResults.toLong())
-    TransferContext.callPtrMethod(MethodBindings.intersectPointPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+      VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod_OBJECT_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.intersectPointPtr, parameters, maxResults.toLong()) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Intersects a ray in a given space. Ray position and other parameters are defined through
@@ -88,11 +83,8 @@ public open class PhysicsDirectSpaceState2D internal constructor() : Object() {
    *
    * If the ray did not intersect anything, then an empty dictionary is returned instead.
    */
-  public final fun intersectRay(parameters: PhysicsRayQueryParameters2D): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, parameters)
-    TransferContext.callPtrMethod(MethodBindings.intersectRayPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun intersectRay(parameters: PhysicsRayQueryParameters2D): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_OBJECT_ret_DICTIONARY(ptr, objectID.id, MethodBindings.intersectRayPtr, parameters) as Dictionary<Any?, Any?>)
 
   /**
    * Checks the intersections of a shape, given through a [PhysicsShapeQueryParameters2D] object,
@@ -112,11 +104,8 @@ public open class PhysicsDirectSpaceState2D internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun intersectShape(parameters: PhysicsShapeQueryParameters2D, maxResults: Int = 32):
-      VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, parameters, maxResults.toLong())
-    TransferContext.callPtrMethod(MethodBindings.intersectShapePtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+      VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod_OBJECT_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.intersectShapePtr, parameters, maxResults.toLong()) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Checks how far a [Shape2D] can move without colliding. All the parameters for the query,
@@ -130,11 +119,8 @@ public open class PhysicsDirectSpaceState2D internal constructor() : Object() {
    * **Note:** Any [Shape2D]s that the shape is already colliding with e.g. inside of, will be
    * ignored. Use [collideShape] to determine the [Shape2D]s that the shape is already colliding with.
    */
-  public final fun castMotion(parameters: PhysicsShapeQueryParameters2D): PackedFloat32Array {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, parameters)
-    TransferContext.callPtrMethod(MethodBindings.castMotionPtr, 32)
-    return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
-  }
+  public final fun castMotion(parameters: PhysicsShapeQueryParameters2D): PackedFloat32Array =
+      TransferContext.callPtrMethod_OBJECT_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.castMotionPtr, parameters)
 
   /**
    * Checks the intersections of a shape, given through a [PhysicsShapeQueryParameters2D] object,
@@ -148,11 +134,8 @@ public open class PhysicsDirectSpaceState2D internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun collideShape(parameters: PhysicsShapeQueryParameters2D, maxResults: Int = 32):
-      VariantArray<Vector2> {
-    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, parameters, maxResults.toLong())
-    TransferContext.callPtrMethod(MethodBindings.collideShapePtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Vector2>)
-  }
+      VariantArray<Vector2> =
+      (TransferContext.callPtrMethod_OBJECT_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.collideShapePtr, parameters, maxResults.toLong()) as VariantArray<Vector2>)
 
   /**
    * Checks the intersections of a shape, given through a [PhysicsShapeQueryParameters2D] object,
@@ -175,11 +158,8 @@ public open class PhysicsDirectSpaceState2D internal constructor() : Object() {
    *
    * If the shape did not intersect anything, then an empty dictionary is returned instead.
    */
-  public final fun getRestInfo(parameters: PhysicsShapeQueryParameters2D): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, parameters)
-    TransferContext.callPtrMethod(MethodBindings.getRestInfoPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getRestInfo(parameters: PhysicsShapeQueryParameters2D): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_OBJECT_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getRestInfoPtr, parameters) as Dictionary<Any?, Any?>)
 
   public companion object {
     @JvmField

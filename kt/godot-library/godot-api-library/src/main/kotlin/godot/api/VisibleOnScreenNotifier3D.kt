@@ -11,14 +11,13 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_AABB
 import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.readReturnValue_BOOL
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_AABB
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -93,8 +92,7 @@ public open class VisibleOnScreenNotifier3D : VisualInstance3D() {
   }
 
   public final fun setAabb(rect: AABB): Unit {
-    TransferContext.writeMethodArguments_AABB(ptr, objectID.id, rect)
-    TransferContext.callPtrMethod(MethodBindings.setAabbPtr, 0)
+    TransferContext.callPtrMethod_AABB(ptr, objectID.id, MethodBindings.setAabbPtr, rect)
   }
 
   /**
@@ -104,11 +102,8 @@ public open class VisibleOnScreenNotifier3D : VisualInstance3D() {
    * once added to the scene tree, so this method will always return `false` right after it is
    * instantiated.
    */
-  public final fun isOnScreen(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isOnScreenPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isOnScreen(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOnScreenPtr)
 
   public companion object {
     @JvmField

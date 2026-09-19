@@ -11,6 +11,20 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_COLOR
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.GodotEnum
@@ -19,20 +33,6 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.Side
 import godot.core.Vector2
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_COLOR
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_COLOR
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -399,155 +399,103 @@ public open class TextureProgressBar : Range() {
   }
 
   public final fun setUnderTexture(tex: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, tex)
-    TransferContext.callPtrMethod(MethodBindings.setUnderTexturePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setUnderTexturePtr, tex)
   }
 
-  public final fun getUnderTexture(): Texture2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getUnderTexturePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getUnderTexture(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getUnderTexturePtr) as Texture2D?)
 
   public final fun setProgressTexture(tex: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, tex)
-    TransferContext.callPtrMethod(MethodBindings.setProgressTexturePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setProgressTexturePtr, tex)
   }
 
-  public final fun getProgressTexture(): Texture2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getProgressTexturePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getProgressTexture(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getProgressTexturePtr) as Texture2D?)
 
   public final fun setOverTexture(tex: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, tex)
-    TransferContext.callPtrMethod(MethodBindings.setOverTexturePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setOverTexturePtr, tex)
   }
 
-  public final fun getOverTexture(): Texture2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOverTexturePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getOverTexture(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOverTexturePtr) as Texture2D?)
 
   public final fun setFillMode(mode: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mode.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setFillModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFillModePtr, mode.toLong())
   }
 
-  public final fun getFillMode(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFillModePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getFillMode(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFillModePtr).toInt()
 
   public final fun setTintUnder(tint: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, tint)
-    TransferContext.callPtrMethod(MethodBindings.setTintUnderPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setTintUnderPtr, tint)
   }
 
-  public final fun getTintUnder(): Color {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTintUnderPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getTintUnder(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getTintUnderPtr)
 
   public final fun setTintProgress(tint: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, tint)
-    TransferContext.callPtrMethod(MethodBindings.setTintProgressPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setTintProgressPtr, tint)
   }
 
-  public final fun getTintProgress(): Color {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTintProgressPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getTintProgress(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getTintProgressPtr)
 
   public final fun setTintOver(tint: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, tint)
-    TransferContext.callPtrMethod(MethodBindings.setTintOverPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setTintOverPtr, tint)
   }
 
-  public final fun getTintOver(): Color {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTintOverPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getTintOver(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getTintOverPtr)
 
   public final fun setTextureProgressOffset(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callPtrMethod(MethodBindings.setTextureProgressOffsetPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setTextureProgressOffsetPtr, offset)
   }
 
-  public final fun getTextureProgressOffset(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTextureProgressOffsetPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getTextureProgressOffset(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getTextureProgressOffsetPtr)
 
   public final fun setRadialInitialAngle(mode: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, mode.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setRadialInitialAnglePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadialInitialAnglePtr, mode.toDouble())
   }
 
-  public final fun getRadialInitialAngle(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRadialInitialAnglePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getRadialInitialAngle(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadialInitialAnglePtr).toFloat()
 
   public final fun setRadialCenterOffset(mode: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, mode)
-    TransferContext.callPtrMethod(MethodBindings.setRadialCenterOffsetPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setRadialCenterOffsetPtr, mode)
   }
 
-  public final fun getRadialCenterOffset(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRadialCenterOffsetPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getRadialCenterOffset(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getRadialCenterOffsetPtr)
 
   public final fun setFillDegrees(mode: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, mode.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setFillDegreesPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFillDegreesPtr, mode.toDouble())
   }
 
-  public final fun getFillDegrees(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFillDegreesPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFillDegrees(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFillDegreesPtr).toFloat()
 
   /**
    * Sets the stretch margin with the specified index. See [stretchMarginBottom] and related
    * properties.
    */
   public final fun setStretchMargin(margin: Side, `value`: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, margin.value, value.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setStretchMarginPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setStretchMarginPtr, margin.value, value.toLong())
   }
 
   /**
    * Returns the stretch margin with the specified index. See [stretchMarginBottom] and related
    * properties.
    */
-  public final fun getStretchMargin(margin: Side): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, margin.value)
-    TransferContext.callPtrMethod(MethodBindings.getStretchMarginPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getStretchMargin(margin: Side): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getStretchMarginPtr, margin.value).toInt()
 
   public final fun setNinePatchStretch(stretch: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, stretch)
-    TransferContext.callPtrMethod(MethodBindings.setNinePatchStretchPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setNinePatchStretchPtr, stretch)
   }
 
-  public final fun getNinePatchStretch(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getNinePatchStretchPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getNinePatchStretch(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getNinePatchStretchPtr)
 
   public enum class FillMode(
     public override val `value`: Long,

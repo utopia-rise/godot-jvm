@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_DOUBLE
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -48,15 +47,11 @@ public open class AudioEffectPanner : AudioEffect() {
   }
 
   public final fun setPan(cpanume: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, cpanume.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setPanPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPanPtr, cpanume.toDouble())
   }
 
-  public final fun getPan(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPanPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getPan(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPanPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

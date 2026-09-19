@@ -9,9 +9,9 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.writeMethodArguments_OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -35,8 +35,7 @@ public open class RenderSceneBuffers internal constructor() : RefCounted() {
    * changed. It will discard the old buffers and recreate the internal buffers used.
    */
   public final fun configure(config: RenderSceneBuffersConfiguration?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, config)
-    TransferContext.callPtrMethod(MethodBindings.configurePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.configurePtr, config)
   }
 
   public companion object {

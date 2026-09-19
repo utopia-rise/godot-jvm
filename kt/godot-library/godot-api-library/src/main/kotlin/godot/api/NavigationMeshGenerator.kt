@@ -9,6 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_OBJECT_OBJECT_CALLABLE
+import godot.callMethod_OBJECT_OBJECT_OBJECT_CALLABLE
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.MethodStringName1
@@ -16,10 +20,6 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.VariantCallable
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_OBJECT_OBJECT
-import godot.writeMethodArguments_OBJECT_OBJECT_CALLABLE
-import godot.writeMethodArguments_OBJECT_OBJECT_OBJECT_CALLABLE
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -92,8 +92,7 @@ public object NavigationMeshGenerator : Object() {
    */
   @JvmStatic
   public final fun bake(navigationMesh: NavigationMesh?, rootNode: Node?): Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT(ptr, objectID.id, navigationMesh, rootNode)
-    TransferContext.callPtrMethod(MethodBindings.bakePtr, 0)
+    TransferContext.callPtrMethod_OBJECT_OBJECT(ptr, objectID.id, MethodBindings.bakePtr, navigationMesh, rootNode)
   }
 
   /**
@@ -101,8 +100,7 @@ public object NavigationMeshGenerator : Object() {
    */
   @JvmStatic
   public final fun clear(navigationMesh: NavigationMesh?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, navigationMesh)
-    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.clearPtr, navigationMesh)
   }
 
   /**
@@ -127,8 +125,7 @@ public object NavigationMeshGenerator : Object() {
     rootNode: Node?,
     callback: Callable = VariantCallable(),
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, navigationMesh, sourceGeometryData, rootNode, callback)
-    TransferContext.callMethod(MethodBindings.parseSourceGeometryDataPtr)
+    TransferContext.callMethod_OBJECT_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, MethodBindings.parseSourceGeometryDataPtr, navigationMesh, sourceGeometryData, rootNode, callback)
   }
 
   /**
@@ -142,8 +139,7 @@ public object NavigationMeshGenerator : Object() {
     sourceGeometryData: NavigationMeshSourceGeometryData3D?,
     callback: Callable = VariantCallable(),
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, navigationMesh, sourceGeometryData, callback)
-    TransferContext.callMethod(MethodBindings.bakeFromSourceGeometryDataPtr)
+    TransferContext.callMethod_OBJECT_OBJECT_CALLABLE(ptr, objectID.id, MethodBindings.bakeFromSourceGeometryDataPtr, navigationMesh, sourceGeometryData, callback)
   }
 
   public object MethodBindings {

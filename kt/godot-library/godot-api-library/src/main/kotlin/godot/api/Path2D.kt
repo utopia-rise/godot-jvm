@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -45,15 +44,11 @@ public open class Path2D : Node2D() {
   }
 
   public final fun setCurve(curve: Curve2D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callPtrMethod(MethodBindings.setCurvePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurvePtr, curve)
   }
 
-  public final fun getCurve(): Curve2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurvePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Curve2D?)
-  }
+  public final fun getCurve(): Curve2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurvePtr) as Curve2D?)
 
   public companion object {
     @JvmField

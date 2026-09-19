@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_RID_LONG_ARRAY_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName3
 import godot.core.RID
 import godot.core.VariantArray
-import godot.readReturnValue_RID
-import godot.writeMethodArguments_RID_LONG_ARRAY
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -46,11 +45,8 @@ public open class UniformSetCacheRD : Object() {
       shader: RID,
       `set`: Long,
       uniforms: VariantArray<RDUniform>,
-    ): RID {
-      TransferContext.writeMethodArguments_RID_LONG_ARRAY(0L, 0L, shader, set, uniforms)
-      TransferContext.callPtrMethod(MethodBindings.getCachePtr, 23)
-      return TransferContext.readReturnValue_RID()
-    }
+    ): RID =
+        TransferContext.callPtrMethod_RID_LONG_ARRAY_ret_RID(0L, 0L, MethodBindings.getCachePtr, shader, set, uniforms)
   }
 
   public object MethodBindings {

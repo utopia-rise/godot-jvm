@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Suppress
@@ -135,81 +134,53 @@ public open class PathFollow2D : Node2D() {
   }
 
   public final fun setProgress(progress: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, progress.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setProgressPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setProgressPtr, progress.toDouble())
   }
 
-  public final fun getProgress(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getProgressPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getProgress(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getProgressPtr).toFloat()
 
   public final fun setHOffset(hOffset: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, hOffset.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setHOffsetPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHOffsetPtr, hOffset.toDouble())
   }
 
-  public final fun getHOffset(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHOffsetPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getHOffset(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHOffsetPtr).toFloat()
 
   public final fun setVOffset(vOffset: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, vOffset.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setVOffsetPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVOffsetPtr, vOffset.toDouble())
   }
 
-  public final fun getVOffset(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVOffsetPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getVOffset(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVOffsetPtr).toFloat()
 
   public final fun setProgressRatio(ratio: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setProgressRatioPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setProgressRatioPtr, ratio.toDouble())
   }
 
-  public final fun getProgressRatio(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getProgressRatioPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getProgressRatio(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getProgressRatioPtr).toFloat()
 
   public final fun setRotates(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setRotatesPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRotatesPtr, enabled)
   }
 
-  public final fun isRotating(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isRotatingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isRotating(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRotatingPtr)
 
   public final fun setCubicInterpolation(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setCubicInterpolationPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCubicInterpolationPtr, enabled)
   }
 
-  public final fun getCubicInterpolation(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCubicInterpolationPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getCubicInterpolation(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getCubicInterpolationPtr)
 
   public final fun setLoop(loop: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, loop)
-    TransferContext.callPtrMethod(MethodBindings.setLoopPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setLoopPtr, loop)
   }
 
-  public final fun hasLoop(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasLoopPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasLoop(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasLoopPtr)
 
   public companion object {
     @JvmField

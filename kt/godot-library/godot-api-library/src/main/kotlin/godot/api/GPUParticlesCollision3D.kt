@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -68,15 +67,11 @@ public open class GPUParticlesCollision3D internal constructor() : VisualInstanc
   }
 
   public final fun setCullMask(mask: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, mask)
-    TransferContext.callPtrMethod(MethodBindings.setCullMaskPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCullMaskPtr, mask)
   }
 
-  public final fun getCullMask(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCullMaskPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getCullMask(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCullMaskPtr)
 
   public companion object {
     @JvmField

@@ -9,18 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantArray
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_STRING
 import kotlin.Any
 import kotlin.Long
 import kotlin.String
@@ -159,103 +158,67 @@ public open class LinkButton : BaseButton() {
   }
 
   public final fun setText(text: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, text)
-    TransferContext.callMethod(MethodBindings.setTextPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTextPtr, text)
   }
 
-  public final fun getText(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getText(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTextPtr)
 
   public final fun setTextOverrunBehavior(overrunBehavior: TextServer.OverrunBehavior): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, overrunBehavior.value)
-    TransferContext.callPtrMethod(MethodBindings.setTextOverrunBehaviorPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextOverrunBehaviorPtr, overrunBehavior.value)
   }
 
-  public final fun getTextOverrunBehavior(): TextServer.OverrunBehavior {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTextOverrunBehaviorPtr, 2)
-    return TextServer.OverrunBehavior.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTextOverrunBehavior(): TextServer.OverrunBehavior =
+      TextServer.OverrunBehavior.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextOverrunBehaviorPtr))
 
   public final fun setEllipsisChar(char: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, char)
-    TransferContext.callMethod(MethodBindings.setEllipsisCharPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setEllipsisCharPtr, char)
   }
 
-  public final fun getEllipsisChar(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEllipsisCharPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getEllipsisChar(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getEllipsisCharPtr)
 
   public final fun setTextDirection(direction: Control.TextDirection): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, direction.value)
-    TransferContext.callPtrMethod(MethodBindings.setTextDirectionPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextDirectionPtr, direction.value)
   }
 
-  public final fun getTextDirection(): Control.TextDirection {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTextDirectionPtr, 2)
-    return Control.TextDirection.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTextDirection(): Control.TextDirection =
+      Control.TextDirection.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextDirectionPtr))
 
   public final fun setLanguage(language: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, language)
-    TransferContext.callMethod(MethodBindings.setLanguagePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLanguagePtr, language)
   }
 
-  public final fun getLanguage(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLanguagePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getLanguage(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLanguagePtr)
 
   public final fun setUri(uri: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, uri)
-    TransferContext.callMethod(MethodBindings.setUriPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setUriPtr, uri)
   }
 
-  public final fun getUri(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUriPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getUri(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getUriPtr)
 
   public final fun setUnderlineMode(underlineMode: UnderlineMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, underlineMode.value)
-    TransferContext.callPtrMethod(MethodBindings.setUnderlineModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setUnderlineModePtr, underlineMode.value)
   }
 
-  public final fun getUnderlineMode(): UnderlineMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getUnderlineModePtr, 2)
-    return UnderlineMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getUnderlineMode(): UnderlineMode =
+      UnderlineMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUnderlineModePtr))
 
   public final fun setStructuredTextBidiOverride(parser: TextServer.StructuredTextParser): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, parser.value)
-    TransferContext.callPtrMethod(MethodBindings.setStructuredTextBidiOverridePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStructuredTextBidiOverridePtr, parser.value)
   }
 
-  public final fun getStructuredTextBidiOverride(): TextServer.StructuredTextParser {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStructuredTextBidiOverridePtr, 2)
-    return TextServer.StructuredTextParser.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getStructuredTextBidiOverride(): TextServer.StructuredTextParser =
+      TextServer.StructuredTextParser.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStructuredTextBidiOverridePtr))
 
   public final fun setStructuredTextBidiOverrideOptions(args: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, args)
-    TransferContext.callPtrMethod(MethodBindings.setStructuredTextBidiOverrideOptionsPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setStructuredTextBidiOverrideOptionsPtr, args)
   }
 
-  public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStructuredTextBidiOverrideOptionsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getStructuredTextBidiOverrideOptionsPtr) as VariantArray<Any?>)
 
   public enum class UnderlineMode(
     public override val `value`: Long,

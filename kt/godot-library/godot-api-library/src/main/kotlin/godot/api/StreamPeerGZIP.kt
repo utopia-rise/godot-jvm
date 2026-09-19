@@ -9,13 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL_LONG_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName2
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
@@ -47,40 +47,30 @@ public open class StreamPeerGZIP : StreamPeer() {
    * uses deflate instead of GZIP.
    */
   @JvmOverloads
-  public final fun startCompression(useDeflate: Boolean = false, bufferSize: Int = 65535): Error {
-    TransferContext.writeMethodArguments_BOOL_LONG(ptr, objectID.id, useDeflate, bufferSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.startCompressionPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun startCompression(useDeflate: Boolean = false, bufferSize: Int = 65535): Error =
+      Error.from(TransferContext.callPtrMethod_BOOL_LONG_ret_LONG(ptr, objectID.id, MethodBindings.startCompressionPtr, useDeflate, bufferSize.toLong()))
 
   /**
    * Start the stream in decompression mode with the given [bufferSize], if [useDeflate] is `true`
    * uses deflate instead of GZIP.
    */
   @JvmOverloads
-  public final fun startDecompression(useDeflate: Boolean = false, bufferSize: Int = 65535): Error {
-    TransferContext.writeMethodArguments_BOOL_LONG(ptr, objectID.id, useDeflate, bufferSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.startDecompressionPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun startDecompression(useDeflate: Boolean = false, bufferSize: Int = 65535): Error =
+      Error.from(TransferContext.callPtrMethod_BOOL_LONG_ret_LONG(ptr, objectID.id, MethodBindings.startDecompressionPtr, useDeflate, bufferSize.toLong()))
 
   /**
    * Finalizes the stream, compressing any buffered chunk left.
    *
    * You must call it only when you are compressing.
    */
-  public final fun finish(): Error {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.finishPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun finish(): Error =
+      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.finishPtr))
 
   /**
    * Clears this stream, resetting the internal state.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
   }
 
   public companion object {

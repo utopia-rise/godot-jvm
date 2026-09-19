@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -45,15 +44,11 @@ public open class BlitMaterial : Material() {
   }
 
   public final fun setBlendMode(blendMode: BlendMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, blendMode.value)
-    TransferContext.callPtrMethod(MethodBindings.setBlendModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBlendModePtr, blendMode.value)
   }
 
-  public final fun getBlendMode(): BlendMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBlendModePtr, 2)
-    return BlendMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getBlendMode(): BlendMode =
+      BlendMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBlendModePtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

@@ -9,14 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -42,29 +40,20 @@ public open class StreamPeerUDS : StreamPeerSocket() {
    * This method is generally not needed, and only used to force the subsequent call to
    * [connectToHost] to use the specified [path] as the source address.
    */
-  public final fun bind(path: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.bindPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun bind(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.bindPtr, path))
 
   /**
    * Connects to the specified UNIX Domain Socket path. Returns [OK] on success.
    */
-  public final fun connectToHost(path: String): Error {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, path)
-    TransferContext.callMethod(MethodBindings.connectToHostPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun connectToHost(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.connectToHostPtr, path))
 
   /**
    * Returns the socket path of this peer.
    */
-  public final fun getConnectedPath(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectedPathPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getConnectedPath(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getConnectedPathPtr)
 
   public companion object {
     @JvmField

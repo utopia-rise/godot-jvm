@@ -9,6 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_NAME_ANY
+import godot.callMethod_STRING_NAME_ret_ANY
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -16,12 +20,6 @@ import godot.core.MethodStringName2
 import godot.core.RID
 import godot.core.StringName
 import godot.core.asCachedStringName
-import godot.readReturnValue_ANY
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_ANY
 import kotlin.Any
 import kotlin.NotImplementedError
 import kotlin.String
@@ -60,15 +58,11 @@ public open class ShaderMaterial : Material() {
   }
 
   public final fun setShader(shader: Shader?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, shader)
-    TransferContext.callPtrMethod(MethodBindings.setShaderPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setShaderPtr, shader)
   }
 
-  public final fun getShader(): Shader? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getShaderPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Shader?)
-  }
+  public final fun getShader(): Shader? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getShaderPtr) as Shader?)
 
   /**
    * Changes the value set for this material of a uniform in the shader.
@@ -84,18 +78,14 @@ public open class ShaderMaterial : Material() {
    * [ShaderMaterial] when possible.
    */
   public final fun setShaderParameter(`param`: StringName, `value`: Any?): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_ANY(ptr, objectID.id, param, value)
-    TransferContext.callMethod(MethodBindings.setShaderParameterPtr)
+    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setShaderParameterPtr, param, value)
   }
 
   /**
    * Returns the current value set for this material of a uniform in the shader.
    */
-  public final fun getShaderParameter(`param`: StringName): Any? {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, param)
-    TransferContext.callMethod(MethodBindings.getShaderParameterPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun getShaderParameter(`param`: StringName): Any? =
+      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getShaderParameterPtr, param)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

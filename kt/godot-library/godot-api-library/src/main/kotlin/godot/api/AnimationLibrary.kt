@@ -9,6 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_OBJECT_ret_LONG
+import godot.callPtrMethod_STRING_NAME_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
@@ -19,14 +26,6 @@ import godot.core.Signal2
 import godot.core.StringName
 import godot.core.VariantArray
 import godot.core.asCachedStringName
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_OBJECT
-import godot.writeMethodArguments_STRING_NAME_STRING_NAME
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
@@ -70,64 +69,47 @@ public open class AnimationLibrary : Resource() {
   /**
    * Adds the [animation] to the library, accessible by the key [name].
    */
-  public final fun addAnimation(name: StringName, animation: Animation?): Error {
-    TransferContext.writeMethodArguments_STRING_NAME_OBJECT(ptr, objectID.id, name, animation)
-    TransferContext.callPtrMethod(MethodBindings.addAnimationPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun addAnimation(name: StringName, animation: Animation?): Error =
+      Error.from(TransferContext.callPtrMethod_STRING_NAME_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.addAnimationPtr, name, animation))
 
   /**
    * Removes the [Animation] with the key [name].
    */
   public final fun removeAnimation(name: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.removeAnimationPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeAnimationPtr, name)
   }
 
   /**
    * Changes the key of the [Animation] associated with the key [name] to [newname].
    */
   public final fun renameAnimation(name: StringName, newname: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, name, newname)
-    TransferContext.callPtrMethod(MethodBindings.renameAnimationPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.renameAnimationPtr, name, newname)
   }
 
   /**
    * Returns `true` if the library stores an [Animation] with [name] as the key.
    */
-  public final fun hasAnimation(name: StringName): Boolean {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.hasAnimationPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasAnimation(name: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasAnimationPtr, name)
 
   /**
    * Returns the [Animation] with the key [name]. If the animation does not exist, `null` is
    * returned and an error is logged.
    */
-  public final fun getAnimation(name: StringName): Animation? {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.getAnimationPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Animation?)
-  }
+  public final fun getAnimation(name: StringName): Animation? =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getAnimationPtr, name) as Animation?)
 
   /**
    * Returns the keys for the [Animation]s stored in the library.
    */
-  public final fun getAnimationList(): VariantArray<StringName> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAnimationListPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
-  }
+  public final fun getAnimationList(): VariantArray<StringName> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getAnimationListPtr) as VariantArray<StringName>)
 
   /**
    * Returns the key count for the [Animation]s stored in the library.
    */
-  public final fun getAnimationListSize(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAnimationListSizePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getAnimationListSize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAnimationListSizePtr).toInt()
 
   /**
    * Adds the [animation] to the library, accessible by the key [name].

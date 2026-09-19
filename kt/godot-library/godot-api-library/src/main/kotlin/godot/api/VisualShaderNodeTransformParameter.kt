@@ -11,15 +11,14 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_TRANSFORM3D
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_TRANSFORM3D
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Transform3D
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_TRANSFORM3D
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_TRANSFORM3D
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -86,26 +85,18 @@ public open class VisualShaderNodeTransformParameter : VisualShaderNodeParameter
   }
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setDefaultValueEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDefaultValueEnabledPtr, enabled)
   }
 
-  public final fun isDefaultValueEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDefaultValueEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDefaultValueEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDefaultValueEnabledPtr)
 
   public final fun setDefaultValue(`value`: Transform3D): Unit {
-    TransferContext.writeMethodArguments_TRANSFORM3D(ptr, objectID.id, value)
-    TransferContext.callPtrMethod(MethodBindings.setDefaultValuePtr, 0)
+    TransferContext.callPtrMethod_TRANSFORM3D(ptr, objectID.id, MethodBindings.setDefaultValuePtr, value)
   }
 
-  public final fun getDefaultValue(): Transform3D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDefaultValuePtr, 18)
-    return TransferContext.readReturnValue_TRANSFORM3D()
-  }
+  public final fun getDefaultValue(): Transform3D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getDefaultValuePtr)
 
   public companion object {
     @JvmField

@@ -9,11 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_PACKED_INT_64_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.PackedInt64Array
-import godot.readReturnValue_PACKED_INT_64_ARRAY
-import godot.writeMethodArguments0
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -35,11 +34,8 @@ public open class OpenXRSpatialCapabilityConfigurationQrCode :
    *
    * **Note:** Only valid after this configuration was used to create a spatial context.
    */
-  public final fun getEnabledComponents(): PackedInt64Array {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEnabledComponentsPtr, 31)
-    return TransferContext.readReturnValue_PACKED_INT_64_ARRAY()
-  }
+  public final fun getEnabledComponents(): PackedInt64Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.getEnabledComponentsPtr)
 
   public companion object {
     @JvmField

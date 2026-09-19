@@ -9,15 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
 import godot.core.Signal0
 import godot.core.VariantArray
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -133,21 +132,15 @@ public abstract class AudioStream : Resource() {
    * [AudioStreamRandomizer], returns the length of the last played stream. If this stream has an
    * indefinite length (such as for [AudioStreamGenerator] and [AudioStreamMicrophone]), returns `0.0`.
    */
-  public final fun getLength(): Double {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLengthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getLength(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr)
 
   /**
    * Returns `true` if this audio stream only supports one channel (*monophony*), or `false` if the
    * audio stream supports two or more channels (*polyphony*).
    */
-  public final fun isMonophonic(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isMonophonicPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isMonophonic(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMonophonicPtr)
 
   /**
    * Returns a newly created [AudioStreamPlayback] intended to play this audio stream. Useful for
@@ -155,39 +148,27 @@ public abstract class AudioStream : Resource() {
    * held AudioStream subresource. An example of this can be found in the source code for
    * `AudioStreamRandomPitch::instantiate_playback`.
    */
-  public final fun instantiatePlayback(): AudioStreamPlayback? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.instantiatePlaybackPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as AudioStreamPlayback?)
-  }
+  public final fun instantiatePlayback(): AudioStreamPlayback? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.instantiatePlaybackPtr) as AudioStreamPlayback?)
 
   /**
    * Returns if the current [AudioStream] can be used as a sample. Only static streams can be
    * sampled.
    */
-  public final fun canBeSampled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.canBeSampledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun canBeSampled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.canBeSampledPtr)
 
   /**
    * Generates an [AudioSample] based on the current stream.
    */
-  public final fun generateSample(): AudioSample? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.generateSamplePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as AudioSample?)
-  }
+  public final fun generateSample(): AudioSample? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.generateSamplePtr) as AudioSample?)
 
   /**
    * Returns `true` if the stream is a collection of other streams, `false` otherwise.
    */
-  public final fun isMetaStream(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isMetaStreamPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isMetaStream(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMetaStreamPtr)
 
   public companion object {
     @JvmField

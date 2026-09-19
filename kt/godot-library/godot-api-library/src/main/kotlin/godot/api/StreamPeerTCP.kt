@@ -9,17 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_LONG_STRING_ret_LONG
+import godot.callMethod_STRING_LONG_ret_LONG
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG_STRING
-import godot.writeMethodArguments_STRING_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
@@ -50,48 +49,33 @@ public open class StreamPeerTCP : StreamPeerSocket() {
    * some NAT punchthrough techniques, or when forcing the source network interface.
    */
   @JvmOverloads
-  public final fun bind(port: Int, host: String = "*"): Error {
-    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, port.toLong(), host)
-    TransferContext.callMethod(MethodBindings.bindPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun bind(port: Int, host: String = "*"): Error =
+      Error.from(TransferContext.callMethod_LONG_STRING_ret_LONG(ptr, objectID.id, MethodBindings.bindPtr, port.toLong(), host))
 
   /**
    * Connects to the specified `host:port` pair. A hostname will be resolved if valid. Returns [OK]
    * on success.
    */
-  public final fun connectToHost(host: String, port: Int): Error {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, host, port.toLong())
-    TransferContext.callMethod(MethodBindings.connectToHostPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun connectToHost(host: String, port: Int): Error =
+      Error.from(TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.connectToHostPtr, host, port.toLong()))
 
   /**
    * Returns the IP of this peer.
    */
-  public final fun getConnectedHost(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectedHostPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getConnectedHost(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getConnectedHostPtr)
 
   /**
    * Returns the port of this peer.
    */
-  public final fun getConnectedPort(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getConnectedPortPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getConnectedPort(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConnectedPortPtr).toInt()
 
   /**
    * Returns the local port to which this peer is bound.
    */
-  public final fun getLocalPort(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLocalPortPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getLocalPort(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLocalPortPtr).toInt()
 
   /**
    * If [enabled] is `true`, packets will be sent immediately. If [enabled] is `false` (the
@@ -102,8 +86,7 @@ public open class StreamPeerTCP : StreamPeerSocket() {
    * need to transfer a lot of data, as enabling this can decrease the total available bandwidth.
    */
   public final fun setNoDelay(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setNoDelayPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setNoDelayPtr, enabled)
   }
 
   public companion object {

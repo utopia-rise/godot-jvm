@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_DOUBLE
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -67,15 +66,11 @@ public open class DirectionalLight2D : Light2D() {
   }
 
   public final fun setMaxDistance(pixels: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pixels.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setMaxDistancePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMaxDistancePtr, pixels.toDouble())
   }
 
-  public final fun getMaxDistance(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMaxDistancePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getMaxDistance(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMaxDistancePtr).toFloat()
 
   public companion object {
     @JvmField

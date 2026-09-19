@@ -9,20 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_ANY_BOOL_ret_LONG
+import godot.callMethod_BOOL_ret_ANY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedByteArray
-import godot.readReturnValue_ANY
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_BYTE_ARRAY
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ANY_BOOL
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_PACKED_BYTE_ARRAY
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -74,11 +72,8 @@ public open class PacketPeer internal constructor() : RefCounted() {
    * remote code execution.
    */
   @JvmOverloads
-  public final fun getVar(allowObjects: Boolean = false): Any? {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, allowObjects)
-    TransferContext.callMethod(MethodBindings.getVarPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun getVar(allowObjects: Boolean = false): Any? =
+      TransferContext.callMethod_BOOL_ret_ANY(ptr, objectID.id, MethodBindings.getVarPtr, allowObjects)
 
   /**
    * Sends a [Any] as a packet. If [fullObjects] is `true`, encoding objects is allowed (and can
@@ -87,57 +82,38 @@ public open class PacketPeer internal constructor() : RefCounted() {
    * Internally, this uses the same encoding mechanism as the [@GlobalScope.varToBytes] method.
    */
   @JvmOverloads
-  public final fun putVar(`var`: Any?, fullObjects: Boolean = false): Error {
-    TransferContext.writeMethodArguments_ANY_BOOL(ptr, objectID.id, `var`, fullObjects)
-    TransferContext.callMethod(MethodBindings.putVarPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun putVar(`var`: Any?, fullObjects: Boolean = false): Error =
+      Error.from(TransferContext.callMethod_ANY_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.putVarPtr, `var`, fullObjects))
 
   /**
    * Gets a raw packet.
    */
-  public final fun getPacket(): PackedByteArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPacketPtr, 29)
-    return TransferContext.readReturnValue_PACKED_BYTE_ARRAY()
-  }
+  public final fun getPacket(): PackedByteArray =
+      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getPacketPtr)
 
   /**
    * Sends a raw packet.
    */
-  public final fun putPacket(buffer: PackedByteArray): Error {
-    TransferContext.writeMethodArguments_PACKED_BYTE_ARRAY(ptr, objectID.id, buffer)
-    TransferContext.callPtrMethod(MethodBindings.putPacketPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun putPacket(buffer: PackedByteArray): Error =
+      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.putPacketPtr, buffer))
 
   /**
    * Returns the error state of the last packet received (via [getPacket] and [getVar]).
    */
-  public final fun getPacketError(): Error {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPacketErrorPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getPacketError(): Error =
+      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPacketErrorPtr))
 
   /**
    * Returns the number of packets currently available in the ring-buffer.
    */
-  public final fun getAvailablePacketCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAvailablePacketCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getAvailablePacketCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAvailablePacketCountPtr).toInt()
 
-  public final fun getEncodeBufferMaxSize(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEncodeBufferMaxSizePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getEncodeBufferMaxSize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEncodeBufferMaxSizePtr).toInt()
 
   public final fun setEncodeBufferMaxSize(maxSize: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setEncodeBufferMaxSizePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setEncodeBufferMaxSizePtr, maxSize.toLong())
   }
 
   public companion object {

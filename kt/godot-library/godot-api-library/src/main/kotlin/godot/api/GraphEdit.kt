@@ -11,6 +11,35 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DICTIONARY
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_ret_BOOL
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_RECT2_ret_ARRAY
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_LONG_STRING_NAME_LONG
+import godot.callPtrMethod_STRING_NAME_LONG_STRING_NAME_LONG_BOOL_ret_LONG
+import godot.callPtrMethod_STRING_NAME_LONG_STRING_NAME_LONG_DOUBLE
+import godot.callPtrMethod_STRING_NAME_LONG_STRING_NAME_LONG_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_LONG_ret_LONG
+import godot.callPtrMethod_STRING_NAME_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_ret_ARRAY
+import godot.callPtrMethod_STRING_NAME_ret_OBJECT
+import godot.callPtrMethod_VECTOR2
+import godot.callPtrMethod_VECTOR2_DOUBLE_ret_DICTIONARY
+import godot.callPtrMethod_VECTOR2_VECTOR2_ret_PACKED_VECTOR2_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.Error
@@ -31,32 +60,6 @@ import godot.core.StringName
 import godot.core.VariantArray
 import godot.core.Vector2
 import godot.core.asCachedStringName
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_VECTOR2_ARRAY
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DICTIONARY
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_RECT2
-import godot.writeMethodArguments_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_LONG
-import godot.writeMethodArguments_STRING_NAME_LONG_STRING_NAME_LONG
-import godot.writeMethodArguments_STRING_NAME_LONG_STRING_NAME_LONG_BOOL
-import godot.writeMethodArguments_STRING_NAME_LONG_STRING_NAME_LONG_DOUBLE
-import godot.writeMethodArguments_STRING_NAME_STRING_NAME
-import godot.writeMethodArguments_VECTOR2
-import godot.writeMethodArguments_VECTOR2_DOUBLE
-import godot.writeMethodArguments_VECTOR2_VECTOR2
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Float
@@ -664,11 +667,8 @@ public open class GraphEdit : Control() {
     toNode: StringName,
     toPort: Int,
     keepAlive: Boolean = false,
-  ): Error {
-    TransferContext.writeMethodArguments_STRING_NAME_LONG_STRING_NAME_LONG_BOOL(ptr, objectID.id, fromNode, fromPort.toLong(), toNode, toPort.toLong(), keepAlive)
-    TransferContext.callPtrMethod(MethodBindings.connectNodePtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_STRING_NAME_LONG_STRING_NAME_LONG_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.connectNodePtr, fromNode, fromPort.toLong(), toNode, toPort.toLong(), keepAlive))
 
   /**
    * Returns `true` if the [fromPort] of the [fromNode] [GraphNode] is connected to the [toPort] of
@@ -679,11 +679,8 @@ public open class GraphEdit : Control() {
     fromPort: Int,
     toNode: StringName,
     toPort: Int,
-  ): Boolean {
-    TransferContext.writeMethodArguments_STRING_NAME_LONG_STRING_NAME_LONG(ptr, objectID.id, fromNode, fromPort.toLong(), toNode, toPort.toLong())
-    TransferContext.callPtrMethod(MethodBindings.isNodeConnectedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  ): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_LONG_STRING_NAME_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isNodeConnectedPtr, fromNode, fromPort.toLong(), toNode, toPort.toLong())
 
   /**
    * Removes the connection between the [fromPort] of the [fromNode] [GraphNode] and the [toPort] of
@@ -695,8 +692,7 @@ public open class GraphEdit : Control() {
     toNode: StringName,
     toPort: Int,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_LONG_STRING_NAME_LONG(ptr, objectID.id, fromNode, fromPort.toLong(), toNode, toPort.toLong())
-    TransferContext.callPtrMethod(MethodBindings.disconnectNodePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_LONG_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.disconnectNodePtr, fromNode, fromPort.toLong(), toNode, toPort.toLong())
   }
 
   /**
@@ -711,29 +707,21 @@ public open class GraphEdit : Control() {
     toPort: Int,
     amount: Float,
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_LONG_STRING_NAME_LONG_DOUBLE(ptr, objectID.id, fromNode, fromPort.toLong(), toNode, toPort.toLong(), amount.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setConnectionActivityPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_LONG_STRING_NAME_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setConnectionActivityPtr, fromNode, fromPort.toLong(), toNode, toPort.toLong(), amount.toDouble())
   }
 
   public final fun setConnections(connections: VariantArray<Dictionary<Any?, Any?>>): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, connections)
-    TransferContext.callPtrMethod(MethodBindings.setConnectionsPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setConnectionsPtr, connections)
   }
 
-  public final fun getConnectionList(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getConnectionListPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+  public final fun getConnectionList(): VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getConnectionListPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns the number of connections from [fromPort] of [fromNode].
    */
-  public final fun getConnectionCount(fromNode: StringName, fromPort: Int): Int {
-    TransferContext.writeMethodArguments_STRING_NAME_LONG(ptr, objectID.id, fromNode, fromPort.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getConnectionCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getConnectionCount(fromNode: StringName, fromPort: Int): Int =
+      TransferContext.callPtrMethod_STRING_NAME_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getConnectionCountPtr, fromNode, fromPort.toLong()).toInt()
 
   /**
    * Returns the closest connection to the given point in screen space. If no connection is found
@@ -760,11 +748,8 @@ public open class GraphEdit : Control() {
    */
   @JvmOverloads
   public final fun getClosestConnectionAtPoint(point: Vector2, maxDistance: Float = 4.0f):
-      Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_VECTOR2_DOUBLE(ptr, objectID.id, point, maxDistance.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.getClosestConnectionAtPointPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+      Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod_VECTOR2_DOUBLE_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getClosestConnectionAtPointPtr, point, maxDistance.toDouble()) as Dictionary<Any?, Any?>)
 
   /**
    * Returns an [VariantArray] containing a list of all connections for [node].
@@ -802,12 +787,9 @@ public open class GraphEdit : Control() {
    * 	return result
    * ```
    */
-  public final fun getConnectionListFromNode(node: StringName):
-      VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, node)
-    TransferContext.callPtrMethod(MethodBindings.getConnectionListFromNodePtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+  public final fun getConnectionListFromNode(node: StringName): VariantArray<Dictionary<Any?, Any?>>
+      =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_ARRAY(ptr, objectID.id, MethodBindings.getConnectionListFromNodePtr, node) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns an [VariantArray] containing the list of connections that intersect with the given
@@ -826,18 +808,14 @@ public open class GraphEdit : Control() {
    * ```
    */
   public final fun getConnectionsIntersectingWithRect(rect: Rect2):
-      VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, rect)
-    TransferContext.callPtrMethod(MethodBindings.getConnectionsIntersectingWithRectPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+      VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod_RECT2_ret_ARRAY(ptr, objectID.id, MethodBindings.getConnectionsIntersectingWithRectPtr, rect) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Removes all connections between nodes.
    */
   public final fun clearConnections(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearConnectionsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearConnectionsPtr)
   }
 
   /**
@@ -851,19 +829,14 @@ public open class GraphEdit : Control() {
    * connection_drag_ended].
    */
   public final fun forceConnectionDragEnd(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.forceConnectionDragEndPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.forceConnectionDragEndPtr)
   }
 
-  public final fun getScrollOffset(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScrollOffsetPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getScrollOffset(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getScrollOffsetPtr)
 
   public final fun setScrollOffset(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callPtrMethod(MethodBindings.setScrollOffsetPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setScrollOffsetPtr, offset)
   }
 
   /**
@@ -871,8 +844,7 @@ public open class GraphEdit : Control() {
    * has the specified type. See also [removeValidRightDisconnectType].
    */
   public final fun addValidRightDisconnectType(type: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.toLong())
-    TransferContext.callPtrMethod(MethodBindings.addValidRightDisconnectTypePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.addValidRightDisconnectTypePtr, type.toLong())
   }
 
   /**
@@ -881,8 +853,7 @@ public open class GraphEdit : Control() {
    * [addValidRightDisconnectType].
    */
   public final fun removeValidRightDisconnectType(type: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.toLong())
-    TransferContext.callPtrMethod(MethodBindings.removeValidRightDisconnectTypePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeValidRightDisconnectTypePtr, type.toLong())
   }
 
   /**
@@ -890,8 +861,7 @@ public open class GraphEdit : Control() {
    * the specified type. See also [removeValidLeftDisconnectType].
    */
   public final fun addValidLeftDisconnectType(type: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.toLong())
-    TransferContext.callPtrMethod(MethodBindings.addValidLeftDisconnectTypePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.addValidLeftDisconnectTypePtr, type.toLong())
   }
 
   /**
@@ -900,8 +870,7 @@ public open class GraphEdit : Control() {
    * [addValidLeftDisconnectType].
    */
   public final fun removeValidLeftDisconnectType(type: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, type.toLong())
-    TransferContext.callPtrMethod(MethodBindings.removeValidLeftDisconnectTypePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeValidLeftDisconnectTypePtr, type.toLong())
   }
 
   /**
@@ -911,8 +880,7 @@ public open class GraphEdit : Control() {
    * See also [isValidConnectionType] and [removeValidConnectionType].
    */
   public final fun addValidConnectionType(fromType: Int, toType: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, fromType.toLong(), toType.toLong())
-    TransferContext.callPtrMethod(MethodBindings.addValidConnectionTypePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.addValidConnectionTypePtr, fromType.toLong(), toType.toLong())
   }
 
   /**
@@ -923,8 +891,7 @@ public open class GraphEdit : Control() {
    * See also [isValidConnectionType].
    */
   public final fun removeValidConnectionType(fromType: Int, toType: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, fromType.toLong(), toType.toLong())
-    TransferContext.callPtrMethod(MethodBindings.removeValidConnectionTypePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.removeValidConnectionTypePtr, fromType.toLong(), toType.toLong())
   }
 
   /**
@@ -934,307 +901,201 @@ public open class GraphEdit : Control() {
    *
    * See also [addValidConnectionType] and [removeValidConnectionType].
    */
-  public final fun isValidConnectionType(fromType: Int, toType: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, fromType.toLong(), toType.toLong())
-    TransferContext.callPtrMethod(MethodBindings.isValidConnectionTypePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isValidConnectionType(fromType: Int, toType: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isValidConnectionTypePtr, fromType.toLong(), toType.toLong())
 
   /**
    * Returns the points which would make up a connection between [fromNode] and [toNode].
    */
-  public final fun getConnectionLine(fromNode: Vector2, toNode: Vector2): PackedVector2Array {
-    TransferContext.writeMethodArguments_VECTOR2_VECTOR2(ptr, objectID.id, fromNode, toNode)
-    TransferContext.callPtrMethod(MethodBindings.getConnectionLinePtr, 35)
-    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
-  }
+  public final fun getConnectionLine(fromNode: Vector2, toNode: Vector2): PackedVector2Array =
+      TransferContext.callPtrMethod_VECTOR2_VECTOR2_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getConnectionLinePtr, fromNode, toNode)
 
   /**
    * Attaches the [element] [GraphElement] to the [frame] [GraphFrame].
    */
   public final fun attachGraphElementToFrame(element: StringName, frame: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, element, frame)
-    TransferContext.callPtrMethod(MethodBindings.attachGraphElementToFramePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.attachGraphElementToFramePtr, element, frame)
   }
 
   /**
    * Detaches the [element] [GraphElement] from the [GraphFrame] it is currently attached to.
    */
   public final fun detachGraphElementFromFrame(element: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, element)
-    TransferContext.callPtrMethod(MethodBindings.detachGraphElementFromFramePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.detachGraphElementFromFramePtr, element)
   }
 
   /**
    * Returns the [GraphFrame] that contains the [GraphElement] with the given name.
    */
-  public final fun getElementFrame(element: StringName): GraphFrame? {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, element)
-    TransferContext.callPtrMethod(MethodBindings.getElementFramePtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as GraphFrame?)
-  }
+  public final fun getElementFrame(element: StringName): GraphFrame? =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT(ptr, objectID.id, MethodBindings.getElementFramePtr, element) as GraphFrame?)
 
   /**
    * Returns an array of node names that are attached to the [GraphFrame] with the given name.
    */
-  public final fun getAttachedNodesOfFrame(frame: StringName): VariantArray<StringName> {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, frame)
-    TransferContext.callPtrMethod(MethodBindings.getAttachedNodesOfFramePtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<StringName>)
-  }
+  public final fun getAttachedNodesOfFrame(frame: StringName): VariantArray<StringName> =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_ARRAY(ptr, objectID.id, MethodBindings.getAttachedNodesOfFramePtr, frame) as VariantArray<StringName>)
 
   public final fun setPanningScheme(scheme: PanningScheme): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, scheme.value)
-    TransferContext.callPtrMethod(MethodBindings.setPanningSchemePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPanningSchemePtr, scheme.value)
   }
 
-  public final fun getPanningScheme(): PanningScheme {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPanningSchemePtr, 2)
-    return PanningScheme.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getPanningScheme(): PanningScheme =
+      PanningScheme.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPanningSchemePtr))
 
   public final fun setZoom(zoom: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, zoom.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setZoomPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setZoomPtr, zoom.toDouble())
   }
 
-  public final fun getZoom(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getZoomPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getZoom(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getZoomPtr).toFloat()
 
   public final fun setZoomMin(zoomMin: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, zoomMin.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setZoomMinPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setZoomMinPtr, zoomMin.toDouble())
   }
 
-  public final fun getZoomMin(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getZoomMinPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getZoomMin(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getZoomMinPtr).toFloat()
 
   public final fun setZoomMax(zoomMax: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, zoomMax.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setZoomMaxPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setZoomMaxPtr, zoomMax.toDouble())
   }
 
-  public final fun getZoomMax(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getZoomMaxPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getZoomMax(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getZoomMaxPtr).toFloat()
 
   public final fun setZoomStep(zoomStep: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, zoomStep.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setZoomStepPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setZoomStepPtr, zoomStep.toDouble())
   }
 
-  public final fun getZoomStep(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getZoomStepPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getZoomStep(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getZoomStepPtr).toFloat()
 
   public final fun setShowGrid(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setShowGridPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShowGridPtr, enable)
   }
 
-  public final fun isShowingGrid(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isShowingGridPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isShowingGrid(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isShowingGridPtr)
 
   public final fun setGridPattern(pattern: GridPattern): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pattern.value)
-    TransferContext.callPtrMethod(MethodBindings.setGridPatternPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setGridPatternPtr, pattern.value)
   }
 
-  public final fun getGridPattern(): GridPattern {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGridPatternPtr, 2)
-    return GridPattern.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getGridPattern(): GridPattern =
+      GridPattern.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getGridPatternPtr))
 
   public final fun setSnappingEnabled(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setSnappingEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSnappingEnabledPtr, enable)
   }
 
-  public final fun isSnappingEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isSnappingEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isSnappingEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSnappingEnabledPtr)
 
   public final fun setSnappingDistance(pixels: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pixels.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setSnappingDistancePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSnappingDistancePtr, pixels.toLong())
   }
 
-  public final fun getSnappingDistance(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSnappingDistancePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getSnappingDistance(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSnappingDistancePtr).toInt()
 
   public final fun setConnectionLinesCurvature(curvature: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, curvature.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setConnectionLinesCurvaturePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setConnectionLinesCurvaturePtr, curvature.toDouble())
   }
 
-  public final fun getConnectionLinesCurvature(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getConnectionLinesCurvaturePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getConnectionLinesCurvature(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getConnectionLinesCurvaturePtr).toFloat()
 
   public final fun setConnectionLinesThickness(pixels: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, pixels.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setConnectionLinesThicknessPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setConnectionLinesThicknessPtr, pixels.toDouble())
   }
 
-  public final fun getConnectionLinesThickness(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getConnectionLinesThicknessPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getConnectionLinesThickness(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getConnectionLinesThicknessPtr).toFloat()
 
   public final fun setConnectionLinesAntialiased(pixels: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pixels)
-    TransferContext.callPtrMethod(MethodBindings.setConnectionLinesAntialiasedPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setConnectionLinesAntialiasedPtr, pixels)
   }
 
-  public final fun isConnectionLinesAntialiased(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isConnectionLinesAntialiasedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isConnectionLinesAntialiased(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isConnectionLinesAntialiasedPtr)
 
   public final fun setMinimapSize(size: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, size)
-    TransferContext.callPtrMethod(MethodBindings.setMinimapSizePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setMinimapSizePtr, size)
   }
 
-  public final fun getMinimapSize(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMinimapSizePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getMinimapSize(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getMinimapSizePtr)
 
   public final fun setMinimapOpacity(opacity: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, opacity.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setMinimapOpacityPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMinimapOpacityPtr, opacity.toDouble())
   }
 
-  public final fun getMinimapOpacity(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMinimapOpacityPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getMinimapOpacity(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMinimapOpacityPtr).toFloat()
 
   public final fun setMinimapEnabled(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setMinimapEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMinimapEnabledPtr, enable)
   }
 
-  public final fun isMinimapEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isMinimapEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isMinimapEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMinimapEnabledPtr)
 
   public final fun setShowMenu(hidden: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, hidden)
-    TransferContext.callPtrMethod(MethodBindings.setShowMenuPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShowMenuPtr, hidden)
   }
 
-  public final fun isShowingMenu(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isShowingMenuPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isShowingMenu(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isShowingMenuPtr)
 
   public final fun setShowZoomLabel(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setShowZoomLabelPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShowZoomLabelPtr, enable)
   }
 
-  public final fun isShowingZoomLabel(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isShowingZoomLabelPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isShowingZoomLabel(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isShowingZoomLabelPtr)
 
   public final fun setShowGridButtons(hidden: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, hidden)
-    TransferContext.callPtrMethod(MethodBindings.setShowGridButtonsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShowGridButtonsPtr, hidden)
   }
 
-  public final fun isShowingGridButtons(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isShowingGridButtonsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isShowingGridButtons(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isShowingGridButtonsPtr)
 
   public final fun setShowZoomButtons(hidden: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, hidden)
-    TransferContext.callPtrMethod(MethodBindings.setShowZoomButtonsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShowZoomButtonsPtr, hidden)
   }
 
-  public final fun isShowingZoomButtons(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isShowingZoomButtonsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isShowingZoomButtons(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isShowingZoomButtonsPtr)
 
   public final fun setShowMinimapButton(hidden: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, hidden)
-    TransferContext.callPtrMethod(MethodBindings.setShowMinimapButtonPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShowMinimapButtonPtr, hidden)
   }
 
-  public final fun isShowingMinimapButton(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isShowingMinimapButtonPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isShowingMinimapButton(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isShowingMinimapButtonPtr)
 
   public final fun setShowArrangeButton(hidden: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, hidden)
-    TransferContext.callPtrMethod(MethodBindings.setShowArrangeButtonPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShowArrangeButtonPtr, hidden)
   }
 
-  public final fun isShowingArrangeButton(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isShowingArrangeButtonPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isShowingArrangeButton(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isShowingArrangeButtonPtr)
 
   public final fun setRightDisconnects(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setRightDisconnectsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRightDisconnectsPtr, enable)
   }
 
-  public final fun isRightDisconnectsEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isRightDisconnectsEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isRightDisconnectsEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRightDisconnectsEnabledPtr)
 
   public final fun setTypeNames(typeNames: Dictionary<Any?, Any?>): Unit {
-    TransferContext.writeMethodArguments_DICTIONARY(ptr, objectID.id, typeNames)
-    TransferContext.callPtrMethod(MethodBindings.setTypeNamesPtr, 0)
+    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setTypeNamesPtr, typeNames)
   }
 
-  public final fun getTypeNames(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTypeNamesPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getTypeNames(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getTypeNamesPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Gets the [HBoxContainer] that contains the zooming and grid snap controls in the top left of
@@ -1244,27 +1105,22 @@ public open class GraphEdit : Control() {
    * **Warning:** This is a required internal node, removing and freeing it may cause a crash. If
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
-  public final fun getMenuHbox(): HBoxContainer? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMenuHboxPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as HBoxContainer?)
-  }
+  public final fun getMenuHbox(): HBoxContainer? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getMenuHboxPtr) as HBoxContainer?)
 
   /**
    * Rearranges selected nodes in a layout with minimum crossings between connections and uniform
    * horizontal and vertical gap between nodes.
    */
   public final fun arrangeNodes(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.arrangeNodesPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.arrangeNodesPtr)
   }
 
   /**
    * Sets the specified [node] as the one selected.
    */
   public final fun setSelected(node: Node?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, node)
-    TransferContext.callPtrMethod(MethodBindings.setSelectedPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setSelectedPtr, node)
   }
 
   /**

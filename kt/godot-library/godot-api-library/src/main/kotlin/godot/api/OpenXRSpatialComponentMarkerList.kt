@@ -9,16 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_RID_LONG_ret_ANY
+import godot.callPtrMethod_LONG_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedByteArray
 import godot.core.RID
-import godot.readReturnValue_ANY
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_RID_LONG
 import kotlin.Any
 import kotlin.Long
 import kotlin.Suppress
@@ -38,31 +36,22 @@ public open class OpenXRSpatialComponentMarkerList : OpenXRSpatialComponentData(
   /**
    * Returns the marker type for the marker at this [index].
    */
-  public final fun getMarkerType(index: Long): MarkerType {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callPtrMethod(MethodBindings.getMarkerTypePtr, 2)
-    return MarkerType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getMarkerType(index: Long): MarkerType =
+      MarkerType.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getMarkerTypePtr, index))
 
   /**
    * Returns the marker ID for the marker at this [index]. Only applicable for Aruco or April Tag
    * markers.
    */
-  public final fun getMarkerId(index: Long): Long {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callPtrMethod(MethodBindings.getMarkerIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getMarkerId(index: Long): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getMarkerIdPtr, index)
 
   /**
    * Returns either a [String] or a [PackedByteArray] buffer with data for the marker at this
    * [index]. Only applicable for QR code markers.
    */
-  public final fun getMarkerData(snapshot: RID, index: Long): Any? {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, snapshot, index)
-    TransferContext.callMethod(MethodBindings.getMarkerDataPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun getMarkerData(snapshot: RID, index: Long): Any? =
+      TransferContext.callMethod_RID_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getMarkerDataPtr, snapshot, index)
 
   public enum class MarkerType(
     public override val `value`: Long,

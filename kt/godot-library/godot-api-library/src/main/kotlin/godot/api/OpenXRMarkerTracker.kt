@@ -11,18 +11,17 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_ANY
+import godot.callMethod_ANY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedByteArray
 import godot.core.Vector2
-import godot.readReturnValue_ANY
-import godot.readReturnValue_LONG
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ANY
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_VECTOR2
 import kotlin.Any
 import kotlin.Long
 import kotlin.Suppress
@@ -103,37 +102,25 @@ public open class OpenXRMarkerTracker : OpenXRSpatialEntityTracker() {
   }
 
   public final fun setBoundsSize(boundsSize: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, boundsSize)
-    TransferContext.callPtrMethod(MethodBindings.setBoundsSizePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setBoundsSizePtr, boundsSize)
   }
 
-  public final fun getBoundsSize(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBoundsSizePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getBoundsSize(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getBoundsSizePtr)
 
   public final fun setMarkerType(markerType: OpenXRSpatialComponentMarkerList.MarkerType): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, markerType.value)
-    TransferContext.callPtrMethod(MethodBindings.setMarkerTypePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMarkerTypePtr, markerType.value)
   }
 
-  public final fun getMarkerType(): OpenXRSpatialComponentMarkerList.MarkerType {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMarkerTypePtr, 2)
-    return OpenXRSpatialComponentMarkerList.MarkerType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getMarkerType(): OpenXRSpatialComponentMarkerList.MarkerType =
+      OpenXRSpatialComponentMarkerList.MarkerType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMarkerTypePtr))
 
   public final fun setMarkerId(markerId: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, markerId)
-    TransferContext.callPtrMethod(MethodBindings.setMarkerIdPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMarkerIdPtr, markerId)
   }
 
-  public final fun getMarkerId(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMarkerIdPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getMarkerId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMarkerIdPtr)
 
   /**
    * Sets the marker data for this marker.
@@ -141,19 +128,15 @@ public open class OpenXRMarkerTracker : OpenXRSpatialEntityTracker() {
    * **Note:** This should only be set by marker discovery logic.
    */
   public final fun setMarkerData(markerData: Any?): Unit {
-    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, markerData)
-    TransferContext.callMethod(MethodBindings.setMarkerDataPtr)
+    TransferContext.callMethod_ANY(ptr, objectID.id, MethodBindings.setMarkerDataPtr, markerData)
   }
 
   /**
    * Returns the marker data for this marker. This can return a [String] or [PackedByteArray]. Only
    * applicable to QR Code based markers.
    */
-  public final fun getMarkerData(): Any? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMarkerDataPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun getMarkerData(): Any? =
+      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.getMarkerDataPtr)
 
   public companion object {
     @JvmField

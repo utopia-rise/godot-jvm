@@ -26,7 +26,6 @@ class GenerationContext(
     val classList = mutableListOf<EnrichedClass>()
 
     val methodSignatures = LinkedHashSet<TransferSignature>()
-    val returnConverters = LinkedHashSet<MemberName>()
 
     /**
      * Variant::TYPE_MAX, one past the last Variant ordinal and so never a real type tag. A ptrcall announces it in

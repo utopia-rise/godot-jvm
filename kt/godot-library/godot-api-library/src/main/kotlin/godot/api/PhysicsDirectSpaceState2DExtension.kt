@@ -9,11 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_RID_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.readReturnValue_BOOL
-import godot.writeMethodArguments_RID
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -33,11 +32,8 @@ public abstract class PhysicsDirectSpaceState2DExtension : PhysicsDirectSpaceSta
     createNativeObject(530, scriptPtr)
   }
 
-  public final fun isBodyExcludedFromQuery(body: RID): Boolean {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, body)
-    TransferContext.callPtrMethod(MethodBindings.isBodyExcludedFromQueryPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isBodyExcludedFromQuery(body: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.isBodyExcludedFromQueryPtr, body)
 
   public companion object {
     @JvmField

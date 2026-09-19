@@ -9,19 +9,19 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
@@ -128,8 +128,7 @@ public open class AnimationNodeTransition : AnimationNodeSync() {
   }
 
   public final fun setInputCount(inputCount: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, inputCount.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setInputCountPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInputCountPtr, inputCount.toLong())
   }
 
   /**
@@ -138,86 +137,62 @@ public open class AnimationNodeTransition : AnimationNodeSync() {
    * first.
    */
   public final fun setInputAsAutoAdvance(input: Int, enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, input.toLong(), enable)
-    TransferContext.callPtrMethod(MethodBindings.setInputAsAutoAdvancePtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setInputAsAutoAdvancePtr, input.toLong(), enable)
   }
 
   /**
    * Returns `true` if auto-advance is enabled for the given [input] index.
    */
-  public final fun isInputSetAsAutoAdvance(input: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, input.toLong())
-    TransferContext.callPtrMethod(MethodBindings.isInputSetAsAutoAdvancePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInputSetAsAutoAdvance(input: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isInputSetAsAutoAdvancePtr, input.toLong())
 
   /**
    * If `true`, breaks the loop at the end of the loop cycle for transition, even if the animation
    * is looping.
    */
   public final fun setInputBreakLoopAtEnd(input: Int, enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, input.toLong(), enable)
-    TransferContext.callPtrMethod(MethodBindings.setInputBreakLoopAtEndPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setInputBreakLoopAtEndPtr, input.toLong(), enable)
   }
 
   /**
    * Returns whether the animation breaks the loop at the end of the loop cycle for transition.
    */
-  public final fun isInputLoopBrokenAtEnd(input: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, input.toLong())
-    TransferContext.callPtrMethod(MethodBindings.isInputLoopBrokenAtEndPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInputLoopBrokenAtEnd(input: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isInputLoopBrokenAtEndPtr, input.toLong())
 
   /**
    * If `true`, the destination animation is restarted when the animation transitions.
    */
   public final fun setInputReset(input: Int, enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, input.toLong(), enable)
-    TransferContext.callPtrMethod(MethodBindings.setInputResetPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setInputResetPtr, input.toLong(), enable)
   }
 
   /**
    * Returns whether the animation restarts when the animation transitions from the other animation.
    */
-  public final fun isInputReset(input: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, input.toLong())
-    TransferContext.callPtrMethod(MethodBindings.isInputResetPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInputReset(input: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isInputResetPtr, input.toLong())
 
   public final fun setXfadeTime(time: Double): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
-    TransferContext.callPtrMethod(MethodBindings.setXfadeTimePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setXfadeTimePtr, time)
   }
 
-  public final fun getXfadeTime(): Double {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getXfadeTimePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getXfadeTime(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getXfadeTimePtr)
 
   public final fun setXfadeCurve(curve: Curve?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callPtrMethod(MethodBindings.setXfadeCurvePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setXfadeCurvePtr, curve)
   }
 
-  public final fun getXfadeCurve(): Curve? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getXfadeCurvePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Curve?)
-  }
+  public final fun getXfadeCurve(): Curve? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getXfadeCurvePtr) as Curve?)
 
   public final fun setAllowTransitionToSelf(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setAllowTransitionToSelfPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllowTransitionToSelfPtr, enable)
   }
 
-  public final fun isAllowTransitionToSelf(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isAllowTransitionToSelfPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isAllowTransitionToSelf(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAllowTransitionToSelfPtr)
 
   public companion object {
     @JvmField

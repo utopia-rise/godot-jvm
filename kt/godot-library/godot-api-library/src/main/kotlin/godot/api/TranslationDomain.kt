@@ -9,6 +9,22 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_BOOL_ret_ARRAY
+import godot.callMethod_STRING_BOOL_ret_BOOL
+import godot.callMethod_STRING_ret_OBJECT_REF
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_STRING_NAME_LONG_STRING_NAME_ret_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_ret_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -17,21 +33,6 @@ import godot.core.MethodStringName4
 import godot.core.StringName
 import godot.core.VariantArray
 import godot.core.asCachedStringName
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_STRING
-import godot.readReturnValue_STRING_NAME
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_BOOL
-import godot.writeMethodArguments_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_STRING_NAME_LONG_STRING_NAME
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -212,85 +213,64 @@ public open class TranslationDomain : RefCounted() {
    * Returns the [Translation] instance that best matches [locale]. Returns `null` if there are no
    * matches.
    */
-  public final fun getTranslationObject(locale: String): Translation? {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, locale)
-    TransferContext.callMethod(MethodBindings.getTranslationObjectPtr)
-    return (TransferContext.readReturnValue_OBJECT() as Translation?)
-  }
+  public final fun getTranslationObject(locale: String): Translation? =
+      (TransferContext.callMethod_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTranslationObjectPtr, locale) as Translation?)
 
   /**
    * Adds a translation.
    */
   public final fun addTranslation(translation: Translation?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, translation)
-    TransferContext.callPtrMethod(MethodBindings.addTranslationPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addTranslationPtr, translation)
   }
 
   /**
    * Removes the given translation.
    */
   public final fun removeTranslation(translation: Translation?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, translation)
-    TransferContext.callPtrMethod(MethodBindings.removeTranslationPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeTranslationPtr, translation)
   }
 
   /**
    * Removes all translations.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
   }
 
   /**
    * Returns all available [Translation] instances as added by [addTranslation].
    */
-  public final fun getTranslations(): VariantArray<Translation> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTranslationsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Translation>)
-  }
+  public final fun getTranslations(): VariantArray<Translation> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getTranslationsPtr) as VariantArray<Translation>)
 
   /**
    * Returns `true` if there are any [Translation] instances that match [locale] (see
    * [TranslationServer.compareLocales]). If [exact] is `true`, only instances whose locale exactly
    * equals [locale] are considered.
    */
-  public final fun hasTranslationForLocale(locale: String, exact: Boolean): Boolean {
-    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, locale, exact)
-    TransferContext.callMethod(MethodBindings.hasTranslationForLocalePtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasTranslationForLocale(locale: String, exact: Boolean): Boolean =
+      TransferContext.callMethod_STRING_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.hasTranslationForLocalePtr, locale, exact)
 
   /**
    * Returns `true` if this translation domain contains the given [translation].
    */
-  public final fun hasTranslation(translation: Translation?): Boolean {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, translation)
-    TransferContext.callPtrMethod(MethodBindings.hasTranslationPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasTranslation(translation: Translation?): Boolean =
+      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.hasTranslationPtr, translation)
 
   /**
    * Returns the [Translation] instances that match [locale] (see
    * [TranslationServer.compareLocales]). If [exact] is `true`, only instances whose locale exactly
    * equals [locale] will be returned.
    */
-  public final fun findTranslations(locale: String, exact: Boolean): VariantArray<Translation> {
-    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, locale, exact)
-    TransferContext.callMethod(MethodBindings.findTranslationsPtr)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Translation>)
-  }
+  public final fun findTranslations(locale: String, exact: Boolean): VariantArray<Translation> =
+      (TransferContext.callMethod_STRING_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.findTranslationsPtr, locale, exact) as VariantArray<Translation>)
 
   /**
    * Returns the current locale's translation for the given message and context.
    */
-  public final fun translate(message: StringName, context: StringName = StringName("")):
-      StringName {
-    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME(ptr, objectID.id, message, context)
-    TransferContext.callPtrMethod(MethodBindings.translatePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun translate(message: StringName, context: StringName = StringName("")): StringName
+      =
+      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.translatePtr, message, context)
 
   /**
    * Returns the current locale's translation for the given message, plural message and context.
@@ -303,21 +283,15 @@ public open class TranslationDomain : RefCounted() {
     messagePlural: StringName,
     n: Int,
     context: StringName = StringName(""),
-  ): StringName {
-    TransferContext.writeMethodArguments_STRING_NAME_STRING_NAME_LONG_STRING_NAME(ptr, objectID.id, message, messagePlural, n.toLong(), context)
-    TransferContext.callPtrMethod(MethodBindings.translatePluralPtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  ): StringName =
+      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_LONG_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.translatePluralPtr, message, messagePlural, n.toLong(), context)
 
   /**
    * Returns the locale override of the domain. Returns an empty string if locale override is
    * disabled.
    */
-  public final fun getLocaleOverride(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLocaleOverridePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getLocaleOverride(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLocaleOverridePtr)
 
   /**
    * Sets the locale override of the domain.
@@ -329,128 +303,84 @@ public open class TranslationDomain : RefCounted() {
    * propagate the [MainLoop.NOTIFICATION_TRANSLATION_CHANGED] signal manually.
    */
   public final fun setLocaleOverride(locale: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, locale)
-    TransferContext.callMethod(MethodBindings.setLocaleOverridePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLocaleOverridePtr, locale)
   }
 
-  public final fun isEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEnabledPtr)
 
   public final fun setEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnabledPtr, enabled)
   }
 
-  public final fun isPseudolocalizationEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPseudolocalizationEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPseudolocalizationEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPseudolocalizationEnabledPtr)
 
   public final fun setPseudolocalizationEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setPseudolocalizationEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPseudolocalizationEnabledPtr, enabled)
   }
 
-  public final fun isPseudolocalizationAccentsEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPseudolocalizationAccentsEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPseudolocalizationAccentsEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPseudolocalizationAccentsEnabledPtr)
 
   public final fun setPseudolocalizationAccentsEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setPseudolocalizationAccentsEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPseudolocalizationAccentsEnabledPtr, enabled)
   }
 
-  public final fun isPseudolocalizationDoubleVowelsEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPseudolocalizationDoubleVowelsEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPseudolocalizationDoubleVowelsEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPseudolocalizationDoubleVowelsEnabledPtr)
 
   public final fun setPseudolocalizationDoubleVowelsEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setPseudolocalizationDoubleVowelsEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPseudolocalizationDoubleVowelsEnabledPtr, enabled)
   }
 
-  public final fun isPseudolocalizationFakeBidiEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPseudolocalizationFakeBidiEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPseudolocalizationFakeBidiEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPseudolocalizationFakeBidiEnabledPtr)
 
   public final fun setPseudolocalizationFakeBidiEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setPseudolocalizationFakeBidiEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPseudolocalizationFakeBidiEnabledPtr, enabled)
   }
 
-  public final fun isPseudolocalizationOverrideEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPseudolocalizationOverrideEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPseudolocalizationOverrideEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPseudolocalizationOverrideEnabledPtr)
 
   public final fun setPseudolocalizationOverrideEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setPseudolocalizationOverrideEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPseudolocalizationOverrideEnabledPtr, enabled)
   }
 
-  public final fun isPseudolocalizationSkipPlaceholdersEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPseudolocalizationSkipPlaceholdersEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPseudolocalizationSkipPlaceholdersEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPseudolocalizationSkipPlaceholdersEnabledPtr)
 
   public final fun setPseudolocalizationSkipPlaceholdersEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setPseudolocalizationSkipPlaceholdersEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPseudolocalizationSkipPlaceholdersEnabledPtr, enabled)
   }
 
-  public final fun getPseudolocalizationExpansionRatio(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPseudolocalizationExpansionRatioPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getPseudolocalizationExpansionRatio(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPseudolocalizationExpansionRatioPtr).toFloat()
 
   public final fun setPseudolocalizationExpansionRatio(ratio: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setPseudolocalizationExpansionRatioPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPseudolocalizationExpansionRatioPtr, ratio.toDouble())
   }
 
-  public final fun getPseudolocalizationPrefix(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPseudolocalizationPrefixPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getPseudolocalizationPrefix(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPseudolocalizationPrefixPtr)
 
   public final fun setPseudolocalizationPrefix(prefix: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, prefix)
-    TransferContext.callMethod(MethodBindings.setPseudolocalizationPrefixPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setPseudolocalizationPrefixPtr, prefix)
   }
 
-  public final fun getPseudolocalizationSuffix(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPseudolocalizationSuffixPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getPseudolocalizationSuffix(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPseudolocalizationSuffixPtr)
 
   public final fun setPseudolocalizationSuffix(suffix: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, suffix)
-    TransferContext.callMethod(MethodBindings.setPseudolocalizationSuffixPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setPseudolocalizationSuffixPtr, suffix)
   }
 
   /**
    * Returns the pseudolocalized string based on the [message] passed in.
    */
-  public final fun pseudolocalize(message: StringName): StringName {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, message)
-    TransferContext.callPtrMethod(MethodBindings.pseudolocalizePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun pseudolocalize(message: StringName): StringName =
+      TransferContext.callPtrMethod_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.pseudolocalizePtr, message)
 
   /**
    * Returns the current locale's translation for the given message and context.

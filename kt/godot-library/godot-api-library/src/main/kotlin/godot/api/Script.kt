@@ -9,6 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_ANY
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_NAME_ret_ANY
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod_BOOL_ret_LONG
+import godot.callPtrMethod_OBJECT_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.Error
@@ -17,19 +29,6 @@ import godot.core.MethodStringName1
 import godot.core.StringName
 import godot.core.VariantArray
 import godot.core.asCachedStringName
-import godot.readReturnValue_ANY
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_STRING
-import godot.readReturnValue_STRING_NAME
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_NAME
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.String
@@ -70,11 +69,8 @@ public open class Script internal constructor() : Resource() {
   /**
    * Returns `true` if the script can be instantiated.
    */
-  public final fun canInstantiate(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.canInstantiatePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun canInstantiate(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.canInstantiatePtr)
 
   /**
    * Returns `true` if the script contains non-empty source code.
@@ -84,50 +80,34 @@ public open class Script internal constructor() : Resource() {
    * but still behaves as expected and could be instantiated. This can be checked with
    * [canInstantiate].
    */
-  public final fun hasSourceCode(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasSourceCodePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasSourceCode(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasSourceCodePtr)
 
-  public final fun getSourceCode(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSourceCodePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getSourceCode(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSourceCodePtr)
 
   public final fun setSourceCode(source: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, source)
-    TransferContext.callMethod(MethodBindings.setSourceCodePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setSourceCodePtr, source)
   }
 
   /**
    * Reloads the script's class implementation. Returns an error code.
    */
   @JvmOverloads
-  public final fun reload(keepState: Boolean = false): Error {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, keepState)
-    TransferContext.callPtrMethod(MethodBindings.reloadPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun reload(keepState: Boolean = false): Error =
+      Error.from(TransferContext.callPtrMethod_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.reloadPtr, keepState))
 
   /**
    * Returns the script directly inherited by this script.
    */
-  public final fun getBaseScript(): Script? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBaseScriptPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Script?)
-  }
+  public final fun getBaseScript(): Script? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBaseScriptPtr) as Script?)
 
   /**
    * Returns the script's base type.
    */
-  public final fun getInstanceBaseType(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getInstanceBaseTypePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getInstanceBaseType(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getInstanceBaseTypePtr)
 
   /**
    * Returns the class name associated with the script, if there is one. Returns an empty string
@@ -152,29 +132,20 @@ public open class Script internal constructor() : Resource() {
    * }
    * ```
    */
-  public final fun getGlobalName(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGlobalNamePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getGlobalName(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getGlobalNamePtr)
 
   /**
    * Returns `true` if the script, or a base class, defines a method with the given name.
    */
-  public final fun hasScriptMethod(methodName: StringName): Boolean {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, methodName)
-    TransferContext.callPtrMethod(MethodBindings.hasScriptMethodPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasScriptMethod(methodName: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasScriptMethodPtr, methodName)
 
   /**
    * Returns `true` if the script, or a base class, defines a signal with the given name.
    */
-  public final fun hasScriptSignal(signalName: StringName): Boolean {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, signalName)
-    TransferContext.callPtrMethod(MethodBindings.hasScriptSignalPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasScriptSignal(signalName: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasScriptSignalPtr, signalName)
 
   /**
    * Returns the list of properties in this [Script].
@@ -182,11 +153,8 @@ public open class Script internal constructor() : Resource() {
    * **Note:** The dictionaries returned by this method are formatted identically to those returned
    * by [Object.getPropertyList].
    */
-  public final fun getScriptPropertyList(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScriptPropertyListPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+  public final fun getScriptPropertyList(): VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getScriptPropertyListPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns the list of methods in this [Script].
@@ -194,11 +162,8 @@ public open class Script internal constructor() : Resource() {
    * **Note:** The dictionaries returned by this method are formatted identically to those returned
    * by [Object.getMethodList].
    */
-  public final fun getScriptMethodList(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScriptMethodListPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+  public final fun getScriptMethodList(): VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getScriptMethodListPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns the list of signals defined in this [Script].
@@ -206,66 +171,45 @@ public open class Script internal constructor() : Resource() {
    * **Note:** The dictionaries returned by this method are formatted identically to those returned
    * by [Object.getSignalList].
    */
-  public final fun getScriptSignalList(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScriptSignalListPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+  public final fun getScriptSignalList(): VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getScriptSignalListPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns a dictionary containing constant names and their values.
    */
-  public final fun getScriptConstantMap(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScriptConstantMapPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getScriptConstantMap(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getScriptConstantMapPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns the default value of the specified property.
    */
-  public final fun getPropertyDefaultValue(`property`: StringName): Any? {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, property)
-    TransferContext.callMethod(MethodBindings.getPropertyDefaultValuePtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun getPropertyDefaultValue(`property`: StringName): Any? =
+      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getPropertyDefaultValuePtr, property)
 
   /**
    * Returns `true` if the script is a tool script. A tool script can run in the editor.
    */
-  public final fun isTool(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isToolPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isTool(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isToolPtr)
 
   /**
    * Returns `true` if the script is an abstract script. An abstract script does not have a
    * constructor and cannot be instantiated.
    */
-  public final fun isAbstract(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isAbstractPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isAbstract(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAbstractPtr)
 
   /**
    * Returns a [Dictionary] mapping method names to their RPC configuration defined by this script.
    */
-  public final fun getRpcConfig(): Any? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRpcConfigPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun getRpcConfig(): Any? =
+      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.getRpcConfigPtr)
 
   /**
    * Returns `true` if [baseObject] is an instance of this script.
    */
-  public final fun instanceHas(baseObject: Object?): Boolean {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, baseObject)
-    TransferContext.callPtrMethod(MethodBindings.instanceHasPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun instanceHas(baseObject: Object?): Boolean =
+      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.instanceHasPtr, baseObject)
 
   /**
    * Returns `true` if the script, or a base class, defines a method with the given name.

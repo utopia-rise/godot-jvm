@@ -9,11 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_ret_STRING
+import godot.callPtrMethod_LONG_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments_LONG
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
@@ -33,20 +32,14 @@ public open class OpenXRSpatialComponentPersistenceList : OpenXRSpatialComponent
   /**
    * Returns the persistent uuid for the entity at this [index].
    */
-  public final fun getPersistentUuid(index: Long): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getPersistentUuidPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getPersistentUuid(index: Long): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getPersistentUuidPtr, index)
 
   /**
    * Returns the persistent state (`XrSpatialPersistenceStateEXT`) for the entity at this [index].
    */
-  public final fun getPersistentState(index: Long): Long {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callPtrMethod(MethodBindings.getPersistentStatePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getPersistentState(index: Long): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getPersistentStatePtr, index)
 
   public companion object {
     @JvmField

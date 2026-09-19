@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
 import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
@@ -86,48 +85,32 @@ public open class CapsuleMesh : PrimitiveMesh() {
   }
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, radius.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setRadiusPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, radius.toDouble())
   }
 
-  public final fun getRadius(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRadiusPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getRadius(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setHeight(height: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, height.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setHeightPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHeightPtr, height.toDouble())
   }
 
-  public final fun getHeight(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getHeight(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHeightPtr).toFloat()
 
   public final fun setRadialSegments(segments: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, segments.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setRadialSegmentsPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRadialSegmentsPtr, segments.toLong())
   }
 
-  public final fun getRadialSegments(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRadialSegmentsPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getRadialSegments(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRadialSegmentsPtr).toInt()
 
   public final fun setRings(rings: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, rings.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setRingsPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRingsPtr, rings.toLong())
   }
 
-  public final fun getRings(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRingsPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getRings(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRingsPtr).toInt()
 
   public companion object {
     @JvmField

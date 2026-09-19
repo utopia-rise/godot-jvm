@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -50,15 +49,11 @@ public open class AudioStreamPolyphonic : AudioStream() {
   }
 
   public final fun setPolyphony(voices: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, voices.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setPolyphonyPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPolyphonyPtr, voices.toLong())
   }
 
-  public final fun getPolyphony(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPolyphonyPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getPolyphony(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPolyphonyPtr).toInt()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

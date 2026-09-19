@@ -11,6 +11,44 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_ANY
+import godot.callMethod_ANY_LONG_OBJECT_DOUBLE_DOUBLE_COLOR_LONG_RECT2_BOOL_STRING_LONG_LONG
+import godot.callMethod_ANY_LONG_STRING
+import godot.callMethod_LONG_LONG_BOOL_STRING
+import godot.callMethod_LONG_LONG_LONG_STRING
+import godot.callMethod_LONG_LONG_STRING_LONG_LONG_PACKED_FLOAT_32_ARRAY
+import godot.callMethod_LONG_STRING
+import godot.callMethod_OBJECT_DOUBLE_DOUBLE_COLOR_LONG_RECT2_ANY_BOOL_STRING_LONG_LONG_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_OBJECT_LONG_RECT2_COLOR_LONG_COLOR
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY
+import godot.callPtrMethod0_ret_RECT2I
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_COLOR_COLOR
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL_LONG_BOOL
+import godot.callPtrMethod_LONG_BOOL_ret_BOOL
+import godot.callPtrMethod_LONG_LONG_COLOR_LONG_BOOL_BOOL
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_VECTOR2I
+import godot.callPtrMethod_OBJECT_DICTIONARY
+import godot.callPtrMethod_OBJECT_LONG
+import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY
+import godot.callPtrMethod_PACKED_STRING_ARRAY_ret_DICTIONARY
+import godot.callPtrMethod_RECT2
+import godot.callPtrMethod_VECTOR2_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.BitFieldBase
 import godot.core.Color
@@ -36,42 +74,6 @@ import godot.core.VariantArray
 import godot.core.Vector2
 import godot.core.Vector2i
 import godot.core.VerticalAlignment
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_FLOAT_32_ARRAY
-import godot.readReturnValue_RECT2I
-import godot.readReturnValue_STRING
-import godot.readReturnValue_VECTOR2I
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ANY
-import godot.writeMethodArguments_ANY_LONG_OBJECT_DOUBLE_DOUBLE_COLOR_LONG_RECT2_BOOL_STRING_LONG_LONG
-import godot.writeMethodArguments_ANY_LONG_STRING
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_COLOR
-import godot.writeMethodArguments_COLOR_COLOR
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_LONG_BOOL_LONG_BOOL
-import godot.writeMethodArguments_LONG_LONG_BOOL_STRING
-import godot.writeMethodArguments_LONG_LONG_COLOR_LONG_BOOL_BOOL
-import godot.writeMethodArguments_LONG_LONG_LONG_STRING
-import godot.writeMethodArguments_LONG_LONG_STRING_LONG_LONG_PACKED_FLOAT_32_ARRAY
-import godot.writeMethodArguments_LONG_STRING
-import godot.writeMethodArguments_OBJECT_DICTIONARY
-import godot.writeMethodArguments_OBJECT_DOUBLE_DOUBLE_COLOR_LONG_RECT2_ANY_BOOL_STRING_LONG_LONG_STRING
-import godot.writeMethodArguments_OBJECT_LONG
-import godot.writeMethodArguments_PACKED_FLOAT_32_ARRAY
-import godot.writeMethodArguments_PACKED_STRING_ARRAY
-import godot.writeMethodArguments_RECT2
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_OBJECT_LONG_RECT2_COLOR_LONG_COLOR
-import godot.writeMethodArguments_VECTOR2_VECTOR2
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Float
@@ -584,23 +586,18 @@ public open class RichTextLabel : Control() {
   /**
    * Returns the text without BBCode mark-up.
    */
-  public final fun getParsedText(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getParsedTextPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getParsedText(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getParsedTextPtr)
 
   /**
    * Adds raw non-BBCode-parsed text to the tag stack.
    */
   public final fun addText(text: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, text)
-    TransferContext.callMethod(MethodBindings.addTextPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.addTextPtr, text)
   }
 
   public final fun setText(text: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, text)
-    TransferContext.callMethod(MethodBindings.setTextPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTextPtr, text)
   }
 
   /**
@@ -621,8 +618,7 @@ public open class RichTextLabel : Control() {
     widthInPercent: Boolean = true,
     heightInPercent: Boolean = false,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_COLOR_LONG_BOOL_BOOL(ptr, objectID.id, width.toLong(), height.toLong(), color, alignment.value, widthInPercent, heightInPercent)
-    TransferContext.callPtrMethod(MethodBindings.addHrPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_COLOR_LONG_BOOL_BOOL(ptr, objectID.id, MethodBindings.addHrPtr, width.toLong(), height.toLong(), color, alignment.value, widthInPercent, heightInPercent)
   }
 
   /**
@@ -660,8 +656,7 @@ public open class RichTextLabel : Control() {
     heightUnit: ImageUnit = RichTextLabel.ImageUnit.PIXEL,
     altText: String = "",
   ): Unit {
-    TransferContext.writeMethodArguments_OBJECT_DOUBLE_DOUBLE_COLOR_LONG_RECT2_ANY_BOOL_STRING_LONG_LONG_STRING(ptr, objectID.id, image, width.toDouble(), height.toDouble(), color, inlineAlign.value, region, key, pad, tooltip, widthUnit.value, heightUnit.value, altText)
-    TransferContext.callMethod(MethodBindings.addImagePtr)
+    TransferContext.callMethod_OBJECT_DOUBLE_DOUBLE_COLOR_LONG_RECT2_ANY_BOOL_STRING_LONG_LONG_STRING(ptr, objectID.id, MethodBindings.addImagePtr, image, width.toDouble(), height.toDouble(), color, inlineAlign.value, region, key, pad, tooltip, widthUnit.value, heightUnit.value, altText)
   }
 
   /**
@@ -683,16 +678,14 @@ public open class RichTextLabel : Control() {
     widthUnit: ImageUnit = RichTextLabel.ImageUnit.PIXEL,
     heightUnit: ImageUnit = RichTextLabel.ImageUnit.PIXEL,
   ): Unit {
-    TransferContext.writeMethodArguments_ANY_LONG_OBJECT_DOUBLE_DOUBLE_COLOR_LONG_RECT2_BOOL_STRING_LONG_LONG(ptr, objectID.id, key, mask.flag, image, width.toDouble(), height.toDouble(), color, inlineAlign.value, region, pad, tooltip, widthUnit.value, heightUnit.value)
-    TransferContext.callMethod(MethodBindings.updateImagePtr)
+    TransferContext.callMethod_ANY_LONG_OBJECT_DOUBLE_DOUBLE_COLOR_LONG_RECT2_BOOL_STRING_LONG_LONG(ptr, objectID.id, MethodBindings.updateImagePtr, key, mask.flag, image, width.toDouble(), height.toDouble(), color, inlineAlign.value, region, pad, tooltip, widthUnit.value, heightUnit.value)
   }
 
   /**
    * Adds a newline tag to the tag stack.
    */
   public final fun newline(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.newlinePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.newlinePtr)
   }
 
   /**
@@ -707,20 +700,14 @@ public open class RichTextLabel : Control() {
    * end of operation.
    */
   @JvmOverloads
-  public final fun removeParagraph(paragraph: Int, noInvalidate: Boolean = false): Boolean {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, paragraph.toLong(), noInvalidate)
-    TransferContext.callPtrMethod(MethodBindings.removeParagraphPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun removeParagraph(paragraph: Int, noInvalidate: Boolean = false): Boolean =
+      TransferContext.callPtrMethod_LONG_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.removeParagraphPtr, paragraph.toLong(), noInvalidate)
 
   /**
    * Invalidates [paragraph] and all subsequent paragraphs cache.
    */
-  public final fun invalidateParagraph(paragraph: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, paragraph.toLong())
-    TransferContext.callPtrMethod(MethodBindings.invalidateParagraphPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun invalidateParagraph(paragraph: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.invalidateParagraphPtr, paragraph.toLong())
 
   /**
    * Adds a [code skip-lint][font][/code] tag to the tag stack. Overrides default fonts for its
@@ -730,8 +717,7 @@ public open class RichTextLabel : Control() {
    */
   @JvmOverloads
   public final fun pushFont(font: Font?, fontSize: Int = 0): Unit {
-    TransferContext.writeMethodArguments_OBJECT_LONG(ptr, objectID.id, font, fontSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.pushFontPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_LONG(ptr, objectID.id, MethodBindings.pushFontPtr, font, fontSize.toLong())
   }
 
   /**
@@ -739,16 +725,14 @@ public open class RichTextLabel : Control() {
    * its duration.
    */
   public final fun pushFontSize(fontSize: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fontSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.pushFontSizePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.pushFontSizePtr, fontSize.toLong())
   }
 
   /**
    * Adds a [code skip-lint][font][/code] tag with a normal font to the tag stack.
    */
   public final fun pushNormal(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.pushNormalPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pushNormalPtr)
   }
 
   /**
@@ -756,16 +740,14 @@ public open class RichTextLabel : Control() {
    * adding a [code skip-lint][b][/code] tag if not currently in a [code skip-lint][i][/code] tag.
    */
   public final fun pushBold(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.pushBoldPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pushBoldPtr)
   }
 
   /**
    * Adds a [code skip-lint][font][/code] tag with a bold italics font to the tag stack.
    */
   public final fun pushBoldItalics(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.pushBoldItalicsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pushBoldItalicsPtr)
   }
 
   /**
@@ -774,24 +756,21 @@ public open class RichTextLabel : Control() {
    * tag.
    */
   public final fun pushItalics(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.pushItalicsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pushItalicsPtr)
   }
 
   /**
    * Adds a [code skip-lint][font][/code] tag with a monospace font to the tag stack.
    */
   public final fun pushMono(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.pushMonoPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pushMonoPtr)
   }
 
   /**
    * Adds a [code skip-lint][color][/code] tag to the tag stack.
    */
   public final fun pushColor(color: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callPtrMethod(MethodBindings.pushColorPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.pushColorPtr, color)
   }
 
   /**
@@ -799,8 +778,7 @@ public open class RichTextLabel : Control() {
    * outline size for its duration.
    */
   public final fun pushOutlineSize(outlineSize: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, outlineSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.pushOutlineSizePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.pushOutlineSizePtr, outlineSize.toLong())
   }
 
   /**
@@ -808,8 +786,7 @@ public open class RichTextLabel : Control() {
    * duration.
    */
   public final fun pushOutlineColor(color: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callPtrMethod(MethodBindings.pushOutlineColorPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.pushOutlineColorPtr, color)
   }
 
   /**
@@ -824,8 +801,7 @@ public open class RichTextLabel : Control() {
     justificationFlags: TextServer.JustificationFlag = TextServer.JustificationFlag(163),
     tabStops: PackedFloat32Array = PackedFloat32Array(),
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_STRING_LONG_LONG_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, alignment.value, baseDirection.value, language, stParser.value, justificationFlags.flag, tabStops)
-    TransferContext.callMethod(MethodBindings.pushParagraphPtr)
+    TransferContext.callMethod_LONG_LONG_STRING_LONG_LONG_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.pushParagraphPtr, alignment.value, baseDirection.value, language, stParser.value, justificationFlags.flag, tabStops)
   }
 
   /**
@@ -833,8 +809,7 @@ public open class RichTextLabel : Control() {
    * [tabSize] to determine new margin length.
    */
   public final fun pushIndent(level: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, level.toLong())
-    TransferContext.callPtrMethod(MethodBindings.pushIndentPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.pushIndentPtr, level.toLong())
   }
 
   /**
@@ -848,8 +823,7 @@ public open class RichTextLabel : Control() {
     capitalize: Boolean,
     bullet: String = "•",
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_BOOL_STRING(ptr, objectID.id, level.toLong(), type.value, capitalize, bullet)
-    TransferContext.callMethod(MethodBindings.pushListPtr)
+    TransferContext.callMethod_LONG_LONG_BOOL_STRING(ptr, objectID.id, MethodBindings.pushListPtr, level.toLong(), type.value, capitalize, bullet)
   }
 
   /**
@@ -868,8 +842,7 @@ public open class RichTextLabel : Control() {
     underlineMode: MetaUnderline = RichTextLabel.MetaUnderline.ALWAYS,
     tooltip: String = "",
   ): Unit {
-    TransferContext.writeMethodArguments_ANY_LONG_STRING(ptr, objectID.id, data, underlineMode.value, tooltip)
-    TransferContext.callMethod(MethodBindings.pushMetaPtr)
+    TransferContext.callMethod_ANY_LONG_STRING(ptr, objectID.id, MethodBindings.pushMetaPtr, data, underlineMode.value, tooltip)
   }
 
   /**
@@ -877,16 +850,14 @@ public open class RichTextLabel : Control() {
    * skip-lint][hint=something]{text}[/hint][/code].
    */
   public final fun pushHint(description: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, description)
-    TransferContext.callMethod(MethodBindings.pushHintPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.pushHintPtr, description)
   }
 
   /**
    * Adds language code used for text shaping algorithm and Open-Type font features.
    */
   public final fun pushLanguage(language: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, language)
-    TransferContext.callMethod(MethodBindings.pushLanguagePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.pushLanguagePtr, language)
   }
 
   /**
@@ -895,8 +866,7 @@ public open class RichTextLabel : Control() {
    */
   @JvmOverloads
   public final fun pushUnderline(color: Color = Color(Color(0, 0, 0, 0))): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callPtrMethod(MethodBindings.pushUnderlinePtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.pushUnderlinePtr, color)
   }
 
   /**
@@ -905,8 +875,7 @@ public open class RichTextLabel : Control() {
    */
   @JvmOverloads
   public final fun pushStrikethrough(color: Color = Color(Color(0, 0, 0, 0))): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callPtrMethod(MethodBindings.pushStrikethroughPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.pushStrikethroughPtr, color)
   }
 
   /**
@@ -921,8 +890,7 @@ public open class RichTextLabel : Control() {
     alignToRow: Int = -1,
     name: String = "",
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_LONG_STRING(ptr, objectID.id, columns.toLong(), inlineAlign.value, alignToRow.toLong(), name)
-    TransferContext.callMethod(MethodBindings.pushTablePtr)
+    TransferContext.callMethod_LONG_LONG_LONG_STRING(ptr, objectID.id, MethodBindings.pushTablePtr, columns.toLong(), inlineAlign.value, alignToRow.toLong(), name)
   }
 
   /**
@@ -939,8 +907,7 @@ public open class RichTextLabel : Control() {
     outlineSize: Int = 0,
     outlineColor: Color = Color(Color(0, 0, 0, 0)),
   ): Unit {
-    TransferContext.writeMethodArguments_STRING_OBJECT_LONG_RECT2_COLOR_LONG_COLOR(ptr, objectID.id, string, font, size.toLong(), dropcapMargins, color, outlineSize.toLong(), outlineColor)
-    TransferContext.callMethod(MethodBindings.pushDropcapPtr)
+    TransferContext.callMethod_STRING_OBJECT_LONG_RECT2_COLOR_LONG_COLOR(ptr, objectID.id, MethodBindings.pushDropcapPtr, string, font, size.toLong(), dropcapMargins, color, outlineSize.toLong(), outlineColor)
   }
 
   /**
@@ -959,48 +926,42 @@ public open class RichTextLabel : Control() {
     ratio: Int = 1,
     shrink: Boolean = true,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL_LONG_BOOL(ptr, objectID.id, column.toLong(), expand, ratio.toLong(), shrink)
-    TransferContext.callPtrMethod(MethodBindings.setTableColumnExpandPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL_LONG_BOOL(ptr, objectID.id, MethodBindings.setTableColumnExpandPtr, column.toLong(), expand, ratio.toLong(), shrink)
   }
 
   /**
    * Sets table column name for assistive apps.
    */
   public final fun setTableColumnName(column: Int, name: String): Unit {
-    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, column.toLong(), name)
-    TransferContext.callMethod(MethodBindings.setTableColumnNamePtr)
+    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setTableColumnNamePtr, column.toLong(), name)
   }
 
   /**
    * Sets color of a table cell. Separate colors for alternating rows can be specified.
    */
   public final fun setCellRowBackgroundColor(oddRowBg: Color, evenRowBg: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR_COLOR(ptr, objectID.id, oddRowBg, evenRowBg)
-    TransferContext.callPtrMethod(MethodBindings.setCellRowBackgroundColorPtr, 0)
+    TransferContext.callPtrMethod_COLOR_COLOR(ptr, objectID.id, MethodBindings.setCellRowBackgroundColorPtr, oddRowBg, evenRowBg)
   }
 
   /**
    * Sets color of a table cell border.
    */
   public final fun setCellBorderColor(color: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callPtrMethod(MethodBindings.setCellBorderColorPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setCellBorderColorPtr, color)
   }
 
   /**
    * Sets minimum and maximum size overrides for a table cell.
    */
   public final fun setCellSizeOverride(minSize: Vector2, maxSize: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2_VECTOR2(ptr, objectID.id, minSize, maxSize)
-    TransferContext.callPtrMethod(MethodBindings.setCellSizeOverridePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2_VECTOR2(ptr, objectID.id, MethodBindings.setCellSizeOverridePtr, minSize, maxSize)
   }
 
   /**
    * Sets inner padding of a table cell.
    */
   public final fun setCellPadding(padding: Rect2): Unit {
-    TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, padding)
-    TransferContext.callPtrMethod(MethodBindings.setCellPaddingPtr, 0)
+    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setCellPaddingPtr, padding)
   }
 
   /**
@@ -1011,8 +972,7 @@ public open class RichTextLabel : Control() {
    * padding.
    */
   public final fun pushCell(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.pushCellPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pushCellPtr)
   }
 
   /**
@@ -1024,8 +984,7 @@ public open class RichTextLabel : Control() {
    * setting those theme items to `0` if you want to avoid this.
    */
   public final fun pushFgcolor(fgcolor: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, fgcolor)
-    TransferContext.callPtrMethod(MethodBindings.pushFgcolorPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.pushFgcolorPtr, fgcolor)
   }
 
   /**
@@ -1037,8 +996,7 @@ public open class RichTextLabel : Control() {
    * setting those theme items to `0` if you want to avoid this.
    */
   public final fun pushBgcolor(bgcolor: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, bgcolor)
-    TransferContext.callPtrMethod(MethodBindings.pushBgcolorPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.pushBgcolorPtr, bgcolor)
   }
 
   /**
@@ -1046,16 +1004,14 @@ public open class RichTextLabel : Control() {
    * The environment is directly passed to the effect.
    */
   public final fun pushCustomfx(effect: RichTextEffect?, env: Dictionary<Any?, Any?>): Unit {
-    TransferContext.writeMethodArguments_OBJECT_DICTIONARY(ptr, objectID.id, effect, env)
-    TransferContext.callPtrMethod(MethodBindings.pushCustomfxPtr, 0)
+    TransferContext.callPtrMethod_OBJECT_DICTIONARY(ptr, objectID.id, MethodBindings.pushCustomfxPtr, effect, env)
   }
 
   /**
    * Adds a context marker to the tag stack. See [popContext].
    */
   public final fun pushContext(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.pushContextPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pushContextPtr)
   }
 
   /**
@@ -1063,8 +1019,7 @@ public open class RichTextLabel : Control() {
    * tags if there's no context marker on the stack.
    */
   public final fun popContext(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.popContextPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.popContextPtr)
   }
 
   /**
@@ -1072,16 +1027,14 @@ public open class RichTextLabel : Control() {
    * to follow `add_*` methods.
    */
   public final fun pop(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.popPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.popPtr)
   }
 
   /**
    * Terminates all tags opened by `push_*` methods.
    */
   public final fun popAll(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.popAllPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.popAllPtr)
   }
 
   /**
@@ -1091,174 +1044,113 @@ public open class RichTextLabel : Control() {
    * redrawn. However, setting [text] to an empty [String] also clears the stack.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
   }
 
   public final fun setStructuredTextBidiOverride(parser: TextServer.StructuredTextParser): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, parser.value)
-    TransferContext.callPtrMethod(MethodBindings.setStructuredTextBidiOverridePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStructuredTextBidiOverridePtr, parser.value)
   }
 
-  public final fun getStructuredTextBidiOverride(): TextServer.StructuredTextParser {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStructuredTextBidiOverridePtr, 2)
-    return TextServer.StructuredTextParser.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getStructuredTextBidiOverride(): TextServer.StructuredTextParser =
+      TextServer.StructuredTextParser.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStructuredTextBidiOverridePtr))
 
   public final fun setStructuredTextBidiOverrideOptions(args: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, args)
-    TransferContext.callPtrMethod(MethodBindings.setStructuredTextBidiOverrideOptionsPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setStructuredTextBidiOverrideOptionsPtr, args)
   }
 
-  public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStructuredTextBidiOverrideOptionsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getStructuredTextBidiOverrideOptionsPtr) as VariantArray<Any?>)
 
   public final fun setTextDirection(direction: Control.TextDirection): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, direction.value)
-    TransferContext.callPtrMethod(MethodBindings.setTextDirectionPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextDirectionPtr, direction.value)
   }
 
-  public final fun getTextDirection(): Control.TextDirection {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTextDirectionPtr, 2)
-    return Control.TextDirection.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTextDirection(): Control.TextDirection =
+      Control.TextDirection.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextDirectionPtr))
 
   public final fun setLanguage(language: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, language)
-    TransferContext.callMethod(MethodBindings.setLanguagePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLanguagePtr, language)
   }
 
-  public final fun getLanguage(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLanguagePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getLanguage(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLanguagePtr)
 
   public final fun setHorizontalAlignment(alignment: HorizontalAlignment): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
-    TransferContext.callPtrMethod(MethodBindings.setHorizontalAlignmentPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHorizontalAlignmentPtr, alignment.value)
   }
 
-  public final fun getHorizontalAlignment(): HorizontalAlignment {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHorizontalAlignmentPtr, 2)
-    return HorizontalAlignment.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getHorizontalAlignment(): HorizontalAlignment =
+      HorizontalAlignment.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHorizontalAlignmentPtr))
 
   public final fun setVerticalAlignment(alignment: VerticalAlignment): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
-    TransferContext.callPtrMethod(MethodBindings.setVerticalAlignmentPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVerticalAlignmentPtr, alignment.value)
   }
 
-  public final fun getVerticalAlignment(): VerticalAlignment {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVerticalAlignmentPtr, 2)
-    return VerticalAlignment.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getVerticalAlignment(): VerticalAlignment =
+      VerticalAlignment.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVerticalAlignmentPtr))
 
   public final fun setJustificationFlags(justificationFlags: TextServer.JustificationFlag): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, justificationFlags.flag)
-    TransferContext.callPtrMethod(MethodBindings.setJustificationFlagsPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setJustificationFlagsPtr, justificationFlags.flag)
   }
 
-  public final fun getJustificationFlags(): TextServer.JustificationFlag {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getJustificationFlagsPtr, 2)
-    return TextServer.JustificationFlag(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getJustificationFlags(): TextServer.JustificationFlag =
+      TextServer.JustificationFlag(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getJustificationFlagsPtr))
 
   public final fun setTabStops(tabStops: PackedFloat32Array): Unit {
-    TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, tabStops)
-    TransferContext.callPtrMethod(MethodBindings.setTabStopsPtr, 0)
+    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setTabStopsPtr, tabStops)
   }
 
-  public final fun getTabStops(): PackedFloat32Array {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTabStopsPtr, 32)
-    return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
-  }
+  public final fun getTabStops(): PackedFloat32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.getTabStopsPtr)
 
   public final fun setAutowrapMode(autowrapMode: TextServer.AutowrapMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, autowrapMode.value)
-    TransferContext.callPtrMethod(MethodBindings.setAutowrapModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAutowrapModePtr, autowrapMode.value)
   }
 
-  public final fun getAutowrapMode(): TextServer.AutowrapMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAutowrapModePtr, 2)
-    return TextServer.AutowrapMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getAutowrapMode(): TextServer.AutowrapMode =
+      TextServer.AutowrapMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAutowrapModePtr))
 
   public final fun setAutowrapTrimFlags(autowrapTrimFlags: TextServer.LineBreakFlag): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, autowrapTrimFlags.flag)
-    TransferContext.callPtrMethod(MethodBindings.setAutowrapTrimFlagsPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAutowrapTrimFlagsPtr, autowrapTrimFlags.flag)
   }
 
-  public final fun getAutowrapTrimFlags(): TextServer.LineBreakFlag {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAutowrapTrimFlagsPtr, 2)
-    return TextServer.LineBreakFlag(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getAutowrapTrimFlags(): TextServer.LineBreakFlag =
+      TextServer.LineBreakFlag(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAutowrapTrimFlagsPtr))
 
   public final fun setMetaUnderline(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setMetaUnderlinePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMetaUnderlinePtr, enable)
   }
 
-  public final fun isMetaUnderlined(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isMetaUnderlinedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isMetaUnderlined(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMetaUnderlinedPtr)
 
   public final fun setHintUnderline(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setHintUnderlinePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setHintUnderlinePtr, enable)
   }
 
-  public final fun isHintUnderlined(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isHintUnderlinedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isHintUnderlined(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isHintUnderlinedPtr)
 
   public final fun setScrollActive(active: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, active)
-    TransferContext.callPtrMethod(MethodBindings.setScrollActivePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setScrollActivePtr, active)
   }
 
-  public final fun isScrollActive(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isScrollActivePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isScrollActive(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isScrollActivePtr)
 
   public final fun setScrollFollowVisibleCharacters(follow: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, follow)
-    TransferContext.callPtrMethod(MethodBindings.setScrollFollowVisibleCharactersPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setScrollFollowVisibleCharactersPtr, follow)
   }
 
-  public final fun isScrollFollowingVisibleCharacters(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isScrollFollowingVisibleCharactersPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isScrollFollowingVisibleCharacters(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isScrollFollowingVisibleCharactersPtr)
 
   public final fun setScrollFollow(follow: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, follow)
-    TransferContext.callPtrMethod(MethodBindings.setScrollFollowPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setScrollFollowPtr, follow)
   }
 
-  public final fun isScrollFollowing(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isScrollFollowingPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isScrollFollowing(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isScrollFollowingPtr)
 
   /**
    * Returns the vertical scrollbar.
@@ -1266,141 +1158,98 @@ public open class RichTextLabel : Control() {
    * **Warning:** This is a required internal node, removing and freeing it may cause a crash. If
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
-  public final fun getVScrollBar(): VScrollBar? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVScrollBarPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as VScrollBar?)
-  }
+  public final fun getVScrollBar(): VScrollBar? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getVScrollBarPtr) as VScrollBar?)
 
   /**
    * Scrolls the window's top line to match [line].
    */
   public final fun scrollToLine(line: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callPtrMethod(MethodBindings.scrollToLinePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.scrollToLinePtr, line.toLong())
   }
 
   /**
    * Scrolls the window's top line to match first line of the [paragraph].
    */
   public final fun scrollToParagraph(paragraph: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, paragraph.toLong())
-    TransferContext.callPtrMethod(MethodBindings.scrollToParagraphPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.scrollToParagraphPtr, paragraph.toLong())
   }
 
   /**
    * Scrolls to the beginning of the current selection.
    */
   public final fun scrollToSelection(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.scrollToSelectionPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.scrollToSelectionPtr)
   }
 
   public final fun setTabSize(spaces: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, spaces.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setTabSizePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTabSizePtr, spaces.toLong())
   }
 
-  public final fun getTabSize(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTabSizePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTabSize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTabSizePtr).toInt()
 
   public final fun setFitContent(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setFitContentPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFitContentPtr, enabled)
   }
 
-  public final fun isFitContentEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isFitContentEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isFitContentEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFitContentEnabledPtr)
 
   public final fun setSelectionEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setSelectionEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSelectionEnabledPtr, enabled)
   }
 
-  public final fun isSelectionEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isSelectionEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isSelectionEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSelectionEnabledPtr)
 
   public final fun setContextMenuEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setContextMenuEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setContextMenuEnabledPtr, enabled)
   }
 
-  public final fun isContextMenuEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isContextMenuEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isContextMenuEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isContextMenuEnabledPtr)
 
   public final fun setShortcutKeysEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setShortcutKeysEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShortcutKeysEnabledPtr, enabled)
   }
 
-  public final fun isShortcutKeysEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isShortcutKeysEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isShortcutKeysEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isShortcutKeysEnabledPtr)
 
   public final fun setDeselectOnFocusLossEnabled(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setDeselectOnFocusLossEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDeselectOnFocusLossEnabledPtr, enable)
   }
 
-  public final fun isDeselectOnFocusLossEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDeselectOnFocusLossEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDeselectOnFocusLossEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDeselectOnFocusLossEnabledPtr)
 
   public final fun setDragAndDropSelectionEnabled(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setDragAndDropSelectionEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDragAndDropSelectionEnabledPtr, enable)
   }
 
-  public final fun isDragAndDropSelectionEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDragAndDropSelectionEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDragAndDropSelectionEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDragAndDropSelectionEnabledPtr)
 
   /**
    * Returns the current selection first character index if a selection is active, `-1` otherwise.
    * Does not include BBCodes.
    */
-  public final fun getSelectionFrom(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSelectionFromPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getSelectionFrom(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSelectionFromPtr).toInt()
 
   /**
    * Returns the current selection last character index if a selection is active, `-1` otherwise.
    * Does not include BBCodes.
    */
-  public final fun getSelectionTo(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSelectionToPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getSelectionTo(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSelectionToPtr).toInt()
 
   /**
    * Returns the current selection vertical line offset if a selection is active, `-1.0` otherwise.
    */
-  public final fun getSelectionLineOffset(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSelectionLineOffsetPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getSelectionLineOffset(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSelectionLineOffsetPtr).toFloat()
 
   /**
    * Select all the text.
@@ -1408,33 +1257,27 @@ public open class RichTextLabel : Control() {
    * If [selectionEnabled] is `false`, no selection will occur.
    */
   public final fun selectAll(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.selectAllPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.selectAllPtr)
   }
 
   /**
    * Returns the current selection text. Does not include BBCodes.
    */
-  public final fun getSelectedText(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSelectedTextPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getSelectedText(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSelectedTextPtr)
 
   /**
    * Clears the current selection.
    */
   public final fun deselect(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.deselectPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.deselectPtr)
   }
 
   /**
    * The assignment version of [appendText]. Clears the tag stack and inserts the new content.
    */
   public final fun parseBbcode(bbcode: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, bbcode)
-    TransferContext.callMethod(MethodBindings.parseBbcodePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.parseBbcodePtr, bbcode)
   }
 
   /**
@@ -1446,91 +1289,61 @@ public open class RichTextLabel : Control() {
    * future method call, append the [text] instead of using [appendText].
    */
   public final fun appendText(bbcode: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, bbcode)
-    TransferContext.callMethod(MethodBindings.appendTextPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.appendTextPtr, bbcode)
   }
 
-  public final fun getText(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getText(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTextPtr)
 
   /**
    * If [threaded] is enabled, returns `true` if the background thread has finished text processing,
    * otherwise always return `true`.
    */
-  public final fun isReady(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isReadyPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isReady(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isReadyPtr)
 
   /**
    * If [threaded] is enabled, returns `true` if the background thread has finished text processing,
    * otherwise always return `true`.
    */
-  public final fun isFinished(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isFinishedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isFinished(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFinishedPtr)
 
   public final fun setThreaded(threaded: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, threaded)
-    TransferContext.callPtrMethod(MethodBindings.setThreadedPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setThreadedPtr, threaded)
   }
 
-  public final fun isThreaded(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isThreadedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isThreaded(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isThreadedPtr)
 
   public final fun setProgressBarDelay(delayMs: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, delayMs.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setProgressBarDelayPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setProgressBarDelayPtr, delayMs.toLong())
   }
 
-  public final fun getProgressBarDelay(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getProgressBarDelayPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getProgressBarDelay(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProgressBarDelayPtr).toInt()
 
   public final fun setVisibleCharacters(amount: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, amount.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setVisibleCharactersPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVisibleCharactersPtr, amount.toLong())
   }
 
-  public final fun getVisibleCharacters(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVisibleCharactersPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getVisibleCharacters(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibleCharactersPtr).toInt()
 
-  public final fun getVisibleCharactersBehavior(): TextServer.VisibleCharactersBehavior {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVisibleCharactersBehaviorPtr, 2)
-    return TextServer.VisibleCharactersBehavior.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getVisibleCharactersBehavior(): TextServer.VisibleCharactersBehavior =
+      TextServer.VisibleCharactersBehavior.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibleCharactersBehaviorPtr))
 
   public final fun setVisibleCharactersBehavior(behavior: TextServer.VisibleCharactersBehavior):
       Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, behavior.value)
-    TransferContext.callPtrMethod(MethodBindings.setVisibleCharactersBehaviorPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVisibleCharactersBehaviorPtr, behavior.value)
   }
 
   public final fun setVisibleRatio(ratio: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, ratio.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setVisibleRatioPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVisibleRatioPtr, ratio.toDouble())
   }
 
-  public final fun getVisibleRatio(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVisibleRatioPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getVisibleRatio(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVisibleRatioPtr).toFloat()
 
   /**
    * Returns the line number of the character position provided. Line and character numbers are both
@@ -1539,11 +1352,8 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether document is fully loaded.
    */
-  public final fun getCharacterLine(character: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, character.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getCharacterLinePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getCharacterLine(character: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getCharacterLinePtr, character.toLong()).toInt()
 
   /**
    * Returns the paragraph number of the character position provided. Paragraph and character
@@ -1552,31 +1362,21 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether document is fully loaded.
    */
-  public final fun getCharacterParagraph(character: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, character.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getCharacterParagraphPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getCharacterParagraph(character: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getCharacterParagraphPtr, character.toLong()).toInt()
 
   /**
    * Returns the total number of characters from text tags. Does not include BBCodes.
    */
-  public final fun getTotalCharacterCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTotalCharacterCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTotalCharacterCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTotalCharacterCountPtr).toInt()
 
   public final fun setUseBbcode(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setUseBbcodePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseBbcodePtr, enable)
   }
 
-  public final fun isUsingBbcode(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingBbcodePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingBbcode(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingBbcodePtr)
 
   /**
    * Returns the total number of lines in the text. Wrapped text is counted as multiple lines.
@@ -1584,11 +1384,8 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether document is fully loaded.
    */
-  public final fun getLineCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLineCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getLineCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLineCountPtr).toInt()
 
   /**
    * Returns the indexes of the first and last visible characters for the given [line], as a
@@ -1600,11 +1397,8 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether document is fully loaded.
    */
-  public final fun getLineRange(line: Int): Vector2i {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getLineRangePtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getLineRange(line: Int): Vector2i =
+      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getLineRangePtr, line.toLong())
 
   /**
    * Returns the number of visible lines.
@@ -1614,21 +1408,15 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether document is fully loaded.
    */
-  public final fun getVisibleLineCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVisibleLineCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getVisibleLineCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibleLineCountPtr).toInt()
 
   /**
    * Returns the total number of paragraphs (newlines or `p` tags in the tag stack's text tags).
    * Considers wrapped text as one paragraph.
    */
-  public final fun getParagraphCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getParagraphCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getParagraphCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getParagraphCountPtr).toInt()
 
   /**
    * Returns the number of visible paragraphs. A paragraph is considered visible if at least one of
@@ -1639,11 +1427,8 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether document is fully loaded.
    */
-  public final fun getVisibleParagraphCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVisibleParagraphCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getVisibleParagraphCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibleParagraphCountPtr).toInt()
 
   /**
    * Returns the height of the content.
@@ -1655,11 +1440,8 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether document is fully loaded.
    */
-  public final fun getContentHeight(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getContentHeightPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getContentHeight(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getContentHeightPtr).toInt()
 
   /**
    * Returns the width of the content.
@@ -1671,11 +1453,8 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether document is fully loaded.
    */
-  public final fun getContentWidth(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getContentWidthPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getContentWidth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getContentWidthPtr).toInt()
 
   /**
    * Returns the height of the line found at the provided index.
@@ -1683,11 +1462,8 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether the document is fully loaded.
    */
-  public final fun getLineHeight(line: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getLineHeightPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getLineHeight(line: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getLineHeightPtr, line.toLong()).toInt()
 
   /**
    * Returns the width of the line found at the provided index.
@@ -1695,11 +1471,8 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether the document is fully loaded.
    */
-  public final fun getLineWidth(line: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getLineWidthPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getLineWidth(line: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getLineWidthPtr, line.toLong()).toInt()
 
   /**
    * Returns the bounding rectangle of the visible content.
@@ -1734,11 +1507,8 @@ public open class RichTextLabel : Control() {
    * }
    * ```
    */
-  public final fun getVisibleContentRect(): Rect2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVisibleContentRectPtr, 8)
-    return TransferContext.readReturnValue_RECT2I()
-  }
+  public final fun getVisibleContentRect(): Rect2i =
+      TransferContext.callPtrMethod0_ret_RECT2I(ptr, objectID.id, MethodBindings.getVisibleContentRectPtr)
 
   /**
    * Returns the vertical offset of the line found at the provided index.
@@ -1746,11 +1516,8 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether document is fully loaded.
    */
-  public final fun getLineOffset(line: Int): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, line.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getLineOffsetPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getLineOffset(line: Int): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineOffsetPtr, line.toLong()).toFloat()
 
   /**
    * Returns the vertical offset of the paragraph found at the provided index.
@@ -1758,32 +1525,22 @@ public open class RichTextLabel : Control() {
    * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the
    * document. Use [isFinished] or [signal finished] to determine whether document is fully loaded.
    */
-  public final fun getParagraphOffset(paragraph: Int): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, paragraph.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getParagraphOffsetPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getParagraphOffset(paragraph: Int): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getParagraphOffsetPtr, paragraph.toLong()).toFloat()
 
   /**
    * Parses BBCode parameter [expressions] into a dictionary.
    */
-  public final fun parseExpressionsForValues(expressions: PackedStringArray):
-      Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments_PACKED_STRING_ARRAY(ptr, objectID.id, expressions)
-    TransferContext.callPtrMethod(MethodBindings.parseExpressionsForValuesPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun parseExpressionsForValues(expressions: PackedStringArray): Dictionary<Any?, Any?>
+      =
+      (TransferContext.callPtrMethod_PACKED_STRING_ARRAY_ret_DICTIONARY(ptr, objectID.id, MethodBindings.parseExpressionsForValuesPtr, expressions) as Dictionary<Any?, Any?>)
 
   public final fun setEffects(effects: VariantArray<Any?>): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, effects)
-    TransferContext.callPtrMethod(MethodBindings.setEffectsPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setEffectsPtr, effects)
   }
 
-  public final fun getEffects(): VariantArray<Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEffectsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun getEffects(): VariantArray<Any?> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getEffectsPtr) as VariantArray<Any?>)
 
   /**
    * Installs a custom effect. This can also be done in the Inspector through the [customEffects]
@@ -1815,16 +1572,14 @@ public open class RichTextLabel : Control() {
    * ```
    */
   public final fun installEffect(effect: Any?): Unit {
-    TransferContext.writeMethodArguments_ANY(ptr, objectID.id, effect)
-    TransferContext.callMethod(MethodBindings.installEffectPtr)
+    TransferContext.callMethod_ANY(ptr, objectID.id, MethodBindings.installEffectPtr, effect)
   }
 
   /**
    * Reloads custom effects. Useful when [customEffects] is modified manually.
    */
   public final fun reloadEffects(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.reloadEffectsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.reloadEffectsPtr)
   }
 
   /**
@@ -1877,28 +1632,21 @@ public open class RichTextLabel : Control() {
    * **Warning:** This is a required internal node, removing and freeing it may cause a crash. If
    * you wish to hide it or any of its children, use their [Window.visible] property.
    */
-  public final fun getMenu(): PopupMenu? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMenuPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as PopupMenu?)
-  }
+  public final fun getMenu(): PopupMenu? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getMenuPtr) as PopupMenu?)
 
   /**
    * Returns whether the menu is visible. Use this instead of `get_menu().visible` to improve
    * performance (so the creation of the menu is avoided).
    */
-  public final fun isMenuVisible(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isMenuVisiblePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isMenuVisible(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMenuVisiblePtr)
 
   /**
    * Executes a given action as defined in the [MenuItems] enum.
    */
   public final fun menuOption(option: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, option.toLong())
-    TransferContext.callPtrMethod(MethodBindings.menuOptionPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.menuOptionPtr, option.toLong())
   }
 
   public enum class ListType(

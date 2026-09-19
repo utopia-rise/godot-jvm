@@ -9,20 +9,20 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_LONG_STRING_LONG_ret_LONG
+import godot.callMethod_STRING_LONG_ret_LONG
+import godot.callMethod_STRING_STRING_ret_LONG
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG_STRING_LONG
-import godot.writeMethodArguments_STRING_LONG
-import godot.writeMethodArguments_STRING_STRING
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
@@ -92,18 +92,14 @@ public open class PacketPeerUDP : PacketPeer() {
     port: Int,
     bindAddress: String = "*",
     recvBufSize: Int = 65536,
-  ): Error {
-    TransferContext.writeMethodArguments_LONG_STRING_LONG(ptr, objectID.id, port.toLong(), bindAddress, recvBufSize.toLong())
-    TransferContext.callMethod(MethodBindings.bindPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_LONG_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.bindPtr, port.toLong(), bindAddress, recvBufSize.toLong()))
 
   /**
    * Closes the [PacketPeerUDP]'s underlying UDP socket.
    */
   public final fun close(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.closePtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.closePtr)
   }
 
   /**
@@ -144,20 +140,14 @@ public open class PacketPeerUDP : PacketPeer() {
    * }
    * ```
    */
-  public final fun waitFor(): Error {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.waitPtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun waitFor(): Error =
+      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.waitPtr))
 
   /**
    * Returns whether this [PacketPeerUDP] is bound to an address and can receive packets.
    */
-  public final fun isBound(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isBoundPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isBound(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isBoundPtr)
 
   /**
    * Calling this method connects this UDP peer to the given [host]/[port] pair. UDP is in reality
@@ -171,50 +161,35 @@ public open class PacketPeerUDP : PacketPeer() {
    * spoofing, etc. Think about using an encryption technique like TLS or DTLS if you feel like your
    * application is transferring sensitive information.
    */
-  public final fun connectToHost(host: String, port: Int): Error {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, host, port.toLong())
-    TransferContext.callMethod(MethodBindings.connectToHostPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun connectToHost(host: String, port: Int): Error =
+      Error.from(TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.connectToHostPtr, host, port.toLong()))
 
   /**
    * Returns `true` if the UDP socket is open and has been connected to a remote address. See
    * [connectToHost].
    */
-  public final fun isSocketConnected(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isSocketConnectedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isSocketConnected(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSocketConnectedPtr)
 
   /**
    * Returns the IP of the remote peer that sent the last packet(that was received with
    * [PacketPeer.getPacket] or [PacketPeer.getVar]).
    */
-  public final fun getPacketIp(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketIpPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getPacketIp(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPacketIpPtr)
 
   /**
    * Returns the port of the remote peer that sent the last packet(that was received with
    * [PacketPeer.getPacket] or [PacketPeer.getVar]).
    */
-  public final fun getPacketPort(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPacketPortPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getPacketPort(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPacketPortPtr).toInt()
 
   /**
    * Returns the local port to which this peer is bound.
    */
-  public final fun getLocalPort(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLocalPortPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getLocalPort(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLocalPortPtr).toInt()
 
   /**
    * Sets the destination address and port for sending packets and variables. A hostname will be
@@ -223,11 +198,8 @@ public open class PacketPeerUDP : PacketPeer() {
    * **Note:** [setBroadcastEnabled] must be enabled before sending packets to a broadcast address
    * (e.g. `255.255.255.255`).
    */
-  public final fun setDestAddress(host: String, port: Int): Error {
-    TransferContext.writeMethodArguments_STRING_LONG(ptr, objectID.id, host, port.toLong())
-    TransferContext.callMethod(MethodBindings.setDestAddressPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun setDestAddress(host: String, port: Int): Error =
+      Error.from(TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.setDestAddressPtr, host, port.toLong()))
 
   /**
    * Enable or disable sending of broadcast packets (e.g. `set_dest_address("255.255.255.255",
@@ -237,8 +209,7 @@ public open class PacketPeerUDP : PacketPeer() {
    * this option to be enabled to receive broadcast packets too.
    */
   public final fun setBroadcastEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setBroadcastEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setBroadcastEnabledPtr, enabled)
   }
 
   /**
@@ -251,21 +222,15 @@ public open class PacketPeerUDP : PacketPeer() {
    * **Note:** Some Android devices might require the `CHANGE_WIFI_MULTICAST_STATE` permission for
    * multicast to work.
    */
-  public final fun joinMulticastGroup(multicastAddress: String, interfaceName: String): Error {
-    TransferContext.writeMethodArguments_STRING_STRING(ptr, objectID.id, multicastAddress, interfaceName)
-    TransferContext.callMethod(MethodBindings.joinMulticastGroupPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun joinMulticastGroup(multicastAddress: String, interfaceName: String): Error =
+      Error.from(TransferContext.callMethod_STRING_STRING_ret_LONG(ptr, objectID.id, MethodBindings.joinMulticastGroupPtr, multicastAddress, interfaceName))
 
   /**
    * Removes the interface identified by [interfaceName] from the multicast group specified by
    * [multicastAddress].
    */
-  public final fun leaveMulticastGroup(multicastAddress: String, interfaceName: String): Error {
-    TransferContext.writeMethodArguments_STRING_STRING(ptr, objectID.id, multicastAddress, interfaceName)
-    TransferContext.callMethod(MethodBindings.leaveMulticastGroupPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun leaveMulticastGroup(multicastAddress: String, interfaceName: String): Error =
+      Error.from(TransferContext.callMethod_STRING_STRING_ret_LONG(ptr, objectID.id, MethodBindings.leaveMulticastGroupPtr, multicastAddress, interfaceName))
 
   public companion object {
     @JvmField

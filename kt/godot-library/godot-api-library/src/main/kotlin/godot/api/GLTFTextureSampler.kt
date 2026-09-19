@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
 import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
@@ -77,48 +76,32 @@ public open class GLTFTextureSampler : Resource() {
     createNativeObject(256, scriptPtr)
   }
 
-  public final fun getMagFilter(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMagFilterPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMagFilter(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMagFilterPtr).toInt()
 
   public final fun setMagFilter(filterMode: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, filterMode.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setMagFilterPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMagFilterPtr, filterMode.toLong())
   }
 
-  public final fun getMinFilter(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMinFilterPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMinFilter(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMinFilterPtr).toInt()
 
   public final fun setMinFilter(filterMode: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, filterMode.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setMinFilterPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMinFilterPtr, filterMode.toLong())
   }
 
-  public final fun getWrapS(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWrapSPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getWrapS(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWrapSPtr).toInt()
 
   public final fun setWrapS(wrapMode: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, wrapMode.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setWrapSPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWrapSPtr, wrapMode.toLong())
   }
 
-  public final fun getWrapT(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWrapTPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getWrapT(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWrapTPtr).toInt()
 
   public final fun setWrapT(wrapMode: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, wrapMode.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setWrapTPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWrapTPtr, wrapMode.toLong())
   }
 
   public companion object {

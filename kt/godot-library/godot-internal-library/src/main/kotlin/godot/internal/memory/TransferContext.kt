@@ -39,11 +39,23 @@ object TransferContext {
         buffer.write()
     }
 
-    fun writeMethodArguments(callerPtr: VoidPtr, callerId: Long, vararg values: Pair<VariantConverter<*>, Any?>) {
-        val buffer = beginMethodCall(callerPtr, callerId, values.size)
-        for (value in values) {
-            value.first.toGodot(buffer, value.second)
-        }
+    /**
+     * One bridge crossing on a single buffer lookup: [call] writes the arguments and then invokes the bridge, and
+     * what the engine wrote back is decoded through [returns]. The caller never sees the buffer.
+     */
+    inline fun <T> callBridge(argumentCount: Int, returns: VariantConverter<T>, call: ByteBuffer.() -> Unit): T {
+        val buffer = buffer
+        buffer.rewind()
+        buffer.putInt(argumentCount)
+        buffer.call()
+        return returns.toKotlin(buffer.rewind())
+    }
+
+    /** The result of a bridge that takes no arguments, on the same single lookup. */
+    inline fun <T> callBridge(returns: VariantConverter<T>, call: () -> Unit): T {
+        val buffer = buffer
+        call()
+        return returns.toKotlin(buffer.rewind())
     }
 
     fun beginMethodCall(callerPtr: VoidPtr, callerId: Long, argumentCount: Int): ByteBuffer = buffer.also {

@@ -9,16 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_LONG_ret_TRANSFORM3D
+import godot.callPtrMethod_RID_LONG_ret_PACKED_VECTOR2_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedVector2Array
 import godot.core.RID
 import godot.core.Transform3D
-import godot.readReturnValue_PACKED_VECTOR2_ARRAY
-import godot.readReturnValue_TRANSFORM3D
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_RID_LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -37,20 +35,14 @@ public open class OpenXRSpatialComponentPolygon2DList : OpenXRSpatialComponentDa
   /**
    * Returns the transform for positioning our polygon for the entity at this [index].
    */
-  public final fun getTransform(index: Long): Transform3D {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callPtrMethod(MethodBindings.getTransformPtr, 18)
-    return TransferContext.readReturnValue_TRANSFORM3D()
-  }
+  public final fun getTransform(index: Long): Transform3D =
+      TransferContext.callPtrMethod_LONG_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getTransformPtr, index)
 
   /**
    * Returns the polygon vertices for the entity at this [index].
    */
-  public final fun getVertices(snapshot: RID, index: Long): PackedVector2Array {
-    TransferContext.writeMethodArguments_RID_LONG(ptr, objectID.id, snapshot, index)
-    TransferContext.callPtrMethod(MethodBindings.getVerticesPtr, 35)
-    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
-  }
+  public final fun getVertices(snapshot: RID, index: Long): PackedVector2Array =
+      TransferContext.callPtrMethod_RID_LONG_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getVerticesPtr, snapshot, index)
 
   public companion object {
     @JvmField

@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod_NODE_PATH
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
 import godot.core.asCachedNodePath
-import godot.readReturnValue_NODE_PATH
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_NODE_PATH
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.String
@@ -76,15 +75,11 @@ public open class ViewportTexture : Texture2D() {
   }
 
   public final fun setViewportPathInScene(path: NodePath): Unit {
-    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, path)
-    TransferContext.callPtrMethod(MethodBindings.setViewportPathInScenePtr, 0)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setViewportPathInScenePtr, path)
   }
 
-  public final fun getViewportPathInScene(): NodePath {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getViewportPathInScenePtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun getViewportPathInScene(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getViewportPathInScenePtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

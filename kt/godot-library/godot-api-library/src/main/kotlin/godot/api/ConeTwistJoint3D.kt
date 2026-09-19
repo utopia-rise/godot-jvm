@@ -9,13 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_ret_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.readReturnValue_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_DOUBLE
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -105,18 +104,14 @@ public open class ConeTwistJoint3D : Joint3D() {
    * Sets the value of the specified parameter.
    */
   public final fun setParam(`param`: Param, `value`: Float): Unit {
-    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, param.value, value.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setParamPtr, 0)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setParamPtr, param.value, value.toDouble())
   }
 
   /**
    * Returns the value of the specified parameter.
    */
-  public final fun getParam(`param`: Param): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, param.value)
-    TransferContext.callPtrMethod(MethodBindings.getParamPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getParam(`param`: Param): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getParamPtr, param.value).toFloat()
 
   public enum class Param(
     public override val `value`: Long,

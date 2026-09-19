@@ -9,6 +9,24 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_BOOL_ret_ARRAY
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_ret_OBJECT
+import godot.callPtrMethod_OBJECT_ret_LONG
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_OBJECT
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_ret_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.Error
@@ -19,21 +37,6 @@ import godot.core.PackedStringArray
 import godot.core.StringName
 import godot.core.VariantArray
 import godot.core.asCachedStringName
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_STRING_ARRAY
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_OBJECT
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -397,79 +400,56 @@ public object Engine : Object() {
 
   @JvmStatic
   public final fun setPhysicsTicksPerSecond(physicsTicksPerSecond: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, physicsTicksPerSecond.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setPhysicsTicksPerSecondPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPhysicsTicksPerSecondPtr, physicsTicksPerSecond.toLong())
   }
 
   @JvmStatic
-  public final fun getPhysicsTicksPerSecond(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPhysicsTicksPerSecondPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getPhysicsTicksPerSecond(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPhysicsTicksPerSecondPtr).toInt()
 
   @JvmStatic
   public final fun setMaxPhysicsStepsPerFrame(maxPhysicsSteps: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxPhysicsSteps.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setMaxPhysicsStepsPerFramePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxPhysicsStepsPerFramePtr, maxPhysicsSteps.toLong())
   }
 
   @JvmStatic
-  public final fun getMaxPhysicsStepsPerFrame(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMaxPhysicsStepsPerFramePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMaxPhysicsStepsPerFrame(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxPhysicsStepsPerFramePtr).toInt()
 
   @JvmStatic
   public final fun setPhysicsJitterFix(physicsJitterFix: Double): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, physicsJitterFix)
-    TransferContext.callPtrMethod(MethodBindings.setPhysicsJitterFixPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPhysicsJitterFixPtr, physicsJitterFix)
   }
 
   @JvmStatic
-  public final fun getPhysicsJitterFix(): Double {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPhysicsJitterFixPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getPhysicsJitterFix(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPhysicsJitterFixPtr)
 
   /**
    * Returns the fraction through the current physics tick we are at the time of rendering the
    * frame. This can be used to implement fixed timestep interpolation.
    */
   @JvmStatic
-  public final fun getPhysicsInterpolationFraction(): Double {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPhysicsInterpolationFractionPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getPhysicsInterpolationFraction(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPhysicsInterpolationFractionPtr)
 
   @JvmStatic
   public final fun setMaxFps(maxFps: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, maxFps.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setMaxFpsPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxFpsPtr, maxFps.toLong())
   }
 
   @JvmStatic
-  public final fun getMaxFps(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMaxFpsPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMaxFps(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxFpsPtr).toInt()
 
   @JvmStatic
   public final fun setTimeScale(timeScale: Double): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeScale)
-    TransferContext.callPtrMethod(MethodBindings.setTimeScalePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTimeScalePtr, timeScale)
   }
 
   @JvmStatic
-  public final fun getTimeScale(): Double {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTimeScalePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getTimeScale(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTimeScalePtr)
 
   /**
    * Returns the total number of frames drawn since the engine started.
@@ -478,21 +458,15 @@ public object Engine : Object() {
    * command line, this method always returns `0`. See also [getProcessFrames].
    */
   @JvmStatic
-  public final fun getFramesDrawn(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFramesDrawnPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getFramesDrawn(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFramesDrawnPtr).toInt()
 
   /**
    * Returns the average frames rendered every second (FPS), also known as the framerate.
    */
   @JvmStatic
-  public final fun getFramesPerSecond(): Double {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFramesPerSecondPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getFramesPerSecond(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFramesPerSecondPtr)
 
   /**
    * Returns the total number of frames passed since the engine started. This number is increased
@@ -521,11 +495,8 @@ public object Engine : Object() {
    * ```
    */
   @JvmStatic
-  public final fun getPhysicsFrames(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPhysicsFramesPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getPhysicsFrames(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPhysicsFramesPtr)
 
   /**
    * Returns the total number of frames passed since the engine started. This number is increased
@@ -555,11 +526,8 @@ public object Engine : Object() {
    * ```
    */
   @JvmStatic
-  public final fun getProcessFrames(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getProcessFramesPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getProcessFrames(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProcessFramesPtr)
 
   /**
    * Returns the instance of the [MainLoop]. This is usually the main [SceneTree] and is the same as
@@ -569,11 +537,8 @@ public object Engine : Object() {
    * [ProjectSettings.application/run/mainLoopType].
    */
   @JvmStatic
-  public final fun getMainLoop(): MainLoop? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMainLoopPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as MainLoop?)
-  }
+  public final fun getMainLoop(): MainLoop? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getMainLoopPtr) as MainLoop?)
 
   /**
    * Returns the current engine version information as a [Dictionary] containing the following
@@ -627,11 +592,8 @@ public object Engine : Object() {
    * ```
    */
   @JvmStatic
-  public final fun getVersionInfo(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVersionInfoPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getVersionInfo(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getVersionInfoPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns the engine author information as a [Dictionary], where each entry is an [VariantArray]
@@ -639,11 +601,8 @@ public object Engine : Object() {
    * `founders`, `project_managers`, and `developers`.
    */
   @JvmStatic
-  public final fun getAuthorInfo(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getAuthorInfoPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getAuthorInfo(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getAuthorInfoPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns an [VariantArray] of dictionaries with copyright information for every component of
@@ -661,11 +620,8 @@ public object Engine : Object() {
    * "[url=https://creativecommons.org/licenses/by/4.0/]CC-BY-4.0[/url]").
    */
   @JvmStatic
-  public final fun getCopyrightInfo(): VariantArray<Dictionary<Any?, Any?>> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCopyrightInfoPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Dictionary<Any?, Any?>>)
-  }
+  public final fun getCopyrightInfo(): VariantArray<Dictionary<Any?, Any?>> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getCopyrightInfoPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns a [Dictionary] of categorized donor names. Each entry is an [VariantArray] of strings:
@@ -674,11 +630,8 @@ public object Engine : Object() {
    * `gold_donors`, `silver_donors`, `bronze_donors`}
    */
   @JvmStatic
-  public final fun getDonorInfo(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDonorInfoPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getDonorInfo(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getDonorInfoPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns a [Dictionary] of licenses used by Godot and included third party components. Each
@@ -687,21 +640,15 @@ public object Engine : Object() {
    * associated text.
    */
   @JvmStatic
-  public final fun getLicenseInfo(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLicenseInfoPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getLicenseInfo(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getLicenseInfoPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns the full Godot license text.
    */
   @JvmStatic
-  public final fun getLicenseText(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLicenseTextPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getLicenseText(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLicenseTextPtr)
 
   /**
    * Returns the name of the CPU architecture the Godot binary was built for. Possible return values
@@ -718,11 +665,8 @@ public object Engine : Object() {
    * the returned value will still be `"x86_32"`.
    */
   @JvmStatic
-  public final fun getArchitectureName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getArchitectureNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getArchitectureName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getArchitectureNamePtr)
 
   /**
    * Returns `true` if the engine is inside the fixed physics process step of the main loop.
@@ -741,11 +685,8 @@ public object Engine : Object() {
    * ```
    */
   @JvmStatic
-  public final fun isInPhysicsFrame(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isInPhysicsFramePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isInPhysicsFrame(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInPhysicsFramePtr)
 
   /**
    * Returns `true` if a singleton with the given [name] exists in the global scope. See also
@@ -771,11 +712,8 @@ public object Engine : Object() {
    * project settings.
    */
   @JvmStatic
-  public final fun hasSingleton(name: StringName): Boolean {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.hasSingletonPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasSingleton(name: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasSingletonPtr, name)
 
   /**
    * Returns the global singleton with the given [name], or `null` if it does not exist. Often used
@@ -785,11 +723,8 @@ public object Engine : Object() {
    * project settings.
    */
   @JvmStatic
-  public final fun getSingleton(name: StringName): Object? {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.getSingletonPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Object?)
-  }
+  public final fun getSingleton(name: StringName): Object? =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT(ptr, objectID.id, MethodBindings.getSingletonPtr, name) as Object?)
 
   /**
    * Registers the given [Object] [instance] as a singleton, available globally under [name]. Useful
@@ -797,8 +732,7 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun registerSingleton(name: StringName, instance: Object): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_OBJECT(ptr, objectID.id, name, instance)
-    TransferContext.callPtrMethod(MethodBindings.registerSingletonPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_OBJECT(ptr, objectID.id, MethodBindings.registerSingletonPtr, name, instance)
   }
 
   /**
@@ -807,19 +741,15 @@ public object Engine : Object() {
    */
   @JvmStatic
   public final fun unregisterSingleton(name: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.unregisterSingletonPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.unregisterSingletonPtr, name)
   }
 
   /**
    * Returns a list of names of all available global singletons. See also [getSingleton].
    */
   @JvmStatic
-  public final fun getSingletonList(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSingletonListPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getSingletonList(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getSingletonListPtr)
 
   /**
    * Registers a [ScriptLanguage] instance to be available with `ScriptServer`.
@@ -835,11 +765,8 @@ public object Engine : Object() {
    * extension/name/type.
    */
   @JvmStatic
-  public final fun registerScriptLanguage(language: ScriptLanguage): Error {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, language)
-    TransferContext.callPtrMethod(MethodBindings.registerScriptLanguagePtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun registerScriptLanguage(language: ScriptLanguage): Error =
+      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.registerScriptLanguagePtr, language))
 
   /**
    * Unregisters the [ScriptLanguage] instance from `ScriptServer`.
@@ -851,31 +778,22 @@ public object Engine : Object() {
    * - [ERR_DOES_NOT_EXIST] if the language is not registered in `ScriptServer`.
    */
   @JvmStatic
-  public final fun unregisterScriptLanguage(language: ScriptLanguage): Error {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, language)
-    TransferContext.callPtrMethod(MethodBindings.unregisterScriptLanguagePtr, 2)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun unregisterScriptLanguage(language: ScriptLanguage): Error =
+      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.unregisterScriptLanguagePtr, language))
 
   /**
    * Returns the number of available script languages. Use with [getScriptLanguage].
    */
   @JvmStatic
-  public final fun getScriptLanguageCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScriptLanguageCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getScriptLanguageCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getScriptLanguageCountPtr).toInt()
 
   /**
    * Returns an instance of a [ScriptLanguage] with the given [index].
    */
   @JvmStatic
-  public final fun getScriptLanguage(index: Int): ScriptLanguage? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getScriptLanguagePtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as ScriptLanguage?)
-  }
+  public final fun getScriptLanguage(index: Int): ScriptLanguage? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getScriptLanguagePtr, index.toLong()) as ScriptLanguage?)
 
   /**
    * Captures and returns backtraces from all registered script languages.
@@ -899,11 +817,8 @@ public object Engine : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun captureScriptBacktraces(includeVariables: Boolean = false):
-      VariantArray<ScriptBacktrace> {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, includeVariables)
-    TransferContext.callPtrMethod(MethodBindings.captureScriptBacktracesPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<ScriptBacktrace>)
-  }
+      VariantArray<ScriptBacktrace> =
+      (TransferContext.callPtrMethod_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.captureScriptBacktracesPtr, includeVariables) as VariantArray<ScriptBacktrace>)
 
   /**
    * Returns `true` if the script is currently running inside the editor, otherwise returns `false`.
@@ -935,11 +850,8 @@ public object Engine : Object() {
    * when running the project from the editor, but returns `false` when run from an exported project.
    */
   @JvmStatic
-  public final fun isEditorHint(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isEditorHintPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isEditorHint(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEditorHintPtr)
 
   /**
    * Returns `true` if the engine is running embedded in the editor. This is useful to prevent
@@ -947,11 +859,8 @@ public object Engine : Object() {
    * embedded in the editor.
    */
   @JvmStatic
-  public final fun isEmbeddedInEditor(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isEmbeddedInEditorPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isEmbeddedInEditor(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEmbeddedInEditorPtr)
 
   /**
    * Returns the path to the [MovieWriter]'s output file, or an empty string if the engine wasn't
@@ -959,37 +868,26 @@ public object Engine : Object() {
    * [ProjectSettings.editor/movieWriter/movieFile].
    */
   @JvmStatic
-  public final fun getWriteMoviePath(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWriteMoviePathPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getWriteMoviePath(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getWriteMoviePathPtr)
 
   @JvmStatic
   public final fun setPrintToStdout(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setPrintToStdoutPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPrintToStdoutPtr, enabled)
   }
 
   @JvmStatic
-  public final fun isPrintingToStdout(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPrintingToStdoutPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPrintingToStdout(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPrintingToStdoutPtr)
 
   @JvmStatic
   public final fun setPrintErrorMessages(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setPrintErrorMessagesPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPrintErrorMessagesPtr, enabled)
   }
 
   @JvmStatic
-  public final fun isPrintingErrorMessages(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPrintingErrorMessagesPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPrintingErrorMessages(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPrintingErrorMessagesPtr)
 
   /**
    * Returns `true` if a singleton with the given [name] exists in the global scope. See also

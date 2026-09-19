@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.VariantArray
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -73,67 +72,46 @@ public abstract class Texture3D : Texture() {
   /**
    * Returns the current format being used by this texture.
    */
-  public final fun getFormat(): Image.Format {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFormatPtr, 2)
-    return Image.Format.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getFormat(): Image.Format =
+      Image.Format.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFormatPtr))
 
   /**
    * Returns the [Texture3D]'s width in pixels. Width is typically represented by the X axis.
    */
-  public final fun getWidth(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getWidthPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getWidth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWidthPtr).toInt()
 
   /**
    * Returns the [Texture3D]'s height in pixels. Width is typically represented by the Y axis.
    */
-  public final fun getHeight(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getHeight(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHeightPtr).toInt()
 
   /**
    * Returns the [Texture3D]'s depth in pixels. Depth is typically represented by the Z axis (a
    * dimension not present in [Texture2D]).
    */
-  public final fun getDepth(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDepthPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getDepth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDepthPtr).toInt()
 
   /**
    * Returns `true` if the [Texture3D] has generated mipmaps.
    */
-  public final fun hasMipmaps(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.hasMipmapsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasMipmaps(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasMipmapsPtr)
 
   /**
    * Returns the [Texture3D]'s data as an array of [Image]s. Each [Image] represents a *slice* of
    * the [Texture3D], with different slices mapping to different depth (Z axis) levels.
    */
-  public final fun getData(): VariantArray<Image> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDataPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Image>)
-  }
+  public final fun getData(): VariantArray<Image> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getDataPtr) as VariantArray<Image>)
 
   /**
    * Creates a placeholder version of this resource ([PlaceholderTexture3D]).
    */
-  public final fun createPlaceholder(): Resource? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.createPlaceholderPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Resource?)
-  }
+  public final fun createPlaceholder(): Resource? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createPlaceholderPtr) as Resource?)
 
   public companion object {
     @JvmField

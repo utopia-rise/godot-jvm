@@ -9,19 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.StringName
 import godot.core.asCachedStringName
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING_NAME
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_STRING_NAME
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -97,42 +96,29 @@ public open class InputEventAction : InputEvent() {
   }
 
   public final fun setAction(action: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, action)
-    TransferContext.callPtrMethod(MethodBindings.setActionPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setActionPtr, action)
   }
 
-  public final fun getAction(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getActionPtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getAction(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getActionPtr)
 
   public final fun setPressed(pressed: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
-    TransferContext.callPtrMethod(MethodBindings.setPressedPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPressedPtr, pressed)
   }
 
   public final fun setStrength(strength: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, strength.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setStrengthPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setStrengthPtr, strength.toDouble())
   }
 
-  public final fun getStrength(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStrengthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getStrength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStrengthPtr).toFloat()
 
   public final fun setEventIndex(index: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setEventIndexPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setEventIndexPtr, index.toLong())
   }
 
-  public final fun getEventIndex(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getEventIndexPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getEventIndex(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEventIndexPtr).toInt()
 
   public final fun setAction(action: String) = setAction(action.asCachedStringName())
 

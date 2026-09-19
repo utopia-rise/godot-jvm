@@ -9,16 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
@@ -73,50 +73,37 @@ public open class MenuButton : Button() {
    * **Warning:** This is a required internal node, removing and freeing it may cause a crash. If
    * you wish to hide it or any of its children, use their [Window.visible] property.
    */
-  public final fun getPopup(): PopupMenu? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPopupPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as PopupMenu?)
-  }
+  public final fun getPopup(): PopupMenu? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getPopupPtr) as PopupMenu?)
 
   /**
    * Adjusts popup position and sizing for the [MenuButton], then shows the [PopupMenu]. Prefer this
    * over using `get_popup().popup()`.
    */
   public final fun showPopup(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.showPopupPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.showPopupPtr)
   }
 
   public final fun setSwitchOnHover(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enable)
-    TransferContext.callPtrMethod(MethodBindings.setSwitchOnHoverPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSwitchOnHoverPtr, enable)
   }
 
-  public final fun isSwitchOnHover(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isSwitchOnHoverPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isSwitchOnHover(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSwitchOnHoverPtr)
 
   /**
    * If `true`, shortcuts are disabled and cannot be used to trigger the button.
    */
   public final fun setDisableShortcuts(disabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, disabled)
-    TransferContext.callPtrMethod(MethodBindings.setDisableShortcutsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDisableShortcutsPtr, disabled)
   }
 
   public final fun setItemCount(count: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, count.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setItemCountPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setItemCountPtr, count.toLong())
   }
 
-  public final fun getItemCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getItemCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getItemCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getItemCountPtr).toInt()
 
   public companion object {
     @JvmField

@@ -9,13 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_OBJECT
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -84,42 +83,29 @@ public open class CurveXYZTexture : Texture2D() {
   }
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setWidthPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWidthPtr, width.toLong())
   }
 
   public final fun setCurveX(curve: Curve?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callPtrMethod(MethodBindings.setCurveXPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurveXPtr, curve)
   }
 
-  public final fun getCurveX(): Curve? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurveXPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Curve?)
-  }
+  public final fun getCurveX(): Curve? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurveXPtr) as Curve?)
 
   public final fun setCurveY(curve: Curve?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callPtrMethod(MethodBindings.setCurveYPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurveYPtr, curve)
   }
 
-  public final fun getCurveY(): Curve? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurveYPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Curve?)
-  }
+  public final fun getCurveY(): Curve? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurveYPtr) as Curve?)
 
   public final fun setCurveZ(curve: Curve?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, curve)
-    TransferContext.callPtrMethod(MethodBindings.setCurveZPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurveZPtr, curve)
   }
 
-  public final fun getCurveZ(): Curve? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurveZPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Curve?)
-  }
+  public final fun getCurveZ(): Curve? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurveZPtr) as Curve?)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

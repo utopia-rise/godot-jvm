@@ -9,6 +9,9 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod_RID_RECT2_RECT2I_BOOL_LONG_BOOL_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE
+import godot.callPtrMethod_RID_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
@@ -23,10 +26,6 @@ import godot.core.Rect2i
 import godot.core.StringName
 import godot.core.Transform3D
 import godot.core.Vector2
-import godot.readReturnValue_RID
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_RID
-import godot.writeMethodArguments_RID_RECT2_RECT2I_BOOL_LONG_BOOL_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -288,23 +287,14 @@ public open class XRInterfaceExtension : XRInterface() {
     throw NotImplementedError("XRInterfaceExtension::_getVelocityTexture is not implemented.")
   }
 
-  public final fun getColorTexture(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getColorTexturePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getColorTexture(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getColorTexturePtr)
 
-  public final fun getDepthTexture(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDepthTexturePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getDepthTexture(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getDepthTexturePtr)
 
-  public final fun getVelocityTexture(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVelocityTexturePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getVelocityTexture(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getVelocityTexturePtr)
 
   /**
    * Blits our render results to screen optionally applying lens distortion. This can only be called
@@ -323,19 +313,15 @@ public open class XRInterfaceExtension : XRInterface() {
     upscale: Double,
     aspectRatio: Double,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_RECT2_RECT2I_BOOL_LONG_BOOL_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, renderTarget, srcRect, dstRect, useLayer, layer, applyLensDistortion, eyeCenter, k1, k2, upscale, aspectRatio)
-    TransferContext.callPtrMethod(MethodBindings.addBlitPtr, 0)
+    TransferContext.callPtrMethod_RID_RECT2_RECT2I_BOOL_LONG_BOOL_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.addBlitPtr, renderTarget, srcRect, dstRect, useLayer, layer, applyLensDistortion, eyeCenter, k1, k2, upscale, aspectRatio)
   }
 
   /**
    * Returns a valid [RID] for a texture to which we should render the current frame if supported by
    * the interface.
    */
-  public final fun getRenderTargetTexture(renderTarget: RID): RID {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, renderTarget)
-    TransferContext.callPtrMethod(MethodBindings.getRenderTargetTexturePtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getRenderTargetTexture(renderTarget: RID): RID =
+      TransferContext.callPtrMethod_RID_ret_RID(ptr, objectID.id, MethodBindings.getRenderTargetTexturePtr, renderTarget)
 
   public companion object {
     @JvmField

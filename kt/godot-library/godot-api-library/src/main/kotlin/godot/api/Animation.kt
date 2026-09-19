@@ -9,6 +9,55 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_DOUBLE_ANY_DOUBLE_ret_LONG
+import godot.callMethod_LONG_DOUBLE_BOOL_ret_ANY
+import godot.callMethod_LONG_LONG_ANY
+import godot.callMethod_LONG_LONG_ret_ANY
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_DOUBLE_DOUBLE_LONG
+import godot.callPtrMethod_DOUBLE_ret_STRING_NAME
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_DOUBLE_BOOL_ret_DOUBLE
+import godot.callPtrMethod_LONG_DOUBLE_BOOL_ret_QUATERNION
+import godot.callPtrMethod_LONG_DOUBLE_BOOL_ret_VECTOR3
+import godot.callPtrMethod_LONG_DOUBLE_DOUBLE_VECTOR2_VECTOR2_ret_LONG
+import godot.callPtrMethod_LONG_DOUBLE_DOUBLE_ret_LONG
+import godot.callPtrMethod_LONG_DOUBLE_LONG_BOOL_BOOL_ret_LONG
+import godot.callPtrMethod_LONG_DOUBLE_OBJECT_DOUBLE_DOUBLE_ret_LONG
+import godot.callPtrMethod_LONG_DOUBLE_QUATERNION_ret_LONG
+import godot.callPtrMethod_LONG_DOUBLE_STRING_NAME_ret_LONG
+import godot.callPtrMethod_LONG_DOUBLE_VECTOR3_ret_LONG
+import godot.callPtrMethod_LONG_DOUBLE_ret_DOUBLE
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_DOUBLE
+import godot.callPtrMethod_LONG_LONG_OBJECT
+import godot.callPtrMethod_LONG_LONG_STRING_NAME
+import godot.callPtrMethod_LONG_LONG_VECTOR2_DOUBLE
+import godot.callPtrMethod_LONG_LONG_ret_ARRAY
+import godot.callPtrMethod_LONG_LONG_ret_DOUBLE
+import godot.callPtrMethod_LONG_LONG_ret_LONG
+import godot.callPtrMethod_LONG_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_LONG_ret_STRING_NAME
+import godot.callPtrMethod_LONG_LONG_ret_VECTOR2
+import godot.callPtrMethod_LONG_NODE_PATH
+import godot.callPtrMethod_LONG_OBJECT
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_NODE_PATH
+import godot.callPtrMethod_NODE_PATH_LONG_ret_LONG
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_COLOR
+import godot.callPtrMethod_STRING_NAME_DOUBLE
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_ret_COLOR
+import godot.callPtrMethod_STRING_NAME_ret_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.GodotEnum
@@ -27,46 +76,6 @@ import godot.core.Vector2
 import godot.core.Vector3
 import godot.core.asCachedNodePath
 import godot.core.asCachedStringName
-import godot.readReturnValue_ANY
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_COLOR
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_NODE_PATH
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_PACKED_STRING_ARRAY
-import godot.readReturnValue_QUATERNION
-import godot.readReturnValue_STRING_NAME
-import godot.readReturnValue_VECTOR2
-import godot.readReturnValue_VECTOR3
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_DOUBLE_DOUBLE_LONG
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_LONG_DOUBLE
-import godot.writeMethodArguments_LONG_DOUBLE_ANY_DOUBLE
-import godot.writeMethodArguments_LONG_DOUBLE_BOOL
-import godot.writeMethodArguments_LONG_DOUBLE_DOUBLE
-import godot.writeMethodArguments_LONG_DOUBLE_DOUBLE_VECTOR2_VECTOR2
-import godot.writeMethodArguments_LONG_DOUBLE_LONG_BOOL_BOOL
-import godot.writeMethodArguments_LONG_DOUBLE_OBJECT_DOUBLE_DOUBLE
-import godot.writeMethodArguments_LONG_DOUBLE_QUATERNION
-import godot.writeMethodArguments_LONG_DOUBLE_STRING_NAME
-import godot.writeMethodArguments_LONG_DOUBLE_VECTOR3
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_LONG_LONG_ANY
-import godot.writeMethodArguments_LONG_LONG_DOUBLE
-import godot.writeMethodArguments_LONG_LONG_OBJECT
-import godot.writeMethodArguments_LONG_LONG_STRING_NAME
-import godot.writeMethodArguments_LONG_LONG_VECTOR2_DOUBLE
-import godot.writeMethodArguments_LONG_NODE_PATH
-import godot.writeMethodArguments_LONG_OBJECT
-import godot.writeMethodArguments_NODE_PATH_LONG
-import godot.writeMethodArguments_STRING_NAME
-import godot.writeMethodArguments_STRING_NAME_COLOR
-import godot.writeMethodArguments_STRING_NAME_DOUBLE
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
@@ -173,46 +182,33 @@ public open class Animation : Resource() {
    * Adds a track to the Animation.
    */
   @JvmOverloads
-  public final fun addTrack(type: TrackType, atPosition: Int = -1): Int {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, type.value, atPosition.toLong())
-    TransferContext.callPtrMethod(MethodBindings.addTrackPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun addTrack(type: TrackType, atPosition: Int = -1): Int =
+      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.addTrackPtr, type.value, atPosition.toLong()).toInt()
 
   /**
    * Removes a track by specifying the track index.
    */
   public final fun removeTrack(trackIdx: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.removeTrackPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeTrackPtr, trackIdx.toLong())
   }
 
   /**
    * Returns the amount of tracks in the animation.
    */
-  public final fun getTrackCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTrackCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTrackCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTrackCountPtr).toInt()
 
   /**
    * Gets the type of a track.
    */
-  public final fun trackGetType(trackIdx: Int): TrackType {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackGetTypePtr, 2)
-    return TrackType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun trackGetType(trackIdx: Int): TrackType =
+      TrackType.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.trackGetTypePtr, trackIdx.toLong()))
 
   /**
    * Gets the path of a track. For more information on the path format, see [trackSetPath].
    */
-  public final fun trackGetPath(trackIdx: Int): NodePath {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackGetPathPtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun trackGetPath(trackIdx: Int): NodePath =
+      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.trackGetPathPtr, trackIdx.toLong())
 
   /**
    * Sets the path of a track. Paths must be valid scene-tree paths to a node and must be specified
@@ -222,84 +218,68 @@ public open class Animation : Resource() {
    * For example, `"character/skeleton:ankle"` or `"character/mesh:transform/local"`.
    */
   public final fun trackSetPath(trackIdx: Int, path: NodePath): Unit {
-    TransferContext.writeMethodArguments_LONG_NODE_PATH(ptr, objectID.id, trackIdx.toLong(), path)
-    TransferContext.callPtrMethod(MethodBindings.trackSetPathPtr, 0)
+    TransferContext.callPtrMethod_LONG_NODE_PATH(ptr, objectID.id, MethodBindings.trackSetPathPtr, trackIdx.toLong(), path)
   }
 
   /**
    * Returns the index of the specified track. If the track is not found, return -1.
    */
-  public final fun findTrack(path: NodePath, type: TrackType): Int {
-    TransferContext.writeMethodArguments_NODE_PATH_LONG(ptr, objectID.id, path, type.value)
-    TransferContext.callPtrMethod(MethodBindings.findTrackPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun findTrack(path: NodePath, type: TrackType): Int =
+      TransferContext.callPtrMethod_NODE_PATH_LONG_ret_LONG(ptr, objectID.id, MethodBindings.findTrackPtr, path, type.value).toInt()
 
   /**
    * Moves a track up.
    */
   public final fun trackMoveUp(trackIdx: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackMoveUpPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.trackMoveUpPtr, trackIdx.toLong())
   }
 
   /**
    * Moves a track down.
    */
   public final fun trackMoveDown(trackIdx: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackMoveDownPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.trackMoveDownPtr, trackIdx.toLong())
   }
 
   /**
    * Changes the index position of track [trackIdx] to the one defined in [toIdx].
    */
   public final fun trackMoveTo(trackIdx: Int, toIdx: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), toIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackMoveToPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.trackMoveToPtr, trackIdx.toLong(), toIdx.toLong())
   }
 
   /**
    * Swaps the track [trackIdx]'s index position with the track [withIdx].
    */
   public final fun trackSwap(trackIdx: Int, withIdx: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), withIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackSwapPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.trackSwapPtr, trackIdx.toLong(), withIdx.toLong())
   }
 
   /**
    * Sets the given track as imported or not.
    */
   public final fun trackSetImported(trackIdx: Int, imported: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, trackIdx.toLong(), imported)
-    TransferContext.callPtrMethod(MethodBindings.trackSetImportedPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.trackSetImportedPtr, trackIdx.toLong(), imported)
   }
 
   /**
    * Returns `true` if the given track is imported. Else, return `false`.
    */
-  public final fun trackIsImported(trackIdx: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackIsImportedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun trackIsImported(trackIdx: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.trackIsImportedPtr, trackIdx.toLong())
 
   /**
    * Enables/disables the given track. Tracks are enabled by default.
    */
   public final fun trackSetEnabled(trackIdx: Int, enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, trackIdx.toLong(), enabled)
-    TransferContext.callPtrMethod(MethodBindings.trackSetEnabledPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.trackSetEnabledPtr, trackIdx.toLong(), enabled)
   }
 
   /**
    * Returns `true` if the track at index [trackIdx] is enabled.
    */
-  public final fun trackIsEnabled(trackIdx: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackIsEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun trackIsEnabled(trackIdx: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.trackIsEnabledPtr, trackIdx.toLong())
 
   /**
    * Inserts a key in a given 3D position track. Returns the key index.
@@ -308,11 +288,8 @@ public open class Animation : Resource() {
     trackIdx: Int,
     time: Double,
     position: Vector3,
-  ): Int {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_VECTOR3(ptr, objectID.id, trackIdx.toLong(), time, position)
-    TransferContext.callPtrMethod(MethodBindings.positionTrackInsertKeyPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callPtrMethod_LONG_DOUBLE_VECTOR3_ret_LONG(ptr, objectID.id, MethodBindings.positionTrackInsertKeyPtr, trackIdx.toLong(), time, position).toInt()
 
   /**
    * Inserts a key in a given 3D rotation track. Returns the key index.
@@ -321,11 +298,8 @@ public open class Animation : Resource() {
     trackIdx: Int,
     time: Double,
     rotation: Quaternion,
-  ): Int {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_QUATERNION(ptr, objectID.id, trackIdx.toLong(), time, rotation)
-    TransferContext.callPtrMethod(MethodBindings.rotationTrackInsertKeyPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callPtrMethod_LONG_DOUBLE_QUATERNION_ret_LONG(ptr, objectID.id, MethodBindings.rotationTrackInsertKeyPtr, trackIdx.toLong(), time, rotation).toInt()
 
   /**
    * Inserts a key in a given 3D scale track. Returns the key index.
@@ -334,11 +308,8 @@ public open class Animation : Resource() {
     trackIdx: Int,
     time: Double,
     scale: Vector3,
-  ): Int {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_VECTOR3(ptr, objectID.id, trackIdx.toLong(), time, scale)
-    TransferContext.callPtrMethod(MethodBindings.scaleTrackInsertKeyPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callPtrMethod_LONG_DOUBLE_VECTOR3_ret_LONG(ptr, objectID.id, MethodBindings.scaleTrackInsertKeyPtr, trackIdx.toLong(), time, scale).toInt()
 
   /**
    * Inserts a key in a given blend shape track. Returns the key index.
@@ -347,11 +318,8 @@ public open class Animation : Resource() {
     trackIdx: Int,
     time: Double,
     amount: Float,
-  ): Int {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_DOUBLE(ptr, objectID.id, trackIdx.toLong(), time, amount.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.blendShapeTrackInsertKeyPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callPtrMethod_LONG_DOUBLE_DOUBLE_ret_LONG(ptr, objectID.id, MethodBindings.blendShapeTrackInsertKeyPtr, trackIdx.toLong(), time, amount.toDouble()).toInt()
 
   /**
    * Returns the interpolated position value at the given time (in seconds). The [trackIdx] must be
@@ -362,11 +330,8 @@ public open class Animation : Resource() {
     trackIdx: Int,
     timeSec: Double,
     backward: Boolean = false,
-  ): Vector3 {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_BOOL(ptr, objectID.id, trackIdx.toLong(), timeSec, backward)
-    TransferContext.callPtrMethod(MethodBindings.positionTrackInterpolatePtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  ): Vector3 =
+      TransferContext.callPtrMethod_LONG_DOUBLE_BOOL_ret_VECTOR3(ptr, objectID.id, MethodBindings.positionTrackInterpolatePtr, trackIdx.toLong(), timeSec, backward)
 
   /**
    * Returns the interpolated rotation value at the given time (in seconds). The [trackIdx] must be
@@ -377,11 +342,8 @@ public open class Animation : Resource() {
     trackIdx: Int,
     timeSec: Double,
     backward: Boolean = false,
-  ): Quaternion {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_BOOL(ptr, objectID.id, trackIdx.toLong(), timeSec, backward)
-    TransferContext.callPtrMethod(MethodBindings.rotationTrackInterpolatePtr, 15)
-    return TransferContext.readReturnValue_QUATERNION()
-  }
+  ): Quaternion =
+      TransferContext.callPtrMethod_LONG_DOUBLE_BOOL_ret_QUATERNION(ptr, objectID.id, MethodBindings.rotationTrackInterpolatePtr, trackIdx.toLong(), timeSec, backward)
 
   /**
    * Returns the interpolated scale value at the given time (in seconds). The [trackIdx] must be the
@@ -392,11 +354,8 @@ public open class Animation : Resource() {
     trackIdx: Int,
     timeSec: Double,
     backward: Boolean = false,
-  ): Vector3 {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_BOOL(ptr, objectID.id, trackIdx.toLong(), timeSec, backward)
-    TransferContext.callPtrMethod(MethodBindings.scaleTrackInterpolatePtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  ): Vector3 =
+      TransferContext.callPtrMethod_LONG_DOUBLE_BOOL_ret_VECTOR3(ptr, objectID.id, MethodBindings.scaleTrackInterpolatePtr, trackIdx.toLong(), timeSec, backward)
 
   /**
    * Returns the interpolated blend shape value at the given time (in seconds). The [trackIdx] must
@@ -407,11 +366,8 @@ public open class Animation : Resource() {
     trackIdx: Int,
     timeSec: Double,
     backward: Boolean = false,
-  ): Float {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_BOOL(ptr, objectID.id, trackIdx.toLong(), timeSec, backward)
-    TransferContext.callPtrMethod(MethodBindings.blendShapeTrackInterpolatePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  ): Float =
+      TransferContext.callPtrMethod_LONG_DOUBLE_BOOL_ret_DOUBLE(ptr, objectID.id, MethodBindings.blendShapeTrackInterpolatePtr, trackIdx.toLong(), timeSec, backward).toFloat()
 
   /**
    * Inserts a generic key in a given track. Returns the key index.
@@ -422,26 +378,21 @@ public open class Animation : Resource() {
     time: Double,
     key: Any?,
     transition: Float = 1.0f,
-  ): Int {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_ANY_DOUBLE(ptr, objectID.id, trackIdx.toLong(), time, key, transition.toDouble())
-    TransferContext.callMethod(MethodBindings.trackInsertKeyPtr)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_LONG_DOUBLE_ANY_DOUBLE_ret_LONG(ptr, objectID.id, MethodBindings.trackInsertKeyPtr, trackIdx.toLong(), time, key, transition.toDouble()).toInt()
 
   /**
    * Removes a key by index in a given track.
    */
   public final fun trackRemoveKey(trackIdx: Int, keyIdx: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackRemoveKeyPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.trackRemoveKeyPtr, trackIdx.toLong(), keyIdx.toLong())
   }
 
   /**
    * Removes a key at [time] in a given track.
    */
   public final fun trackRemoveKeyAtTime(trackIdx: Int, time: Double): Unit {
-    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, trackIdx.toLong(), time)
-    TransferContext.callPtrMethod(MethodBindings.trackRemoveKeyAtTimePtr, 0)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.trackRemoveKeyAtTimePtr, trackIdx.toLong(), time)
   }
 
   /**
@@ -452,8 +403,7 @@ public open class Animation : Resource() {
     key: Int,
     `value`: Any?,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_ANY(ptr, objectID.id, trackIdx.toLong(), key.toLong(), value)
-    TransferContext.callMethod(MethodBindings.trackSetKeyValuePtr)
+    TransferContext.callMethod_LONG_LONG_ANY(ptr, objectID.id, MethodBindings.trackSetKeyValuePtr, trackIdx.toLong(), key.toLong(), value)
   }
 
   /**
@@ -465,8 +415,7 @@ public open class Animation : Resource() {
     keyIdx: Int,
     transition: Float,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong(), transition.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.trackSetKeyTransitionPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.trackSetKeyTransitionPtr, trackIdx.toLong(), keyIdx.toLong(), transition.toDouble())
   }
 
   /**
@@ -477,46 +426,33 @@ public open class Animation : Resource() {
     keyIdx: Int,
     time: Double,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong(), time)
-    TransferContext.callPtrMethod(MethodBindings.trackSetKeyTimePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.trackSetKeyTimePtr, trackIdx.toLong(), keyIdx.toLong(), time)
   }
 
   /**
    * Returns the transition curve (easing) for a specific key (see the built-in math function
    * [@GlobalScope.ease]).
    */
-  public final fun trackGetKeyTransition(trackIdx: Int, keyIdx: Int): Float {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackGetKeyTransitionPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun trackGetKeyTransition(trackIdx: Int, keyIdx: Int): Float =
+      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.trackGetKeyTransitionPtr, trackIdx.toLong(), keyIdx.toLong()).toFloat()
 
   /**
    * Returns the number of keys in a given track.
    */
-  public final fun trackGetKeyCount(trackIdx: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackGetKeyCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun trackGetKeyCount(trackIdx: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.trackGetKeyCountPtr, trackIdx.toLong()).toInt()
 
   /**
    * Returns the value of a given key in a given track.
    */
-  public final fun trackGetKeyValue(trackIdx: Int, keyIdx: Int): Any? {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callMethod(MethodBindings.trackGetKeyValuePtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun trackGetKeyValue(trackIdx: Int, keyIdx: Int): Any? =
+      TransferContext.callMethod_LONG_LONG_ret_ANY(ptr, objectID.id, MethodBindings.trackGetKeyValuePtr, trackIdx.toLong(), keyIdx.toLong())
 
   /**
    * Returns the time at which the key is located.
    */
-  public final fun trackGetKeyTime(trackIdx: Int, keyIdx: Int): Double {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackGetKeyTimePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun trackGetKeyTime(trackIdx: Int, keyIdx: Int): Double =
+      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.trackGetKeyTimePtr, trackIdx.toLong(), keyIdx.toLong())
 
   /**
    * Finds the key index by time in a given track. Optionally, only find it if the approx/exact time
@@ -538,73 +474,55 @@ public open class Animation : Resource() {
     findMode: FindMode = Animation.FindMode.NEAREST,
     limit: Boolean = false,
     backward: Boolean = false,
-  ): Int {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_LONG_BOOL_BOOL(ptr, objectID.id, trackIdx.toLong(), time, findMode.value, limit, backward)
-    TransferContext.callPtrMethod(MethodBindings.trackFindKeyPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callPtrMethod_LONG_DOUBLE_LONG_BOOL_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.trackFindKeyPtr, trackIdx.toLong(), time, findMode.value, limit, backward).toInt()
 
   /**
    * Sets the interpolation type of a given track.
    */
   public final fun trackSetInterpolationType(trackIdx: Int, interpolation: InterpolationType):
       Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), interpolation.value)
-    TransferContext.callPtrMethod(MethodBindings.trackSetInterpolationTypePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.trackSetInterpolationTypePtr, trackIdx.toLong(), interpolation.value)
   }
 
   /**
    * Returns the interpolation type of a given track.
    */
-  public final fun trackGetInterpolationType(trackIdx: Int): InterpolationType {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackGetInterpolationTypePtr, 2)
-    return InterpolationType.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun trackGetInterpolationType(trackIdx: Int): InterpolationType =
+      InterpolationType.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.trackGetInterpolationTypePtr, trackIdx.toLong()))
 
   /**
    * If `true`, the track at [trackIdx] wraps the interpolation loop.
    */
   public final fun trackSetInterpolationLoopWrap(trackIdx: Int, interpolation: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, trackIdx.toLong(), interpolation)
-    TransferContext.callPtrMethod(MethodBindings.trackSetInterpolationLoopWrapPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.trackSetInterpolationLoopWrapPtr, trackIdx.toLong(), interpolation)
   }
 
   /**
    * Returns `true` if the track at [trackIdx] wraps the interpolation loop. New tracks wrap the
    * interpolation loop by default.
    */
-  public final fun trackGetInterpolationLoopWrap(trackIdx: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackGetInterpolationLoopWrapPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun trackGetInterpolationLoopWrap(trackIdx: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.trackGetInterpolationLoopWrapPtr, trackIdx.toLong())
 
   /**
    * Returns `true` if the track is compressed, `false` otherwise. See also [compress].
    */
-  public final fun trackIsCompressed(trackIdx: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.trackIsCompressedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun trackIsCompressed(trackIdx: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.trackIsCompressedPtr, trackIdx.toLong())
 
   /**
    * Sets the update mode of a value track.
    */
   public final fun valueTrackSetUpdateMode(trackIdx: Int, mode: UpdateMode): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), mode.value)
-    TransferContext.callPtrMethod(MethodBindings.valueTrackSetUpdateModePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.valueTrackSetUpdateModePtr, trackIdx.toLong(), mode.value)
   }
 
   /**
    * Returns the update mode of a value track.
    */
-  public final fun valueTrackGetUpdateMode(trackIdx: Int): UpdateMode {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.valueTrackGetUpdateModePtr, 2)
-    return UpdateMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun valueTrackGetUpdateMode(trackIdx: Int): UpdateMode =
+      UpdateMode.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.valueTrackGetUpdateModePtr, trackIdx.toLong()))
 
   /**
    * Returns the interpolated value at the given time (in seconds). The [trackIdx] must be the index
@@ -619,29 +537,20 @@ public open class Animation : Resource() {
     trackIdx: Int,
     timeSec: Double,
     backward: Boolean = false,
-  ): Any? {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_BOOL(ptr, objectID.id, trackIdx.toLong(), timeSec, backward)
-    TransferContext.callMethod(MethodBindings.valueTrackInterpolatePtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  ): Any? =
+      TransferContext.callMethod_LONG_DOUBLE_BOOL_ret_ANY(ptr, objectID.id, MethodBindings.valueTrackInterpolatePtr, trackIdx.toLong(), timeSec, backward)
 
   /**
    * Returns the method name of a method track.
    */
-  public final fun methodTrackGetName(trackIdx: Int, keyIdx: Int): StringName {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.methodTrackGetNamePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun methodTrackGetName(trackIdx: Int, keyIdx: Int): StringName =
+      TransferContext.callPtrMethod_LONG_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.methodTrackGetNamePtr, trackIdx.toLong(), keyIdx.toLong())
 
   /**
    * Returns the arguments values to be called on a method track for a given key in a given track.
    */
-  public final fun methodTrackGetParams(trackIdx: Int, keyIdx: Int): VariantArray<Any?> {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.methodTrackGetParamsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Any?>)
-  }
+  public final fun methodTrackGetParams(trackIdx: Int, keyIdx: Int): VariantArray<Any?> =
+      (TransferContext.callPtrMethod_LONG_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.methodTrackGetParamsPtr, trackIdx.toLong(), keyIdx.toLong()) as VariantArray<Any?>)
 
   /**
    * Inserts a Bezier Track key at the given [time] in seconds. The [trackIdx] must be the index of
@@ -657,11 +566,8 @@ public open class Animation : Resource() {
     `value`: Float,
     inHandle: Vector2 = Vector2(0, 0),
     outHandle: Vector2 = Vector2(0, 0),
-  ): Int {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_DOUBLE_VECTOR2_VECTOR2(ptr, objectID.id, trackIdx.toLong(), time, value.toDouble(), inHandle, outHandle)
-    TransferContext.callPtrMethod(MethodBindings.bezierTrackInsertKeyPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callPtrMethod_LONG_DOUBLE_DOUBLE_VECTOR2_VECTOR2_ret_LONG(ptr, objectID.id, MethodBindings.bezierTrackInsertKeyPtr, trackIdx.toLong(), time, value.toDouble(), inHandle, outHandle).toInt()
 
   /**
    * Sets the value of the key identified by [keyIdx] to the given value. The [trackIdx] must be the
@@ -672,8 +578,7 @@ public open class Animation : Resource() {
     keyIdx: Int,
     `value`: Float,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong(), value.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.bezierTrackSetKeyValuePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.bezierTrackSetKeyValuePtr, trackIdx.toLong(), keyIdx.toLong(), value.toDouble())
   }
 
   /**
@@ -687,8 +592,7 @@ public open class Animation : Resource() {
     inHandle: Vector2,
     balancedValueTimeRatio: Float = 1.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_VECTOR2_DOUBLE(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong(), inHandle, balancedValueTimeRatio.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.bezierTrackSetKeyInHandlePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_VECTOR2_DOUBLE(ptr, objectID.id, MethodBindings.bezierTrackSetKeyInHandlePtr, trackIdx.toLong(), keyIdx.toLong(), inHandle, balancedValueTimeRatio.toDouble())
   }
 
   /**
@@ -702,49 +606,36 @@ public open class Animation : Resource() {
     outHandle: Vector2,
     balancedValueTimeRatio: Float = 1.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_VECTOR2_DOUBLE(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong(), outHandle, balancedValueTimeRatio.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.bezierTrackSetKeyOutHandlePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_VECTOR2_DOUBLE(ptr, objectID.id, MethodBindings.bezierTrackSetKeyOutHandlePtr, trackIdx.toLong(), keyIdx.toLong(), outHandle, balancedValueTimeRatio.toDouble())
   }
 
   /**
    * Returns the value of the key identified by [keyIdx]. The [trackIdx] must be the index of a
    * Bezier Track.
    */
-  public final fun bezierTrackGetKeyValue(trackIdx: Int, keyIdx: Int): Float {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.bezierTrackGetKeyValuePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun bezierTrackGetKeyValue(trackIdx: Int, keyIdx: Int): Float =
+      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.bezierTrackGetKeyValuePtr, trackIdx.toLong(), keyIdx.toLong()).toFloat()
 
   /**
    * Returns the in handle of the key identified by [keyIdx]. The [trackIdx] must be the index of a
    * Bezier Track.
    */
-  public final fun bezierTrackGetKeyInHandle(trackIdx: Int, keyIdx: Int): Vector2 {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.bezierTrackGetKeyInHandlePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun bezierTrackGetKeyInHandle(trackIdx: Int, keyIdx: Int): Vector2 =
+      TransferContext.callPtrMethod_LONG_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.bezierTrackGetKeyInHandlePtr, trackIdx.toLong(), keyIdx.toLong())
 
   /**
    * Returns the out handle of the key identified by [keyIdx]. The [trackIdx] must be the index of a
    * Bezier Track.
    */
-  public final fun bezierTrackGetKeyOutHandle(trackIdx: Int, keyIdx: Int): Vector2 {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.bezierTrackGetKeyOutHandlePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun bezierTrackGetKeyOutHandle(trackIdx: Int, keyIdx: Int): Vector2 =
+      TransferContext.callPtrMethod_LONG_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.bezierTrackGetKeyOutHandlePtr, trackIdx.toLong(), keyIdx.toLong())
 
   /**
    * Returns the interpolated value at the given [time] (in seconds). The [trackIdx] must be the
    * index of a Bezier Track.
    */
-  public final fun bezierTrackInterpolate(trackIdx: Int, time: Double): Float {
-    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, trackIdx.toLong(), time)
-    TransferContext.callPtrMethod(MethodBindings.bezierTrackInterpolatePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun bezierTrackInterpolate(trackIdx: Int, time: Double): Float =
+      TransferContext.callPtrMethod_LONG_DOUBLE_ret_DOUBLE(ptr, objectID.id, MethodBindings.bezierTrackInterpolatePtr, trackIdx.toLong(), time).toFloat()
 
   /**
    * Inserts an Audio Track key at the given [time] in seconds. The [trackIdx] must be the index of
@@ -760,11 +651,8 @@ public open class Animation : Resource() {
     stream: Resource?,
     startOffset: Float = 0.0f,
     endOffset: Float = 0.0f,
-  ): Int {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_OBJECT_DOUBLE_DOUBLE(ptr, objectID.id, trackIdx.toLong(), time, stream, startOffset.toDouble(), endOffset.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.audioTrackInsertKeyPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callPtrMethod_LONG_DOUBLE_OBJECT_DOUBLE_DOUBLE_ret_LONG(ptr, objectID.id, MethodBindings.audioTrackInsertKeyPtr, trackIdx.toLong(), time, stream, startOffset.toDouble(), endOffset.toDouble()).toInt()
 
   /**
    * Sets the stream of the key identified by [keyIdx] to value [stream]. The [trackIdx] must be the
@@ -775,8 +663,7 @@ public open class Animation : Resource() {
     keyIdx: Int,
     stream: Resource?,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_OBJECT(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong(), stream)
-    TransferContext.callPtrMethod(MethodBindings.audioTrackSetKeyStreamPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_OBJECT(ptr, objectID.id, MethodBindings.audioTrackSetKeyStreamPtr, trackIdx.toLong(), keyIdx.toLong(), stream)
   }
 
   /**
@@ -788,8 +675,7 @@ public open class Animation : Resource() {
     keyIdx: Int,
     offset: Float,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong(), offset.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.audioTrackSetKeyStartOffsetPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.audioTrackSetKeyStartOffsetPtr, trackIdx.toLong(), keyIdx.toLong(), offset.toDouble())
   }
 
   /**
@@ -801,19 +687,15 @@ public open class Animation : Resource() {
     keyIdx: Int,
     offset: Float,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong(), offset.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.audioTrackSetKeyEndOffsetPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.audioTrackSetKeyEndOffsetPtr, trackIdx.toLong(), keyIdx.toLong(), offset.toDouble())
   }
 
   /**
    * Returns the audio stream of the key identified by [keyIdx]. The [trackIdx] must be the index of
    * an Audio Track.
    */
-  public final fun audioTrackGetKeyStream(trackIdx: Int, keyIdx: Int): Resource? {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.audioTrackGetKeyStreamPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Resource?)
-  }
+  public final fun audioTrackGetKeyStream(trackIdx: Int, keyIdx: Int): Resource? =
+      (TransferContext.callPtrMethod_LONG_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.audioTrackGetKeyStreamPtr, trackIdx.toLong(), keyIdx.toLong()) as Resource?)
 
   /**
    * Returns the start offset of the key identified by [keyIdx]. The [trackIdx] must be the index of
@@ -821,11 +703,8 @@ public open class Animation : Resource() {
    *
    * Start offset is the number of seconds cut off at the beginning of the audio stream.
    */
-  public final fun audioTrackGetKeyStartOffset(trackIdx: Int, keyIdx: Int): Float {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.audioTrackGetKeyStartOffsetPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun audioTrackGetKeyStartOffset(trackIdx: Int, keyIdx: Int): Float =
+      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.audioTrackGetKeyStartOffsetPtr, trackIdx.toLong(), keyIdx.toLong()).toFloat()
 
   /**
    * Returns the end offset of the key identified by [keyIdx]. The [trackIdx] must be the index of
@@ -833,29 +712,22 @@ public open class Animation : Resource() {
    *
    * End offset is the number of seconds cut off at the ending of the audio stream.
    */
-  public final fun audioTrackGetKeyEndOffset(trackIdx: Int, keyIdx: Int): Float {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.audioTrackGetKeyEndOffsetPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun audioTrackGetKeyEndOffset(trackIdx: Int, keyIdx: Int): Float =
+      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.audioTrackGetKeyEndOffsetPtr, trackIdx.toLong(), keyIdx.toLong()).toFloat()
 
   /**
    * Sets whether the track will be blended with other animations. If `true`, the audio playback
    * volume changes depending on the blend value.
    */
   public final fun audioTrackSetUseBlend(trackIdx: Int, enable: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, trackIdx.toLong(), enable)
-    TransferContext.callPtrMethod(MethodBindings.audioTrackSetUseBlendPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.audioTrackSetUseBlendPtr, trackIdx.toLong(), enable)
   }
 
   /**
    * Returns `true` if the track at [trackIdx] will be blended with other animations.
    */
-  public final fun audioTrackIsUseBlend(trackIdx: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, trackIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.audioTrackIsUseBlendPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun audioTrackIsUseBlend(trackIdx: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.audioTrackIsUseBlendPtr, trackIdx.toLong())
 
   /**
    * Inserts a key with value [animation] at the given [time] (in seconds). The [trackIdx] must be
@@ -865,11 +737,8 @@ public open class Animation : Resource() {
     trackIdx: Int,
     time: Double,
     animation: StringName,
-  ): Int {
-    TransferContext.writeMethodArguments_LONG_DOUBLE_STRING_NAME(ptr, objectID.id, trackIdx.toLong(), time, animation)
-    TransferContext.callPtrMethod(MethodBindings.animationTrackInsertKeyPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  ): Int =
+      TransferContext.callPtrMethod_LONG_DOUBLE_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.animationTrackInsertKeyPtr, trackIdx.toLong(), time, animation).toInt()
 
   /**
    * Sets the key identified by [keyIdx] to value [animation]. The [trackIdx] must be the index of
@@ -880,156 +749,114 @@ public open class Animation : Resource() {
     keyIdx: Int,
     animation: StringName,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_STRING_NAME(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong(), animation)
-    TransferContext.callPtrMethod(MethodBindings.animationTrackSetKeyAnimationPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.animationTrackSetKeyAnimationPtr, trackIdx.toLong(), keyIdx.toLong(), animation)
   }
 
   /**
    * Returns the animation name at the key identified by [keyIdx]. The [trackIdx] must be the index
    * of an Animation Track.
    */
-  public final fun animationTrackGetKeyAnimation(trackIdx: Int, keyIdx: Int): StringName {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, trackIdx.toLong(), keyIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.animationTrackGetKeyAnimationPtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun animationTrackGetKeyAnimation(trackIdx: Int, keyIdx: Int): StringName =
+      TransferContext.callPtrMethod_LONG_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.animationTrackGetKeyAnimationPtr, trackIdx.toLong(), keyIdx.toLong())
 
   /**
    * Adds a marker to this Animation.
    */
   public final fun addMarker(name: StringName, time: Double): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_DOUBLE(ptr, objectID.id, name, time)
-    TransferContext.callPtrMethod(MethodBindings.addMarkerPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_DOUBLE(ptr, objectID.id, MethodBindings.addMarkerPtr, name, time)
   }
 
   /**
    * Removes the marker with the given name from this Animation.
    */
   public final fun removeMarker(name: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.removeMarkerPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeMarkerPtr, name)
   }
 
   /**
    * Returns `true` if this Animation contains a marker with the given name.
    */
-  public final fun hasMarker(name: StringName): Boolean {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.hasMarkerPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasMarker(name: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasMarkerPtr, name)
 
   /**
    * Returns the name of the marker located at the given time.
    */
-  public final fun getMarkerAtTime(time: Double): StringName {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
-    TransferContext.callPtrMethod(MethodBindings.getMarkerAtTimePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getMarkerAtTime(time: Double): StringName =
+      TransferContext.callPtrMethod_DOUBLE_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getMarkerAtTimePtr, time)
 
   /**
    * Returns the closest marker that comes after the given time. If no such marker exists, an empty
    * string is returned.
    */
-  public final fun getNextMarker(time: Double): StringName {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
-    TransferContext.callPtrMethod(MethodBindings.getNextMarkerPtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getNextMarker(time: Double): StringName =
+      TransferContext.callPtrMethod_DOUBLE_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getNextMarkerPtr, time)
 
   /**
    * Returns the closest marker that comes before the given time. If no such marker exists, an empty
    * string is returned.
    */
-  public final fun getPrevMarker(time: Double): StringName {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, time)
-    TransferContext.callPtrMethod(MethodBindings.getPrevMarkerPtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getPrevMarker(time: Double): StringName =
+      TransferContext.callPtrMethod_DOUBLE_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getPrevMarkerPtr, time)
 
   /**
    * Returns the given marker's time.
    */
-  public final fun getMarkerTime(name: StringName): Double {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.getMarkerTimePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getMarkerTime(name: StringName): Double =
+      TransferContext.callPtrMethod_STRING_NAME_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMarkerTimePtr, name)
 
   /**
    * Returns every marker in this Animation, sorted ascending by time.
    */
-  public final fun getMarkerNames(): PackedStringArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMarkerNamesPtr, 34)
-    return TransferContext.readReturnValue_PACKED_STRING_ARRAY()
-  }
+  public final fun getMarkerNames(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getMarkerNamesPtr)
 
   /**
    * Returns the given marker's color.
    */
-  public final fun getMarkerColor(name: StringName): Color {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, name)
-    TransferContext.callPtrMethod(MethodBindings.getMarkerColorPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getMarkerColor(name: StringName): Color =
+      TransferContext.callPtrMethod_STRING_NAME_ret_COLOR(ptr, objectID.id, MethodBindings.getMarkerColorPtr, name)
 
   /**
    * Sets the given marker's color.
    */
   public final fun setMarkerColor(name: StringName, color: Color): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME_COLOR(ptr, objectID.id, name, color)
-    TransferContext.callPtrMethod(MethodBindings.setMarkerColorPtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME_COLOR(ptr, objectID.id, MethodBindings.setMarkerColorPtr, name, color)
   }
 
   public final fun setLength(timeSec: Double): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeSec)
-    TransferContext.callPtrMethod(MethodBindings.setLengthPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLengthPtr, timeSec)
   }
 
-  public final fun getLength(): Double {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLengthPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE()
-  }
+  public final fun getLength(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr)
 
   public final fun setLoopMode(loopMode: LoopMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, loopMode.value)
-    TransferContext.callPtrMethod(MethodBindings.setLoopModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLoopModePtr, loopMode.value)
   }
 
-  public final fun getLoopMode(): LoopMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLoopModePtr, 2)
-    return LoopMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getLoopMode(): LoopMode =
+      LoopMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLoopModePtr))
 
   public final fun setStep(sizeSec: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, sizeSec.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setStepPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setStepPtr, sizeSec.toDouble())
   }
 
-  public final fun getStep(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getStepPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getStep(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStepPtr).toFloat()
 
   /**
    * Clear the animation (clear all tracks and reset all).
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
   }
 
   /**
    * Adds a new track to [toAnimation] that is a copy of the given track from this animation.
    */
   public final fun copyTrack(trackIdx: Int, toAnimation: Animation?): Unit {
-    TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, trackIdx.toLong(), toAnimation)
-    TransferContext.callPtrMethod(MethodBindings.copyTrackPtr, 0)
+    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.copyTrackPtr, trackIdx.toLong(), toAnimation)
   }
 
   /**
@@ -1042,8 +869,7 @@ public open class Animation : Resource() {
     allowedAngularErr: Float = 0.01f,
     precision: Int = 3,
   ): Unit {
-    TransferContext.writeMethodArguments_DOUBLE_DOUBLE_LONG(ptr, objectID.id, allowedVelocityErr.toDouble(), allowedAngularErr.toDouble(), precision.toLong())
-    TransferContext.callPtrMethod(MethodBindings.optimizePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE_DOUBLE_LONG(ptr, objectID.id, MethodBindings.optimizePtr, allowedVelocityErr.toDouble(), allowedAngularErr.toDouble(), precision.toLong())
   }
 
   /**
@@ -1062,15 +888,11 @@ public open class Animation : Resource() {
     fps: Long = 120,
     splitTolerance: Float = 4.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG_DOUBLE(ptr, objectID.id, pageSize, fps, splitTolerance.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.compressPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.compressPtr, pageSize, fps, splitTolerance.toDouble())
   }
 
-  public final fun isCaptureIncluded(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isCaptureIncludedPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isCaptureIncluded(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCaptureIncludedPtr)
 
   /**
    * Sets the path of a track. Paths must be valid scene-tree paths to a node and must be specified

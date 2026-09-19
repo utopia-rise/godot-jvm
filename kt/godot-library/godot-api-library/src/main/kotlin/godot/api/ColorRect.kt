@@ -11,13 +11,12 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_COLOR
+import godot.callPtrMethod_COLOR
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_COLOR
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_COLOR
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -72,15 +71,11 @@ public open class ColorRect : Control() {
   }
 
   public final fun setColor(color: Color): Unit {
-    TransferContext.writeMethodArguments_COLOR(ptr, objectID.id, color)
-    TransferContext.callPtrMethod(MethodBindings.setColorPtr, 0)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setColorPtr, color)
   }
 
-  public final fun getColor(): Color {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getColorPtr, 20)
-    return TransferContext.readReturnValue_COLOR()
-  }
+  public final fun getColor(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getColorPtr)
 
   public companion object {
     @JvmField

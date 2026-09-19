@@ -9,6 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_RECT2
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_RID_COLOR
+import godot.callPtrMethod_TRANSFORM2D_OBJECT_TRANSFORM2D_ret_BOOL
+import godot.callPtrMethod_TRANSFORM2D_OBJECT_TRANSFORM2D_ret_PACKED_VECTOR2_ARRAY
+import godot.callPtrMethod_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2_ret_BOOL
+import godot.callPtrMethod_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2_ret_PACKED_VECTOR2_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.MethodStringName0
@@ -21,15 +29,6 @@ import godot.core.RID
 import godot.core.Rect2
 import godot.core.Transform2D
 import godot.core.Vector2
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_PACKED_VECTOR2_ARRAY
-import godot.readReturnValue_RECT2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_RID_COLOR
-import godot.writeMethodArguments_TRANSFORM2D_OBJECT_TRANSFORM2D
-import godot.writeMethodArguments_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Suppress
@@ -65,15 +64,11 @@ public open class Shape2D internal constructor() : Resource() {
   }
 
   public final fun setCustomSolverBias(bias: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, bias.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setCustomSolverBiasPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCustomSolverBiasPtr, bias.toDouble())
   }
 
-  public final fun getCustomSolverBias(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCustomSolverBiasPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getCustomSolverBias(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCustomSolverBiasPtr).toFloat()
 
   /**
    * Returns `true` if this shape is colliding with another.
@@ -85,11 +80,8 @@ public open class Shape2D internal constructor() : Resource() {
     localXform: Transform2D,
     withShape: Shape2D,
     shapeXform: Transform2D,
-  ): Boolean {
-    TransferContext.writeMethodArguments_TRANSFORM2D_OBJECT_TRANSFORM2D(ptr, objectID.id, localXform, withShape, shapeXform)
-    TransferContext.callPtrMethod(MethodBindings.collidePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  ): Boolean =
+      TransferContext.callPtrMethod_TRANSFORM2D_OBJECT_TRANSFORM2D_ret_BOOL(ptr, objectID.id, MethodBindings.collidePtr, localXform, withShape, shapeXform)
 
   /**
    * Returns whether this shape would collide with another, if a given movement was applied.
@@ -105,11 +97,8 @@ public open class Shape2D internal constructor() : Resource() {
     withShape: Shape2D,
     shapeXform: Transform2D,
     shapeMotion: Vector2,
-  ): Boolean {
-    TransferContext.writeMethodArguments_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2(ptr, objectID.id, localXform, localMotion, withShape, shapeXform, shapeMotion)
-    TransferContext.callPtrMethod(MethodBindings.collideWithMotionPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  ): Boolean =
+      TransferContext.callPtrMethod_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2_ret_BOOL(ptr, objectID.id, MethodBindings.collideWithMotionPtr, localXform, localMotion, withShape, shapeXform, shapeMotion)
 
   /**
    * Returns a list of contact point pairs where this shape touches another.
@@ -129,11 +118,8 @@ public open class Shape2D internal constructor() : Resource() {
     localXform: Transform2D,
     withShape: Shape2D,
     shapeXform: Transform2D,
-  ): PackedVector2Array {
-    TransferContext.writeMethodArguments_TRANSFORM2D_OBJECT_TRANSFORM2D(ptr, objectID.id, localXform, withShape, shapeXform)
-    TransferContext.callPtrMethod(MethodBindings.collideAndGetContactsPtr, 35)
-    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
-  }
+  ): PackedVector2Array =
+      TransferContext.callPtrMethod_TRANSFORM2D_OBJECT_TRANSFORM2D_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.collideAndGetContactsPtr, localXform, withShape, shapeXform)
 
   /**
    * Returns a list of contact point pairs where this shape would touch another, if a given movement
@@ -158,29 +144,22 @@ public open class Shape2D internal constructor() : Resource() {
     withShape: Shape2D,
     shapeXform: Transform2D,
     shapeMotion: Vector2,
-  ): PackedVector2Array {
-    TransferContext.writeMethodArguments_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2(ptr, objectID.id, localXform, localMotion, withShape, shapeXform, shapeMotion)
-    TransferContext.callPtrMethod(MethodBindings.collideWithMotionAndGetContactsPtr, 35)
-    return TransferContext.readReturnValue_PACKED_VECTOR2_ARRAY()
-  }
+  ): PackedVector2Array =
+      TransferContext.callPtrMethod_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.collideWithMotionAndGetContactsPtr, localXform, localMotion, withShape, shapeXform, shapeMotion)
 
   /**
    * Draws a solid shape onto a [CanvasItem] with the [RenderingServer] API filled with the
    * specified [color]. The exact drawing method is specific for each shape and cannot be configured.
    */
   public final fun draw(canvasItem: RID, color: Color): Unit {
-    TransferContext.writeMethodArguments_RID_COLOR(ptr, objectID.id, canvasItem, color)
-    TransferContext.callPtrMethod(MethodBindings.drawPtr, 0)
+    TransferContext.callPtrMethod_RID_COLOR(ptr, objectID.id, MethodBindings.drawPtr, canvasItem, color)
   }
 
   /**
    * Returns a [Rect2] representing the shapes boundary.
    */
-  public final fun getRect(): Rect2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRectPtr, 7)
-    return TransferContext.readReturnValue_RECT2()
-  }
+  public final fun getRect(): Rect2 =
+      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRectPtr)
 
   public companion object {
     @JvmField

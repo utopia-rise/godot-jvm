@@ -9,17 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_BOOL_ret_STRING
+import godot.callMethod_STRING_BOOL_ret_LONG
+import godot.callPtrMethod0_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_STRING_BOOL
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
@@ -47,11 +44,8 @@ public open class CryptoKey : Resource() {
    * **Note:** [path] should be a "*.pub" file if [publicOnly] is `true`, a "*.key" file otherwise.
    */
   @JvmOverloads
-  public final fun save(path: String, publicOnly: Boolean = false): Error {
-    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, path, publicOnly)
-    TransferContext.callMethod(MethodBindings.savePtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun save(path: String, publicOnly: Boolean = false): Error =
+      Error.from(TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.savePtr, path, publicOnly))
 
   /**
    * Loads a key from [path]. If [publicOnly] is `true`, only the public key will be loaded.
@@ -59,42 +53,30 @@ public open class CryptoKey : Resource() {
    * **Note:** [path] should be a "*.pub" file if [publicOnly] is `true`, a "*.key" file otherwise.
    */
   @JvmOverloads
-  public final fun load(path: String, publicOnly: Boolean = false): Error {
-    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, path, publicOnly)
-    TransferContext.callMethod(MethodBindings.loadPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun load(path: String, publicOnly: Boolean = false): Error =
+      Error.from(TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.loadPtr, path, publicOnly))
 
   /**
    * Returns `true` if this CryptoKey only has the public part, and not the private one.
    */
-  public final fun isPublicOnly(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isPublicOnlyPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isPublicOnly(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPublicOnlyPtr)
 
   /**
    * Returns a string containing the key in PEM format. If [publicOnly] is `true`, only the public
    * key will be included.
    */
   @JvmOverloads
-  public final fun saveToString(publicOnly: Boolean = false): String {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, publicOnly)
-    TransferContext.callMethod(MethodBindings.saveToStringPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun saveToString(publicOnly: Boolean = false): String =
+      TransferContext.callMethod_BOOL_ret_STRING(ptr, objectID.id, MethodBindings.saveToStringPtr, publicOnly)
 
   /**
    * Loads a key from the given [stringKey]. If [publicOnly] is `true`, only the public key will be
    * loaded.
    */
   @JvmOverloads
-  public final fun loadFromString(stringKey: String, publicOnly: Boolean = false): Error {
-    TransferContext.writeMethodArguments_STRING_BOOL(ptr, objectID.id, stringKey, publicOnly)
-    TransferContext.callMethod(MethodBindings.loadFromStringPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun loadFromString(stringKey: String, publicOnly: Boolean = false): Error =
+      Error.from(TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.loadFromStringPtr, stringKey, publicOnly))
 
   public companion object {
     @JvmField

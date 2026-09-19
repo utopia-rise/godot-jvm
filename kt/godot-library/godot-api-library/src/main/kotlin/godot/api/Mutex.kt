@@ -9,10 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
-import godot.readReturnValue_BOOL
-import godot.writeMethodArguments0
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -48,8 +48,7 @@ public open class Mutex : RefCounted() {
    * mutex.
    */
   public final fun lock(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.lockPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.lockPtr)
   }
 
   /**
@@ -57,11 +56,8 @@ public open class Mutex : RefCounted() {
    *
    * **Note:** This function returns `true` if the thread already has ownership of the mutex.
    */
-  public final fun tryLock(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.tryLockPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun tryLock(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.tryLockPtr)
 
   /**
    * Unlocks this [Mutex], leaving it to other threads.
@@ -73,8 +69,7 @@ public open class Mutex : RefCounted() {
    * to unlock a non-locked mutex, is wrong and may causes crashes or deadlocks.
    */
   public final fun unlock(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.unlockPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.unlockPtr)
   }
 
   public companion object {

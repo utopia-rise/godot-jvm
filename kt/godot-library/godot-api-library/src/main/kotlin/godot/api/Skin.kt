@@ -9,6 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_TRANSFORM3D
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_STRING_NAME
+import godot.callPtrMethod_LONG_TRANSFORM3D
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_STRING_NAME
+import godot.callPtrMethod_LONG_ret_TRANSFORM3D
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -16,15 +26,6 @@ import godot.core.MethodStringName2
 import godot.core.StringName
 import godot.core.Transform3D
 import godot.core.asCachedStringName
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING_NAME
-import godot.readReturnValue_TRANSFORM3D
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_LONG_STRING_NAME
-import godot.writeMethodArguments_LONG_TRANSFORM3D
-import godot.writeMethodArguments_STRING_TRANSFORM3D
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
@@ -38,62 +39,43 @@ public open class Skin : Resource() {
   }
 
   public final fun setBindCount(bindCount: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bindCount.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setBindCountPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBindCountPtr, bindCount.toLong())
   }
 
-  public final fun getBindCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBindCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getBindCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBindCountPtr).toInt()
 
   public final fun addBind(bone: Int, pose: Transform3D): Unit {
-    TransferContext.writeMethodArguments_LONG_TRANSFORM3D(ptr, objectID.id, bone.toLong(), pose)
-    TransferContext.callPtrMethod(MethodBindings.addBindPtr, 0)
+    TransferContext.callPtrMethod_LONG_TRANSFORM3D(ptr, objectID.id, MethodBindings.addBindPtr, bone.toLong(), pose)
   }
 
   public final fun addNamedBind(name: String, pose: Transform3D): Unit {
-    TransferContext.writeMethodArguments_STRING_TRANSFORM3D(ptr, objectID.id, name, pose)
-    TransferContext.callMethod(MethodBindings.addNamedBindPtr)
+    TransferContext.callMethod_STRING_TRANSFORM3D(ptr, objectID.id, MethodBindings.addNamedBindPtr, name, pose)
   }
 
   public final fun setBindPose(bindIndex: Int, pose: Transform3D): Unit {
-    TransferContext.writeMethodArguments_LONG_TRANSFORM3D(ptr, objectID.id, bindIndex.toLong(), pose)
-    TransferContext.callPtrMethod(MethodBindings.setBindPosePtr, 0)
+    TransferContext.callPtrMethod_LONG_TRANSFORM3D(ptr, objectID.id, MethodBindings.setBindPosePtr, bindIndex.toLong(), pose)
   }
 
-  public final fun getBindPose(bindIndex: Int): Transform3D {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bindIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getBindPosePtr, 18)
-    return TransferContext.readReturnValue_TRANSFORM3D()
-  }
+  public final fun getBindPose(bindIndex: Int): Transform3D =
+      TransferContext.callPtrMethod_LONG_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getBindPosePtr, bindIndex.toLong())
 
   public final fun setBindName(bindIndex: Int, name: StringName): Unit {
-    TransferContext.writeMethodArguments_LONG_STRING_NAME(ptr, objectID.id, bindIndex.toLong(), name)
-    TransferContext.callPtrMethod(MethodBindings.setBindNamePtr, 0)
+    TransferContext.callPtrMethod_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.setBindNamePtr, bindIndex.toLong(), name)
   }
 
-  public final fun getBindName(bindIndex: Int): StringName {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bindIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getBindNamePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getBindName(bindIndex: Int): StringName =
+      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getBindNamePtr, bindIndex.toLong())
 
   public final fun setBindBone(bindIndex: Int, bone: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, bindIndex.toLong(), bone.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setBindBonePtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setBindBonePtr, bindIndex.toLong(), bone.toLong())
   }
 
-  public final fun getBindBone(bindIndex: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, bindIndex.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getBindBonePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getBindBone(bindIndex: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getBindBonePtr, bindIndex.toLong()).toInt()
 
   public final fun clearBinds(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.clearBindsPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearBindsPtr)
   }
 
   public final fun setBindName(bindIndex: Int, name: String) =

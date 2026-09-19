@@ -9,10 +9,9 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_DOUBLE_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments_DOUBLE
 import kotlin.Double
 import kotlin.Suppress
 import kotlin.Unit
@@ -35,11 +34,8 @@ public open class AwaitTweener : Tweener() {
    * Sets the maximum time an [AwaitTweener] can wait for the signal. Can be used as a safeguard for
    * signals that may never be emitted. If not specified, the tweener will wait indefinitely.
    */
-  public final fun setTimeout(timeout: Double): AwaitTweener? {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, timeout)
-    TransferContext.callPtrMethod(MethodBindings.setTimeoutPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as AwaitTweener?)
-  }
+  public final fun setTimeout(timeout: Double): AwaitTweener? =
+      (TransferContext.callPtrMethod_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setTimeoutPtr, timeout) as AwaitTweener?)
 
   public companion object {
     @JvmField

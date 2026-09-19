@@ -9,13 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_PACKED_COLOR_ARRAY
+import godot.callPtrMethod_PACKED_COLOR_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedColorArray
-import godot.readReturnValue_PACKED_COLOR_ARRAY
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_PACKED_COLOR_ARRAY
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -45,15 +44,11 @@ public open class ColorPalette : Resource() {
   }
 
   public final fun setColors(colors: PackedColorArray): Unit {
-    TransferContext.writeMethodArguments_PACKED_COLOR_ARRAY(ptr, objectID.id, colors)
-    TransferContext.callPtrMethod(MethodBindings.setColorsPtr, 0)
+    TransferContext.callPtrMethod_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.setColorsPtr, colors)
   }
 
-  public final fun getColors(): PackedColorArray {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getColorsPtr, 37)
-    return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
-  }
+  public final fun getColors(): PackedColorArray =
+      TransferContext.callPtrMethod0_ret_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.getColorsPtr)
 
   public companion object {
     @JvmField

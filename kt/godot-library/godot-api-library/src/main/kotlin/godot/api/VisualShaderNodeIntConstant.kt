@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
 import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
@@ -42,15 +41,11 @@ public open class VisualShaderNodeIntConstant : VisualShaderNodeConstant() {
   }
 
   public final fun setConstant(constant: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, constant.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setConstantPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setConstantPtr, constant.toLong())
   }
 
-  public final fun getConstant(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getConstantPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getConstant(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConstantPtr).toInt()
 
   public companion object {
     @JvmField

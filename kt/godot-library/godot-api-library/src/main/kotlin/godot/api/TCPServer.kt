@@ -9,14 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_STRING_ret_LONG
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
 import godot.core.MethodStringName2
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG_STRING
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
@@ -52,29 +51,20 @@ public open class TCPServer : SocketServer() {
    * address exists).
    */
   @JvmOverloads
-  public final fun listen(port: Int, bindAddress: String = "*"): Error {
-    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, port.toLong(), bindAddress)
-    TransferContext.callMethod(MethodBindings.listenPtr)
-    return Error.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun listen(port: Int, bindAddress: String = "*"): Error =
+      Error.from(TransferContext.callMethod_LONG_STRING_ret_LONG(ptr, objectID.id, MethodBindings.listenPtr, port.toLong(), bindAddress))
 
   /**
    * Returns the local port this server is listening to.
    */
-  public final fun getLocalPort(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLocalPortPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getLocalPort(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLocalPortPtr).toInt()
 
   /**
    * If a connection is available, returns a StreamPeerTCP with the connection.
    */
-  public final fun takeConnection(): StreamPeerTCP? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.takeConnectionPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as StreamPeerTCP?)
-  }
+  public final fun takeConnection(): StreamPeerTCP? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.takeConnectionPtr) as StreamPeerTCP?)
 
   public companion object {
     @JvmField

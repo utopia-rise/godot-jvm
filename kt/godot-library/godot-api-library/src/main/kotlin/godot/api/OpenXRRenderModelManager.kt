@@ -9,16 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal1
-import godot.readReturnValue_LONG
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_STRING
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
@@ -76,26 +75,18 @@ public open class OpenXRRenderModelManager : Node3D() {
     createNativeObject(467, scriptPtr)
   }
 
-  public final fun getTracker(): RenderModelTracker {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTrackerPtr, 2)
-    return RenderModelTracker.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTracker(): RenderModelTracker =
+      RenderModelTracker.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTrackerPtr))
 
   public final fun setTracker(tracker: RenderModelTracker): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tracker.value)
-    TransferContext.callPtrMethod(MethodBindings.setTrackerPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTrackerPtr, tracker.value)
   }
 
-  public final fun getMakeLocalToPose(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMakeLocalToPosePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getMakeLocalToPose(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getMakeLocalToPosePtr)
 
   public final fun setMakeLocalToPose(makeLocalToPose: String): Unit {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, makeLocalToPose)
-    TransferContext.callMethod(MethodBindings.setMakeLocalToPosePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setMakeLocalToPosePtr, makeLocalToPose)
   }
 
   public enum class RenderModelTracker(

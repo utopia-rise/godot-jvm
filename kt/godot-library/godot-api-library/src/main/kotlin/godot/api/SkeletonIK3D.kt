@@ -11,6 +11,22 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod0_ret_TRANSFORM3D
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_NODE_PATH
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_TRANSFORM3D
+import godot.callPtrMethod_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -20,22 +36,6 @@ import godot.core.Transform3D
 import godot.core.Vector3
 import godot.core.asCachedNodePath
 import godot.core.asCachedStringName
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_NODE_PATH
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_STRING_NAME
-import godot.readReturnValue_TRANSFORM3D
-import godot.readReturnValue_VECTOR3
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_NODE_PATH
-import godot.writeMethodArguments_STRING_NAME
-import godot.writeMethodArguments_TRANSFORM3D
-import godot.writeMethodArguments_VECTOR3
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -266,125 +266,83 @@ public open class SkeletonIK3D : SkeletonModifier3D() {
   }
 
   public final fun setRootBone(rootBone: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, rootBone)
-    TransferContext.callPtrMethod(MethodBindings.setRootBonePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setRootBonePtr, rootBone)
   }
 
-  public final fun getRootBone(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRootBonePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getRootBone(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getRootBonePtr)
 
   public final fun setTipBone(tipBone: StringName): Unit {
-    TransferContext.writeMethodArguments_STRING_NAME(ptr, objectID.id, tipBone)
-    TransferContext.callPtrMethod(MethodBindings.setTipBonePtr, 0)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setTipBonePtr, tipBone)
   }
 
-  public final fun getTipBone(): StringName {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTipBonePtr, 21)
-    return TransferContext.readReturnValue_STRING_NAME()
-  }
+  public final fun getTipBone(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getTipBonePtr)
 
   public final fun setTargetTransform(target: Transform3D): Unit {
-    TransferContext.writeMethodArguments_TRANSFORM3D(ptr, objectID.id, target)
-    TransferContext.callPtrMethod(MethodBindings.setTargetTransformPtr, 0)
+    TransferContext.callPtrMethod_TRANSFORM3D(ptr, objectID.id, MethodBindings.setTargetTransformPtr, target)
   }
 
-  public final fun getTargetTransform(): Transform3D {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTargetTransformPtr, 18)
-    return TransferContext.readReturnValue_TRANSFORM3D()
-  }
+  public final fun getTargetTransform(): Transform3D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getTargetTransformPtr)
 
   public final fun setTargetNode(node: NodePath): Unit {
-    TransferContext.writeMethodArguments_NODE_PATH(ptr, objectID.id, node)
-    TransferContext.callPtrMethod(MethodBindings.setTargetNodePtr, 0)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setTargetNodePtr, node)
   }
 
-  public final fun getTargetNode(): NodePath {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTargetNodePtr, 22)
-    return TransferContext.readReturnValue_NODE_PATH()
-  }
+  public final fun getTargetNode(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getTargetNodePtr)
 
   public final fun setOverrideTipBasis(`override`: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, override)
-    TransferContext.callPtrMethod(MethodBindings.setOverrideTipBasisPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setOverrideTipBasisPtr, override)
   }
 
-  public final fun isOverrideTipBasis(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isOverrideTipBasisPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isOverrideTipBasis(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOverrideTipBasisPtr)
 
   public final fun setUseMagnet(use: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, use)
-    TransferContext.callPtrMethod(MethodBindings.setUseMagnetPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseMagnetPtr, use)
   }
 
-  public final fun isUsingMagnet(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingMagnetPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingMagnet(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingMagnetPtr)
 
   public final fun setMagnetPosition(localPosition: Vector3): Unit {
-    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, localPosition)
-    TransferContext.callPtrMethod(MethodBindings.setMagnetPositionPtr, 0)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setMagnetPositionPtr, localPosition)
   }
 
-  public final fun getMagnetPosition(): Vector3 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMagnetPositionPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getMagnetPosition(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getMagnetPositionPtr)
 
   /**
    * Returns the parent [Skeleton3D] node that was present when SkeletonIK entered the scene tree.
    * Returns `null` if the parent node was not a [Skeleton3D] node when SkeletonIK3D entered the scene
    * tree.
    */
-  public final fun getParentSkeleton(): Skeleton3D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getParentSkeletonPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Skeleton3D?)
-  }
+  public final fun getParentSkeleton(): Skeleton3D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getParentSkeletonPtr) as Skeleton3D?)
 
   /**
    * Returns `true` if SkeletonIK is applying IK effects on continues frames to the [Skeleton3D]
    * bones. Returns `false` if SkeletonIK is stopped or [start] was used with the `one_time` parameter
    * set to `true`.
    */
-  public final fun isRunning(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isRunningPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isRunning(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRunningPtr)
 
   public final fun setMinDistance(minDistance: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, minDistance.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setMinDistancePtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMinDistancePtr, minDistance.toDouble())
   }
 
-  public final fun getMinDistance(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMinDistancePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getMinDistance(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMinDistancePtr).toFloat()
 
   public final fun setMaxIterations(iterations: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, iterations.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setMaxIterationsPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxIterationsPtr, iterations.toLong())
   }
 
-  public final fun getMaxIterations(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getMaxIterationsPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getMaxIterations(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxIterationsPtr).toInt()
 
   /**
    * Starts applying IK effects on each frame to the [Skeleton3D] bones but will only take effect
@@ -393,8 +351,7 @@ public open class SkeletonIK3D : SkeletonModifier3D() {
    */
   @JvmOverloads
   public final fun start(oneTime: Boolean = false): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, oneTime)
-    TransferContext.callPtrMethod(MethodBindings.startPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.startPtr, oneTime)
   }
 
   /**
@@ -402,20 +359,15 @@ public open class SkeletonIK3D : SkeletonModifier3D() {
    * [Skeleton3D.clearBonesGlobalPoseOverride] to remove existing overrides on all bones.
    */
   public final fun stop(): Unit {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.stopPtr, 0)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
   }
 
   public final fun setInterpolation(interpolation: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, interpolation.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setInterpolationPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setInterpolationPtr, interpolation.toDouble())
   }
 
-  public final fun getInterpolation(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getInterpolationPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getInterpolation(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getInterpolationPtr).toFloat()
 
   public final fun setRootBone(rootBone: String) = setRootBone(rootBone.asCachedStringName())
 

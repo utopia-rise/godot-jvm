@@ -9,6 +9,28 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_COLOR_LONG_LONG_LONG_DOUBLE
+import godot.callMethod_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_DOUBLE
+import godot.callMethod_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE
+import godot.callMethod_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE
+import godot.callMethod_STRING_LONG_DOUBLE_LONG_LONG_LONG_LONG_LONG_LONG_ret_VECTOR2
+import godot.callMethod_STRING_LONG_DOUBLE_LONG_LONG_LONG_LONG_ret_VECTOR2
+import godot.callMethod_STRING_ret_BOOL
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_DICTIONARY_LONG_DOUBLE_TRANSFORM2D_LONG_LONG_LONG_LONG_DOUBLE_LONG_PACKED_COLOR_ARRAY_ret_RID
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_ret_VECTOR2
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_PACKED_COLOR_ARRAY
+import godot.callPtrMethod_RID_VECTOR2_LONG_LONG_COLOR_DOUBLE_ret_DOUBLE
+import godot.callPtrMethod_RID_VECTOR2_LONG_LONG_LONG_COLOR_DOUBLE_ret_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.Dictionary
@@ -28,29 +50,6 @@ import godot.core.RID
 import godot.core.Transform2D
 import godot.core.VariantArray
 import godot.core.Vector2
-import godot.readReturnValue_ARRAY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DICTIONARY
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.readReturnValue_PACKED_COLOR_ARRAY
-import godot.readReturnValue_RID
-import godot.readReturnValue_STRING
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_ARRAY
-import godot.writeMethodArguments_DICTIONARY_LONG_DOUBLE_TRANSFORM2D_LONG_LONG_LONG_LONG_DOUBLE_LONG_PACKED_COLOR_ARRAY
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_RID_VECTOR2_LONG_LONG_COLOR_DOUBLE
-import godot.writeMethodArguments_RID_VECTOR2_LONG_LONG_LONG_COLOR_DOUBLE
-import godot.writeMethodArguments_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_COLOR_LONG_LONG_LONG_DOUBLE
-import godot.writeMethodArguments_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_DOUBLE
-import godot.writeMethodArguments_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE
-import godot.writeMethodArguments_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE
-import godot.writeMethodArguments_STRING
-import godot.writeMethodArguments_STRING_LONG_DOUBLE_LONG_LONG_LONG_LONG
-import godot.writeMethodArguments_STRING_LONG_DOUBLE_LONG_LONG_LONG_LONG_LONG_LONG
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Float
@@ -89,15 +88,11 @@ public open class Font internal constructor() : Resource() {
   }
 
   public final fun setFallbacks(fallbacks: VariantArray<Font>): Unit {
-    TransferContext.writeMethodArguments_ARRAY(ptr, objectID.id, fallbacks)
-    TransferContext.callPtrMethod(MethodBindings.setFallbacksPtr, 0)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setFallbacksPtr, fallbacks)
   }
 
-  public final fun getFallbacks(): VariantArray<Font> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFallbacksPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<Font>)
-  }
+  public final fun getFallbacks(): VariantArray<Font> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getFallbacksPtr) as VariantArray<Font>)
 
   /**
    * Returns [TextServer] RID of the font cache for specific variation.
@@ -115,20 +110,14 @@ public open class Font internal constructor() : Resource() {
     baselineOffset: Float = 0.0f,
     paletteIndex: Long = 0,
     customColors: PackedColorArray = PackedColorArray(),
-  ): RID {
-    TransferContext.writeMethodArguments_DICTIONARY_LONG_DOUBLE_TRANSFORM2D_LONG_LONG_LONG_LONG_DOUBLE_LONG_PACKED_COLOR_ARRAY(ptr, objectID.id, variationCoordinates, faceIndex.toLong(), strength.toDouble(), transform, spacingTop.toLong(), spacingBottom.toLong(), spacingSpace.toLong(), spacingGlyph.toLong(), baselineOffset.toDouble(), paletteIndex, customColors)
-    TransferContext.callPtrMethod(MethodBindings.findVariationPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  ): RID =
+      TransferContext.callPtrMethod_DICTIONARY_LONG_DOUBLE_TRANSFORM2D_LONG_LONG_LONG_LONG_DOUBLE_LONG_PACKED_COLOR_ARRAY_ret_RID(ptr, objectID.id, MethodBindings.findVariationPtr, variationCoordinates, faceIndex.toLong(), strength.toDouble(), transform, spacingTop.toLong(), spacingBottom.toLong(), spacingSpace.toLong(), spacingGlyph.toLong(), baselineOffset.toDouble(), paletteIndex, customColors)
 
   /**
    * Returns [VariantArray] of valid [Font] [RID]s, which can be passed to the [TextServer] methods.
    */
-  public final fun getRids(): VariantArray<RID> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRidsPtr, 28)
-    return (TransferContext.readReturnValue_ARRAY() as VariantArray<RID>)
-  }
+  public final fun getRids(): VariantArray<RID> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getRidsPtr) as VariantArray<RID>)
 
   /**
    * Returns the total average font height (ascent plus descent) in pixels.
@@ -138,11 +127,8 @@ public open class Font internal constructor() : Resource() {
    * empty line).
    */
   @JvmOverloads
-  public final fun getHeight(fontSize: Int = 16): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fontSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getHeightPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getHeight(fontSize: Int = 16): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHeightPtr, fontSize.toLong()).toFloat()
 
   /**
    * Returns the maximum font ascent (number of pixels above the baseline) of this font and all
@@ -153,11 +139,8 @@ public open class Font internal constructor() : Resource() {
    * empty line).
    */
   @JvmOverloads
-  public final fun getAscent(fontSize: Int = 16): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fontSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getAscentPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getAscent(fontSize: Int = 16): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAscentPtr, fontSize.toLong()).toFloat()
 
   /**
    * Returns the maximum font descent (number of pixels below the baseline) of this font and all
@@ -168,11 +151,8 @@ public open class Font internal constructor() : Resource() {
    * empty line).
    */
   @JvmOverloads
-  public final fun getDescent(fontSize: Int = 16): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fontSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getDescentPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getDescent(fontSize: Int = 16): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDescentPtr, fontSize.toLong()).toFloat()
 
   /**
    * Returns average pixel offset of the underline below the baseline.
@@ -181,11 +161,8 @@ public open class Font internal constructor() : Resource() {
    * different from the value returned by this function. Use it only as rough estimate.
    */
   @JvmOverloads
-  public final fun getUnderlinePosition(fontSize: Int = 16): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fontSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getUnderlinePositionPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getUnderlinePosition(fontSize: Int = 16): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getUnderlinePositionPtr, fontSize.toLong()).toFloat()
 
   /**
    * Returns average thickness of the underline.
@@ -194,126 +171,89 @@ public open class Font internal constructor() : Resource() {
    * different from the value returned by this function. Use it only as rough estimate.
    */
   @JvmOverloads
-  public final fun getUnderlineThickness(fontSize: Int = 16): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, fontSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getUnderlineThicknessPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getUnderlineThickness(fontSize: Int = 16): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getUnderlineThicknessPtr, fontSize.toLong()).toFloat()
 
   /**
    * Returns font family name.
    */
-  public final fun getFontName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFontNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getFontName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getFontNamePtr)
 
   /**
    * Returns font style name.
    */
-  public final fun getFontStyleName(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFontStyleNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getFontStyleName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getFontStyleNamePtr)
 
   /**
    * Returns [Dictionary] with OpenType font name strings (localized font names, version,
    * description, license information, sample text, etc.).
    */
-  public final fun getOtNameStrings(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOtNameStringsPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getOtNameStrings(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getOtNameStringsPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns font style flags.
    */
-  public final fun getFontStyle(): TextServer.FontStyle {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFontStylePtr, 2)
-    return TextServer.FontStyle(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getFontStyle(): TextServer.FontStyle =
+      TextServer.FontStyle(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFontStylePtr))
 
   /**
    * Returns weight (boldness) of the font. A value in the `100...999` range, normal font weight is
    * `400`, bold font weight is `700`.
    */
-  public final fun getFontWeight(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFontWeightPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getFontWeight(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFontWeightPtr).toInt()
 
   /**
    * Returns font stretch amount, compared to a normal width. A percentage value between `50&#37;`
    * and `200&#37;`.
    */
-  public final fun getFontStretch(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFontStretchPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getFontStretch(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFontStretchPtr).toInt()
 
   /**
    * Returns the number of predefined color palettes. Palette contains all colors used to render
    * font glyphs. Each palette has the same number of colors.
    */
-  public final fun getPaletteCount(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPaletteCountPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getPaletteCount(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPaletteCountPtr)
 
   /**
    * Returns the name of the predefined color palette at [index]. Palette contains all colors used
    * to render font glyphs. Each palette has the same number of colors.
    */
-  public final fun getPaletteName(index: Long): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callMethod(MethodBindings.getPaletteNamePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getPaletteName(index: Long): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getPaletteNamePtr, index)
 
   /**
    * Returns the array in the predefined color palette at [index]. Palette contains all colors used
    * to render font glyphs. Each palette has the same number of colors. Colors can be overridden using
    * [FontVariation].
    */
-  public final fun getPaletteColors(index: Long): PackedColorArray {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, index)
-    TransferContext.callPtrMethod(MethodBindings.getPaletteColorsPtr, 37)
-    return TransferContext.readReturnValue_PACKED_COLOR_ARRAY()
-  }
+  public final fun getPaletteColors(index: Long): PackedColorArray =
+      TransferContext.callPtrMethod_LONG_ret_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.getPaletteColorsPtr, index)
 
   /**
    * Returns the amount of spacing for the given [spacing] type.
    */
-  public final fun getSpacing(spacing: TextServer.SpacingType): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, spacing.value)
-    TransferContext.callPtrMethod(MethodBindings.getSpacingPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getSpacing(spacing: TextServer.SpacingType): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getSpacingPtr, spacing.value).toInt()
 
   /**
    * Returns a set of OpenType feature tags. More info:
    * [url=https://docs.microsoft.com/en-us/typography/opentype/spec/featuretags]OpenType feature
    * tags[/url].
    */
-  public final fun getOpentypeFeatures(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getOpentypeFeaturesPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getOpentypeFeatures(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getOpentypeFeaturesPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Sets LRU cache capacity for `draw_*` methods.
    */
   public final fun setCacheCapacity(singleLine: Int, multiLine: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, singleLine.toLong(), multiLine.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setCacheCapacityPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setCacheCapacityPtr, singleLine.toLong(), multiLine.toLong())
   }
 
   /**
@@ -352,11 +292,8 @@ public open class Font internal constructor() : Resource() {
     justificationFlags: TextServer.JustificationFlag = TextServer.JustificationFlag(3),
     direction: TextServer.Direction = TextServer.Direction.AUTO,
     orientation: TextServer.Orientation = TextServer.Orientation.HORIZONTAL,
-  ): Vector2 {
-    TransferContext.writeMethodArguments_STRING_LONG_DOUBLE_LONG_LONG_LONG_LONG(ptr, objectID.id, text, alignment.value, width.toDouble(), fontSize.toLong(), justificationFlags.flag, direction.value, orientation.value)
-    TransferContext.callMethod(MethodBindings.getStringSizePtr)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  ): Vector2 =
+      TransferContext.callMethod_STRING_LONG_DOUBLE_LONG_LONG_LONG_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getStringSizePtr, text, alignment.value, width.toDouble(), fontSize.toLong(), justificationFlags.flag, direction.value, orientation.value)
 
   /**
    * Returns the size of a bounding box of a string broken into the lines, taking kerning and
@@ -375,11 +312,8 @@ public open class Font internal constructor() : Resource() {
     justificationFlags: TextServer.JustificationFlag = TextServer.JustificationFlag(3),
     direction: TextServer.Direction = TextServer.Direction.AUTO,
     orientation: TextServer.Orientation = TextServer.Orientation.HORIZONTAL,
-  ): Vector2 {
-    TransferContext.writeMethodArguments_STRING_LONG_DOUBLE_LONG_LONG_LONG_LONG_LONG_LONG(ptr, objectID.id, text, alignment.value, width.toDouble(), fontSize.toLong(), maxLines.toLong(), brkFlags.flag, justificationFlags.flag, direction.value, orientation.value)
-    TransferContext.callMethod(MethodBindings.getMultilineStringSizePtr)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  ): Vector2 =
+      TransferContext.callMethod_STRING_LONG_DOUBLE_LONG_LONG_LONG_LONG_LONG_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getMultilineStringSizePtr, text, alignment.value, width.toDouble(), fontSize.toLong(), maxLines.toLong(), brkFlags.flag, justificationFlags.flag, direction.value, orientation.value)
 
   /**
    * Draw [text] into a canvas item using the font, at a given position, with [modulate] color,
@@ -403,8 +337,7 @@ public open class Font internal constructor() : Resource() {
     orientation: TextServer.Orientation = TextServer.Orientation.HORIZONTAL,
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_COLOR_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, canvasItem, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), modulate, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
-    TransferContext.callMethod(MethodBindings.drawStringPtr)
+    TransferContext.callMethod_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_COLOR_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.drawStringPtr, canvasItem, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), modulate, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
   }
 
   /**
@@ -432,8 +365,7 @@ public open class Font internal constructor() : Resource() {
     orientation: TextServer.Orientation = TextServer.Orientation.HORIZONTAL,
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, canvasItem, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), maxLines.toLong(), modulate, brkFlags.flag, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
-    TransferContext.callMethod(MethodBindings.drawMultilineStringPtr)
+    TransferContext.callMethod_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.drawMultilineStringPtr, canvasItem, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), maxLines.toLong(), modulate, brkFlags.flag, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
   }
 
   /**
@@ -460,8 +392,7 @@ public open class Font internal constructor() : Resource() {
     orientation: TextServer.Orientation = TextServer.Orientation.HORIZONTAL,
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, canvasItem, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), size.toLong(), modulate, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
-    TransferContext.callMethod(MethodBindings.drawStringOutlinePtr)
+    TransferContext.callMethod_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_COLOR_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.drawStringOutlinePtr, canvasItem, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), size.toLong(), modulate, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
   }
 
   /**
@@ -491,8 +422,7 @@ public open class Font internal constructor() : Resource() {
     orientation: TextServer.Orientation = TextServer.Orientation.HORIZONTAL,
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.writeMethodArguments_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, canvasItem, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), maxLines.toLong(), size.toLong(), modulate, brkFlags.flag, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
-    TransferContext.callMethod(MethodBindings.drawMultilineStringOutlinePtr)
+    TransferContext.callMethod_RID_VECTOR2_STRING_LONG_DOUBLE_LONG_LONG_LONG_COLOR_LONG_LONG_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.drawMultilineStringOutlinePtr, canvasItem, pos, text, alignment.value, width.toDouble(), fontSize.toLong(), maxLines.toLong(), size.toLong(), modulate, brkFlags.flag, justificationFlags.flag, direction.value, orientation.value, oversampling.toDouble())
   }
 
   /**
@@ -502,11 +432,8 @@ public open class Font internal constructor() : Resource() {
    * [getStringSize] or [TextLine] instead. The height returned is the font height (see also
    * [getHeight]) and has no relation to the glyph height.
    */
-  public final fun getCharSize(char: Long, fontSize: Int): Vector2 {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, char, fontSize.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getCharSizePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getCharSize(char: Long, fontSize: Int): Vector2 =
+      TransferContext.callPtrMethod_LONG_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCharSizePtr, char, fontSize.toLong())
 
   /**
    * Draw a single Unicode character [char] into a canvas item using the font, at a given position,
@@ -525,11 +452,8 @@ public open class Font internal constructor() : Resource() {
     fontSize: Int,
     modulate: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
-  ): Float {
-    TransferContext.writeMethodArguments_RID_VECTOR2_LONG_LONG_COLOR_DOUBLE(ptr, objectID.id, canvasItem, pos, char, fontSize.toLong(), modulate, oversampling.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.drawCharPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  ): Float =
+      TransferContext.callPtrMethod_RID_VECTOR2_LONG_LONG_COLOR_DOUBLE_ret_DOUBLE(ptr, objectID.id, MethodBindings.drawCharPtr, canvasItem, pos, char, fontSize.toLong(), modulate, oversampling.toDouble()).toFloat()
 
   /**
    * Draw a single Unicode character [char] outline into a canvas item using the font, at a given
@@ -549,20 +473,14 @@ public open class Font internal constructor() : Resource() {
     size: Int = -1,
     modulate: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
-  ): Float {
-    TransferContext.writeMethodArguments_RID_VECTOR2_LONG_LONG_LONG_COLOR_DOUBLE(ptr, objectID.id, canvasItem, pos, char, fontSize.toLong(), size.toLong(), modulate, oversampling.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.drawCharOutlinePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  ): Float =
+      TransferContext.callPtrMethod_RID_VECTOR2_LONG_LONG_LONG_COLOR_DOUBLE_ret_DOUBLE(ptr, objectID.id, MethodBindings.drawCharOutlinePtr, canvasItem, pos, char, fontSize.toLong(), size.toLong(), modulate, oversampling.toDouble()).toFloat()
 
   /**
    * Returns `true` if a Unicode [char] is available in the font.
    */
-  public final fun hasChar(char: Long): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, char)
-    TransferContext.callPtrMethod(MethodBindings.hasCharPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun hasChar(char: Long): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.hasCharPtr, char)
 
   /**
    * Returns a string containing all the characters available in the font.
@@ -570,40 +488,28 @@ public open class Font internal constructor() : Resource() {
    * If a given character is included in more than one font data source, it appears only once in the
    * returned string.
    */
-  public final fun getSupportedChars(): String {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSupportedCharsPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getSupportedChars(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSupportedCharsPtr)
 
   /**
    * Returns `true` if the font supports the given language (as a
    * [url=https://en.wikipedia.org/wiki/ISO_639-1]ISO 639[/url] code).
    */
-  public final fun isLanguageSupported(language: String): Boolean {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, language)
-    TransferContext.callMethod(MethodBindings.isLanguageSupportedPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isLanguageSupported(language: String): Boolean =
+      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.isLanguageSupportedPtr, language)
 
   /**
    * Returns `true` if the font supports the given script (as a
    * [url=https://en.wikipedia.org/wiki/ISO_15924]ISO 15924[/url] code).
    */
-  public final fun isScriptSupported(script: String): Boolean {
-    TransferContext.writeMethodArguments_STRING(ptr, objectID.id, script)
-    TransferContext.callMethod(MethodBindings.isScriptSupportedPtr)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isScriptSupported(script: String): Boolean =
+      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.isScriptSupportedPtr, script)
 
   /**
    * Returns list of OpenType features supported by font.
    */
-  public final fun getSupportedFeatureList(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSupportedFeatureListPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getSupportedFeatureList(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getSupportedFeatureListPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns list of supported
@@ -630,20 +536,14 @@ public open class Font internal constructor() : Resource() {
    * **Note:** To set and get variation coordinates of a [FontVariation], use
    * [FontVariation.variationOpentype].
    */
-  public final fun getSupportedVariationList(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSupportedVariationListPtr, 27)
-    return (TransferContext.readReturnValue_DICTIONARY() as Dictionary<Any?, Any?>)
-  }
+  public final fun getSupportedVariationList(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getSupportedVariationListPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns number of faces in the TrueType / OpenType collection.
    */
-  public final fun getFaceCount(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFaceCountPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getFaceCount(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFaceCountPtr)
 
   public companion object {
     @JvmField

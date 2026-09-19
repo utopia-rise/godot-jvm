@@ -11,15 +11,14 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Vector3
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_VECTOR3
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_VECTOR3
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -142,37 +141,25 @@ public open class StaticBody3D : PhysicsBody3D() {
   }
 
   public final fun setConstantLinearVelocity(vel: Vector3): Unit {
-    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, vel)
-    TransferContext.callPtrMethod(MethodBindings.setConstantLinearVelocityPtr, 0)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setConstantLinearVelocityPtr, vel)
   }
 
   public final fun setConstantAngularVelocity(vel: Vector3): Unit {
-    TransferContext.writeMethodArguments_VECTOR3(ptr, objectID.id, vel)
-    TransferContext.callPtrMethod(MethodBindings.setConstantAngularVelocityPtr, 0)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setConstantAngularVelocityPtr, vel)
   }
 
-  public final fun getConstantLinearVelocity(): Vector3 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getConstantLinearVelocityPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getConstantLinearVelocity(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getConstantLinearVelocityPtr)
 
-  public final fun getConstantAngularVelocity(): Vector3 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getConstantAngularVelocityPtr, 9)
-    return TransferContext.readReturnValue_VECTOR3()
-  }
+  public final fun getConstantAngularVelocity(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getConstantAngularVelocityPtr)
 
   public final fun setPhysicsMaterialOverride(physicsMaterialOverride: PhysicsMaterial?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, physicsMaterialOverride)
-    TransferContext.callPtrMethod(MethodBindings.setPhysicsMaterialOverridePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setPhysicsMaterialOverridePtr, physicsMaterialOverride)
   }
 
-  public final fun getPhysicsMaterialOverride(): PhysicsMaterial? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPhysicsMaterialOverridePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as PhysicsMaterial?)
-  }
+  public final fun getPhysicsMaterialOverride(): PhysicsMaterial? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPhysicsMaterialOverridePtr) as PhysicsMaterial?)
 
   public companion object {
     @JvmField

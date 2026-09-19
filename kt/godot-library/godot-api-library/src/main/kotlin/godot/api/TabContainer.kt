@@ -9,6 +9,25 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_ANY
+import godot.callMethod_LONG_STRING
+import godot.callMethod_LONG_ret_ANY
+import godot.callMethod_LONG_ret_STRING
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_OBJECT
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_OBJECT
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_ret_LONG
+import godot.callPtrMethod_VECTOR2_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -17,21 +36,6 @@ import godot.core.MethodStringName2
 import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.Vector2
-import godot.readReturnValue_ANY
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_STRING
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_ANY
-import godot.writeMethodArguments_LONG_BOOL
-import godot.writeMethodArguments_LONG_LONG
-import godot.writeMethodArguments_LONG_OBJECT
-import godot.writeMethodArguments_LONG_STRING
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_VECTOR2
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -238,60 +242,41 @@ public open class TabContainer : Container() {
   /**
    * Returns the number of tabs.
    */
-  public final fun getTabCount(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTabCountPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTabCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTabCountPtr).toInt()
 
   public final fun setCurrentTab(tabIdx: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tabIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setCurrentTabPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCurrentTabPtr, tabIdx.toLong())
   }
 
-  public final fun getCurrentTab(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurrentTabPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getCurrentTab(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCurrentTabPtr).toInt()
 
   /**
    * Returns the previously active tab index.
    */
-  public final fun getPreviousTab(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPreviousTabPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getPreviousTab(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPreviousTabPtr).toInt()
 
   /**
    * Selects the first available tab with lower index than the currently selected. Returns `true` if
    * tab selection changed.
    */
-  public final fun selectPreviousAvailable(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.selectPreviousAvailablePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun selectPreviousAvailable(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.selectPreviousAvailablePtr)
 
   /**
    * Selects the first available tab with greater index than the currently selected. Returns `true`
    * if tab selection changed.
    */
-  public final fun selectNextAvailable(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.selectNextAvailablePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun selectNextAvailable(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.selectNextAvailablePtr)
 
   /**
    * Returns the child [Control] node located at the active tab index.
    */
-  public final fun getCurrentTabControl(): Control? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getCurrentTabControlPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Control?)
-  }
+  public final fun getCurrentTabControl(): Control? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getCurrentTabControlPtr) as Control?)
 
   /**
    * Returns the [TabBar] contained in this container.
@@ -299,94 +284,64 @@ public open class TabContainer : Container() {
    * **Warning:** This is a required internal node, removing and freeing it or editing its tabs may
    * cause a crash. If you wish to edit the tabs, use the methods provided in [TabContainer].
    */
-  public final fun getTabBar(): TabBar? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTabBarPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as TabBar?)
-  }
+  public final fun getTabBar(): TabBar? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getTabBarPtr) as TabBar?)
 
   /**
    * Returns the [Control] node from the tab at index [tabIdx].
    */
-  public final fun getTabControl(tabIdx: Int): Control? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tabIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getTabControlPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Control?)
-  }
+  public final fun getTabControl(tabIdx: Int): Control? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getTabControlPtr, tabIdx.toLong()) as Control?)
 
   public final fun setTabAlignment(alignment: TabBar.AlignmentMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, alignment.value)
-    TransferContext.callPtrMethod(MethodBindings.setTabAlignmentPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTabAlignmentPtr, alignment.value)
   }
 
-  public final fun getTabAlignment(): TabBar.AlignmentMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTabAlignmentPtr, 2)
-    return TabBar.AlignmentMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTabAlignment(): TabBar.AlignmentMode =
+      TabBar.AlignmentMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTabAlignmentPtr))
 
   public final fun setTabsPosition(tabsPosition: TabPosition): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tabsPosition.value)
-    TransferContext.callPtrMethod(MethodBindings.setTabsPositionPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTabsPositionPtr, tabsPosition.value)
   }
 
-  public final fun getTabsPosition(): TabPosition {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTabsPositionPtr, 2)
-    return TabPosition.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTabsPosition(): TabPosition =
+      TabPosition.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTabsPositionPtr))
 
   public final fun setClipTabs(clipTabs: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, clipTabs)
-    TransferContext.callPtrMethod(MethodBindings.setClipTabsPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setClipTabsPtr, clipTabs)
   }
 
-  public final fun getClipTabs(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getClipTabsPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getClipTabs(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getClipTabsPtr)
 
   public final fun setTabsVisible(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, visible)
-    TransferContext.callPtrMethod(MethodBindings.setTabsVisiblePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTabsVisiblePtr, visible)
   }
 
-  public final fun areTabsVisible(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.areTabsVisiblePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun areTabsVisible(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.areTabsVisiblePtr)
 
   public final fun setAllTabsInFront(isFront: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, isFront)
-    TransferContext.callPtrMethod(MethodBindings.setAllTabsInFrontPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllTabsInFrontPtr, isFront)
   }
 
-  public final fun isAllTabsInFront(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isAllTabsInFrontPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isAllTabsInFront(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAllTabsInFrontPtr)
 
   /**
    * Sets a custom title for the tab at index [tabIdx] (tab titles default to the name of the
    * indexed child node). Set it back to the child's name to make the tab default to it again.
    */
   public final fun setTabTitle(tabIdx: Int, title: String): Unit {
-    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, tabIdx.toLong(), title)
-    TransferContext.callMethod(MethodBindings.setTabTitlePtr)
+    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setTabTitlePtr, tabIdx.toLong(), title)
   }
 
   /**
    * Returns the title of the tab at index [tabIdx]. Tab titles default to the name of the indexed
    * child node, but this can be overridden with [setTabTitle].
    */
-  public final fun getTabTitle(tabIdx: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tabIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getTabTitlePtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getTabTitle(tabIdx: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getTabTitlePtr, tabIdx.toLong())
 
   /**
    * Sets a custom tooltip text for tab at index [tabIdx].
@@ -396,35 +351,27 @@ public open class TabContainer : Container() {
    * assign `" "` as the [tooltip] text.
    */
   public final fun setTabTooltip(tabIdx: Int, tooltip: String): Unit {
-    TransferContext.writeMethodArguments_LONG_STRING(ptr, objectID.id, tabIdx.toLong(), tooltip)
-    TransferContext.callMethod(MethodBindings.setTabTooltipPtr)
+    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setTabTooltipPtr, tabIdx.toLong(), tooltip)
   }
 
   /**
    * Returns the tooltip text of the tab at index [tabIdx].
    */
-  public final fun getTabTooltip(tabIdx: Int): String {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tabIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getTabTooltipPtr)
-    return TransferContext.readReturnValue_STRING()
-  }
+  public final fun getTabTooltip(tabIdx: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getTabTooltipPtr, tabIdx.toLong())
 
   /**
    * Sets an icon for the tab at index [tabIdx].
    */
   public final fun setTabIcon(tabIdx: Int, icon: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, tabIdx.toLong(), icon)
-    TransferContext.callPtrMethod(MethodBindings.setTabIconPtr, 0)
+    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setTabIconPtr, tabIdx.toLong(), icon)
   }
 
   /**
    * Returns the [Texture2D] for the tab at index [tabIdx] or `null` if the tab has no [Texture2D].
    */
-  public final fun getTabIcon(tabIdx: Int): Texture2D? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tabIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getTabIconPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getTabIcon(tabIdx: Int): Texture2D? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTabIconPtr, tabIdx.toLong()) as Texture2D?)
 
   /**
    * Sets the maximum allowed width of the icon for the tab at index [tabIdx]. This limit is applied
@@ -432,108 +379,82 @@ public open class TabContainer : Container() {
    * adjusted according to the icon's ratio.
    */
   public final fun setTabIconMaxWidth(tabIdx: Int, width: Int): Unit {
-    TransferContext.writeMethodArguments_LONG_LONG(ptr, objectID.id, tabIdx.toLong(), width.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setTabIconMaxWidthPtr, 0)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setTabIconMaxWidthPtr, tabIdx.toLong(), width.toLong())
   }
 
   /**
    * Returns the maximum allowed width of the icon for the tab at index [tabIdx].
    */
-  public final fun getTabIconMaxWidth(tabIdx: Int): Int {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tabIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getTabIconMaxWidthPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTabIconMaxWidth(tabIdx: Int): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getTabIconMaxWidthPtr, tabIdx.toLong()).toInt()
 
   /**
    * If [disabled] is `true`, disables the tab at index [tabIdx], making it non-interactable.
    */
   public final fun setTabDisabled(tabIdx: Int, disabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, tabIdx.toLong(), disabled)
-    TransferContext.callPtrMethod(MethodBindings.setTabDisabledPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setTabDisabledPtr, tabIdx.toLong(), disabled)
   }
 
   /**
    * Returns `true` if the tab at index [tabIdx] is disabled.
    */
-  public final fun isTabDisabled(tabIdx: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tabIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.isTabDisabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isTabDisabled(tabIdx: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isTabDisabledPtr, tabIdx.toLong())
 
   /**
    * If [hidden] is `true`, hides the tab at index [tabIdx], making it disappear from the tab area.
    */
   public final fun setTabHidden(tabIdx: Int, hidden: Boolean): Unit {
-    TransferContext.writeMethodArguments_LONG_BOOL(ptr, objectID.id, tabIdx.toLong(), hidden)
-    TransferContext.callPtrMethod(MethodBindings.setTabHiddenPtr, 0)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setTabHiddenPtr, tabIdx.toLong(), hidden)
   }
 
   /**
    * Returns `true` if the tab at index [tabIdx] is hidden.
    */
-  public final fun isTabHidden(tabIdx: Int): Boolean {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tabIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.isTabHiddenPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isTabHidden(tabIdx: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isTabHiddenPtr, tabIdx.toLong())
 
   /**
    * Sets the metadata value for the tab at index [tabIdx], which can be retrieved later using
    * [getTabMetadata].
    */
   public final fun setTabMetadata(tabIdx: Int, metadata: Any?): Unit {
-    TransferContext.writeMethodArguments_LONG_ANY(ptr, objectID.id, tabIdx.toLong(), metadata)
-    TransferContext.callMethod(MethodBindings.setTabMetadataPtr)
+    TransferContext.callMethod_LONG_ANY(ptr, objectID.id, MethodBindings.setTabMetadataPtr, tabIdx.toLong(), metadata)
   }
 
   /**
    * Returns the metadata value set to the tab at index [tabIdx] using [setTabMetadata]. If no
    * metadata was previously set, returns `null` by default.
    */
-  public final fun getTabMetadata(tabIdx: Int): Any? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tabIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getTabMetadataPtr)
-    return TransferContext.readReturnValue_ANY()
-  }
+  public final fun getTabMetadata(tabIdx: Int): Any? =
+      TransferContext.callMethod_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getTabMetadataPtr, tabIdx.toLong())
 
   /**
    * Sets the button icon from the tab at index [tabIdx].
    */
   public final fun setTabButtonIcon(tabIdx: Int, icon: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_LONG_OBJECT(ptr, objectID.id, tabIdx.toLong(), icon)
-    TransferContext.callPtrMethod(MethodBindings.setTabButtonIconPtr, 0)
+    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setTabButtonIconPtr, tabIdx.toLong(), icon)
   }
 
   /**
    * Returns the button icon from the tab at index [tabIdx].
    */
-  public final fun getTabButtonIcon(tabIdx: Int): Texture2D? {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, tabIdx.toLong())
-    TransferContext.callPtrMethod(MethodBindings.getTabButtonIconPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getTabButtonIcon(tabIdx: Int): Texture2D? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTabButtonIconPtr, tabIdx.toLong()) as Texture2D?)
 
   /**
    * Returns the index of the tab at local coordinates [point]. Returns `-1` if the point is outside
    * the control boundaries or if there's no tab at the queried position.
    */
-  public final fun getTabIdxAtPoint(point: Vector2): Int {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, point)
-    TransferContext.callPtrMethod(MethodBindings.getTabIdxAtPointPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTabIdxAtPoint(point: Vector2): Int =
+      TransferContext.callPtrMethod_VECTOR2_ret_LONG(ptr, objectID.id, MethodBindings.getTabIdxAtPointPtr, point).toInt()
 
   /**
    * Returns the index of the tab tied to the given [control]. The control must be a child of the
    * [TabContainer].
    */
-  public final fun getTabIdxFromControl(control: Control?): Int {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, control)
-    TransferContext.callPtrMethod(MethodBindings.getTabIdxFromControlPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTabIdxFromControl(control: Control?): Int =
+      TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.getTabIdxFromControlPtr, control).toInt()
 
   /**
    * If set on a [Popup] node instance, a popup menu icon appears in the top-right corner of the
@@ -541,8 +462,7 @@ public open class TabContainer : Container() {
    * node.
    */
   public final fun setPopup(popup: Node?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, popup)
-    TransferContext.callPtrMethod(MethodBindings.setPopupPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setPopupPtr, popup)
   }
 
   /**
@@ -551,77 +471,50 @@ public open class TabContainer : Container() {
    * **Warning:** This is a required internal node, removing and freeing it may cause a crash. If
    * you wish to hide it or any of its children, use their [Window.visible] property.
    */
-  public final fun getPopup(): Popup? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getPopupPtr, 24)
-    return (TransferContext.readReturnValue_OBJECT() as Popup?)
-  }
+  public final fun getPopup(): Popup? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getPopupPtr) as Popup?)
 
   public final fun setSwitchOnDragHover(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setSwitchOnDragHoverPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSwitchOnDragHoverPtr, enabled)
   }
 
-  public final fun getSwitchOnDragHover(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getSwitchOnDragHoverPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getSwitchOnDragHover(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSwitchOnDragHoverPtr)
 
   public final fun setDragToRearrangeEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setDragToRearrangeEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDragToRearrangeEnabledPtr, enabled)
   }
 
-  public final fun getDragToRearrangeEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDragToRearrangeEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getDragToRearrangeEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getDragToRearrangeEnabledPtr)
 
   public final fun setTabsRearrangeGroup(groupId: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, groupId.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setTabsRearrangeGroupPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTabsRearrangeGroupPtr, groupId.toLong())
   }
 
-  public final fun getTabsRearrangeGroup(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTabsRearrangeGroupPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getTabsRearrangeGroup(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTabsRearrangeGroupPtr).toInt()
 
   public final fun setUseHiddenTabsForMinSize(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setUseHiddenTabsForMinSizePtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseHiddenTabsForMinSizePtr, enabled)
   }
 
-  public final fun getUseHiddenTabsForMinSize(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getUseHiddenTabsForMinSizePtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getUseHiddenTabsForMinSize(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseHiddenTabsForMinSizePtr)
 
   public final fun setTabFocusMode(focusMode: Control.FocusMode): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, focusMode.value)
-    TransferContext.callPtrMethod(MethodBindings.setTabFocusModePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTabFocusModePtr, focusMode.value)
   }
 
-  public final fun getTabFocusMode(): Control.FocusMode {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTabFocusModePtr, 2)
-    return Control.FocusMode.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getTabFocusMode(): Control.FocusMode =
+      Control.FocusMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTabFocusModePtr))
 
   public final fun setDeselectEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setDeselectEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDeselectEnabledPtr, enabled)
   }
 
-  public final fun getDeselectEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getDeselectEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun getDeselectEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getDeselectEnabledPtr)
 
   public enum class TabPosition(
     public override val `value`: Long,

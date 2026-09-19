@@ -11,15 +11,14 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Vector2
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_VECTOR2
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_VECTOR2
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -254,70 +253,46 @@ public open class ParallaxBackground : CanvasLayer() {
   }
 
   public final fun setScrollOffset(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callPtrMethod(MethodBindings.setScrollOffsetPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setScrollOffsetPtr, offset)
   }
 
-  public final fun getScrollOffset(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScrollOffsetPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getScrollOffset(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getScrollOffsetPtr)
 
   public final fun setScrollBaseOffset(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callPtrMethod(MethodBindings.setScrollBaseOffsetPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setScrollBaseOffsetPtr, offset)
   }
 
-  public final fun getScrollBaseOffset(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScrollBaseOffsetPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getScrollBaseOffset(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getScrollBaseOffsetPtr)
 
   public final fun setScrollBaseScale(scale: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, scale)
-    TransferContext.callPtrMethod(MethodBindings.setScrollBaseScalePtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setScrollBaseScalePtr, scale)
   }
 
-  public final fun getScrollBaseScale(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getScrollBaseScalePtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getScrollBaseScale(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getScrollBaseScalePtr)
 
   public final fun setLimitBegin(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callPtrMethod(MethodBindings.setLimitBeginPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setLimitBeginPtr, offset)
   }
 
-  public final fun getLimitBegin(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLimitBeginPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getLimitBegin(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getLimitBeginPtr)
 
   public final fun setLimitEnd(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments_VECTOR2(ptr, objectID.id, offset)
-    TransferContext.callPtrMethod(MethodBindings.setLimitEndPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setLimitEndPtr, offset)
   }
 
-  public final fun getLimitEnd(): Vector2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getLimitEndPtr, 5)
-    return TransferContext.readReturnValue_VECTOR2()
-  }
+  public final fun getLimitEnd(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getLimitEndPtr)
 
   public final fun setIgnoreCameraZoom(ignore: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, ignore)
-    TransferContext.callPtrMethod(MethodBindings.setIgnoreCameraZoomPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIgnoreCameraZoomPtr, ignore)
   }
 
-  public final fun isIgnoreCameraZoom(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isIgnoreCameraZoomPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isIgnoreCameraZoom(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isIgnoreCameraZoomPtr)
 
   public companion object {
     @JvmField

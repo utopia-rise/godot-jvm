@@ -11,23 +11,22 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_RECT2
+import godot.callPtrMethod0_ret_VECTOR2I
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_RECT2
+import godot.callPtrMethod_VECTOR2I
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Rect2
 import godot.core.Signal0
 import godot.core.Vector2i
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_LONG
-import godot.readReturnValue_OBJECT
-import godot.readReturnValue_RECT2
-import godot.readReturnValue_VECTOR2I
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_OBJECT
-import godot.writeMethodArguments_RECT2
-import godot.writeMethodArguments_VECTOR2I
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
@@ -197,81 +196,53 @@ public open class Sprite3D : SpriteBase3D() {
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, texture)
-    TransferContext.callPtrMethod(MethodBindings.setTexturePtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
   }
 
-  public final fun getTexture(): Texture2D? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getTexturePtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Texture2D?)
-  }
+  public final fun getTexture(): Texture2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture2D?)
 
   public final fun setRegionEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setRegionEnabledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRegionEnabledPtr, enabled)
   }
 
-  public final fun isRegionEnabled(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isRegionEnabledPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isRegionEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRegionEnabledPtr)
 
   public final fun setRegionRect(rect: Rect2): Unit {
-    TransferContext.writeMethodArguments_RECT2(ptr, objectID.id, rect)
-    TransferContext.callPtrMethod(MethodBindings.setRegionRectPtr, 0)
+    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setRegionRectPtr, rect)
   }
 
-  public final fun getRegionRect(): Rect2 {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getRegionRectPtr, 7)
-    return TransferContext.readReturnValue_RECT2()
-  }
+  public final fun getRegionRect(): Rect2 =
+      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRegionRectPtr)
 
   public final fun setFrame(frame: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, frame.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setFramePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFramePtr, frame.toLong())
   }
 
-  public final fun getFrame(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFramePtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getFrame(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFramePtr).toInt()
 
   public final fun setFrameCoords(coords: Vector2i): Unit {
-    TransferContext.writeMethodArguments_VECTOR2I(ptr, objectID.id, coords)
-    TransferContext.callPtrMethod(MethodBindings.setFrameCoordsPtr, 0)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setFrameCoordsPtr, coords)
   }
 
-  public final fun getFrameCoords(): Vector2i {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFrameCoordsPtr, 6)
-    return TransferContext.readReturnValue_VECTOR2I()
-  }
+  public final fun getFrameCoords(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getFrameCoordsPtr)
 
   public final fun setVframes(vframes: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, vframes.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setVframesPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVframesPtr, vframes.toLong())
   }
 
-  public final fun getVframes(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVframesPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getVframes(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVframesPtr).toInt()
 
   public final fun setHframes(hframes: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, hframes.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setHframesPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHframesPtr, hframes.toLong())
   }
 
-  public final fun getHframes(): Int {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getHframesPtr, 2)
-    return TransferContext.readReturnValue_LONG().toInt()
-  }
+  public final fun getHframes(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHframesPtr).toInt()
 
   public companion object {
     @JvmField

@@ -9,15 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.readReturnValue_LONG
-import godot.readReturnValue_RID
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_RID
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -137,103 +136,67 @@ public open class RDAccelerationStructureGeometry : RefCounted() {
   }
 
   public final fun setFlags(pMember: RenderingDevice.AccelerationStructureGeometryFlagBits): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.flag)
-    TransferContext.callPtrMethod(MethodBindings.setFlagsPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFlagsPtr, pMember.flag)
   }
 
-  public final fun getFlags(): RenderingDevice.AccelerationStructureGeometryFlagBits {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFlagsPtr, 2)
-    return RenderingDevice.AccelerationStructureGeometryFlagBits(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getFlags(): RenderingDevice.AccelerationStructureGeometryFlagBits =
+      RenderingDevice.AccelerationStructureGeometryFlagBits(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFlagsPtr))
 
   public final fun setVertexBuffer(pMember: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setVertexBufferPtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setVertexBufferPtr, pMember)
   }
 
-  public final fun getVertexBuffer(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVertexBufferPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getVertexBuffer(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getVertexBufferPtr)
 
   public final fun setVertexOffset(pMember: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setVertexOffsetPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVertexOffsetPtr, pMember)
   }
 
-  public final fun getVertexOffset(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVertexOffsetPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getVertexOffset(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVertexOffsetPtr)
 
   public final fun setVertexStride(pMember: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setVertexStridePtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVertexStridePtr, pMember)
   }
 
-  public final fun getVertexStride(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVertexStridePtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getVertexStride(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVertexStridePtr)
 
   public final fun setVertexCount(pMember: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setVertexCountPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVertexCountPtr, pMember)
   }
 
-  public final fun getVertexCount(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVertexCountPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getVertexCount(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVertexCountPtr)
 
   public final fun setVertexFormat(pMember: RenderingDevice.DataFormat): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember.value)
-    TransferContext.callPtrMethod(MethodBindings.setVertexFormatPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVertexFormatPtr, pMember.value)
   }
 
-  public final fun getVertexFormat(): RenderingDevice.DataFormat {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getVertexFormatPtr, 2)
-    return RenderingDevice.DataFormat.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getVertexFormat(): RenderingDevice.DataFormat =
+      RenderingDevice.DataFormat.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVertexFormatPtr))
 
   public final fun setIndexBuffer(pMember: RID): Unit {
-    TransferContext.writeMethodArguments_RID(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setIndexBufferPtr, 0)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setIndexBufferPtr, pMember)
   }
 
-  public final fun getIndexBuffer(): RID {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getIndexBufferPtr, 23)
-    return TransferContext.readReturnValue_RID()
-  }
+  public final fun getIndexBuffer(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getIndexBufferPtr)
 
   public final fun setIndexOffset(pMember: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setIndexOffsetPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setIndexOffsetPtr, pMember)
   }
 
-  public final fun getIndexOffset(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getIndexOffsetPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getIndexOffset(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getIndexOffsetPtr)
 
   public final fun setIndexCount(pMember: Long): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, pMember)
-    TransferContext.callPtrMethod(MethodBindings.setIndexCountPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setIndexCountPtr, pMember)
   }
 
-  public final fun getIndexCount(): Long {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getIndexCountPtr, 2)
-    return TransferContext.readReturnValue_LONG()
-  }
+  public final fun getIndexCount(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getIndexCountPtr)
 
   public companion object {
     @JvmField

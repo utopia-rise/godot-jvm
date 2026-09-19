@@ -9,15 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_OBJECT
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_OBJECT
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -75,31 +74,22 @@ public open class GradientTexture1D : Texture2D() {
   }
 
   public final fun setGradient(gradient: Gradient?): Unit {
-    TransferContext.writeMethodArguments_OBJECT(ptr, objectID.id, gradient)
-    TransferContext.callPtrMethod(MethodBindings.setGradientPtr, 0)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setGradientPtr, gradient)
   }
 
-  public final fun getGradient(): Gradient? {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getGradientPtr, 39)
-    return (TransferContext.readReturnValue_OBJECT() as Gradient?)
-  }
+  public final fun getGradient(): Gradient? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getGradientPtr) as Gradient?)
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, width.toLong())
-    TransferContext.callPtrMethod(MethodBindings.setWidthPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWidthPtr, width.toLong())
   }
 
   public final fun setUseHdr(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, enabled)
-    TransferContext.callPtrMethod(MethodBindings.setUseHdrPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseHdrPtr, enabled)
   }
 
-  public final fun isUsingHdr(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isUsingHdrPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isUsingHdr(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingHdrPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

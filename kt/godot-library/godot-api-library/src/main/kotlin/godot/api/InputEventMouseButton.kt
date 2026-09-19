@@ -9,17 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MouseButton
-import godot.readReturnValue_BOOL
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_LONG
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_BOOL
-import godot.writeMethodArguments_DOUBLE
-import godot.writeMethodArguments_LONG
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Suppress
@@ -100,47 +99,33 @@ public open class InputEventMouseButton : InputEventMouse() {
   }
 
   public final fun setFactor(factor: Float): Unit {
-    TransferContext.writeMethodArguments_DOUBLE(ptr, objectID.id, factor.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setFactorPtr, 0)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFactorPtr, factor.toDouble())
   }
 
-  public final fun getFactor(): Float {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getFactorPtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getFactor(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFactorPtr).toFloat()
 
   public final fun setButtonIndex(buttonIndex: MouseButton): Unit {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, buttonIndex.value)
-    TransferContext.callPtrMethod(MethodBindings.setButtonIndexPtr, 0)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setButtonIndexPtr, buttonIndex.value)
   }
 
-  public final fun getButtonIndex(): MouseButton {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getButtonIndexPtr, 2)
-    return MouseButton.from(TransferContext.readReturnValue_LONG())
-  }
+  public final fun getButtonIndex(): MouseButton =
+      MouseButton.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getButtonIndexPtr))
 
   public final fun setPressed(pressed: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, pressed)
-    TransferContext.callPtrMethod(MethodBindings.setPressedPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPressedPtr, pressed)
   }
 
   public final fun setCanceled(canceled: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, canceled)
-    TransferContext.callPtrMethod(MethodBindings.setCanceledPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCanceledPtr, canceled)
   }
 
   public final fun setDoubleClick(doubleClick: Boolean): Unit {
-    TransferContext.writeMethodArguments_BOOL(ptr, objectID.id, doubleClick)
-    TransferContext.callPtrMethod(MethodBindings.setDoubleClickPtr, 0)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDoubleClickPtr, doubleClick)
   }
 
-  public final fun isDoubleClick(): Boolean {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.isDoubleClickPtr, 1)
-    return TransferContext.readReturnValue_BOOL()
-  }
+  public final fun isDoubleClick(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDoubleClickPtr)
 
   public companion object {
     @JvmField

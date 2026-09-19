@@ -11,18 +11,16 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedFloat32Array
-import godot.readReturnValue_DOUBLE
-import godot.readReturnValue_PACKED_FLOAT_32_ARRAY
-import godot.writeMethodArguments0
-import godot.writeMethodArguments_LONG
-import godot.writeMethodArguments_LONG_DOUBLE
-import godot.writeMethodArguments_PACKED_FLOAT_32_ARRAY
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -108,29 +106,21 @@ public open class XRFaceTracker : XRTracker() {
   /**
    * Returns the requested face blend shape weight.
    */
-  public final fun getBlendShape(blendShape: BlendShapeEntry): Float {
-    TransferContext.writeMethodArguments_LONG(ptr, objectID.id, blendShape.value)
-    TransferContext.callPtrMethod(MethodBindings.getBlendShapePtr, 3)
-    return TransferContext.readReturnValue_DOUBLE().toFloat()
-  }
+  public final fun getBlendShape(blendShape: BlendShapeEntry): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBlendShapePtr, blendShape.value).toFloat()
 
   /**
    * Sets a face blend shape weight.
    */
   public final fun setBlendShape(blendShape: BlendShapeEntry, weight: Float): Unit {
-    TransferContext.writeMethodArguments_LONG_DOUBLE(ptr, objectID.id, blendShape.value, weight.toDouble())
-    TransferContext.callPtrMethod(MethodBindings.setBlendShapePtr, 0)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setBlendShapePtr, blendShape.value, weight.toDouble())
   }
 
-  public final fun getBlendShapes(): PackedFloat32Array {
-    TransferContext.writeMethodArguments0(ptr, objectID.id)
-    TransferContext.callPtrMethod(MethodBindings.getBlendShapesPtr, 32)
-    return TransferContext.readReturnValue_PACKED_FLOAT_32_ARRAY()
-  }
+  public final fun getBlendShapes(): PackedFloat32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.getBlendShapesPtr)
 
   public final fun setBlendShapes(weights: PackedFloat32Array): Unit {
-    TransferContext.writeMethodArguments_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, weights)
-    TransferContext.callPtrMethod(MethodBindings.setBlendShapesPtr, 0)
+    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setBlendShapesPtr, weights)
   }
 
   public enum class BlendShapeEntry(
