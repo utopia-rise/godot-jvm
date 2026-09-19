@@ -271,6 +271,26 @@ class TestBasis {
     }
 
     @Test
+    fun `Slerp checks`() {
+        val from = Basis.fromEuler(Vector3(0.2, -0.4, 0.6))
+        val to = Basis.fromEuler(Vector3(-1.1, 2.3, 0.9))
+
+        checkMessage(from.slerp(to, 0.0).isEqualApprox(from)) { "Slerp with a weight of 0 should return the first Basis." }
+        checkMessage(from.slerp(to, 1.0).isEqualApprox(to)) { "Slerp with a weight of 1 should return the second Basis." }
+        checkMessage(from.slerp(from, 0.5).isEqualApprox(from)) { "Slerp between a Basis and itself should return that Basis." }
+
+        for (weight in listOf(0.25, 0.5, 0.75)) {
+            val interpolated = from.slerp(to, weight)
+
+            checkMessage(
+                interpolated.isEqualApprox(Basis(Quaternion(from).slerp(Quaternion(to), weight)))
+            ) { "Slerp of two rotations should match the slerp of their quaternions at weight $weight." }
+
+            checkMessage(interpolated.isRotation()) { "Slerp of two rotations should stay a rotation at weight $weight." }
+        }
+    }
+
+    @Test
     fun `Is rotation checks`() {
         checkMessage(
             Basis().isRotation()
