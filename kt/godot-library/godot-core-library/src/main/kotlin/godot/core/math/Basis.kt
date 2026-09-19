@@ -9,6 +9,7 @@ import godot.common.util.RealT
 import godot.common.util.UNIT_EPSILON
 import godot.common.util.isEqualApprox
 import godot.common.util.isZeroApprox
+import godot.common.util.lerp
 import godot.common.util.toRealT
 import godot.internal.logging.GodotLogging
 import kotlincompile.definitions.GodotJvmBuildConfig
@@ -817,9 +818,9 @@ class Basis() : CoreType {
         val to = Quaternion(b)
 
         val ret = Basis(from.slerp(to, t))
-        ret._x *= (b._x.length() - this._x.length()) * t
-        ret._y *= (b._y.length() - this._y.length()) * t
-        ret._z *= (b._z.length() - this._z.length()) * t
+        ret._x *= lerp(this._x.length(), b._x.length(), t)
+        ret._y *= lerp(this._y.length(), b._y.length(), t)
+        ret._z *= lerp(this._z.length(), b._z.length(), t)
 
         return ret
     }
