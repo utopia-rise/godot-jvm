@@ -1,11 +1,13 @@
 package godot.tests.events
 
 import godot.api.Node
+import godot.api.Resource
 import godot.annotation.Script
 import godot.annotation.Register
 import godot.annotation.Visible
 import godot.annotation.Emit
 import godot.core.Signal3
+import godot.core.Vector2
 import godot.core.Callable1
 import godot.core.VariantCaster
 import godot.core.asCallable
@@ -48,6 +50,21 @@ class LambdaCallableKotlinTest : Node() {
         VariantCaster.INT,
         VariantCaster.TYPED_ARRAY(VariantCaster.TYPED_ARRAY(VariantCaster.INT))
     ) { arrays -> arrays.sumOf { it.sum() } }
+
+    // A Callable's return value crosses back through the shared buffer while the JVM object that produced it is only
+    // kept alive by the reference LambdaCallable.invokeWithReturn hands back, so each of these covers a different kind
+    // of payload: a primitive, a String, a core struct, and an object the lambda allocates and nobody else holds.
+    @Visible
+    var returnsInt = lambdaCallable0 { 42 }
+
+    @Visible
+    var returnsString = lambdaCallable0 { "returned-from-lambda" }
+
+    @Visible
+    var returnsVector2 = lambdaCallable0 { Vector2(3, 4) }
+
+    @Visible
+    var returnsFreshResource = lambdaCallable0 { Resource().apply { resourceName = "fresh-from-lambda" } }
 
     @Visible
     var callableNoParamTriggered = false

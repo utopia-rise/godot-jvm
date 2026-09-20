@@ -17,6 +17,14 @@ func test_kotlin_lambda_callable() -> void:
     script.kt_callable.call("called-from-gdscript")
     assert_that(script.kt_callable_string).is_equal("called-from-gdscript")
 
+    assert_that(script.returns_int.call()).override_failure_message("A lambda Callable returning an Int should deliver it to GDScript").is_equal(42)
+    assert_that(script.returns_string.call()).override_failure_message("A lambda Callable returning a String should deliver it to GDScript").is_equal("returned-from-lambda")
+    assert_that(script.returns_vector2.call()).override_failure_message("A lambda Callable returning a core struct should deliver it to GDScript").is_equal(Vector2(3, 4))
+
+    var returned_resource: Resource = script.returns_fresh_resource.call()
+    assert_object(returned_resource).override_failure_message("A lambda Callable returning a freshly allocated RefCounted should deliver a live object").is_not_null()
+    assert_that(returned_resource.resource_name).override_failure_message("A freshly allocated RefCounted returned by a lambda Callable should survive the crossing intact").is_equal("fresh-from-lambda")
+
     assert_that(script.sum_nested_ints.call([[1, 2], [3]])).override_failure_message("A callable created with explicit converters should convert nested array elements as Int").is_equal(6)
 
     script.call_callable_no_param()

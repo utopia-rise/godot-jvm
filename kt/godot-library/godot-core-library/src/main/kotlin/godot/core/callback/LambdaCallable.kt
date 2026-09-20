@@ -7,7 +7,7 @@ import godot.common.interop.VariantConverter
 import godot.core.Callable.Bridge
 import godot.internal.logging.GodotLogging
 import godot.internal.memory.ParametersReader
-import godot.internal.memory.TransferContext
+import godot.internal.memory.VariantBuffer
 
 open class LambdaCallable<R> internal constructor(
     protected val container: LambdaContainer<R>,
@@ -63,7 +63,7 @@ abstract class LambdaContainer<R>(
 
     fun setAsCancellable(signal: Signal, block: () -> Unit) {
         cancelFunction = block
-        TransferContext.writeArguments(1) {
+        VariantBuffer.writeArgs(1) {
             VariantParser.SIGNAL.toGodot(signal)
         }
         Bridge.engine_call_constructor_cancellable(this, this.returnConverter.id, hashCode())
@@ -80,13 +80,15 @@ abstract class LambdaContainer<R>(
     }
 
     fun invokeWithReturn(): Any? = withParametersReturn(typeConverters) {
-        val ret: Any? = null
+        // Held, not discarded: the buffer carries only a raw pointer and an ObjectID, so this reference is the one
+        // thing keeping a returned JVM object alive until the caller has read it back out on the other side.
+        var ret: Any? = null
         try {
-            val ret = invokeUnsafe(*paramsArray)
-            TransferContext.writeReturnValue(ret, returnConverter)
+            ret = invokeUnsafe(*paramsArray)
+            VariantBuffer.writeRet(ret, returnConverter)
         } catch (t: Throwable) {
             GodotLogging.error("Error calling a JVM custom Callable from Godot:\n" + t.stackTraceToString())
-            TransferContext.writeReturnValue(null, VariantParser.NIL)
+            VariantBuffer.writeRet(null, VariantParser.NIL)
         }
         ret
     }
