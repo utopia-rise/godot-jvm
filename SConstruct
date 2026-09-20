@@ -7,6 +7,14 @@ import generate_templates
 # injected directly into ARGUMENTS instead. setdefault() means an explicit
 # `scons build_profile=...` on the command line still overrides this.
 ARGUMENTS.setdefault("build_profile", "build_profile.json")
+
+# godot-cpp leaves link-time optimization off everywhere (its "auto" only enables it for Linux), which leaves every
+# one-line accessor in the JNI wrapper layer as a real call across translation units, on a path every crossing takes.
+# Injected the same way as build_profile above, so an explicit `scons lto=...` still overrides it. Dev builds opt out:
+# they compile at -O0 for debugging, so cross-module inlining would only cost build time and blur what is left to step
+# through.
+_is_dev_build = ARGUMENTS.get("dev_build", "no") not in ("no", "false", "0")
+ARGUMENTS.setdefault("lto", "none" if _is_dev_build else "full")
 target_path = ARGUMENTS.pop("target_path", None)
 target_name = ARGUMENTS.pop("target_name", "godot.jvm")
 
