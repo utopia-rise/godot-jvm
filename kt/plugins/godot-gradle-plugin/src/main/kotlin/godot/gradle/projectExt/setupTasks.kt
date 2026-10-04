@@ -117,8 +117,10 @@ fun Project.setupTasks() {
                         )
                     }
 
-                    jarTask.from(bundledDependencies.map { dependencyJar ->
-                        zipTree(dependencyJar)
+                    // Resolve lazily: iterating the file collection here would resolve the runtime classpath at
+                    // configuration time, which Gradle rejects when this task is realized from another build.
+                    jarTask.from(bundledDependencies.elements.map { dependencyJars ->
+                        dependencyJars.map { dependencyJar -> zipTree(dependencyJar.asFile) }
                     })
                 }
                 setupLibraryModeBuildLifecycleTasks()
