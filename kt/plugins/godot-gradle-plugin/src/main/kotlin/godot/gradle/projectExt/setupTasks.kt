@@ -118,8 +118,7 @@ fun Project.setupTasks() {
                     }
 
                     // Resolve lazily: iterating the file collection here would resolve the runtime classpath at
-                    // configuration time, which Gradle rejects when this task is realized from another build
-                    // ("attempted without an exclusive lock"), e.g. an IDE build of a project that includes this library.
+                    // configuration time, which Gradle rejects when this task is realized from another build.
                     jarTask.from(bundledDependencies.elements.map { dependencyJars ->
                         dependencyJars.map { dependencyJar -> zipTree(dependencyJar.asFile) }
                     })
