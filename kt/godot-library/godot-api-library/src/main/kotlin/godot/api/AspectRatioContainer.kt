@@ -9,13 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
 import kotlin.Float
 import kotlin.Long
 import kotlin.Suppress
@@ -76,52 +77,36 @@ public open class AspectRatioContainer : Container() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(45, scriptPtr)
+    createNativeObject(43, scriptPtr)
   }
 
   public final fun setRatio(ratio: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to ratio.toDouble())
-    TransferContext.callMethod(MethodBindings.setRatioPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRatioPtr, ratio.toDouble())
   }
 
-  public final fun getRatio(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRatioPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getRatio(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRatioPtr).toFloat()
 
   public final fun setStretchMode(stretchMode: StretchMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stretchMode.value)
-    TransferContext.callMethod(MethodBindings.setStretchModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStretchModePtr, stretchMode.value)
   }
 
-  public final fun getStretchMode(): StretchMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStretchModePtr)
-    return StretchMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getStretchMode(): StretchMode =
+      StretchMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStretchModePtr))
 
   public final fun setAlignmentHorizontal(alignmentHorizontal: AlignmentMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to alignmentHorizontal.value)
-    TransferContext.callMethod(MethodBindings.setAlignmentHorizontalPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAlignmentHorizontalPtr, alignmentHorizontal.value)
   }
 
-  public final fun getAlignmentHorizontal(): AlignmentMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAlignmentHorizontalPtr)
-    return AlignmentMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getAlignmentHorizontal(): AlignmentMode =
+      AlignmentMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAlignmentHorizontalPtr))
 
   public final fun setAlignmentVertical(alignmentVertical: AlignmentMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to alignmentVertical.value)
-    TransferContext.callMethod(MethodBindings.setAlignmentVerticalPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAlignmentVerticalPtr, alignmentVertical.value)
   }
 
-  public final fun getAlignmentVertical(): AlignmentMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAlignmentVerticalPtr)
-    return AlignmentMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getAlignmentVertical(): AlignmentMode =
+      AlignmentMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAlignmentVerticalPtr))
 
   public enum class StretchMode(
     public override val `value`: Long,

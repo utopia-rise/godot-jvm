@@ -9,11 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
 import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -40,7 +41,7 @@ public open class OpenXRStructureBase : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(495, scriptPtr)
+    createNativeObject(494, scriptPtr)
   }
 
   public open fun _getHeader(next: Long): Long {
@@ -50,22 +51,15 @@ public open class OpenXRStructureBase : RefCounted() {
   /**
    * Returns the structure type (OpenXR `XrStructureType`) used for this structure.
    */
-  public final fun getStructureType(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStructureTypePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getStructureType(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStructureTypePtr)
 
   public final fun setNext(entity: OpenXRStructureBase?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to entity)
-    TransferContext.callMethod(MethodBindings.setNextPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setNextPtr, entity)
   }
 
-  public final fun getNext(): OpenXRStructureBase? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNextPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRStructureBase?)
-  }
+  public final fun getNext(): OpenXRStructureBase? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getNextPtr) as OpenXRStructureBase?)
 
   public companion object {
     @JvmField

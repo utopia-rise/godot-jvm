@@ -9,14 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_ret_OBJECT
+import godot.callPtrMethod_OBJECT_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Suppress
@@ -109,47 +110,35 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class PackedScene : Resource() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(502, scriptPtr)
+    createNativeObject(501, scriptPtr)
   }
 
   /**
    * Packs the [path] node, and all owned sub-nodes, into this [PackedScene]. Any existing data will
    * be cleared. See [Node.owner].
    */
-  public final fun pack(path: Node?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to path)
-    TransferContext.callMethod(MethodBindings.packPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun pack(path: Node?): Error =
+      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.packPtr, path))
 
   /**
    * Instantiates the scene's node hierarchy. Triggers child scene instantiation(s). Triggers a
    * [Node.NOTIFICATION_SCENE_INSTANTIATED] notification on the root node.
    */
   @JvmOverloads
-  public final fun instantiate(editState: GenEditState = PackedScene.GenEditState.DISABLED): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to editState.value)
-    TransferContext.callMethod(MethodBindings.instantiatePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
-  }
+  public final fun instantiate(editState: GenEditState = PackedScene.GenEditState.DISABLED): Node? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.instantiatePtr, editState.value) as Node?)
 
   /**
    * Returns `true` if the scene file has nodes.
    */
-  public final fun canInstantiate(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.canInstantiatePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun canInstantiate(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.canInstantiatePtr)
 
   /**
    * Returns the [SceneState] representing the scene file contents.
    */
-  public final fun getState(): SceneState? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatePtr)
-    return (TransferContext.readReturnValue(OBJECT) as SceneState?)
-  }
+  public final fun getState(): SceneState? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getStatePtr) as SceneState?)
 
   public enum class GenEditState(
     public override val `value`: Long,

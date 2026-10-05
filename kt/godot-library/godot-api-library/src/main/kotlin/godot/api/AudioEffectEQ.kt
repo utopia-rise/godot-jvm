@@ -9,16 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_ret_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -38,34 +37,27 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class AudioEffectEQ : AudioEffect() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(57, scriptPtr)
+    createNativeObject(55, scriptPtr)
   }
 
   /**
    * Sets band's gain at the specified index, in dB.
    */
   public final fun setBandGainDb(bandIdx: Int, volumeDb: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bandIdx.toLong(), DOUBLE to volumeDb.toDouble())
-    TransferContext.callMethod(MethodBindings.setBandGainDbPtr)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setBandGainDbPtr, bandIdx.toLong(), volumeDb.toDouble())
   }
 
   /**
    * Returns the band's gain at the specified index, in dB.
    */
-  public final fun getBandGainDb(bandIdx: Int): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bandIdx.toLong())
-    TransferContext.callMethod(MethodBindings.getBandGainDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getBandGainDb(bandIdx: Int): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBandGainDbPtr, bandIdx.toLong()).toFloat()
 
   /**
    * Returns the number of bands of the equalizer.
    */
-  public final fun getBandCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBandCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getBandCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBandCountPtr).toInt()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

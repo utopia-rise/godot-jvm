@@ -9,6 +9,21 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_ANY_ANY_DOUBLE_DOUBLE_LONG_LONG_ret_ANY
+import godot.callMethod_CALLABLE_ANY_ANY_DOUBLE_ret_OBJECT_REF
+import godot.callMethod_CALLABLE_ret_OBJECT_REF
+import godot.callMethod_OBJECT_NODE_PATH_ANY_DOUBLE_ret_OBJECT_REF
+import godot.callMethod_SIGNAL_ret_OBJECT_REF
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_BOOL_ret_OBJECT_REF
+import godot.callPtrMethod_DOUBLE_ret_BOOL
+import godot.callPtrMethod_DOUBLE_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.GodotEnum
@@ -20,14 +35,6 @@ import godot.core.NodePath
 import godot.core.Signal
 import godot.core.Signal0
 import godot.core.Signal1
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.SIGNAL
 import godot.core.asCachedNodePath
 import kotlin.Any
 import kotlin.Boolean
@@ -261,11 +268,8 @@ public open class Tween : RefCounted() {
     `property`: NodePath,
     finalVal: Any?,
     duration: Double,
-  ): PropertyTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to `object`, NODE_PATH to property, ANY to finalVal, DOUBLE to duration)
-    TransferContext.callMethod(MethodBindings.tweenPropertyPtr)
-    return (TransferContext.readReturnValue(OBJECT) as PropertyTweener)
-  }
+  ): PropertyTweener =
+      (TransferContext.callMethod_OBJECT_NODE_PATH_ANY_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.tweenPropertyPtr, `object`, property, finalVal, duration) as PropertyTweener)
 
   /**
    * Creates and appends an [IntervalTweener]. This method can be used to create delays in the tween
@@ -312,11 +316,8 @@ public open class Tween : RefCounted() {
    * tween.TweenInterval(2.0f);
    * ```
    */
-  public final fun tweenInterval(time: Double): IntervalTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to time)
-    TransferContext.callMethod(MethodBindings.tweenIntervalPtr)
-    return (TransferContext.readReturnValue(OBJECT) as IntervalTweener)
-  }
+  public final fun tweenInterval(time: Double): IntervalTweener =
+      (TransferContext.callPtrMethod_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.tweenIntervalPtr, time) as IntervalTweener)
 
   /**
    * Creates and appends a [CallbackTweener]. This method can be used to call an arbitrary method in
@@ -353,11 +354,8 @@ public open class Tween : RefCounted() {
    * tween.TweenCallback(Callable.From(() => sprite.Modulate = Colors.Blue)).SetDelay(2.0f);
    * ```
    */
-  public final fun tweenCallback(callback: Callable): CallbackTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to callback)
-    TransferContext.callMethod(MethodBindings.tweenCallbackPtr)
-    return (TransferContext.readReturnValue(OBJECT) as CallbackTweener)
-  }
+  public final fun tweenCallback(callback: Callable): CallbackTweener =
+      (TransferContext.callMethod_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.tweenCallbackPtr, callback) as CallbackTweener)
 
   /**
    * Creates and appends a [MethodTweener]. This method is similar to a combination of
@@ -417,11 +415,8 @@ public open class Tween : RefCounted() {
     from: Any?,
     to: Any?,
     duration: Double,
-  ): MethodTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to method, ANY to from, ANY to to, DOUBLE to duration)
-    TransferContext.callMethod(MethodBindings.tweenMethodPtr)
-    return (TransferContext.readReturnValue(OBJECT) as MethodTweener)
-  }
+  ): MethodTweener =
+      (TransferContext.callMethod_CALLABLE_ANY_ANY_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.tweenMethodPtr, method, from, to, duration) as MethodTweener)
 
   /**
    * Creates and appends a [SubtweenTweener]. This method can be used to nest [subtween] within this
@@ -446,11 +441,8 @@ public open class Tween : RefCounted() {
    * **Note:** The pause and process modes set by [setPauseMode] and [setProcessMode] on [subtween]
    * will be overridden by the parent [Tween]'s settings.
    */
-  public final fun tweenSubtween(subtween: Tween): SubtweenTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to subtween)
-    TransferContext.callMethod(MethodBindings.tweenSubtweenPtr)
-    return (TransferContext.readReturnValue(OBJECT) as SubtweenTweener)
-  }
+  public final fun tweenSubtween(subtween: Tween): SubtweenTweener =
+      (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.tweenSubtweenPtr, subtween) as SubtweenTweener)
 
   /**
    * Creates and appends an [AwaitTweener]. This method can be used to await a signal to be emitted
@@ -493,11 +485,8 @@ public open class Tween : RefCounted() {
    * tween.parallel().tween_callback(method_that_emits_signal)
    * ```
    */
-  public final fun tweenAwait(signal: Signal): AwaitTweener {
-    TransferContext.writeMethodArguments(ptr, objectID.id, SIGNAL to signal)
-    TransferContext.callMethod(MethodBindings.tweenAwaitPtr)
-    return (TransferContext.readReturnValue(OBJECT) as AwaitTweener)
-  }
+  public final fun tweenAwait(signal: Signal): AwaitTweener =
+      (TransferContext.callMethod_SIGNAL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.tweenAwaitPtr, signal) as AwaitTweener)
 
   /**
    * Processes the [Tween] by the given [delta] value, in seconds. This is mostly useful for manual
@@ -506,11 +495,8 @@ public open class Tween : RefCounted() {
    *
    * Returns `true` if the [Tween] still has [Tweener]s that haven't finished.
    */
-  public final fun customStep(delta: Double): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to delta)
-    TransferContext.callMethod(MethodBindings.customStepPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun customStep(delta: Double): Boolean =
+      TransferContext.callPtrMethod_DOUBLE_ret_BOOL(ptr, objectID.id, MethodBindings.customStepPtr, delta)
 
   /**
    * Stops the tweening and resets the [Tween] to its initial state. This will not remove any
@@ -540,8 +526,7 @@ public open class Tween : RefCounted() {
    * [SceneTree.getProcessedTweens].
    */
   public final fun stop(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.stopPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
   }
 
   /**
@@ -552,24 +537,21 @@ public open class Tween : RefCounted() {
    * [SceneTree.getProcessedTweens].
    */
   public final fun pause(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pausePtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pausePtr)
   }
 
   /**
    * Resumes a paused or stopped [Tween].
    */
   public final fun play(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.playPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.playPtr)
   }
 
   /**
    * Aborts all tweening operations and invalidates the [Tween].
    */
   public final fun kill(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.killPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.killPtr)
   }
 
   /**
@@ -580,31 +562,22 @@ public open class Tween : RefCounted() {
    * **Note:** As it results from accumulating frame deltas, the time returned after the [Tween] has
    * finished animating will be slightly greater than the actual [Tween] duration.
    */
-  public final fun getTotalElapsedTime(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTotalElapsedTimePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
-  }
+  public final fun getTotalElapsedTime(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTotalElapsedTimePtr)
 
   /**
    * Returns `true` if any [Tweener] has been added to the [Tween] and the [Tween] is valid. Useful
    * when tweeners are added dynamically and the tween can end up empty. Killing an empty tween before
    * it starts will prevent errors.
    */
-  public final fun hasTweeners(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasTweenersPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasTweeners(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasTweenersPtr)
 
   /**
    * Returns whether the [Tween] is currently running, i.e. it wasn't paused and it's not finished.
    */
-  public final fun isRunning(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRunningPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isRunning(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRunningPtr)
 
   /**
    * Returns whether the [Tween] is valid. A valid [Tween] is a [Tween] contained by the scene tree
@@ -612,11 +585,8 @@ public open class Tween : RefCounted() {
    * become invalid when it has finished tweening, is killed, or when created with `Tween.new()`.
    * Invalid [Tween]s can't have [Tweener]s appended.
    */
-  public final fun isValid(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isValidPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isValid(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isValidPtr)
 
   /**
    * Binds this [Tween] with the given [node]. [Tween]s are processed directly by the [SceneTree],
@@ -627,11 +597,8 @@ public open class Tween : RefCounted() {
    *
    * For a shorter way to create and bind a [Tween], you can use [Node.createTween].
    */
-  public final fun bindNode(node: Node): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to node)
-    TransferContext.callMethod(MethodBindings.bindNodePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
-  }
+  public final fun bindNode(node: Node): Tween =
+      (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.bindNodePtr, node) as Tween)
 
   /**
    * Determines whether the [Tween] should run after process frames (see [Node.Process]) or physics
@@ -639,33 +606,24 @@ public open class Tween : RefCounted() {
    *
    * Default value is [TWEEN_PROCESS_IDLE].
    */
-  public final fun setProcessMode(mode: TweenProcessMode): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setProcessModePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
-  }
+  public final fun setProcessMode(mode: TweenProcessMode): Tween =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setProcessModePtr, mode.value) as Tween)
 
   /**
    * Determines the behavior of the [Tween] when the [SceneTree] is paused.
    *
    * Default value is [TWEEN_PAUSE_BOUND].
    */
-  public final fun setPauseMode(mode: TweenPauseMode): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setPauseModePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
-  }
+  public final fun setPauseMode(mode: TweenPauseMode): Tween =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setPauseModePtr, mode.value) as Tween)
 
   /**
    * If [ignore] is `true`, the tween will ignore [Engine.timeScale] and update with the real,
    * elapsed time. This affects all [Tweener]s and their delays. Default value is `false`.
    */
   @JvmOverloads
-  public final fun setIgnoreTimeScale(ignore: Boolean = true): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to ignore)
-    TransferContext.callMethod(MethodBindings.setIgnoreTimeScalePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
-  }
+  public final fun setIgnoreTimeScale(ignore: Boolean = true): Tween =
+      (TransferContext.callPtrMethod_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setIgnoreTimeScalePtr, ignore) as Tween)
 
   /**
    * If [parallel] is `true`, the [Tweener]s appended after this method will by default run
@@ -682,11 +640,8 @@ public open class Tween : RefCounted() {
    * ```
    */
   @JvmOverloads
-  public final fun setParallel(parallel: Boolean = true): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to parallel)
-    TransferContext.callMethod(MethodBindings.setParallelPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
-  }
+  public final fun setParallel(parallel: Boolean = true): Tween =
+      (TransferContext.callPtrMethod_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setParallelPtr, parallel) as Tween)
 
   /**
    * Sets the number of times the tweening sequence will be repeated, i.e. `set_loops(2)` will run
@@ -702,31 +657,22 @@ public open class Tween : RefCounted() {
    * lifetime depends on some node, always use [bindNode].
    */
   @JvmOverloads
-  public final fun setLoops(loops: Int = 0): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to loops.toLong())
-    TransferContext.callMethod(MethodBindings.setLoopsPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
-  }
+  public final fun setLoops(loops: Int = 0): Tween =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setLoopsPtr, loops.toLong()) as Tween)
 
   /**
    * Returns the number of remaining loops for this [Tween] (see [setLoops]). A return value of `-1`
    * indicates an infinitely looping [Tween], and a return value of `0` indicates that the [Tween] has
    * already finished.
    */
-  public final fun getLoopsLeft(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoopsLeftPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getLoopsLeft(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLoopsLeftPtr).toInt()
 
   /**
    * Scales the speed of tweening. This affects all [Tweener]s and their delays.
    */
-  public final fun setSpeedScale(speed: Float): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to speed.toDouble())
-    TransferContext.callMethod(MethodBindings.setSpeedScalePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
-  }
+  public final fun setSpeedScale(speed: Float): Tween =
+      (TransferContext.callPtrMethod_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setSpeedScalePtr, speed.toDouble()) as Tween)
 
   /**
    * Sets the default transition type for [PropertyTweener]s and [MethodTweener]s appended after
@@ -741,11 +687,8 @@ public open class Tween : RefCounted() {
    * tween.tween_property(self, "rotation_degrees", 45.0, 0.5) # Uses TRANS_SINE.
    * ```
    */
-  public final fun setTrans(trans: TransitionType): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to trans.value)
-    TransferContext.callMethod(MethodBindings.setTransPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
-  }
+  public final fun setTrans(trans: TransitionType): Tween =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setTransPtr, trans.value) as Tween)
 
   /**
    * Sets the default ease type for [PropertyTweener]s and [MethodTweener]s appended after this
@@ -769,11 +712,8 @@ public open class Tween : RefCounted() {
    * tween.TweenProperty(this, "rotation_degrees", 45.0, 0.5); // Uses EaseType.In.
    * ```
    */
-  public final fun setEase(ease: EaseType): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to ease.value)
-    TransferContext.callMethod(MethodBindings.setEasePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
-  }
+  public final fun setEase(ease: EaseType): Tween =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setEasePtr, ease.value) as Tween)
 
   /**
    * Makes the next [Tweener] run parallelly to the previous one.
@@ -798,11 +738,8 @@ public open class Tween : RefCounted() {
    *
    * You can make the [Tween] parallel by default by using [setParallel].
    */
-  public final fun parallel(): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.parallelPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
-  }
+  public final fun parallel(): Tween =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.parallelPtr) as Tween)
 
   /**
    * Used to chain two [Tweener]s after [setParallel] is called with `true`.
@@ -823,11 +760,8 @@ public open class Tween : RefCounted() {
    * tween.Chain().TweenProperty(...); // Will run after two above are finished.
    * ```
    */
-  public final fun chain(): Tween {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.chainPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Tween)
-  }
+  public final fun chain(): Tween =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.chainPtr) as Tween)
 
   /**
    * Creates and appends a [PropertyTweener]. This method tweens a [property] of an [object] between
@@ -1148,11 +1082,8 @@ public open class Tween : RefCounted() {
       duration: Double,
       transType: TransitionType,
       easeType: EaseType,
-    ): Any? {
-      TransferContext.writeMethodArguments(0L, 0L, ANY to initialValue, ANY to deltaValue, DOUBLE to elapsedTime, DOUBLE to duration, LONG to transType.value, LONG to easeType.value)
-      TransferContext.callMethod(MethodBindings.interpolateValuePtr)
-      return (TransferContext.readReturnValue(ANY) as Any?)
-    }
+    ): Any? =
+        TransferContext.callMethod_ANY_ANY_DOUBLE_DOUBLE_LONG_LONG_ret_ANY(0L, 0L, MethodBindings.interpolateValuePtr, initialValue, deltaValue, elapsedTime, duration, transType.value, easeType.value)
   }
 
   public object MethodBindings {

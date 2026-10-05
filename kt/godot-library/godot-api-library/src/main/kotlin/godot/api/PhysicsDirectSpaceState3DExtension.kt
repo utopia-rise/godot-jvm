@@ -9,11 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_RID_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser._RID
 import godot.core.Vector3
 import kotlin.Boolean
 import kotlin.NotImplementedError
@@ -32,16 +31,13 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public abstract class PhysicsDirectSpaceState3DExtension : PhysicsDirectSpaceState3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(533, scriptPtr)
+    createNativeObject(532, scriptPtr)
   }
 
   public abstract fun _getClosestPointToObjectVolume(`object`: RID, point: Vector3): Vector3
 
-  public final fun isBodyExcludedFromQuery(body: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to body)
-    TransferContext.callMethod(MethodBindings.isBodyExcludedFromQueryPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isBodyExcludedFromQuery(body: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.isBodyExcludedFromQueryPtr, body)
 
   public companion object {
     @JvmField

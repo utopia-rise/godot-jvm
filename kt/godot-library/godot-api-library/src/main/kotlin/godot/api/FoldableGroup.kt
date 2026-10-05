@@ -9,14 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal1
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.OBJECT
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -45,39 +46,29 @@ public open class FoldableGroup : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(232, scriptPtr)
+    createNativeObject(230, scriptPtr)
   }
 
   /**
    * Returns the current expanded container.
    */
-  public final fun getExpandedContainer(): FoldableContainer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExpandedContainerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as FoldableContainer?)
-  }
+  public final fun getExpandedContainer(): FoldableContainer? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getExpandedContainerPtr) as FoldableContainer?)
 
   /**
    * Returns an [VariantArray] of [FoldableContainer]s that have this as their FoldableGroup (see
    * [FoldableContainer.foldableGroup]). This is equivalent to [ButtonGroup] but for
    * FoldableContainers.
    */
-  public final fun getContainers(): VariantArray<FoldableContainer> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getContainersPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<FoldableContainer>)
-  }
+  public final fun getContainers(): VariantArray<FoldableContainer> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getContainersPtr) as VariantArray<FoldableContainer>)
 
   public final fun setAllowFoldingAll(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setAllowFoldingAllPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllowFoldingAllPtr, enabled)
   }
 
-  public final fun isAllowFoldingAll(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAllowFoldingAllPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isAllowFoldingAll(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAllowFoldingAllPtr)
 
   public companion object {
     @JvmField

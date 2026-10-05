@@ -11,16 +11,18 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_PACKED_INT_64_ARRAY
+import godot.callPtrMethod_ARRAY
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_PACKED_INT_64_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.PackedInt64Array
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.PACKED_INT_64_ARRAY
 import kotlin.Any
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -77,7 +79,7 @@ public open class OggPacketSequence : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(434, scriptPtr)
+    createNativeObject(433, scriptPtr)
   }
 
   /**
@@ -118,46 +120,31 @@ public open class OggPacketSequence : Resource() {
   }
 
   public final fun setPacketData(packetData: VariantArray<VariantArray<Any?>>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to packetData)
-    TransferContext.callMethod(MethodBindings.setPacketDataPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setPacketDataPtr, packetData)
   }
 
-  public final fun getPacketData(): VariantArray<VariantArray<Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketDataPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<VariantArray<Any?>>)
-  }
+  public final fun getPacketData(): VariantArray<VariantArray<Any?>> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getPacketDataPtr) as VariantArray<VariantArray<Any?>>)
 
   public final fun setPacketGranulePositions(granulePositions: PackedInt64Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_INT_64_ARRAY to granulePositions)
-    TransferContext.callMethod(MethodBindings.setPacketGranulePositionsPtr)
+    TransferContext.callPtrMethod_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.setPacketGranulePositionsPtr, granulePositions)
   }
 
-  public final fun getPacketGranulePositions(): PackedInt64Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPacketGranulePositionsPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_64_ARRAY) as PackedInt64Array)
-  }
+  public final fun getPacketGranulePositions(): PackedInt64Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.getPacketGranulePositionsPtr)
 
   public final fun setSamplingRate(samplingRate: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to samplingRate.toDouble())
-    TransferContext.callMethod(MethodBindings.setSamplingRatePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSamplingRatePtr, samplingRate.toDouble())
   }
 
-  public final fun getSamplingRate(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSamplingRatePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getSamplingRate(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSamplingRatePtr).toFloat()
 
   /**
    * The length of this stream, in seconds.
    */
-  public final fun getLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
 
   public companion object {
     @JvmField

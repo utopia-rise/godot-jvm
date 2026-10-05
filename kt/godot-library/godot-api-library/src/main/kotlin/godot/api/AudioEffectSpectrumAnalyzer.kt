@@ -9,13 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
 import kotlin.Float
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -61,30 +62,22 @@ public open class AudioEffectSpectrumAnalyzer : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(75, scriptPtr)
+    createNativeObject(73, scriptPtr)
   }
 
   public final fun setBufferLength(seconds: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to seconds.toDouble())
-    TransferContext.callMethod(MethodBindings.setBufferLengthPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBufferLengthPtr, seconds.toDouble())
   }
 
-  public final fun getBufferLength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBufferLengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getBufferLength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBufferLengthPtr).toFloat()
 
   public final fun setFftSize(size: FFTSize): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.value)
-    TransferContext.callMethod(MethodBindings.setFftSizePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFftSizePtr, size.value)
   }
 
-  public final fun getFftSize(): FFTSize {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFftSizePtr)
-    return FFTSize.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getFftSize(): FFTSize =
+      FFTSize.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFftSizePtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

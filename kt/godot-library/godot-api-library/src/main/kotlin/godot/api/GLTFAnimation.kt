@@ -9,15 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_NAME_ANY
+import godot.callMethod_STRING_NAME_ret_ANY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.StringName
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.Any
 import kotlin.Boolean
@@ -49,29 +51,21 @@ public open class GLTFAnimation : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(241, scriptPtr)
+    createNativeObject(239, scriptPtr)
   }
 
-  public final fun getOriginalName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOriginalNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getOriginalName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOriginalNamePtr)
 
   public final fun setOriginalName(originalName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to originalName)
-    TransferContext.callMethod(MethodBindings.setOriginalNamePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOriginalNamePtr, originalName)
   }
 
-  public final fun getLoop(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoopPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getLoop(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getLoopPtr)
 
   public final fun setLoop(loop: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to loop)
-    TransferContext.callMethod(MethodBindings.setLoopPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setLoopPtr, loop)
   }
 
   /**
@@ -83,11 +77,8 @@ public open class GLTFAnimation : Resource() {
    * name in the glTF file), and the return value can be anything you set. If nothing was set, the
    * return value is `null`.
    */
-  public final fun getAdditionalData(extensionName: StringName): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to extensionName)
-    TransferContext.callMethod(MethodBindings.getAdditionalDataPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun getAdditionalData(extensionName: StringName): Any? =
+      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getAdditionalDataPtr, extensionName)
 
   /**
    * Sets additional arbitrary data in this [GLTFAnimation] instance. This can be used to keep
@@ -98,8 +89,7 @@ public open class GLTFAnimation : Resource() {
    * extension name in the glTF file), and the second argument can be anything you want.
    */
   public final fun setAdditionalData(extensionName: StringName, additionalData: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to extensionName, ANY to additionalData)
-    TransferContext.callMethod(MethodBindings.setAdditionalDataPtr)
+    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setAdditionalDataPtr, extensionName, additionalData)
   }
 
   /**

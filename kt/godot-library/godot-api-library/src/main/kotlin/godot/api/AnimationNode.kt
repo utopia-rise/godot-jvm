@@ -9,6 +9,21 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_LONG_STRING_ret_BOOL
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_STRING_NAME_ANY
+import godot.callMethod_STRING_NAME_ret_ANY
+import godot.callMethod_STRING_ret_BOOL
+import godot.callMethod_STRING_ret_LONG
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_DOUBLE_BOOL_BOOL_DOUBLE_LONG_BOOL_BOOL_ret_DOUBLE
+import godot.callPtrMethod_NODE_PATH_BOOL
+import godot.callPtrMethod_NODE_PATH_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_DOUBLE_DOUBLE_BOOL_BOOL_DOUBLE_LONG
+import godot.callPtrMethod_STRING_NAME_OBJECT_DOUBLE_BOOL_BOOL_DOUBLE_LONG_BOOL_BOOL_ret_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.GodotEnum
@@ -25,14 +40,6 @@ import godot.core.Signal2
 import godot.core.Signal3
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedNodePath
 import godot.core.asCachedStringName
 import kotlin.Any
@@ -112,7 +119,7 @@ public open class AnimationNode : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(17, scriptPtr)
+    createNativeObject(15, scriptPtr)
   }
 
   /**
@@ -198,84 +205,60 @@ public open class AnimationNode : Resource() {
    * Adds an input to the animation node. This is only useful for animation nodes created for use in
    * an [AnimationNodeBlendTree]. If the addition fails, returns `false`.
    */
-  public final fun addInput(name: String): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
-    TransferContext.callMethod(MethodBindings.addInputPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun addInput(name: String): Boolean =
+      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.addInputPtr, name)
 
   /**
    * Removes an input, call this only when inactive.
    */
   public final fun removeInput(index: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.removeInputPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeInputPtr, index.toLong())
   }
 
   /**
    * Sets the name of the input at the given [input] index. If the setting fails, returns `false`.
    */
-  public final fun setInputName(input: Int, name: String): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to input.toLong(), STRING to name)
-    TransferContext.callMethod(MethodBindings.setInputNamePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun setInputName(input: Int, name: String): Boolean =
+      TransferContext.callMethod_LONG_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.setInputNamePtr, input.toLong(), name)
 
   /**
    * Gets the name of an input by index.
    */
-  public final fun getInputName(input: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to input.toLong())
-    TransferContext.callMethod(MethodBindings.getInputNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getInputName(input: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getInputNamePtr, input.toLong())
 
   /**
    * Amount of inputs in this animation node, only useful for animation nodes that go into
    * [AnimationNodeBlendTree].
    */
-  public final fun getInputCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInputCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getInputCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInputCountPtr).toInt()
 
   /**
    * Returns the input index which corresponds to [name]. If not found, returns `-1`.
    */
-  public final fun findInput(name: String): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
-    TransferContext.callMethod(MethodBindings.findInputPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun findInput(name: String): Int =
+      TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.findInputPtr, name).toInt()
 
   /**
    * Adds or removes a path for the filter.
    */
   public final fun setFilterPath(path: NodePath, enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setFilterPathPtr)
+    TransferContext.callPtrMethod_NODE_PATH_BOOL(ptr, objectID.id, MethodBindings.setFilterPathPtr, path, enable)
   }
 
   /**
    * Returns `true` if the given path is filtered.
    */
-  public final fun isPathFiltered(path: NodePath): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.isPathFilteredPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isPathFiltered(path: NodePath): Boolean =
+      TransferContext.callPtrMethod_NODE_PATH_ret_BOOL(ptr, objectID.id, MethodBindings.isPathFilteredPtr, path)
 
   public final fun setFilterEnabled(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setFilterEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFilterEnabledPtr, enable)
   }
 
-  public final fun isFilterEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFilterEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isFilterEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFilterEnabledPtr)
 
   /**
    * Returns the object id of the [AnimationTree] that owns this node.
@@ -283,20 +266,14 @@ public open class AnimationNode : Resource() {
    * **Note:** This method should only be called from within the
    * [AnimationNodeExtension.ProcessAnimationNode] method, and will return an invalid id otherwise.
    */
-  public final fun getProcessingAnimationTreeInstanceId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProcessingAnimationTreeInstanceIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getProcessingAnimationTreeInstanceId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProcessingAnimationTreeInstanceIdPtr)
 
   /**
    * Returns `true` if this animation node is being processed in test-only mode.
    */
-  public final fun isProcessTesting(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isProcessTestingPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isProcessTesting(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isProcessTestingPtr)
 
   /**
    * Blends an animation by [blend] amount (name must be valid in the linked [AnimationPlayer]). A
@@ -314,8 +291,7 @@ public open class AnimationNode : Resource() {
     blend: Float,
     loopedFlag: Animation.LoopedFlag = Animation.LoopedFlag.NONE,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to animation, DOUBLE to time, DOUBLE to delta, BOOL to seeked, BOOL to isExternalSeeking, DOUBLE to blend.toDouble(), LONG to loopedFlag.value)
-    TransferContext.callMethod(MethodBindings.blendAnimationPtr)
+    TransferContext.callPtrMethod_STRING_NAME_DOUBLE_DOUBLE_BOOL_BOOL_DOUBLE_LONG(ptr, objectID.id, MethodBindings.blendAnimationPtr, animation, time, delta, seeked, isExternalSeeking, blend.toDouble(), loopedFlag.value)
   }
 
   /**
@@ -334,11 +310,8 @@ public open class AnimationNode : Resource() {
     filter: FilterAction = AnimationNode.FilterAction.IGNORE,
     sync: Boolean = true,
     testOnly: Boolean = false,
-  ): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, OBJECT to node, DOUBLE to time, BOOL to seek, BOOL to isExternalSeeking, DOUBLE to blend.toDouble(), LONG to filter.value, BOOL to sync, BOOL to testOnly)
-    TransferContext.callMethod(MethodBindings.blendNodePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
-  }
+  ): Double =
+      TransferContext.callPtrMethod_STRING_NAME_OBJECT_DOUBLE_BOOL_BOOL_DOUBLE_LONG_BOOL_BOOL_ret_DOUBLE(ptr, objectID.id, MethodBindings.blendNodePtr, name, node, time, seek, isExternalSeeking, blend.toDouble(), filter.value, sync, testOnly)
 
   /**
    * Blends an input. This is only useful for animation nodes created for an
@@ -355,30 +328,23 @@ public open class AnimationNode : Resource() {
     filter: FilterAction = AnimationNode.FilterAction.IGNORE,
     sync: Boolean = true,
     testOnly: Boolean = false,
-  ): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to inputIndex.toLong(), DOUBLE to time, BOOL to seek, BOOL to isExternalSeeking, DOUBLE to blend.toDouble(), LONG to filter.value, BOOL to sync, BOOL to testOnly)
-    TransferContext.callMethod(MethodBindings.blendInputPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
-  }
+  ): Double =
+      TransferContext.callPtrMethod_LONG_DOUBLE_BOOL_BOOL_DOUBLE_LONG_BOOL_BOOL_ret_DOUBLE(ptr, objectID.id, MethodBindings.blendInputPtr, inputIndex.toLong(), time, seek, isExternalSeeking, blend.toDouble(), filter.value, sync, testOnly)
 
   /**
    * Sets a custom parameter. These are used as local memory, because resources can be reused across
    * the tree or scenes.
    */
   public final fun setParameter(name: StringName, `value`: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, ANY to value)
-    TransferContext.callMethod(MethodBindings.setParameterPtr)
+    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setParameterPtr, name, value)
   }
 
   /**
    * Gets the value of a parameter. Parameters are custom local memory used for your animation
    * nodes, given a resource can be reused in multiple trees.
    */
-  public final fun getParameter(name: StringName): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.getParameterPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun getParameter(name: StringName): Any? =
+      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getParameterPtr, name)
 
   /**
    * Adds or removes a path for the filter.

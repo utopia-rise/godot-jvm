@@ -9,20 +9,24 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_VECTOR2I
+import godot.callPtrMethod_VECTOR2I
+import godot.callPtrMethod_VECTOR2I_BOOL
+import godot.callPtrMethod_VECTOR2I_LONG_VECTOR2I_LONG
+import godot.callPtrMethod_VECTOR2I_ret_BOOL
+import godot.callPtrMethod_VECTOR2I_ret_LONG
+import godot.callPtrMethod_VECTOR2I_ret_VECTOR2I
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName4
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR2I
 import godot.core.Vector2i
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -50,88 +54,64 @@ public open class TileMapPattern : Resource() {
     atlasCoords: Vector2i = Vector2i(-1, -1),
     alternativeTile: Int = -1,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to coords, LONG to sourceId.toLong(), VECTOR2I to atlasCoords, LONG to alternativeTile.toLong())
-    TransferContext.callMethod(MethodBindings.setCellPtr)
+    TransferContext.callPtrMethod_VECTOR2I_LONG_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.setCellPtr, coords, sourceId.toLong(), atlasCoords, alternativeTile.toLong())
   }
 
   /**
    * Returns whether the pattern has a tile at the given coordinates.
    */
-  public final fun hasCell(coords: Vector2i): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to coords)
-    TransferContext.callMethod(MethodBindings.hasCellPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasCell(coords: Vector2i): Boolean =
+      TransferContext.callPtrMethod_VECTOR2I_ret_BOOL(ptr, objectID.id, MethodBindings.hasCellPtr, coords)
 
   /**
    * Remove the cell at the given coordinates.
    */
   public final fun removeCell(coords: Vector2i, updateSize: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to coords, BOOL to updateSize)
-    TransferContext.callMethod(MethodBindings.removeCellPtr)
+    TransferContext.callPtrMethod_VECTOR2I_BOOL(ptr, objectID.id, MethodBindings.removeCellPtr, coords, updateSize)
   }
 
   /**
    * Returns the tile source ID of the cell at [coords].
    */
-  public final fun getCellSourceId(coords: Vector2i): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to coords)
-    TransferContext.callMethod(MethodBindings.getCellSourceIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getCellSourceId(coords: Vector2i): Int =
+      TransferContext.callPtrMethod_VECTOR2I_ret_LONG(ptr, objectID.id, MethodBindings.getCellSourceIdPtr, coords).toInt()
 
   /**
    * Returns the tile atlas coordinates ID of the cell at [coords].
    */
-  public final fun getCellAtlasCoords(coords: Vector2i): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to coords)
-    TransferContext.callMethod(MethodBindings.getCellAtlasCoordsPtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
-  }
+  public final fun getCellAtlasCoords(coords: Vector2i): Vector2i =
+      TransferContext.callPtrMethod_VECTOR2I_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getCellAtlasCoordsPtr, coords)
 
   /**
    * Returns the tile alternative ID of the cell at [coords].
    */
-  public final fun getCellAlternativeTile(coords: Vector2i): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to coords)
-    TransferContext.callMethod(MethodBindings.getCellAlternativeTilePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getCellAlternativeTile(coords: Vector2i): Int =
+      TransferContext.callPtrMethod_VECTOR2I_ret_LONG(ptr, objectID.id, MethodBindings.getCellAlternativeTilePtr, coords).toInt()
 
   /**
    * Returns the list of used cell coordinates in the pattern.
    */
-  public final fun getUsedCells(): VariantArray<Vector2i> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUsedCellsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Vector2i>)
-  }
+  public final fun getUsedCells(): VariantArray<Vector2i> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getUsedCellsPtr) as VariantArray<Vector2i>)
 
   /**
    * Returns the size, in cells, of the pattern.
    */
-  public final fun getSize(): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
-  }
+  public final fun getSize(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getSizePtr)
 
   /**
    * Sets the size of the pattern.
    */
   public final fun setSize(size: Vector2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setSizePtr, size)
   }
 
   /**
    * Returns whether the pattern is empty or not.
    */
-  public final fun isEmpty(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isEmptyPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isEmpty(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEmptyPtr)
 
   public companion object {
     @JvmField

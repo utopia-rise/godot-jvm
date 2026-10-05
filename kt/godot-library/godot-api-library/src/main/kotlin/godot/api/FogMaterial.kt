@@ -11,15 +11,17 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_COLOR
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.RID
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
-import kotlin.Double
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -133,7 +135,7 @@ public open class FogMaterial : Material() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(229, scriptPtr)
+    createNativeObject(227, scriptPtr)
   }
 
   /**
@@ -179,70 +181,46 @@ public open class FogMaterial : Material() {
   }
 
   public final fun setDensity(density: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to density.toDouble())
-    TransferContext.callMethod(MethodBindings.setDensityPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDensityPtr, density.toDouble())
   }
 
-  public final fun getDensity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDensityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDensity(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDensityPtr).toFloat()
 
   public final fun setAlbedo(albedo: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to albedo)
-    TransferContext.callMethod(MethodBindings.setAlbedoPtr)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setAlbedoPtr, albedo)
   }
 
-  public final fun getAlbedo(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAlbedoPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
-  }
+  public final fun getAlbedo(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getAlbedoPtr)
 
   public final fun setEmission(emission: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to emission)
-    TransferContext.callMethod(MethodBindings.setEmissionPtr)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setEmissionPtr, emission)
   }
 
-  public final fun getEmission(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEmissionPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
-  }
+  public final fun getEmission(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getEmissionPtr)
 
   public final fun setHeightFalloff(heightFalloff: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to heightFalloff.toDouble())
-    TransferContext.callMethod(MethodBindings.setHeightFalloffPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHeightFalloffPtr, heightFalloff.toDouble())
   }
 
-  public final fun getHeightFalloff(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightFalloffPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getHeightFalloff(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHeightFalloffPtr).toFloat()
 
   public final fun setEdgeFade(edgeFade: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to edgeFade.toDouble())
-    TransferContext.callMethod(MethodBindings.setEdgeFadePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEdgeFadePtr, edgeFade.toDouble())
   }
 
-  public final fun getEdgeFade(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEdgeFadePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getEdgeFade(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEdgeFadePtr).toFloat()
 
   public final fun setDensityTexture(densityTexture: Texture3D?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to densityTexture)
-    TransferContext.callMethod(MethodBindings.setDensityTexturePtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setDensityTexturePtr, densityTexture)
   }
 
-  public final fun getDensityTexture(): Texture3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDensityTexturePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Texture3D?)
-  }
+  public final fun getDensityTexture(): Texture3D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getDensityTexturePtr) as Texture3D?)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

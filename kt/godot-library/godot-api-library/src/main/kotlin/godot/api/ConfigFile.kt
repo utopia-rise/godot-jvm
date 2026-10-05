@@ -9,6 +9,19 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_PACKED_BYTE_ARRAY_ret_LONG
+import godot.callMethod_STRING_STRING
+import godot.callMethod_STRING_STRING_ANY
+import godot.callMethod_STRING_STRING_ANY_ret_ANY
+import godot.callMethod_STRING_STRING_ret_BOOL
+import godot.callMethod_STRING_STRING_ret_LONG
+import godot.callMethod_STRING_ret_BOOL
+import godot.callMethod_STRING_ret_LONG
+import godot.callMethod_STRING_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
@@ -17,15 +30,8 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.PackedByteArray
 import godot.core.PackedStringArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.Any
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -191,7 +197,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class ConfigFile : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(184, scriptPtr)
+    createNativeObject(182, scriptPtr)
   }
 
   /**
@@ -204,8 +210,7 @@ public open class ConfigFile : RefCounted() {
     key: String,
     `value`: Any?,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to section, STRING to key, ANY to value)
-    TransferContext.callMethod(MethodBindings.setValuePtr)
+    TransferContext.callMethod_STRING_STRING_ANY(ptr, objectID.id, MethodBindings.setValuePtr, section, key, value)
   }
 
   /**
@@ -218,56 +223,40 @@ public open class ConfigFile : RefCounted() {
     section: String,
     key: String,
     default: Any? = null,
-  ): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to section, STRING to key, ANY to default)
-    TransferContext.callMethod(MethodBindings.getValuePtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  ): Any? =
+      TransferContext.callMethod_STRING_STRING_ANY_ret_ANY(ptr, objectID.id, MethodBindings.getValuePtr, section, key, default)
 
   /**
    * Returns `true` if the specified section exists.
    */
-  public final fun hasSection(section: String): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to section)
-    TransferContext.callMethod(MethodBindings.hasSectionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasSection(section: String): Boolean =
+      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasSectionPtr, section)
 
   /**
    * Returns `true` if the specified section-key pair exists.
    */
-  public final fun hasSectionKey(section: String, key: String): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to section, STRING to key)
-    TransferContext.callMethod(MethodBindings.hasSectionKeyPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasSectionKey(section: String, key: String): Boolean =
+      TransferContext.callMethod_STRING_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasSectionKeyPtr, section, key)
 
   /**
    * Returns an array of all defined section identifiers.
    */
-  public final fun getSections(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSectionsPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getSections(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getSectionsPtr)
 
   /**
    * Returns an array of all defined key identifiers in the specified section. Raises an error and
    * returns an empty array if the section does not exist.
    */
-  public final fun getSectionKeys(section: String): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to section)
-    TransferContext.callMethod(MethodBindings.getSectionKeysPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getSectionKeys(section: String): PackedStringArray =
+      TransferContext.callMethod_STRING_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getSectionKeysPtr, section)
 
   /**
    * Deletes the specified section along with all the key-value pairs inside. Raises an error if the
    * section does not exist.
    */
   public final fun eraseSection(section: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to section)
-    TransferContext.callMethod(MethodBindings.eraseSectionPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.eraseSectionPtr, section)
   }
 
   /**
@@ -275,8 +264,7 @@ public open class ConfigFile : RefCounted() {
    * exist.
    */
   public final fun eraseSectionKey(section: String, key: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to section, STRING to key)
-    TransferContext.callMethod(MethodBindings.eraseSectionKeyPtr)
+    TransferContext.callMethod_STRING_STRING(ptr, objectID.id, MethodBindings.eraseSectionKeyPtr, section, key)
   }
 
   /**
@@ -285,11 +273,8 @@ public open class ConfigFile : RefCounted() {
    *
    * Returns [OK] on success, or one of the other [Error] values if the operation failed.
    */
-  public final fun load(path: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.loadPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun load(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.loadPtr, path))
 
   /**
    * Parses the passed string as the contents of a config file. The string is parsed and loaded in
@@ -297,11 +282,8 @@ public open class ConfigFile : RefCounted() {
    *
    * Returns [OK] on success, or one of the other [Error] values if the operation failed.
    */
-  public final fun parse(`data`: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to data)
-    TransferContext.callMethod(MethodBindings.parsePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun parse(`data`: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.parsePtr, data))
 
   /**
    * Saves the contents of the [ConfigFile] object to the file specified as a parameter. The output
@@ -309,20 +291,14 @@ public open class ConfigFile : RefCounted() {
    *
    * Returns [OK] on success, or one of the other [Error] values if the operation failed.
    */
-  public final fun save(path: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.savePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun save(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.savePtr, path))
 
   /**
    * Obtain the text version of this config file (the same text that would be written to a file).
    */
-  public final fun encodeToText(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.encodeToTextPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun encodeToText(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.encodeToTextPtr)
 
   /**
    * Loads the encrypted config file specified as a parameter, using the provided [key] to decrypt
@@ -331,11 +307,8 @@ public open class ConfigFile : RefCounted() {
    *
    * Returns [OK] on success, or one of the other [Error] values if the operation failed.
    */
-  public final fun loadEncrypted(path: String, key: PackedByteArray): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, PACKED_BYTE_ARRAY to key)
-    TransferContext.callMethod(MethodBindings.loadEncryptedPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun loadEncrypted(path: String, key: PackedByteArray): Error =
+      Error.from(TransferContext.callMethod_STRING_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.loadEncryptedPtr, path, key))
 
   /**
    * Loads the encrypted config file specified as a parameter, using the provided [password] to
@@ -344,11 +317,8 @@ public open class ConfigFile : RefCounted() {
    *
    * Returns [OK] on success, or one of the other [Error] values if the operation failed.
    */
-  public final fun loadEncryptedPass(path: String, password: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, STRING to password)
-    TransferContext.callMethod(MethodBindings.loadEncryptedPassPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun loadEncryptedPass(path: String, password: String): Error =
+      Error.from(TransferContext.callMethod_STRING_STRING_ret_LONG(ptr, objectID.id, MethodBindings.loadEncryptedPassPtr, path, password))
 
   /**
    * Saves the contents of the [ConfigFile] object to the AES-256 encrypted file specified as a
@@ -356,11 +326,8 @@ public open class ConfigFile : RefCounted() {
    *
    * Returns [OK] on success, or one of the other [Error] values if the operation failed.
    */
-  public final fun saveEncrypted(path: String, key: PackedByteArray): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, PACKED_BYTE_ARRAY to key)
-    TransferContext.callMethod(MethodBindings.saveEncryptedPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun saveEncrypted(path: String, key: PackedByteArray): Error =
+      Error.from(TransferContext.callMethod_STRING_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.saveEncryptedPtr, path, key))
 
   /**
    * Saves the contents of the [ConfigFile] object to the AES-256 encrypted file specified as a
@@ -369,18 +336,14 @@ public open class ConfigFile : RefCounted() {
    *
    * Returns [OK] on success, or one of the other [Error] values if the operation failed.
    */
-  public final fun saveEncryptedPass(path: String, password: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, STRING to password)
-    TransferContext.callMethod(MethodBindings.saveEncryptedPassPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun saveEncryptedPass(path: String, password: String): Error =
+      Error.from(TransferContext.callMethod_STRING_STRING_ret_LONG(ptr, objectID.id, MethodBindings.saveEncryptedPassPtr, path, password))
 
   /**
    * Removes the entire contents of the config.
    */
   public final fun clear(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
   }
 
   public companion object {

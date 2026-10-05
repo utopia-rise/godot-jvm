@@ -26,7 +26,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class PlaceholderMaterial : Material() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(554, scriptPtr)
+    createNativeObject(553, scriptPtr)
   }
 
   /**

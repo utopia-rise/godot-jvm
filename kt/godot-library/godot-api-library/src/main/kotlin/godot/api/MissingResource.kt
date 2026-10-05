@@ -9,11 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.STRING
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
@@ -55,30 +57,22 @@ public open class MissingResource : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(384, scriptPtr)
+    createNativeObject(382, scriptPtr)
   }
 
   public final fun setOriginalClass(name: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
-    TransferContext.callMethod(MethodBindings.setOriginalClassPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOriginalClassPtr, name)
   }
 
-  public final fun getOriginalClass(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOriginalClassPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getOriginalClass(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOriginalClassPtr)
 
   public final fun setRecordingProperties(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setRecordingPropertiesPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRecordingPropertiesPtr, enable)
   }
 
-  public final fun isRecordingProperties(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRecordingPropertiesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isRecordingProperties(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRecordingPropertiesPtr)
 
   public companion object {
     @JvmField

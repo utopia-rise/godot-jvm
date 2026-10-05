@@ -9,13 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_NODE_PATH
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
 import godot.core.Transform2D
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.NODE_PATH
 import godot.core.asCachedNodePath
 import kotlin.Boolean
 import kotlin.String
@@ -93,68 +96,47 @@ public open class RemoteTransform2D : Node2D() {
   }
 
   public final fun setRemoteNode(path: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.setRemoteNodePtr)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setRemoteNodePtr, path)
   }
 
-  public final fun getRemoteNode(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRemoteNodePtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
-  }
+  public final fun getRemoteNode(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getRemoteNodePtr)
 
   /**
    * [RemoteTransform2D] caches the remote node. It may not notice if the remote node disappears;
    * [forceUpdateCache] forces it to update the cache again.
    */
   public final fun forceUpdateCache(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.forceUpdateCachePtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.forceUpdateCachePtr)
   }
 
   public final fun setUseGlobalCoordinates(useGlobalCoordinates: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to useGlobalCoordinates)
-    TransferContext.callMethod(MethodBindings.setUseGlobalCoordinatesPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseGlobalCoordinatesPtr, useGlobalCoordinates)
   }
 
-  public final fun getUseGlobalCoordinates(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUseGlobalCoordinatesPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getUseGlobalCoordinates(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseGlobalCoordinatesPtr)
 
   public final fun setUpdatePosition(updateRemotePosition: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to updateRemotePosition)
-    TransferContext.callMethod(MethodBindings.setUpdatePositionPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUpdatePositionPtr, updateRemotePosition)
   }
 
-  public final fun getUpdatePosition(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUpdatePositionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getUpdatePosition(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUpdatePositionPtr)
 
   public final fun setUpdateRotation(updateRemoteRotation: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to updateRemoteRotation)
-    TransferContext.callMethod(MethodBindings.setUpdateRotationPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUpdateRotationPtr, updateRemoteRotation)
   }
 
-  public final fun getUpdateRotation(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUpdateRotationPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getUpdateRotation(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUpdateRotationPtr)
 
   public final fun setUpdateScale(updateRemoteScale: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to updateRemoteScale)
-    TransferContext.callMethod(MethodBindings.setUpdateScalePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUpdateScalePtr, updateRemoteScale)
   }
 
-  public final fun getUpdateScale(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUpdateScalePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getUpdateScale(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUpdateScalePtr)
 
   public final fun setRemoteNode(path: String) = setRemoteNode(path.asCachedNodePath())
 

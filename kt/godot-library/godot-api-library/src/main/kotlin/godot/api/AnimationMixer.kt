@@ -9,6 +9,25 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod0_ret_QUATERNION
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_NODE_PATH
+import godot.callPtrMethod_OBJECT_ret_STRING_NAME
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_DOUBLE_LONG_LONG
+import godot.callPtrMethod_STRING_NAME_OBJECT_ret_LONG
+import godot.callPtrMethod_STRING_NAME_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
@@ -23,16 +42,6 @@ import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.QUATERNION
-import godot.core.VariantParser.STRING_NAME
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
 import godot.core.asCachedNodePath
 import godot.core.asCachedStringName
@@ -253,7 +262,7 @@ public open class AnimationMixer internal constructor() : Node() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(16, scriptPtr)
+    createNativeObject(14, scriptPtr)
   }
 
   /**
@@ -281,183 +290,124 @@ public open class AnimationMixer internal constructor() : Node() {
    * global_library.add_animation("animation_name", animation_resource)
    * ```
    */
-  public final fun addAnimationLibrary(name: StringName, library: AnimationLibrary?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, OBJECT to library)
-    TransferContext.callMethod(MethodBindings.addAnimationLibraryPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun addAnimationLibrary(name: StringName, library: AnimationLibrary?): Error =
+      Error.from(TransferContext.callPtrMethod_STRING_NAME_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.addAnimationLibraryPtr, name, library))
 
   /**
    * Removes the [AnimationLibrary] associated with the key [name].
    */
   public final fun removeAnimationLibrary(name: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.removeAnimationLibraryPtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeAnimationLibraryPtr, name)
   }
 
   /**
    * Moves the [AnimationLibrary] associated with the key [name] to the key [newname].
    */
   public final fun renameAnimationLibrary(name: StringName, newname: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, STRING_NAME to newname)
-    TransferContext.callMethod(MethodBindings.renameAnimationLibraryPtr)
+    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.renameAnimationLibraryPtr, name, newname)
   }
 
   /**
    * Returns `true` if the [AnimationMixer] stores an [AnimationLibrary] with key [name].
    */
-  public final fun hasAnimationLibrary(name: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.hasAnimationLibraryPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasAnimationLibrary(name: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasAnimationLibraryPtr, name)
 
   /**
    * Returns the first [AnimationLibrary] with key [name] or `null` if not found.
    *
    * To get the [AnimationMixer]'s global animation library, use `get_animation_library("")`.
    */
-  public final fun getAnimationLibrary(name: StringName): AnimationLibrary? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.getAnimationLibraryPtr)
-    return (TransferContext.readReturnValue(OBJECT) as AnimationLibrary?)
-  }
+  public final fun getAnimationLibrary(name: StringName): AnimationLibrary? =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getAnimationLibraryPtr, name) as AnimationLibrary?)
 
   /**
    * Returns the list of stored library keys.
    */
-  public final fun getAnimationLibraryList(): VariantArray<StringName> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationLibraryListPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<StringName>)
-  }
+  public final fun getAnimationLibraryList(): VariantArray<StringName> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getAnimationLibraryListPtr) as VariantArray<StringName>)
 
   /**
    * Returns `true` if the [AnimationMixer] stores an [Animation] with key [name].
    */
-  public final fun hasAnimation(name: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.hasAnimationPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasAnimation(name: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasAnimationPtr, name)
 
   /**
    * Returns the [Animation] with the key [name]. If the animation does not exist, `null` is
    * returned and an error is logged.
    */
-  public final fun getAnimation(name: StringName): Animation? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.getAnimationPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Animation?)
-  }
+  public final fun getAnimation(name: StringName): Animation? =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getAnimationPtr, name) as Animation?)
 
   /**
    * Returns the list of stored animation keys.
    */
-  public final fun getAnimationList(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAnimationListPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getAnimationList(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getAnimationListPtr)
 
   public final fun setActive(active: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to active)
-    TransferContext.callMethod(MethodBindings.setActivePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setActivePtr, active)
   }
 
-  public final fun isActive(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isActivePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isActive(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isActivePtr)
 
   public final fun setDeterministic(deterministic: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to deterministic)
-    TransferContext.callMethod(MethodBindings.setDeterministicPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDeterministicPtr, deterministic)
   }
 
-  public final fun isDeterministic(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDeterministicPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isDeterministic(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDeterministicPtr)
 
   public final fun setRootNode(path: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.setRootNodePtr)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setRootNodePtr, path)
   }
 
-  public final fun getRootNode(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootNodePtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
-  }
+  public final fun getRootNode(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getRootNodePtr)
 
   public final fun setCallbackModeProcess(mode: AnimationCallbackModeProcess): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setCallbackModeProcessPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCallbackModeProcessPtr, mode.value)
   }
 
-  public final fun getCallbackModeProcess(): AnimationCallbackModeProcess {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCallbackModeProcessPtr)
-    return AnimationCallbackModeProcess.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCallbackModeProcess(): AnimationCallbackModeProcess =
+      AnimationCallbackModeProcess.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCallbackModeProcessPtr))
 
   public final fun setCallbackModeMethod(mode: AnimationCallbackModeMethod): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setCallbackModeMethodPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCallbackModeMethodPtr, mode.value)
   }
 
-  public final fun getCallbackModeMethod(): AnimationCallbackModeMethod {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCallbackModeMethodPtr)
-    return AnimationCallbackModeMethod.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCallbackModeMethod(): AnimationCallbackModeMethod =
+      AnimationCallbackModeMethod.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCallbackModeMethodPtr))
 
   public final fun setCallbackModeDiscrete(mode: AnimationCallbackModeDiscrete): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setCallbackModeDiscretePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCallbackModeDiscretePtr, mode.value)
   }
 
-  public final fun getCallbackModeDiscrete(): AnimationCallbackModeDiscrete {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCallbackModeDiscretePtr)
-    return AnimationCallbackModeDiscrete.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCallbackModeDiscrete(): AnimationCallbackModeDiscrete =
+      AnimationCallbackModeDiscrete.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCallbackModeDiscretePtr))
 
   public final fun setAudioMaxPolyphony(maxPolyphony: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxPolyphony.toLong())
-    TransferContext.callMethod(MethodBindings.setAudioMaxPolyphonyPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAudioMaxPolyphonyPtr, maxPolyphony.toLong())
   }
 
-  public final fun getAudioMaxPolyphony(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAudioMaxPolyphonyPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getAudioMaxPolyphony(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAudioMaxPolyphonyPtr).toInt()
 
   public final fun setRootMotionTrack(path: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.setRootMotionTrackPtr)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setRootMotionTrackPtr, path)
   }
 
-  public final fun getRootMotionTrack(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootMotionTrackPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
-  }
+  public final fun getRootMotionTrack(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getRootMotionTrackPtr)
 
   public final fun setRootMotionLocal(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setRootMotionLocalPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRootMotionLocalPtr, enabled)
   }
 
-  public final fun isRootMotionLocal(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isRootMotionLocalPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isRootMotionLocal(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRootMotionLocalPtr)
 
   /**
    * Retrieve the motion delta of position with the [rootMotionTrack] as a [Vector3] that can be
@@ -514,11 +464,8 @@ public open class AnimationMixer internal constructor() : Node() {
    * 	move_and_slide()
    * ```
    */
-  public final fun getRootMotionPosition(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootMotionPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getRootMotionPosition(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getRootMotionPositionPtr)
 
   /**
    * Retrieve the motion delta of rotation with the [rootMotionTrack] as a [Quaternion] that can be
@@ -539,11 +486,8 @@ public open class AnimationMixer internal constructor() : Node() {
    * 	set_quaternion(get_quaternion() * animation_tree.get_root_motion_rotation())
    * ```
    */
-  public final fun getRootMotionRotation(): Quaternion {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootMotionRotationPtr)
-    return (TransferContext.readReturnValue(QUATERNION) as Quaternion)
-  }
+  public final fun getRootMotionRotation(): Quaternion =
+      TransferContext.callPtrMethod0_ret_QUATERNION(ptr, objectID.id, MethodBindings.getRootMotionRotationPtr)
 
   /**
    * Retrieve the motion delta of scale with the [rootMotionTrack] as a [Vector3] that can be used
@@ -570,11 +514,8 @@ public open class AnimationMixer internal constructor() : Node() {
    * 	set_scale(current_scale * scale_accum)
    * ```
    */
-  public final fun getRootMotionScale(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootMotionScalePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getRootMotionScale(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getRootMotionScalePtr)
 
   /**
    * Retrieve the blended value of the position tracks with the [rootMotionTrack] as a [Vector3]
@@ -604,11 +545,8 @@ public open class AnimationMixer internal constructor() : Node() {
    * However, if the animation loops, an unintended discrete change may occur, so this is only
    * useful for some simple use cases.
    */
-  public final fun getRootMotionPositionAccumulator(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootMotionPositionAccumulatorPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getRootMotionPositionAccumulator(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getRootMotionPositionAccumulatorPtr)
 
   /**
    * Retrieve the blended value of the rotation tracks with the [rootMotionTrack] as a [Quaternion]
@@ -642,11 +580,8 @@ public open class AnimationMixer internal constructor() : Node() {
    * However, if the animation loops, an unintended discrete change may occur, so this is only
    * useful for some simple use cases.
    */
-  public final fun getRootMotionRotationAccumulator(): Quaternion {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootMotionRotationAccumulatorPtr)
-    return (TransferContext.readReturnValue(QUATERNION) as Quaternion)
-  }
+  public final fun getRootMotionRotationAccumulator(): Quaternion =
+      TransferContext.callPtrMethod0_ret_QUATERNION(ptr, objectID.id, MethodBindings.getRootMotionRotationAccumulatorPtr)
 
   /**
    * Retrieve the blended value of the scale tracks with the [rootMotionTrack] as a [Vector3] that
@@ -672,27 +607,22 @@ public open class AnimationMixer internal constructor() : Node() {
    * However, if the animation loops, an unintended discrete change may occur, so this is only
    * useful for some simple use cases.
    */
-  public final fun getRootMotionScaleAccumulator(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRootMotionScaleAccumulatorPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getRootMotionScaleAccumulator(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getRootMotionScaleAccumulatorPtr)
 
   /**
    * [AnimationMixer] caches animated nodes. It may not notice if a node disappears; [clearCaches]
    * forces it to update the cache again.
    */
   public final fun clearCaches(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearCachesPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearCachesPtr)
   }
 
   /**
    * Manually advance the animations by the specified time (in seconds).
    */
   public final fun advance(delta: Double): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to delta)
-    TransferContext.callMethod(MethodBindings.advancePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.advancePtr, delta)
   }
 
   /**
@@ -715,39 +645,28 @@ public open class AnimationMixer internal constructor() : Node() {
     transType: Tween.TransitionType = Tween.TransitionType.LINEAR,
     easeType: Tween.EaseType = Tween.EaseType.IN,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name, DOUBLE to duration, LONG to transType.value, LONG to easeType.value)
-    TransferContext.callMethod(MethodBindings.capturePtr)
+    TransferContext.callPtrMethod_STRING_NAME_DOUBLE_LONG_LONG(ptr, objectID.id, MethodBindings.capturePtr, name, duration, transType.value, easeType.value)
   }
 
   public final fun setResetOnSaveEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setResetOnSaveEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setResetOnSaveEnabledPtr, enabled)
   }
 
-  public final fun isResetOnSaveEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isResetOnSaveEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isResetOnSaveEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isResetOnSaveEnabledPtr)
 
   /**
    * Returns the key of [animation] or an empty [StringName] if not found.
    */
-  public final fun findAnimation(animation: Animation?): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to animation)
-    TransferContext.callMethod(MethodBindings.findAnimationPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun findAnimation(animation: Animation?): StringName =
+      TransferContext.callPtrMethod_OBJECT_ret_STRING_NAME(ptr, objectID.id, MethodBindings.findAnimationPtr, animation)
 
   /**
    * Returns the key for the [AnimationLibrary] that contains [animation] or an empty [StringName]
    * if not found.
    */
-  public final fun findAnimationLibrary(animation: Animation?): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to animation)
-    TransferContext.callMethod(MethodBindings.findAnimationLibraryPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun findAnimationLibrary(animation: Animation?): StringName =
+      TransferContext.callPtrMethod_OBJECT_ret_STRING_NAME(ptr, objectID.id, MethodBindings.findAnimationLibraryPtr, animation)
 
   /**
    * Adds [library] to the animation player, under the key [name].

@@ -9,8 +9,8 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_VARARG_ret_ANY
 import godot.common.interop.VoidPtr
-import godot.core.VariantCaster.ANY
 import kotlin.Any
 import kotlin.Suppress
 import kotlin.Unit
@@ -27,7 +27,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class GDScript : Script() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(239, scriptPtr)
+    createNativeObject(237, scriptPtr)
   }
 
   /**
@@ -39,11 +39,8 @@ public open class GDScript : Script() {
    * print(instance.get_script() == MyClass) # Prints true
    * ```
    */
-  public final fun new(vararg args: Any?): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, *args.map { ANY to it }.toTypedArray())
-    TransferContext.callMethod(MethodBindings.newPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun new(vararg args: Any?): Any? =
+      TransferContext.callMethod_VARARG_ret_ANY(ptr, objectID.id, MethodBindings.newPtr, args)
 
   public companion object
 

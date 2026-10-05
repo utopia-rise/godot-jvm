@@ -2,7 +2,6 @@
 
 package godot.core
 
-import godot.api.Object
 import godot.common.interop.ObjectID
 import godot.common.interop.VoidPtr
 import godot.core.Callable.Bridge
@@ -18,7 +17,9 @@ class VariantCallable : NativeCoreType, Callable {
     }
 
     constructor(callable: VariantCallable) {
-        TransferContext.writeArguments(VariantParser.CALLABLE to callable)
+        TransferContext.writeArguments(1) {
+            VariantParser.CALLABLE.toGodot(callable)
+        }
         ptr = Bridge.engine_call_copy_constructor()
         MemoryManager.registerNativeCoreType(this, VariantParser.CALLABLE)
     }
@@ -29,87 +30,89 @@ class VariantCallable : NativeCoreType, Callable {
     }
 
     override fun bindUnsafe(vararg args: Any?): VariantCallable {
-        TransferContext.writeArguments(*args.map { VariantCaster.ANY to it }.toTypedArray())
-        Bridge.engine_call_bind(ptr)
-        return TransferContext.readReturnValue(VariantParser.CALLABLE) as VariantCallable
+        TransferContext.writeArguments(args.size) {
+            for (arg in args) VariantCaster.ANY.toGodot(arg)
+        }
+        return TransferContext.callBridge(VariantParser.CALLABLE) { Bridge.engine_call_bind(ptr) } as VariantCallable
     }
 
     override fun callUnsafe(vararg args: Any?): Any? {
-        TransferContext.writeArguments(*args.map { VariantCaster.ANY to it }.toTypedArray())
-        Bridge.engine_call_call(ptr)
-        return TransferContext.readReturnValue(VariantCaster.ANY)
+        TransferContext.writeArguments(args.size) {
+            for (arg in args) VariantCaster.ANY.toGodot(arg)
+        }
+        return TransferContext.callBridge(VariantCaster.ANY) { Bridge.engine_call_call(ptr) }
     }
 
     override fun callDeferredUnsafe(vararg args: Any?) {
-        TransferContext.writeArguments(*args.map { VariantCaster.ANY to it }.toTypedArray())
+        TransferContext.writeArguments(args.size) {
+            for (arg in args) VariantCaster.ANY.toGodot(arg)
+        }
         Bridge.engine_call_call_deferred(ptr)
     }
 
     override fun getBoundArguments(): VariantArray<Any?> {
-        Bridge.engine_call_get_bound_arguments(ptr)
         @Suppress("UNCHECKED_CAST")
-        return TransferContext.readReturnValue(VariantParser.ARRAY) as VariantArray<Any?>
+        return TransferContext.callBridge(VariantParser.ARRAY) {
+            Bridge.engine_call_get_bound_arguments(ptr)
+        } as VariantArray<Any?>
     }
 
     override fun getBoundArgumentCount(): Int {
-        Bridge.engine_call_get_bound_arguments_count(ptr)
-        return TransferContext.readReturnValue(VariantCaster.INT) as Int
+        return TransferContext.callBridge(VariantParser.LONG) { Bridge.engine_call_get_bound_arguments_count(ptr) }.toInt()
     }
 
     override fun getMethod(): StringName {
-        Bridge.engine_call_get_method(ptr)
-        return TransferContext.readReturnValue(VariantParser.STRING_NAME) as StringName
+        return TransferContext.callBridge(VariantParser.STRING_NAME) { Bridge.engine_call_get_method(ptr) } as StringName
     }
 
     override fun hashCode(): Int {
-        Bridge.engine_call_hash(ptr)
-        return TransferContext.readReturnValue(VariantCaster.INT) as Int
+        return TransferContext.callBridge(VariantParser.LONG) { Bridge.engine_call_hash(ptr) }.toInt()
     }
 
-    override fun getObject(): Object {
-        Bridge.engine_call_get_object(ptr)
-        return TransferContext.readReturnValue(VariantParser.OBJECT) as Object
+    override fun getObject(): GodotObject {
+        return TransferContext.callBridge(VariantParser.OBJECT) { Bridge.engine_call_get_object(ptr) } as GodotObject
     }
 
     override fun getObjectId(): ObjectID {
-        Bridge.engine_call_get_object_id(ptr)
-        return ObjectID(TransferContext.readReturnValue(VariantParser.LONG) as Long)
+        return ObjectID(TransferContext.callBridge(VariantParser.LONG) { Bridge.engine_call_get_object_id(ptr) })
     }
 
     override fun isCustom(): Boolean {
-        Bridge.engine_call_is_custom(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return TransferContext.callBridge(VariantParser.BOOL) { Bridge.engine_call_is_custom(ptr) }
     }
 
     override fun isNull(): Boolean {
-        Bridge.engine_call_is_null(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return TransferContext.callBridge(VariantParser.BOOL) { Bridge.engine_call_is_null(ptr) }
     }
 
     override fun isStandard(): Boolean {
-        Bridge.engine_call_is_standard(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return TransferContext.callBridge(VariantParser.BOOL) { Bridge.engine_call_is_standard(ptr) }
     }
 
     override fun isValid(): Boolean {
-        Bridge.engine_call_is_valid(ptr)
-        return TransferContext.readReturnValue(VariantParser.BOOL) as Boolean
+        return TransferContext.callBridge(VariantParser.BOOL) { Bridge.engine_call_is_valid(ptr) }
     }
 
     override fun rpc(vararg args: Any?) {
-        TransferContext.writeArguments(*args.map { VariantCaster.ANY to it }.toTypedArray())
+        TransferContext.writeArguments(args.size) {
+            for (arg in args) VariantCaster.ANY.toGodot(arg)
+        }
         Bridge.engine_call_rpc(ptr)
     }
 
     override fun rpcId(peerId: Long, vararg args: Any?) {
-        TransferContext.writeArguments(VariantParser.LONG to peerId, *args.map { VariantCaster.ANY to it }.toTypedArray())
+        TransferContext.writeArguments(args.size + 1) {
+            VariantParser.LONG.write(peerId)
+            for (arg in args) VariantCaster.ANY.toGodot(arg)
+        }
         Bridge.engine_call_rpc_id(ptr)
     }
 
     override fun unbind(argCount: Int): VariantCallable {
-        TransferContext.writeArguments(VariantCaster.INT to argCount)
-        Bridge.engine_call_unbind(ptr)
-        return TransferContext.readReturnValue(VariantParser.CALLABLE) as VariantCallable
+        return TransferContext.callBridge(1, VariantParser.CALLABLE) {
+            VariantParser.LONG.write(argCount.toLong())
+            Bridge.engine_call_unbind(ptr)
+        } as VariantCallable
     }
 
     override fun toNativeCallable() = this

@@ -9,6 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_ARRAY_OBJECT_BOOL_BOOL_ret_ANY
+import godot.callMethod_STRING_PACKED_STRING_ARRAY_ret_LONG
+import godot.callPtrMethod0_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
@@ -16,16 +20,8 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName4
 import godot.core.PackedStringArray
 import godot.core.VariantArray
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.Any
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -86,7 +82,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class Expression : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(220, scriptPtr)
+    createNativeObject(218, scriptPtr)
   }
 
   /**
@@ -97,11 +93,8 @@ public open class Expression : RefCounted() {
    */
   @JvmOverloads
   public final fun parse(expression: String, inputNames: PackedStringArray = PackedStringArray()):
-      Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to expression, PACKED_STRING_ARRAY to inputNames)
-    TransferContext.callMethod(MethodBindings.parsePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+      Error =
+      Error.from(TransferContext.callMethod_STRING_PACKED_STRING_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.parsePtr, expression, inputNames))
 
   /**
    * Executes the expression that was previously parsed by [parse] and returns the result. Before
@@ -116,29 +109,20 @@ public open class Expression : RefCounted() {
     baseInstance: Object? = null,
     showError: Boolean = true,
     constCallsOnly: Boolean = false,
-  ): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to inputs, OBJECT to baseInstance, BOOL to showError, BOOL to constCallsOnly)
-    TransferContext.callMethod(MethodBindings.executePtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  ): Any? =
+      TransferContext.callMethod_ARRAY_OBJECT_BOOL_BOOL_ret_ANY(ptr, objectID.id, MethodBindings.executePtr, inputs, baseInstance, showError, constCallsOnly)
 
   /**
    * Returns `true` if [execute] has failed.
    */
-  public final fun hasExecuteFailed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasExecuteFailedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasExecuteFailed(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasExecuteFailedPtr)
 
   /**
    * Returns the error text if [parse] or [execute] has failed.
    */
-  public final fun getErrorText(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getErrorTextPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getErrorText(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getErrorTextPtr)
 
   public companion object {
     @JvmField

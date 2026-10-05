@@ -9,6 +9,13 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_TRANSFORM3D_VECTOR3_OBJECT_DOUBLE_BOOL_LONG_ret_BOOL
+import godot.callPtrMethod_VECTOR3_BOOL_DOUBLE_BOOL_LONG_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -17,13 +24,6 @@ import godot.core.MethodStringName5
 import godot.core.MethodStringName6
 import godot.core.Transform3D
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
 import kotlin.Boolean
 import kotlin.Float
@@ -110,7 +110,7 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(525, scriptPtr)
+    createNativeObject(524, scriptPtr)
   }
 
   /**
@@ -139,11 +139,8 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
     safeMargin: Float = 0.001f,
     recoveryAsCollision: Boolean = false,
     maxCollisions: Int = 1,
-  ): KinematicCollision3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to motion, BOOL to testOnly, DOUBLE to safeMargin.toDouble(), BOOL to recoveryAsCollision, LONG to maxCollisions.toLong())
-    TransferContext.callMethod(MethodBindings.moveAndCollidePtr)
-    return (TransferContext.readReturnValue(OBJECT) as KinematicCollision3D?)
-  }
+  ): KinematicCollision3D? =
+      (TransferContext.callPtrMethod_VECTOR3_BOOL_DOUBLE_BOOL_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.moveAndCollidePtr, motion, testOnly, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong()) as KinematicCollision3D?)
 
   /**
    * Checks for collisions without moving the body. In order to be frame rate independent in
@@ -172,62 +169,47 @@ public open class PhysicsBody3D internal constructor() : CollisionObject3D() {
     safeMargin: Float = 0.001f,
     recoveryAsCollision: Boolean = false,
     maxCollisions: Int = 1,
-  ): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, TRANSFORM3D to from, VECTOR3 to motion, OBJECT to collision, DOUBLE to safeMargin.toDouble(), BOOL to recoveryAsCollision, LONG to maxCollisions.toLong())
-    TransferContext.callMethod(MethodBindings.testMovePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  ): Boolean =
+      TransferContext.callPtrMethod_TRANSFORM3D_VECTOR3_OBJECT_DOUBLE_BOOL_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.testMovePtr, from, motion, collision, safeMargin.toDouble(), recoveryAsCollision, maxCollisions.toLong())
 
   /**
    * Returns the gravity vector computed from all sources that can affect the body, including all
    * gravity overrides from [Area3D] nodes and the global world gravity.
    */
-  public final fun getGravity(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getGravityPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getGravity(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getGravityPtr)
 
   /**
    * Locks or unlocks the specified linear or rotational [axis] depending on the value of [lock].
    */
   public final fun setAxisLock(axis: PhysicsServer3D.BodyAxis, lock: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to axis.value, BOOL to lock)
-    TransferContext.callMethod(MethodBindings.setAxisLockPtr)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAxisLockPtr, axis.value, lock)
   }
 
   /**
    * Returns `true` if the specified linear or rotational [axis] is locked.
    */
-  public final fun getAxisLock(axis: PhysicsServer3D.BodyAxis): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to axis.value)
-    TransferContext.callMethod(MethodBindings.getAxisLockPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getAxisLock(axis: PhysicsServer3D.BodyAxis): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getAxisLockPtr, axis.value)
 
   /**
    * Returns an array of nodes that were added as collision exceptions for this body.
    */
-  public final fun getCollisionExceptions(): VariantArray<PhysicsBody3D> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCollisionExceptionsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<PhysicsBody3D>)
-  }
+  public final fun getCollisionExceptions(): VariantArray<PhysicsBody3D> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getCollisionExceptionsPtr) as VariantArray<PhysicsBody3D>)
 
   /**
    * Adds a body to the list of bodies that this body can't collide with.
    */
   public final fun addCollisionExceptionWith(body: Node): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to body)
-    TransferContext.callMethod(MethodBindings.addCollisionExceptionWithPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addCollisionExceptionWithPtr, body)
   }
 
   /**
    * Removes a body from the list of bodies that this body can't collide with.
    */
   public final fun removeCollisionExceptionWith(body: Node): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to body)
-    TransferContext.callMethod(MethodBindings.removeCollisionExceptionWithPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeCollisionExceptionWithPtr, body)
   }
 
   public companion object {

@@ -9,15 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.StringName
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -82,37 +84,25 @@ public open class XRTracker internal constructor() : RefCounted() {
     createNativeObject(953, scriptPtr)
   }
 
-  public final fun getTrackerType(): XRServer.TrackerType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackerTypePtr)
-    return XRServer.TrackerType.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getTrackerType(): XRServer.TrackerType =
+      XRServer.TrackerType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTrackerTypePtr))
 
   public final fun setTrackerType(type: XRServer.TrackerType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type.value)
-    TransferContext.callMethod(MethodBindings.setTrackerTypePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTrackerTypePtr, type.value)
   }
 
-  public final fun getTrackerName(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackerNamePtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getTrackerName(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getTrackerNamePtr)
 
   public final fun setTrackerName(name: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.setTrackerNamePtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setTrackerNamePtr, name)
   }
 
-  public final fun getTrackerDesc(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackerDescPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getTrackerDesc(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTrackerDescPtr)
 
   public final fun setTrackerDesc(description: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to description)
-    TransferContext.callMethod(MethodBindings.setTrackerDescPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTrackerDescPtr, description)
   }
 
   public final fun setTrackerName(name: String) = setTrackerName(name.asCachedStringName())

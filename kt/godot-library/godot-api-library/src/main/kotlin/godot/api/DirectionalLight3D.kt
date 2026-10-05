@@ -9,12 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
 import godot.core.Vector3
 import kotlin.Boolean
 import kotlin.Float
@@ -154,41 +156,29 @@ public open class DirectionalLight3D : Light3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(209, scriptPtr)
+    createNativeObject(207, scriptPtr)
   }
 
   public final fun setShadowMode(mode: ShadowMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setShadowModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setShadowModePtr, mode.value)
   }
 
-  public final fun getShadowMode(): ShadowMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getShadowModePtr)
-    return ShadowMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getShadowMode(): ShadowMode =
+      ShadowMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getShadowModePtr))
 
   public final fun setBlendSplits(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setBlendSplitsPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setBlendSplitsPtr, enabled)
   }
 
-  public final fun isBlendSplitsEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBlendSplitsEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isBlendSplitsEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isBlendSplitsEnabledPtr)
 
   public final fun setSkyMode(mode: SkyMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setSkyModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSkyModePtr, mode.value)
   }
 
-  public final fun getSkyMode(): SkyMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkyModePtr)
-    return SkyMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getSkyMode(): SkyMode =
+      SkyMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSkyModePtr))
 
   public enum class ShadowMode(
     public override val `value`: Long,

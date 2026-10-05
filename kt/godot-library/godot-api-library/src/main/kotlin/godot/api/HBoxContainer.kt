@@ -18,7 +18,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class HBoxContainer : BoxContainer() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(286, scriptPtr)
+    createNativeObject(284, scriptPtr)
   }
 
   public companion object

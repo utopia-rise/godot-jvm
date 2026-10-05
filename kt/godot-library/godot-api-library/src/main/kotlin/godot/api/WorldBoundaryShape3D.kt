@@ -11,11 +11,12 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_PLANE
+import godot.callPtrMethod_PLANE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Plane
-import godot.core.VariantParser.PLANE
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -77,15 +78,11 @@ public open class WorldBoundaryShape3D : Shape3D() {
   }
 
   public final fun setPlane(plane: Plane): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PLANE to plane)
-    TransferContext.callMethod(MethodBindings.setPlanePtr)
+    TransferContext.callPtrMethod_PLANE(ptr, objectID.id, MethodBindings.setPlanePtr, plane)
   }
 
-  public final fun getPlane(): Plane {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPlanePtr)
-    return (TransferContext.readReturnValue(PLANE) as Plane)
-  }
+  public final fun getPlane(): Plane =
+      TransferContext.callPtrMethod0_ret_PLANE(ptr, objectID.id, MethodBindings.getPlanePtr)
 
   public companion object {
     @JvmField

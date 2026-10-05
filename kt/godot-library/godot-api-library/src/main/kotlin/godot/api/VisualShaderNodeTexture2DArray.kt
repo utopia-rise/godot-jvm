@@ -9,10 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -40,15 +41,11 @@ public open class VisualShaderNodeTexture2DArray : VisualShaderNodeSample3D() {
   }
 
   public final fun setTextureArray(`value`: TextureLayered?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to value)
-    TransferContext.callMethod(MethodBindings.setTextureArrayPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTextureArrayPtr, value)
   }
 
-  public final fun getTextureArray(): TextureLayered? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTextureArrayPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TextureLayered?)
-  }
+  public final fun getTextureArray(): TextureLayered? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTextureArrayPtr) as TextureLayered?)
 
   public companion object {
     @JvmField

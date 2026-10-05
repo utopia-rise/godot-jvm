@@ -9,14 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.BitFieldBase
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.StringName
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.Long
 import kotlin.String
@@ -81,37 +83,25 @@ public open class XRBodyModifier3D : SkeletonModifier3D() {
   }
 
   public final fun setBodyTracker(trackerName: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to trackerName)
-    TransferContext.callMethod(MethodBindings.setBodyTrackerPtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setBodyTrackerPtr, trackerName)
   }
 
-  public final fun getBodyTracker(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBodyTrackerPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getBodyTracker(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getBodyTrackerPtr)
 
   public final fun setBodyUpdate(bodyUpdate: BodyUpdate): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bodyUpdate.flag)
-    TransferContext.callMethod(MethodBindings.setBodyUpdatePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBodyUpdatePtr, bodyUpdate.flag)
   }
 
-  public final fun getBodyUpdate(): BodyUpdate {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBodyUpdatePtr)
-    return BodyUpdate(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getBodyUpdate(): BodyUpdate =
+      BodyUpdate(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBodyUpdatePtr))
 
   public final fun setBoneUpdate(boneUpdate: BoneUpdate): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to boneUpdate.value)
-    TransferContext.callMethod(MethodBindings.setBoneUpdatePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBoneUpdatePtr, boneUpdate.value)
   }
 
-  public final fun getBoneUpdate(): BoneUpdate {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBoneUpdatePtr)
-    return BoneUpdate.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getBoneUpdate(): BoneUpdate =
+      BoneUpdate.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBoneUpdatePtr))
 
   public final fun setBodyTracker(trackerName: String) =
       setBodyTracker(trackerName.asCachedStringName())

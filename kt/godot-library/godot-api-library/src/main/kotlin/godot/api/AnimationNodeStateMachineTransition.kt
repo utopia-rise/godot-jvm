@@ -9,21 +9,26 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_STRING_NAME
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
 import godot.core.StringName
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -173,107 +178,71 @@ public open class AnimationNodeStateMachineTransition : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(31, scriptPtr)
+    createNativeObject(29, scriptPtr)
   }
 
   public final fun setSwitchMode(mode: SwitchMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setSwitchModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSwitchModePtr, mode.value)
   }
 
-  public final fun getSwitchMode(): SwitchMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSwitchModePtr)
-    return SwitchMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getSwitchMode(): SwitchMode =
+      SwitchMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSwitchModePtr))
 
   public final fun setAdvanceMode(mode: AdvanceMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setAdvanceModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAdvanceModePtr, mode.value)
   }
 
-  public final fun getAdvanceMode(): AdvanceMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAdvanceModePtr)
-    return AdvanceMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getAdvanceMode(): AdvanceMode =
+      AdvanceMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAdvanceModePtr))
 
   public final fun setAdvanceCondition(name: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to name)
-    TransferContext.callMethod(MethodBindings.setAdvanceConditionPtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setAdvanceConditionPtr, name)
   }
 
-  public final fun getAdvanceCondition(): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAdvanceConditionPtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getAdvanceCondition(): StringName =
+      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getAdvanceConditionPtr)
 
   public final fun setXfadeTime(secs: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to secs.toDouble())
-    TransferContext.callMethod(MethodBindings.setXfadeTimePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setXfadeTimePtr, secs.toDouble())
   }
 
-  public final fun getXfadeTime(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getXfadeTimePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getXfadeTime(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getXfadeTimePtr).toFloat()
 
   public final fun setXfadeCurve(curve: Curve?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to curve)
-    TransferContext.callMethod(MethodBindings.setXfadeCurvePtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setXfadeCurvePtr, curve)
   }
 
-  public final fun getXfadeCurve(): Curve? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getXfadeCurvePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Curve?)
-  }
+  public final fun getXfadeCurve(): Curve? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getXfadeCurvePtr) as Curve?)
 
   public final fun setBreakLoopAtEnd(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setBreakLoopAtEndPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setBreakLoopAtEndPtr, enable)
   }
 
-  public final fun isLoopBrokenAtEnd(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isLoopBrokenAtEndPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isLoopBrokenAtEnd(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isLoopBrokenAtEndPtr)
 
   public final fun setReset(reset: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to reset)
-    TransferContext.callMethod(MethodBindings.setResetPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setResetPtr, reset)
   }
 
-  public final fun isReset(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isResetPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isReset(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isResetPtr)
 
   public final fun setPriority(priority: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to priority.toLong())
-    TransferContext.callMethod(MethodBindings.setPriorityPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPriorityPtr, priority.toLong())
   }
 
-  public final fun getPriority(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPriorityPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getPriority(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPriorityPtr).toInt()
 
   public final fun setAdvanceExpression(text: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to text)
-    TransferContext.callMethod(MethodBindings.setAdvanceExpressionPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setAdvanceExpressionPtr, text)
   }
 
-  public final fun getAdvanceExpression(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAdvanceExpressionPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getAdvanceExpression(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getAdvanceExpressionPtr)
 
   public final fun setAdvanceCondition(name: String) =
       setAdvanceCondition(name.asCachedStringName())

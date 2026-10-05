@@ -9,11 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -54,7 +55,7 @@ public open class ConfirmationDialog : AcceptDialog() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(185, scriptPtr)
+    createNativeObject(183, scriptPtr)
   }
 
   /**
@@ -63,22 +64,15 @@ public open class ConfirmationDialog : AcceptDialog() {
    * **Warning:** This is a required internal node, removing and freeing it may cause a crash. If
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
-  public final fun getCancelButton(): Button? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCancelButtonPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Button?)
-  }
+  public final fun getCancelButton(): Button? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getCancelButtonPtr) as Button?)
 
   public final fun setCancelButtonText(text: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to text)
-    TransferContext.callMethod(MethodBindings.setCancelButtonTextPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setCancelButtonTextPtr, text)
   }
 
-  public final fun getCancelButtonText(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCancelButtonTextPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getCancelButtonText(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCancelButtonTextPtr)
 
   public companion object {
     @JvmField

@@ -11,6 +11,11 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_RECT2I
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_RECT2I
+import godot.callPtrMethod_VECTOR2_PACKED_VECTOR2_ARRAY_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -18,13 +23,7 @@ import godot.core.MethodStringName2
 import godot.core.PackedVector2Array
 import godot.core.RID
 import godot.core.Rect2i
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
-import godot.core.VariantParser.RECT2I
-import godot.core.VariantParser.VECTOR2
-import godot.core.VariantParser._RID
 import godot.core.Vector2
-import kotlin.Double
 import kotlin.Float
 import kotlin.Suppress
 import kotlin.Unit
@@ -103,37 +102,25 @@ public open class XRVRS : Object() {
      vrsRenderRegion = this
   }
 
-  public final fun getVrsMinRadius(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVrsMinRadiusPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getVrsMinRadius(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVrsMinRadiusPtr).toFloat()
 
   public final fun setVrsMinRadius(radius: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to radius.toDouble())
-    TransferContext.callMethod(MethodBindings.setVrsMinRadiusPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVrsMinRadiusPtr, radius.toDouble())
   }
 
-  public final fun getVrsStrength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVrsStrengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getVrsStrength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVrsStrengthPtr).toFloat()
 
   public final fun setVrsStrength(strength: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to strength.toDouble())
-    TransferContext.callMethod(MethodBindings.setVrsStrengthPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVrsStrengthPtr, strength.toDouble())
   }
 
-  public final fun getVrsRenderRegion(): Rect2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVrsRenderRegionPtr)
-    return (TransferContext.readReturnValue(RECT2I) as Rect2i)
-  }
+  public final fun getVrsRenderRegion(): Rect2i =
+      TransferContext.callPtrMethod0_ret_RECT2I(ptr, objectID.id, MethodBindings.getVrsRenderRegionPtr)
 
   public final fun setVrsRenderRegion(renderRegion: Rect2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, RECT2I to renderRegion)
-    TransferContext.callMethod(MethodBindings.setVrsRenderRegionPtr)
+    TransferContext.callPtrMethod_RECT2I(ptr, objectID.id, MethodBindings.setVrsRenderRegionPtr, renderRegion)
   }
 
   /**
@@ -143,11 +130,8 @@ public open class XRVRS : Object() {
    * The result will be cached, requesting a VRS texture with unchanged parameters and settings will
    * return the cached RID.
    */
-  public final fun makeVrsTexture(targetSize: Vector2, eyeFoci: PackedVector2Array): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to targetSize, PACKED_VECTOR2_ARRAY to eyeFoci)
-    TransferContext.callMethod(MethodBindings.makeVrsTexturePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun makeVrsTexture(targetSize: Vector2, eyeFoci: PackedVector2Array): RID =
+      TransferContext.callPtrMethod_VECTOR2_PACKED_VECTOR2_ARRAY_ret_RID(ptr, objectID.id, MethodBindings.makeVrsTexturePtr, targetSize, eyeFoci)
 
   public companion object {
     @JvmField

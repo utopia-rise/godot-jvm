@@ -9,6 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_CALLABLE_ret_OBJECT_REF
+import godot.callMethod_PACKED_BYTE_ARRAY_STRING_STRING
+import godot.callMethod_STRING_BOOL_ret_ANY
+import godot.callMethod_STRING_VARARG_ret_ANY
+import godot.callMethod_STRING_ret_OBJECT_REF
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_OBJECT_ret_BOOL
+import godot.callPtrMethod_OBJECT_ret_PACKED_BYTE_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.Error
@@ -18,16 +28,8 @@ import godot.core.MethodStringName2
 import godot.core.MethodStringName3
 import godot.core.PackedByteArray
 import godot.core.Signal0
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.Any
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -108,11 +110,8 @@ public object JavaScriptBridge : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun eval(code: String, useGlobalExecutionContext: Boolean = false): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to code, BOOL to useGlobalExecutionContext)
-    TransferContext.callMethod(MethodBindings.evalPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun eval(code: String, useGlobalExecutionContext: Boolean = false): Any? =
+      TransferContext.callMethod_STRING_BOOL_ret_ANY(ptr, objectID.id, MethodBindings.evalPtr, code, useGlobalExecutionContext)
 
   /**
    * Returns an interface to a JavaScript object that can be used by scripts. The [interface] must
@@ -120,11 +119,8 @@ public object JavaScriptBridge : Object() {
    * argument, which will contain the JavaScript `arguments`. See [JavaScriptObject] for usage.
    */
   @JvmStatic
-  public final fun getInterface(`interface`: String): JavaScriptObject? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to `interface`)
-    TransferContext.callMethod(MethodBindings.getInterfacePtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaScriptObject?)
-  }
+  public final fun getInterface(`interface`: String): JavaScriptObject? =
+      (TransferContext.callMethod_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getInterfacePtr, `interface`) as JavaScriptObject?)
 
   /**
    * Creates a reference to a [Callable] that can be used as a callback by JavaScript. The reference
@@ -137,11 +133,8 @@ public object JavaScriptBridge : Object() {
    * object[/url] converted to an array.
    */
   @JvmStatic
-  public final fun createCallback(callable: Callable): JavaScriptObject? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to callable)
-    TransferContext.callMethod(MethodBindings.createCallbackPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaScriptObject?)
-  }
+  public final fun createCallback(callable: Callable): JavaScriptObject? =
+      (TransferContext.callMethod_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createCallbackPtr, callable) as JavaScriptObject?)
 
   /**
    * Returns `true` if the given [javascriptObject] is of type
@@ -152,32 +145,23 @@ public object JavaScriptBridge : Object() {
    * array objects[/url].
    */
   @JvmStatic
-  public final fun isJsBuffer(javascriptObject: JavaScriptObject?): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to javascriptObject)
-    TransferContext.callMethod(MethodBindings.isJsBufferPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isJsBuffer(javascriptObject: JavaScriptObject?): Boolean =
+      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.isJsBufferPtr, javascriptObject)
 
   /**
    * Returns a copy of [javascriptBuffer]'s contents as a [PackedByteArray]. See also [isJsBuffer].
    */
   @JvmStatic
-  public final fun jsBufferToPackedByteArray(javascriptBuffer: JavaScriptObject?): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to javascriptBuffer)
-    TransferContext.callMethod(MethodBindings.jsBufferToPackedByteArrayPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
-  }
+  public final fun jsBufferToPackedByteArray(javascriptBuffer: JavaScriptObject?): PackedByteArray =
+      TransferContext.callPtrMethod_OBJECT_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.jsBufferToPackedByteArrayPtr, javascriptBuffer)
 
   /**
    * Creates a new JavaScript object using the `new` constructor. The [object] must a valid property
    * of the JavaScript `window`. See [JavaScriptObject] for usage.
    */
   @JvmStatic
-  public final fun createObject(`object`: String, vararg args: Any?): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to `object`, *args.map { ANY to it }.toTypedArray())
-    TransferContext.callMethod(MethodBindings.createObjectPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun createObject(`object`: String, vararg args: Any?): Any? =
+      TransferContext.callMethod_STRING_VARARG_ret_ANY(ptr, objectID.id, MethodBindings.createObjectPtr, `object`, args)
 
   /**
    * Prompts the user to download a file containing the specified [buffer]. The file will have the
@@ -199,8 +183,7 @@ public object JavaScriptBridge : Object() {
     name: String,
     mime: String = "application/octet-stream",
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_BYTE_ARRAY to buffer, STRING to name, STRING to mime)
-    TransferContext.callMethod(MethodBindings.downloadBufferPtr)
+    TransferContext.callMethod_PACKED_BYTE_ARRAY_STRING_STRING(ptr, objectID.id, MethodBindings.downloadBufferPtr, buffer, name, mime)
   }
 
   /**
@@ -209,11 +192,8 @@ public object JavaScriptBridge : Object() {
    * **Note:** Only relevant when exported as a Progressive Web App.
    */
   @JvmStatic
-  public final fun pwaNeedsUpdate(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pwaNeedsUpdatePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun pwaNeedsUpdate(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.pwaNeedsUpdatePtr)
 
   /**
    * Performs the live update of the progressive web app. Forcing the new version to be installed
@@ -225,11 +205,8 @@ public object JavaScriptBridge : Object() {
    * `true`.
    */
   @JvmStatic
-  public final fun pwaUpdate(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pwaUpdatePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun pwaUpdate(): Error =
+      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.pwaUpdatePtr))
 
   /**
    * Force synchronization of the persistent file system (when enabled).
@@ -239,8 +216,7 @@ public object JavaScriptBridge : Object() {
    */
   @JvmStatic
   public final fun forceFsSync(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.forceFsSyncPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.forceFsSyncPtr)
   }
 
   public object MethodBindings {

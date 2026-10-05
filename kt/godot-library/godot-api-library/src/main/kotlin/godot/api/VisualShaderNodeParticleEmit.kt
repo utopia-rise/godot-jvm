@@ -9,11 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -43,15 +44,11 @@ public open class VisualShaderNodeParticleEmit : VisualShaderNode() {
   }
 
   public final fun setFlags(flags: EmitFlags): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to flags.value)
-    TransferContext.callMethod(MethodBindings.setFlagsPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFlagsPtr, flags.value)
   }
 
-  public final fun getFlags(): EmitFlags {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFlagsPtr)
-    return EmitFlags.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getFlags(): EmitFlags =
+      EmitFlags.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFlagsPtr))
 
   public enum class EmitFlags(
     public override val `value`: Long,

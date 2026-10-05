@@ -27,7 +27,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class CSGCombiner3D : CSGShape3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(126, scriptPtr)
+    createNativeObject(124, scriptPtr)
   }
 
   public companion object

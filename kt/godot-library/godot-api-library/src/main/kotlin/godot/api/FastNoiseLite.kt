@@ -11,17 +11,20 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -292,7 +295,7 @@ public open class FastNoiseLite : Noise() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(225, scriptPtr)
+    createNativeObject(223, scriptPtr)
   }
 
   /**
@@ -315,235 +318,151 @@ public open class FastNoiseLite : Noise() {
   }
 
   public final fun setNoiseType(type: NoiseType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type.value)
-    TransferContext.callMethod(MethodBindings.setNoiseTypePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setNoiseTypePtr, type.value)
   }
 
-  public final fun getNoiseType(): NoiseType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getNoiseTypePtr)
-    return NoiseType.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getNoiseType(): NoiseType =
+      NoiseType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getNoiseTypePtr))
 
   public final fun setSeed(seed: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to seed.toLong())
-    TransferContext.callMethod(MethodBindings.setSeedPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSeedPtr, seed.toLong())
   }
 
-  public final fun getSeed(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSeedPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSeed(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSeedPtr).toInt()
 
   public final fun setFrequency(freq: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to freq.toDouble())
-    TransferContext.callMethod(MethodBindings.setFrequencyPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFrequencyPtr, freq.toDouble())
   }
 
-  public final fun getFrequency(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFrequencyPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getFrequency(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFrequencyPtr).toFloat()
 
   public final fun setOffset(offset: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to offset)
-    TransferContext.callMethod(MethodBindings.setOffsetPtr)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setOffsetPtr, offset)
   }
 
-  public final fun getOffset(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getOffset(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getOffsetPtr)
 
   public final fun setFractalType(type: FractalType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type.value)
-    TransferContext.callMethod(MethodBindings.setFractalTypePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFractalTypePtr, type.value)
   }
 
-  public final fun getFractalType(): FractalType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFractalTypePtr)
-    return FractalType.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getFractalType(): FractalType =
+      FractalType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFractalTypePtr))
 
   public final fun setFractalOctaves(octaveCount: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to octaveCount.toLong())
-    TransferContext.callMethod(MethodBindings.setFractalOctavesPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFractalOctavesPtr, octaveCount.toLong())
   }
 
-  public final fun getFractalOctaves(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFractalOctavesPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getFractalOctaves(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFractalOctavesPtr).toInt()
 
   public final fun setFractalLacunarity(lacunarity: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to lacunarity.toDouble())
-    TransferContext.callMethod(MethodBindings.setFractalLacunarityPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFractalLacunarityPtr, lacunarity.toDouble())
   }
 
-  public final fun getFractalLacunarity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFractalLacunarityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getFractalLacunarity(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFractalLacunarityPtr).toFloat()
 
   public final fun setFractalGain(gain: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to gain.toDouble())
-    TransferContext.callMethod(MethodBindings.setFractalGainPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFractalGainPtr, gain.toDouble())
   }
 
-  public final fun getFractalGain(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFractalGainPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getFractalGain(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFractalGainPtr).toFloat()
 
   public final fun setFractalWeightedStrength(weightedStrength: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to weightedStrength.toDouble())
-    TransferContext.callMethod(MethodBindings.setFractalWeightedStrengthPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFractalWeightedStrengthPtr, weightedStrength.toDouble())
   }
 
-  public final fun getFractalWeightedStrength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFractalWeightedStrengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getFractalWeightedStrength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFractalWeightedStrengthPtr).toFloat()
 
   public final fun setFractalPingPongStrength(pingPongStrength: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to pingPongStrength.toDouble())
-    TransferContext.callMethod(MethodBindings.setFractalPingPongStrengthPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFractalPingPongStrengthPtr, pingPongStrength.toDouble())
   }
 
-  public final fun getFractalPingPongStrength(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFractalPingPongStrengthPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getFractalPingPongStrength(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFractalPingPongStrengthPtr).toFloat()
 
   public final fun setCellularDistanceFunction(func: CellularDistanceFunction): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to func.value)
-    TransferContext.callMethod(MethodBindings.setCellularDistanceFunctionPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCellularDistanceFunctionPtr, func.value)
   }
 
-  public final fun getCellularDistanceFunction(): CellularDistanceFunction {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCellularDistanceFunctionPtr)
-    return CellularDistanceFunction.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCellularDistanceFunction(): CellularDistanceFunction =
+      CellularDistanceFunction.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCellularDistanceFunctionPtr))
 
   public final fun setCellularJitter(jitter: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to jitter.toDouble())
-    TransferContext.callMethod(MethodBindings.setCellularJitterPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCellularJitterPtr, jitter.toDouble())
   }
 
-  public final fun getCellularJitter(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCellularJitterPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getCellularJitter(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCellularJitterPtr).toFloat()
 
   public final fun setCellularReturnType(ret: CellularReturnType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to ret.value)
-    TransferContext.callMethod(MethodBindings.setCellularReturnTypePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCellularReturnTypePtr, ret.value)
   }
 
-  public final fun getCellularReturnType(): CellularReturnType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCellularReturnTypePtr)
-    return CellularReturnType.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCellularReturnType(): CellularReturnType =
+      CellularReturnType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCellularReturnTypePtr))
 
   public final fun setDomainWarpEnabled(domainWarpEnabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to domainWarpEnabled)
-    TransferContext.callMethod(MethodBindings.setDomainWarpEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDomainWarpEnabledPtr, domainWarpEnabled)
   }
 
-  public final fun isDomainWarpEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDomainWarpEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isDomainWarpEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDomainWarpEnabledPtr)
 
   public final fun setDomainWarpType(domainWarpType: DomainWarpType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to domainWarpType.value)
-    TransferContext.callMethod(MethodBindings.setDomainWarpTypePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDomainWarpTypePtr, domainWarpType.value)
   }
 
-  public final fun getDomainWarpType(): DomainWarpType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDomainWarpTypePtr)
-    return DomainWarpType.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDomainWarpType(): DomainWarpType =
+      DomainWarpType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDomainWarpTypePtr))
 
   public final fun setDomainWarpAmplitude(domainWarpAmplitude: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to domainWarpAmplitude.toDouble())
-    TransferContext.callMethod(MethodBindings.setDomainWarpAmplitudePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDomainWarpAmplitudePtr, domainWarpAmplitude.toDouble())
   }
 
-  public final fun getDomainWarpAmplitude(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDomainWarpAmplitudePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDomainWarpAmplitude(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDomainWarpAmplitudePtr).toFloat()
 
   public final fun setDomainWarpFrequency(domainWarpFrequency: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to domainWarpFrequency.toDouble())
-    TransferContext.callMethod(MethodBindings.setDomainWarpFrequencyPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDomainWarpFrequencyPtr, domainWarpFrequency.toDouble())
   }
 
-  public final fun getDomainWarpFrequency(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDomainWarpFrequencyPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDomainWarpFrequency(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDomainWarpFrequencyPtr).toFloat()
 
   public final fun setDomainWarpFractalType(domainWarpFractalType: DomainWarpFractalType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to domainWarpFractalType.value)
-    TransferContext.callMethod(MethodBindings.setDomainWarpFractalTypePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDomainWarpFractalTypePtr, domainWarpFractalType.value)
   }
 
-  public final fun getDomainWarpFractalType(): DomainWarpFractalType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDomainWarpFractalTypePtr)
-    return DomainWarpFractalType.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDomainWarpFractalType(): DomainWarpFractalType =
+      DomainWarpFractalType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDomainWarpFractalTypePtr))
 
   public final fun setDomainWarpFractalOctaves(domainWarpOctaveCount: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to domainWarpOctaveCount.toLong())
-    TransferContext.callMethod(MethodBindings.setDomainWarpFractalOctavesPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDomainWarpFractalOctavesPtr, domainWarpOctaveCount.toLong())
   }
 
-  public final fun getDomainWarpFractalOctaves(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDomainWarpFractalOctavesPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getDomainWarpFractalOctaves(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDomainWarpFractalOctavesPtr).toInt()
 
   public final fun setDomainWarpFractalLacunarity(domainWarpLacunarity: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to domainWarpLacunarity.toDouble())
-    TransferContext.callMethod(MethodBindings.setDomainWarpFractalLacunarityPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDomainWarpFractalLacunarityPtr, domainWarpLacunarity.toDouble())
   }
 
-  public final fun getDomainWarpFractalLacunarity(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDomainWarpFractalLacunarityPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDomainWarpFractalLacunarity(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDomainWarpFractalLacunarityPtr).toFloat()
 
   public final fun setDomainWarpFractalGain(domainWarpGain: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to domainWarpGain.toDouble())
-    TransferContext.callMethod(MethodBindings.setDomainWarpFractalGainPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDomainWarpFractalGainPtr, domainWarpGain.toDouble())
   }
 
-  public final fun getDomainWarpFractalGain(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDomainWarpFractalGainPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getDomainWarpFractalGain(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDomainWarpFractalGainPtr).toFloat()
 
   public enum class NoiseType(
     public override val `value`: Long,

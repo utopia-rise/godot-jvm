@@ -11,19 +11,22 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_COLOR
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_COLOR
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -122,7 +125,7 @@ public open class GraphFrame : GraphElement() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(281, scriptPtr)
+    createNativeObject(279, scriptPtr)
   }
 
   /**
@@ -145,15 +148,11 @@ public open class GraphFrame : GraphElement() {
   }
 
   public final fun setTitle(title: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to title)
-    TransferContext.callMethod(MethodBindings.setTitlePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTitlePtr, title)
   }
 
-  public final fun getTitle(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTitlePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getTitle(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTitlePtr)
 
   /**
    * Returns the [HBoxContainer] used for the title bar, only containing a [Label] for displaying
@@ -161,66 +160,43 @@ public open class GraphFrame : GraphElement() {
    *
    * This can be used to add custom controls to the title bar such as option or close buttons.
    */
-  public final fun getTitlebarHbox(): HBoxContainer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTitlebarHboxPtr)
-    return (TransferContext.readReturnValue(OBJECT) as HBoxContainer?)
-  }
+  public final fun getTitlebarHbox(): HBoxContainer? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getTitlebarHboxPtr) as HBoxContainer?)
 
   public final fun setAutoshrinkEnabled(shrink: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to shrink)
-    TransferContext.callMethod(MethodBindings.setAutoshrinkEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoshrinkEnabledPtr, shrink)
   }
 
-  public final fun isAutoshrinkEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isAutoshrinkEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isAutoshrinkEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAutoshrinkEnabledPtr)
 
   public final fun setAutoshrinkMargin(autoshrinkMargin: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to autoshrinkMargin.toLong())
-    TransferContext.callMethod(MethodBindings.setAutoshrinkMarginPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAutoshrinkMarginPtr, autoshrinkMargin.toLong())
   }
 
-  public final fun getAutoshrinkMargin(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAutoshrinkMarginPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getAutoshrinkMargin(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAutoshrinkMarginPtr).toInt()
 
   public final fun setDragMargin(dragMargin: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to dragMargin.toLong())
-    TransferContext.callMethod(MethodBindings.setDragMarginPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDragMarginPtr, dragMargin.toLong())
   }
 
-  public final fun getDragMargin(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDragMarginPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getDragMargin(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDragMarginPtr).toInt()
 
   public final fun setTintColorEnabled(enable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enable)
-    TransferContext.callMethod(MethodBindings.setTintColorEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTintColorEnabledPtr, enable)
   }
 
-  public final fun isTintColorEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isTintColorEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isTintColorEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTintColorEnabledPtr)
 
   public final fun setTintColor(color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, COLOR to color)
-    TransferContext.callMethod(MethodBindings.setTintColorPtr)
+    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setTintColorPtr, color)
   }
 
-  public final fun getTintColor(): Color {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTintColorPtr)
-    return (TransferContext.readReturnValue(COLOR) as Color)
-  }
+  public final fun getTintColor(): Color =
+      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getTintColorPtr)
 
   public companion object {
     @JvmField

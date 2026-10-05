@@ -11,6 +11,14 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_PACKED_INT_32_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -20,11 +28,6 @@ import godot.core.Rect2
 import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -288,15 +291,11 @@ public open class SplitContainer : Container() {
   }
 
   public final fun setSplitOffsets(offsets: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_INT_32_ARRAY to offsets)
-    TransferContext.callMethod(MethodBindings.setSplitOffsetsPtr)
+    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setSplitOffsetsPtr, offsets)
   }
 
-  public final fun getSplitOffsets(): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSplitOffsetsPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
-  }
+  public final fun getSplitOffsets(): PackedInt32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getSplitOffsetsPtr)
 
   /**
    * Clamps the [splitOffsets] values to ensure they are within valid ranges and do not overlap with
@@ -305,97 +304,64 @@ public open class SplitContainer : Container() {
    */
   @JvmOverloads
   public final fun clampSplitOffset(priorityIndex: Int = 0): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to priorityIndex.toLong())
-    TransferContext.callMethod(MethodBindings.clampSplitOffsetPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.clampSplitOffsetPtr, priorityIndex.toLong())
   }
 
   public final fun setCollapsed(collapsed: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to collapsed)
-    TransferContext.callMethod(MethodBindings.setCollapsedPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCollapsedPtr, collapsed)
   }
 
-  public final fun isCollapsed(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isCollapsedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isCollapsed(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollapsedPtr)
 
   public final fun setDraggerVisibility(mode: DraggerVisibility): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setDraggerVisibilityPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDraggerVisibilityPtr, mode.value)
   }
 
-  public final fun getDraggerVisibility(): DraggerVisibility {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDraggerVisibilityPtr)
-    return DraggerVisibility.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDraggerVisibility(): DraggerVisibility =
+      DraggerVisibility.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDraggerVisibilityPtr))
 
   public final fun setVertical(vertical: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to vertical)
-    TransferContext.callMethod(MethodBindings.setVerticalPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setVerticalPtr, vertical)
   }
 
-  public final fun isVertical(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isVerticalPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isVertical(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isVerticalPtr)
 
   public final fun setDraggingEnabled(draggingEnabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to draggingEnabled)
-    TransferContext.callMethod(MethodBindings.setDraggingEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDraggingEnabledPtr, draggingEnabled)
   }
 
-  public final fun isDraggingEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDraggingEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isDraggingEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDraggingEnabledPtr)
 
   public final fun setDragAreaMarginBegin(margin: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.toLong())
-    TransferContext.callMethod(MethodBindings.setDragAreaMarginBeginPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDragAreaMarginBeginPtr, margin.toLong())
   }
 
-  public final fun getDragAreaMarginBegin(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDragAreaMarginBeginPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getDragAreaMarginBegin(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDragAreaMarginBeginPtr).toInt()
 
   public final fun setDragAreaMarginEnd(margin: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to margin.toLong())
-    TransferContext.callMethod(MethodBindings.setDragAreaMarginEndPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDragAreaMarginEndPtr, margin.toLong())
   }
 
-  public final fun getDragAreaMarginEnd(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDragAreaMarginEndPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getDragAreaMarginEnd(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDragAreaMarginEndPtr).toInt()
 
   public final fun setDragAreaOffset(offset: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to offset.toLong())
-    TransferContext.callMethod(MethodBindings.setDragAreaOffsetPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDragAreaOffsetPtr, offset.toLong())
   }
 
-  public final fun getDragAreaOffset(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDragAreaOffsetPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getDragAreaOffset(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDragAreaOffsetPtr).toInt()
 
   public final fun setDragAreaHighlightInEditor(dragAreaHighlightInEditor: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to dragAreaHighlightInEditor)
-    TransferContext.callMethod(MethodBindings.setDragAreaHighlightInEditorPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDragAreaHighlightInEditorPtr, dragAreaHighlightInEditor)
   }
 
-  public final fun isDragAreaHighlightInEditorEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDragAreaHighlightInEditorEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isDragAreaHighlightInEditorEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDragAreaHighlightInEditorEnabledPtr)
 
   /**
    * Returns an [VariantArray] of the drag area [Control]s. These are the interactable [Control]
@@ -414,33 +380,22 @@ public open class SplitContainer : Container() {
    *
    * **Warning:** These are required internal nodes, removing or freeing them may cause a crash.
    */
-  public final fun getDragAreaControls(): VariantArray<Control> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDragAreaControlsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Control>)
-  }
+  public final fun getDragAreaControls(): VariantArray<Control> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getDragAreaControlsPtr) as VariantArray<Control>)
 
   public final fun setTouchDraggerEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setTouchDraggerEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTouchDraggerEnabledPtr, enabled)
   }
 
-  public final fun isTouchDraggerEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isTouchDraggerEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isTouchDraggerEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTouchDraggerEnabledPtr)
 
   public final fun setDragNestedIntersections(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setDragNestedIntersectionsPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDragNestedIntersectionsPtr, enabled)
   }
 
-  public final fun isDraggingNestedIntersections(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDraggingNestedIntersectionsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isDraggingNestedIntersections(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDraggingNestedIntersectionsPtr)
 
   /**
    * Returns the drag area [Control]. For example, you can move a pre-configured button into the
@@ -458,22 +413,15 @@ public open class SplitContainer : Container() {
    *
    * **Warning:** This is a required internal node, removing and freeing it may cause a crash.
    */
-  public final fun getDragAreaControl(): Control? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDragAreaControlPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Control?)
-  }
+  public final fun getDragAreaControl(): Control? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getDragAreaControlPtr) as Control?)
 
   public final fun setSplitOffset(offset: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to offset.toLong())
-    TransferContext.callMethod(MethodBindings.setSplitOffsetPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSplitOffsetPtr, offset.toLong())
   }
 
-  public final fun getSplitOffset(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSplitOffsetPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSplitOffset(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSplitOffsetPtr).toInt()
 
   public enum class DraggerVisibility(
     public override val `value`: Long,

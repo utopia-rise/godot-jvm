@@ -11,14 +11,16 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_VECTOR2
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_VECTOR2
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Signal0
 import godot.core.Signal1
 import godot.core.Signal2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.VECTOR2
 import godot.core.Vector2
 import kotlin.Boolean
 import kotlin.Suppress
@@ -154,7 +156,7 @@ public open class GraphElement : Container() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(280, scriptPtr)
+    createNativeObject(278, scriptPtr)
   }
 
   /**
@@ -177,70 +179,46 @@ public open class GraphElement : Container() {
   }
 
   public final fun setResizable(resizable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to resizable)
-    TransferContext.callMethod(MethodBindings.setResizablePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setResizablePtr, resizable)
   }
 
-  public final fun isResizable(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isResizablePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isResizable(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isResizablePtr)
 
   public final fun setDraggable(draggable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to draggable)
-    TransferContext.callMethod(MethodBindings.setDraggablePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDraggablePtr, draggable)
   }
 
-  public final fun isDraggable(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isDraggablePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isDraggable(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDraggablePtr)
 
   public final fun setSelectable(selectable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to selectable)
-    TransferContext.callMethod(MethodBindings.setSelectablePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSelectablePtr, selectable)
   }
 
-  public final fun isSelectable(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSelectablePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isSelectable(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSelectablePtr)
 
   public final fun setSelected(selected: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to selected)
-    TransferContext.callMethod(MethodBindings.setSelectedPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSelectedPtr, selected)
   }
 
-  public final fun isSelected(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSelectedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isSelected(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSelectedPtr)
 
   public final fun setScalingMenus(scalingMenus: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to scalingMenus)
-    TransferContext.callMethod(MethodBindings.setScalingMenusPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setScalingMenusPtr, scalingMenus)
   }
 
-  public final fun isScalingMenus(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isScalingMenusPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isScalingMenus(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isScalingMenusPtr)
 
   public final fun setPositionOffset(offset: Vector2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to offset)
-    TransferContext.callMethod(MethodBindings.setPositionOffsetPtr)
+    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setPositionOffsetPtr, offset)
   }
 
-  public final fun getPositionOffset(): Vector2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionOffsetPtr)
-    return (TransferContext.readReturnValue(VECTOR2) as Vector2)
-  }
+  public final fun getPositionOffset(): Vector2 =
+      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getPositionOffsetPtr)
 
   public companion object {
     @JvmField

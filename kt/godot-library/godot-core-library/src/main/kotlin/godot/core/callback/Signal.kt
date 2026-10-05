@@ -2,14 +2,12 @@
 
 package godot.core
 
-import godot.api.Object
-import godot.api.Object.ConnectFlags
 import godot.internal.memory.MemoryManager
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 open class Signal internal constructor(
-    val godotObject: Object,
+    val godotObject: GodotObject,
     val name: StringName
 ) : CoreType {
 
@@ -52,12 +50,12 @@ open class Signal internal constructor(
     }
 
     companion object {
-        internal val delegate: ReadOnlyProperty<Object, Signal> =
+        internal val delegate: ReadOnlyProperty<GodotObject, Signal> =
             ReadOnlyProperty { thisRef, property -> Signal(thisRef, property.toGodotName()) }
 
         @JvmStatic
-        fun createUnsafe(godotObject: Object, name: String) = Signal(godotObject, name.toGodotName())
+        fun createUnsafe(godotObject: GodotObject, name: String) = Signal(godotObject, name.toGodotName())
     }
 }
 
-fun Object.unsafeSignal() = Signal.delegate
+fun GodotObject.unsafeSignal() = Signal.delegate

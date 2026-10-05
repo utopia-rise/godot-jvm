@@ -11,6 +11,7 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_AABB
 import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.Dictionary
@@ -58,7 +59,7 @@ public open class PlaceholderMesh : Mesh() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(555, scriptPtr)
+    createNativeObject(554, scriptPtr)
   }
 
   /**
@@ -81,8 +82,7 @@ public open class PlaceholderMesh : Mesh() {
   }
 
   public final fun setAabb(aabb: AABB): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, godot.core.VariantParser.AABB to aabb)
-    TransferContext.callMethod(MethodBindings.setAabbPtr)
+    TransferContext.callPtrMethod_AABB(ptr, objectID.id, MethodBindings.setAabbPtr, aabb)
   }
 
   /**

@@ -9,6 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_BOOL_ret_BOOL
+import godot.callMethod_STRING_BOOL_ret_LONG
+import godot.callMethod_STRING_BOOL_ret_PACKED_BYTE_ARRAY
+import godot.callMethod_STRING_ret_LONG
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
@@ -16,14 +22,8 @@ import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedByteArray
 import godot.core.PackedStringArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -81,31 +81,22 @@ public open class ZIPReader : RefCounted() {
   /**
    * Opens the zip archive at the given [path] and reads its file index.
    */
-  public final fun `open`(path: String): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.openPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun `open`(path: String): Error =
+      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.openPtr, path))
 
   /**
    * Closes the underlying resources used by this instance.
    */
-  public final fun close(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun close(): Error =
+      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.closePtr))
 
   /**
    * Returns the list of names of all files in the loaded archive.
    *
    * Must be called after [open].
    */
-  public final fun getFiles(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFilesPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getFiles(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getFilesPtr)
 
   /**
    * Loads the whole content of a file in the loaded zip archive into memory and returns it.
@@ -113,11 +104,8 @@ public open class ZIPReader : RefCounted() {
    * Must be called after [open].
    */
   @JvmOverloads
-  public final fun readFile(path: String, caseSensitive: Boolean = true): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, BOOL to caseSensitive)
-    TransferContext.callMethod(MethodBindings.readFilePtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
-  }
+  public final fun readFile(path: String, caseSensitive: Boolean = true): PackedByteArray =
+      TransferContext.callMethod_STRING_BOOL_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.readFilePtr, path, caseSensitive)
 
   /**
    * Returns `true` if the file exists in the loaded zip archive.
@@ -125,22 +113,16 @@ public open class ZIPReader : RefCounted() {
    * Must be called after [open].
    */
   @JvmOverloads
-  public final fun fileExists(path: String, caseSensitive: Boolean = true): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, BOOL to caseSensitive)
-    TransferContext.callMethod(MethodBindings.fileExistsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun fileExists(path: String, caseSensitive: Boolean = true): Boolean =
+      TransferContext.callMethod_STRING_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.fileExistsPtr, path, caseSensitive)
 
   /**
    * Returns the compression level of the file in the loaded zip archive. Returns `-1` if the file
    * doesn't exist or any other error occurs. Must be called after [open].
    */
   @JvmOverloads
-  public final fun getCompressionLevel(path: String, caseSensitive: Boolean = true): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, BOOL to caseSensitive)
-    TransferContext.callMethod(MethodBindings.getCompressionLevelPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getCompressionLevel(path: String, caseSensitive: Boolean = true): Int =
+      TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.getCompressionLevelPtr, path, caseSensitive).toInt()
 
   public companion object {
     @JvmField

@@ -11,13 +11,15 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_RECT2
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_RECT2
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.Rect2
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.RECT2
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -68,7 +70,7 @@ public open class BackBufferCopy : Node2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(106, scriptPtr)
+    createNativeObject(104, scriptPtr)
   }
 
   /**
@@ -91,26 +93,18 @@ public open class BackBufferCopy : Node2D() {
   }
 
   public final fun setRect(rect: Rect2): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, RECT2 to rect)
-    TransferContext.callMethod(MethodBindings.setRectPtr)
+    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setRectPtr, rect)
   }
 
-  public final fun getRect(): Rect2 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRectPtr)
-    return (TransferContext.readReturnValue(RECT2) as Rect2)
-  }
+  public final fun getRect(): Rect2 =
+      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRectPtr)
 
   public final fun setCopyMode(copyMode: CopyMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to copyMode.value)
-    TransferContext.callMethod(MethodBindings.setCopyModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCopyModePtr, copyMode.value)
   }
 
-  public final fun getCopyMode(): CopyMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCopyModePtr)
-    return CopyMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCopyMode(): CopyMode =
+      CopyMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCopyModePtr))
 
   public enum class CopyMode(
     public override val `value`: Long,

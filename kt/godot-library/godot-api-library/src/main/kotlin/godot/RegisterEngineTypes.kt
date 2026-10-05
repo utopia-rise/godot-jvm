@@ -994,8 +994,6 @@ import java.lang.Class
 import kotlin.Unit
 
 public fun registerVariantMapping(): Unit {
-  addVariantMapping(Object::class, OBJECT)
-  addVariantMapping(RefCounted::class, OBJECT)
   addVariantMapping(AESContext::class, OBJECT)
   addVariantMapping(AStar2D::class, OBJECT)
   addVariantMapping(AStar3D::class, OBJECT)
@@ -1424,6 +1422,7 @@ public fun registerVariantMapping(): Unit {
   addVariantMapping(NoiseTexture3D::class, OBJECT)
   addVariantMapping(ORMMaterial3D::class, OBJECT)
   addVariantMapping(OS::class, OBJECT)
+  addVariantMapping(Object::class, OBJECT)
   addVariantMapping(Occluder3D::class, OBJECT)
   addVariantMapping(OccluderInstance3D::class, OBJECT)
   addVariantMapping(OccluderPolygon2D::class, OBJECT)
@@ -1597,6 +1596,7 @@ public fun registerVariantMapping(): Unit {
   addVariantMapping(RayCast2D::class, OBJECT)
   addVariantMapping(RayCast3D::class, OBJECT)
   addVariantMapping(RectangleShape2D::class, OBJECT)
+  addVariantMapping(RefCounted::class, OBJECT)
   addVariantMapping(ReferenceRect::class, OBJECT)
   addVariantMapping(ReflectionProbe::class, OBJECT)
   addVariantMapping(RegEx::class, OBJECT)
@@ -1954,10 +1954,6 @@ public fun registerVariantMapping(): Unit {
 }
 
 public fun warmEngineTypes(): Unit {
-  Class.forName(Object::class.java.name, true, Object::class.java.classLoader)
-  Object.MethodBindings
-  Class.forName(RefCounted::class.java.name, true, RefCounted::class.java.classLoader)
-  RefCounted.MethodBindings
   Class.forName(AESContext::class.java.name, true, AESContext::class.java.classLoader)
   AESContext.MethodBindings
   Class.forName(AStar2D::class.java.name, true, AStar2D::class.java.classLoader)
@@ -2814,6 +2810,8 @@ public fun warmEngineTypes(): Unit {
   ORMMaterial3D.MethodBindings
   Class.forName(OS::class.java.name, true, OS::class.java.classLoader)
   OS.MethodBindings
+  Class.forName(Object::class.java.name, true, Object::class.java.classLoader)
+  Object.MethodBindings
   Class.forName(Occluder3D::class.java.name, true, Occluder3D::class.java.classLoader)
   Occluder3D.MethodBindings
   Class.forName(OccluderInstance3D::class.java.name, true, OccluderInstance3D::class.java.classLoader)
@@ -3160,6 +3158,8 @@ public fun warmEngineTypes(): Unit {
   RayCast3D.MethodBindings
   Class.forName(RectangleShape2D::class.java.name, true, RectangleShape2D::class.java.classLoader)
   RectangleShape2D.MethodBindings
+  Class.forName(RefCounted::class.java.name, true, RefCounted::class.java.classLoader)
+  RefCounted.MethodBindings
   Class.forName(ReferenceRect::class.java.name, true, ReferenceRect::class.java.classLoader)
   ReferenceRect.MethodBindings
   Class.forName(ReflectionProbe::class.java.name, true, ReflectionProbe::class.java.classLoader)
@@ -3871,8 +3871,6 @@ public fun warmEngineTypes(): Unit {
 }
 
 public fun registerEngineTypes(): Unit {
-  TypeManager.registerEngineType("Object", Object::class, ::Object)
-  TypeManager.registerEngineType("RefCounted", RefCounted::class, ::RefCounted)
   TypeManager.registerEngineType("AESContext", AESContext::class, ::AESContext)
   TypeManager.registerEngineType("AStar2D", AStar2D::class, ::AStar2D)
   TypeManager.registerEngineType("AStar3D", AStar3D::class, ::AStar3D)
@@ -4324,6 +4322,7 @@ public fun registerEngineTypes(): Unit {
   TypeManager.registerEngineType("ORMMaterial3D", ORMMaterial3D::class, ::ORMMaterial3D)
   TypeManager.registerSingleton("OS") { OS }
   TypeManager.registerEngineType("OS", OS::class) { OS }
+  TypeManager.registerEngineType("Object", Object::class, ::Object)
   TypeManager.registerEngineType("Occluder3D", Occluder3D::class, ::Occluder3D)
   TypeManager.registerEngineType("OccluderInstance3D", OccluderInstance3D::class, ::OccluderInstance3D)
   TypeManager.registerEngineType("OccluderPolygon2D", OccluderPolygon2D::class, ::OccluderPolygon2D)
@@ -4503,6 +4502,7 @@ public fun registerEngineTypes(): Unit {
   TypeManager.registerEngineType("RayCast2D", RayCast2D::class, ::RayCast2D)
   TypeManager.registerEngineType("RayCast3D", RayCast3D::class, ::RayCast3D)
   TypeManager.registerEngineType("RectangleShape2D", RectangleShape2D::class, ::RectangleShape2D)
+  TypeManager.registerEngineType("RefCounted", RefCounted::class, ::RefCounted)
   TypeManager.registerEngineType("ReferenceRect", ReferenceRect::class, ::ReferenceRect)
   TypeManager.registerEngineType("ReflectionProbe", ReflectionProbe::class, ::ReflectionProbe)
   TypeManager.registerEngineType("RegEx", RegEx::class, ::RegEx)

@@ -24,6 +24,7 @@ import godot.codegen.models.enriched.EnrichedNativeStructure
 import godot.codegen.models.enriched.EnrichedProperty
 import godot.codegen.models.enriched.toEnriched
 import godot.codegen.models.traits.GenerationType
+    import godot.codegen.models.traits.bitfieldPrefix
 import godot.codegen.rpc.RpcFunctionMode
 
 class UseConnectFlagRule : GodotApiRule<ApiTask>() {
@@ -31,9 +32,7 @@ class UseConnectFlagRule : GodotApiRule<ApiTask>() {
         val objectClassIndex = context.api.classes.indexOfFirst { it.name == API.`object`.simpleName }
         val objectRawClass = context.api.classes[objectClassIndex]
 
-        val connectEnumIndex = objectRawClass.enums!!.indexOfFirst { it.name == "ConnectFlags" }
-        val connectRawEnum = objectRawClass.enums[connectEnumIndex]
-
+        val connectRawEnum = objectRawClass.enums!!.single { it.name == Core.connectFlags.simpleName }
         val newValues = listOf(
             EnumValue(
                 "DEFAULT",
@@ -41,10 +40,7 @@ class UseConnectFlagRule : GodotApiRule<ApiTask>() {
                 "Default connections that are immediately emitted"
             )
         ) + connectRawEnum.values
-        val newEnum = connectRawEnum.copy(values = newValues)
-
-        val enumList = objectRawClass.enums.toMutableList()
-        enumList[connectEnumIndex] = newEnum
+        context.api.globalEnums.add(connectRawEnum.copy(values = newValues))
 
         val connectMethodIndex = objectRawClass.methods!!.indexOfFirst { it.name == "connect" }
         val connectMethod = objectRawClass.methods[connectMethodIndex]
@@ -52,12 +48,12 @@ class UseConnectFlagRule : GodotApiRule<ApiTask>() {
         val flagArgumentIndex = connectMethod.arguments!!.indexOfFirst { it.name == "flags" }
         val flagArgument = connectMethod.arguments[flagArgumentIndex]
 
-        val newArgument = flagArgument.copy(type = "bitfield::Object.ConnectFlags", meta = null)
+        val newArgument = flagArgument.copy(type = "$bitfieldPrefix${Core.connectFlags.simpleName}", meta = null)
         val newMethod = connectMethod.copy(arguments = connectMethod.arguments.dropLast(1) + newArgument)
         val newMethodList = objectRawClass.methods.toMutableList()
         newMethodList[connectMethodIndex] = newMethod
 
-        val newClass = objectRawClass.copy(enums = enumList, methods = newMethodList)
+        val newClass = objectRawClass.copy(enums = objectRawClass.enums - connectRawEnum, methods = newMethodList)
         context.api.classes[objectClassIndex] = newClass
     }
 }
@@ -126,11 +122,6 @@ class EnrichedClassRule : GodotApiRule<ApiTask>() {
         context.classMap += classMap
         context.classList += classList
 
-        val coreSeeds = setOf(API.`object`.simpleName, API.refCounted.simpleName)
-        coreSeeds.forEach { name ->
-            classMap[name]?.setAsCoreModule()
-        }
-
         initializeProperties(context)
     }
 
@@ -187,15 +178,6 @@ class EnrichedClassRule : GodotApiRule<ApiTask>() {
 
 class CoreRule : GodotApiRule<ApiTask>() {
     override fun apply(task: ApiTask, context: GenerationContext) {
-        val classes = context
-            .classList
-            .filter { it.isCoreModule() }
-
-
-        for (clazz in classes) {
-            task.coreFiles += FileTask(clazz)
-        }
-
         for (enum in context.globalEnumList) {
             task.coreFiles += FileTask(enum)
         }
@@ -206,7 +188,6 @@ class ApiRule : GodotApiRule<ApiTask>() {
     override fun apply(task: ApiTask, context: GenerationContext) {
         val classes = context
             .classList
-            .filter { !it.isCoreModule() }
             .filter {  //Remove class extending singletons
                 val parent = it.parent
                 parent == null || !parent.isSingleton

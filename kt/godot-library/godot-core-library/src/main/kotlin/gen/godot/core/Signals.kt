@@ -7,7 +7,6 @@
 
 package godot.core
 
-import godot.api.Object
 import kotlin.Any
 import kotlin.PublishedApi
 import kotlin.String
@@ -20,7 +19,7 @@ import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 public class Signal0 @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(): Unit {
@@ -28,8 +27,7 @@ public class Signal0 @PublishedApi internal constructor(
     }
 
     @JvmOverloads
-    public fun connect(callable: Callable0<*>, flags: Object.ConnectFlags =
-            Object.ConnectFlags.DEFAULT): Unit {
+    public fun connect(callable: Callable0<*>, flags: ConnectFlags = ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -39,26 +37,26 @@ public class Signal0 @PublishedApi internal constructor(
 
     public companion object {
         @PublishedApi
-        internal val `delegate`: ReadOnlyProperty<Object, Signal0> =
+        internal val `delegate`: ReadOnlyProperty<GodotObject, Signal0> =
                 ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
-        public inline operator fun getValue(thisRef: Object, `property`: KProperty<*>): Signal0 =
-                Signal0(thisRef, property.toGodotName())
+        public inline operator fun getValue(thisRef: GodotObject, `property`: KProperty<*>): Signal0
+                = Signal0(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun _createJava(godotObject: Object, signalName: String): Signal0 =
+        public fun _createJava(godotObject: GodotObject, signalName: String): Signal0 =
                 Signal0(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun Object.Signal0(signalName: String) = Signal0(this, signalName.toGodotName())
+public inline fun GodotObject.Signal0(signalName: String) = Signal0(this, signalName.toGodotName())
 
-public inline fun Object.signal0() = Signal0.delegate
+public inline fun GodotObject.signal0() = Signal0.delegate
 
 public class Signal1<P0> @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(p0: P0): Unit {
@@ -66,8 +64,8 @@ public class Signal1<P0> @PublishedApi internal constructor(
     }
 
     @JvmOverloads
-    public fun connect(callable: Callable1<*, P0>, flags: Object.ConnectFlags =
-            Object.ConnectFlags.DEFAULT): Unit {
+    public fun connect(callable: Callable1<*, P0>, flags: ConnectFlags = ConnectFlags.DEFAULT):
+            Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -77,28 +75,29 @@ public class Signal1<P0> @PublishedApi internal constructor(
 
     public companion object {
         @PublishedApi
-        internal val `delegate`: ReadOnlyProperty<Object, Signal1<Any>> =
+        internal val `delegate`: ReadOnlyProperty<GodotObject, Signal1<Any>> =
                 ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
-        public inline operator fun <P0> getValue(thisRef: Object, `property`: KProperty<*>):
+        public inline operator fun <P0> getValue(thisRef: GodotObject, `property`: KProperty<*>):
                 Signal1<P0> = Signal1(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun <P0> _createJava(godotObject: Object, signalName: String): Signal1<P0> =
+        public fun <P0> _createJava(godotObject: GodotObject, signalName: String): Signal1<P0> =
                 Signal1(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun <P0> Object.Signal1(signalName: String) =
+public inline fun <P0> GodotObject.Signal1(signalName: String) =
         Signal1<P0>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0> Object.signal1() = Signal1.delegate as ReadOnlyProperty<Object, Signal1<P0>>
+public inline fun <P0> GodotObject.signal1() =
+        Signal1.delegate as ReadOnlyProperty<GodotObject, Signal1<P0>>
 
 public class Signal2<P0, P1> @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(p0: P0, p1: P1): Unit {
@@ -106,8 +105,8 @@ public class Signal2<P0, P1> @PublishedApi internal constructor(
     }
 
     @JvmOverloads
-    public fun connect(callable: Callable2<*, P0, P1>, flags: Object.ConnectFlags =
-            Object.ConnectFlags.DEFAULT): Unit {
+    public fun connect(callable: Callable2<*, P0, P1>, flags: ConnectFlags = ConnectFlags.DEFAULT):
+            Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -117,29 +116,30 @@ public class Signal2<P0, P1> @PublishedApi internal constructor(
 
     public companion object {
         @PublishedApi
-        internal val `delegate`: ReadOnlyProperty<Object, Signal2<Any, Any>> =
+        internal val `delegate`: ReadOnlyProperty<GodotObject, Signal2<Any, Any>> =
                 ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
-        public inline operator fun <P0, P1> getValue(thisRef: Object, `property`: KProperty<*>):
-                Signal2<P0, P1> = Signal2(thisRef, property.toGodotName())
+        public inline operator fun <P0, P1> getValue(thisRef: GodotObject,
+                `property`: KProperty<*>): Signal2<P0, P1> =
+                Signal2(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun <P0, P1> _createJava(godotObject: Object, signalName: String): Signal2<P0, P1> =
-                Signal2(godotObject, signalName.toGodotName())
+        public fun <P0, P1> _createJava(godotObject: GodotObject, signalName: String):
+                Signal2<P0, P1> = Signal2(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun <P0, P1> Object.Signal2(signalName: String) =
+public inline fun <P0, P1> GodotObject.Signal2(signalName: String) =
         Signal2<P0, P1>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1> Object.signal2() =
-        Signal2.delegate as ReadOnlyProperty<Object, Signal2<P0, P1>>
+public inline fun <P0, P1> GodotObject.signal2() =
+        Signal2.delegate as ReadOnlyProperty<GodotObject, Signal2<P0, P1>>
 
 public class Signal3<P0, P1, P2> @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -151,8 +151,8 @@ public class Signal3<P0, P1, P2> @PublishedApi internal constructor(
     }
 
     @JvmOverloads
-    public fun connect(callable: Callable3<*, P0, P1, P2>, flags: Object.ConnectFlags =
-            Object.ConnectFlags.DEFAULT): Unit {
+    public fun connect(callable: Callable3<*, P0, P1, P2>, flags: ConnectFlags =
+            ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -162,29 +162,30 @@ public class Signal3<P0, P1, P2> @PublishedApi internal constructor(
 
     public companion object {
         @PublishedApi
-        internal val `delegate`: ReadOnlyProperty<Object, Signal3<Any, Any, Any>> =
+        internal val `delegate`: ReadOnlyProperty<GodotObject, Signal3<Any, Any, Any>> =
                 ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
-        public inline operator fun <P0, P1, P2> getValue(thisRef: Object, `property`: KProperty<*>):
-                Signal3<P0, P1, P2> = Signal3(thisRef, property.toGodotName())
+        public inline operator fun <P0, P1, P2> getValue(thisRef: GodotObject,
+                `property`: KProperty<*>): Signal3<P0, P1, P2> =
+                Signal3(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun <P0, P1, P2> _createJava(godotObject: Object, signalName: String):
+        public fun <P0, P1, P2> _createJava(godotObject: GodotObject, signalName: String):
                 Signal3<P0, P1, P2> = Signal3(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun <P0, P1, P2> Object.Signal3(signalName: String) =
+public inline fun <P0, P1, P2> GodotObject.Signal3(signalName: String) =
         Signal3<P0, P1, P2>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2> Object.signal3() =
-        Signal3.delegate as ReadOnlyProperty<Object, Signal3<P0, P1, P2>>
+public inline fun <P0, P1, P2> GodotObject.signal3() =
+        Signal3.delegate as ReadOnlyProperty<GodotObject, Signal3<P0, P1, P2>>
 
 public class Signal4<P0, P1, P2, P3> @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -197,8 +198,8 @@ public class Signal4<P0, P1, P2, P3> @PublishedApi internal constructor(
     }
 
     @JvmOverloads
-    public fun connect(callable: Callable4<*, P0, P1, P2, P3>, flags: Object.ConnectFlags =
-            Object.ConnectFlags.DEFAULT): Unit {
+    public fun connect(callable: Callable4<*, P0, P1, P2, P3>, flags: ConnectFlags =
+            ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -208,30 +209,30 @@ public class Signal4<P0, P1, P2, P3> @PublishedApi internal constructor(
 
     public companion object {
         @PublishedApi
-        internal val `delegate`: ReadOnlyProperty<Object, Signal4<Any, Any, Any, Any>> =
+        internal val `delegate`: ReadOnlyProperty<GodotObject, Signal4<Any, Any, Any, Any>> =
                 ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
-        public inline operator fun <P0, P1, P2, P3> getValue(thisRef: Object,
+        public inline operator fun <P0, P1, P2, P3> getValue(thisRef: GodotObject,
                 `property`: KProperty<*>): Signal4<P0, P1, P2, P3> =
                 Signal4(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun <P0, P1, P2, P3> _createJava(godotObject: Object, signalName: String):
+        public fun <P0, P1, P2, P3> _createJava(godotObject: GodotObject, signalName: String):
                 Signal4<P0, P1, P2, P3> = Signal4(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun <P0, P1, P2, P3> Object.Signal4(signalName: String) =
+public inline fun <P0, P1, P2, P3> GodotObject.Signal4(signalName: String) =
         Signal4<P0, P1, P2, P3>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2, P3> Object.signal4() =
-        Signal4.delegate as ReadOnlyProperty<Object, Signal4<P0, P1, P2, P3>>
+public inline fun <P0, P1, P2, P3> GodotObject.signal4() =
+        Signal4.delegate as ReadOnlyProperty<GodotObject, Signal4<P0, P1, P2, P3>>
 
 public class Signal5<P0, P1, P2, P3, P4> @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -245,8 +246,8 @@ public class Signal5<P0, P1, P2, P3, P4> @PublishedApi internal constructor(
     }
 
     @JvmOverloads
-    public fun connect(callable: Callable5<*, P0, P1, P2, P3, P4>, flags: Object.ConnectFlags =
-            Object.ConnectFlags.DEFAULT): Unit {
+    public fun connect(callable: Callable5<*, P0, P1, P2, P3, P4>, flags: ConnectFlags =
+            ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -256,30 +257,30 @@ public class Signal5<P0, P1, P2, P3, P4> @PublishedApi internal constructor(
 
     public companion object {
         @PublishedApi
-        internal val `delegate`: ReadOnlyProperty<Object, Signal5<Any, Any, Any, Any, Any>> =
+        internal val `delegate`: ReadOnlyProperty<GodotObject, Signal5<Any, Any, Any, Any, Any>> =
                 ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
-        public inline operator fun <P0, P1, P2, P3, P4> getValue(thisRef: Object,
+        public inline operator fun <P0, P1, P2, P3, P4> getValue(thisRef: GodotObject,
                 `property`: KProperty<*>): Signal5<P0, P1, P2, P3, P4> =
                 Signal5(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun <P0, P1, P2, P3, P4> _createJava(godotObject: Object, signalName: String):
+        public fun <P0, P1, P2, P3, P4> _createJava(godotObject: GodotObject, signalName: String):
                 Signal5<P0, P1, P2, P3, P4> = Signal5(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun <P0, P1, P2, P3, P4> Object.Signal5(signalName: String) =
+public inline fun <P0, P1, P2, P3, P4> GodotObject.Signal5(signalName: String) =
         Signal5<P0, P1, P2, P3, P4>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2, P3, P4> Object.signal5() =
-        Signal5.delegate as ReadOnlyProperty<Object, Signal5<P0, P1, P2, P3, P4>>
+public inline fun <P0, P1, P2, P3, P4> GodotObject.signal5() =
+        Signal5.delegate as ReadOnlyProperty<GodotObject, Signal5<P0, P1, P2, P3, P4>>
 
 public class Signal6<P0, P1, P2, P3, P4, P5> @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -294,8 +295,8 @@ public class Signal6<P0, P1, P2, P3, P4, P5> @PublishedApi internal constructor(
     }
 
     @JvmOverloads
-    public fun connect(callable: Callable6<*, P0, P1, P2, P3, P4, P5>, flags: Object.ConnectFlags =
-            Object.ConnectFlags.DEFAULT): Unit {
+    public fun connect(callable: Callable6<*, P0, P1, P2, P3, P4, P5>, flags: ConnectFlags =
+            ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -305,30 +306,32 @@ public class Signal6<P0, P1, P2, P3, P4, P5> @PublishedApi internal constructor(
 
     public companion object {
         @PublishedApi
-        internal val `delegate`: ReadOnlyProperty<Object, Signal6<Any, Any, Any, Any, Any, Any>> =
+        internal val `delegate`:
+                ReadOnlyProperty<GodotObject, Signal6<Any, Any, Any, Any, Any, Any>> =
                 ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
-        public inline operator fun <P0, P1, P2, P3, P4, P5> getValue(thisRef: Object,
+        public inline operator fun <P0, P1, P2, P3, P4, P5> getValue(thisRef: GodotObject,
                 `property`: KProperty<*>): Signal6<P0, P1, P2, P3, P4, P5> =
                 Signal6(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun <P0, P1, P2, P3, P4, P5> _createJava(godotObject: Object, signalName: String):
-                Signal6<P0, P1, P2, P3, P4, P5> = Signal6(godotObject, signalName.toGodotName())
+        public fun <P0, P1, P2, P3, P4, P5> _createJava(godotObject: GodotObject,
+                signalName: String): Signal6<P0, P1, P2, P3, P4, P5> =
+                Signal6(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun <P0, P1, P2, P3, P4, P5> Object.Signal6(signalName: String) =
+public inline fun <P0, P1, P2, P3, P4, P5> GodotObject.Signal6(signalName: String) =
         Signal6<P0, P1, P2, P3, P4, P5>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2, P3, P4, P5> Object.signal6() =
-        Signal6.delegate as ReadOnlyProperty<Object, Signal6<P0, P1, P2, P3, P4, P5>>
+public inline fun <P0, P1, P2, P3, P4, P5> GodotObject.signal6() =
+        Signal6.delegate as ReadOnlyProperty<GodotObject, Signal6<P0, P1, P2, P3, P4, P5>>
 
 public class Signal7<P0, P1, P2, P3, P4, P5, P6> @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -344,8 +347,8 @@ public class Signal7<P0, P1, P2, P3, P4, P5, P6> @PublishedApi internal construc
     }
 
     @JvmOverloads
-    public fun connect(callable: Callable7<*, P0, P1, P2, P3, P4, P5, P6>,
-            flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT): Unit {
+    public fun connect(callable: Callable7<*, P0, P1, P2, P3, P4, P5, P6>, flags: ConnectFlags =
+            ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -356,31 +359,31 @@ public class Signal7<P0, P1, P2, P3, P4, P5, P6> @PublishedApi internal construc
     public companion object {
         @PublishedApi
         internal val `delegate`:
-                ReadOnlyProperty<Object, Signal7<Any, Any, Any, Any, Any, Any, Any>> =
+                ReadOnlyProperty<GodotObject, Signal7<Any, Any, Any, Any, Any, Any, Any>> =
                 ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
-        public inline operator fun <P0, P1, P2, P3, P4, P5, P6> getValue(thisRef: Object,
+        public inline operator fun <P0, P1, P2, P3, P4, P5, P6> getValue(thisRef: GodotObject,
                 `property`: KProperty<*>): Signal7<P0, P1, P2, P3, P4, P5, P6> =
                 Signal7(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun <P0, P1, P2, P3, P4, P5, P6> _createJava(godotObject: Object,
+        public fun <P0, P1, P2, P3, P4, P5, P6> _createJava(godotObject: GodotObject,
                 signalName: String): Signal7<P0, P1, P2, P3, P4, P5, P6> =
                 Signal7(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun <P0, P1, P2, P3, P4, P5, P6> Object.Signal7(signalName: String) =
+public inline fun <P0, P1, P2, P3, P4, P5, P6> GodotObject.Signal7(signalName: String) =
         Signal7<P0, P1, P2, P3, P4, P5, P6>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2, P3, P4, P5, P6> Object.signal7() =
-        Signal7.delegate as ReadOnlyProperty<Object, Signal7<P0, P1, P2, P3, P4, P5, P6>>
+public inline fun <P0, P1, P2, P3, P4, P5, P6> GodotObject.signal7() =
+        Signal7.delegate as ReadOnlyProperty<GodotObject, Signal7<P0, P1, P2, P3, P4, P5, P6>>
 
 public class Signal8<P0, P1, P2, P3, P4, P5, P6, P7> @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -397,8 +400,8 @@ public class Signal8<P0, P1, P2, P3, P4, P5, P6, P7> @PublishedApi internal cons
     }
 
     @JvmOverloads
-    public fun connect(callable: Callable8<*, P0, P1, P2, P3, P4, P5, P6, P7>,
-            flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT): Unit {
+    public fun connect(callable: Callable8<*, P0, P1, P2, P3, P4, P5, P6, P7>, flags: ConnectFlags =
+            ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -409,31 +412,31 @@ public class Signal8<P0, P1, P2, P3, P4, P5, P6, P7> @PublishedApi internal cons
     public companion object {
         @PublishedApi
         internal val `delegate`:
-                ReadOnlyProperty<Object, Signal8<Any, Any, Any, Any, Any, Any, Any, Any>> =
+                ReadOnlyProperty<GodotObject, Signal8<Any, Any, Any, Any, Any, Any, Any, Any>> =
                 ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
-        public inline operator fun <P0, P1, P2, P3, P4, P5, P6, P7> getValue(thisRef: Object,
+        public inline operator fun <P0, P1, P2, P3, P4, P5, P6, P7> getValue(thisRef: GodotObject,
                 `property`: KProperty<*>): Signal8<P0, P1, P2, P3, P4, P5, P6, P7> =
                 Signal8(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun <P0, P1, P2, P3, P4, P5, P6, P7> _createJava(godotObject: Object,
+        public fun <P0, P1, P2, P3, P4, P5, P6, P7> _createJava(godotObject: GodotObject,
                 signalName: String): Signal8<P0, P1, P2, P3, P4, P5, P6, P7> =
                 Signal8(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun <P0, P1, P2, P3, P4, P5, P6, P7> Object.Signal8(signalName: String) =
+public inline fun <P0, P1, P2, P3, P4, P5, P6, P7> GodotObject.Signal8(signalName: String) =
         Signal8<P0, P1, P2, P3, P4, P5, P6, P7>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2, P3, P4, P5, P6, P7> Object.signal8() =
-        Signal8.delegate as ReadOnlyProperty<Object, Signal8<P0, P1, P2, P3, P4, P5, P6, P7>>
+public inline fun <P0, P1, P2, P3, P4, P5, P6, P7> GodotObject.signal8() =
+        Signal8.delegate as ReadOnlyProperty<GodotObject, Signal8<P0, P1, P2, P3, P4, P5, P6, P7>>
 
 public class Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8> @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -452,7 +455,7 @@ public class Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8> @PublishedApi internal 
 
     @JvmOverloads
     public fun connect(callable: Callable9<*, P0, P1, P2, P3, P4, P5, P6, P7, P8>,
-            flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT): Unit {
+            flags: ConnectFlags = ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -463,31 +466,32 @@ public class Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8> @PublishedApi internal 
     public companion object {
         @PublishedApi
         internal val `delegate`:
-                ReadOnlyProperty<Object, Signal9<Any, Any, Any, Any, Any, Any, Any, Any, Any>> =
-                ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
+                ReadOnlyProperty<GodotObject, Signal9<Any, Any, Any, Any, Any, Any, Any, Any, Any>>
+                = ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
-        public inline operator fun <P0, P1, P2, P3, P4, P5, P6, P7, P8> getValue(thisRef: Object,
-                `property`: KProperty<*>): Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8> =
+        public inline operator fun <P0, P1, P2, P3, P4, P5, P6, P7, P8>
+                getValue(thisRef: GodotObject, `property`: KProperty<*>):
+                Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8> =
                 Signal9(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8> _createJava(godotObject: Object,
+        public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8> _createJava(godotObject: GodotObject,
                 signalName: String): Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8> =
                 Signal9(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8> Object.Signal9(signalName: String) =
+public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8> GodotObject.Signal9(signalName: String) =
         Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8> Object.signal9() =
-        Signal9.delegate as ReadOnlyProperty<Object, Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8>>
+public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8> GodotObject.signal9() =
+        Signal9.delegate as ReadOnlyProperty<GodotObject, Signal9<P0, P1, P2, P3, P4, P5, P6, P7, P8>>
 
 public class Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -507,7 +511,7 @@ public class Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> @PublishedApi inte
 
     @JvmOverloads
     public fun connect(callable: Callable10<*, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>,
-            flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT): Unit {
+            flags: ConnectFlags = ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -518,33 +522,33 @@ public class Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> @PublishedApi inte
     public companion object {
         @PublishedApi
         internal val `delegate`:
-                ReadOnlyProperty<Object, Signal10<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
+                ReadOnlyProperty<GodotObject, Signal10<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
                 = ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
         public inline operator fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>
-                getValue(thisRef: Object, `property`: KProperty<*>):
+                getValue(thisRef: GodotObject, `property`: KProperty<*>):
                 Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> =
                 Signal10(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> _createJava(godotObject: Object,
+        public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> _createJava(godotObject: GodotObject,
                 signalName: String): Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> =
                 Signal10(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> Object.Signal10(signalName: String) =
-        Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(this, signalName.toGodotName())
+public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> GodotObject.Signal10(signalName: String)
+        = Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> Object.signal10() =
-        Signal10.delegate as ReadOnlyProperty<Object, Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>>
+public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> GodotObject.signal10() =
+        Signal10.delegate as ReadOnlyProperty<GodotObject, Signal10<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>>
 
 public class Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> @PublishedApi internal
         constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -565,7 +569,7 @@ public class Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> @PublishedApi
 
     @JvmOverloads
     public fun connect(callable: Callable11<*, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>,
-            flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT): Unit {
+            flags: ConnectFlags = ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -577,33 +581,35 @@ public class Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> @PublishedApi
     public companion object {
         @PublishedApi
         internal val `delegate`:
-                ReadOnlyProperty<Object, Signal11<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
+                ReadOnlyProperty<GodotObject, Signal11<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
                 = ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
         public inline operator fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>
-                getValue(thisRef: Object, `property`: KProperty<*>):
+                getValue(thisRef: GodotObject, `property`: KProperty<*>):
                 Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> =
                 Signal11(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
-        public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> _createJava(godotObject: Object,
-                signalName: String): Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> =
+        public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>
+                _createJava(godotObject: GodotObject, signalName: String):
+                Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> =
                 Signal11(godotObject, signalName.toGodotName())
     }
 }
 
 @Suppress("FUNCTION_NAME")
-public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> Object.Signal11(signalName: String)
-        = Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(this, signalName.toGodotName())
+public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>
+        GodotObject.Signal11(signalName: String) =
+        Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> Object.signal11() =
-        Signal11.delegate as ReadOnlyProperty<Object, Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>>
+public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10> GodotObject.signal11() =
+        Signal11.delegate as ReadOnlyProperty<GodotObject, Signal11<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10>>
 
 public class Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> @PublishedApi internal
         constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -625,7 +631,7 @@ public class Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> @Publish
 
     @JvmOverloads
     public fun connect(callable: Callable12<*, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>,
-            flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT): Unit {
+            flags: ConnectFlags = ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -638,18 +644,18 @@ public class Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> @Publish
     public companion object {
         @PublishedApi
         internal val `delegate`:
-                ReadOnlyProperty<Object, Signal12<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
+                ReadOnlyProperty<GodotObject, Signal12<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
                 = ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
         public inline operator fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>
-                getValue(thisRef: Object, `property`: KProperty<*>):
+                getValue(thisRef: GodotObject, `property`: KProperty<*>):
                 Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> =
                 Signal12(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
         public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>
-                _createJava(godotObject: Object, signalName: String):
+                _createJava(godotObject: GodotObject, signalName: String):
                 Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> =
                 Signal12(godotObject, signalName.toGodotName())
     }
@@ -657,16 +663,16 @@ public class Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> @Publish
 
 @Suppress("FUNCTION_NAME")
 public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>
-        Object.Signal12(signalName: String) =
+        GodotObject.Signal12(signalName: String) =
         Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> Object.signal12() =
-        Signal12.delegate as ReadOnlyProperty<Object, Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>>
+public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11> GodotObject.signal12() =
+        Signal12.delegate as ReadOnlyProperty<GodotObject, Signal12<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11>>
 
 public class Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> @PublishedApi internal
         constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -690,7 +696,7 @@ public class Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> @Pu
     @JvmOverloads
     public
             fun connect(callable: Callable13<*, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>,
-            flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT): Unit {
+            flags: ConnectFlags = ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -703,18 +709,18 @@ public class Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> @Pu
     public companion object {
         @PublishedApi
         internal val `delegate`:
-                ReadOnlyProperty<Object, Signal13<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
+                ReadOnlyProperty<GodotObject, Signal13<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
                 = ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
         public inline operator fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>
-                getValue(thisRef: Object, `property`: KProperty<*>):
+                getValue(thisRef: GodotObject, `property`: KProperty<*>):
                 Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> =
                 Signal13(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
         public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>
-                _createJava(godotObject: Object, signalName: String):
+                _createJava(godotObject: GodotObject, signalName: String):
                 Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> =
                 Signal13(godotObject, signalName.toGodotName())
     }
@@ -722,16 +728,16 @@ public class Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> @Pu
 
 @Suppress("FUNCTION_NAME")
 public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>
-        Object.Signal13(signalName: String) =
+        GodotObject.Signal13(signalName: String) =
         Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> Object.signal13() =
-        Signal13.delegate as ReadOnlyProperty<Object, Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>>
+public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12> GodotObject.signal13() =
+        Signal13.delegate as ReadOnlyProperty<GodotObject, Signal13<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12>>
 
 public class Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> @PublishedApi
         internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -756,7 +762,7 @@ public class Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13
     @JvmOverloads
     public
             fun connect(callable: Callable14<*, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>,
-            flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT): Unit {
+            flags: ConnectFlags = ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -769,18 +775,18 @@ public class Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13
     public companion object {
         @PublishedApi
         internal val `delegate`:
-                ReadOnlyProperty<Object, Signal14<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
+                ReadOnlyProperty<GodotObject, Signal14<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
                 = ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
         public inline operator fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>
-                getValue(thisRef: Object, `property`: KProperty<*>):
+                getValue(thisRef: GodotObject, `property`: KProperty<*>):
                 Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> =
                 Signal14(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
         public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>
-                _createJava(godotObject: Object, signalName: String):
+                _createJava(godotObject: GodotObject, signalName: String):
                 Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> =
                 Signal14(godotObject, signalName.toGodotName())
     }
@@ -788,16 +794,17 @@ public class Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13
 
 @Suppress("FUNCTION_NAME")
 public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>
-        Object.Signal14(signalName: String) =
+        GodotObject.Signal14(signalName: String) =
         Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
-public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13> Object.signal14() =
-        Signal14.delegate as ReadOnlyProperty<Object, Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>>
+public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>
+        GodotObject.signal14() =
+        Signal14.delegate as ReadOnlyProperty<GodotObject, Signal14<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13>>
 
 public class Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14> @PublishedApi
         internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -823,7 +830,7 @@ public class Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13
     @JvmOverloads
     public
             fun connect(callable: Callable15<*, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>,
-            flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT): Unit {
+            flags: ConnectFlags = ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -836,18 +843,18 @@ public class Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13
     public companion object {
         @PublishedApi
         internal val `delegate`:
-                ReadOnlyProperty<Object, Signal15<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
+                ReadOnlyProperty<GodotObject, Signal15<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
                 = ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
         public inline operator fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>
-                getValue(thisRef: Object, `property`: KProperty<*>):
+                getValue(thisRef: GodotObject, `property`: KProperty<*>):
                 Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14> =
                 Signal15(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
         public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>
-                _createJava(godotObject: Object, signalName: String):
+                _createJava(godotObject: GodotObject, signalName: String):
                 Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14> =
                 Signal15(godotObject, signalName.toGodotName())
     }
@@ -855,17 +862,17 @@ public class Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13
 
 @Suppress("FUNCTION_NAME")
 public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>
-        Object.Signal15(signalName: String) =
+        GodotObject.Signal15(signalName: String) =
         Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
 public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>
-        Object.signal15() =
-        Signal15.delegate as ReadOnlyProperty<Object, Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>>
+        GodotObject.signal15() =
+        Signal15.delegate as ReadOnlyProperty<GodotObject, Signal15<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14>>
 
 public class Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>
         @PublishedApi internal constructor(
-    instance: Object,
+    instance: GodotObject,
     name: StringName,
 ) : Signal(instance, name) {
     public fun emit(
@@ -892,7 +899,7 @@ public class Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13
     @JvmOverloads
     public
             fun connect(callable: Callable16<*, P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>,
-            flags: Object.ConnectFlags = Object.ConnectFlags.DEFAULT): Unit {
+            flags: ConnectFlags = ConnectFlags.DEFAULT): Unit {
         connectUnsafe(callable, flags)
     }
 
@@ -905,18 +912,18 @@ public class Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13
     public companion object {
         @PublishedApi
         internal val `delegate`:
-                ReadOnlyProperty<Object, Signal16<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
+                ReadOnlyProperty<GodotObject, Signal16<Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any>>
                 = ReadOnlyProperty { thisRef, property -> getValue(thisRef, property) }
 
         public inline operator fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14,
-                P15> getValue(thisRef: Object, `property`: KProperty<*>):
+                P15> getValue(thisRef: GodotObject, `property`: KProperty<*>):
                 Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15> =
                 Signal16(thisRef, property.toGodotName())
 
         @JvmStatic
         @JvmName("create")
         public fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>
-                _createJava(godotObject: Object, signalName: String):
+                _createJava(godotObject: GodotObject, signalName: String):
                 Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15> =
                 Signal16(godotObject, signalName.toGodotName())
     }
@@ -924,10 +931,10 @@ public class Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13
 
 @Suppress("FUNCTION_NAME")
 public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>
-        Object.Signal16(signalName: String) =
+        GodotObject.Signal16(signalName: String) =
         Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>(this, signalName.toGodotName())
 
 @Suppress("UNCHECKED_CAST")
 public inline fun <P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>
-        Object.signal16() =
-        Signal16.delegate as ReadOnlyProperty<Object, Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>>
+        GodotObject.signal16() =
+        Signal16.delegate as ReadOnlyProperty<GodotObject, Signal16<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15>>

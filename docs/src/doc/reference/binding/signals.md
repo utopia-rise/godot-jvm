@@ -57,7 +57,7 @@ val healthChanged: Signal1[Integer] = Signal1.create(this, "healthChanged")
 | `hasConnections()` | Whether any connection exists |
 | `getConnections()` | Godot connection-list dictionaries |
 
-`flags` defaults to `godot.api.Object.ConnectFlags.DEFAULT`. Other generated flags include `DEFERRED`, `ONE_SHOT`, and `REFERENCE_COUNTED`.
+`flags` defaults to `godot.core.ConnectFlags.DEFAULT`. Other generated flags include `DEFERRED`, `ONE_SHOT`, and `REFERENCE_COUNTED`.
 
 ## Method connections
 
@@ -158,7 +158,7 @@ Package: `godot.extension`. Holds the signal/callable pair.
 | `connect(flags)` | Connects/reconnects; returns `godot.core.Error` |
 | `createUnsafe(signal, callable)` | Creates a connector without connecting it |
 
-Kotlin can omit `flags` on `connect`; Java/Scala pass `Object.ConnectFlags.DEFAULT` explicitly. Retain the connector when disconnection is required later.
+Kotlin can omit `flags` on `connect`; Java/Scala pass `ConnectFlags.DEFAULT` explicitly. Retain the connector when disconnection is required later.
 
 ## Dynamic signals
 

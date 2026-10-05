@@ -9,13 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
 import kotlin.Boolean
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -223,7 +225,7 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(584, scriptPtr)
+    createNativeObject(583, scriptPtr)
   }
 
   /**
@@ -235,130 +237,85 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
    * [RenderingDevice.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA].
    */
   public final fun setAsMix(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.setAsMixPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.setAsMixPtr)
   }
 
   public final fun setEnableBlend(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
-    TransferContext.callMethod(MethodBindings.setEnableBlendPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableBlendPtr, pMember)
   }
 
-  public final fun getEnableBlend(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnableBlendPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getEnableBlend(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableBlendPtr)
 
   public final fun setSrcColorBlendFactor(pMember: RenderingDevice.BlendFactor): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setSrcColorBlendFactorPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSrcColorBlendFactorPtr, pMember.value)
   }
 
-  public final fun getSrcColorBlendFactor(): RenderingDevice.BlendFactor {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSrcColorBlendFactorPtr)
-    return RenderingDevice.BlendFactor.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getSrcColorBlendFactor(): RenderingDevice.BlendFactor =
+      RenderingDevice.BlendFactor.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSrcColorBlendFactorPtr))
 
   public final fun setDstColorBlendFactor(pMember: RenderingDevice.BlendFactor): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setDstColorBlendFactorPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDstColorBlendFactorPtr, pMember.value)
   }
 
-  public final fun getDstColorBlendFactor(): RenderingDevice.BlendFactor {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDstColorBlendFactorPtr)
-    return RenderingDevice.BlendFactor.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDstColorBlendFactor(): RenderingDevice.BlendFactor =
+      RenderingDevice.BlendFactor.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDstColorBlendFactorPtr))
 
   public final fun setColorBlendOp(pMember: RenderingDevice.BlendOperation): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setColorBlendOpPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setColorBlendOpPtr, pMember.value)
   }
 
-  public final fun getColorBlendOp(): RenderingDevice.BlendOperation {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorBlendOpPtr)
-    return RenderingDevice.BlendOperation.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getColorBlendOp(): RenderingDevice.BlendOperation =
+      RenderingDevice.BlendOperation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getColorBlendOpPtr))
 
   public final fun setSrcAlphaBlendFactor(pMember: RenderingDevice.BlendFactor): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setSrcAlphaBlendFactorPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSrcAlphaBlendFactorPtr, pMember.value)
   }
 
-  public final fun getSrcAlphaBlendFactor(): RenderingDevice.BlendFactor {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSrcAlphaBlendFactorPtr)
-    return RenderingDevice.BlendFactor.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getSrcAlphaBlendFactor(): RenderingDevice.BlendFactor =
+      RenderingDevice.BlendFactor.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSrcAlphaBlendFactorPtr))
 
   public final fun setDstAlphaBlendFactor(pMember: RenderingDevice.BlendFactor): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setDstAlphaBlendFactorPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDstAlphaBlendFactorPtr, pMember.value)
   }
 
-  public final fun getDstAlphaBlendFactor(): RenderingDevice.BlendFactor {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDstAlphaBlendFactorPtr)
-    return RenderingDevice.BlendFactor.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDstAlphaBlendFactor(): RenderingDevice.BlendFactor =
+      RenderingDevice.BlendFactor.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDstAlphaBlendFactorPtr))
 
   public final fun setAlphaBlendOp(pMember: RenderingDevice.BlendOperation): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to pMember.value)
-    TransferContext.callMethod(MethodBindings.setAlphaBlendOpPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAlphaBlendOpPtr, pMember.value)
   }
 
-  public final fun getAlphaBlendOp(): RenderingDevice.BlendOperation {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAlphaBlendOpPtr)
-    return RenderingDevice.BlendOperation.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getAlphaBlendOp(): RenderingDevice.BlendOperation =
+      RenderingDevice.BlendOperation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAlphaBlendOpPtr))
 
   public final fun setWriteR(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
-    TransferContext.callMethod(MethodBindings.setWriteRPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setWriteRPtr, pMember)
   }
 
-  public final fun getWriteR(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWriteRPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getWriteR(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getWriteRPtr)
 
   public final fun setWriteG(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
-    TransferContext.callMethod(MethodBindings.setWriteGPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setWriteGPtr, pMember)
   }
 
-  public final fun getWriteG(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWriteGPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getWriteG(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getWriteGPtr)
 
   public final fun setWriteB(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
-    TransferContext.callMethod(MethodBindings.setWriteBPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setWriteBPtr, pMember)
   }
 
-  public final fun getWriteB(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWriteBPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getWriteB(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getWriteBPtr)
 
   public final fun setWriteA(pMember: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to pMember)
-    TransferContext.callMethod(MethodBindings.setWriteAPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setWriteAPtr, pMember)
   }
 
-  public final fun getWriteA(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getWriteAPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getWriteA(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getWriteAPtr)
 
   public companion object {
     @JvmField

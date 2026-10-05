@@ -9,13 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -60,41 +61,29 @@ public open class PacketPeerStream : PacketPeer() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(506, scriptPtr)
+    createNativeObject(505, scriptPtr)
   }
 
   public final fun setStreamPeer(peer: StreamPeer?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to peer)
-    TransferContext.callMethod(MethodBindings.setStreamPeerPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setStreamPeerPtr, peer)
   }
 
-  public final fun getStreamPeer(): StreamPeer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStreamPeerPtr)
-    return (TransferContext.readReturnValue(OBJECT) as StreamPeer?)
-  }
+  public final fun getStreamPeer(): StreamPeer? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getStreamPeerPtr) as StreamPeer?)
 
   public final fun setInputBufferMaxSize(maxSizeBytes: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxSizeBytes.toLong())
-    TransferContext.callMethod(MethodBindings.setInputBufferMaxSizePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInputBufferMaxSizePtr, maxSizeBytes.toLong())
   }
 
   public final fun setOutputBufferMaxSize(maxSizeBytes: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxSizeBytes.toLong())
-    TransferContext.callMethod(MethodBindings.setOutputBufferMaxSizePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOutputBufferMaxSizePtr, maxSizeBytes.toLong())
   }
 
-  public final fun getInputBufferMaxSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getInputBufferMaxSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getInputBufferMaxSize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInputBufferMaxSizePtr).toInt()
 
-  public final fun getOutputBufferMaxSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOutputBufferMaxSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getOutputBufferMaxSize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOutputBufferMaxSizePtr).toInt()
 
   public companion object {
     @JvmField

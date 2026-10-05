@@ -63,7 +63,9 @@ abstract class LambdaContainer<R>(
 
     fun setAsCancellable(signal: Signal, block: () -> Unit) {
         cancelFunction = block
-        TransferContext.writeArguments(VariantParser.SIGNAL to signal)
+        TransferContext.writeArguments(1) {
+            VariantParser.SIGNAL.toGodot(signal)
+        }
         Bridge.engine_call_constructor_cancellable(this, this.returnConverter.id, hashCode())
     }
 

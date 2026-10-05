@@ -9,6 +9,8 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_RID_ARRAY_OBJECT_OBJECT_CALLABLE_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.MethodStringName0
@@ -16,11 +18,6 @@ import godot.core.MethodStringName5
 import godot.core.RID
 import godot.core.VariantArray
 import godot.core.VariantCallable
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser._RID
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -33,17 +30,14 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class OpenXRSpatialPlaneTrackingCapability : OpenXRExtensionWrapper() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(493, scriptPtr)
+    createNativeObject(492, scriptPtr)
   }
 
   /**
    * Returns `true` if plane tracking is supported by the current device.
    */
-  public final fun isSupported(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isSupportedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isSupported(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSupportedPtr)
 
   /**
    * Calls [OpenXRSpatialEntityExtension.discoverSpatialEntities] and
@@ -74,11 +68,8 @@ public open class OpenXRSpatialPlaneTrackingCapability : OpenXRExtensionWrapper(
     nextSnapshotCreate: OpenXRStructureBase? = null,
     nextSnapshotQuery: OpenXRStructureBase? = null,
     userCallback: Callable = VariantCallable(),
-  ): OpenXRFutureResult? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to spatialContext, ARRAY to componentData, OBJECT to nextSnapshotCreate, OBJECT to nextSnapshotQuery, CALLABLE to userCallback)
-    TransferContext.callMethod(MethodBindings.startEntityDiscoveryPtr)
-    return (TransferContext.readReturnValue(OBJECT) as OpenXRFutureResult?)
-  }
+  ): OpenXRFutureResult? =
+      (TransferContext.callMethod_RID_ARRAY_OBJECT_OBJECT_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.startEntityDiscoveryPtr, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery, userCallback) as OpenXRFutureResult?)
 
   public companion object {
     @JvmField

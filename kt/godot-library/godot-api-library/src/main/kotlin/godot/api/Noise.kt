@@ -9,6 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_DOUBLE_DOUBLE_DOUBLE_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE_DOUBLE_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE_ret_DOUBLE
+import godot.callPtrMethod_LONG_LONG_BOOL_BOOL_BOOL_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_LONG_BOOL_BOOL_DOUBLE_BOOL_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_LONG_LONG_BOOL_BOOL_ret_ARRAY
+import godot.callPtrMethod_LONG_LONG_LONG_BOOL_DOUBLE_BOOL_ret_ARRAY
+import godot.callPtrMethod_VECTOR2_ret_DOUBLE
+import godot.callPtrMethod_VECTOR3_ret_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
@@ -16,17 +25,9 @@ import godot.core.MethodStringName3
 import godot.core.MethodStringName5
 import godot.core.MethodStringName6
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.VECTOR2
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector2
 import godot.core.Vector3
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
@@ -47,35 +48,26 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class Noise internal constructor() : Resource() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(425, scriptPtr)
+    createNativeObject(423, scriptPtr)
   }
 
   /**
    * Returns the 1D noise value at the given (x) coordinate.
    */
-  public final fun getNoise1d(x: Float): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to x.toDouble())
-    TransferContext.callMethod(MethodBindings.getNoise1dPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getNoise1d(x: Float): Float =
+      TransferContext.callPtrMethod_DOUBLE_ret_DOUBLE(ptr, objectID.id, MethodBindings.getNoise1dPtr, x.toDouble()).toFloat()
 
   /**
    * Returns the 2D noise value at the given position.
    */
-  public final fun getNoise2d(x: Float, y: Float): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to x.toDouble(), DOUBLE to y.toDouble())
-    TransferContext.callMethod(MethodBindings.getNoise2dPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getNoise2d(x: Float, y: Float): Float =
+      TransferContext.callPtrMethod_DOUBLE_DOUBLE_ret_DOUBLE(ptr, objectID.id, MethodBindings.getNoise2dPtr, x.toDouble(), y.toDouble()).toFloat()
 
   /**
    * Returns the 2D noise value at the given position.
    */
-  public final fun getNoise2dv(v: Vector2): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2 to v)
-    TransferContext.callMethod(MethodBindings.getNoise2dvPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getNoise2dv(v: Vector2): Float =
+      TransferContext.callPtrMethod_VECTOR2_ret_DOUBLE(ptr, objectID.id, MethodBindings.getNoise2dvPtr, v).toFloat()
 
   /**
    * Returns the 3D noise value at the given position.
@@ -84,20 +76,14 @@ public open class Noise internal constructor() : Resource() {
     x: Float,
     y: Float,
     z: Float,
-  ): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to x.toDouble(), DOUBLE to y.toDouble(), DOUBLE to z.toDouble())
-    TransferContext.callMethod(MethodBindings.getNoise3dPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  ): Float =
+      TransferContext.callPtrMethod_DOUBLE_DOUBLE_DOUBLE_ret_DOUBLE(ptr, objectID.id, MethodBindings.getNoise3dPtr, x.toDouble(), y.toDouble(), z.toDouble()).toFloat()
 
   /**
    * Returns the 3D noise value at the given position.
    */
-  public final fun getNoise3dv(v: Vector3): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to v)
-    TransferContext.callMethod(MethodBindings.getNoise3dvPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getNoise3dv(v: Vector3): Float =
+      TransferContext.callPtrMethod_VECTOR3_ret_DOUBLE(ptr, objectID.id, MethodBindings.getNoise3dvPtr, v).toFloat()
 
   /**
    * Returns an [Image] containing 2D noise values.
@@ -112,11 +98,8 @@ public open class Noise internal constructor() : Resource() {
     invert: Boolean = false,
     in3dSpace: Boolean = false,
     normalize: Boolean = true,
-  ): Image? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong(), LONG to height.toLong(), BOOL to invert, BOOL to in3dSpace, BOOL to normalize)
-    TransferContext.callMethod(MethodBindings.getImagePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Image?)
-  }
+  ): Image? =
+      (TransferContext.callPtrMethod_LONG_LONG_BOOL_BOOL_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getImagePtr, width.toLong(), height.toLong(), invert, in3dSpace, normalize) as Image?)
 
   /**
    * Returns an [Image] containing seamless 2D noise values.
@@ -132,11 +115,8 @@ public open class Noise internal constructor() : Resource() {
     in3dSpace: Boolean = false,
     skirt: Float = 0.1f,
     normalize: Boolean = true,
-  ): Image? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong(), LONG to height.toLong(), BOOL to invert, BOOL to in3dSpace, DOUBLE to skirt.toDouble(), BOOL to normalize)
-    TransferContext.callMethod(MethodBindings.getSeamlessImagePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Image?)
-  }
+  ): Image? =
+      (TransferContext.callPtrMethod_LONG_LONG_BOOL_BOOL_DOUBLE_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSeamlessImagePtr, width.toLong(), height.toLong(), invert, in3dSpace, skirt.toDouble(), normalize) as Image?)
 
   /**
    * Returns an [VariantArray] of [Image]s containing 3D noise values for use with
@@ -152,11 +132,8 @@ public open class Noise internal constructor() : Resource() {
     depth: Int,
     invert: Boolean = false,
     normalize: Boolean = true,
-  ): VariantArray<Image> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong(), LONG to height.toLong(), LONG to depth.toLong(), BOOL to invert, BOOL to normalize)
-    TransferContext.callMethod(MethodBindings.getImage3dPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Image>)
-  }
+  ): VariantArray<Image> =
+      (TransferContext.callPtrMethod_LONG_LONG_LONG_BOOL_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.getImage3dPtr, width.toLong(), height.toLong(), depth.toLong(), invert, normalize) as VariantArray<Image>)
 
   /**
    * Returns an [VariantArray] of [Image]s containing seamless 3D noise values for use with
@@ -173,11 +150,8 @@ public open class Noise internal constructor() : Resource() {
     invert: Boolean = false,
     skirt: Float = 0.1f,
     normalize: Boolean = true,
-  ): VariantArray<Image> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to width.toLong(), LONG to height.toLong(), LONG to depth.toLong(), BOOL to invert, DOUBLE to skirt.toDouble(), BOOL to normalize)
-    TransferContext.callMethod(MethodBindings.getSeamlessImage3dPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Image>)
-  }
+  ): VariantArray<Image> =
+      (TransferContext.callPtrMethod_LONG_LONG_LONG_BOOL_DOUBLE_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.getSeamlessImage3dPtr, width.toLong(), height.toLong(), depth.toLong(), invert, skirt.toDouble(), normalize) as VariantArray<Image>)
 
   public companion object {
     @JvmField

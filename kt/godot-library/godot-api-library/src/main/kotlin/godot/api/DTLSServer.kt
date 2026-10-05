@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_OBJECT_ret_LONG
+import godot.callPtrMethod_OBJECT_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -175,17 +174,14 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class DTLSServer : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(204, scriptPtr)
+    createNativeObject(202, scriptPtr)
   }
 
   /**
    * Setup the DTLS server to use the given [serverOptions]. See [TLSOptions.server].
    */
-  public final fun setup(serverOptions: TLSOptions?): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to serverOptions)
-    TransferContext.callMethod(MethodBindings.setupPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun setup(serverOptions: TLSOptions?): Error =
+      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.setupPtr, serverOptions))
 
   /**
    * Try to initiate the DTLS handshake with the given [udpPeer] which must be already connected
@@ -195,11 +191,8 @@ public open class DTLSServer : RefCounted() {
    * [PacketPeerDTLS.STATUS_HANDSHAKING], as it is normal that 50&#37; of the new connections will be
    * invalid due to cookie exchange.
    */
-  public final fun takeConnection(udpPeer: PacketPeerUDP?): PacketPeerDTLS? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to udpPeer)
-    TransferContext.callMethod(MethodBindings.takeConnectionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as PacketPeerDTLS?)
-  }
+  public final fun takeConnection(udpPeer: PacketPeerUDP?): PacketPeerDTLS? =
+      (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.takeConnectionPtr, udpPeer) as PacketPeerDTLS?)
 
   public companion object {
     @JvmField

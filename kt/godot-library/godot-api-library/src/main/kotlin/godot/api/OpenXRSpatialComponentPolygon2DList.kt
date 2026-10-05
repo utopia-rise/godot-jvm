@@ -9,16 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_LONG_ret_TRANSFORM3D
+import godot.callPtrMethod_RID_LONG_ret_PACKED_VECTOR2_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedVector2Array
 import godot.core.RID
 import godot.core.Transform3D
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser._RID
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -31,26 +29,20 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialComponentPolygon2DList : OpenXRSpatialComponentData() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(488, scriptPtr)
+    createNativeObject(487, scriptPtr)
   }
 
   /**
    * Returns the transform for positioning our polygon for the entity at this [index].
    */
-  public final fun getTransform(index: Long): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
-    TransferContext.callMethod(MethodBindings.getTransformPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
-  }
+  public final fun getTransform(index: Long): Transform3D =
+      TransferContext.callPtrMethod_LONG_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getTransformPtr, index)
 
   /**
    * Returns the polygon vertices for the entity at this [index].
    */
-  public final fun getVertices(snapshot: RID, index: Long): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to snapshot, LONG to index)
-    TransferContext.callMethod(MethodBindings.getVerticesPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
-  }
+  public final fun getVertices(snapshot: RID, index: Long): PackedVector2Array =
+      TransferContext.callPtrMethod_RID_LONG_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getVerticesPtr, snapshot, index)
 
   public companion object {
     @JvmField

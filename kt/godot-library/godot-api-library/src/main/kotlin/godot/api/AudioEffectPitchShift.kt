@@ -9,13 +9,14 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -70,41 +71,29 @@ public open class AudioEffectPitchShift : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(72, scriptPtr)
+    createNativeObject(70, scriptPtr)
   }
 
   public final fun setPitchScale(rate: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to rate.toDouble())
-    TransferContext.callMethod(MethodBindings.setPitchScalePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPitchScalePtr, rate.toDouble())
   }
 
-  public final fun getPitchScale(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPitchScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getPitchScale(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPitchScalePtr).toFloat()
 
   public final fun setOversampling(amount: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to amount.toLong())
-    TransferContext.callMethod(MethodBindings.setOversamplingPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOversamplingPtr, amount.toLong())
   }
 
-  public final fun getOversampling(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOversamplingPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getOversampling(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOversamplingPtr).toInt()
 
   public final fun setFftSize(size: FFTSize): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to size.value)
-    TransferContext.callMethod(MethodBindings.setFftSizePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFftSizePtr, size.value)
   }
 
-  public final fun getFftSize(): FFTSize {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFftSizePtr)
-    return FFTSize.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getFftSize(): FFTSize =
+      FFTSize.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFftSizePtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

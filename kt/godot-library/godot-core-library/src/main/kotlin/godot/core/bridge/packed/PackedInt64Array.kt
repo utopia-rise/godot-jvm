@@ -27,7 +27,9 @@ class PackedInt64Array : PackedArray<PackedInt64Array, Long> {
      * Constructs a [PackedInt64Array] as a copy of the given [PackedInt64Array].
      */
     constructor(from: PackedInt64Array) {
-        TransferContext.writeArguments(VariantParser.PACKED_INT_64_ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.PACKED_INT_64_ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_packed_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_INT_64_ARRAY)
     }
@@ -36,7 +38,9 @@ class PackedInt64Array : PackedArray<PackedInt64Array, Long> {
      * Constructs a new [PackedInt64Array] by converting a [VariantArray]<[Long]>.
      */
     constructor(from: VariantArray<Long>) {
-        TransferContext.writeArguments(VariantParser.ARRAY to from)
+        TransferContext.writeArguments(1) {
+            VariantParser.ARRAY.toGodot(from)
+        }
         ptr = Bridge.engine_call_constructor_array()
         MemoryManager.registerNativeCoreType(this, VariantParser.PACKED_INT_64_ARRAY)
     }

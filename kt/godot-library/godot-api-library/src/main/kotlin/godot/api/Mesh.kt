@@ -11,6 +11,17 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_AABB
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY
+import godot.callPtrMethod0_ret_VECTOR2I
+import godot.callPtrMethod_BOOL_BOOL_ret_OBJECT_REF
+import godot.callPtrMethod_DOUBLE_ret_OBJECT_REF
+import godot.callPtrMethod_LONG_OBJECT
+import godot.callPtrMethod_LONG_ret_ARRAY
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
+import godot.callPtrMethod_VECTOR2I
 import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.BitFieldBase
@@ -22,13 +33,6 @@ import godot.core.MethodStringName2
 import godot.core.PackedVector3Array
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_VECTOR3_ARRAY
-import godot.core.VariantParser.VECTOR2I
 import godot.core.Vector2i
 import kotlin.Any
 import kotlin.Boolean
@@ -77,7 +81,7 @@ public abstract class Mesh : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(375, scriptPtr)
+    createNativeObject(373, scriptPtr)
   }
 
   /**
@@ -173,65 +177,46 @@ public abstract class Mesh : Resource() {
   public abstract fun _getAabb(): AABB
 
   public final fun setLightmapSizeHint(size: Vector2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to size)
-    TransferContext.callMethod(MethodBindings.setLightmapSizeHintPtr)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setLightmapSizeHintPtr, size)
   }
 
-  public final fun getLightmapSizeHint(): Vector2i {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLightmapSizeHintPtr)
-    return (TransferContext.readReturnValue(VECTOR2I) as Vector2i)
-  }
+  public final fun getLightmapSizeHint(): Vector2i =
+      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getLightmapSizeHintPtr)
 
   /**
    * Returns the smallest [AABB] enclosing this mesh in local space. Not affected by `custom_aabb`.
    *
    * **Note:** This is only implemented for [ArrayMesh] and [PrimitiveMesh].
    */
-  public final fun getAabb(): AABB {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getAabbPtr)
-    return (TransferContext.readReturnValue(godot.core.VariantParser.AABB) as AABB)
-  }
+  public final fun getAabb(): AABB =
+      TransferContext.callPtrMethod0_ret_AABB(ptr, objectID.id, MethodBindings.getAabbPtr)
 
   /**
    * Returns all the vertices that make up the faces of the mesh. Each three vertices represent one
    * triangle.
    */
-  public final fun getFaces(): PackedVector3Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFacesPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY) as PackedVector3Array)
-  }
+  public final fun getFaces(): PackedVector3Array =
+      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getFacesPtr)
 
   /**
    * Returns the number of surfaces that the [Mesh] holds. This is equivalent to
    * [MeshInstance3D.getSurfaceOverrideMaterialCount].
    */
-  public final fun getSurfaceCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSurfaceCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSurfaceCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSurfaceCountPtr).toInt()
 
   /**
    * Returns the arrays for the vertices, normals, UVs, etc. that make up the requested surface (see
    * [ArrayMesh.addSurfaceFromArrays]).
    */
-  public final fun surfaceGetArrays(surfIdx: Int): VariantArray<Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to surfIdx.toLong())
-    TransferContext.callMethod(MethodBindings.surfaceGetArraysPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<Any?>)
-  }
+  public final fun surfaceGetArrays(surfIdx: Int): VariantArray<Any?> =
+      (TransferContext.callPtrMethod_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.surfaceGetArraysPtr, surfIdx.toLong()) as VariantArray<Any?>)
 
   /**
    * Returns the blend shape arrays for the requested surface.
    */
-  public final fun surfaceGetBlendShapeArrays(surfIdx: Int): VariantArray<VariantArray<Any?>> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to surfIdx.toLong())
-    TransferContext.callMethod(MethodBindings.surfaceGetBlendShapeArraysPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<VariantArray<Any?>>)
-  }
+  public final fun surfaceGetBlendShapeArrays(surfIdx: Int): VariantArray<VariantArray<Any?>> =
+      (TransferContext.callPtrMethod_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.surfaceGetBlendShapeArraysPtr, surfIdx.toLong()) as VariantArray<VariantArray<Any?>>)
 
   /**
    * Sets a [Material] for a given surface. Surface will be rendered using this material.
@@ -242,8 +227,7 @@ public abstract class Mesh : Resource() {
    * [MeshInstance3D.setSurfaceOverrideMaterial] instead.
    */
   public final fun surfaceSetMaterial(surfIdx: Int, material: Material?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to surfIdx.toLong(), OBJECT to material)
-    TransferContext.callMethod(MethodBindings.surfaceSetMaterialPtr)
+    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.surfaceSetMaterialPtr, surfIdx.toLong(), material)
   }
 
   /**
@@ -254,29 +238,20 @@ public abstract class Mesh : Resource() {
    * to the [MeshInstance3D]'s Surface Material Override properties, use
    * [MeshInstance3D.getSurfaceOverrideMaterial] instead.
    */
-  public final fun surfaceGetMaterial(surfIdx: Int): Material? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to surfIdx.toLong())
-    TransferContext.callMethod(MethodBindings.surfaceGetMaterialPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Material?)
-  }
+  public final fun surfaceGetMaterial(surfIdx: Int): Material? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.surfaceGetMaterialPtr, surfIdx.toLong()) as Material?)
 
   /**
    * Creates a placeholder version of this resource ([PlaceholderMesh]).
    */
-  public final fun createPlaceholder(): Resource? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createPlaceholderPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Resource?)
-  }
+  public final fun createPlaceholder(): Resource? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createPlaceholderPtr) as Resource?)
 
   /**
    * Calculate a [ConcavePolygonShape3D] from the mesh.
    */
-  public final fun createTrimeshShape(): ConcavePolygonShape3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createTrimeshShapePtr)
-    return (TransferContext.readReturnValue(OBJECT) as ConcavePolygonShape3D?)
-  }
+  public final fun createTrimeshShape(): ConcavePolygonShape3D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createTrimeshShapePtr) as ConcavePolygonShape3D?)
 
   /**
    * Calculate a [ConvexPolygonShape3D] from the mesh.
@@ -289,11 +264,8 @@ public abstract class Mesh : Resource() {
    */
   @JvmOverloads
   public final fun createConvexShape(clean: Boolean = true, simplify: Boolean = false):
-      ConvexPolygonShape3D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to clean, BOOL to simplify)
-    TransferContext.callMethod(MethodBindings.createConvexShapePtr)
-    return (TransferContext.readReturnValue(OBJECT) as ConvexPolygonShape3D?)
-  }
+      ConvexPolygonShape3D? =
+      (TransferContext.callPtrMethod_BOOL_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createConvexShapePtr, clean, simplify) as ConvexPolygonShape3D?)
 
   /**
    * Calculate an outline mesh at a defined offset (margin) from the original mesh.
@@ -301,21 +273,15 @@ public abstract class Mesh : Resource() {
    * **Note:** This method typically returns the vertices in reverse order (e.g. clockwise to
    * counterclockwise).
    */
-  public final fun createOutline(margin: Float): Mesh? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to margin.toDouble())
-    TransferContext.callMethod(MethodBindings.createOutlinePtr)
-    return (TransferContext.readReturnValue(OBJECT) as Mesh?)
-  }
+  public final fun createOutline(margin: Float): Mesh? =
+      (TransferContext.callPtrMethod_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createOutlinePtr, margin.toDouble()) as Mesh?)
 
   /**
    * Generate a [TriangleMesh] from the mesh. Considers only surfaces using one of these primitive
    * types: [PRIMITIVE_TRIANGLES], [PRIMITIVE_TRIANGLE_STRIP].
    */
-  public final fun generateTriangleMesh(): TriangleMesh? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.generateTriangleMeshPtr)
-    return (TransferContext.readReturnValue(OBJECT) as TriangleMesh?)
-  }
+  public final fun generateTriangleMesh(): TriangleMesh? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.generateTriangleMeshPtr) as TriangleMesh?)
 
   public enum class PrimitiveType(
     public override val `value`: Long,

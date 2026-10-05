@@ -9,9 +9,9 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
-import godot.core.VariantParser.OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -40,11 +40,8 @@ public open class Texture2DArray : ImageTextureLayered() {
   /**
    * Creates a placeholder version of this resource ([PlaceholderTexture2DArray]).
    */
-  public final fun createPlaceholder(): Resource? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createPlaceholderPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Resource?)
-  }
+  public final fun createPlaceholder(): Resource? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createPlaceholderPtr) as Resource?)
 
   public companion object {
     @JvmField

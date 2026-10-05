@@ -1,9 +1,16 @@
 #ifndef GODOT_JVM_TRANSFER_CONTEXT_H
 #define GODOT_JVM_TRANSFER_CONTEXT_H
 
-#include "engine/marshalls.h"
-#include "jvm/jvm_variant.h"
+#include "engine/godot_object.h"
+#include "jvm/buffer_wire.h"
+#include "jvm/shared_buffer.h"
 #include "jvm/wrapper/jvm_instance_wrapper.h"
+#include "jvm/wrapper/jvm_singleton_wrapper.h"
+#include "logging.h"
+
+#include <core/type_info.hpp>
+#include <type_traits>
+#include <variant/variant.hpp>
 
 // clang-format off
 JVM_SINGLETON_WRAPPER(TransferContext, "godot.internal.memory.TransferContext") {
@@ -13,40 +20,88 @@ JVM_SINGLETON_WRAPPER(TransferContext, "godot.internal.memory.TransferContext") 
 
     INIT_JNI_BINDINGS(
         INIT_JNI_METHOD(GET_BUFFER, "getBuffer", "()Ljava/nio/ByteBuffer;")
-        // Must match the real Kotlin declaration exactly: `private external fun icall(methodPtr:
-        // VoidPtr)` in TransferContext.kt — a single Long. The receiver
-        // pointer/ID are written directly into the shared buffer by Kotlin's
-        // writeMethodArguments() before this is called, not passed as extra native arguments; an
-        // earlier version of this binding declared "(JJI)V" (extra jlong + jint), which doesn't
-        // match any real Kotlin method and made JNI's RegisterNatives fail at JVM startup.
         INIT_NATIVE_METHOD("icall", "(J)V", TransferContext::icall)
+        INIT_NATIVE_METHOD("icallPtr", "(JI)V", TransferContext::icall_ptr)
     )
 
-public:
+    static constexpr int REF_COUNTED_RETURN_TYPE = godot::Variant::VARIANT_MAX;
 
-    void write_return_value(jni::Env& p_env, godot::Variant& variant);
-    void read_return_value(jni::Env& p_env, godot::Variant& r_ret);
-    void write_args(jni::Env& p_env, const godot::Variant** p_args, int args_size);
-    uint32_t read_args(jni::Env& p_env, godot::Variant* args);
-    void write_object_data(jni::Env& p_env, uintptr_t ptr, godot::ObjectID id);
+
+    static SharedBuffer* get_and_rewind_buffer(jni::Env& p_env);
 
     static void icall(JNIEnv* rawEnv, jobject instance, jlong j_method_ptr);
+    static void icall_ptr(JNIEnv* rawEnv, jobject instance, jlong j_method_ptr, jint p_return_type);
 
-private:
-    SharedBuffer* get_and_rewind_buffer(jni::Env& p_env);
+    static bool read_receiver(jni::Env& p_env, SharedBuffer* p_buffer, raw_godot::RawObject& r_receiver);
+    static godot::Variant decode_variant(SharedBuffer* p_buffer);
+    static void encode_variant(SharedBuffer* p_buffer, const godot::Variant& p_variant);
 
-    _FORCE_INLINE_ static uint32_t read_args_size(SharedBuffer* buffer) {
-        uint32_t args_size = godot::decode_uint32(buffer->get_cursor());
-        buffer->increment_position(4);
-        return args_size;
-    }
+    template<class T>
+    static T decode_value(SharedBuffer* p_buffer);
 
-    _FORCE_INLINE_ static void read_args_to_array(SharedBuffer* buffer, godot::Variant* p_args, uint32_t args_size) {
-        for (uint32_t i = 0; i < args_size; ++i) {
-            BufferToVariant::read_variant(buffer, p_args[i]);
-        }
-    }
+public:
+    // Every method below rewinds the shared buffer first. "value" means the native type the caller declares, decoded
+    // through its wire row with no Variant in between; "variant" means a Variant, dispatched on the type tag on the
+    // wire. Singular reads or writes one, plural a whole argument list.
+
+    // The arguments of a bridge with a fixed signature, each into the local its type declares:
+    //     int64_t index;
+    //     godot::Variant element;
+    //     TransferContext::read_values(env, index, element);
+    // A local declared as a Variant takes whatever type the JVM tagged; any other local names its type, and the tag
+    // only confirms it.
+    template<class... Args>
+    static void read_values(jni::Env& p_env, Args&... r_args);
+
+    // The arguments of a bridge whose arity is only known at runtime, into `args`; returns how many were sent.
+    static uint32_t read_variants(jni::Env& p_env, godot::Variant* args);
+
+    // The value a Kotlin function, property getter or callable returned.
+    static godot::Variant read_variant(jni::Env& p_env);
+
+    // The result of a bridge, through the wire row of its type: a Variant is dispatched on its runtime type,
+    // anything else is written as the native value its own row expects.
+    template<class T>
+    static void write_value(jni::Env& p_env, const T& p_value);
+
+    // The arguments of a call into Kotlin, as the engine handed them over.
+    static void write_variants(jni::Env& p_env, const godot::Variant** p_args, int args_size);
+
+    // The pointer and ObjectID of a freshly created engine object, the payload the JVM binds its wrapper to.
+    static void write_object_info(jni::Env& p_env, uintptr_t ptr, godot::ObjectID id);
 };
+
+template<class T>
+void TransferContext::write_value(jni::Env& p_env, const T& p_value) {
+    SharedBuffer* buffer = get_and_rewind_buffer(p_env);
+    if constexpr (!std::is_same_v<T, godot::Variant>) {
+        constexpr godot::Variant::Type TYPE = static_cast<godot::Variant::Type>(godot::GetTypeInfo<T>::VARIANT_TYPE);
+        write_type(buffer, TYPE);
+        Wire<TYPE>::value_write(buffer, p_value);
+    } else {
+        encode_variant(buffer, p_value);
+    }
+}
+
+template<class... Args>
+void TransferContext::read_values(jni::Env& p_env, Args&... r_args) {
+    SharedBuffer* buffer = get_and_rewind_buffer(p_env);
+    uint32_t count = buffer->read<uint32_t>();
+    JVM_DEV_ASSERT(count == sizeof...(Args), "The bridge reads %s arguments but the JVM sent %s.", sizeof...(Args), count);
+    (void(r_args = decode_value<Args>(buffer)), ...);
+}
+
+template<class T>
+T TransferContext::decode_value(SharedBuffer* p_buffer) {
+    if constexpr (!std::is_same_v<T, godot::Variant>) {
+        constexpr godot::Variant::Type TYPE = static_cast<godot::Variant::Type>(godot::GetTypeInfo<T>::VARIANT_TYPE);
+        godot::Variant::Type sent = read_type(p_buffer);
+        JVM_DEV_ASSERT(sent == TYPE, "Expected an argument of type %s but the JVM sent %s.", TYPE, sent);
+        return static_cast<T>(Wire<TYPE>::value_read(p_buffer));
+    } else {
+        return decode_variant(p_buffer);
+    }
+}
 
 // clang-format on
 #endif // GODOT_JVM_TRANSFER_CONTEXT_H

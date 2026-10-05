@@ -9,16 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_CALLABLE_ret_OBJECT_REF
+import godot.callMethod_STRING_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT_PACKED_STRING_ARRAY_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedStringArray
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -88,11 +88,8 @@ public object JavaClassWrapper : Object() {
    * and returns an empty [JavaClass].
    */
   @JvmStatic
-  public final fun wrap(name: String): JavaClass? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
-    TransferContext.callMethod(MethodBindings.wrapPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaClass?)
-  }
+  public final fun wrap(name: String): JavaClass? =
+      (TransferContext.callMethod_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.wrapPtr, name) as JavaClass?)
 
   /**
    * Returns the Java exception from the last call into a Java class. If there was no exception, it
@@ -102,11 +99,8 @@ public object JavaClassWrapper : Object() {
    * return `null`.
    */
   @JvmStatic
-  public final fun getException(): JavaObject? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getExceptionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaObject?)
-  }
+  public final fun getException(): JavaObject? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getExceptionPtr) as JavaObject?)
 
   /**
    * Creates a [JavaObject] implementing the Java Single Abstract Method (SAM) interface using the
@@ -130,11 +124,8 @@ public object JavaClassWrapper : Object() {
    * return `null`.
    */
   @JvmStatic
-  public final fun createSamCallback(samInterface: String, callable: Callable): JavaObject? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to samInterface, CALLABLE to callable)
-    TransferContext.callMethod(MethodBindings.createSamCallbackPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaObject?)
-  }
+  public final fun createSamCallback(samInterface: String, callable: Callable): JavaObject? =
+      (TransferContext.callMethod_STRING_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createSamCallbackPtr, samInterface, callable) as JavaObject?)
 
   /**
    * Creates a [JavaObject] implementing the given Java interfaces using the given [Object] as the
@@ -158,11 +149,8 @@ public object JavaClassWrapper : Object() {
    * return `null`.
    */
   @JvmStatic
-  public final fun createProxy(`object`: Object?, interfaces: PackedStringArray): JavaObject? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to `object`, PACKED_STRING_ARRAY to interfaces)
-    TransferContext.callMethod(MethodBindings.createProxyPtr)
-    return (TransferContext.readReturnValue(OBJECT) as JavaObject?)
-  }
+  public final fun createProxy(`object`: Object?, interfaces: PackedStringArray): JavaObject? =
+      (TransferContext.callPtrMethod_OBJECT_PACKED_STRING_ARRAY_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createProxyPtr, `object`, interfaces) as JavaObject?)
 
   public object MethodBindings {
     internal val wrapPtr: VoidPtr =

@@ -9,10 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.OBJECT
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -36,18 +37,14 @@ public open class SkeletonModification2DStackHolder : SkeletonModification2D() {
    */
   public final fun setHeldModificationStack(heldModificationStack: SkeletonModificationStack2D?):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to heldModificationStack)
-    TransferContext.callMethod(MethodBindings.setHeldModificationStackPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setHeldModificationStackPtr, heldModificationStack)
   }
 
   /**
    * Returns the [SkeletonModificationStack2D] that this modification is holding.
    */
-  public final fun getHeldModificationStack(): SkeletonModificationStack2D? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeldModificationStackPtr)
-    return (TransferContext.readReturnValue(OBJECT) as SkeletonModificationStack2D?)
-  }
+  public final fun getHeldModificationStack(): SkeletonModificationStack2D? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getHeldModificationStackPtr) as SkeletonModificationStack2D?)
 
   public companion object {
     @JvmField

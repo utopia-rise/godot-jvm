@@ -9,12 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -45,19 +45,15 @@ public open class AudioStreamPolyphonic : AudioStream() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(101, scriptPtr)
+    createNativeObject(99, scriptPtr)
   }
 
   public final fun setPolyphony(voices: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to voices.toLong())
-    TransferContext.callMethod(MethodBindings.setPolyphonyPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPolyphonyPtr, voices.toLong())
   }
 
-  public final fun getPolyphony(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPolyphonyPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getPolyphony(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPolyphonyPtr).toInt()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

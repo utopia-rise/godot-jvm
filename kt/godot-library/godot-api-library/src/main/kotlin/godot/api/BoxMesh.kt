@@ -11,14 +11,15 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -90,7 +91,7 @@ public open class BoxMesh : PrimitiveMesh() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(117, scriptPtr)
+    createNativeObject(115, scriptPtr)
   }
 
   /**
@@ -113,48 +114,32 @@ public open class BoxMesh : PrimitiveMesh() {
   }
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getSize(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getSizePtr)
 
   public final fun setSubdivideWidth(subdivide: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to subdivide.toLong())
-    TransferContext.callMethod(MethodBindings.setSubdivideWidthPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSubdivideWidthPtr, subdivide.toLong())
   }
 
-  public final fun getSubdivideWidth(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubdivideWidthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSubdivideWidth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSubdivideWidthPtr).toInt()
 
   public final fun setSubdivideHeight(divisions: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to divisions.toLong())
-    TransferContext.callMethod(MethodBindings.setSubdivideHeightPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSubdivideHeightPtr, divisions.toLong())
   }
 
-  public final fun getSubdivideHeight(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubdivideHeightPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSubdivideHeight(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSubdivideHeightPtr).toInt()
 
   public final fun setSubdivideDepth(divisions: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to divisions.toLong())
-    TransferContext.callMethod(MethodBindings.setSubdivideDepthPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSubdivideDepthPtr, divisions.toLong())
   }
 
-  public final fun getSubdivideDepth(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSubdivideDepthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSubdivideDepth(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSubdivideDepthPtr).toInt()
 
   public companion object {
     @JvmField

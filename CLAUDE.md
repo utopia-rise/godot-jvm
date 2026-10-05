@@ -22,8 +22,10 @@ of upstream bug fixes.
 1. Push the commit to `utopia-rise/godot-cpp` on the `godot-jvm` branch.
 2. Update the submodule pointer in this repo (`git -C godot-cpp` checkout of
    the new commit, then `git add godot-cpp`).
-3. Append an entry to [`godot-cpp-divergence.md`](godot-cpp-divergence.md)
-   with the commit hash and a brief explanation of what it does and why.
+3. Append an entry to the fork's own
+   [`godot-cpp-divergence.md`](godot-cpp/godot-cpp-divergence.md), in the same
+   fork commit as the change, with the commit hash and a brief explanation of
+   what it does and why. The log lives in the fork, not in this repo.
 4. Re-read this section — it must stay accurate as the fork evolves (e.g. if
    the branch is ever rebased onto a newer upstream tag, update the tag
    named above).

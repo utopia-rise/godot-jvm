@@ -9,11 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_PACKED_INT_64_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.PackedInt64Array
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.PACKED_INT_64_ARRAY
 import kotlin.Boolean
 import kotlin.Suppress
 import kotlin.Unit
@@ -28,50 +28,38 @@ import kotlin.jvm.JvmField
 public open class OpenXRSpatialCapabilityConfigurationPlaneTracking :
     OpenXRSpatialCapabilityConfigurationBaseHeader() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(475, scriptPtr)
+    createNativeObject(474, scriptPtr)
   }
 
   /**
    * Returns `true` if we support the mesh 2D component (only valid after the OpenXR session has
    * started). You can query these using the [OpenXRSpatialComponentMesh2DList] data object.
    */
-  public final fun supportsMesh2d(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.supportsMesh2dPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun supportsMesh2d(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.supportsMesh2dPtr)
 
   /**
    * Returns `true` if we support the polygon 2D component (only valid after the OpenXR session has
    * started). You can query these using the [OpenXRSpatialComponentPolygon2DList] data object.
    */
-  public final fun supportsPolygons(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.supportsPolygonsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun supportsPolygons(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.supportsPolygonsPtr)
 
   /**
    * Returns `true` if we support the plane semantic label component (only valid after the OpenXR
    * session has started). You can query these using the [OpenXRSpatialComponentPlaneSemanticLabelList]
    * data object.
    */
-  public final fun supportsLabels(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.supportsLabelsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun supportsLabels(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.supportsLabelsPtr)
 
   /**
    * Returns the components enabled by this configuration.
    *
    * **Note:** Only valid after this configuration was used to create a spatial context.
    */
-  public final fun getEnabledComponents(): PackedInt64Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getEnabledComponentsPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_64_ARRAY) as PackedInt64Array)
-  }
+  public final fun getEnabledComponents(): PackedInt64Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.getEnabledComponentsPtr)
 
   public companion object {
     @JvmField

@@ -9,15 +9,18 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_DOUBLE_DOUBLE_ret_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_LONG_ret_LONG
+import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedFloat32Array
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.PACKED_FLOAT_32_ARRAY
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -101,48 +104,34 @@ public open class RandomNumberGenerator : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(598, scriptPtr)
+    createNativeObject(597, scriptPtr)
   }
 
   public final fun setSeed(seed: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to seed)
-    TransferContext.callMethod(MethodBindings.setSeedPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSeedPtr, seed)
   }
 
-  public final fun getSeed(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSeedPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getSeed(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSeedPtr)
 
   public final fun setState(state: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to state)
-    TransferContext.callMethod(MethodBindings.setStatePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStatePtr, state)
   }
 
-  public final fun getState(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getState(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStatePtr)
 
   /**
    * Returns a pseudo-random 32-bit unsigned integer between `0` and `4294967295` (inclusive).
    */
-  public final fun randi(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.randiPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun randi(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.randiPtr)
 
   /**
    * Returns a pseudo-random float between `0.0` and `1.0` (inclusive).
    */
-  public final fun randf(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.randfPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun randf(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.randfPtr).toFloat()
 
   /**
    * Returns a [url=https://en.wikipedia.org/wiki/Normal_distribution]normally-distributed[/url],
@@ -154,29 +143,20 @@ public open class RandomNumberGenerator : RefCounted() {
    * transform[/url] algorithm.
    */
   @JvmOverloads
-  public final fun randfn(mean: Float = 0.0f, deviation: Float = 1.0f): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to mean.toDouble(), DOUBLE to deviation.toDouble())
-    TransferContext.callMethod(MethodBindings.randfnPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun randfn(mean: Float = 0.0f, deviation: Float = 1.0f): Float =
+      TransferContext.callPtrMethod_DOUBLE_DOUBLE_ret_DOUBLE(ptr, objectID.id, MethodBindings.randfnPtr, mean.toDouble(), deviation.toDouble()).toFloat()
 
   /**
    * Returns a pseudo-random float between [from] and [to] (inclusive).
    */
-  public final fun randfRange(from: Float, to: Float): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to from.toDouble(), DOUBLE to to.toDouble())
-    TransferContext.callMethod(MethodBindings.randfRangePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun randfRange(from: Float, to: Float): Float =
+      TransferContext.callPtrMethod_DOUBLE_DOUBLE_ret_DOUBLE(ptr, objectID.id, MethodBindings.randfRangePtr, from.toDouble(), to.toDouble()).toFloat()
 
   /**
    * Returns a pseudo-random 32-bit signed integer between [from] and [to] (inclusive).
    */
-  public final fun randiRange(from: Int, to: Int): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to from.toLong(), LONG to to.toLong())
-    TransferContext.callMethod(MethodBindings.randiRangePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun randiRange(from: Int, to: Int): Int =
+      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.randiRangePtr, from.toLong(), to.toLong()).toInt()
 
   /**
    * Returns a random integer between `0` and the size of the array that is passed as a parameter.
@@ -203,11 +183,8 @@ public open class RandomNumberGenerator : RefCounted() {
    * print(my_array[rng.rand_weighted(weights)])
    * ```
    */
-  public final fun randWeighted(weights: PackedFloat32Array): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_FLOAT_32_ARRAY to weights)
-    TransferContext.callMethod(MethodBindings.randWeightedPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun randWeighted(weights: PackedFloat32Array): Long =
+      TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.randWeightedPtr, weights)
 
   /**
    * Sets up a time-based seed for this [RandomNumberGenerator] instance. Unlike the [@GlobalScope]
@@ -215,8 +192,7 @@ public open class RandomNumberGenerator : RefCounted() {
    * seeds.
    */
   public final fun randomize(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.randomizePtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.randomizePtr)
   }
 
   public companion object {

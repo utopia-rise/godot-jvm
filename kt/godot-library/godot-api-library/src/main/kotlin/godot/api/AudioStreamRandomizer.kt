@@ -9,16 +9,22 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_OBJECT
+import godot.callPtrMethod_LONG_OBJECT_DOUBLE
+import godot.callPtrMethod_LONG_ret_DOUBLE
+import godot.callPtrMethod_LONG_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName3
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Long
@@ -101,7 +107,7 @@ public open class AudioStreamRandomizer : AudioStream() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(102, scriptPtr)
+    createNativeObject(100, scriptPtr)
   }
 
   /**
@@ -114,115 +120,84 @@ public open class AudioStreamRandomizer : AudioStream() {
     stream: AudioStream?,
     weight: Float = 1.0f,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), OBJECT to stream, DOUBLE to weight.toDouble())
-    TransferContext.callMethod(MethodBindings.addStreamPtr)
+    TransferContext.callPtrMethod_LONG_OBJECT_DOUBLE(ptr, objectID.id, MethodBindings.addStreamPtr, index.toLong(), stream, weight.toDouble())
   }
 
   /**
    * Move a stream from one index to another.
    */
   public final fun moveStream(indexFrom: Int, indexTo: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to indexFrom.toLong(), LONG to indexTo.toLong())
-    TransferContext.callMethod(MethodBindings.moveStreamPtr)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.moveStreamPtr, indexFrom.toLong(), indexTo.toLong())
   }
 
   /**
    * Remove the stream at the specified index.
    */
   public final fun removeStream(index: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.removeStreamPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeStreamPtr, index.toLong())
   }
 
   /**
    * Set the AudioStream at the specified index.
    */
   public final fun setStream(index: Int, stream: AudioStream?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), OBJECT to stream)
-    TransferContext.callMethod(MethodBindings.setStreamPtr)
+    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setStreamPtr, index.toLong(), stream)
   }
 
   /**
    * Returns the stream at the specified index.
    */
-  public final fun getStream(index: Int): AudioStream? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getStreamPtr)
-    return (TransferContext.readReturnValue(OBJECT) as AudioStream?)
-  }
+  public final fun getStream(index: Int): AudioStream? =
+      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getStreamPtr, index.toLong()) as AudioStream?)
 
   /**
    * Set the probability weight of the stream at the specified index. The higher this value, the
    * more likely that the randomizer will choose this stream during random playback modes.
    */
   public final fun setStreamProbabilityWeight(index: Int, weight: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong(), DOUBLE to weight.toDouble())
-    TransferContext.callMethod(MethodBindings.setStreamProbabilityWeightPtr)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setStreamProbabilityWeightPtr, index.toLong(), weight.toDouble())
   }
 
   /**
    * Returns the probability weight associated with the stream at the given index.
    */
-  public final fun getStreamProbabilityWeight(index: Int): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getStreamProbabilityWeightPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getStreamProbabilityWeight(index: Int): Float =
+      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStreamProbabilityWeightPtr, index.toLong()).toFloat()
 
   public final fun setStreamsCount(count: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to count.toLong())
-    TransferContext.callMethod(MethodBindings.setStreamsCountPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStreamsCountPtr, count.toLong())
   }
 
-  public final fun getStreamsCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStreamsCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getStreamsCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStreamsCountPtr).toInt()
 
   public final fun setRandomPitch(scale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to scale.toDouble())
-    TransferContext.callMethod(MethodBindings.setRandomPitchPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRandomPitchPtr, scale.toDouble())
   }
 
-  public final fun getRandomPitch(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRandomPitchPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getRandomPitch(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRandomPitchPtr).toFloat()
 
   public final fun setRandomPitchSemitones(semitones: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to semitones.toDouble())
-    TransferContext.callMethod(MethodBindings.setRandomPitchSemitonesPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRandomPitchSemitonesPtr, semitones.toDouble())
   }
 
-  public final fun getRandomPitchSemitones(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRandomPitchSemitonesPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getRandomPitchSemitones(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRandomPitchSemitonesPtr).toFloat()
 
   public final fun setRandomVolumeOffsetDb(dbOffset: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to dbOffset.toDouble())
-    TransferContext.callMethod(MethodBindings.setRandomVolumeOffsetDbPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRandomVolumeOffsetDbPtr, dbOffset.toDouble())
   }
 
-  public final fun getRandomVolumeOffsetDb(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRandomVolumeOffsetDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getRandomVolumeOffsetDb(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRandomVolumeOffsetDbPtr).toFloat()
 
   public final fun setPlaybackMode(mode: PlaybackMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mode.value)
-    TransferContext.callMethod(MethodBindings.setPlaybackModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPlaybackModePtr, mode.value)
   }
 
-  public final fun getPlaybackMode(): PlaybackMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPlaybackModePtr)
-    return PlaybackMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getPlaybackMode(): PlaybackMode =
+      PlaybackMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPlaybackModePtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

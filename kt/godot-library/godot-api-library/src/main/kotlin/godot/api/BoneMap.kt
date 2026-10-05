@@ -9,14 +9,16 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_STRING_NAME_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_ret_STRING_NAME
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.Signal0
 import godot.core.StringName
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.String
 import kotlin.Suppress
@@ -57,18 +59,14 @@ public open class BoneMap : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(114, scriptPtr)
+    createNativeObject(112, scriptPtr)
   }
 
-  public final fun getProfile(): SkeletonProfile? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getProfilePtr)
-    return (TransferContext.readReturnValue(OBJECT) as SkeletonProfile?)
-  }
+  public final fun getProfile(): SkeletonProfile? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getProfilePtr) as SkeletonProfile?)
 
   public final fun setProfile(profile: SkeletonProfile?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to profile)
-    TransferContext.callMethod(MethodBindings.setProfilePtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setProfilePtr, profile)
   }
 
   /**
@@ -76,11 +74,8 @@ public open class BoneMap : Resource() {
    *
    * In the retargeting process, the returned bone name is the bone name of the source skeleton.
    */
-  public final fun getSkeletonBoneName(profileBoneName: StringName): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to profileBoneName)
-    TransferContext.callMethod(MethodBindings.getSkeletonBoneNamePtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun getSkeletonBoneName(profileBoneName: StringName): StringName =
+      TransferContext.callPtrMethod_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getSkeletonBoneNamePtr, profileBoneName)
 
   /**
    * Maps a skeleton bone name to [profileBoneName].
@@ -89,8 +84,7 @@ public open class BoneMap : Resource() {
    */
   public final fun setSkeletonBoneName(profileBoneName: StringName, skeletonBoneName: StringName):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to profileBoneName, STRING_NAME to skeletonBoneName)
-    TransferContext.callMethod(MethodBindings.setSkeletonBoneNamePtr)
+    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.setSkeletonBoneNamePtr, profileBoneName, skeletonBoneName)
   }
 
   /**
@@ -99,11 +93,8 @@ public open class BoneMap : Resource() {
    *
    * In the retargeting process, the returned bone name is the bone name of the target skeleton.
    */
-  public final fun findProfileBoneName(skeletonBoneName: StringName): StringName {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to skeletonBoneName)
-    TransferContext.callMethod(MethodBindings.findProfileBoneNamePtr)
-    return (TransferContext.readReturnValue(STRING_NAME) as StringName)
-  }
+  public final fun findProfileBoneName(skeletonBoneName: StringName): StringName =
+      TransferContext.callPtrMethod_STRING_NAME_ret_STRING_NAME(ptr, objectID.id, MethodBindings.findProfileBoneNamePtr, skeletonBoneName)
 
   /**
    * Returns a skeleton bone name is mapped to [profileBoneName].

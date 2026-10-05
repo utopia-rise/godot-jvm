@@ -35,16 +35,18 @@ Object method calls use a distinct layout because the receiver is not a method a
 [caller pointer: Long][caller ObjectID: Long][argument count: Int][arguments...]
 ```
 
-The native `icall` reader consumes the caller pointer and `ObjectID` directly before reading the regular argument list.
+Two native entry points read this layout. `icallPtr` uses the unchecked `object_method_bind_ptrcall`: each argument the buffer holds in native layout (booleans, numbers, math types, `RID`, object pointers) is copied to the call's own stack, since a nested JVM call from inside the engine call would rewrite the buffer, and the pointer-backed core types such as `StringName` or `Array` pass the pointer to the object the JVM owns; the return type is passed as a JNI argument so the value can be copied back behind its tag: an inline value as its bytes, a pointer-backed type as a fresh allocation the JVM owns, as from the checked call (`read_ptr_args` and `write_ptr_return` in `cpp/jvm/wrapper/memory/transfer_context.cpp`). `icall` decodes every argument into a `Variant` and uses the checked `object_method_bind_call` (`read_variant` and `write_variant` in the same file); the generator picks it for variadic methods and for any method whose arguments or return include a type the ptrcall table does not cover: `String`, `Callable`, `Signal` and `Variant`. Both consume the caller pointer and `ObjectID` directly before reading the argument list.
 
-Objects sent from Kotlin to C++ use only their pointer. A null Kotlin object is encoded as a pointer of `0` (`nullptr`). Only an object method call's receiver includes an `ObjectID`, which `icall` checks against `ObjectDB` in debug builds.
+The return type `icallPtr` receives is a `Variant::Type` ordinal with one extra value: `VARIANT_MAX` (`39` today, read by the generator from `TYPE_MAX` in `api.json`), which is never a real type tag. The generator sends it instead of `OBJECT` when the method's declared return class inherits `RefCounted`. Such a method returns a `Ref<T>` in the engine, and a ptrcall encodes it by assigning that `Ref` over the caller's return slot, leaving an owned reference there; a method declared as returning a plain `Object*` stores only the pointer. The two cases leave identical bytes, and GDExtension offers no way to ask a method bind for its return type, so the declared type from `api.json` is the only source of truth. On the native side the return slot starts null, since the `Ref` assignment releases whatever the slot held before; the object is bound to the JVM, which takes the JVM's own reference on first delivery; then the engine's reference is released, standing in for the destructor of a `Ref` local that never existed. The native `TransferContext` defines it as `REF_COUNTED_RETURN_TYPE`, equal to `Variant::VARIANT_MAX`, so both sides follow a new Variant type automatically; the generator also checks `TYPE_MAX` against its own ordinal table and fails if they disagree.
 
-Type tags follow Godot's `Variant::Type` ordinals. The table below describes C++-to-JVM payloads, excluding the 4-byte tag. The reverse direction uses only a native pointer for objects and collections. The readers and writers in `cpp/jvm/jvm_variant.h` define the wire format.
+Objects sent from Kotlin to C++ use only their pointer. A null Kotlin object is encoded as a pointer of `0` (`nullptr`). Only an object method call's receiver includes an `ObjectID`, which the native call checks against `ObjectDB` in debug builds.
+
+Type tags follow Godot's `Variant::Type` ordinals. The table below describes C++-to-JVM payloads, excluding the 4-byte tag. The reverse direction uses only a native pointer for objects and collections. The per-type rows in `cpp/jvm/buffer_wire.h` define the wire format, and `transfer_context.cpp` builds its dispatch tables from them.
 
 | Type | Ordinal | Payload |
 |---|---|---|
 | Nil | 0 | None |
-| Bool | 1 | 4-byte boolean |
+| Bool | 1 | 1-byte boolean |
 | Int | 2 | 8-byte integer |
 | Float | 3 | 8-byte double |
 | String | 4 | 4-byte long-string flag; inline strings also carry a 4-byte byte count and UTF-8 data |

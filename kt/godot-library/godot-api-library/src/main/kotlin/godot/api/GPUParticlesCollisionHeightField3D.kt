@@ -11,14 +11,19 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
 import kotlin.Boolean
 import kotlin.Int
@@ -131,7 +136,7 @@ public open class GPUParticlesCollisionHeightField3D : GPUParticlesCollision3D()
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(267, scriptPtr)
+    createNativeObject(265, scriptPtr)
   }
 
   /**
@@ -155,78 +160,54 @@ public open class GPUParticlesCollisionHeightField3D : GPUParticlesCollision3D()
   }
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getSize(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getSizePtr)
 
   public final fun setResolution(resolution: Resolution): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to resolution.value)
-    TransferContext.callMethod(MethodBindings.setResolutionPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setResolutionPtr, resolution.value)
   }
 
-  public final fun getResolution(): Resolution {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResolutionPtr)
-    return Resolution.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getResolution(): Resolution =
+      Resolution.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getResolutionPtr))
 
   public final fun setUpdateMode(updateMode: UpdateMode): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to updateMode.value)
-    TransferContext.callMethod(MethodBindings.setUpdateModePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setUpdateModePtr, updateMode.value)
   }
 
-  public final fun getUpdateMode(): UpdateMode {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getUpdateModePtr)
-    return UpdateMode.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getUpdateMode(): UpdateMode =
+      UpdateMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUpdateModePtr))
 
   public final fun setHeightfieldMask(heightfieldMask: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to heightfieldMask)
-    TransferContext.callMethod(MethodBindings.setHeightfieldMaskPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHeightfieldMaskPtr, heightfieldMask)
   }
 
-  public final fun getHeightfieldMask(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightfieldMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getHeightfieldMask(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHeightfieldMaskPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [heightfieldMask], given a
    * [layerNumber] between `1` and `20`, inclusive.
    */
   public final fun setHeightfieldMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong(), BOOL to value)
-    TransferContext.callMethod(MethodBindings.setHeightfieldMaskValuePtr)
+    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setHeightfieldMaskValuePtr, layerNumber.toLong(), value)
   }
 
   /**
    * Returns `true` if the specified layer of the [heightfieldMask] is enabled, given a
    * [layerNumber] between `1` and `20`, inclusive.
    */
-  public final fun getHeightfieldMaskValue(layerNumber: Int): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to layerNumber.toLong())
-    TransferContext.callMethod(MethodBindings.getHeightfieldMaskValuePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getHeightfieldMaskValue(layerNumber: Int): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getHeightfieldMaskValuePtr, layerNumber.toLong())
 
   public final fun setFollowCameraEnabled(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setFollowCameraEnabledPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFollowCameraEnabledPtr, enabled)
   }
 
-  public final fun isFollowCameraEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isFollowCameraEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isFollowCameraEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFollowCameraEnabledPtr)
 
   public enum class Resolution(
     public override val `value`: Long,

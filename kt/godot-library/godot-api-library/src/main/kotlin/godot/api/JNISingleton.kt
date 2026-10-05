@@ -9,11 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.StringName
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.Boolean
 import kotlin.String
@@ -31,17 +30,14 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class JNISingleton : Object() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(332, scriptPtr)
+    createNativeObject(330, scriptPtr)
   }
 
   /**
    * Returns `true` if the given [method] name exists in the JNISingleton's Java methods.
    */
-  public final fun hasJavaMethod(method: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to method)
-    TransferContext.callMethod(MethodBindings.hasJavaMethodPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasJavaMethod(method: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasJavaMethodPtr, method)
 
   /**
    * Returns `true` if the given [method] name exists in the JNISingleton's Java methods.

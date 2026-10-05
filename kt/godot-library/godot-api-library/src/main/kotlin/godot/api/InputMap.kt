@@ -9,6 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_NAME_ret_STRING
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod_OBJECT_STRING_NAME_BOOL_ret_BOOL
+import godot.callPtrMethod_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_DOUBLE
+import godot.callPtrMethod_STRING_NAME_OBJECT
+import godot.callPtrMethod_STRING_NAME_OBJECT_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_ret_ARRAY
+import godot.callPtrMethod_STRING_NAME_ret_BOOL
+import godot.callPtrMethod_STRING_NAME_ret_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -17,15 +28,8 @@ import godot.core.MethodStringName3
 import godot.core.Signal0
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.String
 import kotlin.Suppress
@@ -112,21 +116,15 @@ public object InputMap : Object() {
    * Returns `true` if the [InputMap] has a registered action with the given name.
    */
   @JvmStatic
-  public final fun hasAction(action: StringName): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action)
-    TransferContext.callMethod(MethodBindings.hasActionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasAction(action: StringName): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasActionPtr, action)
 
   /**
    * Returns an array of all actions in the [InputMap].
    */
   @JvmStatic
-  public final fun getActions(): VariantArray<StringName> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getActionsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<StringName>)
-  }
+  public final fun getActions(): VariantArray<StringName> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getActionsPtr) as VariantArray<StringName>)
 
   /**
    * Adds an empty action to the [InputMap] with a configurable [deadzone].
@@ -136,8 +134,7 @@ public object InputMap : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun addAction(action: StringName, deadzone: Float = 0.2f): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action, DOUBLE to deadzone.toDouble())
-    TransferContext.callMethod(MethodBindings.addActionPtr)
+    TransferContext.callPtrMethod_STRING_NAME_DOUBLE(ptr, objectID.id, MethodBindings.addActionPtr, action, deadzone.toDouble())
   }
 
   /**
@@ -145,65 +142,52 @@ public object InputMap : Object() {
    */
   @JvmStatic
   public final fun eraseAction(action: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action)
-    TransferContext.callMethod(MethodBindings.eraseActionPtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.eraseActionPtr, action)
   }
 
   /**
    * Returns the human-readable description of the given action.
    */
   @JvmStatic
-  public final fun getActionDescription(action: StringName): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action)
-    TransferContext.callMethod(MethodBindings.getActionDescriptionPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getActionDescription(action: StringName): String =
+      TransferContext.callMethod_STRING_NAME_ret_STRING(ptr, objectID.id, MethodBindings.getActionDescriptionPtr, action)
 
   /**
    * Sets a deadzone value for the action.
    */
   @JvmStatic
   public final fun actionSetDeadzone(action: StringName, deadzone: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action, DOUBLE to deadzone.toDouble())
-    TransferContext.callMethod(MethodBindings.actionSetDeadzonePtr)
+    TransferContext.callPtrMethod_STRING_NAME_DOUBLE(ptr, objectID.id, MethodBindings.actionSetDeadzonePtr, action, deadzone.toDouble())
   }
 
   /**
    * Returns a deadzone value for the action.
    */
   @JvmStatic
-  public final fun actionGetDeadzone(action: StringName): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action)
-    TransferContext.callMethod(MethodBindings.actionGetDeadzonePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun actionGetDeadzone(action: StringName): Float =
+      TransferContext.callPtrMethod_STRING_NAME_ret_DOUBLE(ptr, objectID.id, MethodBindings.actionGetDeadzonePtr, action).toFloat()
 
   /**
    * Adds an [InputEvent] to an action. This [InputEvent] will trigger the action.
    */
   @JvmStatic
   public final fun actionAddEvent(action: StringName, event: InputEvent): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action, OBJECT to event)
-    TransferContext.callMethod(MethodBindings.actionAddEventPtr)
+    TransferContext.callPtrMethod_STRING_NAME_OBJECT(ptr, objectID.id, MethodBindings.actionAddEventPtr, action, event)
   }
 
   /**
    * Returns `true` if the action has the given [InputEvent] associated with it.
    */
   @JvmStatic
-  public final fun actionHasEvent(action: StringName, event: InputEvent): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action, OBJECT to event)
-    TransferContext.callMethod(MethodBindings.actionHasEventPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun actionHasEvent(action: StringName, event: InputEvent): Boolean =
+      TransferContext.callPtrMethod_STRING_NAME_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.actionHasEventPtr, action, event)
 
   /**
    * Removes an [InputEvent] from an action.
    */
   @JvmStatic
   public final fun actionEraseEvent(action: StringName, event: InputEvent): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action, OBJECT to event)
-    TransferContext.callMethod(MethodBindings.actionEraseEventPtr)
+    TransferContext.callPtrMethod_STRING_NAME_OBJECT(ptr, objectID.id, MethodBindings.actionEraseEventPtr, action, event)
   }
 
   /**
@@ -211,8 +195,7 @@ public object InputMap : Object() {
    */
   @JvmStatic
   public final fun actionEraseEvents(action: StringName): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action)
-    TransferContext.callMethod(MethodBindings.actionEraseEventsPtr)
+    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.actionEraseEventsPtr, action)
   }
 
   /**
@@ -223,11 +206,8 @@ public object InputMap : Object() {
    * editor, read the `input&#47;*` settings from [ProjectSettings].
    */
   @JvmStatic
-  public final fun actionGetEvents(action: StringName): VariantArray<InputEvent> {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to action)
-    TransferContext.callMethod(MethodBindings.actionGetEventsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<InputEvent>)
-  }
+  public final fun actionGetEvents(action: StringName): VariantArray<InputEvent> =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_ARRAY(ptr, objectID.id, MethodBindings.actionGetEventsPtr, action) as VariantArray<InputEvent>)
 
   /**
    * Returns `true` if the given event is part of an existing action. This method ignores keyboard
@@ -243,19 +223,15 @@ public object InputMap : Object() {
     event: InputEvent,
     action: StringName,
     exactMatch: Boolean = false,
-  ): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to event, STRING_NAME to action, BOOL to exactMatch)
-    TransferContext.callMethod(MethodBindings.eventIsActionPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  ): Boolean =
+      TransferContext.callPtrMethod_OBJECT_STRING_NAME_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.eventIsActionPtr, event, action, exactMatch)
 
   /**
    * Clears all [InputEventAction] in the [InputMap] and load it anew from [ProjectSettings].
    */
   @JvmStatic
   public final fun loadFromProjectSettings(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.loadFromProjectSettingsPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.loadFromProjectSettingsPtr)
   }
 
   /**

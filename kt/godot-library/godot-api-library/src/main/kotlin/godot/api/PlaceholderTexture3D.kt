@@ -11,11 +11,12 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_VECTOR3I
+import godot.callPtrMethod_VECTOR3I
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantArray
-import godot.core.VariantParser.VECTOR3I
 import godot.core.Vector3i
 import kotlin.Boolean
 import kotlin.Int
@@ -60,7 +61,7 @@ public open class PlaceholderTexture3D : Texture3D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(558, scriptPtr)
+    createNativeObject(557, scriptPtr)
   }
 
   /**
@@ -83,15 +84,11 @@ public open class PlaceholderTexture3D : Texture3D() {
   }
 
   public final fun setSize(size: Vector3i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3I to size)
-    TransferContext.callMethod(MethodBindings.setSizePtr)
+    TransferContext.callPtrMethod_VECTOR3I(ptr, objectID.id, MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector3i {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSizePtr)
-    return (TransferContext.readReturnValue(VECTOR3I) as Vector3i)
-  }
+  public final fun getSize(): Vector3i =
+      TransferContext.callPtrMethod0_ret_VECTOR3I(ptr, objectID.id, MethodBindings.getSizePtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

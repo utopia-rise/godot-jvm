@@ -9,16 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod_OBJECT_STRING_NAME
+import godot.callPtrMethod_STRING_NAME_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.StringName
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.String
 import kotlin.Suppress
@@ -49,7 +50,7 @@ public open class RDShaderFile : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(591, scriptPtr)
+    createNativeObject(590, scriptPtr)
   }
 
   /**
@@ -57,38 +58,27 @@ public open class RDShaderFile : Resource() {
    */
   public final fun setBytecode(bytecode: RDShaderSPIRV?, version: StringName = StringName("")):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to bytecode, STRING_NAME to version)
-    TransferContext.callMethod(MethodBindings.setBytecodePtr)
+    TransferContext.callPtrMethod_OBJECT_STRING_NAME(ptr, objectID.id, MethodBindings.setBytecodePtr, bytecode, version)
   }
 
   /**
    * Returns the SPIR-V intermediate representation for the specified shader [version].
    */
-  public final fun getSpirv(version: StringName = StringName("")): RDShaderSPIRV? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to version)
-    TransferContext.callMethod(MethodBindings.getSpirvPtr)
-    return (TransferContext.readReturnValue(OBJECT) as RDShaderSPIRV?)
-  }
+  public final fun getSpirv(version: StringName = StringName("")): RDShaderSPIRV? =
+      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSpirvPtr, version) as RDShaderSPIRV?)
 
   /**
    * Returns the list of compiled versions for this shader.
    */
-  public final fun getVersionList(): VariantArray<StringName> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVersionListPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<StringName>)
-  }
+  public final fun getVersionList(): VariantArray<StringName> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getVersionListPtr) as VariantArray<StringName>)
 
   public final fun setBaseError(error: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to error)
-    TransferContext.callMethod(MethodBindings.setBaseErrorPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBaseErrorPtr, error)
   }
 
-  public final fun getBaseError(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBaseErrorPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getBaseError(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getBaseErrorPtr)
 
   /**
    * Sets the SPIR-V [bytecode] that will be compiled for the specified [version].

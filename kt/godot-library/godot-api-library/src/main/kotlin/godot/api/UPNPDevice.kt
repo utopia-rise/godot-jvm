@@ -9,15 +9,19 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_LONG_LONG_STRING_STRING_LONG_ret_LONG
+import godot.callMethod_LONG_STRING_ret_LONG
+import godot.callMethod_STRING
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName5
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -110,20 +114,14 @@ public open class UPNPDevice : RefCounted() {
    * Returns `true` if this is a valid IGD (InternetGatewayDevice) which potentially supports port
    * forwarding.
    */
-  public final fun isValidGateway(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isValidGatewayPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isValidGateway(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isValidGatewayPtr)
 
   /**
    * Returns the external IP address of this [UPNPDevice] or an empty string.
    */
-  public final fun queryExternalAddress(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.queryExternalAddressPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun queryExternalAddress(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.queryExternalAddressPtr)
 
   /**
    * Adds a port mapping to forward the given external port on this [UPNPDevice] for the given
@@ -136,88 +134,58 @@ public open class UPNPDevice : RefCounted() {
     desc: String = "",
     proto: String = "UDP",
     duration: Int = 0,
-  ): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong(), LONG to portInternal.toLong(), STRING to desc, STRING to proto, LONG to duration.toLong())
-    TransferContext.callMethod(MethodBindings.addPortMappingPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  ): Int =
+      TransferContext.callMethod_LONG_LONG_STRING_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.addPortMappingPtr, port.toLong(), portInternal.toLong(), desc, proto, duration.toLong()).toInt()
 
   /**
    * Deletes the port mapping identified by the given port and protocol combination on this device.
    * See [UPNP.deletePortMapping].
    */
   @JvmOverloads
-  public final fun deletePortMapping(port: Int, proto: String = "UDP"): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to port.toLong(), STRING to proto)
-    TransferContext.callMethod(MethodBindings.deletePortMappingPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun deletePortMapping(port: Int, proto: String = "UDP"): Int =
+      TransferContext.callMethod_LONG_STRING_ret_LONG(ptr, objectID.id, MethodBindings.deletePortMappingPtr, port.toLong(), proto).toInt()
 
   public final fun setDescriptionUrl(url: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to url)
-    TransferContext.callMethod(MethodBindings.setDescriptionUrlPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setDescriptionUrlPtr, url)
   }
 
-  public final fun getDescriptionUrl(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDescriptionUrlPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getDescriptionUrl(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDescriptionUrlPtr)
 
   public final fun setServiceType(type: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to type)
-    TransferContext.callMethod(MethodBindings.setServiceTypePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setServiceTypePtr, type)
   }
 
-  public final fun getServiceType(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getServiceTypePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getServiceType(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getServiceTypePtr)
 
   public final fun setIgdControlUrl(url: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to url)
-    TransferContext.callMethod(MethodBindings.setIgdControlUrlPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setIgdControlUrlPtr, url)
   }
 
-  public final fun getIgdControlUrl(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIgdControlUrlPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getIgdControlUrl(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getIgdControlUrlPtr)
 
   public final fun setIgdServiceType(type: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to type)
-    TransferContext.callMethod(MethodBindings.setIgdServiceTypePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setIgdServiceTypePtr, type)
   }
 
-  public final fun getIgdServiceType(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIgdServiceTypePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getIgdServiceType(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getIgdServiceTypePtr)
 
   public final fun setIgdOurAddr(addr: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to addr)
-    TransferContext.callMethod(MethodBindings.setIgdOurAddrPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setIgdOurAddrPtr, addr)
   }
 
-  public final fun getIgdOurAddr(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIgdOurAddrPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getIgdOurAddr(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getIgdOurAddrPtr)
 
   public final fun setIgdStatus(status: IGDStatus): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to status.value)
-    TransferContext.callMethod(MethodBindings.setIgdStatusPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setIgdStatusPtr, status.value)
   }
 
-  public final fun getIgdStatus(): IGDStatus {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getIgdStatusPtr)
-    return IGDStatus.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getIgdStatus(): IGDStatus =
+      IGDStatus.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getIgdStatusPtr))
 
   public enum class IGDStatus(
     public override val `value`: Long,

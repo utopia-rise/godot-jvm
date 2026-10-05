@@ -9,18 +9,22 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_CALLABLE
+import godot.callMethod_ANY_ret_OBJECT
+import godot.callMethod_CALLABLE
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_STRING
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_NODE_PATH
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_NODE_PATH
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.NodePath
 import godot.core.Signal1
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
 import godot.core.asCachedNodePath
 import kotlin.Any
 import kotlin.Int
@@ -97,7 +101,7 @@ public open class MultiplayerSpawner : Node() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(395, scriptPtr)
+    createNativeObject(393, scriptPtr)
   }
 
   /**
@@ -105,34 +109,26 @@ public open class MultiplayerSpawner : Node() {
    * authority to other peers when added as children of the node pointed by [spawnPath].
    */
   public final fun addSpawnableScene(path: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.addSpawnableScenePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.addSpawnableScenePtr, path)
   }
 
   /**
    * Returns the count of spawnable scene paths.
    */
-  public final fun getSpawnableSceneCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpawnableSceneCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSpawnableSceneCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSpawnableSceneCountPtr).toInt()
 
   /**
    * Returns the spawnable scene path by index.
    */
-  public final fun getSpawnableScene(index: Int): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index.toLong())
-    TransferContext.callMethod(MethodBindings.getSpawnableScenePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getSpawnableScene(index: Int): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getSpawnableScenePtr, index.toLong())
 
   /**
    * Clears all spawnable scenes. Does not despawn existing instances on remote peers.
    */
   public final fun clearSpawnableScenes(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.clearSpawnableScenesPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearSpawnableScenesPtr)
   }
 
   /**
@@ -143,43 +139,28 @@ public open class MultiplayerSpawner : Node() {
    * **Note:** Spawnable scenes are spawned automatically. [spawn] is only needed for custom spawns.
    */
   @JvmOverloads
-  public final fun spawn(`data`: Any? = null): Node? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ANY to data)
-    TransferContext.callMethod(MethodBindings.spawnPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Node?)
-  }
+  public final fun spawn(`data`: Any? = null): Node? =
+      (TransferContext.callMethod_ANY_ret_OBJECT(ptr, objectID.id, MethodBindings.spawnPtr, data) as Node?)
 
-  public final fun getSpawnPath(): NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpawnPathPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
-  }
+  public final fun getSpawnPath(): NodePath =
+      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getSpawnPathPtr)
 
   public final fun setSpawnPath(path: NodePath): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, NODE_PATH to path)
-    TransferContext.callMethod(MethodBindings.setSpawnPathPtr)
+    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setSpawnPathPtr, path)
   }
 
-  public final fun getSpawnLimit(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpawnLimitPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getSpawnLimit(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSpawnLimitPtr)
 
   public final fun setSpawnLimit(limit: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to limit)
-    TransferContext.callMethod(MethodBindings.setSpawnLimitPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSpawnLimitPtr, limit)
   }
 
-  public final fun getSpawnFunction(): Callable {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSpawnFunctionPtr)
-    return (TransferContext.readReturnValue(CALLABLE) as Callable)
-  }
+  public final fun getSpawnFunction(): Callable =
+      TransferContext.callMethod0_ret_CALLABLE(ptr, objectID.id, MethodBindings.getSpawnFunctionPtr)
 
   public final fun setSpawnFunction(spawnFunction: Callable): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to spawnFunction)
-    TransferContext.callMethod(MethodBindings.setSpawnFunctionPtr)
+    TransferContext.callMethod_CALLABLE(ptr, objectID.id, MethodBindings.setSpawnFunctionPtr, spawnFunction)
   }
 
   public final fun setSpawnPath(path: String) = setSpawnPath(path.asCachedNodePath())

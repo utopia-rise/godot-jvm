@@ -14,3 +14,4 @@ graal/*-graal-jni-config.json
 /addons/
 /benchmark_results.json
 /export
+/export_release

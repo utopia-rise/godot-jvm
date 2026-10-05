@@ -9,10 +9,10 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.NotImplementedError
@@ -28,7 +28,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class OpenXRSpatialCapabilityConfigurationBaseHeader : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(473, scriptPtr)
+    createNativeObject(472, scriptPtr)
   }
 
   /**
@@ -52,22 +52,16 @@ public open class OpenXRSpatialCapabilityConfigurationBaseHeader : RefCounted() 
    * Returns `true` if this object contains a valid configuration that can be used when calling
    * [OpenXRSpatialEntityExtension.createSpatialContext].
    */
-  public final fun hasValidConfiguration(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasValidConfigurationPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasValidConfiguration(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasValidConfigurationPtr)
 
   /**
    * Gets a pointer to the `XrSpatialCapabilityConfigurationBaseHeaderEXT` struct.
    *
    * **Note:** This method is intended to be used from GDExtensions.
    */
-  public final fun getConfiguration(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConfigurationPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getConfiguration(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConfigurationPtr)
 
   public companion object {
     @JvmField

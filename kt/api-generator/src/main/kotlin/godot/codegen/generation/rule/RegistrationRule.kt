@@ -11,16 +11,8 @@ import godot.codegen.models.enriched.EnrichedClass
 
 class RegistrationRule : GodotApiRule<ApiTask>() {
     override fun apply(task: ApiTask, context: GenerationContext) {
-        val coreTypes = context
-            .classList
-            .filter { it.isCoreModule() }
-
-        val apiTypes = context
-            .classList
-            .filter { !it.isCoreModule() }
-
         val registrationTask = RegistrationTask()
-        (coreTypes + apiTypes)
+        context.classList
             .filter { clazz ->
                 val parent = clazz.parent
                 parent == null || !parent.isSingleton

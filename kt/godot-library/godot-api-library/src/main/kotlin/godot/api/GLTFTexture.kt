@@ -9,12 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
 import kotlin.Int
-import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -47,29 +47,21 @@ public open class GLTFTexture : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(257, scriptPtr)
+    createNativeObject(255, scriptPtr)
   }
 
-  public final fun getSrcImage(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSrcImagePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSrcImage(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSrcImagePtr).toInt()
 
   public final fun setSrcImage(srcImage: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to srcImage.toLong())
-    TransferContext.callMethod(MethodBindings.setSrcImagePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSrcImagePtr, srcImage.toLong())
   }
 
-  public final fun getSampler(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSamplerPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSampler(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSamplerPtr).toInt()
 
   public final fun setSampler(sampler: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to sampler.toLong())
-    TransferContext.callMethod(MethodBindings.setSamplerPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSamplerPtr, sampler.toLong())
   }
 
   public companion object {

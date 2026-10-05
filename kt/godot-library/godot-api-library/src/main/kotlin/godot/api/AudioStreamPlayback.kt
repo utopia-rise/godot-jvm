@@ -9,23 +9,25 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_DOUBLE_LONG_ret_PACKED_VECTOR2_ARRAY
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.PackedVector2Array
 import godot.core.StringName
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_VECTOR2_ARRAY
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float
 import kotlin.Int
-import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.Suppress
 import kotlin.Unit
@@ -39,7 +41,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public abstract class AudioStreamPlayback : RefCounted() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(90, scriptPtr)
+    createNativeObject(88, scriptPtr)
   }
 
   /**
@@ -109,19 +111,15 @@ public abstract class AudioStreamPlayback : RefCounted() {
    * sample of this stream.
    */
   public final fun setSamplePlayback(playbackSample: AudioSamplePlayback?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to playbackSample)
-    TransferContext.callMethod(MethodBindings.setSamplePlaybackPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setSamplePlaybackPtr, playbackSample)
   }
 
   /**
    * Returns the [AudioSamplePlayback] associated with this [AudioStreamPlayback] for playing back
    * the audio sample of this stream.
    */
-  public final fun getSamplePlayback(): AudioSamplePlayback? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSamplePlaybackPtr)
-    return (TransferContext.readReturnValue(OBJECT) as AudioSamplePlayback?)
-  }
+  public final fun getSamplePlayback(): AudioSamplePlayback? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSamplePlaybackPtr) as AudioSamplePlayback?)
 
   /**
    * Mixes up to [frames] of audio from the stream from the current position, at a rate of
@@ -133,19 +131,15 @@ public abstract class AudioStreamPlayback : RefCounted() {
    * **Note:** Can return fewer frames than requested, make sure to use the size of the return
    * value.
    */
-  public final fun mixAudio(rateScale: Float, frames: Int): PackedVector2Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to rateScale.toDouble(), LONG to frames.toLong())
-    TransferContext.callMethod(MethodBindings.mixAudioPtr)
-    return (TransferContext.readReturnValue(PACKED_VECTOR2_ARRAY) as PackedVector2Array)
-  }
+  public final fun mixAudio(rateScale: Float, frames: Int): PackedVector2Array =
+      TransferContext.callPtrMethod_DOUBLE_LONG_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.mixAudioPtr, rateScale.toDouble(), frames.toLong())
 
   /**
    * Starts the stream from the given [fromPos], in seconds.
    */
   @JvmOverloads
   public final fun start(fromPos: Double = 0.0): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to fromPos)
-    TransferContext.callMethod(MethodBindings.startPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.startPtr, fromPos)
   }
 
   /**
@@ -153,44 +147,33 @@ public abstract class AudioStreamPlayback : RefCounted() {
    */
   @JvmOverloads
   public final fun seek(time: Double = 0.0): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to time)
-    TransferContext.callMethod(MethodBindings.seekPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.seekPtr, time)
   }
 
   /**
    * Stops the stream.
    */
   public final fun stop(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.stopPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
   }
 
   /**
    * Returns the number of times the stream has looped.
    */
-  public final fun getLoopCount(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLoopCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getLoopCount(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLoopCountPtr).toInt()
 
   /**
    * Returns the current position in the stream, in seconds.
    */
-  public final fun getPlaybackPosition(): Double {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPlaybackPositionPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double)
-  }
+  public final fun getPlaybackPosition(): Double =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPlaybackPositionPtr)
 
   /**
    * Returns `true` if the stream is playing.
    */
-  public final fun isPlaying(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isPlayingPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isPlaying(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPlayingPtr)
 
   public companion object {
     @JvmField

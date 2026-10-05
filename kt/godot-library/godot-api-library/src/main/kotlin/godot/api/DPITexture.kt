@@ -9,6 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_DOUBLE_DOUBLE_DICTIONARY_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_DICTIONARY
+import godot.callPtrMethod_DOUBLE
+import godot.callPtrMethod_VECTOR2I
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.Dictionary
@@ -16,17 +27,9 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName4
 import godot.core.RID
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.VECTOR2I
-import godot.core.VariantParser._RID
 import godot.core.Vector2i
 import kotlin.Any
 import kotlin.Boolean
-import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.NotImplementedError
@@ -114,98 +117,70 @@ public open class DPITexture : Texture2D() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(203, scriptPtr)
+    createNativeObject(201, scriptPtr)
   }
 
   /**
    * Sets this SVG texture's source code.
    */
   public final fun setSource(source: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to source)
-    TransferContext.callMethod(MethodBindings.setSourcePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setSourcePtr, source)
   }
 
   /**
    * Returns this SVG texture's source code.
    */
-  public final fun getSource(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSourcePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getSource(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSourcePtr)
 
   public final fun setFixAlphaBorder(fixAlphaBorder: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to fixAlphaBorder)
-    TransferContext.callMethod(MethodBindings.setFixAlphaBorderPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFixAlphaBorderPtr, fixAlphaBorder)
   }
 
-  public final fun getFixAlphaBorder(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFixAlphaBorderPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getFixAlphaBorder(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getFixAlphaBorderPtr)
 
   public final fun setPremultAlpha(premultAlpha: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to premultAlpha)
-    TransferContext.callMethod(MethodBindings.setPremultAlphaPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPremultAlphaPtr, premultAlpha)
   }
 
-  public final fun getPremultAlpha(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPremultAlphaPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getPremultAlpha(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getPremultAlphaPtr)
 
   public final fun setBaseScale(baseScale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to baseScale.toDouble())
-    TransferContext.callMethod(MethodBindings.setBaseScalePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBaseScalePtr, baseScale.toDouble())
   }
 
-  public final fun getBaseScale(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getBaseScalePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getBaseScale(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBaseScalePtr).toFloat()
 
   public final fun setSaturation(saturation: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to saturation.toDouble())
-    TransferContext.callMethod(MethodBindings.setSaturationPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSaturationPtr, saturation.toDouble())
   }
 
-  public final fun getSaturation(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSaturationPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getSaturation(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSaturationPtr).toFloat()
 
   public final fun setColorMap(colorMap: Dictionary<Any?, Any?>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DICTIONARY to colorMap)
-    TransferContext.callMethod(MethodBindings.setColorMapPtr)
+    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setColorMapPtr, colorMap)
   }
 
-  public final fun getColorMap(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getColorMapPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
-  }
+  public final fun getColorMap(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getColorMapPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Resizes the texture to the specified dimensions.
    */
   public final fun setSizeOverride(size: Vector2i): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to size)
-    TransferContext.callMethod(MethodBindings.setSizeOverridePtr)
+    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setSizeOverridePtr, size)
   }
 
   /**
    * Returns the [RID] of the texture rasterized to match the oversampling of the currently drawn
    * canvas item.
    */
-  public final fun getScaledRid(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScaledRidPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun getScaledRid(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getScaledRidPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.
@@ -294,11 +269,8 @@ public open class DPITexture : Texture2D() {
       scale: Float = 1.0f,
       saturation: Float = 1.0f,
       colorMap: Dictionary<Any?, Any?> = Dictionary(),
-    ): DPITexture? {
-      TransferContext.writeMethodArguments(0L, 0L, STRING to source, DOUBLE to scale.toDouble(), DOUBLE to saturation.toDouble(), DICTIONARY to colorMap)
-      TransferContext.callMethod(MethodBindings.createFromStringPtr)
-      return (TransferContext.readReturnValue(OBJECT) as DPITexture?)
-    }
+    ): DPITexture? =
+        (TransferContext.callMethod_STRING_DOUBLE_DOUBLE_DICTIONARY_ret_OBJECT_REF(0L, 0L, MethodBindings.createFromStringPtr, source, scale.toDouble(), saturation.toDouble(), colorMap) as DPITexture?)
   }
 
   public object MethodBindings {

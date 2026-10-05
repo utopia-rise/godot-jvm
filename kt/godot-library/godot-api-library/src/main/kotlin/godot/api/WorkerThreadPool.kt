@@ -9,6 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_CALLABLE_BOOL_STRING_ret_LONG
+import godot.callMethod_CALLABLE_LONG_LONG_BOOL_STRING_ret_LONG
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.Error
@@ -16,10 +22,6 @@ import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.MethodStringName3
 import godot.core.MethodStringName5
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
@@ -142,11 +144,8 @@ public object WorkerThreadPool : Object() {
     action: Callable,
     highPriority: Boolean = false,
     description: String = "",
-  ): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to action, BOOL to highPriority, STRING to description)
-    TransferContext.callMethod(MethodBindings.addTaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Long =
+      TransferContext.callMethod_CALLABLE_BOOL_STRING_ret_LONG(ptr, objectID.id, MethodBindings.addTaskPtr, action, highPriority, description)
 
   /**
    * Returns `true` if the task with the given ID is completed.
@@ -154,11 +153,8 @@ public object WorkerThreadPool : Object() {
    * **Note:** You should only call this method between adding the task and awaiting its completion.
    */
   @JvmStatic
-  public final fun isTaskCompleted(taskId: Long): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to taskId)
-    TransferContext.callMethod(MethodBindings.isTaskCompletedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isTaskCompleted(taskId: Long): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isTaskCompletedPtr, taskId)
 
   /**
    * Pauses the thread that calls this method until the task with the given ID is completed.
@@ -175,11 +171,8 @@ public object WorkerThreadPool : Object() {
    * trying to wait on an older one).
    */
   @JvmStatic
-  public final fun waitForTaskCompletion(taskId: Long): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to taskId)
-    TransferContext.callMethod(MethodBindings.waitForTaskCompletionPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun waitForTaskCompletion(taskId: Long): Error =
+      Error.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.waitForTaskCompletionPtr, taskId))
 
   /**
    * Returns the task ID of the current thread calling this method, or `-1` if the task is a group
@@ -191,11 +184,8 @@ public object WorkerThreadPool : Object() {
    * **Note:** Group tasks have their own IDs, so this method will return `-1` for group tasks.
    */
   @JvmStatic
-  public final fun getCallerTaskId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCallerTaskIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCallerTaskId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCallerTaskIdPtr)
 
   /**
    * Adds [action] as a group task to be executed by the worker threads. The [Callable] will be
@@ -222,11 +212,8 @@ public object WorkerThreadPool : Object() {
     tasksNeeded: Int = -1,
     highPriority: Boolean = false,
     description: String = "",
-  ): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, CALLABLE to action, LONG to elements.toLong(), LONG to tasksNeeded.toLong(), BOOL to highPriority, STRING to description)
-    TransferContext.callMethod(MethodBindings.addGroupTaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Long =
+      TransferContext.callMethod_CALLABLE_LONG_LONG_BOOL_STRING_ret_LONG(ptr, objectID.id, MethodBindings.addGroupTaskPtr, action, elements.toLong(), tasksNeeded.toLong(), highPriority, description)
 
   /**
    * Returns `true` if the group task with the given ID is completed.
@@ -235,11 +222,8 @@ public object WorkerThreadPool : Object() {
    * completion.
    */
   @JvmStatic
-  public final fun isGroupTaskCompleted(groupId: Long): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to groupId)
-    TransferContext.callMethod(MethodBindings.isGroupTaskCompletedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isGroupTaskCompleted(groupId: Long): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isGroupTaskCompletedPtr, groupId)
 
   /**
    * Returns how many times the [Callable] of the group task with the given ID has already been
@@ -249,19 +233,15 @@ public object WorkerThreadPool : Object() {
    * counted.
    */
   @JvmStatic
-  public final fun getGroupProcessedElementCount(groupId: Long): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to groupId)
-    TransferContext.callMethod(MethodBindings.getGroupProcessedElementCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getGroupProcessedElementCount(groupId: Long): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getGroupProcessedElementCountPtr, groupId)
 
   /**
    * Pauses the thread that calls this method until the group task with the given ID is completed.
    */
   @JvmStatic
   public final fun waitForGroupTaskCompletion(groupId: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to groupId)
-    TransferContext.callMethod(MethodBindings.waitForGroupTaskCompletionPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.waitForGroupTaskCompletionPtr, groupId)
   }
 
   /**
@@ -269,11 +249,8 @@ public object WorkerThreadPool : Object() {
    * current thread is not part of a task group.
    */
   @JvmStatic
-  public final fun getCallerGroupId(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCallerGroupIdPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCallerGroupId(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCallerGroupIdPtr)
 
   public object MethodBindings {
     internal val addTaskPtr: VoidPtr =

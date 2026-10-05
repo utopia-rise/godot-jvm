@@ -9,6 +9,17 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_ARRAY_ret_LONG
+import godot.callMethod_STRING_STRING_BOOL_LONG_ret_LONG
+import godot.callMethod_STRING_STRING_LONG_ret_OBJECT_REF
+import godot.callMethod_STRING_STRING_ret_BOOL
+import godot.callMethod_STRING_ret_BOOL
+import godot.callMethod_STRING_ret_LONG
+import godot.callMethod_STRING_ret_OBJECT_REF
+import godot.callMethod_STRING_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_OBJECT
+import godot.callPtrMethod_OBJECT_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.GodotEnum
@@ -18,12 +29,6 @@ import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.PackedStringArray
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Long
@@ -130,11 +135,8 @@ public object ResourceLoader : Object() {
     typeHint: String = "",
     useSubThreads: Boolean = false,
     cacheMode: CacheMode = ResourceLoader.CacheMode.REUSE,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, STRING to typeHint, BOOL to useSubThreads, LONG to cacheMode.value)
-    TransferContext.callMethod(MethodBindings.loadThreadedRequestPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_STRING_BOOL_LONG_ret_LONG(ptr, objectID.id, MethodBindings.loadThreadedRequestPtr, path, typeHint, useSubThreads, cacheMode.value))
 
   /**
    * Returns the status of a threaded loading operation started with [loadThreadedRequest] for the
@@ -149,11 +151,8 @@ public object ResourceLoader : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun loadThreadedGetStatus(path: String, progress: VariantArray<Any?> =
-      godot.core.variantArrayOf()): ThreadLoadStatus {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, ARRAY to progress)
-    TransferContext.callMethod(MethodBindings.loadThreadedGetStatusPtr)
-    return ThreadLoadStatus.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+      godot.core.variantArrayOf()): ThreadLoadStatus =
+      ThreadLoadStatus.from(TransferContext.callMethod_STRING_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.loadThreadedGetStatusPtr, path, progress))
 
   /**
    * Returns the resource loaded by [loadThreadedRequest].
@@ -164,11 +163,8 @@ public object ResourceLoader : Object() {
    * completed.
    */
   @JvmStatic
-  public final fun loadThreadedGet(path: String): Resource? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.loadThreadedGetPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Resource?)
-  }
+  public final fun loadThreadedGet(path: String): Resource? =
+      (TransferContext.callMethod_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.loadThreadedGetPtr, path) as Resource?)
 
   /**
    * Loads a resource at the given [path], caching the result for further access.
@@ -204,21 +200,15 @@ public object ResourceLoader : Object() {
     path: String,
     typeHint: String = "",
     cacheMode: CacheMode = ResourceLoader.CacheMode.REUSE,
-  ): Resource? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, STRING to typeHint, LONG to cacheMode.value)
-    TransferContext.callMethod(MethodBindings.loadPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Resource?)
-  }
+  ): Resource? =
+      (TransferContext.callMethod_STRING_STRING_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.loadPtr, path, typeHint, cacheMode.value) as Resource?)
 
   /**
    * Returns the list of recognized extensions for a resource type.
    */
   @JvmStatic
-  public final fun getRecognizedExtensionsForType(type: String): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to type)
-    TransferContext.callMethod(MethodBindings.getRecognizedExtensionsForTypePtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getRecognizedExtensionsForType(type: String): PackedStringArray =
+      TransferContext.callMethod_STRING_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getRecognizedExtensionsForTypePtr, type)
 
   /**
    * Registers a new [ResourceFormatLoader]. The ResourceLoader will use the ResourceFormatLoader as
@@ -231,8 +221,7 @@ public object ResourceLoader : Object() {
   @JvmStatic
   public final fun addResourceFormatLoader(formatLoader: ResourceFormatLoader, atFront: Boolean =
       false): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to formatLoader, BOOL to atFront)
-    TransferContext.callMethod(MethodBindings.addResourceFormatLoaderPtr)
+    TransferContext.callPtrMethod_OBJECT_BOOL(ptr, objectID.id, MethodBindings.addResourceFormatLoaderPtr, formatLoader, atFront)
   }
 
   /**
@@ -240,8 +229,7 @@ public object ResourceLoader : Object() {
    */
   @JvmStatic
   public final fun removeResourceFormatLoader(formatLoader: ResourceFormatLoader): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to formatLoader)
-    TransferContext.callMethod(MethodBindings.removeResourceFormatLoaderPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeResourceFormatLoaderPtr, formatLoader)
   }
 
   /**
@@ -249,8 +237,7 @@ public object ResourceLoader : Object() {
    */
   @JvmStatic
   public final fun setAbortOnMissingResources(abort: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to abort)
-    TransferContext.callMethod(MethodBindings.setAbortOnMissingResourcesPtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAbortOnMissingResourcesPtr, abort)
   }
 
   /**
@@ -271,11 +258,8 @@ public object ResourceLoader : Object() {
    * ```
    */
   @JvmStatic
-  public final fun getDependencies(path: String): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.getDependenciesPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getDependencies(path: String): PackedStringArray =
+      TransferContext.callMethod_STRING_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getDependenciesPtr, path)
 
   /**
    * Returns whether a cached resource is available for the given [path].
@@ -285,11 +269,8 @@ public object ResourceLoader : Object() {
    * overridden by using [Resource.takeOverPath] on a new resource for that same path.
    */
   @JvmStatic
-  public final fun hasCached(path: String): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.hasCachedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasCached(path: String): Boolean =
+      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasCachedPtr, path)
 
   /**
    * Returns the cached resource reference for the given [path].
@@ -297,11 +278,8 @@ public object ResourceLoader : Object() {
    * **Note:** If the resource is not cached, the returned [Resource] will be invalid.
    */
   @JvmStatic
-  public final fun getCachedRef(path: String): Resource? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.getCachedRefPtr)
-    return (TransferContext.readReturnValue(OBJECT) as Resource?)
-  }
+  public final fun getCachedRef(path: String): Resource? =
+      (TransferContext.callMethod_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCachedRefPtr, path) as Resource?)
 
   /**
    * Returns whether a recognized resource exists for the given [path].
@@ -315,21 +293,15 @@ public object ResourceLoader : Object() {
    */
   @JvmOverloads
   @JvmStatic
-  public final fun exists(path: String, typeHint: String = ""): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path, STRING to typeHint)
-    TransferContext.callMethod(MethodBindings.existsPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun exists(path: String, typeHint: String = ""): Boolean =
+      TransferContext.callMethod_STRING_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.existsPtr, path, typeHint)
 
   /**
    * Returns the ID associated with a given resource path, or `-1` when no such ID exists.
    */
   @JvmStatic
-  public final fun getResourceUid(path: String): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to path)
-    TransferContext.callMethod(MethodBindings.getResourceUidPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getResourceUid(path: String): Long =
+      TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.getResourceUidPtr, path)
 
   /**
    * Lists a directory, returning all resources and subdirectories contained within. The resource
@@ -347,11 +319,8 @@ public object ResourceLoader : Object() {
    * **Note:** To normally traverse the filesystem, see [DirAccess].
    */
   @JvmStatic
-  public final fun listDirectory(directoryPath: String): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to directoryPath)
-    TransferContext.callMethod(MethodBindings.listDirectoryPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun listDirectory(directoryPath: String): PackedStringArray =
+      TransferContext.callMethod_STRING_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.listDirectoryPtr, directoryPath)
 
   public enum class ThreadLoadStatus(
     public override val `value`: Long,

@@ -23,7 +23,7 @@ import kotlin.Unit
 @GodotBaseType
 public open class JacobianIK3D : IterateIK3D() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(335, scriptPtr)
+    createNativeObject(333, scriptPtr)
   }
 
   public companion object

@@ -63,7 +63,7 @@ object SignalGenerationService : ISignalGenerationService {
                     .addModifiers(KModifier.INTERNAL)
                     .addParameters(
                         listOf(
-                            ParameterSpec.builder(Generator.instanceParameterName, API.`object`).build(),
+                            ParameterSpec.builder(Generator.instanceParameterName, Core.godotObject).build(),
                             ParameterSpec.builder(Generator.nameParameterName, Core.stringName).build()
                         )
                     )
@@ -99,8 +99,8 @@ object SignalGenerationService : ISignalGenerationService {
                                     Generator.callableParameterName,
                                     callableClassName.parameterizedBy(listOf(STAR) + genericClassNameInfo.genericTypes)
                                 ).build(),
-                                ParameterSpec.builder(Generator.flagsParameterName, API.connectFlags)
-                                    .defaultValue("%T.%L", API.connectFlags, "DEFAULT")
+                                ParameterSpec.builder(Generator.flagsParameterName, Core.connectFlags)
+                                    .defaultValue("%T.%L", Core.connectFlags, "DEFAULT")
                                     .build()
                             )
                         )
@@ -126,7 +126,7 @@ object SignalGenerationService : ISignalGenerationService {
 
     private fun generateSignalCompanion(argCount: Int, genericClassNameInfo: GenericClassNameInfo): TypeSpec {
         val erasedReadOnlyPropertyClassName =
-            Kotlin.readOnlyProperty.parameterizedBy(API.`object`, genericClassNameInfo.erasedGenericClassName)
+            Kotlin.readOnlyProperty.parameterizedBy(Core.godotObject, genericClassNameInfo.erasedGenericClassName)
 
         return TypeSpec.companionObjectBuilder()
             .addProperty(
@@ -145,7 +145,7 @@ object SignalGenerationService : ISignalGenerationService {
                     .addModifiers(KModifier.OPERATOR, KModifier.INLINE)
                     .addParameters(
                         listOf(
-                            ParameterSpec.builder(Generator.thisRefParameterName, API.`object`).build(),
+                            ParameterSpec.builder(Generator.thisRefParameterName, Core.godotObject).build(),
                             ParameterSpec.builder(Generator.propertyParameterName, Kotlin.kProperty.parameterizedBy(STAR)).build(),
                         )
                     )
@@ -162,7 +162,7 @@ object SignalGenerationService : ISignalGenerationService {
             .addFunction(
                 genericClassNameInfo
                     .toFunSpecBuilder(kotlinJavaHelperName(Core.createMethodName))
-                    .addParameter(ParameterSpec.builder("godotObject", API.`object`).build())
+                    .addParameter(ParameterSpec.builder("godotObject", Core.godotObject).build())
                     .addParameter(ParameterSpec.builder("signalName", STRING).build())
                     .returns(genericClassNameInfo.genericClassName)
                     .addCode(
@@ -184,7 +184,7 @@ object SignalGenerationService : ISignalGenerationService {
     private fun generateFakeSignalConstructor(argCount: Int, genericClassNameInfo: GenericClassNameInfo): FunSpec {
         return FunSpec
             .builder(Core.signal(argCount).simpleName)
-            .receiver(API.`object`)
+            .receiver(Core.godotObject)
             .addModifiers(KModifier.INLINE)
             .addTypeVariables(genericClassNameInfo.genericTypes)
             .addParameter(ParameterSpec.builder("signalName", STRING).build())
@@ -206,12 +206,12 @@ object SignalGenerationService : ISignalGenerationService {
 
     private fun generateSignalDelegate(argCount: Int, genericClassNameInfo: GenericClassNameInfo): FunSpec {
         val genericReadOnlyPropertyClassName =
-            Kotlin.readOnlyProperty.parameterizedBy(API.`object`, genericClassNameInfo.genericClassName)
+            Kotlin.readOnlyProperty.parameterizedBy(Core.godotObject, genericClassNameInfo.genericClassName)
 
         return genericClassNameInfo
             .toFunSpecBuilder(Core.signalMethodName + argCount)
             .addModifiers(KModifier.INLINE)
-            .receiver(API.`object`)
+            .receiver(Core.godotObject)
             .addCode(
                 if (argCount == 0) {
                     CodeBlock.of("return·%T.${Core.delegatePropertyName}", genericClassNameInfo.className)

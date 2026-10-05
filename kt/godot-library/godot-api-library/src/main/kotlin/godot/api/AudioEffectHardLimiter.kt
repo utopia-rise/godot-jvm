@@ -9,11 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_DOUBLE
+import godot.callPtrMethod_DOUBLE
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.DOUBLE
-import kotlin.Double
 import kotlin.Float
 import kotlin.NotImplementedError
 import kotlin.Suppress
@@ -71,41 +71,29 @@ public open class AudioEffectHardLimiter : AudioEffect() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(62, scriptPtr)
+    createNativeObject(60, scriptPtr)
   }
 
   public final fun setCeilingDb(ceiling: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to ceiling.toDouble())
-    TransferContext.callMethod(MethodBindings.setCeilingDbPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCeilingDbPtr, ceiling.toDouble())
   }
 
-  public final fun getCeilingDb(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCeilingDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getCeilingDb(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCeilingDbPtr).toFloat()
 
   public final fun setPreGainDb(preGain: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to preGain.toDouble())
-    TransferContext.callMethod(MethodBindings.setPreGainDbPtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPreGainDbPtr, preGain.toDouble())
   }
 
-  public final fun getPreGainDb(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPreGainDbPtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getPreGainDb(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPreGainDbPtr).toFloat()
 
   public final fun setRelease(release: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DOUBLE to release.toDouble())
-    TransferContext.callMethod(MethodBindings.setReleasePtr)
+    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setReleasePtr, release.toDouble())
   }
 
-  public final fun getRelease(): Float {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getReleasePtr)
-    return (TransferContext.readReturnValue(DOUBLE) as Double).toFloat()
-  }
+  public final fun getRelease(): Float =
+      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getReleasePtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

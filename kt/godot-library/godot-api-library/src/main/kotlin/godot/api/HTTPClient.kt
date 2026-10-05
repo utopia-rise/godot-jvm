@@ -9,6 +9,21 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_DICTIONARY_ret_STRING
+import godot.callMethod_LONG_STRING_PACKED_STRING_ARRAY_PACKED_BYTE_ARRAY_ret_LONG
+import godot.callMethod_LONG_STRING_PACKED_STRING_ARRAY_STRING_ret_LONG
+import godot.callMethod_STRING_LONG
+import godot.callMethod_STRING_LONG_OBJECT_ret_LONG
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_DICTIONARY
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT_REF
+import godot.callPtrMethod0_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.Error
@@ -20,13 +35,6 @@ import godot.core.MethodStringName3
 import godot.core.MethodStringName4
 import godot.core.PackedByteArray
 import godot.core.PackedStringArray
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DICTIONARY
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.PACKED_STRING_ARRAY
-import godot.core.VariantParser.STRING
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
@@ -118,7 +126,7 @@ public open class HTTPClient : RefCounted() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(293, scriptPtr)
+    createNativeObject(291, scriptPtr)
   }
 
   /**
@@ -134,22 +142,15 @@ public open class HTTPClient : RefCounted() {
     host: String,
     port: Int = -1,
     tlsOptions: TLSOptions? = null,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to host, LONG to port.toLong(), OBJECT to tlsOptions)
-    TransferContext.callMethod(MethodBindings.connectToHostPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_STRING_LONG_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.connectToHostPtr, host, port.toLong(), tlsOptions))
 
   public final fun setConnection(connection: StreamPeer?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to connection)
-    TransferContext.callMethod(MethodBindings.setConnectionPtr)
+    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setConnectionPtr, connection)
   }
 
-  public final fun getConnection(): StreamPeer? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConnectionPtr)
-    return (TransferContext.readReturnValue(OBJECT) as StreamPeer?)
-  }
+  public final fun getConnection(): StreamPeer? =
+      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getConnectionPtr) as StreamPeer?)
 
   /**
    * Sends a raw HTTP request to the connected host with the given [method].
@@ -169,11 +170,8 @@ public open class HTTPClient : RefCounted() {
     url: String,
     headers: PackedStringArray,
     body: PackedByteArray,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to method.value, STRING to url, PACKED_STRING_ARRAY to headers, PACKED_BYTE_ARRAY to body)
-    TransferContext.callMethod(MethodBindings.requestRawPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_LONG_STRING_PACKED_STRING_ARRAY_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.requestRawPtr, method.value, url, headers, body))
 
   /**
    * Sends an HTTP request to the connected host with the given [method].
@@ -218,55 +216,39 @@ public open class HTTPClient : RefCounted() {
     url: String,
     headers: PackedStringArray,
     body: String = "",
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to method.value, STRING to url, PACKED_STRING_ARRAY to headers, STRING to body)
-    TransferContext.callMethod(MethodBindings.requestPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_LONG_STRING_PACKED_STRING_ARRAY_STRING_ret_LONG(ptr, objectID.id, MethodBindings.requestPtr, method.value, url, headers, body))
 
   /**
    * Closes the current connection, allowing reuse of this [HTTPClient].
    */
   public final fun close(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.closePtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.closePtr)
   }
 
   /**
    * If `true`, this [HTTPClient] has a response available.
    */
-  public final fun hasResponse(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.hasResponsePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasResponse(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasResponsePtr)
 
   /**
    * If `true`, this [HTTPClient] has a response that is chunked.
    */
-  public final fun isResponseChunked(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isResponseChunkedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isResponseChunked(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isResponseChunkedPtr)
 
   /**
    * Returns the response's HTTP status code.
    */
-  public final fun getResponseCode(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResponseCodePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getResponseCode(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getResponseCodePtr).toInt()
 
   /**
    * Returns the response headers.
    */
-  public final fun getResponseHeaders(): PackedStringArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResponseHeadersPtr)
-    return (TransferContext.readReturnValue(PACKED_STRING_ARRAY) as PackedStringArray)
-  }
+  public final fun getResponseHeaders(): PackedStringArray =
+      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getResponseHeadersPtr)
 
   /**
    * Returns all response headers as a [Dictionary]. Each entry is composed by the header name, and
@@ -280,11 +262,8 @@ public open class HTTPClient : RefCounted() {
    * }
    * ```
    */
-  public final fun getResponseHeadersAsDictionary(): Dictionary<Any?, Any?> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResponseHeadersAsDictionaryPtr)
-    return (TransferContext.readReturnValue(DICTIONARY) as Dictionary<Any?, Any?>)
-  }
+  public final fun getResponseHeadersAsDictionary(): Dictionary<Any?, Any?> =
+      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getResponseHeadersAsDictionaryPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns the response's body length.
@@ -294,60 +273,40 @@ public open class HTTPClient : RefCounted() {
    *
    * **Note:** This function always returns `-1` on the Web platform due to browsers limitations.
    */
-  public final fun getResponseBodyLength(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getResponseBodyLengthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getResponseBodyLength(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getResponseBodyLengthPtr)
 
   /**
    * Reads one chunk from the response.
    */
-  public final fun readResponseBodyChunk(): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.readResponseBodyChunkPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
-  }
+  public final fun readResponseBodyChunk(): PackedByteArray =
+      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.readResponseBodyChunkPtr)
 
   public final fun setReadChunkSize(bytes: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to bytes.toLong())
-    TransferContext.callMethod(MethodBindings.setReadChunkSizePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setReadChunkSizePtr, bytes.toLong())
   }
 
-  public final fun getReadChunkSize(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getReadChunkSizePtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getReadChunkSize(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getReadChunkSizePtr).toInt()
 
   public final fun setBlockingMode(enabled: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to enabled)
-    TransferContext.callMethod(MethodBindings.setBlockingModePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setBlockingModePtr, enabled)
   }
 
-  public final fun isBlockingModeEnabled(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.isBlockingModeEnabledPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isBlockingModeEnabled(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isBlockingModeEnabledPtr)
 
   /**
    * Returns a [Status] constant. Need to call [poll] in order to get status updates.
    */
-  public final fun getStatus(): Status {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getStatusPtr)
-    return Status.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getStatus(): Status =
+      Status.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStatusPtr))
 
   /**
    * This needs to be called in order to have any request processed. Check results with [getStatus].
    */
-  public final fun poll(): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.pollPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun poll(): Error =
+      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.pollPtr))
 
   /**
    * Sets the proxy server for HTTP requests.
@@ -355,8 +314,7 @@ public open class HTTPClient : RefCounted() {
    * The proxy server is unset if [host] is empty or [port] is -1.
    */
   public final fun setHttpProxy(host: String, port: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to host, LONG to port.toLong())
-    TransferContext.callMethod(MethodBindings.setHttpProxyPtr)
+    TransferContext.callMethod_STRING_LONG(ptr, objectID.id, MethodBindings.setHttpProxyPtr, host, port.toLong())
   }
 
   /**
@@ -365,8 +323,7 @@ public open class HTTPClient : RefCounted() {
    * The proxy server is unset if [host] is empty or [port] is -1.
    */
   public final fun setHttpsProxy(host: String, port: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to host, LONG to port.toLong())
-    TransferContext.callMethod(MethodBindings.setHttpsProxyPtr)
+    TransferContext.callMethod_STRING_LONG(ptr, objectID.id, MethodBindings.setHttpsProxyPtr, host, port.toLong())
   }
 
   /**
@@ -410,11 +367,8 @@ public open class HTTPClient : RefCounted() {
    * // Returns "single=123&not_valued&multiple=22&multiple=33&multiple=44"
    * ```
    */
-  public final fun queryStringFromDict(fields: Dictionary<Any?, Any?>): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, DICTIONARY to fields)
-    TransferContext.callMethod(MethodBindings.queryStringFromDictPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun queryStringFromDict(fields: Dictionary<Any?, Any?>): String =
+      TransferContext.callMethod_DICTIONARY_ret_STRING(ptr, objectID.id, MethodBindings.queryStringFromDictPtr, fields)
 
   public enum class Method(
     public override val `value`: Long,

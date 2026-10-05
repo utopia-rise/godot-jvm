@@ -9,6 +9,7 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0
 import godot.common.interop.VoidPtr
 import godot.core.Error
 import godot.core.MethodStringName0
@@ -29,7 +30,7 @@ import kotlin.jvm.JvmField
 @GodotBaseType
 public open class ImageFormatLoaderExtension : ImageFormatLoader() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(302, scriptPtr)
+    createNativeObject(300, scriptPtr)
   }
 
   /**
@@ -57,16 +58,14 @@ public open class ImageFormatLoaderExtension : ImageFormatLoader() {
    * [_getRecognizedExtensions].
    */
   public final fun addFormatLoader(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.addFormatLoaderPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.addFormatLoaderPtr)
   }
 
   /**
    * Remove this format loader from the engine.
    */
   public final fun removeFormatLoader(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.removeFormatLoaderPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.removeFormatLoaderPtr)
   }
 
   public companion object {

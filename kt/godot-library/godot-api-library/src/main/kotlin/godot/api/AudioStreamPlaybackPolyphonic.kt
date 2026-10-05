@@ -9,16 +9,15 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_DOUBLE
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_OBJECT_DOUBLE_DOUBLE_DOUBLE_LONG_STRING_NAME_ret_LONG
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
 import godot.core.MethodStringName6
 import godot.core.StringName
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.STRING_NAME
 import godot.core.asCachedStringName
 import kotlin.Boolean
 import kotlin.Double
@@ -40,7 +39,7 @@ import kotlin.jvm.JvmOverloads
 @GodotBaseType
 public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioStreamPlayback() {
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(94, scriptPtr)
+    createNativeObject(92, scriptPtr)
   }
 
   /**
@@ -65,46 +64,37 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
     pitchScale: Float = 1.0f,
     playbackType: AudioServer.PlaybackType = AudioServer.PlaybackType.DEFAULT,
     bus: StringName = StringName("Master"),
-  ): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to stream, DOUBLE to fromOffset.toDouble(), DOUBLE to volumeDb.toDouble(), DOUBLE to pitchScale.toDouble(), LONG to playbackType.value, STRING_NAME to bus)
-    TransferContext.callMethod(MethodBindings.playStreamPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Long =
+      TransferContext.callPtrMethod_OBJECT_DOUBLE_DOUBLE_DOUBLE_LONG_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.playStreamPtr, stream, fromOffset.toDouble(), volumeDb.toDouble(), pitchScale.toDouble(), playbackType.value, bus)
 
   /**
    * Change the stream volume (in db). The [stream] argument is an integer ID returned by
    * [playStream].
    */
   public final fun setStreamVolume(stream: Long, volumeDb: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stream, DOUBLE to volumeDb.toDouble())
-    TransferContext.callMethod(MethodBindings.setStreamVolumePtr)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setStreamVolumePtr, stream, volumeDb.toDouble())
   }
 
   /**
    * Change the stream pitch scale. The [stream] argument is an integer ID returned by [playStream].
    */
   public final fun setStreamPitchScale(stream: Long, pitchScale: Float): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stream, DOUBLE to pitchScale.toDouble())
-    TransferContext.callMethod(MethodBindings.setStreamPitchScalePtr)
+    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setStreamPitchScalePtr, stream, pitchScale.toDouble())
   }
 
   /**
    * Returns `true` if the stream associated with the given integer ID is still playing. Check
    * [playStream] for information on when this ID becomes invalid.
    */
-  public final fun isStreamPlaying(stream: Long): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stream)
-    TransferContext.callMethod(MethodBindings.isStreamPlayingPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun isStreamPlaying(stream: Long): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isStreamPlayingPtr, stream)
 
   /**
    * Stop a stream. The [stream] argument is an integer ID returned by [playStream], which becomes
    * invalid after calling this function.
    */
   public final fun stopStream(stream: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to stream)
-    TransferContext.callMethod(MethodBindings.stopStreamPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.stopStreamPtr, stream)
   }
 
   /**

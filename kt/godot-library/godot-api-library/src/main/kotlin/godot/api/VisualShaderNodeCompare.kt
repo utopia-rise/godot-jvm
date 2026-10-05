@@ -9,11 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod_LONG
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
-import godot.core.VariantParser.LONG
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
@@ -64,37 +65,25 @@ public open class VisualShaderNodeCompare : VisualShaderNode() {
   }
 
   public final fun setComparisonType(type: ComparisonType): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type.value)
-    TransferContext.callMethod(MethodBindings.setComparisonTypePtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setComparisonTypePtr, type.value)
   }
 
-  public final fun getComparisonType(): ComparisonType {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getComparisonTypePtr)
-    return ComparisonType.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getComparisonType(): ComparisonType =
+      ComparisonType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getComparisonTypePtr))
 
   public final fun setFunction(func: Function): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to func.value)
-    TransferContext.callMethod(MethodBindings.setFunctionPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFunctionPtr, func.value)
   }
 
-  public final fun getFunction(): Function {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFunctionPtr)
-    return Function.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getFunction(): Function =
+      Function.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFunctionPtr))
 
   public final fun setCondition(condition: Condition): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to condition.value)
-    TransferContext.callMethod(MethodBindings.setConditionPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setConditionPtr, condition.value)
   }
 
-  public final fun getCondition(): Condition {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getConditionPtr)
-    return Condition.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCondition(): Condition =
+      Condition.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConditionPtr))
 
   public enum class ComparisonType(
     public override val `value`: Long,

@@ -59,53 +59,53 @@ namespace bridges {
         // clang-format on
 
     public:
-        static void engine_call_compress(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_double(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_float(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_half(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_s16(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_s32(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_s64(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_s8(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_u16(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_u32(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_u64(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_u8(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
+        static void engine_call_compress(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_double(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_float(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_half(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_s16(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_s32(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_s64(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_s8(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_u16(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_u32(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_u64(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_u8(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
 
-        static void engine_call_decode_var(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decode_var_size(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_decompress(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
+        static void engine_call_decode_var(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decode_var_size(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_decompress(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
 
-        static void engine_call_decompress_dynamic(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_encode_double(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_encode_float(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_encode_half(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_encode_s16(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_encode_s32(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_encode_s64(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_encode_s8(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_encode_u16(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_encode_u32(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_encode_u64(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_encode_u8(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
+        static void engine_call_decompress_dynamic(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_encode_double(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_encode_float(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_encode_half(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_encode_s16(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_encode_s32(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_encode_s64(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_encode_s8(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_encode_u16(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_encode_u32(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_encode_u64(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_encode_u8(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
 
-        static void engine_call_encode_var(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_get_string_from_utf16(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
+        static void engine_call_encode_var(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_get_string_from_utf16(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
 
-        static void engine_call_get_string_from_utf32(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_get_string_from_wchar(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_get_string_from_ascii(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_get_string_from_utf8(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_has_encoded_var(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_hex_encode(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
+        static void engine_call_get_string_from_utf32(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_get_string_from_wchar(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_get_string_from_ascii(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_get_string_from_utf8(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_has_encoded_var(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_hex_encode(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
 
-        static void engine_call_to_float32_array(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_to_float64_array(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_to_int32_array(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
-        static void engine_call_to_int64_array(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
+        static void engine_call_to_float32_array(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_to_float64_array(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_to_int32_array(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
+        static void engine_call_to_int64_array(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
 
         static uintptr_t engine_convert_to_godot(JNIEnv * p_raw_env, jobject p_instance, jbyteArray p_array);
-        static jbyteArray engine_convert_to_jvm(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
+        static jbyteArray engine_convert_to_jvm(JNIEnv * p_raw_env, jobject p_instance, jlong p_handle);
     };
 
 } // namespace bridges

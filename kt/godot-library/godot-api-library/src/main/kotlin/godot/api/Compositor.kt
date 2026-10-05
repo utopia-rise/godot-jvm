@@ -9,11 +9,12 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callPtrMethod0_ret_ARRAY
+import godot.callPtrMethod_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmField
@@ -37,19 +38,15 @@ public open class Compositor : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(173, scriptPtr)
+    createNativeObject(171, scriptPtr)
   }
 
   public final fun setCompositorEffects(compositorEffects: VariantArray<CompositorEffect>): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to compositorEffects)
-    TransferContext.callMethod(MethodBindings.setCompositorEffectsPtr)
+    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setCompositorEffectsPtr, compositorEffects)
   }
 
-  public final fun getCompositorEffects(): VariantArray<CompositorEffect> {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCompositorEffectsPtr)
-    return (TransferContext.readReturnValue(ARRAY) as VariantArray<CompositorEffect>)
-  }
+  public final fun getCompositorEffects(): VariantArray<CompositorEffect> =
+      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getCompositorEffectsPtr) as VariantArray<CompositorEffect>)
 
   public companion object {
     @JvmField

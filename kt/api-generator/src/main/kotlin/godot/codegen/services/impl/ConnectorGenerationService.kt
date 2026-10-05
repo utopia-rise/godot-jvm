@@ -50,8 +50,8 @@ object ConnectorGenerationService : IConnectorGenerationService {
                 jvmActionClassName.parameterizedBy(genericParameters)
             }
 
-            val flagsParameter = ParameterSpec.builder(Generator.flagsParameterName, API.connectFlags)
-                .defaultValue("%T.%L", API.connectFlags, "DEFAULT")
+            val flagsParameter = ParameterSpec.builder(Generator.flagsParameterName, Core.connectFlags)
+                .defaultValue("%T.%L", Core.connectFlags, "DEFAULT")
                 .build()
 
             connectorFileSpec.addFunction(

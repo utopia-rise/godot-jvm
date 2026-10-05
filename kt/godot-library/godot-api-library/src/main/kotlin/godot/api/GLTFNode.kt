@@ -11,6 +11,23 @@ import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_NAME_ANY
+import godot.callMethod_STRING_NAME_ret_ANY
+import godot.callPtrMethod0_ret_BOOL
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_PACKED_INT_32_ARRAY
+import godot.callPtrMethod0_ret_QUATERNION
+import godot.callPtrMethod0_ret_TRANSFORM3D
+import godot.callPtrMethod0_ret_VECTOR3
+import godot.callPtrMethod_BOOL
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_OBJECT_BOOL_ret_NODE_PATH
+import godot.callPtrMethod_PACKED_INT_32_ARRAY
+import godot.callPtrMethod_QUATERNION
+import godot.callPtrMethod_TRANSFORM3D
+import godot.callPtrMethod_VECTOR3
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName0
 import godot.core.MethodStringName1
@@ -20,23 +37,11 @@ import godot.core.PackedInt32Array
 import godot.core.Quaternion
 import godot.core.StringName
 import godot.core.Transform3D
-import godot.core.VariantCaster.ANY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.NODE_PATH
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.QUATERNION
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.STRING_NAME
-import godot.core.VariantParser.TRANSFORM3D
-import godot.core.VariantParser.VECTOR3
 import godot.core.Vector3
 import godot.core.asCachedStringName
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -259,7 +264,7 @@ public open class GLTFNode : Resource() {
     }
 
   public override fun new(scriptPtr: VoidPtr): Unit {
-    createNativeObject(249, scriptPtr)
+    createNativeObject(247, scriptPtr)
   }
 
   /**
@@ -378,166 +383,109 @@ public open class GLTFNode : Resource() {
      children = this
   }
 
-  public final fun getOriginalName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getOriginalNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getOriginalName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOriginalNamePtr)
 
   public final fun setOriginalName(originalName: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to originalName)
-    TransferContext.callMethod(MethodBindings.setOriginalNamePtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOriginalNamePtr, originalName)
   }
 
-  public final fun getParent(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getParentPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getParent(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getParentPtr).toInt()
 
   public final fun setParent(parent: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to parent.toLong())
-    TransferContext.callMethod(MethodBindings.setParentPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setParentPtr, parent.toLong())
   }
 
-  public final fun getHeight(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getHeightPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getHeight(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHeightPtr).toInt()
 
   public final fun setHeight(height: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to height.toLong())
-    TransferContext.callMethod(MethodBindings.setHeightPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHeightPtr, height.toLong())
   }
 
-  public final fun getXform(): Transform3D {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getXformPtr)
-    return (TransferContext.readReturnValue(TRANSFORM3D) as Transform3D)
-  }
+  public final fun getXform(): Transform3D =
+      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getXformPtr)
 
   public final fun setXform(xform: Transform3D): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, TRANSFORM3D to xform)
-    TransferContext.callMethod(MethodBindings.setXformPtr)
+    TransferContext.callPtrMethod_TRANSFORM3D(ptr, objectID.id, MethodBindings.setXformPtr, xform)
   }
 
-  public final fun getMesh(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getMeshPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getMesh(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMeshPtr).toInt()
 
   public final fun setMesh(mesh: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to mesh.toLong())
-    TransferContext.callMethod(MethodBindings.setMeshPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMeshPtr, mesh.toLong())
   }
 
-  public final fun getCamera(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCameraPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getCamera(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCameraPtr).toInt()
 
   public final fun setCamera(camera: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to camera.toLong())
-    TransferContext.callMethod(MethodBindings.setCameraPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCameraPtr, camera.toLong())
   }
 
-  public final fun getSkin(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkinPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSkin(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSkinPtr).toInt()
 
   public final fun setSkin(skin: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to skin.toLong())
-    TransferContext.callMethod(MethodBindings.setSkinPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSkinPtr, skin.toLong())
   }
 
-  public final fun getSkeleton(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getSkeletonPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getSkeleton(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSkeletonPtr).toInt()
 
   public final fun setSkeleton(skeleton: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to skeleton.toLong())
-    TransferContext.callMethod(MethodBindings.setSkeletonPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSkeletonPtr, skeleton.toLong())
   }
 
-  public final fun getPosition(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPositionPtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getPosition(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getPositionPtr)
 
   public final fun setPosition(position: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to position)
-    TransferContext.callMethod(MethodBindings.setPositionPtr)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setPositionPtr, position)
   }
 
-  public final fun getRotation(): Quaternion {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getRotationPtr)
-    return (TransferContext.readReturnValue(QUATERNION) as Quaternion)
-  }
+  public final fun getRotation(): Quaternion =
+      TransferContext.callPtrMethod0_ret_QUATERNION(ptr, objectID.id, MethodBindings.getRotationPtr)
 
   public final fun setRotation(rotation: Quaternion): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, QUATERNION to rotation)
-    TransferContext.callMethod(MethodBindings.setRotationPtr)
+    TransferContext.callPtrMethod_QUATERNION(ptr, objectID.id, MethodBindings.setRotationPtr, rotation)
   }
 
-  public final fun getScale(): Vector3 {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getScalePtr)
-    return (TransferContext.readReturnValue(VECTOR3) as Vector3)
-  }
+  public final fun getScale(): Vector3 =
+      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getScalePtr)
 
   public final fun setScale(scale: Vector3): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR3 to scale)
-    TransferContext.callMethod(MethodBindings.setScalePtr)
+    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setScalePtr, scale)
   }
 
-  public final fun getChildren(): PackedInt32Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getChildrenPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY) as PackedInt32Array)
-  }
+  public final fun getChildren(): PackedInt32Array =
+      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getChildrenPtr)
 
   public final fun setChildren(children: PackedInt32Array): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_INT_32_ARRAY to children)
-    TransferContext.callMethod(MethodBindings.setChildrenPtr)
+    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setChildrenPtr, children)
   }
 
   /**
    * Appends the given child node index to the [children] array.
    */
   public final fun appendChildIndex(childIndex: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to childIndex.toLong())
-    TransferContext.callMethod(MethodBindings.appendChildIndexPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.appendChildIndexPtr, childIndex.toLong())
   }
 
-  public final fun getLight(): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getLightPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun getLight(): Int =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLightPtr).toInt()
 
   public final fun setLight(light: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to light.toLong())
-    TransferContext.callMethod(MethodBindings.setLightPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLightPtr, light.toLong())
   }
 
-  public final fun getVisible(): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getVisiblePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun getVisible(): Boolean =
+      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getVisiblePtr)
 
   public final fun setVisible(visible: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, BOOL to visible)
-    TransferContext.callMethod(MethodBindings.setVisiblePtr)
+    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setVisiblePtr, visible)
   }
 
   /**
@@ -548,11 +496,8 @@ public open class GLTFNode : Resource() {
    * name in the glTF file), and the return value can be anything you set. If nothing was set, the
    * return value is `null`.
    */
-  public final fun getAdditionalData(extensionName: StringName): Any? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to extensionName)
-    TransferContext.callMethod(MethodBindings.getAdditionalDataPtr)
-    return (TransferContext.readReturnValue(ANY) as Any?)
-  }
+  public final fun getAdditionalData(extensionName: StringName): Any? =
+      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getAdditionalDataPtr, extensionName)
 
   /**
    * Sets additional arbitrary data in this [GLTFNode] instance. This can be used to keep per-node
@@ -562,8 +507,7 @@ public open class GLTFNode : Resource() {
    * extension name in the glTF file), and the second argument can be anything you want.
    */
   public final fun setAdditionalData(extensionName: StringName, additionalData: Any?): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING_NAME to extensionName, ANY to additionalData)
-    TransferContext.callMethod(MethodBindings.setAdditionalDataPtr)
+    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setAdditionalDataPtr, extensionName, additionalData)
   }
 
   /**
@@ -577,11 +521,8 @@ public open class GLTFNode : Resource() {
    */
   @JvmOverloads
   public final fun getSceneNodePath(gltfState: GLTFState?, handleSkeletons: Boolean = true):
-      NodePath {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to gltfState, BOOL to handleSkeletons)
-    TransferContext.callMethod(MethodBindings.getSceneNodePathPtr)
-    return (TransferContext.readReturnValue(NODE_PATH) as NodePath)
-  }
+      NodePath =
+      TransferContext.callPtrMethod_OBJECT_BOOL_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getSceneNodePathPtr, gltfState, handleSkeletons)
 
   /**
    * Gets additional arbitrary data in this [GLTFNode] instance. This can be used to keep per-node

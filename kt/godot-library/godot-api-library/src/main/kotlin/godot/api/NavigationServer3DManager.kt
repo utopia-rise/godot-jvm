@@ -9,12 +9,11 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod_STRING_CALLABLE
+import godot.callMethod_STRING_LONG
 import godot.common.interop.VoidPtr
 import godot.core.Callable
 import godot.core.MethodStringName2
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.STRING
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
@@ -50,8 +49,7 @@ public object NavigationServer3DManager : Object() {
    */
   @JvmStatic
   public final fun registerServer(name: String, createCallback: Callable): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name, CALLABLE to createCallback)
-    TransferContext.callMethod(MethodBindings.registerServerPtr)
+    TransferContext.callMethod_STRING_CALLABLE(ptr, objectID.id, MethodBindings.registerServerPtr, name, createCallback)
   }
 
   /**
@@ -60,8 +58,7 @@ public object NavigationServer3DManager : Object() {
    */
   @JvmStatic
   public final fun setDefaultServer(name: String, priority: Int): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name, LONG to priority.toLong())
-    TransferContext.callMethod(MethodBindings.setDefaultServerPtr)
+    TransferContext.callMethod_STRING_LONG(ptr, objectID.id, MethodBindings.setDefaultServerPtr, name, priority.toLong())
   }
 
   public object MethodBindings {

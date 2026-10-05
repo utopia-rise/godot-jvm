@@ -9,6 +9,83 @@ package godot.api
 import godot.`annotation`.GodotBaseType
 import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
+import godot.callMethod0_ret_STRING
+import godot.callMethod_LONG_ret_STRING
+import godot.callMethod_OBJECT_STRING_ret_PACKED_BYTE_ARRAY
+import godot.callMethod_OBJECT_STRING_ret_RID
+import godot.callMethod_RID_CALLABLE_LONG_LONG_ret_LONG
+import godot.callMethod_RID_LONG_CALLABLE_ret_LONG
+import godot.callMethod_RID_STRING
+import godot.callMethod_STRING
+import godot.callMethod_STRING_COLOR
+import godot.callPtrMethod0
+import godot.callPtrMethod0_ret_LONG
+import godot.callPtrMethod0_ret_OBJECT
+import godot.callPtrMethod0_ret_RID
+import godot.callPtrMethod_ARRAY_ARRAY_ARRAY_LONG_ret_RID
+import godot.callPtrMethod_ARRAY_ARRAY_LONG_LONG_ret_RID
+import godot.callPtrMethod_ARRAY_ARRAY_LONG_ret_LONG
+import godot.callPtrMethod_ARRAY_LONG_LONG_ret_RID
+import godot.callPtrMethod_ARRAY_LONG_ret_LONG
+import godot.callPtrMethod_ARRAY_LONG_ret_RID
+import godot.callPtrMethod_ARRAY_RID_LONG_ret_RID
+import godot.callPtrMethod_ARRAY_ret_LONG
+import godot.callPtrMethod_LONG
+import godot.callPtrMethod_LONG_BOOL_LONG_LONG
+import godot.callPtrMethod_LONG_BOOL_RID_LONG_LONG_LONG
+import godot.callPtrMethod_LONG_COLOR
+import godot.callPtrMethod_LONG_COLOR_ret_LONG
+import godot.callPtrMethod_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_ARRAY_PACKED_INT_64_ARRAY_ret_RID
+import godot.callPtrMethod_LONG_LONG_LONG_ARRAY_PACKED_INT_64_ARRAY
+import godot.callPtrMethod_LONG_LONG_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_LONG_LONG_LONG_LONG_LONG_LONG_LONG_LONG_ret_RID
+import godot.callPtrMethod_LONG_LONG_PACKED_BYTE_ARRAY_BOOL_LONG_ret_RID
+import godot.callPtrMethod_LONG_LONG_PACKED_BYTE_ARRAY_ret_RID
+import godot.callPtrMethod_LONG_LONG_RID_LONG_LONG_LONG
+import godot.callPtrMethod_LONG_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_LONG_ret_LONG
+import godot.callPtrMethod_LONG_LONG_ret_RID
+import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG
+import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG_LONG_ret_RID
+import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG_ret_RID
+import godot.callPtrMethod_LONG_RECT2
+import godot.callPtrMethod_LONG_RID
+import godot.callPtrMethod_LONG_RID_LONG
+import godot.callPtrMethod_LONG_RID_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_BOOL
+import godot.callPtrMethod_LONG_ret_LONG
+import godot.callPtrMethod_LONG_ret_PACKED_INT_64_ARRAY
+import godot.callPtrMethod_OBJECT_BOOL_ret_OBJECT_REF
+import godot.callPtrMethod_OBJECT_OBJECT_ARRAY_ret_RID
+import godot.callPtrMethod_OBJECT_RID_LONG_LONG_LONG_LONG_ret_RID
+import godot.callPtrMethod_OBJECT_RID_ret_RID
+import godot.callPtrMethod_OBJECT_ret_RID
+import godot.callPtrMethod_PACKED_BYTE_ARRAY_RID_ret_RID
+import godot.callPtrMethod_RID
+import godot.callPtrMethod_RID_ARRAY_ret_LONG
+import godot.callPtrMethod_RID_ARRAY_ret_RID
+import godot.callPtrMethod_RID_BOOL
+import godot.callPtrMethod_RID_COLOR_LONG_LONG_LONG_LONG_ret_LONG
+import godot.callPtrMethod_RID_LONG_LONG_LONG_LONG_LONG_PACKED_COLOR_ARRAY_DOUBLE_LONG_RECT2_ARRAY_ret_PACKED_INT_64_ARRAY
+import godot.callPtrMethod_RID_LONG_LONG_LONG_OBJECT_OBJECT_OBJECT_OBJECT_LONG_LONG_ARRAY_ret_RID
+import godot.callPtrMethod_RID_LONG_LONG_PACKED_BYTE_ARRAY_ret_LONG
+import godot.callPtrMethod_RID_LONG_LONG_PACKED_INT_32_ARRAY_ret_LONG
+import godot.callPtrMethod_RID_LONG_LONG_ret_LONG
+import godot.callPtrMethod_RID_LONG_LONG_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_RID_LONG_LONG_ret_RID
+import godot.callPtrMethod_RID_LONG_PACKED_BYTE_ARRAY_ret_LONG
+import godot.callPtrMethod_RID_LONG_PACKED_COLOR_ARRAY_DOUBLE_LONG_RECT2_LONG_ret_LONG
+import godot.callPtrMethod_RID_LONG_ret_LONG
+import godot.callPtrMethod_RID_LONG_ret_PACKED_BYTE_ARRAY
+import godot.callPtrMethod_RID_LONG_ret_RID
+import godot.callPtrMethod_RID_RID_LONG_LONG_LONG_ret_LONG
+import godot.callPtrMethod_RID_RID_VECTOR3_VECTOR3_VECTOR3_LONG_LONG_LONG_LONG_ret_LONG
+import godot.callPtrMethod_RID_RID_ret_LONG
+import godot.callPtrMethod_RID_ret_BOOL
+import godot.callPtrMethod_RID_ret_LONG
+import godot.callPtrMethod_RID_ret_OBJECT_REF
+import godot.callPtrMethod_VECTOR2I_LONG_LONG_ret_RID
 import godot.common.interop.VoidPtr
 import godot.core.BitFieldBase
 import godot.core.Callable
@@ -33,22 +110,6 @@ import godot.core.PackedInt64Array
 import godot.core.RID
 import godot.core.Rect2
 import godot.core.VariantArray
-import godot.core.VariantParser.ARRAY
-import godot.core.VariantParser.BOOL
-import godot.core.VariantParser.CALLABLE
-import godot.core.VariantParser.COLOR
-import godot.core.VariantParser.DOUBLE
-import godot.core.VariantParser.LONG
-import godot.core.VariantParser.OBJECT
-import godot.core.VariantParser.PACKED_BYTE_ARRAY
-import godot.core.VariantParser.PACKED_COLOR_ARRAY
-import godot.core.VariantParser.PACKED_INT_32_ARRAY
-import godot.core.VariantParser.PACKED_INT_64_ARRAY
-import godot.core.VariantParser.RECT2
-import godot.core.VariantParser.STRING
-import godot.core.VariantParser.VECTOR2I
-import godot.core.VariantParser.VECTOR3
-import godot.core.VariantParser._RID
 import godot.core.Vector2i
 import godot.core.Vector3
 import kotlin.Boolean
@@ -178,11 +239,8 @@ public open class RenderingDevice internal constructor() : Object() {
     format: RDTextureFormat?,
     view: RDTextureView?,
     `data`: VariantArray<PackedByteArray> = godot.core.variantArrayOf(),
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to format, OBJECT to view, ARRAY to data)
-    TransferContext.callMethod(MethodBindings.textureCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_OBJECT_OBJECT_ARRAY_ret_RID(ptr, objectID.id, MethodBindings.textureCreatePtr, format, view, data)
 
   /**
    * Creates a shared texture using the specified [view] and the texture information from
@@ -190,11 +248,8 @@ public open class RenderingDevice internal constructor() : Object() {
    *
    * This will be freed automatically when the [withTexture] is freed.
    */
-  public final fun textureCreateShared(view: RDTextureView?, withTexture: RID): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to view, _RID to withTexture)
-    TransferContext.callMethod(MethodBindings.textureCreateSharedPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun textureCreateShared(view: RDTextureView?, withTexture: RID): RID =
+      TransferContext.callPtrMethod_OBJECT_RID_ret_RID(ptr, objectID.id, MethodBindings.textureCreateSharedPtr, view, withTexture)
 
   /**
    * Creates a shared texture using the specified [view] and the texture information from
@@ -216,11 +271,8 @@ public open class RenderingDevice internal constructor() : Object() {
     mipmap: Long,
     mipmaps: Long = 1,
     sliceType: TextureSliceType = RenderingDevice.TextureSliceType.TEXTURE_SLICE_2D,
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to view, _RID to withTexture, LONG to layer, LONG to mipmap, LONG to mipmaps, LONG to sliceType.value)
-    TransferContext.callMethod(MethodBindings.textureCreateSharedFromSlicePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_OBJECT_RID_LONG_LONG_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.textureCreateSharedFromSlicePtr, view, withTexture, layer, mipmap, mipmaps, sliceType.value)
 
   /**
    * Returns an RID for an existing [image] (`VkImage`) with the given [type], [format], [samples],
@@ -239,11 +291,8 @@ public open class RenderingDevice internal constructor() : Object() {
     depth: Long,
     layers: Long,
     mipmaps: Long = 1,
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type.value, LONG to format.value, LONG to samples.value, LONG to usageFlags.flag, LONG to image, LONG to width, LONG to height, LONG to depth, LONG to layers, LONG to mipmaps)
-    TransferContext.callMethod(MethodBindings.textureCreateFromExtensionPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_LONG_LONG_LONG_LONG_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.textureCreateFromExtensionPtr, type.value, format.value, samples.value, usageFlags.flag, image, width, height, depth, layers, mipmaps)
 
   /**
    * Updates texture data with new data, replacing the previous data in place. The updated texture
@@ -263,11 +312,8 @@ public open class RenderingDevice internal constructor() : Object() {
     texture: RID,
     layer: Long,
     `data`: PackedByteArray,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to texture, LONG to layer, PACKED_BYTE_ARRAY to data)
-    TransferContext.callMethod(MethodBindings.textureUpdatePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_RID_LONG_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.textureUpdatePtr, texture, layer, data))
 
   /**
    * Returns the [texture] data for the specified [layer] as raw binary data. For 2D textures (which
@@ -284,11 +330,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * **Note:** This method will block the GPU from working until the data is retrieved. Refer to
    * [textureGetDataAsync] for an alternative that returns the data in more performant way.
    */
-  public final fun textureGetData(texture: RID, layer: Long): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to texture, LONG to layer)
-    TransferContext.callMethod(MethodBindings.textureGetDataPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
-  }
+  public final fun textureGetData(texture: RID, layer: Long): PackedByteArray =
+      TransferContext.callPtrMethod_RID_LONG_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.textureGetDataPtr, texture, layer)
 
   /**
    * Asynchronous version of [textureGetData]. RenderingDevice will call [callback] in a certain
@@ -317,40 +360,28 @@ public open class RenderingDevice internal constructor() : Object() {
     texture: RID,
     layer: Long,
     callback: Callable,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to texture, LONG to layer, CALLABLE to callback)
-    TransferContext.callMethod(MethodBindings.textureGetDataAsyncPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_RID_LONG_CALLABLE_ret_LONG(ptr, objectID.id, MethodBindings.textureGetDataAsyncPtr, texture, layer, callback))
 
   /**
    * Returns `true` if the specified [format] is supported for the given [usageFlags], `false`
    * otherwise.
    */
   public final fun textureIsFormatSupportedForUsage(format: DataFormat,
-      usageFlags: TextureUsageBits): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to format.value, LONG to usageFlags.flag)
-    TransferContext.callMethod(MethodBindings.textureIsFormatSupportedForUsagePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+      usageFlags: TextureUsageBits): Boolean =
+      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.textureIsFormatSupportedForUsagePtr, format.value, usageFlags.flag)
 
   /**
    * Returns `true` if the [texture] is shared, `false` otherwise. See [RDTextureView].
    */
-  public final fun textureIsShared(texture: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to texture)
-    TransferContext.callMethod(MethodBindings.textureIsSharedPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun textureIsShared(texture: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.textureIsSharedPtr, texture)
 
   /**
    * Returns `true` if the [texture] is valid, `false` otherwise.
    */
-  public final fun textureIsValid(texture: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to texture)
-    TransferContext.callMethod(MethodBindings.textureIsValidPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun textureIsValid(texture: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.textureIsValidPtr, texture)
 
   /**
    * Updates the discardable property of [texture].
@@ -362,19 +393,15 @@ public open class RenderingDevice internal constructor() : Object() {
    * discarded, eliminating unnecessary writes to memory and boosting performance.
    */
   public final fun textureSetDiscardable(texture: RID, discardable: Boolean): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to texture, BOOL to discardable)
-    TransferContext.callMethod(MethodBindings.textureSetDiscardablePtr)
+    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.textureSetDiscardablePtr, texture, discardable)
   }
 
   /**
    * Returns `true` if the [texture] is discardable, `false` otherwise. See [RDTextureFormat] or
    * [textureSetDiscardable].
    */
-  public final fun textureIsDiscardable(texture: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to texture)
-    TransferContext.callMethod(MethodBindings.textureIsDiscardablePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun textureIsDiscardable(texture: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.textureIsDiscardablePtr, texture)
 
   /**
    * Copies the [fromTexture] to [toTexture] with the specified [fromPos], [toPos] and [size]
@@ -408,11 +435,8 @@ public open class RenderingDevice internal constructor() : Object() {
     dstMipmap: Long,
     srcLayer: Long,
     dstLayer: Long,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to fromTexture, _RID to toTexture, VECTOR3 to fromPos, VECTOR3 to toPos, VECTOR3 to size, LONG to srcMipmap, LONG to dstMipmap, LONG to srcLayer, LONG to dstLayer)
-    TransferContext.callMethod(MethodBindings.textureCopyPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_RID_RID_VECTOR3_VECTOR3_VECTOR3_LONG_LONG_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.textureCopyPtr, fromTexture, toTexture, fromPos, toPos, size, srcMipmap, dstMipmap, srcLayer, dstLayer))
 
   /**
    * Clears the specified [texture] by replacing all of its pixels with the specified [color].
@@ -432,11 +456,8 @@ public open class RenderingDevice internal constructor() : Object() {
     mipmapCount: Long,
     baseLayer: Long,
     layerCount: Long,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to texture, COLOR to color, LONG to baseMipmap, LONG to mipmapCount, LONG to baseLayer, LONG to layerCount)
-    TransferContext.callMethod(MethodBindings.textureClearPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_RID_COLOR_LONG_LONG_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.textureClearPtr, texture, color, baseMipmap, mipmapCount, baseLayer, layerCount))
 
   /**
    * Resolves the [fromTexture] texture onto [toTexture] with multisample antialiasing enabled. This
@@ -464,20 +485,14 @@ public open class RenderingDevice internal constructor() : Object() {
    * **Note:** [toTexture] texture must **not** be multisampled and must also be 2D (or a slice of a
    * 3D/cubemap texture).
    */
-  public final fun textureResolveMultisample(fromTexture: RID, toTexture: RID): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to fromTexture, _RID to toTexture)
-    TransferContext.callMethod(MethodBindings.textureResolveMultisamplePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun textureResolveMultisample(fromTexture: RID, toTexture: RID): Error =
+      Error.from(TransferContext.callPtrMethod_RID_RID_ret_LONG(ptr, objectID.id, MethodBindings.textureResolveMultisamplePtr, fromTexture, toTexture))
 
   /**
    * Returns the data format used to create this texture.
    */
-  public final fun textureGetFormat(texture: RID): RDTextureFormat? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to texture)
-    TransferContext.callMethod(MethodBindings.textureGetFormatPtr)
-    return (TransferContext.readReturnValue(OBJECT) as RDTextureFormat?)
-  }
+  public final fun textureGetFormat(texture: RID): RDTextureFormat? =
+      (TransferContext.callPtrMethod_RID_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.textureGetFormatPtr, texture) as RDTextureFormat?)
 
   /**
    * Returns the internal graphics handle for this texture object. For use when communicating with
@@ -486,11 +501,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * **Note:** This function returns a `uint64_t` which internally maps to a `GLuint` (OpenGL) or
    * `VkImage` (Vulkan).
    */
-  public final fun textureGetNativeHandle(texture: RID): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to texture)
-    TransferContext.callMethod(MethodBindings.textureGetNativeHandlePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun textureGetNativeHandle(texture: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.textureGetNativeHandlePtr, texture)
 
   /**
    * Creates a new framebuffer format with the specified [attachments] and [viewCount]. Returns the
@@ -501,11 +513,8 @@ public open class RenderingDevice internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun framebufferFormatCreate(attachments: VariantArray<RDAttachmentFormat>,
-      viewCount: Long = 1): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to attachments, LONG to viewCount)
-    TransferContext.callMethod(MethodBindings.framebufferFormatCreatePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+      viewCount: Long = 1): Long =
+      TransferContext.callPtrMethod_ARRAY_LONG_ret_LONG(ptr, objectID.id, MethodBindings.framebufferFormatCreatePtr, attachments, viewCount)
 
   /**
    * Creates a multipass framebuffer format with the specified [attachments], [passes] and
@@ -517,11 +526,8 @@ public open class RenderingDevice internal constructor() : Object() {
     attachments: VariantArray<RDAttachmentFormat>,
     passes: VariantArray<RDFramebufferPass>,
     viewCount: Long = 1,
-  ): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to attachments, ARRAY to passes, LONG to viewCount)
-    TransferContext.callMethod(MethodBindings.framebufferFormatCreateMultipassPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Long =
+      TransferContext.callPtrMethod_ARRAY_ARRAY_LONG_ret_LONG(ptr, objectID.id, MethodBindings.framebufferFormatCreateMultipassPtr, attachments, passes, viewCount)
 
   /**
    * Creates a new empty framebuffer format with the specified number of [samples] and returns its
@@ -529,11 +535,8 @@ public open class RenderingDevice internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun framebufferFormatCreateEmpty(samples: TextureSamples =
-      RenderingDevice.TextureSamples.TEXTURE_SAMPLES_1): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to samples.value)
-    TransferContext.callMethod(MethodBindings.framebufferFormatCreateEmptyPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+      RenderingDevice.TextureSamples.TEXTURE_SAMPLES_1): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.framebufferFormatCreateEmptyPtr, samples.value)
 
   /**
    * Returns the number of texture samples used for the given framebuffer [format] ID (returned by
@@ -541,11 +544,8 @@ public open class RenderingDevice internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun framebufferFormatGetTextureSamples(format: Long, renderPass: Long = 0):
-      TextureSamples {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to format, LONG to renderPass)
-    TransferContext.callMethod(MethodBindings.framebufferFormatGetTextureSamplesPtr)
-    return TextureSamples.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+      TextureSamples =
+      TextureSamples.from(TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.framebufferFormatGetTextureSamplesPtr, format, renderPass))
 
   /**
    * Creates a new framebuffer. It can be accessed with the RID that is returned.
@@ -560,11 +560,8 @@ public open class RenderingDevice internal constructor() : Object() {
     textures: VariantArray<RID>,
     validateWithFormat: Long = -1,
     viewCount: Long = 1,
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to textures, LONG to validateWithFormat, LONG to viewCount)
-    TransferContext.callMethod(MethodBindings.framebufferCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_ARRAY_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.framebufferCreatePtr, textures, validateWithFormat, viewCount)
 
   /**
    * Creates a new multipass framebuffer. It can be accessed with the RID that is returned.
@@ -580,11 +577,8 @@ public open class RenderingDevice internal constructor() : Object() {
     passes: VariantArray<RDFramebufferPass>,
     validateWithFormat: Long = -1,
     viewCount: Long = 1,
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to textures, ARRAY to passes, LONG to validateWithFormat, LONG to viewCount)
-    TransferContext.callMethod(MethodBindings.framebufferCreateMultipassPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_ARRAY_ARRAY_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.framebufferCreateMultipassPtr, textures, passes, validateWithFormat, viewCount)
 
   /**
    * Creates a new empty framebuffer. It can be accessed with the RID that is returned.
@@ -597,31 +591,22 @@ public open class RenderingDevice internal constructor() : Object() {
     size: Vector2i,
     samples: TextureSamples = RenderingDevice.TextureSamples.TEXTURE_SAMPLES_1,
     validateWithFormat: Long = -1,
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, VECTOR2I to size, LONG to samples.value, LONG to validateWithFormat)
-    TransferContext.callMethod(MethodBindings.framebufferCreateEmptyPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_VECTOR2I_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.framebufferCreateEmptyPtr, size, samples.value, validateWithFormat)
 
   /**
    * Returns the format ID of the framebuffer specified by the [framebuffer] RID. This ID is
    * guaranteed to be unique for the same formats and does not need to be freed.
    */
-  public final fun framebufferGetFormat(framebuffer: RID): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to framebuffer)
-    TransferContext.callMethod(MethodBindings.framebufferGetFormatPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun framebufferGetFormat(framebuffer: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.framebufferGetFormatPtr, framebuffer)
 
   /**
    * Returns `true` if the framebuffer specified by the [framebuffer] RID is valid, `false`
    * otherwise.
    */
-  public final fun framebufferIsValid(framebuffer: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to framebuffer)
-    TransferContext.callMethod(MethodBindings.framebufferIsValidPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun framebufferIsValid(framebuffer: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.framebufferIsValidPtr, framebuffer)
 
   /**
    * Creates a new sampler. It can be accessed with the RID that is returned.
@@ -629,22 +614,16 @@ public open class RenderingDevice internal constructor() : Object() {
    * Once finished with your RID, you will want to free the RID using the RenderingDevice's
    * [freeRid] method.
    */
-  public final fun samplerCreate(state: RDSamplerState?): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to state)
-    TransferContext.callMethod(MethodBindings.samplerCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun samplerCreate(state: RDSamplerState?): RID =
+      TransferContext.callPtrMethod_OBJECT_ret_RID(ptr, objectID.id, MethodBindings.samplerCreatePtr, state)
 
   /**
    * Returns `true` if implementation supports using a texture of [format] with the given
    * [samplerFilter].
    */
   public final fun samplerIsFormatSupportedForFilter(format: DataFormat,
-      samplerFilter: SamplerFilter): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to format.value, LONG to samplerFilter.value)
-    TransferContext.callMethod(MethodBindings.samplerIsFormatSupportedForFilterPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+      samplerFilter: SamplerFilter): Boolean =
+      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.samplerIsFormatSupportedForFilterPtr, format.value, samplerFilter.value)
 
   /**
    * Creates a new vertex buffer. It can be accessed with the RID that is returned.
@@ -657,21 +636,15 @@ public open class RenderingDevice internal constructor() : Object() {
     sizeBytes: Long,
     `data`: PackedByteArray = PackedByteArray(),
     creationBits: BufferCreationBits = RenderingDevice.BufferCreationBits(0),
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to sizeBytes, PACKED_BYTE_ARRAY to data, LONG to creationBits.flag)
-    TransferContext.callMethod(MethodBindings.vertexBufferCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG_ret_RID(ptr, objectID.id, MethodBindings.vertexBufferCreatePtr, sizeBytes, data, creationBits.flag)
 
   /**
    * Creates a new vertex format with the specified [vertexDescriptions]. Returns a unique vertex
    * format ID corresponding to the newly created vertex format.
    */
-  public final fun vertexFormatCreate(vertexDescriptions: VariantArray<RDVertexAttribute>): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to vertexDescriptions)
-    TransferContext.callMethod(MethodBindings.vertexFormatCreatePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun vertexFormatCreate(vertexDescriptions: VariantArray<RDVertexAttribute>): Long =
+      TransferContext.callPtrMethod_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.vertexFormatCreatePtr, vertexDescriptions)
 
   /**
    * Creates a vertex array based on the specified buffers. Optionally, [offsets] (in bytes) may be
@@ -688,11 +661,8 @@ public open class RenderingDevice internal constructor() : Object() {
     vertexFormat: Long,
     srcBuffers: VariantArray<RID>,
     offsets: PackedInt64Array = PackedInt64Array(),
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to vertexCount, LONG to vertexFormat, ARRAY to srcBuffers, PACKED_INT_64_ARRAY to offsets)
-    TransferContext.callMethod(MethodBindings.vertexArrayCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_LONG_LONG_ARRAY_PACKED_INT_64_ARRAY_ret_RID(ptr, objectID.id, MethodBindings.vertexArrayCreatePtr, vertexCount, vertexFormat, srcBuffers, offsets)
 
   /**
    * Creates a new index buffer. It can be accessed with the RID that is returned.
@@ -707,11 +677,8 @@ public open class RenderingDevice internal constructor() : Object() {
     `data`: PackedByteArray = PackedByteArray(),
     useRestartIndices: Boolean = false,
     creationBits: BufferCreationBits = RenderingDevice.BufferCreationBits(0),
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to sizeIndices, LONG to format.value, PACKED_BYTE_ARRAY to data, BOOL to useRestartIndices, LONG to creationBits.flag)
-    TransferContext.callMethod(MethodBindings.indexBufferCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_LONG_LONG_PACKED_BYTE_ARRAY_BOOL_LONG_ret_RID(ptr, objectID.id, MethodBindings.indexBufferCreatePtr, sizeIndices, format.value, data, useRestartIndices, creationBits.flag)
 
   /**
    * Creates a new index array. It can be accessed with the RID that is returned.
@@ -725,11 +692,8 @@ public open class RenderingDevice internal constructor() : Object() {
     indexBuffer: RID,
     indexOffset: Long,
     indexCount: Long,
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to indexBuffer, LONG to indexOffset, LONG to indexCount)
-    TransferContext.callMethod(MethodBindings.indexArrayCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_RID_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.indexArrayCreatePtr, indexBuffer, indexOffset, indexCount)
 
   /**
    * Compiles a SPIR-V from the shader source code in [shaderSource] and returns the SPIR-V as an
@@ -743,11 +707,8 @@ public open class RenderingDevice internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun shaderCompileSpirvFromSource(shaderSource: RDShaderSource?, allowCache: Boolean =
-      true): RDShaderSPIRV? {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to shaderSource, BOOL to allowCache)
-    TransferContext.callMethod(MethodBindings.shaderCompileSpirvFromSourcePtr)
-    return (TransferContext.readReturnValue(OBJECT) as RDShaderSPIRV?)
-  }
+      true): RDShaderSPIRV? =
+      (TransferContext.callPtrMethod_OBJECT_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.shaderCompileSpirvFromSourcePtr, shaderSource, allowCache) as RDShaderSPIRV?)
 
   /**
    * Compiles a binary shader from [spirvData] and returns the compiled binary data as a
@@ -760,11 +721,8 @@ public open class RenderingDevice internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun shaderCompileBinaryFromSpirv(spirvData: RDShaderSPIRV?, name: String = ""):
-      PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to spirvData, STRING to name)
-    TransferContext.callMethod(MethodBindings.shaderCompileBinaryFromSpirvPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
-  }
+      PackedByteArray =
+      TransferContext.callMethod_OBJECT_STRING_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.shaderCompileBinaryFromSpirvPtr, spirvData, name)
 
   /**
    * Creates a new shader instance from SPIR-V intermediate code. It can be accessed with the RID
@@ -774,11 +732,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * [freeRid] method. See also [shaderCompileSpirvFromSource] and [shaderCreateFromBytecode].
    */
   @JvmOverloads
-  public final fun shaderCreateFromSpirv(spirvData: RDShaderSPIRV?, name: String = ""): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, OBJECT to spirvData, STRING to name)
-    TransferContext.callMethod(MethodBindings.shaderCreateFromSpirvPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun shaderCreateFromSpirv(spirvData: RDShaderSPIRV?, name: String = ""): RID =
+      TransferContext.callMethod_OBJECT_STRING_ret_RID(ptr, objectID.id, MethodBindings.shaderCreateFromSpirvPtr, spirvData, name)
 
   /**
    * Creates a new shader instance from a binary compiled shader. It can be accessed with the RID
@@ -789,33 +744,24 @@ public open class RenderingDevice internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun shaderCreateFromBytecode(binaryData: PackedByteArray, placeholderRid: RID =
-      RID()): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, PACKED_BYTE_ARRAY to binaryData, _RID to placeholderRid)
-    TransferContext.callMethod(MethodBindings.shaderCreateFromBytecodePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+      RID()): RID =
+      TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_RID_ret_RID(ptr, objectID.id, MethodBindings.shaderCreateFromBytecodePtr, binaryData, placeholderRid)
 
   /**
    * Create a placeholder RID by allocating an RID without initializing it for use in
    * [shaderCreateFromBytecode]. This allows you to create an RID for a shader and pass it around, but
    * defer compiling the shader to a later time.
    */
-  public final fun shaderCreatePlaceholder(): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.shaderCreatePlaceholderPtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun shaderCreatePlaceholder(): RID =
+      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.shaderCreatePlaceholderPtr)
 
   /**
    * Returns the internal vertex input mask. Internally, the vertex input mask is an unsigned
    * integer consisting of the locations (specified in GLSL via. `layout(location = ...)`) of the input
    * variables (specified in GLSL by the `in` keyword).
    */
-  public final fun shaderGetVertexInputAttributeMask(shader: RID): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to shader)
-    TransferContext.callMethod(MethodBindings.shaderGetVertexInputAttributeMaskPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun shaderGetVertexInputAttributeMask(shader: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.shaderGetVertexInputAttributeMaskPtr, shader)
 
   /**
    * Creates a new uniform buffer. It can be accessed with the RID that is returned.
@@ -828,11 +774,8 @@ public open class RenderingDevice internal constructor() : Object() {
     sizeBytes: Long,
     `data`: PackedByteArray = PackedByteArray(),
     creationBits: BufferCreationBits = RenderingDevice.BufferCreationBits(0),
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to sizeBytes, PACKED_BYTE_ARRAY to data, LONG to creationBits.flag)
-    TransferContext.callMethod(MethodBindings.uniformBufferCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG_ret_RID(ptr, objectID.id, MethodBindings.uniformBufferCreatePtr, sizeBytes, data, creationBits.flag)
 
   /**
    * Creates a [url=https://vkguide.dev/docs/chapter-4/storage_buffers/]storage buffer[/url] with
@@ -847,11 +790,8 @@ public open class RenderingDevice internal constructor() : Object() {
     `data`: PackedByteArray = PackedByteArray(),
     usage: StorageBufferUsage = RenderingDevice.StorageBufferUsage(0),
     creationBits: BufferCreationBits = RenderingDevice.BufferCreationBits(0),
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to sizeBytes, PACKED_BYTE_ARRAY to data, LONG to usage.flag, LONG to creationBits.flag)
-    TransferContext.callMethod(MethodBindings.storageBufferCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.storageBufferCreatePtr, sizeBytes, data, usage.flag, creationBits.flag)
 
   /**
    * Creates a new texture buffer. It can be accessed with the RID that is returned.
@@ -864,11 +804,8 @@ public open class RenderingDevice internal constructor() : Object() {
     sizeBytes: Long,
     format: DataFormat,
     `data`: PackedByteArray = PackedByteArray(),
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to sizeBytes, LONG to format.value, PACKED_BYTE_ARRAY to data)
-    TransferContext.callMethod(MethodBindings.textureBufferCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_LONG_LONG_PACKED_BYTE_ARRAY_ret_RID(ptr, objectID.id, MethodBindings.textureBufferCreatePtr, sizeBytes, format.value, data)
 
   /**
    * Creates a new uniform set. It can be accessed with the RID that is returned.
@@ -883,20 +820,14 @@ public open class RenderingDevice internal constructor() : Object() {
     uniforms: VariantArray<RDUniform>,
     shader: RID,
     shaderSet: Long,
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to uniforms, _RID to shader, LONG to shaderSet)
-    TransferContext.callMethod(MethodBindings.uniformSetCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_ARRAY_RID_LONG_ret_RID(ptr, objectID.id, MethodBindings.uniformSetCreatePtr, uniforms, shader, shaderSet)
 
   /**
    * Checks if the [uniformSet] is valid, i.e. is owned.
    */
-  public final fun uniformSetIsValid(uniformSet: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to uniformSet)
-    TransferContext.callMethod(MethodBindings.uniformSetIsValidPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun uniformSetIsValid(uniformSet: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.uniformSetIsValidPtr, uniformSet)
 
   /**
    * Copies [size] bytes from the [srcBuffer] at [srcOffset] into [dstBuffer] at [dstOffset].
@@ -915,11 +846,8 @@ public open class RenderingDevice internal constructor() : Object() {
     srcOffset: Long,
     dstOffset: Long,
     size: Long,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to srcBuffer, _RID to dstBuffer, LONG to srcOffset, LONG to dstOffset, LONG to size)
-    TransferContext.callMethod(MethodBindings.bufferCopyPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_RID_RID_LONG_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.bufferCopyPtr, srcBuffer, dstBuffer, srcOffset, dstOffset, size))
 
   /**
    * Updates a region of [sizeBytes] bytes, starting at [offset], in the buffer, with the specified
@@ -938,11 +866,8 @@ public open class RenderingDevice internal constructor() : Object() {
     offset: Long,
     sizeBytes: Long,
     `data`: PackedByteArray,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to buffer, LONG to offset, LONG to sizeBytes, PACKED_BYTE_ARRAY to data)
-    TransferContext.callMethod(MethodBindings.bufferUpdatePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_RID_LONG_LONG_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.bufferUpdatePtr, buffer, offset, sizeBytes, data))
 
   /**
    * Clears the contents of the [buffer], clearing [sizeBytes] bytes, starting at [offset].
@@ -961,11 +886,8 @@ public open class RenderingDevice internal constructor() : Object() {
     buffer: RID,
     offset: Long,
     sizeBytes: Long,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to buffer, LONG to offset, LONG to sizeBytes)
-    TransferContext.callMethod(MethodBindings.bufferClearPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_RID_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.bufferClearPtr, buffer, offset, sizeBytes))
 
   /**
    * Returns a copy of the data of the specified [buffer], optionally [offsetBytes] and [sizeBytes]
@@ -979,11 +901,8 @@ public open class RenderingDevice internal constructor() : Object() {
     buffer: RID,
     offsetBytes: Long = 0,
     sizeBytes: Long = 0,
-  ): PackedByteArray {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to buffer, LONG to offsetBytes, LONG to sizeBytes)
-    TransferContext.callMethod(MethodBindings.bufferGetDataPtr)
-    return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY) as PackedByteArray)
-  }
+  ): PackedByteArray =
+      TransferContext.callPtrMethod_RID_LONG_LONG_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.bufferGetDataPtr, buffer, offsetBytes, sizeBytes)
 
   /**
    * Asynchronous version of [bufferGetData]. RenderingDevice will call [callback] in a certain
@@ -1013,11 +932,8 @@ public open class RenderingDevice internal constructor() : Object() {
     callback: Callable,
     offsetBytes: Long = 0,
     sizeBytes: Long = 0,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to buffer, CALLABLE to callback, LONG to offsetBytes, LONG to sizeBytes)
-    TransferContext.callMethod(MethodBindings.bufferGetDataAsyncPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callMethod_RID_CALLABLE_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.bufferGetDataAsyncPtr, buffer, callback, offsetBytes, sizeBytes))
 
   /**
    * Returns the address of the given [buffer] which can be passed to shaders in any way to access
@@ -1026,11 +942,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * **Note:** You must check that the GPU supports this functionality by calling [hasFeature] with
    * [SUPPORTS_BUFFER_DEVICE_ADDRESS] as a parameter.
    */
-  public final fun bufferGetDeviceAddress(buffer: RID): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to buffer)
-    TransferContext.callMethod(MethodBindings.bufferGetDeviceAddressPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun bufferGetDeviceAddress(buffer: RID): Long =
+      TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.bufferGetDeviceAddressPtr, buffer)
 
   /**
    * Creates a new render pipeline. It can be accessed with the RID that is returned.
@@ -1054,21 +967,15 @@ public open class RenderingDevice internal constructor() : Object() {
     forRenderPass: Long = 0,
     specializationConstants: VariantArray<RDPipelineSpecializationConstant> =
         godot.core.variantArrayOf(),
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to shader, LONG to framebufferFormat, LONG to vertexFormat, LONG to primitive.value, OBJECT to rasterizationState, OBJECT to multisampleState, OBJECT to stencilState, OBJECT to colorBlendState, LONG to dynamicStateFlags.flag, LONG to forRenderPass, ARRAY to specializationConstants)
-    TransferContext.callMethod(MethodBindings.renderPipelineCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_RID_LONG_LONG_LONG_OBJECT_OBJECT_OBJECT_OBJECT_LONG_LONG_ARRAY_ret_RID(ptr, objectID.id, MethodBindings.renderPipelineCreatePtr, shader, framebufferFormat, vertexFormat, primitive.value, rasterizationState, multisampleState, stencilState, colorBlendState, dynamicStateFlags.flag, forRenderPass, specializationConstants)
 
   /**
    * Returns `true` if the render pipeline specified by the [renderPipeline] RID is valid, `false`
    * otherwise.
    */
-  public final fun renderPipelineIsValid(renderPipeline: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to renderPipeline)
-    TransferContext.callMethod(MethodBindings.renderPipelineIsValidPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun renderPipelineIsValid(renderPipeline: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.renderPipelineIsValidPtr, renderPipeline)
 
   /**
    * Creates a new compute pipeline. It can be accessed with the RID that is returned.
@@ -1081,21 +988,15 @@ public open class RenderingDevice internal constructor() : Object() {
   @JvmOverloads
   public final fun computePipelineCreate(shader: RID,
       specializationConstants: VariantArray<RDPipelineSpecializationConstant> =
-      godot.core.variantArrayOf()): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to shader, ARRAY to specializationConstants)
-    TransferContext.callMethod(MethodBindings.computePipelineCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+      godot.core.variantArrayOf()): RID =
+      TransferContext.callPtrMethod_RID_ARRAY_ret_RID(ptr, objectID.id, MethodBindings.computePipelineCreatePtr, shader, specializationConstants)
 
   /**
    * Returns `true` if the compute pipeline specified by the [computePipeline] RID is valid, `false`
    * otherwise.
    */
-  public final fun computePipelineIsValid(computePipeline: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to computePipeline)
-    TransferContext.callMethod(MethodBindings.computePipelineIsValidPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun computePipelineIsValid(computePipeline: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.computePipelineIsValidPtr, computePipeline)
 
   /**
    * Creates a new raytracing pipeline. It can be accessed with the RID that is returned.
@@ -1119,21 +1020,15 @@ public open class RenderingDevice internal constructor() : Object() {
     missShaders: VariantArray<RDPipelineShader>,
     hitGroups: VariantArray<RDHitGroup>,
     maxTraceRecursionDepth: Long,
-  ): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to raygenShaders, ARRAY to missShaders, ARRAY to hitGroups, LONG to maxTraceRecursionDepth)
-    TransferContext.callMethod(MethodBindings.raytracingPipelineCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  ): RID =
+      TransferContext.callPtrMethod_ARRAY_ARRAY_ARRAY_LONG_ret_RID(ptr, objectID.id, MethodBindings.raytracingPipelineCreatePtr, raygenShaders, missShaders, hitGroups, maxTraceRecursionDepth)
 
   /**
    * Returns `true` if the raytracing pipeline specified by the [raytracingPipeline] RID is valid,
    * `false` otherwise.
    */
-  public final fun raytracingPipelineIsValid(raytracingPipeline: RID): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to raytracingPipeline)
-    TransferContext.callMethod(MethodBindings.raytracingPipelineIsValidPtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun raytracingPipelineIsValid(raytracingPipeline: RID): Boolean =
+      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.raytracingPipelineIsValidPtr, raytracingPipeline)
 
   /**
    * Creates a new Bottom-Level Acceleration Structure (BLAS). It can be accessed with the RID that
@@ -1143,11 +1038,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * [freeRid] method.
    */
   public final fun blasCreate(geometries: VariantArray<RDAccelerationStructureGeometry>,
-      flags: AccelerationStructureFlagBits): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, ARRAY to geometries, LONG to flags.flag)
-    TransferContext.callMethod(MethodBindings.blasCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+      flags: AccelerationStructureFlagBits): RID =
+      TransferContext.callPtrMethod_ARRAY_LONG_ret_RID(ptr, objectID.id, MethodBindings.blasCreatePtr, geometries, flags.flag)
 
   /**
    * Creates a new Top-Level Acceleration Structure (TLAS). It can be accessed with the RID that is
@@ -1156,20 +1048,14 @@ public open class RenderingDevice internal constructor() : Object() {
    * Once finished with your RID, you will want to free the RID using the RenderingDevice's
    * [freeRid] method.
    */
-  public final fun tlasCreate(maxInstanceCount: Long, flags: AccelerationStructureFlagBits): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to maxInstanceCount, LONG to flags.flag)
-    TransferContext.callMethod(MethodBindings.tlasCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun tlasCreate(maxInstanceCount: Long, flags: AccelerationStructureFlagBits): RID =
+      TransferContext.callPtrMethod_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.tlasCreatePtr, maxInstanceCount, flags.flag)
 
   /**
    * Builds the [blas].
    */
-  public final fun blasBuild(blas: RID): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to blas)
-    TransferContext.callMethod(MethodBindings.blasBuildPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun blasBuild(blas: RID): Error =
+      Error.from(TransferContext.callPtrMethod_RID_ret_LONG(ptr, objectID.id, MethodBindings.blasBuildPtr, blas))
 
   /**
    * Builds the [tlas]. The contents of previous builds are discarded.
@@ -1184,11 +1070,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * TLAS and requires it to be rebuilt.
    */
   public final fun tlasBuild(tlas: RID, instances: VariantArray<RDAccelerationStructureInstance>):
-      Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to tlas, ARRAY to instances)
-    TransferContext.callMethod(MethodBindings.tlasBuildPtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+      Error =
+      Error.from(TransferContext.callPtrMethod_RID_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.tlasBuildPtr, tlas, instances))
 
   /**
    * Creates a new hit shader binding table (SBT). It can be accessed with the RID that is returned.
@@ -1201,11 +1084,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * The hit SBT resizes itself as needed. [initialHitGroupCapacity] is used to allocate the initial
    * backing memory.
    */
-  public final fun hitSbtCreate(raytracingPipeline: RID, initialHitGroupCapacity: Long): RID {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to raytracingPipeline, LONG to initialHitGroupCapacity)
-    TransferContext.callMethod(MethodBindings.hitSbtCreatePtr)
-    return (TransferContext.readReturnValue(_RID) as RID)
-  }
+  public final fun hitSbtCreate(raytracingPipeline: RID, initialHitGroupCapacity: Long): RID =
+      TransferContext.callPtrMethod_RID_LONG_ret_RID(ptr, objectID.id, MethodBindings.hitSbtCreatePtr, raytracingPipeline, initialHitGroupCapacity)
 
   /**
    * Sets a new [raytracingPipeline] for [hitSbt].
@@ -1215,11 +1095,8 @@ public open class RenderingDevice internal constructor() : Object() {
    *
    * The previous pipeline must remain valid during the call.
    */
-  public final fun hitSbtSetPipeline(hitSbt: RID, raytracingPipeline: RID): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to hitSbt, _RID to raytracingPipeline)
-    TransferContext.callMethod(MethodBindings.hitSbtSetPipelinePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun hitSbtSetPipeline(hitSbt: RID, raytracingPipeline: RID): Error =
+      Error.from(TransferContext.callPtrMethod_RID_RID_ret_LONG(ptr, objectID.id, MethodBindings.hitSbtSetPipelinePtr, hitSbt, raytracingPipeline))
 
   /**
    * Allocates a contiguous range of SBT entries from [hitSbt].
@@ -1245,22 +1122,16 @@ public open class RenderingDevice internal constructor() : Object() {
    *
    * The allocated range is uninitialized and must be filled using [hitSbtRangeUpdate].
    */
-  public final fun hitSbtRangeAlloc(hitSbt: RID, hitGroupCount: Long): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to hitSbt, LONG to hitGroupCount)
-    TransferContext.callMethod(MethodBindings.hitSbtRangeAllocPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun hitSbtRangeAlloc(hitSbt: RID, hitGroupCount: Long): Long =
+      TransferContext.callPtrMethod_RID_LONG_ret_LONG(ptr, objectID.id, MethodBindings.hitSbtRangeAllocPtr, hitSbt, hitGroupCount)
 
   /**
    * Frees a hit SBT range previously allocated with [hitSbtRangeAlloc].
    *
    * The range must not be in use by any acceleration structure after being freed.
    */
-  public final fun hitSbtRangeFree(hitSbt: RID, range: Long): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to hitSbt, LONG to range)
-    TransferContext.callMethod(MethodBindings.hitSbtRangeFreePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun hitSbtRangeFree(hitSbt: RID, range: Long): Error =
+      Error.from(TransferContext.callPtrMethod_RID_LONG_ret_LONG(ptr, objectID.id, MethodBindings.hitSbtRangeFreePtr, hitSbt, range))
 
   /**
    * Updates the contents of a hit SBT range.
@@ -1277,11 +1148,8 @@ public open class RenderingDevice internal constructor() : Object() {
     range: Long,
     offset: Long,
     hitGroupIndices: PackedInt32Array,
-  ): Error {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to hitSbt, LONG to range, LONG to offset, PACKED_INT_32_ARRAY to hitGroupIndices)
-    TransferContext.callMethod(MethodBindings.hitSbtRangeUpdatePtr)
-    return Error.from(TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Error =
+      Error.from(TransferContext.callPtrMethod_RID_LONG_LONG_PACKED_INT_32_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.hitSbtRangeUpdatePtr, hitSbt, range, offset, hitGroupIndices))
 
   /**
    * Returns the window width matching the graphics API context for the given window ID (in pixels).
@@ -1293,11 +1161,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * [INVALID_ID].
    */
   @JvmOverloads
-  public final fun screenGetWidth(screen: Int = 0): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to screen.toLong())
-    TransferContext.callMethod(MethodBindings.screenGetWidthPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun screenGetWidth(screen: Int = 0): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.screenGetWidthPtr, screen.toLong()).toInt()
 
   /**
    * Returns the window height matching the graphics API context for the given window ID (in
@@ -1309,11 +1174,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * [INVALID_ID].
    */
   @JvmOverloads
-  public final fun screenGetHeight(screen: Int = 0): Int {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to screen.toLong())
-    TransferContext.callMethod(MethodBindings.screenGetHeightPtr)
-    return (TransferContext.readReturnValue(LONG) as Long).toInt()
-  }
+  public final fun screenGetHeight(screen: Int = 0): Int =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.screenGetHeightPtr, screen.toLong()).toInt()
 
   /**
    * Returns the framebuffer format of the given screen.
@@ -1323,11 +1185,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * [INVALID_ID].
    */
   @JvmOverloads
-  public final fun screenGetFramebufferFormat(screen: Int = 0): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to screen.toLong())
-    TransferContext.callMethod(MethodBindings.screenGetFramebufferFormatPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun screenGetFramebufferFormat(screen: Int = 0): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.screenGetFramebufferFormatPtr, screen.toLong())
 
   /**
    * High-level variant of [drawListBegin], with the parameters automatically being adjusted for
@@ -1338,11 +1197,8 @@ public open class RenderingDevice internal constructor() : Object() {
    */
   @JvmOverloads
   public final fun drawListBeginForScreen(screen: Int = 0, clearColor: Color = Color(Color(0, 0, 0,
-      1))): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to screen.toLong(), COLOR to clearColor)
-    TransferContext.callMethod(MethodBindings.drawListBeginForScreenPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+      1))): Long =
+      TransferContext.callPtrMethod_LONG_COLOR_ret_LONG(ptr, objectID.id, MethodBindings.drawListBeginForScreenPtr, screen.toLong(), clearColor)
 
   /**
    * Starts a list of raster drawing commands created with the `draw_*` methods. The returned value
@@ -1404,11 +1260,8 @@ public open class RenderingDevice internal constructor() : Object() {
     clearStencilValue: Long = 0,
     region: Rect2 = Rect2(0.0, 0.0, 0.0, 0.0),
     breadcrumb: Long = 0,
-  ): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to framebuffer, LONG to drawFlags.flag, PACKED_COLOR_ARRAY to clearColorValues, DOUBLE to clearDepthValue.toDouble(), LONG to clearStencilValue, RECT2 to region, LONG to breadcrumb)
-    TransferContext.callMethod(MethodBindings.drawListBeginPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Long =
+      TransferContext.callPtrMethod_RID_LONG_PACKED_COLOR_ARRAY_DOUBLE_LONG_RECT2_LONG_ret_LONG(ptr, objectID.id, MethodBindings.drawListBeginPtr, framebuffer, drawFlags.flag, clearColorValues, clearDepthValue.toDouble(), clearStencilValue, region, breadcrumb)
 
   /**
    * This method does nothing and always returns an empty [PackedInt64Array].
@@ -1426,27 +1279,22 @@ public open class RenderingDevice internal constructor() : Object() {
     clearStencil: Long = 0,
     region: Rect2 = Rect2(0.0, 0.0, 0.0, 0.0),
     storageTextures: VariantArray<RID> = godot.core.variantArrayOf(),
-  ): PackedInt64Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to framebuffer, LONG to splits, LONG to initialColorAction.value, LONG to finalColorAction.value, LONG to initialDepthAction.value, LONG to finalDepthAction.value, PACKED_COLOR_ARRAY to clearColorValues, DOUBLE to clearDepth.toDouble(), LONG to clearStencil, RECT2 to region, ARRAY to storageTextures)
-    TransferContext.callMethod(MethodBindings.drawListBeginSplitPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_64_ARRAY) as PackedInt64Array)
-  }
+  ): PackedInt64Array =
+      TransferContext.callPtrMethod_RID_LONG_LONG_LONG_LONG_LONG_PACKED_COLOR_ARRAY_DOUBLE_LONG_RECT2_ARRAY_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.drawListBeginSplitPtr, framebuffer, splits, initialColorAction.value, finalColorAction.value, initialDepthAction.value, finalDepthAction.value, clearColorValues, clearDepth.toDouble(), clearStencil, region, storageTextures)
 
   /**
    * Sets blend constants for the specified [drawList] to [color]. Blend constants are used only if
    * the graphics pipeline is created with [DYNAMIC_STATE_BLEND_CONSTANTS] flag set.
    */
   public final fun drawListSetBlendConstants(drawList: Long, color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to drawList, COLOR to color)
-    TransferContext.callMethod(MethodBindings.drawListSetBlendConstantsPtr)
+    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.drawListSetBlendConstantsPtr, drawList, color)
   }
 
   /**
    * Binds [renderPipeline] to the specified [drawList].
    */
   public final fun drawListBindRenderPipeline(drawList: Long, renderPipeline: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to drawList, _RID to renderPipeline)
-    TransferContext.callMethod(MethodBindings.drawListBindRenderPipelinePtr)
+    TransferContext.callPtrMethod_LONG_RID(ptr, objectID.id, MethodBindings.drawListBindRenderPipelinePtr, drawList, renderPipeline)
   }
 
   /**
@@ -1458,16 +1306,14 @@ public open class RenderingDevice internal constructor() : Object() {
     uniformSet: RID,
     setIndex: Long,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to drawList, _RID to uniformSet, LONG to setIndex)
-    TransferContext.callMethod(MethodBindings.drawListBindUniformSetPtr)
+    TransferContext.callPtrMethod_LONG_RID_LONG(ptr, objectID.id, MethodBindings.drawListBindUniformSetPtr, drawList, uniformSet, setIndex)
   }
 
   /**
    * Binds [vertexArray] to the specified [drawList].
    */
   public final fun drawListBindVertexArray(drawList: Long, vertexArray: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to drawList, _RID to vertexArray)
-    TransferContext.callMethod(MethodBindings.drawListBindVertexArrayPtr)
+    TransferContext.callPtrMethod_LONG_RID(ptr, objectID.id, MethodBindings.drawListBindVertexArrayPtr, drawList, vertexArray)
   }
 
   /**
@@ -1483,16 +1329,14 @@ public open class RenderingDevice internal constructor() : Object() {
     vertexBuffers: VariantArray<RID>,
     offsets: PackedInt64Array = PackedInt64Array(),
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to drawList, LONG to vertexFormat, LONG to vertexCount, ARRAY to vertexBuffers, PACKED_INT_64_ARRAY to offsets)
-    TransferContext.callMethod(MethodBindings.drawListBindVertexBuffersFormatPtr)
+    TransferContext.callPtrMethod_LONG_LONG_LONG_ARRAY_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.drawListBindVertexBuffersFormatPtr, drawList, vertexFormat, vertexCount, vertexBuffers, offsets)
   }
 
   /**
    * Binds [indexArray] to the specified [drawList].
    */
   public final fun drawListBindIndexArray(drawList: Long, indexArray: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to drawList, _RID to indexArray)
-    TransferContext.callMethod(MethodBindings.drawListBindIndexArrayPtr)
+    TransferContext.callPtrMethod_LONG_RID(ptr, objectID.id, MethodBindings.drawListBindIndexArrayPtr, drawList, indexArray)
   }
 
   /**
@@ -1505,8 +1349,7 @@ public open class RenderingDevice internal constructor() : Object() {
     buffer: PackedByteArray,
     sizeBytes: Long,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to drawList, PACKED_BYTE_ARRAY to buffer, LONG to sizeBytes)
-    TransferContext.callMethod(MethodBindings.drawListSetPushConstantPtr)
+    TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG(ptr, objectID.id, MethodBindings.drawListSetPushConstantPtr, drawList, buffer, sizeBytes)
   }
 
   /**
@@ -1520,8 +1363,7 @@ public open class RenderingDevice internal constructor() : Object() {
     instances: Long,
     proceduralVertexCount: Long = 0,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to drawList, BOOL to useIndices, LONG to instances, LONG to proceduralVertexCount)
-    TransferContext.callMethod(MethodBindings.drawListDrawPtr)
+    TransferContext.callPtrMethod_LONG_BOOL_LONG_LONG(ptr, objectID.id, MethodBindings.drawListDrawPtr, drawList, useIndices, instances, proceduralVertexCount)
   }
 
   /**
@@ -1539,8 +1381,7 @@ public open class RenderingDevice internal constructor() : Object() {
     drawCount: Long = 1,
     stride: Long = 0,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to drawList, BOOL to useIndices, _RID to buffer, LONG to offset, LONG to drawCount, LONG to stride)
-    TransferContext.callMethod(MethodBindings.drawListDrawIndirectPtr)
+    TransferContext.callPtrMethod_LONG_BOOL_RID_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.drawListDrawIndirectPtr, drawList, useIndices, buffer, offset, drawCount, stride)
   }
 
   /**
@@ -1554,8 +1395,7 @@ public open class RenderingDevice internal constructor() : Object() {
   @JvmOverloads
   public final fun drawListEnableScissor(drawList: Long, rect: Rect2 = Rect2(0.0, 0.0, 0.0, 0.0)):
       Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to drawList, RECT2 to rect)
-    TransferContext.callMethod(MethodBindings.drawListEnableScissorPtr)
+    TransferContext.callPtrMethod_LONG_RECT2(ptr, objectID.id, MethodBindings.drawListEnableScissorPtr, drawList, rect)
   }
 
   /**
@@ -1563,34 +1403,26 @@ public open class RenderingDevice internal constructor() : Object() {
    * [drawListEnableScissor].
    */
   public final fun drawListDisableScissor(drawList: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to drawList)
-    TransferContext.callMethod(MethodBindings.drawListDisableScissorPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.drawListDisableScissorPtr, drawList)
   }
 
   /**
    * Switches to the next draw pass.
    */
-  public final fun drawListSwitchToNextPass(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.drawListSwitchToNextPassPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun drawListSwitchToNextPass(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.drawListSwitchToNextPassPtr)
 
   /**
    * This method does nothing and always returns an empty [PackedInt64Array].
    */
-  public final fun drawListSwitchToNextPassSplit(splits: Long): PackedInt64Array {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to splits)
-    TransferContext.callMethod(MethodBindings.drawListSwitchToNextPassSplitPtr)
-    return (TransferContext.readReturnValue(PACKED_INT_64_ARRAY) as PackedInt64Array)
-  }
+  public final fun drawListSwitchToNextPassSplit(splits: Long): PackedInt64Array =
+      TransferContext.callPtrMethod_LONG_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.drawListSwitchToNextPassSplitPtr, splits)
 
   /**
    * Finishes a list of raster drawing commands created with the `draw_*` methods.
    */
   public final fun drawListEnd(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.drawListEndPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.drawListEndPtr)
   }
 
   /**
@@ -1618,11 +1450,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * rd.compute_list_end()
    * ```
    */
-  public final fun computeListBegin(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.computeListBeginPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun computeListBegin(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.computeListBeginPtr)
 
   /**
    * Tells the GPU what compute pipeline to use when processing the compute list. If the shader has
@@ -1630,8 +1459,7 @@ public open class RenderingDevice internal constructor() : Object() {
    * will re-bind them inside [computeListDispatch].
    */
   public final fun computeListBindComputePipeline(computeList: Long, computePipeline: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to computeList, _RID to computePipeline)
-    TransferContext.callMethod(MethodBindings.computeListBindComputePipelinePtr)
+    TransferContext.callPtrMethod_LONG_RID(ptr, objectID.id, MethodBindings.computeListBindComputePipelinePtr, computeList, computePipeline)
   }
 
   /**
@@ -1644,8 +1472,7 @@ public open class RenderingDevice internal constructor() : Object() {
     buffer: PackedByteArray,
     sizeBytes: Long,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to computeList, PACKED_BYTE_ARRAY to buffer, LONG to sizeBytes)
-    TransferContext.callMethod(MethodBindings.computeListSetPushConstantPtr)
+    TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG(ptr, objectID.id, MethodBindings.computeListSetPushConstantPtr, computeList, buffer, sizeBytes)
   }
 
   /**
@@ -1658,8 +1485,7 @@ public open class RenderingDevice internal constructor() : Object() {
     uniformSet: RID,
     setIndex: Long,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to computeList, _RID to uniformSet, LONG to setIndex)
-    TransferContext.callMethod(MethodBindings.computeListBindUniformSetPtr)
+    TransferContext.callPtrMethod_LONG_RID_LONG(ptr, objectID.id, MethodBindings.computeListBindUniformSetPtr, computeList, uniformSet, setIndex)
   }
 
   /**
@@ -1672,8 +1498,7 @@ public open class RenderingDevice internal constructor() : Object() {
     yGroups: Long,
     zGroups: Long,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to computeList, LONG to xGroups, LONG to yGroups, LONG to zGroups)
-    TransferContext.callMethod(MethodBindings.computeListDispatchPtr)
+    TransferContext.callPtrMethod_LONG_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.computeListDispatchPtr, computeList, xGroups, yGroups, zGroups)
   }
 
   /**
@@ -1686,24 +1511,21 @@ public open class RenderingDevice internal constructor() : Object() {
     buffer: RID,
     offset: Long,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to computeList, _RID to buffer, LONG to offset)
-    TransferContext.callMethod(MethodBindings.computeListDispatchIndirectPtr)
+    TransferContext.callPtrMethod_LONG_RID_LONG(ptr, objectID.id, MethodBindings.computeListDispatchIndirectPtr, computeList, buffer, offset)
   }
 
   /**
    * Raises a Vulkan compute barrier in the specified [computeList].
    */
   public final fun computeListAddBarrier(computeList: Long): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to computeList)
-    TransferContext.callMethod(MethodBindings.computeListAddBarrierPtr)
+    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.computeListAddBarrierPtr, computeList)
   }
 
   /**
    * Finishes a list of compute commands created with the `compute_*` methods.
    */
   public final fun computeListEnd(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.computeListEndPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.computeListEndPtr)
   }
 
   /**
@@ -1761,19 +1583,15 @@ public open class RenderingDevice internal constructor() : Object() {
    * rd.raytracing_list_end()
    * ```
    */
-  public final fun raytracingListBegin(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.raytracingListBeginPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun raytracingListBegin(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.raytracingListBeginPtr)
 
   /**
    * Binds [raytracingPipeline] to the specified [raytracingList].
    */
   public final fun raytracingListBindRaytracingPipeline(raytracingList: Long,
       raytracingPipeline: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to raytracingList, _RID to raytracingPipeline)
-    TransferContext.callMethod(MethodBindings.raytracingListBindRaytracingPipelinePtr)
+    TransferContext.callPtrMethod_LONG_RID(ptr, objectID.id, MethodBindings.raytracingListBindRaytracingPipelinePtr, raytracingList, raytracingPipeline)
   }
 
   /**
@@ -1787,8 +1605,7 @@ public open class RenderingDevice internal constructor() : Object() {
     buffer: PackedByteArray,
     sizeBytes: Long,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to raytracingList, PACKED_BYTE_ARRAY to buffer, LONG to sizeBytes)
-    TransferContext.callMethod(MethodBindings.raytracingListSetPushConstantPtr)
+    TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_LONG(ptr, objectID.id, MethodBindings.raytracingListSetPushConstantPtr, raytracingList, buffer, sizeBytes)
   }
 
   /**
@@ -1799,8 +1616,7 @@ public open class RenderingDevice internal constructor() : Object() {
     uniformSet: RID,
     setIndex: Long,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to raytracingList, _RID to uniformSet, LONG to setIndex)
-    TransferContext.callMethod(MethodBindings.raytracingListBindUniformSetPtr)
+    TransferContext.callPtrMethod_LONG_RID_LONG(ptr, objectID.id, MethodBindings.raytracingListBindUniformSetPtr, raytracingList, uniformSet, setIndex)
   }
 
   /**
@@ -1820,16 +1636,14 @@ public open class RenderingDevice internal constructor() : Object() {
     height: Long,
     depth: Long,
   ): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to raytracingList, LONG to raygenShaderIndex, _RID to hitSbt, LONG to width, LONG to height, LONG to depth)
-    TransferContext.callMethod(MethodBindings.raytracingListTraceRaysPtr)
+    TransferContext.callPtrMethod_LONG_LONG_RID_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.raytracingListTraceRaysPtr, raytracingList, raygenShaderIndex, hitSbt, width, height, depth)
   }
 
   /**
    * Finishes a list of raytracing commands created with the `raytracing_*` methods.
    */
   public final fun raytracingListEnd(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.raytracingListEndPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.raytracingListEndPtr)
   }
 
   /**
@@ -1838,8 +1652,7 @@ public open class RenderingDevice internal constructor() : Object() {
    * directly.
    */
   public final fun freeRid(rid: RID): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to rid)
-    TransferContext.callMethod(MethodBindings.freeRidPtr)
+    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.freeRidPtr, rid)
   }
 
   /**
@@ -1848,67 +1661,48 @@ public open class RenderingDevice internal constructor() : Object() {
    * [getCapturedTimestampName] methods.
    */
   public final fun captureTimestamp(name: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name)
-    TransferContext.callMethod(MethodBindings.captureTimestampPtr)
+    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.captureTimestampPtr, name)
   }
 
   /**
    * Returns the total number of timestamps (rendering steps) available for profiling.
    */
-  public final fun getCapturedTimestampsCount(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCapturedTimestampsCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCapturedTimestampsCount(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCapturedTimestampsCountPtr)
 
   /**
    * Returns the index of the last frame rendered that has rendering timestamps available for
    * querying.
    */
-  public final fun getCapturedTimestampsFrame(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getCapturedTimestampsFramePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCapturedTimestampsFrame(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCapturedTimestampsFramePtr)
 
   /**
    * Returns the timestamp in GPU time for the rendering step specified by [index] (in microseconds
    * since the engine started). See also [getCapturedTimestampCpuTime] and [captureTimestamp].
    */
-  public final fun getCapturedTimestampGpuTime(index: Long): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
-    TransferContext.callMethod(MethodBindings.getCapturedTimestampGpuTimePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCapturedTimestampGpuTime(index: Long): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getCapturedTimestampGpuTimePtr, index)
 
   /**
    * Returns the timestamp in CPU time for the rendering step specified by [index] (in microseconds
    * since the engine started). See also [getCapturedTimestampGpuTime] and [captureTimestamp].
    */
-  public final fun getCapturedTimestampCpuTime(index: Long): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
-    TransferContext.callMethod(MethodBindings.getCapturedTimestampCpuTimePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getCapturedTimestampCpuTime(index: Long): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getCapturedTimestampCpuTimePtr, index)
 
   /**
    * Returns the timestamp's name for the rendering step specified by [index]. See also
    * [captureTimestamp].
    */
-  public final fun getCapturedTimestampName(index: Long): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to index)
-    TransferContext.callMethod(MethodBindings.getCapturedTimestampNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getCapturedTimestampName(index: Long): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getCapturedTimestampNamePtr, index)
 
   /**
    * Returns `true` if the [feature] is supported by the GPU.
    */
-  public final fun hasFeature(feature: Features): Boolean {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to feature.value)
-    TransferContext.callMethod(MethodBindings.hasFeaturePtr)
-    return (TransferContext.readReturnValue(BOOL) as Boolean)
-  }
+  public final fun hasFeature(feature: Features): Boolean =
+      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.hasFeaturePtr, feature.value)
 
   /**
    * Returns the value of the specified [limit]. This limit varies depending on the current graphics
@@ -1918,22 +1712,16 @@ public open class RenderingDevice internal constructor() : Object() {
    * Limits for various graphics hardware can be found in the
    * [url=https://vulkan.gpuinfo.org/]Vulkan Hardware Database[/url].
    */
-  public final fun limitGet(limit: Limit): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to limit.value)
-    TransferContext.callMethod(MethodBindings.limitGetPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun limitGet(limit: Limit): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.limitGetPtr, limit.value)
 
   /**
    * Returns the frame count kept by the graphics API. Higher values result in higher input lag, but
    * with more consistent throughput. For the main [RenderingDevice], frames are cycled (usually 3 with
    * triple-buffered V-Sync enabled). However, local [RenderingDevice]s only have 1 frame.
    */
-  public final fun getFrameDelay(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getFrameDelayPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getFrameDelay(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFrameDelayPtr)
 
   /**
    * Pushes the frame setup and draw command buffers then marks the local device as currently
@@ -1942,8 +1730,7 @@ public open class RenderingDevice internal constructor() : Object() {
    * **Note:** Only available in local RenderingDevices.
    */
   public final fun submit(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.submitPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.submitPtr)
   }
 
   /**
@@ -1955,8 +1742,7 @@ public open class RenderingDevice internal constructor() : Object() {
    * **Note:** [sync] can only be called after a [submit].
    */
   public final fun sync(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.syncPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.syncPtr)
   }
 
   /**
@@ -1965,27 +1751,22 @@ public open class RenderingDevice internal constructor() : Object() {
   @JvmOverloads
   public final fun barrier(from: BarrierMask = RenderingDevice.BarrierMask.ALL_BARRIERS,
       to: BarrierMask = RenderingDevice.BarrierMask.ALL_BARRIERS): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to from.flag, LONG to to.flag)
-    TransferContext.callMethod(MethodBindings.barrierPtr)
+    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.barrierPtr, from.flag, to.flag)
   }
 
   /**
    * This method does nothing.
    */
   public final fun fullBarrier(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.fullBarrierPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.fullBarrierPtr)
   }
 
   /**
    * Create a new local [RenderingDevice]. This is most useful for performing compute operations on
    * the GPU independently from the rest of the engine.
    */
-  public final fun createLocalDevice(): RenderingDevice? {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.createLocalDevicePtr)
-    return (TransferContext.readReturnValue(OBJECT) as RenderingDevice?)
-  }
+  public final fun createLocalDevice(): RenderingDevice? =
+      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.createLocalDevicePtr) as RenderingDevice?)
 
   /**
    * Sets the resource name for [id] to [name]. This is used for debugging with third-party tools
@@ -2002,8 +1783,7 @@ public open class RenderingDevice internal constructor() : Object() {
    * extension for named resources to work.
    */
   public final fun setResourceName(id: RID, name: String): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, _RID to id, STRING to name)
-    TransferContext.callMethod(MethodBindings.setResourceNamePtr)
+    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.setResourceNamePtr, id, name)
   }
 
   /**
@@ -2016,45 +1796,36 @@ public open class RenderingDevice internal constructor() : Object() {
    * command buffer debug label region to work. See also [drawCommandEndLabel].
    */
   public final fun drawCommandBeginLabel(name: String, color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name, COLOR to color)
-    TransferContext.callMethod(MethodBindings.drawCommandBeginLabelPtr)
+    TransferContext.callMethod_STRING_COLOR(ptr, objectID.id, MethodBindings.drawCommandBeginLabelPtr, name, color)
   }
 
   /**
    * This method does nothing.
    */
   public final fun drawCommandInsertLabel(name: String, color: Color): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id, STRING to name, COLOR to color)
-    TransferContext.callMethod(MethodBindings.drawCommandInsertLabelPtr)
+    TransferContext.callMethod_STRING_COLOR(ptr, objectID.id, MethodBindings.drawCommandInsertLabelPtr, name, color)
   }
 
   /**
    * Ends the command buffer debug label region started by a [drawCommandBeginLabel] call.
    */
   public final fun drawCommandEndLabel(): Unit {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.drawCommandEndLabelPtr)
+    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.drawCommandEndLabelPtr)
   }
 
   /**
    * Returns the vendor of the video adapter (e.g. "NVIDIA Corporation"). Equivalent to
    * [RenderingServer.getVideoAdapterVendor]. See also [getDeviceName].
    */
-  public final fun getDeviceVendorName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDeviceVendorNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getDeviceVendorName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDeviceVendorNamePtr)
 
   /**
    * Returns the name of the video adapter (e.g. "GeForce GTX 1080/PCIe/SSE2"). Equivalent to
    * [RenderingServer.getVideoAdapterName]. See also [getDeviceVendorName].
    */
-  public final fun getDeviceName(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDeviceNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getDeviceName(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDeviceNamePtr)
 
   /**
    * Returns the universally unique identifier for the pipeline cache. This is used to cache shader
@@ -2062,11 +1833,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * depending on the graphics card model, but also the driver version. Therefore, updating graphics
    * drivers will invalidate the shader cache.
    */
-  public final fun getDevicePipelineCacheUuid(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDevicePipelineCacheUuidPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getDevicePipelineCacheUuid(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDevicePipelineCacheUuidPtr)
 
   /**
    * Returns the memory usage in bytes corresponding to the given [type]. When using Vulkan, these
@@ -2074,11 +1842,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * [url=https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator]Vulkan Memory
    * Allocator[/url].
    */
-  public final fun getMemoryUsage(type: MemoryType): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type.value)
-    TransferContext.callMethod(MethodBindings.getMemoryUsagePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getMemoryUsage(type: MemoryType): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getMemoryUsagePtr, type.value)
 
   /**
    * Returns the unique identifier of the driver [resource] for the specified [rid]. Some driver
@@ -2088,20 +1853,14 @@ public open class RenderingDevice internal constructor() : Object() {
     resource: DriverResource,
     rid: RID,
     index: Long,
-  ): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to resource.value, _RID to rid, LONG to index)
-    TransferContext.callMethod(MethodBindings.getDriverResourcePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  ): Long =
+      TransferContext.callPtrMethod_LONG_RID_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getDriverResourcePtr, resource.value, rid, index)
 
   /**
    * Returns a string with a performance report from the past frame. Updates every frame.
    */
-  public final fun getPerfReport(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getPerfReportPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getPerfReport(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPerfReportPtr)
 
   /**
    * Returns string report in CSV format using the following methods:
@@ -2130,11 +1889,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * `--extra-gpu-memory-tracking` [url=$DOCS_URL/tutorials/editor/command_line_tutorial.html]command
    * line argument[/url].
    */
-  public final fun getDriverAndDeviceMemoryReport(): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDriverAndDeviceMemoryReportPtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getDriverAndDeviceMemoryReport(): String =
+      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDriverAndDeviceMemoryReportPtr)
 
   /**
    * Returns the name of the type of object for the given [typeIndex]. This value must be in range
@@ -2160,11 +1916,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * `--extra-gpu-memory-tracking` [url=$DOCS_URL/tutorials/editor/command_line_tutorial.html]command
    * line argument[/url].
    */
-  public final fun getTrackedObjectName(typeIndex: Long): String {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to typeIndex)
-    TransferContext.callMethod(MethodBindings.getTrackedObjectNamePtr)
-    return (TransferContext.readReturnValue(STRING) as String)
-  }
+  public final fun getTrackedObjectName(typeIndex: Long): String =
+      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getTrackedObjectNamePtr, typeIndex)
 
   /**
    * Returns how many types of trackable objects there are.
@@ -2173,11 +1926,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * `--extra-gpu-memory-tracking` [url=$DOCS_URL/tutorials/editor/command_line_tutorial.html]command
    * line argument[/url].
    */
-  public final fun getTrackedObjectTypeCount(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getTrackedObjectTypeCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getTrackedObjectTypeCount(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTrackedObjectTypeCountPtr)
 
   /**
    * Returns how much bytes the GPU driver is using for internal driver structures.
@@ -2185,11 +1935,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * This is only used by Vulkan in debug builds and can return 0 when this information is not
    * tracked or unknown.
    */
-  public final fun getDriverTotalMemory(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDriverTotalMemoryPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDriverTotalMemory(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDriverTotalMemoryPtr)
 
   /**
    * Returns how many allocations the GPU driver has performed for internal driver structures.
@@ -2197,11 +1944,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * This is only used by Vulkan in debug builds and can return 0 when this information is not
    * tracked or unknown.
    */
-  public final fun getDriverAllocationCount(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDriverAllocationCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDriverAllocationCount(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDriverAllocationCountPtr)
 
   /**
    * Same as [getDriverTotalMemory] but filtered for a given object type.
@@ -2212,11 +1956,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * This is only used by Vulkan in debug builds and can return 0 when this information is not
    * tracked or unknown.
    */
-  public final fun getDriverMemoryByObjectType(type: Long): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type)
-    TransferContext.callMethod(MethodBindings.getDriverMemoryByObjectTypePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDriverMemoryByObjectType(type: Long): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getDriverMemoryByObjectTypePtr, type)
 
   /**
    * Same as [getDriverAllocationCount] but filtered for a given object type.
@@ -2227,11 +1968,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * This is only used by Vulkan in debug builds and can return 0 when this information is not
    * tracked or unknown.
    */
-  public final fun getDriverAllocsByObjectType(type: Long): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type)
-    TransferContext.callMethod(MethodBindings.getDriverAllocsByObjectTypePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDriverAllocsByObjectType(type: Long): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getDriverAllocsByObjectTypePtr, type)
 
   /**
    * Returns how much bytes the GPU is using.
@@ -2239,11 +1977,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * This is only used by Vulkan in debug builds and can return 0 when this information is not
    * tracked or unknown.
    */
-  public final fun getDeviceTotalMemory(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDeviceTotalMemoryPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDeviceTotalMemory(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDeviceTotalMemoryPtr)
 
   /**
    * Returns how many allocations the GPU has performed for internal driver structures.
@@ -2251,11 +1986,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * This is only used by Vulkan in debug builds and can return 0 when this information is not
    * tracked or unknown.
    */
-  public final fun getDeviceAllocationCount(): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id)
-    TransferContext.callMethod(MethodBindings.getDeviceAllocationCountPtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDeviceAllocationCount(): Long =
+      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDeviceAllocationCountPtr)
 
   /**
    * Same as [getDeviceTotalMemory] but filtered for a given object type.
@@ -2266,11 +1998,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * This is only used by Vulkan in debug builds and can return 0 when this information is not
    * tracked or unknown.
    */
-  public final fun getDeviceMemoryByObjectType(type: Long): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type)
-    TransferContext.callMethod(MethodBindings.getDeviceMemoryByObjectTypePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDeviceMemoryByObjectType(type: Long): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getDeviceMemoryByObjectTypePtr, type)
 
   /**
    * Same as [getDeviceAllocationCount] but filtered for a given object type.
@@ -2281,11 +2010,8 @@ public open class RenderingDevice internal constructor() : Object() {
    * This is only used by Vulkan in debug builds and can return 0 when this information is not
    * tracked or unknown.
    */
-  public final fun getDeviceAllocsByObjectType(type: Long): Long {
-    TransferContext.writeMethodArguments(ptr, objectID.id, LONG to type)
-    TransferContext.callMethod(MethodBindings.getDeviceAllocsByObjectTypePtr)
-    return (TransferContext.readReturnValue(LONG) as Long)
-  }
+  public final fun getDeviceAllocsByObjectType(type: Long): Long =
+      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getDeviceAllocsByObjectTypePtr, type)
 
   public enum class DeviceType(
     public override val `value`: Long,
