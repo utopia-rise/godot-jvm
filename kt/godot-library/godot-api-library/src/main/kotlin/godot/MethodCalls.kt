@@ -5,6 +5,8 @@ package godot
 
 import godot.`internal`.memory.ValueBuffer
 import godot.`internal`.memory.VariantBuffer
+import godot.common.constants.Constraints
+import godot.common.constants.Constraints.checkArgumentCount
 import godot.common.interop.VoidPtr
 import godot.core.AABB
 import godot.core.Basis
@@ -3918,6 +3920,7 @@ internal fun KtObject.callMethod_STRING_NAME_STRING_NAME_VARARG_ret_ANY(
   p1: StringName,
   args: Array<*>,
 ): Any? {
+  checkArgumentCount(2 + args.size)
   val buffer = VariantBuffer.transfer.open(ptr, objectID.id, 2 + args.size)
   STRING_NAME.toGodot(buffer, p0)
   STRING_NAME.toGodot(buffer, p1)
@@ -6885,6 +6888,7 @@ internal fun KtObject.callMethod_STRING_ret_OBJECT_REF(methodPtr: VoidPtr, p0: S
 }
 
 internal fun KtObject.callMethod_VARARG_ret_ANY(methodPtr: VoidPtr, args: Array<*>): Any? {
+  checkArgumentCount(args.size)
   val buffer = VariantBuffer.transfer.open(ptr, objectID.id, args.size)
   for (arg in args) {
     ANY.toGodot(buffer, arg)
@@ -9082,6 +9086,7 @@ internal fun KtObject.callMethod_STRING_VARARG_ret_ANY(
   p0: String,
   args: Array<*>,
 ): Any? {
+  checkArgumentCount(1 + args.size)
   val buffer = VariantBuffer.transfer.open(ptr, objectID.id, 1 + args.size)
   STRING.toGodot(buffer, p0)
   for (arg in args) {
@@ -10460,6 +10465,7 @@ internal fun KtObject.callMethod_STRING_NAME_VARARG_ret_LONG(
   p0: StringName,
   args: Array<*>,
 ): Long {
+  checkArgumentCount(1 + args.size)
   val buffer = VariantBuffer.transfer.open(ptr, objectID.id, 1 + args.size)
   STRING_NAME.toGodot(buffer, p0)
   for (arg in args) {
@@ -10475,6 +10481,7 @@ internal fun KtObject.callMethod_LONG_STRING_NAME_VARARG_ret_LONG(
   p1: StringName,
   args: Array<*>,
 ): Long {
+  checkArgumentCount(2 + args.size)
   val buffer = VariantBuffer.transfer.open(ptr, objectID.id, 2 + args.size)
   LONG.write(buffer, p0)
   STRING_NAME.toGodot(buffer, p1)
@@ -10490,6 +10497,7 @@ internal fun KtObject.callMethod_STRING_NAME_VARARG_ret_ANY(
   p0: StringName,
   args: Array<*>,
 ): Any? {
+  checkArgumentCount(1 + args.size)
   val buffer = VariantBuffer.transfer.open(ptr, objectID.id, 1 + args.size)
   STRING_NAME.toGodot(buffer, p0)
   for (arg in args) {
@@ -15698,6 +15706,7 @@ internal fun KtObject.callMethod_LONG_STRING_NAME_STRING_NAME_VARARG(
   p2: StringName,
   args: Array<*>,
 ): Unit {
+  checkArgumentCount(3 + args.size)
   val buffer = VariantBuffer.transfer.open(ptr, objectID.id, 3 + args.size)
   LONG.write(buffer, p0)
   STRING_NAME.toGodot(buffer, p1)
@@ -15746,6 +15755,7 @@ internal fun KtObject.callMethod_STRING_NAME_STRING_NAME_VARARG(
   p1: StringName,
   args: Array<*>,
 ): Unit {
+  checkArgumentCount(2 + args.size)
   val buffer = VariantBuffer.transfer.open(ptr, objectID.id, 2 + args.size)
   STRING_NAME.toGodot(buffer, p0)
   STRING_NAME.toGodot(buffer, p1)
@@ -18755,6 +18765,7 @@ internal fun KtObject.callMethod_STRING_NAME_VARARG(
   p0: StringName,
   args: Array<*>,
 ): Unit {
+  checkArgumentCount(1 + args.size)
   val buffer = VariantBuffer.transfer.open(ptr, objectID.id, 1 + args.size)
   STRING_NAME.toGodot(buffer, p0)
   for (arg in args) {

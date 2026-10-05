@@ -2,6 +2,7 @@
 
 package godot.core
 
+import godot.common.constants.Constraints
 import godot.common.interop.ObjectID
 import godot.common.interop.VariantConverter
 import godot.core.Callable.Bridge
@@ -27,7 +28,12 @@ open class LambdaCallable<R> internal constructor(
     override fun rpcId(peerId: Long, vararg args: Any?) = throw UnsupportedOperationException("Can't make a RPC call from a LambdaCallable")
     override fun unbind(argCount: Int) = toNativeCallable().unbind(argCount)
     override fun bindUnsafe(vararg args: Any?) = LambdaCallable<R>(container, arrayOf<Any?>(*args, *boundArgs))
-    override fun callUnsafe(vararg args: Any?) = container.invokeUnsafe(*args, *boundArgs)
+    override fun callUnsafe(vararg args: Any?): R {
+        // The container reads only the arity it was built for, so a longer call would silently drop the rest rather
+        // than fail. Checked here so every Callable refuses the same count for the same reason.
+        Constraints.checkArgumentCount(args.size + boundArgs.size)
+        return container.invokeUnsafe(*args, *boundArgs)
+    }
     override fun callDeferredUnsafe(vararg args: Any?) {
         val ptr = Bridge.engine_call_constructor_lambda_callable(container, container.returnConverter.id, hashCode())
         // We could use the [toVariantCallable] function, but we want to avoid 1 additional JNI calls in case we have bound arguments.

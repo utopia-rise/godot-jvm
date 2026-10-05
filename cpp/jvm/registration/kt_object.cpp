@@ -174,9 +174,9 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall(JNIEnv* p_raw_env, jclass, jlong p_m
 
     uint32_t args_size = transfer->read<uint32_t>();
     JVM_DEV_ASSERT(
-        args_size <= MAX_FUNCTION_ARG_COUNT,
+        args_size <= MAX_ARGUMENT_COUNT,
         "Cannot have more than %s arguments for a method call but tried to call with %s args",
-        MAX_FUNCTION_ARG_COUNT,
+        MAX_ARGUMENT_COUNT,
         args_size
     );
 
@@ -200,8 +200,8 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall(JNIEnv* p_raw_env, jclass, jlong p_m
         );
         VariantStack::pop(args_size);
     } else {
-        godot::Variant args[MAX_FUNCTION_ARG_COUNT];
-        const godot::Variant* args_ptr[MAX_FUNCTION_ARG_COUNT];
+        godot::Variant args[MAX_ARGUMENT_COUNT];
+        const godot::Variant* args_ptr[MAX_ARGUMENT_COUNT];
         for (uint32_t i = 0; i < args_size; ++i) {
             args[i] = transfer->decode();
             args_ptr[i] = &args[i];
@@ -312,9 +312,9 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall_ptr(
 
     uint32_t args_size = frame.read<uint32_t>();
     JVM_DEV_ASSERT(
-        args_size <= MAX_FUNCTION_ARG_COUNT,
+        args_size <= MAX_ARGUMENT_COUNT,
         "Cannot have more than %s arguments for a method call but tried to call with %s args",
-        MAX_FUNCTION_ARG_COUNT,
+        MAX_ARGUMENT_COUNT,
         args_size
     );
 
@@ -322,7 +322,7 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall_ptr(
         static_cast<uintptr_t>(p_method_ptr)
     );
 
-    const void* args[MAX_FUNCTION_ARG_COUNT];
+    const void* args[MAX_ARGUMENT_COUNT];
     frame.read_args(args_size, args);
 
     if (p_return_type == godot::Variant::NIL) {

@@ -37,14 +37,14 @@ object VariantBuffer {
      * The one exchange the buffer holds. Every exchange starts by rewinding, because the buffer holds one call at a
      * time and both sides copy its values out before anything else can use it.
      *
-     * It is sized for [Constraints.MAX_FUNCTION_ARG_COUNT] values of the largest kind, a String at
+     * It is sized for [Constraints.MAX_ARGUMENT_COUNT] values of the largest kind, a String at
      * [LongStringQueue.stringMaxSize], behind a caller pointer, its ObjectID and the argument count.
      */
     class Transfer internal constructor() {
         @PublishedApi
         internal val buffer: ByteBuffer = run {
             val perValue = (LongStringQueue.stringMaxSize + VALUE_OVERHEAD).coerceAtLeast(LARGEST_INLINE_VALUE)
-            val size = (perValue * Constraints.MAX_FUNCTION_ARG_COUNT + HEADER_SIZE + 7) and 7.inv()
+            val size = (perValue * Constraints.MAX_ARGUMENT_COUNT + HEADER_SIZE + 7) and 7.inv()
             ByteBuffer.allocateDirect(size).order(ByteOrder.LITTLE_ENDIAN)
         }
 

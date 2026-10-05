@@ -27,10 +27,10 @@ object RegisterMethodAnalyzer {
 
             if (RegistrationPolicy.registersFunction(method)) {
                 addAll(GenericRegistrationAnalyzer.analyze(method))
-                if (method.parameterList.parametersCount > Constraints.MAX_FUNCTION_ARG_COUNT) {
+                if (method.parameterList.parametersCount > Constraints.MAX_ARGUMENT_COUNT) {
                     add(
                         GodotProblem(
-                            GodotPluginBundle.message("problem.function.toManyParams", Constraints.MAX_FUNCTION_ARG_COUNT),
+                            GodotPluginBundle.message("problem.function.toManyParams", Constraints.MAX_ARGUMENT_COUNT),
                             physicalAnchor(
                                 method.parameterList,
                                 method.navigationElement,

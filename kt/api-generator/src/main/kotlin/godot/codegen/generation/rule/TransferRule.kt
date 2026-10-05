@@ -79,6 +79,10 @@ class TransferRule : GodotApiRule<ApiTask>() {
                 }
             }
         }
+        if (signature.isVararg) {
+            builder.addStatement("%M($argumentCount)", Internal.checkArgumentCount)
+        }
+
         val needsBuffer = fixedCount > 0 || signature.isVararg || signature.returnsValue
         if (signature.isVariantCall) {
             val prefix = if (needsBuffer) "val·buffer·=·" else ""

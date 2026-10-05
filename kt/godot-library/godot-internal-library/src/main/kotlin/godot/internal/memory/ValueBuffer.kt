@@ -24,7 +24,7 @@ object ValueBuffer {
     private const val CALLER_SIZE = 16
     private const val HEADER_SIZE = 24
     private const val VALUE_SIZE = 80
-    private const val FRAME_SIZE = HEADER_SIZE + (Constraints.MAX_FUNCTION_ARG_COUNT + 1) * VALUE_SIZE
+    private const val FRAME_SIZE = HEADER_SIZE + (Constraints.MAX_ARGUMENT_COUNT + 1) * VALUE_SIZE
     private const val DEFAULT_SIZE_FACTOR = 4
 
     var sizeFactor: Int = 0

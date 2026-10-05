@@ -75,7 +75,7 @@ class EnrichedMethod(private val model: Method, override: Boolean = false) : Cal
         }
 
     init {
-        if (arguments.size > Constraints.MAX_FUNCTION_ARG_COUNT) {
+        if (arguments.size > Constraints.MAX_ARGUMENT_COUNT) {
             throw TooManyMethodArgument(model)
         }
     }

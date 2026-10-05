@@ -19,11 +19,11 @@ import java.io.File
 object FlowGenerationService : IFlowGenerationService {
     override fun generate(output: File) {
         val flowFile = FileSpec.builder(godotCoroutinePackage, Coroutines.flow.simpleName)
-        val allParameters = Array(Constraints.MAX_FUNCTION_ARG_COUNT) { index ->
+        val allParameters = Array(Constraints.MAX_ARGUMENT_COUNT) { index ->
             TypeVariableName("P$index")
         }.toList()
 
-        for (argCount in 0..Constraints.MAX_FUNCTION_ARG_COUNT) {
+        for (argCount in 0..Constraints.MAX_ARGUMENT_COUNT) {
             val parameters = allParameters.take(argCount)
             val receiver = Core.signal(argCount).let { signal ->
                 if (argCount == 0) signal else signal.parameterizedBy(parameters)

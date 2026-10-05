@@ -2,6 +2,7 @@
 
 package godot.core
 
+import godot.common.constants.Constraints
 import godot.common.interop.ObjectID
 import godot.common.interop.VoidPtr
 import godot.core.Callable.Bridge
@@ -30,6 +31,7 @@ class VariantCallable : NativeCoreType, Callable {
     }
 
     override fun bindUnsafe(vararg args: Any?): VariantCallable {
+        Constraints.checkArgumentCount(args.size)
         VariantBuffer.transfer.writeArgs(args.size) {
             for (arg in args) VariantCaster.ANY.toGodot(arg)
         }
@@ -37,6 +39,7 @@ class VariantCallable : NativeCoreType, Callable {
     }
 
     override fun callUnsafe(vararg args: Any?): Any? {
+        Constraints.checkArgumentCount(args.size)
         VariantBuffer.transfer.writeArgs(args.size) {
             for (arg in args) VariantCaster.ANY.toGodot(arg)
         }
@@ -44,6 +47,7 @@ class VariantCallable : NativeCoreType, Callable {
     }
 
     override fun callDeferredUnsafe(vararg args: Any?) {
+        Constraints.checkArgumentCount(args.size)
         VariantBuffer.transfer.writeArgs(args.size) {
             for (arg in args) VariantCaster.ANY.toGodot(arg)
         }
@@ -94,6 +98,7 @@ class VariantCallable : NativeCoreType, Callable {
     }
 
     override fun rpc(vararg args: Any?) {
+        Constraints.checkArgumentCount(args.size)
         VariantBuffer.transfer.writeArgs(args.size) {
             for (arg in args) VariantCaster.ANY.toGodot(arg)
         }
@@ -101,6 +106,7 @@ class VariantCallable : NativeCoreType, Callable {
     }
 
     override fun rpcId(peerId: Long, vararg args: Any?) {
+        Constraints.checkArgumentCount(args.size + 1)
         VariantBuffer.transfer.writeArgs(args.size + 1) {
             VariantParser.LONG.write(peerId)
             for (arg in args) VariantCaster.ANY.toGodot(arg)

@@ -10,7 +10,7 @@ internal class Locals(
     val valueStack: ValueBuffer.Stack = ValueBuffer.Stack()
 
     @JvmField
-    val paramsArray: Array<Any?> = arrayOfNulls(Constraints.MAX_FUNCTION_ARG_COUNT)
+    val paramsArray: Array<Any?> = arrayOfNulls(Constraints.MAX_ARGUMENT_COUNT)
 
     @JvmField
     val initConfiguration: InitConfiguration = InitConfiguration()
