@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_PACKED_INT_32_ARRAY
@@ -287,39 +286,39 @@ public open class RDFramebufferPass : RefCounted() {
   }
 
   public final fun setColorAttachments(pMember: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setColorAttachmentsPtr, pMember)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.setColorAttachmentsPtr, pMember)
   }
 
   public final fun getColorAttachments(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getColorAttachmentsPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getColorAttachmentsPtr)
 
   public final fun setInputAttachments(pMember: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setInputAttachmentsPtr, pMember)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.setInputAttachmentsPtr, pMember)
   }
 
   public final fun getInputAttachments(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getInputAttachmentsPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getInputAttachmentsPtr)
 
   public final fun setResolveAttachments(pMember: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setResolveAttachmentsPtr, pMember)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.setResolveAttachmentsPtr, pMember)
   }
 
   public final fun getResolveAttachments(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getResolveAttachmentsPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getResolveAttachmentsPtr)
 
   public final fun setPreserveAttachments(pMember: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setPreserveAttachmentsPtr, pMember)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.setPreserveAttachmentsPtr, pMember)
   }
 
   public final fun getPreserveAttachments(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getPreserveAttachmentsPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getPreserveAttachmentsPtr)
 
   public final fun setDepthAttachment(pMember: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDepthAttachmentPtr, pMember.toLong())
+    callPtrMethod_LONG(MethodBindings.setDepthAttachmentPtr, pMember.toLong())
   }
 
   public final fun getDepthAttachment(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDepthAttachmentPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getDepthAttachmentPtr).toInt()
 
   public companion object {
     @JvmField

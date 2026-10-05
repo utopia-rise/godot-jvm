@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_ANY
 import godot.callMethod_ANY
@@ -43,19 +42,18 @@ public open class OpenXRFutureResult internal constructor() : RefCounted() {
    * Returns the status of this result.
    */
   public final fun getStatus(): ResultStatus =
-      ResultStatus.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStatusPtr))
+      ResultStatus.from(callPtrMethod0_ret_LONG(MethodBindings.getStatusPtr))
 
   /**
    * Return the `XrFutureEXT` value this result relates to.
    */
-  public final fun getFuture(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFuturePtr)
+  public final fun getFuture(): Long = callPtrMethod0_ret_LONG(MethodBindings.getFuturePtr)
 
   /**
    * Cancel this future, this will interrupt and stop the asynchronous function.
    */
   public final fun cancelFuture(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.cancelFuturePtr)
+    callPtrMethod0(MethodBindings.cancelFuturePtr)
   }
 
   /**
@@ -65,7 +63,7 @@ public open class OpenXRFutureResult internal constructor() : RefCounted() {
    * asynchronous function.
    */
   public final fun setResultValue(resultValue: Any?): Unit {
-    TransferContext.callMethod_ANY(ptr, objectID.id, MethodBindings.setResultValuePtr, resultValue)
+    callMethod_ANY(MethodBindings.setResultValuePtr, resultValue)
   }
 
   /**
@@ -73,8 +71,7 @@ public open class OpenXRFutureResult internal constructor() : RefCounted() {
    * this result value depends on the function being called. Consult the documentation of the relevant
    * function.
    */
-  public final fun getResultValue(): Any? =
-      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.getResultValuePtr)
+  public final fun getResultValue(): Any? = callMethod0_ret_ANY(MethodBindings.getResultValuePtr)
 
   public enum class ResultStatus(
     public override val `value`: Long,

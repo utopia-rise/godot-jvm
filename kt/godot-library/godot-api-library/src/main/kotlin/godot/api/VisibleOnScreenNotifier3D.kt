@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod_AABB
@@ -92,7 +91,7 @@ public open class VisibleOnScreenNotifier3D : VisualInstance3D() {
   }
 
   public final fun setAabb(rect: AABB): Unit {
-    TransferContext.callPtrMethod_AABB(ptr, objectID.id, MethodBindings.setAabbPtr, rect)
+    callPtrMethod_AABB(MethodBindings.setAabbPtr, rect)
   }
 
   /**
@@ -102,8 +101,7 @@ public open class VisibleOnScreenNotifier3D : VisualInstance3D() {
    * once added to the scene tree, so this method will always return `false` right after it is
    * instantiated.
    */
-  public final fun isOnScreen(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOnScreenPtr)
+  public final fun isOnScreen(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isOnScreenPtr)
 
   public companion object {
     @JvmField

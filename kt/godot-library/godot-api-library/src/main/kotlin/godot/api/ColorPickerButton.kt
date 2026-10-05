@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_COLOR
@@ -120,11 +119,10 @@ public open class ColorPickerButton : Button() {
   }
 
   public final fun setPickColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setPickColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setPickColorPtr, color)
   }
 
-  public final fun getPickColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getPickColorPtr)
+  public final fun getPickColor(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getPickColorPtr)
 
   /**
    * Returns the [ColorPicker] that this node toggles.
@@ -133,7 +131,7 @@ public open class ColorPickerButton : Button() {
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
   public final fun getPicker(): ColorPicker? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getPickerPtr) as ColorPicker?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getPickerPtr) as ColorPicker?)
 
   /**
    * Returns the control's [PopupPanel] which allows you to connect to popup signals. This allows
@@ -143,21 +141,21 @@ public open class ColorPickerButton : Button() {
    * you wish to hide it or any of its children, use their [Window.visible] property.
    */
   public final fun getPopup(): PopupPanel? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getPopupPtr) as PopupPanel?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getPopupPtr) as PopupPanel?)
 
   public final fun setEditAlpha(show: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditAlphaPtr, show)
+    callPtrMethod_BOOL(MethodBindings.setEditAlphaPtr, show)
   }
 
   public final fun isEditingAlpha(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEditingAlphaPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isEditingAlphaPtr)
 
   public final fun setEditIntensity(show: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditIntensityPtr, show)
+    callPtrMethod_BOOL(MethodBindings.setEditIntensityPtr, show)
   }
 
   public final fun isEditingIntensity(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEditingIntensityPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isEditingIntensityPtr)
 
   public companion object {
     @JvmField

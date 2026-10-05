@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -76,17 +75,17 @@ public open class OpenXRRenderModelManager : Node3D() {
   }
 
   public final fun getTracker(): RenderModelTracker =
-      RenderModelTracker.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTrackerPtr))
+      RenderModelTracker.from(callPtrMethod0_ret_LONG(MethodBindings.getTrackerPtr))
 
   public final fun setTracker(tracker: RenderModelTracker): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTrackerPtr, tracker.value)
+    callPtrMethod_LONG(MethodBindings.setTrackerPtr, tracker.value)
   }
 
   public final fun getMakeLocalToPose(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getMakeLocalToPosePtr)
+      callMethod0_ret_STRING(MethodBindings.getMakeLocalToPosePtr)
 
   public final fun setMakeLocalToPose(makeLocalToPose: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setMakeLocalToPosePtr, makeLocalToPose)
+    callMethod_STRING(MethodBindings.setMakeLocalToPosePtr, makeLocalToPose)
   }
 
   public enum class RenderModelTracker(

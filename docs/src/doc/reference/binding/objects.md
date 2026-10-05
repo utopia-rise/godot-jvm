@@ -174,6 +174,6 @@ GD.callWhenClosing(() => {
 
 ///
 
-[Memory management](../../contribute/how-it-works/memory-management.md) documents the implementation. [Runtime settings](../runtime-configuration.md#jvm-disable-gc) describe the binding GC flag.
+[Memory management](../../contribute/how-it-works/memory-management.md) documents the implementation. [Runtime settings](../runtime-configuration.md#jvm-disable-memory-management) describe the flag that turns the binding's per-frame memory management off.
 
 `_onDestroy()` runs on native destruction, like Godot's `NOTIFICATION_PREDELETE`, rather than on leaving the scene tree.

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -52,14 +51,14 @@ public open class OpenXRStructureBase : RefCounted() {
    * Returns the structure type (OpenXR `XrStructureType`) used for this structure.
    */
   public final fun getStructureType(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStructureTypePtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getStructureTypePtr)
 
   public final fun setNext(entity: OpenXRStructureBase?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setNextPtr, entity)
+    callPtrMethod_OBJECT(MethodBindings.setNextPtr, entity)
   }
 
   public final fun getNext(): OpenXRStructureBase? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getNextPtr) as OpenXRStructureBase?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getNextPtr) as OpenXRStructureBase?)
 
   public companion object {
     @JvmField

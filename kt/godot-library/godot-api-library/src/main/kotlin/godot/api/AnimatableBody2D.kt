@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod_BOOL
@@ -49,11 +48,11 @@ public open class AnimatableBody2D : StaticBody2D() {
   }
 
   public final fun setSyncToPhysics(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSyncToPhysicsPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setSyncToPhysicsPtr, enable)
   }
 
   public final fun isSyncToPhysicsEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSyncToPhysicsEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isSyncToPhysicsEnabledPtr)
 
   public companion object {
     @JvmField

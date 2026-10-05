@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_ARRAY
@@ -92,7 +91,7 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun addInterface(`interface`: TextServer?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addInterfacePtr, `interface`)
+    callPtrMethod_OBJECT(MethodBindings.addInterfacePtr, `interface`)
   }
 
   /**
@@ -100,7 +99,7 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun getInterfaceCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInterfaceCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getInterfaceCountPtr).toInt()
 
   /**
    * Removes an interface. All fonts and shaped text caches should be freed before removing an
@@ -108,7 +107,7 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun removeInterface(`interface`: TextServer?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeInterfacePtr, `interface`)
+    callPtrMethod_OBJECT(MethodBindings.removeInterfacePtr, `interface`)
   }
 
   /**
@@ -116,28 +115,28 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun getInterface(idx: Int): TextServer? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getInterfacePtr, idx.toLong()) as TextServer?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getInterfacePtr, idx.toLong()) as TextServer?)
 
   /**
    * Returns a list of available interfaces, with the index and name of each interface.
    */
   @JvmStatic
   public final fun getInterfaces(): VariantArray<Dictionary<Any?, Any?>> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getInterfacesPtr) as VariantArray<Dictionary<Any?, Any?>>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getInterfacesPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Finds an interface by its [name].
    */
   @JvmStatic
   public final fun findInterface(name: String): TextServer? =
-      (TransferContext.callMethod_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.findInterfacePtr, name) as TextServer?)
+      (callMethod_STRING_ret_OBJECT_REF(MethodBindings.findInterfacePtr, name) as TextServer?)
 
   /**
    * Sets the primary [TextServer] interface.
    */
   @JvmStatic
   public final fun setPrimaryInterface(index: TextServer?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setPrimaryInterfacePtr, index)
+    callPtrMethod_OBJECT(MethodBindings.setPrimaryInterfacePtr, index)
   }
 
   /**
@@ -145,7 +144,7 @@ public object TextServerManager : Object() {
    */
   @JvmStatic
   public final fun getPrimaryInterface(): TextServer? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPrimaryInterfacePtr) as TextServer?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getPrimaryInterfacePtr) as TextServer?)
 
   public object MethodBindings {
     internal val addInterfacePtr: VoidPtr =

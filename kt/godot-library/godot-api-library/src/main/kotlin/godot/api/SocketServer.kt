@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -32,26 +31,25 @@ public open class SocketServer internal constructor() : RefCounted() {
    * Returns `true` if a connection is available for taking.
    */
   public final fun isConnectionAvailable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isConnectionAvailablePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isConnectionAvailablePtr)
 
   /**
    * Returns `true` if the server is currently listening for connections.
    */
-  public final fun isListening(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isListeningPtr)
+  public final fun isListening(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isListeningPtr)
 
   /**
    * Stops listening.
    */
   public final fun stop(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
+    callPtrMethod0(MethodBindings.stopPtr)
   }
 
   /**
    * If a connection is available, returns a StreamPeerSocket with the connection.
    */
   public final fun takeSocketConnection(): StreamPeerSocket? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.takeSocketConnectionPtr) as StreamPeerSocket?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.takeSocketConnectionPtr) as StreamPeerSocket?)
 
   public companion object {
     @JvmField

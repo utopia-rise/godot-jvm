@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -93,39 +92,37 @@ public open class TextureRect : Control() {
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTexturePtr, texture)
   }
 
   public final fun getTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTexturePtr) as Texture2D?)
 
   public final fun setExpandMode(expandMode: ExpandMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setExpandModePtr, expandMode.value)
+    callPtrMethod_LONG(MethodBindings.setExpandModePtr, expandMode.value)
   }
 
   public final fun getExpandMode(): ExpandMode =
-      ExpandMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getExpandModePtr))
+      ExpandMode.from(callPtrMethod0_ret_LONG(MethodBindings.getExpandModePtr))
 
   public final fun setFlipH(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFlipHPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setFlipHPtr, enable)
   }
 
-  public final fun isFlippedH(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFlippedHPtr)
+  public final fun isFlippedH(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isFlippedHPtr)
 
   public final fun setFlipV(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFlipVPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setFlipVPtr, enable)
   }
 
-  public final fun isFlippedV(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFlippedVPtr)
+  public final fun isFlippedV(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isFlippedVPtr)
 
   public final fun setStretchMode(stretchMode: StretchMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStretchModePtr, stretchMode.value)
+    callPtrMethod_LONG(MethodBindings.setStretchModePtr, stretchMode.value)
   }
 
   public final fun getStretchMode(): StretchMode =
-      StretchMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStretchModePtr))
+      StretchMode.from(callPtrMethod0_ret_LONG(MethodBindings.getStretchModePtr))
 
   public enum class ExpandMode(
     public override val `value`: Long,

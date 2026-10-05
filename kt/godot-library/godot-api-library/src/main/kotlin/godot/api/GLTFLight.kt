@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -20,9 +19,9 @@ import godot.callPtrMethod0_ret_DICTIONARY
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_OBJECT
 import godot.callPtrMethod_COLOR
-import godot.callPtrMethod_DICTIONARY_ret_OBJECT_REF
 import godot.callPtrMethod_DOUBLE
-import godot.callPtrMethod_OBJECT_ret_OBJECT_REF
+import godot.callStaticPtrMethod_DICTIONARY_ret_OBJECT_REF
+import godot.callStaticPtrMethod_OBJECT_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.Dictionary
@@ -169,61 +168,59 @@ public open class GLTFLight : Resource() {
    * Converts this GLTFLight instance into a Godot [Light3D] node.
    */
   public final fun toNode(): Light3D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.toNodePtr) as Light3D?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.toNodePtr) as Light3D?)
 
   /**
    * Serializes this GLTFLight instance into a [Dictionary].
    */
   public final fun toDictionary(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.toDictionaryPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.toDictionaryPtr) as Dictionary<Any?, Any?>)
 
-  public final fun getColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getColorPtr)
+  public final fun getColor(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getColorPtr)
 
   public final fun setColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setColorPtr, color)
   }
 
   public final fun getIntensity(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getIntensityPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getIntensityPtr).toFloat()
 
   public final fun setIntensity(intensity: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setIntensityPtr, intensity.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setIntensityPtr, intensity.toDouble())
   }
 
-  public final fun getLightType(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLightTypePtr)
+  public final fun getLightType(): String = callMethod0_ret_STRING(MethodBindings.getLightTypePtr)
 
   public final fun setLightType(lightType: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLightTypePtr, lightType)
+    callMethod_STRING(MethodBindings.setLightTypePtr, lightType)
   }
 
   public final fun getRange(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRangePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRangePtr).toFloat()
 
   public final fun setRange(range: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRangePtr, range.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRangePtr, range.toDouble())
   }
 
   public final fun getInnerConeAngle(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getInnerConeAnglePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getInnerConeAnglePtr).toFloat()
 
   public final fun setInnerConeAngle(innerConeAngle: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setInnerConeAnglePtr, innerConeAngle.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setInnerConeAnglePtr, innerConeAngle.toDouble())
   }
 
   public final fun getOuterConeAngle(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOuterConeAnglePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getOuterConeAnglePtr).toFloat()
 
   public final fun setOuterConeAngle(outerConeAngle: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setOuterConeAnglePtr, outerConeAngle.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setOuterConeAnglePtr, outerConeAngle.toDouble())
   }
 
   public final fun getAdditionalData(extensionName: StringName): Any? =
-      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getAdditionalDataPtr, extensionName)
+      callMethod_STRING_NAME_ret_ANY(MethodBindings.getAdditionalDataPtr, extensionName)
 
   public final fun setAdditionalData(extensionName: StringName, additionalData: Any?): Unit {
-    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setAdditionalDataPtr, extensionName, additionalData)
+    callMethod_STRING_NAME_ANY(MethodBindings.setAdditionalDataPtr, extensionName, additionalData)
   }
 
   public final fun getAdditionalData(extensionName: String): Any? =
@@ -310,14 +307,14 @@ public open class GLTFLight : Resource() {
      */
     @JvmStatic
     public final fun fromNode(lightNode: Light3D?): GLTFLight? =
-        (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(0L, 0L, MethodBindings.fromNodePtr, lightNode) as GLTFLight?)
+        (callStaticPtrMethod_OBJECT_ret_OBJECT_REF(MethodBindings.fromNodePtr, lightNode) as GLTFLight?)
 
     /**
      * Creates a new GLTFLight instance by parsing the given [Dictionary].
      */
     @JvmStatic
     public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFLight? =
-        (TransferContext.callPtrMethod_DICTIONARY_ret_OBJECT_REF(0L, 0L, MethodBindings.fromDictionaryPtr, dictionary) as GLTFLight?)
+        (callStaticPtrMethod_DICTIONARY_ret_OBJECT_REF(MethodBindings.fromDictionaryPtr, dictionary) as GLTFLight?)
   }
 
   public object MethodBindings {

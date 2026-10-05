@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_ARRAY_OBJECT_BOOL_BOOL_ret_ANY
@@ -94,7 +93,7 @@ public open class Expression : RefCounted() {
   @JvmOverloads
   public final fun parse(expression: String, inputNames: PackedStringArray = PackedStringArray()):
       Error =
-      Error.from(TransferContext.callMethod_STRING_PACKED_STRING_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.parsePtr, expression, inputNames))
+      Error.from(callMethod_STRING_PACKED_STRING_ARRAY_ret_LONG(MethodBindings.parsePtr, expression, inputNames))
 
   /**
    * Executes the expression that was previously parsed by [parse] and returns the result. Before
@@ -110,19 +109,18 @@ public open class Expression : RefCounted() {
     showError: Boolean = true,
     constCallsOnly: Boolean = false,
   ): Any? =
-      TransferContext.callMethod_ARRAY_OBJECT_BOOL_BOOL_ret_ANY(ptr, objectID.id, MethodBindings.executePtr, inputs, baseInstance, showError, constCallsOnly)
+      callMethod_ARRAY_OBJECT_BOOL_BOOL_ret_ANY(MethodBindings.executePtr, inputs, baseInstance, showError, constCallsOnly)
 
   /**
    * Returns `true` if [execute] has failed.
    */
   public final fun hasExecuteFailed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasExecuteFailedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.hasExecuteFailedPtr)
 
   /**
    * Returns the error text if [parse] or [execute] has failed.
    */
-  public final fun getErrorText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getErrorTextPtr)
+  public final fun getErrorText(): String = callMethod0_ret_STRING(MethodBindings.getErrorTextPtr)
 
   public companion object {
     @JvmField

@@ -1,11 +1,11 @@
 #include "jvm_instance.h"
 
-#include "core/jvm_binding_manager.h"
 #include "engine/godot_object.h"
 #include "engine/internal.h"
-#include "jvm/wrapper/jvm_singleton_wrapper.h"
-#include "jvm/wrapper/memory/memory_manager.h"
-#include "jvm/wrapper/registration/kt_object.h"
+#include "jvm/jvm_singleton_wrapper.h"
+#include "jvm/memory/memory_manager.h"
+#include "jvm/memory/type_manager.h"
+#include "jvm/registration/kt_object.h"
 #include "logging.h"
 
 #include <atomic>
@@ -22,7 +22,7 @@ GDExtensionBool JvmInstance::set(
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = &instance_data->kt_object;
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     Variant value = Variant(p_value);
 
     if (KtProperty* ktProperty = kt_class->get_property(*reinterpret_cast<const StringName*>(p_name))) {
@@ -54,7 +54,7 @@ GDExtensionBool JvmInstance::get(
     const StringName& parameter_name = *reinterpret_cast<const StringName*>(p_name);
     Variant& r_return = *reinterpret_cast<Variant*>(r_ret);
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     KtProperty* ktProperty = kt_class->get_property(parameter_name);
     if (ktProperty) {
@@ -90,7 +90,7 @@ const GDExtensionPropertyInfo* JvmInstance::get_property_list(
     // The property-list bridge owns this freshly allocated list and frees it later.
     List<PropertyInfo>* properties = memnew(List<PropertyInfo>);
     kt_class->get_property_list(properties);
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     if (KtFunction* function = kt_class->get_method(SNAME("_get_property_list"))) {
         Variant ret_var;
@@ -128,7 +128,7 @@ GDExtensionBool JvmInstance::property_can_revert(
     KtObject* kt_object = &instance_data->kt_object;
     const StringName& property_name = *reinterpret_cast<const StringName*>(p_name);
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     if (KtFunction* function = kt_class->get_method(SNAME("_property_can_revert"))) {
         const int arg_count = 1;
@@ -152,7 +152,7 @@ GDExtensionBool JvmInstance::property_get_revert(
     KtObject* kt_object = &instance_data->kt_object;
     Variant& r_return = *reinterpret_cast<Variant*>(r_ret);
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     if (KtFunction* function = kt_class->get_method(SNAME("_property_get_revert"))) {
         const int arg_count = 1;
@@ -236,7 +236,7 @@ GDExtensionBool JvmInstance::validate_property(
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = &instance_data->kt_object;
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     if (KtFunction* function = kt_class->get_method(SNAME("_validate_property"))) {
         Variant ret_var;
@@ -297,7 +297,7 @@ void JvmInstance::call(
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = &instance_data->kt_object;
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     if (KtFunction* function = kt_class->get_method(*reinterpret_cast<const StringName*>(p_method))) {
         auto* arguments = reinterpret_cast<const Variant* const*>(p_args);
@@ -320,7 +320,7 @@ void JvmInstance::notification(
 
     if (p_what == Object::NOTIFICATION_PREDELETE) { instance_data->delete_flag = false; }
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     kt_class->do_notification(env, &instance_data->kt_object, p_what, p_reversed);
 }
 
@@ -333,7 +333,7 @@ void JvmInstance::to_string(
     KtClass* kt_class = instance_data->kt_class;
     KtObject* kt_object = &instance_data->kt_object;
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     if (KtFunction* function = kt_class->get_method(SNAME("_to_string"))) {
         const int arg_count = 0;
@@ -419,9 +419,13 @@ void JvmInstance::free(GDExtensionScriptInstanceDataPtr p_instance) {
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtObject* kt_object = &instance_data->kt_object;
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     if (instance_data->delete_flag && !kt_object->is_collected(env)) {
-        kt_object->script_instance_removed(env, JvmBindingManager::bind(instance_data->owner)->get_constructor_id());
+        const StringName class_name = raw_godot::RawObject(instance_data->owner).get_class_name();
+        kt_object->script_instance_removed(
+            env,
+            TypeManager::get_instance().get_java_engine_type_constructor_index(class_name)
+        );
     }
     if (instance_data->to_demote_flag.is_set()) { MemoryManager::get_instance().cancel_demotion(instance_data); }
     memdelete(instance_data);
@@ -431,7 +435,7 @@ void JvmInstance::promote_reference(JvmInstance::JvmInstanceData* instance_data)
     KtObject* kt_object = &instance_data->kt_object;
 
     if (kt_object->is_ref_weak()) {
-        jni::Env env = jni::Jvm::current_env();
+        jni::Env& env = jni::Jvm::current_env();
         if (!kt_object->swap_to_strong_unsafe(env)) {
             JVM_DEV_VERBOSE(
                 "Godot referenced a RefCounted whose JVM instance is already collected; it stays weak until released."
@@ -454,7 +458,7 @@ bool JvmInstance::demote_reference(JvmInstance::JvmInstanceData* instance_data) 
     KtObject* kt_object = &instance_data->kt_object;
 
     if (owner.get_reference_count() == 1 && !kt_object->is_ref_weak()) {
-        jni::Env env = jni::Jvm::current_env();
+        jni::Env& env = jni::Jvm::current_env();
         // The re-check inside the swap catches a reference() from another thread that landed between the two counter
         // reads. Without it, a count of 2 could end up with a weak reference and the JVM instance could be collected
         // while native code still holds it.
@@ -486,7 +490,7 @@ bool JvmInstance::get_or_default(
     const StringName& p_name,
     Variant& r_ret
 ) {
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
 
     KtProperty* ktProperty = instance_data->kt_class->get_property(p_name);
     if (ktProperty) {

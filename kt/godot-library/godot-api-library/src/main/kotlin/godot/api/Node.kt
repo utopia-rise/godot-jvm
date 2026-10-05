@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_ANY
 import godot.callMethod0_ret_STRING
@@ -51,6 +50,8 @@ import godot.callPtrMethod_STRING_NAME
 import godot.callPtrMethod_STRING_NAME_ARRAY_BOOL
 import godot.callPtrMethod_STRING_NAME_BOOL
 import godot.callPtrMethod_STRING_NAME_ret_BOOL
+import godot.callStaticPtrMethod0
+import godot.callStaticPtrMethod0_ret_ARRAY
 import godot.common.interop.VoidPtr
 import godot.core.BitFieldBase
 import godot.core.Dictionary
@@ -933,15 +934,14 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun addSibling(sibling: Node, forceReadableName: Boolean = false): Unit {
-    TransferContext.callPtrMethod_OBJECT_BOOL(ptr, objectID.id, MethodBindings.addSiblingPtr, sibling, forceReadableName)
+    callPtrMethod_OBJECT_BOOL(MethodBindings.addSiblingPtr, sibling, forceReadableName)
   }
 
   public final fun setName(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setNamePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.setNamePtr, name)
   }
 
-  public final fun getName(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getNamePtr)
+  public final fun getName(): StringName = callPtrMethod0_ret_STRING_NAME(MethodBindings.getNamePtr)
 
   /**
    * Adds a child [node]. Nodes can have any number of children, but every child must have a unique
@@ -996,7 +996,7 @@ public open class Node : Object() {
     forceReadableName: Boolean = false,
     `internal`: InternalMode = Node.InternalMode.DISABLED,
   ): Unit {
-    TransferContext.callPtrMethod_OBJECT_BOOL_LONG(ptr, objectID.id, MethodBindings.addChildPtr, node, forceReadableName, internal.value)
+    callPtrMethod_OBJECT_BOOL_LONG(MethodBindings.addChildPtr, node, forceReadableName, internal.value)
   }
 
   /**
@@ -1007,7 +1007,7 @@ public open class Node : Object() {
    * (or its descendants) to `null`, if their [owner] is no longer an ancestor (see [isAncestorOf]).
    */
   public final fun removeChild(node: Node): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeChildPtr, node)
+    callPtrMethod_OBJECT(MethodBindings.removeChildPtr, node)
   }
 
   /**
@@ -1025,7 +1025,7 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun reparent(newParent: Node, keepGlobalTransform: Boolean = true): Unit {
-    TransferContext.callPtrMethod_OBJECT_BOOL(ptr, objectID.id, MethodBindings.reparentPtr, newParent, keepGlobalTransform)
+    callPtrMethod_OBJECT_BOOL(MethodBindings.reparentPtr, newParent, keepGlobalTransform)
   }
 
   /**
@@ -1036,7 +1036,7 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun getChildCount(includeInternal: Boolean = false): Int =
-      TransferContext.callPtrMethod_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.getChildCountPtr, includeInternal).toInt()
+      callPtrMethod_BOOL_ret_LONG(MethodBindings.getChildCountPtr, includeInternal).toInt()
 
   /**
    * Returns all children of this node inside an [VariantArray].
@@ -1046,7 +1046,7 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun getChildren(includeInternal: Boolean = false): VariantArray<Node> =
-      (TransferContext.callPtrMethod_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.getChildrenPtr, includeInternal) as VariantArray<Node>)
+      (callPtrMethod_BOOL_ret_ARRAY(MethodBindings.getChildrenPtr, includeInternal) as VariantArray<Node>)
 
   /**
    * Fetches a child node by its index. Each child node has an index relative to its siblings (see
@@ -1072,13 +1072,13 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun getChild(idx: Int, includeInternal: Boolean = false): Node? =
-      (TransferContext.callPtrMethod_LONG_BOOL_ret_OBJECT(ptr, objectID.id, MethodBindings.getChildPtr, idx.toLong(), includeInternal) as Node?)
+      (callPtrMethod_LONG_BOOL_ret_OBJECT(MethodBindings.getChildPtr, idx.toLong(), includeInternal) as Node?)
 
   /**
    * Returns `true` if the [path] points to a valid node. See also [getNode].
    */
   public final fun hasNode(path: NodePath): Boolean =
-      TransferContext.callPtrMethod_NODE_PATH_ret_BOOL(ptr, objectID.id, MethodBindings.hasNodePtr, path)
+      callPtrMethod_NODE_PATH_ret_BOOL(MethodBindings.hasNodePtr, path)
 
   /**
    * Fetches a node. The [NodePath] can either be a relative path (from this node), or an absolute
@@ -1144,20 +1144,20 @@ public open class Node : Object() {
    * ```
    */
   public final fun getNode(path: NodePath): Node? =
-      (TransferContext.callPtrMethod_NODE_PATH_ret_OBJECT(ptr, objectID.id, MethodBindings.getNodePtr, path) as Node?)
+      (callPtrMethod_NODE_PATH_ret_OBJECT(MethodBindings.getNodePtr, path) as Node?)
 
   /**
    * Fetches a node by [NodePath]. Similar to [getNode], but does not generate an error if [path]
    * does not point to a valid node.
    */
   public final fun getNodeOrNull(path: NodePath): Node? =
-      (TransferContext.callPtrMethod_NODE_PATH_ret_OBJECT(ptr, objectID.id, MethodBindings.getNodeOrNullPtr, path) as Node?)
+      (callPtrMethod_NODE_PATH_ret_OBJECT(MethodBindings.getNodeOrNullPtr, path) as Node?)
 
   /**
    * Returns this node's parent node, or `null` if the node doesn't have a parent.
    */
   public final fun getParent(): Node? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getParentPtr) as Node?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getParentPtr) as Node?)
 
   /**
    * Finds the first descendant of this node whose [name] matches [pattern], returning `null` if no
@@ -1183,7 +1183,7 @@ public open class Node : Object() {
     recursive: Boolean = true,
     owned: Boolean = true,
   ): Node? =
-      (TransferContext.callMethod_STRING_BOOL_BOOL_ret_OBJECT(ptr, objectID.id, MethodBindings.findChildPtr, pattern, recursive, owned) as Node?)
+      (callMethod_STRING_BOOL_BOOL_ret_OBJECT(MethodBindings.findChildPtr, pattern, recursive, owned) as Node?)
 
   /**
    * Finds all descendants of this node whose names match [pattern], returning an empty
@@ -1213,7 +1213,7 @@ public open class Node : Object() {
     recursive: Boolean = true,
     owned: Boolean = true,
   ): VariantArray<Node> =
-      (TransferContext.callMethod_STRING_STRING_BOOL_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.findChildrenPtr, pattern, type, recursive, owned) as VariantArray<Node>)
+      (callMethod_STRING_STRING_BOOL_BOOL_ret_ARRAY(MethodBindings.findChildrenPtr, pattern, type, recursive, owned) as VariantArray<Node>)
 
   /**
    * Finds the first ancestor of this node whose [name] matches [pattern], returning `null` if no
@@ -1226,7 +1226,7 @@ public open class Node : Object() {
    * [getNode] with unique names (see [uniqueNameInOwner]).
    */
   public final fun findParent(pattern: String): Node? =
-      (TransferContext.callMethod_STRING_ret_OBJECT(ptr, objectID.id, MethodBindings.findParentPtr, pattern) as Node?)
+      (callMethod_STRING_ret_OBJECT(MethodBindings.findParentPtr, pattern) as Node?)
 
   /**
    * Returns `true` if [path] points to a valid node and its subnames point to a valid [Resource],
@@ -1234,7 +1234,7 @@ public open class Node : Object() {
    * other [Any] types) are not considered. See also [getNodeAndResource].
    */
   public final fun hasNodeAndResource(path: NodePath): Boolean =
-      TransferContext.callPtrMethod_NODE_PATH_ret_BOOL(ptr, objectID.id, MethodBindings.hasNodeAndResourcePtr, path)
+      callPtrMethod_NODE_PATH_ret_BOOL(MethodBindings.hasNodeAndResourcePtr, path)
 
   /**
    * Fetches a node and its most nested resource as specified by the [NodePath]'s subname. Returns
@@ -1286,39 +1286,37 @@ public open class Node : Object() {
    * ```
    */
   public final fun getNodeAndResource(path: NodePath): VariantArray<Any?> =
-      (TransferContext.callPtrMethod_NODE_PATH_ret_ARRAY(ptr, objectID.id, MethodBindings.getNodeAndResourcePtr, path) as VariantArray<Any?>)
+      (callPtrMethod_NODE_PATH_ret_ARRAY(MethodBindings.getNodeAndResourcePtr, path) as VariantArray<Any?>)
 
   /**
    * Returns `true` if this node is currently inside a [SceneTree]. See also [getTree].
    */
-  public final fun isInsideTree(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInsideTreePtr)
+  public final fun isInsideTree(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isInsideTreePtr)
 
   /**
    * Returns `true` if the node is part of the scene currently opened in the editor.
    */
   public final fun isPartOfEditedScene(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPartOfEditedScenePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isPartOfEditedScenePtr)
 
   /**
    * Returns `true` if the given [node] is a direct or indirect child of this node.
    */
   public final fun isAncestorOf(node: Node): Boolean =
-      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.isAncestorOfPtr, node)
+      callPtrMethod_OBJECT_ret_BOOL(MethodBindings.isAncestorOfPtr, node)
 
   /**
    * Returns `true` if the given [node] occurs later in the scene hierarchy than this node. A node
    * occurring later is usually processed last.
    */
   public final fun isGreaterThan(node: Node): Boolean =
-      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.isGreaterThanPtr, node)
+      callPtrMethod_OBJECT_ret_BOOL(MethodBindings.isGreaterThanPtr, node)
 
   /**
    * Returns the node's absolute path, relative to the [SceneTree.root]. If the node is not inside
    * the scene tree, this method fails and returns an empty [NodePath].
    */
-  public final fun getPath(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getPathPtr)
+  public final fun getPath(): NodePath = callPtrMethod0_ret_NODE_PATH(MethodBindings.getPathPtr)
 
   /**
    * Returns the relative [NodePath] from this node to the specified [node]. Both nodes must be in
@@ -1333,7 +1331,7 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun getPathTo(node: Node, useUniquePath: Boolean = false): NodePath =
-      TransferContext.callPtrMethod_OBJECT_BOOL_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getPathToPtr, node, useUniquePath)
+      callPtrMethod_OBJECT_BOOL_ret_NODE_PATH(MethodBindings.getPathToPtr, node, useUniquePath)
 
   /**
    * Adds the node to the [group]. Groups can be helpful to organize a subset of nodes, for example
@@ -1351,7 +1349,7 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun addToGroup(group: StringName, persistent: Boolean = false): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_BOOL(ptr, objectID.id, MethodBindings.addToGroupPtr, group, persistent)
+    callPtrMethod_STRING_NAME_BOOL(MethodBindings.addToGroupPtr, group, persistent)
   }
 
   /**
@@ -1359,7 +1357,7 @@ public open class Node : Object() {
    * also notes in the description, and the [SceneTree]'s group methods.
    */
   public final fun removeFromGroup(group: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeFromGroupPtr, group)
+    callPtrMethod_STRING_NAME(MethodBindings.removeFromGroupPtr, group)
   }
 
   /**
@@ -1367,7 +1365,7 @@ public open class Node : Object() {
    * [removeFromGroup]. See also notes in the description, and the [SceneTree]'s group methods.
    */
   public final fun isInGroup(group: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.isInGroupPtr, group)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.isInGroupPtr, group)
 
   /**
    * Moves [childNode] to the given index. A node's index is the order among its siblings. If
@@ -1379,7 +1377,7 @@ public open class Node : Object() {
    * are also rendered in tree order. See also [processPriority].
    */
   public final fun moveChild(childNode: Node, toIndex: Int): Unit {
-    TransferContext.callPtrMethod_OBJECT_LONG(ptr, objectID.id, MethodBindings.moveChildPtr, childNode, toIndex.toLong())
+    callPtrMethod_OBJECT_LONG(MethodBindings.moveChildPtr, childNode, toIndex.toLong())
   }
 
   /**
@@ -1413,14 +1411,14 @@ public open class Node : Object() {
    * ```
    */
   public final fun getGroups(): VariantArray<StringName> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getGroupsPtr) as VariantArray<StringName>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getGroupsPtr) as VariantArray<StringName>)
 
   public final fun setOwner(owner: Node?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setOwnerPtr, owner)
+    callPtrMethod_OBJECT(MethodBindings.setOwnerPtr, owner)
   }
 
   public final fun getOwner(): Node? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getOwnerPtr) as Node?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getOwnerPtr) as Node?)
 
   /**
    * Returns this node's order among its siblings. The first node's index is `0`. See also
@@ -1431,7 +1429,7 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun getIndex(includeInternal: Boolean = false): Int =
-      TransferContext.callPtrMethod_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.getIndexPtr, includeInternal).toInt()
+      callPtrMethod_BOOL_ret_LONG(MethodBindings.getIndexPtr, includeInternal).toInt()
 
   /**
    * Prints the node and its children to the console, recursively. The node does not have to be
@@ -1457,7 +1455,7 @@ public open class Node : Object() {
    * ```
    */
   public final fun printTree(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.printTreePtr)
+    callPtrMethod0(MethodBindings.printTreePtr)
   }
 
   /**
@@ -1484,7 +1482,7 @@ public open class Node : Object() {
    * ```
    */
   public final fun printTreePretty(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.printTreePrettyPtr)
+    callPtrMethod0(MethodBindings.printTreePrettyPtr)
   }
 
   /**
@@ -1510,8 +1508,7 @@ public open class Node : Object() {
    *
    * ```
    */
-  public final fun getTreeString(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTreeStringPtr)
+  public final fun getTreeString(): String = callMethod0_ret_STRING(MethodBindings.getTreeStringPtr)
 
   /**
    * Similar to [getTreeString], this returns the tree as a [String]. This version displays a more
@@ -1537,20 +1534,20 @@ public open class Node : Object() {
    * ```
    */
   public final fun getTreeStringPretty(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTreeStringPrettyPtr)
+      callMethod0_ret_STRING(MethodBindings.getTreeStringPrettyPtr)
 
   public final fun setSceneFilePath(sceneFilePath: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setSceneFilePathPtr, sceneFilePath)
+    callMethod_STRING(MethodBindings.setSceneFilePathPtr, sceneFilePath)
   }
 
   public final fun getSceneFilePath(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSceneFilePathPtr)
+      callMethod0_ret_STRING(MethodBindings.getSceneFilePathPtr)
 
   /**
    * Calls [Object.notification] with [what] on this node and all of its children, recursively.
    */
   public final fun propagateNotification(what: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.propagateNotificationPtr, what.toLong())
+    callPtrMethod_LONG(MethodBindings.propagateNotificationPtr, what.toLong())
   }
 
   /**
@@ -1566,7 +1563,7 @@ public open class Node : Object() {
     args: VariantArray<Any?> = godot.core.variantArrayOf(),
     parentFirst: Boolean = false,
   ): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_ARRAY_BOOL(ptr, objectID.id, MethodBindings.propagateCallPtr, method, args, parentFirst)
+    callPtrMethod_STRING_NAME_ARRAY_BOOL(MethodBindings.propagateCallPtr, method, args, parentFirst)
   }
 
   /**
@@ -1579,7 +1576,7 @@ public open class Node : Object() {
    * [_ready] is called.
    */
   public final fun setPhysicsProcess(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPhysicsProcessPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setPhysicsProcessPtr, enable)
   }
 
   /**
@@ -1595,13 +1592,13 @@ public open class Node : Object() {
    * methods for this purpose instead, such as [Time.getTicksUsec].
    */
   public final fun getPhysicsProcessDeltaTime(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPhysicsProcessDeltaTimePtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPhysicsProcessDeltaTimePtr)
 
   /**
    * Returns `true` if physics processing is enabled (see [setPhysicsProcess]).
    */
   public final fun isPhysicsProcessing(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPhysicsProcessingPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isPhysicsProcessingPtr)
 
   /**
    * Returns the time elapsed (in seconds) since the last process callback. This value is identical
@@ -1616,7 +1613,7 @@ public open class Node : Object() {
    * methods for this purpose instead, such as [Time.getTicksUsec].
    */
   public final fun getProcessDeltaTime(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getProcessDeltaTimePtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getProcessDeltaTimePtr)
 
   /**
    * If set to `true`, enables processing. When a node is being processed, it will receive a
@@ -1631,28 +1628,27 @@ public open class Node : Object() {
    * [processMode] to [PROCESS_MODE_DISABLED].
    */
   public final fun setProcess(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setProcessPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setProcessPtr, enable)
   }
 
   public final fun setProcessPriority(priority: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setProcessPriorityPtr, priority.toLong())
+    callPtrMethod_LONG(MethodBindings.setProcessPriorityPtr, priority.toLong())
   }
 
   public final fun getProcessPriority(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProcessPriorityPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getProcessPriorityPtr).toInt()
 
   public final fun setPhysicsProcessPriority(priority: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPhysicsProcessPriorityPtr, priority.toLong())
+    callPtrMethod_LONG(MethodBindings.setPhysicsProcessPriorityPtr, priority.toLong())
   }
 
   public final fun getPhysicsProcessPriority(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPhysicsProcessPriorityPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getPhysicsProcessPriorityPtr).toInt()
 
   /**
    * Returns `true` if processing is enabled (see [setProcess]).
    */
-  public final fun isProcessing(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isProcessingPtr)
+  public final fun isProcessing(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isProcessingPtr)
 
   /**
    * If set to `true`, enables input processing.
@@ -1662,14 +1658,14 @@ public open class Node : Object() {
    * [TextEdit].
    */
   public final fun setProcessInput(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setProcessInputPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setProcessInputPtr, enable)
   }
 
   /**
    * Returns `true` if the node is processing input (see [setProcessInput]).
    */
   public final fun isProcessingInput(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isProcessingInputPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isProcessingInputPtr)
 
   /**
    * If set to `true`, enables shortcut processing for this node.
@@ -1678,14 +1674,14 @@ public open class Node : Object() {
    * is called.
    */
   public final fun setProcessShortcutInput(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setProcessShortcutInputPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setProcessShortcutInputPtr, enable)
   }
 
   /**
    * Returns `true` if the node is processing shortcuts (see [setProcessShortcutInput]).
    */
   public final fun isProcessingShortcutInput(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isProcessingShortcutInputPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isProcessingShortcutInputPtr)
 
   /**
    * If set to `true`, enables unhandled input processing. It enables the node to receive all input
@@ -1696,14 +1692,14 @@ public open class Node : Object() {
    * [Button] and [TextEdit].
    */
   public final fun setProcessUnhandledInput(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setProcessUnhandledInputPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setProcessUnhandledInputPtr, enable)
   }
 
   /**
    * Returns `true` if the node is processing unhandled input (see [setProcessUnhandledInput]).
    */
   public final fun isProcessingUnhandledInput(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isProcessingUnhandledInputPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isProcessingUnhandledInputPtr)
 
   /**
    * If set to `true`, enables unhandled key input processing.
@@ -1712,7 +1708,7 @@ public open class Node : Object() {
    * [_ready] is called.
    */
   public final fun setProcessUnhandledKeyInput(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setProcessUnhandledKeyInputPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setProcessUnhandledKeyInputPtr, enable)
   }
 
   /**
@@ -1720,14 +1716,14 @@ public open class Node : Object() {
    * [setProcessUnhandledKeyInput]).
    */
   public final fun isProcessingUnhandledKeyInput(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isProcessingUnhandledKeyInputPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isProcessingUnhandledKeyInputPtr)
 
   public final fun setProcessMode(mode: ProcessMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setProcessModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setProcessModePtr, mode.value)
   }
 
   public final fun getProcessMode(): ProcessMode =
-      ProcessMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProcessModePtr))
+      ProcessMode.from(callPtrMethod0_ret_LONG(MethodBindings.getProcessModePtr))
 
   /**
    * Returns `true` if the node can receive processing notifications and input callbacks
@@ -1749,35 +1745,34 @@ public open class Node : Object() {
    *
    * If the node is not inside the tree, returns `false` no matter the value of [processMode].
    */
-  public final fun canProcess(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.canProcessPtr)
+  public final fun canProcess(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.canProcessPtr)
 
   public final fun setProcessThreadGroup(mode: ProcessThreadGroup): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setProcessThreadGroupPtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setProcessThreadGroupPtr, mode.value)
   }
 
   public final fun getProcessThreadGroup(): ProcessThreadGroup =
-      ProcessThreadGroup.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProcessThreadGroupPtr))
+      ProcessThreadGroup.from(callPtrMethod0_ret_LONG(MethodBindings.getProcessThreadGroupPtr))
 
   public final fun setProcessThreadMessages(flags: ProcessThreadMessages): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setProcessThreadMessagesPtr, flags.flag)
+    callPtrMethod_LONG(MethodBindings.setProcessThreadMessagesPtr, flags.flag)
   }
 
   public final fun getProcessThreadMessages(): ProcessThreadMessages =
-      ProcessThreadMessages(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProcessThreadMessagesPtr))
+      ProcessThreadMessages(callPtrMethod0_ret_LONG(MethodBindings.getProcessThreadMessagesPtr))
 
   public final fun setProcessThreadGroupOrder(order: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setProcessThreadGroupOrderPtr, order.toLong())
+    callPtrMethod_LONG(MethodBindings.setProcessThreadGroupOrderPtr, order.toLong())
   }
 
   public final fun getProcessThreadGroupOrder(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProcessThreadGroupOrderPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getProcessThreadGroupOrderPtr).toInt()
 
   /**
    * Queues an accessibility information update for this node.
    */
   public final fun queueAccessibilityUpdate(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.queueAccessibilityUpdatePtr)
+    callPtrMethod0(MethodBindings.queueAccessibilityUpdatePtr)
   }
 
   /**
@@ -1787,7 +1782,7 @@ public open class Node : Object() {
    * ([NOTIFICATION_ACCESSIBILITY_UPDATE]).
    */
   public final fun getAccessibilityElement(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getAccessibilityElementPtr)
+      callPtrMethod0_ret_RID(MethodBindings.getAccessibilityElementPtr)
 
   /**
    * If set to `true`, the node appears folded in the Scene dock. As a result, all of its children
@@ -1795,7 +1790,7 @@ public open class Node : Object() {
    * release builds. See also [isDisplayedFolded].
    */
   public final fun setDisplayFolded(fold: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDisplayFoldedPtr, fold)
+    callPtrMethod_BOOL(MethodBindings.setDisplayFoldedPtr, fold)
   }
 
   /**
@@ -1803,7 +1798,7 @@ public open class Node : Object() {
    * be used in editor plugins and tools. See also [setDisplayFolded].
    */
   public final fun isDisplayedFolded(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDisplayedFoldedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDisplayedFoldedPtr)
 
   /**
    * If set to `true`, enables internal processing for this node. Internal processing happens in
@@ -1815,14 +1810,14 @@ public open class Node : Object() {
    * is unsafe and may lead to unexpected behavior. Use this method if you know what you are doing.
    */
   public final fun setProcessInternal(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setProcessInternalPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setProcessInternalPtr, enable)
   }
 
   /**
    * Returns `true` if internal processing is enabled (see [setProcessInternal]).
    */
   public final fun isProcessingInternal(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isProcessingInternalPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isProcessingInternalPtr)
 
   /**
    * If set to `true`, enables internal physics for this node. Internal physics processing happens
@@ -1834,21 +1829,21 @@ public open class Node : Object() {
    * is unsafe and may lead to unexpected behavior. Use this method if you know what you are doing.
    */
   public final fun setPhysicsProcessInternal(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPhysicsProcessInternalPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setPhysicsProcessInternalPtr, enable)
   }
 
   /**
    * Returns `true` if internal physics processing is enabled (see [setPhysicsProcessInternal]).
    */
   public final fun isPhysicsProcessingInternal(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPhysicsProcessingInternalPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isPhysicsProcessingInternalPtr)
 
   public final fun setPhysicsInterpolationMode(mode: PhysicsInterpolationMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPhysicsInterpolationModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setPhysicsInterpolationModePtr, mode.value)
   }
 
   public final fun getPhysicsInterpolationMode(): PhysicsInterpolationMode =
-      PhysicsInterpolationMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPhysicsInterpolationModePtr))
+      PhysicsInterpolationMode.from(callPtrMethod0_ret_LONG(MethodBindings.getPhysicsInterpolationModePtr))
 
   /**
    * Returns `true` if physics interpolation is enabled for this node (see
@@ -1859,7 +1854,7 @@ public open class Node : Object() {
    * [isPhysicsInterpolatedAndEnabled].
    */
   public final fun isPhysicsInterpolated(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPhysicsInterpolatedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isPhysicsInterpolatedPtr)
 
   /**
    * Returns `true` if physics interpolation is enabled (see [physicsInterpolationMode]) **and**
@@ -1871,7 +1866,7 @@ public open class Node : Object() {
    * See [SceneTree.physicsInterpolation] and [ProjectSettings.physics/common/physicsInterpolation].
    */
   public final fun isPhysicsInterpolatedAndEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPhysicsInterpolatedAndEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isPhysicsInterpolatedAndEnabledPtr)
 
   /**
    * When physics interpolation is active, moving a node to a radically different transform (such as
@@ -1887,22 +1882,22 @@ public open class Node : Object() {
    * **Note:** This function should be called **after** moving the node, rather than before.
    */
   public final fun resetPhysicsInterpolation(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.resetPhysicsInterpolationPtr)
+    callPtrMethod0(MethodBindings.resetPhysicsInterpolationPtr)
   }
 
   public final fun setAutoTranslateMode(mode: AutoTranslateMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAutoTranslateModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setAutoTranslateModePtr, mode.value)
   }
 
   public final fun getAutoTranslateMode(): AutoTranslateMode =
-      AutoTranslateMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAutoTranslateModePtr))
+      AutoTranslateMode.from(callPtrMethod0_ret_LONG(MethodBindings.getAutoTranslateModePtr))
 
   /**
    * Returns `true` if this node can automatically translate messages depending on the current
    * locale. See [autoTranslateMode], [atr], and [atrN].
    */
   public final fun canAutoTranslate(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.canAutoTranslatePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.canAutoTranslatePtr)
 
   /**
    * Makes this node inherit the translation domain from its parent node. If this node has no
@@ -1912,7 +1907,7 @@ public open class Node : Object() {
    * behavior.
    */
   public final fun setTranslationDomainInherited(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.setTranslationDomainInheritedPtr)
+    callPtrMethod0(MethodBindings.setTranslationDomainInheritedPtr)
   }
 
   /**
@@ -1920,21 +1915,21 @@ public open class Node : Object() {
    * equivalent to getting the root node (`get_tree().get_root()`).
    */
   public final fun getWindow(): Window? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getWindowPtr) as Window?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getWindowPtr) as Window?)
 
   /**
    * Returns the [Window] that contains this node, or the last exclusive child in a chain of windows
    * starting with the one that contains this node.
    */
   public final fun getLastExclusiveWindow(): Window? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getLastExclusiveWindowPtr) as Window?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getLastExclusiveWindowPtr) as Window?)
 
   /**
    * Returns the [SceneTree] that contains this node. If this node is not inside the tree, generates
    * an error and returns `null`. See also [isInsideTree].
    */
   public final fun getTree(): SceneTree? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getTreePtr) as SceneTree?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getTreePtr) as SceneTree?)
 
   /**
    * Creates a new [Tween] and binds it to this node.
@@ -1958,7 +1953,7 @@ public open class Node : Object() {
    * an unlikely case of using a custom [MainLoop].
    */
   public final fun createTween(): Tween =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createTweenPtr) as Tween)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.createTweenPtr) as Tween)
 
   /**
    * Duplicates the node, returning a new node with all of its properties, signals, groups, and
@@ -1974,7 +1969,7 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun duplicate(flags: Int = 15): Node? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.duplicatePtr, flags.toLong()) as Node?)
+      (callPtrMethod_LONG_ret_OBJECT(MethodBindings.duplicatePtr, flags.toLong()) as Node?)
 
   /**
    * Replaces this node by the given [node]. All children of this node are moved to [node].
@@ -1987,7 +1982,7 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun replaceBy(node: Node, keepGroups: Boolean = false): Unit {
-    TransferContext.callPtrMethod_OBJECT_BOOL(ptr, objectID.id, MethodBindings.replaceByPtr, node, keepGroups)
+    callPtrMethod_OBJECT_BOOL(MethodBindings.replaceByPtr, node, keepGroups)
   }
 
   /**
@@ -1995,7 +1990,7 @@ public open class Node : Object() {
    * [PackedScene]. See also [getSceneInstanceLoadPlaceholder].
    */
   public final fun setSceneInstanceLoadPlaceholder(loadPlaceholder: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSceneInstanceLoadPlaceholderPtr, loadPlaceholder)
+    callPtrMethod_BOOL(MethodBindings.setSceneInstanceLoadPlaceholderPtr, loadPlaceholder)
   }
 
   /**
@@ -2003,7 +1998,7 @@ public open class Node : Object() {
    * [setSceneInstanceLoadPlaceholder].
    */
   public final fun getSceneInstanceLoadPlaceholder(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSceneInstanceLoadPlaceholderPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getSceneInstanceLoadPlaceholderPtr)
 
   /**
    * Set to `true` to allow all nodes owned by [node] to be available, and editable, in the Scene
@@ -2011,7 +2006,7 @@ public open class Node : Object() {
    * plugins and tools, but it also works in release builds. See also [isEditableInstance].
    */
   public final fun setEditableInstance(node: Node, isEditable: Boolean): Unit {
-    TransferContext.callPtrMethod_OBJECT_BOOL(ptr, objectID.id, MethodBindings.setEditableInstancePtr, node, isEditable)
+    callPtrMethod_OBJECT_BOOL(MethodBindings.setEditableInstancePtr, node, isEditable)
   }
 
   /**
@@ -2019,14 +2014,14 @@ public open class Node : Object() {
    * intended to be used in editor plugins and tools. See also [setEditableInstance].
    */
   public final fun isEditableInstance(node: Node?): Boolean =
-      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.isEditableInstancePtr, node)
+      callPtrMethod_OBJECT_ret_BOOL(MethodBindings.isEditableInstancePtr, node)
 
   /**
    * Returns the node's closest [Viewport] ancestor, if the node is inside the tree. Otherwise,
    * returns `null`.
    */
   public final fun getViewport(): Viewport? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getViewportPtr) as Viewport?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getViewportPtr) as Viewport?)
 
   /**
    * Queues this node to be deleted at the end of the current frame. When deleted, all of its
@@ -2040,7 +2035,7 @@ public open class Node : Object() {
    * method is not always the same as calling [Object.free] through [Object.callDeferred].
    */
   public final fun queueFree(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.queueFreePtr)
+    callPtrMethod0(MethodBindings.queueFreePtr)
   }
 
   /**
@@ -2052,7 +2047,7 @@ public open class Node : Object() {
    * enter the tree again, the order of [_ready] callbacks will be the same as normal.
    */
   public final fun requestReady(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.requestReadyPtr)
+    callPtrMethod0(MethodBindings.requestReadyPtr)
   }
 
   /**
@@ -2061,8 +2056,7 @@ public open class Node : Object() {
    *
    * [requestReady] resets it back to `false`.
    */
-  public final fun isNodeReady(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isNodeReadyPtr)
+  public final fun isNodeReady(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isNodeReadyPtr)
 
   /**
    * Sets the node's multiplayer authority to the peer with the given peer [id]. The multiplayer
@@ -2079,23 +2073,23 @@ public open class Node : Object() {
    */
   @JvmOverloads
   public final fun setMultiplayerAuthority(id: Int, recursive: Boolean = true): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setMultiplayerAuthorityPtr, id.toLong(), recursive)
+    callPtrMethod_LONG_BOOL(MethodBindings.setMultiplayerAuthorityPtr, id.toLong(), recursive)
   }
 
   /**
    * Returns the peer ID of the multiplayer authority for this node. See [setMultiplayerAuthority].
    */
   public final fun getMultiplayerAuthority(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMultiplayerAuthorityPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMultiplayerAuthorityPtr).toInt()
 
   /**
    * Returns `true` if the local system is the multiplayer authority of this node.
    */
   public final fun isMultiplayerAuthority(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMultiplayerAuthorityPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isMultiplayerAuthorityPtr)
 
   public final fun getMultiplayer(): MultiplayerAPI? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMultiplayerPtr) as MultiplayerAPI?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMultiplayerPtr) as MultiplayerAPI?)
 
   /**
    * Changes the RPC configuration for the given [method]. [config] should either be `null` to
@@ -2115,7 +2109,7 @@ public open class Node : Object() {
    * tutorial.
    */
   public final fun rpcConfig(method: StringName, config: Any?): Unit {
-    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.rpcConfigPtr, method, config)
+    callMethod_STRING_NAME_ANY(MethodBindings.rpcConfigPtr, method, config)
   }
 
   /**
@@ -2126,21 +2120,21 @@ public open class Node : Object() {
    * [Script.getRpcConfig] to retrieve the RPCs defined by the [Script].
    */
   public final fun getNodeRpcConfig(): Any? =
-      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.getNodeRpcConfigPtr)
+      callMethod0_ret_ANY(MethodBindings.getNodeRpcConfigPtr)
 
   public final fun setEditorDescription(editorDescription: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setEditorDescriptionPtr, editorDescription)
+    callMethod_STRING(MethodBindings.setEditorDescriptionPtr, editorDescription)
   }
 
   public final fun getEditorDescription(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getEditorDescriptionPtr)
+      callMethod0_ret_STRING(MethodBindings.getEditorDescriptionPtr)
 
   public final fun setUniqueNameInOwner(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUniqueNameInOwnerPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUniqueNameInOwnerPtr, enable)
   }
 
   public final fun isUniqueNameInOwner(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUniqueNameInOwnerPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUniqueNameInOwnerPtr)
 
   /**
    * Translates a [message], using the translation catalogs configured in the Project Settings.
@@ -2158,7 +2152,7 @@ public open class Node : Object() {
    * [url=$DOCS_URL/tutorials/i18n/internationalizing_games.html]Internationalizing games[/url].
    */
   public final fun atr(message: String, context: StringName = StringName("")): String =
-      TransferContext.callMethod_STRING_STRING_NAME_ret_STRING(ptr, objectID.id, MethodBindings.atrPtr, message, context)
+      callMethod_STRING_STRING_NAME_ret_STRING(MethodBindings.atrPtr, message, context)
 
   /**
    * Translates a [message] or [pluralMessage], using the translation catalogs configured in the
@@ -2185,7 +2179,7 @@ public open class Node : Object() {
     n: Int,
     context: StringName = StringName(""),
   ): String =
-      TransferContext.callMethod_STRING_STRING_NAME_LONG_STRING_NAME_ret_STRING(ptr, objectID.id, MethodBindings.atrNPtr, message, pluralMessage, n.toLong(), context)
+      callMethod_STRING_STRING_NAME_LONG_STRING_NAME_ret_STRING(MethodBindings.atrNPtr, message, pluralMessage, n.toLong(), context)
 
   /**
    * Sends a remote procedure call request for the given [method] to peers on the network (and
@@ -2206,7 +2200,7 @@ public open class Node : Object() {
    * (`get_multiplayer().peer.get_connection_status() == CONNECTION_CONNECTED`).
    */
   public final fun rpc(method: StringName, vararg args: Any?): Error =
-      Error.from(TransferContext.callMethod_STRING_NAME_VARARG_ret_LONG(ptr, objectID.id, MethodBindings.rpcPtr, method, args))
+      Error.from(callMethod_STRING_NAME_VARARG_ret_LONG(MethodBindings.rpcPtr, method, args))
 
   /**
    * Sends a [rpc] to a specific peer identified by [peerId] (see [MultiplayerPeer.setTargetPeer]).
@@ -2221,14 +2215,14 @@ public open class Node : Object() {
     method: StringName,
     vararg args: Any?,
   ): Error =
-      Error.from(TransferContext.callMethod_LONG_STRING_NAME_VARARG_ret_LONG(ptr, objectID.id, MethodBindings.rpcIdPtr, peerId, method, args))
+      Error.from(callMethod_LONG_STRING_NAME_VARARG_ret_LONG(MethodBindings.rpcIdPtr, peerId, method, args))
 
   /**
    * Refreshes the warnings displayed for this node in the Scene dock. Use
    * [_getConfigurationWarnings] to customize the warning messages to display.
    */
   public final fun updateConfigurationWarnings(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.updateConfigurationWarningsPtr)
+    callPtrMethod0(MethodBindings.updateConfigurationWarningsPtr)
   }
 
   /**
@@ -2239,20 +2233,20 @@ public open class Node : Object() {
    * called.
    */
   public final fun callDeferredThreadGroup(method: StringName, vararg args: Any?): Any? =
-      TransferContext.callMethod_STRING_NAME_VARARG_ret_ANY(ptr, objectID.id, MethodBindings.callDeferredThreadGroupPtr, method, args)
+      callMethod_STRING_NAME_VARARG_ret_ANY(MethodBindings.callDeferredThreadGroupPtr, method, args)
 
   /**
    * Similar to [callDeferredThreadGroup], but for setting properties.
    */
   public final fun setDeferredThreadGroup(`property`: StringName, `value`: Any?): Unit {
-    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setDeferredThreadGroupPtr, property, value)
+    callMethod_STRING_NAME_ANY(MethodBindings.setDeferredThreadGroupPtr, property, value)
   }
 
   /**
    * Similar to [callDeferredThreadGroup], but for notifications.
    */
   public final fun notifyDeferredThreadGroup(what: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.notifyDeferredThreadGroupPtr, what.toLong())
+    callPtrMethod_LONG(MethodBindings.notifyDeferredThreadGroupPtr, what.toLong())
   }
 
   /**
@@ -2261,20 +2255,20 @@ public open class Node : Object() {
    * the call will become deferred. Otherwise, the call will go through directly.
    */
   public final fun callThreadSafe(method: StringName, vararg args: Any?): Any? =
-      TransferContext.callMethod_STRING_NAME_VARARG_ret_ANY(ptr, objectID.id, MethodBindings.callThreadSafePtr, method, args)
+      callMethod_STRING_NAME_VARARG_ret_ANY(MethodBindings.callThreadSafePtr, method, args)
 
   /**
    * Similar to [callThreadSafe], but for setting properties.
    */
   public final fun setThreadSafe(`property`: StringName, `value`: Any?): Unit {
-    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setThreadSafePtr, property, value)
+    callMethod_STRING_NAME_ANY(MethodBindings.setThreadSafePtr, property, value)
   }
 
   /**
    * Similar to [callThreadSafe], but for notifications.
    */
   public final fun notifyThreadSafe(what: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.notifyThreadSafePtr, what.toLong())
+    callPtrMethod_LONG(MethodBindings.notifyThreadSafePtr, what.toLong())
   }
 
   public final fun setName(name: String) = setName(name.asCachedStringName())
@@ -3622,7 +3616,7 @@ public open class Node : Object() {
      */
     @JvmStatic
     public final fun printOrphanNodes(): Unit {
-      TransferContext.callPtrMethod0(0L, 0L, MethodBindings.printOrphanNodesPtr)
+      callStaticPtrMethod0(MethodBindings.printOrphanNodesPtr)
     }
 
     /**
@@ -3633,7 +3627,7 @@ public open class Node : Object() {
      */
     @JvmStatic
     public final fun getOrphanNodeIds(): VariantArray<Long> =
-        (TransferContext.callPtrMethod0_ret_ARRAY(0L, 0L, MethodBindings.getOrphanNodeIdsPtr) as VariantArray<Long>)
+        (callStaticPtrMethod0_ret_ARRAY(MethodBindings.getOrphanNodeIdsPtr) as VariantArray<Long>)
   }
 
   public object MethodBindings {

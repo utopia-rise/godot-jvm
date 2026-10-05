@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod_OBJECT
@@ -72,18 +71,18 @@ public open class CSGMesh3D : CSGPrimitive3D() {
   }
 
   public final fun setMesh(mesh: Mesh?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMeshPtr, mesh)
+    callPtrMethod_OBJECT(MethodBindings.setMeshPtr, mesh)
   }
 
   public final fun getMesh(): Mesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMeshPtr) as Mesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMeshPtr) as Mesh?)
 
   public final fun setMaterial(material: Material?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMaterialPtr, material)
+    callPtrMethod_OBJECT(MethodBindings.setMaterialPtr, material)
   }
 
   public final fun getMaterial(): Material? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMaterialPtr) as Material?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMaterialPtr) as Material?)
 
   public companion object {
     @JvmField

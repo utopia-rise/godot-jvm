@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_STRING_NAME
@@ -134,53 +133,51 @@ public open class AudioEffectCompressor : AudioEffect() {
   }
 
   public final fun setThreshold(threshold: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setThresholdPtr, threshold.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setThresholdPtr, threshold.toDouble())
   }
 
   public final fun getThreshold(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getThresholdPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getThresholdPtr).toFloat()
 
   public final fun setRatio(ratio: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRatioPtr, ratio.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRatioPtr, ratio.toDouble())
   }
 
   public final fun getRatio(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRatioPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRatioPtr).toFloat()
 
   public final fun setGain(gain: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setGainPtr, gain.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setGainPtr, gain.toDouble())
   }
 
-  public final fun getGain(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getGainPtr).toFloat()
+  public final fun getGain(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getGainPtr).toFloat()
 
   public final fun setAttackUs(attackUs: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAttackUsPtr, attackUs.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAttackUsPtr, attackUs.toDouble())
   }
 
   public final fun getAttackUs(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAttackUsPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAttackUsPtr).toFloat()
 
   public final fun setReleaseMs(releaseMs: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setReleaseMsPtr, releaseMs.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setReleaseMsPtr, releaseMs.toDouble())
   }
 
   public final fun getReleaseMs(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getReleaseMsPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getReleaseMsPtr).toFloat()
 
   public final fun setMix(mix: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMixPtr, mix.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMixPtr, mix.toDouble())
   }
 
-  public final fun getMix(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMixPtr).toFloat()
+  public final fun getMix(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getMixPtr).toFloat()
 
   public final fun setSidechain(sidechain: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setSidechainPtr, sidechain)
+    callPtrMethod_STRING_NAME(MethodBindings.setSidechainPtr, sidechain)
   }
 
   public final fun getSidechain(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getSidechainPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getSidechainPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

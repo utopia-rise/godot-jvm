@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY
 import godot.callPtrMethod_PACKED_VECTOR3_ARRAY
@@ -108,11 +107,11 @@ public open class ConvexPolygonShape3D : Shape3D() {
   }
 
   public final fun setPoints(points: PackedVector3Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.setPointsPtr, points)
+    callPtrMethod_PACKED_VECTOR3_ARRAY(MethodBindings.setPointsPtr, points)
   }
 
   public final fun getPoints(): PackedVector3Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getPointsPtr)
+      callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(MethodBindings.getPointsPtr)
 
   public companion object {
     @JvmField

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_ANY
 import godot.callMethod_LONG_ret_ANY
@@ -261,66 +260,61 @@ public open class TileData : Object() {
   }
 
   public final fun setFlipH(flipH: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFlipHPtr, flipH)
+    callPtrMethod_BOOL(MethodBindings.setFlipHPtr, flipH)
   }
 
-  public final fun getFlipH(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getFlipHPtr)
+  public final fun getFlipH(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getFlipHPtr)
 
   public final fun setFlipV(flipV: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFlipVPtr, flipV)
+    callPtrMethod_BOOL(MethodBindings.setFlipVPtr, flipV)
   }
 
-  public final fun getFlipV(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getFlipVPtr)
+  public final fun getFlipV(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getFlipVPtr)
 
   public final fun setTranspose(transpose: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTransposePtr, transpose)
+    callPtrMethod_BOOL(MethodBindings.setTransposePtr, transpose)
   }
 
-  public final fun getTranspose(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getTransposePtr)
+  public final fun getTranspose(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getTransposePtr)
 
   public final fun setMaterial(material: Material?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMaterialPtr, material)
+    callPtrMethod_OBJECT(MethodBindings.setMaterialPtr, material)
   }
 
   public final fun getMaterial(): Material? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMaterialPtr) as Material?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMaterialPtr) as Material?)
 
   public final fun setTextureOrigin(textureOrigin: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setTextureOriginPtr, textureOrigin)
+    callPtrMethod_VECTOR2I(MethodBindings.setTextureOriginPtr, textureOrigin)
   }
 
   public final fun getTextureOrigin(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getTextureOriginPtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.getTextureOriginPtr)
 
   public final fun setModulate(modulate: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setModulatePtr, modulate)
+    callPtrMethod_COLOR(MethodBindings.setModulatePtr, modulate)
   }
 
-  public final fun getModulate(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getModulatePtr)
+  public final fun getModulate(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getModulatePtr)
 
   public final fun setZIndex(zIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setZIndexPtr, zIndex.toLong())
+    callPtrMethod_LONG(MethodBindings.setZIndexPtr, zIndex.toLong())
   }
 
-  public final fun getZIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getZIndexPtr).toInt()
+  public final fun getZIndex(): Int = callPtrMethod0_ret_LONG(MethodBindings.getZIndexPtr).toInt()
 
   public final fun setYSortOrigin(ySortOrigin: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setYSortOriginPtr, ySortOrigin.toLong())
+    callPtrMethod_LONG(MethodBindings.setYSortOriginPtr, ySortOrigin.toLong())
   }
 
   public final fun getYSortOrigin(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getYSortOriginPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getYSortOriginPtr).toInt()
 
   /**
    * Sets the occluder polygon count in the TileSet occlusion layer with index [layerId].
    */
   public final fun setOccluderPolygonsCount(layerId: Int, polygonsCount: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setOccluderPolygonsCountPtr, layerId.toLong(), polygonsCount.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setOccluderPolygonsCountPtr, layerId.toLong(), polygonsCount.toLong())
   }
 
   /**
@@ -328,20 +322,20 @@ public open class TileData : Object() {
    * [layerId].
    */
   public final fun getOccluderPolygonsCount(layerId: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getOccluderPolygonsCountPtr, layerId.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getOccluderPolygonsCountPtr, layerId.toLong()).toInt()
 
   /**
    * Adds an occlusion polygon to the tile on the TileSet occlusion layer with index [layerId].
    */
   public final fun addOccluderPolygon(layerId: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.addOccluderPolygonPtr, layerId.toLong())
+    callPtrMethod_LONG(MethodBindings.addOccluderPolygonPtr, layerId.toLong())
   }
 
   /**
    * Removes the polygon at index [polygonIndex] for TileSet occlusion layer with index [layerId].
    */
   public final fun removeOccluderPolygon(layerId: Int, polygonIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.removeOccluderPolygonPtr, layerId.toLong(), polygonIndex.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.removeOccluderPolygonPtr, layerId.toLong(), polygonIndex.toLong())
   }
 
   /**
@@ -353,7 +347,7 @@ public open class TileData : Object() {
     polygonIndex: Int,
     polygon: OccluderPolygon2D?,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_OBJECT(ptr, objectID.id, MethodBindings.setOccluderPolygonPtr, layerId.toLong(), polygonIndex.toLong(), polygon)
+    callPtrMethod_LONG_LONG_OBJECT(MethodBindings.setOccluderPolygonPtr, layerId.toLong(), polygonIndex.toLong(), polygon)
   }
 
   /**
@@ -371,13 +365,13 @@ public open class TileData : Object() {
     flipV: Boolean = false,
     transpose: Boolean = false,
   ): OccluderPolygon2D? =
-      (TransferContext.callPtrMethod_LONG_LONG_BOOL_BOOL_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOccluderPolygonPtr, layerId.toLong(), polygonIndex.toLong(), flipH, flipV, transpose) as OccluderPolygon2D?)
+      (callPtrMethod_LONG_LONG_BOOL_BOOL_BOOL_ret_OBJECT_REF(MethodBindings.getOccluderPolygonPtr, layerId.toLong(), polygonIndex.toLong(), flipH, flipV, transpose) as OccluderPolygon2D?)
 
   /**
    * Sets the occluder for the TileSet occlusion layer with index [layerId].
    */
   public final fun setOccluder(layerId: Int, occluderPolygon: OccluderPolygon2D?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setOccluderPtr, layerId.toLong(), occluderPolygon)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setOccluderPtr, layerId.toLong(), occluderPolygon)
   }
 
   /**
@@ -392,61 +386,61 @@ public open class TileData : Object() {
     flipV: Boolean = false,
     transpose: Boolean = false,
   ): OccluderPolygon2D? =
-      (TransferContext.callPtrMethod_LONG_BOOL_BOOL_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOccluderPtr, layerId.toLong(), flipH, flipV, transpose) as OccluderPolygon2D?)
+      (callPtrMethod_LONG_BOOL_BOOL_BOOL_ret_OBJECT_REF(MethodBindings.getOccluderPtr, layerId.toLong(), flipH, flipV, transpose) as OccluderPolygon2D?)
 
   /**
    * Sets the constant linear velocity. This does not move the tile. This linear velocity is applied
    * to objects colliding with this tile. This is useful to create conveyor belts.
    */
   public final fun setConstantLinearVelocity(layerId: Int, velocity: Vector2): Unit {
-    TransferContext.callPtrMethod_LONG_VECTOR2(ptr, objectID.id, MethodBindings.setConstantLinearVelocityPtr, layerId.toLong(), velocity)
+    callPtrMethod_LONG_VECTOR2(MethodBindings.setConstantLinearVelocityPtr, layerId.toLong(), velocity)
   }
 
   /**
    * Returns the constant linear velocity applied to objects colliding with this tile.
    */
   public final fun getConstantLinearVelocity(layerId: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getConstantLinearVelocityPtr, layerId.toLong())
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getConstantLinearVelocityPtr, layerId.toLong())
 
   /**
    * Sets the constant angular velocity. This does not rotate the tile. This angular velocity is
    * applied to objects colliding with this tile.
    */
   public final fun setConstantAngularVelocity(layerId: Int, velocity: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setConstantAngularVelocityPtr, layerId.toLong(), velocity.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setConstantAngularVelocityPtr, layerId.toLong(), velocity.toDouble())
   }
 
   /**
    * Returns the constant angular velocity applied to objects colliding with this tile.
    */
   public final fun getConstantAngularVelocity(layerId: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getConstantAngularVelocityPtr, layerId.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getConstantAngularVelocityPtr, layerId.toLong()).toFloat()
 
   /**
    * Sets the polygons count for TileSet physics layer with index [layerId].
    */
   public final fun setCollisionPolygonsCount(layerId: Int, polygonsCount: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setCollisionPolygonsCountPtr, layerId.toLong(), polygonsCount.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setCollisionPolygonsCountPtr, layerId.toLong(), polygonsCount.toLong())
   }
 
   /**
    * Returns how many polygons the tile has for TileSet physics layer with index [layerId].
    */
   public final fun getCollisionPolygonsCount(layerId: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionPolygonsCountPtr, layerId.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getCollisionPolygonsCountPtr, layerId.toLong()).toInt()
 
   /**
    * Adds a collision polygon to the tile on the given TileSet physics layer.
    */
   public final fun addCollisionPolygon(layerId: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.addCollisionPolygonPtr, layerId.toLong())
+    callPtrMethod_LONG(MethodBindings.addCollisionPolygonPtr, layerId.toLong())
   }
 
   /**
    * Removes the polygon at index [polygonIndex] for TileSet physics layer with index [layerId].
    */
   public final fun removeCollisionPolygon(layerId: Int, polygonIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.removeCollisionPolygonPtr, layerId.toLong(), polygonIndex.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.removeCollisionPolygonPtr, layerId.toLong(), polygonIndex.toLong())
   }
 
   /**
@@ -458,7 +452,7 @@ public open class TileData : Object() {
     polygonIndex: Int,
     polygon: PackedVector2Array,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setCollisionPolygonPointsPtr, layerId.toLong(), polygonIndex.toLong(), polygon)
+    callPtrMethod_LONG_LONG_PACKED_VECTOR2_ARRAY(MethodBindings.setCollisionPolygonPointsPtr, layerId.toLong(), polygonIndex.toLong(), polygon)
   }
 
   /**
@@ -466,7 +460,7 @@ public open class TileData : Object() {
    * [layerId].
    */
   public final fun getCollisionPolygonPoints(layerId: Int, polygonIndex: Int): PackedVector2Array =
-      TransferContext.callPtrMethod_LONG_LONG_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getCollisionPolygonPointsPtr, layerId.toLong(), polygonIndex.toLong())
+      callPtrMethod_LONG_LONG_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getCollisionPolygonPointsPtr, layerId.toLong(), polygonIndex.toLong())
 
   /**
    * Enables/disables one-way collisions on the polygon at index [polygonIndex] for TileSet physics
@@ -477,7 +471,7 @@ public open class TileData : Object() {
     polygonIndex: Int,
     oneWay: Boolean,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_BOOL(ptr, objectID.id, MethodBindings.setCollisionPolygonOneWayPtr, layerId.toLong(), polygonIndex.toLong(), oneWay)
+    callPtrMethod_LONG_LONG_BOOL(MethodBindings.setCollisionPolygonOneWayPtr, layerId.toLong(), polygonIndex.toLong(), oneWay)
   }
 
   /**
@@ -485,7 +479,7 @@ public open class TileData : Object() {
    * TileSet physics layer with index [layerId].
    */
   public final fun isCollisionPolygonOneWay(layerId: Int, polygonIndex: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isCollisionPolygonOneWayPtr, layerId.toLong(), polygonIndex.toLong())
+      callPtrMethod_LONG_LONG_ret_BOOL(MethodBindings.isCollisionPolygonOneWayPtr, layerId.toLong(), polygonIndex.toLong())
 
   /**
    * Sets the one-way margin (for one-way platforms) of the polygon at index [polygonIndex] for
@@ -496,7 +490,7 @@ public open class TileData : Object() {
     polygonIndex: Int,
     oneWayMargin: Float,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setCollisionPolygonOneWayMarginPtr, layerId.toLong(), polygonIndex.toLong(), oneWayMargin.toDouble())
+    callPtrMethod_LONG_LONG_DOUBLE(MethodBindings.setCollisionPolygonOneWayMarginPtr, layerId.toLong(), polygonIndex.toLong(), oneWayMargin.toDouble())
   }
 
   /**
@@ -504,28 +498,27 @@ public open class TileData : Object() {
    * TileSet physics layer with index [layerId].
    */
   public final fun getCollisionPolygonOneWayMargin(layerId: Int, polygonIndex: Int): Float =
-      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCollisionPolygonOneWayMarginPtr, layerId.toLong(), polygonIndex.toLong()).toFloat()
+      callPtrMethod_LONG_LONG_ret_DOUBLE(MethodBindings.getCollisionPolygonOneWayMarginPtr, layerId.toLong(), polygonIndex.toLong()).toFloat()
 
   public final fun setTerrainSet(terrainSet: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTerrainSetPtr, terrainSet.toLong())
+    callPtrMethod_LONG(MethodBindings.setTerrainSetPtr, terrainSet.toLong())
   }
 
   public final fun getTerrainSet(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTerrainSetPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getTerrainSetPtr).toInt()
 
   public final fun setTerrain(terrain: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTerrainPtr, terrain.toLong())
+    callPtrMethod_LONG(MethodBindings.setTerrainPtr, terrain.toLong())
   }
 
-  public final fun getTerrain(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTerrainPtr).toInt()
+  public final fun getTerrain(): Int = callPtrMethod0_ret_LONG(MethodBindings.getTerrainPtr).toInt()
 
   /**
    * Sets the tile's terrain bit for the given [peeringBit] direction. To check that a direction is
    * valid, use [isValidTerrainPeeringBit].
    */
   public final fun setTerrainPeeringBit(peeringBit: TileSet.CellNeighbor, terrain: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setTerrainPeeringBitPtr, peeringBit.value, terrain.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setTerrainPeeringBitPtr, peeringBit.value, terrain.toLong())
   }
 
   /**
@@ -533,19 +526,19 @@ public open class TileData : Object() {
    * is valid, use [isValidTerrainPeeringBit].
    */
   public final fun getTerrainPeeringBit(peeringBit: TileSet.CellNeighbor): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getTerrainPeeringBitPtr, peeringBit.value).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getTerrainPeeringBitPtr, peeringBit.value).toInt()
 
   /**
    * Returns whether the given [peeringBit] direction is valid for this tile.
    */
   public final fun isValidTerrainPeeringBit(peeringBit: TileSet.CellNeighbor): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isValidTerrainPeeringBitPtr, peeringBit.value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isValidTerrainPeeringBitPtr, peeringBit.value)
 
   /**
    * Sets the navigation polygon for the TileSet navigation layer with index [layerId].
    */
   public final fun setNavigationPolygon(layerId: Int, navigationPolygon: NavigationPolygon?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setNavigationPolygonPtr, layerId.toLong(), navigationPolygon)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setNavigationPolygonPtr, layerId.toLong(), navigationPolygon)
   }
 
   /**
@@ -561,20 +554,20 @@ public open class TileData : Object() {
     flipV: Boolean = false,
     transpose: Boolean = false,
   ): NavigationPolygon? =
-      (TransferContext.callPtrMethod_LONG_BOOL_BOOL_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getNavigationPolygonPtr, layerId.toLong(), flipH, flipV, transpose) as NavigationPolygon?)
+      (callPtrMethod_LONG_BOOL_BOOL_BOOL_ret_OBJECT_REF(MethodBindings.getNavigationPolygonPtr, layerId.toLong(), flipH, flipV, transpose) as NavigationPolygon?)
 
   public final fun setProbability(probability: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setProbabilityPtr, probability.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setProbabilityPtr, probability.toDouble())
   }
 
   public final fun getProbability(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getProbabilityPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getProbabilityPtr).toFloat()
 
   /**
    * Sets the tile's custom data value for the TileSet custom data layer with name [layerName].
    */
   public final fun setCustomData(layerName: String, `value`: Any?): Unit {
-    TransferContext.callMethod_STRING_ANY(ptr, objectID.id, MethodBindings.setCustomDataPtr, layerName, value)
+    callMethod_STRING_ANY(MethodBindings.setCustomDataPtr, layerName, value)
   }
 
   /**
@@ -582,26 +575,26 @@ public open class TileData : Object() {
    * data layer exists, use [hasCustomData].
    */
   public final fun getCustomData(layerName: String): Any? =
-      TransferContext.callMethod_STRING_ret_ANY(ptr, objectID.id, MethodBindings.getCustomDataPtr, layerName)
+      callMethod_STRING_ret_ANY(MethodBindings.getCustomDataPtr, layerName)
 
   /**
    * Returns whether there exists a custom data layer named [layerName].
    */
   public final fun hasCustomData(layerName: String): Boolean =
-      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasCustomDataPtr, layerName)
+      callMethod_STRING_ret_BOOL(MethodBindings.hasCustomDataPtr, layerName)
 
   /**
    * Sets the tile's custom data value for the TileSet custom data layer with index [layerId].
    */
   public final fun setCustomDataByLayerId(layerId: Int, `value`: Any?): Unit {
-    TransferContext.callMethod_LONG_ANY(ptr, objectID.id, MethodBindings.setCustomDataByLayerIdPtr, layerId.toLong(), value)
+    callMethod_LONG_ANY(MethodBindings.setCustomDataByLayerIdPtr, layerId.toLong(), value)
   }
 
   /**
    * Returns the custom data value for custom data layer with index [layerId].
    */
   public final fun getCustomDataByLayerId(layerId: Int): Any? =
-      TransferContext.callMethod_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getCustomDataByLayerIdPtr, layerId.toLong())
+      callMethod_LONG_ret_ANY(MethodBindings.getCustomDataByLayerIdPtr, layerId.toLong())
 
   public companion object {
     @JvmField

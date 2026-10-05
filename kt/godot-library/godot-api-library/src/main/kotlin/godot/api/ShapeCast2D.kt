@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_ARRAY
@@ -205,46 +204,44 @@ public open class ShapeCast2D : Node2D() {
   }
 
   public final fun setEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setEnabledPtr, enabled)
   }
 
-  public final fun isEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEnabledPtr)
+  public final fun isEnabled(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isEnabledPtr)
 
   public final fun setShape(shape: Shape2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setShapePtr, shape)
+    callPtrMethod_OBJECT(MethodBindings.setShapePtr, shape)
   }
 
   public final fun getShape(): Shape2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getShapePtr) as Shape2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getShapePtr) as Shape2D?)
 
   public final fun setTargetPosition(localPoint: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setTargetPositionPtr, localPoint)
+    callPtrMethod_VECTOR2(MethodBindings.setTargetPositionPtr, localPoint)
   }
 
   public final fun getTargetPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getTargetPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getTargetPositionPtr)
 
   public final fun setMargin(margin: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMarginPtr, margin.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMarginPtr, margin.toDouble())
   }
 
   public final fun getMargin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMarginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMarginPtr).toFloat()
 
   public final fun setMaxResults(maxResults: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxResultsPtr, maxResults.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaxResultsPtr, maxResults.toLong())
   }
 
   public final fun getMaxResults(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxResultsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMaxResultsPtr).toInt()
 
   /**
    * Returns whether any object is intersecting with the shape's vector (considering the vector
    * length).
    */
-  public final fun isColliding(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollidingPtr)
+  public final fun isColliding(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isCollidingPtr)
 
   /**
    * The number of collisions detected at the point of impact. Use this to iterate over multiple
@@ -252,7 +249,7 @@ public open class ShapeCast2D : Node2D() {
    * [getCollisionNormal] methods.
    */
   public final fun getCollisionCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionCountPtr).toInt()
 
   /**
    * Updates the collision information for the shape immediately, without waiting for the next
@@ -262,7 +259,7 @@ public open class ShapeCast2D : Node2D() {
    * **Note:** Setting [enabled] to `true` is not required for this to work.
    */
   public final fun forceShapecastUpdate(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.forceShapecastUpdatePtr)
+    callPtrMethod0(MethodBindings.forceShapecastUpdatePtr)
   }
 
   /**
@@ -270,20 +267,20 @@ public open class ShapeCast2D : Node2D() {
    * object is intersecting the shape (i.e. [isColliding] returns `false`).
    */
   public final fun getCollider(index: Int): Object? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getColliderPtr, index.toLong()) as Object?)
+      (callPtrMethod_LONG_ret_OBJECT(MethodBindings.getColliderPtr, index.toLong()) as Object?)
 
   /**
    * Returns the [RID] of the collided object of one of the multiple collisions at [index].
    */
   public final fun getColliderRid(index: Int): RID =
-      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.getColliderRidPtr, index.toLong())
+      callPtrMethod_LONG_ret_RID(MethodBindings.getColliderRidPtr, index.toLong())
 
   /**
    * Returns the shape ID of the colliding shape of one of the multiple collisions at [index], or
    * `0` if no object is intersecting the shape (i.e. [isColliding] returns `false`).
    */
   public final fun getColliderShape(index: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getColliderShapePtr, index.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getColliderShapePtr, index.toLong()).toInt()
 
   /**
    * Returns the collision point of one of the multiple collisions at [index] where the shape
@@ -292,20 +289,20 @@ public open class ShapeCast2D : Node2D() {
    * **Note:** This point is in the **global** coordinate system.
    */
   public final fun getCollisionPoint(index: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCollisionPointPtr, index.toLong())
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getCollisionPointPtr, index.toLong())
 
   /**
    * Returns the normal of one of the multiple collisions at [index] of the intersecting object.
    */
   public final fun getCollisionNormal(index: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCollisionNormalPtr, index.toLong())
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getCollisionNormalPtr, index.toLong())
 
   /**
    * Returns the fraction from this cast's origin to its [targetPosition] of how far the shape can
    * move without triggering a collision, as a value between `0.0` and `1.0`.
    */
   public final fun getClosestCollisionSafeFraction(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getClosestCollisionSafeFractionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getClosestCollisionSafeFractionPtr).toFloat()
 
   /**
    * Returns the fraction from this cast's origin to its [targetPosition] of how far the shape must
@@ -316,56 +313,56 @@ public open class ShapeCast2D : Node2D() {
    * calculated positions.
    */
   public final fun getClosestCollisionUnsafeFraction(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getClosestCollisionUnsafeFractionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getClosestCollisionUnsafeFractionPtr).toFloat()
 
   /**
    * Adds a collision exception so the shape does not report collisions with the specified [RID].
    */
   public final fun addExceptionRid(rid: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.addExceptionRidPtr, rid)
+    callPtrMethod_RID(MethodBindings.addExceptionRidPtr, rid)
   }
 
   /**
    * Adds a collision exception so the shape does not report collisions with the specified node.
    */
   public final fun addException(node: CollisionObject2D): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addExceptionPtr, node)
+    callPtrMethod_OBJECT(MethodBindings.addExceptionPtr, node)
   }
 
   /**
    * Removes a collision exception so the shape does report collisions with the specified [RID].
    */
   public final fun removeExceptionRid(rid: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.removeExceptionRidPtr, rid)
+    callPtrMethod_RID(MethodBindings.removeExceptionRidPtr, rid)
   }
 
   /**
    * Removes a collision exception so the shape does report collisions with the specified node.
    */
   public final fun removeException(node: CollisionObject2D): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeExceptionPtr, node)
+    callPtrMethod_OBJECT(MethodBindings.removeExceptionPtr, node)
   }
 
   /**
    * Removes all collision exceptions for this shape.
    */
   public final fun clearExceptions(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearExceptionsPtr)
+    callPtrMethod0(MethodBindings.clearExceptionsPtr)
   }
 
   public final fun setCollisionMask(mask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionMaskPtr, mask)
+    callPtrMethod_LONG(MethodBindings.setCollisionMaskPtr, mask)
   }
 
   public final fun getCollisionMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionMaskPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionMaskPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [collisionMask], given a
    * [layerNumber] between 1 and 32.
    */
   public final fun setCollisionMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCollisionMaskValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCollisionMaskValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -373,31 +370,31 @@ public open class ShapeCast2D : Node2D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getCollisionMaskValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getCollisionMaskValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getCollisionMaskValuePtr, layerNumber.toLong())
 
   public final fun setExcludeParentBody(mask: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setExcludeParentBodyPtr, mask)
+    callPtrMethod_BOOL(MethodBindings.setExcludeParentBodyPtr, mask)
   }
 
   public final fun getExcludeParentBody(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getExcludeParentBodyPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getExcludeParentBodyPtr)
 
   public final fun setCollideWithAreas(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCollideWithAreasPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCollideWithAreasPtr, enable)
   }
 
   public final fun isCollideWithAreasEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollideWithAreasEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCollideWithAreasEnabledPtr)
 
   public final fun setCollideWithBodies(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCollideWithBodiesPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCollideWithBodiesPtr, enable)
   }
 
   public final fun isCollideWithBodiesEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollideWithBodiesEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCollideWithBodiesEnabledPtr)
 
   public final fun getCollisionResult(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getCollisionResultPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getCollisionResultPtr) as VariantArray<Any?>)
 
   public companion object {
     @JvmField

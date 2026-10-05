@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_RID
 import godot.callPtrMethod_RID_RECT2_RECT2I_BOOL_LONG_BOOL_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE
@@ -288,13 +287,13 @@ public open class XRInterfaceExtension : XRInterface() {
   }
 
   public final fun getColorTexture(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getColorTexturePtr)
+      callPtrMethod0_ret_RID(MethodBindings.getColorTexturePtr)
 
   public final fun getDepthTexture(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getDepthTexturePtr)
+      callPtrMethod0_ret_RID(MethodBindings.getDepthTexturePtr)
 
   public final fun getVelocityTexture(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getVelocityTexturePtr)
+      callPtrMethod0_ret_RID(MethodBindings.getVelocityTexturePtr)
 
   /**
    * Blits our render results to screen optionally applying lens distortion. This can only be called
@@ -313,7 +312,7 @@ public open class XRInterfaceExtension : XRInterface() {
     upscale: Double,
     aspectRatio: Double,
   ): Unit {
-    TransferContext.callPtrMethod_RID_RECT2_RECT2I_BOOL_LONG_BOOL_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.addBlitPtr, renderTarget, srcRect, dstRect, useLayer, layer, applyLensDistortion, eyeCenter, k1, k2, upscale, aspectRatio)
+    callPtrMethod_RID_RECT2_RECT2I_BOOL_LONG_BOOL_VECTOR2_DOUBLE_DOUBLE_DOUBLE_DOUBLE(MethodBindings.addBlitPtr, renderTarget, srcRect, dstRect, useLayer, layer, applyLensDistortion, eyeCenter, k1, k2, upscale, aspectRatio)
   }
 
   /**
@@ -321,7 +320,7 @@ public open class XRInterfaceExtension : XRInterface() {
    * the interface.
    */
   public final fun getRenderTargetTexture(renderTarget: RID): RID =
-      TransferContext.callPtrMethod_RID_ret_RID(ptr, objectID.id, MethodBindings.getRenderTargetTexturePtr, renderTarget)
+      callPtrMethod_RID_ret_RID(MethodBindings.getRenderTargetTexturePtr, renderTarget)
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_BOOL
 import godot.callMethod_STRING_ret_BOOL
@@ -232,7 +231,7 @@ public open class OpenXRInterface : XRInterface() {
    * Returns the current state of our OpenXR session.
    */
   public final fun getSessionState(): SessionState =
-      SessionState.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSessionStatePtr))
+      SessionState.from(callPtrMethod0_ret_LONG(MethodBindings.getSessionStatePtr))
 
   /**
    * Returns `true` if OpenXR's user presence extension is supported and enabled.
@@ -240,26 +239,26 @@ public open class OpenXRInterface : XRInterface() {
    * **Note:** This only returns a valid value after OpenXR has been initialized.
    */
   public final fun isUserPresenceSupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUserPresenceSupportedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUserPresenceSupportedPtr)
 
   /**
    * Returns `true` if system has detected the presence of a user in the XR experience.
    */
   public final fun isUserPresent(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUserPresentPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUserPresentPtr)
 
   public final fun getDisplayRefreshRate(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDisplayRefreshRatePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDisplayRefreshRatePtr).toFloat()
 
   public final fun setDisplayRefreshRate(refreshRate: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDisplayRefreshRatePtr, refreshRate.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDisplayRefreshRatePtr, refreshRate.toDouble())
   }
 
   public final fun getRenderTargetSizeMultiplier(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRenderTargetSizeMultiplierPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRenderTargetSizeMultiplierPtr)
 
   public final fun setRenderTargetSizeMultiplier(multiplier: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRenderTargetSizeMultiplierPtr, multiplier)
+    callPtrMethod_DOUBLE(MethodBindings.setRenderTargetSizeMultiplierPtr, multiplier)
   }
 
   /**
@@ -270,61 +269,61 @@ public open class OpenXRInterface : XRInterface() {
    * [Viewport.VRS_XR] to support foveation.
    */
   public final fun isFoveationSupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFoveationSupportedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isFoveationSupportedPtr)
 
   public final fun getFoveationLevel(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFoveationLevelPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getFoveationLevelPtr).toInt()
 
   public final fun setFoveationLevel(foveationLevel: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFoveationLevelPtr, foveationLevel.toLong())
+    callPtrMethod_LONG(MethodBindings.setFoveationLevelPtr, foveationLevel.toLong())
   }
 
   public final fun getFoveationDynamic(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getFoveationDynamicPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getFoveationDynamicPtr)
 
   public final fun setFoveationDynamic(foveationDynamic: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFoveationDynamicPtr, foveationDynamic)
+    callPtrMethod_BOOL(MethodBindings.setFoveationDynamicPtr, foveationDynamic)
   }
 
   public final fun getFoveationWithSubsampledImages(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getFoveationWithSubsampledImagesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getFoveationWithSubsampledImagesPtr)
 
   public final fun setFoveationWithSubsampledImages(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFoveationWithSubsampledImagesPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setFoveationWithSubsampledImagesPtr, enabled)
   }
 
   /**
    * Returns `true` if the given action set is active.
    */
   public final fun isActionSetActive(name: String): Boolean =
-      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.isActionSetActivePtr, name)
+      callMethod_STRING_ret_BOOL(MethodBindings.isActionSetActivePtr, name)
 
   /**
    * Sets the given action set as active or inactive.
    */
   public final fun setActionSetActive(name: String, active: Boolean): Unit {
-    TransferContext.callMethod_STRING_BOOL(ptr, objectID.id, MethodBindings.setActionSetActivePtr, name, active)
+    callMethod_STRING_BOOL(MethodBindings.setActionSetActivePtr, name, active)
   }
 
   /**
    * Returns a list of action sets registered with Godot (loaded from the action map at runtime).
    */
   public final fun getActionSets(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getActionSetsPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getActionSetsPtr) as VariantArray<Any?>)
 
   /**
    * Returns a list of display refresh rates supported by the current HMD. Only returned if this
    * feature is supported by the OpenXR runtime and after the interface has been initialized.
    */
   public final fun getAvailableDisplayRefreshRates(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getAvailableDisplayRefreshRatesPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getAvailableDisplayRefreshRatesPtr) as VariantArray<Any?>)
 
   /**
    * If handtracking is enabled and motion range is supported, sets the currently configured motion
    * range for [hand] to [motionRange].
    */
   public final fun setMotionRange(hand: Hand, motionRange: HandMotionRange): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setMotionRangePtr, hand.value, motionRange.value)
+    callPtrMethod_LONG_LONG(MethodBindings.setMotionRangePtr, hand.value, motionRange.value)
   }
 
   /**
@@ -332,55 +331,55 @@ public open class OpenXRInterface : XRInterface() {
    * range for [hand].
    */
   public final fun getMotionRange(hand: Hand): HandMotionRange =
-      HandMotionRange.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getMotionRangePtr, hand.value))
+      HandMotionRange.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getMotionRangePtr, hand.value))
 
   /**
    * If handtracking is enabled and hand tracking source is supported, gets the source of the hand
    * tracking data for [hand].
    */
   public final fun getHandTrackingSource(hand: Hand): HandTrackedSource =
-      HandTrackedSource.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getHandTrackingSourcePtr, hand.value))
+      HandTrackedSource.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getHandTrackingSourcePtr, hand.value))
 
   /**
    * If handtracking is enabled, returns flags that inform us of the validity of the tracking data.
    */
   public final fun getHandJointFlags(hand: Hand, joint: HandJoints): HandJointFlags =
-      HandJointFlags(TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getHandJointFlagsPtr, hand.value, joint.value))
+      HandJointFlags(callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.getHandJointFlagsPtr, hand.value, joint.value))
 
   /**
    * If handtracking is enabled, returns the rotation of a joint ([joint]) of a hand ([hand]) as
    * provided by OpenXR.
    */
   public final fun getHandJointRotation(hand: Hand, joint: HandJoints): Quaternion =
-      TransferContext.callPtrMethod_LONG_LONG_ret_QUATERNION(ptr, objectID.id, MethodBindings.getHandJointRotationPtr, hand.value, joint.value)
+      callPtrMethod_LONG_LONG_ret_QUATERNION(MethodBindings.getHandJointRotationPtr, hand.value, joint.value)
 
   /**
    * If handtracking is enabled, returns the position of a joint ([joint]) of a hand ([hand]) as
    * provided by OpenXR. This is relative to [XROrigin3D] without worldscale applied!
    */
   public final fun getHandJointPosition(hand: Hand, joint: HandJoints): Vector3 =
-      TransferContext.callPtrMethod_LONG_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getHandJointPositionPtr, hand.value, joint.value)
+      callPtrMethod_LONG_LONG_ret_VECTOR3(MethodBindings.getHandJointPositionPtr, hand.value, joint.value)
 
   /**
    * If handtracking is enabled, returns the radius of a joint ([joint]) of a hand ([hand]) as
    * provided by OpenXR. This is without worldscale applied!
    */
   public final fun getHandJointRadius(hand: Hand, joint: HandJoints): Float =
-      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHandJointRadiusPtr, hand.value, joint.value).toFloat()
+      callPtrMethod_LONG_LONG_ret_DOUBLE(MethodBindings.getHandJointRadiusPtr, hand.value, joint.value).toFloat()
 
   /**
    * If handtracking is enabled, returns the linear velocity of a joint ([joint]) of a hand ([hand])
    * as provided by OpenXR. This is relative to [XROrigin3D] without worldscale applied!
    */
   public final fun getHandJointLinearVelocity(hand: Hand, joint: HandJoints): Vector3 =
-      TransferContext.callPtrMethod_LONG_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getHandJointLinearVelocityPtr, hand.value, joint.value)
+      callPtrMethod_LONG_LONG_ret_VECTOR3(MethodBindings.getHandJointLinearVelocityPtr, hand.value, joint.value)
 
   /**
    * If handtracking is enabled, returns the angular velocity of a joint ([joint]) of a hand
    * ([hand]) as provided by OpenXR. This is relative to [XROrigin3D]!
    */
   public final fun getHandJointAngularVelocity(hand: Hand, joint: HandJoints): Vector3 =
-      TransferContext.callPtrMethod_LONG_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getHandJointAngularVelocityPtr, hand.value, joint.value)
+      callPtrMethod_LONG_LONG_ret_VECTOR3(MethodBindings.getHandJointAngularVelocityPtr, hand.value, joint.value)
 
   /**
    * Returns `true` if OpenXR's hand tracking is supported and enabled.
@@ -388,7 +387,7 @@ public open class OpenXRInterface : XRInterface() {
    * **Note:** This only returns a valid value after OpenXR has been initialized.
    */
   public final fun isHandTrackingSupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isHandTrackingSupportedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isHandTrackingSupportedPtr)
 
   /**
    * Returns `true` if OpenXR's hand interaction profile is supported and enabled.
@@ -396,7 +395,7 @@ public open class OpenXRInterface : XRInterface() {
    * **Note:** This only returns a valid value after OpenXR has been initialized.
    */
   public final fun isHandInteractionSupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isHandInteractionSupportedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isHandInteractionSupportedPtr)
 
   /**
    * Returns the capabilities of the eye gaze interaction extension.
@@ -404,34 +403,34 @@ public open class OpenXRInterface : XRInterface() {
    * **Note:** This only returns a valid value after OpenXR has been initialized.
    */
   public final fun isEyeGazeInteractionSupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEyeGazeInteractionSupportedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isEyeGazeInteractionSupportedPtr)
 
   public final fun getVrsMinRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVrsMinRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVrsMinRadiusPtr).toFloat()
 
   public final fun setVrsMinRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVrsMinRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVrsMinRadiusPtr, radius.toDouble())
   }
 
   public final fun getVrsStrength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVrsStrengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVrsStrengthPtr).toFloat()
 
   public final fun setVrsStrength(strength: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVrsStrengthPtr, strength.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVrsStrengthPtr, strength.toDouble())
   }
 
   /**
    * Sets the CPU performance level of the OpenXR device.
    */
   public final fun setCpuLevel(level: PerfSettingsLevel): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCpuLevelPtr, level.value)
+    callPtrMethod_LONG(MethodBindings.setCpuLevelPtr, level.value)
   }
 
   /**
    * Sets the GPU performance level of the OpenXR device.
    */
   public final fun setGpuLevel(level: PerfSettingsLevel): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setGpuLevelPtr, level.value)
+    callPtrMethod_LONG(MethodBindings.setGpuLevelPtr, level.value)
   }
 
   public enum class SessionState(

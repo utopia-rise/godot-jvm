@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG_ret_TRANSFORM3D
 import godot.callPtrMethod_LONG_ret_VECTOR2
@@ -34,13 +33,13 @@ public open class OpenXRSpatialComponentBounded2DList : OpenXRSpatialComponentDa
    * Returns the center of our bounding rectangle for the entity at this [index].
    */
   public final fun getCenterPose(index: Long): Transform3D =
-      TransferContext.callPtrMethod_LONG_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getCenterPosePtr, index)
+      callPtrMethod_LONG_ret_TRANSFORM3D(MethodBindings.getCenterPosePtr, index)
 
   /**
    * Returns the size of our bounding rectangle for the entity at this [index].
    */
   public final fun getSize(index: Long): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getSizePtr, index)
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getSizePtr, index)
 
   public companion object {
     @JvmField

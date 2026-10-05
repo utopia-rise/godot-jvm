@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_ANY
 import godot.callMethod_LONG_STRING
@@ -391,67 +390,67 @@ public open class ItemList : Control() {
     icon: Texture2D? = null,
     selectable: Boolean = true,
   ): Int =
-      TransferContext.callMethod_STRING_OBJECT_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.addItemPtr, text, icon, selectable).toInt()
+      callMethod_STRING_OBJECT_BOOL_ret_LONG(MethodBindings.addItemPtr, text, icon, selectable).toInt()
 
   /**
    * Adds an item to the item list with no text, only an icon. Returns the index of an added item.
    */
   @JvmOverloads
   public final fun addIconItem(icon: Texture2D?, selectable: Boolean = true): Int =
-      TransferContext.callPtrMethod_OBJECT_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.addIconItemPtr, icon, selectable).toInt()
+      callPtrMethod_OBJECT_BOOL_ret_LONG(MethodBindings.addIconItemPtr, icon, selectable).toInt()
 
   /**
    * Sets text of the item associated with the specified index.
    */
   public final fun setItemText(idx: Int, text: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setItemTextPtr, idx.toLong(), text)
+    callMethod_LONG_STRING(MethodBindings.setItemTextPtr, idx.toLong(), text)
   }
 
   /**
    * Returns the text associated with the specified index.
    */
   public final fun getItemText(idx: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getItemTextPtr, idx.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getItemTextPtr, idx.toLong())
 
   /**
    * Sets (or replaces) the icon's [Texture2D] associated with the specified index.
    */
   public final fun setItemIcon(idx: Int, icon: Texture2D?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setItemIconPtr, idx.toLong(), icon)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setItemIconPtr, idx.toLong(), icon)
   }
 
   /**
    * Returns the icon associated with the specified index.
    */
   public final fun getItemIcon(idx: Int): Texture2D? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getItemIconPtr, idx.toLong()) as Texture2D?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getItemIconPtr, idx.toLong()) as Texture2D?)
 
   /**
    * Sets item's text base writing direction.
    */
   public final fun setItemTextDirection(idx: Int, direction: Control.TextDirection): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setItemTextDirectionPtr, idx.toLong(), direction.value)
+    callPtrMethod_LONG_LONG(MethodBindings.setItemTextDirectionPtr, idx.toLong(), direction.value)
   }
 
   /**
    * Returns item's text base writing direction.
    */
   public final fun getItemTextDirection(idx: Int): Control.TextDirection =
-      Control.TextDirection.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getItemTextDirectionPtr, idx.toLong()))
+      Control.TextDirection.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getItemTextDirectionPtr, idx.toLong()))
 
   /**
    * Sets the language code of the text for the item at the given index to [language]. This is used
    * for line-breaking and text shaping algorithms. If [language] is empty, the current locale is used.
    */
   public final fun setItemLanguage(idx: Int, language: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setItemLanguagePtr, idx.toLong(), language)
+    callMethod_LONG_STRING(MethodBindings.setItemLanguagePtr, idx.toLong(), language)
   }
 
   /**
    * Returns item's text language code.
    */
   public final fun getItemLanguage(idx: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getItemLanguagePtr, idx.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getItemLanguagePtr, idx.toLong())
 
   /**
    * Sets the auto translate mode of the item associated with the specified index.
@@ -460,66 +459,66 @@ public open class ItemList : Control() {
    * mode as the [ItemList] itself.
    */
   public final fun setItemAutoTranslateMode(idx: Int, mode: Node.AutoTranslateMode): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setItemAutoTranslateModePtr, idx.toLong(), mode.value)
+    callPtrMethod_LONG_LONG(MethodBindings.setItemAutoTranslateModePtr, idx.toLong(), mode.value)
   }
 
   /**
    * Returns item's auto translate mode.
    */
   public final fun getItemAutoTranslateMode(idx: Int): Node.AutoTranslateMode =
-      Node.AutoTranslateMode.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getItemAutoTranslateModePtr, idx.toLong()))
+      Node.AutoTranslateMode.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getItemAutoTranslateModePtr, idx.toLong()))
 
   /**
    * Sets whether the item icon will be drawn transposed.
    */
   public final fun setItemIconTransposed(idx: Int, transposed: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setItemIconTransposedPtr, idx.toLong(), transposed)
+    callPtrMethod_LONG_BOOL(MethodBindings.setItemIconTransposedPtr, idx.toLong(), transposed)
   }
 
   /**
    * Returns `true` if the item icon will be drawn transposed, i.e. the X and Y axes are swapped.
    */
   public final fun isItemIconTransposed(idx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isItemIconTransposedPtr, idx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isItemIconTransposedPtr, idx.toLong())
 
   /**
    * Sets the region of item's icon used. The whole icon will be used if the region has no area.
    */
   public final fun setItemIconRegion(idx: Int, rect: Rect2): Unit {
-    TransferContext.callPtrMethod_LONG_RECT2(ptr, objectID.id, MethodBindings.setItemIconRegionPtr, idx.toLong(), rect)
+    callPtrMethod_LONG_RECT2(MethodBindings.setItemIconRegionPtr, idx.toLong(), rect)
   }
 
   /**
    * Returns the region of item's icon used. The whole icon will be used if the region has no area.
    */
   public final fun getItemIconRegion(idx: Int): Rect2 =
-      TransferContext.callPtrMethod_LONG_ret_RECT2(ptr, objectID.id, MethodBindings.getItemIconRegionPtr, idx.toLong())
+      callPtrMethod_LONG_ret_RECT2(MethodBindings.getItemIconRegionPtr, idx.toLong())
 
   /**
    * Sets a modulating [Color] of the item associated with the specified index.
    */
   public final fun setItemIconModulate(idx: Int, modulate: Color): Unit {
-    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.setItemIconModulatePtr, idx.toLong(), modulate)
+    callPtrMethod_LONG_COLOR(MethodBindings.setItemIconModulatePtr, idx.toLong(), modulate)
   }
 
   /**
    * Returns a [Color] modulating item's icon at the specified index.
    */
   public final fun getItemIconModulate(idx: Int): Color =
-      TransferContext.callPtrMethod_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getItemIconModulatePtr, idx.toLong())
+      callPtrMethod_LONG_ret_COLOR(MethodBindings.getItemIconModulatePtr, idx.toLong())
 
   /**
    * Allows or disallows selection of the item associated with the specified index.
    */
   public final fun setItemSelectable(idx: Int, selectable: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setItemSelectablePtr, idx.toLong(), selectable)
+    callPtrMethod_LONG_BOOL(MethodBindings.setItemSelectablePtr, idx.toLong(), selectable)
   }
 
   /**
    * Returns `true` if the item at the specified index is selectable.
    */
   public final fun isItemSelectable(idx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isItemSelectablePtr, idx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isItemSelectablePtr, idx.toLong())
 
   /**
    * Disables (or enables) the item at the specified index.
@@ -528,53 +527,53 @@ public open class ItemList : Control() {
    * or pressing [kbd]Enter[/kbd]).
    */
   public final fun setItemDisabled(idx: Int, disabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setItemDisabledPtr, idx.toLong(), disabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setItemDisabledPtr, idx.toLong(), disabled)
   }
 
   /**
    * Returns `true` if the item at the specified index is disabled.
    */
   public final fun isItemDisabled(idx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isItemDisabledPtr, idx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isItemDisabledPtr, idx.toLong())
 
   /**
    * Sets a value (of any type) to be stored with the item associated with the specified index.
    */
   public final fun setItemMetadata(idx: Int, metadata: Any?): Unit {
-    TransferContext.callMethod_LONG_ANY(ptr, objectID.id, MethodBindings.setItemMetadataPtr, idx.toLong(), metadata)
+    callMethod_LONG_ANY(MethodBindings.setItemMetadataPtr, idx.toLong(), metadata)
   }
 
   /**
    * Returns the metadata value of the specified index.
    */
   public final fun getItemMetadata(idx: Int): Any? =
-      TransferContext.callMethod_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getItemMetadataPtr, idx.toLong())
+      callMethod_LONG_ret_ANY(MethodBindings.getItemMetadataPtr, idx.toLong())
 
   /**
    * Sets the background color of the item specified by [idx] index to the specified [Color].
    */
   public final fun setItemCustomBgColor(idx: Int, customBgColor: Color): Unit {
-    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.setItemCustomBgColorPtr, idx.toLong(), customBgColor)
+    callPtrMethod_LONG_COLOR(MethodBindings.setItemCustomBgColorPtr, idx.toLong(), customBgColor)
   }
 
   /**
    * Returns the custom background color of the item specified by [idx] index.
    */
   public final fun getItemCustomBgColor(idx: Int): Color =
-      TransferContext.callPtrMethod_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getItemCustomBgColorPtr, idx.toLong())
+      callPtrMethod_LONG_ret_COLOR(MethodBindings.getItemCustomBgColorPtr, idx.toLong())
 
   /**
    * Sets the foreground color of the item specified by [idx] index to the specified [Color].
    */
   public final fun setItemCustomFgColor(idx: Int, customFgColor: Color): Unit {
-    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.setItemCustomFgColorPtr, idx.toLong(), customFgColor)
+    callPtrMethod_LONG_COLOR(MethodBindings.setItemCustomFgColorPtr, idx.toLong(), customFgColor)
   }
 
   /**
    * Returns the custom foreground color of the item specified by [idx] index.
    */
   public final fun getItemCustomFgColor(idx: Int): Color =
-      TransferContext.callPtrMethod_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getItemCustomFgColorPtr, idx.toLong())
+      callPtrMethod_LONG_ret_COLOR(MethodBindings.getItemCustomFgColorPtr, idx.toLong())
 
   /**
    * Returns the position and size of the item with the specified index, in the coordinate system of
@@ -585,33 +584,33 @@ public open class ItemList : Control() {
    */
   @JvmOverloads
   public final fun getItemRect(idx: Int, expand: Boolean = true): Rect2 =
-      TransferContext.callPtrMethod_LONG_BOOL_ret_RECT2(ptr, objectID.id, MethodBindings.getItemRectPtr, idx.toLong(), expand)
+      callPtrMethod_LONG_BOOL_ret_RECT2(MethodBindings.getItemRectPtr, idx.toLong(), expand)
 
   /**
    * Sets whether the tooltip hint is enabled for specified item index.
    */
   public final fun setItemTooltipEnabled(idx: Int, enable: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setItemTooltipEnabledPtr, idx.toLong(), enable)
+    callPtrMethod_LONG_BOOL(MethodBindings.setItemTooltipEnabledPtr, idx.toLong(), enable)
   }
 
   /**
    * Returns `true` if the tooltip is enabled for specified item index.
    */
   public final fun isItemTooltipEnabled(idx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isItemTooltipEnabledPtr, idx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isItemTooltipEnabledPtr, idx.toLong())
 
   /**
    * Sets the tooltip hint for the item associated with the specified index.
    */
   public final fun setItemTooltip(idx: Int, tooltip: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setItemTooltipPtr, idx.toLong(), tooltip)
+    callMethod_LONG_STRING(MethodBindings.setItemTooltipPtr, idx.toLong(), tooltip)
   }
 
   /**
    * Returns the tooltip hint associated with the specified index.
    */
   public final fun getItemTooltip(idx: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getItemTooltipPtr, idx.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getItemTooltipPtr, idx.toLong())
 
   /**
    * Selects the item at the specified index.
@@ -620,166 +619,165 @@ public open class ItemList : Control() {
    */
   @JvmOverloads
   public final fun select(idx: Int, single: Boolean = true): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.selectPtr, idx.toLong(), single)
+    callPtrMethod_LONG_BOOL(MethodBindings.selectPtr, idx.toLong(), single)
   }
 
   /**
    * Ensures the item associated with the specified index is not selected.
    */
   public final fun deselect(idx: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.deselectPtr, idx.toLong())
+    callPtrMethod_LONG(MethodBindings.deselectPtr, idx.toLong())
   }
 
   /**
    * Ensures there are no items selected.
    */
   public final fun deselectAll(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.deselectAllPtr)
+    callPtrMethod0(MethodBindings.deselectAllPtr)
   }
 
   /**
    * Returns `true` if the item at the specified index is currently selected.
    */
   public final fun isSelected(idx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isSelectedPtr, idx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isSelectedPtr, idx.toLong())
 
   /**
    * Returns an array with the indexes of the selected items.
    */
   public final fun getSelectedItems(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getSelectedItemsPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getSelectedItemsPtr)
 
   /**
    * Moves item from index [fromIdx] to [toIdx].
    */
   public final fun moveItem(fromIdx: Int, toIdx: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.moveItemPtr, fromIdx.toLong(), toIdx.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.moveItemPtr, fromIdx.toLong(), toIdx.toLong())
   }
 
   public final fun setItemCount(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setItemCountPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setItemCountPtr, count.toLong())
   }
 
   public final fun getItemCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getItemCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getItemCountPtr).toInt()
 
   /**
    * Removes the item specified by [idx] index from the list.
    */
   public final fun removeItem(idx: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeItemPtr, idx.toLong())
+    callPtrMethod_LONG(MethodBindings.removeItemPtr, idx.toLong())
   }
 
   /**
    * Removes all items from the list.
    */
   public final fun clear(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
+    callPtrMethod0(MethodBindings.clearPtr)
   }
 
   /**
    * Sorts items in the list by their text.
    */
   public final fun sortItemsByText(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.sortItemsByTextPtr)
+    callPtrMethod0(MethodBindings.sortItemsByTextPtr)
   }
 
   public final fun setFixedColumnWidth(width: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFixedColumnWidthPtr, width.toLong())
+    callPtrMethod_LONG(MethodBindings.setFixedColumnWidthPtr, width.toLong())
   }
 
   public final fun getFixedColumnWidth(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFixedColumnWidthPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getFixedColumnWidthPtr).toInt()
 
   public final fun setSameColumnWidth(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSameColumnWidthPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setSameColumnWidthPtr, enable)
   }
 
   public final fun isSameColumnWidth(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSameColumnWidthPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isSameColumnWidthPtr)
 
   public final fun setMaxTextLines(lines: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxTextLinesPtr, lines.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaxTextLinesPtr, lines.toLong())
   }
 
   public final fun getMaxTextLines(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxTextLinesPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMaxTextLinesPtr).toInt()
 
   public final fun setMaxColumns(amount: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxColumnsPtr, amount.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaxColumnsPtr, amount.toLong())
   }
 
   public final fun getMaxColumns(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxColumnsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMaxColumnsPtr).toInt()
 
   public final fun setSelectMode(mode: SelectMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSelectModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setSelectModePtr, mode.value)
   }
 
   public final fun getSelectMode(): SelectMode =
-      SelectMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSelectModePtr))
+      SelectMode.from(callPtrMethod0_ret_LONG(MethodBindings.getSelectModePtr))
 
   public final fun setIconMode(mode: IconMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setIconModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setIconModePtr, mode.value)
   }
 
   public final fun getIconMode(): IconMode =
-      IconMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getIconModePtr))
+      IconMode.from(callPtrMethod0_ret_LONG(MethodBindings.getIconModePtr))
 
   public final fun setFixedIconSize(size: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setFixedIconSizePtr, size)
+    callPtrMethod_VECTOR2I(MethodBindings.setFixedIconSizePtr, size)
   }
 
   public final fun getFixedIconSize(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getFixedIconSizePtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.getFixedIconSizePtr)
 
   public final fun setIconScale(scale: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setIconScalePtr, scale.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setIconScalePtr, scale.toDouble())
   }
 
   public final fun getIconScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getIconScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getIconScalePtr).toFloat()
 
   public final fun setAllowRmbSelect(allow: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllowRmbSelectPtr, allow)
+    callPtrMethod_BOOL(MethodBindings.setAllowRmbSelectPtr, allow)
   }
 
   public final fun getAllowRmbSelect(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAllowRmbSelectPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAllowRmbSelectPtr)
 
   public final fun setAllowReselect(allow: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllowReselectPtr, allow)
+    callPtrMethod_BOOL(MethodBindings.setAllowReselectPtr, allow)
   }
 
   public final fun getAllowReselect(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAllowReselectPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAllowReselectPtr)
 
   public final fun setAllowSearch(allow: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllowSearchPtr, allow)
+    callPtrMethod_BOOL(MethodBindings.setAllowSearchPtr, allow)
   }
 
   public final fun getAllowSearch(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAllowSearchPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAllowSearchPtr)
 
   public final fun setAutoWidth(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoWidthPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAutoWidthPtr, enable)
   }
 
-  public final fun hasAutoWidth(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasAutoWidthPtr)
+  public final fun hasAutoWidth(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasAutoWidthPtr)
 
   public final fun setAutoHeight(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoHeightPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAutoHeightPtr, enable)
   }
 
   public final fun hasAutoHeight(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasAutoHeightPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.hasAutoHeightPtr)
 
   /**
    * Returns `true` if one or more items are selected.
    */
   public final fun isAnythingSelected(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAnythingSelectedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAnythingSelectedPtr)
 
   /**
    * Returns the item index at the given [position].
@@ -792,14 +790,14 @@ public open class ItemList : Control() {
    */
   @JvmOverloads
   public final fun getItemAtPosition(position: Vector2, exact: Boolean = false): Int =
-      TransferContext.callPtrMethod_VECTOR2_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.getItemAtPositionPtr, position, exact).toInt()
+      callPtrMethod_VECTOR2_BOOL_ret_LONG(MethodBindings.getItemAtPositionPtr, position, exact).toInt()
 
   /**
    * Ensures the currently selected item (the first selected item if multiple selection is enabled)
    * is visible, adjusting the scroll position as necessary. See also [centerOnCurrent].
    */
   public final fun ensureCurrentIsVisible(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.ensureCurrentIsVisiblePtr)
+    callPtrMethod0(MethodBindings.ensureCurrentIsVisiblePtr)
   }
 
   /**
@@ -812,7 +810,7 @@ public open class ItemList : Control() {
   @JvmOverloads
   public final fun centerOnCurrent(centerVerically: Boolean = true, centerHorizontally: Boolean =
       true): Unit {
-    TransferContext.callPtrMethod_BOOL_BOOL(ptr, objectID.id, MethodBindings.centerOnCurrentPtr, centerVerically, centerHorizontally)
+    callPtrMethod_BOOL_BOOL(MethodBindings.centerOnCurrentPtr, centerVerically, centerHorizontally)
   }
 
   /**
@@ -822,7 +820,7 @@ public open class ItemList : Control() {
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
   public final fun getVScrollBar(): VScrollBar? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getVScrollBarPtr) as VScrollBar?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getVScrollBarPtr) as VScrollBar?)
 
   /**
    * Returns the horizontal scrollbar.
@@ -831,35 +829,35 @@ public open class ItemList : Control() {
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
   public final fun getHScrollBar(): HScrollBar? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getHScrollBarPtr) as HScrollBar?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getHScrollBarPtr) as HScrollBar?)
 
   public final fun setScrollHintMode(scrollHintMode: ScrollHintMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setScrollHintModePtr, scrollHintMode.value)
+    callPtrMethod_LONG(MethodBindings.setScrollHintModePtr, scrollHintMode.value)
   }
 
   public final fun getScrollHintMode(): ScrollHintMode =
-      ScrollHintMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getScrollHintModePtr))
+      ScrollHintMode.from(callPtrMethod0_ret_LONG(MethodBindings.getScrollHintModePtr))
 
   public final fun setTileScrollHint(tileScrollHint: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTileScrollHintPtr, tileScrollHint)
+    callPtrMethod_BOOL(MethodBindings.setTileScrollHintPtr, tileScrollHint)
   }
 
   public final fun isScrollHintTiled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isScrollHintTiledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isScrollHintTiledPtr)
 
   public final fun setTextOverrunBehavior(overrunBehavior: TextServer.OverrunBehavior): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextOverrunBehaviorPtr, overrunBehavior.value)
+    callPtrMethod_LONG(MethodBindings.setTextOverrunBehaviorPtr, overrunBehavior.value)
   }
 
   public final fun getTextOverrunBehavior(): TextServer.OverrunBehavior =
-      TextServer.OverrunBehavior.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextOverrunBehaviorPtr))
+      TextServer.OverrunBehavior.from(callPtrMethod0_ret_LONG(MethodBindings.getTextOverrunBehaviorPtr))
 
   public final fun setWraparoundItems(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setWraparoundItemsPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setWraparoundItemsPtr, enable)
   }
 
   public final fun hasWraparoundItems(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasWraparoundItemsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.hasWraparoundItemsPtr)
 
   /**
    * Forces an update to the list size based on its items. This happens automatically whenever size
@@ -867,7 +865,7 @@ public open class ItemList : Control() {
    * trigger the update ahead of next drawing pass.
    */
   public final fun forceUpdateListSize(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.forceUpdateListSizePtr)
+    callPtrMethod0(MethodBindings.forceUpdateListSizePtr)
   }
 
   public enum class IconMode(

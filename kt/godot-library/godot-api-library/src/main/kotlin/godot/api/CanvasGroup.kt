@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -104,25 +103,25 @@ public open class CanvasGroup : Node2D() {
   }
 
   public final fun setFitMargin(fitMargin: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFitMarginPtr, fitMargin.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFitMarginPtr, fitMargin.toDouble())
   }
 
   public final fun getFitMargin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFitMarginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFitMarginPtr).toFloat()
 
   public final fun setClearMargin(clearMargin: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setClearMarginPtr, clearMargin.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setClearMarginPtr, clearMargin.toDouble())
   }
 
   public final fun getClearMargin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getClearMarginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getClearMarginPtr).toFloat()
 
   public final fun setUseMipmaps(useMipmaps: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseMipmapsPtr, useMipmaps)
+    callPtrMethod_BOOL(MethodBindings.setUseMipmapsPtr, useMipmaps)
   }
 
   public final fun isUsingMipmaps(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingMipmapsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsingMipmapsPtr)
 
   public companion object {
     @JvmField

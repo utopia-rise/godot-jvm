@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_CALLABLE
@@ -1497,7 +1496,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun hasFeature(feature: Feature): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.hasFeaturePtr, feature.value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.hasFeaturePtr, feature.value)
 
   /**
    * Returns the name of the [DisplayServer] currently in use. Most operating systems only have a
@@ -1509,8 +1508,7 @@ public object DisplayServer : Object() {
    * [url=$DOCS_URL/tutorials/editor/command_line_tutorial.html]command line argument[/url]).
    */
   @JvmStatic
-  public final fun getName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getNamePtr)
+  public final fun getName(): String = callMethod0_ret_STRING(MethodBindings.getNamePtr)
 
   /**
    * Sets native help system search callbacks.
@@ -1527,7 +1525,7 @@ public object DisplayServer : Object() {
   @JvmStatic
   public final fun helpSetSearchCallbacks(searchCallback: Callable, actionCallback: Callable):
       Unit {
-    TransferContext.callMethod_CALLABLE_CALLABLE(ptr, objectID.id, MethodBindings.helpSetSearchCallbacksPtr, searchCallback, actionCallback)
+    callMethod_CALLABLE_CALLABLE(MethodBindings.helpSetSearchCallbacksPtr, searchCallback, actionCallback)
   }
 
   /**
@@ -1540,7 +1538,7 @@ public object DisplayServer : Object() {
     openCallback: Callable,
     closeCallback: Callable,
   ): Unit {
-    TransferContext.callMethod_STRING_CALLABLE_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuSetPopupCallbacksPtr, menuRoot, openCallback, closeCallback)
+    callMethod_STRING_CALLABLE_CALLABLE(MethodBindings.globalMenuSetPopupCallbacksPtr, menuRoot, openCallback, closeCallback)
   }
 
   /**
@@ -1575,7 +1573,7 @@ public object DisplayServer : Object() {
     submenu: String,
     index: Int = -1,
   ): Int =
-      TransferContext.callMethod_STRING_STRING_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddSubmenuItemPtr, menuRoot, label, submenu, index.toLong()).toInt()
+      callMethod_STRING_STRING_STRING_LONG_ret_LONG(MethodBindings.globalMenuAddSubmenuItemPtr, menuRoot, label, submenu, index.toLong()).toInt()
 
   /**
    * Adds a new item with text [label] to the global menu with ID [menuRoot].
@@ -1619,7 +1617,7 @@ public object DisplayServer : Object() {
     accelerator: Key = Key.NONE,
     index: Int = -1,
   ): Int =
-      TransferContext.callMethod_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddItemPtr, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
+      callMethod_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(MethodBindings.globalMenuAddItemPtr, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new checkable item with text [label] to the global menu with ID [menuRoot].
@@ -1663,7 +1661,7 @@ public object DisplayServer : Object() {
     accelerator: Key = Key.NONE,
     index: Int = -1,
   ): Int =
-      TransferContext.callMethod_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddCheckItemPtr, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
+      callMethod_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(MethodBindings.globalMenuAddCheckItemPtr, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new item with text [label] and icon [icon] to the global menu with ID [menuRoot].
@@ -1708,7 +1706,7 @@ public object DisplayServer : Object() {
     accelerator: Key = Key.NONE,
     index: Int = -1,
   ): Int =
-      TransferContext.callMethod_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddIconItemPtr, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
+      callMethod_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(MethodBindings.globalMenuAddIconItemPtr, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new checkable item with text [label] and icon [icon] to the global menu with ID
@@ -1754,7 +1752,7 @@ public object DisplayServer : Object() {
     accelerator: Key = Key.NONE,
     index: Int = -1,
   ): Int =
-      TransferContext.callMethod_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddIconCheckItemPtr, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
+      callMethod_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(MethodBindings.globalMenuAddIconCheckItemPtr, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new radio-checkable item with text [label] to the global menu with ID [menuRoot].
@@ -1802,7 +1800,7 @@ public object DisplayServer : Object() {
     accelerator: Key = Key.NONE,
     index: Int = -1,
   ): Int =
-      TransferContext.callMethod_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddRadioCheckItemPtr, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
+      callMethod_STRING_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(MethodBindings.globalMenuAddRadioCheckItemPtr, menuRoot, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new radio-checkable item with text [label] and icon [icon] to the global menu with ID
@@ -1852,7 +1850,7 @@ public object DisplayServer : Object() {
     accelerator: Key = Key.NONE,
     index: Int = -1,
   ): Int =
-      TransferContext.callMethod_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddIconRadioCheckItemPtr, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
+      callMethod_STRING_OBJECT_STRING_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(MethodBindings.globalMenuAddIconRadioCheckItemPtr, menuRoot, icon, label, callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a new item with text [label] to the global menu with ID [menuRoot].
@@ -1905,7 +1903,7 @@ public object DisplayServer : Object() {
     accelerator: Key = Key.NONE,
     index: Int = -1,
   ): Int =
-      TransferContext.callMethod_STRING_STRING_LONG_LONG_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddMultistateItemPtr, menuRoot, label, maxStates.toLong(), defaultState.toLong(), callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
+      callMethod_STRING_STRING_LONG_LONG_CALLABLE_CALLABLE_ANY_LONG_LONG_ret_LONG(MethodBindings.globalMenuAddMultistateItemPtr, menuRoot, label, maxStates.toLong(), defaultState.toLong(), callback, keyCallback, tag, accelerator.value, index.toLong()).toInt()
 
   /**
    * Adds a separator between items to the global menu with ID [menuRoot]. Separators also occupy an
@@ -1934,7 +1932,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun globalMenuAddSeparator(menuRoot: String, index: Int = -1): Int =
-      TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuAddSeparatorPtr, menuRoot, index.toLong()).toInt()
+      callMethod_STRING_LONG_ret_LONG(MethodBindings.globalMenuAddSeparatorPtr, menuRoot, index.toLong()).toInt()
 
   /**
    * Returns the index of the item with the specified [text]. Indices are automatically assigned to
@@ -1944,7 +1942,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemIndexFromText(menuRoot: String, text: String): Int =
-      TransferContext.callMethod_STRING_STRING_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemIndexFromTextPtr, menuRoot, text).toInt()
+      callMethod_STRING_STRING_ret_LONG(MethodBindings.globalMenuGetItemIndexFromTextPtr, menuRoot, text).toInt()
 
   /**
    * Returns the index of the item with the specified [tag]. Indices are automatically assigned to
@@ -1954,7 +1952,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemIndexFromTag(menuRoot: String, tag: Any?): Int =
-      TransferContext.callMethod_STRING_ANY_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemIndexFromTagPtr, menuRoot, tag).toInt()
+      callMethod_STRING_ANY_ret_LONG(MethodBindings.globalMenuGetItemIndexFromTagPtr, menuRoot, tag).toInt()
 
   /**
    * Returns `true` if the item at index [idx] is checked.
@@ -1963,7 +1961,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuIsItemChecked(menuRoot: String, idx: Int): Boolean =
-      TransferContext.callMethod_STRING_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.globalMenuIsItemCheckedPtr, menuRoot, idx.toLong())
+      callMethod_STRING_LONG_ret_BOOL(MethodBindings.globalMenuIsItemCheckedPtr, menuRoot, idx.toLong())
 
   /**
    * Returns `true` if the item at index [idx] is checkable in some way, i.e. if it has a checkbox
@@ -1973,7 +1971,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuIsItemCheckable(menuRoot: String, idx: Int): Boolean =
-      TransferContext.callMethod_STRING_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.globalMenuIsItemCheckablePtr, menuRoot, idx.toLong())
+      callMethod_STRING_LONG_ret_BOOL(MethodBindings.globalMenuIsItemCheckablePtr, menuRoot, idx.toLong())
 
   /**
    * Returns `true` if the item at index [idx] has radio button-style checkability.
@@ -1985,7 +1983,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuIsItemRadioCheckable(menuRoot: String, idx: Int): Boolean =
-      TransferContext.callMethod_STRING_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.globalMenuIsItemRadioCheckablePtr, menuRoot, idx.toLong())
+      callMethod_STRING_LONG_ret_BOOL(MethodBindings.globalMenuIsItemRadioCheckablePtr, menuRoot, idx.toLong())
 
   /**
    * Returns the callback of the item at index [idx].
@@ -1994,7 +1992,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemCallback(menuRoot: String, idx: Int): Callable =
-      TransferContext.callMethod_STRING_LONG_ret_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuGetItemCallbackPtr, menuRoot, idx.toLong())
+      callMethod_STRING_LONG_ret_CALLABLE(MethodBindings.globalMenuGetItemCallbackPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the callback of the item accelerator at index [idx].
@@ -2003,7 +2001,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemKeyCallback(menuRoot: String, idx: Int): Callable =
-      TransferContext.callMethod_STRING_LONG_ret_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuGetItemKeyCallbackPtr, menuRoot, idx.toLong())
+      callMethod_STRING_LONG_ret_CALLABLE(MethodBindings.globalMenuGetItemKeyCallbackPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the metadata of the specified item, which might be of any type. You can set it with
@@ -2013,7 +2011,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemTag(menuRoot: String, idx: Int): Any? =
-      TransferContext.callMethod_STRING_LONG_ret_ANY(ptr, objectID.id, MethodBindings.globalMenuGetItemTagPtr, menuRoot, idx.toLong())
+      callMethod_STRING_LONG_ret_ANY(MethodBindings.globalMenuGetItemTagPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the text of the item at index [idx].
@@ -2022,7 +2020,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemText(menuRoot: String, idx: Int): String =
-      TransferContext.callMethod_STRING_LONG_ret_STRING(ptr, objectID.id, MethodBindings.globalMenuGetItemTextPtr, menuRoot, idx.toLong())
+      callMethod_STRING_LONG_ret_STRING(MethodBindings.globalMenuGetItemTextPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the submenu ID of the item at index [idx]. See [globalMenuAddSubmenuItem] for more info
@@ -2032,7 +2030,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemSubmenu(menuRoot: String, idx: Int): String =
-      TransferContext.callMethod_STRING_LONG_ret_STRING(ptr, objectID.id, MethodBindings.globalMenuGetItemSubmenuPtr, menuRoot, idx.toLong())
+      callMethod_STRING_LONG_ret_STRING(MethodBindings.globalMenuGetItemSubmenuPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the accelerator of the item at index [idx]. Accelerators are special combinations of
@@ -2042,7 +2040,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemAccelerator(menuRoot: String, idx: Int): Key =
-      Key.from(TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemAcceleratorPtr, menuRoot, idx.toLong()))
+      Key.from(callMethod_STRING_LONG_ret_LONG(MethodBindings.globalMenuGetItemAcceleratorPtr, menuRoot, idx.toLong()))
 
   /**
    * Returns `true` if the item at index [idx] is disabled. When it is disabled it can't be
@@ -2054,7 +2052,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuIsItemDisabled(menuRoot: String, idx: Int): Boolean =
-      TransferContext.callMethod_STRING_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.globalMenuIsItemDisabledPtr, menuRoot, idx.toLong())
+      callMethod_STRING_LONG_ret_BOOL(MethodBindings.globalMenuIsItemDisabledPtr, menuRoot, idx.toLong())
 
   /**
    * Returns `true` if the item at index [idx] is hidden.
@@ -2065,7 +2063,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuIsItemHidden(menuRoot: String, idx: Int): Boolean =
-      TransferContext.callMethod_STRING_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.globalMenuIsItemHiddenPtr, menuRoot, idx.toLong())
+      callMethod_STRING_LONG_ret_BOOL(MethodBindings.globalMenuIsItemHiddenPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the tooltip associated with the specified index [idx].
@@ -2074,7 +2072,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemTooltip(menuRoot: String, idx: Int): String =
-      TransferContext.callMethod_STRING_LONG_ret_STRING(ptr, objectID.id, MethodBindings.globalMenuGetItemTooltipPtr, menuRoot, idx.toLong())
+      callMethod_STRING_LONG_ret_STRING(MethodBindings.globalMenuGetItemTooltipPtr, menuRoot, idx.toLong())
 
   /**
    * Returns the state of a multistate item. See [globalMenuAddMultistateItem] for details.
@@ -2083,7 +2081,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemState(menuRoot: String, idx: Int): Int =
-      TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemStatePtr, menuRoot, idx.toLong()).toInt()
+      callMethod_STRING_LONG_ret_LONG(MethodBindings.globalMenuGetItemStatePtr, menuRoot, idx.toLong()).toInt()
 
   /**
    * Returns number of states of a multistate item. See [globalMenuAddMultistateItem] for details.
@@ -2092,7 +2090,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemMaxStates(menuRoot: String, idx: Int): Int =
-      TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemMaxStatesPtr, menuRoot, idx.toLong()).toInt()
+      callMethod_STRING_LONG_ret_LONG(MethodBindings.globalMenuGetItemMaxStatesPtr, menuRoot, idx.toLong()).toInt()
 
   /**
    * Returns the icon of the item at index [idx].
@@ -2101,7 +2099,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemIcon(menuRoot: String, idx: Int): Texture2D? =
-      (TransferContext.callMethod_STRING_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.globalMenuGetItemIconPtr, menuRoot, idx.toLong()) as Texture2D?)
+      (callMethod_STRING_LONG_ret_OBJECT_REF(MethodBindings.globalMenuGetItemIconPtr, menuRoot, idx.toLong()) as Texture2D?)
 
   /**
    * Returns the horizontal offset of the item at the given [idx].
@@ -2110,7 +2108,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemIndentationLevel(menuRoot: String, idx: Int): Int =
-      TransferContext.callMethod_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemIndentationLevelPtr, menuRoot, idx.toLong()).toInt()
+      callMethod_STRING_LONG_ret_LONG(MethodBindings.globalMenuGetItemIndentationLevelPtr, menuRoot, idx.toLong()).toInt()
 
   /**
    * Sets the checkstate status of the item at index [idx].
@@ -2123,7 +2121,7 @@ public object DisplayServer : Object() {
     idx: Int,
     checked: Boolean,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_BOOL(ptr, objectID.id, MethodBindings.globalMenuSetItemCheckedPtr, menuRoot, idx.toLong(), checked)
+    callMethod_STRING_LONG_BOOL(MethodBindings.globalMenuSetItemCheckedPtr, menuRoot, idx.toLong(), checked)
   }
 
   /**
@@ -2138,7 +2136,7 @@ public object DisplayServer : Object() {
     idx: Int,
     checkable: Boolean,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_BOOL(ptr, objectID.id, MethodBindings.globalMenuSetItemCheckablePtr, menuRoot, idx.toLong(), checkable)
+    callMethod_STRING_LONG_BOOL(MethodBindings.globalMenuSetItemCheckablePtr, menuRoot, idx.toLong(), checkable)
   }
 
   /**
@@ -2156,7 +2154,7 @@ public object DisplayServer : Object() {
     idx: Int,
     checkable: Boolean,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_BOOL(ptr, objectID.id, MethodBindings.globalMenuSetItemRadioCheckablePtr, menuRoot, idx.toLong(), checkable)
+    callMethod_STRING_LONG_BOOL(MethodBindings.globalMenuSetItemRadioCheckablePtr, menuRoot, idx.toLong(), checkable)
   }
 
   /**
@@ -2174,7 +2172,7 @@ public object DisplayServer : Object() {
     idx: Int,
     callback: Callable,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuSetItemCallbackPtr, menuRoot, idx.toLong(), callback)
+    callMethod_STRING_LONG_CALLABLE(MethodBindings.globalMenuSetItemCallbackPtr, menuRoot, idx.toLong(), callback)
   }
 
   /**
@@ -2192,7 +2190,7 @@ public object DisplayServer : Object() {
     idx: Int,
     callback: Callable,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuSetItemHoverCallbacksPtr, menuRoot, idx.toLong(), callback)
+    callMethod_STRING_LONG_CALLABLE(MethodBindings.globalMenuSetItemHoverCallbacksPtr, menuRoot, idx.toLong(), callback)
   }
 
   /**
@@ -2211,7 +2209,7 @@ public object DisplayServer : Object() {
     idx: Int,
     keyCallback: Callable,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_CALLABLE(ptr, objectID.id, MethodBindings.globalMenuSetItemKeyCallbackPtr, menuRoot, idx.toLong(), keyCallback)
+    callMethod_STRING_LONG_CALLABLE(MethodBindings.globalMenuSetItemKeyCallbackPtr, menuRoot, idx.toLong(), keyCallback)
   }
 
   /**
@@ -2226,7 +2224,7 @@ public object DisplayServer : Object() {
     idx: Int,
     tag: Any?,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_ANY(ptr, objectID.id, MethodBindings.globalMenuSetItemTagPtr, menuRoot, idx.toLong(), tag)
+    callMethod_STRING_LONG_ANY(MethodBindings.globalMenuSetItemTagPtr, menuRoot, idx.toLong(), tag)
   }
 
   /**
@@ -2240,7 +2238,7 @@ public object DisplayServer : Object() {
     idx: Int,
     text: String,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_STRING(ptr, objectID.id, MethodBindings.globalMenuSetItemTextPtr, menuRoot, idx.toLong(), text)
+    callMethod_STRING_LONG_STRING(MethodBindings.globalMenuSetItemTextPtr, menuRoot, idx.toLong(), text)
   }
 
   /**
@@ -2255,7 +2253,7 @@ public object DisplayServer : Object() {
     idx: Int,
     submenu: String,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_STRING(ptr, objectID.id, MethodBindings.globalMenuSetItemSubmenuPtr, menuRoot, idx.toLong(), submenu)
+    callMethod_STRING_LONG_STRING(MethodBindings.globalMenuSetItemSubmenuPtr, menuRoot, idx.toLong(), submenu)
   }
 
   /**
@@ -2271,7 +2269,7 @@ public object DisplayServer : Object() {
     idx: Int,
     keycode: Key,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_LONG(ptr, objectID.id, MethodBindings.globalMenuSetItemAcceleratorPtr, menuRoot, idx.toLong(), keycode.value)
+    callMethod_STRING_LONG_LONG(MethodBindings.globalMenuSetItemAcceleratorPtr, menuRoot, idx.toLong(), keycode.value)
   }
 
   /**
@@ -2286,7 +2284,7 @@ public object DisplayServer : Object() {
     idx: Int,
     disabled: Boolean,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_BOOL(ptr, objectID.id, MethodBindings.globalMenuSetItemDisabledPtr, menuRoot, idx.toLong(), disabled)
+    callMethod_STRING_LONG_BOOL(MethodBindings.globalMenuSetItemDisabledPtr, menuRoot, idx.toLong(), disabled)
   }
 
   /**
@@ -2301,7 +2299,7 @@ public object DisplayServer : Object() {
     idx: Int,
     hidden: Boolean,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_BOOL(ptr, objectID.id, MethodBindings.globalMenuSetItemHiddenPtr, menuRoot, idx.toLong(), hidden)
+    callMethod_STRING_LONG_BOOL(MethodBindings.globalMenuSetItemHiddenPtr, menuRoot, idx.toLong(), hidden)
   }
 
   /**
@@ -2315,7 +2313,7 @@ public object DisplayServer : Object() {
     idx: Int,
     tooltip: String,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_STRING(ptr, objectID.id, MethodBindings.globalMenuSetItemTooltipPtr, menuRoot, idx.toLong(), tooltip)
+    callMethod_STRING_LONG_STRING(MethodBindings.globalMenuSetItemTooltipPtr, menuRoot, idx.toLong(), tooltip)
   }
 
   /**
@@ -2329,7 +2327,7 @@ public object DisplayServer : Object() {
     idx: Int,
     state: Int,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_LONG(ptr, objectID.id, MethodBindings.globalMenuSetItemStatePtr, menuRoot, idx.toLong(), state.toLong())
+    callMethod_STRING_LONG_LONG(MethodBindings.globalMenuSetItemStatePtr, menuRoot, idx.toLong(), state.toLong())
   }
 
   /**
@@ -2343,7 +2341,7 @@ public object DisplayServer : Object() {
     idx: Int,
     maxStates: Int,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_LONG(ptr, objectID.id, MethodBindings.globalMenuSetItemMaxStatesPtr, menuRoot, idx.toLong(), maxStates.toLong())
+    callMethod_STRING_LONG_LONG(MethodBindings.globalMenuSetItemMaxStatesPtr, menuRoot, idx.toLong(), maxStates.toLong())
   }
 
   /**
@@ -2359,7 +2357,7 @@ public object DisplayServer : Object() {
     idx: Int,
     icon: Texture2D?,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_OBJECT(ptr, objectID.id, MethodBindings.globalMenuSetItemIconPtr, menuRoot, idx.toLong(), icon)
+    callMethod_STRING_LONG_OBJECT(MethodBindings.globalMenuSetItemIconPtr, menuRoot, idx.toLong(), icon)
   }
 
   /**
@@ -2373,7 +2371,7 @@ public object DisplayServer : Object() {
     idx: Int,
     level: Int,
   ): Unit {
-    TransferContext.callMethod_STRING_LONG_LONG(ptr, objectID.id, MethodBindings.globalMenuSetItemIndentationLevelPtr, menuRoot, idx.toLong(), level.toLong())
+    callMethod_STRING_LONG_LONG(MethodBindings.globalMenuSetItemIndentationLevelPtr, menuRoot, idx.toLong(), level.toLong())
   }
 
   /**
@@ -2383,7 +2381,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetItemCount(menuRoot: String): Int =
-      TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.globalMenuGetItemCountPtr, menuRoot).toInt()
+      callMethod_STRING_ret_LONG(MethodBindings.globalMenuGetItemCountPtr, menuRoot).toInt()
 
   /**
    * Removes the item at index [idx] from the global menu [menuRoot].
@@ -2394,7 +2392,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuRemoveItem(menuRoot: String, idx: Int): Unit {
-    TransferContext.callMethod_STRING_LONG(ptr, objectID.id, MethodBindings.globalMenuRemoveItemPtr, menuRoot, idx.toLong())
+    callMethod_STRING_LONG(MethodBindings.globalMenuRemoveItemPtr, menuRoot, idx.toLong())
   }
 
   /**
@@ -2420,7 +2418,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuClear(menuRoot: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.globalMenuClearPtr, menuRoot)
+    callMethod_STRING(MethodBindings.globalMenuClearPtr, menuRoot)
   }
 
   /**
@@ -2430,7 +2428,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun globalMenuGetSystemMenuRoots(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.globalMenuGetSystemMenuRootsPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.globalMenuGetSystemMenuRootsPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Returns `true` if the synthesizer is generating speech, or have utterance waiting in the queue.
@@ -2440,7 +2438,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun ttsIsSpeaking(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.ttsIsSpeakingPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.ttsIsSpeakingPtr)
 
   /**
    * Returns `true` if the synthesizer is in a paused state.
@@ -2449,8 +2447,7 @@ public object DisplayServer : Object() {
    * Windows.
    */
   @JvmStatic
-  public final fun ttsIsPaused(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.ttsIsPausedPtr)
+  public final fun ttsIsPaused(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.ttsIsPausedPtr)
 
   /**
    * Returns an [VariantArray] of voice information dictionaries.
@@ -2475,7 +2472,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun ttsGetVoices(): VariantArray<Dictionary<Any?, Any?>> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.ttsGetVoicesPtr) as VariantArray<Dictionary<Any?, Any?>>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.ttsGetVoicesPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns a [PackedStringArray] of voice identifiers for the [language].
@@ -2485,7 +2482,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun ttsGetVoicesForLanguage(language: String): PackedStringArray =
-      TransferContext.callMethod_STRING_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.ttsGetVoicesForLanguagePtr, language)
+      callMethod_STRING_ret_PACKED_STRING_ARRAY(MethodBindings.ttsGetVoicesForLanguagePtr, language)
 
   /**
    * Adds an utterance to the queue. If [interrupt] is `true`, the queue is cleared first.
@@ -2524,7 +2521,7 @@ public object DisplayServer : Object() {
     utteranceId: Long = 0,
     interrupt: Boolean = false,
   ): Unit {
-    TransferContext.callMethod_STRING_STRING_LONG_DOUBLE_DOUBLE_LONG_BOOL(ptr, objectID.id, MethodBindings.ttsSpeakPtr, text, voice, volume.toLong(), pitch.toDouble(), rate.toDouble(), utteranceId, interrupt)
+    callMethod_STRING_STRING_LONG_DOUBLE_DOUBLE_LONG_BOOL(MethodBindings.ttsSpeakPtr, text, voice, volume.toLong(), pitch.toDouble(), rate.toDouble(), utteranceId, interrupt)
   }
 
   /**
@@ -2535,7 +2532,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun ttsPause(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.ttsPausePtr)
+    callPtrMethod0(MethodBindings.ttsPausePtr)
   }
 
   /**
@@ -2546,7 +2543,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun ttsResume(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.ttsResumePtr)
+    callPtrMethod0(MethodBindings.ttsResumePtr)
   }
 
   /**
@@ -2557,7 +2554,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun ttsStop(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.ttsStopPtr)
+    callPtrMethod0(MethodBindings.ttsStopPtr)
   }
 
   /**
@@ -2577,7 +2574,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun ttsSetUtteranceCallback(event: TTSUtteranceEvent, callable: Callable): Unit {
-    TransferContext.callMethod_LONG_CALLABLE(ptr, objectID.id, MethodBindings.ttsSetUtteranceCallbackPtr, event.value, callable)
+    callMethod_LONG_CALLABLE(MethodBindings.ttsSetUtteranceCallbackPtr, event.value, callable)
   }
 
   /**
@@ -2587,7 +2584,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun isDarkModeSupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDarkModeSupportedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDarkModeSupportedPtr)
 
   /**
    * Returns `true` if OS is using dark mode.
@@ -2595,8 +2592,7 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on Android, iOS, macOS, Windows, and Linux (X11/Wayland).
    */
   @JvmStatic
-  public final fun isDarkMode(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDarkModePtr)
+  public final fun isDarkMode(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isDarkModePtr)
 
   /**
    * Returns OS theme accent color. Returns `Color(0, 0, 0, 0)`, if accent color is unknown.
@@ -2605,7 +2601,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun getAccentColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getAccentColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getAccentColorPtr)
 
   /**
    * Returns the OS theme base color (default control background). Returns `Color(0, 0, 0, 0)` if
@@ -2614,8 +2610,7 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented on macOS, Windows, and Android.
    */
   @JvmStatic
-  public final fun getBaseColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getBaseColorPtr)
+  public final fun getBaseColor(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getBaseColorPtr)
 
   /**
    * Sets the callback that should be called when the system's theme settings are changed.
@@ -2625,7 +2620,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun setSystemThemeChangeCallback(callable: Callable): Unit {
-    TransferContext.callMethod_CALLABLE(ptr, objectID.id, MethodBindings.setSystemThemeChangeCallbackPtr, callable)
+    callMethod_CALLABLE(MethodBindings.setSystemThemeChangeCallbackPtr, callable)
   }
 
   /**
@@ -2633,7 +2628,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun mouseSetMode(mouseMode: MouseMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.mouseSetModePtr, mouseMode.value)
+    callPtrMethod_LONG(MethodBindings.mouseSetModePtr, mouseMode.value)
   }
 
   /**
@@ -2641,7 +2636,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun mouseGetMode(): MouseMode =
-      MouseMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.mouseGetModePtr))
+      MouseMode.from(callPtrMethod0_ret_LONG(MethodBindings.mouseGetModePtr))
 
   /**
    * Sets the mouse cursor position to the given [position] relative to an origin at the upper left
@@ -2652,7 +2647,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun warpMouse(position: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.warpMousePtr, position)
+    callPtrMethod_VECTOR2I(MethodBindings.warpMousePtr, position)
   }
 
   /**
@@ -2660,7 +2655,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun mouseGetPosition(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.mouseGetPositionPtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.mouseGetPositionPtr)
 
   /**
    * Returns the current state of mouse buttons (whether each button is pressed) as a bitmask. If
@@ -2669,22 +2664,21 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun mouseGetButtonState(): MouseButtonMask =
-      MouseButtonMask(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.mouseGetButtonStatePtr))
+      MouseButtonMask(callPtrMethod0_ret_LONG(MethodBindings.mouseGetButtonStatePtr))
 
   /**
    * Sets the user's clipboard content to the given string.
    */
   @JvmStatic
   public final fun clipboardSet(clipboard: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.clipboardSetPtr, clipboard)
+    callMethod_STRING(MethodBindings.clipboardSetPtr, clipboard)
   }
 
   /**
    * Returns the user's clipboard as a string if possible.
    */
   @JvmStatic
-  public final fun clipboardGet(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.clipboardGetPtr)
+  public final fun clipboardGet(): String = callMethod0_ret_STRING(MethodBindings.clipboardGetPtr)
 
   /**
    * Returns the user's clipboard as an image if possible.
@@ -2694,21 +2688,20 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun clipboardGetImage(): Image? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.clipboardGetImagePtr) as Image?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.clipboardGetImagePtr) as Image?)
 
   /**
    * Returns `true` if there is a text content on the user's clipboard.
    */
   @JvmStatic
-  public final fun clipboardHas(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.clipboardHasPtr)
+  public final fun clipboardHas(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.clipboardHasPtr)
 
   /**
    * Returns `true` if there is an image content on the user's clipboard.
    */
   @JvmStatic
   public final fun clipboardHasImage(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.clipboardHasImagePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.clipboardHasImagePtr)
 
   /**
    * Sets the user's
@@ -2722,7 +2715,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun clipboardSetPrimary(clipboardPrimary: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.clipboardSetPrimaryPtr, clipboardPrimary)
+    callMethod_STRING(MethodBindings.clipboardSetPrimaryPtr, clipboardPrimary)
   }
 
   /**
@@ -2737,7 +2730,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun clipboardGetPrimary(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.clipboardGetPrimaryPtr)
+      callMethod0_ret_STRING(MethodBindings.clipboardGetPrimaryPtr)
 
   /**
    * Returns an [VariantArray] of [Rect2], each of which is the bounding rectangle for a display
@@ -2750,7 +2743,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun getDisplayCutouts(): VariantArray<Rect2> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getDisplayCutoutsPtr) as VariantArray<Rect2>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getDisplayCutoutsPtr) as VariantArray<Rect2>)
 
   /**
    * Returns the unobscured area of the display where interactive controls should be rendered. See
@@ -2762,7 +2755,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun getDisplaySafeArea(): Rect2i =
-      TransferContext.callPtrMethod0_ret_RECT2I(ptr, objectID.id, MethodBindings.getDisplaySafeAreaPtr)
+      callPtrMethod0_ret_RECT2I(MethodBindings.getDisplaySafeAreaPtr)
 
   /**
    * Returns the number of displays available.
@@ -2772,7 +2765,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun getScreenCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getScreenCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getScreenCountPtr).toInt()
 
   /**
    * Returns the index of the primary screen.
@@ -2782,7 +2775,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun getPrimaryScreen(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPrimaryScreenPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getPrimaryScreenPtr).toInt()
 
   /**
    * Returns the index of the screen containing the window with the keyboard focus, or the primary
@@ -2793,7 +2786,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun getKeyboardFocusScreen(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getKeyboardFocusScreenPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getKeyboardFocusScreenPtr).toInt()
 
   /**
    * Returns the index of the screen that overlaps the most with the given rectangle. Returns
@@ -2801,7 +2794,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun getScreenFromRect(rect: Rect2): Int =
-      TransferContext.callPtrMethod_RECT2_ret_LONG(ptr, objectID.id, MethodBindings.getScreenFromRectPtr, rect).toInt()
+      callPtrMethod_RECT2_ret_LONG(MethodBindings.getScreenFromRectPtr, rect).toInt()
 
   /**
    * Returns the screen's top-left corner position in pixels. Returns [Vector2i.ZERO] if [screen] is
@@ -2833,7 +2826,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun screenGetPosition(screen: Int = -1): Vector2i =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.screenGetPositionPtr, screen.toLong())
+      callPtrMethod_LONG_ret_VECTOR2I(MethodBindings.screenGetPositionPtr, screen.toLong())
 
   /**
    * Returns the screen's size in pixels. See also [screenGetPosition] and [screenGetUsableRect].
@@ -2845,7 +2838,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun screenGetSize(screen: Int = -1): Vector2i =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.screenGetSizePtr, screen.toLong())
+      callPtrMethod_LONG_ret_VECTOR2I(MethodBindings.screenGetSizePtr, screen.toLong())
 
   /**
    * Returns the portion of the screen that is not obstructed by a status bar in pixels. See also
@@ -2860,7 +2853,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun screenGetUsableRect(screen: Int = -1): Rect2i =
-      TransferContext.callPtrMethod_LONG_ret_RECT2I(ptr, objectID.id, MethodBindings.screenGetUsableRectPtr, screen.toLong())
+      callPtrMethod_LONG_ret_RECT2I(MethodBindings.screenGetUsableRectPtr, screen.toLong())
 
   /**
    * Returns the dots per inch density of the specified screen. Returns platform specific default
@@ -2896,7 +2889,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun screenGetDpi(screen: Int = -1): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.screenGetDpiPtr, screen.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.screenGetDpiPtr, screen.toLong()).toInt()
 
   /**
    * Returns the scale factor of the specified screen by index. Returns `1.0` if [screen] is
@@ -2918,7 +2911,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun screenGetScale(screen: Int = -1): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.screenGetScalePtr, screen.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.screenGetScalePtr, screen.toLong()).toFloat()
 
   /**
    * Returns `true` if touch events are available (Android or iOS), the capability is detected on
@@ -2926,7 +2919,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun isTouchscreenAvailable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTouchscreenAvailablePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isTouchscreenAvailablePtr)
 
   /**
    * Returns the greatest scale factor of all screens. See also [screenGetScale].
@@ -2936,7 +2929,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun screenGetMaxScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.screenGetMaxScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.screenGetMaxScalePtr).toFloat()
 
   /**
    * Returns the current refresh rate of the specified screen. When V-Sync is enabled, this returns
@@ -2960,7 +2953,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun screenGetRefreshRate(screen: Int = -1): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.screenGetRefreshRatePtr, screen.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.screenGetRefreshRatePtr, screen.toLong()).toFloat()
 
   /**
    * Returns the color of the pixel at the given screen [position]. On multi-monitor setups, the
@@ -2975,7 +2968,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun screenGetPixel(position: Vector2i): Color =
-      TransferContext.callPtrMethod_VECTOR2I_ret_COLOR(ptr, objectID.id, MethodBindings.screenGetPixelPtr, position)
+      callPtrMethod_VECTOR2I_ret_COLOR(MethodBindings.screenGetPixelPtr, position)
 
   /**
    * Returns a screenshot of the [screen]. Returns `null` if [screen] is invalid or the
@@ -2994,7 +2987,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun screenGetImage(screen: Int = -1): Image? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.screenGetImagePtr, screen.toLong()) as Image?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.screenGetImagePtr, screen.toLong()) as Image?)
 
   /**
    * Returns a screenshot of the screen region defined by [rect]. Returns `null` if [rect] is
@@ -3009,7 +3002,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun screenGetImageRect(rect: Rect2i): Image? =
-      (TransferContext.callPtrMethod_RECT2I_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.screenGetImageRectPtr, rect) as Image?)
+      (callPtrMethod_RECT2I_ret_OBJECT_REF(MethodBindings.screenGetImageRectPtr, rect) as Image?)
 
   /**
    * Sets the [screen]'s [orientation]. See also [screenGetOrientation].
@@ -3025,7 +3018,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun screenSetOrientation(orientation: ScreenOrientation, screen: Int = -1): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.screenSetOrientationPtr, orientation.value, screen.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.screenSetOrientationPtr, orientation.value, screen.toLong())
   }
 
   /**
@@ -3041,7 +3034,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun screenGetOrientation(screen: Int = -1): ScreenOrientation =
-      ScreenOrientation.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.screenGetOrientationPtr, screen.toLong()))
+      ScreenOrientation.from(callPtrMethod_LONG_ret_LONG(MethodBindings.screenGetOrientationPtr, screen.toLong()))
 
   /**
    * Sets whether the screen should never be turned off by the operating system's power-saving
@@ -3049,7 +3042,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun screenSetKeepOn(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.screenSetKeepOnPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.screenSetKeepOnPtr, enable)
   }
 
   /**
@@ -3058,7 +3051,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun screenIsKeptOn(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.screenIsKeptOnPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.screenIsKeptOnPtr)
 
   /**
    * Returns the list of Godot window IDs belonging to this process.
@@ -3067,7 +3060,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun getWindowList(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getWindowListPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getWindowListPtr)
 
   /**
    * Returns the ID of the window at the specified screen [position] (in pixels). On multi-monitor
@@ -3093,7 +3086,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun getWindowAtScreenPosition(position: Vector2i): Int =
-      TransferContext.callPtrMethod_VECTOR2I_ret_LONG(ptr, objectID.id, MethodBindings.getWindowAtScreenPositionPtr, position).toInt()
+      callPtrMethod_VECTOR2I_ret_LONG(MethodBindings.getWindowAtScreenPositionPtr, position).toInt()
 
   /**
    * Returns internal structure pointers for use in plugins.
@@ -3103,14 +3096,14 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetNativeHandle(handleType: HandleType, windowId: Int = 0): Long =
-      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.windowGetNativeHandlePtr, handleType.value, windowId.toLong())
+      callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.windowGetNativeHandlePtr, handleType.value, windowId.toLong())
 
   /**
    * Returns ID of the active popup window, or [INVALID_WINDOW_ID] if there is none.
    */
   @JvmStatic
   public final fun windowGetActivePopup(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.windowGetActivePopupPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.windowGetActivePopupPtr).toInt()
 
   /**
    * Sets the bounding box of control, or menu item that was used to open the popup window, in the
@@ -3118,7 +3111,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun windowSetPopupSafeRect(window: Int, rect: Rect2i): Unit {
-    TransferContext.callPtrMethod_LONG_RECT2I(ptr, objectID.id, MethodBindings.windowSetPopupSafeRectPtr, window.toLong(), rect)
+    callPtrMethod_LONG_RECT2I(MethodBindings.windowSetPopupSafeRectPtr, window.toLong(), rect)
   }
 
   /**
@@ -3127,7 +3120,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun windowGetPopupSafeRect(window: Int): Rect2i =
-      TransferContext.callPtrMethod_LONG_ret_RECT2I(ptr, objectID.id, MethodBindings.windowGetPopupSafeRectPtr, window.toLong())
+      callPtrMethod_LONG_ret_RECT2I(MethodBindings.windowGetPopupSafeRectPtr, window.toLong())
 
   /**
    * Sets the title of the given window to [title].
@@ -3140,7 +3133,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetTitle(title: String, windowId: Int = 0): Unit {
-    TransferContext.callMethod_STRING_LONG(ptr, objectID.id, MethodBindings.windowSetTitlePtr, title, windowId.toLong())
+    callMethod_STRING_LONG(MethodBindings.windowSetTitlePtr, title, windowId.toLong())
   }
 
   /**
@@ -3152,7 +3145,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetTitleSize(title: String, windowId: Int = 0): Vector2i =
-      TransferContext.callMethod_STRING_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetTitleSizePtr, title, windowId.toLong())
+      callMethod_STRING_LONG_ret_VECTOR2I(MethodBindings.windowGetTitleSizePtr, title, windowId.toLong())
 
   /**
    * Sets a polygonal region of the window which accepts mouse events. Mouse events outside the
@@ -3193,7 +3186,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetMousePassthrough(region: PackedVector2Array, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_LONG(ptr, objectID.id, MethodBindings.windowSetMousePassthroughPtr, region, windowId.toLong())
+    callPtrMethod_PACKED_VECTOR2_ARRAY_LONG(MethodBindings.windowSetMousePassthroughPtr, region, windowId.toLong())
   }
 
   /**
@@ -3207,7 +3200,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetCurrentScreen(windowId: Int = 0): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.windowGetCurrentScreenPtr, windowId.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.windowGetCurrentScreenPtr, windowId.toLong()).toInt()
 
   /**
    * Moves the window specified by [windowId] to the specified [screen]. See also
@@ -3221,7 +3214,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetCurrentScreen(screen: Int, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowSetCurrentScreenPtr, screen.toLong(), windowId.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.windowSetCurrentScreenPtr, screen.toLong(), windowId.toLong())
   }
 
   /**
@@ -3230,7 +3223,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetPosition(windowId: Int = 0): Vector2i =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetPositionPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_VECTOR2I(MethodBindings.windowGetPositionPtr, windowId.toLong())
 
   /**
    * Returns the position of the given window on the screen including the borders drawn by the
@@ -3239,7 +3232,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetPositionWithDecorations(windowId: Int = 0): Vector2i =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetPositionWithDecorationsPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_VECTOR2I(MethodBindings.windowGetPositionWithDecorationsPtr, windowId.toLong())
 
   /**
    * Sets the position of the given window to [position]. On multi-monitor setups, the screen
@@ -3271,7 +3264,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetPosition(position: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetPositionPtr, position, windowId.toLong())
+    callPtrMethod_VECTOR2I_LONG(MethodBindings.windowSetPositionPtr, position, windowId.toLong())
   }
 
   /**
@@ -3282,7 +3275,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetSize(windowId: Int = 0): Vector2i =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetSizePtr, windowId.toLong())
+      callPtrMethod_LONG_ret_VECTOR2I(MethodBindings.windowGetSizePtr, windowId.toLong())
 
   /**
    * Sets the size of the given window to [size] (in pixels). See also [windowGetSize] and
@@ -3293,7 +3286,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetSize(size: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetSizePtr, size, windowId.toLong())
+    callPtrMethod_VECTOR2I_LONG(MethodBindings.windowSetSizePtr, size, windowId.toLong())
   }
 
   /**
@@ -3306,7 +3299,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetRectChangedCallback(callback: Callable, windowId: Int = 0): Unit {
-    TransferContext.callMethod_CALLABLE_LONG(ptr, objectID.id, MethodBindings.windowSetRectChangedCallbackPtr, callback, windowId.toLong())
+    callMethod_CALLABLE_LONG(MethodBindings.windowSetRectChangedCallbackPtr, callback, windowId.toLong())
   }
 
   /**
@@ -3319,7 +3312,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetWindowEventCallback(callback: Callable, windowId: Int = 0): Unit {
-    TransferContext.callMethod_CALLABLE_LONG(ptr, objectID.id, MethodBindings.windowSetWindowEventCallbackPtr, callback, windowId.toLong())
+    callMethod_CALLABLE_LONG(MethodBindings.windowSetWindowEventCallbackPtr, callback, windowId.toLong())
   }
 
   /**
@@ -3332,7 +3325,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetInputEventCallback(callback: Callable, windowId: Int = 0): Unit {
-    TransferContext.callMethod_CALLABLE_LONG(ptr, objectID.id, MethodBindings.windowSetInputEventCallbackPtr, callback, windowId.toLong())
+    callMethod_CALLABLE_LONG(MethodBindings.windowSetInputEventCallbackPtr, callback, windowId.toLong())
   }
 
   /**
@@ -3345,7 +3338,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetInputTextCallback(callback: Callable, windowId: Int = 0): Unit {
-    TransferContext.callMethod_CALLABLE_LONG(ptr, objectID.id, MethodBindings.windowSetInputTextCallbackPtr, callback, windowId.toLong())
+    callMethod_CALLABLE_LONG(MethodBindings.windowSetInputTextCallbackPtr, callback, windowId.toLong())
   }
 
   /**
@@ -3361,7 +3354,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetDropFilesCallback(callback: Callable, windowId: Int = 0): Unit {
-    TransferContext.callMethod_CALLABLE_LONG(ptr, objectID.id, MethodBindings.windowSetDropFilesCallbackPtr, callback, windowId.toLong())
+    callMethod_CALLABLE_LONG(MethodBindings.windowSetDropFilesCallbackPtr, callback, windowId.toLong())
   }
 
   /**
@@ -3370,7 +3363,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetAttachedInstanceId(windowId: Int = 0): Long =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.windowGetAttachedInstanceIdPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_LONG(MethodBindings.windowGetAttachedInstanceIdPtr, windowId.toLong())
 
   /**
    * Returns the window's maximum size (in pixels). See also [windowSetMaxSize].
@@ -3378,7 +3371,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetMaxSize(windowId: Int = 0): Vector2i =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetMaxSizePtr, windowId.toLong())
+      callPtrMethod_LONG_ret_VECTOR2I(MethodBindings.windowGetMaxSizePtr, windowId.toLong())
 
   /**
    * Sets the maximum size of the window specified by [windowId] in pixels. Normally, the user will
@@ -3393,7 +3386,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetMaxSize(maxSize: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetMaxSizePtr, maxSize, windowId.toLong())
+    callPtrMethod_VECTOR2I_LONG(MethodBindings.windowSetMaxSizePtr, maxSize, windowId.toLong())
   }
 
   /**
@@ -3402,7 +3395,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetMinSize(windowId: Int = 0): Vector2i =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetMinSizePtr, windowId.toLong())
+      callPtrMethod_LONG_ret_VECTOR2I(MethodBindings.windowGetMinSizePtr, windowId.toLong())
 
   /**
    * Sets the minimum size for the given window to [minSize] in pixels. Normally, the user will not
@@ -3420,7 +3413,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetMinSize(minSize: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetMinSizePtr, minSize, windowId.toLong())
+    callPtrMethod_VECTOR2I_LONG(MethodBindings.windowSetMinSizePtr, minSize, windowId.toLong())
   }
 
   /**
@@ -3430,7 +3423,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetSizeWithDecorations(windowId: Int = 0): Vector2i =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.windowGetSizeWithDecorationsPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_VECTOR2I(MethodBindings.windowGetSizeWithDecorationsPtr, windowId.toLong())
 
   /**
    * Returns the mode of the given window.
@@ -3438,7 +3431,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetMode(windowId: Int = 0): WindowMode =
-      WindowMode.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.windowGetModePtr, windowId.toLong()))
+      WindowMode.from(callPtrMethod_LONG_ret_LONG(MethodBindings.windowGetModePtr, windowId.toLong()))
 
   /**
    * Sets window mode for the given window to [mode].
@@ -3452,7 +3445,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetMode(mode: WindowMode, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowSetModePtr, mode.value, windowId.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.windowSetModePtr, mode.value, windowId.toLong())
   }
 
   /**
@@ -3465,7 +3458,7 @@ public object DisplayServer : Object() {
     enabled: Boolean,
     windowId: Int = 0,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL_LONG(ptr, objectID.id, MethodBindings.windowSetFlagPtr, flag.value, enabled, windowId.toLong())
+    callPtrMethod_LONG_BOOL_LONG(MethodBindings.windowSetFlagPtr, flag.value, enabled, windowId.toLong())
   }
 
   /**
@@ -3474,7 +3467,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetFlag(flag: WindowFlags, windowId: Int = 0): Boolean =
-      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowGetFlagPtr, flag.value, windowId.toLong())
+      callPtrMethod_LONG_LONG_ret_BOOL(MethodBindings.windowGetFlagPtr, flag.value, windowId.toLong())
 
   /**
    * Sets the window icon (usually displayed in the top-left corner) for the window specified by
@@ -3485,7 +3478,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetIcon(icon: Image?, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_OBJECT_LONG(ptr, objectID.id, MethodBindings.windowSetIconPtr, icon, windowId.toLong())
+    callPtrMethod_OBJECT_LONG(MethodBindings.windowSetIconPtr, icon, windowId.toLong())
   }
 
   /**
@@ -3497,7 +3490,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetWindowButtonsOffset(offset: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetWindowButtonsOffsetPtr, offset, windowId.toLong())
+    callPtrMethod_VECTOR2I_LONG(MethodBindings.windowSetWindowButtonsOffsetPtr, offset, windowId.toLong())
   }
 
   /**
@@ -3507,7 +3500,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetSafeTitleMargins(windowId: Int = 0): Vector3i =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3I(ptr, objectID.id, MethodBindings.windowGetSafeTitleMarginsPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_VECTOR3I(MethodBindings.windowGetSafeTitleMarginsPtr, windowId.toLong())
 
   /**
    * Makes the window specified by [windowId] request attention, which is materialized by the window
@@ -3517,7 +3510,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowRequestAttention(windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.windowRequestAttentionPtr, windowId.toLong())
+    callPtrMethod_LONG(MethodBindings.windowRequestAttentionPtr, windowId.toLong())
   }
 
   /**
@@ -3533,7 +3526,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetTaskbarProgressValue(`value`: Float, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_DOUBLE_LONG(ptr, objectID.id, MethodBindings.windowSetTaskbarProgressValuePtr, value.toDouble(), windowId.toLong())
+    callPtrMethod_DOUBLE_LONG(MethodBindings.windowSetTaskbarProgressValuePtr, value.toDouble(), windowId.toLong())
   }
 
   /**
@@ -3547,7 +3540,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetTaskbarProgressState(state: ProgressState, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowSetTaskbarProgressStatePtr, state.value, windowId.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.windowSetTaskbarProgressStatePtr, state.value, windowId.toLong())
   }
 
   /**
@@ -3557,7 +3550,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowMoveToForeground(windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.windowMoveToForegroundPtr, windowId.toLong())
+    callPtrMethod_LONG(MethodBindings.windowMoveToForegroundPtr, windowId.toLong())
   }
 
   /**
@@ -3566,7 +3559,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowIsFocused(windowId: Int = 0): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowIsFocusedPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.windowIsFocusedPtr, windowId.toLong())
 
   /**
    * Returns `true` if anything can be drawn in the window specified by [windowId], `false`
@@ -3576,7 +3569,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowCanDraw(windowId: Int = 0): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowCanDrawPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.windowCanDrawPtr, windowId.toLong())
 
   /**
    * Sets window transient parent. Transient window will be destroyed with its transient parent and
@@ -3589,7 +3582,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun windowSetTransient(windowId: Int, parentWindowId: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowSetTransientPtr, windowId.toLong(), parentWindowId.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.windowSetTransientPtr, windowId.toLong(), parentWindowId.toLong())
   }
 
   /**
@@ -3603,7 +3596,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun windowSetExclusive(windowId: Int, exclusive: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.windowSetExclusivePtr, windowId.toLong(), exclusive)
+    callPtrMethod_LONG_BOOL(MethodBindings.windowSetExclusivePtr, windowId.toLong(), exclusive)
   }
 
   /**
@@ -3613,7 +3606,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetImeActive(active: Boolean, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_BOOL_LONG(ptr, objectID.id, MethodBindings.windowSetImeActivePtr, active, windowId.toLong())
+    callPtrMethod_BOOL_LONG(MethodBindings.windowSetImeActivePtr, active, windowId.toLong())
   }
 
   /**
@@ -3624,7 +3617,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetImePosition(position: Vector2i, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_VECTOR2I_LONG(ptr, objectID.id, MethodBindings.windowSetImePositionPtr, position, windowId.toLong())
+    callPtrMethod_VECTOR2I_LONG(MethodBindings.windowSetImePositionPtr, position, windowId.toLong())
   }
 
   /**
@@ -3640,7 +3633,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetVsyncMode(vsyncMode: VSyncMode, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowSetVsyncModePtr, vsyncMode.value, windowId.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.windowSetVsyncModePtr, vsyncMode.value, windowId.toLong())
   }
 
   /**
@@ -3649,7 +3642,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetVsyncMode(windowId: Int = 0): VSyncMode =
-      VSyncMode.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.windowGetVsyncModePtr, windowId.toLong()))
+      VSyncMode.from(callPtrMethod_LONG_ret_LONG(MethodBindings.windowGetVsyncModePtr, windowId.toLong()))
 
   /**
    * Returns `true` if the window specified by [windowId] supports HDR output. This depends on the
@@ -3658,7 +3651,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowIsHdrOutputSupported(windowId: Int = 0): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowIsHdrOutputSupportedPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.windowIsHdrOutputSupportedPtr, windowId.toLong())
 
   /**
    * If [enable] is `true`, HDR output is requested for the window specified by [windowId]. The
@@ -3671,7 +3664,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowRequestHdrOutput(enable: Boolean, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_BOOL_LONG(ptr, objectID.id, MethodBindings.windowRequestHdrOutputPtr, enable, windowId.toLong())
+    callPtrMethod_BOOL_LONG(MethodBindings.windowRequestHdrOutputPtr, enable, windowId.toLong())
   }
 
   /**
@@ -3681,7 +3674,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowIsHdrOutputRequested(windowId: Int = 0): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowIsHdrOutputRequestedPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.windowIsHdrOutputRequestedPtr, windowId.toLong())
 
   /**
    * Returns `true` if HDR output is currently enabled for the window specified by [windowId]. The
@@ -3691,7 +3684,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowIsHdrOutputEnabled(windowId: Int = 0): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowIsHdrOutputEnabledPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.windowIsHdrOutputEnabledPtr, windowId.toLong())
 
   /**
    * Sets the reference white luminance in nits (cd/m²) for HDR output by the window specified by
@@ -3709,7 +3702,7 @@ public object DisplayServer : Object() {
   @JvmStatic
   public final fun windowSetHdrOutputReferenceLuminance(referenceLuminance: Float, windowId: Int =
       0): Unit {
-    TransferContext.callPtrMethod_DOUBLE_LONG(ptr, objectID.id, MethodBindings.windowSetHdrOutputReferenceLuminancePtr, referenceLuminance.toDouble(), windowId.toLong())
+    callPtrMethod_DOUBLE_LONG(MethodBindings.windowSetHdrOutputReferenceLuminancePtr, referenceLuminance.toDouble(), windowId.toLong())
   }
 
   /**
@@ -3720,7 +3713,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetHdrOutputReferenceLuminance(windowId: Int = 0): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.windowGetHdrOutputReferenceLuminancePtr, windowId.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.windowGetHdrOutputReferenceLuminancePtr, windowId.toLong()).toFloat()
 
   /**
    * When [windowIsHdrOutputEnabled] returns `true`, this returns the current reference white
@@ -3736,7 +3729,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetHdrOutputCurrentReferenceLuminance(windowId: Int = 0): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.windowGetHdrOutputCurrentReferenceLuminancePtr, windowId.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.windowGetHdrOutputCurrentReferenceLuminancePtr, windowId.toLong()).toFloat()
 
   /**
    * Sets the maximum luminance in nits (cd/m²) for HDR output by the window specified by
@@ -3753,7 +3746,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowSetHdrOutputMaxLuminance(maxLuminance: Float, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_DOUBLE_LONG(ptr, objectID.id, MethodBindings.windowSetHdrOutputMaxLuminancePtr, maxLuminance.toDouble(), windowId.toLong())
+    callPtrMethod_DOUBLE_LONG(MethodBindings.windowSetHdrOutputMaxLuminancePtr, maxLuminance.toDouble(), windowId.toLong())
   }
 
   /**
@@ -3764,7 +3757,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetHdrOutputMaxLuminance(windowId: Int = 0): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.windowGetHdrOutputMaxLuminancePtr, windowId.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.windowGetHdrOutputMaxLuminancePtr, windowId.toLong()).toFloat()
 
   /**
    * When [windowIsHdrOutputEnabled] returns `true`, this returns the current maximum luminance in
@@ -3779,7 +3772,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetHdrOutputCurrentMaxLuminance(windowId: Int = 0): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.windowGetHdrOutputCurrentMaxLuminancePtr, windowId.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.windowGetHdrOutputCurrentMaxLuminancePtr, windowId.toLong()).toFloat()
 
   /**
    * Returns the maximum value for linear color components that can be displayed for the window
@@ -3794,7 +3787,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowGetOutputMaxLinearValue(windowId: Int = 0): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.windowGetOutputMaxLinearValuePtr, windowId.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.windowGetOutputMaxLinearValuePtr, windowId.toLong()).toFloat()
 
   /**
    * Returns `true` if the given window can be maximized (the maximize button is enabled).
@@ -3802,7 +3795,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowIsMaximizeAllowed(windowId: Int = 0): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.windowIsMaximizeAllowedPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.windowIsMaximizeAllowedPtr, windowId.toLong())
 
   /**
    * Returns `true` if double-clicking on a window's title should maximize it.
@@ -3811,7 +3804,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun windowMaximizeOnTitleDblClick(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.windowMaximizeOnTitleDblClickPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.windowMaximizeOnTitleDblClickPtr)
 
   /**
    * Returns `true` if double-clicking on a window's title should minimize it.
@@ -3820,7 +3813,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun windowMinimizeOnTitleDblClick(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.windowMinimizeOnTitleDblClickPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.windowMinimizeOnTitleDblClickPtr)
 
   /**
    * Starts an interactive drag operation on the window with the given [windowId], using the current
@@ -3833,7 +3826,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowStartDrag(windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.windowStartDragPtr, windowId.toLong())
+    callPtrMethod_LONG(MethodBindings.windowStartDragPtr, windowId.toLong())
   }
 
   /**
@@ -3846,7 +3839,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun windowStartResize(edge: WindowResizeEdge, windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.windowStartResizePtr, edge.value, windowId.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.windowStartResizePtr, edge.value, windowId.toLong())
   }
 
   /**
@@ -3856,7 +3849,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun windowSetColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.windowSetColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.windowSetColorPtr, color)
   }
 
   /**
@@ -3867,7 +3860,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityShouldIncreaseContrast(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.accessibilityShouldIncreaseContrastPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.accessibilityShouldIncreaseContrastPtr).toInt()
 
   /**
    * Returns `1` if flashing, blinking, and other moving content that can cause seizures in users
@@ -3877,7 +3870,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityShouldReduceAnimation(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.accessibilityShouldReduceAnimationPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.accessibilityShouldReduceAnimationPtr).toInt()
 
   /**
    * Returns `1` if background images, transparency, and other features that can reduce the contrast
@@ -3888,7 +3881,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityShouldReduceTransparency(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.accessibilityShouldReduceTransparencyPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.accessibilityShouldReduceTransparencyPtr).toInt()
 
   /**
    * Returns `1` if a screen reader, Braille display or other assistive app is active, `0`
@@ -3903,7 +3896,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityScreenReaderActive(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.accessibilityScreenReaderActivePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.accessibilityScreenReaderActivePtr).toInt()
 
   /**
    * Creates a new, empty accessibility element resource.
@@ -3913,7 +3906,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityCreateElement(windowId: Int, role: AccessibilityRole): RID =
-      TransferContext.callPtrMethod_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.accessibilityCreateElementPtr, windowId.toLong(), role.value)
+      callPtrMethod_LONG_LONG_ret_RID(MethodBindings.accessibilityCreateElementPtr, windowId.toLong(), role.value)
 
   /**
    * Creates a new, empty accessibility sub-element resource. Sub-elements can be used to provide
@@ -3928,7 +3921,7 @@ public object DisplayServer : Object() {
     role: AccessibilityRole,
     insertPos: Int = -1,
   ): RID =
-      TransferContext.callPtrMethod_RID_LONG_LONG_ret_RID(ptr, objectID.id, MethodBindings.accessibilityCreateSubElementPtr, parentRid, role.value, insertPos.toLong())
+      callPtrMethod_RID_LONG_LONG_ret_RID(MethodBindings.accessibilityCreateSubElementPtr, parentRid, role.value, insertPos.toLong())
 
   /**
    * Creates a new, empty accessibility sub-element from the shaped text buffer. Sub-elements are
@@ -3947,14 +3940,14 @@ public object DisplayServer : Object() {
     insertPos: Int = -1,
     isLastLine: Boolean = false,
   ): RID =
-      TransferContext.callPtrMethod_RID_RID_DOUBLE_LONG_BOOL_ret_RID(ptr, objectID.id, MethodBindings.accessibilityCreateSubTextEditElementsPtr, parentRid, shapedText, minHeight.toDouble(), insertPos.toLong(), isLastLine)
+      callPtrMethod_RID_RID_DOUBLE_LONG_BOOL_ret_RID(MethodBindings.accessibilityCreateSubTextEditElementsPtr, parentRid, shapedText, minHeight.toDouble(), insertPos.toLong(), isLastLine)
 
   /**
    * Returns `true` if [id] is a valid accessibility element.
    */
   @JvmStatic
   public final fun accessibilityHasElement(id: RID): Boolean =
-      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.accessibilityHasElementPtr, id)
+      callPtrMethod_RID_ret_BOOL(MethodBindings.accessibilityHasElementPtr, id)
 
   /**
    * Frees the accessibility element [id] created by [accessibilityCreateElement],
@@ -3962,7 +3955,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityFreeElement(id: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.accessibilityFreeElementPtr, id)
+    callPtrMethod_RID(MethodBindings.accessibilityFreeElementPtr, id)
   }
 
   /**
@@ -3970,7 +3963,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityElementSetMeta(id: RID, meta: Any?): Unit {
-    TransferContext.callMethod_RID_ANY(ptr, objectID.id, MethodBindings.accessibilityElementSetMetaPtr, id, meta)
+    callMethod_RID_ANY(MethodBindings.accessibilityElementSetMetaPtr, id, meta)
   }
 
   /**
@@ -3978,7 +3971,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityElementGetMeta(id: RID): Any? =
-      TransferContext.callMethod_RID_ret_ANY(ptr, objectID.id, MethodBindings.accessibilityElementGetMetaPtr, id)
+      callMethod_RID_ret_ANY(MethodBindings.accessibilityElementGetMetaPtr, id)
 
   /**
    * Sets window outer (with decorations) and inner (without decorations) bounds for assistive apps.
@@ -3993,7 +3986,7 @@ public object DisplayServer : Object() {
     rectOut: Rect2,
     rectIn: Rect2,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_RECT2_RECT2(ptr, objectID.id, MethodBindings.accessibilitySetWindowRectPtr, windowId.toLong(), rectOut, rectIn)
+    callPtrMethod_LONG_RECT2_RECT2(MethodBindings.accessibilitySetWindowRectPtr, windowId.toLong(), rectOut, rectIn)
   }
 
   /**
@@ -4005,7 +3998,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilitySetWindowFocused(windowId: Int, focused: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.accessibilitySetWindowFocusedPtr, windowId.toLong(), focused)
+    callPtrMethod_LONG_BOOL(MethodBindings.accessibilitySetWindowFocusedPtr, windowId.toLong(), focused)
   }
 
   /**
@@ -4013,7 +4006,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetFocus(id: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetFocusPtr, id)
+    callPtrMethod_RID(MethodBindings.accessibilityUpdateSetFocusPtr, id)
   }
 
   /**
@@ -4021,14 +4014,14 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityGetWindowRoot(windowId: Int): RID =
-      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.accessibilityGetWindowRootPtr, windowId.toLong())
+      callPtrMethod_LONG_ret_RID(MethodBindings.accessibilityGetWindowRootPtr, windowId.toLong())
 
   /**
    * Sets element accessibility role.
    */
   @JvmStatic
   public final fun accessibilityUpdateSetRole(id: RID, role: AccessibilityRole): Unit {
-    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetRolePtr, id, role.value)
+    callPtrMethod_RID_LONG(MethodBindings.accessibilityUpdateSetRolePtr, id, role.value)
   }
 
   /**
@@ -4036,7 +4029,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetName(id: RID, name: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNamePtr, id, name)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetNamePtr, id, name)
   }
 
   /**
@@ -4044,7 +4037,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetExtraInfo(id: RID, name: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetExtraInfoPtr, id, name)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetExtraInfoPtr, id, name)
   }
 
   /**
@@ -4052,7 +4045,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetDescription(id: RID, description: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetDescriptionPtr, id, description)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetDescriptionPtr, id, description)
   }
 
   /**
@@ -4060,7 +4053,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetValue(id: RID, `value`: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetValuePtr, id, value)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetValuePtr, id, value)
   }
 
   /**
@@ -4068,7 +4061,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTooltip(id: RID, tooltip: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTooltipPtr, id, tooltip)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetTooltipPtr, id, tooltip)
   }
 
   /**
@@ -4076,7 +4069,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetBounds(id: RID, rect: Rect2): Unit {
-    TransferContext.callPtrMethod_RID_RECT2(ptr, objectID.id, MethodBindings.accessibilityUpdateSetBoundsPtr, id, rect)
+    callPtrMethod_RID_RECT2(MethodBindings.accessibilityUpdateSetBoundsPtr, id, rect)
   }
 
   /**
@@ -4084,7 +4077,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTransform(id: RID, transform: Transform2D): Unit {
-    TransferContext.callPtrMethod_RID_TRANSFORM2D(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTransformPtr, id, transform)
+    callPtrMethod_RID_TRANSFORM2D(MethodBindings.accessibilityUpdateSetTransformPtr, id, transform)
   }
 
   /**
@@ -4094,7 +4087,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddChild(id: RID, childId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddChildPtr, id, childId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateAddChildPtr, id, childId)
   }
 
   /**
@@ -4102,7 +4095,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedControls(id: RID, relatedId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedControlsPtr, id, relatedId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateAddRelatedControlsPtr, id, relatedId)
   }
 
   /**
@@ -4110,7 +4103,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedDetails(id: RID, relatedId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedDetailsPtr, id, relatedId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateAddRelatedDetailsPtr, id, relatedId)
   }
 
   /**
@@ -4118,7 +4111,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedDescribedBy(id: RID, relatedId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedDescribedByPtr, id, relatedId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateAddRelatedDescribedByPtr, id, relatedId)
   }
 
   /**
@@ -4126,7 +4119,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedFlowTo(id: RID, relatedId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedFlowToPtr, id, relatedId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateAddRelatedFlowToPtr, id, relatedId)
   }
 
   /**
@@ -4134,7 +4127,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedLabeledBy(id: RID, relatedId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedLabeledByPtr, id, relatedId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateAddRelatedLabeledByPtr, id, relatedId)
   }
 
   /**
@@ -4145,7 +4138,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateAddRelatedRadioGroup(id: RID, relatedId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateAddRelatedRadioGroupPtr, id, relatedId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateAddRelatedRadioGroupPtr, id, relatedId)
   }
 
   /**
@@ -4153,7 +4146,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetActiveDescendant(id: RID, otherId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetActiveDescendantPtr, id, otherId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateSetActiveDescendantPtr, id, otherId)
   }
 
   /**
@@ -4161,7 +4154,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetNextOnLine(id: RID, otherId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNextOnLinePtr, id, otherId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateSetNextOnLinePtr, id, otherId)
   }
 
   /**
@@ -4169,7 +4162,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetPreviousOnLine(id: RID, otherId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetPreviousOnLinePtr, id, otherId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateSetPreviousOnLinePtr, id, otherId)
   }
 
   /**
@@ -4177,7 +4170,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetMemberOf(id: RID, groupId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetMemberOfPtr, id, groupId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateSetMemberOfPtr, id, groupId)
   }
 
   /**
@@ -4185,7 +4178,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetInPageLinkTarget(id: RID, otherId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetInPageLinkTargetPtr, id, otherId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateSetInPageLinkTargetPtr, id, otherId)
   }
 
   /**
@@ -4193,7 +4186,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetErrorMessage(id: RID, otherId: RID): Unit {
-    TransferContext.callPtrMethod_RID_RID(ptr, objectID.id, MethodBindings.accessibilityUpdateSetErrorMessagePtr, id, otherId)
+    callPtrMethod_RID_RID(MethodBindings.accessibilityUpdateSetErrorMessagePtr, id, otherId)
   }
 
   /**
@@ -4201,7 +4194,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetLive(id: RID, live: AccessibilityLiveMode): Unit {
-    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetLivePtr, id, live.value)
+    callPtrMethod_RID_LONG(MethodBindings.accessibilityUpdateSetLivePtr, id, live.value)
   }
 
   /**
@@ -4215,7 +4208,7 @@ public object DisplayServer : Object() {
     action: AccessibilityAction,
     callable: Callable,
   ): Unit {
-    TransferContext.callMethod_RID_LONG_CALLABLE(ptr, objectID.id, MethodBindings.accessibilityUpdateAddActionPtr, id, action.value, callable)
+    callMethod_RID_LONG_CALLABLE(MethodBindings.accessibilityUpdateAddActionPtr, id, action.value, callable)
   }
 
   /**
@@ -4228,7 +4221,7 @@ public object DisplayServer : Object() {
     actionId: Int,
     actionDescription: String,
   ): Unit {
-    TransferContext.callMethod_RID_LONG_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateAddCustomActionPtr, id, actionId.toLong(), actionDescription)
+    callMethod_RID_LONG_STRING(MethodBindings.accessibilityUpdateAddCustomActionPtr, id, actionId.toLong(), actionDescription)
   }
 
   /**
@@ -4236,7 +4229,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTableRowCount(id: RID, count: Int): Unit {
-    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableRowCountPtr, id, count.toLong())
+    callPtrMethod_RID_LONG(MethodBindings.accessibilityUpdateSetTableRowCountPtr, id, count.toLong())
   }
 
   /**
@@ -4244,7 +4237,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTableColumnCount(id: RID, count: Int): Unit {
-    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableColumnCountPtr, id, count.toLong())
+    callPtrMethod_RID_LONG(MethodBindings.accessibilityUpdateSetTableColumnCountPtr, id, count.toLong())
   }
 
   /**
@@ -4252,7 +4245,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTableRowIndex(id: RID, index: Int): Unit {
-    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableRowIndexPtr, id, index.toLong())
+    callPtrMethod_RID_LONG(MethodBindings.accessibilityUpdateSetTableRowIndexPtr, id, index.toLong())
   }
 
   /**
@@ -4260,7 +4253,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTableColumnIndex(id: RID, index: Int): Unit {
-    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableColumnIndexPtr, id, index.toLong())
+    callPtrMethod_RID_LONG(MethodBindings.accessibilityUpdateSetTableColumnIndexPtr, id, index.toLong())
   }
 
   /**
@@ -4272,7 +4265,7 @@ public object DisplayServer : Object() {
     rowIndex: Int,
     columnIndex: Int,
   ): Unit {
-    TransferContext.callPtrMethod_RID_LONG_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableCellPositionPtr, id, rowIndex.toLong(), columnIndex.toLong())
+    callPtrMethod_RID_LONG_LONG(MethodBindings.accessibilityUpdateSetTableCellPositionPtr, id, rowIndex.toLong(), columnIndex.toLong())
   }
 
   /**
@@ -4284,7 +4277,7 @@ public object DisplayServer : Object() {
     rowSpan: Int,
     columnSpan: Int,
   ): Unit {
-    TransferContext.callPtrMethod_RID_LONG_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTableCellSpanPtr, id, rowSpan.toLong(), columnSpan.toLong())
+    callPtrMethod_RID_LONG_LONG(MethodBindings.accessibilityUpdateSetTableCellSpanPtr, id, rowSpan.toLong(), columnSpan.toLong())
   }
 
   /**
@@ -4292,7 +4285,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListItemCount(id: RID, size: Int): Unit {
-    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListItemCountPtr, id, size.toLong())
+    callPtrMethod_RID_LONG(MethodBindings.accessibilityUpdateSetListItemCountPtr, id, size.toLong())
   }
 
   /**
@@ -4300,7 +4293,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListItemIndex(id: RID, index: Int): Unit {
-    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListItemIndexPtr, id, index.toLong())
+    callPtrMethod_RID_LONG(MethodBindings.accessibilityUpdateSetListItemIndexPtr, id, index.toLong())
   }
 
   /**
@@ -4308,7 +4301,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListItemLevel(id: RID, level: Int): Unit {
-    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListItemLevelPtr, id, level.toLong())
+    callPtrMethod_RID_LONG(MethodBindings.accessibilityUpdateSetListItemLevelPtr, id, level.toLong())
   }
 
   /**
@@ -4316,7 +4309,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListItemSelected(id: RID, selected: Boolean): Unit {
-    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListItemSelectedPtr, id, selected)
+    callPtrMethod_RID_BOOL(MethodBindings.accessibilityUpdateSetListItemSelectedPtr, id, selected)
   }
 
   /**
@@ -4324,7 +4317,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListItemExpanded(id: RID, expanded: Boolean): Unit {
-    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListItemExpandedPtr, id, expanded)
+    callPtrMethod_RID_BOOL(MethodBindings.accessibilityUpdateSetListItemExpandedPtr, id, expanded)
   }
 
   /**
@@ -4332,7 +4325,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetPopupType(id: RID, popup: AccessibilityPopupType): Unit {
-    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetPopupTypePtr, id, popup.value)
+    callPtrMethod_RID_LONG(MethodBindings.accessibilityUpdateSetPopupTypePtr, id, popup.value)
   }
 
   /**
@@ -4340,7 +4333,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetChecked(id: RID, checekd: Boolean): Unit {
-    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetCheckedPtr, id, checekd)
+    callPtrMethod_RID_BOOL(MethodBindings.accessibilityUpdateSetCheckedPtr, id, checekd)
   }
 
   /**
@@ -4348,7 +4341,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetNumValue(id: RID, position: Double): Unit {
-    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNumValuePtr, id, position)
+    callPtrMethod_RID_DOUBLE(MethodBindings.accessibilityUpdateSetNumValuePtr, id, position)
   }
 
   /**
@@ -4360,7 +4353,7 @@ public object DisplayServer : Object() {
     min: Double,
     max: Double,
   ): Unit {
-    TransferContext.callPtrMethod_RID_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNumRangePtr, id, min, max)
+    callPtrMethod_RID_DOUBLE_DOUBLE(MethodBindings.accessibilityUpdateSetNumRangePtr, id, min, max)
   }
 
   /**
@@ -4368,7 +4361,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetNumStep(id: RID, step: Double): Unit {
-    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNumStepPtr, id, step)
+    callPtrMethod_RID_DOUBLE(MethodBindings.accessibilityUpdateSetNumStepPtr, id, step)
   }
 
   /**
@@ -4376,7 +4369,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetNumJump(id: RID, jump: Double): Unit {
-    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetNumJumpPtr, id, jump)
+    callPtrMethod_RID_DOUBLE(MethodBindings.accessibilityUpdateSetNumJumpPtr, id, jump)
   }
 
   /**
@@ -4384,7 +4377,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetScrollX(id: RID, position: Double): Unit {
-    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetScrollXPtr, id, position)
+    callPtrMethod_RID_DOUBLE(MethodBindings.accessibilityUpdateSetScrollXPtr, id, position)
   }
 
   /**
@@ -4396,7 +4389,7 @@ public object DisplayServer : Object() {
     min: Double,
     max: Double,
   ): Unit {
-    TransferContext.callPtrMethod_RID_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetScrollXRangePtr, id, min, max)
+    callPtrMethod_RID_DOUBLE_DOUBLE(MethodBindings.accessibilityUpdateSetScrollXRangePtr, id, min, max)
   }
 
   /**
@@ -4404,7 +4397,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetScrollY(id: RID, position: Double): Unit {
-    TransferContext.callPtrMethod_RID_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetScrollYPtr, id, position)
+    callPtrMethod_RID_DOUBLE(MethodBindings.accessibilityUpdateSetScrollYPtr, id, position)
   }
 
   /**
@@ -4416,7 +4409,7 @@ public object DisplayServer : Object() {
     min: Double,
     max: Double,
   ): Unit {
-    TransferContext.callPtrMethod_RID_DOUBLE_DOUBLE(ptr, objectID.id, MethodBindings.accessibilityUpdateSetScrollYRangePtr, id, min, max)
+    callPtrMethod_RID_DOUBLE_DOUBLE(MethodBindings.accessibilityUpdateSetScrollYRangePtr, id, min, max)
   }
 
   /**
@@ -4429,7 +4422,7 @@ public object DisplayServer : Object() {
     strikethrough: Boolean,
     overline: Boolean,
   ): Unit {
-    TransferContext.callPtrMethod_RID_BOOL_BOOL_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTextDecorationsPtr, id, underline, strikethrough, overline)
+    callPtrMethod_RID_BOOL_BOOL_BOOL(MethodBindings.accessibilityUpdateSetTextDecorationsPtr, id, underline, strikethrough, overline)
   }
 
   /**
@@ -4437,7 +4430,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTextAlign(id: RID, align: HorizontalAlignment): Unit {
-    TransferContext.callPtrMethod_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTextAlignPtr, id, align.value)
+    callPtrMethod_RID_LONG(MethodBindings.accessibilityUpdateSetTextAlignPtr, id, align.value)
   }
 
   /**
@@ -4453,7 +4446,7 @@ public object DisplayServer : Object() {
     textEndId: RID,
     endChar: Int,
   ): Unit {
-    TransferContext.callPtrMethod_RID_RID_LONG_RID_LONG(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTextSelectionPtr, id, textStartId, startChar.toLong(), textEndId, endChar.toLong())
+    callPtrMethod_RID_RID_LONG_RID_LONG(MethodBindings.accessibilityUpdateSetTextSelectionPtr, id, textStartId, startChar.toLong(), textEndId, endChar.toLong())
   }
 
   /**
@@ -4465,7 +4458,7 @@ public object DisplayServer : Object() {
     flag: AccessibilityFlags,
     `value`: Boolean,
   ): Unit {
-    TransferContext.callPtrMethod_RID_LONG_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetFlagPtr, id, flag.value, value)
+    callPtrMethod_RID_LONG_BOOL(MethodBindings.accessibilityUpdateSetFlagPtr, id, flag.value, value)
   }
 
   /**
@@ -4473,7 +4466,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetClassname(id: RID, classname: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetClassnamePtr, id, classname)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetClassnamePtr, id, classname)
   }
 
   /**
@@ -4481,7 +4474,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetPlaceholder(id: RID, placeholder: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetPlaceholderPtr, id, placeholder)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetPlaceholderPtr, id, placeholder)
   }
 
   /**
@@ -4489,7 +4482,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetLanguage(id: RID, language: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetLanguagePtr, id, language)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetLanguagePtr, id, language)
   }
 
   /**
@@ -4497,7 +4490,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetTextOrientation(id: RID, vertical: Boolean): Unit {
-    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetTextOrientationPtr, id, vertical)
+    callPtrMethod_RID_BOOL(MethodBindings.accessibilityUpdateSetTextOrientationPtr, id, vertical)
   }
 
   /**
@@ -4505,7 +4498,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetListOrientation(id: RID, vertical: Boolean): Unit {
-    TransferContext.callPtrMethod_RID_BOOL(ptr, objectID.id, MethodBindings.accessibilityUpdateSetListOrientationPtr, id, vertical)
+    callPtrMethod_RID_BOOL(MethodBindings.accessibilityUpdateSetListOrientationPtr, id, vertical)
   }
 
   /**
@@ -4513,7 +4506,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetShortcut(id: RID, shortcut: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetShortcutPtr, id, shortcut)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetShortcutPtr, id, shortcut)
   }
 
   /**
@@ -4521,7 +4514,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetUrl(id: RID, url: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetUrlPtr, id, url)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetUrlPtr, id, url)
   }
 
   /**
@@ -4529,7 +4522,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetRoleDescription(id: RID, description: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetRoleDescriptionPtr, id, description)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetRoleDescriptionPtr, id, description)
   }
 
   /**
@@ -4537,7 +4530,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetStateDescription(id: RID, description: String): Unit {
-    TransferContext.callMethod_RID_STRING(ptr, objectID.id, MethodBindings.accessibilityUpdateSetStateDescriptionPtr, id, description)
+    callMethod_RID_STRING(MethodBindings.accessibilityUpdateSetStateDescriptionPtr, id, description)
   }
 
   /**
@@ -4545,7 +4538,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetColorValue(id: RID, color: Color): Unit {
-    TransferContext.callPtrMethod_RID_COLOR(ptr, objectID.id, MethodBindings.accessibilityUpdateSetColorValuePtr, id, color)
+    callPtrMethod_RID_COLOR(MethodBindings.accessibilityUpdateSetColorValuePtr, id, color)
   }
 
   /**
@@ -4553,7 +4546,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetBackgroundColor(id: RID, color: Color): Unit {
-    TransferContext.callPtrMethod_RID_COLOR(ptr, objectID.id, MethodBindings.accessibilityUpdateSetBackgroundColorPtr, id, color)
+    callPtrMethod_RID_COLOR(MethodBindings.accessibilityUpdateSetBackgroundColorPtr, id, color)
   }
 
   /**
@@ -4561,7 +4554,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun accessibilityUpdateSetForegroundColor(id: RID, color: Color): Unit {
-    TransferContext.callPtrMethod_RID_COLOR(ptr, objectID.id, MethodBindings.accessibilityUpdateSetForegroundColorPtr, id, color)
+    callPtrMethod_RID_COLOR(MethodBindings.accessibilityUpdateSetForegroundColorPtr, id, color)
   }
 
   /**
@@ -4573,7 +4566,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun imeGetSelection(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.imeGetSelectionPtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.imeGetSelectionPtr)
 
   /**
    * Returns the composition string contained within the
@@ -4582,8 +4575,7 @@ public object DisplayServer : Object() {
    * **Note:** This method is implemented only on macOS.
    */
   @JvmStatic
-  public final fun imeGetText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.imeGetTextPtr)
+  public final fun imeGetText(): String = callMethod0_ret_STRING(MethodBindings.imeGetTextPtr)
 
   /**
    * Shows the virtual keyboard if the platform has one.
@@ -4614,7 +4606,7 @@ public object DisplayServer : Object() {
     cursorStart: Int = -1,
     cursorEnd: Int = -1,
   ): Unit {
-    TransferContext.callMethod_STRING_RECT2_LONG_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.virtualKeyboardShowPtr, existingText, position, type.value, maxLength.toLong(), cursorStart.toLong(), cursorEnd.toLong())
+    callMethod_STRING_RECT2_LONG_LONG_LONG_LONG(MethodBindings.virtualKeyboardShowPtr, existingText, position, type.value, maxLength.toLong(), cursorStart.toLong(), cursorEnd.toLong())
   }
 
   /**
@@ -4622,7 +4614,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun virtualKeyboardHide(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.virtualKeyboardHidePtr)
+    callPtrMethod0(MethodBindings.virtualKeyboardHidePtr)
   }
 
   /**
@@ -4634,7 +4626,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun virtualKeyboardGetHeight(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.virtualKeyboardGetHeightPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.virtualKeyboardGetHeightPtr).toInt()
 
   /**
    * Returns `true` if a hardware keyboard is connected.
@@ -4644,7 +4636,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun hasHardwareKeyboard(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasHardwareKeyboardPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.hasHardwareKeyboardPtr)
 
   /**
    * Sets the callback that should be called when a hardware keyboard is connected or disconnected.
@@ -4655,7 +4647,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun setHardwareKeyboardConnectionChangeCallback(callable: Callable): Unit {
-    TransferContext.callMethod_CALLABLE(ptr, objectID.id, MethodBindings.setHardwareKeyboardConnectionChangeCallbackPtr, callable)
+    callMethod_CALLABLE(MethodBindings.setHardwareKeyboardConnectionChangeCallbackPtr, callable)
   }
 
   /**
@@ -4664,7 +4656,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun cursorSetShape(shape: CursorShape): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.cursorSetShapePtr, shape.value)
+    callPtrMethod_LONG(MethodBindings.cursorSetShapePtr, shape.value)
   }
 
   /**
@@ -4672,7 +4664,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun cursorGetShape(): CursorShape =
-      CursorShape.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.cursorGetShapePtr))
+      CursorShape.from(callPtrMethod0_ret_LONG(MethodBindings.cursorGetShapePtr))
 
   /**
    * Sets a custom mouse cursor image for the given [shape]. This means the user's operating system
@@ -4692,7 +4684,7 @@ public object DisplayServer : Object() {
     shape: CursorShape = DisplayServer.CursorShape.ARROW,
     hotspot: Vector2 = Vector2(0, 0),
   ): Unit {
-    TransferContext.callPtrMethod_OBJECT_LONG_VECTOR2(ptr, objectID.id, MethodBindings.cursorSetCustomImagePtr, cursor, shape.value, hotspot)
+    callPtrMethod_OBJECT_LONG_VECTOR2(MethodBindings.cursorSetCustomImagePtr, cursor, shape.value, hotspot)
   }
 
   /**
@@ -4705,7 +4697,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun getSwapCancelOk(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSwapCancelOkPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getSwapCancelOkPtr)
 
   /**
    * Allows the [processId] PID to steal focus from this window. In other words, this disables the
@@ -4715,7 +4707,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun enableForStealingFocus(processId: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.enableForStealingFocusPtr, processId)
+    callPtrMethod_LONG(MethodBindings.enableForStealingFocusPtr, processId)
   }
 
   /**
@@ -4732,7 +4724,7 @@ public object DisplayServer : Object() {
     buttons: PackedStringArray,
     callback: Callable,
   ): Error =
-      Error.from(TransferContext.callMethod_STRING_STRING_PACKED_STRING_ARRAY_CALLABLE_ret_LONG(ptr, objectID.id, MethodBindings.dialogShowPtr, title, description, buttons, callback))
+      Error.from(callMethod_STRING_STRING_PACKED_STRING_ARRAY_CALLABLE_ret_LONG(MethodBindings.dialogShowPtr, title, description, buttons, callback))
 
   /**
    * Shows a text input dialog which uses the operating system's native look-and-feel. [callback]
@@ -4748,7 +4740,7 @@ public object DisplayServer : Object() {
     existingText: String,
     callback: Callable,
   ): Error =
-      Error.from(TransferContext.callMethod_STRING_STRING_STRING_CALLABLE_ret_LONG(ptr, objectID.id, MethodBindings.dialogInputTextPtr, title, description, existingText, callback))
+      Error.from(callMethod_STRING_STRING_STRING_CALLABLE_ret_LONG(MethodBindings.dialogInputTextPtr, title, description, existingText, callback))
 
   /**
    * Displays OS native dialog for selecting files or directories in the file system.
@@ -4813,7 +4805,7 @@ public object DisplayServer : Object() {
     callback: Callable,
     parentWindowId: Int = 0,
   ): Error =
-      Error.from(TransferContext.callMethod_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_CALLABLE_LONG_ret_LONG(ptr, objectID.id, MethodBindings.fileDialogShowPtr, title, currentDirectory, filename, showHidden, mode.value, filters, callback, parentWindowId.toLong()))
+      Error.from(callMethod_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_CALLABLE_LONG_ret_LONG(MethodBindings.fileDialogShowPtr, title, currentDirectory, filename, showHidden, mode.value, filters, callback, parentWindowId.toLong()))
 
   /**
    * Displays OS native dialog for selecting files or directories in the file system with additional
@@ -4866,7 +4858,7 @@ public object DisplayServer : Object() {
     callback: Callable,
     parentWindowId: Int = 0,
   ): Error =
-      Error.from(TransferContext.callMethod_STRING_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_ARRAY_CALLABLE_LONG_ret_LONG(ptr, objectID.id, MethodBindings.fileDialogWithOptionsShowPtr, title, currentDirectory, root, filename, showHidden, mode.value, filters, options, callback, parentWindowId.toLong()))
+      Error.from(callMethod_STRING_STRING_STRING_STRING_BOOL_LONG_PACKED_STRING_ARRAY_ARRAY_CALLABLE_LONG_ret_LONG(MethodBindings.fileDialogWithOptionsShowPtr, title, currentDirectory, root, filename, showHidden, mode.value, filters, options, callback, parentWindowId.toLong()))
 
   /**
    * Plays the beep sound from the operative system, if possible. Because it comes from the OS, the
@@ -4877,7 +4869,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun beep(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.beepPtr)
+    callPtrMethod0(MethodBindings.beepPtr)
   }
 
   /**
@@ -4887,7 +4879,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun keyboardGetLayoutCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.keyboardGetLayoutCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.keyboardGetLayoutCountPtr).toInt()
 
   /**
    * Returns active keyboard layout index.
@@ -4896,7 +4888,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun keyboardGetCurrentLayout(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.keyboardGetCurrentLayoutPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.keyboardGetCurrentLayoutPtr).toInt()
 
   /**
    * Sets the active keyboard layout.
@@ -4905,7 +4897,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun keyboardSetCurrentLayout(index: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.keyboardSetCurrentLayoutPtr, index.toLong())
+    callPtrMethod_LONG(MethodBindings.keyboardSetCurrentLayoutPtr, index.toLong())
   }
 
   /**
@@ -4915,7 +4907,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun keyboardGetLayoutLanguage(index: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.keyboardGetLayoutLanguagePtr, index.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.keyboardGetLayoutLanguagePtr, index.toLong())
 
   /**
    * Returns the localized name of the keyboard layout at position [index].
@@ -4924,7 +4916,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun keyboardGetLayoutName(index: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.keyboardGetLayoutNamePtr, index.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.keyboardGetLayoutNamePtr, index.toLong())
 
   /**
    * Converts a physical (US QWERTY) [keycode] to one in the active keyboard layout.
@@ -4933,7 +4925,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun keyboardGetKeycodeFromPhysical(keycode: Key): Key =
-      Key.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.keyboardGetKeycodeFromPhysicalPtr, keycode.value))
+      Key.from(callPtrMethod_LONG_ret_LONG(MethodBindings.keyboardGetKeycodeFromPhysicalPtr, keycode.value))
 
   /**
    * Converts a physical (US QWERTY) [keycode] to localized label printed on the key in the active
@@ -4943,7 +4935,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun keyboardGetLabelFromPhysical(keycode: Key): Key =
-      Key.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.keyboardGetLabelFromPhysicalPtr, keycode.value))
+      Key.from(callPtrMethod_LONG_ret_LONG(MethodBindings.keyboardGetLabelFromPhysicalPtr, keycode.value))
 
   /**
    * Opens system emoji and symbol picker.
@@ -4952,7 +4944,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun showEmojiAndSymbolPicker(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.showEmojiAndSymbolPickerPtr)
+    callPtrMethod0(MethodBindings.showEmojiAndSymbolPickerPtr)
   }
 
   /**
@@ -4967,7 +4959,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun colorPicker(callback: Callable): Boolean =
-      TransferContext.callMethod_CALLABLE_ret_BOOL(ptr, objectID.id, MethodBindings.colorPickerPtr, callback)
+      callMethod_CALLABLE_ret_BOOL(MethodBindings.colorPickerPtr, callback)
 
   /**
    * Perform window manager processing, including input flushing. See also
@@ -4975,7 +4967,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun processEvents(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.processEventsPtr)
+    callPtrMethod0(MethodBindings.processEventsPtr)
   }
 
   /**
@@ -4985,7 +4977,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun forceProcessAndDropEvents(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.forceProcessAndDropEventsPtr)
+    callPtrMethod0(MethodBindings.forceProcessAndDropEventsPtr)
   }
 
   /**
@@ -5000,7 +4992,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun setNativeIcon(filename: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setNativeIconPtr, filename)
+    callMethod_STRING(MethodBindings.setNativeIconPtr, filename)
   }
 
   /**
@@ -5011,7 +5003,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun setIcon(image: Image?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setIconPtr, image)
+    callPtrMethod_OBJECT(MethodBindings.setIconPtr, image)
   }
 
   /**
@@ -5027,7 +5019,7 @@ public object DisplayServer : Object() {
     tooltip: String,
     callback: Callable,
   ): Int =
-      TransferContext.callMethod_OBJECT_STRING_CALLABLE_ret_LONG(ptr, objectID.id, MethodBindings.createStatusIndicatorPtr, icon, tooltip, callback).toInt()
+      callMethod_OBJECT_STRING_CALLABLE_ret_LONG(MethodBindings.createStatusIndicatorPtr, icon, tooltip, callback).toInt()
 
   /**
    * Sets the application status indicator icon.
@@ -5036,7 +5028,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun statusIndicatorSetIcon(id: Int, icon: Texture2D?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.statusIndicatorSetIconPtr, id.toLong(), icon)
+    callPtrMethod_LONG_OBJECT(MethodBindings.statusIndicatorSetIconPtr, id.toLong(), icon)
   }
 
   /**
@@ -5046,7 +5038,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun statusIndicatorSetTooltip(id: Int, tooltip: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.statusIndicatorSetTooltipPtr, id.toLong(), tooltip)
+    callMethod_LONG_STRING(MethodBindings.statusIndicatorSetTooltipPtr, id.toLong(), tooltip)
   }
 
   /**
@@ -5064,7 +5056,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun statusIndicatorSetMenu(id: Int, menuRid: RID): Unit {
-    TransferContext.callPtrMethod_LONG_RID(ptr, objectID.id, MethodBindings.statusIndicatorSetMenuPtr, id.toLong(), menuRid)
+    callPtrMethod_LONG_RID(MethodBindings.statusIndicatorSetMenuPtr, id.toLong(), menuRid)
   }
 
   /**
@@ -5076,7 +5068,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun statusIndicatorSetCallback(id: Int, callback: Callable): Unit {
-    TransferContext.callMethod_LONG_CALLABLE(ptr, objectID.id, MethodBindings.statusIndicatorSetCallbackPtr, id.toLong(), callback)
+    callMethod_LONG_CALLABLE(MethodBindings.statusIndicatorSetCallbackPtr, id.toLong(), callback)
   }
 
   /**
@@ -5087,14 +5079,14 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun statusIndicatorGetRect(id: Int): Rect2 =
-      TransferContext.callPtrMethod_LONG_ret_RECT2(ptr, objectID.id, MethodBindings.statusIndicatorGetRectPtr, id.toLong())
+      callPtrMethod_LONG_ret_RECT2(MethodBindings.statusIndicatorGetRectPtr, id.toLong())
 
   /**
    * Removes the application status indicator.
    */
   @JvmStatic
   public final fun deleteStatusIndicator(id: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.deleteStatusIndicatorPtr, id.toLong())
+    callPtrMethod_LONG(MethodBindings.deleteStatusIndicatorPtr, id.toLong())
   }
 
   /**
@@ -5104,7 +5096,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun tabletGetDriverCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.tabletGetDriverCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.tabletGetDriverCountPtr).toInt()
 
   /**
    * Returns the tablet driver name for the given index.
@@ -5113,7 +5105,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun tabletGetDriverName(idx: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.tabletGetDriverNamePtr, idx.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.tabletGetDriverNamePtr, idx.toLong())
 
   /**
    * Returns current active tablet driver name.
@@ -5122,7 +5114,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun tabletGetCurrentDriver(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.tabletGetCurrentDriverPtr)
+      callMethod0_ret_STRING(MethodBindings.tabletGetCurrentDriverPtr)
 
   /**
    * Set active tablet driver name.
@@ -5139,7 +5131,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun tabletSetCurrentDriver(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.tabletSetCurrentDriverPtr, name)
+    callMethod_STRING(MethodBindings.tabletSetCurrentDriverPtr, name)
   }
 
   /**
@@ -5149,7 +5141,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun isWindowTransparencyAvailable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isWindowTransparencyAvailablePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isWindowTransparencyAvailablePtr)
 
   /**
    * Registers an [Object] which represents an additional output that will be rendered too, beyond
@@ -5160,7 +5152,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun registerAdditionalOutput(`object`: Object?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.registerAdditionalOutputPtr, `object`)
+    callPtrMethod_OBJECT(MethodBindings.registerAdditionalOutputPtr, `object`)
   }
 
   /**
@@ -5169,7 +5161,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun unregisterAdditionalOutput(`object`: Object?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.unregisterAdditionalOutputPtr, `object`)
+    callPtrMethod_OBJECT(MethodBindings.unregisterAdditionalOutputPtr, `object`)
   }
 
   /**
@@ -5177,7 +5169,7 @@ public object DisplayServer : Object() {
    */
   @JvmStatic
   public final fun hasAdditionalOutputs(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasAdditionalOutputsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.hasAdditionalOutputsPtr)
 
   /**
    * Returns `true` if the application is in picture-in-picture mode.
@@ -5187,7 +5179,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun isInPipMode(windowId: Int = 0): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isInPipModePtr, windowId.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isInPipModePtr, windowId.toLong())
 
   /**
    * Enters picture-in-picture mode.
@@ -5197,7 +5189,7 @@ public object DisplayServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun pipModeEnter(windowId: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.pipModeEnterPtr, windowId.toLong())
+    callPtrMethod_LONG(MethodBindings.pipModeEnterPtr, windowId.toLong())
   }
 
   /**
@@ -5212,7 +5204,7 @@ public object DisplayServer : Object() {
     denominator: Int,
     windowId: Int = 0,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.pipModeSetAspectRatioPtr, numerator.toLong(), denominator.toLong(), windowId.toLong())
+    callPtrMethod_LONG_LONG_LONG(MethodBindings.pipModeSetAspectRatioPtr, numerator.toLong(), denominator.toLong(), windowId.toLong())
   }
 
   /**
@@ -5225,7 +5217,7 @@ public object DisplayServer : Object() {
   @JvmStatic
   public final fun pipModeSetAutoEnterOnBackground(autoEnterOnBackground: Boolean, windowId: Int =
       0): Unit {
-    TransferContext.callPtrMethod_BOOL_LONG(ptr, objectID.id, MethodBindings.pipModeSetAutoEnterOnBackgroundPtr, autoEnterOnBackground, windowId.toLong())
+    callPtrMethod_BOOL_LONG(MethodBindings.pipModeSetAutoEnterOnBackgroundPtr, autoEnterOnBackground, windowId.toLong())
   }
 
   public enum class Feature(

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_ANY_VECTOR2_LONG_DOUBLE_ret_BOOL
@@ -226,55 +225,55 @@ public open class TextParagraph : RefCounted() {
    * Clears text paragraph (removes text and inline objects).
    */
   public final fun clear(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
+    callPtrMethod0(MethodBindings.clearPtr)
   }
 
   /**
    * Duplicates this [TextParagraph].
    */
   public final fun duplicate(): TextParagraph? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.duplicatePtr) as TextParagraph?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.duplicatePtr) as TextParagraph?)
 
   public final fun setDirection(direction: TextServer.Direction): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDirectionPtr, direction.value)
+    callPtrMethod_LONG(MethodBindings.setDirectionPtr, direction.value)
   }
 
   public final fun getDirection(): TextServer.Direction =
-      TextServer.Direction.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDirectionPtr))
+      TextServer.Direction.from(callPtrMethod0_ret_LONG(MethodBindings.getDirectionPtr))
 
   /**
    * Returns the text writing direction inferred by the BiDi algorithm.
    */
   public final fun getInferredDirection(): TextServer.Direction =
-      TextServer.Direction.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInferredDirectionPtr))
+      TextServer.Direction.from(callPtrMethod0_ret_LONG(MethodBindings.getInferredDirectionPtr))
 
   public final fun setCustomPunctuation(customPunctuation: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setCustomPunctuationPtr, customPunctuation)
+    callMethod_STRING(MethodBindings.setCustomPunctuationPtr, customPunctuation)
   }
 
   public final fun getCustomPunctuation(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCustomPunctuationPtr)
+      callMethod0_ret_STRING(MethodBindings.getCustomPunctuationPtr)
 
   public final fun setOrientation(orientation: TextServer.Orientation): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOrientationPtr, orientation.value)
+    callPtrMethod_LONG(MethodBindings.setOrientationPtr, orientation.value)
   }
 
   public final fun getOrientation(): TextServer.Orientation =
-      TextServer.Orientation.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOrientationPtr))
+      TextServer.Orientation.from(callPtrMethod0_ret_LONG(MethodBindings.getOrientationPtr))
 
   public final fun setPreserveInvalid(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPreserveInvalidPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setPreserveInvalidPtr, enabled)
   }
 
   public final fun getPreserveInvalid(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getPreserveInvalidPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getPreserveInvalidPtr)
 
   public final fun setPreserveControl(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPreserveControlPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setPreserveControlPtr, enabled)
   }
 
   public final fun getPreserveControl(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getPreserveControlPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getPreserveControlPtr)
 
   /**
    * Overrides BiDi for the structured text.
@@ -283,7 +282,7 @@ public open class TextParagraph : RefCounted() {
    * each range separately.
    */
   public final fun setBidiOverride(`override`: VariantArray<Any?>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setBidiOverridePtr, override)
+    callPtrMethod_ARRAY(MethodBindings.setBidiOverridePtr, override)
   }
 
   /**
@@ -298,13 +297,13 @@ public open class TextParagraph : RefCounted() {
     dropcapMargins: Rect2 = Rect2(0.0, 0.0, 0.0, 0.0),
     language: String = "",
   ): Boolean =
-      TransferContext.callMethod_STRING_OBJECT_LONG_RECT2_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.setDropcapPtr, text, font, fontSize.toLong(), dropcapMargins, language)
+      callMethod_STRING_OBJECT_LONG_RECT2_STRING_ret_BOOL(MethodBindings.setDropcapPtr, text, font, fontSize.toLong(), dropcapMargins, language)
 
   /**
    * Removes dropcap.
    */
   public final fun clearDropcap(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearDropcapPtr)
+    callPtrMethod0(MethodBindings.clearDropcapPtr)
   }
 
   /**
@@ -318,7 +317,7 @@ public open class TextParagraph : RefCounted() {
     language: String = "",
     meta: Any? = null,
   ): Boolean =
-      TransferContext.callMethod_STRING_OBJECT_LONG_STRING_ANY_ret_BOOL(ptr, objectID.id, MethodBindings.addStringPtr, text, font, fontSize.toLong(), language, meta)
+      callMethod_STRING_OBJECT_LONG_STRING_ANY_ret_BOOL(MethodBindings.addStringPtr, text, font, fontSize.toLong(), language, meta)
 
   /**
    * Adds inline object to the text buffer, [key] must be unique. In the text, object is represented
@@ -332,7 +331,7 @@ public open class TextParagraph : RefCounted() {
     length: Int = 1,
     baseline: Float = 0.0f,
   ): Boolean =
-      TransferContext.callMethod_ANY_VECTOR2_LONG_LONG_DOUBLE_ret_BOOL(ptr, objectID.id, MethodBindings.addObjectPtr, key, size, inlineAlign.value, length.toLong(), baseline.toDouble())
+      callMethod_ANY_VECTOR2_LONG_LONG_DOUBLE_ret_BOOL(MethodBindings.addObjectPtr, key, size, inlineAlign.value, length.toLong(), baseline.toDouble())
 
   /**
    * Sets new size and alignment of embedded object.
@@ -344,186 +343,182 @@ public open class TextParagraph : RefCounted() {
     inlineAlign: InlineAlignment = InlineAlignment.CENTER,
     baseline: Float = 0.0f,
   ): Boolean =
-      TransferContext.callMethod_ANY_VECTOR2_LONG_DOUBLE_ret_BOOL(ptr, objectID.id, MethodBindings.resizeObjectPtr, key, size, inlineAlign.value, baseline.toDouble())
+      callMethod_ANY_VECTOR2_LONG_DOUBLE_ret_BOOL(MethodBindings.resizeObjectPtr, key, size, inlineAlign.value, baseline.toDouble())
 
   /**
    * Returns `true` if an object with [key] is embedded in this shaped text buffer.
    */
   public final fun hasObject(key: Any?): Boolean =
-      TransferContext.callMethod_ANY_ret_BOOL(ptr, objectID.id, MethodBindings.hasObjectPtr, key)
+      callMethod_ANY_ret_BOOL(MethodBindings.hasObjectPtr, key)
 
   public final fun setAlignment(alignment: HorizontalAlignment): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAlignmentPtr, alignment.value)
+    callPtrMethod_LONG(MethodBindings.setAlignmentPtr, alignment.value)
   }
 
   public final fun getAlignment(): HorizontalAlignment =
-      HorizontalAlignment.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAlignmentPtr))
+      HorizontalAlignment.from(callPtrMethod0_ret_LONG(MethodBindings.getAlignmentPtr))
 
   /**
    * Aligns paragraph to the given tab-stops.
    */
   public final fun tabAlign(tabStops: PackedFloat32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.tabAlignPtr, tabStops)
+    callPtrMethod_PACKED_FLOAT_32_ARRAY(MethodBindings.tabAlignPtr, tabStops)
   }
 
   public final fun setBreakFlags(flags: TextServer.LineBreakFlag): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBreakFlagsPtr, flags.flag)
+    callPtrMethod_LONG(MethodBindings.setBreakFlagsPtr, flags.flag)
   }
 
   public final fun getBreakFlags(): TextServer.LineBreakFlag =
-      TextServer.LineBreakFlag(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBreakFlagsPtr))
+      TextServer.LineBreakFlag(callPtrMethod0_ret_LONG(MethodBindings.getBreakFlagsPtr))
 
   public final fun setJustificationFlags(flags: TextServer.JustificationFlag): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setJustificationFlagsPtr, flags.flag)
+    callPtrMethod_LONG(MethodBindings.setJustificationFlagsPtr, flags.flag)
   }
 
   public final fun getJustificationFlags(): TextServer.JustificationFlag =
-      TextServer.JustificationFlag(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getJustificationFlagsPtr))
+      TextServer.JustificationFlag(callPtrMethod0_ret_LONG(MethodBindings.getJustificationFlagsPtr))
 
   public final fun setTextOverrunBehavior(overrunBehavior: TextServer.OverrunBehavior): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextOverrunBehaviorPtr, overrunBehavior.value)
+    callPtrMethod_LONG(MethodBindings.setTextOverrunBehaviorPtr, overrunBehavior.value)
   }
 
   public final fun getTextOverrunBehavior(): TextServer.OverrunBehavior =
-      TextServer.OverrunBehavior.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextOverrunBehaviorPtr))
+      TextServer.OverrunBehavior.from(callPtrMethod0_ret_LONG(MethodBindings.getTextOverrunBehaviorPtr))
 
   public final fun setEllipsisChar(char: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setEllipsisCharPtr, char)
+    callMethod_STRING(MethodBindings.setEllipsisCharPtr, char)
   }
 
   public final fun getEllipsisChar(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getEllipsisCharPtr)
+      callMethod0_ret_STRING(MethodBindings.getEllipsisCharPtr)
 
   public final fun setWidth(width: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setWidthPtr, width.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setWidthPtr, width.toDouble())
   }
 
   public final fun getWidth(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWidthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getWidthPtr).toFloat()
 
   /**
    * Returns the size of the bounding box of the paragraph, without line breaks.
    */
   public final fun getNonWrappedSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getNonWrappedSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getNonWrappedSizePtr)
 
   /**
    * Returns the size of the bounding box of the paragraph.
    */
-  public final fun getSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getSizePtr)
 
   /**
    * Returns TextServer full string buffer RID.
    */
-  public final fun getRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getRidPtr)
+  public final fun getRid(): RID = callPtrMethod0_ret_RID(MethodBindings.getRidPtr)
 
   /**
    * Returns TextServer line buffer RID.
    */
   public final fun getLineRid(line: Int): RID =
-      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.getLineRidPtr, line.toLong())
+      callPtrMethod_LONG_ret_RID(MethodBindings.getLineRidPtr, line.toLong())
 
   /**
    * Returns drop cap text buffer RID.
    */
-  public final fun getDropcapRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getDropcapRidPtr)
+  public final fun getDropcapRid(): RID = callPtrMethod0_ret_RID(MethodBindings.getDropcapRidPtr)
 
   /**
    * Returns the character range of the paragraph.
    */
-  public final fun getRange(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getRangePtr)
+  public final fun getRange(): Vector2i = callPtrMethod0_ret_VECTOR2I(MethodBindings.getRangePtr)
 
   /**
    * Returns number of lines in the paragraph.
    */
   public final fun getLineCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLineCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getLineCountPtr).toInt()
 
   public final fun setMaxLinesVisible(maxLinesVisible: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxLinesVisiblePtr, maxLinesVisible.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaxLinesVisiblePtr, maxLinesVisible.toLong())
   }
 
   public final fun getMaxLinesVisible(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxLinesVisiblePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMaxLinesVisiblePtr).toInt()
 
   public final fun setLineSpacing(lineSpacing: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLineSpacingPtr, lineSpacing.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setLineSpacingPtr, lineSpacing.toDouble())
   }
 
   public final fun getLineSpacing(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineSpacingPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLineSpacingPtr).toFloat()
 
   /**
    * Returns array of inline objects in the line.
    */
   public final fun getLineObjects(line: Int): VariantArray<Any?> =
-      (TransferContext.callPtrMethod_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.getLineObjectsPtr, line.toLong()) as VariantArray<Any?>)
+      (callPtrMethod_LONG_ret_ARRAY(MethodBindings.getLineObjectsPtr, line.toLong()) as VariantArray<Any?>)
 
   /**
    * Returns bounding rectangle of the inline object.
    */
   public final fun getLineObjectRect(line: Int, key: Any?): Rect2 =
-      TransferContext.callMethod_LONG_ANY_ret_RECT2(ptr, objectID.id, MethodBindings.getLineObjectRectPtr, line.toLong(), key)
+      callMethod_LONG_ANY_ret_RECT2(MethodBindings.getLineObjectRectPtr, line.toLong(), key)
 
   /**
    * Returns size of the bounding box of the line of text. Returned size is rounded up.
    */
   public final fun getLineSize(line: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getLineSizePtr, line.toLong())
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getLineSizePtr, line.toLong())
 
   /**
    * Returns character range of the line.
    */
   public final fun getLineRange(line: Int): Vector2i =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getLineRangePtr, line.toLong())
+      callPtrMethod_LONG_ret_VECTOR2I(MethodBindings.getLineRangePtr, line.toLong())
 
   /**
    * Returns the text line ascent (number of pixels above the baseline for horizontal layout or to
    * the left of baseline for vertical).
    */
   public final fun getLineAscent(line: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineAscentPtr, line.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getLineAscentPtr, line.toLong()).toFloat()
 
   /**
    * Returns the text line descent (number of pixels below the baseline for horizontal layout or to
    * the right of baseline for vertical).
    */
   public final fun getLineDescent(line: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineDescentPtr, line.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getLineDescentPtr, line.toLong()).toFloat()
 
   /**
    * Returns width (for horizontal layout) or height (for vertical) of the line of text.
    */
   public final fun getLineWidth(line: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineWidthPtr, line.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getLineWidthPtr, line.toLong()).toFloat()
 
   /**
    * Returns pixel offset of the underline below the baseline.
    */
   public final fun getLineUnderlinePosition(line: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineUnderlinePositionPtr, line.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getLineUnderlinePositionPtr, line.toLong()).toFloat()
 
   /**
    * Returns thickness of the underline.
    */
   public final fun getLineUnderlineThickness(line: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineUnderlineThicknessPtr, line.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getLineUnderlineThicknessPtr, line.toLong()).toFloat()
 
   /**
    * Returns drop cap bounding box size.
    */
   public final fun getDropcapSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getDropcapSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getDropcapSizePtr)
 
   /**
    * Returns number of lines used by dropcap.
    */
   public final fun getDropcapLines(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDropcapLinesPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getDropcapLinesPtr).toInt()
 
   /**
    * Draw all lines of the text and drop cap into a canvas item at a given position, with [color].
@@ -538,7 +533,7 @@ public open class TextParagraph : RefCounted() {
     dcColor: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.callPtrMethod_RID_VECTOR2_COLOR_COLOR_DOUBLE(ptr, objectID.id, MethodBindings.drawPtr, canvas, pos, color, dcColor, oversampling.toDouble())
+    callPtrMethod_RID_VECTOR2_COLOR_COLOR_DOUBLE(MethodBindings.drawPtr, canvas, pos, color, dcColor, oversampling.toDouble())
   }
 
   /**
@@ -556,7 +551,7 @@ public open class TextParagraph : RefCounted() {
     dcColor: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.callPtrMethod_RID_VECTOR2_LONG_COLOR_COLOR_DOUBLE(ptr, objectID.id, MethodBindings.drawOutlinePtr, canvas, pos, outlineSize.toLong(), color, dcColor, oversampling.toDouble())
+    callPtrMethod_RID_VECTOR2_LONG_COLOR_COLOR_DOUBLE(MethodBindings.drawOutlinePtr, canvas, pos, outlineSize.toLong(), color, dcColor, oversampling.toDouble())
   }
 
   /**
@@ -572,7 +567,7 @@ public open class TextParagraph : RefCounted() {
     color: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.callPtrMethod_RID_VECTOR2_LONG_COLOR_DOUBLE(ptr, objectID.id, MethodBindings.drawLinePtr, canvas, pos, line.toLong(), color, oversampling.toDouble())
+    callPtrMethod_RID_VECTOR2_LONG_COLOR_DOUBLE(MethodBindings.drawLinePtr, canvas, pos, line.toLong(), color, oversampling.toDouble())
   }
 
   /**
@@ -589,7 +584,7 @@ public open class TextParagraph : RefCounted() {
     color: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.callPtrMethod_RID_VECTOR2_LONG_LONG_COLOR_DOUBLE(ptr, objectID.id, MethodBindings.drawLineOutlinePtr, canvas, pos, line.toLong(), outlineSize.toLong(), color, oversampling.toDouble())
+    callPtrMethod_RID_VECTOR2_LONG_LONG_COLOR_DOUBLE(MethodBindings.drawLineOutlinePtr, canvas, pos, line.toLong(), outlineSize.toLong(), color, oversampling.toDouble())
   }
 
   /**
@@ -604,7 +599,7 @@ public open class TextParagraph : RefCounted() {
     color: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.callPtrMethod_RID_VECTOR2_COLOR_DOUBLE(ptr, objectID.id, MethodBindings.drawDropcapPtr, canvas, pos, color, oversampling.toDouble())
+    callPtrMethod_RID_VECTOR2_COLOR_DOUBLE(MethodBindings.drawDropcapPtr, canvas, pos, color, oversampling.toDouble())
   }
 
   /**
@@ -620,7 +615,7 @@ public open class TextParagraph : RefCounted() {
     color: Color = Color(Color(1, 1, 1, 1)),
     oversampling: Float = 0.0f,
   ): Unit {
-    TransferContext.callPtrMethod_RID_VECTOR2_LONG_COLOR_DOUBLE(ptr, objectID.id, MethodBindings.drawDropcapOutlinePtr, canvas, pos, outlineSize.toLong(), color, oversampling.toDouble())
+    callPtrMethod_RID_VECTOR2_LONG_COLOR_DOUBLE(MethodBindings.drawDropcapOutlinePtr, canvas, pos, outlineSize.toLong(), color, oversampling.toDouble())
   }
 
   /**
@@ -628,7 +623,7 @@ public open class TextParagraph : RefCounted() {
    * valid position.
    */
   public final fun hitTest(coords: Vector2): Int =
-      TransferContext.callPtrMethod_VECTOR2_ret_LONG(ptr, objectID.id, MethodBindings.hitTestPtr, coords).toInt()
+      callPtrMethod_VECTOR2_ret_LONG(MethodBindings.hitTestPtr, coords).toInt()
 
   public companion object {
     @JvmField

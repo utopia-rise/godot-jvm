@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -74,36 +73,36 @@ public open class MenuButton : Button() {
    * you wish to hide it or any of its children, use their [Window.visible] property.
    */
   public final fun getPopup(): PopupMenu? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getPopupPtr) as PopupMenu?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getPopupPtr) as PopupMenu?)
 
   /**
    * Adjusts popup position and sizing for the [MenuButton], then shows the [PopupMenu]. Prefer this
    * over using `get_popup().popup()`.
    */
   public final fun showPopup(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.showPopupPtr)
+    callPtrMethod0(MethodBindings.showPopupPtr)
   }
 
   public final fun setSwitchOnHover(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSwitchOnHoverPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setSwitchOnHoverPtr, enable)
   }
 
   public final fun isSwitchOnHover(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSwitchOnHoverPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isSwitchOnHoverPtr)
 
   /**
    * If `true`, shortcuts are disabled and cannot be used to trigger the button.
    */
   public final fun setDisableShortcuts(disabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDisableShortcutsPtr, disabled)
+    callPtrMethod_BOOL(MethodBindings.setDisableShortcutsPtr, disabled)
   }
 
   public final fun setItemCount(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setItemCountPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setItemCountPtr, count.toLong())
   }
 
   public final fun getItemCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getItemCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getItemCountPtr).toInt()
 
   public companion object {
     @JvmField

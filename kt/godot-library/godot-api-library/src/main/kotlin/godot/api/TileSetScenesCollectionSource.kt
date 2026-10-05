@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -80,19 +79,19 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    * Returns the number or scene tiles this TileSet source has.
    */
   public final fun getSceneTilesCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSceneTilesCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSceneTilesCountPtr).toInt()
 
   /**
    * Returns the scene tile ID of the scene tile at [index].
    */
   public final fun getSceneTileId(index: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getSceneTileIdPtr, index.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getSceneTileIdPtr, index.toLong()).toInt()
 
   /**
    * Returns whether this TileSet source has a scene tile with [id].
    */
   public final fun hasSceneTileId(id: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.hasSceneTileIdPtr, id.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.hasSceneTileIdPtr, id.toLong())
 
   /**
    * Creates a scene-based tile out of the given scene.
@@ -101,14 +100,14 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    */
   @JvmOverloads
   public final fun createSceneTile(packedScene: PackedScene?, idOverride: Int = -1): Int =
-      TransferContext.callPtrMethod_OBJECT_LONG_ret_LONG(ptr, objectID.id, MethodBindings.createSceneTilePtr, packedScene, idOverride.toLong()).toInt()
+      callPtrMethod_OBJECT_LONG_ret_LONG(MethodBindings.createSceneTilePtr, packedScene, idOverride.toLong()).toInt()
 
   /**
    * Changes a scene tile's ID from [id] to [newId]. This will fail if there is already a tile with
    * an ID equal to [newId].
    */
   public final fun setSceneTileId(id: Int, newId: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setSceneTileIdPtr, id.toLong(), newId.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setSceneTileIdPtr, id.toLong(), newId.toLong())
   }
 
   /**
@@ -117,41 +116,41 @@ public open class TileSetScenesCollectionSource : TileSetSource() {
    * [TileMapLayer].
    */
   public final fun setSceneTileScene(id: Int, packedScene: PackedScene?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setSceneTileScenePtr, id.toLong(), packedScene)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setSceneTileScenePtr, id.toLong(), packedScene)
   }
 
   /**
    * Returns the [PackedScene] resource of scene tile with [id].
    */
   public final fun getSceneTileScene(id: Int): PackedScene? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSceneTileScenePtr, id.toLong()) as PackedScene?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getSceneTileScenePtr, id.toLong()) as PackedScene?)
 
   /**
    * Sets whether or not the scene tile with [id] should display a placeholder in the editor. This
    * might be useful for scenes that are not visible.
    */
   public final fun setSceneTileDisplayPlaceholder(id: Int, displayPlaceholder: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setSceneTileDisplayPlaceholderPtr, id.toLong(), displayPlaceholder)
+    callPtrMethod_LONG_BOOL(MethodBindings.setSceneTileDisplayPlaceholderPtr, id.toLong(), displayPlaceholder)
   }
 
   /**
    * Returns whether the scene tile with [id] displays a placeholder in the editor.
    */
   public final fun getSceneTileDisplayPlaceholder(id: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getSceneTileDisplayPlaceholderPtr, id.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getSceneTileDisplayPlaceholderPtr, id.toLong())
 
   /**
    * Remove the scene tile with [id].
    */
   public final fun removeSceneTile(id: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeSceneTilePtr, id.toLong())
+    callPtrMethod_LONG(MethodBindings.removeSceneTilePtr, id.toLong())
   }
 
   /**
    * Returns the scene ID a following call to [createSceneTile] would return.
    */
   public final fun getNextSceneTileId(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getNextSceneTileIdPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getNextSceneTileIdPtr).toInt()
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_ARRAY
@@ -89,18 +88,18 @@ public open class LightmapGIData : Resource() {
   }
 
   public final fun setLightmapTextures(lightTextures: VariantArray<TextureLayered>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setLightmapTexturesPtr, lightTextures)
+    callPtrMethod_ARRAY(MethodBindings.setLightmapTexturesPtr, lightTextures)
   }
 
   public final fun getLightmapTextures(): VariantArray<TextureLayered> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getLightmapTexturesPtr) as VariantArray<TextureLayered>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getLightmapTexturesPtr) as VariantArray<TextureLayered>)
 
   public final fun setShadowmaskTextures(shadowmaskTextures: VariantArray<TextureLayered>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setShadowmaskTexturesPtr, shadowmaskTextures)
+    callPtrMethod_ARRAY(MethodBindings.setShadowmaskTexturesPtr, shadowmaskTextures)
   }
 
   public final fun getShadowmaskTextures(): VariantArray<TextureLayered> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getShadowmaskTexturesPtr) as VariantArray<TextureLayered>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getShadowmaskTexturesPtr) as VariantArray<TextureLayered>)
 
   /**
    * If [usesSphericalHarmonics] is `true`, tells the engine to treat the lightmap data as if it was
@@ -112,7 +111,7 @@ public open class LightmapGIData : Resource() {
    * lightmapper.
    */
   public final fun setUsesSphericalHarmonics(usesSphericalHarmonics: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUsesSphericalHarmonicsPtr, usesSphericalHarmonics)
+    callPtrMethod_BOOL(MethodBindings.setUsesSphericalHarmonicsPtr, usesSphericalHarmonics)
   }
 
   /**
@@ -120,7 +119,7 @@ public open class LightmapGIData : Resource() {
    * [LightmapGI.directional].
    */
   public final fun isUsingSphericalHarmonics(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingSphericalHarmonicsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsingSphericalHarmonicsPtr)
 
   /**
    * Adds an object that is considered baked within this [LightmapGIData].
@@ -131,34 +130,34 @@ public open class LightmapGIData : Resource() {
     sliceIndex: Int,
     subInstance: Int,
   ): Unit {
-    TransferContext.callPtrMethod_NODE_PATH_RECT2_LONG_LONG(ptr, objectID.id, MethodBindings.addUserPtr, path, uvScale, sliceIndex.toLong(), subInstance.toLong())
+    callPtrMethod_NODE_PATH_RECT2_LONG_LONG(MethodBindings.addUserPtr, path, uvScale, sliceIndex.toLong(), subInstance.toLong())
   }
 
   /**
    * Returns the number of objects that are considered baked within this [LightmapGIData].
    */
   public final fun getUserCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUserCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getUserCountPtr).toInt()
 
   /**
    * Returns the [NodePath] of the baked object at index [userIdx].
    */
   public final fun getUserPath(userIdx: Int): NodePath =
-      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getUserPathPtr, userIdx.toLong())
+      callPtrMethod_LONG_ret_NODE_PATH(MethodBindings.getUserPathPtr, userIdx.toLong())
 
   /**
    * Clear all objects that are considered baked within this [LightmapGIData].
    */
   public final fun clearUsers(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearUsersPtr)
+    callPtrMethod0(MethodBindings.clearUsersPtr)
   }
 
   public final fun setLightTexture(lightTexture: TextureLayered?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setLightTexturePtr, lightTexture)
+    callPtrMethod_OBJECT(MethodBindings.setLightTexturePtr, lightTexture)
   }
 
   public final fun getLightTexture(): TextureLayered? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getLightTexturePtr) as TextureLayered?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getLightTexturePtr) as TextureLayered?)
 
   /**
    * Adds an object that is considered baked within this [LightmapGIData].

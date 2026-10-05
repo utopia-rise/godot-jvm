@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_RID
@@ -135,46 +134,43 @@ public open class RDAccelerationStructureInstance : RefCounted() {
   }
 
   public final fun setTransform(pMember: Transform3D): Unit {
-    TransferContext.callPtrMethod_TRANSFORM3D(ptr, objectID.id, MethodBindings.setTransformPtr, pMember)
+    callPtrMethod_TRANSFORM3D(MethodBindings.setTransformPtr, pMember)
   }
 
   public final fun getTransform(): Transform3D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getTransformPtr)
+      callPtrMethod0_ret_TRANSFORM3D(MethodBindings.getTransformPtr)
 
   public final fun setId(pMember: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setIdPtr, pMember)
+    callPtrMethod_LONG(MethodBindings.setIdPtr, pMember)
   }
 
-  public final fun getId(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getIdPtr)
+  public final fun getId(): Long = callPtrMethod0_ret_LONG(MethodBindings.getIdPtr)
 
   public final fun setMask(pMember: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaskPtr, pMember.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaskPtr, pMember.toLong())
   }
 
-  public final fun getMask(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaskPtr).toInt()
+  public final fun getMask(): Int = callPtrMethod0_ret_LONG(MethodBindings.getMaskPtr).toInt()
 
   public final fun setHitSbtRange(pMember: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHitSbtRangePtr, pMember)
+    callPtrMethod_LONG(MethodBindings.setHitSbtRangePtr, pMember)
   }
 
   public final fun getHitSbtRange(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHitSbtRangePtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getHitSbtRangePtr)
 
   public final fun setFlags(pMember: RenderingDevice.AccelerationStructureInstanceFlagBits): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFlagsPtr, pMember.flag)
+    callPtrMethod_LONG(MethodBindings.setFlagsPtr, pMember.flag)
   }
 
   public final fun getFlags(): RenderingDevice.AccelerationStructureInstanceFlagBits =
-      RenderingDevice.AccelerationStructureInstanceFlagBits(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFlagsPtr))
+      RenderingDevice.AccelerationStructureInstanceFlagBits(callPtrMethod0_ret_LONG(MethodBindings.getFlagsPtr))
 
   public final fun setBlas(pMember: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setBlasPtr, pMember)
+    callPtrMethod_RID(MethodBindings.setBlasPtr, pMember)
   }
 
-  public final fun getBlas(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getBlasPtr)
+  public final fun getBlas(): RID = callPtrMethod0_ret_RID(MethodBindings.getBlasPtr)
 
   public companion object {
     @JvmField

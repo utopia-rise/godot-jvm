@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -91,39 +90,39 @@ public open class OpenXRCompositionLayerEquirect : OpenXRCompositionLayer() {
   }
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRadiusPtr, radius.toDouble())
   }
 
   public final fun getRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setCentralHorizontalAngle(angle: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCentralHorizontalAnglePtr, angle.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCentralHorizontalAnglePtr, angle.toDouble())
   }
 
   public final fun getCentralHorizontalAngle(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCentralHorizontalAnglePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCentralHorizontalAnglePtr).toFloat()
 
   public final fun setUpperVerticalAngle(angle: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setUpperVerticalAnglePtr, angle.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setUpperVerticalAnglePtr, angle.toDouble())
   }
 
   public final fun getUpperVerticalAngle(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getUpperVerticalAnglePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getUpperVerticalAnglePtr).toFloat()
 
   public final fun setLowerVerticalAngle(angle: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLowerVerticalAnglePtr, angle.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setLowerVerticalAnglePtr, angle.toDouble())
   }
 
   public final fun getLowerVerticalAngle(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLowerVerticalAnglePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLowerVerticalAnglePtr).toFloat()
 
   public final fun setFallbackSegments(segments: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFallbackSegmentsPtr, segments)
+    callPtrMethod_LONG(MethodBindings.setFallbackSegmentsPtr, segments)
   }
 
   public final fun getFallbackSegments(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFallbackSegmentsPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getFallbackSegmentsPtr)
 
   public companion object {
     @JvmField

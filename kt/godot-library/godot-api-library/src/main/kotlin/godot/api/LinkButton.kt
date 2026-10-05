@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -158,67 +157,64 @@ public open class LinkButton : BaseButton() {
   }
 
   public final fun setText(text: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTextPtr, text)
+    callMethod_STRING(MethodBindings.setTextPtr, text)
   }
 
-  public final fun getText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTextPtr)
+  public final fun getText(): String = callMethod0_ret_STRING(MethodBindings.getTextPtr)
 
   public final fun setTextOverrunBehavior(overrunBehavior: TextServer.OverrunBehavior): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextOverrunBehaviorPtr, overrunBehavior.value)
+    callPtrMethod_LONG(MethodBindings.setTextOverrunBehaviorPtr, overrunBehavior.value)
   }
 
   public final fun getTextOverrunBehavior(): TextServer.OverrunBehavior =
-      TextServer.OverrunBehavior.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextOverrunBehaviorPtr))
+      TextServer.OverrunBehavior.from(callPtrMethod0_ret_LONG(MethodBindings.getTextOverrunBehaviorPtr))
 
   public final fun setEllipsisChar(char: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setEllipsisCharPtr, char)
+    callMethod_STRING(MethodBindings.setEllipsisCharPtr, char)
   }
 
   public final fun getEllipsisChar(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getEllipsisCharPtr)
+      callMethod0_ret_STRING(MethodBindings.getEllipsisCharPtr)
 
   public final fun setTextDirection(direction: Control.TextDirection): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextDirectionPtr, direction.value)
+    callPtrMethod_LONG(MethodBindings.setTextDirectionPtr, direction.value)
   }
 
   public final fun getTextDirection(): Control.TextDirection =
-      Control.TextDirection.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextDirectionPtr))
+      Control.TextDirection.from(callPtrMethod0_ret_LONG(MethodBindings.getTextDirectionPtr))
 
   public final fun setLanguage(language: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setLanguagePtr, language)
+    callMethod_STRING(MethodBindings.setLanguagePtr, language)
   }
 
-  public final fun getLanguage(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getLanguagePtr)
+  public final fun getLanguage(): String = callMethod0_ret_STRING(MethodBindings.getLanguagePtr)
 
   public final fun setUri(uri: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setUriPtr, uri)
+    callMethod_STRING(MethodBindings.setUriPtr, uri)
   }
 
-  public final fun getUri(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getUriPtr)
+  public final fun getUri(): String = callMethod0_ret_STRING(MethodBindings.getUriPtr)
 
   public final fun setUnderlineMode(underlineMode: UnderlineMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setUnderlineModePtr, underlineMode.value)
+    callPtrMethod_LONG(MethodBindings.setUnderlineModePtr, underlineMode.value)
   }
 
   public final fun getUnderlineMode(): UnderlineMode =
-      UnderlineMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUnderlineModePtr))
+      UnderlineMode.from(callPtrMethod0_ret_LONG(MethodBindings.getUnderlineModePtr))
 
   public final fun setStructuredTextBidiOverride(parser: TextServer.StructuredTextParser): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStructuredTextBidiOverridePtr, parser.value)
+    callPtrMethod_LONG(MethodBindings.setStructuredTextBidiOverridePtr, parser.value)
   }
 
   public final fun getStructuredTextBidiOverride(): TextServer.StructuredTextParser =
-      TextServer.StructuredTextParser.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStructuredTextBidiOverridePtr))
+      TextServer.StructuredTextParser.from(callPtrMethod0_ret_LONG(MethodBindings.getStructuredTextBidiOverridePtr))
 
   public final fun setStructuredTextBidiOverrideOptions(args: VariantArray<Any?>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setStructuredTextBidiOverrideOptionsPtr, args)
+    callPtrMethod_ARRAY(MethodBindings.setStructuredTextBidiOverrideOptionsPtr, args)
   }
 
   public final fun getStructuredTextBidiOverrideOptions(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getStructuredTextBidiOverrideOptionsPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getStructuredTextBidiOverrideOptionsPtr) as VariantArray<Any?>)
 
   public enum class UnderlineMode(
     public override val `value`: Long,

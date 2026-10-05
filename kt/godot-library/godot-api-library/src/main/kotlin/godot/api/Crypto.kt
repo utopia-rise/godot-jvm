@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_OBJECT_STRING_STRING_STRING_ret_OBJECT_REF
 import godot.callPtrMethod_LONG_PACKED_BYTE_ARRAY_OBJECT_ret_PACKED_BYTE_ARRAY
@@ -117,14 +116,14 @@ public open class Crypto : RefCounted() {
    * Generates a [PackedByteArray] of cryptographically secure random bytes with given [size].
    */
   public final fun generateRandomBytes(size: Int): PackedByteArray =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.generateRandomBytesPtr, size.toLong())
+      callPtrMethod_LONG_ret_PACKED_BYTE_ARRAY(MethodBindings.generateRandomBytesPtr, size.toLong())
 
   /**
    * Generates an RSA [CryptoKey] that can be used for creating self-signed certificates and passed
    * to [StreamPeerTLS.acceptStream].
    */
   public final fun generateRsa(size: Int): CryptoKey? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.generateRsaPtr, size.toLong()) as CryptoKey?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.generateRsaPtr, size.toLong()) as CryptoKey?)
 
   /**
    * Generates a self-signed [X509Certificate] from the given [CryptoKey] and [issuerName]. The
@@ -161,7 +160,7 @@ public open class Crypto : RefCounted() {
     notBefore: String = "20140101000000",
     notAfter: String = "20340101000000",
   ): X509Certificate? =
-      (TransferContext.callMethod_OBJECT_STRING_STRING_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.generateSelfSignedCertificatePtr, key, issuerName, notBefore, notAfter) as X509Certificate?)
+      (callMethod_OBJECT_STRING_STRING_STRING_ret_OBJECT_REF(MethodBindings.generateSelfSignedCertificatePtr, key, issuerName, notBefore, notAfter) as X509Certificate?)
 
   /**
    * Sign a given [hash] of type [hashType] with the provided private [key].
@@ -171,7 +170,7 @@ public open class Crypto : RefCounted() {
     hash: PackedByteArray,
     key: CryptoKey?,
   ): PackedByteArray =
-      TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_OBJECT_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.signPtr, hashType.value, hash, key)
+      callPtrMethod_LONG_PACKED_BYTE_ARRAY_OBJECT_ret_PACKED_BYTE_ARRAY(MethodBindings.signPtr, hashType.value, hash, key)
 
   /**
    * Verify that a given [signature] for [hash] of type [hashType] against the provided public
@@ -183,7 +182,7 @@ public open class Crypto : RefCounted() {
     signature: PackedByteArray,
     key: CryptoKey?,
   ): Boolean =
-      TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.verifyPtr, hashType.value, hash, signature, key)
+      callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_OBJECT_ret_BOOL(MethodBindings.verifyPtr, hashType.value, hash, signature, key)
 
   /**
    * Encrypt the given [plaintext] with the provided public [key].
@@ -191,7 +190,7 @@ public open class Crypto : RefCounted() {
    * **Note:** The maximum size of accepted plaintext is limited by the key size.
    */
   public final fun encrypt(key: CryptoKey?, plaintext: PackedByteArray): PackedByteArray =
-      TransferContext.callPtrMethod_OBJECT_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.encryptPtr, key, plaintext)
+      callPtrMethod_OBJECT_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(MethodBindings.encryptPtr, key, plaintext)
 
   /**
    * Decrypt the given [ciphertext] with the provided private [key].
@@ -199,7 +198,7 @@ public open class Crypto : RefCounted() {
    * **Note:** The maximum size of accepted ciphertext is limited by the key size.
    */
   public final fun decrypt(key: CryptoKey?, ciphertext: PackedByteArray): PackedByteArray =
-      TransferContext.callPtrMethod_OBJECT_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.decryptPtr, key, ciphertext)
+      callPtrMethod_OBJECT_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(MethodBindings.decryptPtr, key, ciphertext)
 
   /**
    * Generates an [url=https://en.wikipedia.org/wiki/HMAC]HMAC[/url] digest of [msg] using [key].
@@ -212,7 +211,7 @@ public open class Crypto : RefCounted() {
     key: PackedByteArray,
     msg: PackedByteArray,
   ): PackedByteArray =
-      TransferContext.callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.hmacDigestPtr, hashType.value, key, msg)
+      callPtrMethod_LONG_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_PACKED_BYTE_ARRAY(MethodBindings.hmacDigestPtr, hashType.value, key, msg)
 
   /**
    * Compares two [PackedByteArray]s for equality without leaking timing information in order to
@@ -224,7 +223,7 @@ public open class Crypto : RefCounted() {
    */
   public final fun constantTimeCompare(trusted: PackedByteArray, received: PackedByteArray): Boolean
       =
-      TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_BOOL(ptr, objectID.id, MethodBindings.constantTimeComparePtr, trusted, received)
+      callPtrMethod_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_ret_BOOL(MethodBindings.constantTimeComparePtr, trusted, received)
 
   public companion object {
     @JvmField

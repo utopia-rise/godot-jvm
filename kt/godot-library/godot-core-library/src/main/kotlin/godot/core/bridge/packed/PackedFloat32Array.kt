@@ -3,7 +3,7 @@
 package godot.core
 
 import godot.internal.memory.MemoryManager
-import godot.internal.memory.TransferContext
+import godot.internal.memory.VariantBuffer
 import godot.common.interop.VoidPtr
 
 @Suppress("MemberVisibilityCanBePrivate", "unused")
@@ -29,7 +29,7 @@ class PackedFloat32Array : PackedArray<PackedFloat32Array, Float> {
      * Constructs a [PackedFloat32Array] as a copy of the given [PackedFloat32Array].
      */
     constructor(from: PackedFloat32Array) {
-        TransferContext.writeArguments(1) {
+        VariantBuffer.transfer.writeArgs(1) {
             VariantParser.PACKED_FLOAT_32_ARRAY.toGodot(from)
         }
         ptr = Bridge.engine_call_constructor_packed_array()
@@ -40,7 +40,7 @@ class PackedFloat32Array : PackedArray<PackedFloat32Array, Float> {
      * Constructs a new [PackedFloat32Array] by converting a [VariantArray]<[Float]>.
      */
     constructor(from: VariantArray<Float>) {
-        TransferContext.writeArguments(1) {
+        VariantBuffer.transfer.writeArgs(1) {
             VariantParser.ARRAY.toGodot(from)
         }
         ptr = Bridge.engine_call_constructor_array()

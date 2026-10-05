@@ -33,10 +33,13 @@ bool JvmUserConfiguration::parse_configuration_json(
                 valid = value.get_type() == godot::Variant::INT || value.get_type() == godot::Variant::FLOAT;
                 if (valid) {
                     double number = value;
-                    int minimum = key == DEBUG_PORT_JSON_IDENTIFIER ? 0 : -1;
-                    valid = number >= minimum
-                         && number <= MAX_STRING_SIZE_LIMIT
-                         && number == static_cast<int64_t>(number);
+                    int64_t minimum = key == DEBUG_PORT_JSON_IDENTIFIER
+                                           || key == VALUE_BUFFER_SIZE_FACTOR_JSON_IDENTIFIER
+                                        ? 0
+                                        : -1;
+                    int64_t maximum = key == VALUE_BUFFER_SIZE_FACTOR_JSON_IDENTIFIER ? VALUE_BUFFER_SIZE_FACTOR_LIMIT
+                                                                                      : MAX_STRING_SIZE_LIMIT;
+                    valid = number >= minimum && number <= maximum && number == static_cast<int64_t>(number);
                 }
             } else {
                 valid = value.get_type() == default_value.get_type();
@@ -68,7 +71,8 @@ bool JvmUserConfiguration::parse_configuration_json(
     json_config.wait_for_debugger = values[WAIT_FOR_DEBUGGER_JSON_IDENTIFIER];
     json_config.jvm_jmx_port = values[JMX_PORT_JSON_IDENTIFIER];
     json_config.max_string_size = values[MAX_STRING_SIZE_JSON_IDENTIFIER];
-    json_config.disable_gc = values[DISABLE_GC_JSON_IDENTIFIER];
+    json_config.value_buffer_size_factor = values[VALUE_BUFFER_SIZE_FACTOR_JSON_IDENTIFIER];
+    json_config.disable_memory_management = values[DISABLE_MEMORY_MANAGEMENT_JSON_IDENTIFIER];
     json_config.jvm_args = values[JVM_ARGUMENTS_JSON_IDENTIFIER];
     return is_invalid;
 }
@@ -83,7 +87,8 @@ godot::Dictionary JvmUserConfiguration::to_dictionary() const {
     json[WAIT_FOR_DEBUGGER_JSON_IDENTIFIER] = wait_for_debugger;
     json[JMX_PORT_JSON_IDENTIFIER] = jvm_jmx_port;
     json[MAX_STRING_SIZE_JSON_IDENTIFIER] = max_string_size;
-    json[DISABLE_GC_JSON_IDENTIFIER] = disable_gc;
+    json[VALUE_BUFFER_SIZE_FACTOR_JSON_IDENTIFIER] = value_buffer_size_factor;
+    json[DISABLE_MEMORY_MANAGEMENT_JSON_IDENTIFIER] = disable_memory_management;
     json[JVM_ARGUMENTS_JSON_IDENTIFIER] = jvm_args;
     return json;
 }
@@ -194,8 +199,19 @@ void JvmUserConfiguration::parse_command_line(
                     size
                 );
             }
-        } else if (identifier == DISABLE_GC_CMD_IDENTIFIER) {
-            configuration_map[DISABLE_GC_CMD_IDENTIFIER] = get_cmd_bool_or_default(value, true);
+        } else if (identifier == VALUE_BUFFER_SIZE_FACTOR_CMD_IDENTIFIER) {
+            int64_t factor = -1;
+            if (value.is_valid_int()) { factor = value.to_int(); }
+            if (value.is_valid_int() && factor >= 0 && factor <= VALUE_BUFFER_SIZE_FACTOR_LIMIT) {
+                configuration_map[VALUE_BUFFER_SIZE_FACTOR_CMD_IDENTIFIER] = factor;
+            } else {
+                JVM_LOG_WARNING(
+                    "Invalid value buffer size factor in command line arguments: %s. It will be ignored",
+                    factor
+                );
+            }
+        } else if (identifier == DISABLE_MEMORY_MANAGEMENT_CMD_IDENTIFIER) {
+            configuration_map[DISABLE_MEMORY_MANAGEMENT_CMD_IDENTIFIER] = get_cmd_bool_or_default(value, true);
         } else if (identifier == JVM_PATH_CMD_IDENTIFIER) {
             godot::String path = value.strip_edges().trim_prefix("\"").trim_suffix("\"");
             if (!path.is_empty()) {
@@ -233,7 +249,12 @@ void JvmUserConfiguration::merge_with_command_line(
     replace_json_value_by_cmd_value(cmd_map, json_config.use_debug, USE_DEBUG_CMD_IDENTIFIER);
     replace_json_value_by_cmd_value(cmd_map, json_config.jvm_jmx_port, JMX_PORT_CMD_IDENTIFIER);
     replace_json_value_by_cmd_value(cmd_map, json_config.max_string_size, MAX_STRING_SIZE_CMD_IDENTIFIER);
-    replace_json_value_by_cmd_value(cmd_map, json_config.disable_gc, DISABLE_GC_CMD_IDENTIFIER);
+    replace_json_value_by_cmd_value(
+        cmd_map,
+        json_config.value_buffer_size_factor,
+        VALUE_BUFFER_SIZE_FACTOR_CMD_IDENTIFIER
+    );
+    replace_json_value_by_cmd_value(cmd_map, json_config.disable_memory_management, DISABLE_MEMORY_MANAGEMENT_CMD_IDENTIFIER);
     replace_json_value_by_cmd_value(cmd_map, json_config.jvm_args, JVM_ARGUMENTS_CMD_IDENTIFIER);
     replace_json_value_by_cmd_value(cmd_map, json_config.jvm_path, JVM_PATH_CMD_IDENTIFIER);
 }
@@ -252,6 +273,14 @@ void JvmUserConfiguration::sanitize_and_log_configuration(JvmUserConfiguration& 
             "The max string size was changed to %s which can modify the size of the shared buffer."
             "Be aware that it might impact performance and memory usage. Set to -1 if you want the default size.",
             config.max_string_size
+        );
+    }
+
+    if (config.value_buffer_size_factor != 0) {
+        JVM_LOG_WARNING(
+            "The value buffer reserves room for %s entirely full engine call frames on every thread that reaches "
+            "the engine. Be aware that it might impact memory usage. Set to 0 if you want the default.",
+            config.value_buffer_size_factor
         );
     }
 

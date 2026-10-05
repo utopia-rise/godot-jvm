@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_DICTIONARY
@@ -297,73 +296,73 @@ public open class GLTFSkin : Resource() {
   }
 
   public final fun getSkinRoot(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSkinRootPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSkinRootPtr).toInt()
 
   public final fun setSkinRoot(skinRoot: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSkinRootPtr, skinRoot.toLong())
+    callPtrMethod_LONG(MethodBindings.setSkinRootPtr, skinRoot.toLong())
   }
 
   public final fun getJointsOriginal(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getJointsOriginalPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getJointsOriginalPtr)
 
   public final fun setJointsOriginal(jointsOriginal: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setJointsOriginalPtr, jointsOriginal)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.setJointsOriginalPtr, jointsOriginal)
   }
 
   public final fun getInverseBinds(): VariantArray<Transform3D> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getInverseBindsPtr) as VariantArray<Transform3D>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getInverseBindsPtr) as VariantArray<Transform3D>)
 
   public final fun setInverseBinds(inverseBinds: VariantArray<Transform3D>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setInverseBindsPtr, inverseBinds)
+    callPtrMethod_ARRAY(MethodBindings.setInverseBindsPtr, inverseBinds)
   }
 
   public final fun getJoints(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getJointsPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getJointsPtr)
 
   public final fun setJoints(joints: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setJointsPtr, joints)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.setJointsPtr, joints)
   }
 
   public final fun getNonJoints(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getNonJointsPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getNonJointsPtr)
 
   public final fun setNonJoints(nonJoints: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setNonJointsPtr, nonJoints)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.setNonJointsPtr, nonJoints)
   }
 
   public final fun getRoots(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getRootsPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getRootsPtr)
 
   public final fun setRoots(roots: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setRootsPtr, roots)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.setRootsPtr, roots)
   }
 
   public final fun getSkeleton(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSkeletonPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSkeletonPtr).toInt()
 
   public final fun setSkeleton(skeleton: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSkeletonPtr, skeleton.toLong())
+    callPtrMethod_LONG(MethodBindings.setSkeletonPtr, skeleton.toLong())
   }
 
   public final fun getJointIToBoneI(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getJointIToBoneIPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.getJointIToBoneIPtr) as Dictionary<Any?, Any?>)
 
   public final fun setJointIToBoneI(jointIToBoneI: Dictionary<Any?, Any?>): Unit {
-    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setJointIToBoneIPtr, jointIToBoneI)
+    callPtrMethod_DICTIONARY(MethodBindings.setJointIToBoneIPtr, jointIToBoneI)
   }
 
   public final fun getJointIToName(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getJointIToNamePtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.getJointIToNamePtr) as Dictionary<Any?, Any?>)
 
   public final fun setJointIToName(jointIToName: Dictionary<Any?, Any?>): Unit {
-    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setJointIToNamePtr, jointIToName)
+    callPtrMethod_DICTIONARY(MethodBindings.setJointIToNamePtr, jointIToName)
   }
 
   public final fun getGodotSkin(): Skin? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getGodotSkinPtr) as Skin?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getGodotSkinPtr) as Skin?)
 
   public final fun setGodotSkin(godotSkin: Skin?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setGodotSkinPtr, godotSkin)
+    callPtrMethod_OBJECT(MethodBindings.setGodotSkinPtr, godotSkin)
   }
 
   public companion object {

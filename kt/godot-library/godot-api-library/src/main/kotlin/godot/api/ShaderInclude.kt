@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -45,11 +44,10 @@ public open class ShaderInclude : Resource() {
   }
 
   public final fun setCode(code: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setCodePtr, code)
+    callMethod_STRING(MethodBindings.setCodePtr, code)
   }
 
-  public final fun getCode(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCodePtr)
+  public final fun getCode(): String = callMethod0_ret_STRING(MethodBindings.getCodePtr)
 
   public companion object {
     @JvmField

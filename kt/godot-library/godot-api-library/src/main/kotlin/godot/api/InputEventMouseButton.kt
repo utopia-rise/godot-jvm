@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -99,33 +98,33 @@ public open class InputEventMouseButton : InputEventMouse() {
   }
 
   public final fun setFactor(factor: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFactorPtr, factor.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFactorPtr, factor.toDouble())
   }
 
   public final fun getFactor(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFactorPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFactorPtr).toFloat()
 
   public final fun setButtonIndex(buttonIndex: MouseButton): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setButtonIndexPtr, buttonIndex.value)
+    callPtrMethod_LONG(MethodBindings.setButtonIndexPtr, buttonIndex.value)
   }
 
   public final fun getButtonIndex(): MouseButton =
-      MouseButton.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getButtonIndexPtr))
+      MouseButton.from(callPtrMethod0_ret_LONG(MethodBindings.getButtonIndexPtr))
 
   public final fun setPressed(pressed: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPressedPtr, pressed)
+    callPtrMethod_BOOL(MethodBindings.setPressedPtr, pressed)
   }
 
   public final fun setCanceled(canceled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCanceledPtr, canceled)
+    callPtrMethod_BOOL(MethodBindings.setCanceledPtr, canceled)
   }
 
   public final fun setDoubleClick(doubleClick: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDoubleClickPtr, doubleClick)
+    callPtrMethod_BOOL(MethodBindings.setDoubleClickPtr, doubleClick)
   }
 
   public final fun isDoubleClick(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDoubleClickPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDoubleClickPtr)
 
   public companion object {
     @JvmField

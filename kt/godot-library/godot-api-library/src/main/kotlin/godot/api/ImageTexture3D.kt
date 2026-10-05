@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_ARRAY
 import godot.callPtrMethod_LONG_LONG_LONG_LONG_BOOL_ARRAY_ret_LONG
@@ -49,7 +48,7 @@ public open class ImageTexture3D : Texture3D() {
     useMipmaps: Boolean,
     `data`: VariantArray<Image>,
   ): Error =
-      Error.from(TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_BOOL_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.createPtr, format.value, width.toLong(), height.toLong(), depth.toLong(), useMipmaps, data))
+      Error.from(callPtrMethod_LONG_LONG_LONG_LONG_BOOL_ARRAY_ret_LONG(MethodBindings.createPtr, format.value, width.toLong(), height.toLong(), depth.toLong(), useMipmaps, data))
 
   /**
    * Replaces the texture's existing data with the layers specified in [data]. The size of [data]
@@ -57,7 +56,7 @@ public open class ImageTexture3D : Texture3D() {
    * resized or have its format changed by calling [update].
    */
   public final fun update(`data`: VariantArray<Image>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.updatePtr, data)
+    callPtrMethod_ARRAY(MethodBindings.updatePtr, data)
   }
 
   /**

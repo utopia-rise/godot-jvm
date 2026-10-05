@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PACKED_COLOR_ARRAY
 import godot.callPtrMethod_PACKED_COLOR_ARRAY
@@ -44,11 +43,11 @@ public open class ColorPalette : Resource() {
   }
 
   public final fun setColors(colors: PackedColorArray): Unit {
-    TransferContext.callPtrMethod_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.setColorsPtr, colors)
+    callPtrMethod_PACKED_COLOR_ARRAY(MethodBindings.setColorsPtr, colors)
   }
 
   public final fun getColors(): PackedColorArray =
-      TransferContext.callPtrMethod0_ret_PACKED_COLOR_ARRAY(ptr, objectID.id, MethodBindings.getColorsPtr)
+      callPtrMethod0_ret_PACKED_COLOR_ARRAY(MethodBindings.getColorsPtr)
 
   public companion object {
     @JvmField

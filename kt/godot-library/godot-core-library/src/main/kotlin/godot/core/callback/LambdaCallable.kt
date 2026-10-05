@@ -63,7 +63,7 @@ abstract class LambdaContainer<R>(
 
     fun setAsCancellable(signal: Signal, block: () -> Unit) {
         cancelFunction = block
-        VariantBuffer.writeArgs(1) {
+        VariantBuffer.transfer.writeArgs(1) {
             VariantParser.SIGNAL.toGodot(signal)
         }
         Bridge.engine_call_constructor_cancellable(this, this.returnConverter.id, hashCode())
@@ -85,10 +85,10 @@ abstract class LambdaContainer<R>(
         var ret: Any? = null
         try {
             ret = invokeUnsafe(*paramsArray)
-            VariantBuffer.writeRet(ret, returnConverter)
+            VariantBuffer.transfer.writeRet(ret, returnConverter)
         } catch (t: Throwable) {
             GodotLogging.error("Error calling a JVM custom Callable from Godot:\n" + t.stackTraceToString())
-            VariantBuffer.writeRet(null, VariantParser.NIL)
+            VariantBuffer.transfer.writeRet(null, VariantParser.NIL)
         }
         ret
     }

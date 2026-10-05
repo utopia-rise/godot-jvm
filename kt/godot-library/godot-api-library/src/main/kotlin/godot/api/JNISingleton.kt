@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_STRING_NAME_ret_BOOL
 import godot.common.interop.VoidPtr
@@ -37,7 +36,7 @@ public open class JNISingleton : Object() {
    * Returns `true` if the given [method] name exists in the JNISingleton's Java methods.
    */
   public final fun hasJavaMethod(method: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasJavaMethodPtr, method)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasJavaMethodPtr, method)
 
   /**
    * Returns `true` if the given [method] name exists in the JNISingleton's Java methods.

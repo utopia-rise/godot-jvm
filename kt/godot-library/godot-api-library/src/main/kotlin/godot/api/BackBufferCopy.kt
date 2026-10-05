@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_RECT2
@@ -93,18 +92,17 @@ public open class BackBufferCopy : Node2D() {
   }
 
   public final fun setRect(rect: Rect2): Unit {
-    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setRectPtr, rect)
+    callPtrMethod_RECT2(MethodBindings.setRectPtr, rect)
   }
 
-  public final fun getRect(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRectPtr)
+  public final fun getRect(): Rect2 = callPtrMethod0_ret_RECT2(MethodBindings.getRectPtr)
 
   public final fun setCopyMode(copyMode: CopyMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCopyModePtr, copyMode.value)
+    callPtrMethod_LONG(MethodBindings.setCopyModePtr, copyMode.value)
   }
 
   public final fun getCopyMode(): CopyMode =
-      CopyMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCopyModePtr))
+      CopyMode.from(callPtrMethod0_ret_LONG(MethodBindings.getCopyModePtr))
 
   public enum class CopyMode(
     public override val `value`: Long,

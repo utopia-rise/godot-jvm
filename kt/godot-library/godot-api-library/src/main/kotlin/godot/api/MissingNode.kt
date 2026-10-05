@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -84,32 +83,32 @@ public open class MissingNode : Node() {
   }
 
   public final fun setOriginalClass(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOriginalClassPtr, name)
+    callMethod_STRING(MethodBindings.setOriginalClassPtr, name)
   }
 
   public final fun getOriginalClass(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOriginalClassPtr)
+      callMethod0_ret_STRING(MethodBindings.getOriginalClassPtr)
 
   public final fun setOriginalScene(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOriginalScenePtr, name)
+    callMethod_STRING(MethodBindings.setOriginalScenePtr, name)
   }
 
   public final fun getOriginalScene(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOriginalScenePtr)
+      callMethod0_ret_STRING(MethodBindings.getOriginalScenePtr)
 
   public final fun setRecordingProperties(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRecordingPropertiesPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setRecordingPropertiesPtr, enable)
   }
 
   public final fun isRecordingProperties(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRecordingPropertiesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isRecordingPropertiesPtr)
 
   public final fun setRecordingSignals(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRecordingSignalsPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setRecordingSignalsPtr, enable)
   }
 
   public final fun isRecordingSignals(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRecordingSignalsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isRecordingSignalsPtr)
 
   public companion object {
     @JvmField

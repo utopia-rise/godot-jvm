@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_LONG
@@ -92,39 +91,39 @@ public open class MeshInstance3D : GeometryInstance3D() {
   }
 
   public final fun setMesh(mesh: Mesh?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMeshPtr, mesh)
+    callPtrMethod_OBJECT(MethodBindings.setMeshPtr, mesh)
   }
 
   public final fun getMesh(): Mesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMeshPtr) as Mesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMeshPtr) as Mesh?)
 
   public final fun setSkeletonPath(skeletonPath: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setSkeletonPathPtr, skeletonPath)
+    callPtrMethod_NODE_PATH(MethodBindings.setSkeletonPathPtr, skeletonPath)
   }
 
   public final fun getSkeletonPath(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getSkeletonPathPtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getSkeletonPathPtr)
 
   public final fun setSkin(skin: Skin?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setSkinPtr, skin)
+    callPtrMethod_OBJECT(MethodBindings.setSkinPtr, skin)
   }
 
   public final fun getSkin(): Skin? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSkinPtr) as Skin?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getSkinPtr) as Skin?)
 
   /**
    * Returns the internal [SkinReference] containing the skeleton's [RID] attached to this RID. See
    * also [Resource.getRid], [SkinReference.getSkeleton], and [RenderingServer.instanceAttachSkeleton].
    */
   public final fun getSkinReference(): SkinReference? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSkinReferencePtr) as SkinReference?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getSkinReferencePtr) as SkinReference?)
 
   /**
    * Returns the number of surface override materials. This is equivalent to [Mesh.getSurfaceCount].
    * See also [getSurfaceOverrideMaterial].
    */
   public final fun getSurfaceOverrideMaterialCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSurfaceOverrideMaterialCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSurfaceOverrideMaterialCountPtr).toInt()
 
   /**
    * Sets the override [material] for the specified [surface] of the [Mesh] resource. This material
@@ -135,7 +134,7 @@ public open class MeshInstance3D : GeometryInstance3D() {
    * [Mesh] resource, use [Mesh.surfaceSetMaterial] instead.
    */
   public final fun setSurfaceOverrideMaterial(surface: Int, material: Material?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setSurfaceOverrideMaterialPtr, surface.toLong(), material)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setSurfaceOverrideMaterialPtr, surface.toLong(), material)
   }
 
   /**
@@ -147,7 +146,7 @@ public open class MeshInstance3D : GeometryInstance3D() {
    * [Mesh] resource, use [Mesh.surfaceGetMaterial] instead.
    */
   public final fun getSurfaceOverrideMaterial(surface: Int): Material? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSurfaceOverrideMaterialPtr, surface.toLong()) as Material?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getSurfaceOverrideMaterialPtr, surface.toLong()) as Material?)
 
   /**
    * Returns the [Material] that will be used by the [Mesh] when drawing. This can return the
@@ -158,14 +157,14 @@ public open class MeshInstance3D : GeometryInstance3D() {
    * Returns `null` if no material is active, including when [mesh] is `null`.
    */
   public final fun getActiveMaterial(surface: Int): Material? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getActiveMaterialPtr, surface.toLong()) as Material?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getActiveMaterialPtr, surface.toLong()) as Material?)
 
   /**
    * This helper creates a [StaticBody3D] child node with a [ConcavePolygonShape3D] collision shape
    * calculated from the mesh geometry. It's mainly used for testing.
    */
   public final fun createTrimeshCollision(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.createTrimeshCollisionPtr)
+    callPtrMethod0(MethodBindings.createTrimeshCollisionPtr)
   }
 
   /**
@@ -180,7 +179,7 @@ public open class MeshInstance3D : GeometryInstance3D() {
    */
   @JvmOverloads
   public final fun createConvexCollision(clean: Boolean = true, simplify: Boolean = false): Unit {
-    TransferContext.callPtrMethod_BOOL_BOOL(ptr, objectID.id, MethodBindings.createConvexCollisionPtr, clean, simplify)
+    callPtrMethod_BOOL_BOOL(MethodBindings.createConvexCollisionPtr, clean, simplify)
   }
 
   /**
@@ -191,35 +190,35 @@ public open class MeshInstance3D : GeometryInstance3D() {
   @JvmOverloads
   public final fun createMultipleConvexCollisions(settings: MeshConvexDecompositionSettings? =
       null): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.createMultipleConvexCollisionsPtr, settings)
+    callPtrMethod_OBJECT(MethodBindings.createMultipleConvexCollisionsPtr, settings)
   }
 
   /**
    * Returns the number of blend shapes available. Produces an error if [mesh] is `null`.
    */
   public final fun getBlendShapeCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBlendShapeCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBlendShapeCountPtr).toInt()
 
   /**
    * Returns the index of the blend shape with the given [name]. Returns `-1` if no blend shape with
    * this name exists, including when [mesh] is `null`.
    */
   public final fun findBlendShapeByName(name: StringName): Int =
-      TransferContext.callPtrMethod_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.findBlendShapeByNamePtr, name).toInt()
+      callPtrMethod_STRING_NAME_ret_LONG(MethodBindings.findBlendShapeByNamePtr, name).toInt()
 
   /**
    * Returns the value of the blend shape at the given [blendShapeIdx]. Returns `0.0` and produces
    * an error if [mesh] is `null` or doesn't have a blend shape at that index.
    */
   public final fun getBlendShapeValue(blendShapeIdx: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBlendShapeValuePtr, blendShapeIdx.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getBlendShapeValuePtr, blendShapeIdx.toLong()).toFloat()
 
   /**
    * Sets the value of the blend shape at [blendShapeIdx] to [value]. Produces an error if [mesh] is
    * `null` or doesn't have a blend shape at that index.
    */
   public final fun setBlendShapeValue(blendShapeIdx: Int, `value`: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setBlendShapeValuePtr, blendShapeIdx.toLong(), value.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setBlendShapeValuePtr, blendShapeIdx.toLong(), value.toDouble())
   }
 
   /**
@@ -227,7 +226,7 @@ public open class MeshInstance3D : GeometryInstance3D() {
    * the mesh geometry. It's mainly used for testing.
    */
   public final fun createDebugTangents(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.createDebugTangentsPtr)
+    callPtrMethod0(MethodBindings.createDebugTangentsPtr)
   }
 
   /**
@@ -240,7 +239,7 @@ public open class MeshInstance3D : GeometryInstance3D() {
    */
   @JvmOverloads
   public final fun bakeMeshFromCurrentBlendShapeMix(existing: ArrayMesh? = null): ArrayMesh? =
-      (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.bakeMeshFromCurrentBlendShapeMixPtr, existing) as ArrayMesh?)
+      (callPtrMethod_OBJECT_ret_OBJECT_REF(MethodBindings.bakeMeshFromCurrentBlendShapeMixPtr, existing) as ArrayMesh?)
 
   /**
    * Takes a snapshot of the current animated skeleton pose of the skinned mesh and bakes it to the
@@ -253,7 +252,7 @@ public open class MeshInstance3D : GeometryInstance3D() {
    */
   @JvmOverloads
   public final fun bakeMeshFromCurrentSkeletonPose(existing: ArrayMesh? = null): ArrayMesh? =
-      (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.bakeMeshFromCurrentSkeletonPosePtr, existing) as ArrayMesh?)
+      (callPtrMethod_OBJECT_ret_OBJECT_REF(MethodBindings.bakeMeshFromCurrentSkeletonPosePtr, existing) as ArrayMesh?)
 
   public final fun setSkeletonPath(skeletonPath: String) =
       setSkeletonPath(skeletonPath.asCachedNodePath())

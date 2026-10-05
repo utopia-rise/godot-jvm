@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -167,58 +166,55 @@ public open class NoiseTexture3D : Texture3D() {
   }
 
   public final fun setWidth(width: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWidthPtr, width.toLong())
+    callPtrMethod_LONG(MethodBindings.setWidthPtr, width.toLong())
   }
 
   public final fun setHeight(height: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHeightPtr, height.toLong())
+    callPtrMethod_LONG(MethodBindings.setHeightPtr, height.toLong())
   }
 
   public final fun setDepth(depth: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDepthPtr, depth.toLong())
+    callPtrMethod_LONG(MethodBindings.setDepthPtr, depth.toLong())
   }
 
   public final fun setNoise(noise: Noise?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setNoisePtr, noise)
+    callPtrMethod_OBJECT(MethodBindings.setNoisePtr, noise)
   }
 
   public final fun getNoise(): Noise? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getNoisePtr) as Noise?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getNoisePtr) as Noise?)
 
   public final fun setColorRamp(gradient: Gradient?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setColorRampPtr, gradient)
+    callPtrMethod_OBJECT(MethodBindings.setColorRampPtr, gradient)
   }
 
   public final fun getColorRamp(): Gradient? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getColorRampPtr) as Gradient?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getColorRampPtr) as Gradient?)
 
   public final fun setSeamless(seamless: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSeamlessPtr, seamless)
+    callPtrMethod_BOOL(MethodBindings.setSeamlessPtr, seamless)
   }
 
-  public final fun getSeamless(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSeamlessPtr)
+  public final fun getSeamless(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getSeamlessPtr)
 
   public final fun setInvert(invert: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setInvertPtr, invert)
+    callPtrMethod_BOOL(MethodBindings.setInvertPtr, invert)
   }
 
-  public final fun getInvert(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getInvertPtr)
+  public final fun getInvert(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getInvertPtr)
 
   public final fun setNormalize(normalize: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setNormalizePtr, normalize)
+    callPtrMethod_BOOL(MethodBindings.setNormalizePtr, normalize)
   }
 
-  public final fun isNormalized(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isNormalizedPtr)
+  public final fun isNormalized(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isNormalizedPtr)
 
   public final fun setSeamlessBlendSkirt(seamlessBlendSkirt: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSeamlessBlendSkirtPtr, seamlessBlendSkirt.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSeamlessBlendSkirtPtr, seamlessBlendSkirt.toDouble())
   }
 
   public final fun getSeamlessBlendSkirt(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSeamlessBlendSkirtPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSeamlessBlendSkirtPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

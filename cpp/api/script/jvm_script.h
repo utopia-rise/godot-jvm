@@ -2,7 +2,7 @@
 #define GODOT_JVM_JVM_SCRIPT_H
 
 #include "engine/godot_object.h"
-#include "jvm/wrapper/registration/kt_class.h"
+#include "jvm/registration/kt_class.h"
 #include "jvm_placeholder_instance.h"
 
 #include <classes/script_extension.hpp>

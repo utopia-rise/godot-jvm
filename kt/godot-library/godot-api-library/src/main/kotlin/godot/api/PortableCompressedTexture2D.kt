@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -18,6 +17,8 @@ import godot.callPtrMethod_BOOL
 import godot.callPtrMethod_LONG_DOUBLE
 import godot.callPtrMethod_OBJECT_LONG_BOOL_DOUBLE
 import godot.callPtrMethod_VECTOR2
+import godot.callStaticPtrMethod0_ret_BOOL
+import godot.callStaticPtrMethod_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.GodotEnum
 import godot.core.MethodStringName0
@@ -126,28 +127,28 @@ public open class PortableCompressedTexture2D : Texture2D() {
     normalMap: Boolean = false,
     lossyQuality: Float = 0.8f,
   ): Unit {
-    TransferContext.callPtrMethod_OBJECT_LONG_BOOL_DOUBLE(ptr, objectID.id, MethodBindings.createFromImagePtr, image, compressionMode.value, normalMap, lossyQuality.toDouble())
+    callPtrMethod_OBJECT_LONG_BOOL_DOUBLE(MethodBindings.createFromImagePtr, image, compressionMode.value, normalMap, lossyQuality.toDouble())
   }
 
   /**
    * Return the compression mode used (valid after initialized).
    */
   public final fun getCompressionMode(): CompressionMode =
-      CompressionMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCompressionModePtr))
+      CompressionMode.from(callPtrMethod0_ret_LONG(MethodBindings.getCompressionModePtr))
 
   public final fun setSizeOverride(size: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setSizeOverridePtr, size)
+    callPtrMethod_VECTOR2(MethodBindings.setSizeOverridePtr, size)
   }
 
   public final fun getSizeOverride(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getSizeOverridePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getSizeOverridePtr)
 
   public final fun setKeepCompressedBuffer(keep: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setKeepCompressedBufferPtr, keep)
+    callPtrMethod_BOOL(MethodBindings.setKeepCompressedBufferPtr, keep)
   }
 
   public final fun isKeepingCompressedBuffer(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isKeepingCompressedBufferPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isKeepingCompressedBufferPtr)
 
   /**
    * Sets the compressor parameters for Basis Universal compression. See also the settings in
@@ -156,7 +157,7 @@ public open class PortableCompressedTexture2D : Texture2D() {
    * **Note:** This method must be called before [createFromImage] for this to work.
    */
   public final fun setBasisuCompressorParams(uastcLevel: Int, rdoQualityLoss: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setBasisuCompressorParamsPtr, uastcLevel.toLong(), rdoQualityLoss.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setBasisuCompressorParamsPtr, uastcLevel.toLong(), rdoQualityLoss.toDouble())
   }
 
   /**
@@ -241,7 +242,7 @@ public open class PortableCompressedTexture2D : Texture2D() {
      */
     @JvmStatic
     public final fun setKeepAllCompressedBuffers(keep: Boolean): Unit {
-      TransferContext.callPtrMethod_BOOL(0L, 0L, MethodBindings.setKeepAllCompressedBuffersPtr, keep)
+      callStaticPtrMethod_BOOL(MethodBindings.setKeepAllCompressedBuffersPtr, keep)
     }
 
     /**
@@ -249,7 +250,7 @@ public open class PortableCompressedTexture2D : Texture2D() {
      */
     @JvmStatic
     public final fun isKeepingAllCompressedBuffers(): Boolean =
-        TransferContext.callPtrMethod0_ret_BOOL(0L, 0L, MethodBindings.isKeepingAllCompressedBuffersPtr)
+        callStaticPtrMethod0_ret_BOOL(MethodBindings.isKeepingAllCompressedBuffersPtr)
   }
 
   public object MethodBindings {

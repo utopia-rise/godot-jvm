@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -21,6 +20,7 @@ import godot.callPtrMethod_BOOL
 import godot.callPtrMethod_BOOL_ret_OBJECT_REF
 import godot.callPtrMethod_LONG_ret_OBJECT_REF
 import godot.callPtrMethod_OBJECT_ret_LONG
+import godot.callStaticMethod0_ret_STRING
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.Error
@@ -194,7 +194,7 @@ public open class Resource : RefCounted() {
   }
 
   public final fun setPath(path: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setPathPtr, path)
+    callMethod_STRING(MethodBindings.setPathPtr, path)
   }
 
   /**
@@ -202,11 +202,10 @@ public open class Resource : RefCounted() {
    * path. Further attempts to load an overridden resource by path will instead return this resource.
    */
   public final fun takeOverPath(path: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.takeOverPathPtr, path)
+    callMethod_STRING(MethodBindings.takeOverPathPtr, path)
   }
 
-  public final fun getPath(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPathPtr)
+  public final fun getPath(): String = callMethod0_ret_STRING(MethodBindings.getPathPtr)
 
   /**
    * Sets the resource's path to [path] without involving the resource cache. Useful for handling
@@ -214,30 +213,28 @@ public open class Resource : RefCounted() {
    * [ResourceFormatLoader] and [ResourceFormatSaver].
    */
   public final fun setPathCache(path: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setPathCachePtr, path)
+    callMethod_STRING(MethodBindings.setPathCachePtr, path)
   }
 
   public final fun setName(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setNamePtr, name)
+    callMethod_STRING(MethodBindings.setNamePtr, name)
   }
 
-  public final fun getName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getNamePtr)
+  public final fun getName(): String = callMethod0_ret_STRING(MethodBindings.getNamePtr)
 
   /**
    * Returns the [RID] of this resource (or an empty RID). Many resources (such as [Texture2D],
    * [Mesh], and so on) are high-level abstractions of resources stored in a specialized server
    * ([DisplayServer], [RenderingServer], etc.), so this function will return the original [RID].
    */
-  public final fun getRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getRidPtr)
+  public final fun getRid(): RID = callPtrMethod0_ret_RID(MethodBindings.getRidPtr)
 
   public final fun setLocalToScene(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setLocalToScenePtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setLocalToScenePtr, enable)
   }
 
   public final fun isLocalToScene(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isLocalToScenePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isLocalToScenePtr)
 
   /**
    * If [resourceLocalToScene] is set to `true` and the resource has been loaded from a
@@ -245,7 +242,7 @@ public open class Resource : RefCounted() {
    * Otherwise, returns `null`.
    */
   public final fun getLocalScene(): Node? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getLocalScenePtr) as Node?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getLocalScenePtr) as Node?)
 
   /**
    * Calls [_setupLocalToScene]. If [resourceLocalToScene] is set to `true`, this method is
@@ -253,7 +250,7 @@ public open class Resource : RefCounted() {
    * scene instance.
    */
   public final fun setupLocalToScene(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.setupLocalToScenePtr)
+    callPtrMethod0(MethodBindings.setupLocalToScenePtr)
   }
 
   /**
@@ -262,7 +259,7 @@ public open class Resource : RefCounted() {
    * [ResourceFormatSaver].
    */
   public final fun resetState(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.resetStatePtr)
+    callPtrMethod0(MethodBindings.resetStatePtr)
   }
 
   /**
@@ -274,7 +271,7 @@ public open class Resource : RefCounted() {
    * **Note:** This method is only implemented when running in an editor context.
    */
   public final fun setIdForPath(path: String, id: String): Unit {
-    TransferContext.callMethod_STRING_STRING(ptr, objectID.id, MethodBindings.setIdForPathPtr, path, id)
+    callMethod_STRING_STRING(MethodBindings.setIdForPathPtr, path, id)
   }
 
   /**
@@ -287,20 +284,19 @@ public open class Resource : RefCounted() {
    * returns an empty string.
    */
   public final fun getIdForPath(path: String): String =
-      TransferContext.callMethod_STRING_ret_STRING(ptr, objectID.id, MethodBindings.getIdForPathPtr, path)
+      callMethod_STRING_ret_STRING(MethodBindings.getIdForPathPtr, path)
 
   /**
    * Returns `true` if the resource is saved on disk as a part of another resource's file.
    */
-  public final fun isBuiltIn(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isBuiltInPtr)
+  public final fun isBuiltIn(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isBuiltInPtr)
 
   public final fun setSceneUniqueId(id: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setSceneUniqueIdPtr, id)
+    callMethod_STRING(MethodBindings.setSceneUniqueIdPtr, id)
   }
 
   public final fun getSceneUniqueId(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSceneUniqueIdPtr)
+      callMethod0_ret_STRING(MethodBindings.getSceneUniqueIdPtr)
 
   /**
    * Emits the [signal changed] signal. This method is called automatically for some built-in
@@ -319,7 +315,7 @@ public open class Resource : RefCounted() {
    * ```
    */
   public final fun emitChanged(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.emitChangedPtr)
+    callPtrMethod0(MethodBindings.emitChangedPtr)
   }
 
   /**
@@ -350,7 +346,7 @@ public open class Resource : RefCounted() {
    */
   @JvmOverloads
   public final fun duplicate(deep: Boolean = false): Resource? =
-      (TransferContext.callPtrMethod_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.duplicatePtr, deep) as Resource?)
+      (callPtrMethod_BOOL_ret_OBJECT_REF(MethodBindings.duplicatePtr, deep) as Resource?)
 
   /**
    * Duplicates this resource, deeply, like [duplicate] when passing `true`, with extra control over
@@ -359,13 +355,13 @@ public open class Resource : RefCounted() {
   @JvmOverloads
   public final fun duplicateDeep(deepSubresourcesMode: DeepDuplicateMode =
       Resource.DeepDuplicateMode.INTERNAL): Resource? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.duplicateDeepPtr, deepSubresourcesMode.value) as Resource?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.duplicateDeepPtr, deepSubresourcesMode.value) as Resource?)
 
   /**
    * Copies the data from [resource] into this resource. Both resources must share the same class.
    */
   public final fun copyFromResource(resource: Resource?): Error =
-      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.copyFromResourcePtr, resource))
+      Error.from(callPtrMethod_OBJECT_ret_LONG(MethodBindings.copyFromResourcePtr, resource))
 
   public enum class DeepDuplicateMode(
     public override val `value`: Long,
@@ -487,7 +483,7 @@ public open class Resource : RefCounted() {
      */
     @JvmStatic
     public final fun generateSceneUniqueId(): String =
-        TransferContext.callMethod0_ret_STRING(0L, 0L, MethodBindings.generateSceneUniqueIdPtr)
+        callStaticMethod0_ret_STRING(MethodBindings.generateSceneUniqueIdPtr)
   }
 
   public object MethodBindings {

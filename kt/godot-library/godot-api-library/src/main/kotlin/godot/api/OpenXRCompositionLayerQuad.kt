@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_VECTOR2
 import godot.callPtrMethod_VECTOR2
@@ -70,11 +69,11 @@ public open class OpenXRCompositionLayerQuad : OpenXRCompositionLayer() {
   }
 
   public final fun setQuadSize(size: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setQuadSizePtr, size)
+    callPtrMethod_VECTOR2(MethodBindings.setQuadSizePtr, size)
   }
 
   public final fun getQuadSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getQuadSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getQuadSizePtr)
 
   public companion object {
     @JvmField

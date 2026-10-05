@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -51,17 +50,16 @@ public open class GLTFTexture : Resource() {
   }
 
   public final fun getSrcImage(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSrcImagePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSrcImagePtr).toInt()
 
   public final fun setSrcImage(srcImage: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSrcImagePtr, srcImage.toLong())
+    callPtrMethod_LONG(MethodBindings.setSrcImagePtr, srcImage.toLong())
   }
 
-  public final fun getSampler(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSamplerPtr).toInt()
+  public final fun getSampler(): Int = callPtrMethod0_ret_LONG(MethodBindings.getSamplerPtr).toInt()
 
   public final fun setSampler(sampler: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSamplerPtr, sampler.toLong())
+    callPtrMethod_LONG(MethodBindings.setSamplerPtr, sampler.toLong())
   }
 
   public companion object {

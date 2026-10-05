@@ -166,7 +166,7 @@ nav:
           - Where to start: contribute/how-it-works/index.md
           - The three build artifacts: contribute/how-it-works/artifacts.md
           - Memory management: contribute/how-it-works/memory-management.md
-          - The JNI shared buffer: contribute/how-it-works/shared-buffer.md
+          - The JNI shared buffers: contribute/how-it-works/shared-buffer.md
           - Registration pipeline: contribute/how-it-works/registration-pipeline.md
           - Registrar generation: contribute/how-it-works/registrar-generation.md
           - Signals and callables: contribute/how-it-works/signals-and-callables.md

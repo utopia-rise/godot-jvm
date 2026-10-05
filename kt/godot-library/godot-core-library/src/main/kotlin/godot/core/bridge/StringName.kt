@@ -5,7 +5,7 @@ package godot.core
 
 import godot.common.extensions.convertToSnakeCase
 import godot.internal.memory.MemoryManager
-import godot.internal.memory.TransferContext
+import godot.internal.memory.VariantBuffer
 import godot.common.interop.VoidPtr
 import godot.common.util.LRUCache
 import godot.internal.memory.MemoryManager.CACHE_INITIAL_CAPACITY
@@ -27,7 +27,7 @@ class StringName : NativeCoreType {
     }
 
     constructor(string: String) {
-        TransferContext.writeArguments(1) {
+        VariantBuffer.transfer.writeArgs(1) {
             VariantParser.STRING.toGodot(string)
         }
         ptr = Bridge.engine_call_constructor_string()
@@ -35,7 +35,7 @@ class StringName : NativeCoreType {
     }
 
     constructor(stringName: StringName) {
-        TransferContext.writeArguments(1) {
+        VariantBuffer.transfer.writeArgs(1) {
             VariantParser.STRING_NAME.toGodot(stringName)
         }
         ptr = Bridge.engine_call_copy_constructor()
@@ -43,7 +43,7 @@ class StringName : NativeCoreType {
     }
 
     override fun toString(): String {
-        return TransferContext.callBridge(0, VariantParser.STRING) {
+        return VariantBuffer.transfer.callBridge(0, VariantParser.STRING) {
             Bridge.engine_call_operator_string(ptr)
         } as String
     }

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_OBJECT_STRING_OBJECT_ret_LONG
 import godot.callPtrMethod0
@@ -46,14 +45,14 @@ public open class StreamPeerTLS : StreamPeer() {
    * [StreamPeer.getAvailableBytes] for it to work properly.
    */
   public final fun poll(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pollPtr)
+    callPtrMethod0(MethodBindings.pollPtr)
   }
 
   /**
    * Accepts a peer connection as a server using the given [serverOptions]. See [TLSOptions.server].
    */
   public final fun acceptStream(stream: StreamPeer?, serverOptions: TLSOptions?): Error =
-      Error.from(TransferContext.callPtrMethod_OBJECT_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.acceptStreamPtr, stream, serverOptions))
+      Error.from(callPtrMethod_OBJECT_OBJECT_ret_LONG(MethodBindings.acceptStreamPtr, stream, serverOptions))
 
   /**
    * Connects to a peer using an underlying [StreamPeer] [stream] and verifying the remote
@@ -67,25 +66,25 @@ public open class StreamPeerTLS : StreamPeer() {
     commonName: String,
     clientOptions: TLSOptions? = null,
   ): Error =
-      Error.from(TransferContext.callMethod_OBJECT_STRING_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.connectToStreamPtr, stream, commonName, clientOptions))
+      Error.from(callMethod_OBJECT_STRING_OBJECT_ret_LONG(MethodBindings.connectToStreamPtr, stream, commonName, clientOptions))
 
   /**
    * Returns the status of the connection.
    */
   public final fun getStatus(): Status =
-      Status.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStatusPtr))
+      Status.from(callPtrMethod0_ret_LONG(MethodBindings.getStatusPtr))
 
   /**
    * Returns the underlying [StreamPeer] connection, used in [acceptStream] or [connectToStream].
    */
   public final fun getStream(): StreamPeer? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getStreamPtr) as StreamPeer?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getStreamPtr) as StreamPeer?)
 
   /**
    * Disconnects from host.
    */
   public final fun disconnectFromStream(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.disconnectFromStreamPtr)
+    callPtrMethod0(MethodBindings.disconnectFromStreamPtr)
   }
 
   public enum class Status(

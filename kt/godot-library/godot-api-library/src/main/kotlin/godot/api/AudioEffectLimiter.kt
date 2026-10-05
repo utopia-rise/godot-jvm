@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -85,32 +84,32 @@ public open class AudioEffectLimiter : AudioEffect() {
   }
 
   public final fun setCeilingDb(ceiling: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCeilingDbPtr, ceiling.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCeilingDbPtr, ceiling.toDouble())
   }
 
   public final fun getCeilingDb(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCeilingDbPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCeilingDbPtr).toFloat()
 
   public final fun setThresholdDb(threshold: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setThresholdDbPtr, threshold.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setThresholdDbPtr, threshold.toDouble())
   }
 
   public final fun getThresholdDb(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getThresholdDbPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getThresholdDbPtr).toFloat()
 
   public final fun setSoftClipDb(softClip: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSoftClipDbPtr, softClip.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSoftClipDbPtr, softClip.toDouble())
   }
 
   public final fun getSoftClipDb(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSoftClipDbPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSoftClipDbPtr).toFloat()
 
   public final fun setSoftClipRatio(softClip: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSoftClipRatioPtr, softClip.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSoftClipRatioPtr, softClip.toDouble())
   }
 
   public final fun getSoftClipRatio(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSoftClipRatioPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSoftClipRatioPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

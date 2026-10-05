@@ -60,10 +60,9 @@ sources = [
     Glob("cpp/jvm/*.cpp"),
     Glob("cpp/jvm/jni/*.cpp"),
     Glob("cpp/jvm/lifecycle/*.cpp"),
-    Glob("cpp/jvm/wrapper/*.cpp"),
-    Glob("cpp/jvm/wrapper/bridge/*.cpp"),
-    Glob("cpp/jvm/wrapper/memory/*.cpp"),
-    Glob("cpp/jvm/wrapper/registration/*.cpp"),
+    Glob("cpp/jvm/bridge/*.cpp"),
+    Glob("cpp/jvm/memory/*.cpp"),
+    Glob("cpp/jvm/registration/*.cpp"),
     ]
 
 if env["target"] == "editor":

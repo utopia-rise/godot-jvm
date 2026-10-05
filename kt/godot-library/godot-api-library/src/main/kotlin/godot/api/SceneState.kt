@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_LONG_LONG_ret_ANY
@@ -59,15 +58,14 @@ public open class SceneState internal constructor() : RefCounted() {
   /**
    * Returns the resource path to the represented [PackedScene].
    */
-  public final fun getPath(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPathPtr)
+  public final fun getPath(): String = callMethod0_ret_STRING(MethodBindings.getPathPtr)
 
   /**
    * Returns the [SceneState] of the scene that this scene inherits from, or `null` if it doesn't
    * inherit from any scene.
    */
   public final fun getBaseSceneState(): SceneState? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBaseSceneStatePtr) as SceneState?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getBaseSceneStatePtr) as SceneState?)
 
   /**
    * Returns the number of nodes in the scene.
@@ -76,19 +74,19 @@ public open class SceneState internal constructor() : RefCounted() {
    * get_node_count() - 1]`.
    */
   public final fun getNodeCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getNodeCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getNodeCountPtr).toInt()
 
   /**
    * Returns the type of the node at [idx].
    */
   public final fun getNodeType(idx: Int): StringName =
-      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getNodeTypePtr, idx.toLong())
+      callPtrMethod_LONG_ret_STRING_NAME(MethodBindings.getNodeTypePtr, idx.toLong())
 
   /**
    * Returns the name of the node at [idx].
    */
   public final fun getNodeName(idx: Int): StringName =
-      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getNodeNamePtr, idx.toLong())
+      callPtrMethod_LONG_ret_STRING_NAME(MethodBindings.getNodeNamePtr, idx.toLong())
 
   /**
    * Returns the path to the node at [idx].
@@ -97,39 +95,39 @@ public open class SceneState internal constructor() : RefCounted() {
    */
   @JvmOverloads
   public final fun getNodePath(idx: Int, forParent: Boolean = false): NodePath =
-      TransferContext.callPtrMethod_LONG_BOOL_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getNodePathPtr, idx.toLong(), forParent)
+      callPtrMethod_LONG_BOOL_ret_NODE_PATH(MethodBindings.getNodePathPtr, idx.toLong(), forParent)
 
   /**
    * Returns the path to the owner of the node at [idx], relative to the root node.
    */
   public final fun getNodeOwnerPath(idx: Int): NodePath =
-      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getNodeOwnerPathPtr, idx.toLong())
+      callPtrMethod_LONG_ret_NODE_PATH(MethodBindings.getNodeOwnerPathPtr, idx.toLong())
 
   /**
    * Returns `true` if the node at [idx] is an [InstancePlaceholder].
    */
   public final fun isNodeInstancePlaceholder(idx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isNodeInstancePlaceholderPtr, idx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isNodeInstancePlaceholderPtr, idx.toLong())
 
   /**
    * Returns the path to the represented scene file if the node at [idx] is an
    * [InstancePlaceholder].
    */
   public final fun getNodeInstancePlaceholder(idx: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getNodeInstancePlaceholderPtr, idx.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getNodeInstancePlaceholderPtr, idx.toLong())
 
   /**
    * Returns a [PackedScene] for the node at [idx] (i.e. the whole branch starting at this node,
    * with its child nodes and resources), or `null` if the node is not an instance.
    */
   public final fun getNodeInstance(idx: Int): PackedScene? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getNodeInstancePtr, idx.toLong()) as PackedScene?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getNodeInstancePtr, idx.toLong()) as PackedScene?)
 
   /**
    * Returns the list of group names associated with the node at [idx].
    */
   public final fun getNodeGroups(idx: Int): PackedStringArray =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getNodeGroupsPtr, idx.toLong())
+      callPtrMethod_LONG_ret_PACKED_STRING_ARRAY(MethodBindings.getNodeGroupsPtr, idx.toLong())
 
   /**
    * Returns the node's index, which is its position relative to its siblings. This is only relevant
@@ -138,7 +136,7 @@ public open class SceneState internal constructor() : RefCounted() {
    * argument used here and in other methods.
    */
   public final fun getNodeIndex(idx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getNodeIndexPtr, idx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getNodeIndexPtr, idx.toLong()).toInt()
 
   /**
    * Returns the number of exported or overridden properties for the node at [idx].
@@ -147,19 +145,19 @@ public open class SceneState internal constructor() : RefCounted() {
    * in the interval `[0, get_node_property_count() - 1]`.
    */
   public final fun getNodePropertyCount(idx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getNodePropertyCountPtr, idx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getNodePropertyCountPtr, idx.toLong()).toInt()
 
   /**
    * Returns the name of the property at [propIdx] for the node at [idx].
    */
   public final fun getNodePropertyName(idx: Int, propIdx: Int): StringName =
-      TransferContext.callPtrMethod_LONG_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getNodePropertyNamePtr, idx.toLong(), propIdx.toLong())
+      callPtrMethod_LONG_LONG_ret_STRING_NAME(MethodBindings.getNodePropertyNamePtr, idx.toLong(), propIdx.toLong())
 
   /**
    * Returns the value of the property at [propIdx] for the node at [idx].
    */
   public final fun getNodePropertyValue(idx: Int, propIdx: Int): Any? =
-      TransferContext.callMethod_LONG_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getNodePropertyValuePtr, idx.toLong(), propIdx.toLong())
+      callMethod_LONG_LONG_ret_ANY(MethodBindings.getNodePropertyValuePtr, idx.toLong(), propIdx.toLong())
 
   /**
    * Returns the number of signal connections in the scene.
@@ -168,50 +166,50 @@ public open class SceneState internal constructor() : RefCounted() {
    * interval `[0, get_connection_count() - 1]`.
    */
   public final fun getConnectionCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConnectionCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getConnectionCountPtr).toInt()
 
   /**
    * Returns the path to the node that owns the signal at [idx], relative to the root node.
    */
   public final fun getConnectionSource(idx: Int): NodePath =
-      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getConnectionSourcePtr, idx.toLong())
+      callPtrMethod_LONG_ret_NODE_PATH(MethodBindings.getConnectionSourcePtr, idx.toLong())
 
   /**
    * Returns the name of the signal at [idx].
    */
   public final fun getConnectionSignal(idx: Int): StringName =
-      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getConnectionSignalPtr, idx.toLong())
+      callPtrMethod_LONG_ret_STRING_NAME(MethodBindings.getConnectionSignalPtr, idx.toLong())
 
   /**
    * Returns the path to the node that owns the method connected to the signal at [idx], relative to
    * the root node.
    */
   public final fun getConnectionTarget(idx: Int): NodePath =
-      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getConnectionTargetPtr, idx.toLong())
+      callPtrMethod_LONG_ret_NODE_PATH(MethodBindings.getConnectionTargetPtr, idx.toLong())
 
   /**
    * Returns the method connected to the signal at [idx].
    */
   public final fun getConnectionMethod(idx: Int): StringName =
-      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getConnectionMethodPtr, idx.toLong())
+      callPtrMethod_LONG_ret_STRING_NAME(MethodBindings.getConnectionMethodPtr, idx.toLong())
 
   /**
    * Returns the connection flags for the signal at [idx]. See [Object.ConnectFlags] constants.
    */
   public final fun getConnectionFlags(idx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getConnectionFlagsPtr, idx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getConnectionFlagsPtr, idx.toLong()).toInt()
 
   /**
    * Returns the list of bound parameters for the signal at [idx].
    */
   public final fun getConnectionBinds(idx: Int): VariantArray<Any?> =
-      (TransferContext.callPtrMethod_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.getConnectionBindsPtr, idx.toLong()) as VariantArray<Any?>)
+      (callPtrMethod_LONG_ret_ARRAY(MethodBindings.getConnectionBindsPtr, idx.toLong()) as VariantArray<Any?>)
 
   /**
    * Returns the number of unbound parameters for the signal at [idx].
    */
   public final fun getConnectionUnbinds(idx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getConnectionUnbindsPtr, idx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getConnectionUnbindsPtr, idx.toLong()).toInt()
 
   public enum class GenEditState(
     public override val `value`: Long,

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_DOUBLE_ret_OBJECT_REF
 import godot.callPtrMethod_LONG_ret_OBJECT_REF
@@ -39,21 +38,21 @@ public open class MethodTweener : Tweener() {
    * there's no delay.
    */
   public final fun setDelay(delay: Double): MethodTweener =
-      (TransferContext.callPtrMethod_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setDelayPtr, delay) as MethodTweener)
+      (callPtrMethod_DOUBLE_ret_OBJECT_REF(MethodBindings.setDelayPtr, delay) as MethodTweener)
 
   /**
    * Sets the type of used transition from [Tween.TransitionType]. If not set, the default
    * transition is used from the [Tween] that contains this Tweener.
    */
   public final fun setTrans(trans: Tween.TransitionType): MethodTweener =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setTransPtr, trans.value) as MethodTweener)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.setTransPtr, trans.value) as MethodTweener)
 
   /**
    * Sets the type of used easing from [Tween.EaseType]. If not set, the default easing is used from
    * the [Tween] that contains this Tweener.
    */
   public final fun setEase(ease: Tween.EaseType): MethodTweener =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.setEasePtr, ease.value) as MethodTweener)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.setEasePtr, ease.value) as MethodTweener)
 
   public companion object {
     @JvmField

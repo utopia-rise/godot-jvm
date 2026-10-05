@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_BOOL
@@ -119,46 +118,46 @@ public open class RDPipelineMultisampleState : RefCounted() {
   }
 
   public final fun setSampleCount(pMember: RenderingDevice.TextureSamples): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSampleCountPtr, pMember.value)
+    callPtrMethod_LONG(MethodBindings.setSampleCountPtr, pMember.value)
   }
 
   public final fun getSampleCount(): RenderingDevice.TextureSamples =
-      RenderingDevice.TextureSamples.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSampleCountPtr))
+      RenderingDevice.TextureSamples.from(callPtrMethod0_ret_LONG(MethodBindings.getSampleCountPtr))
 
   public final fun setEnableSampleShading(pMember: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableSampleShadingPtr, pMember)
+    callPtrMethod_BOOL(MethodBindings.setEnableSampleShadingPtr, pMember)
   }
 
   public final fun getEnableSampleShading(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableSampleShadingPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getEnableSampleShadingPtr)
 
   public final fun setMinSampleShading(pMember: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMinSampleShadingPtr, pMember.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMinSampleShadingPtr, pMember.toDouble())
   }
 
   public final fun getMinSampleShading(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMinSampleShadingPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMinSampleShadingPtr).toFloat()
 
   public final fun setEnableAlphaToCoverage(pMember: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableAlphaToCoveragePtr, pMember)
+    callPtrMethod_BOOL(MethodBindings.setEnableAlphaToCoveragePtr, pMember)
   }
 
   public final fun getEnableAlphaToCoverage(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableAlphaToCoveragePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getEnableAlphaToCoveragePtr)
 
   public final fun setEnableAlphaToOne(pMember: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableAlphaToOnePtr, pMember)
+    callPtrMethod_BOOL(MethodBindings.setEnableAlphaToOnePtr, pMember)
   }
 
   public final fun getEnableAlphaToOne(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableAlphaToOnePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getEnableAlphaToOnePtr)
 
   public final fun setSampleMasks(masks: VariantArray<Long>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setSampleMasksPtr, masks)
+    callPtrMethod_ARRAY(MethodBindings.setSampleMasksPtr, masks)
   }
 
   public final fun getSampleMasks(): VariantArray<Long> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getSampleMasksPtr) as VariantArray<Long>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getSampleMasksPtr) as VariantArray<Long>)
 
   public companion object {
     @JvmField

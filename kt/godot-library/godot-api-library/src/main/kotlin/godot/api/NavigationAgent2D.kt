@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_COLOR
@@ -638,92 +637,91 @@ public open class NavigationAgent2D : Node() {
   /**
    * Returns the [RID] of this agent on the [NavigationServer2D].
    */
-  public final fun getRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getRidPtr)
+  public final fun getRid(): RID = callPtrMethod0_ret_RID(MethodBindings.getRidPtr)
 
   public final fun setAvoidanceEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAvoidanceEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setAvoidanceEnabledPtr, enabled)
   }
 
   public final fun getAvoidanceEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAvoidanceEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAvoidanceEnabledPtr)
 
   public final fun setPathDesiredDistance(desiredDistance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPathDesiredDistancePtr, desiredDistance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPathDesiredDistancePtr, desiredDistance.toDouble())
   }
 
   public final fun getPathDesiredDistance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPathDesiredDistancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPathDesiredDistancePtr).toFloat()
 
   public final fun setTargetDesiredDistance(desiredDistance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTargetDesiredDistancePtr, desiredDistance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setTargetDesiredDistancePtr, desiredDistance.toDouble())
   }
 
   public final fun getTargetDesiredDistance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTargetDesiredDistancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTargetDesiredDistancePtr).toFloat()
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRadiusPtr, radius.toDouble())
   }
 
   public final fun getRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setNeighborDistance(neighborDistance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setNeighborDistancePtr, neighborDistance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setNeighborDistancePtr, neighborDistance.toDouble())
   }
 
   public final fun getNeighborDistance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getNeighborDistancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getNeighborDistancePtr).toFloat()
 
   public final fun setMaxNeighbors(maxNeighbors: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxNeighborsPtr, maxNeighbors.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaxNeighborsPtr, maxNeighbors.toLong())
   }
 
   public final fun getMaxNeighbors(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxNeighborsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMaxNeighborsPtr).toInt()
 
   public final fun setTimeHorizonAgents(timeHorizon: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTimeHorizonAgentsPtr, timeHorizon.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setTimeHorizonAgentsPtr, timeHorizon.toDouble())
   }
 
   public final fun getTimeHorizonAgents(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTimeHorizonAgentsPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTimeHorizonAgentsPtr).toFloat()
 
   public final fun setTimeHorizonObstacles(timeHorizon: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTimeHorizonObstaclesPtr, timeHorizon.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setTimeHorizonObstaclesPtr, timeHorizon.toDouble())
   }
 
   public final fun getTimeHorizonObstacles(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTimeHorizonObstaclesPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTimeHorizonObstaclesPtr).toFloat()
 
   public final fun setMaxSpeed(maxSpeed: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMaxSpeedPtr, maxSpeed.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMaxSpeedPtr, maxSpeed.toDouble())
   }
 
   public final fun getMaxSpeed(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMaxSpeedPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMaxSpeedPtr).toFloat()
 
   public final fun setPathMaxDistance(maxSpeed: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPathMaxDistancePtr, maxSpeed.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPathMaxDistancePtr, maxSpeed.toDouble())
   }
 
   public final fun getPathMaxDistance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPathMaxDistancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPathMaxDistancePtr).toFloat()
 
   public final fun setNavigationLayers(navigationLayers: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setNavigationLayersPtr, navigationLayers)
+    callPtrMethod_LONG(MethodBindings.setNavigationLayersPtr, navigationLayers)
   }
 
   public final fun getNavigationLayers(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getNavigationLayersPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getNavigationLayersPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [navigationLayers] bitmask,
    * given a [layerNumber] between 1 and 32.
    */
   public final fun setNavigationLayerValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setNavigationLayerValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setNavigationLayerValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -731,40 +729,40 @@ public open class NavigationAgent2D : Node() {
    * a [layerNumber] between 1 and 32.
    */
   public final fun getNavigationLayerValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getNavigationLayerValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getNavigationLayerValuePtr, layerNumber.toLong())
 
   public final
       fun setPathfindingAlgorithm(pathfindingAlgorithm: NavigationPathQueryParameters2D.PathfindingAlgorithm):
       Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPathfindingAlgorithmPtr, pathfindingAlgorithm.value)
+    callPtrMethod_LONG(MethodBindings.setPathfindingAlgorithmPtr, pathfindingAlgorithm.value)
   }
 
   public final fun getPathfindingAlgorithm(): NavigationPathQueryParameters2D.PathfindingAlgorithm =
-      NavigationPathQueryParameters2D.PathfindingAlgorithm.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPathfindingAlgorithmPtr))
+      NavigationPathQueryParameters2D.PathfindingAlgorithm.from(callPtrMethod0_ret_LONG(MethodBindings.getPathfindingAlgorithmPtr))
 
   public final
       fun setPathPostprocessing(pathPostprocessing: NavigationPathQueryParameters2D.PathPostProcessing):
       Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPathPostprocessingPtr, pathPostprocessing.value)
+    callPtrMethod_LONG(MethodBindings.setPathPostprocessingPtr, pathPostprocessing.value)
   }
 
   public final fun getPathPostprocessing(): NavigationPathQueryParameters2D.PathPostProcessing =
-      NavigationPathQueryParameters2D.PathPostProcessing.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPathPostprocessingPtr))
+      NavigationPathQueryParameters2D.PathPostProcessing.from(callPtrMethod0_ret_LONG(MethodBindings.getPathPostprocessingPtr))
 
   public final fun setPathMetadataFlags(flags: NavigationPathQueryParameters2D.PathMetadataFlags):
       Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPathMetadataFlagsPtr, flags.flag)
+    callPtrMethod_LONG(MethodBindings.setPathMetadataFlagsPtr, flags.flag)
   }
 
   public final fun getPathMetadataFlags(): NavigationPathQueryParameters2D.PathMetadataFlags =
-      NavigationPathQueryParameters2D.PathMetadataFlags(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPathMetadataFlagsPtr))
+      NavigationPathQueryParameters2D.PathMetadataFlags(callPtrMethod0_ret_LONG(MethodBindings.getPathMetadataFlagsPtr))
 
   /**
    * Sets the [RID] of the navigation map this NavigationAgent node should use and also updates the
    * `agent` on the NavigationServer.
    */
   public final fun setNavigationMap(navigationMap: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setNavigationMapPtr, navigationMap)
+    callPtrMethod_RID(MethodBindings.setNavigationMapPtr, navigationMap)
   }
 
   /**
@@ -775,63 +773,63 @@ public open class NavigationAgent2D : Node() {
    * navigation map for the NavigationAgent and also update the agent on the NavigationServer.
    */
   public final fun getNavigationMap(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getNavigationMapPtr)
+      callPtrMethod0_ret_RID(MethodBindings.getNavigationMapPtr)
 
   public final fun setTargetPosition(position: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setTargetPositionPtr, position)
+    callPtrMethod_VECTOR2(MethodBindings.setTargetPositionPtr, position)
   }
 
   public final fun getTargetPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getTargetPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getTargetPositionPtr)
 
   public final fun setSimplifyPath(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSimplifyPathPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setSimplifyPathPtr, enabled)
   }
 
   public final fun getSimplifyPath(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getSimplifyPathPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getSimplifyPathPtr)
 
   public final fun setSimplifyEpsilon(epsilon: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSimplifyEpsilonPtr, epsilon.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSimplifyEpsilonPtr, epsilon.toDouble())
   }
 
   public final fun getSimplifyEpsilon(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSimplifyEpsilonPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSimplifyEpsilonPtr).toFloat()
 
   public final fun setPathReturnMaxLength(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPathReturnMaxLengthPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPathReturnMaxLengthPtr, length.toDouble())
   }
 
   public final fun getPathReturnMaxLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPathReturnMaxLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPathReturnMaxLengthPtr).toFloat()
 
   public final fun setPathReturnMaxRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPathReturnMaxRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPathReturnMaxRadiusPtr, radius.toDouble())
   }
 
   public final fun getPathReturnMaxRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPathReturnMaxRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPathReturnMaxRadiusPtr).toFloat()
 
   public final fun setPathSearchMaxPolygons(maxPolygons: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPathSearchMaxPolygonsPtr, maxPolygons.toLong())
+    callPtrMethod_LONG(MethodBindings.setPathSearchMaxPolygonsPtr, maxPolygons.toLong())
   }
 
   public final fun getPathSearchMaxPolygons(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPathSearchMaxPolygonsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getPathSearchMaxPolygonsPtr).toInt()
 
   public final fun setPathSearchMaxDistance(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPathSearchMaxDistancePtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPathSearchMaxDistancePtr, distance.toDouble())
   }
 
   public final fun getPathSearchMaxDistance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPathSearchMaxDistancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPathSearchMaxDistancePtr).toFloat()
 
   /**
    * Returns the length of the currently calculated path. The returned value is `0.0`, if the path
    * is still calculating or no calculation has been requested yet.
    */
   public final fun getPathLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPathLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPathLengthPtr).toFloat()
 
   /**
    * Returns the next position in global coordinates that can be moved to, making sure that there
@@ -840,7 +838,7 @@ public open class NavigationAgent2D : Node() {
    * update the internal path logic of the NavigationAgent.
    */
   public final fun getNextPathPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getNextPathPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getNextPathPositionPtr)
 
   /**
    * Replaces the internal velocity in the collision avoidance simulation with [velocity]. When an
@@ -848,28 +846,28 @@ public open class NavigationAgent2D : Node() {
    * frequently this function can get agents stuck.
    */
   public final fun setVelocityForced(velocity: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setVelocityForcedPtr, velocity)
+    callPtrMethod_VECTOR2(MethodBindings.setVelocityForcedPtr, velocity)
   }
 
   public final fun setVelocity(velocity: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setVelocityPtr, velocity)
+    callPtrMethod_VECTOR2(MethodBindings.setVelocityPtr, velocity)
   }
 
   public final fun getVelocity(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getVelocityPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getVelocityPtr)
 
   /**
    * Returns the distance to the target position, using the agent's global position. The user must
    * set [targetPosition] in order for this to be accurate.
    */
   public final fun distanceToTarget(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.distanceToTargetPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.distanceToTargetPtr).toFloat()
 
   /**
    * Returns the path query result for the path the agent is currently following.
    */
   public final fun getCurrentNavigationResult(): NavigationPathQueryResult2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurrentNavigationResultPtr) as NavigationPathQueryResult2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCurrentNavigationResultPtr) as NavigationPathQueryResult2D?)
 
   /**
    * Returns this agent's current path from start to finish in global coordinates. The path only
@@ -880,13 +878,13 @@ public open class NavigationAgent2D : Node() {
    * also updates the internal path logic.
    */
   public final fun getCurrentNavigationPath(): PackedVector2Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getCurrentNavigationPathPtr)
+      callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getCurrentNavigationPathPtr)
 
   /**
    * Returns which index the agent is currently on in the navigation path's [PackedVector2Array].
    */
   public final fun getCurrentNavigationPathIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCurrentNavigationPathIndexPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getCurrentNavigationPathIndexPtr).toInt()
 
   /**
    * Returns `true` if the agent reached the target, i.e. the agent moved within
@@ -894,13 +892,13 @@ public open class NavigationAgent2D : Node() {
    * but it should always be possible to reach the final position. See [getFinalPosition].
    */
   public final fun isTargetReached(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTargetReachedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isTargetReachedPtr)
 
   /**
    * Returns `true` if [getFinalPosition] is within [targetDesiredDistance] of the [targetPosition].
    */
   public final fun isTargetReachable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTargetReachablePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isTargetReachablePtr)
 
   /**
    * Returns `true` if the agent's navigation has finished. If the target is reachable, navigation
@@ -911,7 +909,7 @@ public open class NavigationAgent2D : Node() {
    * avoids jittering the standing agent due to calling repeated path updates.
    */
   public final fun isNavigationFinished(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isNavigationFinishedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isNavigationFinishedPtr)
 
   /**
    * Returns the reachable final position of the current navigation path in global coordinates. This
@@ -919,28 +917,28 @@ public open class NavigationAgent2D : Node() {
    * the [signal path_changed] signal.
    */
   public final fun getFinalPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getFinalPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getFinalPositionPtr)
 
   public final fun setAvoidanceLayers(layers: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAvoidanceLayersPtr, layers)
+    callPtrMethod_LONG(MethodBindings.setAvoidanceLayersPtr, layers)
   }
 
   public final fun getAvoidanceLayers(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAvoidanceLayersPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getAvoidanceLayersPtr)
 
   public final fun setAvoidanceMask(mask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAvoidanceMaskPtr, mask)
+    callPtrMethod_LONG(MethodBindings.setAvoidanceMaskPtr, mask)
   }
 
   public final fun getAvoidanceMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAvoidanceMaskPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getAvoidanceMaskPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [avoidanceLayers] bitmask,
    * given a [layerNumber] between 1 and 32.
    */
   public final fun setAvoidanceLayerValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAvoidanceLayerValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAvoidanceLayerValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -948,14 +946,14 @@ public open class NavigationAgent2D : Node() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getAvoidanceLayerValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getAvoidanceLayerValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getAvoidanceLayerValuePtr, layerNumber.toLong())
 
   /**
    * Based on [value], enables or disables the specified mask in the [avoidanceMask] bitmask, given
    * a [maskNumber] between 1 and 32.
    */
   public final fun setAvoidanceMaskValue(maskNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAvoidanceMaskValuePtr, maskNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAvoidanceMaskValuePtr, maskNumber.toLong(), value)
   }
 
   /**
@@ -963,49 +961,49 @@ public open class NavigationAgent2D : Node() {
    * [maskNumber] between 1 and 32.
    */
   public final fun getAvoidanceMaskValue(maskNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getAvoidanceMaskValuePtr, maskNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getAvoidanceMaskValuePtr, maskNumber.toLong())
 
   public final fun setAvoidancePriority(priority: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAvoidancePriorityPtr, priority.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAvoidancePriorityPtr, priority.toDouble())
   }
 
   public final fun getAvoidancePriority(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAvoidancePriorityPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAvoidancePriorityPtr).toFloat()
 
   public final fun setDebugEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDebugEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setDebugEnabledPtr, enabled)
   }
 
   public final fun getDebugEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getDebugEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getDebugEnabledPtr)
 
   public final fun setDebugUseCustom(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDebugUseCustomPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setDebugUseCustomPtr, enabled)
   }
 
   public final fun getDebugUseCustom(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getDebugUseCustomPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getDebugUseCustomPtr)
 
   public final fun setDebugPathCustomColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setDebugPathCustomColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setDebugPathCustomColorPtr, color)
   }
 
   public final fun getDebugPathCustomColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getDebugPathCustomColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getDebugPathCustomColorPtr)
 
   public final fun setDebugPathCustomPointSize(pointSize: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDebugPathCustomPointSizePtr, pointSize.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDebugPathCustomPointSizePtr, pointSize.toDouble())
   }
 
   public final fun getDebugPathCustomPointSize(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDebugPathCustomPointSizePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDebugPathCustomPointSizePtr).toFloat()
 
   public final fun setDebugPathCustomLineWidth(lineWidth: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDebugPathCustomLineWidthPtr, lineWidth.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDebugPathCustomLineWidthPtr, lineWidth.toDouble())
   }
 
   public final fun getDebugPathCustomLineWidth(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDebugPathCustomLineWidthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDebugPathCustomLineWidthPtr).toFloat()
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -95,11 +94,11 @@ public open class InputEventWithModifiers internal constructor() : InputEventFro
   }
 
   public final fun setCommandOrControlAutoremap(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCommandOrControlAutoremapPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCommandOrControlAutoremapPtr, enable)
   }
 
   public final fun isCommandOrControlAutoremap(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCommandOrControlAutoremapPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCommandOrControlAutoremapPtr)
 
   /**
    * On macOS, returns `true` if [kbd]Meta[/kbd] ([kbd]Cmd[/kbd]) is pressed.
@@ -107,41 +106,40 @@ public open class InputEventWithModifiers internal constructor() : InputEventFro
    * On other platforms, returns `true` if [kbd]Ctrl[/kbd] is pressed.
    */
   public final fun isCommandOrControlPressed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCommandOrControlPressedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCommandOrControlPressedPtr)
 
   public final fun setAltPressed(pressed: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAltPressedPtr, pressed)
+    callPtrMethod_BOOL(MethodBindings.setAltPressedPtr, pressed)
   }
 
-  public final fun isAltPressed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAltPressedPtr)
+  public final fun isAltPressed(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isAltPressedPtr)
 
   public final fun setShiftPressed(pressed: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setShiftPressedPtr, pressed)
+    callPtrMethod_BOOL(MethodBindings.setShiftPressedPtr, pressed)
   }
 
   public final fun isShiftPressed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isShiftPressedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isShiftPressedPtr)
 
   public final fun setCtrlPressed(pressed: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCtrlPressedPtr, pressed)
+    callPtrMethod_BOOL(MethodBindings.setCtrlPressedPtr, pressed)
   }
 
   public final fun isCtrlPressed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCtrlPressedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCtrlPressedPtr)
 
   public final fun setMetaPressed(pressed: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMetaPressedPtr, pressed)
+    callPtrMethod_BOOL(MethodBindings.setMetaPressedPtr, pressed)
   }
 
   public final fun isMetaPressed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMetaPressedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isMetaPressedPtr)
 
   /**
    * Returns the keycode combination of modifier keys.
    */
   public final fun getModifiersMask(): KeyModifierMask =
-      KeyModifierMask(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getModifiersMaskPtr))
+      KeyModifierMask(callPtrMethod0_ret_LONG(MethodBindings.getModifiersMaskPtr))
 
   public companion object {
     @JvmField

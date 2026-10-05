@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_ANY
 import godot.callMethod_ANY
@@ -62,18 +61,16 @@ public open class RDPipelineSpecializationConstant : RefCounted() {
   }
 
   public final fun setValue(`value`: Any?): Unit {
-    TransferContext.callMethod_ANY(ptr, objectID.id, MethodBindings.setValuePtr, value)
+    callMethod_ANY(MethodBindings.setValuePtr, value)
   }
 
-  public final fun getValue(): Any? =
-      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.getValuePtr)
+  public final fun getValue(): Any? = callMethod0_ret_ANY(MethodBindings.getValuePtr)
 
   public final fun setConstantId(constantId: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setConstantIdPtr, constantId)
+    callPtrMethod_LONG(MethodBindings.setConstantIdPtr, constantId)
   }
 
-  public final fun getConstantId(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConstantIdPtr)
+  public final fun getConstantId(): Long = callPtrMethod0_ret_LONG(MethodBindings.getConstantIdPtr)
 
   public companion object {
     @JvmField

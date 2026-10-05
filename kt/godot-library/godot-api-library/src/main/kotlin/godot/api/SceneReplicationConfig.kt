@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod_NODE_PATH
@@ -42,7 +41,7 @@ public open class SceneReplicationConfig : Resource() {
    * Returns a list of synchronized property [NodePath]s.
    */
   public final fun getProperties(): VariantArray<NodePath> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getPropertiesPtr) as VariantArray<NodePath>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getPropertiesPtr) as VariantArray<NodePath>)
 
   /**
    * Adds the property identified by the given [path] to the list of the properties being
@@ -53,54 +52,54 @@ public open class SceneReplicationConfig : Resource() {
    */
   @JvmOverloads
   public final fun addProperty(path: NodePath, index: Int = -1): Unit {
-    TransferContext.callPtrMethod_NODE_PATH_LONG(ptr, objectID.id, MethodBindings.addPropertyPtr, path, index.toLong())
+    callPtrMethod_NODE_PATH_LONG(MethodBindings.addPropertyPtr, path, index.toLong())
   }
 
   /**
    * Returns `true` if the given [path] is configured for synchronization.
    */
   public final fun hasProperty(path: NodePath): Boolean =
-      TransferContext.callPtrMethod_NODE_PATH_ret_BOOL(ptr, objectID.id, MethodBindings.hasPropertyPtr, path)
+      callPtrMethod_NODE_PATH_ret_BOOL(MethodBindings.hasPropertyPtr, path)
 
   /**
    * Removes the property identified by the given [path] from the configuration.
    */
   public final fun removeProperty(path: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.removePropertyPtr, path)
+    callPtrMethod_NODE_PATH(MethodBindings.removePropertyPtr, path)
   }
 
   /**
    * Finds the index of the given [path].
    */
   public final fun propertyGetIndex(path: NodePath): Int =
-      TransferContext.callPtrMethod_NODE_PATH_ret_LONG(ptr, objectID.id, MethodBindings.propertyGetIndexPtr, path).toInt()
+      callPtrMethod_NODE_PATH_ret_LONG(MethodBindings.propertyGetIndexPtr, path).toInt()
 
   /**
    * Returns `true` if the property identified by the given [path] is configured to be synchronized
    * on spawn.
    */
   public final fun propertyGetSpawn(path: NodePath): Boolean =
-      TransferContext.callPtrMethod_NODE_PATH_ret_BOOL(ptr, objectID.id, MethodBindings.propertyGetSpawnPtr, path)
+      callPtrMethod_NODE_PATH_ret_BOOL(MethodBindings.propertyGetSpawnPtr, path)
 
   /**
    * Sets whether the property identified by the given [path] is configured to be synchronized on
    * spawn.
    */
   public final fun propertySetSpawn(path: NodePath, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_NODE_PATH_BOOL(ptr, objectID.id, MethodBindings.propertySetSpawnPtr, path, enabled)
+    callPtrMethod_NODE_PATH_BOOL(MethodBindings.propertySetSpawnPtr, path, enabled)
   }
 
   /**
    * Returns the replication mode for the property identified by the given [path].
    */
   public final fun propertyGetReplicationMode(path: NodePath): ReplicationMode =
-      ReplicationMode.from(TransferContext.callPtrMethod_NODE_PATH_ret_LONG(ptr, objectID.id, MethodBindings.propertyGetReplicationModePtr, path))
+      ReplicationMode.from(callPtrMethod_NODE_PATH_ret_LONG(MethodBindings.propertyGetReplicationModePtr, path))
 
   /**
    * Sets the synchronization mode for the property identified by the given [path].
    */
   public final fun propertySetReplicationMode(path: NodePath, mode: ReplicationMode): Unit {
-    TransferContext.callPtrMethod_NODE_PATH_LONG(ptr, objectID.id, MethodBindings.propertySetReplicationModePtr, path, mode.value)
+    callPtrMethod_NODE_PATH_LONG(MethodBindings.propertySetReplicationModePtr, path, mode.value)
   }
 
   /**
@@ -108,14 +107,14 @@ public open class SceneReplicationConfig : Resource() {
    * on process.
    */
   public final fun propertyGetSync(path: NodePath): Boolean =
-      TransferContext.callPtrMethod_NODE_PATH_ret_BOOL(ptr, objectID.id, MethodBindings.propertyGetSyncPtr, path)
+      callPtrMethod_NODE_PATH_ret_BOOL(MethodBindings.propertyGetSyncPtr, path)
 
   /**
    * Sets whether the property identified by the given [path] is configured to be synchronized on
    * process.
    */
   public final fun propertySetSync(path: NodePath, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_NODE_PATH_BOOL(ptr, objectID.id, MethodBindings.propertySetSyncPtr, path, enabled)
+    callPtrMethod_NODE_PATH_BOOL(MethodBindings.propertySetSyncPtr, path, enabled)
   }
 
   /**
@@ -123,14 +122,14 @@ public open class SceneReplicationConfig : Resource() {
    * synchronized when changes are detected on process.
    */
   public final fun propertyGetWatch(path: NodePath): Boolean =
-      TransferContext.callPtrMethod_NODE_PATH_ret_BOOL(ptr, objectID.id, MethodBindings.propertyGetWatchPtr, path)
+      callPtrMethod_NODE_PATH_ret_BOOL(MethodBindings.propertyGetWatchPtr, path)
 
   /**
    * Sets whether the property identified by the given [path] is configured to be reliably
    * synchronized when changes are detected on process.
    */
   public final fun propertySetWatch(path: NodePath, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_NODE_PATH_BOOL(ptr, objectID.id, MethodBindings.propertySetWatchPtr, path, enabled)
+    callPtrMethod_NODE_PATH_BOOL(MethodBindings.propertySetWatchPtr, path, enabled)
   }
 
   /**

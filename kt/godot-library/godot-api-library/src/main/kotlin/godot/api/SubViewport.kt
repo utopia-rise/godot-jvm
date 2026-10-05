@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -181,46 +180,45 @@ public open class SubViewport : Viewport() {
   }
 
   public final fun setSize(size: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR2I(MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector2i = callPtrMethod0_ret_VECTOR2I(MethodBindings.getSizePtr)
 
   public final fun setSize2dOverride(size: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setSize2dOverridePtr, size)
+    callPtrMethod_VECTOR2I(MethodBindings.setSize2dOverridePtr, size)
   }
 
   public final fun getSize2dOverride(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getSize2dOverridePtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.getSize2dOverridePtr)
 
   public final fun setSize2dOverrideStretch(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setSize2dOverrideStretchPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setSize2dOverrideStretchPtr, enable)
   }
 
   public final fun isSize2dOverrideStretchEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSize2dOverrideStretchEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isSize2dOverrideStretchEnabledPtr)
 
   public final fun setViewCount(viewCount: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setViewCountPtr, viewCount.toLong())
+    callPtrMethod_LONG(MethodBindings.setViewCountPtr, viewCount.toLong())
   }
 
   public final fun getViewCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getViewCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getViewCountPtr).toInt()
 
   public final fun setUpdateMode(mode: UpdateMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setUpdateModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setUpdateModePtr, mode.value)
   }
 
   public final fun getUpdateMode(): UpdateMode =
-      UpdateMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getUpdateModePtr))
+      UpdateMode.from(callPtrMethod0_ret_LONG(MethodBindings.getUpdateModePtr))
 
   public final fun setClearMode(mode: ClearMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setClearModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setClearModePtr, mode.value)
   }
 
   public final fun getClearMode(): ClearMode =
-      ClearMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getClearModePtr))
+      ClearMode.from(callPtrMethod0_ret_LONG(MethodBindings.getClearModePtr))
 
   public enum class ClearMode(
     public override val `value`: Long,

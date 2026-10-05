@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -123,21 +122,20 @@ public open class SkeletonModifier3D : Node3D() {
    * Returns the parent [Skeleton3D] node if it exists. Otherwise, returns `null`.
    */
   public final fun getSkeleton(): Skeleton3D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getSkeletonPtr) as Skeleton3D?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getSkeletonPtr) as Skeleton3D?)
 
   public final fun setActive(active: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setActivePtr, active)
+    callPtrMethod_BOOL(MethodBindings.setActivePtr, active)
   }
 
-  public final fun isActive(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isActivePtr)
+  public final fun isActive(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isActivePtr)
 
   public final fun setInfluence(influence: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setInfluencePtr, influence.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setInfluencePtr, influence.toDouble())
   }
 
   public final fun getInfluence(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getInfluencePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getInfluencePtr).toFloat()
 
   public enum class BoneAxis(
     public override val `value`: Long,

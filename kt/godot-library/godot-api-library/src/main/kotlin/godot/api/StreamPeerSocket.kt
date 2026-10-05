@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_LONG
@@ -32,20 +31,19 @@ public open class StreamPeerSocket internal constructor() : StreamPeer() {
   /**
    * Polls the socket, updating its state. See [getStatus].
    */
-  public final fun poll(): Error =
-      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.pollPtr))
+  public final fun poll(): Error = Error.from(callPtrMethod0_ret_LONG(MethodBindings.pollPtr))
 
   /**
    * Returns the status of the connection.
    */
   public final fun getStatus(): Status =
-      Status.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStatusPtr))
+      Status.from(callPtrMethod0_ret_LONG(MethodBindings.getStatusPtr))
 
   /**
    * Disconnects from host.
    */
   public final fun disconnectFromHost(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.disconnectFromHostPtr)
+    callPtrMethod0(MethodBindings.disconnectFromHostPtr)
   }
 
   public enum class Status(

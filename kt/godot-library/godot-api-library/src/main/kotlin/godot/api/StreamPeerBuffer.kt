@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_LONG
@@ -103,47 +102,46 @@ public open class StreamPeerBuffer : StreamPeer() {
    * Moves the cursor to the specified position. [position] must be a valid index of [dataArray].
    */
   public final fun seek(position: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.seekPtr, position.toLong())
+    callPtrMethod_LONG(MethodBindings.seekPtr, position.toLong())
   }
 
   /**
    * Returns the size of [dataArray].
    */
-  public final fun getSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSizePtr).toInt()
+  public final fun getSize(): Int = callPtrMethod0_ret_LONG(MethodBindings.getSizePtr).toInt()
 
   /**
    * Returns the current cursor position.
    */
   public final fun getPosition(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPositionPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getPositionPtr).toInt()
 
   /**
    * Resizes the [dataArray]. This *doesn't* update the cursor.
    */
   public final fun resize(size: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.resizePtr, size.toLong())
+    callPtrMethod_LONG(MethodBindings.resizePtr, size.toLong())
   }
 
   public final fun setDataArray(`data`: PackedByteArray): Unit {
-    TransferContext.callPtrMethod_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.setDataArrayPtr, data)
+    callPtrMethod_PACKED_BYTE_ARRAY(MethodBindings.setDataArrayPtr, data)
   }
 
   public final fun getDataArray(): PackedByteArray =
-      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getDataArrayPtr)
+      callPtrMethod0_ret_PACKED_BYTE_ARRAY(MethodBindings.getDataArrayPtr)
 
   /**
    * Clears the [dataArray] and resets the cursor.
    */
   public final fun clear(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
+    callPtrMethod0(MethodBindings.clearPtr)
   }
 
   /**
    * Returns a new [StreamPeerBuffer] with the same [dataArray] content.
    */
   public final fun duplicate(): StreamPeerBuffer? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.duplicatePtr) as StreamPeerBuffer?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.duplicatePtr) as StreamPeerBuffer?)
 
   public companion object {
     @JvmField

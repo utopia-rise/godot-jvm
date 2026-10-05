@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG_ret_TRANSFORM3D
 import godot.callPtrMethod_RID_LONG_ret_PACKED_VECTOR2_ARRAY
@@ -36,13 +35,13 @@ public open class OpenXRSpatialComponentPolygon2DList : OpenXRSpatialComponentDa
    * Returns the transform for positioning our polygon for the entity at this [index].
    */
   public final fun getTransform(index: Long): Transform3D =
-      TransferContext.callPtrMethod_LONG_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getTransformPtr, index)
+      callPtrMethod_LONG_ret_TRANSFORM3D(MethodBindings.getTransformPtr, index)
 
   /**
    * Returns the polygon vertices for the entity at this [index].
    */
   public final fun getVertices(snapshot: RID, index: Long): PackedVector2Array =
-      TransferContext.callPtrMethod_RID_LONG_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getVerticesPtr, snapshot, index)
+      callPtrMethod_RID_LONG_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getVerticesPtr, snapshot, index)
 
   public companion object {
     @JvmField

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_STRING_OBJECT_ret_LONG
 import godot.callMethod_LONG_ret_STRING
@@ -225,7 +224,7 @@ public open class WebSocketMultiplayerPeer : MultiplayerPeer() {
    */
   @JvmOverloads
   public final fun createClient(url: String, tlsClientOptions: TLSOptions? = null): Error =
-      Error.from(TransferContext.callMethod_STRING_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.createClientPtr, url, tlsClientOptions))
+      Error.from(callMethod_STRING_OBJECT_ret_LONG(MethodBindings.createClientPtr, url, tlsClientOptions))
 
   /**
    * Starts a new multiplayer server listening on the given [port]. You can optionally specify a
@@ -237,67 +236,67 @@ public open class WebSocketMultiplayerPeer : MultiplayerPeer() {
     bindAddress: String = "*",
     tlsServerOptions: TLSOptions? = null,
   ): Error =
-      Error.from(TransferContext.callMethod_LONG_STRING_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.createServerPtr, port.toLong(), bindAddress, tlsServerOptions))
+      Error.from(callMethod_LONG_STRING_OBJECT_ret_LONG(MethodBindings.createServerPtr, port.toLong(), bindAddress, tlsServerOptions))
 
   /**
    * Returns the [WebSocketPeer] associated to the given [peerId].
    */
   public final fun getPeer(peerId: Int): WebSocketPeer? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPeerPtr, peerId.toLong()) as WebSocketPeer?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getPeerPtr, peerId.toLong()) as WebSocketPeer?)
 
   /**
    * Returns the IP address of the given peer.
    */
   public final fun getPeerAddress(id: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getPeerAddressPtr, id.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getPeerAddressPtr, id.toLong())
 
   /**
    * Returns the remote port of the given peer.
    */
   public final fun getPeerPort(id: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getPeerPortPtr, id.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getPeerPortPtr, id.toLong()).toInt()
 
   public final fun getSupportedProtocols(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getSupportedProtocolsPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getSupportedProtocolsPtr)
 
   public final fun setSupportedProtocols(protocols: PackedStringArray): Unit {
-    TransferContext.callPtrMethod_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setSupportedProtocolsPtr, protocols)
+    callPtrMethod_PACKED_STRING_ARRAY(MethodBindings.setSupportedProtocolsPtr, protocols)
   }
 
   public final fun getHandshakeHeaders(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getHandshakeHeadersPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getHandshakeHeadersPtr)
 
   public final fun setHandshakeHeaders(protocols: PackedStringArray): Unit {
-    TransferContext.callPtrMethod_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setHandshakeHeadersPtr, protocols)
+    callPtrMethod_PACKED_STRING_ARRAY(MethodBindings.setHandshakeHeadersPtr, protocols)
   }
 
   public final fun getInboundBufferSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInboundBufferSizePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getInboundBufferSizePtr).toInt()
 
   public final fun setInboundBufferSize(bufferSize: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInboundBufferSizePtr, bufferSize.toLong())
+    callPtrMethod_LONG(MethodBindings.setInboundBufferSizePtr, bufferSize.toLong())
   }
 
   public final fun getOutboundBufferSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOutboundBufferSizePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getOutboundBufferSizePtr).toInt()
 
   public final fun setOutboundBufferSize(bufferSize: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOutboundBufferSizePtr, bufferSize.toLong())
+    callPtrMethod_LONG(MethodBindings.setOutboundBufferSizePtr, bufferSize.toLong())
   }
 
   public final fun getHandshakeTimeout(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHandshakeTimeoutPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getHandshakeTimeoutPtr).toFloat()
 
   public final fun setHandshakeTimeout(timeout: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHandshakeTimeoutPtr, timeout.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setHandshakeTimeoutPtr, timeout.toDouble())
   }
 
   public final fun setMaxQueuedPackets(maxQueuedPackets: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxQueuedPacketsPtr, maxQueuedPackets.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaxQueuedPacketsPtr, maxQueuedPackets.toLong())
   }
 
   public final fun getMaxQueuedPackets(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxQueuedPacketsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMaxQueuedPacketsPtr).toInt()
 
   public companion object {
     @JvmField

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -123,33 +122,31 @@ public open class InputEventScreenTouch : InputEventFromWindow() {
   }
 
   public final fun setIndex(index: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setIndexPtr, index.toLong())
+    callPtrMethod_LONG(MethodBindings.setIndexPtr, index.toLong())
   }
 
-  public final fun getIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getIndexPtr).toInt()
+  public final fun getIndex(): Int = callPtrMethod0_ret_LONG(MethodBindings.getIndexPtr).toInt()
 
   public final fun setPosition(position: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setPositionPtr, position)
+    callPtrMethod_VECTOR2(MethodBindings.setPositionPtr, position)
   }
 
   public final fun getPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getPositionPtr)
 
   public final fun setPressed(pressed: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPressedPtr, pressed)
+    callPtrMethod_BOOL(MethodBindings.setPressedPtr, pressed)
   }
 
   public final fun setCanceled(canceled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCanceledPtr, canceled)
+    callPtrMethod_BOOL(MethodBindings.setCanceledPtr, canceled)
   }
 
   public final fun setDoubleTap(doubleTap: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDoubleTapPtr, doubleTap)
+    callPtrMethod_BOOL(MethodBindings.setDoubleTapPtr, doubleTap)
   }
 
-  public final fun isDoubleTap(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDoubleTapPtr)
+  public final fun isDoubleTap(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isDoubleTapPtr)
 
   public companion object {
     @JvmField

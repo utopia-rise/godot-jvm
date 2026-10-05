@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_COLOR
 import godot.callPtrMethod0_ret_DOUBLE
@@ -147,38 +146,38 @@ public open class GLTFSpecGloss : Resource() {
   }
 
   public final fun getDiffuseImg(): Image? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getDiffuseImgPtr) as Image?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getDiffuseImgPtr) as Image?)
 
   public final fun setDiffuseImg(diffuseImg: Image?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setDiffuseImgPtr, diffuseImg)
+    callPtrMethod_OBJECT(MethodBindings.setDiffuseImgPtr, diffuseImg)
   }
 
   public final fun getDiffuseFactor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getDiffuseFactorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getDiffuseFactorPtr)
 
   public final fun setDiffuseFactor(diffuseFactor: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setDiffuseFactorPtr, diffuseFactor)
+    callPtrMethod_COLOR(MethodBindings.setDiffuseFactorPtr, diffuseFactor)
   }
 
   public final fun getGlossFactor(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getGlossFactorPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getGlossFactorPtr).toFloat()
 
   public final fun setGlossFactor(glossFactor: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setGlossFactorPtr, glossFactor.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setGlossFactorPtr, glossFactor.toDouble())
   }
 
   public final fun getSpecularFactor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getSpecularFactorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getSpecularFactorPtr)
 
   public final fun setSpecularFactor(specularFactor: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setSpecularFactorPtr, specularFactor)
+    callPtrMethod_COLOR(MethodBindings.setSpecularFactorPtr, specularFactor)
   }
 
   public final fun getSpecGlossImg(): Image? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSpecGlossImgPtr) as Image?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getSpecGlossImgPtr) as Image?)
 
   public final fun setSpecGlossImg(specGlossImg: Image?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setSpecGlossImgPtr, specGlossImg)
+    callPtrMethod_OBJECT(MethodBindings.setSpecGlossImgPtr, specGlossImg)
   }
 
   public companion object {

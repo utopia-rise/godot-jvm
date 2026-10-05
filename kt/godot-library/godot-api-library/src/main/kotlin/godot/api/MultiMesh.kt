@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_AABB
@@ -264,79 +263,79 @@ public open class MultiMesh : Resource() {
   }
 
   public final fun setMesh(mesh: Mesh?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMeshPtr, mesh)
+    callPtrMethod_OBJECT(MethodBindings.setMeshPtr, mesh)
   }
 
   public final fun getMesh(): Mesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMeshPtr) as Mesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMeshPtr) as Mesh?)
 
   public final fun setUseColors(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseColorsPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUseColorsPtr, enable)
   }
 
   public final fun isUsingColors(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingColorsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsingColorsPtr)
 
   public final fun setUseCustomData(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseCustomDataPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUseCustomDataPtr, enable)
   }
 
   public final fun isUsingCustomData(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingCustomDataPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsingCustomDataPtr)
 
   public final fun setTransformFormat(format: TransformFormat): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTransformFormatPtr, format.value)
+    callPtrMethod_LONG(MethodBindings.setTransformFormatPtr, format.value)
   }
 
   public final fun getTransformFormat(): TransformFormat =
-      TransformFormat.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTransformFormatPtr))
+      TransformFormat.from(callPtrMethod0_ret_LONG(MethodBindings.getTransformFormatPtr))
 
   public final fun setInstanceCount(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInstanceCountPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setInstanceCountPtr, count.toLong())
   }
 
   public final fun getInstanceCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInstanceCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getInstanceCountPtr).toInt()
 
   public final fun setVisibleInstanceCount(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVisibleInstanceCountPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setVisibleInstanceCountPtr, count.toLong())
   }
 
   public final fun getVisibleInstanceCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibleInstanceCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getVisibleInstanceCountPtr).toInt()
 
   public final fun setPhysicsInterpolationQuality(quality: PhysicsInterpolationQuality): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPhysicsInterpolationQualityPtr, quality.value)
+    callPtrMethod_LONG(MethodBindings.setPhysicsInterpolationQualityPtr, quality.value)
   }
 
   public final fun getPhysicsInterpolationQuality(): PhysicsInterpolationQuality =
-      PhysicsInterpolationQuality.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPhysicsInterpolationQualityPtr))
+      PhysicsInterpolationQuality.from(callPtrMethod0_ret_LONG(MethodBindings.getPhysicsInterpolationQualityPtr))
 
   /**
    * Sets the [Transform3D] for a specific instance.
    */
   public final fun setInstanceTransform(instance: Int, transform: Transform3D): Unit {
-    TransferContext.callPtrMethod_LONG_TRANSFORM3D(ptr, objectID.id, MethodBindings.setInstanceTransformPtr, instance.toLong(), transform)
+    callPtrMethod_LONG_TRANSFORM3D(MethodBindings.setInstanceTransformPtr, instance.toLong(), transform)
   }
 
   /**
    * Sets the [Transform2D] for a specific instance.
    */
   public final fun setInstanceTransform2d(instance: Int, transform: Transform2D): Unit {
-    TransferContext.callPtrMethod_LONG_TRANSFORM2D(ptr, objectID.id, MethodBindings.setInstanceTransform2dPtr, instance.toLong(), transform)
+    callPtrMethod_LONG_TRANSFORM2D(MethodBindings.setInstanceTransform2dPtr, instance.toLong(), transform)
   }
 
   /**
    * Returns the [Transform3D] of a specific instance.
    */
   public final fun getInstanceTransform(instance: Int): Transform3D =
-      TransferContext.callPtrMethod_LONG_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getInstanceTransformPtr, instance.toLong())
+      callPtrMethod_LONG_ret_TRANSFORM3D(MethodBindings.getInstanceTransformPtr, instance.toLong())
 
   /**
    * Returns the [Transform2D] of a specific instance.
    */
   public final fun getInstanceTransform2d(instance: Int): Transform2D =
-      TransferContext.callPtrMethod_LONG_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getInstanceTransform2dPtr, instance.toLong())
+      callPtrMethod_LONG_ret_TRANSFORM2D(MethodBindings.getInstanceTransform2dPtr, instance.toLong())
 
   /**
    * Sets the color of a specific instance by *multiplying* the mesh's existing vertex colors. This
@@ -351,14 +350,14 @@ public open class MultiMesh : Resource() {
    * (`Color(1, 1, 1)`).
    */
   public final fun setInstanceColor(instance: Int, color: Color): Unit {
-    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.setInstanceColorPtr, instance.toLong(), color)
+    callPtrMethod_LONG_COLOR(MethodBindings.setInstanceColorPtr, instance.toLong(), color)
   }
 
   /**
    * Gets a specific instance's color multiplier.
    */
   public final fun getInstanceColor(instance: Int): Color =
-      TransferContext.callPtrMethod_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getInstanceColorPtr, instance.toLong())
+      callPtrMethod_LONG_ret_COLOR(MethodBindings.getInstanceColorPtr, instance.toLong())
 
   /**
    * Sets custom data for a specific instance. [customData] is a [Color] type only to contain 4
@@ -373,14 +372,14 @@ public open class MultiMesh : Resource() {
    * `INSTANCE_CUSTOM`.
    */
   public final fun setInstanceCustomData(instance: Int, customData: Color): Unit {
-    TransferContext.callPtrMethod_LONG_COLOR(ptr, objectID.id, MethodBindings.setInstanceCustomDataPtr, instance.toLong(), customData)
+    callPtrMethod_LONG_COLOR(MethodBindings.setInstanceCustomDataPtr, instance.toLong(), customData)
   }
 
   /**
    * Returns the custom data that has been set for a specific instance.
    */
   public final fun getInstanceCustomData(instance: Int): Color =
-      TransferContext.callPtrMethod_LONG_ret_COLOR(ptr, objectID.id, MethodBindings.getInstanceCustomDataPtr, instance.toLong())
+      callPtrMethod_LONG_ret_COLOR(MethodBindings.getInstanceCustomDataPtr, instance.toLong())
 
   /**
    * When using *physics interpolation*, this function allows you to prevent interpolation on an
@@ -390,7 +389,7 @@ public open class MultiMesh : Resource() {
    * placing an instance such as a bullet to prevent graphical glitches.
    */
   public final fun resetInstancePhysicsInterpolation(instance: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.resetInstancePhysicsInterpolationPtr, instance.toLong())
+    callPtrMethod_LONG(MethodBindings.resetInstancePhysicsInterpolationPtr, instance.toLong())
   }
 
   /**
@@ -401,27 +400,25 @@ public open class MultiMesh : Resource() {
    * initially placing instances to prevent graphical glitches.
    */
   public final fun resetInstancesPhysicsInterpolation(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.resetInstancesPhysicsInterpolationPtr)
+    callPtrMethod0(MethodBindings.resetInstancesPhysicsInterpolationPtr)
   }
 
   public final fun setCustomAabb(aabb: AABB): Unit {
-    TransferContext.callPtrMethod_AABB(ptr, objectID.id, MethodBindings.setCustomAabbPtr, aabb)
+    callPtrMethod_AABB(MethodBindings.setCustomAabbPtr, aabb)
   }
 
-  public final fun getCustomAabb(): AABB =
-      TransferContext.callPtrMethod0_ret_AABB(ptr, objectID.id, MethodBindings.getCustomAabbPtr)
+  public final fun getCustomAabb(): AABB = callPtrMethod0_ret_AABB(MethodBindings.getCustomAabbPtr)
 
   /**
    * Returns the visibility axis-aligned bounding box in local space.
    */
-  public final fun getAabb(): AABB =
-      TransferContext.callPtrMethod0_ret_AABB(ptr, objectID.id, MethodBindings.getAabbPtr)
+  public final fun getAabb(): AABB = callPtrMethod0_ret_AABB(MethodBindings.getAabbPtr)
 
   public final fun getBuffer(): PackedFloat32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.getBufferPtr)
+      callPtrMethod0_ret_PACKED_FLOAT_32_ARRAY(MethodBindings.getBufferPtr)
 
   public final fun setBuffer(buffer: PackedFloat32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setBufferPtr, buffer)
+    callPtrMethod_PACKED_FLOAT_32_ARRAY(MethodBindings.setBufferPtr, buffer)
   }
 
   /**
@@ -437,7 +434,7 @@ public open class MultiMesh : Resource() {
    */
   public final fun setBufferInterpolated(bufferCurr: PackedFloat32Array,
       bufferPrev: PackedFloat32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.setBufferInterpolatedPtr, bufferCurr, bufferPrev)
+    callPtrMethod_PACKED_FLOAT_32_ARRAY_PACKED_FLOAT_32_ARRAY(MethodBindings.setBufferInterpolatedPtr, bufferCurr, bufferPrev)
   }
 
   public enum class TransformFormat(

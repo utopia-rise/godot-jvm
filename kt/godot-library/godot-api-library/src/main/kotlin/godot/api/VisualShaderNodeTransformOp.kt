@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -42,11 +41,11 @@ public open class VisualShaderNodeTransformOp : VisualShaderNode() {
   }
 
   public final fun setOperator(op: Operator): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOperatorPtr, op.value)
+    callPtrMethod_LONG(MethodBindings.setOperatorPtr, op.value)
   }
 
   public final fun getOperator(): Operator =
-      Operator.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOperatorPtr))
+      Operator.from(callPtrMethod0_ret_LONG(MethodBindings.getOperatorPtr))
 
   public enum class Operator(
     public override val `value`: Long,

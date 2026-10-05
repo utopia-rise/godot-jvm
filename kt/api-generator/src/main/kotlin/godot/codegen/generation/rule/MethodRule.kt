@@ -12,7 +12,6 @@ import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.UNIT
 import godot.codegen.constants.API
 import godot.codegen.constants.Core
-import godot.codegen.constants.Internal
 import godot.codegen.constants.TypeIdentifier
 import godot.codegen.constants.Utils
 import godot.codegen.constants.VariantConverter
@@ -126,12 +125,12 @@ class MethodRule : GodotApiRule<EnrichedMethodTask>(), BaseMethodeRule {
             method.isVararg,
             converter,
             method.type.isObjectSubClass() && context.isRefCounted(method.type.identifier),
+            method.isStatic,
         )
         context.methodSignatures.add(signature)
 
         val call = CodeBlock.of(
-            "%T.%M(${callArguments(method)})",
-            Internal.transferContext,
+            "%M(${callArguments(method)})",
             MemberName(godotPackage, signature.name),
             clazz.className.nestedClass(API.methodBindingsInnerClassName),
             MemberName(API.`object`.packageName, "${method.name}Ptr"),
@@ -150,10 +149,9 @@ class MethodRule : GodotApiRule<EnrichedMethodTask>(), BaseMethodeRule {
         }
     }
 
-    /** The caller, the method bind and then the arguments; the method bind carries its own `%T.%M` placeholders. */
+    /** The method bind and then the arguments; the method bind carries its own `%T.%M` placeholders. */
     private fun callArguments(method: EnrichedMethod) = buildString {
-        append(if (method.isStatic) "0L,·0L" else "ptr,·objectID.id")
-        append(",·%T.%M")
+        append("%T.%M")
         for (argument in method.arguments) {
             append(",·").append(argument.name).append(argument.getToBufferCastingMethod())
             if (argument.type.isEnum()) append(".value")

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -156,32 +155,30 @@ public open class AtlasTexture : Texture2D() {
   }
 
   public final fun setAtlas(atlas: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setAtlasPtr, atlas)
+    callPtrMethod_OBJECT(MethodBindings.setAtlasPtr, atlas)
   }
 
   public final fun getAtlas(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getAtlasPtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getAtlasPtr) as Texture2D?)
 
   public final fun setRegion(region: Rect2): Unit {
-    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setRegionPtr, region)
+    callPtrMethod_RECT2(MethodBindings.setRegionPtr, region)
   }
 
-  public final fun getRegion(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRegionPtr)
+  public final fun getRegion(): Rect2 = callPtrMethod0_ret_RECT2(MethodBindings.getRegionPtr)
 
   public final fun setMargin(margin: Rect2): Unit {
-    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setMarginPtr, margin)
+    callPtrMethod_RECT2(MethodBindings.setMarginPtr, margin)
   }
 
-  public final fun getMargin(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getMarginPtr)
+  public final fun getMargin(): Rect2 = callPtrMethod0_ret_RECT2(MethodBindings.getMarginPtr)
 
   public final fun setFilterClip(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFilterClipPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setFilterClipPtr, enable)
   }
 
   public final fun hasFilterClip(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasFilterClipPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.hasFilterClipPtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

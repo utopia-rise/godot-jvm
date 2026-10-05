@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -71,28 +70,27 @@ public open class OpenXRSpatialEntityTracker : XRPositionalTracker() {
    * Sets the spatial context used to create this tracker.
    */
   public final fun setSpatialContext(spatialContext: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setSpatialContextPtr, spatialContext)
+    callPtrMethod_RID(MethodBindings.setSpatialContextPtr, spatialContext)
   }
 
   /**
    * Gets the spatial context used to create this [OpenXRSpatialEntityTracker].
    */
   public final fun getSpatialContext(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getSpatialContextPtr)
+      callPtrMethod0_ret_RID(MethodBindings.getSpatialContextPtr)
 
   public final fun setEntity(entity: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setEntityPtr, entity)
+    callPtrMethod_RID(MethodBindings.setEntityPtr, entity)
   }
 
-  public final fun getEntity(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getEntityPtr)
+  public final fun getEntity(): RID = callPtrMethod0_ret_RID(MethodBindings.getEntityPtr)
 
   public final fun setSpatialTrackingState(spatialTrackingState: EntityTrackingState): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSpatialTrackingStatePtr, spatialTrackingState.value)
+    callPtrMethod_LONG(MethodBindings.setSpatialTrackingStatePtr, spatialTrackingState.value)
   }
 
   public final fun getSpatialTrackingState(): EntityTrackingState =
-      EntityTrackingState.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSpatialTrackingStatePtr))
+      EntityTrackingState.from(callPtrMethod0_ret_LONG(MethodBindings.getSpatialTrackingStatePtr))
 
   /**
    * Gets the head [OpenXRStructureBase] in the next-chain.
@@ -100,7 +98,7 @@ public open class OpenXRSpatialEntityTracker : XRPositionalTracker() {
    * See also [addNext] and [removeNext].
    */
   public final fun getNext(): OpenXRStructureBase? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getNextPtr) as OpenXRStructureBase?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getNextPtr) as OpenXRStructureBase?)
 
   /**
    * Adds a new [OpenXRStructureBase] to the next-chain.
@@ -109,14 +107,14 @@ public open class OpenXRSpatialEntityTracker : XRPositionalTracker() {
    * [removeNext].
    */
   public final fun addNext(next: OpenXRStructureBase?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addNextPtr, next)
+    callPtrMethod_OBJECT(MethodBindings.addNextPtr, next)
   }
 
   /**
    * Removes a [next] object previously added in [addNext] from the next-chain.
    */
   public final fun removeNext(next: OpenXRStructureBase?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeNextPtr, next)
+    callPtrMethod_OBJECT(MethodBindings.removeNextPtr, next)
   }
 
   public enum class EntityTrackingState(

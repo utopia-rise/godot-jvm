@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -136,25 +135,24 @@ public open class FogVolume : VisualInstance3D() {
   }
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR3(MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector3 = callPtrMethod0_ret_VECTOR3(MethodBindings.getSizePtr)
 
   public final fun setShape(shape: RenderingServer.FogVolumeShape): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setShapePtr, shape.value)
+    callPtrMethod_LONG(MethodBindings.setShapePtr, shape.value)
   }
 
   public final fun getShape(): RenderingServer.FogVolumeShape =
-      RenderingServer.FogVolumeShape.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getShapePtr))
+      RenderingServer.FogVolumeShape.from(callPtrMethod0_ret_LONG(MethodBindings.getShapePtr))
 
   public final fun setMaterial(material: Material?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMaterialPtr, material)
+    callPtrMethod_OBJECT(MethodBindings.setMaterialPtr, material)
   }
 
   public final fun getMaterial(): Material? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMaterialPtr) as Material?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMaterialPtr) as Material?)
 
   public companion object {
     @JvmField

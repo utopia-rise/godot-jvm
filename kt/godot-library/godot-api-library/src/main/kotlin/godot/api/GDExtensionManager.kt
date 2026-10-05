@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_ret_BOOL
 import godot.callMethod_STRING_ret_LONG
@@ -92,7 +91,7 @@ public object GDExtensionManager : Object() {
    */
   @JvmStatic
   public final fun loadExtension(path: String): LoadStatus =
-      LoadStatus.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.loadExtensionPtr, path))
+      LoadStatus.from(callMethod_STRING_ret_LONG(MethodBindings.loadExtensionPtr, path))
 
   /**
    * Reloads the extension at the given file path. The [path] needs to point to a valid
@@ -104,7 +103,7 @@ public object GDExtensionManager : Object() {
    */
   @JvmStatic
   public final fun reloadExtension(path: String): LoadStatus =
-      LoadStatus.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.reloadExtensionPtr, path))
+      LoadStatus.from(callMethod_STRING_ret_LONG(MethodBindings.reloadExtensionPtr, path))
 
   /**
    * Unloads an extension by file path. The [path] needs to point to an already loaded
@@ -112,7 +111,7 @@ public object GDExtensionManager : Object() {
    */
   @JvmStatic
   public final fun unloadExtension(path: String): LoadStatus =
-      LoadStatus.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.unloadExtensionPtr, path))
+      LoadStatus.from(callMethod_STRING_ret_LONG(MethodBindings.unloadExtensionPtr, path))
 
   /**
    * Returns `true` if the extension at the given file [path] has already been loaded successfully.
@@ -120,14 +119,14 @@ public object GDExtensionManager : Object() {
    */
   @JvmStatic
   public final fun isExtensionLoaded(path: String): Boolean =
-      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.isExtensionLoadedPtr, path)
+      callMethod_STRING_ret_BOOL(MethodBindings.isExtensionLoadedPtr, path)
 
   /**
    * Returns the file paths of all currently loaded extensions.
    */
   @JvmStatic
   public final fun getLoadedExtensions(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getLoadedExtensionsPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getLoadedExtensionsPtr)
 
   /**
    * Returns the [GDExtension] at the given file [path], or `null` if it has not been loaded or does
@@ -135,7 +134,7 @@ public object GDExtensionManager : Object() {
    */
   @JvmStatic
   public final fun getExtension(path: String): GDExtension? =
-      (TransferContext.callMethod_STRING_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getExtensionPtr, path) as GDExtension?)
+      (callMethod_STRING_ret_OBJECT_REF(MethodBindings.getExtensionPtr, path) as GDExtension?)
 
   public enum class LoadStatus(
     public override val `value`: Long,

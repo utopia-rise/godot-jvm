@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_LONG
@@ -108,32 +107,32 @@ public abstract class Material : Resource() {
   }
 
   public final fun setNextPass(nextPass: Material?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setNextPassPtr, nextPass)
+    callPtrMethod_OBJECT(MethodBindings.setNextPassPtr, nextPass)
   }
 
   public final fun getNextPass(): Material? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getNextPassPtr) as Material?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getNextPassPtr) as Material?)
 
   public final fun setRenderPriority(priority: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRenderPriorityPtr, priority.toLong())
+    callPtrMethod_LONG(MethodBindings.setRenderPriorityPtr, priority.toLong())
   }
 
   public final fun getRenderPriority(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRenderPriorityPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getRenderPriorityPtr).toInt()
 
   /**
    * Only available when running in the editor. Opens a popup that visualizes the generated shader
    * code, including all variants and internal shader code. See also [Shader.inspectNativeShaderCode].
    */
   public final fun inspectNativeShaderCode(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.inspectNativeShaderCodePtr)
+    callPtrMethod0(MethodBindings.inspectNativeShaderCodePtr)
   }
 
   /**
    * Creates a placeholder version of this resource ([PlaceholderMaterial]).
    */
   public final fun createPlaceholder(): Resource? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createPlaceholderPtr) as Resource?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.createPlaceholderPtr) as Resource?)
 
   public companion object {
     @JvmField

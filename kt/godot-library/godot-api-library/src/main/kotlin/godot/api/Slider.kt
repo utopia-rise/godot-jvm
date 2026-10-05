@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -107,39 +106,36 @@ public open class Slider internal constructor() : Range() {
   }
 
   public final fun setTicks(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTicksPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setTicksPtr, count.toLong())
   }
 
-  public final fun getTicks(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTicksPtr).toInt()
+  public final fun getTicks(): Int = callPtrMethod0_ret_LONG(MethodBindings.getTicksPtr).toInt()
 
   public final fun getTicksOnBorders(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getTicksOnBordersPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getTicksOnBordersPtr)
 
   public final fun setTicksOnBorders(ticksOnBorder: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTicksOnBordersPtr, ticksOnBorder)
+    callPtrMethod_BOOL(MethodBindings.setTicksOnBordersPtr, ticksOnBorder)
   }
 
   public final fun getTicksPosition(): TickPosition =
-      TickPosition.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTicksPositionPtr))
+      TickPosition.from(callPtrMethod0_ret_LONG(MethodBindings.getTicksPositionPtr))
 
   public final fun setTicksPosition(ticksOnBorder: TickPosition): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTicksPositionPtr, ticksOnBorder.value)
+    callPtrMethod_LONG(MethodBindings.setTicksPositionPtr, ticksOnBorder.value)
   }
 
   public final fun setEditable(editable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditablePtr, editable)
+    callPtrMethod_BOOL(MethodBindings.setEditablePtr, editable)
   }
 
-  public final fun isEditable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEditablePtr)
+  public final fun isEditable(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isEditablePtr)
 
   public final fun setScrollable(scrollable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setScrollablePtr, scrollable)
+    callPtrMethod_BOOL(MethodBindings.setScrollablePtr, scrollable)
   }
 
-  public final fun isScrollable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isScrollablePtr)
+  public final fun isScrollable(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isScrollablePtr)
 
   public enum class TickPosition(
     public override val `value`: Long,

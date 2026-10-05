@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_VECTOR2_VECTOR2_VECTOR2_VECTOR2_ret_ANY
 import godot.callPtrMethod_PACKED_VECTOR2_ARRAY_DOUBLE_LONG_LONG_ret_ARRAY
@@ -193,7 +192,7 @@ public object Geometry2D : Object() {
     circlePosition: Vector2,
     circleRadius: Float,
   ): Boolean =
-      TransferContext.callPtrMethod_VECTOR2_VECTOR2_DOUBLE_ret_BOOL(ptr, objectID.id, MethodBindings.isPointInCirclePtr, point, circlePosition, circleRadius.toDouble())
+      callPtrMethod_VECTOR2_VECTOR2_DOUBLE_ret_BOOL(MethodBindings.isPointInCirclePtr, point, circlePosition, circleRadius.toDouble())
 
   /**
    * Given the 2D segment ([segmentFrom], [segmentTo]), returns the position on the segment (as a
@@ -209,7 +208,7 @@ public object Geometry2D : Object() {
     circlePosition: Vector2,
     circleRadius: Float,
   ): Float =
-      TransferContext.callPtrMethod_VECTOR2_VECTOR2_VECTOR2_DOUBLE_ret_DOUBLE(ptr, objectID.id, MethodBindings.segmentIntersectsCirclePtr, segmentFrom, segmentTo, circlePosition, circleRadius.toDouble()).toFloat()
+      callPtrMethod_VECTOR2_VECTOR2_VECTOR2_DOUBLE_ret_DOUBLE(MethodBindings.segmentIntersectsCirclePtr, segmentFrom, segmentTo, circlePosition, circleRadius.toDouble()).toFloat()
 
   /**
    * Checks if two line segments intersect, with line `a` between [fromA] and [toA] and line `b`
@@ -223,7 +222,7 @@ public object Geometry2D : Object() {
     fromB: Vector2,
     toB: Vector2,
   ): Any? =
-      TransferContext.callMethod_VECTOR2_VECTOR2_VECTOR2_VECTOR2_ret_ANY(ptr, objectID.id, MethodBindings.segmentIntersectsSegmentPtr, fromA, toA, fromB, toB)
+      callMethod_VECTOR2_VECTOR2_VECTOR2_VECTOR2_ret_ANY(MethodBindings.segmentIntersectsSegmentPtr, fromA, toA, fromB, toB)
 
   /**
    * Returns the point of intersection between the two lines ([fromA], [dirA]) and ([fromB],
@@ -268,7 +267,7 @@ public object Geometry2D : Object() {
     fromB: Vector2,
     dirB: Vector2,
   ): Any? =
-      TransferContext.callMethod_VECTOR2_VECTOR2_VECTOR2_VECTOR2_ret_ANY(ptr, objectID.id, MethodBindings.lineIntersectsLinePtr, fromA, dirA, fromB, dirB)
+      callMethod_VECTOR2_VECTOR2_VECTOR2_VECTOR2_ret_ANY(MethodBindings.lineIntersectsLinePtr, fromA, dirA, fromB, dirB)
 
   /**
    * Given the two 2D segments ([p1], [q1]) and ([p2], [q2]), finds those two points on the two
@@ -282,7 +281,7 @@ public object Geometry2D : Object() {
     p2: Vector2,
     q2: Vector2,
   ): PackedVector2Array =
-      TransferContext.callPtrMethod_VECTOR2_VECTOR2_VECTOR2_VECTOR2_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getClosestPointsBetweenSegmentsPtr, p1, q1, p2, q2)
+      callPtrMethod_VECTOR2_VECTOR2_VECTOR2_VECTOR2_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getClosestPointsBetweenSegmentsPtr, p1, q1, p2, q2)
 
   /**
    * Returns the 2D point on the 2D segment ([s1], [s2]) that is closest to [point]. The returned
@@ -294,7 +293,7 @@ public object Geometry2D : Object() {
     s1: Vector2,
     s2: Vector2,
   ): Vector2 =
-      TransferContext.callPtrMethod_VECTOR2_VECTOR2_VECTOR2_ret_VECTOR2(ptr, objectID.id, MethodBindings.getClosestPointToSegmentPtr, point, s1, s2)
+      callPtrMethod_VECTOR2_VECTOR2_VECTOR2_ret_VECTOR2(MethodBindings.getClosestPointToSegmentPtr, point, s1, s2)
 
   /**
    * Returns the 2D point on the 2D line defined by ([s1], [s2]) that is closest to [point]. The
@@ -307,7 +306,7 @@ public object Geometry2D : Object() {
     s1: Vector2,
     s2: Vector2,
   ): Vector2 =
-      TransferContext.callPtrMethod_VECTOR2_VECTOR2_VECTOR2_ret_VECTOR2(ptr, objectID.id, MethodBindings.getClosestPointToSegmentUncappedPtr, point, s1, s2)
+      callPtrMethod_VECTOR2_VECTOR2_VECTOR2_ret_VECTOR2(MethodBindings.getClosestPointToSegmentUncappedPtr, point, s1, s2)
 
   /**
    * Returns if [point] is inside the triangle specified by [a], [b] and [c].
@@ -319,7 +318,7 @@ public object Geometry2D : Object() {
     b: Vector2,
     c: Vector2,
   ): Boolean =
-      TransferContext.callPtrMethod_VECTOR2_VECTOR2_VECTOR2_VECTOR2_ret_BOOL(ptr, objectID.id, MethodBindings.pointIsInsideTrianglePtr, point, a, b, c)
+      callPtrMethod_VECTOR2_VECTOR2_VECTOR2_VECTOR2_ret_BOOL(MethodBindings.pointIsInsideTrianglePtr, point, a, b, c)
 
   /**
    * Returns `true` if [polygon]'s vertices are ordered in clockwise order, otherwise returns
@@ -331,7 +330,7 @@ public object Geometry2D : Object() {
    */
   @JvmStatic
   public final fun isPolygonClockwise(polygon: PackedVector2Array): Boolean =
-      TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_ret_BOOL(ptr, objectID.id, MethodBindings.isPolygonClockwisePtr, polygon)
+      callPtrMethod_PACKED_VECTOR2_ARRAY_ret_BOOL(MethodBindings.isPolygonClockwisePtr, polygon)
 
   /**
    * Returns `true` if [point] is inside [polygon] or if it's located exactly *on* polygon's
@@ -339,7 +338,7 @@ public object Geometry2D : Object() {
    */
   @JvmStatic
   public final fun isPointInPolygon(point: Vector2, polygon: PackedVector2Array): Boolean =
-      TransferContext.callPtrMethod_VECTOR2_PACKED_VECTOR2_ARRAY_ret_BOOL(ptr, objectID.id, MethodBindings.isPointInPolygonPtr, point, polygon)
+      callPtrMethod_VECTOR2_PACKED_VECTOR2_ARRAY_ret_BOOL(MethodBindings.isPointInPolygonPtr, point, polygon)
 
   /**
    * Triangulates the polygon specified by the points in [polygon]. Returns a [PackedInt32Array]
@@ -350,7 +349,7 @@ public object Geometry2D : Object() {
    */
   @JvmStatic
   public final fun triangulatePolygon(polygon: PackedVector2Array): PackedInt32Array =
-      TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.triangulatePolygonPtr, polygon)
+      callPtrMethod_PACKED_VECTOR2_ARRAY_ret_PACKED_INT_32_ARRAY(MethodBindings.triangulatePolygonPtr, polygon)
 
   /**
    * Triangulates the area specified by discrete set of [points] such that no point is inside the
@@ -361,7 +360,7 @@ public object Geometry2D : Object() {
    */
   @JvmStatic
   public final fun triangulateDelaunay(points: PackedVector2Array): PackedInt32Array =
-      TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.triangulateDelaunayPtr, points)
+      callPtrMethod_PACKED_VECTOR2_ARRAY_ret_PACKED_INT_32_ARRAY(MethodBindings.triangulateDelaunayPtr, points)
 
   /**
    * Given an array of [Vector2]s, returns the convex hull as a list of points in counterclockwise
@@ -369,7 +368,7 @@ public object Geometry2D : Object() {
    */
   @JvmStatic
   public final fun convexHull(points: PackedVector2Array): PackedVector2Array =
-      TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.convexHullPtr, points)
+      callPtrMethod_PACKED_VECTOR2_ARRAY_ret_PACKED_VECTOR2_ARRAY(MethodBindings.convexHullPtr, points)
 
   /**
    * Decomposes the [polygon] into multiple convex hulls and returns an array of
@@ -378,7 +377,7 @@ public object Geometry2D : Object() {
   @JvmStatic
   public final fun decomposePolygonInConvex(polygon: PackedVector2Array):
       VariantArray<PackedVector2Array> =
-      (TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_ret_ARRAY(ptr, objectID.id, MethodBindings.decomposePolygonInConvexPtr, polygon) as VariantArray<PackedVector2Array>)
+      (callPtrMethod_PACKED_VECTOR2_ARRAY_ret_ARRAY(MethodBindings.decomposePolygonInConvexPtr, polygon) as VariantArray<PackedVector2Array>)
 
   /**
    * Merges (combines) [polygonA] and [polygonB] and returns an array of merged polygons. This
@@ -390,7 +389,7 @@ public object Geometry2D : Object() {
   @JvmStatic
   public final fun mergePolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array):
       VariantArray<PackedVector2Array> =
-      (TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(ptr, objectID.id, MethodBindings.mergePolygonsPtr, polygonA, polygonB) as VariantArray<PackedVector2Array>)
+      (callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(MethodBindings.mergePolygonsPtr, polygonA, polygonB) as VariantArray<PackedVector2Array>)
 
   /**
    * Clips [polygonA] against [polygonB] and returns an array of clipped polygons. This performs
@@ -403,7 +402,7 @@ public object Geometry2D : Object() {
   @JvmStatic
   public final fun clipPolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array):
       VariantArray<PackedVector2Array> =
-      (TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(ptr, objectID.id, MethodBindings.clipPolygonsPtr, polygonA, polygonB) as VariantArray<PackedVector2Array>)
+      (callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(MethodBindings.clipPolygonsPtr, polygonA, polygonB) as VariantArray<PackedVector2Array>)
 
   /**
    * Intersects [polygonA] with [polygonB] and returns an array of intersected polygons. This
@@ -416,7 +415,7 @@ public object Geometry2D : Object() {
   @JvmStatic
   public final fun intersectPolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array):
       VariantArray<PackedVector2Array> =
-      (TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(ptr, objectID.id, MethodBindings.intersectPolygonsPtr, polygonA, polygonB) as VariantArray<PackedVector2Array>)
+      (callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(MethodBindings.intersectPolygonsPtr, polygonA, polygonB) as VariantArray<PackedVector2Array>)
 
   /**
    * Mutually excludes common area defined by intersection of [polygonA] and [polygonB] (see
@@ -429,7 +428,7 @@ public object Geometry2D : Object() {
   @JvmStatic
   public final fun excludePolygons(polygonA: PackedVector2Array, polygonB: PackedVector2Array):
       VariantArray<PackedVector2Array> =
-      (TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(ptr, objectID.id, MethodBindings.excludePolygonsPtr, polygonA, polygonB) as VariantArray<PackedVector2Array>)
+      (callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(MethodBindings.excludePolygonsPtr, polygonA, polygonB) as VariantArray<PackedVector2Array>)
 
   /**
    * Clips [polyline] against [polygon] and returns an array of clipped polylines. This performs
@@ -439,7 +438,7 @@ public object Geometry2D : Object() {
   @JvmStatic
   public final fun clipPolylineWithPolygon(polyline: PackedVector2Array,
       polygon: PackedVector2Array): VariantArray<PackedVector2Array> =
-      (TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(ptr, objectID.id, MethodBindings.clipPolylineWithPolygonPtr, polyline, polygon) as VariantArray<PackedVector2Array>)
+      (callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(MethodBindings.clipPolylineWithPolygonPtr, polyline, polygon) as VariantArray<PackedVector2Array>)
 
   /**
    * Intersects [polyline] with [polygon] and returns an array of intersected polylines. This
@@ -449,7 +448,7 @@ public object Geometry2D : Object() {
   @JvmStatic
   public final fun intersectPolylineWithPolygon(polyline: PackedVector2Array,
       polygon: PackedVector2Array): VariantArray<PackedVector2Array> =
-      (TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(ptr, objectID.id, MethodBindings.intersectPolylineWithPolygonPtr, polyline, polygon) as VariantArray<PackedVector2Array>)
+      (callPtrMethod_PACKED_VECTOR2_ARRAY_PACKED_VECTOR2_ARRAY_ret_ARRAY(MethodBindings.intersectPolylineWithPolygonPtr, polyline, polygon) as VariantArray<PackedVector2Array>)
 
   /**
    * Inflates or deflates [polygon] by [delta] units (pixels). If [delta] is positive, makes the
@@ -490,7 +489,7 @@ public object Geometry2D : Object() {
     delta: Float,
     joinType: PolyJoinType = Geometry2D.PolyJoinType.JOIN_SQUARE,
   ): VariantArray<PackedVector2Array> =
-      (TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_DOUBLE_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.offsetPolygonPtr, polygon, delta.toDouble(), joinType.value) as VariantArray<PackedVector2Array>)
+      (callPtrMethod_PACKED_VECTOR2_ARRAY_DOUBLE_LONG_ret_ARRAY(MethodBindings.offsetPolygonPtr, polygon, delta.toDouble(), joinType.value) as VariantArray<PackedVector2Array>)
 
   /**
    * Inflates or deflates [polyline] by [delta] units (pixels), producing polygons. If [delta] is
@@ -513,7 +512,7 @@ public object Geometry2D : Object() {
     joinType: PolyJoinType = Geometry2D.PolyJoinType.JOIN_SQUARE,
     endType: PolyEndType = Geometry2D.PolyEndType.END_SQUARE,
   ): VariantArray<PackedVector2Array> =
-      (TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_DOUBLE_LONG_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.offsetPolylinePtr, polyline, delta.toDouble(), joinType.value, endType.value) as VariantArray<PackedVector2Array>)
+      (callPtrMethod_PACKED_VECTOR2_ARRAY_DOUBLE_LONG_LONG_ret_ARRAY(MethodBindings.offsetPolylinePtr, polyline, delta.toDouble(), joinType.value, endType.value) as VariantArray<PackedVector2Array>)
 
   /**
    * Given an array of [Vector2]s representing tiles, builds an atlas. The returned dictionary has
@@ -522,7 +521,7 @@ public object Geometry2D : Object() {
    */
   @JvmStatic
   public final fun makeAtlas(sizes: PackedVector2Array): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_ret_DICTIONARY(ptr, objectID.id, MethodBindings.makeAtlasPtr, sizes) as Dictionary<Any?, Any?>)
+      (callPtrMethod_PACKED_VECTOR2_ARRAY_ret_DICTIONARY(MethodBindings.makeAtlasPtr, sizes) as Dictionary<Any?, Any?>)
 
   /**
    * Returns the [url=https://en.wikipedia.org/wiki/Bresenham&#37;27s_line_algorithm]Bresenham
@@ -540,7 +539,7 @@ public object Geometry2D : Object() {
    */
   @JvmStatic
   public final fun bresenhamLine(from: Vector2i, to: Vector2i): VariantArray<Vector2i> =
-      (TransferContext.callPtrMethod_VECTOR2I_VECTOR2I_ret_ARRAY(ptr, objectID.id, MethodBindings.bresenhamLinePtr, from, to) as VariantArray<Vector2i>)
+      (callPtrMethod_VECTOR2I_VECTOR2I_ret_ARRAY(MethodBindings.bresenhamLinePtr, from, to) as VariantArray<Vector2i>)
 
   public enum class PolyBooleanOperation(
     public override val `value`: Long,

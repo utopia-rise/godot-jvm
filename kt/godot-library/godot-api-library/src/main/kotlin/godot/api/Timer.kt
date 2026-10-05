@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -151,25 +150,22 @@ public open class Timer : Node() {
   }
 
   public final fun setWaitTime(timeSec: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setWaitTimePtr, timeSec)
+    callPtrMethod_DOUBLE(MethodBindings.setWaitTimePtr, timeSec)
   }
 
-  public final fun getWaitTime(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWaitTimePtr)
+  public final fun getWaitTime(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getWaitTimePtr)
 
   public final fun setOneShot(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setOneShotPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setOneShotPtr, enable)
   }
 
-  public final fun isOneShot(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOneShotPtr)
+  public final fun isOneShot(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isOneShotPtr)
 
   public final fun setAutostart(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutostartPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAutostartPtr, enable)
   }
 
-  public final fun hasAutostart(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasAutostartPtr)
+  public final fun hasAutostart(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasAutostartPtr)
 
   /**
    * Starts the timer, or resets the timer if it was started already. Fails if the timer is not
@@ -179,7 +175,7 @@ public open class Timer : Node() {
    */
   @JvmOverloads
   public final fun start(timeSec: Double = -1.0): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.startPtr, timeSec)
+    callPtrMethod_DOUBLE(MethodBindings.startPtr, timeSec)
   }
 
   /**
@@ -191,38 +187,35 @@ public open class Timer : Node() {
    * to manually emit the signal.
    */
   public final fun stop(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
+    callPtrMethod0(MethodBindings.stopPtr)
   }
 
   public final fun setPaused(paused: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPausedPtr, paused)
+    callPtrMethod_BOOL(MethodBindings.setPausedPtr, paused)
   }
 
-  public final fun isPaused(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPausedPtr)
+  public final fun isPaused(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isPausedPtr)
 
   public final fun setIgnoreTimeScale(ignore: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIgnoreTimeScalePtr, ignore)
+    callPtrMethod_BOOL(MethodBindings.setIgnoreTimeScalePtr, ignore)
   }
 
   public final fun isIgnoringTimeScale(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isIgnoringTimeScalePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isIgnoringTimeScalePtr)
 
   /**
    * Returns `true` if the timer is stopped or has not started.
    */
-  public final fun isStopped(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isStoppedPtr)
+  public final fun isStopped(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isStoppedPtr)
 
-  public final fun getTimeLeft(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTimeLeftPtr)
+  public final fun getTimeLeft(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getTimeLeftPtr)
 
   public final fun setTimerProcessCallback(callback: TimerProcessCallback): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTimerProcessCallbackPtr, callback.value)
+    callPtrMethod_LONG(MethodBindings.setTimerProcessCallbackPtr, callback.value)
   }
 
   public final fun getTimerProcessCallback(): TimerProcessCallback =
-      TimerProcessCallback.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTimerProcessCallbackPtr))
+      TimerProcessCallback.from(callPtrMethod0_ret_LONG(MethodBindings.getTimerProcessCallbackPtr))
 
   public enum class TimerProcessCallback(
     public override val `value`: Long,

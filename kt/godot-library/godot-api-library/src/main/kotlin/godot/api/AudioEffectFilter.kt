@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -103,32 +102,31 @@ public open class AudioEffectFilter : AudioEffect() {
   }
 
   public final fun setCutoff(freq: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCutoffPtr, freq.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCutoffPtr, freq.toDouble())
   }
 
   public final fun getCutoff(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCutoffPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCutoffPtr).toFloat()
 
   public final fun setResonance(amount: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setResonancePtr, amount.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setResonancePtr, amount.toDouble())
   }
 
   public final fun getResonance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getResonancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getResonancePtr).toFloat()
 
   public final fun setGain(amount: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setGainPtr, amount.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setGainPtr, amount.toDouble())
   }
 
-  public final fun getGain(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getGainPtr).toFloat()
+  public final fun getGain(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getGainPtr).toFloat()
 
   public final fun setDb(amount: FilterDB): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDbPtr, amount.value)
+    callPtrMethod_LONG(MethodBindings.setDbPtr, amount.value)
   }
 
   public final fun getDb(): FilterDB =
-      FilterDB.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDbPtr))
+      FilterDB.from(callPtrMethod0_ret_LONG(MethodBindings.getDbPtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

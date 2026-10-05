@@ -107,6 +107,13 @@ IncludeCategories:
 SortIncludes: CaseInsensitive
 SortUsingDeclarations: false
 
+# The wrapper macros expand to a class head. Without this clang-format reads the body as a block of expressions,
+# so `Type* name` in a declaration comes out as the binary operator `Type * name`.
+Macros:
+  - JVM_INSTANCE_WRAPPER(a, b)=class a
+  - JVM_SINGLETON_WRAPPER(a, b)=class a
+  - PACKED_ARRAY_BRIDGE(a, b, c)=class a
+
 # Pointers and spaces
 DerivePointerAlignment: false
 PointerAlignment: Left

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -132,7 +131,7 @@ public open class AcceptDialog : Window() {
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
   public final fun getOkButton(): Button? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getOkButtonPtr) as Button?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getOkButtonPtr) as Button?)
 
   /**
    * Returns the label used for built-in text.
@@ -141,21 +140,20 @@ public open class AcceptDialog : Window() {
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
   public final fun getLabel(): Label? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getLabelPtr) as Label?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getLabelPtr) as Label?)
 
   public final fun setHideOnOk(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setHideOnOkPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setHideOnOkPtr, enabled)
   }
 
-  public final fun getHideOnOk(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getHideOnOkPtr)
+  public final fun getHideOnOk(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getHideOnOkPtr)
 
   public final fun setCloseOnEscape(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCloseOnEscapePtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setCloseOnEscapePtr, enabled)
   }
 
   public final fun getCloseOnEscape(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getCloseOnEscapePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getCloseOnEscapePtr)
 
   /**
    * Adds a button with label [text] and a custom [action] to the dialog and returns the created
@@ -174,7 +172,7 @@ public open class AcceptDialog : Window() {
     right: Boolean = false,
     action: String = "",
   ): Button? =
-      (TransferContext.callMethod_STRING_BOOL_STRING_ret_OBJECT(ptr, objectID.id, MethodBindings.addButtonPtr, text, right, action) as Button?)
+      (callMethod_STRING_BOOL_STRING_ret_OBJECT(MethodBindings.addButtonPtr, text, right, action) as Button?)
 
   /**
    * Adds a button with label [name] and a cancel action to the dialog and returns the created
@@ -183,7 +181,7 @@ public open class AcceptDialog : Window() {
    * You can use [removeButton] method to remove a button created with this method from the dialog.
    */
   public final fun addCancelButton(name: String): Button? =
-      (TransferContext.callMethod_STRING_ret_OBJECT(ptr, objectID.id, MethodBindings.addCancelButtonPtr, name) as Button?)
+      (callMethod_STRING_ret_OBJECT(MethodBindings.addCancelButtonPtr, name) as Button?)
 
   /**
    * Removes the [button] from the dialog. Does NOT free the [button]. The [button] must be a
@@ -191,7 +189,7 @@ public open class AcceptDialog : Window() {
    * will no longer emit this dialog's [signal custom_action] or [signal canceled] signals.
    */
   public final fun removeButton(button: Button?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeButtonPtr, button)
+    callPtrMethod_OBJECT(MethodBindings.removeButtonPtr, button)
   }
 
   /**
@@ -199,29 +197,27 @@ public open class AcceptDialog : Window() {
    * accepted.
    */
   public final fun registerTextEnter(lineEdit: LineEdit?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.registerTextEnterPtr, lineEdit)
+    callPtrMethod_OBJECT(MethodBindings.registerTextEnterPtr, lineEdit)
   }
 
   public final fun setText(text: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTextPtr, text)
+    callMethod_STRING(MethodBindings.setTextPtr, text)
   }
 
-  public final fun getText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTextPtr)
+  public final fun getText(): String = callMethod0_ret_STRING(MethodBindings.getTextPtr)
 
   public final fun setAutowrap(autowrap: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutowrapPtr, autowrap)
+    callPtrMethod_BOOL(MethodBindings.setAutowrapPtr, autowrap)
   }
 
-  public final fun hasAutowrap(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasAutowrapPtr)
+  public final fun hasAutowrap(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasAutowrapPtr)
 
   public final fun setOkButtonText(text: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOkButtonTextPtr, text)
+    callMethod_STRING(MethodBindings.setOkButtonTextPtr, text)
   }
 
   public final fun getOkButtonText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOkButtonTextPtr)
+      callMethod0_ret_STRING(MethodBindings.getOkButtonTextPtr)
 
   public companion object {
     @JvmField

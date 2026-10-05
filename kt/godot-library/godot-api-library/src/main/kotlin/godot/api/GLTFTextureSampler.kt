@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -77,31 +76,29 @@ public open class GLTFTextureSampler : Resource() {
   }
 
   public final fun getMagFilter(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMagFilterPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMagFilterPtr).toInt()
 
   public final fun setMagFilter(filterMode: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMagFilterPtr, filterMode.toLong())
+    callPtrMethod_LONG(MethodBindings.setMagFilterPtr, filterMode.toLong())
   }
 
   public final fun getMinFilter(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMinFilterPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMinFilterPtr).toInt()
 
   public final fun setMinFilter(filterMode: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMinFilterPtr, filterMode.toLong())
+    callPtrMethod_LONG(MethodBindings.setMinFilterPtr, filterMode.toLong())
   }
 
-  public final fun getWrapS(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWrapSPtr).toInt()
+  public final fun getWrapS(): Int = callPtrMethod0_ret_LONG(MethodBindings.getWrapSPtr).toInt()
 
   public final fun setWrapS(wrapMode: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWrapSPtr, wrapMode.toLong())
+    callPtrMethod_LONG(MethodBindings.setWrapSPtr, wrapMode.toLong())
   }
 
-  public final fun getWrapT(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWrapTPtr).toInt()
+  public final fun getWrapT(): Int = callPtrMethod0_ret_LONG(MethodBindings.getWrapTPtr).toInt()
 
   public final fun setWrapT(wrapMode: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setWrapTPtr, wrapMode.toLong())
+    callPtrMethod_LONG(MethodBindings.setWrapTPtr, wrapMode.toLong())
   }
 
   public companion object {

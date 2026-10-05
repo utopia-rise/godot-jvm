@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -47,11 +46,10 @@ public open class VisualShaderNodeExpression : VisualShaderNodeGroupBase() {
   }
 
   public final fun setExpression(expression: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setExpressionPtr, expression)
+    callMethod_STRING(MethodBindings.setExpressionPtr, expression)
   }
 
-  public final fun getExpression(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getExpressionPtr)
+  public final fun getExpression(): String = callMethod0_ret_STRING(MethodBindings.getExpressionPtr)
 
   public companion object {
     @JvmField

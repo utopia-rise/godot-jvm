@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -61,18 +60,18 @@ public open class MissingResource : Resource() {
   }
 
   public final fun setOriginalClass(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOriginalClassPtr, name)
+    callMethod_STRING(MethodBindings.setOriginalClassPtr, name)
   }
 
   public final fun getOriginalClass(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOriginalClassPtr)
+      callMethod0_ret_STRING(MethodBindings.getOriginalClassPtr)
 
   public final fun setRecordingProperties(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRecordingPropertiesPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setRecordingPropertiesPtr, enable)
   }
 
   public final fun isRecordingProperties(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRecordingPropertiesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isRecordingPropertiesPtr)
 
   public companion object {
     @JvmField

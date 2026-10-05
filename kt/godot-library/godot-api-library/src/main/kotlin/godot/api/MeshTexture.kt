@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_VECTOR2
@@ -97,25 +96,25 @@ public open class MeshTexture : Texture2D() {
   }
 
   public final fun setMesh(mesh: Mesh?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMeshPtr, mesh)
+    callPtrMethod_OBJECT(MethodBindings.setMeshPtr, mesh)
   }
 
   public final fun getMesh(): Mesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMeshPtr) as Mesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMeshPtr) as Mesh?)
 
   public final fun setImageSize(size: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setImageSizePtr, size)
+    callPtrMethod_VECTOR2(MethodBindings.setImageSizePtr, size)
   }
 
   public final fun getImageSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getImageSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getImageSizePtr)
 
   public final fun setBaseTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setBaseTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setBaseTexturePtr, texture)
   }
 
   public final fun getBaseTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBaseTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getBaseTexturePtr) as Texture2D?)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

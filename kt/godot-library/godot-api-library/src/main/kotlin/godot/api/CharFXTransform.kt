@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_COLOR
@@ -347,94 +346,87 @@ public open class CharFXTransform : RefCounted() {
   }
 
   public final fun getTransform(): Transform2D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getTransformPtr)
+      callPtrMethod0_ret_TRANSFORM2D(MethodBindings.getTransformPtr)
 
   public final fun setTransform(transform: Transform2D): Unit {
-    TransferContext.callPtrMethod_TRANSFORM2D(ptr, objectID.id, MethodBindings.setTransformPtr, transform)
+    callPtrMethod_TRANSFORM2D(MethodBindings.setTransformPtr, transform)
   }
 
-  public final fun getRange(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getRangePtr)
+  public final fun getRange(): Vector2i = callPtrMethod0_ret_VECTOR2I(MethodBindings.getRangePtr)
 
   public final fun setRange(range: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setRangePtr, range)
+    callPtrMethod_VECTOR2I(MethodBindings.setRangePtr, range)
   }
 
   public final fun getElapsedTime(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getElapsedTimePtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getElapsedTimePtr)
 
   public final fun setElapsedTime(time: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setElapsedTimePtr, time)
+    callPtrMethod_DOUBLE(MethodBindings.setElapsedTimePtr, time)
   }
 
-  public final fun isVisible(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isVisiblePtr)
+  public final fun isVisible(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isVisiblePtr)
 
   public final fun setVisibility(visibility: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setVisibilityPtr, visibility)
+    callPtrMethod_BOOL(MethodBindings.setVisibilityPtr, visibility)
   }
 
-  public final fun isOutline(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOutlinePtr)
+  public final fun isOutline(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isOutlinePtr)
 
   public final fun setOutline(outline: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setOutlinePtr, outline)
+    callPtrMethod_BOOL(MethodBindings.setOutlinePtr, outline)
   }
 
-  public final fun getOffset(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getOffsetPtr)
+  public final fun getOffset(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getOffsetPtr)
 
   public final fun setOffset(offset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setOffsetPtr, offset)
+    callPtrMethod_VECTOR2(MethodBindings.setOffsetPtr, offset)
   }
 
-  public final fun getColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getColorPtr)
+  public final fun getColor(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getColorPtr)
 
   public final fun setColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setColorPtr, color)
   }
 
   public final fun getEnvironment(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getEnvironmentPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.getEnvironmentPtr) as Dictionary<Any?, Any?>)
 
   public final fun setEnvironment(environment: Dictionary<Any?, Any?>): Unit {
-    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setEnvironmentPtr, environment)
+    callPtrMethod_DICTIONARY(MethodBindings.setEnvironmentPtr, environment)
   }
 
-  public final fun getGlyphIndex(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getGlyphIndexPtr)
+  public final fun getGlyphIndex(): Long = callPtrMethod0_ret_LONG(MethodBindings.getGlyphIndexPtr)
 
   public final fun setGlyphIndex(glyphIndex: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setGlyphIndexPtr, glyphIndex)
+    callPtrMethod_LONG(MethodBindings.setGlyphIndexPtr, glyphIndex)
   }
 
   public final fun getRelativeIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRelativeIndexPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getRelativeIndexPtr).toInt()
 
   public final fun setRelativeIndex(relativeIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRelativeIndexPtr, relativeIndex.toLong())
+    callPtrMethod_LONG(MethodBindings.setRelativeIndexPtr, relativeIndex.toLong())
   }
 
   public final fun getGlyphCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getGlyphCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getGlyphCountPtr).toInt()
 
   public final fun setGlyphCount(glyphCount: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setGlyphCountPtr, glyphCount.toLong())
+    callPtrMethod_LONG(MethodBindings.setGlyphCountPtr, glyphCount.toLong())
   }
 
   public final fun getGlyphFlags(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getGlyphFlagsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getGlyphFlagsPtr).toInt()
 
   public final fun setGlyphFlags(glyphFlags: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setGlyphFlagsPtr, glyphFlags.toLong())
+    callPtrMethod_LONG(MethodBindings.setGlyphFlagsPtr, glyphFlags.toLong())
   }
 
-  public final fun getFont(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getFontPtr)
+  public final fun getFont(): RID = callPtrMethod0_ret_RID(MethodBindings.getFontPtr)
 
   public final fun setFont(font: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setFontPtr, font)
+    callPtrMethod_RID(MethodBindings.setFontPtr, font)
   }
 
   public companion object {

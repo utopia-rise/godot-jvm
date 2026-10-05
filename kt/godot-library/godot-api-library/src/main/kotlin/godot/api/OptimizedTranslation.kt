@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_OBJECT_ret_BOOL
 import godot.common.interop.VoidPtr
@@ -41,7 +40,7 @@ public open class OptimizedTranslation : Translation() {
    * exported project.
    */
   public final fun generate(from: Translation?): Boolean =
-      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.generatePtr, from)
+      callPtrMethod_OBJECT_ret_BOOL(MethodBindings.generatePtr, from)
 
   public companion object {
     @JvmField

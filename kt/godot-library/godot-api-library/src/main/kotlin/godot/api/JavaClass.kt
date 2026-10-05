@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callPtrMethod0_ret_ARRAY
@@ -44,26 +43,26 @@ public open class JavaClass : RefCounted() {
    * Returns the Java class name.
    */
   public final fun getJavaClassName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getJavaClassNamePtr)
+      callMethod0_ret_STRING(MethodBindings.getJavaClassNamePtr)
 
   /**
    * Returns the object's Java methods and their signatures as an [VariantArray] of dictionaries, in
    * the same format as [Object.getMethodList].
    */
   public final fun getJavaMethodList(): VariantArray<Dictionary<Any?, Any?>> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getJavaMethodListPtr) as VariantArray<Dictionary<Any?, Any?>>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getJavaMethodListPtr) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Returns a [JavaClass] representing the Java parent class of this class.
    */
   public final fun getJavaParentClass(): JavaClass? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getJavaParentClassPtr) as JavaClass?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getJavaParentClassPtr) as JavaClass?)
 
   /**
    * Returns `true` if the given [method] name exists in the object's Java methods.
    */
   public final fun hasJavaMethod(method: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasJavaMethodPtr, method)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasJavaMethodPtr, method)
 
   /**
    * Returns `true` if the given [method] name exists in the object's Java methods.

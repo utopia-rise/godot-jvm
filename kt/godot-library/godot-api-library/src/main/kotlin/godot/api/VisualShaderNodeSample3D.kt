@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -42,11 +41,11 @@ public open class VisualShaderNodeSample3D internal constructor() : VisualShader
   }
 
   public final fun setSource(`value`: Source): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSourcePtr, value.value)
+    callPtrMethod_LONG(MethodBindings.setSourcePtr, value.value)
   }
 
   public final fun getSource(): Source =
-      Source.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSourcePtr))
+      Source.from(callPtrMethod0_ret_LONG(MethodBindings.getSourcePtr))
 
   public enum class Source(
     public override val `value`: Long,

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -95,25 +94,25 @@ public open class VehicleBody3D : RigidBody3D() {
   }
 
   public final fun setEngineForce(engineForce: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEngineForcePtr, engineForce.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEngineForcePtr, engineForce.toDouble())
   }
 
   public final fun getEngineForce(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEngineForcePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEngineForcePtr).toFloat()
 
   public final fun setBrake(brake: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBrakePtr, brake.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBrakePtr, brake.toDouble())
   }
 
   public final fun getBrake(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBrakePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBrakePtr).toFloat()
 
   public final fun setSteering(steering: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSteeringPtr, steering.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSteeringPtr, steering.toDouble())
   }
 
   public final fun getSteering(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSteeringPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSteeringPtr).toFloat()
 
   public companion object {
     @JvmField

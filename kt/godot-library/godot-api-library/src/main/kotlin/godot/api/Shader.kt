@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -65,15 +64,13 @@ public open class Shader : Resource() {
   /**
    * Returns the shader mode for the shader.
    */
-  public final fun getMode(): Mode =
-      Mode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getModePtr))
+  public final fun getMode(): Mode = Mode.from(callPtrMethod0_ret_LONG(MethodBindings.getModePtr))
 
   public final fun setCode(code: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setCodePtr, code)
+    callMethod_STRING(MethodBindings.setCodePtr, code)
   }
 
-  public final fun getCode(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCodePtr)
+  public final fun getCode(): String = callMethod0_ret_STRING(MethodBindings.getCodePtr)
 
   /**
    * Sets the default texture to be used with a texture uniform. The default is used if a texture is
@@ -89,7 +86,7 @@ public open class Shader : Resource() {
     texture: Texture?,
     index: Int = 0,
   ): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_OBJECT_LONG(ptr, objectID.id, MethodBindings.setDefaultTextureParameterPtr, name, texture, index.toLong())
+    callPtrMethod_STRING_NAME_OBJECT_LONG(MethodBindings.setDefaultTextureParameterPtr, name, texture, index.toLong())
   }
 
   /**
@@ -101,7 +98,7 @@ public open class Shader : Resource() {
    */
   @JvmOverloads
   public final fun getDefaultTextureParameter(name: StringName, index: Int = 0): Texture? =
-      (TransferContext.callPtrMethod_STRING_NAME_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getDefaultTextureParameterPtr, name, index.toLong()) as Texture?)
+      (callPtrMethod_STRING_NAME_LONG_ret_OBJECT_REF(MethodBindings.getDefaultTextureParameterPtr, name, index.toLong()) as Texture?)
 
   /**
    * Returns the list of shader uniforms that can be assigned to a [ShaderMaterial], for use with
@@ -113,7 +110,7 @@ public open class Shader : Resource() {
    */
   @JvmOverloads
   public final fun getShaderUniformList(getGroups: Boolean = false): VariantArray<Any?> =
-      (TransferContext.callPtrMethod_BOOL_ret_ARRAY(ptr, objectID.id, MethodBindings.getShaderUniformListPtr, getGroups) as VariantArray<Any?>)
+      (callPtrMethod_BOOL_ret_ARRAY(MethodBindings.getShaderUniformListPtr, getGroups) as VariantArray<Any?>)
 
   /**
    * Only available when running in the editor. Opens a popup that visualizes the generated shader
@@ -121,7 +118,7 @@ public open class Shader : Resource() {
    * [Material.inspectNativeShaderCode].
    */
   public final fun inspectNativeShaderCode(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.inspectNativeShaderCodePtr)
+    callPtrMethod0(MethodBindings.inspectNativeShaderCodePtr)
   }
 
   /**

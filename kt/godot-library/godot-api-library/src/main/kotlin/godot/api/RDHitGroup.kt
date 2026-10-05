@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod_OBJECT
@@ -69,25 +68,25 @@ public open class RDHitGroup : RefCounted() {
   }
 
   public final fun setClosestHitShader(pMember: RDPipelineShader?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setClosestHitShaderPtr, pMember)
+    callPtrMethod_OBJECT(MethodBindings.setClosestHitShaderPtr, pMember)
   }
 
   public final fun getClosestHitShader(): RDPipelineShader? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getClosestHitShaderPtr) as RDPipelineShader?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getClosestHitShaderPtr) as RDPipelineShader?)
 
   public final fun setAnyHitShader(pMember: RDPipelineShader?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setAnyHitShaderPtr, pMember)
+    callPtrMethod_OBJECT(MethodBindings.setAnyHitShaderPtr, pMember)
   }
 
   public final fun getAnyHitShader(): RDPipelineShader? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getAnyHitShaderPtr) as RDPipelineShader?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getAnyHitShaderPtr) as RDPipelineShader?)
 
   public final fun setIntersectionShader(pMember: RDPipelineShader?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setIntersectionShaderPtr, pMember)
+    callPtrMethod_OBJECT(MethodBindings.setIntersectionShaderPtr, pMember)
   }
 
   public final fun getIntersectionShader(): RDPipelineShader? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getIntersectionShaderPtr) as RDPipelineShader?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getIntersectionShaderPtr) as RDPipelineShader?)
 
   public companion object {
     @JvmField

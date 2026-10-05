@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_DOUBLE
@@ -351,39 +350,39 @@ public open class NavigationPolygon : Resource() {
    * Sets the vertices that can be then indexed to create polygons with the [addPolygon] method.
    */
   public final fun setVertices(vertices: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setVerticesPtr, vertices)
+    callPtrMethod_PACKED_VECTOR2_ARRAY(MethodBindings.setVerticesPtr, vertices)
   }
 
   /**
    * Returns a [PackedVector2Array] containing all the vertices being used to create the polygons.
    */
   public final fun getVertices(): PackedVector2Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getVerticesPtr)
+      callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getVerticesPtr)
 
   /**
    * Adds a polygon using the indices of the vertices you get when calling [getVertices].
    */
   public final fun addPolygon(polygon: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.addPolygonPtr, polygon)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.addPolygonPtr, polygon)
   }
 
   /**
    * Returns the count of all polygons.
    */
   public final fun getPolygonCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPolygonCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getPolygonCountPtr).toInt()
 
   /**
    * Returns a [PackedInt32Array] containing the indices of the vertices of a created polygon.
    */
   public final fun getPolygon(idx: Int): PackedInt32Array =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getPolygonPtr, idx.toLong())
+      callPtrMethod_LONG_ret_PACKED_INT_32_ARRAY(MethodBindings.getPolygonPtr, idx.toLong())
 
   /**
    * Clears the array of polygons, but it doesn't clear the array of outlines and vertices.
    */
   public final fun clearPolygons(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPolygonsPtr)
+    callPtrMethod0(MethodBindings.clearPolygonsPtr)
   }
 
   /**
@@ -392,14 +391,14 @@ public open class NavigationPolygon : Resource() {
    * [NavigationServer3D.regionSetNavigationMesh] API directly.
    */
   public final fun getNavigationMesh(): NavigationMesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getNavigationMeshPtr) as NavigationMesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getNavigationMeshPtr) as NavigationMesh?)
 
   /**
    * Appends a [PackedVector2Array] that contains the vertices of an outline to the internal array
    * that contains all the outlines.
    */
   public final fun addOutline(outline: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.addOutlinePtr, outline)
+    callPtrMethod_PACKED_VECTOR2_ARRAY(MethodBindings.addOutlinePtr, outline)
   }
 
   /**
@@ -407,21 +406,21 @@ public open class NavigationPolygon : Resource() {
    * contains all the outlines at a fixed position.
    */
   public final fun addOutlineAtIndex(outline: PackedVector2Array, index: Int): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_LONG(ptr, objectID.id, MethodBindings.addOutlineAtIndexPtr, outline, index.toLong())
+    callPtrMethod_PACKED_VECTOR2_ARRAY_LONG(MethodBindings.addOutlineAtIndexPtr, outline, index.toLong())
   }
 
   /**
    * Returns the number of outlines that were created in the editor or by script.
    */
   public final fun getOutlineCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOutlineCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getOutlineCountPtr).toInt()
 
   /**
    * Changes an outline created in the editor or by script. You have to call
    * [makePolygonsFromOutlines] for the polygons to update.
    */
   public final fun setOutline(idx: Int, outline: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_LONG_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setOutlinePtr, idx.toLong(), outline)
+    callPtrMethod_LONG_PACKED_VECTOR2_ARRAY(MethodBindings.setOutlinePtr, idx.toLong(), outline)
   }
 
   /**
@@ -429,14 +428,14 @@ public open class NavigationPolygon : Resource() {
    * editor or by script.
    */
   public final fun getOutline(idx: Int): PackedVector2Array =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getOutlinePtr, idx.toLong())
+      callPtrMethod_LONG_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getOutlinePtr, idx.toLong())
 
   /**
    * Removes an outline created in the editor or by script. You have to call
    * [makePolygonsFromOutlines] for the polygons to update.
    */
   public final fun removeOutline(idx: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeOutlinePtr, idx.toLong())
+    callPtrMethod_LONG(MethodBindings.removeOutlinePtr, idx.toLong())
   }
 
   /**
@@ -444,57 +443,57 @@ public open class NavigationPolygon : Resource() {
    * created by them.
    */
   public final fun clearOutlines(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearOutlinesPtr)
+    callPtrMethod0(MethodBindings.clearOutlinesPtr)
   }
 
   /**
    * Creates polygons from the outlines added in the editor or by script.
    */
   public final fun makePolygonsFromOutlines(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.makePolygonsFromOutlinesPtr)
+    callPtrMethod0(MethodBindings.makePolygonsFromOutlinesPtr)
   }
 
   public final fun setCellSize(cellSize: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCellSizePtr, cellSize.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCellSizePtr, cellSize.toDouble())
   }
 
   public final fun getCellSize(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCellSizePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCellSizePtr).toFloat()
 
   public final fun setBorderSize(borderSize: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBorderSizePtr, borderSize.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBorderSizePtr, borderSize.toDouble())
   }
 
   public final fun getBorderSize(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBorderSizePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBorderSizePtr).toFloat()
 
   public final fun setSamplePartitionType(samplePartitionType: SamplePartitionType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSamplePartitionTypePtr, samplePartitionType.value)
+    callPtrMethod_LONG(MethodBindings.setSamplePartitionTypePtr, samplePartitionType.value)
   }
 
   public final fun getSamplePartitionType(): SamplePartitionType =
-      SamplePartitionType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSamplePartitionTypePtr))
+      SamplePartitionType.from(callPtrMethod0_ret_LONG(MethodBindings.getSamplePartitionTypePtr))
 
   public final fun setParsedGeometryType(geometryType: ParsedGeometryType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setParsedGeometryTypePtr, geometryType.value)
+    callPtrMethod_LONG(MethodBindings.setParsedGeometryTypePtr, geometryType.value)
   }
 
   public final fun getParsedGeometryType(): ParsedGeometryType =
-      ParsedGeometryType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getParsedGeometryTypePtr))
+      ParsedGeometryType.from(callPtrMethod0_ret_LONG(MethodBindings.getParsedGeometryTypePtr))
 
   public final fun setParsedCollisionMask(mask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setParsedCollisionMaskPtr, mask)
+    callPtrMethod_LONG(MethodBindings.setParsedCollisionMaskPtr, mask)
   }
 
   public final fun getParsedCollisionMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getParsedCollisionMaskPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getParsedCollisionMaskPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [parsedCollisionMask], given a
    * [layerNumber] between 1 and 32.
    */
   public final fun setParsedCollisionMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setParsedCollisionMaskValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setParsedCollisionMaskValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -502,48 +501,48 @@ public open class NavigationPolygon : Resource() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getParsedCollisionMaskValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getParsedCollisionMaskValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getParsedCollisionMaskValuePtr, layerNumber.toLong())
 
   public final fun setSourceGeometryMode(geometryMode: SourceGeometryMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSourceGeometryModePtr, geometryMode.value)
+    callPtrMethod_LONG(MethodBindings.setSourceGeometryModePtr, geometryMode.value)
   }
 
   public final fun getSourceGeometryMode(): SourceGeometryMode =
-      SourceGeometryMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSourceGeometryModePtr))
+      SourceGeometryMode.from(callPtrMethod0_ret_LONG(MethodBindings.getSourceGeometryModePtr))
 
   public final fun setSourceGeometryGroupName(groupName: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setSourceGeometryGroupNamePtr, groupName)
+    callPtrMethod_STRING_NAME(MethodBindings.setSourceGeometryGroupNamePtr, groupName)
   }
 
   public final fun getSourceGeometryGroupName(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getSourceGeometryGroupNamePtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getSourceGeometryGroupNamePtr)
 
   public final fun setAgentRadius(agentRadius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAgentRadiusPtr, agentRadius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAgentRadiusPtr, agentRadius.toDouble())
   }
 
   public final fun getAgentRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAgentRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAgentRadiusPtr).toFloat()
 
   public final fun setBakingRect(rect: Rect2): Unit {
-    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setBakingRectPtr, rect)
+    callPtrMethod_RECT2(MethodBindings.setBakingRectPtr, rect)
   }
 
   public final fun getBakingRect(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getBakingRectPtr)
+      callPtrMethod0_ret_RECT2(MethodBindings.getBakingRectPtr)
 
   public final fun setBakingRectOffset(rectOffset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setBakingRectOffsetPtr, rectOffset)
+    callPtrMethod_VECTOR2(MethodBindings.setBakingRectOffsetPtr, rectOffset)
   }
 
   public final fun getBakingRectOffset(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getBakingRectOffsetPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getBakingRectOffsetPtr)
 
   /**
    * Clears the internal arrays for vertices and polygon indices.
    */
   public final fun clear(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
+    callPtrMethod0(MethodBindings.clearPtr)
   }
 
   public final fun setSourceGeometryGroupName(groupName: String) =

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -212,53 +211,52 @@ public open class XRPose : RefCounted() {
   }
 
   public final fun setHasTrackingData(hasTrackingData: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setHasTrackingDataPtr, hasTrackingData)
+    callPtrMethod_BOOL(MethodBindings.setHasTrackingDataPtr, hasTrackingData)
   }
 
   public final fun getHasTrackingData(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getHasTrackingDataPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getHasTrackingDataPtr)
 
   public final fun setName(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setNamePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.setNamePtr, name)
   }
 
-  public final fun getName(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getNamePtr)
+  public final fun getName(): StringName = callPtrMethod0_ret_STRING_NAME(MethodBindings.getNamePtr)
 
   public final fun setTransform(transform: Transform3D): Unit {
-    TransferContext.callPtrMethod_TRANSFORM3D(ptr, objectID.id, MethodBindings.setTransformPtr, transform)
+    callPtrMethod_TRANSFORM3D(MethodBindings.setTransformPtr, transform)
   }
 
   public final fun getTransform(): Transform3D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getTransformPtr)
+      callPtrMethod0_ret_TRANSFORM3D(MethodBindings.getTransformPtr)
 
   /**
    * Returns the [transform] with world scale and our reference frame applied. This is the transform
    * used to position [XRNode3D] objects.
    */
   public final fun getAdjustedTransform(): Transform3D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getAdjustedTransformPtr)
+      callPtrMethod0_ret_TRANSFORM3D(MethodBindings.getAdjustedTransformPtr)
 
   public final fun setLinearVelocity(velocity: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setLinearVelocityPtr, velocity)
+    callPtrMethod_VECTOR3(MethodBindings.setLinearVelocityPtr, velocity)
   }
 
   public final fun getLinearVelocity(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getLinearVelocityPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getLinearVelocityPtr)
 
   public final fun setAngularVelocity(velocity: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setAngularVelocityPtr, velocity)
+    callPtrMethod_VECTOR3(MethodBindings.setAngularVelocityPtr, velocity)
   }
 
   public final fun getAngularVelocity(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getAngularVelocityPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getAngularVelocityPtr)
 
   public final fun setTrackingConfidence(trackingConfidence: TrackingConfidence): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTrackingConfidencePtr, trackingConfidence.value)
+    callPtrMethod_LONG(MethodBindings.setTrackingConfidencePtr, trackingConfidence.value)
   }
 
   public final fun getTrackingConfidence(): TrackingConfidence =
-      TrackingConfidence.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTrackingConfidencePtr))
+      TrackingConfidence.from(callPtrMethod0_ret_LONG(MethodBindings.getTrackingConfidencePtr))
 
   public final fun setName(name: String) = setName(name.asCachedStringName())
 

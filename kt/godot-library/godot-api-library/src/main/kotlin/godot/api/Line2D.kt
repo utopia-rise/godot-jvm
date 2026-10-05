@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -307,30 +306,30 @@ public open class Line2D : Node2D() {
   }
 
   public final fun setPoints(points: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setPointsPtr, points)
+    callPtrMethod_PACKED_VECTOR2_ARRAY(MethodBindings.setPointsPtr, points)
   }
 
   public final fun getPoints(): PackedVector2Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getPointsPtr)
+      callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getPointsPtr)
 
   /**
    * Overwrites the position of the point at the given [index] with the supplied [position].
    */
   public final fun setPointPosition(index: Int, position: Vector2): Unit {
-    TransferContext.callPtrMethod_LONG_VECTOR2(ptr, objectID.id, MethodBindings.setPointPositionPtr, index.toLong(), position)
+    callPtrMethod_LONG_VECTOR2(MethodBindings.setPointPositionPtr, index.toLong(), position)
   }
 
   /**
    * Returns the position of the point at index [index].
    */
   public final fun getPointPosition(index: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getPointPositionPtr, index.toLong())
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getPointPositionPtr, index.toLong())
 
   /**
    * Returns the number of points in the polyline.
    */
   public final fun getPointCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPointCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getPointCountPtr).toInt()
 
   /**
    * Adds a point with the specified [position] relative to the polyline's own position. If no
@@ -342,113 +341,112 @@ public open class Line2D : Node2D() {
    */
   @JvmOverloads
   public final fun addPoint(position: Vector2, index: Int = -1): Unit {
-    TransferContext.callPtrMethod_VECTOR2_LONG(ptr, objectID.id, MethodBindings.addPointPtr, position, index.toLong())
+    callPtrMethod_VECTOR2_LONG(MethodBindings.addPointPtr, position, index.toLong())
   }
 
   /**
    * Removes the point at index [index] from the polyline.
    */
   public final fun removePoint(index: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removePointPtr, index.toLong())
+    callPtrMethod_LONG(MethodBindings.removePointPtr, index.toLong())
   }
 
   /**
    * Removes all points from the polyline, making it empty.
    */
   public final fun clearPoints(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPointsPtr)
+    callPtrMethod0(MethodBindings.clearPointsPtr)
   }
 
   public final fun setClosed(closed: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setClosedPtr, closed)
+    callPtrMethod_BOOL(MethodBindings.setClosedPtr, closed)
   }
 
-  public final fun isClosed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isClosedPtr)
+  public final fun isClosed(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isClosedPtr)
 
   public final fun setWidth(width: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setWidthPtr, width.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setWidthPtr, width.toDouble())
   }
 
   public final fun getWidth(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWidthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getWidthPtr).toFloat()
 
   public final fun setCurve(curve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurvePtr, curve)
+    callPtrMethod_OBJECT(MethodBindings.setCurvePtr, curve)
   }
 
   public final fun getCurve(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCurvePtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCurvePtr) as Curve?)
 
   public final fun setDefaultColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setDefaultColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setDefaultColorPtr, color)
   }
 
   public final fun getDefaultColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getDefaultColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getDefaultColorPtr)
 
   public final fun setGradient(color: Gradient?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setGradientPtr, color)
+    callPtrMethod_OBJECT(MethodBindings.setGradientPtr, color)
   }
 
   public final fun getGradient(): Gradient? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getGradientPtr) as Gradient?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getGradientPtr) as Gradient?)
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTexturePtr, texture)
   }
 
   public final fun getTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTexturePtr) as Texture2D?)
 
   public final fun setTextureMode(mode: LineTextureMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTextureModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setTextureModePtr, mode.value)
   }
 
   public final fun getTextureMode(): LineTextureMode =
-      LineTextureMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTextureModePtr))
+      LineTextureMode.from(callPtrMethod0_ret_LONG(MethodBindings.getTextureModePtr))
 
   public final fun setJointMode(mode: LineJointMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setJointModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setJointModePtr, mode.value)
   }
 
   public final fun getJointMode(): LineJointMode =
-      LineJointMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getJointModePtr))
+      LineJointMode.from(callPtrMethod0_ret_LONG(MethodBindings.getJointModePtr))
 
   public final fun setBeginCapMode(mode: LineCapMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBeginCapModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setBeginCapModePtr, mode.value)
   }
 
   public final fun getBeginCapMode(): LineCapMode =
-      LineCapMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBeginCapModePtr))
+      LineCapMode.from(callPtrMethod0_ret_LONG(MethodBindings.getBeginCapModePtr))
 
   public final fun setEndCapMode(mode: LineCapMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setEndCapModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setEndCapModePtr, mode.value)
   }
 
   public final fun getEndCapMode(): LineCapMode =
-      LineCapMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEndCapModePtr))
+      LineCapMode.from(callPtrMethod0_ret_LONG(MethodBindings.getEndCapModePtr))
 
   public final fun setSharpLimit(limit: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSharpLimitPtr, limit.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSharpLimitPtr, limit.toDouble())
   }
 
   public final fun getSharpLimit(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSharpLimitPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSharpLimitPtr).toFloat()
 
   public final fun setRoundPrecision(precision: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRoundPrecisionPtr, precision.toLong())
+    callPtrMethod_LONG(MethodBindings.setRoundPrecisionPtr, precision.toLong())
   }
 
   public final fun getRoundPrecision(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRoundPrecisionPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getRoundPrecisionPtr).toInt()
 
   public final fun setAntialiased(antialiased: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAntialiasedPtr, antialiased)
+    callPtrMethod_BOOL(MethodBindings.setAntialiasedPtr, antialiased)
   }
 
   public final fun getAntialiased(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAntialiasedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAntialiasedPtr)
 
   public enum class LineJointMode(
     public override val `value`: Long,

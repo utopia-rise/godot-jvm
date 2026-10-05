@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -57,18 +56,18 @@ public open class VisualShaderNodeUIntParameter : VisualShaderNodeParameter() {
   }
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDefaultValueEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setDefaultValueEnabledPtr, enabled)
   }
 
   public final fun isDefaultValueEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDefaultValueEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDefaultValueEnabledPtr)
 
   public final fun setDefaultValue(`value`: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDefaultValuePtr, value.toLong())
+    callPtrMethod_LONG(MethodBindings.setDefaultValuePtr, value.toLong())
   }
 
   public final fun getDefaultValue(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDefaultValuePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getDefaultValuePtr).toInt()
 
   public companion object {
     @JvmField

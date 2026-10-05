@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -47,22 +46,21 @@ public open class Semaphore : RefCounted() {
    * Waits for the [Semaphore], if its value is zero, blocks until non-zero.
    */
   public final fun waitFor(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.waitPtr)
+    callPtrMethod0(MethodBindings.waitPtr)
   }
 
   /**
    * Like [wait], but won't block, so if the value is zero, fails immediately and returns `false`.
    * If non-zero, it returns `true` to report success.
    */
-  public final fun tryWait(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.tryWaitPtr)
+  public final fun tryWait(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.tryWaitPtr)
 
   /**
    * Lowers the [Semaphore], allowing one thread in, or more if [count] is specified.
    */
   @JvmOverloads
   public final fun post(count: Int = 1): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.postPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.postPtr, count.toLong())
   }
 
   public companion object {

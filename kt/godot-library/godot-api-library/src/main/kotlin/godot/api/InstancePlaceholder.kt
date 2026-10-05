@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callPtrMethod_BOOL_OBJECT_ret_OBJECT
@@ -53,7 +52,7 @@ public open class InstancePlaceholder internal constructor() : Node() {
    */
   @JvmOverloads
   public final fun getStoredValues(withOrder: Boolean = false): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod_BOOL_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getStoredValuesPtr, withOrder) as Dictionary<Any?, Any?>)
+      (callPtrMethod_BOOL_ret_DICTIONARY(MethodBindings.getStoredValuesPtr, withOrder) as Dictionary<Any?, Any?>)
 
   /**
    * Call this method to actually load in the node. The created node will be placed as a sibling
@@ -66,14 +65,14 @@ public open class InstancePlaceholder internal constructor() : Node() {
   @JvmOverloads
   public final fun createInstance(replace: Boolean = false, customScene: PackedScene? = null): Node?
       =
-      (TransferContext.callPtrMethod_BOOL_OBJECT_ret_OBJECT(ptr, objectID.id, MethodBindings.createInstancePtr, replace, customScene) as Node?)
+      (callPtrMethod_BOOL_OBJECT_ret_OBJECT(MethodBindings.createInstancePtr, replace, customScene) as Node?)
 
   /**
    * Gets the path to the [PackedScene] resource file that is loaded by default when calling
    * [createInstance]. Not thread-safe. Use [Object.callDeferred] if calling from a thread.
    */
   public final fun getInstancePath(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getInstancePathPtr)
+      callMethod0_ret_STRING(MethodBindings.getInstancePathPtr)
 
   public companion object {
     @JvmField

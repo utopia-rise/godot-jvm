@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_VECTOR2
@@ -94,18 +93,17 @@ public open class WorldBoundaryShape2D : Shape2D() {
   }
 
   public final fun setNormal(normal: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setNormalPtr, normal)
+    callPtrMethod_VECTOR2(MethodBindings.setNormalPtr, normal)
   }
 
-  public final fun getNormal(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getNormalPtr)
+  public final fun getNormal(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getNormalPtr)
 
   public final fun setDistance(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDistancePtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDistancePtr, distance.toDouble())
   }
 
   public final fun getDistance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDistancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDistancePtr).toFloat()
 
   public companion object {
     @JvmField

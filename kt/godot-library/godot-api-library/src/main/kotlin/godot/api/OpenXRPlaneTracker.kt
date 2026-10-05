@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -116,27 +115,26 @@ public open class OpenXRPlaneTracker : OpenXRSpatialEntityTracker() {
   }
 
   public final fun setBoundsSize(boundsSize: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setBoundsSizePtr, boundsSize)
+    callPtrMethod_VECTOR2(MethodBindings.setBoundsSizePtr, boundsSize)
   }
 
   public final fun getBoundsSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getBoundsSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getBoundsSizePtr)
 
   public final
       fun setPlaneAlignment(planeAlignment: OpenXRSpatialComponentPlaneAlignmentList.PlaneAlignment):
       Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPlaneAlignmentPtr, planeAlignment.value)
+    callPtrMethod_LONG(MethodBindings.setPlaneAlignmentPtr, planeAlignment.value)
   }
 
   public final fun getPlaneAlignment(): OpenXRSpatialComponentPlaneAlignmentList.PlaneAlignment =
-      OpenXRSpatialComponentPlaneAlignmentList.PlaneAlignment.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPlaneAlignmentPtr))
+      OpenXRSpatialComponentPlaneAlignmentList.PlaneAlignment.from(callPtrMethod0_ret_LONG(MethodBindings.getPlaneAlignmentPtr))
 
   public final fun setPlaneLabel(planeLabel: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setPlaneLabelPtr, planeLabel)
+    callMethod_STRING(MethodBindings.setPlaneLabelPtr, planeLabel)
   }
 
-  public final fun getPlaneLabel(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getPlaneLabelPtr)
+  public final fun getPlaneLabel(): String = callMethod0_ret_STRING(MethodBindings.getPlaneLabelPtr)
 
   /**
    * Sets the mesh data for this plane. You should only call this if you are handling your own
@@ -148,7 +146,7 @@ public open class OpenXRPlaneTracker : OpenXRSpatialEntityTracker() {
     vertices: PackedVector2Array,
     indices: PackedInt32Array = PackedInt32Array(),
   ): Unit {
-    TransferContext.callPtrMethod_TRANSFORM3D_PACKED_VECTOR2_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setMeshDataPtr, origin, vertices, indices)
+    callPtrMethod_TRANSFORM3D_PACKED_VECTOR2_ARRAY_PACKED_INT_32_ARRAY(MethodBindings.setMeshDataPtr, origin, vertices, indices)
   }
 
   /**
@@ -156,7 +154,7 @@ public open class OpenXRPlaneTracker : OpenXRSpatialEntityTracker() {
    * discovery logic.
    */
   public final fun clearMeshData(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearMeshDataPtr)
+    callPtrMethod0(MethodBindings.clearMeshDataPtr)
   }
 
   /**
@@ -164,13 +162,13 @@ public open class OpenXRPlaneTracker : OpenXRSpatialEntityTracker() {
    * these correctly.
    */
   public final fun getMeshOffset(): Transform3D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getMeshOffsetPtr)
+      callPtrMethod0_ret_TRANSFORM3D(MethodBindings.getMeshOffsetPtr)
 
   /**
    * Gets a mesh created from either the mesh data or from our bounding size for this plane.
    */
   public final fun getMesh(): Mesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMeshPtr) as Mesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMeshPtr) as Mesh?)
 
   /**
    * Gets a collision shape built either from the mesh data or from our bounding size for this
@@ -178,7 +176,7 @@ public open class OpenXRPlaneTracker : OpenXRSpatialEntityTracker() {
    */
   @JvmOverloads
   public final fun getShape(thickness: Float = 0.01f): Shape3D? =
-      (TransferContext.callPtrMethod_DOUBLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getShapePtr, thickness.toDouble()) as Shape3D?)
+      (callPtrMethod_DOUBLE_ret_OBJECT_REF(MethodBindings.getShapePtr, thickness.toDouble()) as Shape3D?)
 
   public companion object {
     @JvmField

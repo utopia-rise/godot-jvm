@@ -97,18 +97,20 @@ a different one, or a JDK you thought you removed still seems to be in use.
 
 **Fix:** update `JAVA_HOME` to select the intended JDK, or pass `--jvm-path=<jdk home>` for one run. See [Runtime settings](reference/runtime-configuration.md#jvm-path).
 
-### Memory usage grows without bound after disabling the GC
+### Memory usage grows without bound after disabling memory management
 
 **Symptom:** `RefCounted` and native-type instances keep accumulating and
-are never freed.
+are never freed, and memory held by threads that have exited is never
+returned.
 
-**Explanation:** the `--jvm-disable-gc` flag (or `disable_gc` in the JSON
-configuration) turns off Godot-JVM's own garbage collector. With it
-disabled, `RefCounted` types and native types are no longer garbage
-collected at all.
+**Explanation:** the `--jvm-disable-memory-management` flag (or
+`disable_memory_management` in the JSON configuration) turns off everything
+Godot-JVM does per frame to keep the two sides in step: demoting references
+the JVM alone still holds, dropping objects the engine has freed, returning
+variant slots to their pools, and releasing what terminated threads owned.
 
-**Fix:** leave the GC enabled unless you have a specific reason to disable
-it, and re-enable it if you see unbounded memory growth.
+**Fix:** leave it enabled unless you have a specific reason to disable it,
+and re-enable it if you see unbounded memory growth.
 
 ### The JVM does not start when the editor is launched from the Dock or Finder on macOS
 

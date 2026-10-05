@@ -8,6 +8,7 @@ data class TransferSignature(
     val isVararg: Boolean,
     val returnConverter: MemberName,
     val isRefCountedReturn: Boolean,
+    val isStatic: Boolean,
 ) {
     /** A ptrcall reads the arguments where the buffer holds them, so every type has to be in native layout there. */
     val isVariantCall: Boolean = isVararg
@@ -17,7 +18,9 @@ data class TransferSignature(
     val returnsValue: Boolean = returnConverter != VariantConverter.NIL
 
     val name: String = buildString {
-        append(if (isVariantCall) "callMethod" else "callPtrMethod")
+        append("call")
+        if (isStatic) append("Static")
+        append(if (isVariantCall) "Method" else "PtrMethod")
         if (converters.isEmpty() && !isVararg) append('0')
         for (converter in converters) append('_').append(converter.simpleName.removePrefix("_"))
         if (isVararg) append("_VARARG")

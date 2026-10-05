@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -36,27 +35,26 @@ public open class RenderData internal constructor() : Object() {
    * Returns the [RenderSceneBuffers] object managing the scene buffers for rendering this viewport.
    */
   public final fun getRenderSceneBuffers(): RenderSceneBuffers? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getRenderSceneBuffersPtr) as RenderSceneBuffers?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getRenderSceneBuffersPtr) as RenderSceneBuffers?)
 
   /**
    * Returns the [RenderSceneData] object managing this frames scene data.
    */
   public final fun getRenderSceneData(): RenderSceneData? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getRenderSceneDataPtr) as RenderSceneData?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getRenderSceneDataPtr) as RenderSceneData?)
 
   /**
    * Returns the [RID] of the environment object in the [RenderingServer] being used to render this
    * viewport.
    */
-  public final fun getEnvironment(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getEnvironmentPtr)
+  public final fun getEnvironment(): RID = callPtrMethod0_ret_RID(MethodBindings.getEnvironmentPtr)
 
   /**
    * Returns the [RID] of the camera attributes object in the [RenderingServer] being used to render
    * this viewport.
    */
   public final fun getCameraAttributes(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getCameraAttributesPtr)
+      callPtrMethod0_ret_RID(MethodBindings.getCameraAttributesPtr)
 
   public companion object {
     @JvmField

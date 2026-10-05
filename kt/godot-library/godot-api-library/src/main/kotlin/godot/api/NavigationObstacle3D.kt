@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -264,22 +263,21 @@ public open class NavigationObstacle3D : Node3D() {
   /**
    * Returns the [RID] of this obstacle on the [NavigationServer3D].
    */
-  public final fun getRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getRidPtr)
+  public final fun getRid(): RID = callPtrMethod0_ret_RID(MethodBindings.getRidPtr)
 
   public final fun setAvoidanceEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAvoidanceEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setAvoidanceEnabledPtr, enabled)
   }
 
   public final fun getAvoidanceEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAvoidanceEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAvoidanceEnabledPtr)
 
   /**
    * Sets the [RID] of the navigation map this NavigationObstacle node should use and also updates
    * the `obstacle` on the NavigationServer.
    */
   public final fun setNavigationMap(navigationMap: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setNavigationMapPtr, navigationMap)
+    callPtrMethod_RID(MethodBindings.setNavigationMapPtr, navigationMap)
   }
 
   /**
@@ -290,49 +288,49 @@ public open class NavigationObstacle3D : Node3D() {
    * navigation map for the NavigationObstacle and also update the obstacle on the NavigationServer.
    */
   public final fun getNavigationMap(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getNavigationMapPtr)
+      callPtrMethod0_ret_RID(MethodBindings.getNavigationMapPtr)
 
   public final fun setRadius(radius: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRadiusPtr, radius.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRadiusPtr, radius.toDouble())
   }
 
   public final fun getRadius(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRadiusPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRadiusPtr).toFloat()
 
   public final fun setHeight(height: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHeightPtr, height.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setHeightPtr, height.toDouble())
   }
 
   public final fun getHeight(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHeightPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getHeightPtr).toFloat()
 
   public final fun setVelocity(velocity: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setVelocityPtr, velocity)
+    callPtrMethod_VECTOR3(MethodBindings.setVelocityPtr, velocity)
   }
 
   public final fun getVelocity(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getVelocityPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getVelocityPtr)
 
   public final fun setVertices(vertices: PackedVector3Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.setVerticesPtr, vertices)
+    callPtrMethod_PACKED_VECTOR3_ARRAY(MethodBindings.setVerticesPtr, vertices)
   }
 
   public final fun getVertices(): PackedVector3Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getVerticesPtr)
+      callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(MethodBindings.getVerticesPtr)
 
   public final fun setAvoidanceLayers(layers: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAvoidanceLayersPtr, layers)
+    callPtrMethod_LONG(MethodBindings.setAvoidanceLayersPtr, layers)
   }
 
   public final fun getAvoidanceLayers(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAvoidanceLayersPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getAvoidanceLayersPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [avoidanceLayers] bitmask,
    * given a [layerNumber] between 1 and 32.
    */
   public final fun setAvoidanceLayerValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAvoidanceLayerValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAvoidanceLayerValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -340,28 +338,28 @@ public open class NavigationObstacle3D : Node3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getAvoidanceLayerValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getAvoidanceLayerValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getAvoidanceLayerValuePtr, layerNumber.toLong())
 
   public final fun setUse3dAvoidance(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUse3dAvoidancePtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setUse3dAvoidancePtr, enabled)
   }
 
   public final fun getUse3dAvoidance(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUse3dAvoidancePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getUse3dAvoidancePtr)
 
   public final fun setAffectNavigationMesh(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAffectNavigationMeshPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setAffectNavigationMeshPtr, enabled)
   }
 
   public final fun getAffectNavigationMesh(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAffectNavigationMeshPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAffectNavigationMeshPtr)
 
   public final fun setCarveNavigationMesh(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCarveNavigationMeshPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setCarveNavigationMeshPtr, enabled)
   }
 
   public final fun getCarveNavigationMesh(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getCarveNavigationMeshPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getCarveNavigationMeshPtr)
 
   public companion object {
     @JvmField

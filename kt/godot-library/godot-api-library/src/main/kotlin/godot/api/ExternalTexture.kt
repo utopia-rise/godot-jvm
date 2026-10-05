@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -82,7 +81,7 @@ public open class ExternalTexture : Texture2D() {
   }
 
   public final fun setSize(size: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR2(MethodBindings.setSizePtr, size)
   }
 
   /**
@@ -92,7 +91,7 @@ public open class ExternalTexture : Texture2D() {
    * creating an `android.graphics.SurfaceTexture` on Android.
    */
   public final fun getExternalTextureId(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getExternalTextureIdPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getExternalTextureIdPtr)
 
   /**
    * Sets the external buffer ID.
@@ -101,7 +100,7 @@ public open class ExternalTexture : Texture2D() {
    * for example, `SurfaceTexture.getHardwareBuffer()` on Android.
    */
   public final fun setExternalBufferId(externalBufferId: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setExternalBufferIdPtr, externalBufferId)
+    callPtrMethod_LONG(MethodBindings.setExternalBufferIdPtr, externalBufferId)
   }
 
   /**

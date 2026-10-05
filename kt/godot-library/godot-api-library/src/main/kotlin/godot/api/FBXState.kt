@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod_BOOL
@@ -42,10 +41,10 @@ public open class FBXState : GLTFState() {
   }
 
   public final fun getAllowGeometryHelperNodes(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAllowGeometryHelperNodesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAllowGeometryHelperNodesPtr)
 
   public final fun setAllowGeometryHelperNodes(allow: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllowGeometryHelperNodesPtr, allow)
+    callPtrMethod_BOOL(MethodBindings.setAllowGeometryHelperNodesPtr, allow)
   }
 
   public companion object {

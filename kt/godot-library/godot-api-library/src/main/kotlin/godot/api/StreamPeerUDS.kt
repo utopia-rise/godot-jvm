@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING_ret_LONG
@@ -41,19 +40,19 @@ public open class StreamPeerUDS : StreamPeerSocket() {
    * [connectToHost] to use the specified [path] as the source address.
    */
   public final fun bind(path: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.bindPtr, path))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.bindPtr, path))
 
   /**
    * Connects to the specified UNIX Domain Socket path. Returns [OK] on success.
    */
   public final fun connectToHost(path: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.connectToHostPtr, path))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.connectToHostPtr, path))
 
   /**
    * Returns the socket path of this peer.
    */
   public final fun getConnectedPath(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getConnectedPathPtr)
+      callMethod0_ret_STRING(MethodBindings.getConnectedPathPtr)
 
   public companion object {
     @JvmField

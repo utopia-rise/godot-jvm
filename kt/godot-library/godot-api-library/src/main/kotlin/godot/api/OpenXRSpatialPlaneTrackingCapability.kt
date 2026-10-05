@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_RID_ARRAY_OBJECT_OBJECT_CALLABLE_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_BOOL
@@ -36,8 +35,7 @@ public open class OpenXRSpatialPlaneTrackingCapability : OpenXRExtensionWrapper(
   /**
    * Returns `true` if plane tracking is supported by the current device.
    */
-  public final fun isSupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isSupportedPtr)
+  public final fun isSupported(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isSupportedPtr)
 
   /**
    * Calls [OpenXRSpatialEntityExtension.discoverSpatialEntities] and
@@ -69,7 +67,7 @@ public open class OpenXRSpatialPlaneTrackingCapability : OpenXRExtensionWrapper(
     nextSnapshotQuery: OpenXRStructureBase? = null,
     userCallback: Callable = VariantCallable(),
   ): OpenXRFutureResult? =
-      (TransferContext.callMethod_RID_ARRAY_OBJECT_OBJECT_CALLABLE_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.startEntityDiscoveryPtr, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery, userCallback) as OpenXRFutureResult?)
+      (callMethod_RID_ARRAY_OBJECT_OBJECT_CALLABLE_ret_OBJECT_REF(MethodBindings.startEntityDiscoveryPtr, spatialContext, componentData, nextSnapshotCreate, nextSnapshotQuery, userCallback) as OpenXRFutureResult?)
 
   public companion object {
     @JvmField

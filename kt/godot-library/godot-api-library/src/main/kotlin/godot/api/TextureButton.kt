@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -168,74 +167,72 @@ public open class TextureButton : BaseButton() {
   }
 
   public final fun setTextureNormal(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTextureNormalPtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTextureNormalPtr, texture)
   }
 
   public final fun setTexturePressed(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePressedPtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTexturePressedPtr, texture)
   }
 
   public final fun setTextureHover(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTextureHoverPtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTextureHoverPtr, texture)
   }
 
   public final fun setTextureDisabled(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTextureDisabledPtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTextureDisabledPtr, texture)
   }
 
   public final fun setTextureFocused(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTextureFocusedPtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTextureFocusedPtr, texture)
   }
 
   public final fun setClickMask(mask: BitMap?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setClickMaskPtr, mask)
+    callPtrMethod_OBJECT(MethodBindings.setClickMaskPtr, mask)
   }
 
   public final fun setIgnoreTextureSize(ignore: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIgnoreTextureSizePtr, ignore)
+    callPtrMethod_BOOL(MethodBindings.setIgnoreTextureSizePtr, ignore)
   }
 
   public final fun setStretchMode(mode: StretchMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStretchModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setStretchModePtr, mode.value)
   }
 
   public final fun setFlipH(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFlipHPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setFlipHPtr, enable)
   }
 
-  public final fun isFlippedH(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFlippedHPtr)
+  public final fun isFlippedH(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isFlippedHPtr)
 
   public final fun setFlipV(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFlipVPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setFlipVPtr, enable)
   }
 
-  public final fun isFlippedV(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFlippedVPtr)
+  public final fun isFlippedV(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isFlippedVPtr)
 
   public final fun getTextureNormal(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTextureNormalPtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTextureNormalPtr) as Texture2D?)
 
   public final fun getTexturePressed(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePressedPtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTexturePressedPtr) as Texture2D?)
 
   public final fun getTextureHover(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTextureHoverPtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTextureHoverPtr) as Texture2D?)
 
   public final fun getTextureDisabled(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTextureDisabledPtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTextureDisabledPtr) as Texture2D?)
 
   public final fun getTextureFocused(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTextureFocusedPtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTextureFocusedPtr) as Texture2D?)
 
   public final fun getClickMask(): BitMap? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getClickMaskPtr) as BitMap?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getClickMaskPtr) as BitMap?)
 
   public final fun getIgnoreTextureSize(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getIgnoreTextureSizePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getIgnoreTextureSizePtr)
 
   public final fun getStretchMode(): StretchMode =
-      StretchMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStretchModePtr))
+      StretchMode.from(callPtrMethod0_ret_LONG(MethodBindings.getStretchModePtr))
 
   public enum class StretchMode(
     public override val `value`: Long,

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_STRING_ret_LONG
 import godot.callPtrMethod0_ret_LONG
@@ -52,19 +51,19 @@ public open class TCPServer : SocketServer() {
    */
   @JvmOverloads
   public final fun listen(port: Int, bindAddress: String = "*"): Error =
-      Error.from(TransferContext.callMethod_LONG_STRING_ret_LONG(ptr, objectID.id, MethodBindings.listenPtr, port.toLong(), bindAddress))
+      Error.from(callMethod_LONG_STRING_ret_LONG(MethodBindings.listenPtr, port.toLong(), bindAddress))
 
   /**
    * Returns the local port this server is listening to.
    */
   public final fun getLocalPort(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLocalPortPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getLocalPortPtr).toInt()
 
   /**
    * If a connection is available, returns a StreamPeerTCP with the connection.
    */
   public final fun takeConnection(): StreamPeerTCP? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.takeConnectionPtr) as StreamPeerTCP?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.takeConnectionPtr) as StreamPeerTCP?)
 
   public companion object {
     @JvmField

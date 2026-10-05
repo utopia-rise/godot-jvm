@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -173,67 +172,67 @@ public open class CameraAttributesPractical : CameraAttributes() {
   }
 
   public final fun setDofBlurFarEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDofBlurFarEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setDofBlurFarEnabledPtr, enabled)
   }
 
   public final fun isDofBlurFarEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDofBlurFarEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDofBlurFarEnabledPtr)
 
   public final fun setDofBlurFarDistance(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDofBlurFarDistancePtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDofBlurFarDistancePtr, distance.toDouble())
   }
 
   public final fun getDofBlurFarDistance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDofBlurFarDistancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDofBlurFarDistancePtr).toFloat()
 
   public final fun setDofBlurFarTransition(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDofBlurFarTransitionPtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDofBlurFarTransitionPtr, distance.toDouble())
   }
 
   public final fun getDofBlurFarTransition(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDofBlurFarTransitionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDofBlurFarTransitionPtr).toFloat()
 
   public final fun setDofBlurNearEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDofBlurNearEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setDofBlurNearEnabledPtr, enabled)
   }
 
   public final fun isDofBlurNearEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDofBlurNearEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDofBlurNearEnabledPtr)
 
   public final fun setDofBlurNearDistance(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDofBlurNearDistancePtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDofBlurNearDistancePtr, distance.toDouble())
   }
 
   public final fun getDofBlurNearDistance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDofBlurNearDistancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDofBlurNearDistancePtr).toFloat()
 
   public final fun setDofBlurNearTransition(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDofBlurNearTransitionPtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDofBlurNearTransitionPtr, distance.toDouble())
   }
 
   public final fun getDofBlurNearTransition(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDofBlurNearTransitionPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDofBlurNearTransitionPtr).toFloat()
 
   public final fun setDofBlurAmount(amount: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDofBlurAmountPtr, amount.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDofBlurAmountPtr, amount.toDouble())
   }
 
   public final fun getDofBlurAmount(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDofBlurAmountPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDofBlurAmountPtr).toFloat()
 
   public final fun setAutoExposureMaxSensitivity(maxSensitivity: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAutoExposureMaxSensitivityPtr, maxSensitivity.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAutoExposureMaxSensitivityPtr, maxSensitivity.toDouble())
   }
 
   public final fun getAutoExposureMaxSensitivity(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAutoExposureMaxSensitivityPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAutoExposureMaxSensitivityPtr).toFloat()
 
   public final fun setAutoExposureMinSensitivity(minSensitivity: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAutoExposureMinSensitivityPtr, minSensitivity.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAutoExposureMinSensitivityPtr, minSensitivity.toDouble())
   }
 
   public final fun getAutoExposureMinSensitivity(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAutoExposureMinSensitivityPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAutoExposureMinSensitivityPtr).toFloat()
 
   public companion object {
     @JvmField

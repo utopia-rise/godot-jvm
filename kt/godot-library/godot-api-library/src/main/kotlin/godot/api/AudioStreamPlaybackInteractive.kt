@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -40,14 +39,14 @@ public open class AudioStreamPlaybackInteractive internal constructor() : AudioS
    * Switch to a clip (by name).
    */
   public final fun switchToClipByName(clipName: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.switchToClipByNamePtr, clipName)
+    callPtrMethod_STRING_NAME(MethodBindings.switchToClipByNamePtr, clipName)
   }
 
   /**
    * Switch to a clip (by index).
    */
   public final fun switchToClip(clipIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.switchToClipPtr, clipIndex.toLong())
+    callPtrMethod_LONG(MethodBindings.switchToClipPtr, clipIndex.toLong())
   }
 
   /**
@@ -62,7 +61,7 @@ public open class AudioStreamPlaybackInteractive internal constructor() : AudioS
    * ```
    */
   public final fun getCurrentClipIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCurrentClipIndexPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getCurrentClipIndexPtr).toInt()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

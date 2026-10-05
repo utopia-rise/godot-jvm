@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -65,14 +64,14 @@ public open class ConfirmationDialog : AcceptDialog() {
    * you wish to hide it or any of its children, use their [CanvasItem.visible] property.
    */
   public final fun getCancelButton(): Button? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getCancelButtonPtr) as Button?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getCancelButtonPtr) as Button?)
 
   public final fun setCancelButtonText(text: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setCancelButtonTextPtr, text)
+    callMethod_STRING(MethodBindings.setCancelButtonTextPtr, text)
   }
 
   public final fun getCancelButtonText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCancelButtonTextPtr)
+      callMethod0_ret_STRING(MethodBindings.getCancelButtonTextPtr)
 
   public companion object {
     @JvmField

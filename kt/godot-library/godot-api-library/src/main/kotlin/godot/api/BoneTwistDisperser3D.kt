@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_LONG_ret_STRING
 import godot.callMethod_LONG_STRING
@@ -92,51 +91,51 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
   }
 
   public final fun setSettingCount(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSettingCountPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setSettingCountPtr, count.toLong())
   }
 
   public final fun getSettingCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSettingCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSettingCountPtr).toInt()
 
   /**
    * Clears all settings.
    */
   public final fun clearSettings(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearSettingsPtr)
+    callPtrMethod0(MethodBindings.clearSettingsPtr)
   }
 
   public final fun setMutableBoneAxes(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMutableBoneAxesPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setMutableBoneAxesPtr, enabled)
   }
 
   public final fun areBoneAxesMutable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.areBoneAxesMutablePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.areBoneAxesMutablePtr)
 
   /**
    * Sets the root bone name of the bone chain.
    */
   public final fun setRootBoneName(index: Int, boneName: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setRootBoneNamePtr, index.toLong(), boneName)
+    callMethod_LONG_STRING(MethodBindings.setRootBoneNamePtr, index.toLong(), boneName)
   }
 
   /**
    * Returns the root bone name of the bone chain.
    */
   public final fun getRootBoneName(index: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getRootBoneNamePtr, index.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getRootBoneNamePtr, index.toLong())
 
   /**
    * Sets the root bone index of the bone chain.
    */
   public final fun setRootBone(index: Int, bone: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setRootBonePtr, index.toLong(), bone.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setRootBonePtr, index.toLong(), bone.toLong())
   }
 
   /**
    * Returns the root bone index of the bone chain.
    */
   public final fun getRootBone(index: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getRootBonePtr, index.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getRootBonePtr, index.toLong()).toInt()
 
   /**
    * Sets the end bone name of the bone chain.
@@ -144,27 +143,27 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * **Note:** The end bone must be a child of the root bone.
    */
   public final fun setEndBoneName(index: Int, boneName: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setEndBoneNamePtr, index.toLong(), boneName)
+    callMethod_LONG_STRING(MethodBindings.setEndBoneNamePtr, index.toLong(), boneName)
   }
 
   /**
    * Returns the end bone name of the bone chain.
    */
   public final fun getEndBoneName(index: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getEndBoneNamePtr, index.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getEndBoneNamePtr, index.toLong())
 
   /**
    * Sets the end bone index of the bone chain.
    */
   public final fun setEndBone(index: Int, bone: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setEndBonePtr, index.toLong(), bone.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setEndBonePtr, index.toLong(), bone.toLong())
   }
 
   /**
    * Returns the end bone index of the bone chain.
    */
   public final fun getEndBone(index: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getEndBonePtr, index.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getEndBonePtr, index.toLong()).toInt()
 
   /**
    * Returns the reference bone name to extract twist of the setting at [index].
@@ -172,7 +171,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * This bone is either the end of the chain or its parent, depending on [isEndBoneExtended].
    */
   public final fun getReferenceBoneName(index: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getReferenceBoneNamePtr, index.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getReferenceBoneNamePtr, index.toLong())
 
   /**
    * Returns the reference bone to extract twist of the setting at [index].
@@ -180,7 +179,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * This bone is either the end of the chain or its parent, depending on [isEndBoneExtended].
    */
   public final fun getReferenceBone(index: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getReferenceBonePtr, index.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getReferenceBonePtr, index.toLong()).toInt()
 
   /**
    * If [enabled] is `true`, the end bone is extended to have a tail.
@@ -189,21 +188,21 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * vector to the end bone as a twist axis.
    */
   public final fun setExtendEndBone(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setExtendEndBonePtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setExtendEndBonePtr, index.toLong(), enabled)
   }
 
   /**
    * Returns `true` if the end bone is extended to have a tail.
    */
   public final fun isEndBoneExtended(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isEndBoneExtendedPtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isEndBoneExtendedPtr, index.toLong())
 
   /**
    * Sets the end bone tail direction of the bone chain when [isEndBoneExtended] is `true`.
    */
   public final fun setEndBoneDirection(index: Int, boneDirection: SkeletonModifier3D.BoneDirection):
       Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setEndBoneDirectionPtr, index.toLong(), boneDirection.value)
+    callPtrMethod_LONG_LONG(MethodBindings.setEndBoneDirectionPtr, index.toLong(), boneDirection.value)
   }
 
   /**
@@ -211,7 +210,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * `true`.
    */
   public final fun getEndBoneDirection(index: Int): SkeletonModifier3D.BoneDirection =
-      SkeletonModifier3D.BoneDirection.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getEndBoneDirectionPtr, index.toLong()))
+      SkeletonModifier3D.BoneDirection.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getEndBoneDirectionPtr, index.toLong()))
 
   /**
    * If [enabled] is `true`, it extracts the twist amount from the difference between the bone rest
@@ -221,7 +220,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * [getTwistFrom] and the current bone pose. See also [setTwistFrom].
    */
   public final fun setTwistFromRest(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setTwistFromRestPtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setTwistFromRestPtr, index.toLong(), enabled)
   }
 
   /**
@@ -229,7 +228,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * current bone pose.
    */
   public final fun isTwistFromRest(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isTwistFromRestPtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isTwistFromRestPtr, index.toLong())
 
   /**
    * Sets the rotation to an arbitrary state before twisting for the current bone pose to extract
@@ -240,7 +239,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * processed after that but before this [BoneTwistDisperser3D].
    */
   public final fun setTwistFrom(index: Int, from: Quaternion): Unit {
-    TransferContext.callPtrMethod_LONG_QUATERNION(ptr, objectID.id, MethodBindings.setTwistFromPtr, index.toLong(), from)
+    callPtrMethod_LONG_QUATERNION(MethodBindings.setTwistFromPtr, index.toLong(), from)
   }
 
   /**
@@ -248,20 +247,20 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * the twist when [isTwistFromRest] is `false`.
    */
   public final fun getTwistFrom(index: Int): Quaternion =
-      TransferContext.callPtrMethod_LONG_ret_QUATERNION(ptr, objectID.id, MethodBindings.getTwistFromPtr, index.toLong())
+      callPtrMethod_LONG_ret_QUATERNION(MethodBindings.getTwistFromPtr, index.toLong())
 
   /**
    * Sets whether to use automatic amount assignment or to allow manual assignment.
    */
   public final fun setDisperseMode(index: Int, disperseMode: DisperseMode): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setDisperseModePtr, index.toLong(), disperseMode.value)
+    callPtrMethod_LONG_LONG(MethodBindings.setDisperseModePtr, index.toLong(), disperseMode.value)
   }
 
   /**
    * Returns whether to use automatic amount assignment or to allow manual assignment.
    */
   public final fun getDisperseMode(index: Int): DisperseMode =
-      DisperseMode.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getDisperseModePtr, index.toLong()))
+      DisperseMode.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getDisperseModePtr, index.toLong()))
 
   /**
    * Sets the position at which to divide the segment between joints for weight assignment when
@@ -272,7 +271,7 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * `1.0`, and `0.5`. Then amounts become `0.25`, `0.75`, and `1.0` respectively.
    */
   public final fun setWeightPosition(index: Int, weightPosition: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setWeightPositionPtr, index.toLong(), weightPosition.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setWeightPositionPtr, index.toLong(), weightPosition.toDouble())
   }
 
   /**
@@ -280,39 +279,39 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
    * [getDisperseMode] is [DISPERSE_MODE_WEIGHTED].
    */
   public final fun getWeightPosition(index: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWeightPositionPtr, index.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getWeightPositionPtr, index.toLong()).toFloat()
 
   /**
    * Sets the damping curve when [getDisperseMode] is [DISPERSE_MODE_CUSTOM].
    */
   public final fun setDampingCurve(index: Int, curve: Curve?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setDampingCurvePtr, index.toLong(), curve)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setDampingCurvePtr, index.toLong(), curve)
   }
 
   /**
    * Returns the damping curve when [getDisperseMode] is [DISPERSE_MODE_CUSTOM].
    */
   public final fun getDampingCurve(index: Int): Curve? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getDampingCurvePtr, index.toLong()) as Curve?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getDampingCurvePtr, index.toLong()) as Curve?)
 
   /**
    * Returns the bone name at [joint] in the bone chain's joint list.
    */
   public final fun getJointBoneName(index: Int, joint: Int): String =
-      TransferContext.callMethod_LONG_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getJointBoneNamePtr, index.toLong(), joint.toLong())
+      callMethod_LONG_LONG_ret_STRING(MethodBindings.getJointBoneNamePtr, index.toLong(), joint.toLong())
 
   /**
    * Returns the bone index at [joint] in the bone chain's joint list.
    */
   public final fun getJointBone(index: Int, joint: Int): Int =
-      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getJointBonePtr, index.toLong(), joint.toLong()).toInt()
+      callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.getJointBonePtr, index.toLong(), joint.toLong()).toInt()
 
   /**
    * Returns the twist amount at [joint] in the bone chain's joint list when [getDisperseMode] is
    * [DISPERSE_MODE_CUSTOM].
    */
   public final fun getJointTwistAmount(index: Int, joint: Int): Float =
-      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getJointTwistAmountPtr, index.toLong(), joint.toLong()).toFloat()
+      callPtrMethod_LONG_LONG_ret_DOUBLE(MethodBindings.getJointTwistAmountPtr, index.toLong(), joint.toLong()).toFloat()
 
   /**
    * Sets the twist amount at [joint] in the bone chain's joint list when [getDisperseMode] is
@@ -323,14 +322,14 @@ public open class BoneTwistDisperser3D : SkeletonModifier3D() {
     joint: Int,
     twistAmount: Float,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setJointTwistAmountPtr, index.toLong(), joint.toLong(), twistAmount.toDouble())
+    callPtrMethod_LONG_LONG_DOUBLE(MethodBindings.setJointTwistAmountPtr, index.toLong(), joint.toLong(), twistAmount.toDouble())
   }
 
   /**
    * Returns the joint count of the bone chain's joint list.
    */
   public final fun getJointCount(index: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getJointCountPtr, index.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getJointCountPtr, index.toLong()).toInt()
 
   public enum class DisperseMode(
     public override val `value`: Long,

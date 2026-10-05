@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
@@ -93,7 +92,7 @@ public open class Cubemap : ImageTextureLayered() {
    * Creates a placeholder version of this resource ([PlaceholderCubemap]).
    */
   public final fun createPlaceholder(): Resource? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createPlaceholderPtr) as Resource?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.createPlaceholderPtr) as Resource?)
 
   public companion object {
     @JvmField

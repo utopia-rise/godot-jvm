@@ -3,7 +3,7 @@ package godot.registration
 import godot.common.interop.VariantConverter
 import godot.core.*
 import godot.internal.logging.GodotLogging
-import godot.internal.memory.TransferContext
+import godot.internal.memory.VariantBuffer
 
 data class KtPropertyInfo(
     val _type: VariantConverter<*>,
@@ -44,10 +44,10 @@ open class KtProperty<T : KtObject, P : Any?>(
 ) {
     open fun callGet(instance: T) {
         try {
-            TransferContext.writeReturnValue(getter(instance), variantConverter)
+            VariantBuffer.transfer.writeRet(getter(instance), variantConverter)
         } catch (t: Throwable) {
             GodotLogging.error("Error calling JVM getter ${ktPropertyInfo.name} of script $instance from Godot\n:" + t.stackTraceToString())
-            TransferContext.writeReturnValue(null, VariantParser.NIL)
+            VariantBuffer.transfer.writeRet(null, VariantParser.NIL)
         }
     }
 
@@ -63,7 +63,7 @@ open class KtProperty<T : KtObject, P : Any?>(
 
     protected fun <P> extractSetterArgument(): P {
         //TODO: manage nullable argument of enum setter (only for objects)
-        val arg = TransferContext.readSetterArgument(variantConverter)
+        val arg = VariantBuffer.transfer.readSetterArg(variantConverter)
         @Suppress("UNCHECKED_CAST")
         return arg as P
     }
@@ -82,7 +82,7 @@ class KtBitFieldProperty<T : KtObject, P : BitFieldBase<*>>(
     VariantCaster.INT
 ) {
     override fun callGet(instance: T) {
-        TransferContext.writeReturnValue(getValueConverter(getter(instance)), VariantCaster.INT)
+        VariantBuffer.transfer.writeRet(getValueConverter(getter(instance)), VariantCaster.INT)
     }
 
     override fun callSet(instance: T) {
@@ -104,7 +104,7 @@ class KtEnumListProperty<T : KtObject, P : Enum<P>, L : Collection<P>>(
     VariantCaster.TYPED_ARRAY(VariantParser.LONG)
 ) {
     override fun callGet(instance: T) {
-        TransferContext.writeReturnValue(getValueConverter(getter(instance)), variantConverter)
+        VariantBuffer.transfer.writeRet(getValueConverter(getter(instance)), variantConverter)
     }
 
     override fun callSet(instance: T) {

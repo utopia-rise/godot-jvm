@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -49,11 +48,11 @@ public open class AudioStreamPolyphonic : AudioStream() {
   }
 
   public final fun setPolyphony(voices: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPolyphonyPtr, voices.toLong())
+    callPtrMethod_LONG(MethodBindings.setPolyphonyPtr, voices.toLong())
   }
 
   public final fun getPolyphony(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPolyphonyPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getPolyphonyPtr).toInt()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

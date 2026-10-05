@@ -2,7 +2,7 @@
 
 #include "engine/godot_object.h"
 #include "godot_jvm.h"
-#include "jvm/wrapper/memory/memory_manager.h"
+#include "jvm/memory/memory_manager.h"
 #include "logging.h"
 
 using namespace godot;

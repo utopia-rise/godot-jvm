@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_AABB
 import godot.common.interop.VoidPtr
@@ -82,7 +81,7 @@ public open class PlaceholderMesh : Mesh() {
   }
 
   public final fun setAabb(aabb: AABB): Unit {
-    TransferContext.callPtrMethod_AABB(ptr, objectID.id, MethodBindings.setAabbPtr, aabb)
+    callPtrMethod_AABB(MethodBindings.setAabbPtr, aabb)
   }
 
   /**

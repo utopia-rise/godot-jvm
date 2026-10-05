@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod_OBJECT
@@ -64,18 +63,18 @@ public open class MultiMeshInstance2D : Node2D() {
   }
 
   public final fun setMultimesh(multimesh: MultiMesh?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMultimeshPtr, multimesh)
+    callPtrMethod_OBJECT(MethodBindings.setMultimeshPtr, multimesh)
   }
 
   public final fun getMultimesh(): MultiMesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMultimeshPtr) as MultiMesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMultimeshPtr) as MultiMesh?)
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTexturePtr, texture)
   }
 
   public final fun getTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTexturePtr) as Texture2D?)
 
   public companion object {
     @JvmField

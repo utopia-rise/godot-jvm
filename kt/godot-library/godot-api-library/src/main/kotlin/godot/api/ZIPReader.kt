@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_BOOL_ret_BOOL
 import godot.callMethod_STRING_BOOL_ret_LONG
@@ -82,13 +81,12 @@ public open class ZIPReader : RefCounted() {
    * Opens the zip archive at the given [path] and reads its file index.
    */
   public final fun `open`(path: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.openPtr, path))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.openPtr, path))
 
   /**
    * Closes the underlying resources used by this instance.
    */
-  public final fun close(): Error =
-      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.closePtr))
+  public final fun close(): Error = Error.from(callPtrMethod0_ret_LONG(MethodBindings.closePtr))
 
   /**
    * Returns the list of names of all files in the loaded archive.
@@ -96,7 +94,7 @@ public open class ZIPReader : RefCounted() {
    * Must be called after [open].
    */
   public final fun getFiles(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getFilesPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getFilesPtr)
 
   /**
    * Loads the whole content of a file in the loaded zip archive into memory and returns it.
@@ -105,7 +103,7 @@ public open class ZIPReader : RefCounted() {
    */
   @JvmOverloads
   public final fun readFile(path: String, caseSensitive: Boolean = true): PackedByteArray =
-      TransferContext.callMethod_STRING_BOOL_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.readFilePtr, path, caseSensitive)
+      callMethod_STRING_BOOL_ret_PACKED_BYTE_ARRAY(MethodBindings.readFilePtr, path, caseSensitive)
 
   /**
    * Returns `true` if the file exists in the loaded zip archive.
@@ -114,7 +112,7 @@ public open class ZIPReader : RefCounted() {
    */
   @JvmOverloads
   public final fun fileExists(path: String, caseSensitive: Boolean = true): Boolean =
-      TransferContext.callMethod_STRING_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.fileExistsPtr, path, caseSensitive)
+      callMethod_STRING_BOOL_ret_BOOL(MethodBindings.fileExistsPtr, path, caseSensitive)
 
   /**
    * Returns the compression level of the file in the loaded zip archive. Returns `-1` if the file
@@ -122,7 +120,7 @@ public open class ZIPReader : RefCounted() {
    */
   @JvmOverloads
   public final fun getCompressionLevel(path: String, caseSensitive: Boolean = true): Int =
-      TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.getCompressionLevelPtr, path, caseSensitive).toInt()
+      callMethod_STRING_BOOL_ret_LONG(MethodBindings.getCompressionLevelPtr, path, caseSensitive).toInt()
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -57,18 +56,18 @@ public open class InputEventJoypadMotion : InputEvent() {
   }
 
   public final fun setAxis(axis: JoyAxis): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAxisPtr, axis.value)
+    callPtrMethod_LONG(MethodBindings.setAxisPtr, axis.value)
   }
 
   public final fun getAxis(): JoyAxis =
-      JoyAxis.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAxisPtr))
+      JoyAxis.from(callPtrMethod0_ret_LONG(MethodBindings.getAxisPtr))
 
   public final fun setAxisValue(axisValue: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAxisValuePtr, axisValue.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAxisValuePtr, axisValue.toDouble())
   }
 
   public final fun getAxisValue(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAxisValuePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAxisValuePtr).toFloat()
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_BOOL
@@ -137,40 +136,40 @@ public object CameraServer : Object() {
 
   @JvmStatic
   public final fun setMonitoringFeeds(isMonitoringFeeds: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMonitoringFeedsPtr, isMonitoringFeeds)
+    callPtrMethod_BOOL(MethodBindings.setMonitoringFeedsPtr, isMonitoringFeeds)
   }
 
   @JvmStatic
   public final fun isMonitoringFeeds(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMonitoringFeedsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isMonitoringFeedsPtr)
 
   /**
    * Returns the [CameraFeed] corresponding to the camera with the given [index].
    */
   @JvmStatic
   public final fun getFeed(index: Int): CameraFeed? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFeedPtr, index.toLong()) as CameraFeed?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getFeedPtr, index.toLong()) as CameraFeed?)
 
   /**
    * Returns the number of [CameraFeed]s registered.
    */
   @JvmStatic
   public final fun getFeedCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFeedCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getFeedCountPtr).toInt()
 
   /**
    * Returns an array of [CameraFeed]s.
    */
   @JvmStatic
   public final fun feeds(): VariantArray<CameraFeed> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.feedsPtr) as VariantArray<CameraFeed>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.feedsPtr) as VariantArray<CameraFeed>)
 
   /**
    * Adds the camera [feed] to the camera server.
    */
   @JvmStatic
   public final fun addFeed(feed: CameraFeed?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addFeedPtr, feed)
+    callPtrMethod_OBJECT(MethodBindings.addFeedPtr, feed)
   }
 
   /**
@@ -178,7 +177,7 @@ public object CameraServer : Object() {
    */
   @JvmStatic
   public final fun removeFeed(feed: CameraFeed?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeFeedPtr, feed)
+    callPtrMethod_OBJECT(MethodBindings.removeFeedPtr, feed)
   }
 
   public enum class FeedImage(

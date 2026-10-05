@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -66,18 +65,18 @@ public open class AudioEffectSpectrumAnalyzer : AudioEffect() {
   }
 
   public final fun setBufferLength(seconds: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBufferLengthPtr, seconds.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBufferLengthPtr, seconds.toDouble())
   }
 
   public final fun getBufferLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBufferLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getBufferLengthPtr).toFloat()
 
   public final fun setFftSize(size: FFTSize): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFftSizePtr, size.value)
+    callPtrMethod_LONG(MethodBindings.setFftSizePtr, size.value)
   }
 
   public final fun getFftSize(): FFTSize =
-      FFTSize.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFftSizePtr))
+      FFTSize.from(callPtrMethod0_ret_LONG(MethodBindings.getFftSizePtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

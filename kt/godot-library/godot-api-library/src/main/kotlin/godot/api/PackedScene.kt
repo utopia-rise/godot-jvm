@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -118,7 +117,7 @@ public open class PackedScene : Resource() {
    * be cleared. See [Node.owner].
    */
   public final fun pack(path: Node?): Error =
-      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.packPtr, path))
+      Error.from(callPtrMethod_OBJECT_ret_LONG(MethodBindings.packPtr, path))
 
   /**
    * Instantiates the scene's node hierarchy. Triggers child scene instantiation(s). Triggers a
@@ -126,19 +125,19 @@ public open class PackedScene : Resource() {
    */
   @JvmOverloads
   public final fun instantiate(editState: GenEditState = PackedScene.GenEditState.DISABLED): Node? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.instantiatePtr, editState.value) as Node?)
+      (callPtrMethod_LONG_ret_OBJECT(MethodBindings.instantiatePtr, editState.value) as Node?)
 
   /**
    * Returns `true` if the scene file has nodes.
    */
   public final fun canInstantiate(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.canInstantiatePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.canInstantiatePtr)
 
   /**
    * Returns the [SceneState] representing the scene file contents.
    */
   public final fun getState(): SceneState? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getStatePtr) as SceneState?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getStatePtr) as SceneState?)
 
   public enum class GenEditState(
     public override val `value`: Long,

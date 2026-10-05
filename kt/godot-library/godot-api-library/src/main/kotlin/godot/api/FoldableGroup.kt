@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_BOOL
@@ -53,7 +52,7 @@ public open class FoldableGroup : Resource() {
    * Returns the current expanded container.
    */
   public final fun getExpandedContainer(): FoldableContainer? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getExpandedContainerPtr) as FoldableContainer?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getExpandedContainerPtr) as FoldableContainer?)
 
   /**
    * Returns an [VariantArray] of [FoldableContainer]s that have this as their FoldableGroup (see
@@ -61,14 +60,14 @@ public open class FoldableGroup : Resource() {
    * FoldableContainers.
    */
   public final fun getContainers(): VariantArray<FoldableContainer> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getContainersPtr) as VariantArray<FoldableContainer>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getContainersPtr) as VariantArray<FoldableContainer>)
 
   public final fun setAllowFoldingAll(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllowFoldingAllPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setAllowFoldingAllPtr, enabled)
   }
 
   public final fun isAllowFoldingAll(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAllowFoldingAllPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAllowFoldingAllPtr)
 
   public companion object {
     @JvmField

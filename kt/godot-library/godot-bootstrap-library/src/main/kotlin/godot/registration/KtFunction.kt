@@ -7,7 +7,7 @@ import godot.core.KtObject
 import godot.core.VariantParser
 import godot.internal.logging.GodotLogging
 import godot.internal.memory.ParametersReader
-import godot.internal.memory.TransferContext
+import godot.internal.memory.VariantBuffer
 
 data class KtFunctionInfo(
     val name: String,
@@ -44,10 +44,10 @@ abstract class KtFunction<T : KtObject, R : Any?>(
         var ret: Any? = Unit
         try {
             ret = invokeKt(instance)
-            TransferContext.writeReturnValue(ret, variantConverter)
+            VariantBuffer.transfer.writeRet(ret, variantConverter)
         } catch (t: Throwable) {
             GodotLogging.error("Error calling JVM method ${functionInfo.name} of script $instance from Godot:\n" + t.stackTraceToString())
-            TransferContext.writeReturnValue(null, VariantParser.NIL)
+            VariantBuffer.transfer.writeRet(null, VariantParser.NIL)
         }
         ret
     }

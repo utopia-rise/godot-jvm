@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_LONG_LONG_STRING_STRING_LONG_ret_LONG
@@ -179,40 +178,40 @@ public open class UPNP : RefCounted() {
    * Returns the number of discovered [UPNPDevice]s.
    */
   public final fun getDeviceCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDeviceCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getDeviceCountPtr).toInt()
 
   /**
    * Returns the [UPNPDevice] at the given [index].
    */
   public final fun getDevice(index: Int): UPNPDevice? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getDevicePtr, index.toLong()) as UPNPDevice?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getDevicePtr, index.toLong()) as UPNPDevice?)
 
   /**
    * Adds the given [UPNPDevice] to the list of discovered devices.
    */
   public final fun addDevice(device: UPNPDevice?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addDevicePtr, device)
+    callPtrMethod_OBJECT(MethodBindings.addDevicePtr, device)
   }
 
   /**
    * Sets the device at [index] from the list of discovered devices to [device].
    */
   public final fun setDevice(index: Int, device: UPNPDevice?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setDevicePtr, index.toLong(), device)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setDevicePtr, index.toLong(), device)
   }
 
   /**
    * Removes the device at [index] from the list of discovered devices.
    */
   public final fun removeDevice(index: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeDevicePtr, index.toLong())
+    callPtrMethod_LONG(MethodBindings.removeDevicePtr, index.toLong())
   }
 
   /**
    * Clears the list of discovered devices.
    */
   public final fun clearDevices(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearDevicesPtr)
+    callPtrMethod0(MethodBindings.clearDevicesPtr)
   }
 
   /**
@@ -220,7 +219,7 @@ public open class UPNP : RefCounted() {
    * (InternetGatewayDevice).
    */
   public final fun getGateway(): UPNPDevice? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getGatewayPtr) as UPNPDevice?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getGatewayPtr) as UPNPDevice?)
 
   /**
    * Discovers local [UPNPDevice]s. Clears the list of previously discovered devices.
@@ -237,14 +236,14 @@ public open class UPNP : RefCounted() {
     ttl: Int = 2,
     deviceFilter: String = "InternetGatewayDevice",
   ): Int =
-      TransferContext.callMethod_LONG_LONG_STRING_ret_LONG(ptr, objectID.id, MethodBindings.discoverPtr, timeout.toLong(), ttl.toLong(), deviceFilter).toInt()
+      callMethod_LONG_LONG_STRING_ret_LONG(MethodBindings.discoverPtr, timeout.toLong(), ttl.toLong(), deviceFilter).toInt()
 
   /**
    * Returns the external [IP] address of the default gateway (see [getGateway]) as string. Returns
    * an empty string on error.
    */
   public final fun queryExternalAddress(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.queryExternalAddressPtr)
+      callMethod0_ret_STRING(MethodBindings.queryExternalAddressPtr)
 
   /**
    * Adds a mapping to forward the external [port] (between 1 and 65535, although recommended to use
@@ -284,7 +283,7 @@ public open class UPNP : RefCounted() {
     proto: String = "UDP",
     duration: Int = 0,
   ): Int =
-      TransferContext.callMethod_LONG_LONG_STRING_STRING_LONG_ret_LONG(ptr, objectID.id, MethodBindings.addPortMappingPtr, port.toLong(), portInternal.toLong(), desc, proto, duration.toLong()).toInt()
+      callMethod_LONG_LONG_STRING_STRING_LONG_ret_LONG(MethodBindings.addPortMappingPtr, port.toLong(), portInternal.toLong(), desc, proto, duration.toLong()).toInt()
 
   /**
    * Deletes the port mapping for the given port and protocol combination on the default gateway
@@ -295,28 +294,28 @@ public open class UPNP : RefCounted() {
    */
   @JvmOverloads
   public final fun deletePortMapping(port: Int, proto: String = "UDP"): Int =
-      TransferContext.callMethod_LONG_STRING_ret_LONG(ptr, objectID.id, MethodBindings.deletePortMappingPtr, port.toLong(), proto).toInt()
+      callMethod_LONG_STRING_ret_LONG(MethodBindings.deletePortMappingPtr, port.toLong(), proto).toInt()
 
   public final fun setDiscoverMulticastIf(mIf: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setDiscoverMulticastIfPtr, mIf)
+    callMethod_STRING(MethodBindings.setDiscoverMulticastIfPtr, mIf)
   }
 
   public final fun getDiscoverMulticastIf(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDiscoverMulticastIfPtr)
+      callMethod0_ret_STRING(MethodBindings.getDiscoverMulticastIfPtr)
 
   public final fun setDiscoverLocalPort(port: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDiscoverLocalPortPtr, port.toLong())
+    callPtrMethod_LONG(MethodBindings.setDiscoverLocalPortPtr, port.toLong())
   }
 
   public final fun getDiscoverLocalPort(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDiscoverLocalPortPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getDiscoverLocalPortPtr).toInt()
 
   public final fun setDiscoverIpv6(ipv6: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDiscoverIpv6Ptr, ipv6)
+    callPtrMethod_BOOL(MethodBindings.setDiscoverIpv6Ptr, ipv6)
   }
 
   public final fun isDiscoverIpv6(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDiscoverIpv6Ptr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDiscoverIpv6Ptr)
 
   public enum class UPNPResult(
     public override val `value`: Long,

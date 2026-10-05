@@ -2,7 +2,7 @@ package godot.registration
 
 import godot.core.KtObject
 import godot.core.VariantParser
-import godot.internal.memory.TransferContext
+import godot.internal.memory.VariantBuffer
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction1
 
@@ -29,7 +29,7 @@ data class KtClass<T : KtObject>(
 ) {
     fun doNotification(instance: T) {
         val parameters = arrayOfNulls<Any>(2)
-        TransferContext.readArguments(
+        VariantBuffer.transfer.readArgs(
             arrayOf(VariantParser.LONG, VariantParser.BOOL),
             parameters
         )

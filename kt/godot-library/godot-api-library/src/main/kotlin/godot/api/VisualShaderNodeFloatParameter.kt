@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -105,46 +104,42 @@ public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
   }
 
   public final fun setHint(hint: Hint): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHintPtr, hint.value)
+    callPtrMethod_LONG(MethodBindings.setHintPtr, hint.value)
   }
 
-  public final fun getHint(): Hint =
-      Hint.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHintPtr))
+  public final fun getHint(): Hint = Hint.from(callPtrMethod0_ret_LONG(MethodBindings.getHintPtr))
 
   public final fun setMin(`value`: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMinPtr, value.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMinPtr, value.toDouble())
   }
 
-  public final fun getMin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMinPtr).toFloat()
+  public final fun getMin(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getMinPtr).toFloat()
 
   public final fun setMax(`value`: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMaxPtr, value.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMaxPtr, value.toDouble())
   }
 
-  public final fun getMax(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMaxPtr).toFloat()
+  public final fun getMax(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getMaxPtr).toFloat()
 
   public final fun setStep(`value`: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setStepPtr, value.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setStepPtr, value.toDouble())
   }
 
-  public final fun getStep(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStepPtr).toFloat()
+  public final fun getStep(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getStepPtr).toFloat()
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDefaultValueEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setDefaultValueEnabledPtr, enabled)
   }
 
   public final fun isDefaultValueEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDefaultValueEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDefaultValueEnabledPtr)
 
   public final fun setDefaultValue(`value`: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDefaultValuePtr, value.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDefaultValuePtr, value.toDouble())
   }
 
   public final fun getDefaultValue(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDefaultValuePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDefaultValuePtr).toFloat()
 
   public enum class Hint(
     public override val `value`: Long,

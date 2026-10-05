@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -82,32 +81,32 @@ public open class OpenXRAnalogThresholdModifier : OpenXRActionBindingModifier() 
   }
 
   public final fun setOnThreshold(onThreshold: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setOnThresholdPtr, onThreshold.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setOnThresholdPtr, onThreshold.toDouble())
   }
 
   public final fun getOnThreshold(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOnThresholdPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getOnThresholdPtr).toFloat()
 
   public final fun setOffThreshold(offThreshold: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setOffThresholdPtr, offThreshold.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setOffThresholdPtr, offThreshold.toDouble())
   }
 
   public final fun getOffThreshold(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOffThresholdPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getOffThresholdPtr).toFloat()
 
   public final fun setOnHaptic(haptic: OpenXRHapticBase?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setOnHapticPtr, haptic)
+    callPtrMethod_OBJECT(MethodBindings.setOnHapticPtr, haptic)
   }
 
   public final fun getOnHaptic(): OpenXRHapticBase? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOnHapticPtr) as OpenXRHapticBase?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getOnHapticPtr) as OpenXRHapticBase?)
 
   public final fun setOffHaptic(haptic: OpenXRHapticBase?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setOffHapticPtr, haptic)
+    callPtrMethod_OBJECT(MethodBindings.setOffHapticPtr, haptic)
   }
 
   public final fun getOffHaptic(): OpenXRHapticBase? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getOffHapticPtr) as OpenXRHapticBase?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getOffHapticPtr) as OpenXRHapticBase?)
 
   public companion object {
     @JvmField

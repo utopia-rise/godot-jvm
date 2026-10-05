@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -71,18 +70,17 @@ public open class XROrigin3D : Node3D() {
   }
 
   public final fun setWorldScale(worldScale: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setWorldScalePtr, worldScale.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setWorldScalePtr, worldScale.toDouble())
   }
 
   public final fun getWorldScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getWorldScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getWorldScalePtr).toFloat()
 
   public final fun setCurrent(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCurrentPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setCurrentPtr, enabled)
   }
 
-  public final fun isCurrent(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCurrentPtr)
+  public final fun isCurrent(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isCurrentPtr)
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -223,81 +222,79 @@ public open class ScrollContainer : Container() {
   }
 
   public final fun setHScroll(`value`: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHScrollPtr, value.toLong())
+    callPtrMethod_LONG(MethodBindings.setHScrollPtr, value.toLong())
   }
 
-  public final fun getHScroll(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHScrollPtr).toInt()
+  public final fun getHScroll(): Int = callPtrMethod0_ret_LONG(MethodBindings.getHScrollPtr).toInt()
 
   public final fun setVScroll(`value`: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVScrollPtr, value.toLong())
+    callPtrMethod_LONG(MethodBindings.setVScrollPtr, value.toLong())
   }
 
-  public final fun getVScroll(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVScrollPtr).toInt()
+  public final fun getVScroll(): Int = callPtrMethod0_ret_LONG(MethodBindings.getVScrollPtr).toInt()
 
   public final fun setHorizontalCustomStep(`value`: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHorizontalCustomStepPtr, value.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setHorizontalCustomStepPtr, value.toDouble())
   }
 
   public final fun getHorizontalCustomStep(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHorizontalCustomStepPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getHorizontalCustomStepPtr).toFloat()
 
   public final fun setVerticalCustomStep(`value`: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVerticalCustomStepPtr, value.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVerticalCustomStepPtr, value.toDouble())
   }
 
   public final fun getVerticalCustomStep(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVerticalCustomStepPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVerticalCustomStepPtr).toFloat()
 
   public final fun setHorizontalScrollMode(enable: ScrollMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHorizontalScrollModePtr, enable.value)
+    callPtrMethod_LONG(MethodBindings.setHorizontalScrollModePtr, enable.value)
   }
 
   public final fun getHorizontalScrollMode(): ScrollMode =
-      ScrollMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHorizontalScrollModePtr))
+      ScrollMode.from(callPtrMethod0_ret_LONG(MethodBindings.getHorizontalScrollModePtr))
 
   public final fun setVerticalScrollMode(enable: ScrollMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVerticalScrollModePtr, enable.value)
+    callPtrMethod_LONG(MethodBindings.setVerticalScrollModePtr, enable.value)
   }
 
   public final fun getVerticalScrollMode(): ScrollMode =
-      ScrollMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVerticalScrollModePtr))
+      ScrollMode.from(callPtrMethod0_ret_LONG(MethodBindings.getVerticalScrollModePtr))
 
   public final fun setScrollHorizontalByDefault(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setScrollHorizontalByDefaultPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setScrollHorizontalByDefaultPtr, enable)
   }
 
   public final fun isScrollHorizontalByDefault(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isScrollHorizontalByDefaultPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isScrollHorizontalByDefaultPtr)
 
   public final fun setDeadzone(deadzone: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDeadzonePtr, deadzone.toLong())
+    callPtrMethod_LONG(MethodBindings.setDeadzonePtr, deadzone.toLong())
   }
 
   public final fun getDeadzone(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDeadzonePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getDeadzonePtr).toInt()
 
   public final fun setScrollHintMode(scrollHintMode: ScrollHintMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setScrollHintModePtr, scrollHintMode.value)
+    callPtrMethod_LONG(MethodBindings.setScrollHintModePtr, scrollHintMode.value)
   }
 
   public final fun getScrollHintMode(): ScrollHintMode =
-      ScrollHintMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getScrollHintModePtr))
+      ScrollHintMode.from(callPtrMethod0_ret_LONG(MethodBindings.getScrollHintModePtr))
 
   public final fun setTileScrollHint(tileScrollHint: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTileScrollHintPtr, tileScrollHint)
+    callPtrMethod_BOOL(MethodBindings.setTileScrollHintPtr, tileScrollHint)
   }
 
   public final fun isScrollHintTiled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isScrollHintTiledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isScrollHintTiledPtr)
 
   public final fun setFollowFocus(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFollowFocusPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setFollowFocusPtr, enabled)
   }
 
   public final fun isFollowingFocus(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isFollowingFocusPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isFollowingFocusPtr)
 
   /**
    * Returns the horizontal scrollbar [HScrollBar] of this [ScrollContainer].
@@ -306,7 +303,7 @@ public open class ScrollContainer : Container() {
    * you wish to disable or hide a scrollbar, you can use [horizontalScrollMode].
    */
   public final fun getHScrollBar(): HScrollBar? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getHScrollBarPtr) as HScrollBar?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getHScrollBarPtr) as HScrollBar?)
 
   /**
    * Returns the vertical scrollbar [VScrollBar] of this [ScrollContainer].
@@ -315,7 +312,7 @@ public open class ScrollContainer : Container() {
    * you wish to disable or hide a scrollbar, you can use [verticalScrollMode].
    */
   public final fun getVScrollBar(): VScrollBar? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getVScrollBarPtr) as VScrollBar?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getVScrollBarPtr) as VScrollBar?)
 
   /**
    * Ensures the given [control] is visible (must be a direct or indirect child of the
@@ -332,15 +329,15 @@ public open class ScrollContainer : Container() {
    * ```
    */
   public final fun ensureControlVisible(control: Control?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.ensureControlVisiblePtr, control)
+    callPtrMethod_OBJECT(MethodBindings.ensureControlVisiblePtr, control)
   }
 
   public final fun setDrawFocusBorder(draw: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDrawFocusBorderPtr, draw)
+    callPtrMethod_BOOL(MethodBindings.setDrawFocusBorderPtr, draw)
   }
 
   public final fun getDrawFocusBorder(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getDrawFocusBorderPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getDrawFocusBorderPtr)
 
   public enum class ScrollMode(
     public override val `value`: Long,

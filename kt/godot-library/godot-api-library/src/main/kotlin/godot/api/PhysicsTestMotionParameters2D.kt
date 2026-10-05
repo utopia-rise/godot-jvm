@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_BOOL
@@ -190,52 +189,51 @@ public open class PhysicsTestMotionParameters2D : RefCounted() {
   }
 
   public final fun getFrom(): Transform2D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getFromPtr)
+      callPtrMethod0_ret_TRANSFORM2D(MethodBindings.getFromPtr)
 
   public final fun setFrom(from: Transform2D): Unit {
-    TransferContext.callPtrMethod_TRANSFORM2D(ptr, objectID.id, MethodBindings.setFromPtr, from)
+    callPtrMethod_TRANSFORM2D(MethodBindings.setFromPtr, from)
   }
 
-  public final fun getMotion(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getMotionPtr)
+  public final fun getMotion(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getMotionPtr)
 
   public final fun setMotion(motion: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setMotionPtr, motion)
+    callPtrMethod_VECTOR2(MethodBindings.setMotionPtr, motion)
   }
 
   public final fun getMargin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMarginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMarginPtr).toFloat()
 
   public final fun setMargin(margin: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMarginPtr, margin.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMarginPtr, margin.toDouble())
   }
 
   public final fun isCollideSeparationRayEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollideSeparationRayEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCollideSeparationRayEnabledPtr)
 
   public final fun setCollideSeparationRayEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCollideSeparationRayEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setCollideSeparationRayEnabledPtr, enabled)
   }
 
   public final fun getExcludeBodies(): VariantArray<RID> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getExcludeBodiesPtr) as VariantArray<RID>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getExcludeBodiesPtr) as VariantArray<RID>)
 
   public final fun setExcludeBodies(excludeList: VariantArray<RID>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setExcludeBodiesPtr, excludeList)
+    callPtrMethod_ARRAY(MethodBindings.setExcludeBodiesPtr, excludeList)
   }
 
   public final fun getExcludeObjects(): VariantArray<Long> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getExcludeObjectsPtr) as VariantArray<Long>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getExcludeObjectsPtr) as VariantArray<Long>)
 
   public final fun setExcludeObjects(excludeList: VariantArray<Long>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setExcludeObjectsPtr, excludeList)
+    callPtrMethod_ARRAY(MethodBindings.setExcludeObjectsPtr, excludeList)
   }
 
   public final fun isRecoveryAsCollisionEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRecoveryAsCollisionEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isRecoveryAsCollisionEnabledPtr)
 
   public final fun setRecoveryAsCollisionEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRecoveryAsCollisionEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setRecoveryAsCollisionEnabledPtr, enabled)
   }
 
   public companion object {

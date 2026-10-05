@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PLANE
 import godot.callPtrMethod0_ret_VECTOR3
@@ -43,14 +42,12 @@ public open class XRAnchor3D : XRNode3D() {
    * Returns the estimated size of the plane that was detected. Say when the anchor relates to a
    * table in the real world, this is the estimated size of the surface of that table.
    */
-  public final fun getSize(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector3 = callPtrMethod0_ret_VECTOR3(MethodBindings.getSizePtr)
 
   /**
    * Returns a plane aligned with our anchor; handy for intersection testing.
    */
-  public final fun getPlane(): Plane =
-      TransferContext.callPtrMethod0_ret_PLANE(ptr, objectID.id, MethodBindings.getPlanePtr)
+  public final fun getPlane(): Plane = callPtrMethod0_ret_PLANE(MethodBindings.getPlanePtr)
 
   public companion object {
     @JvmField

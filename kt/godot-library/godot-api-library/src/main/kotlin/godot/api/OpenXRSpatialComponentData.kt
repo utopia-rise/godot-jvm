@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -57,14 +56,14 @@ public open class OpenXRSpatialComponentData : RefCounted() {
    * initialized with the correct storage.
    */
   public final fun setCapacity(capacity: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCapacityPtr, capacity)
+    callPtrMethod_LONG(MethodBindings.setCapacityPtr, capacity)
   }
 
   /**
    * Gets this [OpenXRSpatialComponentData]'s `XrSpatialComponentTypeEXT`.
    */
   public final fun getComponentType(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getComponentTypePtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getComponentTypePtr)
 
   public companion object {
     @JvmField

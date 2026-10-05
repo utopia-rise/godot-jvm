@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_ARRAY
@@ -249,46 +248,46 @@ public open class NavigationPathQueryResult3D : RefCounted() {
   }
 
   public final fun setPath(path: PackedVector3Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.setPathPtr, path)
+    callPtrMethod_PACKED_VECTOR3_ARRAY(MethodBindings.setPathPtr, path)
   }
 
   public final fun getPath(): PackedVector3Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(ptr, objectID.id, MethodBindings.getPathPtr)
+      callPtrMethod0_ret_PACKED_VECTOR3_ARRAY(MethodBindings.getPathPtr)
 
   public final fun setPathTypes(pathTypes: PackedInt32Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.setPathTypesPtr, pathTypes)
+    callPtrMethod_PACKED_INT_32_ARRAY(MethodBindings.setPathTypesPtr, pathTypes)
   }
 
   public final fun getPathTypes(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getPathTypesPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getPathTypesPtr)
 
   public final fun setPathRids(pathRids: VariantArray<RID>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setPathRidsPtr, pathRids)
+    callPtrMethod_ARRAY(MethodBindings.setPathRidsPtr, pathRids)
   }
 
   public final fun getPathRids(): VariantArray<RID> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getPathRidsPtr) as VariantArray<RID>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getPathRidsPtr) as VariantArray<RID>)
 
   public final fun setPathOwnerIds(pathOwnerIds: PackedInt64Array): Unit {
-    TransferContext.callPtrMethod_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.setPathOwnerIdsPtr, pathOwnerIds)
+    callPtrMethod_PACKED_INT_64_ARRAY(MethodBindings.setPathOwnerIdsPtr, pathOwnerIds)
   }
 
   public final fun getPathOwnerIds(): PackedInt64Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.getPathOwnerIdsPtr)
+      callPtrMethod0_ret_PACKED_INT_64_ARRAY(MethodBindings.getPathOwnerIdsPtr)
 
   public final fun setPathLength(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPathLengthPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPathLengthPtr, length.toDouble())
   }
 
   public final fun getPathLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPathLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPathLengthPtr).toFloat()
 
   /**
    * Reset the result object to its initial state. This is useful to reuse the object across
    * multiple queries.
    */
   public final fun reset(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.resetPtr)
+    callPtrMethod0(MethodBindings.resetPtr)
   }
 
   public enum class PathSegmentType(

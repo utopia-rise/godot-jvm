@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_ANY_OBJECT
@@ -1778,14 +1777,14 @@ public open class Control : CanvasItem() {
    * **Note:** This does not affect the methods in [Input], only the way events are propagated.
    */
   public final fun acceptEvent(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.acceptEventPtr)
+    callPtrMethod0(MethodBindings.acceptEventPtr)
   }
 
   /**
    * Returns the maximum size for this control. See [customMaximumSize].
    */
   public final fun getMaximumSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getMaximumSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getMaximumSizePtr)
 
   /**
    * Returns the combined maximum size from [customMaximumSize] and [getMaximumSize], as well as the
@@ -1793,26 +1792,26 @@ public open class Control : CanvasItem() {
    * to `true`.
    */
   public final fun getCombinedMaximumSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCombinedMaximumSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getCombinedMaximumSizePtr)
 
   /**
    * Returns the minimum size for this control. See [customMinimumSize].
    */
   public final fun getMinimumSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getMinimumSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getMinimumSizePtr)
 
   /**
    * Returns the combined minimum size from [customMinimumSize] and [getMinimumSize].
    */
   public final fun getCombinedMinimumSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCombinedMinimumSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getCombinedMinimumSizePtr)
 
   public final fun setPropagateMaximumSize(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPropagateMaximumSizePtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setPropagateMaximumSizePtr, enable)
   }
 
   public final fun isPropagatingMaximumSize(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPropagatingMaximumSizePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isPropagatingMaximumSizePtr)
 
   /**
    * Returns the bound value of [getCombinedMinimumSize] by [getCombinedMaximumSize].
@@ -1824,7 +1823,7 @@ public open class Control : CanvasItem() {
    * 150), the bound minimum size will be (50, 100).
    */
   public final fun getBoundMinimumSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getBoundMinimumSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getBoundMinimumSizePtr)
 
   /**
    * Sets the anchors to a [preset] from [Control.LayoutPreset] enum. This is the code equivalent to
@@ -1834,7 +1833,7 @@ public open class Control : CanvasItem() {
    */
   @JvmOverloads
   public final fun setAnchorsPreset(preset: LayoutPreset, keepOffsets: Boolean = false): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAnchorsPresetPtr, preset.value, keepOffsets)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAnchorsPresetPtr, preset.value, keepOffsets)
   }
 
   /**
@@ -1853,7 +1852,7 @@ public open class Control : CanvasItem() {
     resizeMode: LayoutPresetMode = Control.LayoutPresetMode.PRESET_MODE_MINSIZE,
     margin: Int = 0,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.setOffsetsPresetPtr, preset.value, resizeMode.value, margin.toLong())
+    callPtrMethod_LONG_LONG_LONG(MethodBindings.setOffsetsPresetPtr, preset.value, resizeMode.value, margin.toLong())
   }
 
   /**
@@ -1865,7 +1864,7 @@ public open class Control : CanvasItem() {
     resizeMode: LayoutPresetMode = Control.LayoutPresetMode.PRESET_MODE_MINSIZE,
     margin: Int = 0,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.setAnchorsAndOffsetsPresetPtr, preset.value, resizeMode.value, margin.toLong())
+    callPtrMethod_LONG_LONG_LONG(MethodBindings.setAnchorsAndOffsetsPresetPtr, preset.value, resizeMode.value, margin.toLong())
   }
 
   /**
@@ -1886,7 +1885,7 @@ public open class Control : CanvasItem() {
     keepOffset: Boolean = false,
     pushOppositeAnchor: Boolean = true,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE_BOOL_BOOL(ptr, objectID.id, MethodBindings.setAnchorPtr, side.value, anchor.toDouble(), keepOffset, pushOppositeAnchor)
+    callPtrMethod_LONG_DOUBLE_BOOL_BOOL(MethodBindings.setAnchorPtr, side.value, anchor.toDouble(), keepOffset, pushOppositeAnchor)
   }
 
   /**
@@ -1894,14 +1893,14 @@ public open class Control : CanvasItem() {
    * [anchorRight] and [anchorTop].
    */
   public final fun getAnchor(side: Side): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAnchorPtr, side.value).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getAnchorPtr, side.value).toFloat()
 
   /**
    * Sets the offset for the specified [Side] to [offset]. A setter method for [offsetBottom],
    * [offsetLeft], [offsetRight] and [offsetTop].
    */
   public final fun setOffset(side: Side, offset: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setOffsetPtr, side.value, offset.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setOffsetPtr, side.value, offset.toDouble())
   }
 
   /**
@@ -1909,7 +1908,7 @@ public open class Control : CanvasItem() {
    * [offsetRight] and [offsetTop].
    */
   public final fun getOffset(offset: Side): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOffsetPtr, offset.value).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getOffsetPtr, offset.value).toFloat()
 
   /**
    * Works the same as [setAnchor], but instead of `keep_offset` argument and automatic update of
@@ -1922,21 +1921,21 @@ public open class Control : CanvasItem() {
     offset: Float,
     pushOppositeAnchor: Boolean = false,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.setAnchorAndOffsetPtr, side.value, anchor.toDouble(), offset.toDouble(), pushOppositeAnchor)
+    callPtrMethod_LONG_DOUBLE_DOUBLE_BOOL(MethodBindings.setAnchorAndOffsetPtr, side.value, anchor.toDouble(), offset.toDouble(), pushOppositeAnchor)
   }
 
   /**
    * Sets [offsetLeft] and [offsetTop] at the same time. Equivalent of changing [position].
    */
   public final fun setBegin(position: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setBeginPtr, position)
+    callPtrMethod_VECTOR2(MethodBindings.setBeginPtr, position)
   }
 
   /**
    * Sets [offsetRight] and [offsetBottom] at the same time.
    */
   public final fun setEnd(position: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setEndPtr, position)
+    callPtrMethod_VECTOR2(MethodBindings.setEndPtr, position)
   }
 
   /**
@@ -1946,7 +1945,7 @@ public open class Control : CanvasItem() {
    */
   @JvmOverloads
   public final fun setPosition(position: Vector2, keepOffsets: Boolean = false): Unit {
-    TransferContext.callPtrMethod_VECTOR2_BOOL(ptr, objectID.id, MethodBindings.setPositionPtr, position, keepOffsets)
+    callPtrMethod_VECTOR2_BOOL(MethodBindings.setPositionPtr, position, keepOffsets)
   }
 
   /**
@@ -1956,7 +1955,7 @@ public open class Control : CanvasItem() {
    */
   @JvmOverloads
   public final fun setSize(size: Vector2, keepOffsets: Boolean = false): Unit {
-    TransferContext.callPtrMethod_VECTOR2_BOOL(ptr, objectID.id, MethodBindings.setSizePtr, size, keepOffsets)
+    callPtrMethod_VECTOR2_BOOL(MethodBindings.setSizePtr, size, keepOffsets)
   }
 
   /**
@@ -1964,15 +1963,15 @@ public open class Control : CanvasItem() {
    * `set_size(Vector2())` (or any size below the minimum).
    */
   public final fun resetSize(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.resetSizePtr)
+    callPtrMethod0(MethodBindings.resetSizePtr)
   }
 
   public final fun setCustomMaximumSize(size: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setCustomMaximumSizePtr, size)
+    callPtrMethod_VECTOR2(MethodBindings.setCustomMaximumSizePtr, size)
   }
 
   public final fun setCustomMinimumSize(size: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setCustomMinimumSizePtr, size)
+    callPtrMethod_VECTOR2(MethodBindings.setCustomMinimumSizePtr, size)
   }
 
   /**
@@ -1982,83 +1981,79 @@ public open class Control : CanvasItem() {
    */
   @JvmOverloads
   public final fun setGlobalPosition(position: Vector2, keepOffsets: Boolean = false): Unit {
-    TransferContext.callPtrMethod_VECTOR2_BOOL(ptr, objectID.id, MethodBindings.setGlobalPositionPtr, position, keepOffsets)
+    callPtrMethod_VECTOR2_BOOL(MethodBindings.setGlobalPositionPtr, position, keepOffsets)
   }
 
   public final fun setRotation(radians: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRotationPtr, radians.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRotationPtr, radians.toDouble())
   }
 
   public final fun setRotationDegrees(degrees: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setRotationDegreesPtr, degrees.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setRotationDegreesPtr, degrees.toDouble())
   }
 
   public final fun setScale(scale: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setScalePtr, scale)
+    callPtrMethod_VECTOR2(MethodBindings.setScalePtr, scale)
   }
 
   public final fun setPivotOffset(pivotOffset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setPivotOffsetPtr, pivotOffset)
+    callPtrMethod_VECTOR2(MethodBindings.setPivotOffsetPtr, pivotOffset)
   }
 
   public final fun setPivotOffsetRatio(ratio: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setPivotOffsetRatioPtr, ratio)
+    callPtrMethod_VECTOR2(MethodBindings.setPivotOffsetRatioPtr, ratio)
   }
 
   /**
    * Returns [offsetLeft] and [offsetTop]. See also [position].
    */
-  public final fun getBegin(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getBeginPtr)
+  public final fun getBegin(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getBeginPtr)
 
   /**
    * Returns [offsetRight] and [offsetBottom].
    */
-  public final fun getEnd(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getEndPtr)
+  public final fun getEnd(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getEndPtr)
 
   public final fun getPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getPositionPtr)
 
-  public final fun getSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getSizePtr)
 
   public final fun getRotation(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRotationPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRotationPtr).toFloat()
 
   public final fun getRotationDegrees(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getRotationDegreesPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getRotationDegreesPtr).toFloat()
 
-  public final fun getScale(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getScalePtr)
+  public final fun getScale(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getScalePtr)
 
   public final fun getPivotOffset(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getPivotOffsetPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getPivotOffsetPtr)
 
   public final fun getPivotOffsetRatio(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getPivotOffsetRatioPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getPivotOffsetRatioPtr)
 
   /**
    * Returns the combined value of [pivotOffset] and [pivotOffsetRatio], in pixels. The ratio is
    * multiplied by the control's size.
    */
   public final fun getCombinedPivotOffset(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCombinedPivotOffsetPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getCombinedPivotOffsetPtr)
 
   public final fun getCustomMaximumSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCustomMaximumSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getCustomMaximumSizePtr)
 
   public final fun getCustomMinimumSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCustomMinimumSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getCustomMinimumSizePtr)
 
   /**
    * Returns the width/height occupied in the parent control.
    */
   public final fun getParentAreaSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getParentAreaSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getParentAreaSizePtr)
 
   public final fun getGlobalPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getGlobalPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getGlobalPositionPtr)
 
   /**
    * Returns the position of this [Control] in global screen coordinates (i.e. taking window
@@ -2080,7 +2075,7 @@ public open class Control : CanvasItem() {
    * ```
    */
   public final fun getScreenPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getScreenPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getScreenPositionPtr)
 
   /**
    * Returns the position and size of the control in the coordinate system of the containing node.
@@ -2091,8 +2086,7 @@ public open class Control : CanvasItem() {
    * **Note:** Setting [Viewport.guiSnapControlsToPixels] to `true` can lead to rounding
    * inaccuracies between the displayed control and the returned [Rect2].
    */
-  public final fun getRect(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRectPtr)
+  public final fun getRect(): Rect2 = callPtrMethod0_ret_RECT2(MethodBindings.getRectPtr)
 
   /**
    * Returns the position and size of the control relative to the containing canvas. See
@@ -2105,14 +2099,14 @@ public open class Control : CanvasItem() {
    * inaccuracies between the displayed control and the returned [Rect2].
    */
   public final fun getGlobalRect(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getGlobalRectPtr)
+      callPtrMethod0_ret_RECT2(MethodBindings.getGlobalRectPtr)
 
   public final fun setFocusMode(mode: FocusMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFocusModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setFocusModePtr, mode.value)
   }
 
   public final fun getFocusMode(): FocusMode =
-      FocusMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFocusModePtr))
+      FocusMode.from(callPtrMethod0_ret_LONG(MethodBindings.getFocusModePtr))
 
   /**
    * Returns the [focusMode], but takes the [focusBehaviorRecursive] into account. If
@@ -2121,14 +2115,14 @@ public open class Control : CanvasItem() {
    * [FOCUS_NONE].
    */
   public final fun getFocusModeWithOverride(): FocusMode =
-      FocusMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFocusModeWithOverridePtr))
+      FocusMode.from(callPtrMethod0_ret_LONG(MethodBindings.getFocusModeWithOverridePtr))
 
   public final fun setFocusBehaviorRecursive(focusBehaviorRecursive: FocusBehaviorRecursive): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFocusBehaviorRecursivePtr, focusBehaviorRecursive.value)
+    callPtrMethod_LONG(MethodBindings.setFocusBehaviorRecursivePtr, focusBehaviorRecursive.value)
   }
 
   public final fun getFocusBehaviorRecursive(): FocusBehaviorRecursive =
-      FocusBehaviorRecursive.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFocusBehaviorRecursivePtr))
+      FocusBehaviorRecursive.from(callPtrMethod0_ret_LONG(MethodBindings.getFocusBehaviorRecursivePtr))
 
   /**
    * Returns `true` if this is the current focused control. See [focusMode].
@@ -2139,7 +2133,7 @@ public open class Control : CanvasItem() {
    */
   @JvmOverloads
   public final fun hasFocus(ignoreHiddenFocus: Boolean = false): Boolean =
-      TransferContext.callPtrMethod_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.hasFocusPtr, ignoreHiddenFocus)
+      callPtrMethod_BOOL_ret_BOOL(MethodBindings.hasFocusPtr, ignoreHiddenFocus)
 
   /**
    * Steal the focus from another control and become the focused control (see [focusMode]).
@@ -2153,27 +2147,27 @@ public open class Control : CanvasItem() {
    */
   @JvmOverloads
   public final fun grabFocus(hideFocus: Boolean = false): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.grabFocusPtr, hideFocus)
+    callPtrMethod_BOOL(MethodBindings.grabFocusPtr, hideFocus)
   }
 
   /**
    * Give up the focus. No other control will be able to receive input.
    */
   public final fun releaseFocus(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.releaseFocusPtr)
+    callPtrMethod0(MethodBindings.releaseFocusPtr)
   }
 
   /**
    * Finds the previous (above in the tree) [Control] that can receive the focus.
    */
   public final fun findPrevValidFocus(): Control? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.findPrevValidFocusPtr) as Control?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.findPrevValidFocusPtr) as Control?)
 
   /**
    * Finds the next (below in the tree) [Control] that can receive the focus.
    */
   public final fun findNextValidFocus(): Control? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.findNextValidFocusPtr) as Control?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.findNextValidFocusPtr) as Control?)
 
   /**
    * Finds the next [Control] that can receive the focus on the specified [Side].
@@ -2182,112 +2176,112 @@ public open class Control : CanvasItem() {
    * focus neighbor.
    */
   public final fun findValidFocusNeighbor(side: Side): Control? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.findValidFocusNeighborPtr, side.value) as Control?)
+      (callPtrMethod_LONG_ret_OBJECT(MethodBindings.findValidFocusNeighborPtr, side.value) as Control?)
 
   public final fun setHSizeFlags(flags: SizeFlags): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHSizeFlagsPtr, flags.flag)
+    callPtrMethod_LONG(MethodBindings.setHSizeFlagsPtr, flags.flag)
   }
 
   public final fun getHSizeFlags(): SizeFlags =
-      SizeFlags(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHSizeFlagsPtr))
+      SizeFlags(callPtrMethod0_ret_LONG(MethodBindings.getHSizeFlagsPtr))
 
   public final fun setStretchRatio(ratio: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setStretchRatioPtr, ratio.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setStretchRatioPtr, ratio.toDouble())
   }
 
   public final fun getStretchRatio(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStretchRatioPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getStretchRatioPtr).toFloat()
 
   public final fun setVSizeFlags(flags: SizeFlags): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVSizeFlagsPtr, flags.flag)
+    callPtrMethod_LONG(MethodBindings.setVSizeFlagsPtr, flags.flag)
   }
 
   public final fun getVSizeFlags(): SizeFlags =
-      SizeFlags(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVSizeFlagsPtr))
+      SizeFlags(callPtrMethod0_ret_LONG(MethodBindings.getVSizeFlagsPtr))
 
   public final fun setOffsetTransformEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setOffsetTransformEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setOffsetTransformEnabledPtr, enabled)
   }
 
   public final fun isOffsetTransformEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOffsetTransformEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isOffsetTransformEnabledPtr)
 
   public final fun setOffsetTransformPosition(offset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setOffsetTransformPositionPtr, offset)
+    callPtrMethod_VECTOR2(MethodBindings.setOffsetTransformPositionPtr, offset)
   }
 
   public final fun getOffsetTransformPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getOffsetTransformPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getOffsetTransformPositionPtr)
 
   public final fun setOffsetTransformPositionRatio(offset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setOffsetTransformPositionRatioPtr, offset)
+    callPtrMethod_VECTOR2(MethodBindings.setOffsetTransformPositionRatioPtr, offset)
   }
 
   public final fun getOffsetTransformPositionRatio(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getOffsetTransformPositionRatioPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getOffsetTransformPositionRatioPtr)
 
   public final fun setOffsetTransformScale(scale: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setOffsetTransformScalePtr, scale)
+    callPtrMethod_VECTOR2(MethodBindings.setOffsetTransformScalePtr, scale)
   }
 
   public final fun getOffsetTransformScale(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getOffsetTransformScalePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getOffsetTransformScalePtr)
 
   public final fun setOffsetTransformRotation(rotation: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setOffsetTransformRotationPtr, rotation.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setOffsetTransformRotationPtr, rotation.toDouble())
   }
 
   public final fun getOffsetTransformRotation(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOffsetTransformRotationPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getOffsetTransformRotationPtr).toFloat()
 
   public final fun setOffsetTransformPivot(pivot: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setOffsetTransformPivotPtr, pivot)
+    callPtrMethod_VECTOR2(MethodBindings.setOffsetTransformPivotPtr, pivot)
   }
 
   public final fun getOffsetTransformPivot(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getOffsetTransformPivotPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getOffsetTransformPivotPtr)
 
   public final fun setOffsetTransformPivotRatio(pivot: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setOffsetTransformPivotRatioPtr, pivot)
+    callPtrMethod_VECTOR2(MethodBindings.setOffsetTransformPivotRatioPtr, pivot)
   }
 
   public final fun getOffsetTransformPivotRatio(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getOffsetTransformPivotRatioPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getOffsetTransformPivotRatioPtr)
 
   public final fun setOffsetTransformVisualOnly(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setOffsetTransformVisualOnlyPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setOffsetTransformVisualOnlyPtr, enabled)
   }
 
   public final fun isOffsetTransformVisualOnly(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOffsetTransformVisualOnlyPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isOffsetTransformVisualOnlyPtr)
 
   public final fun setTheme(theme: Theme?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setThemePtr, theme)
+    callPtrMethod_OBJECT(MethodBindings.setThemePtr, theme)
   }
 
   public final fun getTheme(): Theme? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getThemePtr) as Theme?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getThemePtr) as Theme?)
 
   public final fun setThemeTypeVariation(themeType: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setThemeTypeVariationPtr, themeType)
+    callPtrMethod_STRING_NAME(MethodBindings.setThemeTypeVariationPtr, themeType)
   }
 
   public final fun getThemeTypeVariation(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getThemeTypeVariationPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getThemeTypeVariationPtr)
 
   /**
    * Prevents `*_theme_*_override` methods from emitting [NOTIFICATION_THEME_CHANGED] until
    * [endBulkThemeOverride] is called.
    */
   public final fun beginBulkThemeOverride(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.beginBulkThemeOverridePtr)
+    callPtrMethod0(MethodBindings.beginBulkThemeOverridePtr)
   }
 
   /**
    * Ends a bulk theme override update. See [beginBulkThemeOverride].
    */
   public final fun endBulkThemeOverride(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.endBulkThemeOverridePtr)
+    callPtrMethod0(MethodBindings.endBulkThemeOverridePtr)
   }
 
   /**
@@ -2298,7 +2292,7 @@ public open class Control : CanvasItem() {
    * See also [getThemeIcon].
    */
   public final fun addThemeIconOverride(name: StringName, texture: Texture2D): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_OBJECT(ptr, objectID.id, MethodBindings.addThemeIconOverridePtr, name, texture)
+    callPtrMethod_STRING_NAME_OBJECT(MethodBindings.addThemeIconOverridePtr, name, texture)
   }
 
   /**
@@ -2338,7 +2332,7 @@ public open class Control : CanvasItem() {
    * ```
    */
   public final fun addThemeStyleboxOverride(name: StringName, stylebox: StyleBox): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_OBJECT(ptr, objectID.id, MethodBindings.addThemeStyleboxOverridePtr, name, stylebox)
+    callPtrMethod_STRING_NAME_OBJECT(MethodBindings.addThemeStyleboxOverridePtr, name, stylebox)
   }
 
   /**
@@ -2349,7 +2343,7 @@ public open class Control : CanvasItem() {
    * See also [getThemeFont].
    */
   public final fun addThemeFontOverride(name: StringName, font: Font): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_OBJECT(ptr, objectID.id, MethodBindings.addThemeFontOverridePtr, name, font)
+    callPtrMethod_STRING_NAME_OBJECT(MethodBindings.addThemeFontOverridePtr, name, font)
   }
 
   /**
@@ -2360,7 +2354,7 @@ public open class Control : CanvasItem() {
    * See also [getThemeFontSize].
    */
   public final fun addThemeFontSizeOverride(name: StringName, fontSize: Int): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.addThemeFontSizeOverridePtr, name, fontSize.toLong())
+    callPtrMethod_STRING_NAME_LONG(MethodBindings.addThemeFontSizeOverridePtr, name, fontSize.toLong())
   }
 
   /**
@@ -2394,7 +2388,7 @@ public open class Control : CanvasItem() {
    * ```
    */
   public final fun addThemeColorOverride(name: StringName, color: Color): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_COLOR(ptr, objectID.id, MethodBindings.addThemeColorOverridePtr, name, color)
+    callPtrMethod_STRING_NAME_COLOR(MethodBindings.addThemeColorOverridePtr, name, color)
   }
 
   /**
@@ -2405,7 +2399,7 @@ public open class Control : CanvasItem() {
    * See also [getThemeConstant].
    */
   public final fun addThemeConstantOverride(name: StringName, constant: Int): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.addThemeConstantOverridePtr, name, constant.toLong())
+    callPtrMethod_STRING_NAME_LONG(MethodBindings.addThemeConstantOverridePtr, name, constant.toLong())
   }
 
   /**
@@ -2413,7 +2407,7 @@ public open class Control : CanvasItem() {
    * [addThemeIconOverride] or via the Inspector dock.
    */
   public final fun removeThemeIconOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeIconOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeIconOverridePtr, name)
   }
 
   /**
@@ -2421,7 +2415,7 @@ public open class Control : CanvasItem() {
    * [addThemeStyleboxOverride] or via the Inspector dock.
    */
   public final fun removeThemeStyleboxOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeStyleboxOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeStyleboxOverridePtr, name)
   }
 
   /**
@@ -2429,7 +2423,7 @@ public open class Control : CanvasItem() {
    * [addThemeFontOverride] or via the Inspector dock.
    */
   public final fun removeThemeFontOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeFontOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeFontOverridePtr, name)
   }
 
   /**
@@ -2437,7 +2431,7 @@ public open class Control : CanvasItem() {
    * [addThemeFontSizeOverride] or via the Inspector dock.
    */
   public final fun removeThemeFontSizeOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeFontSizeOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeFontSizeOverridePtr, name)
   }
 
   /**
@@ -2445,7 +2439,7 @@ public open class Control : CanvasItem() {
    * [addThemeColorOverride] or via the Inspector dock.
    */
   public final fun removeThemeColorOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeColorOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeColorOverridePtr, name)
   }
 
   /**
@@ -2453,7 +2447,7 @@ public open class Control : CanvasItem() {
    * [addThemeConstantOverride] or via the Inspector dock.
    */
   public final fun removeThemeConstantOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeConstantOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeConstantOverridePtr, name)
   }
 
   /**
@@ -2464,7 +2458,7 @@ public open class Control : CanvasItem() {
    */
   public final fun getThemeIcon(name: StringName, themeType: StringName = StringName("")):
       Texture2D? =
-      (TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getThemeIconPtr, name, themeType) as Texture2D?)
+      (callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(MethodBindings.getThemeIconPtr, name, themeType) as Texture2D?)
 
   /**
    * Returns a [StyleBox] from the first matching [Theme] in the tree if that [Theme] has a stylebox
@@ -2474,7 +2468,7 @@ public open class Control : CanvasItem() {
    */
   public final fun getThemeStylebox(name: StringName, themeType: StringName = StringName("")):
       StyleBox? =
-      (TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getThemeStyleboxPtr, name, themeType) as StyleBox?)
+      (callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(MethodBindings.getThemeStyleboxPtr, name, themeType) as StyleBox?)
 
   /**
    * Returns a [Font] from the first matching [Theme] in the tree if that [Theme] has a font item
@@ -2483,7 +2477,7 @@ public open class Control : CanvasItem() {
    * See [getThemeColor] for details.
    */
   public final fun getThemeFont(name: StringName, themeType: StringName = StringName("")): Font? =
-      (TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getThemeFontPtr, name, themeType) as Font?)
+      (callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(MethodBindings.getThemeFontPtr, name, themeType) as Font?)
 
   /**
    * Returns a font size from the first matching [Theme] in the tree if that [Theme] has a font size
@@ -2492,7 +2486,7 @@ public open class Control : CanvasItem() {
    * See [getThemeColor] for details.
    */
   public final fun getThemeFontSize(name: StringName, themeType: StringName = StringName("")): Int =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.getThemeFontSizePtr, name, themeType).toInt()
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_LONG(MethodBindings.getThemeFontSizePtr, name, themeType).toInt()
 
   /**
    * Returns a [Color] from the first matching [Theme] in the tree if that [Theme] has a color item
@@ -2529,7 +2523,7 @@ public open class Control : CanvasItem() {
    * ```
    */
   public final fun getThemeColor(name: StringName, themeType: StringName = StringName("")): Color =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_COLOR(ptr, objectID.id, MethodBindings.getThemeColorPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_COLOR(MethodBindings.getThemeColorPtr, name, themeType)
 
   /**
    * Returns a constant from the first matching [Theme] in the tree if that [Theme] has a constant
@@ -2538,7 +2532,7 @@ public open class Control : CanvasItem() {
    * See [getThemeColor] for details.
    */
   public final fun getThemeConstant(name: StringName, themeType: StringName = StringName("")): Int =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.getThemeConstantPtr, name, themeType).toInt()
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_LONG(MethodBindings.getThemeConstantPtr, name, themeType).toInt()
 
   /**
    * Returns `true` if there is a local override for a theme icon with the specified [name] in this
@@ -2547,7 +2541,7 @@ public open class Control : CanvasItem() {
    * See [addThemeIconOverride].
    */
   public final fun hasThemeIconOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeIconOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeIconOverridePtr, name)
 
   /**
    * Returns `true` if there is a local override for a theme [StyleBox] with the specified [name] in
@@ -2556,7 +2550,7 @@ public open class Control : CanvasItem() {
    * See [addThemeStyleboxOverride].
    */
   public final fun hasThemeStyleboxOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeStyleboxOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeStyleboxOverridePtr, name)
 
   /**
    * Returns `true` if there is a local override for a theme [Font] with the specified [name] in
@@ -2565,7 +2559,7 @@ public open class Control : CanvasItem() {
    * See [addThemeFontOverride].
    */
   public final fun hasThemeFontOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeFontOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeFontOverridePtr, name)
 
   /**
    * Returns `true` if there is a local override for a theme font size with the specified [name] in
@@ -2574,7 +2568,7 @@ public open class Control : CanvasItem() {
    * See [addThemeFontSizeOverride].
    */
   public final fun hasThemeFontSizeOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeFontSizeOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeFontSizeOverridePtr, name)
 
   /**
    * Returns `true` if there is a local override for a theme [Color] with the specified [name] in
@@ -2583,7 +2577,7 @@ public open class Control : CanvasItem() {
    * See [addThemeColorOverride].
    */
   public final fun hasThemeColorOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeColorOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeColorOverridePtr, name)
 
   /**
    * Returns `true` if there is a local override for a theme constant with the specified [name] in
@@ -2592,7 +2586,7 @@ public open class Control : CanvasItem() {
    * See [addThemeConstantOverride].
    */
   public final fun hasThemeConstantOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeConstantOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeConstantOverridePtr, name)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has an icon item with the
@@ -2601,7 +2595,7 @@ public open class Control : CanvasItem() {
    * See [getThemeColor] for details.
    */
   public final fun hasThemeIcon(name: StringName, themeType: StringName = StringName("")): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeIconPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeIconPtr, name, themeType)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has a stylebox item with the
@@ -2611,7 +2605,7 @@ public open class Control : CanvasItem() {
    */
   public final fun hasThemeStylebox(name: StringName, themeType: StringName = StringName("")):
       Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeStyleboxPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeStyleboxPtr, name, themeType)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has a font item with the
@@ -2620,7 +2614,7 @@ public open class Control : CanvasItem() {
    * See [getThemeColor] for details.
    */
   public final fun hasThemeFont(name: StringName, themeType: StringName = StringName("")): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeFontPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeFontPtr, name, themeType)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has a font size item with the
@@ -2630,7 +2624,7 @@ public open class Control : CanvasItem() {
    */
   public final fun hasThemeFontSize(name: StringName, themeType: StringName = StringName("")):
       Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeFontSizePtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeFontSizePtr, name, themeType)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has a color item with the
@@ -2640,7 +2634,7 @@ public open class Control : CanvasItem() {
    */
   public final fun hasThemeColor(name: StringName, themeType: StringName = StringName("")): Boolean
       =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeColorPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeColorPtr, name, themeType)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has a constant item with the
@@ -2650,7 +2644,7 @@ public open class Control : CanvasItem() {
    */
   public final fun hasThemeConstant(name: StringName, themeType: StringName = StringName("")):
       Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeConstantPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeConstantPtr, name, themeType)
 
   /**
    * Returns the default base scale value from the first matching [Theme] in the tree if that
@@ -2659,7 +2653,7 @@ public open class Control : CanvasItem() {
    * See [getThemeColor] for details.
    */
   public final fun getThemeDefaultBaseScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getThemeDefaultBaseScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getThemeDefaultBaseScalePtr).toFloat()
 
   /**
    * Returns the default font from the first matching [Theme] in the tree if that [Theme] has a
@@ -2668,7 +2662,7 @@ public open class Control : CanvasItem() {
    * See [getThemeColor] for details.
    */
   public final fun getThemeDefaultFont(): Font? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getThemeDefaultFontPtr) as Font?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getThemeDefaultFontPtr) as Font?)
 
   /**
    * Returns the default font size value from the first matching [Theme] in the tree if that [Theme]
@@ -2677,41 +2671,41 @@ public open class Control : CanvasItem() {
    * See [getThemeColor] for details.
    */
   public final fun getThemeDefaultFontSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getThemeDefaultFontSizePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getThemeDefaultFontSizePtr).toInt()
 
   /**
    * Returns the parent control node.
    */
   public final fun getParentControl(): Control? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getParentControlPtr) as Control?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getParentControlPtr) as Control?)
 
   public final fun setHGrowDirection(direction: GrowDirection): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHGrowDirectionPtr, direction.value)
+    callPtrMethod_LONG(MethodBindings.setHGrowDirectionPtr, direction.value)
   }
 
   public final fun getHGrowDirection(): GrowDirection =
-      GrowDirection.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHGrowDirectionPtr))
+      GrowDirection.from(callPtrMethod0_ret_LONG(MethodBindings.getHGrowDirectionPtr))
 
   public final fun setVGrowDirection(direction: GrowDirection): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVGrowDirectionPtr, direction.value)
+    callPtrMethod_LONG(MethodBindings.setVGrowDirectionPtr, direction.value)
   }
 
   public final fun getVGrowDirection(): GrowDirection =
-      GrowDirection.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVGrowDirectionPtr))
+      GrowDirection.from(callPtrMethod0_ret_LONG(MethodBindings.getVGrowDirectionPtr))
 
   public final fun setTooltipAutoTranslateMode(mode: Node.AutoTranslateMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTooltipAutoTranslateModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setTooltipAutoTranslateModePtr, mode.value)
   }
 
   public final fun getTooltipAutoTranslateMode(): Node.AutoTranslateMode =
-      Node.AutoTranslateMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTooltipAutoTranslateModePtr))
+      Node.AutoTranslateMode.from(callPtrMethod0_ret_LONG(MethodBindings.getTooltipAutoTranslateModePtr))
 
   public final fun setTooltipText(hint: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTooltipTextPtr, hint)
+    callMethod_STRING(MethodBindings.setTooltipTextPtr, hint)
   }
 
   public final fun getTooltipText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTooltipTextPtr)
+      callMethod0_ret_STRING(MethodBindings.getTooltipTextPtr)
 
   /**
    * Returns the tooltip text for the position [atPosition] in the control's local coordinates,
@@ -2725,21 +2719,21 @@ public open class Control : CanvasItem() {
    */
   @JvmOverloads
   public final fun getTooltip(atPosition: Vector2 = Vector2(0, 0)): String =
-      TransferContext.callMethod_VECTOR2_ret_STRING(ptr, objectID.id, MethodBindings.getTooltipPtr, atPosition)
+      callMethod_VECTOR2_ret_STRING(MethodBindings.getTooltipPtr, atPosition)
 
   public final fun setTranslationContext(context: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setTranslationContextPtr, context)
+    callPtrMethod_STRING_NAME(MethodBindings.setTranslationContextPtr, context)
   }
 
   public final fun getTranslationContext(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getTranslationContextPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getTranslationContextPtr)
 
   public final fun setDefaultCursorShape(shape: CursorShape): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDefaultCursorShapePtr, shape.value)
+    callPtrMethod_LONG(MethodBindings.setDefaultCursorShapePtr, shape.value)
   }
 
   public final fun getDefaultCursorShape(): CursorShape =
-      CursorShape.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDefaultCursorShapePtr))
+      CursorShape.from(callPtrMethod0_ret_LONG(MethodBindings.getDefaultCursorShapePtr))
 
   /**
    * Returns the mouse cursor shape for this control when hovered over [atPosition] in local
@@ -2750,7 +2744,7 @@ public open class Control : CanvasItem() {
    */
   @JvmOverloads
   public final fun getCursorShape(atPosition: Vector2 = Vector2(0, 0)): CursorShape =
-      CursorShape.from(TransferContext.callPtrMethod_VECTOR2_ret_LONG(ptr, objectID.id, MethodBindings.getCursorShapePtr, atPosition))
+      CursorShape.from(callPtrMethod_VECTOR2_ret_LONG(MethodBindings.getCursorShapePtr, atPosition))
 
   /**
    * Sets the focus neighbor for the specified [Side] to the [Control] at [neighbor] node path. A
@@ -2758,7 +2752,7 @@ public open class Control : CanvasItem() {
    * [focusNeighborTop].
    */
   public final fun setFocusNeighbor(side: Side, neighbor: NodePath): Unit {
-    TransferContext.callPtrMethod_LONG_NODE_PATH(ptr, objectID.id, MethodBindings.setFocusNeighborPtr, side.value, neighbor)
+    callPtrMethod_LONG_NODE_PATH(MethodBindings.setFocusNeighborPtr, side.value, neighbor)
   }
 
   /**
@@ -2769,21 +2763,21 @@ public open class Control : CanvasItem() {
    * assigned, use [findValidFocusNeighbor].
    */
   public final fun getFocusNeighbor(side: Side): NodePath =
-      TransferContext.callPtrMethod_LONG_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getFocusNeighborPtr, side.value)
+      callPtrMethod_LONG_ret_NODE_PATH(MethodBindings.getFocusNeighborPtr, side.value)
 
   public final fun setFocusNext(next: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setFocusNextPtr, next)
+    callPtrMethod_NODE_PATH(MethodBindings.setFocusNextPtr, next)
   }
 
   public final fun getFocusNext(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getFocusNextPtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getFocusNextPtr)
 
   public final fun setFocusPrevious(previous: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setFocusPreviousPtr, previous)
+    callPtrMethod_NODE_PATH(MethodBindings.setFocusPreviousPtr, previous)
   }
 
   public final fun getFocusPrevious(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getFocusPreviousPtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getFocusPreviousPtr)
 
   /**
    * Forces drag and bypasses [_getDragData] and [setDragPreview] by passing [data] and [preview].
@@ -2793,78 +2787,78 @@ public open class Control : CanvasItem() {
    * drop data.
    */
   public final fun forceDrag(`data`: Any?, preview: Control?): Unit {
-    TransferContext.callMethod_ANY_OBJECT(ptr, objectID.id, MethodBindings.forceDragPtr, data, preview)
+    callMethod_ANY_OBJECT(MethodBindings.forceDragPtr, data, preview)
   }
 
   /**
    * Starts drag-and-drop operation without using a mouse.
    */
   public final fun accessibilityDrag(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.accessibilityDragPtr)
+    callPtrMethod0(MethodBindings.accessibilityDragPtr)
   }
 
   /**
    * Ends drag-and-drop operation without using a mouse.
    */
   public final fun accessibilityDrop(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.accessibilityDropPtr)
+    callPtrMethod0(MethodBindings.accessibilityDropPtr)
   }
 
   public final fun setAccessibilityName(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setAccessibilityNamePtr, name)
+    callMethod_STRING(MethodBindings.setAccessibilityNamePtr, name)
   }
 
   public final fun getAccessibilityName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getAccessibilityNamePtr)
+      callMethod0_ret_STRING(MethodBindings.getAccessibilityNamePtr)
 
   public final fun setAccessibilityDescription(description: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setAccessibilityDescriptionPtr, description)
+    callMethod_STRING(MethodBindings.setAccessibilityDescriptionPtr, description)
   }
 
   public final fun getAccessibilityDescription(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getAccessibilityDescriptionPtr)
+      callMethod0_ret_STRING(MethodBindings.getAccessibilityDescriptionPtr)
 
   public final fun setAccessibilityLive(mode: AccessibilityServer.AccessibilityLiveMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAccessibilityLivePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setAccessibilityLivePtr, mode.value)
   }
 
   public final fun getAccessibilityLive(): AccessibilityServer.AccessibilityLiveMode =
-      AccessibilityServer.AccessibilityLiveMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAccessibilityLivePtr))
+      AccessibilityServer.AccessibilityLiveMode.from(callPtrMethod0_ret_LONG(MethodBindings.getAccessibilityLivePtr))
 
   public final fun setAccessibilityControlsNodes(nodePath: VariantArray<NodePath>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setAccessibilityControlsNodesPtr, nodePath)
+    callPtrMethod_ARRAY(MethodBindings.setAccessibilityControlsNodesPtr, nodePath)
   }
 
   public final fun getAccessibilityControlsNodes(): VariantArray<NodePath> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getAccessibilityControlsNodesPtr) as VariantArray<NodePath>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getAccessibilityControlsNodesPtr) as VariantArray<NodePath>)
 
   public final fun setAccessibilityDescribedByNodes(nodePath: VariantArray<NodePath>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setAccessibilityDescribedByNodesPtr, nodePath)
+    callPtrMethod_ARRAY(MethodBindings.setAccessibilityDescribedByNodesPtr, nodePath)
   }
 
   public final fun getAccessibilityDescribedByNodes(): VariantArray<NodePath> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getAccessibilityDescribedByNodesPtr) as VariantArray<NodePath>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getAccessibilityDescribedByNodesPtr) as VariantArray<NodePath>)
 
   public final fun setAccessibilityLabeledByNodes(nodePath: VariantArray<NodePath>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setAccessibilityLabeledByNodesPtr, nodePath)
+    callPtrMethod_ARRAY(MethodBindings.setAccessibilityLabeledByNodesPtr, nodePath)
   }
 
   public final fun getAccessibilityLabeledByNodes(): VariantArray<NodePath> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getAccessibilityLabeledByNodesPtr) as VariantArray<NodePath>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getAccessibilityLabeledByNodesPtr) as VariantArray<NodePath>)
 
   public final fun setAccessibilityFlowToNodes(nodePath: VariantArray<NodePath>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setAccessibilityFlowToNodesPtr, nodePath)
+    callPtrMethod_ARRAY(MethodBindings.setAccessibilityFlowToNodesPtr, nodePath)
   }
 
   public final fun getAccessibilityFlowToNodes(): VariantArray<NodePath> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getAccessibilityFlowToNodesPtr) as VariantArray<NodePath>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getAccessibilityFlowToNodesPtr) as VariantArray<NodePath>)
 
   public final fun setMouseFilter(filter: MouseFilter): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMouseFilterPtr, filter.value)
+    callPtrMethod_LONG(MethodBindings.setMouseFilterPtr, filter.value)
   }
 
   public final fun getMouseFilter(): MouseFilter =
-      MouseFilter.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMouseFilterPtr))
+      MouseFilter.from(callPtrMethod0_ret_LONG(MethodBindings.getMouseFilterPtr))
 
   /**
    * Returns the [mouseFilter], but takes the [mouseBehaviorRecursive] into account. If
@@ -2873,28 +2867,28 @@ public open class Control : CanvasItem() {
    * [MOUSE_FILTER_IGNORE].
    */
   public final fun getMouseFilterWithOverride(): MouseFilter =
-      MouseFilter.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMouseFilterWithOverridePtr))
+      MouseFilter.from(callPtrMethod0_ret_LONG(MethodBindings.getMouseFilterWithOverridePtr))
 
   public final fun setMouseBehaviorRecursive(mouseBehaviorRecursive: MouseBehaviorRecursive): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMouseBehaviorRecursivePtr, mouseBehaviorRecursive.value)
+    callPtrMethod_LONG(MethodBindings.setMouseBehaviorRecursivePtr, mouseBehaviorRecursive.value)
   }
 
   public final fun getMouseBehaviorRecursive(): MouseBehaviorRecursive =
-      MouseBehaviorRecursive.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMouseBehaviorRecursivePtr))
+      MouseBehaviorRecursive.from(callPtrMethod0_ret_LONG(MethodBindings.getMouseBehaviorRecursivePtr))
 
   public final fun setForcePassScrollEvents(forcePassScrollEvents: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setForcePassScrollEventsPtr, forcePassScrollEvents)
+    callPtrMethod_BOOL(MethodBindings.setForcePassScrollEventsPtr, forcePassScrollEvents)
   }
 
   public final fun isForcePassScrollEvents(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isForcePassScrollEventsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isForcePassScrollEventsPtr)
 
   public final fun setClipContents(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setClipContentsPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setClipContentsPtr, enable)
   }
 
   public final fun isClippingContents(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isClippingContentsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isClippingContentsPtr)
 
   /**
    * Creates an [InputEventMouseButton] that attempts to click the control. If the event is
@@ -2915,7 +2909,7 @@ public open class Control : CanvasItem() {
    * ```
    */
   public final fun grabClickFocus(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.grabClickFocusPtr)
+    callPtrMethod0(MethodBindings.grabClickFocusPtr)
   }
 
   /**
@@ -2936,7 +2930,7 @@ public open class Control : CanvasItem() {
     canDropFunc: Callable,
     dropFunc: Callable,
   ): Unit {
-    TransferContext.callMethod_CALLABLE_CALLABLE_CALLABLE(ptr, objectID.id, MethodBindings.setDragForwardingPtr, dragFunc, canDropFunc, dropFunc)
+    callMethod_CALLABLE_CALLABLE_CALLABLE(MethodBindings.setDragForwardingPtr, dragFunc, canDropFunc, dropFunc)
   }
 
   /**
@@ -2975,7 +2969,7 @@ public open class Control : CanvasItem() {
    * ```
    */
   public final fun setDragPreview(control: Control?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setDragPreviewPtr, control)
+    callPtrMethod_OBJECT(MethodBindings.setDragPreviewPtr, control)
   }
 
   /**
@@ -2985,7 +2979,7 @@ public open class Control : CanvasItem() {
    * Best used with [Node.NOTIFICATION_DRAG_END].
    */
   public final fun isDragSuccessful(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDragSuccessfulPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDragSuccessfulPtr)
 
   /**
    * Moves the mouse cursor to [position], relative to [position] of this [Control].
@@ -2994,15 +2988,15 @@ public open class Control : CanvasItem() {
    * Android, iOS and Web.
    */
   public final fun warpMouse(position: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.warpMousePtr, position)
+    callPtrMethod_VECTOR2(MethodBindings.warpMousePtr, position)
   }
 
   public final fun setShortcutContext(node: Node?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setShortcutContextPtr, node)
+    callPtrMethod_OBJECT(MethodBindings.setShortcutContextPtr, node)
   }
 
   public final fun getShortcutContext(): Node? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getShortcutContextPtr) as Node?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getShortcutContextPtr) as Node?)
 
   /**
    * Invalidates the maximum size cache in this node and in parent nodes up to top level. Intended
@@ -3013,7 +3007,7 @@ public open class Control : CanvasItem() {
    * may be affected by the maximum size change.
    */
   public final fun updateMaximumSize(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.updateMaximumSizePtr)
+    callPtrMethod0(MethodBindings.updateMaximumSizePtr)
   }
 
   /**
@@ -3022,35 +3016,34 @@ public open class Control : CanvasItem() {
    * directly calls this method automatically.
    */
   public final fun updateMinimumSize(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.updateMinimumSizePtr)
+    callPtrMethod0(MethodBindings.updateMinimumSizePtr)
   }
 
   public final fun setLayoutDirection(direction: LayoutDirection): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLayoutDirectionPtr, direction.value)
+    callPtrMethod_LONG(MethodBindings.setLayoutDirectionPtr, direction.value)
   }
 
   public final fun getLayoutDirection(): LayoutDirection =
-      LayoutDirection.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLayoutDirectionPtr))
+      LayoutDirection.from(callPtrMethod0_ret_LONG(MethodBindings.getLayoutDirectionPtr))
 
   /**
    * Returns `true` if the layout is right-to-left. See also [layoutDirection].
    */
-  public final fun isLayoutRtl(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isLayoutRtlPtr)
+  public final fun isLayoutRtl(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isLayoutRtlPtr)
 
   public final fun setAutoTranslate(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoTranslatePtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAutoTranslatePtr, enable)
   }
 
   public final fun isAutoTranslating(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAutoTranslatingPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAutoTranslatingPtr)
 
   public final fun setLocalizeNumeralSystem(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setLocalizeNumeralSystemPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setLocalizeNumeralSystemPtr, enable)
   }
 
   public final fun isLocalizingNumeralSystem(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isLocalizingNumeralSystemPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isLocalizingNumeralSystemPtr)
 
   public final fun setThemeTypeVariation(themeType: String) =
       setThemeTypeVariation(themeType.asCachedStringName())

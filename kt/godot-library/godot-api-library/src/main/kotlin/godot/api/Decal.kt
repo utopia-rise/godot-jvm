@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_COLOR
@@ -372,11 +371,10 @@ public open class Decal : VisualInstance3D() {
   }
 
   public final fun setSize(size: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR3(MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector3 = callPtrMethod0_ret_VECTOR3(MethodBindings.getSizePtr)
 
   /**
    * Sets the [Texture2D] associated with the specified [DecalTexture]. This is a convenience
@@ -403,7 +401,7 @@ public open class Decal : VisualInstance3D() {
    * ```
    */
   public final fun setTexture(type: DecalTexture, texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, type.value, texture)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setTexturePtr, type.value, texture)
   }
 
   /**
@@ -431,77 +429,75 @@ public open class Decal : VisualInstance3D() {
    * ```
    */
   public final fun getTexture(type: DecalTexture): Texture2D? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr, type.value) as Texture2D?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getTexturePtr, type.value) as Texture2D?)
 
   public final fun setEmissionEnergy(energy: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEmissionEnergyPtr, energy.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEmissionEnergyPtr, energy.toDouble())
   }
 
   public final fun getEmissionEnergy(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEmissionEnergyPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEmissionEnergyPtr).toFloat()
 
   public final fun setAlbedoMix(energy: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAlbedoMixPtr, energy.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAlbedoMixPtr, energy.toDouble())
   }
 
   public final fun getAlbedoMix(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAlbedoMixPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAlbedoMixPtr).toFloat()
 
   public final fun setModulate(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setModulatePtr, color)
+    callPtrMethod_COLOR(MethodBindings.setModulatePtr, color)
   }
 
-  public final fun getModulate(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getModulatePtr)
+  public final fun getModulate(): Color = callPtrMethod0_ret_COLOR(MethodBindings.getModulatePtr)
 
   public final fun setUpperFade(fade: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setUpperFadePtr, fade.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setUpperFadePtr, fade.toDouble())
   }
 
   public final fun getUpperFade(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getUpperFadePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getUpperFadePtr).toFloat()
 
   public final fun setLowerFade(fade: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLowerFadePtr, fade.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setLowerFadePtr, fade.toDouble())
   }
 
   public final fun getLowerFade(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLowerFadePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLowerFadePtr).toFloat()
 
   public final fun setNormalFade(fade: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setNormalFadePtr, fade.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setNormalFadePtr, fade.toDouble())
   }
 
   public final fun getNormalFade(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getNormalFadePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getNormalFadePtr).toFloat()
 
   public final fun setEnableDistanceFade(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableDistanceFadePtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setEnableDistanceFadePtr, enable)
   }
 
   public final fun isDistanceFadeEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDistanceFadeEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDistanceFadeEnabledPtr)
 
   public final fun setDistanceFadeBegin(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDistanceFadeBeginPtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDistanceFadeBeginPtr, distance.toDouble())
   }
 
   public final fun getDistanceFadeBegin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDistanceFadeBeginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDistanceFadeBeginPtr).toFloat()
 
   public final fun setDistanceFadeLength(distance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDistanceFadeLengthPtr, distance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDistanceFadeLengthPtr, distance.toDouble())
   }
 
   public final fun getDistanceFadeLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDistanceFadeLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDistanceFadeLengthPtr).toFloat()
 
   public final fun setCullMask(mask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCullMaskPtr, mask)
+    callPtrMethod_LONG(MethodBindings.setCullMaskPtr, mask)
   }
 
-  public final fun getCullMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCullMaskPtr)
+  public final fun getCullMask(): Long = callPtrMethod0_ret_LONG(MethodBindings.getCullMaskPtr)
 
   public enum class DecalTexture(
     public override val `value`: Long,

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.common.interop.VoidPtr
@@ -35,7 +34,7 @@ public open class VisualShaderNodeReroute : VisualShaderNode() {
    * Returns the port type of the reroute node.
    */
   public final fun getPortType(): VisualShaderNode.PortType =
-      VisualShaderNode.PortType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPortTypePtr))
+      VisualShaderNode.PortType.from(callPtrMethod0_ret_LONG(MethodBindings.getPortTypePtr))
 
   public companion object {
     @JvmField

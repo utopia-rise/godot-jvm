@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -196,53 +195,50 @@ public open class Sprite3D : SpriteBase3D() {
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTexturePtr, texture)
   }
 
   public final fun getTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTexturePtr) as Texture2D?)
 
   public final fun setRegionEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRegionEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setRegionEnabledPtr, enabled)
   }
 
   public final fun isRegionEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRegionEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isRegionEnabledPtr)
 
   public final fun setRegionRect(rect: Rect2): Unit {
-    TransferContext.callPtrMethod_RECT2(ptr, objectID.id, MethodBindings.setRegionRectPtr, rect)
+    callPtrMethod_RECT2(MethodBindings.setRegionRectPtr, rect)
   }
 
   public final fun getRegionRect(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRegionRectPtr)
+      callPtrMethod0_ret_RECT2(MethodBindings.getRegionRectPtr)
 
   public final fun setFrame(frame: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFramePtr, frame.toLong())
+    callPtrMethod_LONG(MethodBindings.setFramePtr, frame.toLong())
   }
 
-  public final fun getFrame(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFramePtr).toInt()
+  public final fun getFrame(): Int = callPtrMethod0_ret_LONG(MethodBindings.getFramePtr).toInt()
 
   public final fun setFrameCoords(coords: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setFrameCoordsPtr, coords)
+    callPtrMethod_VECTOR2I(MethodBindings.setFrameCoordsPtr, coords)
   }
 
   public final fun getFrameCoords(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getFrameCoordsPtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.getFrameCoordsPtr)
 
   public final fun setVframes(vframes: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVframesPtr, vframes.toLong())
+    callPtrMethod_LONG(MethodBindings.setVframesPtr, vframes.toLong())
   }
 
-  public final fun getVframes(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVframesPtr).toInt()
+  public final fun getVframes(): Int = callPtrMethod0_ret_LONG(MethodBindings.getVframesPtr).toInt()
 
   public final fun setHframes(hframes: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setHframesPtr, hframes.toLong())
+    callPtrMethod_LONG(MethodBindings.setHframesPtr, hframes.toLong())
   }
 
-  public final fun getHframes(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getHframesPtr).toInt()
+  public final fun getHframes(): Int = callPtrMethod0_ret_LONG(MethodBindings.getHframesPtr).toInt()
 
   public companion object {
     @JvmField

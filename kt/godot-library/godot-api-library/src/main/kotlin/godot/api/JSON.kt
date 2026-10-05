@@ -7,16 +7,15 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_ANY
 import godot.callMethod0_ret_STRING
 import godot.callMethod_ANY
-import godot.callMethod_ANY_BOOL_ret_ANY
-import godot.callMethod_ANY_STRING_BOOL_BOOL_ret_STRING
 import godot.callMethod_STRING_BOOL_ret_LONG
-import godot.callMethod_STRING_ret_ANY
 import godot.callPtrMethod0_ret_LONG
+import godot.callStaticMethod_ANY_BOOL_ret_ANY
+import godot.callStaticMethod_ANY_STRING_BOOL_BOOL_ret_STRING
+import godot.callStaticMethod_STRING_ret_ANY
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.Error
@@ -117,34 +116,32 @@ public open class JSON : Resource() {
    */
   @JvmOverloads
   public final fun parse(jsonText: String, keepText: Boolean = false): Error =
-      Error.from(TransferContext.callMethod_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.parsePtr, jsonText, keepText))
+      Error.from(callMethod_STRING_BOOL_ret_LONG(MethodBindings.parsePtr, jsonText, keepText))
 
-  public final fun getData(): Any? =
-      TransferContext.callMethod0_ret_ANY(ptr, objectID.id, MethodBindings.getDataPtr)
+  public final fun getData(): Any? = callMethod0_ret_ANY(MethodBindings.getDataPtr)
 
   public final fun setData(`data`: Any?): Unit {
-    TransferContext.callMethod_ANY(ptr, objectID.id, MethodBindings.setDataPtr, data)
+    callMethod_ANY(MethodBindings.setDataPtr, data)
   }
 
   /**
    * Return the text parsed by [parse] (requires passing `keep_text` to [parse]).
    */
-  public final fun getParsedText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getParsedTextPtr)
+  public final fun getParsedText(): String = callMethod0_ret_STRING(MethodBindings.getParsedTextPtr)
 
   /**
    * Returns `0` if the last call to [parse] was successful, or the line number where the parse
    * failed.
    */
   public final fun getErrorLine(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getErrorLinePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getErrorLinePtr).toInt()
 
   /**
    * Returns an empty string if the last call to [parse] was successful, or the error message if it
    * failed.
    */
   public final fun getErrorMessage(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getErrorMessagePtr)
+      callMethod0_ret_STRING(MethodBindings.getErrorMessagePtr)
 
   public companion object {
     @JvmField
@@ -255,7 +252,7 @@ public open class JSON : Resource() {
       sortKeys: Boolean = true,
       fullPrecision: Boolean = false,
     ): String =
-        TransferContext.callMethod_ANY_STRING_BOOL_BOOL_ret_STRING(0L, 0L, MethodBindings.stringifyPtr, data, indent, sortKeys, fullPrecision)
+        callStaticMethod_ANY_STRING_BOOL_BOOL_ret_STRING(MethodBindings.stringifyPtr, data, indent, sortKeys, fullPrecision)
 
     /**
      * Attempts to parse the [jsonString] provided and returns the parsed data. Returns `null` if
@@ -263,7 +260,7 @@ public open class JSON : Resource() {
      */
     @JvmStatic
     public final fun parseString(jsonString: String): Any? =
-        TransferContext.callMethod_STRING_ret_ANY(0L, 0L, MethodBindings.parseStringPtr, jsonString)
+        callStaticMethod_STRING_ret_ANY(MethodBindings.parseStringPtr, jsonString)
 
     /**
      * Converts a native engine type to a JSON-compliant value.
@@ -280,7 +277,7 @@ public open class JSON : Resource() {
     @JvmOverloads
     @JvmStatic
     public final fun fromNative(variant: Any?, fullObjects: Boolean = false): Any? =
-        TransferContext.callMethod_ANY_BOOL_ret_ANY(0L, 0L, MethodBindings.fromNativePtr, variant, fullObjects)
+        callStaticMethod_ANY_BOOL_ret_ANY(MethodBindings.fromNativePtr, variant, fullObjects)
 
     /**
      * Converts a JSON-compliant value that was created with [fromNative] back to native engine
@@ -298,7 +295,7 @@ public open class JSON : Resource() {
     @JvmOverloads
     @JvmStatic
     public final fun toNative(json: Any?, allowObjects: Boolean = false): Any? =
-        TransferContext.callMethod_ANY_BOOL_ret_ANY(0L, 0L, MethodBindings.toNativePtr, json, allowObjects)
+        callStaticMethod_ANY_BOOL_ret_ANY(MethodBindings.toNativePtr, json, allowObjects)
   }
 
   public object MethodBindings {

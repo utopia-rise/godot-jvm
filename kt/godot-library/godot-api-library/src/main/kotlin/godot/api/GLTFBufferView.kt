@@ -7,15 +7,14 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DICTIONARY
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_BOOL
-import godot.callPtrMethod_DICTIONARY_ret_OBJECT_REF
 import godot.callPtrMethod_LONG
 import godot.callPtrMethod_OBJECT_ret_PACKED_BYTE_ARRAY
+import godot.callStaticPtrMethod_DICTIONARY_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
@@ -127,54 +126,49 @@ public open class GLTFBufferView : Resource() {
    * returned as a [PackedByteArray].
    */
   public final fun loadBufferViewData(state: GLTFState?): PackedByteArray =
-      TransferContext.callPtrMethod_OBJECT_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.loadBufferViewDataPtr, state)
+      callPtrMethod_OBJECT_ret_PACKED_BYTE_ARRAY(MethodBindings.loadBufferViewDataPtr, state)
 
   /**
    * Serializes this GLTFBufferView instance into a [Dictionary].
    */
   public final fun toDictionary(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.toDictionaryPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.toDictionaryPtr) as Dictionary<Any?, Any?>)
 
-  public final fun getBuffer(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBufferPtr).toInt()
+  public final fun getBuffer(): Int = callPtrMethod0_ret_LONG(MethodBindings.getBufferPtr).toInt()
 
   public final fun setBuffer(buffer: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBufferPtr, buffer.toLong())
+    callPtrMethod_LONG(MethodBindings.setBufferPtr, buffer.toLong())
   }
 
-  public final fun getByteOffset(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getByteOffsetPtr)
+  public final fun getByteOffset(): Long = callPtrMethod0_ret_LONG(MethodBindings.getByteOffsetPtr)
 
   public final fun setByteOffset(byteOffset: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setByteOffsetPtr, byteOffset)
+    callPtrMethod_LONG(MethodBindings.setByteOffsetPtr, byteOffset)
   }
 
-  public final fun getByteLength(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getByteLengthPtr)
+  public final fun getByteLength(): Long = callPtrMethod0_ret_LONG(MethodBindings.getByteLengthPtr)
 
   public final fun setByteLength(byteLength: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setByteLengthPtr, byteLength)
+    callPtrMethod_LONG(MethodBindings.setByteLengthPtr, byteLength)
   }
 
-  public final fun getByteStride(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getByteStridePtr)
+  public final fun getByteStride(): Long = callPtrMethod0_ret_LONG(MethodBindings.getByteStridePtr)
 
   public final fun setByteStride(byteStride: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setByteStridePtr, byteStride)
+    callPtrMethod_LONG(MethodBindings.setByteStridePtr, byteStride)
   }
 
-  public final fun getIndices(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getIndicesPtr)
+  public final fun getIndices(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getIndicesPtr)
 
   public final fun setIndices(indices: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIndicesPtr, indices)
+    callPtrMethod_BOOL(MethodBindings.setIndicesPtr, indices)
   }
 
   public final fun getVertexAttributes(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getVertexAttributesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getVertexAttributesPtr)
 
   public final fun setVertexAttributes(isAttributes: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setVertexAttributesPtr, isAttributes)
+    callPtrMethod_BOOL(MethodBindings.setVertexAttributesPtr, isAttributes)
   }
 
   public companion object {
@@ -245,7 +239,7 @@ public open class GLTFBufferView : Resource() {
      */
     @JvmStatic
     public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFBufferView? =
-        (TransferContext.callPtrMethod_DICTIONARY_ret_OBJECT_REF(0L, 0L, MethodBindings.fromDictionaryPtr, dictionary) as GLTFBufferView?)
+        (callStaticPtrMethod_DICTIONARY_ret_OBJECT_REF(MethodBindings.fromDictionaryPtr, dictionary) as GLTFBufferView?)
   }
 
   public object MethodBindings {

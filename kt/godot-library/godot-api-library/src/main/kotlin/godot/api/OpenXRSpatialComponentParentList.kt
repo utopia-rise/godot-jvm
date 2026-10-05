@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG_ret_RID
 import godot.common.interop.VoidPtr
@@ -32,7 +31,7 @@ public open class OpenXRSpatialComponentParentList : OpenXRSpatialComponentData(
    * Returns the RID for the parent entity at this [index].
    */
   public final fun getParent(index: Long): RID =
-      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.getParentPtr, index)
+      callPtrMethod_LONG_ret_RID(MethodBindings.getParentPtr, index)
 
   public companion object {
     @JvmField

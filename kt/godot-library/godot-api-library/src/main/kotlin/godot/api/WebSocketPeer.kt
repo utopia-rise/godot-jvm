@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_LONG_STRING
@@ -277,7 +276,7 @@ public open class WebSocketPeer : PacketPeer() {
    */
   @JvmOverloads
   public final fun connectToUrl(url: String, tlsClientOptions: TLSOptions? = null): Error =
-      Error.from(TransferContext.callMethod_STRING_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.connectToUrlPtr, url, tlsClientOptions))
+      Error.from(callMethod_STRING_OBJECT_ret_LONG(MethodBindings.connectToUrlPtr, url, tlsClientOptions))
 
   /**
    * Accepts a peer connection performing the HTTP handshake as a WebSocket server. The [stream]
@@ -287,7 +286,7 @@ public open class WebSocketPeer : PacketPeer() {
    * **Note:** Not supported in Web exports due to browsers' restrictions.
    */
   public final fun acceptStream(stream: StreamPeer?): Error =
-      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.acceptStreamPtr, stream))
+      Error.from(callPtrMethod_OBJECT_ret_LONG(MethodBindings.acceptStreamPtr, stream))
 
   /**
    * Sends the given [message] using the desired [writeMode]. When sending a [String], prefer using
@@ -296,7 +295,7 @@ public open class WebSocketPeer : PacketPeer() {
   @JvmOverloads
   public final fun send(message: PackedByteArray, writeMode: WriteMode =
       WebSocketPeer.WriteMode.BINARY): Error =
-      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_LONG_ret_LONG(ptr, objectID.id, MethodBindings.sendPtr, message, writeMode.value))
+      Error.from(callPtrMethod_PACKED_BYTE_ARRAY_LONG_ret_LONG(MethodBindings.sendPtr, message, writeMode.value))
 
   /**
    * Sends the given [message] using WebSocket text mode. Prefer this method over
@@ -304,20 +303,20 @@ public open class WebSocketPeer : PacketPeer() {
    * formatted messages).
    */
   public final fun sendText(message: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.sendTextPtr, message))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.sendTextPtr, message))
 
   /**
    * Returns `true` if the last received packet was sent as a text payload. See [WriteMode].
    */
   public final fun wasStringPacket(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.wasStringPacketPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.wasStringPacketPtr)
 
   /**
    * Updates the connection state and receive incoming packets. Call this function regularly to keep
    * it in a clean state.
    */
   public final fun poll(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pollPtr)
+    callPtrMethod0(MethodBindings.pollPtr)
   }
 
   /**
@@ -339,7 +338,7 @@ public open class WebSocketPeer : PacketPeer() {
    */
   @JvmOverloads
   public final fun close(code: Int = 1000, reason: String = ""): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.closePtr, code.toLong(), reason)
+    callMethod_LONG_STRING(MethodBindings.closePtr, code.toLong(), reason)
   }
 
   /**
@@ -348,7 +347,7 @@ public open class WebSocketPeer : PacketPeer() {
    * **Note:** Not available in the Web export.
    */
   public final fun getConnectedHost(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getConnectedHostPtr)
+      callMethod0_ret_STRING(MethodBindings.getConnectedHostPtr)
 
   /**
    * Returns the remote port of the connected peer.
@@ -356,21 +355,21 @@ public open class WebSocketPeer : PacketPeer() {
    * **Note:** Not available in the Web export.
    */
   public final fun getConnectedPort(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getConnectedPortPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getConnectedPortPtr).toInt()
 
   /**
    * Returns the selected WebSocket sub-protocol for this connection or an empty string if the
    * sub-protocol has not been selected yet.
    */
   public final fun getSelectedProtocol(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSelectedProtocolPtr)
+      callMethod0_ret_STRING(MethodBindings.getSelectedProtocolPtr)
 
   /**
    * Returns the URL requested by this peer. The URL is derived from the `url` passed to
    * [connectToUrl] or from the HTTP headers when acting as server (i.e. when using [acceptStream]).
    */
   public final fun getRequestedUrl(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getRequestedUrlPtr)
+      callMethod0_ret_STRING(MethodBindings.getRequestedUrlPtr)
 
   /**
    * Disable Nagle's algorithm on the underlying TCP socket (default). See
@@ -379,7 +378,7 @@ public open class WebSocketPeer : PacketPeer() {
    * **Note:** Not available in the Web export.
    */
   public final fun setNoDelay(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setNoDelayPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setNoDelayPtr, enabled)
   }
 
   /**
@@ -387,69 +386,69 @@ public open class WebSocketPeer : PacketPeer() {
    * WebSocket.bufferedAmount, while other platforms use an internal buffer.
    */
   public final fun getCurrentOutboundBufferedAmount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCurrentOutboundBufferedAmountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getCurrentOutboundBufferedAmountPtr).toInt()
 
   /**
    * Returns the ready state of the connection.
    */
   public final fun getReadyState(): State =
-      State.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getReadyStatePtr))
+      State.from(callPtrMethod0_ret_LONG(MethodBindings.getReadyStatePtr))
 
   /**
    * Returns the received WebSocket close frame status code, or `-1` when the connection was not
    * cleanly closed. Only call this method when [getReadyState] returns [STATE_CLOSED].
    */
   public final fun getCloseCode(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCloseCodePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getCloseCodePtr).toInt()
 
   /**
    * Returns the received WebSocket close frame status reason string. Only call this method when
    * [getReadyState] returns [STATE_CLOSED].
    */
   public final fun getCloseReason(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getCloseReasonPtr)
+      callMethod0_ret_STRING(MethodBindings.getCloseReasonPtr)
 
   public final fun getSupportedProtocols(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getSupportedProtocolsPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getSupportedProtocolsPtr)
 
   public final fun setSupportedProtocols(protocols: PackedStringArray): Unit {
-    TransferContext.callPtrMethod_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setSupportedProtocolsPtr, protocols)
+    callPtrMethod_PACKED_STRING_ARRAY(MethodBindings.setSupportedProtocolsPtr, protocols)
   }
 
   public final fun getHandshakeHeaders(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getHandshakeHeadersPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getHandshakeHeadersPtr)
 
   public final fun setHandshakeHeaders(protocols: PackedStringArray): Unit {
-    TransferContext.callPtrMethod_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setHandshakeHeadersPtr, protocols)
+    callPtrMethod_PACKED_STRING_ARRAY(MethodBindings.setHandshakeHeadersPtr, protocols)
   }
 
   public final fun getInboundBufferSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInboundBufferSizePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getInboundBufferSizePtr).toInt()
 
   public final fun setInboundBufferSize(bufferSize: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInboundBufferSizePtr, bufferSize.toLong())
+    callPtrMethod_LONG(MethodBindings.setInboundBufferSizePtr, bufferSize.toLong())
   }
 
   public final fun getOutboundBufferSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOutboundBufferSizePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getOutboundBufferSizePtr).toInt()
 
   public final fun setOutboundBufferSize(bufferSize: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOutboundBufferSizePtr, bufferSize.toLong())
+    callPtrMethod_LONG(MethodBindings.setOutboundBufferSizePtr, bufferSize.toLong())
   }
 
   public final fun setMaxQueuedPackets(bufferSize: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxQueuedPacketsPtr, bufferSize.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaxQueuedPacketsPtr, bufferSize.toLong())
   }
 
   public final fun getMaxQueuedPackets(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxQueuedPacketsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMaxQueuedPacketsPtr).toInt()
 
   public final fun setHeartbeatInterval(interval: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setHeartbeatIntervalPtr, interval)
+    callPtrMethod_DOUBLE(MethodBindings.setHeartbeatIntervalPtr, interval)
   }
 
   public final fun getHeartbeatInterval(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getHeartbeatIntervalPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getHeartbeatIntervalPtr)
 
   public enum class WriteMode(
     public override val `value`: Long,

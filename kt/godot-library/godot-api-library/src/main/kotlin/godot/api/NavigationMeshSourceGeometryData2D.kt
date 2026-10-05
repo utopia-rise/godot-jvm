@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_ARRAY
@@ -70,42 +69,41 @@ public open class NavigationMeshSourceGeometryData2D : Resource() {
    * Clears the internal data.
    */
   public final fun clear(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
+    callPtrMethod0(MethodBindings.clearPtr)
   }
 
   /**
    * Returns `true` when parsed source geometry data exists.
    */
-  public final fun hasData(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasDataPtr)
+  public final fun hasData(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasDataPtr)
 
   /**
    * Sets all the traversable area outlines arrays.
    */
   public final fun setTraversableOutlines(traversableOutlines: VariantArray<PackedVector2Array>):
       Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setTraversableOutlinesPtr, traversableOutlines)
+    callPtrMethod_ARRAY(MethodBindings.setTraversableOutlinesPtr, traversableOutlines)
   }
 
   /**
    * Returns all the traversable area outlines arrays.
    */
   public final fun getTraversableOutlines(): VariantArray<PackedVector2Array> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getTraversableOutlinesPtr) as VariantArray<PackedVector2Array>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getTraversableOutlinesPtr) as VariantArray<PackedVector2Array>)
 
   /**
    * Sets all the obstructed area outlines arrays.
    */
   public final fun setObstructionOutlines(obstructionOutlines: VariantArray<PackedVector2Array>):
       Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setObstructionOutlinesPtr, obstructionOutlines)
+    callPtrMethod_ARRAY(MethodBindings.setObstructionOutlinesPtr, obstructionOutlines)
   }
 
   /**
    * Returns all the obstructed area outlines arrays.
    */
   public final fun getObstructionOutlines(): VariantArray<PackedVector2Array> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getObstructionOutlinesPtr) as VariantArray<PackedVector2Array>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getObstructionOutlinesPtr) as VariantArray<PackedVector2Array>)
 
   /**
    * Appends another array of [traversableOutlines] at the end of the existing traversable outlines
@@ -113,7 +111,7 @@ public open class NavigationMeshSourceGeometryData2D : Resource() {
    */
   public final fun appendTraversableOutlines(traversableOutlines: VariantArray<PackedVector2Array>):
       Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.appendTraversableOutlinesPtr, traversableOutlines)
+    callPtrMethod_ARRAY(MethodBindings.appendTraversableOutlinesPtr, traversableOutlines)
   }
 
   /**
@@ -122,21 +120,21 @@ public open class NavigationMeshSourceGeometryData2D : Resource() {
    */
   public final fun appendObstructionOutlines(obstructionOutlines: VariantArray<PackedVector2Array>):
       Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.appendObstructionOutlinesPtr, obstructionOutlines)
+    callPtrMethod_ARRAY(MethodBindings.appendObstructionOutlinesPtr, obstructionOutlines)
   }
 
   /**
    * Adds the outline points of a shape as traversable area.
    */
   public final fun addTraversableOutline(shapeOutline: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.addTraversableOutlinePtr, shapeOutline)
+    callPtrMethod_PACKED_VECTOR2_ARRAY(MethodBindings.addTraversableOutlinePtr, shapeOutline)
   }
 
   /**
    * Adds the outline points of a shape as obstructed area.
    */
   public final fun addObstructionOutline(shapeOutline: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.addObstructionOutlinePtr, shapeOutline)
+    callPtrMethod_PACKED_VECTOR2_ARRAY(MethodBindings.addObstructionOutlinePtr, shapeOutline)
   }
 
   /**
@@ -144,7 +142,7 @@ public open class NavigationMeshSourceGeometryData2D : Resource() {
    * baking data.
    */
   public final fun merge(otherGeometry: NavigationMeshSourceGeometryData2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.mergePtr, otherGeometry)
+    callPtrMethod_OBJECT(MethodBindings.mergePtr, otherGeometry)
   }
 
   /**
@@ -153,14 +151,14 @@ public open class NavigationMeshSourceGeometryData2D : Resource() {
    * process.
    */
   public final fun addProjectedObstruction(vertices: PackedVector2Array, carve: Boolean): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY_BOOL(ptr, objectID.id, MethodBindings.addProjectedObstructionPtr, vertices, carve)
+    callPtrMethod_PACKED_VECTOR2_ARRAY_BOOL(MethodBindings.addProjectedObstructionPtr, vertices, carve)
   }
 
   /**
    * Clears all projected obstructions.
    */
   public final fun clearProjectedObstructions(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearProjectedObstructionsPtr)
+    callPtrMethod0(MethodBindings.clearProjectedObstructionsPtr)
   }
 
   /**
@@ -174,7 +172,7 @@ public open class NavigationMeshSourceGeometryData2D : Resource() {
    * ```
    */
   public final fun setProjectedObstructions(projectedObstructions: VariantArray<Any?>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setProjectedObstructionsPtr, projectedObstructions)
+    callPtrMethod_ARRAY(MethodBindings.setProjectedObstructionsPtr, projectedObstructions)
   }
 
   /**
@@ -187,15 +185,14 @@ public open class NavigationMeshSourceGeometryData2D : Resource() {
    * baking. If `true` the projected shape will not be affected by addition offsets, e.g. agent radius.
    */
   public final fun getProjectedObstructions(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getProjectedObstructionsPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getProjectedObstructionsPtr) as VariantArray<Any?>)
 
   /**
    * Returns an axis-aligned bounding box that covers all the stored geometry data. The bounds are
    * calculated when calling this function with the result cached until further geometry changes are
    * made.
    */
-  public final fun getBounds(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getBoundsPtr)
+  public final fun getBounds(): Rect2 = callPtrMethod0_ret_RECT2(MethodBindings.getBoundsPtr)
 
   public companion object {
     @JvmField

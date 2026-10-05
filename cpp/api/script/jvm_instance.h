@@ -1,8 +1,8 @@
 #ifndef GODOT_JVM_JVM_INSTANCE_H
 #define GODOT_JVM_JVM_INSTANCE_H
 
-#include "jvm/wrapper/registration/kt_class.h"
-#include "jvm/wrapper/registration/kt_object.h"
+#include "jvm/registration/kt_class.h"
+#include "jvm/registration/kt_object.h"
 #include "jvm_script.h"
 
 namespace godot {

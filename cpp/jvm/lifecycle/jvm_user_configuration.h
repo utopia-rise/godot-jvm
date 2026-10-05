@@ -15,7 +15,8 @@ static constexpr const char* DEBUG_ADDRESS_JSON_IDENTIFIER = "debug_address";
 static constexpr const char* JMX_PORT_JSON_IDENTIFIER = "jmx_port";
 static constexpr const char* WAIT_FOR_DEBUGGER_JSON_IDENTIFIER = "wait_for_debugger";
 static constexpr const char* MAX_STRING_SIZE_JSON_IDENTIFIER = "max_string_size";
-static constexpr const char* DISABLE_GC_JSON_IDENTIFIER = "disable_gc";
+static constexpr const char* VALUE_BUFFER_SIZE_FACTOR_JSON_IDENTIFIER = "value_buffer_size_factor";
+static constexpr const char* DISABLE_MEMORY_MANAGEMENT_JSON_IDENTIFIER = "disable_memory_management";
 static constexpr const char* JVM_ARGUMENTS_JSON_IDENTIFIER = "custom_jvm_args";
 
 // COMMAND LINE IDENTIFIER
@@ -27,7 +28,9 @@ static constexpr const char* WAIT_FOR_DEBUGGER_CMD_IDENTIFIER = "--jvm-wait-for-
 static constexpr const char* JMX_PORT_CMD_IDENTIFIER = "--jvm-jmx-port";
 static constexpr const char* MAX_STRING_SIZE_CMD_IDENTIFIER = "--jvm-max-string-size";
 static constexpr int32_t MAX_STRING_SIZE_LIMIT = 65535;
-static constexpr const char* DISABLE_GC_CMD_IDENTIFIER = "--jvm-disable-gc";
+static constexpr const char* VALUE_BUFFER_SIZE_FACTOR_CMD_IDENTIFIER = "--jvm-value-buffer-size-factor";
+static constexpr int32_t VALUE_BUFFER_SIZE_FACTOR_LIMIT = 1024;
+static constexpr const char* DISABLE_MEMORY_MANAGEMENT_CMD_IDENTIFIER = "--jvm-disable-memory-management";
 static constexpr const char* JVM_ARGUMENTS_CMD_IDENTIFIER = "--jvm-custom-args";
 static constexpr const char* JVM_PATH_CMD_IDENTIFIER = "--jvm-path";
 
@@ -51,7 +54,10 @@ struct JvmUserConfiguration {
     // Bounded by MAX_STRING_SIZE_LIMIT because LongStringQueue stores it as uint16_t.
     int32_t max_string_size = -1;
 
-    bool disable_gc = false;
+    // How many full-sized ptrcall frames the value buffer stacks; 0 means "auto" and leaves the JVM default.
+    int32_t value_buffer_size_factor = 0;
+
+    bool disable_memory_management = false;
 
     godot::String jvm_path;
     godot::Array jvm_args;

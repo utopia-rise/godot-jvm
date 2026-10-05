@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -110,21 +109,19 @@ public open class BoneAttachment3D : Node3D() {
    * Returns the parent or external [Skeleton3D] node if it exists, otherwise returns `null`.
    */
   public final fun getSkeleton(): Skeleton3D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getSkeletonPtr) as Skeleton3D?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getSkeletonPtr) as Skeleton3D?)
 
   public final fun setBoneName(boneName: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBoneNamePtr, boneName)
+    callMethod_STRING(MethodBindings.setBoneNamePtr, boneName)
   }
 
-  public final fun getBoneName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getBoneNamePtr)
+  public final fun getBoneName(): String = callMethod0_ret_STRING(MethodBindings.getBoneNamePtr)
 
   public final fun setBoneIdx(boneIdx: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBoneIdxPtr, boneIdx.toLong())
+    callPtrMethod_LONG(MethodBindings.setBoneIdxPtr, boneIdx.toLong())
   }
 
-  public final fun getBoneIdx(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBoneIdxPtr).toInt()
+  public final fun getBoneIdx(): Int = callPtrMethod0_ret_LONG(MethodBindings.getBoneIdxPtr).toInt()
 
   /**
    * A function that is called automatically when the [Skeleton3D] is updated. This function is
@@ -132,29 +129,29 @@ public open class BoneAttachment3D : Node3D() {
    * set to override the bone pose.
    */
   public final fun onSkeletonUpdate(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.onSkeletonUpdatePtr)
+    callPtrMethod0(MethodBindings.onSkeletonUpdatePtr)
   }
 
   public final fun setOverridePose(overridePose: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setOverridePosePtr, overridePose)
+    callPtrMethod_BOOL(MethodBindings.setOverridePosePtr, overridePose)
   }
 
   public final fun getOverridePose(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getOverridePosePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getOverridePosePtr)
 
   public final fun setUseExternalSkeleton(useExternalSkeleton: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseExternalSkeletonPtr, useExternalSkeleton)
+    callPtrMethod_BOOL(MethodBindings.setUseExternalSkeletonPtr, useExternalSkeleton)
   }
 
   public final fun getUseExternalSkeleton(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseExternalSkeletonPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getUseExternalSkeletonPtr)
 
   public final fun setExternalSkeleton(externalSkeleton: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setExternalSkeletonPtr, externalSkeleton)
+    callPtrMethod_NODE_PATH(MethodBindings.setExternalSkeletonPtr, externalSkeleton)
   }
 
   public final fun getExternalSkeleton(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getExternalSkeletonPtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getExternalSkeletonPtr)
 
   public final fun setExternalSkeleton(externalSkeleton: String) =
       setExternalSkeleton(externalSkeleton.asCachedNodePath())

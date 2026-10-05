@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.common.interop.VoidPtr
@@ -67,8 +66,7 @@ public open class PackedDataContainerRef internal constructor() : RefCounted() {
   /**
    * Returns the size of the packed container (see [Array.size] and [Dictionary.size]).
    */
-  public final fun size(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.sizePtr).toInt()
+  public final fun size(): Int = callPtrMethod0_ret_LONG(MethodBindings.sizePtr).toInt()
 
   public companion object {
     @JvmField

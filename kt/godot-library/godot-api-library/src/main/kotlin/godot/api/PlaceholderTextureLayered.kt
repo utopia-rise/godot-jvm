@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_VECTOR2I
 import godot.callPtrMethod_LONG
@@ -96,14 +95,13 @@ public open class PlaceholderTextureLayered internal constructor() : TextureLaye
   }
 
   public final fun setSize(size: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR2I(MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector2i = callPtrMethod0_ret_VECTOR2I(MethodBindings.getSizePtr)
 
   public final fun setLayers(layers: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLayersPtr, layers.toLong())
+    callPtrMethod_LONG(MethodBindings.setLayersPtr, layers.toLong())
   }
 
   /**

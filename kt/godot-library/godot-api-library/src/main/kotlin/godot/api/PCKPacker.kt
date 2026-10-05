@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_LONG_STRING_BOOL_ret_LONG
 import godot.callMethod_STRING_PACKED_BYTE_ARRAY_BOOL_ret_LONG
@@ -71,7 +70,7 @@ public open class PCKPacker : RefCounted() {
     key: String = "0000000000000000000000000000000000000000000000000000000000000000",
     encryptDirectory: Boolean = false,
   ): Error =
-      Error.from(TransferContext.callMethod_STRING_LONG_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.pckStartPtr, pckPath, alignment.toLong(), key, encryptDirectory))
+      Error.from(callMethod_STRING_LONG_STRING_BOOL_ret_LONG(MethodBindings.pckStartPtr, pckPath, alignment.toLong(), key, encryptDirectory))
 
   /**
    * Adds the [sourcePath] file to the current PCK package at the [targetPath] internal path. The
@@ -84,7 +83,7 @@ public open class PCKPacker : RefCounted() {
     sourcePath: String,
     encrypt: Boolean = false,
   ): Error =
-      Error.from(TransferContext.callMethod_STRING_STRING_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.addFilePtr, targetPath, sourcePath, encrypt))
+      Error.from(callMethod_STRING_STRING_BOOL_ret_LONG(MethodBindings.addFilePtr, targetPath, sourcePath, encrypt))
 
   /**
    * Adds the [data] to the current PCK package at the [targetPath] internal path. The `res://`
@@ -97,7 +96,7 @@ public open class PCKPacker : RefCounted() {
     `data`: PackedByteArray,
     encrypt: Boolean = false,
   ): Error =
-      Error.from(TransferContext.callMethod_STRING_PACKED_BYTE_ARRAY_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.addFileFromBufferPtr, targetPath, data, encrypt))
+      Error.from(callMethod_STRING_PACKED_BYTE_ARRAY_BOOL_ret_LONG(MethodBindings.addFileFromBufferPtr, targetPath, data, encrypt))
 
   /**
    * Registers a file removal of the [targetPath] internal path to the PCK. This is mainly used for
@@ -105,7 +104,7 @@ public open class PCKPacker : RefCounted() {
    * `res://` prefix for [targetPath] is optional and stripped internally.
    */
   public final fun addFileRemoval(targetPath: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.addFileRemovalPtr, targetPath))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.addFileRemovalPtr, targetPath))
 
   /**
    * Writes the file directory and closes the PCK. If [verbose] is `true`, a list of files added
@@ -117,7 +116,7 @@ public open class PCKPacker : RefCounted() {
    */
   @JvmOverloads
   public final fun flush(verbose: Boolean = false): Error =
-      Error.from(TransferContext.callPtrMethod_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.flushPtr, verbose))
+      Error.from(callPtrMethod_BOOL_ret_LONG(MethodBindings.flushPtr, verbose))
 
   public companion object {
     @JvmField

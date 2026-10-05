@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -32,47 +31,44 @@ public open class GodotInstance internal constructor() : Object() {
   /**
    * Finishes this instance's startup sequence. Returns `true` on success.
    */
-  public final fun start(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.startPtr)
+  public final fun start(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.startPtr)
 
   /**
    * Returns `true` if this instance has been fully started.
    */
-  public final fun isStarted(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isStartedPtr)
+  public final fun isStarted(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isStartedPtr)
 
   /**
    * Runs a single iteration of the main loop. Returns `true` if the engine is attempting to quit.
    */
-  public final fun iteration(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.iterationPtr)
+  public final fun iteration(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.iterationPtr)
 
   /**
    * Notifies the instance that it is now in focus.
    */
   public final fun focusIn(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.focusInPtr)
+    callPtrMethod0(MethodBindings.focusInPtr)
   }
 
   /**
    * Notifies the instance that it is now not in focus.
    */
   public final fun focusOut(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.focusOutPtr)
+    callPtrMethod0(MethodBindings.focusOutPtr)
   }
 
   /**
    * Notifies the instance that it is going to be paused.
    */
   public final fun pause(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pausePtr)
+    callPtrMethod0(MethodBindings.pausePtr)
   }
 
   /**
    * Notifies the instance that it is being resumed.
    */
   public final fun resume(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.resumePtr)
+    callPtrMethod0(MethodBindings.resumePtr)
   }
 
   public companion object {

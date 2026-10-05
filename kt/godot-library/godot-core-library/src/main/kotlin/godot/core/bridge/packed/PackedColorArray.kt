@@ -3,7 +3,7 @@
 package godot.core
 
 import godot.internal.memory.MemoryManager
-import godot.internal.memory.TransferContext
+import godot.internal.memory.VariantBuffer
 import godot.common.interop.VoidPtr
 
 @Suppress("MemberVisibilityCanBePrivate", "unused")
@@ -27,7 +27,7 @@ class PackedColorArray : PackedArray<PackedColorArray, Color> {
      * Constructs a [PackedColorArray] as a copy of the given [PackedColorArray].
      */
     constructor(from: PackedColorArray) {
-        TransferContext.writeArguments(1) {
+        VariantBuffer.transfer.writeArgs(1) {
             VariantParser.PACKED_COLOR_ARRAY.toGodot(from)
         }
         ptr = Bridge.engine_call_constructor_packed_array()
@@ -38,7 +38,7 @@ class PackedColorArray : PackedArray<PackedColorArray, Color> {
      * Constructs a new [PackedColorArray] by converting a [VariantArray]<[Color]>.
      */
     constructor(from: VariantArray<Color>) {
-        TransferContext.writeArguments(1) {
+        VariantBuffer.transfer.writeArgs(1) {
             VariantParser.ARRAY.toGodot(from)
         }
         ptr = Bridge.engine_call_constructor_array()

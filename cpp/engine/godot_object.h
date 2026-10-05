@@ -348,6 +348,19 @@ namespace raw_godot {
         }
     };
 
+    // An unchecked engine call with everything decided except where its result goes. The shared-buffer layer is what
+    // decides that, and it decides differently per type, so the call travels to it as one value it can invoke rather
+    // than as a method bind and an argument list it would have to know the call interface to use.
+    struct PtrCall {
+        RawObject receiver;
+        GDExtensionMethodBindPtr method_bind;
+        const GDExtensionConstTypePtr* args;
+
+        _ALWAYS_INLINE_ void operator()(void* r_return) const {
+            receiver.ptrcall_method_bind(method_bind, args, r_return);
+        }
+    };
+
     static_assert(sizeof(RawObject) == sizeof(GodotObject*), "RawObject must stay pointer-sized.");
     static_assert(std::is_trivially_copyable_v<RawObject>, "RawObject must stay trivially copyable.");
 } // namespace raw_godot

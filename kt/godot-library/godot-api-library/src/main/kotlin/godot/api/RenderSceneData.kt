@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_PROJECTION
@@ -46,7 +45,7 @@ public open class RenderSceneData internal constructor() : Object() {
    * **Note:** If more than one view is rendered, this will return a centered transform.
    */
   public final fun getCamTransform(): Transform3D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getCamTransformPtr)
+      callPtrMethod0_ret_TRANSFORM3D(MethodBindings.getCamTransformPtr)
 
   /**
    * Returns the camera projection used to render this frame.
@@ -54,20 +53,19 @@ public open class RenderSceneData internal constructor() : Object() {
    * **Note:** If more than one view is rendered, this will return a combined projection.
    */
   public final fun getCamProjection(): Projection =
-      TransferContext.callPtrMethod0_ret_PROJECTION(ptr, objectID.id, MethodBindings.getCamProjectionPtr)
+      callPtrMethod0_ret_PROJECTION(MethodBindings.getCamProjectionPtr)
 
   /**
    * Returns the number of views being rendered.
    */
-  public final fun getViewCount(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getViewCountPtr)
+  public final fun getViewCount(): Long = callPtrMethod0_ret_LONG(MethodBindings.getViewCountPtr)
 
   /**
    * Returns the eye offset per view used to render this frame. This is the offset between our
    * camera transform and the eye transform.
    */
   public final fun getViewEyeOffset(view: Long): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getViewEyeOffsetPtr, view)
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getViewEyeOffsetPtr, view)
 
   /**
    * Returns the view projection per view used to render this frame.
@@ -76,13 +74,13 @@ public open class RenderSceneData internal constructor() : Object() {
    * view is rendered, this will return a projection for the given view including the eye offset.
    */
   public final fun getViewProjection(view: Long): Projection =
-      TransferContext.callPtrMethod_LONG_ret_PROJECTION(ptr, objectID.id, MethodBindings.getViewProjectionPtr, view)
+      callPtrMethod_LONG_ret_PROJECTION(MethodBindings.getViewProjectionPtr, view)
 
   /**
    * Return the [RID] of the uniform buffer containing the scene data as a UBO.
    */
   public final fun getUniformBuffer(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getUniformBufferPtr)
+      callPtrMethod0_ret_RID(MethodBindings.getUniformBufferPtr)
 
   public companion object {
     @JvmField

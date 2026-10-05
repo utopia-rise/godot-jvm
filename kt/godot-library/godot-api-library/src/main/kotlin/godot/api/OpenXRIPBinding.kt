@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -142,69 +141,69 @@ public open class OpenXRIPBinding : Resource() {
   }
 
   public final fun setAction(action: OpenXRAction?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setActionPtr, action)
+    callPtrMethod_OBJECT(MethodBindings.setActionPtr, action)
   }
 
   public final fun getAction(): OpenXRAction? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getActionPtr) as OpenXRAction?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getActionPtr) as OpenXRAction?)
 
   public final fun setBindingPath(bindingPath: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBindingPathPtr, bindingPath)
+    callMethod_STRING(MethodBindings.setBindingPathPtr, bindingPath)
   }
 
   public final fun getBindingPath(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getBindingPathPtr)
+      callMethod0_ret_STRING(MethodBindings.getBindingPathPtr)
 
   /**
    * Get the number of binding modifiers for this binding.
    */
   public final fun getBindingModifierCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBindingModifierCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBindingModifierCountPtr).toInt()
 
   /**
    * Get the [OpenXRBindingModifier] at this index.
    */
   public final fun getBindingModifier(index: Int): OpenXRActionBindingModifier? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBindingModifierPtr, index.toLong()) as OpenXRActionBindingModifier?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getBindingModifierPtr, index.toLong()) as OpenXRActionBindingModifier?)
 
   public final fun setBindingModifiers(bindingModifiers: VariantArray<Any?>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setBindingModifiersPtr, bindingModifiers)
+    callPtrMethod_ARRAY(MethodBindings.setBindingModifiersPtr, bindingModifiers)
   }
 
   public final fun getBindingModifiers(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getBindingModifiersPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getBindingModifiersPtr) as VariantArray<Any?>)
 
   public final fun setPaths(paths: PackedStringArray): Unit {
-    TransferContext.callPtrMethod_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.setPathsPtr, paths)
+    callPtrMethod_PACKED_STRING_ARRAY(MethodBindings.setPathsPtr, paths)
   }
 
   public final fun getPaths(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getPathsPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getPathsPtr)
 
   /**
    * Get the number of input/output paths in this binding.
    */
   public final fun getPathCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPathCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getPathCountPtr).toInt()
 
   /**
    * Returns `true` if this input/output path is part of this binding.
    */
   public final fun hasPath(path: String): Boolean =
-      TransferContext.callMethod_STRING_ret_BOOL(ptr, objectID.id, MethodBindings.hasPathPtr, path)
+      callMethod_STRING_ret_BOOL(MethodBindings.hasPathPtr, path)
 
   /**
    * Add an input/output path to this binding.
    */
   public final fun addPath(path: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.addPathPtr, path)
+    callMethod_STRING(MethodBindings.addPathPtr, path)
   }
 
   /**
    * Removes this input/output path from this binding.
    */
   public final fun removePath(path: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.removePathPtr, path)
+    callMethod_STRING(MethodBindings.removePathPtr, path)
   }
 
   public companion object {

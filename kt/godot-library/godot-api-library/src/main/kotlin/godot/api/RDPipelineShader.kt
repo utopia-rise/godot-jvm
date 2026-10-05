@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_RID
@@ -59,20 +58,19 @@ public open class RDPipelineShader : RefCounted() {
   }
 
   public final fun setShader(pMember: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setShaderPtr, pMember)
+    callPtrMethod_RID(MethodBindings.setShaderPtr, pMember)
   }
 
-  public final fun getShader(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getShaderPtr)
+  public final fun getShader(): RID = callPtrMethod0_ret_RID(MethodBindings.getShaderPtr)
 
   public final
       fun setSpecializationConstants(specializationConstants: VariantArray<RDPipelineSpecializationConstant>):
       Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setSpecializationConstantsPtr, specializationConstants)
+    callPtrMethod_ARRAY(MethodBindings.setSpecializationConstantsPtr, specializationConstants)
   }
 
   public final fun getSpecializationConstants(): VariantArray<RDPipelineSpecializationConstant> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getSpecializationConstantsPtr) as VariantArray<RDPipelineSpecializationConstant>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getSpecializationConstantsPtr) as VariantArray<RDPipelineSpecializationConstant>)
 
   public companion object {
     @JvmField

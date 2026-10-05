@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -75,25 +74,25 @@ public open class AudioEffectPitchShift : AudioEffect() {
   }
 
   public final fun setPitchScale(rate: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPitchScalePtr, rate.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPitchScalePtr, rate.toDouble())
   }
 
   public final fun getPitchScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPitchScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPitchScalePtr).toFloat()
 
   public final fun setOversampling(amount: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOversamplingPtr, amount.toLong())
+    callPtrMethod_LONG(MethodBindings.setOversamplingPtr, amount.toLong())
   }
 
   public final fun getOversampling(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOversamplingPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getOversamplingPtr).toInt()
 
   public final fun setFftSize(size: FFTSize): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFftSizePtr, size.value)
+    callPtrMethod_LONG(MethodBindings.setFftSizePtr, size.value)
   }
 
   public final fun getFftSize(): FFTSize =
-      FFTSize.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFftSizePtr))
+      FFTSize.from(callPtrMethod0_ret_LONG(MethodBindings.getFftSizePtr))
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

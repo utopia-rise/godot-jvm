@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -164,81 +163,80 @@ public open class RDPipelineRasterizationState : RefCounted() {
   }
 
   public final fun setEnableDepthClamp(pMember: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableDepthClampPtr, pMember)
+    callPtrMethod_BOOL(MethodBindings.setEnableDepthClampPtr, pMember)
   }
 
   public final fun getEnableDepthClamp(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableDepthClampPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getEnableDepthClampPtr)
 
   public final fun setDiscardPrimitives(pMember: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDiscardPrimitivesPtr, pMember)
+    callPtrMethod_BOOL(MethodBindings.setDiscardPrimitivesPtr, pMember)
   }
 
   public final fun getDiscardPrimitives(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getDiscardPrimitivesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getDiscardPrimitivesPtr)
 
   public final fun setWireframe(pMember: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setWireframePtr, pMember)
+    callPtrMethod_BOOL(MethodBindings.setWireframePtr, pMember)
   }
 
-  public final fun getWireframe(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getWireframePtr)
+  public final fun getWireframe(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getWireframePtr)
 
   public final fun setCullMode(pMember: RenderingDevice.PolygonCullMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCullModePtr, pMember.value)
+    callPtrMethod_LONG(MethodBindings.setCullModePtr, pMember.value)
   }
 
   public final fun getCullMode(): RenderingDevice.PolygonCullMode =
-      RenderingDevice.PolygonCullMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCullModePtr))
+      RenderingDevice.PolygonCullMode.from(callPtrMethod0_ret_LONG(MethodBindings.getCullModePtr))
 
   public final fun setFrontFace(pMember: RenderingDevice.PolygonFrontFace): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFrontFacePtr, pMember.value)
+    callPtrMethod_LONG(MethodBindings.setFrontFacePtr, pMember.value)
   }
 
   public final fun getFrontFace(): RenderingDevice.PolygonFrontFace =
-      RenderingDevice.PolygonFrontFace.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFrontFacePtr))
+      RenderingDevice.PolygonFrontFace.from(callPtrMethod0_ret_LONG(MethodBindings.getFrontFacePtr))
 
   public final fun setDepthBiasEnabled(pMember: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDepthBiasEnabledPtr, pMember)
+    callPtrMethod_BOOL(MethodBindings.setDepthBiasEnabledPtr, pMember)
   }
 
   public final fun getDepthBiasEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getDepthBiasEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getDepthBiasEnabledPtr)
 
   public final fun setDepthBiasConstantFactor(pMember: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDepthBiasConstantFactorPtr, pMember.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDepthBiasConstantFactorPtr, pMember.toDouble())
   }
 
   public final fun getDepthBiasConstantFactor(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDepthBiasConstantFactorPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDepthBiasConstantFactorPtr).toFloat()
 
   public final fun setDepthBiasClamp(pMember: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDepthBiasClampPtr, pMember.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDepthBiasClampPtr, pMember.toDouble())
   }
 
   public final fun getDepthBiasClamp(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDepthBiasClampPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDepthBiasClampPtr).toFloat()
 
   public final fun setDepthBiasSlopeFactor(pMember: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDepthBiasSlopeFactorPtr, pMember.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDepthBiasSlopeFactorPtr, pMember.toDouble())
   }
 
   public final fun getDepthBiasSlopeFactor(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDepthBiasSlopeFactorPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDepthBiasSlopeFactorPtr).toFloat()
 
   public final fun setLineWidth(pMember: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLineWidthPtr, pMember.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setLineWidthPtr, pMember.toDouble())
   }
 
   public final fun getLineWidth(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLineWidthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLineWidthPtr).toFloat()
 
   public final fun setPatchControlPoints(pMember: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPatchControlPointsPtr, pMember)
+    callPtrMethod_LONG(MethodBindings.setPatchControlPointsPtr, pMember)
   }
 
   public final fun getPatchControlPoints(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPatchControlPointsPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getPatchControlPointsPtr)
 
   public companion object {
     @JvmField

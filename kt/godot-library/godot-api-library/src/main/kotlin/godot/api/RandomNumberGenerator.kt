@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_DOUBLE
@@ -108,30 +107,26 @@ public open class RandomNumberGenerator : RefCounted() {
   }
 
   public final fun setSeed(seed: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSeedPtr, seed)
+    callPtrMethod_LONG(MethodBindings.setSeedPtr, seed)
   }
 
-  public final fun getSeed(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSeedPtr)
+  public final fun getSeed(): Long = callPtrMethod0_ret_LONG(MethodBindings.getSeedPtr)
 
   public final fun setState(state: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStatePtr, state)
+    callPtrMethod_LONG(MethodBindings.setStatePtr, state)
   }
 
-  public final fun getState(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStatePtr)
+  public final fun getState(): Long = callPtrMethod0_ret_LONG(MethodBindings.getStatePtr)
 
   /**
    * Returns a pseudo-random 32-bit unsigned integer between `0` and `4294967295` (inclusive).
    */
-  public final fun randi(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.randiPtr)
+  public final fun randi(): Long = callPtrMethod0_ret_LONG(MethodBindings.randiPtr)
 
   /**
    * Returns a pseudo-random float between `0.0` and `1.0` (inclusive).
    */
-  public final fun randf(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.randfPtr).toFloat()
+  public final fun randf(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.randfPtr).toFloat()
 
   /**
    * Returns a [url=https://en.wikipedia.org/wiki/Normal_distribution]normally-distributed[/url],
@@ -144,19 +139,19 @@ public open class RandomNumberGenerator : RefCounted() {
    */
   @JvmOverloads
   public final fun randfn(mean: Float = 0.0f, deviation: Float = 1.0f): Float =
-      TransferContext.callPtrMethod_DOUBLE_DOUBLE_ret_DOUBLE(ptr, objectID.id, MethodBindings.randfnPtr, mean.toDouble(), deviation.toDouble()).toFloat()
+      callPtrMethod_DOUBLE_DOUBLE_ret_DOUBLE(MethodBindings.randfnPtr, mean.toDouble(), deviation.toDouble()).toFloat()
 
   /**
    * Returns a pseudo-random float between [from] and [to] (inclusive).
    */
   public final fun randfRange(from: Float, to: Float): Float =
-      TransferContext.callPtrMethod_DOUBLE_DOUBLE_ret_DOUBLE(ptr, objectID.id, MethodBindings.randfRangePtr, from.toDouble(), to.toDouble()).toFloat()
+      callPtrMethod_DOUBLE_DOUBLE_ret_DOUBLE(MethodBindings.randfRangePtr, from.toDouble(), to.toDouble()).toFloat()
 
   /**
    * Returns a pseudo-random 32-bit signed integer between [from] and [to] (inclusive).
    */
   public final fun randiRange(from: Int, to: Int): Int =
-      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.randiRangePtr, from.toLong(), to.toLong()).toInt()
+      callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.randiRangePtr, from.toLong(), to.toLong()).toInt()
 
   /**
    * Returns a random integer between `0` and the size of the array that is passed as a parameter.
@@ -184,7 +179,7 @@ public open class RandomNumberGenerator : RefCounted() {
    * ```
    */
   public final fun randWeighted(weights: PackedFloat32Array): Long =
-      TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.randWeightedPtr, weights)
+      callPtrMethod_PACKED_FLOAT_32_ARRAY_ret_LONG(MethodBindings.randWeightedPtr, weights)
 
   /**
    * Sets up a time-based seed for this [RandomNumberGenerator] instance. Unlike the [@GlobalScope]
@@ -192,7 +187,7 @@ public open class RandomNumberGenerator : RefCounted() {
    * seeds.
    */
   public final fun randomize(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.randomizePtr)
+    callPtrMethod0(MethodBindings.randomizePtr)
   }
 
   public companion object {

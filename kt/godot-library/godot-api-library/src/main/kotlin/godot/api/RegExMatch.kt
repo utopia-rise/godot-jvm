@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_ANY_ret_LONG
@@ -63,20 +62,19 @@ public open class RegExMatch : RefCounted() {
     createNativeObject(606, scriptPtr)
   }
 
-  public final fun getSubject(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getSubjectPtr)
+  public final fun getSubject(): String = callMethod0_ret_STRING(MethodBindings.getSubjectPtr)
 
   /**
    * Returns the number of capturing groups.
    */
   public final fun getGroupCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getGroupCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getGroupCountPtr).toInt()
 
   public final fun getNames(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getNamesPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.getNamesPtr) as Dictionary<Any?, Any?>)
 
   public final fun getStrings(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getStringsPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getStringsPtr)
 
   /**
    * Returns the substring of the match from the source string. Capturing groups can be retrieved by
@@ -87,7 +85,7 @@ public open class RegExMatch : RefCounted() {
    */
   @JvmOverloads
   public final fun getString(name: Any? = 0): String =
-      TransferContext.callMethod_ANY_ret_STRING(ptr, objectID.id, MethodBindings.getStringPtr, name)
+      callMethod_ANY_ret_STRING(MethodBindings.getStringPtr, name)
 
   /**
    * Returns the starting position of the match within the source string. The starting position of
@@ -98,7 +96,7 @@ public open class RegExMatch : RefCounted() {
    */
   @JvmOverloads
   public final fun getStart(name: Any? = 0): Int =
-      TransferContext.callMethod_ANY_ret_LONG(ptr, objectID.id, MethodBindings.getStartPtr, name).toInt()
+      callMethod_ANY_ret_LONG(MethodBindings.getStartPtr, name).toInt()
 
   /**
    * Returns the end position of the match within the source string. The end position of capturing
@@ -109,7 +107,7 @@ public open class RegExMatch : RefCounted() {
    */
   @JvmOverloads
   public final fun getEnd(name: Any? = 0): Int =
-      TransferContext.callMethod_ANY_ret_LONG(ptr, objectID.id, MethodBindings.getEndPtr, name).toInt()
+      callMethod_ANY_ret_LONG(MethodBindings.getEndPtr, name).toInt()
 
   public companion object {
     @JvmField

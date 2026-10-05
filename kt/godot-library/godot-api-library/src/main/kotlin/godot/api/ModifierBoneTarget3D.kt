@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -59,18 +58,16 @@ public open class ModifierBoneTarget3D : SkeletonModifier3D() {
   }
 
   public final fun setBoneName(boneName: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBoneNamePtr, boneName)
+    callMethod_STRING(MethodBindings.setBoneNamePtr, boneName)
   }
 
-  public final fun getBoneName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getBoneNamePtr)
+  public final fun getBoneName(): String = callMethod0_ret_STRING(MethodBindings.getBoneNamePtr)
 
   public final fun setBone(bone: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBonePtr, bone.toLong())
+    callPtrMethod_LONG(MethodBindings.setBonePtr, bone.toLong())
   }
 
-  public final fun getBone(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBonePtr).toInt()
+  public final fun getBone(): Int = callPtrMethod0_ret_LONG(MethodBindings.getBonePtr).toInt()
 
   public companion object {
     @JvmField

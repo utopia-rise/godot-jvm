@@ -1,47 +1,207 @@
 ---
-description: How the per-thread JNI buffer carries arguments and return values, including type tags, native payloads, and oversized strings.
+description: How the two per-thread JNI buffers carry arguments and return values, why one is rewound and the other stacked, and how values are encoded.
 ---
 
-# The JNI shared buffer
+# The JNI shared buffers
 
 ## General
 
-Godot-JVM uses JNI to cross between C++ and the JVM. To reduce per-argument conversion overhead, it exchanges most call data through a shared buffer. Both sides read and write the same memory before transferring control through JNI.
+Godot-JVM uses JNI to cross between C++ and the JVM. Passing each argument as a JNI call of its own would cost more
+than the work most calls do, so instead both sides agree on a block of memory and a binary layout: the caller writes
+the arguments, crosses through a single JNI call, and the callee reads them back on the other side.
 
-## Marshalling
+Every thread that crosses between C++ and the JVM owns its own buffers, so no thread ever waits for another and no
+locking is involved.
 
-The buffer carries Godot Variant types: primitives, strings, mathematical values, and native object references. A dedicated binary format avoids the overhead of a general-purpose serializer. C++ uses the marshalling helpers in `cpp/engine/marshalls.h`; JVM converters implement the matching layout.
+## Two buffers, two lifetimes
 
-## Memory
+There are two buffers because call data has two very different lifetimes.
 
-Each thread that crosses between C++ and the JVM owns one buffer, so no thread waits for another.
-The buffer size is derived from the maximum inline string size and the maximum of 16 function arguments.
-It also reserves 4 bytes for the argument count and another 16 bytes for an object method call's caller pointer and `ObjectID`.
+Most of the time the receiving side decodes the arguments the moment it is handed control, turning them into its own
+`Variant`s or JVM objects. The buffer is scratch space: once decoded, nothing cares what happens to those bytes.
 
-## Strings
+An unchecked engine call is different. It does not decode anything — it hands the engine pointers straight into the
+buffer and lets the engine read the values where they lie. The bytes therefore have to stay untouched for the whole
+duration of the call, and an engine call is not a leaf: it can run script code, emit a signal, or invoke a
+`Callable`, all of which reenter the JVM, which can call the engine again.
 
-Strings up to the configured inline limit are written into the buffer. Larger strings travel through JNI and a queue; a flag tells the receiver which path to read. The default inline limit is 512 bytes.
+That gives the two designs: a buffer that is **reset before every use** because nothing outlives the crossing, and a
+buffer that is **stacked** because data must outlive the crossing that wrote it.
 
-Collections use native pointers rather than copying their contents into the buffer, so their length does not affect buffer capacity.
+## The variant buffer
 
-## Buffer structure
+The mental model is a countertop that is wiped before each use. Every exchange starts by rewinding to the beginning,
+writes what it needs, crosses, and the receiver reads it back from the beginning.
 
-Regular argument lists begin with an `Int` that indicates the number of variables to read.
-Each variable starts with another integer (the *ordinal*) indicating its type then followed by the relevant data of that type.
+It carries everything except unchecked engine calls:
 
-Object method calls use a distinct layout because the receiver is not a method argument:
+- **Bridge calls**, where JVM code asks the native side to operate on a core type it owns, such as appending to an
+  `Array` or comparing two `StringName`s.
+- **Checked engine calls**, which decode their arguments into real `Variant`s before handing them to the engine.
+- **Calls from the engine into JVM code**: script method overrides, property getters and setters, signal handlers.
+
+The discipline that makes a single shared countertop safe is that **the receiver copies out before doing anything
+else**. By the time anything nested could reuse the buffer, the outer call has already taken what it needed, so
+reentrancy cannot corrupt it. The cost is a copy per value, which is the right trade for the checked path since it
+was going to build a `Variant` anyway.
+
+Because the data only has to survive until it is decoded, this buffer can carry values of any shape, including
+strings. It is sized for a single call: the maximum number of arguments, each at the size of the largest kind of
+value, which is a string at the inline limit.
+
+## The value buffer
+
+The mental model is a call stack. Each unchecked engine call in flight on a thread owns a frame, pushed and popped
+exactly as native stack frames are.
+
+A frame holds the call's arguments and, right after them, the slot the engine writes its result into. Both are
+reserved before the call starts, so the engine reads its arguments and writes its return directly in memory the JVM
+can see. Nothing is copied on either side, which is the entire point of this path.
+
+The frame must survive the call because the engine reads from it throughout, so a nested call cannot be allowed to
+reuse those bytes. Stacking is what guarantees that: an engine call that reenters JVM code that calls the engine
+again simply gets the next frame up.
+
+Frames are packed: one begins where the previous one ended, so a call consumes only what it writes. Every value on
+this path has a bounded size, because an unchecked call never carries a string — the engine has no native layout to
+read one from, so any method involving a string takes the checked path instead — which is what makes a frame's extent
+known as soon as its arguments are written.
+
+A frame's own offset and the offset of its return record are the caller's business, and the caller already has a
+place to keep them: the JVM stack frame of the generated call, one of which exists per live call by construction. The
+only state the stack itself keeps is where the next frame begins.
+
+Every unchecked call is started by the JVM, so the JVM is also the side that says **where** its buffer is: it asks the
+native side once, when it creates a thread's stack, for the address the direct buffer starts at, and then passes that
+address to each call alongside the frame offset. The native side therefore keeps nothing of its own per thread — no
+thread-local, no lazily claimed buffer — and builds its cursor on the C++ stack from the two numbers it was handed.
+Resolving thread-local storage twice per call, once on each side, was pure duplication: the JVM had already done it to
+write the arguments.
+
+Keeping the buffer within bounds is the JVM's job for the same reason. It sizes the stack for the worst case a frame
+can reach, checks in a debug build that the frame it is about to open still fits, and cannot overrun it on the way in
+because every `ByteBuffer` write is bounds checked whatever the build. The native side carries no capacity and reports
+no overrun: the only thing such a check could still catch is this side misreading a region the JVM wrote correctly,
+which is a bug in the binding rather than something a user can provoke.
+
+The `value_buffer_size_factor` setting in the [runtime configuration](../../reference/runtime-configuration.md) sizes
+the whole stack, counted in frames that are entirely full, four by default. Since real calls are much smaller than
+that, far more than four of them nest before the room runs out. Running out is checked on the JVM side and only in
+debug builds, as the check would otherwise sit in the hottest path in the binding.
+
+## Choosing between the two
+
+The choice is made once, when the bindings are generated, not at runtime. A method takes the unchecked path when
+every one of its arguments and its return value has a native layout the engine can read in place: booleans, numbers,
+mathematical types, `RID`, object pointers, and the pointer-backed core types such as `StringName`, `Array` or the
+packed arrays, which travel as a pointer to the instance the JVM owns.
+
+Anything else takes the checked path: variadic methods, and any method mentioning `String`, `Callable`, `Signal` or
+an untyped `Variant`. The generated call therefore names its buffer directly, and the runtime never has to decide.
+
+## Call layout
+
+An argument list begins with the number of values in it. Each value is then a type *ordinal* in an eight-byte slot
+followed by that type's payload, both aligned on eight bytes so that the engine can read a payload where it lies
+without a misaligned load.
+
+A call on an object needs its receiver, which is not one of the method's arguments, so it carries a header first:
 
 ```text
 [caller pointer: Long][caller ObjectID: Long][argument count: Int][arguments...]
 ```
 
-Two native entry points read this layout. `icallPtr` uses the unchecked `object_method_bind_ptrcall`: each argument the buffer holds in native layout (booleans, numbers, math types, `RID`, object pointers) is copied to the call's own stack, since a nested JVM call from inside the engine call would rewrite the buffer, and the pointer-backed core types such as `StringName` or `Array` pass the pointer to the object the JVM owns; the return type is passed as a JNI argument so the value can be copied back behind its tag: an inline value as its bytes, a pointer-backed type as a fresh allocation the JVM owns, as from the checked call (`read_ptr_args` and `write_ptr_return` in `cpp/jvm/wrapper/memory/transfer_context.cpp`). `icall` decodes every argument into a `Variant` and uses the checked `object_method_bind_call` (`read_variant` and `write_variant` in the same file); the generator picks it for variadic methods and for any method whose arguments or return include a type the ptrcall table does not cover: `String`, `Callable`, `Signal` and `Variant`. Both consume the caller pointer and `ObjectID` directly before reading the argument list.
+The `ObjectID` travels alongside the pointer so debug builds can check it against `ObjectDB` and report a call on an
+object that was already freed, rather than dereferencing a dangling pointer.
 
-The return type `icallPtr` receives is a `Variant::Type` ordinal with one extra value: `VARIANT_MAX` (`39` today, read by the generator from `TYPE_MAX` in `api.json`), which is never a real type tag. The generator sends it instead of `OBJECT` when the method's declared return class inherits `RefCounted`. Such a method returns a `Ref<T>` in the engine, and a ptrcall encodes it by assigning that `Ref` over the caller's return slot, leaving an owned reference there; a method declared as returning a plain `Object*` stores only the pointer. The two cases leave identical bytes, and GDExtension offers no way to ask a method bind for its return type, so the declared type from `api.json` is the only source of truth. On the native side the return slot starts null, since the `Ref` assignment releases whatever the slot held before; the object is bound to the JVM, which takes the JVM's own reference on first delivery; then the engine's reference is released, standing in for the destructor of a `Ref` local that never existed. The native `TransferContext` defines it as `REF_COUNTED_RETURN_TYPE`, equal to `Variant::VARIANT_MAX`, so both sides follow a new Variant type automatically; the generator also checks `TYPE_MAX` against its own ordinal table and fails if they disagree.
+Objects sent from the JVM to C++ carry only their pointer, and a null object is a pointer of `0`.
 
-Objects sent from Kotlin to C++ use only their pointer. A null Kotlin object is encoded as a pointer of `0` (`nullptr`). Only an object method call's receiver includes an `ObjectID`, which the native call checks against `ObjectDB` in debug builds.
+A **return** is written after the arguments, on the next eight-byte boundary, and it carries a tag only on the checked
+path. There, C++ writes the runtime type of the `Variant` the engine produced, which is information the JVM does not
+otherwise have: a method declared as returning a `Variant` discovers its type from the tag, and even a method declared
+as returning an object can come back as a nil `Variant`. On the unchecked path there is no `Variant` at all — the
+engine writes raw bytes into a slot whose type the generator fixed on both sides when it emitted the call — so a tag
+there would be eight bytes written for nobody, and none is written.
 
-Type tags follow Godot's `Variant::Type` ordinals. The table below describes C++-to-JVM payloads, excluding the 4-byte tag. The reverse direction uses only a native pointer for objects and collections. The per-type rows in `cpp/jvm/buffer_wire.h` define the wire format, and `transfer_context.cpp` builds its dispatch tables from them.
+A pointer-backed return, such as `Array` or a packed array, is the one case where the engine does not write into the
+frame. The JVM keeps such a value after the call while the frame is reused by the next one, so the native side hands
+the engine an allocation from its own pool instead and the frame carries only that address, written before the call
+starts. Every other return the engine writes exactly where the JVM reads it.
+
+## Shapes of an unchecked call
+
+The layout above carries everything an arbitrary call might need, which means most calls carry something they do not.
+A property setter never has a return value, a getter never has arguments, and a method such as `queue_redraw` has
+neither. Those three shapes are recognisable from a signature alone, so the generator emits a call carrying only what
+its shape uses and the native side has an entry point for each:
+
+| Shape | Entry point | Frame |
+|---|---|---|
+| No arguments, no return | `icallPtrSimple` | `[caller][id]` |
+| One argument, no return | `icallPtrSetter` | `[caller][id][value]` |
+| No arguments, one return | `icallPtrGetter` | `[caller][id][return]` |
+| Anything else | `icallPtr` | `[caller][id][count][tag][value]…[return]` |
+
+Every `[return]` above is untagged, on the general shape as much as on the specialised ones.
+
+A method that takes one argument *and* returns a value keeps the general form, as do variadic methods and everything
+on the checked path.
+
+Three things leave the specialised frames.
+
+The **argument count** is not written, because each shape's count is part of the shape.
+
+The **argument type ordinal** is not written either. A tag exists so a reader can discover a type it does not
+otherwise know, and on these shapes both sides know it when the binding is generated. The type travels as an argument
+of the call instead of as eight bytes in the buffer: `icallPtrSetter` is told the type of its argument, `icallPtrGetter`
+the type it asked for, and the value sits alone straight after the caller record. Only the general shape writes
+argument tags, because only it has a variable number of arguments for the native side to walk.
+
+The **return record** is not reserved for a call that returns nothing, and a call with no arguments has the engine
+write its result where the arguments would have gone.
+
+Every offset is therefore constant per shape and neither side walks the frame: the receiver is at the start, and the
+single value, where there is one, sixteen bytes in. The reference-counted rule below applies unchanged to
+`icallPtrGetter`, the only specialised shape that can return an object.
+
+## Reference-counted returns
+
+An unchecked call is told its return type as an ordinal, with one value that is not a real type: `TYPE_MAX`, one past
+the last `Variant` type. The generator sends it in place of the object ordinal when the method's declared return
+class inherits `RefCounted`.
+
+The reason is that the engine encodes those two cases identically in memory but means different things by them. A
+method declared as returning a plain object writes just a pointer. A method returning a `Ref<T>` assigns that
+reference over the caller's return slot, which leaves an **owned reference** there — the caller has inherited a
+reference count that something must eventually release. The bytes are the same either way, and GDExtension offers no
+way to ask a method binding what it returns, so the declared type from Godot's API description is the only source of
+truth.
+
+The native side therefore treats the ordinal as a return type of its own, with its own row in the wire table rather
+than a flag its callers act on. That row starts the slot zeroed, because assigning a `Ref` releases whatever the slot
+held before; binds the returned object to the JVM, which takes the JVM's own reference the first time it sees it; and
+then releases the engine's reference, standing in for the destructor of the `Ref` local that never existed. The two
+references have different owners and different release points — the JVM drops its own when the wrapper is collected —
+so the engine's cannot simply be left in place, or a getter returning the same object every frame would raise its
+count once per call and never free it.
+
+Both sides derive this sentinel from `TYPE_MAX` rather than hardcoding it, so a new `Variant` type in a future Godot
+release moves them together, and the generator fails the build if its own ordinal table and Godot's disagree.
+
+## Strings
+
+Strings up to the configured inline limit are written into the buffer. Larger ones travel through JNI and a queue,
+with a flag in the buffer telling the receiver which path to read. The default inline limit is 128 bytes, and raising
+it makes the variant buffer proportionally larger on every thread.
+
+Collections travel as native pointers rather than by copying their contents, so their length never affects buffer
+capacity.
+
+## Value encoding
+
+Type ordinals follow Godot's own `Variant::Type` values. The table below describes the payload of each type as sent
+from C++ to the JVM, excluding the eight-byte tag; in the other direction objects and collections are sent as a
+native pointer alone.
 
 | Type | Ordinal | Payload |
 |---|---|---|
@@ -49,7 +209,7 @@ Type tags follow Godot's `Variant::Type` ordinals. The table below describes C++
 | Bool | 1 | 1-byte boolean |
 | Int | 2 | 8-byte integer |
 | Float | 3 | 8-byte double |
-| String | 4 | 4-byte long-string flag; inline strings also carry a 4-byte byte count and UTF-8 data |
+| String | 4 | 1-byte long-string flag; inline strings also carry a 4-byte byte count and UTF-8 data |
 | Vector2, Vector2i | 5, 6 | Two components |
 | Rect2, Rect2i | 7, 8 | Position and size, each with two components |
 | Vector3, Vector3i | 9, 10 | Three components |
@@ -64,20 +224,31 @@ Type tags follow Godot's `Variant::Type` ordinals. The table below describes C++
 | Color | 20 | Four 4-byte floats |
 | StringName, NodePath | 21, 22 | 8-byte native pointer |
 | RID | 23 | 8-byte resource ID |
-| Object | 24 | 4-byte constructor ID, 8-byte native pointer, 8-byte ObjectID |
+| Object | 24 | 8-byte native pointer, 8-byte ObjectID |
 | Callable | 25 | 8-byte native pointer |
 | Signal | 26 | Object payload followed by an 8-byte pointer to its StringName |
 | Dictionary, Array | 27, 28 | 8-byte native pointer; element converters come from the JVM declaration, never from the engine's typed builtin |
 | Packed arrays | 29 to 38 | 8-byte native pointer |
 
-Mathematical values use their native component layout. Integer components are 4 bytes; real-valued components follow the build's precision. The JVM and native converters must agree on that layout.
+Mathematical values use their native component layout. Integer components are 4 bytes; real-valued components follow
+the build's precision. The JVM and native converters must agree on that layout.
+
+One row per type defines this format in `cpp/jvm/memory/buffer_wire.h`, and each buffer builds its dispatch tables
+from those rows, so a type is described in exactly one place for both buffers and both directions.
 
 ## Value copies
 
-Mathematical values such as `Vector3` are serialized as components in the shared buffer and reconstructed as JVM values. A getter does not return a view into the native property. Changing those components affects only the reconstructed value until a setter transfers them back. Container wrappers instead carry native pointers and share storage, while value-type elements retrieved from them still cross the buffer by value.
+Mathematical values such as `Vector3` are sent as components and rebuilt as JVM values, so a getter returns a copy
+rather than a view into the native property. Changing its components affects only that copy until a setter sends them
+back. Container wrappers instead hold a native pointer and share storage with the engine, though value-type elements
+read out of them still cross by value.
 
 ## Exceptions at the JNI boundary
 
-Registered function and property wrappers catch `Throwable` on the JVM side. `KtFunction.invokeWithReturn()` and `KtProperty.callGet()` log the stack trace and write a nil Variant into the return buffer on failure; setters and void calls log the failure without a return value.
+Registered function and property wrappers catch `Throwable` on the JVM side. A failing function or property getter
+logs the stack trace and writes a nil `Variant` as its return value; setters and void calls log the failure and
+return nothing.
 
-For exceptions that reach JNI, JNI leaves a pending throwable when JVM code throws across a native call. `jni::Env::handle_exception()` obtains and clears it, then invokes the handler installed by `JvmManager`. `GodotPrintBridge::print_exception_stacktrace()` asks the JVM for the formatted stack trace and reports it through Godot. The exception does not unwind Godot's C++ stack; the boundary returns its default result and engine execution continues. Before the handler is installed, JNI describes and clears the exception directly.
+For exceptions that reach JNI, JNI leaves a pending throwable when JVM code throws across a native call. The native
+side obtains and clears it, then reports the formatted stack trace through Godot. The exception does not unwind
+Godot's C++ stack: the boundary returns its default result and engine execution continues.

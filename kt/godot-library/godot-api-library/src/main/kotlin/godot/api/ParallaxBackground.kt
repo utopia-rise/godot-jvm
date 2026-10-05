@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_VECTOR2
@@ -253,46 +252,46 @@ public open class ParallaxBackground : CanvasLayer() {
   }
 
   public final fun setScrollOffset(offset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setScrollOffsetPtr, offset)
+    callPtrMethod_VECTOR2(MethodBindings.setScrollOffsetPtr, offset)
   }
 
   public final fun getScrollOffset(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getScrollOffsetPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getScrollOffsetPtr)
 
   public final fun setScrollBaseOffset(offset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setScrollBaseOffsetPtr, offset)
+    callPtrMethod_VECTOR2(MethodBindings.setScrollBaseOffsetPtr, offset)
   }
 
   public final fun getScrollBaseOffset(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getScrollBaseOffsetPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getScrollBaseOffsetPtr)
 
   public final fun setScrollBaseScale(scale: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setScrollBaseScalePtr, scale)
+    callPtrMethod_VECTOR2(MethodBindings.setScrollBaseScalePtr, scale)
   }
 
   public final fun getScrollBaseScale(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getScrollBaseScalePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getScrollBaseScalePtr)
 
   public final fun setLimitBegin(offset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setLimitBeginPtr, offset)
+    callPtrMethod_VECTOR2(MethodBindings.setLimitBeginPtr, offset)
   }
 
   public final fun getLimitBegin(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getLimitBeginPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getLimitBeginPtr)
 
   public final fun setLimitEnd(offset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setLimitEndPtr, offset)
+    callPtrMethod_VECTOR2(MethodBindings.setLimitEndPtr, offset)
   }
 
   public final fun getLimitEnd(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getLimitEndPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getLimitEndPtr)
 
   public final fun setIgnoreCameraZoom(ignore: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIgnoreCameraZoomPtr, ignore)
+    callPtrMethod_BOOL(MethodBindings.setIgnoreCameraZoomPtr, ignore)
   }
 
   public final fun isIgnoreCameraZoom(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isIgnoreCameraZoomPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isIgnoreCameraZoomPtr)
 
   public companion object {
     @JvmField

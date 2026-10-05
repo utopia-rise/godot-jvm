@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_NAME_ANY
 import godot.callMethod_STRING_NAME_ret_ANY
@@ -58,11 +57,11 @@ public open class ShaderMaterial : Material() {
   }
 
   public final fun setShader(shader: Shader?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setShaderPtr, shader)
+    callPtrMethod_OBJECT(MethodBindings.setShaderPtr, shader)
   }
 
   public final fun getShader(): Shader? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getShaderPtr) as Shader?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getShaderPtr) as Shader?)
 
   /**
    * Changes the value set for this material of a uniform in the shader.
@@ -78,14 +77,14 @@ public open class ShaderMaterial : Material() {
    * [ShaderMaterial] when possible.
    */
   public final fun setShaderParameter(`param`: StringName, `value`: Any?): Unit {
-    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setShaderParameterPtr, param, value)
+    callMethod_STRING_NAME_ANY(MethodBindings.setShaderParameterPtr, param, value)
   }
 
   /**
    * Returns the current value set for this material of a uniform in the shader.
    */
   public final fun getShaderParameter(`param`: StringName): Any? =
-      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getShaderParameterPtr, param)
+      callMethod_STRING_NAME_ret_ANY(MethodBindings.getShaderParameterPtr, param)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -93,39 +92,35 @@ public open class StatusIndicator : Node() {
   }
 
   public final fun setTooltip(tooltip: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTooltipPtr, tooltip)
+    callMethod_STRING(MethodBindings.setTooltipPtr, tooltip)
   }
 
-  public final fun getTooltip(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTooltipPtr)
+  public final fun getTooltip(): String = callMethod0_ret_STRING(MethodBindings.getTooltipPtr)
 
   public final fun setIcon(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setIconPtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setIconPtr, texture)
   }
 
   public final fun getIcon(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getIconPtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getIconPtr) as Texture2D?)
 
   public final fun setVisible(visible: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setVisiblePtr, visible)
+    callPtrMethod_BOOL(MethodBindings.setVisiblePtr, visible)
   }
 
-  public final fun isVisible(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isVisiblePtr)
+  public final fun isVisible(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isVisiblePtr)
 
   public final fun setMenu(menu: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setMenuPtr, menu)
+    callPtrMethod_NODE_PATH(MethodBindings.setMenuPtr, menu)
   }
 
-  public final fun getMenu(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getMenuPtr)
+  public final fun getMenu(): NodePath = callPtrMethod0_ret_NODE_PATH(MethodBindings.getMenuPtr)
 
   /**
    * Returns the status indicator rectangle in screen coordinates. If this status indicator is not
    * visible, returns an empty [Rect2].
    */
-  public final fun getRect(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRectPtr)
+  public final fun getRect(): Rect2 = callPtrMethod0_ret_RECT2(MethodBindings.getRectPtr)
 
   public final fun setMenu(menu: String) = setMenu(menu.asCachedNodePath())
 

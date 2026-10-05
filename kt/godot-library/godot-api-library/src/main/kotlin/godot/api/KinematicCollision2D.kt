@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -46,25 +45,23 @@ public open class KinematicCollision2D : RefCounted() {
    * Returns the point of collision in global coordinates.
    */
   public final fun getPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getPositionPtr)
 
   /**
    * Returns the colliding body's shape's normal at the point of collision.
    */
-  public final fun getNormal(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getNormalPtr)
+  public final fun getNormal(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getNormalPtr)
 
   /**
    * Returns the moving object's travel before collision.
    */
-  public final fun getTravel(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getTravelPtr)
+  public final fun getTravel(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getTravelPtr)
 
   /**
    * Returns the moving object's remaining movement vector.
    */
   public final fun getRemainder(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getRemainderPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getRemainderPtr)
 
   /**
    * Returns the collision angle according to [upDirection], which is [Vector2.UP] by default. This
@@ -72,56 +69,54 @@ public open class KinematicCollision2D : RefCounted() {
    */
   @JvmOverloads
   public final fun getAngle(upDirection: Vector2 = Vector2(0, -1)): Float =
-      TransferContext.callPtrMethod_VECTOR2_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAnglePtr, upDirection).toFloat()
+      callPtrMethod_VECTOR2_ret_DOUBLE(MethodBindings.getAnglePtr, upDirection).toFloat()
 
   /**
    * Returns the colliding body's length of overlap along the collision normal.
    */
   public final fun getDepth(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDepthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDepthPtr).toFloat()
 
   /**
    * Returns the moving object's colliding shape.
    */
   public final fun getLocalShape(): Object? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getLocalShapePtr) as Object?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getLocalShapePtr) as Object?)
 
   /**
    * Returns the colliding body's attached [Object].
    */
   public final fun getCollider(): Object? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getColliderPtr) as Object?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getColliderPtr) as Object?)
 
   /**
    * Returns the unique instance ID of the colliding body's attached [Object]. See
    * [Object.getInstanceId].
    */
-  public final fun getColliderId(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getColliderIdPtr)
+  public final fun getColliderId(): Long = callPtrMethod0_ret_LONG(MethodBindings.getColliderIdPtr)
 
   /**
    * Returns the colliding body's [RID] used by the [PhysicsServer2D].
    */
-  public final fun getColliderRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getColliderRidPtr)
+  public final fun getColliderRid(): RID = callPtrMethod0_ret_RID(MethodBindings.getColliderRidPtr)
 
   /**
    * Returns the colliding body's shape.
    */
   public final fun getColliderShape(): Object? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getColliderShapePtr) as Object?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getColliderShapePtr) as Object?)
 
   /**
    * Returns the colliding body's shape index. See [CollisionObject2D].
    */
   public final fun getColliderShapeIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getColliderShapeIndexPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getColliderShapeIndexPtr).toInt()
 
   /**
    * Returns the colliding body's velocity.
    */
   public final fun getColliderVelocity(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getColliderVelocityPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getColliderVelocityPtr)
 
   public companion object {
     @JvmField

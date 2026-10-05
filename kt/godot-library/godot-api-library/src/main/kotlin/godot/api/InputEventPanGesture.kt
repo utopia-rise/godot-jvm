@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_VECTOR2
 import godot.callPtrMethod_VECTOR2
@@ -75,11 +74,10 @@ public open class InputEventPanGesture : InputEventGesture() {
   }
 
   public final fun setDelta(delta: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setDeltaPtr, delta)
+    callPtrMethod_VECTOR2(MethodBindings.setDeltaPtr, delta)
   }
 
-  public final fun getDelta(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getDeltaPtr)
+  public final fun getDelta(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getDeltaPtr)
 
   public companion object {
     @JvmField

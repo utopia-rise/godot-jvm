@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_LONG_STRING
@@ -380,19 +379,19 @@ public object AudioServer : Object() {
 
   @JvmStatic
   public final fun setBusCount(amount: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBusCountPtr, amount.toLong())
+    callPtrMethod_LONG(MethodBindings.setBusCountPtr, amount.toLong())
   }
 
   @JvmStatic
   public final fun getBusCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBusCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBusCountPtr).toInt()
 
   /**
    * Removes the bus at index [index].
    */
   @JvmStatic
   public final fun removeBus(index: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeBusPtr, index.toLong())
+    callPtrMethod_LONG(MethodBindings.removeBusPtr, index.toLong())
   }
 
   /**
@@ -401,7 +400,7 @@ public object AudioServer : Object() {
   @JvmOverloads
   @JvmStatic
   public final fun addBus(atPosition: Int = -1): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.addBusPtr, atPosition.toLong())
+    callPtrMethod_LONG(MethodBindings.addBusPtr, atPosition.toLong())
   }
 
   /**
@@ -409,7 +408,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun moveBus(index: Int, toIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.moveBusPtr, index.toLong(), toIndex.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.moveBusPtr, index.toLong(), toIndex.toLong())
   }
 
   /**
@@ -417,7 +416,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun setBusName(busIdx: Int, name: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.setBusNamePtr, busIdx.toLong(), name)
+    callMethod_LONG_STRING(MethodBindings.setBusNamePtr, busIdx.toLong(), name)
   }
 
   /**
@@ -425,7 +424,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getBusName(busIdx: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.getBusNamePtr, busIdx.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.getBusNamePtr, busIdx.toLong())
 
   /**
    * Returns the index of the bus with the name [busName]. Returns `-1` if no bus with the specified
@@ -433,21 +432,21 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getBusIndex(busName: StringName): Int =
-      TransferContext.callPtrMethod_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.getBusIndexPtr, busName).toInt()
+      callPtrMethod_STRING_NAME_ret_LONG(MethodBindings.getBusIndexPtr, busName).toInt()
 
   /**
    * Returns the number of channels of the bus at index [busIdx].
    */
   @JvmStatic
   public final fun getBusChannels(busIdx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getBusChannelsPtr, busIdx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getBusChannelsPtr, busIdx.toLong()).toInt()
 
   /**
    * Sets the volume in decibels of the bus at index [busIdx] to [volumeDb].
    */
   @JvmStatic
   public final fun setBusVolumeDb(busIdx: Int, volumeDb: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setBusVolumeDbPtr, busIdx.toLong(), volumeDb.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setBusVolumeDbPtr, busIdx.toLong(), volumeDb.toDouble())
   }
 
   /**
@@ -455,7 +454,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getBusVolumeDb(busIdx: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBusVolumeDbPtr, busIdx.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getBusVolumeDbPtr, busIdx.toLong()).toFloat()
 
   /**
    * Sets the volume as a linear value of the bus at index [busIdx] to [volumeLinear].
@@ -465,7 +464,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun setBusVolumeLinear(busIdx: Int, volumeLinear: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setBusVolumeLinearPtr, busIdx.toLong(), volumeLinear.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setBusVolumeLinearPtr, busIdx.toLong(), volumeLinear.toDouble())
   }
 
   /**
@@ -476,14 +475,14 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getBusVolumeLinear(busIdx: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBusVolumeLinearPtr, busIdx.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getBusVolumeLinearPtr, busIdx.toLong()).toFloat()
 
   /**
    * Connects the output of the bus at [busIdx] to the bus named [send].
    */
   @JvmStatic
   public final fun setBusSend(busIdx: Int, send: StringName): Unit {
-    TransferContext.callPtrMethod_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.setBusSendPtr, busIdx.toLong(), send)
+    callPtrMethod_LONG_STRING_NAME(MethodBindings.setBusSendPtr, busIdx.toLong(), send)
   }
 
   /**
@@ -491,14 +490,14 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getBusSend(busIdx: Int): StringName =
-      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getBusSendPtr, busIdx.toLong())
+      callPtrMethod_LONG_ret_STRING_NAME(MethodBindings.getBusSendPtr, busIdx.toLong())
 
   /**
    * If `true`, the bus at index [busIdx] is in solo mode.
    */
   @JvmStatic
   public final fun setBusSolo(busIdx: Int, enable: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setBusSoloPtr, busIdx.toLong(), enable)
+    callPtrMethod_LONG_BOOL(MethodBindings.setBusSoloPtr, busIdx.toLong(), enable)
   }
 
   /**
@@ -506,14 +505,14 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun isBusSolo(busIdx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isBusSoloPtr, busIdx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isBusSoloPtr, busIdx.toLong())
 
   /**
    * If `true`, the bus at index [busIdx] is muted.
    */
   @JvmStatic
   public final fun setBusMute(busIdx: Int, enable: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setBusMutePtr, busIdx.toLong(), enable)
+    callPtrMethod_LONG_BOOL(MethodBindings.setBusMutePtr, busIdx.toLong(), enable)
   }
 
   /**
@@ -521,14 +520,14 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun isBusMute(busIdx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isBusMutePtr, busIdx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isBusMutePtr, busIdx.toLong())
 
   /**
    * If `true`, the bus at index [busIdx] is bypassing effects.
    */
   @JvmStatic
   public final fun setBusBypassEffects(busIdx: Int, enable: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setBusBypassEffectsPtr, busIdx.toLong(), enable)
+    callPtrMethod_LONG_BOOL(MethodBindings.setBusBypassEffectsPtr, busIdx.toLong(), enable)
   }
 
   /**
@@ -536,7 +535,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun isBusBypassingEffects(busIdx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isBusBypassingEffectsPtr, busIdx.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isBusBypassingEffectsPtr, busIdx.toLong())
 
   /**
    * Adds an [AudioEffect] effect to the bus [busIdx] at [atPosition].
@@ -548,7 +547,7 @@ public object AudioServer : Object() {
     effect: AudioEffect?,
     atPosition: Int = -1,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT_LONG(ptr, objectID.id, MethodBindings.addBusEffectPtr, busIdx.toLong(), effect, atPosition.toLong())
+    callPtrMethod_LONG_OBJECT_LONG(MethodBindings.addBusEffectPtr, busIdx.toLong(), effect, atPosition.toLong())
   }
 
   /**
@@ -556,7 +555,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun removeBusEffect(busIdx: Int, effectIdx: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.removeBusEffectPtr, busIdx.toLong(), effectIdx.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.removeBusEffectPtr, busIdx.toLong(), effectIdx.toLong())
   }
 
   /**
@@ -564,14 +563,14 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getBusEffectCount(busIdx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getBusEffectCountPtr, busIdx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getBusEffectCountPtr, busIdx.toLong()).toInt()
 
   /**
    * Returns the [AudioEffect] at position [effectIdx] in bus [busIdx].
    */
   @JvmStatic
   public final fun getBusEffect(busIdx: Int, effectIdx: Int): AudioEffect? =
-      (TransferContext.callPtrMethod_LONG_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBusEffectPtr, busIdx.toLong(), effectIdx.toLong()) as AudioEffect?)
+      (callPtrMethod_LONG_LONG_ret_OBJECT_REF(MethodBindings.getBusEffectPtr, busIdx.toLong(), effectIdx.toLong()) as AudioEffect?)
 
   /**
    * Returns the [AudioEffectInstance] assigned to the given bus and effect indices (and optionally
@@ -584,7 +583,7 @@ public object AudioServer : Object() {
     effectIdx: Int,
     channel: Int = 0,
   ): AudioEffectInstance? =
-      (TransferContext.callPtrMethod_LONG_LONG_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBusEffectInstancePtr, busIdx.toLong(), effectIdx.toLong(), channel.toLong()) as AudioEffectInstance?)
+      (callPtrMethod_LONG_LONG_LONG_ret_OBJECT_REF(MethodBindings.getBusEffectInstancePtr, busIdx.toLong(), effectIdx.toLong(), channel.toLong()) as AudioEffectInstance?)
 
   /**
    * Swaps the position of two effects in bus [busIdx].
@@ -595,7 +594,7 @@ public object AudioServer : Object() {
     effectIdx: Int,
     byEffectIdx: Int,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.swapBusEffectsPtr, busIdx.toLong(), effectIdx.toLong(), byEffectIdx.toLong())
+    callPtrMethod_LONG_LONG_LONG(MethodBindings.swapBusEffectsPtr, busIdx.toLong(), effectIdx.toLong(), byEffectIdx.toLong())
   }
 
   /**
@@ -607,7 +606,7 @@ public object AudioServer : Object() {
     effectIdx: Int,
     enabled: Boolean,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_BOOL(ptr, objectID.id, MethodBindings.setBusEffectEnabledPtr, busIdx.toLong(), effectIdx.toLong(), enabled)
+    callPtrMethod_LONG_LONG_BOOL(MethodBindings.setBusEffectEnabledPtr, busIdx.toLong(), effectIdx.toLong(), enabled)
   }
 
   /**
@@ -615,30 +614,30 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun isBusEffectEnabled(busIdx: Int, effectIdx: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isBusEffectEnabledPtr, busIdx.toLong(), effectIdx.toLong())
+      callPtrMethod_LONG_LONG_ret_BOOL(MethodBindings.isBusEffectEnabledPtr, busIdx.toLong(), effectIdx.toLong())
 
   /**
    * Returns the peak volume of the left speaker at bus index [busIdx] and channel index [channel].
    */
   @JvmStatic
   public final fun getBusPeakVolumeLeftDb(busIdx: Int, channel: Int): Float =
-      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBusPeakVolumeLeftDbPtr, busIdx.toLong(), channel.toLong()).toFloat()
+      callPtrMethod_LONG_LONG_ret_DOUBLE(MethodBindings.getBusPeakVolumeLeftDbPtr, busIdx.toLong(), channel.toLong()).toFloat()
 
   /**
    * Returns the peak volume of the right speaker at bus index [busIdx] and channel index [channel].
    */
   @JvmStatic
   public final fun getBusPeakVolumeRightDb(busIdx: Int, channel: Int): Float =
-      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBusPeakVolumeRightDbPtr, busIdx.toLong(), channel.toLong()).toFloat()
+      callPtrMethod_LONG_LONG_ret_DOUBLE(MethodBindings.getBusPeakVolumeRightDbPtr, busIdx.toLong(), channel.toLong()).toFloat()
 
   @JvmStatic
   public final fun setPlaybackSpeedScale(scale: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPlaybackSpeedScalePtr, scale.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPlaybackSpeedScalePtr, scale.toDouble())
   }
 
   @JvmStatic
   public final fun getPlaybackSpeedScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPlaybackSpeedScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPlaybackSpeedScalePtr).toFloat()
 
   /**
    * Locks the audio driver's main loop.
@@ -647,7 +646,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun lock(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.lockPtr)
+    callPtrMethod0(MethodBindings.lockPtr)
   }
 
   /**
@@ -655,7 +654,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun unlock(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.unlockPtr)
+    callPtrMethod0(MethodBindings.unlockPtr)
   }
 
   /**
@@ -663,21 +662,21 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getSpeakerMode(): SpeakerMode =
-      SpeakerMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSpeakerModePtr))
+      SpeakerMode.from(callPtrMethod0_ret_LONG(MethodBindings.getSpeakerModePtr))
 
   /**
    * Returns the sample rate at the output of the [AudioServer].
    */
   @JvmStatic
   public final fun getMixRate(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMixRatePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMixRatePtr).toFloat()
 
   /**
    * Returns the sample rate at the input of the [AudioServer].
    */
   @JvmStatic
   public final fun getInputMixRate(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getInputMixRatePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getInputMixRatePtr).toFloat()
 
   /**
    * Returns the name of the current audio driver. The default usually depends on the operating
@@ -687,23 +686,22 @@ public object AudioServer : Object() {
    * [ProjectSettings.audio/driver/driver].
    */
   @JvmStatic
-  public final fun getDriverName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getDriverNamePtr)
+  public final fun getDriverName(): String = callMethod0_ret_STRING(MethodBindings.getDriverNamePtr)
 
   /**
    * Returns the names of all audio output devices detected on the system.
    */
   @JvmStatic
   public final fun getOutputDeviceList(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getOutputDeviceListPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getOutputDeviceListPtr)
 
   @JvmStatic
   public final fun getOutputDevice(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOutputDevicePtr)
+      callMethod0_ret_STRING(MethodBindings.getOutputDevicePtr)
 
   @JvmStatic
   public final fun setOutputDevice(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOutputDevicePtr, name)
+    callMethod_STRING(MethodBindings.setOutputDevicePtr, name)
   }
 
   /**
@@ -711,14 +709,14 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getTimeToNextMix(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTimeToNextMixPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTimeToNextMixPtr)
 
   /**
    * Returns the relative time since the last mix occurred, in seconds.
    */
   @JvmStatic
   public final fun getTimeSinceLastMix(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTimeSinceLastMixPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTimeSinceLastMixPtr)
 
   /**
    * Returns the audio driver's effective output latency. This is based on
@@ -729,7 +727,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getOutputLatency(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOutputLatencyPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getOutputLatencyPtr)
 
   /**
    * Returns the names of all audio input devices detected on the system.
@@ -740,15 +738,15 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getInputDeviceList(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getInputDeviceListPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getInputDeviceListPtr)
 
   @JvmStatic
   public final fun getInputDevice(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getInputDevicePtr)
+      callMethod0_ret_STRING(MethodBindings.getInputDevicePtr)
 
   @JvmStatic
   public final fun setInputDevice(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setInputDevicePtr, name)
+    callMethod_STRING(MethodBindings.setInputDevicePtr, name)
   }
 
   /**
@@ -759,14 +757,14 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun setInputDeviceActive(active: Boolean): Error =
-      Error.from(TransferContext.callPtrMethod_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.setInputDeviceActivePtr, active))
+      Error.from(callPtrMethod_BOOL_ret_LONG(MethodBindings.setInputDeviceActivePtr, active))
 
   /**
    * Returns the number of frames available to read using [getInputFrames].
    */
   @JvmStatic
   public final fun getInputFramesAvailable(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInputFramesAvailablePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getInputFramesAvailablePtr).toInt()
 
   /**
    * Returns the absolute size of the microphone input buffer. This is set to a multiple of the
@@ -774,7 +772,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getInputBufferLengthFrames(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInputBufferLengthFramesPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getInputBufferLengthFramesPtr).toInt()
 
   /**
    * Returns a [PackedVector2Array] containing exactly [frames] audio samples from the internal
@@ -787,14 +785,14 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun getInputFrames(frames: Int): PackedVector2Array =
-      TransferContext.callPtrMethod_LONG_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getInputFramesPtr, frames.toLong())
+      callPtrMethod_LONG_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getInputFramesPtr, frames.toLong())
 
   /**
    * Overwrites the currently used [AudioBusLayout].
    */
   @JvmStatic
   public final fun setBusLayout(busLayout: AudioBusLayout?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setBusLayoutPtr, busLayout)
+    callPtrMethod_OBJECT(MethodBindings.setBusLayoutPtr, busLayout)
   }
 
   /**
@@ -802,7 +800,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun generateBusLayout(): AudioBusLayout? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.generateBusLayoutPtr) as AudioBusLayout?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.generateBusLayoutPtr) as AudioBusLayout?)
 
   /**
    * If set to `true`, all instances of [AudioStreamPlayback] will call
@@ -813,7 +811,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun setEnableTaggingUsedAudioStreams(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableTaggingUsedAudioStreamsPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setEnableTaggingUsedAudioStreamsPtr, enable)
   }
 
   /**
@@ -825,7 +823,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun isStreamRegisteredAsSample(stream: AudioStream?): Boolean =
-      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.isStreamRegisteredAsSamplePtr, stream)
+      callPtrMethod_OBJECT_ret_BOOL(MethodBindings.isStreamRegisteredAsSamplePtr, stream)
 
   /**
    * Forces the registration of a stream as a sample.
@@ -836,7 +834,7 @@ public object AudioServer : Object() {
    */
   @JvmStatic
   public final fun registerStreamAsSample(stream: AudioStream?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.registerStreamAsSamplePtr, stream)
+    callPtrMethod_OBJECT(MethodBindings.registerStreamAsSamplePtr, stream)
   }
 
   /**

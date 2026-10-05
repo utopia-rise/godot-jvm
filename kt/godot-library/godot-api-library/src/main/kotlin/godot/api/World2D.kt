@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT
 import godot.callPtrMethod0_ret_RID
@@ -60,17 +59,15 @@ public open class World2D : Resource() {
     createNativeObject(929, scriptPtr)
   }
 
-  public final fun getCanvas(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getCanvasPtr)
+  public final fun getCanvas(): RID = callPtrMethod0_ret_RID(MethodBindings.getCanvasPtr)
 
   public final fun getNavigationMap(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getNavigationMapPtr)
+      callPtrMethod0_ret_RID(MethodBindings.getNavigationMapPtr)
 
-  public final fun getSpace(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getSpacePtr)
+  public final fun getSpace(): RID = callPtrMethod0_ret_RID(MethodBindings.getSpacePtr)
 
   public final fun getDirectSpaceState(): PhysicsDirectSpaceState2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getDirectSpaceStatePtr) as PhysicsDirectSpaceState2D?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getDirectSpaceStatePtr) as PhysicsDirectSpaceState2D?)
 
   public companion object {
     @JvmField

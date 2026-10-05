@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_PACKED_INT_32_ARRAY
@@ -82,71 +81,71 @@ public open class AudioStreamInteractive : AudioStream() {
   }
 
   public final fun setClipCount(clipCount: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setClipCountPtr, clipCount.toLong())
+    callPtrMethod_LONG(MethodBindings.setClipCountPtr, clipCount.toLong())
   }
 
   public final fun getClipCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getClipCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getClipCountPtr).toInt()
 
   public final fun setInitialClip(clipIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInitialClipPtr, clipIndex.toLong())
+    callPtrMethod_LONG(MethodBindings.setInitialClipPtr, clipIndex.toLong())
   }
 
   public final fun getInitialClip(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInitialClipPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getInitialClipPtr).toInt()
 
   /**
    * Set the name of the current clip (for easier identification).
    */
   public final fun setClipName(clipIndex: Int, name: StringName): Unit {
-    TransferContext.callPtrMethod_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.setClipNamePtr, clipIndex.toLong(), name)
+    callPtrMethod_LONG_STRING_NAME(MethodBindings.setClipNamePtr, clipIndex.toLong(), name)
   }
 
   /**
    * Return the name of a clip.
    */
   public final fun getClipName(clipIndex: Int): StringName =
-      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getClipNamePtr, clipIndex.toLong())
+      callPtrMethod_LONG_ret_STRING_NAME(MethodBindings.getClipNamePtr, clipIndex.toLong())
 
   /**
    * Set the [AudioStream] associated with the current clip.
    */
   public final fun setClipStream(clipIndex: Int, stream: AudioStream?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setClipStreamPtr, clipIndex.toLong(), stream)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setClipStreamPtr, clipIndex.toLong(), stream)
   }
 
   /**
    * Return the [AudioStream] associated with a clip.
    */
   public final fun getClipStream(clipIndex: Int): AudioStream? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getClipStreamPtr, clipIndex.toLong()) as AudioStream?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getClipStreamPtr, clipIndex.toLong()) as AudioStream?)
 
   /**
    * Set whether a clip will auto-advance by changing the auto-advance mode.
    */
   public final fun setClipAutoAdvance(clipIndex: Int, mode: AutoAdvanceMode): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setClipAutoAdvancePtr, clipIndex.toLong(), mode.value)
+    callPtrMethod_LONG_LONG(MethodBindings.setClipAutoAdvancePtr, clipIndex.toLong(), mode.value)
   }
 
   /**
    * Return whether a clip has auto-advance enabled. See [setClipAutoAdvance].
    */
   public final fun getClipAutoAdvance(clipIndex: Int): AutoAdvanceMode =
-      AutoAdvanceMode.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getClipAutoAdvancePtr, clipIndex.toLong()))
+      AutoAdvanceMode.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getClipAutoAdvancePtr, clipIndex.toLong()))
 
   /**
    * Set the index of the next clip towards which this clip will auto advance to when finished. If
    * the clip being played loops, then auto-advance will be ignored.
    */
   public final fun setClipAutoAdvanceNextClip(clipIndex: Int, autoAdvanceNextClip: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setClipAutoAdvanceNextClipPtr, clipIndex.toLong(), autoAdvanceNextClip.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.setClipAutoAdvanceNextClipPtr, clipIndex.toLong(), autoAdvanceNextClip.toLong())
   }
 
   /**
    * Return the clip towards which the clip referenced by [clipIndex] will auto-advance to.
    */
   public final fun getClipAutoAdvanceNextClip(clipIndex: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getClipAutoAdvanceNextClipPtr, clipIndex.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getClipAutoAdvanceNextClipPtr, clipIndex.toLong()).toInt()
 
   /**
    * Add a transition between two clips. Provide the indices of the source and destination clips, or
@@ -182,70 +181,70 @@ public open class AudioStreamInteractive : AudioStream() {
     fillerClip: Int = -1,
     holdPrevious: Boolean = false,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_LONG_LONG_LONG_DOUBLE_BOOL_LONG_BOOL(ptr, objectID.id, MethodBindings.addTransitionPtr, fromClip.toLong(), toClip.toLong(), fromTime.value, toTime.value, fadeMode.value, fadeBeats.toDouble(), useFillerClip, fillerClip.toLong(), holdPrevious)
+    callPtrMethod_LONG_LONG_LONG_LONG_LONG_DOUBLE_BOOL_LONG_BOOL(MethodBindings.addTransitionPtr, fromClip.toLong(), toClip.toLong(), fromTime.value, toTime.value, fadeMode.value, fadeBeats.toDouble(), useFillerClip, fillerClip.toLong(), holdPrevious)
   }
 
   /**
    * Returns `true` if a given transition exists (was added via [addTransition]).
    */
   public final fun hasTransition(fromClip: Int, toClip: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.hasTransitionPtr, fromClip.toLong(), toClip.toLong())
+      callPtrMethod_LONG_LONG_ret_BOOL(MethodBindings.hasTransitionPtr, fromClip.toLong(), toClip.toLong())
 
   /**
    * Erase a transition by providing [fromClip] and [toClip] clip indices. [CLIP_ANY] can be used
    * for either argument or both.
    */
   public final fun eraseTransition(fromClip: Int, toClip: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.eraseTransitionPtr, fromClip.toLong(), toClip.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.eraseTransitionPtr, fromClip.toLong(), toClip.toLong())
   }
 
   /**
    * Return the list of transitions (from, to interleaved).
    */
   public final fun getTransitionList(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getTransitionListPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getTransitionListPtr)
 
   /**
    * Return the source time position for a transition (see [addTransition]).
    */
   public final fun getTransitionFromTime(fromClip: Int, toClip: Int): TransitionFromTime =
-      TransitionFromTime.from(TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getTransitionFromTimePtr, fromClip.toLong(), toClip.toLong()))
+      TransitionFromTime.from(callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.getTransitionFromTimePtr, fromClip.toLong(), toClip.toLong()))
 
   /**
    * Return the destination time position for a transition (see [addTransition]).
    */
   public final fun getTransitionToTime(fromClip: Int, toClip: Int): TransitionToTime =
-      TransitionToTime.from(TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getTransitionToTimePtr, fromClip.toLong(), toClip.toLong()))
+      TransitionToTime.from(callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.getTransitionToTimePtr, fromClip.toLong(), toClip.toLong()))
 
   /**
    * Return the mode for a transition (see [addTransition]).
    */
   public final fun getTransitionFadeMode(fromClip: Int, toClip: Int): FadeMode =
-      FadeMode.from(TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getTransitionFadeModePtr, fromClip.toLong(), toClip.toLong()))
+      FadeMode.from(callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.getTransitionFadeModePtr, fromClip.toLong(), toClip.toLong()))
 
   /**
    * Return the time (in beats) for a transition (see [addTransition]).
    */
   public final fun getTransitionFadeBeats(fromClip: Int, toClip: Int): Float =
-      TransferContext.callPtrMethod_LONG_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTransitionFadeBeatsPtr, fromClip.toLong(), toClip.toLong()).toFloat()
+      callPtrMethod_LONG_LONG_ret_DOUBLE(MethodBindings.getTransitionFadeBeatsPtr, fromClip.toLong(), toClip.toLong()).toFloat()
 
   /**
    * Return whether a transition uses the *filler clip* functionality (see [addTransition]).
    */
   public final fun isTransitionUsingFillerClip(fromClip: Int, toClip: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isTransitionUsingFillerClipPtr, fromClip.toLong(), toClip.toLong())
+      callPtrMethod_LONG_LONG_ret_BOOL(MethodBindings.isTransitionUsingFillerClipPtr, fromClip.toLong(), toClip.toLong())
 
   /**
    * Return the filler clip for a transition (see [addTransition]).
    */
   public final fun getTransitionFillerClip(fromClip: Int, toClip: Int): Int =
-      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getTransitionFillerClipPtr, fromClip.toLong(), toClip.toLong()).toInt()
+      callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.getTransitionFillerClipPtr, fromClip.toLong(), toClip.toLong()).toInt()
 
   /**
    * Return whether a transition uses the *hold previous* functionality (see [addTransition]).
    */
   public final fun isTransitionHoldingPrevious(fromClip: Int, toClip: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isTransitionHoldingPreviousPtr, fromClip.toLong(), toClip.toLong())
+      callPtrMethod_LONG_LONG_ret_BOOL(MethodBindings.isTransitionHoldingPreviousPtr, fromClip.toLong(), toClip.toLong())
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

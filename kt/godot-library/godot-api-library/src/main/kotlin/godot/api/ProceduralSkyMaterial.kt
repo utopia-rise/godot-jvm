@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_COLOR
@@ -355,102 +354,102 @@ public open class ProceduralSkyMaterial : Material() {
   }
 
   public final fun setSkyTopColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setSkyTopColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setSkyTopColorPtr, color)
   }
 
   public final fun getSkyTopColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getSkyTopColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getSkyTopColorPtr)
 
   public final fun setSkyHorizonColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setSkyHorizonColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setSkyHorizonColorPtr, color)
   }
 
   public final fun getSkyHorizonColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getSkyHorizonColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getSkyHorizonColorPtr)
 
   public final fun setSkyCurve(curve: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSkyCurvePtr, curve.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSkyCurvePtr, curve.toDouble())
   }
 
   public final fun getSkyCurve(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSkyCurvePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSkyCurvePtr).toFloat()
 
   public final fun setSkyEnergyMultiplier(multiplier: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSkyEnergyMultiplierPtr, multiplier.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSkyEnergyMultiplierPtr, multiplier.toDouble())
   }
 
   public final fun getSkyEnergyMultiplier(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSkyEnergyMultiplierPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSkyEnergyMultiplierPtr).toFloat()
 
   public final fun setSkyCover(skyCover: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setSkyCoverPtr, skyCover)
+    callPtrMethod_OBJECT(MethodBindings.setSkyCoverPtr, skyCover)
   }
 
   public final fun getSkyCover(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSkyCoverPtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getSkyCoverPtr) as Texture2D?)
 
   public final fun setSkyCoverModulate(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setSkyCoverModulatePtr, color)
+    callPtrMethod_COLOR(MethodBindings.setSkyCoverModulatePtr, color)
   }
 
   public final fun getSkyCoverModulate(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getSkyCoverModulatePtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getSkyCoverModulatePtr)
 
   public final fun setGroundBottomColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setGroundBottomColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setGroundBottomColorPtr, color)
   }
 
   public final fun getGroundBottomColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getGroundBottomColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getGroundBottomColorPtr)
 
   public final fun setGroundHorizonColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setGroundHorizonColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setGroundHorizonColorPtr, color)
   }
 
   public final fun getGroundHorizonColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getGroundHorizonColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getGroundHorizonColorPtr)
 
   public final fun setGroundCurve(curve: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setGroundCurvePtr, curve.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setGroundCurvePtr, curve.toDouble())
   }
 
   public final fun getGroundCurve(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getGroundCurvePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getGroundCurvePtr).toFloat()
 
   public final fun setGroundEnergyMultiplier(energy: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setGroundEnergyMultiplierPtr, energy.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setGroundEnergyMultiplierPtr, energy.toDouble())
   }
 
   public final fun getGroundEnergyMultiplier(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getGroundEnergyMultiplierPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getGroundEnergyMultiplierPtr).toFloat()
 
   public final fun setSunAngleMax(degrees: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSunAngleMaxPtr, degrees.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSunAngleMaxPtr, degrees.toDouble())
   }
 
   public final fun getSunAngleMax(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSunAngleMaxPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSunAngleMaxPtr).toFloat()
 
   public final fun setSunCurve(curve: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSunCurvePtr, curve.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSunCurvePtr, curve.toDouble())
   }
 
   public final fun getSunCurve(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSunCurvePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSunCurvePtr).toFloat()
 
   public final fun setUseDebanding(useDebanding: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseDebandingPtr, useDebanding)
+    callPtrMethod_BOOL(MethodBindings.setUseDebandingPtr, useDebanding)
   }
 
   public final fun getUseDebanding(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getUseDebandingPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getUseDebandingPtr)
 
   public final fun setEnergyMultiplier(multiplier: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEnergyMultiplierPtr, multiplier.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEnergyMultiplierPtr, multiplier.toDouble())
   }
 
   public final fun getEnergyMultiplier(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEnergyMultiplierPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEnergyMultiplierPtr).toFloat()
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -20,11 +19,11 @@ import godot.callPtrMethod0_ret_OBJECT
 import godot.callPtrMethod0_ret_QUATERNION
 import godot.callPtrMethod0_ret_VECTOR3
 import godot.callPtrMethod_BASIS
-import godot.callPtrMethod_DICTIONARY_ret_OBJECT_REF
 import godot.callPtrMethod_DOUBLE
-import godot.callPtrMethod_OBJECT_ret_OBJECT_REF
 import godot.callPtrMethod_QUATERNION
 import godot.callPtrMethod_VECTOR3
+import godot.callStaticPtrMethod_DICTIONARY_ret_OBJECT_REF
+import godot.callStaticPtrMethod_OBJECT_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Basis
 import godot.core.Dictionary
@@ -345,69 +344,67 @@ public open class GLTFPhysicsBody : Resource() {
    * Converts this GLTFPhysicsBody instance into a Godot [CollisionObject3D] node.
    */
   public final fun toNode(): CollisionObject3D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.toNodePtr) as CollisionObject3D?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.toNodePtr) as CollisionObject3D?)
 
   /**
    * Serializes this GLTFPhysicsBody instance into a [Dictionary]. It will be in the format expected
    * by the `OMI_physics_body` glTF extension.
    */
   public final fun toDictionary(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.toDictionaryPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.toDictionaryPtr) as Dictionary<Any?, Any?>)
 
-  public final fun getBodyType(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getBodyTypePtr)
+  public final fun getBodyType(): String = callMethod0_ret_STRING(MethodBindings.getBodyTypePtr)
 
   public final fun setBodyType(bodyType: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBodyTypePtr, bodyType)
+    callMethod_STRING(MethodBindings.setBodyTypePtr, bodyType)
   }
 
-  public final fun getMass(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMassPtr).toFloat()
+  public final fun getMass(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getMassPtr).toFloat()
 
   public final fun setMass(mass: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMassPtr, mass.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMassPtr, mass.toDouble())
   }
 
   public final fun getLinearVelocity(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getLinearVelocityPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getLinearVelocityPtr)
 
   public final fun setLinearVelocity(linearVelocity: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setLinearVelocityPtr, linearVelocity)
+    callPtrMethod_VECTOR3(MethodBindings.setLinearVelocityPtr, linearVelocity)
   }
 
   public final fun getAngularVelocity(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getAngularVelocityPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getAngularVelocityPtr)
 
   public final fun setAngularVelocity(angularVelocity: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setAngularVelocityPtr, angularVelocity)
+    callPtrMethod_VECTOR3(MethodBindings.setAngularVelocityPtr, angularVelocity)
   }
 
   public final fun getCenterOfMass(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getCenterOfMassPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getCenterOfMassPtr)
 
   public final fun setCenterOfMass(centerOfMass: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setCenterOfMassPtr, centerOfMass)
+    callPtrMethod_VECTOR3(MethodBindings.setCenterOfMassPtr, centerOfMass)
   }
 
   public final fun getInertiaDiagonal(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getInertiaDiagonalPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getInertiaDiagonalPtr)
 
   public final fun setInertiaDiagonal(inertiaDiagonal: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setInertiaDiagonalPtr, inertiaDiagonal)
+    callPtrMethod_VECTOR3(MethodBindings.setInertiaDiagonalPtr, inertiaDiagonal)
   }
 
   public final fun getInertiaOrientation(): Quaternion =
-      TransferContext.callPtrMethod0_ret_QUATERNION(ptr, objectID.id, MethodBindings.getInertiaOrientationPtr)
+      callPtrMethod0_ret_QUATERNION(MethodBindings.getInertiaOrientationPtr)
 
   public final fun setInertiaOrientation(inertiaOrientation: Quaternion): Unit {
-    TransferContext.callPtrMethod_QUATERNION(ptr, objectID.id, MethodBindings.setInertiaOrientationPtr, inertiaOrientation)
+    callPtrMethod_QUATERNION(MethodBindings.setInertiaOrientationPtr, inertiaOrientation)
   }
 
   public final fun getInertiaTensor(): Basis =
-      TransferContext.callPtrMethod0_ret_BASIS(ptr, objectID.id, MethodBindings.getInertiaTensorPtr)
+      callPtrMethod0_ret_BASIS(MethodBindings.getInertiaTensorPtr)
 
   public final fun setInertiaTensor(inertiaTensor: Basis): Unit {
-    TransferContext.callPtrMethod_BASIS(ptr, objectID.id, MethodBindings.setInertiaTensorPtr, inertiaTensor)
+    callPtrMethod_BASIS(MethodBindings.setInertiaTensorPtr, inertiaTensor)
   }
 
   public companion object {
@@ -498,7 +495,7 @@ public open class GLTFPhysicsBody : Resource() {
      */
     @JvmStatic
     public final fun fromNode(bodyNode: CollisionObject3D?): GLTFPhysicsBody? =
-        (TransferContext.callPtrMethod_OBJECT_ret_OBJECT_REF(0L, 0L, MethodBindings.fromNodePtr, bodyNode) as GLTFPhysicsBody?)
+        (callStaticPtrMethod_OBJECT_ret_OBJECT_REF(MethodBindings.fromNodePtr, bodyNode) as GLTFPhysicsBody?)
 
     /**
      * Creates a new GLTFPhysicsBody instance by parsing the given [Dictionary] in the
@@ -506,7 +503,7 @@ public open class GLTFPhysicsBody : Resource() {
      */
     @JvmStatic
     public final fun fromDictionary(dictionary: Dictionary<Any?, Any?>): GLTFPhysicsBody? =
-        (TransferContext.callPtrMethod_DICTIONARY_ret_OBJECT_REF(0L, 0L, MethodBindings.fromDictionaryPtr, dictionary) as GLTFPhysicsBody?)
+        (callStaticPtrMethod_DICTIONARY_ret_OBJECT_REF(MethodBindings.fromDictionaryPtr, dictionary) as GLTFPhysicsBody?)
   }
 
   public object MethodBindings {

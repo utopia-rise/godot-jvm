@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_BOOL
@@ -133,39 +132,39 @@ public open class PhysicsPointQueryParameters3D : RefCounted() {
   }
 
   public final fun setPosition(position: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setPositionPtr, position)
+    callPtrMethod_VECTOR3(MethodBindings.setPositionPtr, position)
   }
 
   public final fun getPosition(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getPositionPtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getPositionPtr)
 
   public final fun setCollisionMask(collisionMask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionMaskPtr, collisionMask)
+    callPtrMethod_LONG(MethodBindings.setCollisionMaskPtr, collisionMask)
   }
 
   public final fun getCollisionMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionMaskPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionMaskPtr)
 
   public final fun setExclude(exclude: VariantArray<RID>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setExcludePtr, exclude)
+    callPtrMethod_ARRAY(MethodBindings.setExcludePtr, exclude)
   }
 
   public final fun getExclude(): VariantArray<RID> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getExcludePtr) as VariantArray<RID>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getExcludePtr) as VariantArray<RID>)
 
   public final fun setCollideWithBodies(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCollideWithBodiesPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCollideWithBodiesPtr, enable)
   }
 
   public final fun isCollideWithBodiesEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollideWithBodiesEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCollideWithBodiesEnabledPtr)
 
   public final fun setCollideWithAreas(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCollideWithAreasPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCollideWithAreasPtr, enable)
   }
 
   public final fun isCollideWithAreasEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollideWithAreasEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCollideWithAreasEnabledPtr)
 
   public companion object {
     @JvmField

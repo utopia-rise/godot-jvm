@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_VECTOR3I
 import godot.callPtrMethod_VECTOR3I
@@ -84,11 +83,10 @@ public open class PlaceholderTexture3D : Texture3D() {
   }
 
   public final fun setSize(size: Vector3i): Unit {
-    TransferContext.callPtrMethod_VECTOR3I(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR3I(MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector3i =
-      TransferContext.callPtrMethod0_ret_VECTOR3I(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector3i = callPtrMethod0_ret_VECTOR3I(MethodBindings.getSizePtr)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

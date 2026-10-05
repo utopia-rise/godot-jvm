@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -71,25 +70,25 @@ public open class VisualShaderNodeParameter internal constructor() : VisualShade
   }
 
   public final fun setParameterName(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setParameterNamePtr, name)
+    callMethod_STRING(MethodBindings.setParameterNamePtr, name)
   }
 
   public final fun getParameterName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getParameterNamePtr)
+      callMethod0_ret_STRING(MethodBindings.getParameterNamePtr)
 
   public final fun setQualifier(qualifier: Qualifier): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setQualifierPtr, qualifier.value)
+    callPtrMethod_LONG(MethodBindings.setQualifierPtr, qualifier.value)
   }
 
   public final fun getQualifier(): Qualifier =
-      Qualifier.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getQualifierPtr))
+      Qualifier.from(callPtrMethod0_ret_LONG(MethodBindings.getQualifierPtr))
 
   public final fun setInstanceIndex(instanceIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInstanceIndexPtr, instanceIndex.toLong())
+    callPtrMethod_LONG(MethodBindings.setInstanceIndexPtr, instanceIndex.toLong())
   }
 
   public final fun getInstanceIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInstanceIndexPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getInstanceIndexPtr).toInt()
 
   public enum class Qualifier(
     public override val `value`: Long,

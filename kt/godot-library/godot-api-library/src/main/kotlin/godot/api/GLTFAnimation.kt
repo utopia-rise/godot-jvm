@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -55,17 +54,16 @@ public open class GLTFAnimation : Resource() {
   }
 
   public final fun getOriginalName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getOriginalNamePtr)
+      callMethod0_ret_STRING(MethodBindings.getOriginalNamePtr)
 
   public final fun setOriginalName(originalName: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setOriginalNamePtr, originalName)
+    callMethod_STRING(MethodBindings.setOriginalNamePtr, originalName)
   }
 
-  public final fun getLoop(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getLoopPtr)
+  public final fun getLoop(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getLoopPtr)
 
   public final fun setLoop(loop: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setLoopPtr, loop)
+    callPtrMethod_BOOL(MethodBindings.setLoopPtr, loop)
   }
 
   /**
@@ -78,7 +76,7 @@ public open class GLTFAnimation : Resource() {
    * return value is `null`.
    */
   public final fun getAdditionalData(extensionName: StringName): Any? =
-      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getAdditionalDataPtr, extensionName)
+      callMethod_STRING_NAME_ret_ANY(MethodBindings.getAdditionalDataPtr, extensionName)
 
   /**
    * Sets additional arbitrary data in this [GLTFAnimation] instance. This can be used to keep
@@ -89,7 +87,7 @@ public open class GLTFAnimation : Resource() {
    * extension name in the glTF file), and the second argument can be anything you want.
    */
   public final fun setAdditionalData(extensionName: StringName, additionalData: Any?): Unit {
-    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setAdditionalDataPtr, extensionName, additionalData)
+    callMethod_STRING_NAME_ANY(MethodBindings.setAdditionalDataPtr, extensionName, additionalData)
   }
 
   /**

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.common.interop.VoidPtr
@@ -40,7 +39,7 @@ public abstract class AudioStreamPlaybackResampled : AudioStreamPlayback() {
    * mixing by calling [_mixResampled].
    */
   public final fun beginResample(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.beginResamplePtr)
+    callPtrMethod0(MethodBindings.beginResamplePtr)
   }
 
   /**

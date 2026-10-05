@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod0_ret_BOOL
@@ -222,29 +221,28 @@ public open class SoftBody3D : MeshInstance3D() {
   /**
    * Returns the internal [RID] used by the [PhysicsServer3D] for this body.
    */
-  public final fun getPhysicsRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getPhysicsRidPtr)
+  public final fun getPhysicsRid(): RID = callPtrMethod0_ret_RID(MethodBindings.getPhysicsRidPtr)
 
   public final fun setCollisionMask(collisionMask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionMaskPtr, collisionMask)
+    callPtrMethod_LONG(MethodBindings.setCollisionMaskPtr, collisionMask)
   }
 
   public final fun getCollisionMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionMaskPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionMaskPtr)
 
   public final fun setCollisionLayer(collisionLayer: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionLayerPtr, collisionLayer)
+    callPtrMethod_LONG(MethodBindings.setCollisionLayerPtr, collisionLayer)
   }
 
   public final fun getCollisionLayer(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionLayerPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionLayerPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [collisionMask], given a
    * [layerNumber] between 1 and 32.
    */
   public final fun setCollisionMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCollisionMaskValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCollisionMaskValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -252,14 +250,14 @@ public open class SoftBody3D : MeshInstance3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getCollisionMaskValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getCollisionMaskValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getCollisionMaskValuePtr, layerNumber.toLong())
 
   /**
    * Based on [value], enables or disables the specified layer in the [collisionLayer], given a
    * [layerNumber] between 1 and 32.
    */
   public final fun setCollisionLayerValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCollisionLayerValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCollisionLayerValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -267,96 +265,96 @@ public open class SoftBody3D : MeshInstance3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getCollisionLayerValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getCollisionLayerValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getCollisionLayerValuePtr, layerNumber.toLong())
 
   public final fun setParentCollisionIgnore(parentCollisionIgnore: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setParentCollisionIgnorePtr, parentCollisionIgnore)
+    callPtrMethod_NODE_PATH(MethodBindings.setParentCollisionIgnorePtr, parentCollisionIgnore)
   }
 
   public final fun getParentCollisionIgnore(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getParentCollisionIgnorePtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getParentCollisionIgnorePtr)
 
   public final fun setDisableMode(mode: DisableMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDisableModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setDisableModePtr, mode.value)
   }
 
   public final fun getDisableMode(): DisableMode =
-      DisableMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDisableModePtr))
+      DisableMode.from(callPtrMethod0_ret_LONG(MethodBindings.getDisableModePtr))
 
   /**
    * Returns an array of nodes that were added as collision exceptions for this body.
    */
   public final fun getCollisionExceptions(): VariantArray<PhysicsBody3D> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getCollisionExceptionsPtr) as VariantArray<PhysicsBody3D>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getCollisionExceptionsPtr) as VariantArray<PhysicsBody3D>)
 
   /**
    * Adds a body to the list of bodies that this body can't collide with.
    */
   public final fun addCollisionExceptionWith(body: Node): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addCollisionExceptionWithPtr, body)
+    callPtrMethod_OBJECT(MethodBindings.addCollisionExceptionWithPtr, body)
   }
 
   /**
    * Removes a body from the list of bodies that this body can't collide with.
    */
   public final fun removeCollisionExceptionWith(body: Node): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeCollisionExceptionWithPtr, body)
+    callPtrMethod_OBJECT(MethodBindings.removeCollisionExceptionWithPtr, body)
   }
 
   public final fun setSimulationPrecision(simulationPrecision: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSimulationPrecisionPtr, simulationPrecision.toLong())
+    callPtrMethod_LONG(MethodBindings.setSimulationPrecisionPtr, simulationPrecision.toLong())
   }
 
   public final fun getSimulationPrecision(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSimulationPrecisionPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSimulationPrecisionPtr).toInt()
 
   public final fun setTotalMass(mass: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTotalMassPtr, mass.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setTotalMassPtr, mass.toDouble())
   }
 
   public final fun getTotalMass(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTotalMassPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTotalMassPtr).toFloat()
 
   public final fun setLinearStiffness(linearStiffness: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLinearStiffnessPtr, linearStiffness.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setLinearStiffnessPtr, linearStiffness.toDouble())
   }
 
   public final fun getLinearStiffness(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLinearStiffnessPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLinearStiffnessPtr).toFloat()
 
   public final fun setShrinkingFactor(shrinkingFactor: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setShrinkingFactorPtr, shrinkingFactor.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setShrinkingFactorPtr, shrinkingFactor.toDouble())
   }
 
   public final fun getShrinkingFactor(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getShrinkingFactorPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getShrinkingFactorPtr).toFloat()
 
   public final fun setPressureCoefficient(pressureCoefficient: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPressureCoefficientPtr, pressureCoefficient.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPressureCoefficientPtr, pressureCoefficient.toDouble())
   }
 
   public final fun getPressureCoefficient(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPressureCoefficientPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPressureCoefficientPtr).toFloat()
 
   public final fun setDampingCoefficient(dampingCoefficient: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDampingCoefficientPtr, dampingCoefficient.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDampingCoefficientPtr, dampingCoefficient.toDouble())
   }
 
   public final fun getDampingCoefficient(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDampingCoefficientPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDampingCoefficientPtr).toFloat()
 
   public final fun setDragCoefficient(dragCoefficient: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDragCoefficientPtr, dragCoefficient.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDragCoefficientPtr, dragCoefficient.toDouble())
   }
 
   public final fun getDragCoefficient(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDragCoefficientPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDragCoefficientPtr).toFloat()
 
   /**
    * Returns local translation of a vertex in the surface array.
    */
   public final fun getPointTransform(pointIndex: Int): Vector3 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR3(ptr, objectID.id, MethodBindings.getPointTransformPtr, pointIndex.toLong())
+      callPtrMethod_LONG_ret_VECTOR3(MethodBindings.getPointTransformPtr, pointIndex.toLong())
 
   /**
    * Applies an impulse to a point.
@@ -366,7 +364,7 @@ public open class SoftBody3D : MeshInstance3D() {
    * impacts (use the "_force" functions otherwise).
    */
   public final fun applyImpulse(pointIndex: Int, impulse: Vector3): Unit {
-    TransferContext.callPtrMethod_LONG_VECTOR3(ptr, objectID.id, MethodBindings.applyImpulsePtr, pointIndex.toLong(), impulse)
+    callPtrMethod_LONG_VECTOR3(MethodBindings.applyImpulsePtr, pointIndex.toLong(), impulse)
   }
 
   /**
@@ -374,7 +372,7 @@ public open class SoftBody3D : MeshInstance3D() {
    * update.
    */
   public final fun applyForce(pointIndex: Int, force: Vector3): Unit {
-    TransferContext.callPtrMethod_LONG_VECTOR3(ptr, objectID.id, MethodBindings.applyForcePtr, pointIndex.toLong(), force)
+    callPtrMethod_LONG_VECTOR3(MethodBindings.applyForcePtr, pointIndex.toLong(), force)
   }
 
   /**
@@ -385,7 +383,7 @@ public open class SoftBody3D : MeshInstance3D() {
    * impacts (use the "_force" functions otherwise).
    */
   public final fun applyCentralImpulse(impulse: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.applyCentralImpulsePtr, impulse)
+    callPtrMethod_VECTOR3(MethodBindings.applyCentralImpulsePtr, impulse)
   }
 
   /**
@@ -393,7 +391,7 @@ public open class SoftBody3D : MeshInstance3D() {
    * applied every physics update.
    */
   public final fun applyCentralForce(force: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.applyCentralForcePtr, force)
+    callPtrMethod_VECTOR3(MethodBindings.applyCentralForcePtr, force)
   }
 
   /**
@@ -407,21 +405,21 @@ public open class SoftBody3D : MeshInstance3D() {
     attachmentPath: NodePath = NodePath(""),
     insertAt: Int = -1,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL_NODE_PATH_LONG(ptr, objectID.id, MethodBindings.setPointPinnedPtr, pointIndex.toLong(), pinned, attachmentPath, insertAt.toLong())
+    callPtrMethod_LONG_BOOL_NODE_PATH_LONG(MethodBindings.setPointPinnedPtr, pointIndex.toLong(), pinned, attachmentPath, insertAt.toLong())
   }
 
   /**
    * Returns `true` if vertex is set to pinned.
    */
   public final fun isPointPinned(pointIndex: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isPointPinnedPtr, pointIndex.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isPointPinnedPtr, pointIndex.toLong())
 
   public final fun setRayPickable(rayPickable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setRayPickablePtr, rayPickable)
+    callPtrMethod_BOOL(MethodBindings.setRayPickablePtr, rayPickable)
   }
 
   public final fun isRayPickable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRayPickablePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isRayPickablePtr)
 
   public final fun setParentCollisionIgnore(parentCollisionIgnore: String) =
       setParentCollisionIgnore(parentCollisionIgnore.asCachedNodePath())

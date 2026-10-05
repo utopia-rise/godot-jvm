@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -164,67 +163,64 @@ public open class CameraAttributesPhysical : CameraAttributes() {
   }
 
   public final fun setAperture(aperture: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAperturePtr, aperture.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAperturePtr, aperture.toDouble())
   }
 
   public final fun getAperture(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAperturePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAperturePtr).toFloat()
 
   public final fun setShutterSpeed(shutterSpeed: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setShutterSpeedPtr, shutterSpeed.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setShutterSpeedPtr, shutterSpeed.toDouble())
   }
 
   public final fun getShutterSpeed(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getShutterSpeedPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getShutterSpeedPtr).toFloat()
 
   public final fun setFocalLength(focalLength: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFocalLengthPtr, focalLength.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFocalLengthPtr, focalLength.toDouble())
   }
 
   public final fun getFocalLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFocalLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFocalLengthPtr).toFloat()
 
   public final fun setFocusDistance(focusDistance: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFocusDistancePtr, focusDistance.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFocusDistancePtr, focusDistance.toDouble())
   }
 
   public final fun getFocusDistance(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFocusDistancePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFocusDistancePtr).toFloat()
 
   public final fun setNear(near: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setNearPtr, near.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setNearPtr, near.toDouble())
   }
 
-  public final fun getNear(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getNearPtr).toFloat()
+  public final fun getNear(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getNearPtr).toFloat()
 
   public final fun setFar(far: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFarPtr, far.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFarPtr, far.toDouble())
   }
 
-  public final fun getFar(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFarPtr).toFloat()
+  public final fun getFar(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getFarPtr).toFloat()
 
   /**
    * Returns the vertical field of view that corresponds to the [frustumFocalLength]. This value is
    * calculated internally whenever [frustumFocalLength] is changed.
    */
-  public final fun getFov(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFovPtr).toFloat()
+  public final fun getFov(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getFovPtr).toFloat()
 
   public final fun setAutoExposureMaxExposureValue(exposureValueMax: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAutoExposureMaxExposureValuePtr, exposureValueMax.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAutoExposureMaxExposureValuePtr, exposureValueMax.toDouble())
   }
 
   public final fun getAutoExposureMaxExposureValue(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAutoExposureMaxExposureValuePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAutoExposureMaxExposureValuePtr).toFloat()
 
   public final fun setAutoExposureMinExposureValue(exposureValueMin: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAutoExposureMinExposureValuePtr, exposureValueMin.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAutoExposureMinExposureValuePtr, exposureValueMin.toDouble())
   }
 
   public final fun getAutoExposureMinExposureValue(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAutoExposureMinExposureValuePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAutoExposureMinExposureValuePtr).toFloat()
 
   public companion object {
     @JvmField

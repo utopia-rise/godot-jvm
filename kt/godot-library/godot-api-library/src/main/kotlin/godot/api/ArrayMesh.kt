@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_STRING
 import godot.callMethod_LONG_ret_STRING
@@ -189,41 +188,41 @@ public open class ArrayMesh : Mesh() {
    * before surface is added.
    */
   public final fun addBlendShape(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.addBlendShapePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.addBlendShapePtr, name)
   }
 
   /**
    * Returns the number of blend shapes that the [ArrayMesh] holds.
    */
   public final fun getBlendShapeCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBlendShapeCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBlendShapeCountPtr).toInt()
 
   /**
    * Returns the name of the blend shape at this index.
    */
   public final fun getBlendShapeName(index: Int): StringName =
-      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getBlendShapeNamePtr, index.toLong())
+      callPtrMethod_LONG_ret_STRING_NAME(MethodBindings.getBlendShapeNamePtr, index.toLong())
 
   /**
    * Sets the name of the blend shape at this index.
    */
   public final fun setBlendShapeName(index: Int, name: StringName): Unit {
-    TransferContext.callPtrMethod_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.setBlendShapeNamePtr, index.toLong(), name)
+    callPtrMethod_LONG_STRING_NAME(MethodBindings.setBlendShapeNamePtr, index.toLong(), name)
   }
 
   /**
    * Removes all blend shapes from this [ArrayMesh].
    */
   public final fun clearBlendShapes(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearBlendShapesPtr)
+    callPtrMethod0(MethodBindings.clearBlendShapesPtr)
   }
 
   public final fun setBlendShapeMode(mode: Mesh.BlendShapeMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBlendShapeModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setBlendShapeModePtr, mode.value)
   }
 
   public final fun getBlendShapeMode(): Mesh.BlendShapeMode =
-      Mesh.BlendShapeMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBlendShapeModePtr))
+      Mesh.BlendShapeMode.from(callPtrMethod0_ret_LONG(MethodBindings.getBlendShapeModePtr))
 
   /**
    * Creates a new surface. [Mesh.getSurfaceCount] will become the `surf_idx` for this new surface.
@@ -267,14 +266,14 @@ public open class ArrayMesh : Mesh() {
     lods: Dictionary<Any?, Any?> = Dictionary(),
     flags: Mesh.ArrayFormat = Mesh.ArrayFormat(0),
   ): Unit {
-    TransferContext.callPtrMethod_LONG_ARRAY_ARRAY_DICTIONARY_LONG(ptr, objectID.id, MethodBindings.addSurfaceFromArraysPtr, primitive.value, arrays, blendShapes, lods, flags.flag)
+    callPtrMethod_LONG_ARRAY_ARRAY_DICTIONARY_LONG(MethodBindings.addSurfaceFromArraysPtr, primitive.value, arrays, blendShapes, lods, flags.flag)
   }
 
   /**
    * Removes all surfaces from this [ArrayMesh].
    */
   public final fun clearSurfaces(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearSurfacesPtr)
+    callPtrMethod0(MethodBindings.clearSurfacesPtr)
   }
 
   /**
@@ -282,7 +281,7 @@ public open class ArrayMesh : Mesh() {
    * by one.
    */
   public final fun surfaceRemove(surfIdx: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.surfaceRemovePtr, surfIdx.toLong())
+    callPtrMethod_LONG(MethodBindings.surfaceRemovePtr, surfIdx.toLong())
   }
 
   /**
@@ -302,7 +301,7 @@ public open class ArrayMesh : Mesh() {
     offset: Int,
     `data`: PackedByteArray,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.surfaceUpdateVertexRegionPtr, surfIdx.toLong(), offset.toLong(), data)
+    callPtrMethod_LONG_LONG_PACKED_BYTE_ARRAY(MethodBindings.surfaceUpdateVertexRegionPtr, surfIdx.toLong(), offset.toLong(), data)
   }
 
   /**
@@ -322,7 +321,7 @@ public open class ArrayMesh : Mesh() {
     offset: Int,
     `data`: PackedByteArray,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.surfaceUpdateAttributeRegionPtr, surfIdx.toLong(), offset.toLong(), data)
+    callPtrMethod_LONG_LONG_PACKED_BYTE_ARRAY(MethodBindings.surfaceUpdateAttributeRegionPtr, surfIdx.toLong(), offset.toLong(), data)
   }
 
   /**
@@ -342,7 +341,7 @@ public open class ArrayMesh : Mesh() {
     offset: Int,
     `data`: PackedByteArray,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.surfaceUpdateSkinRegionPtr, surfIdx.toLong(), offset.toLong(), data)
+    callPtrMethod_LONG_LONG_PACKED_BYTE_ARRAY(MethodBindings.surfaceUpdateSkinRegionPtr, surfIdx.toLong(), offset.toLong(), data)
   }
 
   /**
@@ -350,73 +349,72 @@ public open class ArrayMesh : Mesh() {
    * [addSurfaceFromArrays]).
    */
   public final fun surfaceGetArrayLen(surfIdx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.surfaceGetArrayLenPtr, surfIdx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.surfaceGetArrayLenPtr, surfIdx.toLong()).toInt()
 
   /**
    * Returns the length in indices of the index array in the requested surface (see
    * [addSurfaceFromArrays]).
    */
   public final fun surfaceGetArrayIndexLen(surfIdx: Int): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.surfaceGetArrayIndexLenPtr, surfIdx.toLong()).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.surfaceGetArrayIndexLenPtr, surfIdx.toLong()).toInt()
 
   /**
    * Returns the format mask of the requested surface (see [addSurfaceFromArrays]).
    */
   public final fun surfaceGetFormat(surfIdx: Int): Mesh.ArrayFormat =
-      Mesh.ArrayFormat(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.surfaceGetFormatPtr, surfIdx.toLong()))
+      Mesh.ArrayFormat(callPtrMethod_LONG_ret_LONG(MethodBindings.surfaceGetFormatPtr, surfIdx.toLong()))
 
   /**
    * Returns the primitive type of the requested surface (see [addSurfaceFromArrays]).
    */
   public final fun surfaceGetPrimitiveType(surfIdx: Int): Mesh.PrimitiveType =
-      Mesh.PrimitiveType.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.surfaceGetPrimitiveTypePtr, surfIdx.toLong()))
+      Mesh.PrimitiveType.from(callPtrMethod_LONG_ret_LONG(MethodBindings.surfaceGetPrimitiveTypePtr, surfIdx.toLong()))
 
   /**
    * Returns the index of the first surface with this name held within this [ArrayMesh]. If none are
    * found, -1 is returned.
    */
   public final fun surfaceFindByName(name: String): Int =
-      TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.surfaceFindByNamePtr, name).toInt()
+      callMethod_STRING_ret_LONG(MethodBindings.surfaceFindByNamePtr, name).toInt()
 
   /**
    * Sets a name for a given surface.
    */
   public final fun surfaceSetName(surfIdx: Int, name: String): Unit {
-    TransferContext.callMethod_LONG_STRING(ptr, objectID.id, MethodBindings.surfaceSetNamePtr, surfIdx.toLong(), name)
+    callMethod_LONG_STRING(MethodBindings.surfaceSetNamePtr, surfIdx.toLong(), name)
   }
 
   /**
    * Gets the name assigned to this surface.
    */
   public final fun surfaceGetName(surfIdx: Int): String =
-      TransferContext.callMethod_LONG_ret_STRING(ptr, objectID.id, MethodBindings.surfaceGetNamePtr, surfIdx.toLong())
+      callMethod_LONG_ret_STRING(MethodBindings.surfaceGetNamePtr, surfIdx.toLong())
 
   /**
    * Regenerates tangents for each of the [ArrayMesh]'s surfaces.
    */
   public final fun regenNormalMaps(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.regenNormalMapsPtr)
+    callPtrMethod0(MethodBindings.regenNormalMapsPtr)
   }
 
   /**
    * Performs a UV unwrap on the [ArrayMesh] to prepare the mesh for lightmapping.
    */
   public final fun lightmapUnwrap(transform: Transform3D, texelSize: Float): Error =
-      Error.from(TransferContext.callPtrMethod_TRANSFORM3D_DOUBLE_ret_LONG(ptr, objectID.id, MethodBindings.lightmapUnwrapPtr, transform, texelSize.toDouble()))
+      Error.from(callPtrMethod_TRANSFORM3D_DOUBLE_ret_LONG(MethodBindings.lightmapUnwrapPtr, transform, texelSize.toDouble()))
 
   public final fun setCustomAabb(aabb: AABB): Unit {
-    TransferContext.callPtrMethod_AABB(ptr, objectID.id, MethodBindings.setCustomAabbPtr, aabb)
+    callPtrMethod_AABB(MethodBindings.setCustomAabbPtr, aabb)
   }
 
-  public final fun getCustomAabb(): AABB =
-      TransferContext.callPtrMethod0_ret_AABB(ptr, objectID.id, MethodBindings.getCustomAabbPtr)
+  public final fun getCustomAabb(): AABB = callPtrMethod0_ret_AABB(MethodBindings.getCustomAabbPtr)
 
   public final fun setShadowMesh(mesh: ArrayMesh?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setShadowMeshPtr, mesh)
+    callPtrMethod_OBJECT(MethodBindings.setShadowMeshPtr, mesh)
   }
 
   public final fun getShadowMesh(): ArrayMesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getShadowMeshPtr) as ArrayMesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getShadowMeshPtr) as ArrayMesh?)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.

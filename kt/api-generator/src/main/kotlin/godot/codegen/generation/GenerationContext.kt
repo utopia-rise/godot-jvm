@@ -29,7 +29,7 @@ class GenerationContext(
 
     /**
      * Variant::TYPE_MAX, one past the last Variant ordinal and so never a real type tag. A ptrcall announces it in
-     * place of the OBJECT ordinal when the method returns a Ref<T>, mirroring TransferContext::REF_COUNTED_RETURN_TYPE
+     * place of the OBJECT ordinal when the method returns a Ref<T>, mirroring ValueBuffer::REF_COUNTED_RETURN_TYPE
      * on the native side, which is defined as VARIANT_MAX too. Taken from api.json so both sides move together.
      */
     val refCountedReturnType: Int = api.globalEnums

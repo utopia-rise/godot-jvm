@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY
 import godot.callPtrMethod_PACKED_VECTOR2_ARRAY
@@ -123,15 +122,15 @@ public open class ConvexPolygonShape2D : Shape2D() {
    * algorithm, removing all unneeded points. See [Geometry2D.convexHull] for details.
    */
   public final fun setPointCloud(pointCloud: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setPointCloudPtr, pointCloud)
+    callPtrMethod_PACKED_VECTOR2_ARRAY(MethodBindings.setPointCloudPtr, pointCloud)
   }
 
   public final fun setPoints(points: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setPointsPtr, points)
+    callPtrMethod_PACKED_VECTOR2_ARRAY(MethodBindings.setPointsPtr, points)
   }
 
   public final fun getPoints(): PackedVector2Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getPointsPtr)
+      callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getPointsPtr)
 
   public companion object {
     @JvmField

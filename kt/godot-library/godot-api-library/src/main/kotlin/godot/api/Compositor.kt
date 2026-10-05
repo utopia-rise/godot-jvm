@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_ARRAY
 import godot.callPtrMethod_ARRAY
@@ -42,11 +41,11 @@ public open class Compositor : Resource() {
   }
 
   public final fun setCompositorEffects(compositorEffects: VariantArray<CompositorEffect>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setCompositorEffectsPtr, compositorEffects)
+    callPtrMethod_ARRAY(MethodBindings.setCompositorEffectsPtr, compositorEffects)
   }
 
   public final fun getCompositorEffects(): VariantArray<CompositorEffect> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getCompositorEffectsPtr) as VariantArray<CompositorEffect>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getCompositorEffectsPtr) as VariantArray<CompositorEffect>)
 
   public companion object {
     @JvmField

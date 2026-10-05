@@ -5,7 +5,7 @@ package godot.core
 
 import godot.common.extensions.convertToSnakeCase
 import godot.internal.memory.MemoryManager
-import godot.internal.memory.TransferContext
+import godot.internal.memory.VariantBuffer
 import godot.common.interop.VoidPtr
 import godot.common.util.LRUCache
 import godot.internal.memory.MemoryManager.CACHE_INITIAL_CAPACITY
@@ -28,7 +28,7 @@ class NodePath : NativeCoreType {
     }
 
     constructor(from: String) {
-        TransferContext.writeArguments(1) {
+        VariantBuffer.transfer.writeArgs(1) {
             VariantParser.STRING.toGodot(from)
         }
         ptr = Bridge.engine_call_constructor_string()
@@ -36,7 +36,7 @@ class NodePath : NativeCoreType {
     }
 
     constructor(from: NodePath) {
-        TransferContext.writeArguments(1) {
+        VariantBuffer.transfer.writeArgs(1) {
             VariantParser.NODE_PATH.toGodot(from)
         }
         ptr = Bridge.engine_call_constructor_node_path()
@@ -48,7 +48,7 @@ class NodePath : NativeCoreType {
     //PROPERTIES
     val path: String
         get() {
-            return TransferContext.callBridge(VariantParser.STRING) { Bridge.engine_call_path(ptr) } as String
+            return VariantBuffer.transfer.callBridge(VariantParser.STRING) { Bridge.engine_call_path(ptr) } as String
         }
 
     /**
@@ -56,14 +56,14 @@ class NodePath : NativeCoreType {
      * name (defaults to resolving from the current node).
      */
     fun getAsPropertyPath(): NodePath {
-        return TransferContext.callBridge(VariantParser.NODE_PATH) { Bridge.engine_call_getAsPropertyPath(ptr) } as NodePath
+        return VariantBuffer.transfer.callBridge(VariantParser.NODE_PATH) { Bridge.engine_call_getAsPropertyPath(ptr) } as NodePath
     }
 
     /**
      * Get the node name indicated by idx (0 to get_name_count)
      */
     fun getName(idx: Int): String {
-        return TransferContext.callBridge(1, VariantParser.STRING) {
+        return VariantBuffer.transfer.callBridge(1, VariantParser.STRING) {
             VariantParser.LONG.write(idx.toLong())
             Bridge.engine_call_getName(ptr)
         } as String
@@ -73,14 +73,14 @@ class NodePath : NativeCoreType {
      * Get the number of node names which make up the path.
      */
     fun getNameCount(): Int {
-        return TransferContext.callBridge(VariantParser.LONG) { Bridge.engine_call_getNameCount(ptr) }.toInt()
+        return VariantBuffer.transfer.callBridge(VariantParser.LONG) { Bridge.engine_call_getNameCount(ptr) }.toInt()
     }
 
     /**
      * Get the resource name indicated by idx (0 to get_subname_count)
      */
     fun getSubname(idx: Int): String {
-        return TransferContext.callBridge(1, VariantParser.STRING) {
+        return VariantBuffer.transfer.callBridge(1, VariantParser.STRING) {
             VariantParser.LONG.write(idx.toLong())
             Bridge.engine_call_getSubname(ptr)
         } as String
@@ -90,35 +90,35 @@ class NodePath : NativeCoreType {
      * Get the number of resource names in the path.
      */
     fun getSubnameCount(): Int {
-        return TransferContext.callBridge(VariantParser.LONG) { Bridge.engine_call_getSubnameCount(ptr) }.toInt()
+        return VariantBuffer.transfer.callBridge(VariantParser.LONG) { Bridge.engine_call_getSubnameCount(ptr) }.toInt()
     }
 
     /**
      * Return true if the node path is absolute (not relative).
      */
     fun isAbsolute(): Boolean {
-        return TransferContext.callBridge(VariantParser.BOOL) { Bridge.engine_call_isAbsolute(ptr) }
+        return VariantBuffer.transfer.callBridge(VariantParser.BOOL) { Bridge.engine_call_isAbsolute(ptr) }
     }
 
     /**
      * Returns the 32-bit hash value representing the NodePath's contents.
      */
     fun hash(): Int {
-        return TransferContext.callBridge(VariantParser.LONG) { Bridge.engine_call_hash(ptr) }.toInt()
+        return VariantBuffer.transfer.callBridge(VariantParser.LONG) { Bridge.engine_call_hash(ptr) }.toInt()
     }
 
     /**
      * Return true if the node path is empty.
      */
     fun isEmpty(): Boolean {
-        return TransferContext.callBridge(VariantParser.BOOL) { Bridge.engine_call_isEmpty(ptr) }
+        return VariantBuffer.transfer.callBridge(VariantParser.BOOL) { Bridge.engine_call_isEmpty(ptr) }
     }
 
     /**
      * Returns all paths concatenated with a slash character (/) as separator without subnames.
      */
     fun getConcatenatedNames(): StringName {
-        return TransferContext.callBridge(VariantParser.STRING_NAME) { Bridge.engine_call_getConcatenatedNames(ptr) } as StringName
+        return VariantBuffer.transfer.callBridge(VariantParser.STRING_NAME) { Bridge.engine_call_getConcatenatedNames(ptr) } as StringName
     }
 
     /**
@@ -126,14 +126,14 @@ class NodePath : NativeCoreType {
      * in a node path.
      */
     fun getConcatenatedSubnames(): StringName {
-        return TransferContext.callBridge(VariantParser.STRING_NAME) { Bridge.engine_call_getConcatenatedSubnames(ptr) } as StringName
+        return VariantBuffer.transfer.callBridge(VariantParser.STRING_NAME) { Bridge.engine_call_getConcatenatedSubnames(ptr) } as StringName
     }
 
 
     //UTILITIES
     override fun equals(other: Any?): Boolean {
         return if (other is NodePath) {
-            return TransferContext.callBridge(1, VariantParser.BOOL) {
+            return VariantBuffer.transfer.callBridge(1, VariantParser.BOOL) {
                 VariantParser.NODE_PATH.toGodot(other)
                 Bridge.engine_call_equals(ptr)
             }

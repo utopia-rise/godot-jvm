@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -111,7 +110,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
    * sample of this stream.
    */
   public final fun setSamplePlayback(playbackSample: AudioSamplePlayback?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setSamplePlaybackPtr, playbackSample)
+    callPtrMethod_OBJECT(MethodBindings.setSamplePlaybackPtr, playbackSample)
   }
 
   /**
@@ -119,7 +118,7 @@ public abstract class AudioStreamPlayback : RefCounted() {
    * the audio sample of this stream.
    */
   public final fun getSamplePlayback(): AudioSamplePlayback? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSamplePlaybackPtr) as AudioSamplePlayback?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getSamplePlaybackPtr) as AudioSamplePlayback?)
 
   /**
    * Mixes up to [frames] of audio from the stream from the current position, at a rate of
@@ -132,14 +131,14 @@ public abstract class AudioStreamPlayback : RefCounted() {
    * value.
    */
   public final fun mixAudio(rateScale: Float, frames: Int): PackedVector2Array =
-      TransferContext.callPtrMethod_DOUBLE_LONG_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.mixAudioPtr, rateScale.toDouble(), frames.toLong())
+      callPtrMethod_DOUBLE_LONG_ret_PACKED_VECTOR2_ARRAY(MethodBindings.mixAudioPtr, rateScale.toDouble(), frames.toLong())
 
   /**
    * Starts the stream from the given [fromPos], in seconds.
    */
   @JvmOverloads
   public final fun start(fromPos: Double = 0.0): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.startPtr, fromPos)
+    callPtrMethod_DOUBLE(MethodBindings.startPtr, fromPos)
   }
 
   /**
@@ -147,33 +146,32 @@ public abstract class AudioStreamPlayback : RefCounted() {
    */
   @JvmOverloads
   public final fun seek(time: Double = 0.0): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.seekPtr, time)
+    callPtrMethod_DOUBLE(MethodBindings.seekPtr, time)
   }
 
   /**
    * Stops the stream.
    */
   public final fun stop(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
+    callPtrMethod0(MethodBindings.stopPtr)
   }
 
   /**
    * Returns the number of times the stream has looped.
    */
   public final fun getLoopCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLoopCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getLoopCountPtr).toInt()
 
   /**
    * Returns the current position in the stream, in seconds.
    */
   public final fun getPlaybackPosition(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPlaybackPositionPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPlaybackPositionPtr)
 
   /**
    * Returns `true` if the stream is playing.
    */
-  public final fun isPlaying(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPlayingPtr)
+  public final fun isPlaying(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isPlayingPtr)
 
   public companion object {
     @JvmField

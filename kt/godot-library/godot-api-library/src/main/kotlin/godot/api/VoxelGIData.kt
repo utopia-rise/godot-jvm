@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_AABB
 import godot.callPtrMethod0_ret_BOOL
@@ -163,7 +162,7 @@ public open class VoxelGIData : Resource() {
     distanceField: PackedByteArray,
     levelCounts: PackedInt32Array,
   ): Unit {
-    TransferContext.callPtrMethod_TRANSFORM3D_AABB_VECTOR3_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.allocatePtr, toCellXform, aabb, octreeSize, octreeCells, dataCells, distanceField, levelCounts)
+    callPtrMethod_TRANSFORM3D_AABB_VECTOR3_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_PACKED_BYTE_ARRAY_PACKED_INT_32_ARRAY(MethodBindings.allocatePtr, toCellXform, aabb, octreeSize, octreeCells, dataCells, distanceField, levelCounts)
   }
 
   /**
@@ -173,8 +172,7 @@ public open class VoxelGIData : Resource() {
    * **Note:** If the size was modified without baking the VoxelGI data, then the value of
    * [getBounds] and [VoxelGI.size] will not match.
    */
-  public final fun getBounds(): AABB =
-      TransferContext.callPtrMethod0_ret_AABB(ptr, objectID.id, MethodBindings.getBoundsPtr)
+  public final fun getBounds(): AABB = callPtrMethod0_ret_AABB(MethodBindings.getBoundsPtr)
 
   /**
    * Returns the baked octree size for this [VoxelGIData], which corresponds to the number of
@@ -183,80 +181,78 @@ public open class VoxelGIData : Resource() {
    * **Subdivisions** field in the tooltip.
    */
   public final fun getOctreeSize(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getOctreeSizePtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getOctreeSizePtr)
 
   /**
    * Returns the baked cell transform for this [VoxelGIData].
    */
   public final fun getToCellXform(): Transform3D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getToCellXformPtr)
+      callPtrMethod0_ret_TRANSFORM3D(MethodBindings.getToCellXformPtr)
 
   /**
    * Returns the baked octree cell data for this [VoxelGIData].
    */
   public final fun getOctreeCells(): PackedByteArray =
-      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getOctreeCellsPtr)
+      callPtrMethod0_ret_PACKED_BYTE_ARRAY(MethodBindings.getOctreeCellsPtr)
 
   /**
    * Returns the baked cell data for this [VoxelGIData].
    */
   public final fun getDataCells(): PackedByteArray =
-      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getDataCellsPtr)
+      callPtrMethod0_ret_PACKED_BYTE_ARRAY(MethodBindings.getDataCellsPtr)
 
   /**
    * Returns the baked level counts for this [VoxelGIData].
    */
   public final fun getLevelCounts(): PackedInt32Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_32_ARRAY(ptr, objectID.id, MethodBindings.getLevelCountsPtr)
+      callPtrMethod0_ret_PACKED_INT_32_ARRAY(MethodBindings.getLevelCountsPtr)
 
   public final fun setDynamicRange(dynamicRange: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDynamicRangePtr, dynamicRange.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDynamicRangePtr, dynamicRange.toDouble())
   }
 
   public final fun getDynamicRange(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDynamicRangePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDynamicRangePtr).toFloat()
 
   public final fun setEnergy(energy: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEnergyPtr, energy.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEnergyPtr, energy.toDouble())
   }
 
   public final fun getEnergy(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEnergyPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEnergyPtr).toFloat()
 
   public final fun setBias(bias: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBiasPtr, bias.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setBiasPtr, bias.toDouble())
   }
 
-  public final fun getBias(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBiasPtr).toFloat()
+  public final fun getBias(): Float = callPtrMethod0_ret_DOUBLE(MethodBindings.getBiasPtr).toFloat()
 
   public final fun setNormalBias(bias: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setNormalBiasPtr, bias.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setNormalBiasPtr, bias.toDouble())
   }
 
   public final fun getNormalBias(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getNormalBiasPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getNormalBiasPtr).toFloat()
 
   public final fun setPropagation(propagation: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPropagationPtr, propagation.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setPropagationPtr, propagation.toDouble())
   }
 
   public final fun getPropagation(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPropagationPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getPropagationPtr).toFloat()
 
   public final fun setInterior(interior: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setInteriorPtr, interior)
+    callPtrMethod_BOOL(MethodBindings.setInteriorPtr, interior)
   }
 
-  public final fun isInterior(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isInteriorPtr)
+  public final fun isInterior(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isInteriorPtr)
 
   public final fun setUseTwoBounces(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseTwoBouncesPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUseTwoBouncesPtr, enable)
   }
 
   public final fun isUsingTwoBounces(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingTwoBouncesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsingTwoBouncesPtr)
 
   public companion object {
     @JvmField

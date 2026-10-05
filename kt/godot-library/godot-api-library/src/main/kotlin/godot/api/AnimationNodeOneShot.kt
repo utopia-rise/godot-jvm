@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -217,74 +216,74 @@ public open class AnimationNodeOneShot : AnimationNodeSync() {
   }
 
   public final fun setFadeinTime(time: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFadeinTimePtr, time)
+    callPtrMethod_DOUBLE(MethodBindings.setFadeinTimePtr, time)
   }
 
   public final fun getFadeinTime(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFadeinTimePtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFadeinTimePtr)
 
   public final fun setFadeinCurve(curve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setFadeinCurvePtr, curve)
+    callPtrMethod_OBJECT(MethodBindings.setFadeinCurvePtr, curve)
   }
 
   public final fun getFadeinCurve(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFadeinCurvePtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getFadeinCurvePtr) as Curve?)
 
   public final fun setFadeoutTime(time: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFadeoutTimePtr, time)
+    callPtrMethod_DOUBLE(MethodBindings.setFadeoutTimePtr, time)
   }
 
   public final fun getFadeoutTime(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFadeoutTimePtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFadeoutTimePtr)
 
   public final fun setFadeoutCurve(curve: Curve?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setFadeoutCurvePtr, curve)
+    callPtrMethod_OBJECT(MethodBindings.setFadeoutCurvePtr, curve)
   }
 
   public final fun getFadeoutCurve(): Curve? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFadeoutCurvePtr) as Curve?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getFadeoutCurvePtr) as Curve?)
 
   public final fun setBreakLoopAtEnd(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setBreakLoopAtEndPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setBreakLoopAtEndPtr, enable)
   }
 
   public final fun isLoopBrokenAtEnd(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isLoopBrokenAtEndPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isLoopBrokenAtEndPtr)
 
   public final fun setAbortOnReset(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAbortOnResetPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAbortOnResetPtr, enable)
   }
 
   public final fun isAbortedOnReset(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAbortedOnResetPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAbortedOnResetPtr)
 
   public final fun setAutorestart(active: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutorestartPtr, active)
+    callPtrMethod_BOOL(MethodBindings.setAutorestartPtr, active)
   }
 
   public final fun hasAutorestart(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasAutorestartPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.hasAutorestartPtr)
 
   public final fun setAutorestartDelay(time: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAutorestartDelayPtr, time)
+    callPtrMethod_DOUBLE(MethodBindings.setAutorestartDelayPtr, time)
   }
 
   public final fun getAutorestartDelay(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAutorestartDelayPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAutorestartDelayPtr)
 
   public final fun setAutorestartRandomDelay(time: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAutorestartRandomDelayPtr, time)
+    callPtrMethod_DOUBLE(MethodBindings.setAutorestartRandomDelayPtr, time)
   }
 
   public final fun getAutorestartRandomDelay(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAutorestartRandomDelayPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAutorestartRandomDelayPtr)
 
   public final fun setMixMode(mode: MixMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMixModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setMixModePtr, mode.value)
   }
 
   public final fun getMixMode(): MixMode =
-      MixMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMixModePtr))
+      MixMode.from(callPtrMethod0_ret_LONG(MethodBindings.getMixModePtr))
 
   public enum class OneShotRequest(
     public override val `value`: Long,

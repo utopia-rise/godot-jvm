@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PLANE
 import godot.callPtrMethod_PLANE
@@ -78,11 +77,10 @@ public open class WorldBoundaryShape3D : Shape3D() {
   }
 
   public final fun setPlane(plane: Plane): Unit {
-    TransferContext.callPtrMethod_PLANE(ptr, objectID.id, MethodBindings.setPlanePtr, plane)
+    callPtrMethod_PLANE(MethodBindings.setPlanePtr, plane)
   }
 
-  public final fun getPlane(): Plane =
-      TransferContext.callPtrMethod0_ret_PLANE(ptr, objectID.id, MethodBindings.getPlanePtr)
+  public final fun getPlane(): Plane = callPtrMethod0_ret_PLANE(MethodBindings.getPlanePtr)
 
   public companion object {
     @JvmField

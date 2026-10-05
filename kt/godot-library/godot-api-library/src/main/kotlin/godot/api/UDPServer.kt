@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_STRING_ret_LONG
 import godot.callPtrMethod0
@@ -184,7 +183,7 @@ public open class UDPServer : RefCounted() {
    */
   @JvmOverloads
   public final fun listen(port: Int, bindAddress: String = "*"): Error =
-      Error.from(TransferContext.callMethod_LONG_STRING_ret_LONG(ptr, objectID.id, MethodBindings.listenPtr, port.toLong(), bindAddress))
+      Error.from(callMethod_LONG_STRING_ret_LONG(MethodBindings.listenPtr, port.toLong(), bindAddress))
 
   /**
    * Call this method at regular intervals (e.g. inside [Node.Process]) to process new packets. Any
@@ -193,26 +192,24 @@ public open class UDPServer : RefCounted() {
    * [isConnectionAvailable] and [takeConnection]). The maximum number of pending connections is
    * defined via [maxPendingConnections].
    */
-  public final fun poll(): Error =
-      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.pollPtr))
+  public final fun poll(): Error = Error.from(callPtrMethod0_ret_LONG(MethodBindings.pollPtr))
 
   /**
    * Returns `true` if a packet with a new address/port combination was received on the socket.
    */
   public final fun isConnectionAvailable(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isConnectionAvailablePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isConnectionAvailablePtr)
 
   /**
    * Returns the local port this server is listening to.
    */
   public final fun getLocalPort(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLocalPortPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getLocalPortPtr).toInt()
 
   /**
    * Returns `true` if the socket is open and listening on a port.
    */
-  public final fun isListening(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isListeningPtr)
+  public final fun isListening(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isListeningPtr)
 
   /**
    * Returns the first pending connection (connected to the appropriate address/port). Will return
@@ -220,22 +217,22 @@ public open class UDPServer : RefCounted() {
    * [PacketPeerUDP.connectToHost].
    */
   public final fun takeConnection(): PacketPeerUDP? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.takeConnectionPtr) as PacketPeerUDP?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.takeConnectionPtr) as PacketPeerUDP?)
 
   /**
    * Stops the server, closing the UDP socket if open. Will close all connected [PacketPeerUDP]
    * accepted via [takeConnection] (remote peers will not be notified).
    */
   public final fun stop(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
+    callPtrMethod0(MethodBindings.stopPtr)
   }
 
   public final fun setMaxPendingConnections(maxPendingConnections: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setMaxPendingConnectionsPtr, maxPendingConnections.toLong())
+    callPtrMethod_LONG(MethodBindings.setMaxPendingConnectionsPtr, maxPendingConnections.toLong())
   }
 
   public final fun getMaxPendingConnections(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getMaxPendingConnectionsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getMaxPendingConnectionsPtr).toInt()
 
   public companion object {
     @JvmField

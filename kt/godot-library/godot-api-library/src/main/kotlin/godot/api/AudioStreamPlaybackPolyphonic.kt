@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG
 import godot.callPtrMethod_LONG_DOUBLE
@@ -65,21 +64,21 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
     playbackType: AudioServer.PlaybackType = AudioServer.PlaybackType.DEFAULT,
     bus: StringName = StringName("Master"),
   ): Long =
-      TransferContext.callPtrMethod_OBJECT_DOUBLE_DOUBLE_DOUBLE_LONG_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.playStreamPtr, stream, fromOffset.toDouble(), volumeDb.toDouble(), pitchScale.toDouble(), playbackType.value, bus)
+      callPtrMethod_OBJECT_DOUBLE_DOUBLE_DOUBLE_LONG_STRING_NAME_ret_LONG(MethodBindings.playStreamPtr, stream, fromOffset.toDouble(), volumeDb.toDouble(), pitchScale.toDouble(), playbackType.value, bus)
 
   /**
    * Change the stream volume (in db). The [stream] argument is an integer ID returned by
    * [playStream].
    */
   public final fun setStreamVolume(stream: Long, volumeDb: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setStreamVolumePtr, stream, volumeDb.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setStreamVolumePtr, stream, volumeDb.toDouble())
   }
 
   /**
    * Change the stream pitch scale. The [stream] argument is an integer ID returned by [playStream].
    */
   public final fun setStreamPitchScale(stream: Long, pitchScale: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setStreamPitchScalePtr, stream, pitchScale.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setStreamPitchScalePtr, stream, pitchScale.toDouble())
   }
 
   /**
@@ -87,14 +86,14 @@ public open class AudioStreamPlaybackPolyphonic internal constructor() : AudioSt
    * [playStream] for information on when this ID becomes invalid.
    */
   public final fun isStreamPlaying(stream: Long): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isStreamPlayingPtr, stream)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isStreamPlayingPtr, stream)
 
   /**
    * Stop a stream. The [stream] argument is an integer ID returned by [playStream], which becomes
    * invalid after calling this function.
    */
   public final fun stopStream(stream: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.stopStreamPtr, stream)
+    callPtrMethod_LONG(MethodBindings.stopStreamPtr, stream)
   }
 
   /**

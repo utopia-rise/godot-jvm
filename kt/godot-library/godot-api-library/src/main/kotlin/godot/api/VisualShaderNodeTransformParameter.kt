@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_TRANSFORM3D
@@ -85,18 +84,18 @@ public open class VisualShaderNodeTransformParameter : VisualShaderNodeParameter
   }
 
   public final fun setDefaultValueEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDefaultValueEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setDefaultValueEnabledPtr, enabled)
   }
 
   public final fun isDefaultValueEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDefaultValueEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDefaultValueEnabledPtr)
 
   public final fun setDefaultValue(`value`: Transform3D): Unit {
-    TransferContext.callPtrMethod_TRANSFORM3D(ptr, objectID.id, MethodBindings.setDefaultValuePtr, value)
+    callPtrMethod_TRANSFORM3D(MethodBindings.setDefaultValuePtr, value)
   }
 
   public final fun getDefaultValue(): Transform3D =
-      TransferContext.callPtrMethod0_ret_TRANSFORM3D(ptr, objectID.id, MethodBindings.getDefaultValuePtr)
+      callPtrMethod0_ret_TRANSFORM3D(MethodBindings.getDefaultValuePtr)
 
   public companion object {
     @JvmField

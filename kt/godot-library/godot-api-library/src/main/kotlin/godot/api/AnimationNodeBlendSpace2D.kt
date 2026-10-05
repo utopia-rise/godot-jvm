@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -287,75 +286,75 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
     atIndex: Int = -1,
     name: StringName = StringName(""),
   ): Unit {
-    TransferContext.callPtrMethod_OBJECT_VECTOR2_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.addBlendPointPtr, node, pos, atIndex.toLong(), name)
+    callPtrMethod_OBJECT_VECTOR2_LONG_STRING_NAME(MethodBindings.addBlendPointPtr, node, pos, atIndex.toLong(), name)
   }
 
   /**
    * Updates the position of the point at index [point] in the blend space.
    */
   public final fun setBlendPointPosition(point: Int, pos: Vector2): Unit {
-    TransferContext.callPtrMethod_LONG_VECTOR2(ptr, objectID.id, MethodBindings.setBlendPointPositionPtr, point.toLong(), pos)
+    callPtrMethod_LONG_VECTOR2(MethodBindings.setBlendPointPositionPtr, point.toLong(), pos)
   }
 
   /**
    * Returns the position of the point at index [point].
    */
   public final fun getBlendPointPosition(point: Int): Vector2 =
-      TransferContext.callPtrMethod_LONG_ret_VECTOR2(ptr, objectID.id, MethodBindings.getBlendPointPositionPtr, point.toLong())
+      callPtrMethod_LONG_ret_VECTOR2(MethodBindings.getBlendPointPositionPtr, point.toLong())
 
   /**
    * Changes the [AnimationNode] referenced by the point at index [point].
    */
   public final fun setBlendPointNode(point: Int, node: AnimationRootNode?): Unit {
-    TransferContext.callPtrMethod_LONG_OBJECT(ptr, objectID.id, MethodBindings.setBlendPointNodePtr, point.toLong(), node)
+    callPtrMethod_LONG_OBJECT(MethodBindings.setBlendPointNodePtr, point.toLong(), node)
   }
 
   /**
    * Returns the [AnimationRootNode] referenced by the point at index [point].
    */
   public final fun getBlendPointNode(point: Int): AnimationRootNode? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getBlendPointNodePtr, point.toLong()) as AnimationRootNode?)
+      (callPtrMethod_LONG_ret_OBJECT_REF(MethodBindings.getBlendPointNodePtr, point.toLong()) as AnimationRootNode?)
 
   /**
    * Sets the name of the blend point at index [point]. If the name conflicts with an existing
    * point, a unique name will be generated automatically.
    */
   public final fun setBlendPointName(point: Int, name: StringName): Unit {
-    TransferContext.callPtrMethod_LONG_STRING_NAME(ptr, objectID.id, MethodBindings.setBlendPointNamePtr, point.toLong(), name)
+    callPtrMethod_LONG_STRING_NAME(MethodBindings.setBlendPointNamePtr, point.toLong(), name)
   }
 
   /**
    * Returns the name of the blend point at index [point].
    */
   public final fun getBlendPointName(point: Int): StringName =
-      TransferContext.callPtrMethod_LONG_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getBlendPointNamePtr, point.toLong())
+      callPtrMethod_LONG_ret_STRING_NAME(MethodBindings.getBlendPointNamePtr, point.toLong())
 
   /**
    * Returns the index of the blend point with the given [name]. Returns `-1` if no blend point with
    * that name is found.
    */
   public final fun findBlendPointByName(name: StringName): Int =
-      TransferContext.callPtrMethod_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.findBlendPointByNamePtr, name).toInt()
+      callPtrMethod_STRING_NAME_ret_LONG(MethodBindings.findBlendPointByNamePtr, name).toInt()
 
   /**
    * Removes the point at index [point] from the blend space.
    */
   public final fun removeBlendPoint(point: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeBlendPointPtr, point.toLong())
+    callPtrMethod_LONG(MethodBindings.removeBlendPointPtr, point.toLong())
   }
 
   /**
    * Returns the number of points in the blend space.
    */
   public final fun getBlendPointCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBlendPointCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBlendPointCountPtr).toInt()
 
   /**
    * Swaps the blend points at indices [fromIndex] and [toIndex], exchanging their positions and
    * properties.
    */
   public final fun reorderBlendPoint(fromIndex: Int, toIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.reorderBlendPointPtr, fromIndex.toLong(), toIndex.toLong())
+    callPtrMethod_LONG_LONG(MethodBindings.reorderBlendPointPtr, fromIndex.toLong(), toIndex.toLong())
   }
 
   /**
@@ -370,97 +369,93 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
     z: Int,
     atIndex: Int = -1,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_LONG_LONG_LONG(ptr, objectID.id, MethodBindings.addTrianglePtr, x.toLong(), y.toLong(), z.toLong(), atIndex.toLong())
+    callPtrMethod_LONG_LONG_LONG_LONG(MethodBindings.addTrianglePtr, x.toLong(), y.toLong(), z.toLong(), atIndex.toLong())
   }
 
   /**
    * Returns the position of the point at index [point] in the triangle of index [triangle].
    */
   public final fun getTrianglePoint(triangle: Int, point: Int): Int =
-      TransferContext.callPtrMethod_LONG_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getTrianglePointPtr, triangle.toLong(), point.toLong()).toInt()
+      callPtrMethod_LONG_LONG_ret_LONG(MethodBindings.getTrianglePointPtr, triangle.toLong(), point.toLong()).toInt()
 
   /**
    * Removes the triangle at index [triangle] from the blend space.
    */
   public final fun removeTriangle(triangle: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeTrianglePtr, triangle.toLong())
+    callPtrMethod_LONG(MethodBindings.removeTrianglePtr, triangle.toLong())
   }
 
   /**
    * Returns the number of triangles in the blend space.
    */
   public final fun getTriangleCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTriangleCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getTriangleCountPtr).toInt()
 
   public final fun setMinSpace(minSpace: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setMinSpacePtr, minSpace)
+    callPtrMethod_VECTOR2(MethodBindings.setMinSpacePtr, minSpace)
   }
 
   public final fun getMinSpace(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getMinSpacePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getMinSpacePtr)
 
   public final fun setMaxSpace(maxSpace: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setMaxSpacePtr, maxSpace)
+    callPtrMethod_VECTOR2(MethodBindings.setMaxSpacePtr, maxSpace)
   }
 
   public final fun getMaxSpace(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getMaxSpacePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getMaxSpacePtr)
 
   public final fun setSnap(snap: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setSnapPtr, snap)
+    callPtrMethod_VECTOR2(MethodBindings.setSnapPtr, snap)
   }
 
-  public final fun getSnap(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getSnapPtr)
+  public final fun getSnap(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getSnapPtr)
 
   public final fun setXLabel(text: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setXLabelPtr, text)
+    callMethod_STRING(MethodBindings.setXLabelPtr, text)
   }
 
-  public final fun getXLabel(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getXLabelPtr)
+  public final fun getXLabel(): String = callMethod0_ret_STRING(MethodBindings.getXLabelPtr)
 
   public final fun setYLabel(text: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setYLabelPtr, text)
+    callMethod_STRING(MethodBindings.setYLabelPtr, text)
   }
 
-  public final fun getYLabel(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getYLabelPtr)
+  public final fun getYLabel(): String = callMethod0_ret_STRING(MethodBindings.getYLabelPtr)
 
   public final fun setAutoTriangles(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoTrianglesPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAutoTrianglesPtr, enable)
   }
 
   public final fun getAutoTriangles(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAutoTrianglesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAutoTrianglesPtr)
 
   public final fun setBlendMode(mode: BlendMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBlendModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setBlendModePtr, mode.value)
   }
 
   public final fun getBlendMode(): BlendMode =
-      BlendMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBlendModePtr))
+      BlendMode.from(callPtrMethod0_ret_LONG(MethodBindings.getBlendModePtr))
 
   public final fun setUseSync(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseSyncPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUseSyncPtr, enable)
   }
 
-  public final fun isUsingSync(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingSyncPtr)
+  public final fun isUsingSync(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isUsingSyncPtr)
 
   public final fun setSyncMode(syncMode: SyncMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSyncModePtr, syncMode.value)
+    callPtrMethod_LONG(MethodBindings.setSyncModePtr, syncMode.value)
   }
 
   public final fun getSyncMode(): SyncMode =
-      SyncMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSyncModePtr))
+      SyncMode.from(callPtrMethod0_ret_LONG(MethodBindings.getSyncModePtr))
 
   public final fun setCyclicLength(length: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCyclicLengthPtr, length)
+    callPtrMethod_DOUBLE(MethodBindings.setCyclicLengthPtr, length)
   }
 
   public final fun getCyclicLength(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCyclicLengthPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCyclicLengthPtr)
 
   /**
    * Adds a new point with [name] that represents a [node] at the position set by [pos]. You can

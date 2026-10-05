@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -176,53 +175,52 @@ public open class CompositorEffect : Resource() {
   }
 
   public final fun setEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setEnabledPtr, enabled)
   }
 
-  public final fun getEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnabledPtr)
+  public final fun getEnabled(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getEnabledPtr)
 
   public final fun setEffectCallbackType(effectCallbackType: EffectCallbackType): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setEffectCallbackTypePtr, effectCallbackType.value)
+    callPtrMethod_LONG(MethodBindings.setEffectCallbackTypePtr, effectCallbackType.value)
   }
 
   public final fun getEffectCallbackType(): EffectCallbackType =
-      EffectCallbackType.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEffectCallbackTypePtr))
+      EffectCallbackType.from(callPtrMethod0_ret_LONG(MethodBindings.getEffectCallbackTypePtr))
 
   public final fun setAccessResolvedColor(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAccessResolvedColorPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAccessResolvedColorPtr, enable)
   }
 
   public final fun getAccessResolvedColor(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAccessResolvedColorPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAccessResolvedColorPtr)
 
   public final fun setAccessResolvedDepth(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAccessResolvedDepthPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAccessResolvedDepthPtr, enable)
   }
 
   public final fun getAccessResolvedDepth(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAccessResolvedDepthPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getAccessResolvedDepthPtr)
 
   public final fun setNeedsMotionVectors(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setNeedsMotionVectorsPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setNeedsMotionVectorsPtr, enable)
   }
 
   public final fun getNeedsMotionVectors(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getNeedsMotionVectorsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getNeedsMotionVectorsPtr)
 
   public final fun setNeedsNormalRoughness(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setNeedsNormalRoughnessPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setNeedsNormalRoughnessPtr, enable)
   }
 
   public final fun getNeedsNormalRoughness(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getNeedsNormalRoughnessPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getNeedsNormalRoughnessPtr)
 
   public final fun setNeedsSeparateSpecular(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setNeedsSeparateSpecularPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setNeedsSeparateSpecularPtr, enable)
   }
 
   public final fun getNeedsSeparateSpecular(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getNeedsSeparateSpecularPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getNeedsSeparateSpecularPtr)
 
   public enum class EffectCallbackType(
     public override val `value`: Long,

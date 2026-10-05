@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -246,81 +245,81 @@ public open class VirtualJoystick : Control() {
   }
 
   public final fun setJoystickMode(mode: JoystickMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setJoystickModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setJoystickModePtr, mode.value)
   }
 
   public final fun getJoystickMode(): JoystickMode =
-      JoystickMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getJoystickModePtr))
+      JoystickMode.from(callPtrMethod0_ret_LONG(MethodBindings.getJoystickModePtr))
 
   public final fun setJoystickSize(size: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setJoystickSizePtr, size.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setJoystickSizePtr, size.toDouble())
   }
 
   public final fun getJoystickSize(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getJoystickSizePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getJoystickSizePtr).toFloat()
 
   public final fun setTipSize(size: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTipSizePtr, size.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setTipSizePtr, size.toDouble())
   }
 
   public final fun getTipSize(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTipSizePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTipSizePtr).toFloat()
 
   public final fun setDeadzoneRatio(ratio: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDeadzoneRatioPtr, ratio.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDeadzoneRatioPtr, ratio.toDouble())
   }
 
   public final fun getDeadzoneRatio(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDeadzoneRatioPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDeadzoneRatioPtr).toFloat()
 
   public final fun setClampzoneRatio(ratio: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setClampzoneRatioPtr, ratio.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setClampzoneRatioPtr, ratio.toDouble())
   }
 
   public final fun getClampzoneRatio(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getClampzoneRatioPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getClampzoneRatioPtr).toFloat()
 
   public final fun setInitialOffsetRatio(ratio: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setInitialOffsetRatioPtr, ratio)
+    callPtrMethod_VECTOR2(MethodBindings.setInitialOffsetRatioPtr, ratio)
   }
 
   public final fun getInitialOffsetRatio(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getInitialOffsetRatioPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getInitialOffsetRatioPtr)
 
   public final fun setActionLeft(action: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setActionLeftPtr, action)
+    callPtrMethod_STRING_NAME(MethodBindings.setActionLeftPtr, action)
   }
 
   public final fun getActionLeft(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getActionLeftPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getActionLeftPtr)
 
   public final fun setActionRight(action: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setActionRightPtr, action)
+    callPtrMethod_STRING_NAME(MethodBindings.setActionRightPtr, action)
   }
 
   public final fun getActionRight(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getActionRightPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getActionRightPtr)
 
   public final fun setActionUp(action: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setActionUpPtr, action)
+    callPtrMethod_STRING_NAME(MethodBindings.setActionUpPtr, action)
   }
 
   public final fun getActionUp(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getActionUpPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getActionUpPtr)
 
   public final fun setActionDown(action: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setActionDownPtr, action)
+    callPtrMethod_STRING_NAME(MethodBindings.setActionDownPtr, action)
   }
 
   public final fun getActionDown(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getActionDownPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getActionDownPtr)
 
   public final fun setVisibilityMode(mode: VisibilityMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setVisibilityModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setVisibilityModePtr, mode.value)
   }
 
   public final fun getVisibilityMode(): VisibilityMode =
-      VisibilityMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getVisibilityModePtr))
+      VisibilityMode.from(callPtrMethod0_ret_LONG(MethodBindings.getVisibilityModePtr))
 
   public final fun setActionLeft(action: String) = setActionLeft(action.asCachedStringName())
 

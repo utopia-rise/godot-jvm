@@ -7,9 +7,7 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
-import godot.callMethod_STRING_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DICTIONARY
 import godot.callPtrMethod0_ret_DOUBLE
@@ -20,7 +18,8 @@ import godot.callPtrMethod_DICTIONARY
 import godot.callPtrMethod_DOUBLE
 import godot.callPtrMethod_LONG
 import godot.callPtrMethod_OBJECT
-import godot.callPtrMethod_PACKED_BYTE_ARRAY_ret_OBJECT_REF
+import godot.callStaticMethod_STRING_ret_OBJECT_REF
+import godot.callStaticPtrMethod_PACKED_BYTE_ARRAY_ret_OBJECT_REF
 import godot.common.interop.VoidPtr
 import godot.core.Dictionary
 import godot.core.MethodStringName0
@@ -140,53 +139,51 @@ public open class AudioStreamOggVorbis : AudioStream() {
   }
 
   public final fun setPacketSequence(packetSequence: OggPacketSequence?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setPacketSequencePtr, packetSequence)
+    callPtrMethod_OBJECT(MethodBindings.setPacketSequencePtr, packetSequence)
   }
 
   public final fun getPacketSequence(): OggPacketSequence? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPacketSequencePtr) as OggPacketSequence?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getPacketSequencePtr) as OggPacketSequence?)
 
   public final fun setLoop(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setLoopPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setLoopPtr, enable)
   }
 
-  public final fun hasLoop(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasLoopPtr)
+  public final fun hasLoop(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasLoopPtr)
 
   public final fun setLoopOffset(seconds: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLoopOffsetPtr, seconds)
+    callPtrMethod_DOUBLE(MethodBindings.setLoopOffsetPtr, seconds)
   }
 
   public final fun getLoopOffset(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLoopOffsetPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLoopOffsetPtr)
 
   public final fun setBpm(bpm: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setBpmPtr, bpm)
+    callPtrMethod_DOUBLE(MethodBindings.setBpmPtr, bpm)
   }
 
-  public final fun getBpm(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getBpmPtr)
+  public final fun getBpm(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getBpmPtr)
 
   public final fun setBeatCount(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBeatCountPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setBeatCountPtr, count.toLong())
   }
 
   public final fun getBeatCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBeatCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBeatCountPtr).toInt()
 
   public final fun setBarBeats(count: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBarBeatsPtr, count.toLong())
+    callPtrMethod_LONG(MethodBindings.setBarBeatsPtr, count.toLong())
   }
 
   public final fun getBarBeats(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBarBeatsPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBarBeatsPtr).toInt()
 
   public final fun setTags(tags: Dictionary<Any?, Any?>): Unit {
-    TransferContext.callPtrMethod_DICTIONARY(ptr, objectID.id, MethodBindings.setTagsPtr, tags)
+    callPtrMethod_DICTIONARY(MethodBindings.setTagsPtr, tags)
   }
 
   public final fun getTags(): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod0_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getTagsPtr) as Dictionary<Any?, Any?>)
+      (callPtrMethod0_ret_DICTIONARY(MethodBindings.getTagsPtr) as Dictionary<Any?, Any?>)
 
   /**
    * Virtual method inherited from base class implemented in non-JVM code. Don't call it.
@@ -269,7 +266,7 @@ public open class AudioStreamOggVorbis : AudioStream() {
      */
     @JvmStatic
     public final fun loadFromBuffer(streamData: PackedByteArray): AudioStreamOggVorbis? =
-        (TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_OBJECT_REF(0L, 0L, MethodBindings.loadFromBufferPtr, streamData) as AudioStreamOggVorbis?)
+        (callStaticPtrMethod_PACKED_BYTE_ARRAY_ret_OBJECT_REF(MethodBindings.loadFromBufferPtr, streamData) as AudioStreamOggVorbis?)
 
     /**
      * Creates a new [AudioStreamOggVorbis] instance from the given file path. The file must be in
@@ -277,7 +274,7 @@ public open class AudioStreamOggVorbis : AudioStream() {
      */
     @JvmStatic
     public final fun loadFromFile(path: String): AudioStreamOggVorbis? =
-        (TransferContext.callMethod_STRING_ret_OBJECT_REF(0L, 0L, MethodBindings.loadFromFilePtr, path) as AudioStreamOggVorbis?)
+        (callStaticMethod_STRING_ret_OBJECT_REF(MethodBindings.loadFromFilePtr, path) as AudioStreamOggVorbis?)
   }
 
   public object MethodBindings {

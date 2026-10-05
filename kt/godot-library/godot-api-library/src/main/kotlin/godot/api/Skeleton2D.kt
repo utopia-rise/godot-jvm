@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -56,7 +55,7 @@ public open class Skeleton2D : Node2D() {
    * Returns the number of [Bone2D] nodes in the node hierarchy parented by Skeleton2D.
    */
   public final fun getBoneCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBoneCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBoneCountPtr).toInt()
 
   /**
    * Returns a [Bone2D] from the node hierarchy parented by Skeleton2D. The object to return is
@@ -64,33 +63,32 @@ public open class Skeleton2D : Node2D() {
    * bottom, adding the children of each branch before moving to the next sibling.
    */
   public final fun getBone(idx: Int): Bone2D? =
-      (TransferContext.callPtrMethod_LONG_ret_OBJECT(ptr, objectID.id, MethodBindings.getBonePtr, idx.toLong()) as Bone2D?)
+      (callPtrMethod_LONG_ret_OBJECT(MethodBindings.getBonePtr, idx.toLong()) as Bone2D?)
 
   /**
    * Returns the [RID] of a Skeleton2D instance.
    */
-  public final fun getSkeleton(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getSkeletonPtr)
+  public final fun getSkeleton(): RID = callPtrMethod0_ret_RID(MethodBindings.getSkeletonPtr)
 
   /**
    * Sets the [SkeletonModificationStack2D] attached to this skeleton.
    */
   public final fun setModificationStack(modificationStack: SkeletonModificationStack2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setModificationStackPtr, modificationStack)
+    callPtrMethod_OBJECT(MethodBindings.setModificationStackPtr, modificationStack)
   }
 
   /**
    * Returns the [SkeletonModificationStack2D] attached to this skeleton, if one exists.
    */
   public final fun getModificationStack(): SkeletonModificationStack2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getModificationStackPtr) as SkeletonModificationStack2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getModificationStackPtr) as SkeletonModificationStack2D?)
 
   /**
    * Executes all the modifications on the [SkeletonModificationStack2D], if the Skeleton2D has one
    * assigned.
    */
   public final fun executeModifications(delta: Float, executionMode: Int): Unit {
-    TransferContext.callPtrMethod_DOUBLE_LONG(ptr, objectID.id, MethodBindings.executeModificationsPtr, delta.toDouble(), executionMode.toLong())
+    callPtrMethod_DOUBLE_LONG(MethodBindings.executeModificationsPtr, delta.toDouble(), executionMode.toLong())
   }
 
   /**
@@ -108,14 +106,14 @@ public open class Skeleton2D : Node2D() {
     strength: Float,
     persistent: Boolean,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_TRANSFORM2D_DOUBLE_BOOL(ptr, objectID.id, MethodBindings.setBoneLocalPoseOverridePtr, boneIdx.toLong(), overridePose, strength.toDouble(), persistent)
+    callPtrMethod_LONG_TRANSFORM2D_DOUBLE_BOOL(MethodBindings.setBoneLocalPoseOverridePtr, boneIdx.toLong(), overridePose, strength.toDouble(), persistent)
   }
 
   /**
    * Returns the local pose override transform for [boneIdx].
    */
   public final fun getBoneLocalPoseOverride(boneIdx: Int): Transform2D =
-      TransferContext.callPtrMethod_LONG_ret_TRANSFORM2D(ptr, objectID.id, MethodBindings.getBoneLocalPoseOverridePtr, boneIdx.toLong())
+      callPtrMethod_LONG_ret_TRANSFORM2D(MethodBindings.getBoneLocalPoseOverridePtr, boneIdx.toLong())
 
   public companion object {
     @JvmField

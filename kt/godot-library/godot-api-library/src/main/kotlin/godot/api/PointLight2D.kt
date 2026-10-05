@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -109,25 +108,25 @@ public open class PointLight2D : Light2D() {
   }
 
   public final fun setTexture(texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTexturePtr, texture)
+    callPtrMethod_OBJECT(MethodBindings.setTexturePtr, texture)
   }
 
   public final fun getTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTexturePtr) as Texture2D?)
 
   public final fun setTextureOffset(textureOffset: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setTextureOffsetPtr, textureOffset)
+    callPtrMethod_VECTOR2(MethodBindings.setTextureOffsetPtr, textureOffset)
   }
 
   public final fun getTextureOffset(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getTextureOffsetPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getTextureOffsetPtr)
 
   public final fun setTextureScale(textureScale: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTextureScalePtr, textureScale.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setTextureScalePtr, textureScale.toDouble())
   }
 
   public final fun getTextureScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTextureScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTextureScalePtr).toFloat()
 
   public companion object {
     @JvmField

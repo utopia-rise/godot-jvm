@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -98,25 +97,25 @@ public open class SubViewportContainer : Container() {
   }
 
   public final fun setStretch(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setStretchPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setStretchPtr, enable)
   }
 
   public final fun isStretchEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isStretchEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isStretchEnabledPtr)
 
   public final fun setStretchShrink(amount: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setStretchShrinkPtr, amount.toLong())
+    callPtrMethod_LONG(MethodBindings.setStretchShrinkPtr, amount.toLong())
   }
 
   public final fun getStretchShrink(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStretchShrinkPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getStretchShrinkPtr).toInt()
 
   public final fun setMouseTarget(amount: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMouseTargetPtr, amount)
+    callPtrMethod_BOOL(MethodBindings.setMouseTargetPtr, amount)
   }
 
   public final fun isMouseTargetEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMouseTargetEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isMouseTargetEnabledPtr)
 
   public companion object {
     @JvmField

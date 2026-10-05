@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_OBJECT
@@ -82,7 +81,7 @@ public open class SyntaxHighlighter : Resource() {
    * ```
    */
   public final fun getLineSyntaxHighlighting(line: Int): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod_LONG_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getLineSyntaxHighlightingPtr, line.toLong()) as Dictionary<Any?, Any?>)
+      (callPtrMethod_LONG_ret_DICTIONARY(MethodBindings.getLineSyntaxHighlightingPtr, line.toLong()) as Dictionary<Any?, Any?>)
 
   /**
    * Clears then updates the [SyntaxHighlighter] caches. Override [_updateCache] for a callback.
@@ -91,7 +90,7 @@ public open class SyntaxHighlighter : Resource() {
    * cache.
    */
   public final fun updateCache(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.updateCachePtr)
+    callPtrMethod0(MethodBindings.updateCachePtr)
   }
 
   /**
@@ -100,14 +99,14 @@ public open class SyntaxHighlighter : Resource() {
    * Then calls overridable method [_clearHighlightingCache].
    */
   public final fun clearHighlightingCache(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearHighlightingCachePtr)
+    callPtrMethod0(MethodBindings.clearHighlightingCachePtr)
   }
 
   /**
    * Returns the associated [TextEdit] node.
    */
   public final fun getTextEdit(): TextEdit? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getTextEditPtr) as TextEdit?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getTextEditPtr) as TextEdit?)
 
   public companion object {
     @JvmField

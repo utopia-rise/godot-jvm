@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_VECTOR2
 import godot.callPtrMethod_VECTOR2
@@ -109,18 +108,16 @@ public open class SegmentShape2D : Shape2D() {
   }
 
   public final fun setA(a: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setAPtr, a)
+    callPtrMethod_VECTOR2(MethodBindings.setAPtr, a)
   }
 
-  public final fun getA(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getAPtr)
+  public final fun getA(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getAPtr)
 
   public final fun setB(b: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setBPtr, b)
+    callPtrMethod_VECTOR2(MethodBindings.setBPtr, b)
   }
 
-  public final fun getB(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getBPtr)
+  public final fun getB(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getBPtr)
 
   public companion object {
     @JvmField

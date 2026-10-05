@@ -6,8 +6,8 @@
 #include "classes/engine.hpp"
 #include "core/jvm_binding_manager.h"
 #include "engine/godot_object.h"
-#include "jvm/wrapper/memory/memory_manager.h"
-#include "jvm/wrapper/registration/kt_object.h"
+#include "jvm/memory/memory_manager.h"
+#include "jvm/registration/kt_object.h"
 #include "jvm_instance.h"
 #include "jvm_placeholder_instance.h"
 #include "logging.h"
@@ -40,7 +40,7 @@ raw_godot::RawObject JvmScript::_object_create() const {
     );
 
     JvmBindingManager::bind_created(owner);
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     jni::JObject instance = kotlin_class->construct(env, owner);
     KtObject kt_object = owner.is_ref_counted() ? KtObject::create_strong_ref(env, instance)
                                                 : KtObject::create_object(env, instance);
@@ -102,7 +102,7 @@ void* JvmScript::_instance_create(GodotObject* p_for_object) const {
     // TODO: Check if creator when set_script_instance is implemented in engine.
     JvmBindingManager::bind(p_for_object);
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     raw_godot::RawObject owner(p_for_object);
     jni::JObject instance = kotlin_class->construct(env, p_for_object);
     // The binding above took the JVM's reference, so a count of exactly 1 means the JVM alone owns this RefCounted and
@@ -443,7 +443,7 @@ void JvmScript::update_script_exports() const {
         JvmPlaceHolderInstance::update(placeholder, exported_properties, exported_members_default_value_cache);
     }
 
-    jni::Env env = jni::Jvm::current_env();
+    jni::Env& env = jni::Jvm::current_env();
     MemoryManager::get_instance().direct_object_deletion(env, tmp_object);
     export_dirty_flag = false;
 }

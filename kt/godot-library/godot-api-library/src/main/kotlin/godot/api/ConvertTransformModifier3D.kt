@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG_BOOL
 import godot.callPtrMethod_LONG_DOUBLE
@@ -79,105 +78,105 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    * Sets the operation of the remapping destination transform.
    */
   public final fun setApplyTransformMode(index: Int, transformMode: TransformMode): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setApplyTransformModePtr, index.toLong(), transformMode.value)
+    callPtrMethod_LONG_LONG(MethodBindings.setApplyTransformModePtr, index.toLong(), transformMode.value)
   }
 
   /**
    * Returns the operation of the remapping destination transform.
    */
   public final fun getApplyTransformMode(index: Int): TransformMode =
-      TransformMode.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getApplyTransformModePtr, index.toLong()))
+      TransformMode.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getApplyTransformModePtr, index.toLong()))
 
   /**
    * Sets the axis of the remapping destination transform.
    */
   public final fun setApplyAxis(index: Int, axis: Vector3.Axis): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setApplyAxisPtr, index.toLong(), axis.value)
+    callPtrMethod_LONG_LONG(MethodBindings.setApplyAxisPtr, index.toLong(), axis.value)
   }
 
   /**
    * Returns the axis of the remapping destination transform.
    */
   public final fun getApplyAxis(index: Int): Vector3.Axis =
-      Vector3.Axis.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getApplyAxisPtr, index.toLong()))
+      Vector3.Axis.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getApplyAxisPtr, index.toLong()))
 
   /**
    * Sets the minimum value of the remapping destination range.
    */
   public final fun setApplyRangeMin(index: Int, rangeMin: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setApplyRangeMinPtr, index.toLong(), rangeMin.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setApplyRangeMinPtr, index.toLong(), rangeMin.toDouble())
   }
 
   /**
    * Returns the minimum value of the remapping destination range.
    */
   public final fun getApplyRangeMin(index: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getApplyRangeMinPtr, index.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getApplyRangeMinPtr, index.toLong()).toFloat()
 
   /**
    * Sets the maximum value of the remapping destination range.
    */
   public final fun setApplyRangeMax(index: Int, rangeMax: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setApplyRangeMaxPtr, index.toLong(), rangeMax.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setApplyRangeMaxPtr, index.toLong(), rangeMax.toDouble())
   }
 
   /**
    * Returns the maximum value of the remapping destination range.
    */
   public final fun getApplyRangeMax(index: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getApplyRangeMaxPtr, index.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getApplyRangeMaxPtr, index.toLong()).toFloat()
 
   /**
    * Sets the operation of the remapping source transform.
    */
   public final fun setReferenceTransformMode(index: Int, transformMode: TransformMode): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setReferenceTransformModePtr, index.toLong(), transformMode.value)
+    callPtrMethod_LONG_LONG(MethodBindings.setReferenceTransformModePtr, index.toLong(), transformMode.value)
   }
 
   /**
    * Returns the operation of the remapping source transform.
    */
   public final fun getReferenceTransformMode(index: Int): TransformMode =
-      TransformMode.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getReferenceTransformModePtr, index.toLong()))
+      TransformMode.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getReferenceTransformModePtr, index.toLong()))
 
   /**
    * Sets the axis of the remapping source transform.
    */
   public final fun setReferenceAxis(index: Int, axis: Vector3.Axis): Unit {
-    TransferContext.callPtrMethod_LONG_LONG(ptr, objectID.id, MethodBindings.setReferenceAxisPtr, index.toLong(), axis.value)
+    callPtrMethod_LONG_LONG(MethodBindings.setReferenceAxisPtr, index.toLong(), axis.value)
   }
 
   /**
    * Returns the axis of the remapping source transform.
    */
   public final fun getReferenceAxis(index: Int): Vector3.Axis =
-      Vector3.Axis.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getReferenceAxisPtr, index.toLong()))
+      Vector3.Axis.from(callPtrMethod_LONG_ret_LONG(MethodBindings.getReferenceAxisPtr, index.toLong()))
 
   /**
    * Sets the minimum value of the remapping source range.
    */
   public final fun setReferenceRangeMin(index: Int, rangeMin: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setReferenceRangeMinPtr, index.toLong(), rangeMin.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setReferenceRangeMinPtr, index.toLong(), rangeMin.toDouble())
   }
 
   /**
    * Returns the minimum value of the remapping source range.
    */
   public final fun getReferenceRangeMin(index: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getReferenceRangeMinPtr, index.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getReferenceRangeMinPtr, index.toLong()).toFloat()
 
   /**
    * Sets the maximum value of the remapping source range.
    */
   public final fun setReferenceRangeMax(index: Int, rangeMax: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setReferenceRangeMaxPtr, index.toLong(), rangeMax.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setReferenceRangeMaxPtr, index.toLong(), rangeMax.toDouble())
   }
 
   /**
    * Returns the maximum value of the remapping source range.
    */
   public final fun getReferenceRangeMax(index: Int): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getReferenceRangeMaxPtr, index.toLong()).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getReferenceRangeMaxPtr, index.toLong()).toFloat()
 
   /**
    * Sets relative option in the setting at [index] to [enabled].
@@ -187,14 +186,14 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    * If sets [enabled] to `false`, the extracted transform is absolute.
    */
   public final fun setRelative(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setRelativePtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setRelativePtr, index.toLong(), enabled)
   }
 
   /**
    * Returns `true` if the relative option is enabled in the setting at [index].
    */
   public final fun isRelative(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isRelativePtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isRelativePtr, index.toLong())
 
   /**
    * Sets additive option in the setting at [index] to [enabled]. This mainly affects the process of
@@ -207,14 +206,14 @@ public open class ConvertTransformModifier3D : BoneConstraint3D() {
    * transform. However, if set [setRelative] to `true`, the transform is relative to rest.
    */
   public final fun setAdditive(index: Int, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setAdditivePtr, index.toLong(), enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setAdditivePtr, index.toLong(), enabled)
   }
 
   /**
    * Returns `true` if the additive option is enabled in the setting at [index].
    */
   public final fun isAdditive(index: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.isAdditivePtr, index.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.isAdditivePtr, index.toLong())
 
   public enum class TransformMode(
     public override val `value`: Long,

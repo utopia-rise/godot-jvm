@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -209,15 +208,13 @@ public open class NavigationLink2D : Node2D() {
   /**
    * Returns the [RID] of this link on the [NavigationServer2D].
    */
-  public final fun getRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getRidPtr)
+  public final fun getRid(): RID = callPtrMethod0_ret_RID(MethodBindings.getRidPtr)
 
   public final fun setEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setEnabledPtr, enabled)
   }
 
-  public final fun isEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEnabledPtr)
+  public final fun isEnabled(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isEnabledPtr)
 
   /**
    * Sets the [RID] of the navigation map this link should use. By default the link will
@@ -225,35 +222,35 @@ public open class NavigationLink2D : Node2D() {
    * override the default map.
    */
   public final fun setNavigationMap(navigationMap: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setNavigationMapPtr, navigationMap)
+    callPtrMethod_RID(MethodBindings.setNavigationMapPtr, navigationMap)
   }
 
   /**
    * Returns the current navigation map [RID] used by this link.
    */
   public final fun getNavigationMap(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getNavigationMapPtr)
+      callPtrMethod0_ret_RID(MethodBindings.getNavigationMapPtr)
 
   public final fun setBidirectional(bidirectional: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setBidirectionalPtr, bidirectional)
+    callPtrMethod_BOOL(MethodBindings.setBidirectionalPtr, bidirectional)
   }
 
   public final fun isBidirectional(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isBidirectionalPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isBidirectionalPtr)
 
   public final fun setNavigationLayers(navigationLayers: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setNavigationLayersPtr, navigationLayers)
+    callPtrMethod_LONG(MethodBindings.setNavigationLayersPtr, navigationLayers)
   }
 
   public final fun getNavigationLayers(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getNavigationLayersPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getNavigationLayersPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [navigationLayers] bitmask,
    * given a [layerNumber] between 1 and 32.
    */
   public final fun setNavigationLayerValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setNavigationLayerValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setNavigationLayerValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -261,61 +258,61 @@ public open class NavigationLink2D : Node2D() {
    * a [layerNumber] between 1 and 32.
    */
   public final fun getNavigationLayerValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getNavigationLayerValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getNavigationLayerValuePtr, layerNumber.toLong())
 
   public final fun setStartPosition(position: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setStartPositionPtr, position)
+    callPtrMethod_VECTOR2(MethodBindings.setStartPositionPtr, position)
   }
 
   public final fun getStartPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getStartPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getStartPositionPtr)
 
   public final fun setEndPosition(position: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setEndPositionPtr, position)
+    callPtrMethod_VECTOR2(MethodBindings.setEndPositionPtr, position)
   }
 
   public final fun getEndPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getEndPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getEndPositionPtr)
 
   /**
    * Sets the [startPosition] that is relative to the link from a global [position].
    */
   public final fun setGlobalStartPosition(position: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setGlobalStartPositionPtr, position)
+    callPtrMethod_VECTOR2(MethodBindings.setGlobalStartPositionPtr, position)
   }
 
   /**
    * Returns the [startPosition] that is relative to the link as a global position.
    */
   public final fun getGlobalStartPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getGlobalStartPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getGlobalStartPositionPtr)
 
   /**
    * Sets the [endPosition] that is relative to the link from a global [position].
    */
   public final fun setGlobalEndPosition(position: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setGlobalEndPositionPtr, position)
+    callPtrMethod_VECTOR2(MethodBindings.setGlobalEndPositionPtr, position)
   }
 
   /**
    * Returns the [endPosition] that is relative to the link as a global position.
    */
   public final fun getGlobalEndPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getGlobalEndPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getGlobalEndPositionPtr)
 
   public final fun setEnterCost(enterCost: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setEnterCostPtr, enterCost.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setEnterCostPtr, enterCost.toDouble())
   }
 
   public final fun getEnterCost(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getEnterCostPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getEnterCostPtr).toFloat()
 
   public final fun setTravelCost(travelCost: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTravelCostPtr, travelCost.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setTravelCostPtr, travelCost.toDouble())
   }
 
   public final fun getTravelCost(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTravelCostPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTravelCostPtr).toFloat()
 
   public companion object {
     @JvmField

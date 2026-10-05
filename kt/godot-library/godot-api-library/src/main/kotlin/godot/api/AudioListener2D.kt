@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -39,21 +38,20 @@ public open class AudioListener2D : Node2D() {
    * This method will have no effect if the [AudioListener2D] is not added to [SceneTree].
    */
   public final fun makeCurrent(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.makeCurrentPtr)
+    callPtrMethod0(MethodBindings.makeCurrentPtr)
   }
 
   /**
    * Disables the [AudioListener2D]. If it's not set as current, this method will have no effect.
    */
   public final fun clearCurrent(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearCurrentPtr)
+    callPtrMethod0(MethodBindings.clearCurrentPtr)
   }
 
   /**
    * Returns `true` if this [AudioListener2D] is currently active.
    */
-  public final fun isCurrent(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCurrentPtr)
+  public final fun isCurrent(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isCurrentPtr)
 
   public companion object {
     @JvmField

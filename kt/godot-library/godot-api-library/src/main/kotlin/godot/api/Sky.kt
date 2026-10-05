@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -74,25 +73,25 @@ public open class Sky : Resource() {
   }
 
   public final fun setRadianceSize(size: RadianceSize): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setRadianceSizePtr, size.value)
+    callPtrMethod_LONG(MethodBindings.setRadianceSizePtr, size.value)
   }
 
   public final fun getRadianceSize(): RadianceSize =
-      RadianceSize.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getRadianceSizePtr))
+      RadianceSize.from(callPtrMethod0_ret_LONG(MethodBindings.getRadianceSizePtr))
 
   public final fun setProcessMode(mode: ProcessMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setProcessModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setProcessModePtr, mode.value)
   }
 
   public final fun getProcessMode(): ProcessMode =
-      ProcessMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProcessModePtr))
+      ProcessMode.from(callPtrMethod0_ret_LONG(MethodBindings.getProcessModePtr))
 
   public final fun setMaterial(material: Material?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMaterialPtr, material)
+    callPtrMethod_OBJECT(MethodBindings.setMaterialPtr, material)
   }
 
   public final fun getMaterial(): Material? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMaterialPtr) as Material?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMaterialPtr) as Material?)
 
   public enum class RadianceSize(
     public override val `value`: Long,

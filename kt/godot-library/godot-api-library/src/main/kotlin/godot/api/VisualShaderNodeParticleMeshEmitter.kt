@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -70,25 +69,25 @@ public open class VisualShaderNodeParticleMeshEmitter : VisualShaderNodeParticle
   }
 
   public final fun setMesh(mesh: Mesh?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMeshPtr, mesh)
+    callPtrMethod_OBJECT(MethodBindings.setMeshPtr, mesh)
   }
 
   public final fun getMesh(): Mesh? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMeshPtr) as Mesh?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMeshPtr) as Mesh?)
 
   public final fun setUseAllSurfaces(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseAllSurfacesPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setUseAllSurfacesPtr, enabled)
   }
 
   public final fun isUseAllSurfaces(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUseAllSurfacesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUseAllSurfacesPtr)
 
   public final fun setSurfaceIndex(surfaceIndex: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setSurfaceIndexPtr, surfaceIndex.toLong())
+    callPtrMethod_LONG(MethodBindings.setSurfaceIndexPtr, surfaceIndex.toLong())
   }
 
   public final fun getSurfaceIndex(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getSurfaceIndexPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getSurfaceIndexPtr).toInt()
 
   public companion object {
     @JvmField

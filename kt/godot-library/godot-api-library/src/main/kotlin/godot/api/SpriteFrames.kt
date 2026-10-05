@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_PACKED_STRING_ARRAY
@@ -57,35 +56,35 @@ public open class SpriteFrames : Resource() {
    * Adds a new [anim] animation to the library.
    */
   public final fun addAnimation(anim: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.addAnimationPtr, anim)
+    callPtrMethod_STRING_NAME(MethodBindings.addAnimationPtr, anim)
   }
 
   /**
    * Returns `true` if the [anim] animation exists.
    */
   public final fun hasAnimation(anim: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasAnimationPtr, anim)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasAnimationPtr, anim)
 
   /**
    * Duplicates the animation [animFrom] to a new animation named [animTo]. Fails if [animTo]
    * already exists, or if [animFrom] does not exist.
    */
   public final fun duplicateAnimation(animFrom: StringName, animTo: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.duplicateAnimationPtr, animFrom, animTo)
+    callPtrMethod_STRING_NAME_STRING_NAME(MethodBindings.duplicateAnimationPtr, animFrom, animTo)
   }
 
   /**
    * Removes the [anim] animation.
    */
   public final fun removeAnimation(anim: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeAnimationPtr, anim)
+    callPtrMethod_STRING_NAME(MethodBindings.removeAnimationPtr, anim)
   }
 
   /**
    * Changes the [anim] animation's name to [newname].
    */
   public final fun renameAnimation(anim: StringName, newname: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_STRING_NAME(ptr, objectID.id, MethodBindings.renameAnimationPtr, anim, newname)
+    callPtrMethod_STRING_NAME_STRING_NAME(MethodBindings.renameAnimationPtr, anim, newname)
   }
 
   /**
@@ -93,20 +92,20 @@ public open class SpriteFrames : Resource() {
    * alphabetical order.
    */
   public final fun getAnimationNames(): PackedStringArray =
-      TransferContext.callPtrMethod0_ret_PACKED_STRING_ARRAY(ptr, objectID.id, MethodBindings.getAnimationNamesPtr)
+      callPtrMethod0_ret_PACKED_STRING_ARRAY(MethodBindings.getAnimationNamesPtr)
 
   /**
    * Sets the speed for the [anim] animation in frames per second.
    */
   public final fun setAnimationSpeed(anim: StringName, fps: Double): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_DOUBLE(ptr, objectID.id, MethodBindings.setAnimationSpeedPtr, anim, fps)
+    callPtrMethod_STRING_NAME_DOUBLE(MethodBindings.setAnimationSpeedPtr, anim, fps)
   }
 
   /**
    * Returns the speed in frames per second for the [anim] animation.
    */
   public final fun getAnimationSpeed(anim: StringName): Double =
-      TransferContext.callPtrMethod_STRING_NAME_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAnimationSpeedPtr, anim)
+      callPtrMethod_STRING_NAME_ret_DOUBLE(MethodBindings.getAnimationSpeedPtr, anim)
 
   /**
    * If [loop] is `false` equivalent to `set_animation_loop_mode(LOOP_NONE)`.
@@ -114,27 +113,27 @@ public open class SpriteFrames : Resource() {
    * If [loop] is `true` equivalent to `set_animation_loop_mode(LOOP_LINEAR)`.
    */
   public final fun setAnimationLoop(anim: StringName, loop: Boolean): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_BOOL(ptr, objectID.id, MethodBindings.setAnimationLoopPtr, anim, loop)
+    callPtrMethod_STRING_NAME_BOOL(MethodBindings.setAnimationLoopPtr, anim, loop)
   }
 
   /**
    * Returns `true` if `get_animation_loop_mode(anim) == LOOP_LINEAR`. Otherwise, returns `false`.
    */
   public final fun getAnimationLoop(anim: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.getAnimationLoopPtr, anim)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.getAnimationLoopPtr, anim)
 
   /**
    * Sets the [loopMode] for the [anim] animation.
    */
   public final fun setAnimationLoopMode(anim: StringName, loopMode: LoopMode): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.setAnimationLoopModePtr, anim, loopMode.value)
+    callPtrMethod_STRING_NAME_LONG(MethodBindings.setAnimationLoopModePtr, anim, loopMode.value)
   }
 
   /**
    * Returns the loop mode for the [anim] animation.
    */
   public final fun getAnimationLoopMode(anim: StringName): LoopMode =
-      LoopMode.from(TransferContext.callPtrMethod_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.getAnimationLoopModePtr, anim))
+      LoopMode.from(callPtrMethod_STRING_NAME_ret_LONG(MethodBindings.getAnimationLoopModePtr, anim))
 
   /**
    * Adds a frame to the [anim] animation. If [atPosition] is `-1`, the frame will be added to the
@@ -148,7 +147,7 @@ public open class SpriteFrames : Resource() {
     duration: Float = 1.0f,
     atPosition: Int = -1,
   ): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_OBJECT_DOUBLE_LONG(ptr, objectID.id, MethodBindings.addFramePtr, anim, texture, duration.toDouble(), atPosition.toLong())
+    callPtrMethod_STRING_NAME_OBJECT_DOUBLE_LONG(MethodBindings.addFramePtr, anim, texture, duration.toDouble(), atPosition.toLong())
   }
 
   /**
@@ -162,27 +161,27 @@ public open class SpriteFrames : Resource() {
     texture: Texture2D?,
     duration: Float = 1.0f,
   ): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_LONG_OBJECT_DOUBLE(ptr, objectID.id, MethodBindings.setFramePtr, anim, idx.toLong(), texture, duration.toDouble())
+    callPtrMethod_STRING_NAME_LONG_OBJECT_DOUBLE(MethodBindings.setFramePtr, anim, idx.toLong(), texture, duration.toDouble())
   }
 
   /**
    * Removes the [anim] animation's frame [idx].
    */
   public final fun removeFrame(anim: StringName, idx: Int): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.removeFramePtr, anim, idx.toLong())
+    callPtrMethod_STRING_NAME_LONG(MethodBindings.removeFramePtr, anim, idx.toLong())
   }
 
   /**
    * Returns the number of frames for the [anim] animation.
    */
   public final fun getFrameCount(anim: StringName): Int =
-      TransferContext.callPtrMethod_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.getFrameCountPtr, anim).toInt()
+      callPtrMethod_STRING_NAME_ret_LONG(MethodBindings.getFrameCountPtr, anim).toInt()
 
   /**
    * Returns the texture of the frame [idx] in the [anim] animation.
    */
   public final fun getFrameTexture(anim: StringName, idx: Int): Texture2D? =
-      (TransferContext.callPtrMethod_STRING_NAME_LONG_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getFrameTexturePtr, anim, idx.toLong()) as Texture2D?)
+      (callPtrMethod_STRING_NAME_LONG_ret_OBJECT_REF(MethodBindings.getFrameTexturePtr, anim, idx.toLong()) as Texture2D?)
 
   /**
    * Returns a relative duration of the frame [idx] in the [anim] animation (defaults to `1.0`). For
@@ -198,20 +197,20 @@ public open class SpriteFrames : Resource() {
    * [AnimatedSprite3D.getPlayingSpeed].
    */
   public final fun getFrameDuration(anim: StringName, idx: Int): Float =
-      TransferContext.callPtrMethod_STRING_NAME_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFrameDurationPtr, anim, idx.toLong()).toFloat()
+      callPtrMethod_STRING_NAME_LONG_ret_DOUBLE(MethodBindings.getFrameDurationPtr, anim, idx.toLong()).toFloat()
 
   /**
    * Removes all frames from the [anim] animation.
    */
   public final fun clear(anim: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.clearPtr, anim)
+    callPtrMethod_STRING_NAME(MethodBindings.clearPtr, anim)
   }
 
   /**
    * Removes all animations. An empty `default` animation will be created.
    */
   public final fun clearAll(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearAllPtr)
+    callPtrMethod0(MethodBindings.clearAllPtr)
   }
 
   /**

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_PACKED_INT_64_ARRAY
@@ -54,14 +53,14 @@ public open class OpenXRSpatialCapabilityConfigurationAruco :
    * **Note:** Only valid after this configuration was used to create a spatial context.
    */
   public final fun getEnabledComponents(): PackedInt64Array =
-      TransferContext.callPtrMethod0_ret_PACKED_INT_64_ARRAY(ptr, objectID.id, MethodBindings.getEnabledComponentsPtr)
+      callPtrMethod0_ret_PACKED_INT_64_ARRAY(MethodBindings.getEnabledComponentsPtr)
 
   public final fun setArucoDict(arucoDict: ArucoDict): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setArucoDictPtr, arucoDict.value)
+    callPtrMethod_LONG(MethodBindings.setArucoDictPtr, arucoDict.value)
   }
 
   public final fun getArucoDict(): ArucoDict =
-      ArucoDict.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getArucoDictPtr))
+      ArucoDict.from(callPtrMethod0_ret_LONG(MethodBindings.getArucoDictPtr))
 
   public enum class ArucoDict(
     public override val `value`: Long,

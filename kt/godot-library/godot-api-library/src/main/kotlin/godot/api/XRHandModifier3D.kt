@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_STRING_NAME
@@ -65,18 +64,18 @@ public open class XRHandModifier3D : SkeletonModifier3D() {
   }
 
   public final fun setHandTracker(trackerName: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setHandTrackerPtr, trackerName)
+    callPtrMethod_STRING_NAME(MethodBindings.setHandTrackerPtr, trackerName)
   }
 
   public final fun getHandTracker(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getHandTrackerPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getHandTrackerPtr)
 
   public final fun setBoneUpdate(boneUpdate: BoneUpdate): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBoneUpdatePtr, boneUpdate.value)
+    callPtrMethod_LONG(MethodBindings.setBoneUpdatePtr, boneUpdate.value)
   }
 
   public final fun getBoneUpdate(): BoneUpdate =
-      BoneUpdate.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBoneUpdatePtr))
+      BoneUpdate.from(callPtrMethod0_ret_LONG(MethodBindings.getBoneUpdatePtr))
 
   public final fun setHandTracker(trackerName: String) =
       setHandTracker(trackerName.asCachedStringName())

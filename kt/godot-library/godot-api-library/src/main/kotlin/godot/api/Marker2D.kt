@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -43,11 +42,11 @@ public open class Marker2D : Node2D() {
   }
 
   public final fun setGizmoExtents(extents: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setGizmoExtentsPtr, extents.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setGizmoExtentsPtr, extents.toDouble())
   }
 
   public final fun getGizmoExtents(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getGizmoExtentsPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getGizmoExtentsPtr).toFloat()
 
   public companion object {
     @JvmField

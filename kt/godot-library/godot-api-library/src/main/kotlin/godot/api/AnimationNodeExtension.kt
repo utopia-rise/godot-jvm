@@ -7,10 +7,9 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
-import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY_BOOL_ret_DOUBLE
-import godot.callPtrMethod_PACKED_FLOAT_32_ARRAY_ret_BOOL
+import godot.callStaticPtrMethod_PACKED_FLOAT_32_ARRAY_BOOL_ret_DOUBLE
+import godot.callStaticPtrMethod_PACKED_FLOAT_32_ARRAY_ret_BOOL
 import godot.common.interop.VoidPtr
 import godot.core.MethodStringName1
 import godot.core.MethodStringName2
@@ -69,7 +68,7 @@ public abstract class AnimationNodeExtension : AnimationNode() {
      */
     @JvmStatic
     public final fun isLooping(nodeInfo: PackedFloat32Array): Boolean =
-        TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY_ret_BOOL(0L, 0L, MethodBindings.isLoopingPtr, nodeInfo)
+        callStaticPtrMethod_PACKED_FLOAT_32_ARRAY_ret_BOOL(MethodBindings.isLoopingPtr, nodeInfo)
 
     /**
      * Returns the animation's remaining time for the given node info. For looping animations, it
@@ -78,7 +77,7 @@ public abstract class AnimationNodeExtension : AnimationNode() {
      */
     @JvmStatic
     public final fun getRemainingTime(nodeInfo: PackedFloat32Array, breakLoop: Boolean): Double =
-        TransferContext.callPtrMethod_PACKED_FLOAT_32_ARRAY_BOOL_ret_DOUBLE(0L, 0L, MethodBindings.getRemainingTimePtr, nodeInfo, breakLoop)
+        callStaticPtrMethod_PACKED_FLOAT_32_ARRAY_BOOL_ret_DOUBLE(MethodBindings.getRemainingTimePtr, nodeInfo, breakLoop)
   }
 
   public object MethodBindings {

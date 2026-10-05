@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callPtrMethod0_ret_BOOL
@@ -63,11 +62,10 @@ public open class InputEvent internal constructor() : Resource() {
   }
 
   public final fun setDevice(device: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDevicePtr, device.toLong())
+    callPtrMethod_LONG(MethodBindings.setDevicePtr, device.toLong())
   }
 
-  public final fun getDevice(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDevicePtr).toInt()
+  public final fun getDevice(): Int = callPtrMethod0_ret_LONG(MethodBindings.getDevicePtr).toInt()
 
   /**
    * Returns `true` if this input event matches a pre-defined action of any type.
@@ -77,7 +75,7 @@ public open class InputEvent internal constructor() : Resource() {
    */
   @JvmOverloads
   public final fun isAction(action: StringName, exactMatch: Boolean = false): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.isActionPtr, action, exactMatch)
+      callPtrMethod_STRING_NAME_BOOL_ret_BOOL(MethodBindings.isActionPtr, action, exactMatch)
 
   /**
    * Returns `true` if the given action matches this event and is being pressed (and is not an echo
@@ -98,7 +96,7 @@ public open class InputEvent internal constructor() : Resource() {
     allowEcho: Boolean = false,
     exactMatch: Boolean = false,
   ): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_BOOL_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.isActionPressedPtr, action, allowEcho, exactMatch)
+      callPtrMethod_STRING_NAME_BOOL_BOOL_ret_BOOL(MethodBindings.isActionPressedPtr, action, allowEcho, exactMatch)
 
   /**
    * Returns `true` if the given action matches this event and is released (i.e. not pressed). Not
@@ -109,7 +107,7 @@ public open class InputEvent internal constructor() : Resource() {
    */
   @JvmOverloads
   public final fun isActionReleased(action: StringName, exactMatch: Boolean = false): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.isActionReleasedPtr, action, exactMatch)
+      callPtrMethod_STRING_NAME_BOOL_ret_BOOL(MethodBindings.isActionReleasedPtr, action, exactMatch)
 
   /**
    * Returns a value between 0.0 and 1.0 depending on the given actions' state. Useful for getting
@@ -120,13 +118,12 @@ public open class InputEvent internal constructor() : Resource() {
    */
   @JvmOverloads
   public final fun getActionStrength(action: StringName, exactMatch: Boolean = false): Float =
-      TransferContext.callPtrMethod_STRING_NAME_BOOL_ret_DOUBLE(ptr, objectID.id, MethodBindings.getActionStrengthPtr, action, exactMatch).toFloat()
+      callPtrMethod_STRING_NAME_BOOL_ret_DOUBLE(MethodBindings.getActionStrengthPtr, action, exactMatch).toFloat()
 
   /**
    * Returns `true` if this input event has been canceled.
    */
-  public final fun isCanceled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCanceledPtr)
+  public final fun isCanceled(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isCanceledPtr)
 
   /**
    * Returns `true` if this input event is pressed. Not relevant for events of type
@@ -136,15 +133,13 @@ public open class InputEvent internal constructor() : Resource() {
    * keys is pressed. See [url=$DOCS_URL/tutorials/inputs/input_examples.html#keyboard-events]Input
    * examples[/url] in the documentation for more information.
    */
-  public final fun isPressed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPressedPtr)
+  public final fun isPressed(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isPressedPtr)
 
   /**
    * Returns `true` if this input event is released. Not relevant for events of type
    * [InputEventMouseMotion] or [InputEventScreenDrag].
    */
-  public final fun isReleased(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isReleasedPtr)
+  public final fun isReleased(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isReleasedPtr)
 
   /**
    * Returns `true` if this input event is an echo event (only for events of type [InputEventKey]).
@@ -157,14 +152,12 @@ public open class InputEvent internal constructor() : Resource() {
    * works correctly on all configurations, do not assume the user has a specific key repeat
    * configuration in your project's behavior.
    */
-  public final fun isEcho(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEchoPtr)
+  public final fun isEcho(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isEchoPtr)
 
   /**
    * Returns a [String] representation of the event.
    */
-  public final fun asText(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.asTextPtr)
+  public final fun asText(): String = callMethod0_ret_STRING(MethodBindings.asTextPtr)
 
   /**
    * Returns `true` if the specified [event] matches this event. Only valid for action events, which
@@ -179,15 +172,14 @@ public open class InputEvent internal constructor() : Resource() {
    */
   @JvmOverloads
   public final fun isMatch(event: InputEvent?, exactMatch: Boolean = true): Boolean =
-      TransferContext.callPtrMethod_OBJECT_BOOL_ret_BOOL(ptr, objectID.id, MethodBindings.isMatchPtr, event, exactMatch)
+      callPtrMethod_OBJECT_BOOL_ret_BOOL(MethodBindings.isMatchPtr, event, exactMatch)
 
   /**
    * Returns `true` if this input event's type is one that can be assigned to an input action:
    * [InputEventKey], [InputEventMouseButton], [InputEventJoypadButton], [InputEventJoypadMotion],
    * [InputEventAction]. Returns `false` for all other input event types.
    */
-  public final fun isActionType(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isActionTypePtr)
+  public final fun isActionType(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isActionTypePtr)
 
   /**
    * Returns `true` if the given input event and this input event can be added together (only for
@@ -197,7 +189,7 @@ public open class InputEvent internal constructor() : Resource() {
    * `relative` is a sum of both events. Both events' modifiers have to be identical.
    */
   public final fun accumulate(withEvent: InputEvent?): Boolean =
-      TransferContext.callPtrMethod_OBJECT_ret_BOOL(ptr, objectID.id, MethodBindings.accumulatePtr, withEvent)
+      callPtrMethod_OBJECT_ret_BOOL(MethodBindings.accumulatePtr, withEvent)
 
   /**
    * Returns a copy of the given input event which has been offset by [localOfs] and transformed by
@@ -207,7 +199,7 @@ public open class InputEvent internal constructor() : Resource() {
    */
   @JvmOverloads
   public final fun xformedBy(xform: Transform2D, localOfs: Vector2 = Vector2(0, 0)): InputEvent =
-      (TransferContext.callPtrMethod_TRANSFORM2D_VECTOR2_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.xformedByPtr, xform, localOfs) as InputEvent)
+      (callPtrMethod_TRANSFORM2D_VECTOR2_ret_OBJECT_REF(MethodBindings.xformedByPtr, xform, localOfs) as InputEvent)
 
   /**
    * Returns `true` if this input event matches a pre-defined action of any type.

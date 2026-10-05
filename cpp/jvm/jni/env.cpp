@@ -11,10 +11,6 @@ namespace jni {
         exception_handler = p_exception_handler;
     }
 
-    Env::Env(JNIEnv* env) {
-        this->env = env;
-    }
-
     void Env::push_local_frame(int capacity) {
         auto result = env->PushLocalFrame(capacity);
         JVM_ERR_FAIL_COND_MSG(result != JNI_OK, "Failed to push local frame!");
@@ -22,10 +18,6 @@ namespace jni {
 
     void Env::pop_local_frame() {
         env->PopLocalFrame(nullptr);
-    }
-
-    bool Env::is_valid() {
-        return env != nullptr;
     }
 
     // Support fully qualified class names with "a/b/c" and "a.b.c" format

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod_OBJECT
@@ -71,25 +70,25 @@ public open class WorldEnvironment : Node() {
   }
 
   public final fun setEnvironment(env: Environment?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setEnvironmentPtr, env)
+    callPtrMethod_OBJECT(MethodBindings.setEnvironmentPtr, env)
   }
 
   public final fun getEnvironment(): Environment? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getEnvironmentPtr) as Environment?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getEnvironmentPtr) as Environment?)
 
   public final fun setCameraAttributes(cameraAttributes: CameraAttributes?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCameraAttributesPtr, cameraAttributes)
+    callPtrMethod_OBJECT(MethodBindings.setCameraAttributesPtr, cameraAttributes)
   }
 
   public final fun getCameraAttributes(): CameraAttributes? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCameraAttributesPtr) as CameraAttributes?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCameraAttributesPtr) as CameraAttributes?)
 
   public final fun setCompositor(compositor: Compositor?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCompositorPtr, compositor)
+    callPtrMethod_OBJECT(MethodBindings.setCompositorPtr, compositor)
   }
 
   public final fun getCompositor(): Compositor? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getCompositorPtr) as Compositor?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getCompositorPtr) as Compositor?)
 
   public companion object {
     @JvmField

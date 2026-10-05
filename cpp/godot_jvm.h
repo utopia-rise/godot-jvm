@@ -5,11 +5,11 @@
 #include "api/resource_format/java_archive.h"
 #endif
 #include "engine/godot_object.h"
+#include "jvm/lifecycle/bootstrap.h"
 #include "jvm/lifecycle/class_loader.h"
 #include "jvm/lifecycle/jvm_manager.h"
 #include "jvm/lifecycle/jvm_options.h"
 #include "jvm/lifecycle/jvm_user_configuration.h"
-#include "jvm/wrapper/bootstrap.h"
 
 #include <variant/string.hpp>
 

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_VECTOR2
 import godot.callPtrMethod_VECTOR2
@@ -73,11 +72,10 @@ public open class QuadOccluder3D : Occluder3D() {
   }
 
   public final fun setSize(size: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR2(MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector2 = callPtrMethod0_ret_VECTOR2(MethodBindings.getSizePtr)
 
   public companion object {
     @JvmField

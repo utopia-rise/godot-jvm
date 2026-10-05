@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -119,30 +118,30 @@ public open class XRPositionalTracker : XRTracker() {
   }
 
   public final fun getTrackerProfile(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTrackerProfilePtr)
+      callMethod0_ret_STRING(MethodBindings.getTrackerProfilePtr)
 
   public final fun setTrackerProfile(profile: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTrackerProfilePtr, profile)
+    callMethod_STRING(MethodBindings.setTrackerProfilePtr, profile)
   }
 
   public final fun getTrackerHand(): TrackerHand =
-      TrackerHand.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getTrackerHandPtr))
+      TrackerHand.from(callPtrMethod0_ret_LONG(MethodBindings.getTrackerHandPtr))
 
   public final fun setTrackerHand(hand: TrackerHand): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTrackerHandPtr, hand.value)
+    callPtrMethod_LONG(MethodBindings.setTrackerHandPtr, hand.value)
   }
 
   /**
    * Returns `true` if the tracker is available and is currently tracking the bound [name] pose.
    */
   public final fun hasPose(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasPosePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasPosePtr, name)
 
   /**
    * Returns the current [XRPose] state object for the bound [name] pose.
    */
   public final fun getPose(name: StringName): XRPose? =
-      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPosePtr, name) as XRPose?)
+      (callPtrMethod_STRING_NAME_ret_OBJECT_REF(MethodBindings.getPosePtr, name) as XRPose?)
 
   /**
    * Marks this pose as invalid, we don't clear the last reported state but it allows users to
@@ -150,7 +149,7 @@ public open class XRPositionalTracker : XRTracker() {
    * position.
    */
   public final fun invalidatePose(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.invalidatePosePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.invalidatePosePtr, name)
   }
 
   /**
@@ -164,7 +163,7 @@ public open class XRPositionalTracker : XRTracker() {
     angularVelocity: Vector3,
     trackingConfidence: XRPose.TrackingConfidence,
   ): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_TRANSFORM3D_VECTOR3_VECTOR3_LONG(ptr, objectID.id, MethodBindings.setPosePtr, name, transform, linearVelocity, angularVelocity, trackingConfidence.value)
+    callPtrMethod_STRING_NAME_TRANSFORM3D_VECTOR3_VECTOR3_LONG(MethodBindings.setPosePtr, name, transform, linearVelocity, angularVelocity, trackingConfidence.value)
   }
 
   /**
@@ -172,14 +171,14 @@ public open class XRPositionalTracker : XRTracker() {
    * on whether the input is a button, trigger or thumbstick/thumbpad.
    */
   public final fun getInput(name: StringName): Any? =
-      TransferContext.callMethod_STRING_NAME_ret_ANY(ptr, objectID.id, MethodBindings.getInputPtr, name)
+      callMethod_STRING_NAME_ret_ANY(MethodBindings.getInputPtr, name)
 
   /**
    * Changes the value for the given input. This method is called by an [XRInterface] implementation
    * and should not be used directly.
    */
   public final fun setInput(name: StringName, `value`: Any?): Unit {
-    TransferContext.callMethod_STRING_NAME_ANY(ptr, objectID.id, MethodBindings.setInputPtr, name, value)
+    callMethod_STRING_NAME_ANY(MethodBindings.setInputPtr, name, value)
   }
 
   /**

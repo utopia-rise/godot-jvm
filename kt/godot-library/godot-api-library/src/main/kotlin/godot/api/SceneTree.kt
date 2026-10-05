@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_STRING_NAME_STRING_ANY
 import godot.callMethod_LONG_STRING_NAME_STRING_NAME_VARARG
@@ -301,76 +300,75 @@ public open class SceneTree : MainLoop() {
   }
 
   public final fun getRoot(): Window =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getRootPtr) as Window)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getRootPtr) as Window)
 
   /**
    * Returns `true` if a node added to the given group [name] exists in the tree.
    */
   public final fun hasGroup(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasGroupPtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasGroupPtr, name)
 
   /**
    * Returns `true` if accessibility features are enabled, and accessibility information updates are
    * actively processed.
    */
   public final fun isAccessibilityEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAccessibilityEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAccessibilityEnabledPtr)
 
   /**
    * Returns `true` if accessibility features are supported by the OS and enabled in project
    * settings.
    */
   public final fun isAccessibilitySupported(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAccessibilitySupportedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAccessibilitySupportedPtr)
 
   public final fun isAutoAcceptQuit(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAutoAcceptQuitPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAutoAcceptQuitPtr)
 
   public final fun setAutoAcceptQuit(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoAcceptQuitPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setAutoAcceptQuitPtr, enabled)
   }
 
   public final fun isQuitOnGoBack(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isQuitOnGoBackPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isQuitOnGoBackPtr)
 
   public final fun setQuitOnGoBack(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setQuitOnGoBackPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setQuitOnGoBackPtr, enabled)
   }
 
   public final fun setDebugCollisionsHint(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDebugCollisionsHintPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setDebugCollisionsHintPtr, enable)
   }
 
   public final fun isDebuggingCollisionsHint(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDebuggingCollisionsHintPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDebuggingCollisionsHintPtr)
 
   public final fun setDebugPathsHint(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDebugPathsHintPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setDebugPathsHintPtr, enable)
   }
 
   public final fun isDebuggingPathsHint(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDebuggingPathsHintPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDebuggingPathsHintPtr)
 
   public final fun setDebugNavigationHint(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDebugNavigationHintPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setDebugNavigationHintPtr, enable)
   }
 
   public final fun isDebuggingNavigationHint(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDebuggingNavigationHintPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDebuggingNavigationHintPtr)
 
   public final fun setEditedSceneRoot(scene: Node?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setEditedSceneRootPtr, scene)
+    callPtrMethod_OBJECT(MethodBindings.setEditedSceneRootPtr, scene)
   }
 
   public final fun getEditedSceneRoot(): Node? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getEditedSceneRootPtr) as Node?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getEditedSceneRootPtr) as Node?)
 
   public final fun setPause(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPausePtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setPausePtr, enable)
   }
 
-  public final fun isPaused(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPausedPtr)
+  public final fun isPaused(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isPausedPtr)
 
   /**
    * Returns a new [SceneTreeTimer]. After [timeSec] in seconds have passed, the timer will emit
@@ -416,7 +414,7 @@ public open class SceneTree : MainLoop() {
     processInPhysics: Boolean = false,
     ignoreTimeScale: Boolean = false,
   ): SceneTreeTimer =
-      (TransferContext.callPtrMethod_DOUBLE_BOOL_BOOL_BOOL_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createTimerPtr, timeSec, processAlways, processInPhysics, ignoreTimeScale) as SceneTreeTimer)
+      (callPtrMethod_DOUBLE_BOOL_BOOL_BOOL_ret_OBJECT_REF(MethodBindings.createTimerPtr, timeSec, processAlways, processInPhysics, ignoreTimeScale) as SceneTreeTimer)
 
   /**
    * Creates and returns a new [Tween] processed in this tree. The Tween will start automatically on
@@ -427,27 +425,26 @@ public open class SceneTree : MainLoop() {
    * the [Node] is freed, use [Node.createTween] or [Tween.bindNode].
    */
   public final fun createTween(): Tween =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.createTweenPtr) as Tween)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.createTweenPtr) as Tween)
 
   /**
    * Returns an [VariantArray] of currently existing [Tween]s in the tree, including paused tweens.
    */
   public final fun getProcessedTweens(): VariantArray<Tween> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getProcessedTweensPtr) as VariantArray<Tween>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getProcessedTweensPtr) as VariantArray<Tween>)
 
   /**
    * Returns the number of nodes inside this tree.
    */
   public final fun getNodeCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getNodeCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getNodeCountPtr).toInt()
 
   /**
    * Returns how many physics process steps have been processed, since the application started. This
    * is *not* a measurement of elapsed time. See also [signal physics_frame]. For the number of frames
    * rendered, see [Engine.getProcessFrames].
    */
-  public final fun getFrame(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFramePtr)
+  public final fun getFrame(): Long = callPtrMethod0_ret_LONG(MethodBindings.getFramePtr)
 
   /**
    * Quits the application at the end of the current iteration, with the given [exitCode].
@@ -461,22 +458,22 @@ public open class SceneTree : MainLoop() {
    */
   @JvmOverloads
   public final fun quit(exitCode: Int = 0): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.quitPtr, exitCode.toLong())
+    callPtrMethod_LONG(MethodBindings.quitPtr, exitCode.toLong())
   }
 
   public final fun setPhysicsInterpolationEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPhysicsInterpolationEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setPhysicsInterpolationEnabledPtr, enabled)
   }
 
   public final fun isPhysicsInterpolationEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPhysicsInterpolationEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isPhysicsInterpolationEnabledPtr)
 
   /**
    * Queues the given [obj] to be deleted, calling its [Object.free] at the end of the current
    * frame. This method is similar to [Node.queueFree].
    */
   public final fun queueDelete(obj: Object): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.queueDeletePtr, obj)
+    callPtrMethod_OBJECT(MethodBindings.queueDeletePtr, obj)
   }
 
   /**
@@ -503,7 +500,7 @@ public open class SceneTree : MainLoop() {
     method: StringName,
     vararg args: Any?,
   ): Unit {
-    TransferContext.callMethod_LONG_STRING_NAME_STRING_NAME_VARARG(ptr, objectID.id, MethodBindings.callGroupFlagsPtr, flags, group, method, args)
+    callMethod_LONG_STRING_NAME_STRING_NAME_VARARG(MethodBindings.callGroupFlagsPtr, flags, group, method, args)
   }
 
   /**
@@ -515,7 +512,7 @@ public open class SceneTree : MainLoop() {
     group: StringName,
     notification: Int,
   ): Unit {
-    TransferContext.callPtrMethod_LONG_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.notifyGroupFlagsPtr, callFlags, group, notification.toLong())
+    callPtrMethod_LONG_STRING_NAME_LONG(MethodBindings.notifyGroupFlagsPtr, callFlags, group, notification.toLong())
   }
 
   /**
@@ -533,7 +530,7 @@ public open class SceneTree : MainLoop() {
     `property`: String,
     `value`: Any?,
   ): Unit {
-    TransferContext.callMethod_LONG_STRING_NAME_STRING_ANY(ptr, objectID.id, MethodBindings.setGroupFlagsPtr, callFlags, group, property, value)
+    callMethod_LONG_STRING_NAME_STRING_ANY(MethodBindings.setGroupFlagsPtr, callFlags, group, property, value)
   }
 
   /**
@@ -554,7 +551,7 @@ public open class SceneTree : MainLoop() {
     method: StringName,
     vararg args: Any?,
   ): Unit {
-    TransferContext.callMethod_STRING_NAME_STRING_NAME_VARARG(ptr, objectID.id, MethodBindings.callGroupPtr, group, method, args)
+    callMethod_STRING_NAME_STRING_NAME_VARARG(MethodBindings.callGroupPtr, group, method, args)
   }
 
   /**
@@ -566,7 +563,7 @@ public open class SceneTree : MainLoop() {
    * stuttering in some performance-intensive situations.
    */
   public final fun notifyGroup(group: StringName, notification: Int): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.notifyGroupPtr, group, notification.toLong())
+    callPtrMethod_STRING_NAME_LONG(MethodBindings.notifyGroupPtr, group, notification.toLong())
   }
 
   /**
@@ -585,7 +582,7 @@ public open class SceneTree : MainLoop() {
     `property`: String,
     `value`: Any?,
   ): Unit {
-    TransferContext.callMethod_STRING_NAME_STRING_ANY(ptr, objectID.id, MethodBindings.setGroupPtr, group, property, value)
+    callMethod_STRING_NAME_STRING_ANY(MethodBindings.setGroupPtr, group, property, value)
   }
 
   /**
@@ -593,27 +590,27 @@ public open class SceneTree : MainLoop() {
    * given [group], in scene hierarchy order.
    */
   public final fun getNodesInGroup(group: StringName): VariantArray<Node> =
-      (TransferContext.callPtrMethod_STRING_NAME_ret_ARRAY(ptr, objectID.id, MethodBindings.getNodesInGroupPtr, group) as VariantArray<Node>)
+      (callPtrMethod_STRING_NAME_ret_ARRAY(MethodBindings.getNodesInGroupPtr, group) as VariantArray<Node>)
 
   /**
    * Returns the first [Node] found inside the tree, that has been added to the given [group], in
    * scene hierarchy order. Returns `null` if no match is found. See also [getNodesInGroup].
    */
   public final fun getFirstNodeInGroup(group: StringName): Node? =
-      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT(ptr, objectID.id, MethodBindings.getFirstNodeInGroupPtr, group) as Node?)
+      (callPtrMethod_STRING_NAME_ret_OBJECT(MethodBindings.getFirstNodeInGroupPtr, group) as Node?)
 
   /**
    * Returns the number of nodes assigned to the given group.
    */
   public final fun getNodeCountInGroup(group: StringName): Int =
-      TransferContext.callPtrMethod_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.getNodeCountInGroupPtr, group).toInt()
+      callPtrMethod_STRING_NAME_ret_LONG(MethodBindings.getNodeCountInGroupPtr, group).toInt()
 
   public final fun setCurrentScene(childNode: Node?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setCurrentScenePtr, childNode)
+    callPtrMethod_OBJECT(MethodBindings.setCurrentScenePtr, childNode)
   }
 
   public final fun getCurrentScene(): Node? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getCurrentScenePtr) as Node?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getCurrentScenePtr) as Node?)
 
   /**
    * Changes the running scene to the one at the given [path], after loading it into a [PackedScene]
@@ -625,7 +622,7 @@ public open class SceneTree : MainLoop() {
    * **Note:** See [changeSceneToNode] for details on the order of operations.
    */
   public final fun changeSceneToFile(path: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.changeSceneToFilePtr, path))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.changeSceneToFilePtr, path))
 
   /**
    * Changes the running scene to a new instance of the given [PackedScene] (which must be valid).
@@ -636,7 +633,7 @@ public open class SceneTree : MainLoop() {
    * **Note:** See [changeSceneToNode] for details on the order of operations.
    */
   public final fun changeSceneToPacked(packedScene: PackedScene): Error =
-      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.changeSceneToPackedPtr, packedScene))
+      Error.from(callPtrMethod_OBJECT_ret_LONG(MethodBindings.changeSceneToPackedPtr, packedScene))
 
   /**
    * Changes the running scene to the provided [Node]. Useful when you want to set up the new scene
@@ -665,7 +662,7 @@ public open class SceneTree : MainLoop() {
    * invalid.
    */
   public final fun changeSceneToNode(node: Node): Error =
-      Error.from(TransferContext.callPtrMethod_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.changeSceneToNodePtr, node))
+      Error.from(callPtrMethod_OBJECT_ret_LONG(MethodBindings.changeSceneToNodePtr, node))
 
   /**
    * Reloads the currently active scene, replacing [currentScene] with a new instance of its
@@ -676,13 +673,13 @@ public open class SceneTree : MainLoop() {
    * instantiated.
    */
   public final fun reloadCurrentScene(): Error =
-      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.reloadCurrentScenePtr))
+      Error.from(callPtrMethod0_ret_LONG(MethodBindings.reloadCurrentScenePtr))
 
   /**
    * If a current scene is loaded, calling this method will unload it.
    */
   public final fun unloadCurrentScene(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.unloadCurrentScenePtr)
+    callPtrMethod0(MethodBindings.unloadCurrentScenePtr)
   }
 
   /**
@@ -699,7 +696,7 @@ public open class SceneTree : MainLoop() {
    */
   public final fun setMultiplayer(multiplayer: MultiplayerAPI?, rootPath: NodePath = NodePath("")):
       Unit {
-    TransferContext.callPtrMethod_OBJECT_NODE_PATH(ptr, objectID.id, MethodBindings.setMultiplayerPtr, multiplayer, rootPath)
+    callPtrMethod_OBJECT_NODE_PATH(MethodBindings.setMultiplayerPtr, multiplayer, rootPath)
   }
 
   /**
@@ -708,14 +705,14 @@ public open class SceneTree : MainLoop() {
    * one is returned. See [setMultiplayer].
    */
   public final fun getMultiplayer(forPath: NodePath = NodePath("")): MultiplayerAPI =
-      (TransferContext.callPtrMethod_NODE_PATH_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMultiplayerPtr, forPath) as MultiplayerAPI)
+      (callPtrMethod_NODE_PATH_ret_OBJECT_REF(MethodBindings.getMultiplayerPtr, forPath) as MultiplayerAPI)
 
   public final fun setMultiplayerPollEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setMultiplayerPollEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setMultiplayerPollEnabledPtr, enabled)
   }
 
   public final fun isMultiplayerPollEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMultiplayerPollEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isMultiplayerPollEnabledPtr)
 
   /**
    * Returns `true` if a node added to the given group [name] exists in the tree.

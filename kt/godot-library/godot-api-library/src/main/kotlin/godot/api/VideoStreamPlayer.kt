@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callPtrMethod0
@@ -193,18 +192,18 @@ public open class VideoStreamPlayer : Control() {
   }
 
   public final fun setStream(stream: VideoStream?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setStreamPtr, stream)
+    callPtrMethod_OBJECT(MethodBindings.setStreamPtr, stream)
   }
 
   public final fun getStream(): VideoStream? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getStreamPtr) as VideoStream?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getStreamPtr) as VideoStream?)
 
   /**
    * Starts the video playback from the beginning. If the video is paused, this will not unpause the
    * video.
    */
   public final fun play(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.playPtr)
+    callPtrMethod0(MethodBindings.playPtr)
   }
 
   /**
@@ -214,7 +213,7 @@ public open class VideoStreamPlayer : Control() {
    * won't become the current frame.
    */
   public final fun stop(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.stopPtr)
+    callPtrMethod0(MethodBindings.stopPtr)
   }
 
   /**
@@ -222,103 +221,96 @@ public open class VideoStreamPlayer : Control() {
    *
    * **Note:** The video is still considered playing if paused during playback.
    */
-  public final fun isPlaying(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPlayingPtr)
+  public final fun isPlaying(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isPlayingPtr)
 
   public final fun setPaused(paused: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setPausedPtr, paused)
+    callPtrMethod_BOOL(MethodBindings.setPausedPtr, paused)
   }
 
-  public final fun isPaused(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isPausedPtr)
+  public final fun isPaused(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isPausedPtr)
 
   public final fun setLoop(loop: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setLoopPtr, loop)
+    callPtrMethod_BOOL(MethodBindings.setLoopPtr, loop)
   }
 
-  public final fun hasLoop(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasLoopPtr)
+  public final fun hasLoop(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasLoopPtr)
 
   public final fun setVolume(volume: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVolumePtr, volume.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVolumePtr, volume.toDouble())
   }
 
   public final fun getVolume(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVolumePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVolumePtr).toFloat()
 
   public final fun setVolumeDb(db: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setVolumeDbPtr, db.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setVolumeDbPtr, db.toDouble())
   }
 
   public final fun getVolumeDb(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getVolumeDbPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getVolumeDbPtr).toFloat()
 
   public final fun setSpeedScale(speedScale: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setSpeedScalePtr, speedScale.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setSpeedScalePtr, speedScale.toDouble())
   }
 
   public final fun getSpeedScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getSpeedScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getSpeedScalePtr).toFloat()
 
   public final fun setAudioTrack(track: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setAudioTrackPtr, track.toLong())
+    callPtrMethod_LONG(MethodBindings.setAudioTrackPtr, track.toLong())
   }
 
   public final fun getAudioTrack(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAudioTrackPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getAudioTrackPtr).toInt()
 
   /**
    * Returns the video stream's name, or `"<No Stream>"` if no video stream is assigned.
    */
-  public final fun getStreamName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getStreamNamePtr)
+  public final fun getStreamName(): String = callMethod0_ret_STRING(MethodBindings.getStreamNamePtr)
 
   /**
    * The length of the current stream, in seconds.
    */
   public final fun getStreamLength(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStreamLengthPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getStreamLengthPtr)
 
   public final fun setStreamPosition(position: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setStreamPositionPtr, position)
+    callPtrMethod_DOUBLE(MethodBindings.setStreamPositionPtr, position)
   }
 
   public final fun getStreamPosition(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStreamPositionPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getStreamPositionPtr)
 
   public final fun setAutoplay(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoplayPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setAutoplayPtr, enabled)
   }
 
-  public final fun hasAutoplay(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasAutoplayPtr)
+  public final fun hasAutoplay(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasAutoplayPtr)
 
   public final fun setExpand(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setExpandPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setExpandPtr, enable)
   }
 
-  public final fun hasExpand(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasExpandPtr)
+  public final fun hasExpand(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasExpandPtr)
 
   public final fun setBufferingMsec(msec: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBufferingMsecPtr, msec.toLong())
+    callPtrMethod_LONG(MethodBindings.setBufferingMsecPtr, msec.toLong())
   }
 
   public final fun getBufferingMsec(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBufferingMsecPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getBufferingMsecPtr).toInt()
 
   public final fun setBus(bus: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setBusPtr, bus)
+    callPtrMethod_STRING_NAME(MethodBindings.setBusPtr, bus)
   }
 
-  public final fun getBus(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getBusPtr)
+  public final fun getBus(): StringName = callPtrMethod0_ret_STRING_NAME(MethodBindings.getBusPtr)
 
   /**
    * Returns the current frame as a [Texture2D].
    */
   public final fun getVideoTexture(): Texture2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getVideoTexturePtr) as Texture2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getVideoTexturePtr) as Texture2D?)
 
   public final fun setBus(bus: String) = setBus(bus.asCachedStringName())
 

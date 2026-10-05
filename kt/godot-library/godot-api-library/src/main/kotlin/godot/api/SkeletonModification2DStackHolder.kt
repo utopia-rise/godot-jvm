@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod_OBJECT
@@ -37,14 +36,14 @@ public open class SkeletonModification2DStackHolder : SkeletonModification2D() {
    */
   public final fun setHeldModificationStack(heldModificationStack: SkeletonModificationStack2D?):
       Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setHeldModificationStackPtr, heldModificationStack)
+    callPtrMethod_OBJECT(MethodBindings.setHeldModificationStackPtr, heldModificationStack)
   }
 
   /**
    * Returns the [SkeletonModificationStack2D] that this modification is holding.
    */
   public final fun getHeldModificationStack(): SkeletonModificationStack2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getHeldModificationStackPtr) as SkeletonModificationStack2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getHeldModificationStackPtr) as SkeletonModificationStack2D?)
 
   public companion object {
     @JvmField

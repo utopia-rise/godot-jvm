@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -170,25 +169,23 @@ public open class RayCast2D : Node2D() {
   }
 
   public final fun setEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setEnabledPtr, enabled)
   }
 
-  public final fun isEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEnabledPtr)
+  public final fun isEnabled(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isEnabledPtr)
 
   public final fun setTargetPosition(localPoint: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setTargetPositionPtr, localPoint)
+    callPtrMethod_VECTOR2(MethodBindings.setTargetPositionPtr, localPoint)
   }
 
   public final fun getTargetPosition(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getTargetPositionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getTargetPositionPtr)
 
   /**
    * Returns whether any object is intersecting with the ray's vector (considering the vector
    * length).
    */
-  public final fun isColliding(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollidingPtr)
+  public final fun isColliding(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isCollidingPtr)
 
   /**
    * Updates the collision information for the ray immediately, without waiting for the next
@@ -198,7 +195,7 @@ public open class RayCast2D : Node2D() {
    * **Note:** [enabled] does not need to be `true` for this to work.
    */
   public final fun forceRaycastUpdate(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.forceRaycastUpdatePtr)
+    callPtrMethod0(MethodBindings.forceRaycastUpdatePtr)
   }
 
   /**
@@ -209,14 +206,13 @@ public open class RayCast2D : Node2D() {
    * intersects a [TileMapLayer], the method will return a [TileMapLayer] instance.
    */
   public final fun getCollider(): Object? =
-      (TransferContext.callPtrMethod0_ret_OBJECT(ptr, objectID.id, MethodBindings.getColliderPtr) as Object?)
+      (callPtrMethod0_ret_OBJECT(MethodBindings.getColliderPtr) as Object?)
 
   /**
    * Returns the [RID] of the first object that the ray intersects, or an empty [RID] if no object
    * is intersecting the ray (i.e. [isColliding] returns `false`).
    */
-  public final fun getColliderRid(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getColliderRidPtr)
+  public final fun getColliderRid(): RID = callPtrMethod0_ret_RID(MethodBindings.getColliderRidPtr)
 
   /**
    * Returns the shape ID of the first object that the ray intersects, or `0` if no object is
@@ -241,7 +237,7 @@ public open class RayCast2D : Node2D() {
    * ```
    */
   public final fun getColliderShape(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getColliderShapePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getColliderShapePtr).toInt()
 
   /**
    * Returns the collision point at which the ray intersects the closest object, in the global
@@ -252,7 +248,7 @@ public open class RayCast2D : Node2D() {
    * returned point is valid and up-to-date.
    */
   public final fun getCollisionPoint(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCollisionPointPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getCollisionPointPtr)
 
   /**
    * Returns the normal of the intersecting object's shape at the collision point, or `Vector2(0,
@@ -262,56 +258,56 @@ public open class RayCast2D : Node2D() {
    * returned normal is valid and up-to-date.
    */
   public final fun getCollisionNormal(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getCollisionNormalPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getCollisionNormalPtr)
 
   /**
    * Adds a collision exception so the ray does not report collisions with the specified [RID].
    */
   public final fun addExceptionRid(rid: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.addExceptionRidPtr, rid)
+    callPtrMethod_RID(MethodBindings.addExceptionRidPtr, rid)
   }
 
   /**
    * Adds a collision exception so the ray does not report collisions with the specified [node].
    */
   public final fun addException(node: CollisionObject2D): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.addExceptionPtr, node)
+    callPtrMethod_OBJECT(MethodBindings.addExceptionPtr, node)
   }
 
   /**
    * Removes a collision exception so the ray can report collisions with the specified [RID].
    */
   public final fun removeExceptionRid(rid: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.removeExceptionRidPtr, rid)
+    callPtrMethod_RID(MethodBindings.removeExceptionRidPtr, rid)
   }
 
   /**
    * Removes a collision exception so the ray can report collisions with the specified [node].
    */
   public final fun removeException(node: CollisionObject2D): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.removeExceptionPtr, node)
+    callPtrMethod_OBJECT(MethodBindings.removeExceptionPtr, node)
   }
 
   /**
    * Removes all collision exceptions for this ray.
    */
   public final fun clearExceptions(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearExceptionsPtr)
+    callPtrMethod0(MethodBindings.clearExceptionsPtr)
   }
 
   public final fun setCollisionMask(mask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionMaskPtr, mask)
+    callPtrMethod_LONG(MethodBindings.setCollisionMaskPtr, mask)
   }
 
   public final fun getCollisionMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionMaskPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionMaskPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [collisionMask], given a
    * [layerNumber] between 1 and 32.
    */
   public final fun setCollisionMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCollisionMaskValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCollisionMaskValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -319,35 +315,35 @@ public open class RayCast2D : Node2D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getCollisionMaskValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getCollisionMaskValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getCollisionMaskValuePtr, layerNumber.toLong())
 
   public final fun setExcludeParentBody(mask: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setExcludeParentBodyPtr, mask)
+    callPtrMethod_BOOL(MethodBindings.setExcludeParentBodyPtr, mask)
   }
 
   public final fun getExcludeParentBody(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getExcludeParentBodyPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getExcludeParentBodyPtr)
 
   public final fun setCollideWithAreas(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCollideWithAreasPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCollideWithAreasPtr, enable)
   }
 
   public final fun isCollideWithAreasEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollideWithAreasEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCollideWithAreasEnabledPtr)
 
   public final fun setCollideWithBodies(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCollideWithBodiesPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCollideWithBodiesPtr, enable)
   }
 
   public final fun isCollideWithBodiesEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isCollideWithBodiesEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isCollideWithBodiesEnabledPtr)
 
   public final fun setHitFromInside(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setHitFromInsidePtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setHitFromInsidePtr, enable)
   }
 
   public final fun isHitFromInsideEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isHitFromInsideEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isHitFromInsideEnabledPtr)
 
   public companion object {
     @JvmField

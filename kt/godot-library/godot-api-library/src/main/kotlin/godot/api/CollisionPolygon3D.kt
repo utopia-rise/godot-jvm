@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_COLOR
@@ -199,46 +198,45 @@ public open class CollisionPolygon3D : Node3D() {
   }
 
   public final fun setDepth(depth: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setDepthPtr, depth.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setDepthPtr, depth.toDouble())
   }
 
   public final fun getDepth(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getDepthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getDepthPtr).toFloat()
 
   public final fun setPolygon(polygon: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setPolygonPtr, polygon)
+    callPtrMethod_PACKED_VECTOR2_ARRAY(MethodBindings.setPolygonPtr, polygon)
   }
 
   public final fun getPolygon(): PackedVector2Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getPolygonPtr)
+      callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getPolygonPtr)
 
   public final fun setDisabled(disabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDisabledPtr, disabled)
+    callPtrMethod_BOOL(MethodBindings.setDisabledPtr, disabled)
   }
 
-  public final fun isDisabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDisabledPtr)
+  public final fun isDisabled(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isDisabledPtr)
 
   public final fun setDebugColor(color: Color): Unit {
-    TransferContext.callPtrMethod_COLOR(ptr, objectID.id, MethodBindings.setDebugColorPtr, color)
+    callPtrMethod_COLOR(MethodBindings.setDebugColorPtr, color)
   }
 
   public final fun getDebugColor(): Color =
-      TransferContext.callPtrMethod0_ret_COLOR(ptr, objectID.id, MethodBindings.getDebugColorPtr)
+      callPtrMethod0_ret_COLOR(MethodBindings.getDebugColorPtr)
 
   public final fun setEnableDebugFill(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnableDebugFillPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setEnableDebugFillPtr, enable)
   }
 
   public final fun getEnableDebugFill(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnableDebugFillPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getEnableDebugFillPtr)
 
   public final fun setMargin(margin: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMarginPtr, margin.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setMarginPtr, margin.toDouble())
   }
 
   public final fun getMargin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMarginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getMarginPtr).toFloat()
 
   public companion object {
     @JvmField

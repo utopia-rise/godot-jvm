@@ -6,6 +6,7 @@ import java.lang.ref.ReferenceQueue
 import java.lang.ref.WeakReference
 
 interface Binding {
+    val objectID: ObjectID
     val instance: NativeWrapper?
 
     companion object {
@@ -23,14 +24,16 @@ interface Binding {
 
 class ObjectBinding(
     override val instance: NativeWrapper,
-) : Binding
+) : Binding {
+    override val objectID: ObjectID = instance.objectID
+}
 
 class RefCountedBinding(
     instance: NativeWrapper,
     queue: ReferenceQueue<NativeWrapper>,
 ) : WeakReference<NativeWrapper>(instance, queue), Binding {
 
-    val objectID: ObjectID = instance.objectID
+    override val objectID: ObjectID = instance.objectID
 
     override val instance: NativeWrapper?
         get() = this.get()

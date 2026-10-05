@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_STRING_ret_LONG
 import godot.callPtrMethod0_ret_OBJECT_REF
@@ -41,13 +40,13 @@ public open class UDSServer : SocketServer() {
    * any existing socket file before calling this method.
    */
   public final fun listen(path: String): Error =
-      Error.from(TransferContext.callMethod_STRING_ret_LONG(ptr, objectID.id, MethodBindings.listenPtr, path))
+      Error.from(callMethod_STRING_ret_LONG(MethodBindings.listenPtr, path))
 
   /**
    * If a connection is available, returns a StreamPeerUDS with the connection.
    */
   public final fun takeConnection(): StreamPeerUDS? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.takeConnectionPtr) as StreamPeerUDS?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.takeConnectionPtr) as StreamPeerUDS?)
 
   public companion object {
     @JvmField

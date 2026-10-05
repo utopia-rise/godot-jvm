@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -150,60 +149,60 @@ public open class AnimationNodeAnimation : AnimationRootNode() {
   }
 
   public final fun setAnimation(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setAnimationPtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.setAnimationPtr, name)
   }
 
   public final fun getAnimation(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getAnimationPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getAnimationPtr)
 
   public final fun setPlayMode(mode: PlayMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setPlayModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setPlayModePtr, mode.value)
   }
 
   public final fun getPlayMode(): PlayMode =
-      PlayMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPlayModePtr))
+      PlayMode.from(callPtrMethod0_ret_LONG(MethodBindings.getPlayModePtr))
 
   public final fun setAdvanceOnStart(advanceOnStart: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAdvanceOnStartPtr, advanceOnStart)
+    callPtrMethod_BOOL(MethodBindings.setAdvanceOnStartPtr, advanceOnStart)
   }
 
   public final fun isAdvanceOnStart(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAdvanceOnStartPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAdvanceOnStartPtr)
 
   public final fun setUseCustomTimeline(useCustomTimeline: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseCustomTimelinePtr, useCustomTimeline)
+    callPtrMethod_BOOL(MethodBindings.setUseCustomTimelinePtr, useCustomTimeline)
   }
 
   public final fun isUsingCustomTimeline(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingCustomTimelinePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsingCustomTimelinePtr)
 
   public final fun setTimelineLength(timelineLength: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTimelineLengthPtr, timelineLength)
+    callPtrMethod_DOUBLE(MethodBindings.setTimelineLengthPtr, timelineLength)
   }
 
   public final fun getTimelineLength(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getTimelineLengthPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getTimelineLengthPtr)
 
   public final fun setStretchTimeScale(stretchTimeScale: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setStretchTimeScalePtr, stretchTimeScale)
+    callPtrMethod_BOOL(MethodBindings.setStretchTimeScalePtr, stretchTimeScale)
   }
 
   public final fun isStretchingTimeScale(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isStretchingTimeScalePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isStretchingTimeScalePtr)
 
   public final fun setStartOffset(startOffset: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setStartOffsetPtr, startOffset)
+    callPtrMethod_DOUBLE(MethodBindings.setStartOffsetPtr, startOffset)
   }
 
   public final fun getStartOffset(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStartOffsetPtr)
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getStartOffsetPtr)
 
   public final fun setLoopMode(loopMode: Animation.LoopMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLoopModePtr, loopMode.value)
+    callPtrMethod_LONG(MethodBindings.setLoopModePtr, loopMode.value)
   }
 
   public final fun getLoopMode(): Animation.LoopMode =
-      Animation.LoopMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLoopModePtr))
+      Animation.LoopMode.from(callPtrMethod0_ret_LONG(MethodBindings.getLoopModePtr))
 
   public final fun setAnimation(name: String) = setAnimation(name.asCachedStringName())
 

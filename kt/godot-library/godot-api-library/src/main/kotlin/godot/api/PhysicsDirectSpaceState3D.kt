@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_OBJECT_LONG_ret_ARRAY
 import godot.callPtrMethod_OBJECT_ret_DICTIONARY
@@ -59,7 +58,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
   @JvmOverloads
   public final fun intersectPoint(parameters: PhysicsPointQueryParameters3D, maxResults: Int = 32):
       VariantArray<Dictionary<Any?, Any?>> =
-      (TransferContext.callPtrMethod_OBJECT_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.intersectPointPtr, parameters, maxResults.toLong()) as VariantArray<Dictionary<Any?, Any?>>)
+      (callPtrMethod_OBJECT_LONG_ret_ARRAY(MethodBindings.intersectPointPtr, parameters, maxResults.toLong()) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Intersects a ray in a given space. Ray position and other parameters are defined through
@@ -86,7 +85,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
    * If the ray did not intersect anything, then an empty dictionary is returned instead.
    */
   public final fun intersectRay(parameters: PhysicsRayQueryParameters3D): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod_OBJECT_ret_DICTIONARY(ptr, objectID.id, MethodBindings.intersectRayPtr, parameters) as Dictionary<Any?, Any?>)
+      (callPtrMethod_OBJECT_ret_DICTIONARY(MethodBindings.intersectRayPtr, parameters) as Dictionary<Any?, Any?>)
 
   /**
    * Checks the intersections of a shape, given through a [PhysicsShapeQueryParameters3D] object,
@@ -109,7 +108,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
   @JvmOverloads
   public final fun intersectShape(parameters: PhysicsShapeQueryParameters3D, maxResults: Int = 32):
       VariantArray<Dictionary<Any?, Any?>> =
-      (TransferContext.callPtrMethod_OBJECT_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.intersectShapePtr, parameters, maxResults.toLong()) as VariantArray<Dictionary<Any?, Any?>>)
+      (callPtrMethod_OBJECT_LONG_ret_ARRAY(MethodBindings.intersectShapePtr, parameters, maxResults.toLong()) as VariantArray<Dictionary<Any?, Any?>>)
 
   /**
    * Checks how far a [Shape3D] can move without colliding. All the parameters for the query,
@@ -124,7 +123,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
    * ignored. Use [collideShape] to determine the [Shape3D]s that the shape is already colliding with.
    */
   public final fun castMotion(parameters: PhysicsShapeQueryParameters3D): PackedFloat32Array =
-      TransferContext.callPtrMethod_OBJECT_ret_PACKED_FLOAT_32_ARRAY(ptr, objectID.id, MethodBindings.castMotionPtr, parameters)
+      callPtrMethod_OBJECT_ret_PACKED_FLOAT_32_ARRAY(MethodBindings.castMotionPtr, parameters)
 
   /**
    * Checks the intersections of a shape, given through a [PhysicsShapeQueryParameters3D] object,
@@ -141,7 +140,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
   @JvmOverloads
   public final fun collideShape(parameters: PhysicsShapeQueryParameters3D, maxResults: Int = 32):
       VariantArray<Vector3> =
-      (TransferContext.callPtrMethod_OBJECT_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.collideShapePtr, parameters, maxResults.toLong()) as VariantArray<Vector3>)
+      (callPtrMethod_OBJECT_LONG_ret_ARRAY(MethodBindings.collideShapePtr, parameters, maxResults.toLong()) as VariantArray<Vector3>)
 
   /**
    * Checks the intersections of a shape, given through a [PhysicsShapeQueryParameters3D] object,
@@ -167,7 +166,7 @@ public open class PhysicsDirectSpaceState3D internal constructor() : Object() {
    * **Note:** This method does not take into account the `motion` property of the object.
    */
   public final fun getRestInfo(parameters: PhysicsShapeQueryParameters3D): Dictionary<Any?, Any?> =
-      (TransferContext.callPtrMethod_OBJECT_ret_DICTIONARY(ptr, objectID.id, MethodBindings.getRestInfoPtr, parameters) as Dictionary<Any?, Any?>)
+      (callPtrMethod_OBJECT_ret_DICTIONARY(MethodBindings.getRestInfoPtr, parameters) as Dictionary<Any?, Any?>)
 
   public companion object {
     @JvmField

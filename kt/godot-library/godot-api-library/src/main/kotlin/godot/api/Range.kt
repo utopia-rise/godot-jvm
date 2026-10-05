@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
@@ -179,26 +178,20 @@ public open class Range : Control() {
     throw NotImplementedError("Range::_valueChanged is not implemented.")
   }
 
-  public final fun getValue(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getValuePtr)
+  public final fun getValue(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getValuePtr)
 
-  public final fun getMin(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMinPtr)
+  public final fun getMin(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getMinPtr)
 
-  public final fun getMax(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getMaxPtr)
+  public final fun getMax(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getMaxPtr)
 
-  public final fun getStep(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getStepPtr)
+  public final fun getStep(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getStepPtr)
 
-  public final fun getPage(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getPagePtr)
+  public final fun getPage(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getPagePtr)
 
-  public final fun getAsRatio(): Double =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAsRatioPtr)
+  public final fun getAsRatio(): Double = callPtrMethod0_ret_DOUBLE(MethodBindings.getAsRatioPtr)
 
   public final fun setValue(`value`: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setValuePtr, value)
+    callPtrMethod_DOUBLE(MethodBindings.setValuePtr, value)
   }
 
   /**
@@ -206,56 +199,55 @@ public open class Range : Control() {
    * value_changed] signal.
    */
   public final fun setValueNoSignal(`value`: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setValueNoSignalPtr, value)
+    callPtrMethod_DOUBLE(MethodBindings.setValueNoSignalPtr, value)
   }
 
   public final fun setMin(minimum: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMinPtr, minimum)
+    callPtrMethod_DOUBLE(MethodBindings.setMinPtr, minimum)
   }
 
   public final fun setMax(maximum: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setMaxPtr, maximum)
+    callPtrMethod_DOUBLE(MethodBindings.setMaxPtr, maximum)
   }
 
   public final fun setStep(step: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setStepPtr, step)
+    callPtrMethod_DOUBLE(MethodBindings.setStepPtr, step)
   }
 
   public final fun setPage(pagesize: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setPagePtr, pagesize)
+    callPtrMethod_DOUBLE(MethodBindings.setPagePtr, pagesize)
   }
 
   public final fun setAsRatio(`value`: Double): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAsRatioPtr, value)
+    callPtrMethod_DOUBLE(MethodBindings.setAsRatioPtr, value)
   }
 
   public final fun setUseRoundedValues(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseRoundedValuesPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setUseRoundedValuesPtr, enabled)
   }
 
   public final fun isUsingRoundedValues(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingRoundedValuesPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsingRoundedValuesPtr)
 
   public final fun setExpRatio(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setExpRatioPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setExpRatioPtr, enabled)
   }
 
-  public final fun isRatioExp(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isRatioExpPtr)
+  public final fun isRatioExp(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isRatioExpPtr)
 
   public final fun setAllowGreater(allow: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllowGreaterPtr, allow)
+    callPtrMethod_BOOL(MethodBindings.setAllowGreaterPtr, allow)
   }
 
   public final fun isGreaterAllowed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isGreaterAllowedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isGreaterAllowedPtr)
 
   public final fun setAllowLesser(allow: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAllowLesserPtr, allow)
+    callPtrMethod_BOOL(MethodBindings.setAllowLesserPtr, allow)
   }
 
   public final fun isLesserAllowed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isLesserAllowedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isLesserAllowedPtr)
 
   /**
    * Binds two [Range]s together along with any ranges previously grouped with either of them. When
@@ -263,14 +255,14 @@ public open class Range : Control() {
    * group.
    */
   public final fun share(with: Node?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.sharePtr, with)
+    callPtrMethod_OBJECT(MethodBindings.sharePtr, with)
   }
 
   /**
    * Stops the [Range] from sharing its member variables with any other.
    */
   public final fun unshare(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.unsharePtr)
+    callPtrMethod0(MethodBindings.unsharePtr)
   }
 
   public companion object {

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_LONG_DOUBLE
 import godot.callPtrMethod_LONG_ret_DOUBLE
@@ -104,14 +103,14 @@ public open class ConeTwistJoint3D : Joint3D() {
    * Sets the value of the specified parameter.
    */
   public final fun setParam(`param`: Param, `value`: Float): Unit {
-    TransferContext.callPtrMethod_LONG_DOUBLE(ptr, objectID.id, MethodBindings.setParamPtr, param.value, value.toDouble())
+    callPtrMethod_LONG_DOUBLE(MethodBindings.setParamPtr, param.value, value.toDouble())
   }
 
   /**
    * Returns the value of the specified parameter.
    */
   public final fun getParam(`param`: Param): Float =
-      TransferContext.callPtrMethod_LONG_ret_DOUBLE(ptr, objectID.id, MethodBindings.getParamPtr, param.value).toFloat()
+      callPtrMethod_LONG_ret_DOUBLE(MethodBindings.getParamPtr, param.value).toFloat()
 
   public enum class Param(
     public override val `value`: Long,

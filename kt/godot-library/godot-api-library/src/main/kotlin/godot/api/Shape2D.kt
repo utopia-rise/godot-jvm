@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_RECT2
@@ -64,11 +63,11 @@ public open class Shape2D internal constructor() : Resource() {
   }
 
   public final fun setCustomSolverBias(bias: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCustomSolverBiasPtr, bias.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCustomSolverBiasPtr, bias.toDouble())
   }
 
   public final fun getCustomSolverBias(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCustomSolverBiasPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCustomSolverBiasPtr).toFloat()
 
   /**
    * Returns `true` if this shape is colliding with another.
@@ -81,7 +80,7 @@ public open class Shape2D internal constructor() : Resource() {
     withShape: Shape2D,
     shapeXform: Transform2D,
   ): Boolean =
-      TransferContext.callPtrMethod_TRANSFORM2D_OBJECT_TRANSFORM2D_ret_BOOL(ptr, objectID.id, MethodBindings.collidePtr, localXform, withShape, shapeXform)
+      callPtrMethod_TRANSFORM2D_OBJECT_TRANSFORM2D_ret_BOOL(MethodBindings.collidePtr, localXform, withShape, shapeXform)
 
   /**
    * Returns whether this shape would collide with another, if a given movement was applied.
@@ -98,7 +97,7 @@ public open class Shape2D internal constructor() : Resource() {
     shapeXform: Transform2D,
     shapeMotion: Vector2,
   ): Boolean =
-      TransferContext.callPtrMethod_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2_ret_BOOL(ptr, objectID.id, MethodBindings.collideWithMotionPtr, localXform, localMotion, withShape, shapeXform, shapeMotion)
+      callPtrMethod_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2_ret_BOOL(MethodBindings.collideWithMotionPtr, localXform, localMotion, withShape, shapeXform, shapeMotion)
 
   /**
    * Returns a list of contact point pairs where this shape touches another.
@@ -119,7 +118,7 @@ public open class Shape2D internal constructor() : Resource() {
     withShape: Shape2D,
     shapeXform: Transform2D,
   ): PackedVector2Array =
-      TransferContext.callPtrMethod_TRANSFORM2D_OBJECT_TRANSFORM2D_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.collideAndGetContactsPtr, localXform, withShape, shapeXform)
+      callPtrMethod_TRANSFORM2D_OBJECT_TRANSFORM2D_ret_PACKED_VECTOR2_ARRAY(MethodBindings.collideAndGetContactsPtr, localXform, withShape, shapeXform)
 
   /**
    * Returns a list of contact point pairs where this shape would touch another, if a given movement
@@ -145,21 +144,20 @@ public open class Shape2D internal constructor() : Resource() {
     shapeXform: Transform2D,
     shapeMotion: Vector2,
   ): PackedVector2Array =
-      TransferContext.callPtrMethod_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.collideWithMotionAndGetContactsPtr, localXform, localMotion, withShape, shapeXform, shapeMotion)
+      callPtrMethod_TRANSFORM2D_VECTOR2_OBJECT_TRANSFORM2D_VECTOR2_ret_PACKED_VECTOR2_ARRAY(MethodBindings.collideWithMotionAndGetContactsPtr, localXform, localMotion, withShape, shapeXform, shapeMotion)
 
   /**
    * Draws a solid shape onto a [CanvasItem] with the [RenderingServer] API filled with the
    * specified [color]. The exact drawing method is specific for each shape and cannot be configured.
    */
   public final fun draw(canvasItem: RID, color: Color): Unit {
-    TransferContext.callPtrMethod_RID_COLOR(ptr, objectID.id, MethodBindings.drawPtr, canvasItem, color)
+    callPtrMethod_RID_COLOR(MethodBindings.drawPtr, canvasItem, color)
   }
 
   /**
    * Returns a [Rect2] representing the shapes boundary.
    */
-  public final fun getRect(): Rect2 =
-      TransferContext.callPtrMethod0_ret_RECT2(ptr, objectID.id, MethodBindings.getRectPtr)
+  public final fun getRect(): Rect2 = callPtrMethod0_ret_RECT2(MethodBindings.getRectPtr)
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_PACKED_BYTE_ARRAY
 import godot.callPtrMethod_LONG_ret_LONG
@@ -93,19 +92,19 @@ public open class HashingContext : RefCounted() {
    * an SHA-256).
    */
   public final fun start(type: HashType): Error =
-      Error.from(TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.startPtr, type.value))
+      Error.from(callPtrMethod_LONG_ret_LONG(MethodBindings.startPtr, type.value))
 
   /**
    * Updates the computation with the given [chunk] of data.
    */
   public final fun update(chunk: PackedByteArray): Error =
-      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.updatePtr, chunk))
+      Error.from(callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(MethodBindings.updatePtr, chunk))
 
   /**
    * Closes the current context, and return the computed hash.
    */
   public final fun finish(): PackedByteArray =
-      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.finishPtr)
+      callPtrMethod0_ret_PACKED_BYTE_ARRAY(MethodBindings.finishPtr)
 
   public enum class HashType(
     public override val `value`: Long,

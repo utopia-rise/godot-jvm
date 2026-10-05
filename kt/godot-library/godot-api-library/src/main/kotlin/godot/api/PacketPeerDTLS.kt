@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_OBJECT_STRING_OBJECT_ret_LONG
 import godot.callPtrMethod0
@@ -47,7 +46,7 @@ public open class PacketPeerDTLS : PacketPeer() {
    * and keep the connection working.
    */
   public final fun poll(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.pollPtr)
+    callPtrMethod0(MethodBindings.pollPtr)
   }
 
   /**
@@ -62,19 +61,19 @@ public open class PacketPeerDTLS : PacketPeer() {
     hostname: String,
     clientOptions: TLSOptions? = null,
   ): Error =
-      Error.from(TransferContext.callMethod_OBJECT_STRING_OBJECT_ret_LONG(ptr, objectID.id, MethodBindings.connectToPeerPtr, packetPeer, hostname, clientOptions))
+      Error.from(callMethod_OBJECT_STRING_OBJECT_ret_LONG(MethodBindings.connectToPeerPtr, packetPeer, hostname, clientOptions))
 
   /**
    * Returns the status of the connection.
    */
   public final fun getStatus(): Status =
-      Status.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getStatusPtr))
+      Status.from(callPtrMethod0_ret_LONG(MethodBindings.getStatusPtr))
 
   /**
    * Disconnects this peer, terminating the DTLS session.
    */
   public final fun disconnectFromPeer(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.disconnectFromPeerPtr)
+    callPtrMethod0(MethodBindings.disconnectFromPeerPtr)
   }
 
   public enum class Status(

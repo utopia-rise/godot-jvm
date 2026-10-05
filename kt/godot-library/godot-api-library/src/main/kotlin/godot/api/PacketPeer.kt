@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_ANY_BOOL_ret_LONG
 import godot.callMethod_BOOL_ret_ANY
@@ -73,7 +72,7 @@ public open class PacketPeer internal constructor() : RefCounted() {
    */
   @JvmOverloads
   public final fun getVar(allowObjects: Boolean = false): Any? =
-      TransferContext.callMethod_BOOL_ret_ANY(ptr, objectID.id, MethodBindings.getVarPtr, allowObjects)
+      callMethod_BOOL_ret_ANY(MethodBindings.getVarPtr, allowObjects)
 
   /**
    * Sends a [Any] as a packet. If [fullObjects] is `true`, encoding objects is allowed (and can
@@ -83,37 +82,37 @@ public open class PacketPeer internal constructor() : RefCounted() {
    */
   @JvmOverloads
   public final fun putVar(`var`: Any?, fullObjects: Boolean = false): Error =
-      Error.from(TransferContext.callMethod_ANY_BOOL_ret_LONG(ptr, objectID.id, MethodBindings.putVarPtr, `var`, fullObjects))
+      Error.from(callMethod_ANY_BOOL_ret_LONG(MethodBindings.putVarPtr, `var`, fullObjects))
 
   /**
    * Gets a raw packet.
    */
   public final fun getPacket(): PackedByteArray =
-      TransferContext.callPtrMethod0_ret_PACKED_BYTE_ARRAY(ptr, objectID.id, MethodBindings.getPacketPtr)
+      callPtrMethod0_ret_PACKED_BYTE_ARRAY(MethodBindings.getPacketPtr)
 
   /**
    * Sends a raw packet.
    */
   public final fun putPacket(buffer: PackedByteArray): Error =
-      Error.from(TransferContext.callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(ptr, objectID.id, MethodBindings.putPacketPtr, buffer))
+      Error.from(callPtrMethod_PACKED_BYTE_ARRAY_ret_LONG(MethodBindings.putPacketPtr, buffer))
 
   /**
    * Returns the error state of the last packet received (via [getPacket] and [getVar]).
    */
   public final fun getPacketError(): Error =
-      Error.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getPacketErrorPtr))
+      Error.from(callPtrMethod0_ret_LONG(MethodBindings.getPacketErrorPtr))
 
   /**
    * Returns the number of packets currently available in the ring-buffer.
    */
   public final fun getAvailablePacketCount(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getAvailablePacketCountPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getAvailablePacketCountPtr).toInt()
 
   public final fun getEncodeBufferMaxSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getEncodeBufferMaxSizePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getEncodeBufferMaxSizePtr).toInt()
 
   public final fun setEncodeBufferMaxSize(maxSize: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setEncodeBufferMaxSizePtr, maxSize.toLong())
+    callPtrMethod_LONG(MethodBindings.setEncodeBufferMaxSizePtr, maxSize.toLong())
   }
 
   public companion object {

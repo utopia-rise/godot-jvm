@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod_RID_ret_BOOL
 import godot.common.interop.VoidPtr
@@ -37,7 +36,7 @@ public abstract class PhysicsDirectSpaceState3DExtension : PhysicsDirectSpaceSta
   public abstract fun _getClosestPointToObjectVolume(`object`: RID, point: Vector3): Vector3
 
   public final fun isBodyExcludedFromQuery(body: RID): Boolean =
-      TransferContext.callPtrMethod_RID_ret_BOOL(ptr, objectID.id, MethodBindings.isBodyExcludedFromQueryPtr, body)
+      callPtrMethod_RID_ret_BOOL(MethodBindings.isBodyExcludedFromQueryPtr, body)
 
   public companion object {
     @JvmField

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
@@ -212,46 +211,45 @@ public open class CollisionPolygon2D : Node2D() {
   }
 
   public final fun setPolygon(polygon: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setPolygonPtr, polygon)
+    callPtrMethod_PACKED_VECTOR2_ARRAY(MethodBindings.setPolygonPtr, polygon)
   }
 
   public final fun getPolygon(): PackedVector2Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getPolygonPtr)
+      callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getPolygonPtr)
 
   public final fun setBuildMode(buildMode: BuildMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setBuildModePtr, buildMode.value)
+    callPtrMethod_LONG(MethodBindings.setBuildModePtr, buildMode.value)
   }
 
   public final fun getBuildMode(): BuildMode =
-      BuildMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getBuildModePtr))
+      BuildMode.from(callPtrMethod0_ret_LONG(MethodBindings.getBuildModePtr))
 
   public final fun setDisabled(disabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDisabledPtr, disabled)
+    callPtrMethod_BOOL(MethodBindings.setDisabledPtr, disabled)
   }
 
-  public final fun isDisabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDisabledPtr)
+  public final fun isDisabled(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isDisabledPtr)
 
   public final fun setOneWayCollision(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setOneWayCollisionPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setOneWayCollisionPtr, enabled)
   }
 
   public final fun isOneWayCollisionEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isOneWayCollisionEnabledPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isOneWayCollisionEnabledPtr)
 
   public final fun setOneWayCollisionMargin(margin: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setOneWayCollisionMarginPtr, margin.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setOneWayCollisionMarginPtr, margin.toDouble())
   }
 
   public final fun getOneWayCollisionMargin(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOneWayCollisionMarginPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getOneWayCollisionMarginPtr).toFloat()
 
   public final fun setOneWayCollisionDirection(direction: Vector2): Unit {
-    TransferContext.callPtrMethod_VECTOR2(ptr, objectID.id, MethodBindings.setOneWayCollisionDirectionPtr, direction)
+    callPtrMethod_VECTOR2(MethodBindings.setOneWayCollisionDirectionPtr, direction)
   }
 
   public final fun getOneWayCollisionDirection(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getOneWayCollisionDirectionPtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getOneWayCollisionDirectionPtr)
 
   public enum class BuildMode(
     public override val `value`: Long,

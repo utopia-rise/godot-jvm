@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
@@ -69,25 +68,24 @@ public open class OpenXRHapticVibration : OpenXRHapticBase() {
   }
 
   public final fun setDuration(duration: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setDurationPtr, duration)
+    callPtrMethod_LONG(MethodBindings.setDurationPtr, duration)
   }
 
-  public final fun getDuration(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getDurationPtr)
+  public final fun getDuration(): Long = callPtrMethod0_ret_LONG(MethodBindings.getDurationPtr)
 
   public final fun setFrequency(frequency: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setFrequencyPtr, frequency.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setFrequencyPtr, frequency.toDouble())
   }
 
   public final fun getFrequency(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getFrequencyPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getFrequencyPtr).toFloat()
 
   public final fun setAmplitude(amplitude: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setAmplitudePtr, amplitude.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setAmplitudePtr, amplitude.toDouble())
   }
 
   public final fun getAmplitude(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getAmplitudePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getAmplitudePtr).toFloat()
 
   public companion object {
     @JvmField

@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_LONG
@@ -93,18 +92,17 @@ public open class SkeletonModification2D : Resource() {
   }
 
   public final fun setEnabled(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEnabledPtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setEnabledPtr, enabled)
   }
 
-  public final fun getEnabled(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEnabledPtr)
+  public final fun getEnabled(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getEnabledPtr)
 
   /**
    * Returns the [SkeletonModificationStack2D] that this modification is bound to. Through the
    * modification stack, you can access the Skeleton2D the modification is operating on.
    */
   public final fun getModificationStack(): SkeletonModificationStack2D? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getModificationStackPtr) as SkeletonModificationStack2D?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getModificationStackPtr) as SkeletonModificationStack2D?)
 
   /**
    * Manually allows you to set the setup state of the modification. This function should only
@@ -112,21 +110,20 @@ public open class SkeletonModification2D : Resource() {
    * setting the modification up.
    */
   public final fun setIsSetup(isSetup: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setIsSetupPtr, isSetup)
+    callPtrMethod_BOOL(MethodBindings.setIsSetupPtr, isSetup)
   }
 
   /**
    * Returns whether this modification has been successfully setup or not.
    */
-  public final fun getIsSetup(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getIsSetupPtr)
+  public final fun getIsSetup(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getIsSetupPtr)
 
   public final fun setExecutionMode(executionMode: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setExecutionModePtr, executionMode.toLong())
+    callPtrMethod_LONG(MethodBindings.setExecutionModePtr, executionMode.toLong())
   }
 
   public final fun getExecutionMode(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getExecutionModePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getExecutionModePtr).toInt()
 
   /**
    * Takes an angle and clamps it so it is within the passed-in [min] and [max] range. [invert] will
@@ -138,14 +135,14 @@ public open class SkeletonModification2D : Resource() {
     max: Float,
     invert: Boolean,
   ): Float =
-      TransferContext.callPtrMethod_DOUBLE_DOUBLE_DOUBLE_BOOL_ret_DOUBLE(ptr, objectID.id, MethodBindings.clampAnglePtr, angle.toDouble(), min.toDouble(), max.toDouble(), invert).toFloat()
+      callPtrMethod_DOUBLE_DOUBLE_DOUBLE_BOOL_ret_DOUBLE(MethodBindings.clampAnglePtr, angle.toDouble(), min.toDouble(), max.toDouble(), invert).toFloat()
 
   /**
    * Sets whether this modification will call [_drawEditorGizmo] in the Godot editor to draw
    * modification-specific gizmos.
    */
   public final fun setEditorDrawGizmo(drawGizmo: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setEditorDrawGizmoPtr, drawGizmo)
+    callPtrMethod_BOOL(MethodBindings.setEditorDrawGizmoPtr, drawGizmo)
   }
 
   /**
@@ -153,7 +150,7 @@ public open class SkeletonModification2D : Resource() {
    * modification-specific gizmos.
    */
   public final fun getEditorDrawGizmo(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getEditorDrawGizmoPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getEditorDrawGizmoPtr)
 
   public companion object {
     @JvmField

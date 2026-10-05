@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -58,27 +57,26 @@ public open class RDShaderFile : Resource() {
    */
   public final fun setBytecode(bytecode: RDShaderSPIRV?, version: StringName = StringName("")):
       Unit {
-    TransferContext.callPtrMethod_OBJECT_STRING_NAME(ptr, objectID.id, MethodBindings.setBytecodePtr, bytecode, version)
+    callPtrMethod_OBJECT_STRING_NAME(MethodBindings.setBytecodePtr, bytecode, version)
   }
 
   /**
    * Returns the SPIR-V intermediate representation for the specified shader [version].
    */
   public final fun getSpirv(version: StringName = StringName("")): RDShaderSPIRV? =
-      (TransferContext.callPtrMethod_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getSpirvPtr, version) as RDShaderSPIRV?)
+      (callPtrMethod_STRING_NAME_ret_OBJECT_REF(MethodBindings.getSpirvPtr, version) as RDShaderSPIRV?)
 
   /**
    * Returns the list of compiled versions for this shader.
    */
   public final fun getVersionList(): VariantArray<StringName> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getVersionListPtr) as VariantArray<StringName>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getVersionListPtr) as VariantArray<StringName>)
 
   public final fun setBaseError(error: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setBaseErrorPtr, error)
+    callMethod_STRING(MethodBindings.setBaseErrorPtr, error)
   }
 
-  public final fun getBaseError(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getBaseErrorPtr)
+  public final fun getBaseError(): String = callMethod0_ret_STRING(MethodBindings.getBaseErrorPtr)
 
   /**
    * Sets the SPIR-V [bytecode] that will be compiled for the specified [version].

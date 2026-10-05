@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod0_ret_NODE_PATH
@@ -83,38 +82,38 @@ public open class AnimationTree : AnimationMixer() {
   }
 
   public final fun setTreeRoot(animationNode: AnimationRootNode?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setTreeRootPtr, animationNode)
+    callPtrMethod_OBJECT(MethodBindings.setTreeRootPtr, animationNode)
   }
 
   public final fun getTreeRoot(): AnimationRootNode? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getTreeRootPtr) as AnimationRootNode?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getTreeRootPtr) as AnimationRootNode?)
 
   public final fun setAdvanceExpressionBaseNode(path: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setAdvanceExpressionBaseNodePtr, path)
+    callPtrMethod_NODE_PATH(MethodBindings.setAdvanceExpressionBaseNodePtr, path)
   }
 
   public final fun getAdvanceExpressionBaseNode(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getAdvanceExpressionBaseNodePtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getAdvanceExpressionBaseNodePtr)
 
   public final fun setAnimationPlayer(path: NodePath): Unit {
-    TransferContext.callPtrMethod_NODE_PATH(ptr, objectID.id, MethodBindings.setAnimationPlayerPtr, path)
+    callPtrMethod_NODE_PATH(MethodBindings.setAnimationPlayerPtr, path)
   }
 
   public final fun getAnimationPlayer(): NodePath =
-      TransferContext.callPtrMethod0_ret_NODE_PATH(ptr, objectID.id, MethodBindings.getAnimationPlayerPtr)
+      callPtrMethod0_ret_NODE_PATH(MethodBindings.getAnimationPlayerPtr)
 
   /**
    * Sets the process notification in which to update animations.
    */
   public final fun setProcessCallback(mode: AnimationProcessCallback): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setProcessCallbackPtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setProcessCallbackPtr, mode.value)
   }
 
   /**
    * Returns the process notification in which to update animations.
    */
   public final fun getProcessCallback(): AnimationProcessCallback =
-      AnimationProcessCallback.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getProcessCallbackPtr))
+      AnimationProcessCallback.from(callPtrMethod0_ret_LONG(MethodBindings.getProcessCallbackPtr))
 
   public final fun setAdvanceExpressionBaseNode(path: String) =
       setAdvanceExpressionBaseNode(path.asCachedNodePath())

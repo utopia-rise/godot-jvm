@@ -18,7 +18,7 @@ and package the resulting configuration. The source file is not modified by expo
 
 Command-line arguments override values in the JSON file. `--jvm-path` is command-line only; it has no JSON counterpart.
 
-The boolean flags (`--jvm-use-native-image`, `--jvm-use-debug`, `--jvm-wait-for-debugger`, `--jvm-disable-gc`) can be passed bare, in which
+The boolean flags (`--jvm-use-native-image`, `--jvm-use-debug`, `--jvm-wait-for-debugger`, `--jvm-disable-memory-management`) can be passed bare, in which
 case they mean `true`. Pass `=true` or `=false` explicitly to be unambiguous. In the JSON file they are regular
 JSON booleans.
 
@@ -32,8 +32,9 @@ JSON booleans.
 | [`--jvm-debug-address`](#jvm-debug-address) | `debug_address` | `*` (any address) | Desktop only |
 | [`--jvm-wait-for-debugger`](#jvm-wait-for-debugger) | `wait_for_debugger` | true | Desktop only |
 | [`--jvm-jmx-port`](#jvm-jmx-port) | `jmx_port` | -1 (disabled) | Desktop only |
-| [`--jvm-max-string-size`](#jvm-max-string-size) | `max_string_size` | -1 (auto, 512 bytes) | ALL |
-| [`--jvm-disable-gc`](#jvm-disable-gc) | `disable_gc` | false | ALL |
+| [`--jvm-max-string-size`](#jvm-max-string-size) | `max_string_size` | -1 (auto, 128 bytes) | ALL |
+| [`--jvm-value-buffer-size-factor`](#jvm-value-buffer-size-factor) | `value_buffer_size_factor` | 0 (auto, 4 frames) | ALL |
+| [`--jvm-disable-memory-management`](#jvm-disable-memory-management) | `disable_memory_management` | false | ALL |
 | [`--jvm-path`](#jvm-path) | Command line only | | Desktop JVM only |
 | [`--jvm-custom-args`](#jvm-custom-args) | `custom_jvm_args` | | Desktop & iOS |
 
@@ -94,19 +95,39 @@ Example: `--jvm-jmx-port=5006` or `"jmx_port": 5006`
 
 ## `--jvm-max-string-size` { #jvm-max-string-size }
 
-JSON key: `max_string_size`. Default: -1 (auto, 512 bytes).
+JSON key: `max_string_size`. Default: -1 (auto, 128 bytes).
 
-Maximum inline string size in bytes, up to 65535; larger strings use JNI directly, and `-1` restores the 512-byte default. Increasing this value increases each thread's buffer size.
+Maximum inline string size in bytes, up to 65535; larger strings use JNI directly, and `-1` restores the 128-byte default. Increasing this value increases each thread's buffer size.
 
 Example: `--jvm-max-string-size=1024` or `"max_string_size": 1024`
 
-## `--jvm-disable-gc` { #jvm-disable-gc }
+## `--jvm-value-buffer-size-factor` { #jvm-value-buffer-size-factor }
 
-JSON key: `disable_gc`. Default: false.
+JSON key: `value_buffer_size_factor`. Default: 0 (auto, 4).
 
-Disables Godot-JVM's cleanup of collected wrappers. **This causes leaks of `RefCounted` and native types.**
+How much room every thread that reaches the engine reserves for unchecked calls, up to 1024. The engine reads the
+arguments of such a call where the JVM wrote them, so they stay in place until the call returns, including through any
+JVM code the call reenters that calls the engine again. Each live call therefore holds a frame, and frames are packed
+one after another.
 
-Example: `--jvm-disable-gc` or `"disable_gc": true`
+The factor counts frames that are *entirely full*: 16 arguments and a return, about 1.4 KB. It is a capacity, not a
+limit on how many calls may nest. Real calls carry one to three small arguments and take roughly a tenth of that, so
+the default of 4 leaves room for a few dozen nested calls in practice. `0` keeps the default.
+
+Running out of room is only detected in debug builds, where it raises an exception. Raise the factor if you hit that;
+lower it to save memory per thread.
+
+Example: `--jvm-value-buffer-size-factor=8` or `"value_buffer_size_factor": 8`
+
+## `--jvm-disable-memory-management` { #jvm-disable-memory-management }
+
+JSON key: `disable_memory_management`. Default: false.
+
+Disables everything the binding does once per frame to keep JVM and engine memory in step: demoting references the
+JVM alone still holds, dropping objects the engine has freed, returning variant slots to their pools, and releasing
+what terminated threads owned. **This causes leaks of `RefCounted` and native types.**
+
+Example: `--jvm-disable-memory-management` or `"disable_memory_management": true`
 
 ## `--jvm-path` { #jvm-path }
 
@@ -161,7 +182,8 @@ JSON example: `"custom_jvm_args": ["-Djava.library.path=C:\\Program Files\\Somet
     "wait_for_debugger": true,
     "jmx_port": -1,
     "max_string_size": -1,
-    "disable_gc": false,
+    "value_buffer_size_factor": 0,
+    "disable_memory_management": false,
     "custom_jvm_args": []
 }
 ```
@@ -175,7 +197,7 @@ Under **Godot Jvm** in the export preset:
 - **Override Debug** replaces the debugger and JMX settings together. Available on desktop except Graal-only exports.
   **Enable Debugger** defaults to false. Port, address, and **Wait for Debugger Attachment** appear only when
   enabled; waiting defaults to true so startup code can be debugged. JMX remains independently configurable.
-- **Override Memory** replaces `max_string_size` and `disable_gc` together on every supported platform.
+- **Override Memory** replaces `max_string_size`, `value_buffer_size_factor` and `disable_memory_management` together on every supported platform.
 - **Override Custom Args** accepts space- or comma-separated arguments on desktop and iOS. Empty or whitespace-only
   inherits the JSON array; a nonempty value replaces the entire array. Android does not expose this field.
 

@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_ARRAY
@@ -288,25 +287,25 @@ public open class GridMap : Node3D() {
   }
 
   public final fun setCollisionLayer(layer: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionLayerPtr, layer)
+    callPtrMethod_LONG(MethodBindings.setCollisionLayerPtr, layer)
   }
 
   public final fun getCollisionLayer(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionLayerPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionLayerPtr)
 
   public final fun setCollisionMask(mask: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionMaskPtr, mask)
+    callPtrMethod_LONG(MethodBindings.setCollisionMaskPtr, mask)
   }
 
   public final fun getCollisionMask(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionMaskPtr)
+      callPtrMethod0_ret_LONG(MethodBindings.getCollisionMaskPtr)
 
   /**
    * Based on [value], enables or disables the specified layer in the [collisionMask], given a
    * [layerNumber] between 1 and 32.
    */
   public final fun setCollisionMaskValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCollisionMaskValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCollisionMaskValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -314,14 +313,14 @@ public open class GridMap : Node3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getCollisionMaskValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getCollisionMaskValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getCollisionMaskValuePtr, layerNumber.toLong())
 
   /**
    * Based on [value], enables or disables the specified layer in the [collisionLayer], given a
    * [layerNumber] between 1 and 32.
    */
   public final fun setCollisionLayerValue(layerNumber: Int, `value`: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setCollisionLayerValuePtr, layerNumber.toLong(), value)
+    callPtrMethod_LONG_BOOL(MethodBindings.setCollisionLayerValuePtr, layerNumber.toLong(), value)
   }
 
   /**
@@ -329,42 +328,42 @@ public open class GridMap : Node3D() {
    * [layerNumber] between 1 and 32.
    */
   public final fun getCollisionLayerValue(layerNumber: Int): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getCollisionLayerValuePtr, layerNumber.toLong())
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getCollisionLayerValuePtr, layerNumber.toLong())
 
   public final fun setCollisionPriority(priority: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCollisionPriorityPtr, priority.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCollisionPriorityPtr, priority.toDouble())
   }
 
   public final fun getCollisionPriority(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCollisionPriorityPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCollisionPriorityPtr).toFloat()
 
   public final fun setCollisionVisibilityMode(visibilityMode: DebugVisibilityMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCollisionVisibilityModePtr, visibilityMode.value)
+    callPtrMethod_LONG(MethodBindings.setCollisionVisibilityModePtr, visibilityMode.value)
   }
 
   public final fun getCollisionVisibilityMode(): DebugVisibilityMode =
-      DebugVisibilityMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCollisionVisibilityModePtr))
+      DebugVisibilityMode.from(callPtrMethod0_ret_LONG(MethodBindings.getCollisionVisibilityModePtr))
 
   public final fun setPhysicsMaterial(material: PhysicsMaterial?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setPhysicsMaterialPtr, material)
+    callPtrMethod_OBJECT(MethodBindings.setPhysicsMaterialPtr, material)
   }
 
   public final fun getPhysicsMaterial(): PhysicsMaterial? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getPhysicsMaterialPtr) as PhysicsMaterial?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getPhysicsMaterialPtr) as PhysicsMaterial?)
 
   public final fun setBakeNavigation(bakeNavigation: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setBakeNavigationPtr, bakeNavigation)
+    callPtrMethod_BOOL(MethodBindings.setBakeNavigationPtr, bakeNavigation)
   }
 
   public final fun isBakingNavigation(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isBakingNavigationPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isBakingNavigationPtr)
 
   /**
    * Sets the [RID] of the navigation map this GridMap node should use for its cell baked navigation
    * meshes.
    */
   public final fun setNavigationMap(navigationMap: RID): Unit {
-    TransferContext.callPtrMethod_RID(ptr, objectID.id, MethodBindings.setNavigationMapPtr, navigationMap)
+    callPtrMethod_RID(MethodBindings.setNavigationMapPtr, navigationMap)
   }
 
   /**
@@ -376,35 +375,35 @@ public open class GridMap : Node3D() {
    * will not be aware of the map change.
    */
   public final fun getNavigationMap(): RID =
-      TransferContext.callPtrMethod0_ret_RID(ptr, objectID.id, MethodBindings.getNavigationMapPtr)
+      callPtrMethod0_ret_RID(MethodBindings.getNavigationMapPtr)
 
   public final fun setMeshLibrary(meshLibrary: MeshLibrary?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMeshLibraryPtr, meshLibrary)
+    callPtrMethod_OBJECT(MethodBindings.setMeshLibraryPtr, meshLibrary)
   }
 
   public final fun getMeshLibrary(): MeshLibrary? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMeshLibraryPtr) as MeshLibrary?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMeshLibraryPtr) as MeshLibrary?)
 
   public final fun setCellSize(size: Vector3): Unit {
-    TransferContext.callPtrMethod_VECTOR3(ptr, objectID.id, MethodBindings.setCellSizePtr, size)
+    callPtrMethod_VECTOR3(MethodBindings.setCellSizePtr, size)
   }
 
   public final fun getCellSize(): Vector3 =
-      TransferContext.callPtrMethod0_ret_VECTOR3(ptr, objectID.id, MethodBindings.getCellSizePtr)
+      callPtrMethod0_ret_VECTOR3(MethodBindings.getCellSizePtr)
 
   public final fun setCellScale(scale: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setCellScalePtr, scale.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setCellScalePtr, scale.toDouble())
   }
 
   public final fun getCellScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getCellScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getCellScalePtr).toFloat()
 
   public final fun setOctantSize(size: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOctantSizePtr, size.toLong())
+    callPtrMethod_LONG(MethodBindings.setOctantSizePtr, size.toLong())
   }
 
   public final fun getOctantSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOctantSizePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getOctantSizePtr).toInt()
 
   /**
    * Sets the mesh index for the cell referenced by its grid coordinates.
@@ -420,7 +419,7 @@ public open class GridMap : Node3D() {
     item: Int,
     orientation: Int = 0,
   ): Unit {
-    TransferContext.callPtrMethod_VECTOR3I_LONG_LONG(ptr, objectID.id, MethodBindings.setCellItemPtr, position, item.toLong(), orientation.toLong())
+    callPtrMethod_VECTOR3I_LONG_LONG(MethodBindings.setCellItemPtr, position, item.toLong(), orientation.toLong())
   }
 
   /**
@@ -428,27 +427,27 @@ public open class GridMap : Node3D() {
    * [INVALID_CELL_ITEM] will be returned.
    */
   public final fun getCellItem(position: Vector3i): Int =
-      TransferContext.callPtrMethod_VECTOR3I_ret_LONG(ptr, objectID.id, MethodBindings.getCellItemPtr, position).toInt()
+      callPtrMethod_VECTOR3I_ret_LONG(MethodBindings.getCellItemPtr, position).toInt()
 
   /**
    * The orientation of the cell at the given grid coordinates. `-1` is returned if the cell is
    * empty.
    */
   public final fun getCellItemOrientation(position: Vector3i): Int =
-      TransferContext.callPtrMethod_VECTOR3I_ret_LONG(ptr, objectID.id, MethodBindings.getCellItemOrientationPtr, position).toInt()
+      callPtrMethod_VECTOR3I_ret_LONG(MethodBindings.getCellItemOrientationPtr, position).toInt()
 
   /**
    * Returns the basis that gives the specified cell its orientation.
    */
   public final fun getCellItemBasis(position: Vector3i): Basis =
-      TransferContext.callPtrMethod_VECTOR3I_ret_BASIS(ptr, objectID.id, MethodBindings.getCellItemBasisPtr, position)
+      callPtrMethod_VECTOR3I_ret_BASIS(MethodBindings.getCellItemBasisPtr, position)
 
   /**
    * Returns one of 24 possible rotations that lie along the vectors (x,y,z) with each component
    * being either -1, 0, or 1. For further details, refer to the Godot source code.
    */
   public final fun getBasisWithOrthogonalIndex(index: Int): Basis =
-      TransferContext.callPtrMethod_LONG_ret_BASIS(ptr, objectID.id, MethodBindings.getBasisWithOrthogonalIndexPtr, index.toLong())
+      callPtrMethod_LONG_ret_BASIS(MethodBindings.getBasisWithOrthogonalIndexPtr, index.toLong())
 
   /**
    * This function considers a discretization of rotations into 24 points on unit sphere, lying
@@ -457,7 +456,7 @@ public open class GridMap : Node3D() {
    * details, refer to the Godot source code.
    */
   public final fun getOrthogonalIndexFromBasis(basis: Basis): Int =
-      TransferContext.callPtrMethod_BASIS_ret_LONG(ptr, objectID.id, MethodBindings.getOrthogonalIndexFromBasisPtr, basis).toInt()
+      callPtrMethod_BASIS_ret_LONG(MethodBindings.getOrthogonalIndexFromBasisPtr, basis).toInt()
 
   /**
    * Returns the map coordinates of the cell containing the given [localPosition]. If
@@ -465,82 +464,79 @@ public open class GridMap : Node3D() {
    * this method. See also [mapToLocal].
    */
   public final fun localToMap(localPosition: Vector3): Vector3i =
-      TransferContext.callPtrMethod_VECTOR3_ret_VECTOR3I(ptr, objectID.id, MethodBindings.localToMapPtr, localPosition)
+      callPtrMethod_VECTOR3_ret_VECTOR3I(MethodBindings.localToMapPtr, localPosition)
 
   /**
    * Returns the position of a grid cell in the GridMap's local coordinate space. To convert the
    * returned value into global coordinates, use [Node3D.toGlobal]. See also [localToMap].
    */
   public final fun mapToLocal(mapPosition: Vector3i): Vector3 =
-      TransferContext.callPtrMethod_VECTOR3I_ret_VECTOR3(ptr, objectID.id, MethodBindings.mapToLocalPtr, mapPosition)
+      callPtrMethod_VECTOR3I_ret_VECTOR3(MethodBindings.mapToLocalPtr, mapPosition)
 
   /**
    * This method does nothing.
    */
   public final fun resourceChanged(resource: Resource?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.resourceChangedPtr, resource)
+    callPtrMethod_OBJECT(MethodBindings.resourceChangedPtr, resource)
   }
 
   public final fun setCenterX(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCenterXPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCenterXPtr, enable)
   }
 
-  public final fun getCenterX(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getCenterXPtr)
+  public final fun getCenterX(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getCenterXPtr)
 
   public final fun setCenterY(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCenterYPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCenterYPtr, enable)
   }
 
-  public final fun getCenterY(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getCenterYPtr)
+  public final fun getCenterY(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getCenterYPtr)
 
   public final fun setCenterZ(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setCenterZPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setCenterZPtr, enable)
   }
 
-  public final fun getCenterZ(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getCenterZPtr)
+  public final fun getCenterZ(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getCenterZPtr)
 
   /**
    * Clear all cells.
    */
   public final fun clear(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearPtr)
+    callPtrMethod0(MethodBindings.clearPtr)
   }
 
   /**
    * Returns an array of [Vector3] with the non-empty cell coordinates in the grid map.
    */
   public final fun getUsedCells(): VariantArray<Vector3i> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getUsedCellsPtr) as VariantArray<Vector3i>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getUsedCellsPtr) as VariantArray<Vector3i>)
 
   /**
    * Returns an array of all cells with the given item index specified in [item].
    */
   public final fun getUsedCellsByItem(item: Int): VariantArray<Vector3i> =
-      (TransferContext.callPtrMethod_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.getUsedCellsByItemPtr, item.toLong()) as VariantArray<Vector3i>)
+      (callPtrMethod_LONG_ret_ARRAY(MethodBindings.getUsedCellsByItemPtr, item.toLong()) as VariantArray<Vector3i>)
 
   /**
    * Returns an array of [Vector3i]s with the octant coordinates of the non-empty octants in the
    * grid map.
    */
   public final fun getUsedOctants(): VariantArray<Vector3i> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getUsedOctantsPtr) as VariantArray<Vector3i>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getUsedOctantsPtr) as VariantArray<Vector3i>)
 
   /**
    * Returns an array of [Vector3i]s with the octant coordinates of the octants that use the
    * specified [item] in the grid map.
    */
   public final fun getUsedOctantsByItem(item: Int): VariantArray<Vector3i> =
-      (TransferContext.callPtrMethod_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.getUsedOctantsByItemPtr, item.toLong()) as VariantArray<Vector3i>)
+      (callPtrMethod_LONG_ret_ARRAY(MethodBindings.getUsedOctantsByItemPtr, item.toLong()) as VariantArray<Vector3i>)
 
   /**
    * Returns an array of [Vector3i]s with the cell coordinates of non-empty cells inside the octant
    * at [octantCoords].
    */
   public final fun getUsedCellsInOctant(octantCoords: Vector3i): VariantArray<Vector3i> =
-      (TransferContext.callPtrMethod_VECTOR3I_ret_ARRAY(ptr, objectID.id, MethodBindings.getUsedCellsInOctantPtr, octantCoords) as VariantArray<Vector3i>)
+      (callPtrMethod_VECTOR3I_ret_ARRAY(MethodBindings.getUsedCellsInOctantPtr, octantCoords) as VariantArray<Vector3i>)
 
   /**
    * Returns an array of [Vector3i]s with the cell coordinates of cells inside the octant at
@@ -548,28 +544,28 @@ public open class GridMap : Node3D() {
    */
   public final fun getUsedCellsInOctantByItem(octantCoords: Vector3i, item: Int):
       VariantArray<Vector3i> =
-      (TransferContext.callPtrMethod_VECTOR3I_LONG_ret_ARRAY(ptr, objectID.id, MethodBindings.getUsedCellsInOctantByItemPtr, octantCoords, item.toLong()) as VariantArray<Vector3i>)
+      (callPtrMethod_VECTOR3I_LONG_ret_ARRAY(MethodBindings.getUsedCellsInOctantByItemPtr, octantCoords, item.toLong()) as VariantArray<Vector3i>)
 
   /**
    * Returns an array of [Vector3i] octant coordinates that are inside the given [bounds], including
    * octants that have no cells in use.
    */
   public final fun getOctantsInBounds(bounds: AABB): VariantArray<Vector3i> =
-      (TransferContext.callPtrMethod_AABB_ret_ARRAY(ptr, objectID.id, MethodBindings.getOctantsInBoundsPtr, bounds) as VariantArray<Vector3i>)
+      (callPtrMethod_AABB_ret_ARRAY(MethodBindings.getOctantsInBoundsPtr, bounds) as VariantArray<Vector3i>)
 
   /**
    * Returns an array of [Vector3i]s with the octant coordinates of non-empty octants that are
    * inside the local [bounds].
    */
   public final fun getUsedOctantsInBounds(bounds: AABB): VariantArray<Vector3i> =
-      (TransferContext.callPtrMethod_AABB_ret_ARRAY(ptr, objectID.id, MethodBindings.getUsedOctantsInBoundsPtr, bounds) as VariantArray<Vector3i>)
+      (callPtrMethod_AABB_ret_ARRAY(MethodBindings.getUsedOctantsInBoundsPtr, bounds) as VariantArray<Vector3i>)
 
   /**
    * Returns the [Vector3i] octant coordinates of the octant that the cell at [cellCoords] belongs
    * to.
    */
   public final fun getOctantCoordsFromCellCoords(cellCoords: Vector3i): Vector3i =
-      TransferContext.callPtrMethod_VECTOR3I_ret_VECTOR3I(ptr, objectID.id, MethodBindings.getOctantCoordsFromCellCoordsPtr, cellCoords)
+      callPtrMethod_VECTOR3I_ret_VECTOR3I(MethodBindings.getOctantCoordsFromCellCoordsPtr, cellCoords)
 
   /**
    * Returns an array of [Transform3D] and [Mesh] references corresponding to the non-empty cells in
@@ -577,7 +573,7 @@ public open class GridMap : Node3D() {
    * odd indices contain [Mesh]es related to the [Transform3D] in the index preceding it.
    */
   public final fun getMeshes(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getMeshesPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getMeshesPtr) as VariantArray<Any?>)
 
   /**
    * Returns an array of [ArrayMesh]es and [Transform3D] references of all bake meshes that exist
@@ -589,19 +585,19 @@ public open class GridMap : Node3D() {
    * yet.
    */
   public final fun getBakeMeshes(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getBakeMeshesPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getBakeMeshesPtr) as VariantArray<Any?>)
 
   /**
    * Returns [RID] of a baked mesh with the given [idx].
    */
   public final fun getBakeMeshInstance(idx: Int): RID =
-      TransferContext.callPtrMethod_LONG_ret_RID(ptr, objectID.id, MethodBindings.getBakeMeshInstancePtr, idx.toLong())
+      callPtrMethod_LONG_ret_RID(MethodBindings.getBakeMeshInstancePtr, idx.toLong())
 
   /**
    * Clears all baked meshes. See [makeBakedMeshes].
    */
   public final fun clearBakedMeshes(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearBakedMeshesPtr)
+    callPtrMethod0(MethodBindings.clearBakedMeshesPtr)
   }
 
   /**
@@ -619,7 +615,7 @@ public open class GridMap : Node3D() {
   @JvmOverloads
   public final fun makeBakedMeshes(genLightmapUv: Boolean = false, lightmapUvTexelSize: Float =
       0.1f): Unit {
-    TransferContext.callPtrMethod_BOOL_DOUBLE(ptr, objectID.id, MethodBindings.makeBakedMeshesPtr, genLightmapUv, lightmapUvTexelSize.toDouble())
+    callPtrMethod_BOOL_DOUBLE(MethodBindings.makeBakedMeshesPtr, genLightmapUv, lightmapUvTexelSize.toDouble())
   }
 
   public enum class DebugVisibilityMode(

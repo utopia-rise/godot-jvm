@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod_DOUBLE
@@ -56,18 +55,18 @@ public open class GrooveJoint2D : Joint2D() {
   }
 
   public final fun setLength(length: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setLengthPtr, length.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setLengthPtr, length.toDouble())
   }
 
   public final fun getLength(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getLengthPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getLengthPtr).toFloat()
 
   public final fun setInitialOffset(offset: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setInitialOffsetPtr, offset.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setInitialOffsetPtr, offset.toDouble())
   }
 
   public final fun getInitialOffset(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getInitialOffsetPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getInitialOffsetPtr).toFloat()
 
   public companion object {
     @JvmField

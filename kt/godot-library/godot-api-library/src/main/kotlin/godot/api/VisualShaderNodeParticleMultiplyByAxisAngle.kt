@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod_BOOL
@@ -42,11 +41,11 @@ public open class VisualShaderNodeParticleMultiplyByAxisAngle : VisualShaderNode
   }
 
   public final fun setDegreesMode(enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setDegreesModePtr, enabled)
+    callPtrMethod_BOOL(MethodBindings.setDegreesModePtr, enabled)
   }
 
   public final fun isDegreesMode(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isDegreesModePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isDegreesModePtr)
 
   public companion object {
     @JvmField

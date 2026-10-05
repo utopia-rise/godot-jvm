@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -17,7 +16,6 @@ import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_BOOL
 import godot.callPtrMethod0_ret_DOUBLE
 import godot.callPtrMethod0_ret_LONG
-import godot.callPtrMethod0_ret_OBJECT
 import godot.callPtrMethod0_ret_OBJECT_REF
 import godot.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY
 import godot.callPtrMethod0_ret_RECT2I
@@ -47,6 +45,7 @@ import godot.callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF
 import godot.callPtrMethod_STRING_NAME_ret_BOOL
 import godot.callPtrMethod_VECTOR2I
 import godot.callPtrMethod_VECTOR2I_DOUBLE
+import godot.callStaticPtrMethod0_ret_OBJECT
 import godot.common.interop.VoidPtr
 import godot.core.Color
 import godot.core.GodotEnum
@@ -1113,47 +1112,45 @@ public open class Window : Viewport() {
   }
 
   public final fun setTitle(title: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setTitlePtr, title)
+    callMethod_STRING(MethodBindings.setTitlePtr, title)
   }
 
-  public final fun getTitle(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getTitlePtr)
+  public final fun getTitle(): String = callMethod0_ret_STRING(MethodBindings.getTitlePtr)
 
   public final fun setInitialPosition(initialPosition: WindowInitialPosition): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setInitialPositionPtr, initialPosition.value)
+    callPtrMethod_LONG(MethodBindings.setInitialPositionPtr, initialPosition.value)
   }
 
   public final fun getInitialPosition(): WindowInitialPosition =
-      WindowInitialPosition.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getInitialPositionPtr))
+      WindowInitialPosition.from(callPtrMethod0_ret_LONG(MethodBindings.getInitialPositionPtr))
 
   public final fun setCurrentScreen(index: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setCurrentScreenPtr, index.toLong())
+    callPtrMethod_LONG(MethodBindings.setCurrentScreenPtr, index.toLong())
   }
 
   public final fun getCurrentScreen(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getCurrentScreenPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getCurrentScreenPtr).toInt()
 
   public final fun setPosition(position: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setPositionPtr, position)
+    callPtrMethod_VECTOR2I(MethodBindings.setPositionPtr, position)
   }
 
   public final fun getPosition(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getPositionPtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.getPositionPtr)
 
   /**
    * Centers the window in the current screen. If the window is embedded, it is centered in the
    * embedder [Viewport] instead.
    */
   public final fun moveToCenter(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.moveToCenterPtr)
+    callPtrMethod0(MethodBindings.moveToCenterPtr)
   }
 
   public final fun setSize(size: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setSizePtr, size)
+    callPtrMethod_VECTOR2I(MethodBindings.setSizePtr, size)
   }
 
-  public final fun getSize(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getSizePtr)
+  public final fun getSize(): Vector2i = callPtrMethod0_ret_VECTOR2I(MethodBindings.getSizePtr)
 
   /**
    * Resets the size to the minimum size, which is the max of [minSize] and (if [wrapControls] is
@@ -1161,7 +1158,7 @@ public open class Window : Viewport() {
    * size below the minimum).
    */
   public final fun resetSize(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.resetSizePtr)
+    callPtrMethod0(MethodBindings.resetSizePtr)
   }
 
   /**
@@ -1170,7 +1167,7 @@ public open class Window : Viewport() {
    * **Note:** If [visible] is `false`, this method returns the same value as [position].
    */
   public final fun getPositionWithDecorations(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getPositionWithDecorationsPtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.getPositionWithDecorationsPtr)
 
   /**
    * Returns the window's size including its border.
@@ -1178,48 +1175,47 @@ public open class Window : Viewport() {
    * **Note:** If [visible] is `false`, this method returns the same value as [size].
    */
   public final fun getSizeWithDecorations(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getSizeWithDecorationsPtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.getSizeWithDecorationsPtr)
 
   public final fun setMaxSize(maxSize: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setMaxSizePtr, maxSize)
+    callPtrMethod_VECTOR2I(MethodBindings.setMaxSizePtr, maxSize)
   }
 
   public final fun getMaxSize(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getMaxSizePtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.getMaxSizePtr)
 
   public final fun setMinSize(minSize: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setMinSizePtr, minSize)
+    callPtrMethod_VECTOR2I(MethodBindings.setMinSizePtr, minSize)
   }
 
   public final fun getMinSize(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getMinSizePtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.getMinSizePtr)
 
   public final fun setMode(mode: Mode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setModePtr, mode.value)
   }
 
-  public final fun getMode(): Mode =
-      Mode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getModePtr))
+  public final fun getMode(): Mode = Mode.from(callPtrMethod0_ret_LONG(MethodBindings.getModePtr))
 
   /**
    * Sets a specified window flag.
    */
   public final fun setFlag(flag: Flags, enabled: Boolean): Unit {
-    TransferContext.callPtrMethod_LONG_BOOL(ptr, objectID.id, MethodBindings.setFlagPtr, flag.value, enabled)
+    callPtrMethod_LONG_BOOL(MethodBindings.setFlagPtr, flag.value, enabled)
   }
 
   /**
    * Returns `true` if the [flag] is set.
    */
   public final fun getFlag(flag: Flags): Boolean =
-      TransferContext.callPtrMethod_LONG_ret_BOOL(ptr, objectID.id, MethodBindings.getFlagPtr, flag.value)
+      callPtrMethod_LONG_ret_BOOL(MethodBindings.getFlagPtr, flag.value)
 
   public final fun setHdrOutputRequested(requested: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setHdrOutputRequestedPtr, requested)
+    callPtrMethod_BOOL(MethodBindings.setHdrOutputRequestedPtr, requested)
   }
 
   public final fun isHdrOutputRequested(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isHdrOutputRequestedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isHdrOutputRequestedPtr)
 
   /**
    * Returns the maximum value for linear color components that can be displayed in this window,
@@ -1261,20 +1257,20 @@ public open class Window : Viewport() {
    * get correct results.
    */
   public final fun getOutputMaxLinearValue(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getOutputMaxLinearValuePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getOutputMaxLinearValuePtr).toFloat()
 
   /**
    * Returns `true` if the window can be maximized (the maximize button is enabled).
    */
   public final fun isMaximizeAllowed(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isMaximizeAllowedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isMaximizeAllowedPtr)
 
   /**
    * Tells the OS that the [Window] needs an attention. This makes the window stand out in some way
    * depending on the system, e.g. it might blink on the task bar.
    */
   public final fun requestAttention(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.requestAttentionPtr)
+    callPtrMethod0(MethodBindings.requestAttentionPtr)
   }
 
   /**
@@ -1286,7 +1282,7 @@ public open class Window : Viewport() {
    * **Note:** This method is implemented only on Windows and macOS.
    */
   public final fun setTaskbarProgressValue(`value`: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setTaskbarProgressValuePtr, value.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setTaskbarProgressValuePtr, value.toDouble())
   }
 
   /**
@@ -1296,29 +1292,28 @@ public open class Window : Viewport() {
    * **Note:** This method is implemented only on Windows and macOS.
    */
   public final fun setTaskbarProgressState(state: DisplayServer.ProgressState): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setTaskbarProgressStatePtr, state.value)
+    callPtrMethod_LONG(MethodBindings.setTaskbarProgressStatePtr, state.value)
   }
 
   /**
    * Causes the window to grab focus, allowing it to receive user input.
    */
   public final fun moveToForeground(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.moveToForegroundPtr)
+    callPtrMethod0(MethodBindings.moveToForegroundPtr)
   }
 
   public final fun setVisible(visible: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setVisiblePtr, visible)
+    callPtrMethod_BOOL(MethodBindings.setVisiblePtr, visible)
   }
 
-  public final fun isVisible(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isVisiblePtr)
+  public final fun isVisible(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isVisiblePtr)
 
   /**
    * Hides the window. This is not the same as minimized state. Hidden window can't be interacted
    * with and needs to be made visible with [show].
    */
   public final fun hide(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.hidePtr)
+    callPtrMethod0(MethodBindings.hidePtr)
   }
 
   /**
@@ -1326,29 +1321,27 @@ public open class Window : Viewport() {
    * of its property other than visibility (unlike e.g. [popup]).
    */
   public final fun show(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.showPtr)
+    callPtrMethod0(MethodBindings.showPtr)
   }
 
   public final fun setTransient(transient: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTransientPtr, transient)
+    callPtrMethod_BOOL(MethodBindings.setTransientPtr, transient)
   }
 
-  public final fun isTransient(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTransientPtr)
+  public final fun isTransient(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isTransientPtr)
 
   public final fun setTransientToFocused(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setTransientToFocusedPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setTransientToFocusedPtr, enable)
   }
 
   public final fun isTransientToFocused(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isTransientToFocusedPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isTransientToFocusedPtr)
 
   public final fun setExclusive(exclusive: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setExclusivePtr, exclusive)
+    callPtrMethod_BOOL(MethodBindings.setExclusivePtr, exclusive)
   }
 
-  public final fun isExclusive(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isExclusivePtr)
+  public final fun isExclusive(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isExclusivePtr)
 
   /**
    * If [unparent] is `true`, the window is automatically unparented when going invisible.
@@ -1357,26 +1350,24 @@ public open class Window : Viewport() {
    * need to manually call [Node.queueFree] to free the window if it's not parented.
    */
   public final fun setUnparentWhenInvisible(unparent: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUnparentWhenInvisiblePtr, unparent)
+    callPtrMethod_BOOL(MethodBindings.setUnparentWhenInvisiblePtr, unparent)
   }
 
   /**
    * Returns whether the window is being drawn to the screen.
    */
-  public final fun canDraw(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.canDrawPtr)
+  public final fun canDraw(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.canDrawPtr)
 
   /**
    * Returns `true` if the window is focused.
    */
-  public final fun hasFocus(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.hasFocusPtr)
+  public final fun hasFocus(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.hasFocusPtr)
 
   /**
    * Causes the window to grab focus, allowing it to receive user input.
    */
   public final fun grabFocus(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.grabFocusPtr)
+    callPtrMethod0(MethodBindings.grabFocusPtr)
   }
 
   /**
@@ -1386,7 +1377,7 @@ public open class Window : Viewport() {
    * other system features.
    */
   public final fun startDrag(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.startDragPtr)
+    callPtrMethod0(MethodBindings.startDragPtr)
   }
 
   /**
@@ -1395,28 +1386,27 @@ public open class Window : Viewport() {
    * edge.
    */
   public final fun startResize(edge: DisplayServer.WindowResizeEdge): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.startResizePtr, edge.value)
+    callPtrMethod_LONG(MethodBindings.startResizePtr, edge.value)
   }
 
   /**
    * If [active] is `true`, enables system's native IME (Input Method Editor).
    */
   public final fun setImeActive(active: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setImeActivePtr, active)
+    callPtrMethod_BOOL(MethodBindings.setImeActivePtr, active)
   }
 
   /**
    * Moves IME to the given position.
    */
   public final fun setImePosition(position: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setImePositionPtr, position)
+    callPtrMethod_VECTOR2I(MethodBindings.setImePositionPtr, position)
   }
 
   /**
    * Returns `true` if the window is currently embedded in another window.
    */
-  public final fun isEmbedded(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isEmbeddedPtr)
+  public final fun isEmbedded(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isEmbeddedPtr)
 
   /**
    * Returns the combined minimum size from the child [Control] nodes of the window. Use
@@ -1425,112 +1415,112 @@ public open class Window : Viewport() {
    * The value returned by this method can be overridden with [_getContentsMinimumSize].
    */
   public final fun getContentsMinimumSize(): Vector2 =
-      TransferContext.callPtrMethod0_ret_VECTOR2(ptr, objectID.id, MethodBindings.getContentsMinimumSizePtr)
+      callPtrMethod0_ret_VECTOR2(MethodBindings.getContentsMinimumSizePtr)
 
   public final fun setForceNative(forceNative: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setForceNativePtr, forceNative)
+    callPtrMethod_BOOL(MethodBindings.setForceNativePtr, forceNative)
   }
 
   public final fun getForceNative(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getForceNativePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getForceNativePtr)
 
   public final fun setContentScaleSize(size: Vector2i): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.setContentScaleSizePtr, size)
+    callPtrMethod_VECTOR2I(MethodBindings.setContentScaleSizePtr, size)
   }
 
   public final fun getContentScaleSize(): Vector2i =
-      TransferContext.callPtrMethod0_ret_VECTOR2I(ptr, objectID.id, MethodBindings.getContentScaleSizePtr)
+      callPtrMethod0_ret_VECTOR2I(MethodBindings.getContentScaleSizePtr)
 
   public final fun setContentScaleMode(mode: ContentScaleMode): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setContentScaleModePtr, mode.value)
+    callPtrMethod_LONG(MethodBindings.setContentScaleModePtr, mode.value)
   }
 
   public final fun getContentScaleMode(): ContentScaleMode =
-      ContentScaleMode.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getContentScaleModePtr))
+      ContentScaleMode.from(callPtrMethod0_ret_LONG(MethodBindings.getContentScaleModePtr))
 
   public final fun setContentScaleAspect(aspect: ContentScaleAspect): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setContentScaleAspectPtr, aspect.value)
+    callPtrMethod_LONG(MethodBindings.setContentScaleAspectPtr, aspect.value)
   }
 
   public final fun getContentScaleAspect(): ContentScaleAspect =
-      ContentScaleAspect.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getContentScaleAspectPtr))
+      ContentScaleAspect.from(callPtrMethod0_ret_LONG(MethodBindings.getContentScaleAspectPtr))
 
   public final fun setContentScaleStretch(stretch: ContentScaleStretch): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setContentScaleStretchPtr, stretch.value)
+    callPtrMethod_LONG(MethodBindings.setContentScaleStretchPtr, stretch.value)
   }
 
   public final fun getContentScaleStretch(): ContentScaleStretch =
-      ContentScaleStretch.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getContentScaleStretchPtr))
+      ContentScaleStretch.from(callPtrMethod0_ret_LONG(MethodBindings.getContentScaleStretchPtr))
 
   public final fun setNonclientArea(area: Rect2i): Unit {
-    TransferContext.callPtrMethod_RECT2I(ptr, objectID.id, MethodBindings.setNonclientAreaPtr, area)
+    callPtrMethod_RECT2I(MethodBindings.setNonclientAreaPtr, area)
   }
 
   public final fun getNonclientArea(): Rect2i =
-      TransferContext.callPtrMethod0_ret_RECT2I(ptr, objectID.id, MethodBindings.getNonclientAreaPtr)
+      callPtrMethod0_ret_RECT2I(MethodBindings.getNonclientAreaPtr)
 
   public final fun setKeepTitleVisible(titleVisible: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setKeepTitleVisiblePtr, titleVisible)
+    callPtrMethod_BOOL(MethodBindings.setKeepTitleVisiblePtr, titleVisible)
   }
 
   public final fun getKeepTitleVisible(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getKeepTitleVisiblePtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.getKeepTitleVisiblePtr)
 
   public final fun setContentScaleFactor(factor: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setContentScaleFactorPtr, factor.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setContentScaleFactorPtr, factor.toDouble())
   }
 
   public final fun getContentScaleFactor(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getContentScaleFactorPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getContentScaleFactorPtr).toFloat()
 
   public final fun setMousePassthroughPolygon(polygon: PackedVector2Array): Unit {
-    TransferContext.callPtrMethod_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.setMousePassthroughPolygonPtr, polygon)
+    callPtrMethod_PACKED_VECTOR2_ARRAY(MethodBindings.setMousePassthroughPolygonPtr, polygon)
   }
 
   public final fun getMousePassthroughPolygon(): PackedVector2Array =
-      TransferContext.callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(ptr, objectID.id, MethodBindings.getMousePassthroughPolygonPtr)
+      callPtrMethod0_ret_PACKED_VECTOR2_ARRAY(MethodBindings.getMousePassthroughPolygonPtr)
 
   public final fun setWrapControls(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setWrapControlsPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setWrapControlsPtr, enable)
   }
 
   public final fun isWrappingControls(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isWrappingControlsPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isWrappingControlsPtr)
 
   /**
    * Requests an update of the [Window] size to fit underlying [Control] nodes.
    */
   public final fun childControlsChanged(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.childControlsChangedPtr)
+    callPtrMethod0(MethodBindings.childControlsChangedPtr)
   }
 
   public final fun setTheme(theme: Theme?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setThemePtr, theme)
+    callPtrMethod_OBJECT(MethodBindings.setThemePtr, theme)
   }
 
   public final fun getTheme(): Theme? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getThemePtr) as Theme?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getThemePtr) as Theme?)
 
   public final fun setThemeTypeVariation(themeType: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.setThemeTypeVariationPtr, themeType)
+    callPtrMethod_STRING_NAME(MethodBindings.setThemeTypeVariationPtr, themeType)
   }
 
   public final fun getThemeTypeVariation(): StringName =
-      TransferContext.callPtrMethod0_ret_STRING_NAME(ptr, objectID.id, MethodBindings.getThemeTypeVariationPtr)
+      callPtrMethod0_ret_STRING_NAME(MethodBindings.getThemeTypeVariationPtr)
 
   /**
    * Prevents `*_theme_*_override` methods from emitting [NOTIFICATION_THEME_CHANGED] until
    * [endBulkThemeOverride] is called.
    */
   public final fun beginBulkThemeOverride(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.beginBulkThemeOverridePtr)
+    callPtrMethod0(MethodBindings.beginBulkThemeOverridePtr)
   }
 
   /**
    * Ends a bulk theme override update. See [beginBulkThemeOverride].
    */
   public final fun endBulkThemeOverride(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.endBulkThemeOverridePtr)
+    callPtrMethod0(MethodBindings.endBulkThemeOverridePtr)
   }
 
   /**
@@ -1541,7 +1531,7 @@ public open class Window : Viewport() {
    * See also [getThemeIcon].
    */
   public final fun addThemeIconOverride(name: StringName, texture: Texture2D?): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_OBJECT(ptr, objectID.id, MethodBindings.addThemeIconOverridePtr, name, texture)
+    callPtrMethod_STRING_NAME_OBJECT(MethodBindings.addThemeIconOverridePtr, name, texture)
   }
 
   /**
@@ -1552,7 +1542,7 @@ public open class Window : Viewport() {
    * See also [getThemeStylebox] and [Control.addThemeStyleboxOverride] for more details.
    */
   public final fun addThemeStyleboxOverride(name: StringName, stylebox: StyleBox?): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_OBJECT(ptr, objectID.id, MethodBindings.addThemeStyleboxOverridePtr, name, stylebox)
+    callPtrMethod_STRING_NAME_OBJECT(MethodBindings.addThemeStyleboxOverridePtr, name, stylebox)
   }
 
   /**
@@ -1563,7 +1553,7 @@ public open class Window : Viewport() {
    * See also [getThemeFont].
    */
   public final fun addThemeFontOverride(name: StringName, font: Font?): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_OBJECT(ptr, objectID.id, MethodBindings.addThemeFontOverridePtr, name, font)
+    callPtrMethod_STRING_NAME_OBJECT(MethodBindings.addThemeFontOverridePtr, name, font)
   }
 
   /**
@@ -1574,7 +1564,7 @@ public open class Window : Viewport() {
    * See also [getThemeFontSize].
    */
   public final fun addThemeFontSizeOverride(name: StringName, fontSize: Int): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.addThemeFontSizeOverridePtr, name, fontSize.toLong())
+    callPtrMethod_STRING_NAME_LONG(MethodBindings.addThemeFontSizeOverridePtr, name, fontSize.toLong())
   }
 
   /**
@@ -1585,7 +1575,7 @@ public open class Window : Viewport() {
    * See also [getThemeColor] and [Control.addThemeColorOverride] for more details.
    */
   public final fun addThemeColorOverride(name: StringName, color: Color): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_COLOR(ptr, objectID.id, MethodBindings.addThemeColorOverridePtr, name, color)
+    callPtrMethod_STRING_NAME_COLOR(MethodBindings.addThemeColorOverridePtr, name, color)
   }
 
   /**
@@ -1596,7 +1586,7 @@ public open class Window : Viewport() {
    * See also [getThemeConstant].
    */
   public final fun addThemeConstantOverride(name: StringName, constant: Int): Unit {
-    TransferContext.callPtrMethod_STRING_NAME_LONG(ptr, objectID.id, MethodBindings.addThemeConstantOverridePtr, name, constant.toLong())
+    callPtrMethod_STRING_NAME_LONG(MethodBindings.addThemeConstantOverridePtr, name, constant.toLong())
   }
 
   /**
@@ -1604,7 +1594,7 @@ public open class Window : Viewport() {
    * [addThemeIconOverride] or via the Inspector dock.
    */
   public final fun removeThemeIconOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeIconOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeIconOverridePtr, name)
   }
 
   /**
@@ -1612,7 +1602,7 @@ public open class Window : Viewport() {
    * [addThemeStyleboxOverride] or via the Inspector dock.
    */
   public final fun removeThemeStyleboxOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeStyleboxOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeStyleboxOverridePtr, name)
   }
 
   /**
@@ -1620,7 +1610,7 @@ public open class Window : Viewport() {
    * [addThemeFontOverride] or via the Inspector dock.
    */
   public final fun removeThemeFontOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeFontOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeFontOverridePtr, name)
   }
 
   /**
@@ -1628,7 +1618,7 @@ public open class Window : Viewport() {
    * [addThemeFontSizeOverride] or via the Inspector dock.
    */
   public final fun removeThemeFontSizeOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeFontSizeOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeFontSizeOverridePtr, name)
   }
 
   /**
@@ -1636,7 +1626,7 @@ public open class Window : Viewport() {
    * [addThemeColorOverride] or via the Inspector dock.
    */
   public final fun removeThemeColorOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeColorOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeColorOverridePtr, name)
   }
 
   /**
@@ -1644,7 +1634,7 @@ public open class Window : Viewport() {
    * [addThemeConstantOverride] or via the Inspector dock.
    */
   public final fun removeThemeConstantOverride(name: StringName): Unit {
-    TransferContext.callPtrMethod_STRING_NAME(ptr, objectID.id, MethodBindings.removeThemeConstantOverridePtr, name)
+    callPtrMethod_STRING_NAME(MethodBindings.removeThemeConstantOverridePtr, name)
   }
 
   /**
@@ -1655,7 +1645,7 @@ public open class Window : Viewport() {
    */
   public final fun getThemeIcon(name: StringName, themeType: StringName = StringName("")):
       Texture2D? =
-      (TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getThemeIconPtr, name, themeType) as Texture2D?)
+      (callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(MethodBindings.getThemeIconPtr, name, themeType) as Texture2D?)
 
   /**
    * Returns a [StyleBox] from the first matching [Theme] in the tree if that [Theme] has a stylebox
@@ -1665,7 +1655,7 @@ public open class Window : Viewport() {
    */
   public final fun getThemeStylebox(name: StringName, themeType: StringName = StringName("")):
       StyleBox? =
-      (TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getThemeStyleboxPtr, name, themeType) as StyleBox?)
+      (callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(MethodBindings.getThemeStyleboxPtr, name, themeType) as StyleBox?)
 
   /**
    * Returns a [Font] from the first matching [Theme] in the tree if that [Theme] has a font item
@@ -1674,7 +1664,7 @@ public open class Window : Viewport() {
    * See [Control.getThemeColor] for details.
    */
   public final fun getThemeFont(name: StringName, themeType: StringName = StringName("")): Font? =
-      (TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getThemeFontPtr, name, themeType) as Font?)
+      (callPtrMethod_STRING_NAME_STRING_NAME_ret_OBJECT_REF(MethodBindings.getThemeFontPtr, name, themeType) as Font?)
 
   /**
    * Returns a font size from the first matching [Theme] in the tree if that [Theme] has a font size
@@ -1683,7 +1673,7 @@ public open class Window : Viewport() {
    * See [Control.getThemeColor] for details.
    */
   public final fun getThemeFontSize(name: StringName, themeType: StringName = StringName("")): Int =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.getThemeFontSizePtr, name, themeType).toInt()
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_LONG(MethodBindings.getThemeFontSizePtr, name, themeType).toInt()
 
   /**
    * Returns a [Color] from the first matching [Theme] in the tree if that [Theme] has a color item
@@ -1692,7 +1682,7 @@ public open class Window : Viewport() {
    * See [Control.getThemeColor] for more details.
    */
   public final fun getThemeColor(name: StringName, themeType: StringName = StringName("")): Color =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_COLOR(ptr, objectID.id, MethodBindings.getThemeColorPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_COLOR(MethodBindings.getThemeColorPtr, name, themeType)
 
   /**
    * Returns a constant from the first matching [Theme] in the tree if that [Theme] has a constant
@@ -1701,7 +1691,7 @@ public open class Window : Viewport() {
    * See [Control.getThemeColor] for more details.
    */
   public final fun getThemeConstant(name: StringName, themeType: StringName = StringName("")): Int =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_LONG(ptr, objectID.id, MethodBindings.getThemeConstantPtr, name, themeType).toInt()
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_LONG(MethodBindings.getThemeConstantPtr, name, themeType).toInt()
 
   /**
    * Returns `true` if there is a local override for a theme icon with the specified [name] in this
@@ -1710,7 +1700,7 @@ public open class Window : Viewport() {
    * See [addThemeIconOverride].
    */
   public final fun hasThemeIconOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeIconOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeIconOverridePtr, name)
 
   /**
    * Returns `true` if there is a local override for a theme [StyleBox] with the specified [name] in
@@ -1719,7 +1709,7 @@ public open class Window : Viewport() {
    * See [addThemeStyleboxOverride].
    */
   public final fun hasThemeStyleboxOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeStyleboxOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeStyleboxOverridePtr, name)
 
   /**
    * Returns `true` if there is a local override for a theme [Font] with the specified [name] in
@@ -1728,7 +1718,7 @@ public open class Window : Viewport() {
    * See [addThemeFontOverride].
    */
   public final fun hasThemeFontOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeFontOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeFontOverridePtr, name)
 
   /**
    * Returns `true` if there is a local override for a theme font size with the specified [name] in
@@ -1737,7 +1727,7 @@ public open class Window : Viewport() {
    * See [addThemeFontSizeOverride].
    */
   public final fun hasThemeFontSizeOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeFontSizeOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeFontSizeOverridePtr, name)
 
   /**
    * Returns `true` if there is a local override for a theme [Color] with the specified [name] in
@@ -1746,7 +1736,7 @@ public open class Window : Viewport() {
    * See [addThemeColorOverride].
    */
   public final fun hasThemeColorOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeColorOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeColorOverridePtr, name)
 
   /**
    * Returns `true` if there is a local override for a theme constant with the specified [name] in
@@ -1755,7 +1745,7 @@ public open class Window : Viewport() {
    * See [addThemeConstantOverride].
    */
   public final fun hasThemeConstantOverride(name: StringName): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeConstantOverridePtr, name)
+      callPtrMethod_STRING_NAME_ret_BOOL(MethodBindings.hasThemeConstantOverridePtr, name)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has an icon item with the
@@ -1764,7 +1754,7 @@ public open class Window : Viewport() {
    * See [Control.getThemeColor] for details.
    */
   public final fun hasThemeIcon(name: StringName, themeType: StringName = StringName("")): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeIconPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeIconPtr, name, themeType)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has a stylebox item with the
@@ -1774,7 +1764,7 @@ public open class Window : Viewport() {
    */
   public final fun hasThemeStylebox(name: StringName, themeType: StringName = StringName("")):
       Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeStyleboxPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeStyleboxPtr, name, themeType)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has a font item with the
@@ -1783,7 +1773,7 @@ public open class Window : Viewport() {
    * See [Control.getThemeColor] for details.
    */
   public final fun hasThemeFont(name: StringName, themeType: StringName = StringName("")): Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeFontPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeFontPtr, name, themeType)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has a font size item with the
@@ -1793,7 +1783,7 @@ public open class Window : Viewport() {
    */
   public final fun hasThemeFontSize(name: StringName, themeType: StringName = StringName("")):
       Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeFontSizePtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeFontSizePtr, name, themeType)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has a color item with the
@@ -1803,7 +1793,7 @@ public open class Window : Viewport() {
    */
   public final fun hasThemeColor(name: StringName, themeType: StringName = StringName("")): Boolean
       =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeColorPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeColorPtr, name, themeType)
 
   /**
    * Returns `true` if there is a matching [Theme] in the tree that has a constant item with the
@@ -1813,7 +1803,7 @@ public open class Window : Viewport() {
    */
   public final fun hasThemeConstant(name: StringName, themeType: StringName = StringName("")):
       Boolean =
-      TransferContext.callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(ptr, objectID.id, MethodBindings.hasThemeConstantPtr, name, themeType)
+      callPtrMethod_STRING_NAME_STRING_NAME_ret_BOOL(MethodBindings.hasThemeConstantPtr, name, themeType)
 
   /**
    * Returns the default base scale value from the first matching [Theme] in the tree if that
@@ -1822,7 +1812,7 @@ public open class Window : Viewport() {
    * See [Control.getThemeColor] for details.
    */
   public final fun getThemeDefaultBaseScale(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getThemeDefaultBaseScalePtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getThemeDefaultBaseScalePtr).toFloat()
 
   /**
    * Returns the default font from the first matching [Theme] in the tree if that [Theme] has a
@@ -1831,7 +1821,7 @@ public open class Window : Viewport() {
    * See [Control.getThemeColor] for details.
    */
   public final fun getThemeDefaultFont(): Font? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getThemeDefaultFontPtr) as Font?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getThemeDefaultFontPtr) as Font?)
 
   /**
    * Returns the default font size value from the first matching [Theme] in the tree if that [Theme]
@@ -1840,67 +1830,66 @@ public open class Window : Viewport() {
    * See [Control.getThemeColor] for details.
    */
   public final fun getThemeDefaultFontSize(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getThemeDefaultFontSizePtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getThemeDefaultFontSizePtr).toInt()
 
   /**
    * Returns the ID of the window.
    */
   public final fun getWindowId(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getWindowIdPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getWindowIdPtr).toInt()
 
   public final fun setAccessibilityName(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setAccessibilityNamePtr, name)
+    callMethod_STRING(MethodBindings.setAccessibilityNamePtr, name)
   }
 
   public final fun getAccessibilityName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getAccessibilityNamePtr)
+      callMethod0_ret_STRING(MethodBindings.getAccessibilityNamePtr)
 
   public final fun setAccessibilityDescription(description: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setAccessibilityDescriptionPtr, description)
+    callMethod_STRING(MethodBindings.setAccessibilityDescriptionPtr, description)
   }
 
   public final fun getAccessibilityDescription(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getAccessibilityDescriptionPtr)
+      callMethod0_ret_STRING(MethodBindings.getAccessibilityDescriptionPtr)
 
   /**
    * Sets layout direction and text writing direction. Right-to-left layouts are necessary for
    * certain languages (e.g. Arabic and Hebrew).
    */
   public final fun setLayoutDirection(direction: LayoutDirection): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setLayoutDirectionPtr, direction.value)
+    callPtrMethod_LONG(MethodBindings.setLayoutDirectionPtr, direction.value)
   }
 
   /**
    * Returns layout direction and text writing direction.
    */
   public final fun getLayoutDirection(): LayoutDirection =
-      LayoutDirection.from(TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getLayoutDirectionPtr))
+      LayoutDirection.from(callPtrMethod0_ret_LONG(MethodBindings.getLayoutDirectionPtr))
 
   /**
    * Returns `true` if the layout is right-to-left.
    */
-  public final fun isLayoutRtl(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isLayoutRtlPtr)
+  public final fun isLayoutRtl(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.isLayoutRtlPtr)
 
   public final fun setAutoTranslate(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAutoTranslatePtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setAutoTranslatePtr, enable)
   }
 
   public final fun isAutoTranslating(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isAutoTranslatingPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isAutoTranslatingPtr)
 
   /**
    * Enables font oversampling. This makes fonts look better when they are scaled up.
    */
   public final fun setUseFontOversampling(enable: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setUseFontOversamplingPtr, enable)
+    callPtrMethod_BOOL(MethodBindings.setUseFontOversamplingPtr, enable)
   }
 
   /**
    * Returns `true` if font oversampling is enabled. See [setUseFontOversampling].
    */
   public final fun isUsingFontOversampling(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.isUsingFontOversamplingPtr)
+      callPtrMethod0_ret_BOOL(MethodBindings.isUsingFontOversamplingPtr)
 
   /**
    * Shows the [Window] and makes it transient (see [transient]). If [rect] is provided, it will be
@@ -1920,7 +1909,7 @@ public open class Window : Viewport() {
    */
   @JvmOverloads
   public final fun popup(rect: Rect2i = Rect2i(0, 0, 0, 0)): Unit {
-    TransferContext.callPtrMethod_RECT2I(ptr, objectID.id, MethodBindings.popupPtr, rect)
+    callPtrMethod_RECT2I(MethodBindings.popupPtr, rect)
   }
 
   /**
@@ -1928,7 +1917,7 @@ public open class Window : Viewport() {
    * embedded, has the same effect as [popup].
    */
   public final fun popupOnParent(parentRect: Rect2i): Unit {
-    TransferContext.callPtrMethod_RECT2I(ptr, objectID.id, MethodBindings.popupOnParentPtr, parentRect)
+    callPtrMethod_RECT2I(MethodBindings.popupOnParentPtr, parentRect)
   }
 
   /**
@@ -1940,7 +1929,7 @@ public open class Window : Viewport() {
    */
   @JvmOverloads
   public final fun popupCentered(minsize: Vector2i = Vector2i(0, 0)): Unit {
-    TransferContext.callPtrMethod_VECTOR2I(ptr, objectID.id, MethodBindings.popupCenteredPtr, minsize)
+    callPtrMethod_VECTOR2I(MethodBindings.popupCenteredPtr, minsize)
   }
 
   /**
@@ -1952,7 +1941,7 @@ public open class Window : Viewport() {
    */
   @JvmOverloads
   public final fun popupCenteredRatio(ratio: Float = 0.8f): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.popupCenteredRatioPtr, ratio.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.popupCenteredRatioPtr, ratio.toDouble())
   }
 
   /**
@@ -1965,7 +1954,7 @@ public open class Window : Viewport() {
   @JvmOverloads
   public final fun popupCenteredClamped(minsize: Vector2i = Vector2i(0, 0), fallbackRatio: Float =
       0.75f): Unit {
-    TransferContext.callPtrMethod_VECTOR2I_DOUBLE(ptr, objectID.id, MethodBindings.popupCenteredClampedPtr, minsize, fallbackRatio.toDouble())
+    callPtrMethod_VECTOR2I_DOUBLE(MethodBindings.popupCenteredClampedPtr, minsize, fallbackRatio.toDouble())
   }
 
   /**
@@ -1976,7 +1965,7 @@ public open class Window : Viewport() {
    */
   @JvmOverloads
   public final fun popupExclusive(fromNode: Node?, rect: Rect2i = Rect2i(0, 0, 0, 0)): Unit {
-    TransferContext.callPtrMethod_OBJECT_RECT2I(ptr, objectID.id, MethodBindings.popupExclusivePtr, fromNode, rect)
+    callPtrMethod_OBJECT_RECT2I(MethodBindings.popupExclusivePtr, fromNode, rect)
   }
 
   /**
@@ -1987,7 +1976,7 @@ public open class Window : Viewport() {
    * See also [setUnparentWhenInvisible] and [Node.getLastExclusiveWindow].
    */
   public final fun popupExclusiveOnParent(fromNode: Node?, parentRect: Rect2i): Unit {
-    TransferContext.callPtrMethod_OBJECT_RECT2I(ptr, objectID.id, MethodBindings.popupExclusiveOnParentPtr, fromNode, parentRect)
+    callPtrMethod_OBJECT_RECT2I(MethodBindings.popupExclusiveOnParentPtr, fromNode, parentRect)
   }
 
   /**
@@ -2000,7 +1989,7 @@ public open class Window : Viewport() {
   @JvmOverloads
   public final fun popupExclusiveCentered(fromNode: Node?, minsize: Vector2i = Vector2i(0, 0)):
       Unit {
-    TransferContext.callPtrMethod_OBJECT_VECTOR2I(ptr, objectID.id, MethodBindings.popupExclusiveCenteredPtr, fromNode, minsize)
+    callPtrMethod_OBJECT_VECTOR2I(MethodBindings.popupExclusiveCenteredPtr, fromNode, minsize)
   }
 
   /**
@@ -2012,7 +2001,7 @@ public open class Window : Viewport() {
    */
   @JvmOverloads
   public final fun popupExclusiveCenteredRatio(fromNode: Node?, ratio: Float = 0.8f): Unit {
-    TransferContext.callPtrMethod_OBJECT_DOUBLE(ptr, objectID.id, MethodBindings.popupExclusiveCenteredRatioPtr, fromNode, ratio.toDouble())
+    callPtrMethod_OBJECT_DOUBLE(MethodBindings.popupExclusiveCenteredRatioPtr, fromNode, ratio.toDouble())
   }
 
   /**
@@ -2028,7 +2017,7 @@ public open class Window : Viewport() {
     minsize: Vector2i = Vector2i(0, 0),
     fallbackRatio: Float = 0.75f,
   ): Unit {
-    TransferContext.callPtrMethod_OBJECT_VECTOR2I_DOUBLE(ptr, objectID.id, MethodBindings.popupExclusiveCenteredClampedPtr, fromNode, minsize, fallbackRatio.toDouble())
+    callPtrMethod_OBJECT_VECTOR2I_DOUBLE(MethodBindings.popupExclusiveCenteredClampedPtr, fromNode, minsize, fallbackRatio.toDouble())
   }
 
   public final fun setThemeTypeVariation(themeType: String) =
@@ -3205,7 +3194,7 @@ public open class Window : Viewport() {
      */
     @JvmStatic
     public final fun getFocusedWindow(): Window? =
-        (TransferContext.callPtrMethod0_ret_OBJECT(0L, 0L, MethodBindings.getFocusedWindowPtr) as Window?)
+        (callStaticPtrMethod0_ret_OBJECT(MethodBindings.getFocusedWindowPtr) as Window?)
   }
 
   public object MethodBindings {

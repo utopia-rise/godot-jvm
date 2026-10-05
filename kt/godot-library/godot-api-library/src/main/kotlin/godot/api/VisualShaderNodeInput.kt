@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod0_ret_STRING
 import godot.callMethod_STRING
@@ -49,18 +48,17 @@ public open class VisualShaderNodeInput : VisualShaderNode() {
   }
 
   public final fun setInputName(name: String): Unit {
-    TransferContext.callMethod_STRING(ptr, objectID.id, MethodBindings.setInputNamePtr, name)
+    callMethod_STRING(MethodBindings.setInputNamePtr, name)
   }
 
-  public final fun getInputName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getInputNamePtr)
+  public final fun getInputName(): String = callMethod0_ret_STRING(MethodBindings.getInputNamePtr)
 
   /**
    * Returns a translated name of the current constant in the Godot Shader Language. E.g. `"ALBEDO"`
    * if the [inputName] equal to `"albedo"`.
    */
   public final fun getInputRealName(): String =
-      TransferContext.callMethod0_ret_STRING(ptr, objectID.id, MethodBindings.getInputRealNamePtr)
+      callMethod0_ret_STRING(MethodBindings.getInputRealNamePtr)
 
   public companion object {
     @JvmField

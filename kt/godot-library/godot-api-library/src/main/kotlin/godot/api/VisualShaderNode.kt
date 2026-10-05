@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callMethod_LONG_ANY_ANY
 import godot.callMethod_LONG_ret_ANY
@@ -80,14 +79,14 @@ public open class VisualShaderNode internal constructor() : Resource() {
    * result of dragging a connection from an existing node to the empty space on the graph.
    */
   public final fun getDefaultInputPort(type: PortType): Int =
-      TransferContext.callPtrMethod_LONG_ret_LONG(ptr, objectID.id, MethodBindings.getDefaultInputPortPtr, type.value).toInt()
+      callPtrMethod_LONG_ret_LONG(MethodBindings.getDefaultInputPortPtr, type.value).toInt()
 
   public final fun setOutputPortForPreview(port: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setOutputPortForPreviewPtr, port.toLong())
+    callPtrMethod_LONG(MethodBindings.setOutputPortForPreviewPtr, port.toLong())
   }
 
   public final fun getOutputPortForPreview(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getOutputPortForPreviewPtr).toInt()
+      callPtrMethod0_ret_LONG(MethodBindings.getOutputPortForPreviewPtr).toInt()
 
   /**
    * Sets the default [value] for the selected input [port].
@@ -98,27 +97,27 @@ public open class VisualShaderNode internal constructor() : Resource() {
     `value`: Any?,
     prevValue: Any? = null,
   ): Unit {
-    TransferContext.callMethod_LONG_ANY_ANY(ptr, objectID.id, MethodBindings.setInputPortDefaultValuePtr, port.toLong(), value, prevValue)
+    callMethod_LONG_ANY_ANY(MethodBindings.setInputPortDefaultValuePtr, port.toLong(), value, prevValue)
   }
 
   /**
    * Returns the default value of the input [port].
    */
   public final fun getInputPortDefaultValue(port: Int): Any? =
-      TransferContext.callMethod_LONG_ret_ANY(ptr, objectID.id, MethodBindings.getInputPortDefaultValuePtr, port.toLong())
+      callMethod_LONG_ret_ANY(MethodBindings.getInputPortDefaultValuePtr, port.toLong())
 
   /**
    * Removes the default value of the input [port].
    */
   public final fun removeInputPortDefaultValue(port: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.removeInputPortDefaultValuePtr, port.toLong())
+    callPtrMethod_LONG(MethodBindings.removeInputPortDefaultValuePtr, port.toLong())
   }
 
   /**
    * Clears the default input ports value.
    */
   public final fun clearDefaultInputValues(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.clearDefaultInputValuesPtr)
+    callPtrMethod0(MethodBindings.clearDefaultInputValuesPtr)
   }
 
   /**
@@ -126,7 +125,7 @@ public open class VisualShaderNode internal constructor() : Resource() {
    * index1, value1, ...]`. For example: `[0, Vector3(0, 0, 0), 1, Vector3(0, 0, 0)]`.
    */
   public final fun setDefaultInputValues(values: VariantArray<Any?>): Unit {
-    TransferContext.callPtrMethod_ARRAY(ptr, objectID.id, MethodBindings.setDefaultInputValuesPtr, values)
+    callPtrMethod_ARRAY(MethodBindings.setDefaultInputValuesPtr, values)
   }
 
   /**
@@ -134,14 +133,13 @@ public open class VisualShaderNode internal constructor() : Resource() {
    * the form `[index0, value0, index1, value1, ...]`.
    */
   public final fun getDefaultInputValues(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getDefaultInputValuesPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getDefaultInputValuesPtr) as VariantArray<Any?>)
 
   public final fun setFrame(frame: Int): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setFramePtr, frame.toLong())
+    callPtrMethod_LONG(MethodBindings.setFramePtr, frame.toLong())
   }
 
-  public final fun getFrame(): Int =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getFramePtr).toInt()
+  public final fun getFrame(): Int = callPtrMethod0_ret_LONG(MethodBindings.getFramePtr).toInt()
 
   public enum class PortType(
     public override val `value`: Long,

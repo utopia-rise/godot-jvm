@@ -139,7 +139,7 @@ cd kt/
 - **`cpp/godot_jvm.h` / `cpp/godot-jvm.cpp`** — `GodotJvm` singleton; owns the runtime state machine (`NOT_STARTED → JVM_LIBRARY_LOADED → JVM_STARTED → BOOTSTRAP_LOADED → CORE_LIBRARY_INITIALIZED → ENGINE_TYPES_INITIALIZED → JVM_SCRIPTS_INITIALIZED`), driven by `initialize_up_to()` / `finalize_down_to()`. Many operations gate on correct state — check here first when debugging startup issues.
 - **`cpp/register_types.cpp`** — GDExtension entry point; registers `JvmScript` types, script languages, resource loaders/savers with Godot.
 - **`cpp/jvm/lifecycle/`** — JVM startup (`jvm_manager`), class loader management, project settings parsing.
-- **`cpp/jvm/wrapper/`** — JNI bridges, type conversion, per-thread shared buffer communication.
+- **`cpp/jvm/bridge/`, `cpp/jvm/memory/`, `cpp/jvm/registration/`** — JNI bridges for the core types, the per-thread `VariantBuffer` and `ValueBuffer` with the wire format, and the wrappers of the registered Kotlin classes.
 - **`cpp/api/script/`** — `JvmScript` (abstract base), `JvmInstance`, placeholder instance, script manager, source parser. Concrete script types live in **`cpp/api/script/language/`**: `KotlinScript`, `JavaScript`, `GdjScript`, `ScalaScript`.
 - **`cpp/api/language/`** — `ScriptLanguage` implementations (`KotlinLanguage`, `JavaLanguage`, etc.) registered as Godot editor language options.
 - **`cpp/core/`** — Binding manager; maps Godot objects to JVM instances, synchronizes lifecycle.
@@ -207,12 +207,12 @@ Each Godot object can have two JVM instances:
 
 Full details: `docs/src/doc/contribute/how-it-works/memory-management.md`
 
-### JNI Shared Buffer (Performance)
+### JNI Shared Buffers (Performance)
 
-To reduce JNI overhead for frequent calls, a **per-thread buffer** is used for C++/JVM parameter exchange. Its size is derived from the maximum inline string size and the 16-argument limit (`MAX_FUNCTION_ARG_COUNT` in `cpp/constraints.h`):
-- First 4 bytes: variable count (object method calls prefix this with the caller pointer and `ObjectID`)
-- Each variable: 4-byte type ordinal + type-specific bytes
-- Type ordinals 0–38 cover all Godot variant types (primitives at fixed size, strings up to 512 bytes inline, larger strings via JNI queue, `Array` at 28, packed arrays at 29–38)
+To reduce JNI overhead for frequent calls, two **per-thread buffers** carry C++/JVM parameter exchange. Every value is an 8-byte type ordinal followed by its payload, both aligned on 8 bytes; type ordinals 0–38 cover all Godot variant types (primitives at fixed size, strings up to 128 bytes inline and larger ones via the JNI queue, `Array` at 28, packed arrays at 29–38). The per-type rows live in `cpp/jvm/buffer_wire.h` and the Kotlin `VariantParser`.
+- **`VariantBuffer`** — everything but an unchecked engine call. Rewound by every exchange, so it holds one call at a time: an argument count (object method calls prefix it with the caller pointer and `ObjectID`) then the values. Sized for 16 values of the largest kind, a String at the inline limit (`MAX_FUNCTION_ARG_COUNT` in `cpp/constraints.h`).
+- **`ValueBuffer`** — a stack of unchecked call (`ptrcall`) frames, packed one after another. The engine reads the arguments in place and writes the result after them, so a frame lives for the whole call; nested calls stack. Each frame's own offset and return offset live in the JVM stack frame of the generated call, so the only shared state is where the next frame starts. `value_buffer_size_factor` sizes the stack in entirely full frames (4 by default), a capacity rather than a nesting limit; the check exists only in debug builds.
+- The two engine call entry points, `icall` and `icallPtr`, are static natives on `godot.core.KtObject` (`cpp/jvm/registration/kt_object.cpp`).
 
 Details: `docs/src/doc/contribute/how-it-works/shared-buffer.md`
 
@@ -224,7 +224,7 @@ Behaviour that is easy to miss in the code:
 - `use_debug`, `debug_port`, `debug_address`, `wait_for_debugger` apply only to desktop JVM games in `DEBUG_ENABLED` builds (`GodotJvm::set_jvm_options`); `jmx_port` also applies in release builds. These dedicated options are ignored by native images and mobile runtimes.
 - `custom_jvm_args` applies to desktop JVM runs and supported native-image runtime options on desktop and iOS. The editor accepts custom arguments through the command line only; Android ignores them.
 - On Android the extension attaches to the existing ART VM, so no `JvmOptions` (debug, JMX, custom args) or `--jvm-path` apply.
-- `max_string_size` is capped at 65535 because `LongStringQueue::max_string_size` is a `uint16_t`.
+- `max_string_size` is capped at 65535 because `LongStringQueue::max_string_size` is a `uint16_t`. It sizes the `VariantBuffer` only; `value_buffer_size_factor` sizes the `ValueBuffer` and applies to every runtime, including Android, since both buffers live on the JVM side.
 - The export plugin reads the JSON at export time, applies enabled preset override categories (debug, memory) and a nonempty custom-argument override, then packs only platform-relevant keys. Desktop JVM/Graal presets force `useNativeImage` false/true. Editor command-line overrides never reach the exported JSON.
 - Field definitions, JSON/command-line parsing, and validation belong to `JvmUserConfiguration`. Everything export related (preset options and their names, override categories, option visibility and warnings, platform filtering of the packed JSON) lives in `GodotJvmEditorExportPlugin`.
 
@@ -261,7 +261,7 @@ Workflows in `.github/workflows/`. The canonical Godot version (`GODOT_VERSION`)
 - Guidelines: `docs/src/doc/contribute/index.md`
 - Memory management deep dive: `docs/src/doc/contribute/how-it-works/memory-management.md`
 - Registrar generation: `docs/src/doc/contribute/how-it-works/registrar-generation.md`
-- JNI shared buffer: `docs/src/doc/contribute/how-it-works/shared-buffer.md`
+- JNI shared buffers: `docs/src/doc/contribute/how-it-works/shared-buffer.md`
 - Testing branch changes: `docs/src/doc/contribute/test-a-branch.md`
 
 Serve docs locally: `cd docs/ && ./run.sh`

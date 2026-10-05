@@ -9,7 +9,6 @@ package godot.api
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0
 import godot.callPtrMethod0_ret_AABB
@@ -152,11 +151,11 @@ public open class PrimitiveMesh : Mesh() {
   }
 
   public final fun setMaterial(material: Material?): Unit {
-    TransferContext.callPtrMethod_OBJECT(ptr, objectID.id, MethodBindings.setMaterialPtr, material)
+    callPtrMethod_OBJECT(MethodBindings.setMaterialPtr, material)
   }
 
   public final fun getMaterial(): Material? =
-      (TransferContext.callPtrMethod0_ret_OBJECT_REF(ptr, objectID.id, MethodBindings.getMaterialPtr) as Material?)
+      (callPtrMethod0_ret_OBJECT_REF(MethodBindings.getMaterialPtr) as Material?)
 
   /**
    * Returns the mesh arrays used to make up the surface of this primitive mesh.
@@ -178,41 +177,38 @@ public open class PrimitiveMesh : Mesh() {
    * ```
    */
   public final fun getMeshArrays(): VariantArray<Any?> =
-      (TransferContext.callPtrMethod0_ret_ARRAY(ptr, objectID.id, MethodBindings.getMeshArraysPtr) as VariantArray<Any?>)
+      (callPtrMethod0_ret_ARRAY(MethodBindings.getMeshArraysPtr) as VariantArray<Any?>)
 
   public final fun setCustomAabb(aabb: AABB): Unit {
-    TransferContext.callPtrMethod_AABB(ptr, objectID.id, MethodBindings.setCustomAabbPtr, aabb)
+    callPtrMethod_AABB(MethodBindings.setCustomAabbPtr, aabb)
   }
 
-  public final fun getCustomAabb(): AABB =
-      TransferContext.callPtrMethod0_ret_AABB(ptr, objectID.id, MethodBindings.getCustomAabbPtr)
+  public final fun getCustomAabb(): AABB = callPtrMethod0_ret_AABB(MethodBindings.getCustomAabbPtr)
 
   public final fun setFlipFaces(flipFaces: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setFlipFacesPtr, flipFaces)
+    callPtrMethod_BOOL(MethodBindings.setFlipFacesPtr, flipFaces)
   }
 
-  public final fun getFlipFaces(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getFlipFacesPtr)
+  public final fun getFlipFaces(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getFlipFacesPtr)
 
   public final fun setAddUv2(addUv2: Boolean): Unit {
-    TransferContext.callPtrMethod_BOOL(ptr, objectID.id, MethodBindings.setAddUv2Ptr, addUv2)
+    callPtrMethod_BOOL(MethodBindings.setAddUv2Ptr, addUv2)
   }
 
-  public final fun getAddUv2(): Boolean =
-      TransferContext.callPtrMethod0_ret_BOOL(ptr, objectID.id, MethodBindings.getAddUv2Ptr)
+  public final fun getAddUv2(): Boolean = callPtrMethod0_ret_BOOL(MethodBindings.getAddUv2Ptr)
 
   public final fun setUv2Padding(uv2Padding: Float): Unit {
-    TransferContext.callPtrMethod_DOUBLE(ptr, objectID.id, MethodBindings.setUv2PaddingPtr, uv2Padding.toDouble())
+    callPtrMethod_DOUBLE(MethodBindings.setUv2PaddingPtr, uv2Padding.toDouble())
   }
 
   public final fun getUv2Padding(): Float =
-      TransferContext.callPtrMethod0_ret_DOUBLE(ptr, objectID.id, MethodBindings.getUv2PaddingPtr).toFloat()
+      callPtrMethod0_ret_DOUBLE(MethodBindings.getUv2PaddingPtr).toFloat()
 
   /**
    * Request an update of this primitive mesh based on its properties.
    */
   public final fun requestUpdate(): Unit {
-    TransferContext.callPtrMethod0(ptr, objectID.id, MethodBindings.requestUpdatePtr)
+    callPtrMethod0(MethodBindings.requestUpdatePtr)
   }
 
   /**

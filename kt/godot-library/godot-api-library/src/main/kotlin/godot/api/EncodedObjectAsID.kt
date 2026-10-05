@@ -7,7 +7,6 @@
 package godot.api
 
 import godot.`annotation`.GodotBaseType
-import godot.`internal`.memory.TransferContext
 import godot.`internal`.reflection.TypeManager
 import godot.callPtrMethod0_ret_LONG
 import godot.callPtrMethod_LONG
@@ -47,11 +46,10 @@ public open class EncodedObjectAsID : RefCounted() {
   }
 
   public final fun setObjectId(id: Long): Unit {
-    TransferContext.callPtrMethod_LONG(ptr, objectID.id, MethodBindings.setObjectIdPtr, id)
+    callPtrMethod_LONG(MethodBindings.setObjectIdPtr, id)
   }
 
-  public final fun getObjectId(): Long =
-      TransferContext.callPtrMethod0_ret_LONG(ptr, objectID.id, MethodBindings.getObjectIdPtr)
+  public final fun getObjectId(): Long = callPtrMethod0_ret_LONG(MethodBindings.getObjectIdPtr)
 
   public companion object {
     @JvmField
