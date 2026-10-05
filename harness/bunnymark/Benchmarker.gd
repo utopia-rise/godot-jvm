@@ -23,14 +23,14 @@ var ping_pong_counter := 0
 var increasing := true
 
 @export_enum("BunnymarkV2", "BunnymarkV1Sprites", "BunnymarkV1DrawTexture", "BunnymarkV3") var benchmark: String = "BunnymarkV2"
-@export_enum("gd", "gdj", "cs") var language: String = "gd"
+@export_enum("gd", "kt", "cs") var language: String = "gd"
 
 func _ready():
     set_process(false)
     fps_label = get_node("Panel/FPS")
     benchmark_container = get_node("BenchmarkContainer")
 
-    var args = OS.get_cmdline_args()
+    var args = OS.get_cmdline_args() + OS.get_cmdline_user_args()
     for arg in args:
         if arg.substr(0, arg_bench.length()) == arg_bench:
             benchmark = arg.split("=")[1]
@@ -48,8 +48,8 @@ func _process(delta: float):
         update_bunnymark(delta)
 
 func get_script_path(benchmark_name, language) -> String:
-    if language == "gdj":
-        return "res://scripts/godot/benchmark/bunnymark/" + benchmark_name + ".gdj"
+    if language == "kt":
+        return "res://src/main/kotlin/godot/benchmark/bunnymark/" + benchmark_name + ".kt"
     else:
         return "res://benchmarks/" + benchmark_name + "/" + language + "/" + benchmark_name + "." + language
 

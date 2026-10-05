@@ -13,6 +13,7 @@
 #include "logging.h"
 
 #include <core/object.hpp>
+#include <utility>
 
 using namespace godot;
 
@@ -38,16 +39,12 @@ raw_godot::RawObject JvmScript::_object_create() const {
         kotlin_class->base_godot_class
     );
 
-    // Establishes the object's real refcount (if any) and our own binding before anything else touches it — see
-    // JvmBindingManager::set_instance_binding()'s own comment.
-    JvmBindingManager::set_instance_binding(owner);
-
-    // Attaching directly via object_set_script_instance, not owner->set_script(this): set_script() re-enters the
-    // engine's can-instantiate/placeholder decision, and _can_instantiate() is unconditionally false in the editor (see
-    // below) — that re...
-    void* instance = create_jvm_instance(owner);
-    if (instance == nullptr) { return raw_godot::RawObject(); }
-    owner.set_script_instance(instance);
+    JvmBindingManager::bind_created(owner);
+    jni::Env env = jni::Jvm::current_env();
+    jni::JObject instance = kotlin_class->construct(env, owner);
+    KtObject kt_object = owner.is_ref_counted() ? KtObject::create_strong_ref(env, instance)
+                                                : KtObject::create_object(env, instance);
+    owner.set_script_instance(JvmInstance::create_script_instance(owner, std::move(kt_object), this));
     return owner;
 }
 
@@ -102,7 +99,18 @@ void* JvmScript::_instance_create(GodotObject* p_for_object) const {
 #ifdef DEBUG_ENABLED
     if (!validate_instance_creation()) { return nullptr; }
 #endif
-    return create_jvm_instance(p_for_object);
+    // TODO: Check if creator when set_script_instance is implemented in engine.
+    JvmBindingManager::bind(p_for_object);
+
+    jni::Env env = jni::Jvm::current_env();
+    raw_godot::RawObject owner(p_for_object);
+    jni::JObject instance = kotlin_class->construct(env, p_for_object);
+    // The binding above took the JVM's reference, so a count of exactly 1 means the JVM alone owns this RefCounted and
+    // its instance must be collectable from the start.
+    KtObject kt_object = !owner.is_ref_counted()          ? KtObject::create_object(env, instance)
+                       : owner.get_reference_count() == 1 ? KtObject::create_weak_ref(env, instance)
+                                                          : KtObject::create_strong_ref(env, instance);
+    return JvmInstance::create_script_instance(p_for_object, std::move(kt_object), this);
 }
 
 bool JvmScript::_instance_has(Object* p_object) const {
@@ -128,24 +136,6 @@ bool JvmScript::validate_instance_creation() const {
     return true;
 }
 #endif
-
-void* JvmScript::create_jvm_instance(GodotObject* p_raw_owner) const {
-    // Assumes validate_instance_creation() has succeeded.
-    // TODO: Check if creator when set_script_instance is implemented in engine.
-    JvmBindingManager::get_instance_binding(p_raw_owner);
-
-    JVM_DEV_VERBOSE("Try to create %s instance.", kotlin_class->registered_class_name);
-
-    jni::Env env = jni::Jvm::current_env();
-    KtObject* wrapped = kotlin_class->create_instance(env, p_raw_owner);
-
-    JvmInstance::JvmInstanceData* instance_data = JvmInstance::create_instance_data(env, p_raw_owner, wrapped, this);
-
-    return internal::gdextension_interface_script_instance_create3(
-        &JvmInstance::jvm_script_instance_info,
-        instance_data
-    );
-}
 
 bool JvmScript::_has_source_code() const {
     return !source.is_empty();
@@ -328,7 +318,7 @@ void* JvmScript::_placeholder_instance_create(GodotObject* p_for_object) const {
     placeholder_data->script = Ref<Script>(this);
     placeholder_data->owner = p_for_object;
 
-    GDExtensionScriptInstancePtr placeholder = internal::gdextension_interface_script_instance_create3(
+    GDExtensionScriptInstancePtr placeholder = raw_godot::RawObject::create_script_instance(
         &JvmPlaceHolderInstance::jvm_placeholder_script_instance_info,
         placeholder_data
     );
@@ -340,7 +330,7 @@ void* JvmScript::_placeholder_instance_create(GodotObject* p_for_object) const {
     get_script_exported_property_list(&exported_properties);
     JvmPlaceHolderInstance::update(placeholder_data, exported_properties, exported_members_default_value_cache);
 
-    placeholders.insert(placeholder_data, placeholder_data);
+    placeholders.insert(placeholder_data);
     return placeholder;
 #else
     return nullptr;
@@ -382,10 +372,8 @@ String JvmScript::_get_class_icon_path() const {
 
 void JvmScript::move_placeholders_to(JvmScript* p_script) {
     Vector<JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*> current_placeholders;
-    for (const KeyValue<
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& entry : placeholders) {
-        current_placeholders.append(entry.value);
+    for (JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder : placeholders) {
+        current_placeholders.append(placeholder);
     }
 
     for (JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder : current_placeholders) {
@@ -410,10 +398,8 @@ void JvmScript::set_last_source_modified_time(uint64_t p_time) {
 }
 
 void JvmScript::update_source_sync_warning() {
-    for (const KeyValue<
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
-        raw_godot::RawObject owner = placeholder.value->owner;
+    for (JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder : placeholders) {
+        raw_godot::RawObject owner = placeholder->owner;
         if (owner && owner.is_class(SNAME("Node"))) { owner.update_configuration_warnings(); }
     }
 }
@@ -453,10 +439,8 @@ void JvmScript::update_script_exports() const {
         exported_members_default_value_cache[property_name] = default_value;
     }
 
-    for (const KeyValue<
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*,
-             JvmPlaceHolderInstance::JvmPlaceHolderInstanceData*>& placeholder : placeholders) {
-        JvmPlaceHolderInstance::update(placeholder.value, exported_properties, exported_members_default_value_cache);
+    for (JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder : placeholders) {
+        JvmPlaceHolderInstance::update(placeholder, exported_properties, exported_members_default_value_cache);
     }
 
     jni::Env env = jni::Jvm::current_env();

@@ -8,12 +8,27 @@ includeBuild("../../kt/api-generator") {
 includeBuild("../../kt") {
     dependencySubstitution {
         substitute(module("com.utopia-rise:godot-gradle-plugin")).using(project(":godot-gradle-plugin"))
-        substitute(module("com.utopia-rise:godot-library-debug")).using(project(":godot-library"))
-        substitute(module("com.utopia-rise:godot-library-release")).using(project(":godot-library"))
+        substitute(module("com.utopia-rise:godot-internal-library-debug")).using(project(":godot-internal-library"))
+        substitute(module("com.utopia-rise:godot-internal-library-release")).using(project(":godot-internal-library"))
+        substitute(module("com.utopia-rise:godot-core-library-debug")).using(project(":godot-core-library"))
+        substitute(module("com.utopia-rise:godot-core-library-release")).using(project(":godot-core-library"))
+        substitute(module("com.utopia-rise:godot-api-library-debug")).using(project(":godot-api-library"))
+        substitute(module("com.utopia-rise:godot-api-library-release")).using(project(":godot-api-library"))
+        substitute(module("com.utopia-rise:godot-bootstrap-library-debug")).using(project(":godot-bootstrap-library"))
+        substitute(module("com.utopia-rise:godot-bootstrap-library-release")).using(project(":godot-bootstrap-library"))
+        substitute(module("com.utopia-rise:godot-extension-library-debug")).using(project(":godot-extension-library"))
+        substitute(module("com.utopia-rise:godot-extension-library-release")).using(project(":godot-extension-library"))
+        substitute(module("com.utopia-rise:godot-coroutine-library-debug")).using(project(":godot-coroutine-library"))
+        substitute(module("com.utopia-rise:godot-coroutine-library-release")).using(project(":godot-coroutine-library"))
         substitute(module("com.utopia-rise:godot-registration")).using(project(":godot-registration"))
     }
 }
 
+includeBuild("../../kt/common") {
+    dependencySubstitution {
+        substitute(module("com.utopia-rise:common")).using(project(":"))
+    }
+}
 
 pluginManagement {
     repositories {

@@ -45,6 +45,18 @@ class StringTest : Node() {
         """.trimIndent()
 
 
+    /**
+     * U+1F600. Four bytes in the standard UTF-8 Godot speaks, and a surrogate pair in UTF-16, which JNI's modified
+     * UTF-8 encodes as two three-byte sequences. Built from the code point so the encoding of this file is not what
+     * the test ends up measuring.
+     */
+    private val _supplementary = String(Character.toChars(0x1F600))
+
+    private val _shortSupplementary = _shortString + _supplementary
+
+    /** Padded past LongStringQueue's limit, so it crosses through the JNI string queue instead of the buffer. */
+    private val _longSupplementary = _shortestLongString + _supplementary
+
     @Register
     fun identity(str: String) = str
 
@@ -70,6 +82,12 @@ class StringTest : Node() {
     @Register
     fun getLongString() = _longString
   
+    @Register
+    fun getShortSupplementary() = _shortSupplementary
+
+    @Register
+    fun getLongSupplementary() = _longSupplementary
+
     @Register
     fun getLength(str: String) = str.length
 

@@ -8,6 +8,7 @@
 #include <jni.h>
 
 #include <mutex>
+#include <templates/hash_map.hpp>
 #include <templates/hash_set.hpp>
 #include <templates/local_vector.hpp>
 
@@ -34,6 +35,8 @@ JVM_SINGLETON_WRAPPER(MemoryManager, "godot.internal.memory.MemoryManager") {
 
     std::mutex to_demote_mutex;
     godot::HashSet<::godot::JvmInstance::JvmInstanceData*> to_demote_objects;
+
+    godot::HashMap<godot::ObjectID, uint32_t> release_candidates;
 
     static bool check_instance(JNIEnv* p_raw_env, jobject p_instance, jlong p_raw_ptr, jlong instance_id);
     static void unref_native_core_types(JNIEnv* p_raw_env, jobject p_instance, jobject p_ptr_array, jobject p_var_type_array);

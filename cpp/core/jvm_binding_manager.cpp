@@ -3,6 +3,7 @@
 #include "engine/godot_object.h"
 #include "godot_jvm.h"
 #include "jvm/wrapper/memory/memory_manager.h"
+#include "logging.h"
 
 using namespace godot;
 
@@ -27,52 +28,72 @@ void JvmBindingManager::_instance_binding_free_callback(void* p_token, void* p_i
     // local to the Object have been cleaned (including script and extension).
 
     JvmBinding* binding = reinterpret_cast<JvmBinding*>(p_binding);
-    // p_instance is the raw engine object pointer (possibly already mid-teardown at this point, per the comment above)
-    // — use the ObjectID cached in the binding at init() time instead of wrapping p_instance and calling
-    // get_instance_id() on it a...
     if (!binding->get_object_id().is_ref_counted()) {
         MemoryManager::get_instance().queue_dead_object(binding->get_object_id());
     }
     godot::memdelete(binding);
 }
 
-JvmBinding* JvmBindingManager::set_instance_binding(GodotObject* p_object) {
-    // Godot being weird. Call this function only if the JVM is the creator of the object, otherwise it will crash in
-    // case the object has any other bindings.
-    raw_godot::RawObject raw_object = raw_godot::RawObject(p_object);
-    bool is_rc = raw_object.is_ref_counted();
-    if (is_rc) {
+JvmBinding* JvmBindingManager::bind_created(GodotObject* p_object) {
+    // Attach via the growable get_instance_binding mechanism, not the engine's raw one-shot
+    // object_set_instance_binding: that one asserts if binding slot 0 is already occupied, which it always is once
+    // godot-cpp's own wrapper binding exists for the object.
+    JvmBinding* binding = reinterpret_cast<JvmBinding*>(
+        raw_godot::RawObject(p_object).get_instance_binding(&GodotJvm::get_instance(), &_instance_binding_callbacks)
+    );
+
+    if (binding->get_object_id().is_ref_counted()) {
         // p_object was just constructed via RawObject::instantiate(), so its refcount is genuinely 0 here — init_ref()
         // (not reference()) is required: reference() refuses to increment a true-zero, never-initialized count (it's
         // meant for objects that already... Must be dropped if RawObject::instantiate() ever moves to
         // classdb_construct_object3, which returns RefCounted instances already at refcount 1 — see the note there.
         raw_godot::RawObject(p_object).init_ref();
+        binding->record_delivery();
     }
 
-    // Attach via the growable get_instance_binding mechanism, not the engine's raw one-shot
-    // object_set_instance_binding: that one asserts if binding slot 0 is already occupied, which it always is once
-    // godot-cpp's own wrapper binding exists for...
-    JvmBinding* binding = reinterpret_cast<JvmBinding*>(
-        raw_object.get_instance_binding(&GodotJvm::get_instance(), &_instance_binding_callbacks)
-    );
-
-    if (is_rc) { binding->test_and_set_incremented(); }
-
     return binding;
 }
 
-JvmBinding* JvmBindingManager::get_instance_binding(GodotObject* p_object) {
-    // Godot being weird but this is how you create a binding if it doesn't exist already, otherwise just retrieve it.
-    // Use this function to bind an existing object to the JVM, the callbacks provided will handle the creation of the
-    // binding.
-    raw_godot::RawObject raw_object = raw_godot::RawObject(p_object);
+JvmBinding* JvmBindingManager::bind(GodotObject* p_object) {
+    raw_godot::RawObject raw_object(p_object);
     JvmBinding* binding = reinterpret_cast<JvmBinding*>(
         raw_object.get_instance_binding(&GodotJvm::get_instance(), &_instance_binding_callbacks)
     );
-    if (raw_object.is_ref_counted() && !binding->test_and_set_incremented()) { raw_object.reference(); }
+    if (binding->get_object_id().is_ref_counted() && binding->record_delivery() == 0) { raw_object.reference(); }
     return binding;
 }
 
-void JvmBindingManager::free_binding(GodotObject* p_ref) {
-    raw_godot::RawObject(p_ref).free_instance_binding(&GodotJvm::get_instance());
+static JvmBinding* find_binding(raw_godot::RawObject p_object) {
+    return reinterpret_cast<JvmBinding*>(p_object.get_instance_binding(&GodotJvm::get_instance(), nullptr));
+}
+
+static void unbind(raw_godot::RawObject p_object, JvmBinding* p_binding) {
+    bool is_ref_counted = p_binding->get_object_id().is_ref_counted();
+    p_object.free_instance_binding(&GodotJvm::get_instance());
+    if (is_ref_counted && p_object.unreference()) { p_object.destroy(); }
+}
+
+uint32_t JvmBindingManager::get_deliveries(GodotObject* p_object) {
+    JvmBinding* binding = find_binding(p_object);
+    return binding != nullptr ? binding->get_deliveries() : 0;
+}
+
+void JvmBindingManager::unbind(GodotObject* p_object) {
+    JvmBinding* binding = find_binding(p_object);
+    if (binding != nullptr) { ::unbind(p_object, binding); }
+}
+
+void JvmBindingManager::unbind_unless_delivered_since(GodotObject* p_object, uint32_t p_deliveries) {
+    JvmBinding* binding = find_binding(p_object);
+    if (unlikely(binding == nullptr)) {
+#ifdef DEBUG_ENABLED
+        JVM_ERR_PRINT(
+            "RefCounted %d lost its JVM binding while a release was pending. Only unbind() or the object's destruction "
+            "may remove it.",
+            raw_godot::RawObject(p_object).get_instance_id()
+        );
+#endif
+        return;
+    }
+    if (binding->get_deliveries() == p_deliveries) { ::unbind(p_object, binding); }
 }

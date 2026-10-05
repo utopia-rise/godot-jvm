@@ -2,30 +2,16 @@
 
 #include "api/script/jvm_instance.h"
 #include "constraints.h"
+#include "jvm/variant_stack.h"
 #include "logging.h"
 
 #include <core/object.hpp>
 
-const int MAX_STACK_SIZE = MAX_FUNCTION_ARG_COUNT * 8;
-
-struct TransferContextThreadStorage {
-    godot::Variant args[MAX_STACK_SIZE];
-    const godot::Variant* args_ptr[MAX_STACK_SIZE];
-    SharedBuffer shared_buffer;
-    int stack_offset = -1;
-};
-
-static TransferContextThreadStorage& get_thread_storage() {
-    thread_local TransferContextThreadStorage* storage = nullptr;
-    if (unlikely(!storage)) { storage = memnew(TransferContextThreadStorage); }
-    return *storage;
-}
+static thread_local SharedBuffer shared_buffer;
 
 TransferContext::~TransferContext() = default;
 
 SharedBuffer* TransferContext::get_and_rewind_buffer(jni::Env& p_env) {
-    SharedBuffer& shared_buffer = get_thread_storage().shared_buffer;
-
     if (unlikely(!shared_buffer.is_init())) {
         jni::JObject buffer = wrapped.call_object_method(p_env, GET_BUFFER);
         JVM_DEV_ASSERT(!buffer.is_null(), "Buffer is null");
@@ -35,6 +21,7 @@ SharedBuffer* TransferContext::get_and_rewind_buffer(jni::Env& p_env) {
 #else
         shared_buffer = SharedBuffer(address, 0);
 #endif
+        buffer.delete_local_ref(p_env);
     }
     shared_buffer.rewind();
     return &shared_buffer;
@@ -47,7 +34,7 @@ void TransferContext::read_return_value(jni::Env& p_env, godot::Variant& r_ret) 
 
 void TransferContext::write_args(jni::Env& p_env, const godot::Variant** p_args, int args_size) {
     SharedBuffer* buffer = get_and_rewind_buffer(p_env);
-    buffer->increment_position(encode_uint32(args_size, buffer->get_cursor()));
+    buffer->increment_position(godot::encode_uint32(args_size, buffer->get_cursor()));
     for (auto i = 0; i < args_size; ++i) {
         VariantToBuffer::write_variant(*p_args[i], buffer);
     }
@@ -68,30 +55,19 @@ void TransferContext::write_return_value(jni::Env& p_env, godot::Variant& varian
 
 void TransferContext::write_object_data(jni::Env& p_env, uintptr_t ptr, godot::ObjectID id) {
     SharedBuffer* buffer = get_and_rewind_buffer(p_env);
-    buffer->increment_position(encode_uint64(ptr, buffer->get_cursor()));
-    buffer->increment_position(encode_uint64(id, buffer->get_cursor()));
+    buffer->increment_position(godot::encode_uint64(ptr, buffer->get_cursor()));
+    buffer->increment_position(godot::encode_uint64(id, buffer->get_cursor()));
 }
 
 void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
-    TransferContextThreadStorage& storage = get_thread_storage();
-    if (unlikely(storage.stack_offset == -1)) {
-        // The only place variant_args()'s guard-checked thread_local init actually runs, once per thread — everything
-        // below this block reads the cached variant_args_base instead.
-        for (int i = 0; i < MAX_STACK_SIZE; i++) {
-            storage.args_ptr[i] = &storage.args[i];
-        }
-        storage.stack_offset = 0;
-    }
-
     jni::Env env(rawEnv);
-
     SharedBuffer* buffer = get_instance().get_and_rewind_buffer(env);
 
     // The receiver pointer and ObjectID are written directly into the buffer by Kotlin's
     // TransferContext.writeMethodArguments() before this call.
-    uintptr_t receiver_ptr = static_cast<uintptr_t>(decode_uint64(buffer->get_cursor()));
+    uintptr_t receiver_ptr = static_cast<uintptr_t>(godot::decode_uint64(buffer->get_cursor()));
 #ifdef DEBUG_ENABLED
-    uint64_t receiver_id = decode_uint64(buffer->get_cursor() + PTR_SIZE);
+    uint64_t receiver_id = godot::decode_uint64(buffer->get_cursor() + PTR_SIZE);
 #endif
     buffer->increment_position(PTR_SIZE + PTR_SIZE);
     // receiver_ptr is the raw engine pointer the JVM was given.
@@ -126,7 +102,20 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
 
     GDExtensionCallError r_error = {GDExtensionCallErrorType::GDEXTENSION_CALL_OK, 0, 0};
 
-    if (unlikely(storage.stack_offset + args_size > MAX_STACK_SIZE)) {
+    godot::Variant ret_value;
+    VariantStack::Slots slots = VariantStack::push(args_size);
+    if (likely(slots.is_valid())) {
+        read_args_to_array(buffer, slots.args, args_size);
+
+        receiver.call_method_bind(
+            method_bind,
+            reinterpret_cast<GDExtensionConstVariantPtr*>(slots.args_ptr),
+            args_size,
+            &ret_value,
+            &r_error
+        );
+        VariantStack::pop(args_size);
+    } else {
         godot::Variant args[MAX_FUNCTION_ARG_COUNT];
         read_args_to_array(buffer, args, args_size);
 
@@ -135,7 +124,6 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
             args_ptr[i] = &args[i];
         }
 
-        godot::Variant ret_value;
         receiver.call_method_bind(
             method_bind,
             reinterpret_cast<GDExtensionConstVariantPtr*>(args_ptr),
@@ -143,33 +131,10 @@ void TransferContext::icall(JNIEnv* rawEnv, jobject, jlong j_method_ptr) {
             &ret_value,
             &r_error
         );
-
-        buffer->rewind();
-        VariantToBuffer::write_variant(ret_value, buffer);
-    } else {
-        godot::Variant* args = storage.args + storage.stack_offset;
-        read_args_to_array(buffer, args, args_size);
-
-        const godot::Variant** args_ptr = storage.args_ptr + storage.stack_offset;
-
-        storage.stack_offset += args_size;
-        godot::Variant ret_value;
-        receiver.call_method_bind(
-            method_bind,
-            reinterpret_cast<GDExtensionConstVariantPtr*>(args_ptr),
-            args_size,
-            &ret_value,
-            &r_error
-        );
-        // Remove Variants so memory can be freed immediately after method call.
-        for (uint32_t i = 0; i < args_size; i++) {
-            args[i] = godot::Variant();
-        }
-        storage.stack_offset -= args_size;
-
-        buffer->rewind();
-        VariantToBuffer::write_variant(ret_value, buffer);
     }
+
+    buffer->rewind();
+    VariantToBuffer::write_variant(ret_value, buffer);
 
 #ifdef DEBUG_ENABLED
     JVM_ERR_FAIL_COND_MSG(

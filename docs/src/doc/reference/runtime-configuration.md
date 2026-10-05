@@ -118,14 +118,31 @@ Examples: `--jvm-path=/usr/lib/jvm/temurin-17` or `--jvm-path="C:/Program Files/
 
 JSON key: `custom_jvm_args`. Default: `[]`.
 
-Additional runtime arguments, supplied as a quoted space-separated or comma-separated list on the command line.
+Additional runtime arguments.
+
+On the command line they are written as a single quoted value and split the way a shell splits a command, which is
+also how the JDK reads `JDK_JAVA_OPTIONS` and `JAVA_TOOL_OPTIONS`: whitespace separates arguments, and a single or
+double quoted section is kept together as part of one argument. Nothing else is special, so a comma inside an option
+stays where it belongs.
+
+```
+--jvm-custom-args="-Xmx4g -Xms4g"
+--jvm-custom-args="-XX:StartFlightRecording=dumponexit=true,filename=run.jfr,settings=profile"
+--jvm-custom-args="-Djava.library.path='C:\Program Files\Something\lib' -Xmx4g"
+```
+
+Your own shell strips one layer of quoting before the value arrives, so the quotes that group an argument containing
+a space have to be the inner ones, as above. An unterminated quote is reported as a warning and the rest of the value
+is taken as one argument.
+
+In the JSON file each array element is one argument and nothing is split, so no quoting is involved at all.
 They apply to desktop JVM runs and to native images on desktop and iOS, but are ignored by Android.
 The editor accepts custom arguments through the command line only.
 Native images accept only options supported by the compiled image, such as `-Xmx256m` and `-Dname=value`;
 arbitrary HotSpot or native-image build-time flags do not apply. Invalid arguments can prevent startup.
 Use the dedicated settings for desktop JVM debugging and JMX.
 
-Example: `--jvm-custom-args="-Xmx4g -Xms4g"` (quoted, space-separated), `--jvm-custom-args=-Xmx4g,-Xms4g` (comma-separated), or `"custom_jvm_args": ["-Xmx4g", "-Xms4g"]`
+JSON example: `"custom_jvm_args": ["-Djava.library.path=C:\\Program Files\\Something\\lib", "-Xmx4g"]`.
 
 !!! note "Embedded JRE modules"
     Remote debugging requires `jdk.jdwp.agent`; JMX requires `jdk.management.agent` in the embedded JRE.

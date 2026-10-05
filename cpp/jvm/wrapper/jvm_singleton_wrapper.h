@@ -76,6 +76,8 @@ bool JvmSingletonWrapper<Derived, FqName>::initialize(jni::Env& p_env, ClassLoad
         godot::String("Failed to retrieve ") + godot::String(FqName) + godot::String(" singleton")
     );
 
+    singleton_cls.delete_local_ref(p_env);
+    // singleton_instance is promoted and dropped by the constructor.
     _instance = new Derived(p_env, singleton_instance);
 
     Derived::initialize_jni_binding(p_env, class_loader);

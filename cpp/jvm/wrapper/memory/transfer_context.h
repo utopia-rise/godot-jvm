@@ -36,7 +36,7 @@ private:
     SharedBuffer* get_and_rewind_buffer(jni::Env& p_env);
 
     _FORCE_INLINE_ static uint32_t read_args_size(SharedBuffer* buffer) {
-        uint32_t args_size = decode_uint32(buffer->get_cursor());
+        uint32_t args_size = godot::decode_uint32(buffer->get_cursor());
         buffer->increment_position(4);
         return args_size;
     }

@@ -181,14 +181,12 @@ const GDExtensionMethodInfo* JvmPlaceHolderInstance::get_method_list(
     auto* instance_data = reinterpret_cast<JvmPlaceHolderInstanceData*>(p_instance);
     Ref<Script> script = instance_data->script;
 
-    List<MethodInfo>& methods = instance_data->methods;
-
-    if (is_placeholder_fallback_enabled(script)) { return internal::create_c_method_list(methods, r_count); }
-
-    if (script.is_valid()) {
+    // The method-list bridge owns this freshly allocated list and frees it later.
+    List<MethodInfo>* methods = memnew(List<MethodInfo>);
+    if (script.is_valid() && !is_placeholder_fallback_enabled(script)) {
         const TypedArray<Dictionary>& script_methods = script->get_script_method_list();
         for (int i = 0; i < script_methods.size(); ++i) {
-            methods.push_back(MethodInfo::from_dict(script_methods.get(i)));
+            methods->push_back(MethodInfo::from_dict(script_methods.get(i)));
         }
     }
 
@@ -200,8 +198,6 @@ void JvmPlaceHolderInstance::free_method_list(
     const GDExtensionMethodInfo* p_list,
     uint32_t p_count
 ) {
-    auto* instance_data = reinterpret_cast<JvmPlaceHolderInstanceData*>(p_instance);
-    instance_data->methods.clear();
     internal::free_c_method_list(const_cast<GDExtensionMethodInfo*>(p_list), p_count);
 }
 

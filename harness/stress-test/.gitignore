@@ -11,6 +11,7 @@ graal/*-graal-jni-config.json
 /.godot/
 /test_output.txt
 **/jvm/
-/addons/jvm/libs/
+/addons/
 /reports
+/results/
 /export

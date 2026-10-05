@@ -1,12 +1,12 @@
 package godot.benchmark.bunnymark.v3
 
-import godot.RandomNumberGenerator
-import godot.Sprite2D
+import godot.api.RandomNumberGenerator
+import godot.api.Sprite2D
 import godot.annotation.Script
 import godot.annotation.Register
 import godot.core.Vector2
 
-@Script
+@Script("BunnyKt")
 class Bunny : Sprite2D() {
 
 	var speed = Vector2()

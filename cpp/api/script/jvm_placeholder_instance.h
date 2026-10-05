@@ -21,7 +21,6 @@ namespace godot {
             List<PropertyInfo> properties;
             HashMap<StringName, Variant> values;
             HashMap<StringName, Variant> constants;
-            List<MethodInfo> methods;
             ScriptLanguage* language = nullptr;
             Ref<Script> script;
         };

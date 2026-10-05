@@ -101,7 +101,7 @@ These operations return no value. Except `printStack()`, each accepts zero or mo
 | Method | Result/effect |
 |---|---|
 | `isInstanceValid(object)` | Boolean; false for null or a deleted native object |
-| `syncMemory()` | Requests binding memory synchronization |
+| `syncMemory()` | Requests binding memory synchronization; main thread only, other threads get an error and no sync |
 | `callWhenClosing(callback)` | Registers a no-argument, Kotlin-Unit-returning shutdown callback |
 
 See [Objects and lifetime](objects.md) for language syntax and lifetime restrictions.

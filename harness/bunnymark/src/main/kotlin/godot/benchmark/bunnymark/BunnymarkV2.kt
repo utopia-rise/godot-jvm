@@ -1,17 +1,17 @@
 package godot.benchmark.bunnymark
 
 import godot.core.*
-import godot.*
+import godot.api.*
 import godot.annotation.Script
 import godot.annotation.Register
 import godot.annotation.Emit
-import godot.signals.signal
+import godot.core.signal1
 
 @Script("BunnymarkV2")
 class BunnymarkV2 : Node2D() {
 
 	@Emit
-	val benchmarkFinished by signal<Int>("bunnyCount")
+	val benchmarkFinished by signal1<Int>()
 
 	private val gravity = 500
 	private val bunnySpeeds = mutableListOf<Vector2>()

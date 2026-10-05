@@ -20,10 +20,18 @@ JVM_INSTANCE_WRAPPER(KtObject, "godot.core.KtObject") {
     // clang-format on
 
 private:
-    bool is_ref;
+    explicit KtObject(jni::JObject p_global_ref);
+    KtObject(jni::JObject p_weak_ref, jni::JObject p_pin);
 
 public:
-    explicit KtObject(jni::Env & p_env, jni::JObject p_wrapped, bool p_is_ref);
+    KtObject(KtObject && p_other) noexcept = default;
+
+    // A plain Object: one strong global reference, never promoted or demoted.
+    static KtObject create_object(jni::Env & p_env, jni::JObject p_local_ref);
+    // A RefCounted something other than the JVM owns too: the permanent weak reference plus the pin that holds it.
+    static KtObject create_strong_ref(jni::Env & p_env, jni::JObject p_local_ref);
+    // A RefCounted the JVM alone owns: the permanent weak reference, collectable from the start.
+    static KtObject create_weak_ref(jni::Env & p_env, jni::JObject p_local_ref);
     ~KtObject();
 
     void script_instance_removed(jni::Env & p_env, uint32_t constructor_index);
@@ -31,5 +39,9 @@ public:
     static void get_singleton(JNIEnv * p_raw_env, jobject p_instance, jint p_class_index);
     static void free_object(JNIEnv * p_raw_env, jobject p_instance, jlong p_raw_ptr);
 };
+
+// One KtObject lives inside every JvmInstanceData: the permanent reference, the pin, and the flag telling them
+// apart. Keep it padding-free.
+static_assert(sizeof(KtObject) == 3 * sizeof(void*));
 
 #endif // GODOT_JVM_KT_OBJECT_H

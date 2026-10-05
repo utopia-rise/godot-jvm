@@ -6,8 +6,6 @@
 #include <dlfcn.h>
 #endif
 
-using namespace godot;
-
 namespace godot_jvm_native {
 
     Error open_dynamic_library(const String& p_path, void*& r_library_handle) {

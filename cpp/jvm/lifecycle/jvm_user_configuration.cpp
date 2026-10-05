@@ -108,6 +108,40 @@ bool get_cmd_bool_or_default(const godot::String& value, bool default_if_empty) 
     }
 }
 
+// Splits the way a shell does, as the JDK itself does for JDK_JAVA_OPTIONS: whitespace separates, quotes group.
+static godot::Array tokenize_jvm_args(const godot::String& p_value) {
+    godot::Array arguments;
+    godot::String current;
+    bool in_argument = false;
+    char32_t quote = 0;
+
+    for (int64_t i = 0; i < p_value.length(); ++i) {
+        char32_t character = static_cast<char32_t>(p_value.unicode_at(i));
+        if (quote != 0) {
+            if (character == quote) {
+                quote = 0;
+            } else {
+                current += character;
+            }
+        } else if (character == '\'' || character == '"') {
+            quote = character;
+            in_argument = true;
+        } else if (character == ' ' || character == '\t') {
+            if (in_argument) {
+                arguments.append(current);
+                current = godot::String();
+                in_argument = false;
+            }
+        } else {
+            current += character;
+            in_argument = true;
+        }
+    }
+    if (quote != 0) { JVM_LOG_WARNING("Unterminated quote in JVM arguments: %s", p_value); }
+    if (in_argument) { arguments.append(current); }
+    return arguments;
+}
+
 void JvmUserConfiguration::parse_command_line(
     const godot::PackedStringArray& args,
     godot::HashMap<godot::String, godot::Variant>& configuration_map
@@ -170,15 +204,7 @@ void JvmUserConfiguration::parse_command_line(
                 JVM_LOG_WARNING("Empty JVM path in command line arguments. It will be ignored");
             }
         } else if (identifier == JVM_ARGUMENTS_CMD_IDENTIFIER) {
-            godot::Array arr;
-            // Support both comma-separated and space-separated values.
-            // Space separation requires quoting at shell level, e.g.:
-            // --jvm-custom-args="-Xmx4g -Xms4g"
-            for (godot::String jvm_arg : value.replace(",", " ").split(" ", false)) {
-                godot::String stripped_jvm_arg = jvm_arg.strip_edges();
-                if (!stripped_jvm_arg.is_empty()) { arr.append(stripped_jvm_arg); }
-            }
-            configuration_map[JVM_ARGUMENTS_CMD_IDENTIFIER] = arr;
+            configuration_map[JVM_ARGUMENTS_CMD_IDENTIFIER] = tokenize_jvm_args(value);
         }
     }
     for (const auto& map_element : configuration_map) {

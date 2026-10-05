@@ -2,10 +2,8 @@
 
 #include <templates/local_vector.hpp>
 
-using namespace godot;
-
 namespace godot::internal {
-    void convert_property_to_c(const ::godot::PropertyInfo& p_source, GDExtensionPropertyInfo* p_dest) {
+    void convert_property_to_c(const PropertyInfo& p_source, GDExtensionPropertyInfo* p_dest) {
         p_dest->type = static_cast<GDExtensionVariantType>(p_source.type);
         p_dest->name = p_source.name._native_ptr();
         p_dest->hint = p_source.hint;
@@ -14,43 +12,48 @@ namespace godot::internal {
         p_dest->usage = p_source.usage;
     }
 
-    GDExtensionPropertyInfo* create_c_property_list(const ::godot::LocalVector<::godot::PropertyInfo>& plist_cpp) {
+    GDExtensionPropertyInfo* create_c_property_list(const LocalVector<PropertyInfo>& plist_cpp) {
         const uint32_t plist_size = plist_cpp.size();
         auto* plist = reinterpret_cast<GDExtensionPropertyInfo*>(
             memalloc(sizeof(GDExtensionPropertyInfo) * plist_size)
         );
         uint32_t i = 0;
-        for (const ::godot::PropertyInfo& E : plist_cpp) {
+        for (const PropertyInfo& E : plist_cpp) {
             convert_property_to_c(E, &plist[i]);
             ++i;
         }
         return plist;
     }
 
-    GDExtensionVariantPtr* create_c_default_arguments(const ::godot::LocalVector<godot::Variant>& p_list) {
+    GDExtensionVariantPtr* create_c_default_arguments(const LocalVector<Variant>& p_list) {
         const uint32_t clist_size = p_list.size();
         auto* clist = reinterpret_cast<GDExtensionVariantPtr*>(memalloc(sizeof(GDExtensionVariantPtr) * clist_size));
         uint32_t i = 0;
-        for (const godot::Variant& item : p_list) {
-            clist[i] = const_cast<godot::Variant*>(&item);
+        for (const Variant& item : p_list) {
+            clist[i] = const_cast<Variant*>(&item);
             ++i;
         }
         return clist;
     }
 
-    GDExtensionMethodInfo* create_c_method_list(
-        const ::godot::List<::godot::MethodInfo>& p_list_cpp,
-        uint32_t* r_size
-    ) {
-        GDExtensionMethodInfo* c_list = nullptr;
+    // The C list keeps the stashed pointer in the allocation's padding, exactly as godot-cpp does for property lists.
+    static List<MethodInfo>** stashed_list(void* p_mem) {
+        return reinterpret_cast<List<MethodInfo>**>(
+            static_cast<uint8_t*>(p_mem) - Memory::DATA_OFFSET + Memory::ELEMENT_OFFSET
+        );
+    }
 
-        const uint32_t p_list_size = p_list_cpp.size();
+    GDExtensionMethodInfo* create_c_method_list(List<MethodInfo>* p_list_cpp, uint32_t* r_size) {
+        const uint32_t p_list_size = p_list_cpp->size();
 
         if (r_size != nullptr) { *r_size = p_list_size; }
 
-        c_list = reinterpret_cast<GDExtensionMethodInfo*>(memalloc(sizeof(GDExtensionMethodInfo) * p_list_size));
+        void* mem = Memory::alloc_static(sizeof(GDExtensionMethodInfo) * p_list_size, true);
+        *stashed_list(mem) = p_list_cpp;
+
+        auto* c_list = reinterpret_cast<GDExtensionMethodInfo*>(mem);
         uint32_t i = 0;
-        for (const ::godot::MethodInfo& E : p_list_cpp) {
+        for (const MethodInfo& E : *p_list_cpp) {
             c_list[i].name = E.name._native_ptr();
             c_list[i].return_value = GDExtensionPropertyInfo {
                 .type = static_cast<GDExtensionVariantType>(E.return_val.type),
@@ -77,6 +80,8 @@ namespace godot::internal {
             memfree(p_list[i].default_arguments);
         }
 
-        memfree(p_list);
+        List<MethodInfo>* list_cpp = *stashed_list(p_list);
+        Memory::free_static(p_list, true);
+        memdelete(list_cpp);
     }
 } // namespace godot::internal

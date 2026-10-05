@@ -54,7 +54,7 @@ namespace jni {
 
         void throw_new(const char* message);
 
-        JObject new_string(const char* str);
+        JObject new_string(const godot::String& str);
         godot::String from_jstring(JString str);
 
         bool exception_check();

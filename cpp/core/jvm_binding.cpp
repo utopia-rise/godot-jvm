@@ -36,7 +36,10 @@ ObjectID JvmBinding::get_object_id() const {
     return object_id;
 }
 
-bool JvmBinding::test_and_set_incremented() {
-    // Set to true and return the previous value.
-    return is_incremented.test_and_set(std::memory_order_acq_rel);
+uint32_t JvmBinding::record_delivery() {
+    return deliveries.fetch_add(1, std::memory_order_acq_rel);
+}
+
+uint32_t JvmBinding::get_deliveries() const {
+    return deliveries.load(std::memory_order_acquire);
 }
