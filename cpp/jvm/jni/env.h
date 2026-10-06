@@ -41,8 +41,9 @@ namespace jni {
         // Trivially constructible on purpose, so that the thread-local instance below can be constant-initialised.
         // A type that needs code to run before first use makes the compiler guard every access to that storage with a
         // flag check and a call, on a path every single crossing takes. Leaving the member uninitialised is what lets
-        // the storage be zero-initialised instead; the variable is declared constinit so a future member with an
-        // initialiser fails the build rather than quietly bringing the guard back.
+        // the storage be zero-initialised instead (spelled per compiler by JVM_ZERO_INIT_THREAD_LOCAL); the variable
+        // is declared constinit so a future member with an initialiser fails the build rather than quietly bringing
+        // the guard back.
         Env() = default;
 
         // Defined here rather than in the .cpp because the build has no link-time code generation, so an out-of-line

@@ -40,4 +40,13 @@
 #define JVM_FLATTEN
 #endif
 
+// The initialiser of a constinit thread_local of class type that is meant to be zero-initialised. clang accepts such
+// a variable only when the zero-initialisation is spelled out, and MSVC 19.34 only when it is not; both compile it to
+// the same guard-free storage. The scalar case is spelled `= nullptr` on every compiler and needs none of this.
+#ifdef _MSC_VER
+#define JVM_ZERO_INIT_THREAD_LOCAL
+#else
+#define JVM_ZERO_INIT_THREAD_LOCAL = {}
+#endif
+
 #endif // GODOT_JVM_COMPILER_H

@@ -1,6 +1,7 @@
 #ifndef GODOT_JVM_VARIANT_BUFFER_H
 #define GODOT_JVM_VARIANT_BUFFER_H
 
+#include "compiler.h"
 #include "engine/godot_object.h"
 #include "jvm/jni/jvm.h"
 #include "jvm/jvm_instance_wrapper.h"
@@ -141,7 +142,7 @@ public:
     }
 
 private:
-    static inline constinit thread_local Transfer transfer;
+    static inline constinit thread_local Transfer transfer JVM_ZERO_INIT_THREAD_LOCAL;
 };
 
 #endif // GODOT_JVM_VARIANT_BUFFER_H

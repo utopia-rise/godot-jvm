@@ -26,8 +26,9 @@ func test_kotlin_test_class() -> void:
     var process_delta: float = kotlin_scene.process_delta
     kotlin_scene._process(0.5)
     assert_float(kotlin_scene.process_delta).override_failure_message("_process should be callable by name in kotlin").is_equal(process_delta + 0.5)
+    process_delta = kotlin_scene.process_delta
     kotlin_scene.call("_process", 2)
-    assert_float(kotlin_scene.process_delta).override_failure_message("_process should accept an int by name in kotlin").is_equal(process_delta + 2.5)
+    assert_float(kotlin_scene.process_delta).override_failure_message("_process should accept an int by name in kotlin").is_equal(process_delta + 2.0)
 
     get_tree().root.remove_child(kotlin_scene)
     kotlin_scene.free()
@@ -58,8 +59,9 @@ func test_java_test_class() -> void:
     var process_delta: float = java_scene.process_delta
     java_scene._process(0.5)
     assert_float(java_scene.process_delta).override_failure_message("_process should be callable by name in java").is_equal(process_delta + 0.5)
+    process_delta = java_scene.process_delta
     java_scene.call("_process", 2)
-    assert_float(java_scene.process_delta).override_failure_message("_process should accept an int by name in java").is_equal(process_delta + 2.5)
+    assert_float(java_scene.process_delta).override_failure_message("_process should accept an int by name in java").is_equal(process_delta + 2.0)
 
     get_tree().root.remove_child(java_scene)
     java_scene.free()
@@ -90,8 +92,9 @@ func test_scala_test_class() -> void:
     var process_delta: float = scala_scene.process_delta
     scala_scene._process(0.5)
     assert_float(scala_scene.process_delta).override_failure_message("_process should be callable by name in scala").is_equal(process_delta + 0.5)
+    process_delta = scala_scene.process_delta
     scala_scene.call("_process", 2)
-    assert_float(scala_scene.process_delta).override_failure_message("_process should accept an int by name in scala").is_equal(process_delta + 2.5)
+    assert_float(scala_scene.process_delta).override_failure_message("_process should accept an int by name in scala").is_equal(process_delta + 2.0)
 
     get_tree().root.remove_child(scala_scene)
     scala_scene.free()

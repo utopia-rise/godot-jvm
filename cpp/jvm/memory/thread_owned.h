@@ -14,7 +14,7 @@
 // holds nothing but a destructor -- is touched only on the one call per thread that allocates.
 template<class T>
 class ThreadOwned {
-    static inline constinit thread_local T* instance;
+    static inline constinit thread_local T* instance = nullptr;
 
     struct Closer {
         ~Closer() {

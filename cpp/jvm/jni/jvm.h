@@ -1,6 +1,7 @@
 #ifndef GODOT_LOADER_JVM_H
 #define GODOT_LOADER_JVM_H
 
+#include "compiler.h"
 #include "env.h"
 #include "jni.h"
 
@@ -21,7 +22,7 @@ namespace jni {
 
         // The JNIEnv of the calling thread. constinit, so reading it is a plain thread-local load rather than a
         // guarded one: see the note on Env's default constructor.
-        static inline constinit thread_local Env thread_env;
+        static inline constinit thread_local Env thread_env JVM_ZERO_INIT_THREAD_LOCAL;
 
         JavaVM* vm = nullptr;
         jint version = 0;
