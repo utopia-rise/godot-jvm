@@ -23,11 +23,9 @@ object VariantBuffer {
     private const val VALUE_OVERHEAD = 24
     private const val LARGEST_INLINE_VALUE = 80
 
-    private val threadTransfer = ThreadLocal.withInitial { Transfer() }
-
     /** The calling thread's transfer, which is what every exchange is made through. */
     val transfer: Transfer
-        get() = threadTransfer.get()
+        get() = ThreadContext.transfer
 
     /** Where this thread's exchange lives. Asked for by the native side, once per thread; nothing else needs it. */
     val buffer: ByteBuffer

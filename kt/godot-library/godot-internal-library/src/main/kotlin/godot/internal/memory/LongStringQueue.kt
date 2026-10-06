@@ -17,20 +17,18 @@ object LongStringQueue {
     // If changed, remember to change also max_string_size in long_string_queue.cpp and the StringTest.kt
     var stringMaxSize = 128
 
-    private val inbox = ThreadLocal.withInitial { Inbox() }
-
     fun queueString(str: String) {
-        inbox.get().receive(str)
+        ThreadContext.inbox.receive(str)
     }
 
     fun pollString(): String {
-        return inbox.get().take()
+        return ThreadContext.inbox.take()
     }
 
     external fun sendStringToCPP(str: String)
 
     /** One thread's worth of strings waiting to be read, in arrival order. */
-    private class Inbox {
+    internal class Inbox {
         private val strings = ArrayDeque<String>(5)
 
         fun receive(str: String) {

@@ -48,6 +48,16 @@ internal object ThreadContext {
     val valueStack: ValueBuffer.Stack
         get() = locals().valueStack
 
+    /** The exchange this thread makes every checked call and bridge call through. */
+    @JvmStatic
+    val transfer: VariantBuffer.Transfer
+        get() = locals().transfer
+
+    /** The strings too long for [transfer] that the native side has handed this thread, waiting to be read. */
+    @JvmStatic
+    val inbox: LongStringQueue.Inbox
+        get() = locals().inbox
+
     /** Where this thread stages the arguments of a call arriving from the engine. */
     @JvmStatic
     val paramsArray: Array<Any?>

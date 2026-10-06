@@ -10,6 +10,12 @@ internal class Locals(
     val valueStack: ValueBuffer.Stack = ValueBuffer.Stack()
 
     @JvmField
+    val transfer: VariantBuffer.Transfer = VariantBuffer.Transfer()
+
+    @JvmField
+    val inbox: LongStringQueue.Inbox = LongStringQueue.Inbox()
+
+    @JvmField
     val paramsArray: Array<Any?> = arrayOfNulls(Constraints.MAX_ARGUMENT_COUNT)
 
     @JvmField
