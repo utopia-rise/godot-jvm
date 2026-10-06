@@ -21,6 +21,8 @@ data class KtClass<T : KtObject>(
     val constructor: KtConstructor<T>?,
     val properties: Array<KtProperty<T, *>>,
     val functions: Array<KtFunction<T, *>>,
+    val process: KtProcess<T>?,
+    val physicsProcess: KtProcess<T>?,
     private val _notifications: List<KtNotification<T>>,
     val signalInfos: Array<KtSignalInfo>,
     val handledNotifications: IntArray,

@@ -24,6 +24,7 @@
 #include "jvm/memory/value_buffer.h"
 #include "jvm/memory/variant_buffer.h"
 #include "jvm/registration/kt_object.h"
+#include "jvm/registration/kt_process.h"
 #include "logging.h"
 
 #include <jni.h>
@@ -123,6 +124,7 @@ bool JvmManager::initialize_jvm_wrappers(jni::Env& p_env, ClassLoader* class_loa
             && KtRpcConfig::initialize(p_env, class_loader)
             && KtFunctionInfo::initialize(p_env, class_loader)
             && KtFunction::initialize(p_env, class_loader)
+            && KtProcess::initialize(p_env, class_loader)
             && KtClass::initialize(p_env, class_loader)
             && VariantBuffer::initialize(p_env, class_loader)
             && ValueBuffer::initialize(p_env, class_loader)
@@ -185,6 +187,7 @@ void JvmManager::finalize_jvm_wrappers(jni::Env& p_env, ClassLoader* class_loade
     KtRpcConfig::finalize(p_env, class_loader);
     KtFunctionInfo::finalize(p_env, class_loader);
     KtFunction::finalize(p_env, class_loader);
+    KtProcess::finalize(p_env, class_loader);
     KtClass::finalize(p_env, class_loader);
 }
 

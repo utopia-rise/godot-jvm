@@ -39,6 +39,10 @@ It carries everything except unchecked engine calls:
   `Array` or comparing two `StringName`s.
 - **Checked engine calls**, which decode their arguments into real `Variant`s before handing them to the engine.
 - **Calls from the engine into JVM code**: script method overrides, property getters and setters, signal handlers.
+  The one exception is `_process` and `_physics_process`, which the engine calls every frame on every node: the
+  registrar generator registers them as a `KtProcess` held by the class itself rather than as functions, and the
+  native side passes `delta` as a JNI argument to its entry instead of writing it to the buffer, whether the engine
+  or a call by name reaches it.
 
 The discipline that makes a single shared countertop safe is that **the receiver copies out before doing anything
 else**. By the time anything nested could reuse the buffer, the outer call has already taken what it needed, so

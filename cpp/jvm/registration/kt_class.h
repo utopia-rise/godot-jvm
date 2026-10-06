@@ -7,6 +7,7 @@
 #include "kt_constructor.h"
 #include "kt_function.h"
 #include "kt_object.h"
+#include "kt_process.h"
 #include "kt_signal_info.h"
 
 #include <core/defs.hpp>
@@ -28,6 +29,8 @@ JVM_INSTANCE_WRAPPER(KtClass, "godot.registration.KtClass") {
     JNI_BOOLEAN_METHOD(IS_ABSTRACT)
     JNI_OBJECT_METHOD(GET_BASE_GODOT_CLASS)
     JNI_OBJECT_METHOD(GET_FUNCTIONS)
+    JNI_OBJECT_METHOD(GET_PROCESS)
+    JNI_OBJECT_METHOD(GET_PHYSICS_PROCESS)
     JNI_OBJECT_METHOD(GET_PROPERTIES)
     JNI_OBJECT_METHOD(GET_SIGNAL_INFOS)
     JNI_OBJECT_METHOD(GET_CONSTRUCTOR)
@@ -42,6 +45,8 @@ JVM_INSTANCE_WRAPPER(KtClass, "godot.registration.KtClass") {
         INIT_JNI_METHOD(IS_ABSTRACT, "isAbstract", "()Z")
         INIT_JNI_METHOD(GET_BASE_GODOT_CLASS, "getBaseGodotClass", "()Ljava/lang/String;")
         INIT_JNI_METHOD(GET_FUNCTIONS, "getFunctions", "()[Lgodot/registration/KtFunction;")
+        INIT_JNI_METHOD(GET_PROCESS, "getProcess", "()Lgodot/registration/KtProcess;")
+        INIT_JNI_METHOD(GET_PHYSICS_PROCESS, "getPhysicsProcess", "()Lgodot/registration/KtProcess;")
         INIT_JNI_METHOD(GET_PROPERTIES, "getProperties", "()[Lgodot/registration/KtProperty;")
         INIT_JNI_METHOD(GET_SIGNAL_INFOS, "getSignalInfos", "()[Lgodot/registration/KtSignalInfo;")
         INIT_JNI_METHOD(GET_CONSTRUCTOR, "getConstructor", "()Lgodot/registration/KtConstructor;")
@@ -69,6 +74,10 @@ public:
 
     KtFunction* get_method(const godot::StringName& methodName);
 
+    bool has_method(const godot::StringName& p_name) const;
+    int get_method_argument_count(const godot::StringName& p_name) const;
+    bool get_method_info(const godot::StringName& p_name, godot::MethodInfo& r_info) const;
+
     KtProperty* get_property(const godot::StringName& p_property_name);
 
     KtSignalInfo* get_signal(const godot::StringName& p_signal_name);
@@ -89,20 +98,19 @@ public:
 
     _NO_INLINE_ void do_notification(jni::Env& env, KtObject* p_instance, int p_notification, bool p_reversed);
 
-    _FORCE_INLINE_ KtFunction* resolve_method(const godot::StringName& p_name) {
-        if (engine::same_name(p_name, process.name)) { return process.function; }
-        if (engine::same_name(p_name, physics_process.name)) { return physics_process.function; }
-        return get_method(p_name);
-    }
+    void call(
+        jni::Env& p_env,
+        KtObject* p_instance,
+        const godot::StringName& p_name,
+        const godot::Variant** p_args,
+        int p_argument_count,
+        godot::Variant& r_ret,
+        GDExtensionCallError& r_error
+    );
 
 private:
-    struct EngineHotVirtual {
-        godot::StringName name;
-        KtFunction* function = nullptr;
-    };
-
-    EngineHotVirtual process;
-    EngineHotVirtual physics_process;
+    KtProcess* process = nullptr;
+    KtProcess* physics_process = nullptr;
 
     engine::IdentityMap<KtFunction*> methods;
     engine::IdentityMap<KtProperty*> properties;
@@ -126,11 +134,15 @@ private:
 
     void fetch_methods(jni::Env& env);
 
+    KtProcess* fetch_process(jni::Env& env, jni::ObjectMethodID p_getter);
+
     void fetch_properties(jni::Env& env);
 
     void fetch_signals(jni::Env& env);
 
     void fetch_constructor(jni::Env& env);
+
+    KtProcess* resolve_process(const godot::StringName& p_name) const;
 
     template<typename F, typename M>
     void get_member_list(godot::List<F>* p_list, M& members) {

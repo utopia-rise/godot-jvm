@@ -18,6 +18,8 @@ KtClass::KtClass(jni::Env& p_env, jni::JObject p_wrapped) :
 }
 
 KtClass::~KtClass() {
+    delete process;
+    delete physics_process;
     delete_members(methods);
     for (KtProperty* property : property_list) {
         delete property;
@@ -36,6 +38,57 @@ jni::JObject KtClass::construct(jni::Env& env, godot::GodotObject* p_owner) {
 JVM_FLATTEN KtFunction* KtClass::get_method(const godot::StringName& methodName) {
     KtFunction** method = methods.getptr(methodName);
     return method ? *method : nullptr;
+}
+
+KtProcess* KtClass::resolve_process(const godot::StringName& p_name) const {
+    if (process && engine::same_name(p_name, process->name)) { return process; }
+    if (physics_process && engine::same_name(p_name, physics_process->name)) { return physics_process; }
+    return nullptr;
+}
+
+// Dispatches a call from the engine: the two per-frame virtuals are tested first and take their direct entry.
+JVM_FLATTEN void KtClass::call(
+    jni::Env& p_env,
+    KtObject* p_instance,
+    const godot::StringName& p_name,
+    const godot::Variant** p_args,
+    int p_argument_count,
+    godot::Variant& r_ret,
+    GDExtensionCallError& r_error
+) {
+    if (KtProcess* kt_process = resolve_process(p_name)) {
+        JVM_DEV_ASSERT(p_argument_count == 1, "%s called with %s arguments.", p_name, p_argument_count);
+        kt_process->invoke(p_env, p_instance, p_args[0]->operator double());
+        r_error.error = GDEXTENSION_CALL_OK;
+        return;
+    }
+    if (KtFunction* function = get_method(p_name)) {
+        function->invoke(p_env, p_instance, p_args, p_argument_count, r_ret);
+        r_error.error = GDEXTENSION_CALL_OK;
+        return;
+    }
+    r_error.error = GDEXTENSION_CALL_ERROR_INVALID_METHOD;
+}
+
+bool KtClass::has_method(const godot::StringName& p_name) const {
+    return resolve_process(p_name) || methods.has(p_name);
+}
+
+int KtClass::get_method_argument_count(const godot::StringName& p_name) const {
+    if (resolve_process(p_name)) { return 1; }
+    KtFunction* const* method = methods.getptr(p_name);
+    return method ? (*method)->get_parameter_count() : -1;
+}
+
+bool KtClass::get_method_info(const godot::StringName& p_name, godot::MethodInfo& r_info) const {
+    if (KtProcess* kt_process = resolve_process(p_name)) {
+        r_info = kt_process->get_member_info();
+        return true;
+    }
+    KtFunction* const* method = methods.getptr(p_name);
+    if (!method) { return false; }
+    r_info = (*method)->get_member_info();
+    return true;
 }
 
 JVM_FLATTEN KtProperty* KtClass::get_property(const godot::StringName& p_property_name) {
@@ -114,8 +167,16 @@ void KtClass::fetch_methods(jni::Env& env) {
     }
     functionsArray.delete_local_ref(env);
 
-    process = {SNAME("_process"), get_method(SNAME("_process"))};
-    physics_process = {SNAME("_physics_process"), get_method(SNAME("_physics_process"))};
+    process = fetch_process(env, GET_PROCESS);
+    physics_process = fetch_process(env, GET_PHYSICS_PROCESS);
+}
+
+KtProcess* KtClass::fetch_process(jni::Env& env, jni::ObjectMethodID p_getter) {
+    jni::JObject object = wrapped.call_object_method(env, p_getter);
+    if (object.obj == nullptr) { return nullptr; }
+    auto* kt_process = new KtProcess(env, object);
+    JVM_DEV_VERBOSE("Fetched %s for class %s", kt_process->name, registered_class_name);
+    return kt_process;
 }
 
 void KtClass::fetch_properties(jni::Env& env) {
@@ -149,6 +210,8 @@ void KtClass::fetch_constructor(jni::Env& env) {
 
 void KtClass::get_method_list(godot::List<godot::MethodInfo>* p_list) {
     get_member_list(p_list, methods);
+    if (process) { p_list->push_back(process->get_member_info()); }
+    if (physics_process) { p_list->push_back(physics_process->get_member_info()); }
 }
 
 void KtClass::get_property_list(godot::List<godot::PropertyInfo>* p_list) {

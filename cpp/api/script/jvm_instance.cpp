@@ -265,7 +265,7 @@ GDExtensionBool JvmInstance::has_method(
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
 
-    return kt_class->get_method(*reinterpret_cast<const StringName*>(p_name)) != nullptr;
+    return kt_class->has_method(*reinterpret_cast<const StringName*>(p_name));
 }
 
 GDExtensionInt JvmInstance::get_method_argument_count(
@@ -276,13 +276,9 @@ GDExtensionInt JvmInstance::get_method_argument_count(
     auto* instance_data = reinterpret_cast<JvmInstanceData*>(p_instance);
     KtClass* kt_class = instance_data->kt_class;
 
-    if (KtFunction* method = kt_class->get_method(*reinterpret_cast<const StringName*>(p_name))) {
-        *r_is_valid = true;
-        return method->get_parameter_count();
-    }
-
-    *r_is_valid = false;
-    return -1;
+    int count = kt_class->get_method_argument_count(*reinterpret_cast<const StringName*>(p_name));
+    *r_is_valid = count >= 0;
+    return count;
 }
 
 void JvmInstance::call(
@@ -299,15 +295,15 @@ void JvmInstance::call(
 
     jni::Env& env = jni::Jvm::current_env();
 
-    if (KtFunction* function = kt_class->resolve_method(*reinterpret_cast<const StringName*>(p_method))) {
-        auto* arguments = reinterpret_cast<const Variant* const*>(p_args);
-        Variant& r_ret = *reinterpret_cast<Variant*>(r_return);
-        function
-            ->invoke(env, kt_object, const_cast<const Variant**>(arguments), static_cast<int>(p_argument_count), r_ret);
-        r_error->error = GDExtensionCallErrorType::GDEXTENSION_CALL_OK;
-    } else {
-        r_error->error = GDExtensionCallErrorType::GDEXTENSION_CALL_ERROR_INVALID_METHOD;
-    }
+    kt_class->call(
+        env,
+        kt_object,
+        *reinterpret_cast<const StringName*>(p_method),
+        reinterpret_cast<const Variant**>(const_cast<GDExtensionConstVariantPtr*>(p_args)),
+        static_cast<int>(p_argument_count),
+        *reinterpret_cast<Variant*>(r_return),
+        *r_error
+    );
 }
 
 void JvmInstance::notification(

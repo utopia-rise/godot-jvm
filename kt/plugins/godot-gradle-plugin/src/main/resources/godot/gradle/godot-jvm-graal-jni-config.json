@@ -744,6 +744,8 @@
       {"name":"getSourceFileName","parameterTypes":[] },
       {"name":"getConstructor","parameterTypes":[] },
       {"name":"getFunctions","parameterTypes":[] },
+      {"name":"getProcess","parameterTypes":[] },
+      {"name":"getPhysicsProcess","parameterTypes":[] },
       {"name":"getProperties","parameterTypes":[] },
       {"name":"getRegisteredName","parameterTypes":[] },
       {"name":"getSignalInfos","parameterTypes":[] },
@@ -765,6 +767,13 @@
       {"name":"getFunctionInfo","parameterTypes":[] },
       {"name":"invoke","parameterTypes":["godot.core.KtObject"] },
       {"name":"invokeWithReturn","parameterTypes":["godot.core.KtObject"] }
+    ]
+  },
+  {
+    "name":"godot.registration.KtProcess",
+    "methods":[
+      {"name":"getName","parameterTypes":[] },
+      {"name":"invoke","parameterTypes":["godot.core.KtObject","double"] }
     ]
   },
   {

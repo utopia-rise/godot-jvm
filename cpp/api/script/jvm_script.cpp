@@ -155,20 +155,19 @@ Error JvmScript::_reload(bool p_keep_state) {
 }
 
 bool JvmScript::_has_method(const StringName& p_method) const {
-    return _is_valid() && kotlin_class->get_method(p_method) != nullptr;
+    return _is_valid() && kotlin_class->has_method(p_method);
 }
 
 Variant JvmScript::_get_script_method_argument_count(const StringName& p_method) const {
     if (!_is_valid()) { return Variant(); }
-    KtFunction* method = kotlin_class->get_method(p_method);
-    if (method) { return method->get_parameter_count(); }
+    int count = kotlin_class->get_method_argument_count(p_method);
+    if (count >= 0) { return count; }
     return Variant();
 }
 
 Dictionary JvmScript::_get_method_info(const StringName& p_method) const {
-    if (_is_valid()) {
-        if (KtFunction* method = kotlin_class->get_method(p_method)) { return method->get_member_info(); }
-    }
+    MethodInfo info;
+    if (_is_valid() && kotlin_class->get_method_info(p_method, info)) { return info; }
     return Dictionary();
 }
 

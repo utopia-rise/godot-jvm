@@ -19,12 +19,28 @@ class KotlinTestClass : Node() {
     @Visible
     var notificationTriggered = false
 
+    @Visible
+    var processDelta = 0.0
+
+    @Visible
+    var physicsProcessDelta = 0.0
+
     @Register
     fun greeting() = "Hello from kotlin"
 
     @Register
     override fun _enterTree() {
         enteredTree = true
+    }
+
+    @Register
+    override fun _process(delta: Double) {
+        processDelta += delta
+    }
+
+    @Register
+    override fun _physicsProcess(delta: Double) {
+        physicsProcessDelta += delta
     }
 
     @Notification(0)

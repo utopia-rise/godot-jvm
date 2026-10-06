@@ -48,6 +48,10 @@ namespace jni {
         return static_cast<JValue>(static_cast<jboolean>(b)).value;
     }
 
+    static inline jvalue to_jni_arg(double d) {
+        return static_cast<JValue>(static_cast<jdouble>(d)).value;
+    }
+
 } // namespace jni
 
 #endif // GODOT_JVM_WRAPPER_H
