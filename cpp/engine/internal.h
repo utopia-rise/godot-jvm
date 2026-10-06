@@ -4,10 +4,13 @@
 #include <gdextension_interface.h>
 
 #include <core/object.hpp>
+#include <templates/a_hash_map.hpp>
 #include <templates/list.hpp>
 #include <variant/string_name.hpp>
 
-namespace godot::internal {
+namespace engine {
+    using namespace godot;
+
     void convert_property_to_c(const PropertyInfo& p_source, GDExtensionPropertyInfo* p_dest);
     GDExtensionMethodInfo* create_c_method_list(List<MethodInfo>* p_list_cpp, uint32_t* r_size);
     void free_c_method_list(GDExtensionMethodInfo* p_list, uint32_t p_count);
@@ -27,6 +30,26 @@ namespace godot::internal {
     _FORCE_INLINE_ bool same_name(const StringName& p_left, const StringName& p_right) {
         return identity(p_left) == identity(p_right);
     }
-} // namespace godot::internal
+
+    // For a map keyed by StringName that must not go through the engine on lookup. The handle is a unique, 16-byte
+    // aligned address, so its own bits spread as well as any hash would and the mixing the default hasher does is only
+    // cost; the map needs nothing beyond the shift that drops the alignment zeros. Keying by the StringName itself
+    // rather than by the bare handle is what keeps each name interned for as long as the map holds it.
+    struct IdentityHasher {
+        static _FORCE_INLINE_ uint32_t hash(const StringName& p_name) {
+            return static_cast<uint32_t>(reinterpret_cast<uintptr_t>(identity(p_name)) >> 4);
+        }
+    };
+
+    struct IdentityComparator {
+        static _FORCE_INLINE_ bool compare(const StringName& p_left, const StringName& p_right) {
+            return same_name(p_left, p_right);
+        }
+    };
+
+    // A map keyed by StringName that never goes through the engine on lookup: one mask and one probe.
+    template<class T>
+    using IdentityMap = AHashMap<StringName, T, IdentityHasher, IdentityComparator>;
+} // namespace engine
 
 #endif // GODOT_JVM_INTERNAL_H

@@ -18,22 +18,22 @@
 using namespace godot;
 
 Variant JvmScript::_new() {
-    if (raw_godot::RawObject object = _object_create()) { return object.to_variant(); }
+    if (engine::RawObject object = _object_create()) { return object.to_variant(); }
     return Variant();
 }
 
-raw_godot::RawObject JvmScript::_object_create() const {
+engine::RawObject JvmScript::_object_create() const {
 #ifdef DEBUG_ENABLED
-    if (!validate_instance_creation()) { return raw_godot::RawObject(); }
+    if (!validate_instance_creation()) { return engine::RawObject(); }
 #endif
 
     // Not godot::ClassDB::instantiate(): that forwards to the script-facing ClassDB singleton, which boxes a RefCounted
     // result in a Ref<RefCounted> inside a Variant — converting that straight to Object* and letting the Variant go out
     // of scope...
-    raw_godot::RawObject owner = raw_godot::RawObject::instantiate(kotlin_class->base_godot_class);
+    engine::RawObject owner = engine::RawObject::instantiate(kotlin_class->base_godot_class);
     JVM_ERR_FAIL_COND_V_MSG(
         !owner,
-        raw_godot::RawObject(),
+        engine::RawObject(),
         "Cannot instantiate JVM script %s: failed to instantiate base Godot class %s.",
         kotlin_class->registered_class_name,
         kotlin_class->base_godot_class
@@ -103,7 +103,7 @@ void* JvmScript::_instance_create(GodotObject* p_for_object) const {
     JvmBindingManager::bind(p_for_object);
 
     jni::Env& env = jni::Jvm::current_env();
-    raw_godot::RawObject owner(p_for_object);
+    engine::RawObject owner(p_for_object);
     jni::JObject instance = kotlin_class->construct(env, p_for_object);
     // The binding above took the JVM's reference, so a count of exactly 1 means the JVM alone owns this RefCounted and
     // its instance must be collectable from the start.
@@ -318,7 +318,7 @@ void* JvmScript::_placeholder_instance_create(GodotObject* p_for_object) const {
     placeholder_data->script = Ref<Script>(this);
     placeholder_data->owner = p_for_object;
 
-    GDExtensionScriptInstancePtr placeholder = raw_godot::RawObject::create_script_instance(
+    GDExtensionScriptInstancePtr placeholder = engine::RawObject::create_script_instance(
         &JvmPlaceHolderInstance::jvm_placeholder_script_instance_info,
         placeholder_data
     );
@@ -380,7 +380,7 @@ void JvmScript::move_placeholders_to(JvmScript* p_script) {
         if (!placeholder->owner) { continue; }
 
         HashMap<StringName, Variant> values = placeholder->values;
-        raw_godot::RawObject owner = placeholder->owner;
+        engine::RawObject owner = placeholder->owner;
         owner.set_script(Variant(Ref<Script>(p_script)));
         for (const KeyValue<StringName, Variant>& value : values) {
             owner.set(value.key, value.value);
@@ -399,7 +399,7 @@ void JvmScript::set_last_source_modified_time(uint64_t p_time) {
 
 void JvmScript::update_source_sync_warning() {
     for (JvmPlaceHolderInstance::JvmPlaceHolderInstanceData* placeholder : placeholders) {
-        raw_godot::RawObject owner = placeholder->owner;
+        engine::RawObject owner = placeholder->owner;
         if (owner && owner.is_class(SNAME("Node"))) { owner.update_configuration_warnings(); }
     }
 }
@@ -414,7 +414,7 @@ void JvmScript::update_script_exports() const {
         return;
     }
 
-    raw_godot::RawObject tmp_object = _object_create();
+    engine::RawObject tmp_object = _object_create();
     ERR_FAIL_COND(!tmp_object);
     auto* instance_data = reinterpret_cast<JvmInstance::JvmInstanceData*>(
         tmp_object.get_script_instance(_get_language()->_owner)

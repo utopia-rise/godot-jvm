@@ -31,7 +31,7 @@ public:
     ~KtPropertyInfo() = default;
 
     godot::Variant::Type type;
-    // A StringName rather than a String: it is what PropertyInfo wants, and what godot::internal::identity keys the
+    // A StringName rather than a String: it is what PropertyInfo wants, and what engine::identity keys the
     // property map on. Holding it here is what keeps that key's interned entry alive for as long as the entry exists.
     godot::StringName name;
     godot::StringName class_name;

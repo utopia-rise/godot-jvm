@@ -55,7 +55,7 @@ void KtObject::create_native_object(JNIEnv* p_raw_env, jobject p_instance, jint 
     // Not godot::ClassDB::instantiate(): that forwards to the script-facing ClassDB singleton, which boxes a RefCounted
     // result in a Ref<RefCounted> inside a Variant — converting that straight to Object* and letting the Variant go out
     // of scope...
-    godot::GodotObject* raw_ptr_value = raw_godot::RawObject::instantiate(class_name);
+    godot::GodotObject* raw_ptr_value = engine::RawObject::instantiate(class_name);
 
 #ifdef DEBUG_ENABLED
     JVM_ERR_FAIL_COND_MSG(!raw_ptr_value, "Failed to instantiate class %s", class_name);
@@ -72,7 +72,7 @@ void KtObject::create_native_object(JNIEnv* p_raw_env, jobject p_instance, jint 
     if (auto* kotlin_script = bridges::native_or_null<godot::JvmScript>(p_script_ptr)) {
         KtObject kt_object = is_rc ? KtObject::create_weak_ref(env, jni::JObject(p_instance))
                                    : KtObject::create_object(env, jni::JObject(p_instance));
-        raw_godot::RawObject(raw_ptr_value)
+        engine::RawObject(raw_ptr_value)
             .set_script_instance(
                 godot::JvmInstance::create_script_instance(raw_ptr_value, std::move(kt_object), kotlin_script)
             );
@@ -92,7 +92,7 @@ void KtObject::get_singleton(JNIEnv* p_raw_env, jobject, jint p_class_index) {
     // (GDExtensionManager, Time, ResourceUID, IP) are destroyed *after* the library is unloaded — their
     // ~Object then calls a free callback that lives in unmapped memory and the process segfaults on exit.
     // The JVM only ever needs the raw pointer and the ObjectID, so ask for them directly.
-    raw_godot::RawObject raw_singleton = raw_godot::RawObject::get_singleton(godot::StringName(singleton_name));
+    engine::RawObject raw_singleton = engine::RawObject::get_singleton(godot::StringName(singleton_name));
 
 #ifdef DEBUG_ENABLED
     JVM_ERR_FAIL_COND_MSG(!raw_singleton, "Failed to retrieve engine singleton %s", singleton_name);
@@ -113,12 +113,12 @@ void KtObject::free_object(JNIEnv*, jobject, jlong p_handle) {
 
 #ifdef DEBUG_ENABLED
     JVM_ERR_FAIL_COND_MSG(
-        raw_godot::RawObject(raw_ptr_value).is_ref_counted(),
+        engine::RawObject(raw_ptr_value).is_ref_counted(),
         "Can't 'free' a RefCounted godot::Object."
     );
 #endif
 
-    raw_godot::RawObject(raw_ptr_value).destroy();
+    engine::RawObject(raw_ptr_value).destroy();
 }
 
 // The caller record every frame starts with: the object the call is made on, followed by its ObjectID. Only a debug
@@ -132,7 +132,7 @@ template<bool WALK, class View>
 static _FORCE_INLINE_ bool read_caller(
     [[maybe_unused]] jni::Env& p_env,
     View* p_view,
-    raw_godot::RawObject& r_receiver,
+    engine::RawObject& r_receiver,
     [[maybe_unused]] ptrdiff_t p_at = 0
 ) {
     if constexpr (WALK) {
@@ -150,7 +150,7 @@ static _FORCE_INLINE_ bool read_caller(
     } else {
         receiver_id = p_view->template peek<uint64_t>(p_at + sizeof(uint64_t));
     }
-    if (unlikely(r_receiver != raw_godot::RawObject::from_instance_id(receiver_id))) {
+    if (unlikely(r_receiver != engine::RawObject::from_instance_id(receiver_id))) {
         constexpr const char* message = "Cannot call a method on a previously freed instance.";
         JVM_ERR_PRINT("%s", message);
         p_env.throw_new(message);
@@ -172,7 +172,7 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall(JNIEnv* p_raw_env, jclass, jlong p_m
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
     transfer->rewind();
 
-    raw_godot::RawObject receiver;
+    engine::RawObject receiver;
     if (unlikely(!read_caller<true>(env, transfer, receiver))) { return; }
 
     uint32_t args_size = transfer->read<uint32_t>();
@@ -232,7 +232,7 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall(JNIEnv* p_raw_env, jclass, jlong p_m
 
 // Writes the handle of the allocation into the slot and has the engine write the value into the allocation.
 static void ptrcall_with_allocated_return(
-    raw_godot::RawObject p_receiver,
+    engine::RawObject p_receiver,
     GDExtensionMethodBindPtr p_method_bind,
     const void** p_args,
     uint8_t* p_slot,
@@ -246,7 +246,7 @@ static void ptrcall_with_allocated_return(
 // A return that leaves only a record or a handle in the slot needs work around the call; kept out of line so the
 // fall-through below stays frameless.
 static void ptrcall_with_indirect_return(
-    raw_godot::RawObject p_receiver,
+    engine::RawObject p_receiver,
     GDExtensionMethodBindPtr p_method_bind,
     const void** p_args,
     godot::Variant::Type p_return_type,
@@ -284,7 +284,7 @@ static void ptrcall_with_indirect_return(
 
 // Runs the ptrcall with its return landing where the format says, straight into the slot in the common case.
 static _FORCE_INLINE_ void ptrcall_with_return(
-    raw_godot::RawObject p_receiver,
+    engine::RawObject p_receiver,
     GDExtensionMethodBindPtr p_method_bind,
     const void** p_args,
     godot::Variant::Type p_return_type,
@@ -308,7 +308,7 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall_ptr_simple(
     jni::Env env(p_raw_env);
     ValueBuffer::Frame frame(reinterpret_cast<uint8_t*>(p_base));
 
-    raw_godot::RawObject receiver;
+    engine::RawObject receiver;
     if (unlikely(!read_caller<false>(env, &frame, receiver, p_frame_offset))) { return; }
 
     receiver.ptrcall_method_bind(
@@ -329,7 +329,7 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall_ptr_setter(
     jni::Env env(p_raw_env);
     ValueBuffer::Frame frame(reinterpret_cast<uint8_t*>(p_base));
 
-    raw_godot::RawObject receiver;
+    engine::RawObject receiver;
     if (unlikely(!read_caller<false>(env, &frame, receiver, p_frame_offset))) { return; }
 
     const void* arg = frame.peek_arg(
@@ -354,7 +354,7 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall_ptr_getter(
     jni::Env env(p_raw_env);
     ValueBuffer::Frame frame(reinterpret_cast<uint8_t*>(p_base));
 
-    raw_godot::RawObject receiver;
+    engine::RawObject receiver;
     if (unlikely(!read_caller<false>(env, &frame, receiver, p_frame_offset))) { return; }
 
     auto return_type = static_cast<godot::Variant::Type>(p_return_type);
@@ -380,7 +380,7 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall_ptr(
     jni::Env env(p_raw_env);
     ValueBuffer::Frame frame(reinterpret_cast<uint8_t*>(p_base), p_frame_offset);
 
-    raw_godot::RawObject receiver;
+    engine::RawObject receiver;
     if (unlikely(!read_caller<true>(env, &frame, receiver))) { return; }
 
     uint32_t args_size = frame.read<uint32_t>();

@@ -1,5 +1,7 @@
 #include "kt_class.h"
 
+#include "compiler.h"
+#include "engine/godot_object.h"
 #include "jvm/memory/variant_buffer.h"
 #include "jvm/registration/kt_object.h"
 #include "logging.h"
@@ -31,18 +33,18 @@ jni::JObject KtClass::construct(jni::Env& env, godot::GodotObject* p_owner) {
     return jvm_instance;
 }
 
-KtFunction* KtClass::get_method(const godot::StringName& methodName) {
-    KtFunction** method = methods.getptr(godot::internal::identity(methodName));
+JVM_FLATTEN KtFunction* KtClass::get_method(const godot::StringName& methodName) {
+    KtFunction** method = methods.getptr(methodName);
     return method ? *method : nullptr;
 }
 
-KtProperty* KtClass::get_property(const godot::StringName& p_property_name) {
-    KtProperty** property = properties.getptr(godot::internal::identity(p_property_name));
+JVM_FLATTEN KtProperty* KtClass::get_property(const godot::StringName& p_property_name) {
+    KtProperty** property = properties.getptr(p_property_name);
     return property ? *property : nullptr;
 }
 
-KtSignalInfo* KtClass::get_signal(const godot::StringName& p_signal_name) {
-    KtSignalInfo** signal_info = signal_infos.getptr(godot::internal::identity(p_signal_name));
+JVM_FLATTEN KtSignalInfo* KtClass::get_signal(const godot::StringName& p_signal_name) {
+    KtSignalInfo** signal_info = signal_infos.getptr(p_signal_name);
     return signal_info ? *signal_info : nullptr;
 }
 
@@ -107,10 +109,13 @@ void KtClass::fetch_methods(jni::Env& env) {
     for (int i = 0; i < functionsArray.length(env); i++) {
         jni::JObject object = functionsArray.get(env, i);
         auto* ktFunction = new KtFunction(env, object);
-        methods[godot::internal::identity(ktFunction->get_name())] = ktFunction;
+        methods[ktFunction->get_name()] = ktFunction;
         JVM_DEV_VERBOSE("Fetched method %s for class %s", ktFunction->get_name(), registered_class_name);
     }
     functionsArray.delete_local_ref(env);
+
+    process = {SNAME("_process"), get_method(SNAME("_process"))};
+    physics_process = {SNAME("_physics_process"), get_method(SNAME("_physics_process"))};
 }
 
 void KtClass::fetch_properties(jni::Env& env) {
@@ -118,9 +123,7 @@ void KtClass::fetch_properties(jni::Env& env) {
     for (int i = 0; i < propertiesArray.length(env); i++) {
         auto* ktProperty = new KtProperty(env, propertiesArray.get(env, i));
         property_list.append(ktProperty);
-        if (!ktProperty->is_property_list_marker()) {
-            properties[godot::internal::identity(ktProperty->get_name())] = ktProperty;
-        }
+        if (!ktProperty->is_property_list_marker()) { properties[ktProperty->get_name()] = ktProperty; }
         JVM_DEV_VERBOSE("Fetched property %s for class %s", ktProperty->get_name(), registered_class_name);
     }
     propertiesArray.delete_local_ref(env);
@@ -130,7 +133,7 @@ void KtClass::fetch_signals(jni::Env& env) {
     jni::JObjectArray signal_info_array(wrapped.call_object_method(env, GET_SIGNAL_INFOS));
     for (int i = 0; i < signal_info_array.length(env); i++) {
         auto* kt_signal_info = new KtSignalInfo(env, signal_info_array.get(env, i));
-        signal_infos[godot::internal::identity(kt_signal_info->name)] = kt_signal_info;
+        signal_infos[kt_signal_info->name] = kt_signal_info;
         JVM_DEV_VERBOSE("Fetched signal %s for class %s", kt_signal_info->name, registered_class_name);
     }
     signal_info_array.delete_local_ref(env);
@@ -161,7 +164,7 @@ void KtClass::get_signal_list(godot::List<godot::MethodInfo>* p_list) {
 const godot::Dictionary KtClass::get_rpc_config() {
     godot::Dictionary rpc_configs = godot::Dictionary();
 
-    for (const godot::KeyValue<const void*, KtFunction*>& E : methods) {
+    for (const godot::KeyValue<godot::StringName, KtFunction*>& E : methods) {
         rpc_configs[E.value->get_name()] = E.value->get_rpc_config()->toRpcConfigDictionary();
     }
 
@@ -169,15 +172,16 @@ const godot::Dictionary KtClass::get_rpc_config() {
 }
 
 void KtClass::do_notification(jni::Env& env, KtObject* p_instance, int p_notification, bool p_reversed) {
+    if (p_instance->is_collected(env)) { return; }
+
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
-    if (!handled_notifications.has(p_notification) || p_instance->is_collected(env)) { return; }
 
     godot::Variant notification = p_notification;
     godot::Variant reversed = p_reversed;
     const int arg_size = 2;
     const godot::Variant* args[arg_size] = {&notification, &reversed};
 
-    transfer->write_args(args, arg_size);
+    transfer->encode_args(args, arg_size);
 
     jvalue call_args[1] = {jni::to_jni_arg(p_instance->get_wrapped())};
     wrapped.call_void_method(env, DO_NOTIFICATION, call_args);

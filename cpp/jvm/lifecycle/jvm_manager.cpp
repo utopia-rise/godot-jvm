@@ -45,7 +45,7 @@ extern "C" JNIEXPORT void JNICALL Java_com_utopiarise_godotjvm_GodotJvmPlugin_na
 CreateJavaVM get_create_jvm_function(void* lib_handle) {
 #ifdef DYNAMIC_JVM
     void* createJavaVMSymbolHandle;
-    if (godot_jvm_native::get_dynamic_library_symbol_handle(lib_handle, "JNI_CreateJavaVM", createJavaVMSymbolHandle)
+    if (engine::get_dynamic_library_symbol_handle(lib_handle, "JNI_CreateJavaVM", createJavaVMSymbolHandle)
         != godot::OK) {
         return nullptr;
     }

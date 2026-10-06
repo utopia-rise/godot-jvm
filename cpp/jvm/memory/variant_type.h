@@ -37,7 +37,7 @@ constexpr uint32_t OBJECT_RECORD_SIZE = 2 * sizeof(uint64_t);
 // object_get_instance_binding and its mutex. Only a RefCounted needs the binding here, to record the delivery and take
 // the JVM's reference on the first one; for every object the JVM creates the binding itself, once, when it has no
 // wrapper yet and calls MemoryManager::bind_object.
-static void write_object_record(uint8_t* p_slot, raw_godot::RawObject p_object) {
+static void write_object_record(uint8_t* p_slot, engine::RawObject p_object) {
     uint64_t record[2] = {0, 0};
     if (!p_object.is_null()) {
         godot::ObjectID object_id(p_object.get_instance_id());
@@ -149,7 +149,7 @@ struct Wire<godot::Variant::NIL> {
 // JVM-owned copy: nothing is dereferenced or allocated, and the ObjectID the JVM needs travels with it.
 template<>
 struct Wire<godot::Variant::OBJECT> {
-    using Native = raw_godot::RawObject;
+    using Native = engine::RawObject;
     static constexpr Shape SHAPE = Shape::OBJECT;
     static constexpr bool OWNS_NATIVE_INSTANCE = false;
 
@@ -162,7 +162,7 @@ struct Wire<godot::Variant::OBJECT> {
     }
 
     static void encode(ByteCursor& p_cursor, const godot::Variant& p_variant) {
-        store(p_cursor, raw_godot::RawObject::from_variant(p_variant));
+        store(p_cursor, engine::RawObject::from_variant(p_variant));
     }
 
     // A ptrcall writes a bare pointer where the slot must end up holding an object record, and writes nothing at all
@@ -241,7 +241,7 @@ struct Wire<godot::Variant::SIGNAL> {
     static constexpr bool OWNS_NATIVE_INSTANCE = false;
 
     static Native load(ByteCursor& p_cursor) {
-        raw_godot::RawObject object = p_cursor.read_pointer<godot::GodotObject>();
+        engine::RawObject object = p_cursor.read_pointer<godot::GodotObject>();
         const godot::StringName name = *p_cursor.read_pointer<godot::StringName>();
         return object.to_signal(name);
     }

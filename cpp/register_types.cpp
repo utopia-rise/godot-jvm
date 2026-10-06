@@ -43,7 +43,7 @@ void initialize_godot_jvm_library(ModuleInitializationLevel p_level) {
         // via that object's registered...
         configure_logging();
         VariantAllocator::configure();
-        raw_godot::configure_core();
+        engine::configure_core();
 
         GDREGISTER_ABSTRACT_CLASS(JvmScript);
         GDREGISTER_CLASS(GdjScript);
@@ -71,7 +71,7 @@ void initialize_godot_jvm_library(ModuleInitializationLevel p_level) {
     // (Engine::get_singleton_object("ResourceLoader") returns null there) — SCENE level is the earliest point they're
     // guaranteed to exist for a GDExtension.
     if (p_level == MODULE_INITIALIZATION_LEVEL_SCENE) {
-        raw_godot::configure_scene();
+        engine::configure_scene();
 
         GDREGISTER_INTERNAL_CLASS(JvmResourceFormatLoader);
         GDREGISTER_INTERNAL_CLASS(JvmResourceFormatSaver);

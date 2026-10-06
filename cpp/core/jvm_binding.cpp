@@ -7,7 +7,7 @@
 using namespace godot;
 
 void JvmBinding::init(GodotObject* p_engine_object) {
-    object_id = ObjectID(raw_godot::RawObject(p_engine_object).get_instance_id());
+    object_id = ObjectID(engine::RawObject(p_engine_object).get_instance_id());
 }
 
 ObjectID JvmBinding::get_object_id() const {

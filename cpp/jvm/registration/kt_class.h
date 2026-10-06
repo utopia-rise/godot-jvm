@@ -9,7 +9,7 @@
 #include "kt_object.h"
 #include "kt_signal_info.h"
 
-#include <templates/hash_map.hpp>
+#include <core/defs.hpp>
 #include <templates/hash_set.hpp>
 #include <templates/vector.hpp>
 
@@ -83,17 +83,32 @@ public:
 
     const godot::Dictionary get_rpc_config();
 
-    void do_notification(jni::Env& env, KtObject* p_instance, int p_notification, bool p_reversed);
+    _FORCE_INLINE_ bool handles_notification(int p_notification) const {
+        return !handled_notifications.is_empty() && handled_notifications.has(p_notification);
+    }
+
+    _NO_INLINE_ void do_notification(jni::Env& env, KtObject* p_instance, int p_notification, bool p_reversed);
+
+    _FORCE_INLINE_ KtFunction* resolve_method(const godot::StringName& p_name) {
+        if (engine::same_name(p_name, process.name)) { return process.function; }
+        if (engine::same_name(p_name, physics_process.name)) { return physics_process.function; }
+        return get_method(p_name);
+    }
 
 private:
-    // The three member tables are keyed on the interned StringName handle rather than the name: see
-    // godot::internal::identity. The engine looks a member up by name on every script call, property access and signal
-    // emission, and a StringName key would make each of those hash and compare through the engine. Every value holds
-    // its own name, which is what keeps its key's interned entry alive.
-    godot::HashMap<const void*, KtFunction*> methods;
-    godot::HashMap<const void*, KtProperty*> properties;
+    struct EngineHotVirtual {
+        godot::StringName name;
+        KtFunction* function = nullptr;
+    };
+
+    EngineHotVirtual process;
+    EngineHotVirtual physics_process;
+
+    engine::IdentityMap<KtFunction*> methods;
+    engine::IdentityMap<KtProperty*> properties;
+    engine::IdentityMap<KtSignalInfo*> signal_infos;
     godot::Vector<KtProperty*> property_list;
-    godot::HashMap<const void*, KtSignalInfo*> signal_infos;
+
     KtConstructor* kt_constructor;
     godot::HashSet<int> handled_notifications;
 

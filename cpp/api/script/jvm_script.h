@@ -25,7 +25,7 @@ namespace godot {
         KtClass* kotlin_class;
         mutable String source;
 
-        raw_godot::RawObject _object_create() const;
+        engine::RawObject _object_create() const;
 #ifdef DEBUG_ENABLED
         bool validate_instance_creation() const;
 #endif

@@ -10,7 +10,7 @@ KtConstructor::KtConstructor(jni::Env& p_env, jni::JObject p_wrapped) : JvmInsta
 // (KtObject::icall), which decodes it as a real GodotObject*. A wrapper's address has nothing to do with the
 // engine object's. Nothing else here needs a wrapper either.
 jni::JObject KtConstructor::construct(jni::Env& p_env, godot::GodotObject* p_owner) {
-    uint64_t id = raw_godot::RawObject(p_owner).get_instance_id();
+    uint64_t id = engine::RawObject(p_owner).get_instance_id();
     jvalue args[2] = {jni::to_jni_arg(p_owner), jni::to_jni_arg(id)};
     return wrapped.call_object_method(p_env, CONSTRUCT, args);
 }

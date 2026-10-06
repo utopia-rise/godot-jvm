@@ -190,7 +190,7 @@ const GDExtensionMethodInfo* JvmPlaceHolderInstance::get_method_list(
         }
     }
 
-    return internal::create_c_method_list(methods, r_count);
+    return engine::create_c_method_list(methods, r_count);
 }
 
 void JvmPlaceHolderInstance::free_method_list(
@@ -198,7 +198,7 @@ void JvmPlaceHolderInstance::free_method_list(
     const GDExtensionMethodInfo* p_list,
     uint32_t p_count
 ) {
-    internal::free_c_method_list(const_cast<GDExtensionMethodInfo*>(p_list), p_count);
+    engine::free_c_method_list(const_cast<GDExtensionMethodInfo*>(p_list), p_count);
 }
 
 GDExtensionVariantType JvmPlaceHolderInstance::get_property_type(
@@ -287,8 +287,9 @@ void JvmPlaceHolderInstance::call(
                 "gdj/kt/java file."
             );
             *result = packed;
-        } else if (script_ref->get_last_source_modified_time()
-                   > JvmScriptManager::get_instance()->get_last_jar_modified_time()) {
+        } else if (
+            script_ref->get_last_source_modified_time() > JvmScriptManager::get_instance()->get_last_jar_modified_time()
+        ) {
             PackedStringArray packed = PackedStringArray();
             packed.append("This script has been modified since the last time you built your project.");
             *result = packed;
@@ -364,8 +365,8 @@ GDExtensionBool JvmPlaceHolderInstance::set_fallback(
         }
         if (!found) {
             PropertyHint hint = PROPERTY_HINT_NONE;
-            uint64_t object_id = raw_godot::RawObject::get_instance_id_from_variant(parameter_value);
-            raw_godot::RawObject object = raw_godot::RawObject::from_instance_id(object_id);
+            uint64_t object_id = engine::RawObject::get_instance_id_from_variant(parameter_value);
+            engine::RawObject object = engine::RawObject::from_instance_id(object_id);
             if (object && object.is_class(SNAME("Node"))) { hint = PROPERTY_HINT_NODE_TYPE; }
             properties.push_back(PropertyInfo(
                 parameter_value.get_type(),
@@ -464,7 +465,7 @@ void JvmPlaceHolderInstance::update(
         to_remove.pop_front();
     }
 
-    raw_godot::RawObject owner = p_instance_data->owner;
+    engine::RawObject owner = p_instance_data->owner;
     if (owner && owner.get_script_instance(p_instance_data->language->_owner) == p_instance_data) {
         owner.notify_property_list_changed();
     }

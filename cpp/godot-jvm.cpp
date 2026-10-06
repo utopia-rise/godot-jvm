@@ -106,7 +106,7 @@ bool GodotJvm::load_dynamic_lib() {
             JVM_DEV_ASSERT(false, "Tried to load a VM that's neither the JVM nor Graal Native Image");
     }
 
-    if (godot_jvm_native::open_dynamic_library(path_to_jvm_lib, jvm_dynamic_library_handle) != OK) {
+    if (engine::open_dynamic_library(path_to_jvm_lib, jvm_dynamic_library_handle) != OK) {
         JVM_WARN_FAIL_V_MSG(
             false,
             "Godot-JVM module couldn't be fully initialized. Cause: %s. Possible solution: %s",
@@ -208,7 +208,7 @@ String GodotJvm::get_path_to_native_image() {
 #endif
 
 void GodotJvm::unload_dynamic_lib() {
-    if (godot_jvm_native::close_dynamic_library(jvm_dynamic_library_handle) != OK) {
+    if (engine::close_dynamic_library(jvm_dynamic_library_handle) != OK) {
         JVM_ERR_FAIL_MSG("Failed to close the jvm dynamic library!");
     }
 }
@@ -407,7 +407,7 @@ bool GodotJvm::load_bootstrap() {
 }
 
 bool GodotJvm::initialize_core_library() {
-    callable_middleman = raw_godot::RawObject::instantiate(SNAME("Object"));
+    callable_middleman = engine::RawObject::instantiate(SNAME("Object"));
     jni::Env& env = jni::Jvm::current_env();
 
     if (!JvmManager::initialize_jvm_wrappers(env, bootstrap_class_loader)) {
@@ -502,7 +502,7 @@ void GodotJvm::finalize_core_library() {
     JvmManager::finalize_jvm_wrappers(env, bootstrap_class_loader);
 
     if (callable_middleman) { callable_middleman.destroy(); }
-    callable_middleman = raw_godot::RawObject();
+    callable_middleman = engine::RawObject();
 }
 
 bool GodotJvm::initialize_engine_types() const {
@@ -589,7 +589,7 @@ void GodotJvm::reload_user_code() {
 }
 #endif
 
-raw_godot::RawObject GodotJvm::get_callable_middleman() const {
+engine::RawObject GodotJvm::get_callable_middleman() const {
     return callable_middleman;
 }
 

@@ -21,7 +21,7 @@ public:
     explicit KtSignalInfo(jni::Env& p_env, jni::JObject p_wrapped);
     ~KtSignalInfo();
 
-    // A StringName rather than a String: it is what MethodInfo wants, and what godot::internal::identity keys the
+    // A StringName rather than a String: it is what MethodInfo wants, and what engine::identity keys the
     // signal map on. Holding it here is what keeps that key's interned entry alive for as long as the entry exists.
     godot::StringName name;
     godot::List<KtPropertyInfo*> arguments;

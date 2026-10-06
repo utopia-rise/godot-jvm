@@ -22,12 +22,12 @@ static godot::LocalVector<uintptr_t> pointers;
 static godot::LocalVector<uint32_t> variant_types;
 
 bool MemoryManager::check_instance(JNIEnv*, jobject, jlong p_raw_ptr, jlong instance_id) {
-    godot::GodotObject* instance = raw_godot::RawObject::from_instance_id(instance_id);
+    godot::GodotObject* instance = engine::RawObject::from_instance_id(instance_id);
     return instance != nullptr && instance == reinterpret_cast<godot::GodotObject*>(static_cast<uintptr_t>(p_raw_ptr));
 }
 
 void MemoryManager::release_binding(JNIEnv*, jobject, jlong instance_id) {
-    godot::GodotObject* obj = raw_godot::RawObject::from_instance_id(instance_id);
+    godot::GodotObject* obj = engine::RawObject::from_instance_id(instance_id);
     if (obj == nullptr) { return; }
 
     ::godot::JvmBindingManager::unbind(obj);
@@ -37,7 +37,7 @@ void MemoryManager::release_binding(JNIEnv*, jobject, jlong instance_id) {
 // the binding the delivery path no longer needs, and answers the only question the JVM cannot answer itself, which
 // engine class to instantiate.
 jint MemoryManager::bind_object(JNIEnv*, jobject, jlong p_ptr) {
-    raw_godot::RawObject object = reinterpret_cast<godot::GodotObject*>(static_cast<uintptr_t>(p_ptr));
+    engine::RawObject object = reinterpret_cast<godot::GodotObject*>(static_cast<uintptr_t>(p_ptr));
     ::godot::JvmBindingManager::bind(object);
     return TypeManager::get_instance().get_java_engine_type_constructor_index(object.get_class_name());
 }
@@ -125,7 +125,7 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
         uint32_t deliveries = *deliveries_at_death;
         release_candidates.erase(id);
 
-        godot::GodotObject* ref = raw_godot::RawObject::from_instance_id(id);
+        godot::GodotObject* ref = engine::RawObject::from_instance_id(id);
         if (likely(ref != nullptr)) {
             ::godot::JvmBindingManager::unbind_unless_delivered_since(ref, deliveries);
         } else {
@@ -140,7 +140,7 @@ void MemoryManager::sync_memory(jni::Env& p_env) {
     }
     for (uint32_t i = candidates_start; i < report_size; ++i) {
         godot::ObjectID id(ids[i]);
-        godot::GodotObject* ref = raw_godot::RawObject::from_instance_id(id);
+        godot::GodotObject* ref = engine::RawObject::from_instance_id(id);
         if (likely(ref != nullptr)) {
             release_candidates.insert(id, ::godot::JvmBindingManager::get_deliveries(ref));
         } else {
@@ -190,7 +190,7 @@ void MemoryManager::try_promotion(::godot::JvmInstance::JvmInstanceData* script_
 }
 
 void MemoryManager::direct_object_deletion(jni::Env& p_env, godot::GodotObject* p_obj) {
-    raw_godot::RawObject object = p_obj;
+    engine::RawObject object = p_obj;
     jvalue args[1] = {jni::to_jni_arg(object.get_instance_id())};
     wrapped.call_void_method(p_env, DELETE_OBJECT, args);
     object.destroy();

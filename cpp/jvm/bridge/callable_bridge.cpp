@@ -27,7 +27,7 @@ uintptr_t CallableBridge::engine_call_constructor_object_string_name(
     // Callable(Object*, StringName) does — without materializing the wrapper it would only read `_owner` off.
     auto* obj = reinterpret_cast<godot::GodotObject*>(object_ptr);
     auto* name = reinterpret_cast<godot::StringName*>(method_name_ptr);
-    return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(raw_godot::RawObject(obj).to_callable(*name)));
+    return reinterpret_cast<uintptr_t>(VariantAllocator::alloc(engine::RawObject(obj).to_callable(*name)));
 }
 
 uintptr_t CallableBridge::engine_call_constructor_lambda_callable(
@@ -70,7 +70,7 @@ void CallableBridge::engine_call_constructor_cancellable(
         true
     ));
 
-    raw_godot::RawObject owner = signal.get_object();
+    engine::RawObject owner = signal.get_object();
     if (owner.is_null()) { return; }
     if (owner.is_class(SNAME("Node"))) {
         owner.call_thread_safe(
@@ -149,7 +149,7 @@ void CallableBridge::engine_call_get_method(JNIEnv* p_raw_env, jobject p_instanc
 void CallableBridge::engine_call_get_object(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
 
-    raw_godot::RawObject object = native<godot::Callable>(p_handle).get_object();
+    engine::RawObject object = native<godot::Callable>(p_handle).get_object();
     transfer->write_ret(object);
 }
 
