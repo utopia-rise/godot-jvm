@@ -5,6 +5,7 @@
 #include "core/variant_allocator.h"
 #include "engine/godot_object.h"
 #include "jvm/memory/type_manager.h"
+#include "jvm/memory/variant_table.h"
 #include "logging.h"
 
 #include <classes/os.hpp>
@@ -54,59 +55,11 @@ void MemoryManager::unref_native_core_types(JNIEnv* p_raw_env, jobject, jobject 
     var_type_array.get_array_elements(env, reinterpret_cast<jint*>(variant_types.ptr()), size);
 
     for (int i = 0; i < size; ++i) {
-        uintptr_t p_raw_ptr = pointers[i];
         uint32_t var_type = variant_types[i];
+        if (unlikely(var_type >= godot::Variant::VARIANT_MAX)) { continue; }
 
-        godot::Variant::Type variant_type = static_cast<godot::Variant::Type>(var_type);
-        switch (variant_type) {
-            case godot::Variant::CALLABLE:
-                VariantAllocator::free(reinterpret_cast<godot::Callable*>(p_raw_ptr));
-                break;
-            case godot::Variant::DICTIONARY:
-                VariantAllocator::free(reinterpret_cast<godot::Dictionary*>(p_raw_ptr));
-                break;
-            case godot::Variant::ARRAY:
-                VariantAllocator::free(reinterpret_cast<godot::Array*>(p_raw_ptr));
-                break;
-            case godot::Variant::STRING_NAME:
-                VariantAllocator::free(reinterpret_cast<godot::StringName*>(p_raw_ptr));
-                break;
-            case godot::Variant::NODE_PATH:
-                VariantAllocator::free(reinterpret_cast<godot::NodePath*>(p_raw_ptr));
-                break;
-            case godot::Variant::PACKED_BYTE_ARRAY:
-                VariantAllocator::free(reinterpret_cast<godot::PackedByteArray*>(p_raw_ptr));
-                break;
-            case godot::Variant::PACKED_INT32_ARRAY:
-                VariantAllocator::free(reinterpret_cast<godot::PackedInt32Array*>(p_raw_ptr));
-                break;
-            case godot::Variant::PACKED_INT64_ARRAY:
-                VariantAllocator::free(reinterpret_cast<godot::PackedInt64Array*>(p_raw_ptr));
-                break;
-            case godot::Variant::PACKED_FLOAT32_ARRAY:
-                VariantAllocator::free(reinterpret_cast<godot::PackedFloat32Array*>(p_raw_ptr));
-                break;
-            case godot::Variant::PACKED_FLOAT64_ARRAY:
-                VariantAllocator::free(reinterpret_cast<godot::PackedFloat64Array*>(p_raw_ptr));
-                break;
-            case godot::Variant::PACKED_STRING_ARRAY:
-                VariantAllocator::free(reinterpret_cast<godot::PackedStringArray*>(p_raw_ptr));
-                break;
-            case godot::Variant::PACKED_VECTOR2_ARRAY:
-                VariantAllocator::free(reinterpret_cast<godot::PackedVector2Array*>(p_raw_ptr));
-                break;
-            case godot::Variant::PACKED_VECTOR3_ARRAY:
-                VariantAllocator::free(reinterpret_cast<godot::PackedVector3Array*>(p_raw_ptr));
-                break;
-            case godot::Variant::PACKED_VECTOR4_ARRAY:
-                VariantAllocator::free(reinterpret_cast<godot::PackedVector4Array*>(p_raw_ptr));
-                break;
-            case godot::Variant::PACKED_COLOR_ARRAY:
-                VariantAllocator::free(reinterpret_cast<godot::PackedColorArray*>(p_raw_ptr));
-                break;
-            default:
-                break;
-        }
+        // Null for a type the JVM owns no instance of, which the sweep never sends but which costs one test to ignore.
+        if (Releaser release = RELEASERS[var_type]) { release(pointers[i]); }
     }
 
     // One critical section per pool for the whole sweep, instead of one per value.
@@ -242,5 +195,3 @@ void MemoryManager::direct_object_deletion(jni::Env& p_env, godot::GodotObject* 
     wrapped.call_void_method(p_env, DELETE_OBJECT, args);
     object.destroy();
 }
-
-MemoryManager::~MemoryManager() = default;

@@ -4,12 +4,15 @@
 #include "compiler.h"
 #include "constraints.h"
 #include "core/jvm_binding_manager.h"
+#include "core/variant_allocator.h"
 #include "engine/godot_object.h"
 #include "jvm/bridge/bridges_utils.h"
 #include "jvm/memory/type_manager.h"
 #include "jvm/memory/value_buffer.h"
 #include "jvm/memory/variant_buffer.h"
 #include "jvm/memory/variant_stack.h"
+#include "jvm/memory/variant_table.h"
+#include "jvm/memory/variant_type.h"
 #include "logging.h"
 
 #include <classes/ref_counted.hpp>
@@ -227,9 +230,74 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall(JNIEnv* p_raw_env, jclass, jlong p_m
 #endif
 }
 
-// Three specialisations of the ptrcall below, for the shapes the generator can recognise from a signature. Each one
-// leaves out what its shape cannot need: no argument count on the wire, no type tag on a value both sides already
-// know, no return record for a call that returns nothing, and no argument array for a call that takes nothing.
+// Writes the handle of the allocation into the slot and has the engine write the value into the allocation.
+static void ptrcall_with_allocated_return(
+    raw_godot::RawObject p_receiver,
+    GDExtensionMethodBindPtr p_method_bind,
+    const void** p_args,
+    uint8_t* p_slot,
+    void* p_value
+) {
+    uint64_t handle = reinterpret_cast<uintptr_t>(p_value);
+    memcpy(p_slot, &handle, sizeof(handle));
+    p_receiver.ptrcall_method_bind(p_method_bind, p_args, p_value);
+}
+
+// A return that leaves only a record or a handle in the slot needs work around the call; kept out of line so the
+// fall-through below stays frameless.
+static void ptrcall_with_indirect_return(
+    raw_godot::RawObject p_receiver,
+    GDExtensionMethodBindPtr p_method_bind,
+    const void** p_args,
+    godot::Variant::Type p_return_type,
+    ReturnInto p_into,
+    uint8_t* p_slot
+) {
+    switch (p_into) {
+        case ReturnInto::OBJECT_RECORD:
+            Wire<godot::Variant::OBJECT>::prepare_return(p_slot);
+            p_receiver.ptrcall_method_bind(p_method_bind, p_args, p_slot);
+            Wire<godot::Variant::OBJECT>::finish_return(p_slot, p_return_type == REF_COUNTED_RETURN);
+            return;
+        case ReturnInto::SMALL_ALLOCATION:
+            ptrcall_with_allocated_return(
+                p_receiver,
+                p_method_bind,
+                p_args,
+                p_slot,
+                VariantAllocator::alloc_small_slot()
+            );
+            return;
+        case ReturnInto::LARGE_ALLOCATION:
+            ptrcall_with_allocated_return(
+                p_receiver,
+                p_method_bind,
+                p_args,
+                p_slot,
+                VariantAllocator::alloc_large_slot()
+            );
+            return;
+        default:
+            JVM_DEV_ASSERT(false, "A type with a custom wire format cannot be returned from a ptrcall.");
+    }
+}
+
+// Runs the ptrcall with its return landing where the format says, straight into the slot in the common case.
+static _FORCE_INLINE_ void ptrcall_with_return(
+    raw_godot::RawObject p_receiver,
+    GDExtensionMethodBindPtr p_method_bind,
+    const void** p_args,
+    godot::Variant::Type p_return_type,
+    const ReturnFormat& p_format,
+    uint8_t* p_slot
+) {
+    if (p_format.into == ReturnInto::SLOT) {
+        p_receiver.ptrcall_method_bind(p_method_bind, p_args, p_slot);
+        return;
+    }
+    ptrcall_with_indirect_return(p_receiver, p_method_bind, p_args, p_return_type, p_format.into, p_slot);
+}
+
 JVM_NO_STACK_PROTECTOR void KtObject::icall_ptr_simple(
     JNIEnv* p_raw_env,
     jclass,
@@ -264,7 +332,7 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall_ptr_setter(
     raw_godot::RawObject receiver;
     if (unlikely(!read_caller<false>(env, &frame, receiver, p_frame_offset))) { return; }
 
-    const void* arg = frame.read_only_arg(
+    const void* arg = frame.peek_arg(
         static_cast<godot::Variant::Type>(p_argument_type),
         static_cast<ptrdiff_t>(p_frame_offset) + CALLER_SIZE
     );
@@ -289,10 +357,15 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall_ptr_getter(
     raw_godot::RawObject receiver;
     if (unlikely(!read_caller<false>(env, &frame, receiver, p_frame_offset))) { return; }
 
-    frame.call_only_ret(
-        static_cast<godot::Variant::Type>(p_return_type),
-        static_cast<ptrdiff_t>(p_frame_offset) + CALLER_SIZE,
-        {receiver, reinterpret_cast<GDExtensionMethodBindPtr>(static_cast<uintptr_t>(p_method_ptr)), nullptr}
+    auto return_type = static_cast<godot::Variant::Type>(p_return_type);
+    const ReturnFormat& format = RETURN_FORMATS[return_type];
+    ptrcall_with_return(
+        receiver,
+        reinterpret_cast<GDExtensionMethodBindPtr>(static_cast<uintptr_t>(p_method_ptr)),
+        nullptr,
+        return_type,
+        format,
+        frame.at(static_cast<ptrdiff_t>(p_frame_offset) + CALLER_SIZE)
     );
 }
 
@@ -330,7 +403,9 @@ JVM_NO_STACK_PROTECTOR void KtObject::icall_ptr(
         return;
     }
 
-    frame.call_ret(static_cast<godot::Variant::Type>(p_return_type), {receiver, method_bind, args});
+    auto return_type = static_cast<godot::Variant::Type>(p_return_type);
+    const ReturnFormat& format = RETURN_FORMATS[return_type];
+    ptrcall_with_return(receiver, method_bind, args, return_type, format, frame.reserve_return(format));
 }
 
 KtObject::~KtObject() {

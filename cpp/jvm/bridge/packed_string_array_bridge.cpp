@@ -3,5 +3,3 @@
 #include "bridges_utils.h"
 
 using namespace bridges;
-
-PackedStringArrayBridge::~PackedStringArrayBridge() = default;

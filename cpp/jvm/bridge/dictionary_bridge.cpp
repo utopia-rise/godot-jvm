@@ -201,5 +201,3 @@ void DictionaryBridge::engine_call_equals(JNIEnv* p_raw_env, jobject p_instance,
     bool equal = native<godot::Dictionary>(p_handle) == other;
     transfer->write_ret(equal);
 }
-
-DictionaryBridge::~DictionaryBridge() = default;

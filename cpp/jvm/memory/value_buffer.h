@@ -1,11 +1,10 @@
 #ifndef GODOT_JVM_VALUE_BUFFER_H
 #define GODOT_JVM_VALUE_BUFFER_H
 
-#include "engine/godot_object.h"
 #include "jvm/jvm_instance_wrapper.h"
 #include "jvm/jvm_singleton_wrapper.h"
-#include "jvm/memory/buffer_wire.h"
 #include "jvm/memory/byte_cursor.h"
+#include "jvm/memory/variant_table.h"
 #include "logging.h"
 
 #include <core/defs.hpp>
@@ -30,48 +29,72 @@ JVM_SINGLETON_WRAPPER(ValueBuffer, "godot.internal.memory.ValueBuffer") {
     // clang-format on
 
 public:
-    // VARIANT_MAX is not a Variant type: the generator sends it in place of OBJECT when the engine method's declared
-    // return class is a RefCounted, meaning the engine assigns a Ref<T> into the return slot rather than a plain
-    // pointer. It is a return type like any other here - Wire<VARIANT_MAX> is the row that knows what to do with the
-    // reference the engine leaves behind - so a caller passes it straight through and this name is only the contract
-    // with the generator.
-    static constexpr int REF_COUNTED_RETURN_TYPE = godot::Variant::VARIANT_MAX;
-
     // One ptrcall's region of the buffer. Its own type so that a value buffer frame cannot be handed to the other
     // buffer; nested calls push another frame after this one.
     class Frame : public ByteCursor {
     public:
-        Frame() = default;
-
         Frame(uint8_t* p_base, int p_position = 0) : ByteCursor(p_base, p_position) {}
 
-        void read_args(uint32_t p_count, const void** r_args);
+        void read_args(uint32_t p_count, const void** r_args) {
+            const uint8_t* const base = ptr;
+            ptrdiff_t at = position;
+            for (uint32_t i = 0; i < p_count; ++i) {
+                at = (at + 7) & ~static_cast<ptrdiff_t>(7);
+                uint64_t tag;
+                memcpy(&tag, base + at, sizeof(tag));
+                at += sizeof(tag);
+                auto value_type = static_cast<godot::Variant::Type>(tag);
+                JVM_DEV_ASSERT(
+                    value_type < godot::Variant::VARIANT_MAX,
+                    "Argument %s has an invalid type tag %s.",
+                    i,
+                    value_type
+                );
 
-        // The single argument of a setter call. It carries no type tag, because the caller passed the type instead.
-        // Inline because the whole of it, for a type whose payload is the value, is one address computation; as a
-        // call it cost a prologue, a call and a return around a single add. The position never moves either: a setter
-        // frame holds nothing after its argument, so nobody reads it again.
-        _FORCE_INLINE_ const void* read_only_arg(godot::Variant::Type p_type, ptrdiff_t p_at) const {
-            if (likely(PTR_ARG_SIZES[p_type] != 0)) { return ptr + p_at; }
-
-            const void* arg;
-            PTR_ARG_READERS[p_type](ptr, p_at, &arg);
-            return arg;
+                const ArgFormat format = ARG_FORMATS[value_type];
+                r_args[i] = arg_in(base + at, format);
+                at += format.stride();
+            }
+            position = static_cast<int>(at);
         }
 
-        // Runs a call that returns a value and leaves the frame holding it. The frame decides where the return
-        // record goes, the row for the type decides where the engine writes and what has to happen around the call.
-        void call_ret(godot::Variant::Type p_type, const raw_godot::PtrCall& p_call);
-        // The same for a getter call, whose return record is at a fixed offset and carries no type tag either.
-        void call_only_ret(godot::Variant::Type p_type, ptrdiff_t p_at, const raw_godot::PtrCall& p_call);
+        _FORCE_INLINE_ const void* peek_arg(godot::Variant::Type p_type, ptrdiff_t p_at) const {
+            return arg_in(ptr + p_at, ARG_FORMATS[p_type]);
+        }
+
+        uint8_t* reserve_return(const ReturnFormat& p_format) {
+            align();
+            return reserve(p_format.slot_size);
+        }
+
+        uint8_t* at(ptrdiff_t p_at) { return ptr + p_at; }
+
+    private:
+        _FORCE_INLINE_ static const void* arg_in(const uint8_t* p_slot, ArgFormat p_format) {
+            JVM_DEV_ASSERT(
+                p_format.is_ptrcallable(),
+                "A type with a custom wire format cannot be passed to a ptrcall."
+            );
+
+            if (!p_format.is_indirect()) { return p_slot; }
+
+            uint64_t handle;
+            memcpy(&handle, p_slot, sizeof(handle));
+            return reinterpret_cast<const void*>(static_cast<uintptr_t>(handle));
+        }
     };
 
-    void set_size_factor(jni::Env& p_env, int p_factor);
+    void set_size_factor(jni::Env& p_env, int p_factor) const {
+        jvalue args[1] = {jni::to_jni_arg(p_factor)};
+        wrapped.call_void_method(p_env, SET_SIZE_FACTOR, args);
+    }
 
-    // The base address of a thread's direct buffer, which only this side can obtain. The JVM asks once per thread,
-    // when it creates that thread's stack, and then hands the address to every unchecked call: a Frame is built on
-    // the C++ stack from it, so nothing about the buffer is kept on this side at all.
-    static jlong buffer_address(JNIEnv* p_raw_env, jobject p_instance, jobject p_buffer);
+    static jlong buffer_address(JNIEnv* p_raw_env, jobject, jobject p_buffer) {
+        jni::Env env(p_raw_env);
+        jni::JObject buffer(p_buffer);
+        JVM_DEV_ASSERT(!buffer.is_null(), "Buffer is null");
+        return reinterpret_cast<jlong>(env.get_direct_buffer_address(buffer));
+    }
 };
 
 #endif // GODOT_JVM_VALUE_BUFFER_H

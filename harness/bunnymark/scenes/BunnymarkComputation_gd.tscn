@@ -5,3 +5,4 @@
 [node name="Benchmarker" instance=ExtResource("1_base")]
 benchmark = "BunnymarkComputation"
 language = "gd"
+bunnymark_expected_score = 25000

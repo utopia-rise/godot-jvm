@@ -27,5 +27,3 @@ jfloatArray PackedFloat32ArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, j
     arr.set_array_elements(env, reinterpret_cast<const jfloat*>(packed.ptr()), size);
     return reinterpret_cast<jfloatArray>(arr.get_wrapped());
 }
-
-PackedFloat32ArrayBridge::~PackedFloat32ArrayBridge() = default;

@@ -27,5 +27,3 @@ jintArray PackedInt32ArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, jobje
     arr.set_array_elements(env, reinterpret_cast<const jint*>(packed.ptr()), size);
     return reinterpret_cast<jintArray>(arr.get_wrapped());
 }
-
-PackedInt32ArrayBridge::~PackedInt32ArrayBridge() = default;

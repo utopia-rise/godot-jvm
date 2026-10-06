@@ -10,7 +10,7 @@
 // godot-cpp exposes several builtin vararg methods (Callable::call, call_deferred, bind, rpc, rpc_id, ...) only as
 // variadic templates, so a runtime-sized argument array has to be unpacked into a compile-time arity by hand.
 // `m_call` is the callee expression (e.g. `callable.call_deferred` or `result = callable.call`), `m_args` a
-// Variant array holding `m_count` elements (0 <= m_count <= MAX_FUNCTION_ARG_COUNT) and `m_case_0` the statement
+// Variant array holding `m_count` elements (0 <= m_count <= MAX_ARGUMENT_COUNT) and `m_case_0` the statement
 // to run when there are no arguments, since some callees (rpc_id) require at least one.
 #define VARIADIC_ARGS_1(a) (a)[0]
 #define VARIADIC_ARGS_2(a) VARIADIC_ARGS_1(a), (a)[1]

@@ -11,12 +11,19 @@ class BunnyData:
 var bunnies: Array[BunnyData] = []
 var gravity: float = 500.0
 var bunny_texture: Texture2D = load("res://images/godot_bunny.png") as Texture2D
-var random_number_generator: RandomNumberGenerator = RandomNumberGenerator.new()
+var spawn_random: RandomNumberGenerator = RandomNumberGenerator.new()
+# One generator for every bounce in the run, kept apart from the spawn generator so that the bounce sequence does
+# not shift when the ramp happens to spawn a different number of bunnies.
+static var bounce_random: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var screen_size: Vector2
 
 func _ready() -> void:
-	random_number_generator.randomize()
+	# Fixed seeds rather than randomize(): every run then spawns the same population and bounces it the same way,
+	# so a difference in the score is a difference in the code. Spawning and bouncing draw from separate generators
+	# so that the bounce sequence does not shift when the ramp happens to spawn a different number of bunnies.
+	spawn_random.seed = 20260921
+	bounce_random.seed = 20260922
 
 func _process(delta: float) -> void:
 	screen_size = get_viewport_rect().size
@@ -40,8 +47,8 @@ func _process(delta: float) -> void:
 
 		if pos.y > screen_size.y:
 			pos.y = screen_size.y
-			if random_number_generator.randf() > 0.5:
-				speed.y = -float(random_number_generator.randi() % 1100 + 50)
+			if bounce_random.randf() > 0.5:
+				speed.y = -float(bounce_random.randi() % 1100 + 50)
 			else:
 				speed.y *= -0.85
 
@@ -53,13 +60,17 @@ func _process(delta: float) -> void:
 		bunny.speed = speed
 
 func add_bunny() -> void:
+	# A ninety degree arc centred straight down -- +Y is down in 2D, so PI / 2 points at the floor.
+	# Angle and speed are drawn separately, so every direction gets the same range of speeds.
+	var angle: float = spawn_random.randf_range(PI * 0.25, PI * 0.75)
+	var speed: float = spawn_random.randf_range(50.0, 250.0)
 	var bunny: Sprite2D = Sprite2D.new()
 	bunny.texture = bunny_texture
 	add_child(bunny)
 	bunny.position = Vector2(screen_size.x / 2, screen_size.y / 2)
 	bunnies.append(BunnyData.new(
 		bunny,
-		Vector2(random_number_generator.randi() % 200 + 50, random_number_generator.randi() % 200 + 50)
+		Vector2(cos(angle) * speed, sin(angle) * speed)
 	))
 
 func remove_bunny() -> void:

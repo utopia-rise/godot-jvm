@@ -37,5 +37,3 @@ void LongStringQueue::send_string_to_cpp(JNIEnv* p_raw_env, jobject, jstring p_s
     const godot::String nativeString = env.from_jstring(p_string);
     queue_string(nativeString);
 }
-
-LongStringQueue::~LongStringQueue() = default;

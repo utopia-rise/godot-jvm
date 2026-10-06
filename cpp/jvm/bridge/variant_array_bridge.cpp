@@ -346,5 +346,3 @@ void VariantArrayBridge::engine_call_reduce(JNIEnv* p_raw_env, jobject, jlong p_
     godot::Variant accumulated = native<godot::Array>(p_handle).reduce(method, accum);
     transfer->write_ret(accumulated);
 }
-
-VariantArrayBridge::~VariantArrayBridge() = default;

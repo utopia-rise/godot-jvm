@@ -13,12 +13,14 @@ class Bunny : Sprite2D() {
 
 	private var grav = 500
 	private lateinit var screenSize: Vector2
-	private val randomNumberGenerator = RandomNumberGenerator()
+	// One generator per bunny, which is deliberate: this benchmark exists to measure what many small scripts cost,
+	// and an object of its own per bunny is part of that. Seeded by the spawner rather than here, with a seed of its
+	// own per bunny, because a shared seed would have every bunny bounce in exactly the same way.
+	private val bounceRandom = RandomNumberGenerator()
 
-    @Register
-    override fun _ready() {
-        randomNumberGenerator.randomize()
-    }
+	fun seedBounce(seed: Long) {
+		bounceRandom.seed = seed
+	}
 
 	@Register
 	override fun _process(delta: Double) {
@@ -43,8 +45,8 @@ class Bunny : Sprite2D() {
 
 		if (pos.y > screenSize.y) {
 			pos.y = screenSize.y
-			if (randomNumberGenerator.randf() > 0.5) {
-				sp.y = -(randomNumberGenerator.randi() % 1100 + 50).toDouble()
+			if (bounceRandom.randf() > 0.5) {
+				sp.y = -(bounceRandom.randi() % 1100 + 50).toDouble()
 			} else {
 				sp.y *= -0.85
 			}

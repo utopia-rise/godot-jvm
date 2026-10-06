@@ -5,10 +5,13 @@ var speed: Vector2 = Vector2()
 
 var gravity: float = 500.0
 var screen_size: Vector2
-var random_number_generator: RandomNumberGenerator = RandomNumberGenerator.new()
+# One generator per bunny, which is deliberate: this benchmark exists to measure what many small scripts cost, and
+# an object of its own per bunny is part of that. Seeded by the spawner rather than here, with a seed of its own per
+# bunny, because a shared seed would have every bunny bounce in exactly the same way.
+var bounce_random: RandomNumberGenerator = RandomNumberGenerator.new()
 
-func _ready() -> void:
-	random_number_generator.randomize()
+func seed_bounce(seed_value: int) -> void:
+	bounce_random.seed = seed_value
 
 func _process(delta: float) -> void:
 	screen_size = get_viewport_rect().size
@@ -30,8 +33,8 @@ func _process(delta: float) -> void:
 
 	if pos.y > screen_size.y:
 		pos.y = screen_size.y
-		if random_number_generator.randf() > 0.5:
-			sp.y = -float(random_number_generator.randi() % 1100 + 50)
+		if bounce_random.randf() > 0.5:
+			sp.y = -float(bounce_random.randi() % 1100 + 50)
 		else:
 			sp.y *= -0.85
 

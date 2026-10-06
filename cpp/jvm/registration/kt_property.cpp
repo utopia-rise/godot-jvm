@@ -71,14 +71,14 @@ void KtProperty::call_get(jni::Env& p_env, KtObject* instance, godot::Variant& r
 
     jvalue call_args[1] = {jni::to_jni_arg(instance->get_wrapped())};
     wrapped.call_void_method<false>(p_env, CALL_GET, call_args);
-    r_ret = VariantBuffer::get_transfer()->read_ret();
+    r_ret = VariantBuffer::get_transfer()->decode_ret();
 }
 
 void KtProperty::call_set(jni::Env& p_env, KtObject* instance, const godot::Variant& p_value) {
     if (instance->is_collected(p_env)) { return; }
 
     const godot::Variant* arg[1] = {&p_value};
-    VariantBuffer::get_transfer()->write_args(arg, 1);
+    VariantBuffer::get_transfer()->encode_args(arg, 1);
     jvalue args[1] = {jni::to_jni_arg(instance->get_wrapped())};
     wrapped.call_void_method<false>(p_env, CALL_SET, args);
 }

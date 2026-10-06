@@ -102,5 +102,3 @@ void NodePathBridge::engine_call_equals(JNIEnv* p_raw_env, jobject p_instance, j
     bool equal = native<NodePath>(p_handle) == other;
     transfer->write_ret(equal);
 }
-
-NodePathBridge::~NodePathBridge() = default;

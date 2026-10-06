@@ -330,5 +330,3 @@ jbyteArray PackedByteArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, jobje
     arr.set_array_elements(env, reinterpret_cast<const jbyte*>(packed.ptr()), size);
     return reinterpret_cast<jbyteArray>(arr.get_wrapped());
 }
-
-PackedByteArrayBridge::~PackedByteArrayBridge() = default;

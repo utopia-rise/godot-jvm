@@ -21,7 +21,7 @@ public:                                                                     \
 protected:                                                                  \
     explicit NAME(jni::Env& p_env, jni::JObject p_wrapped) :                \
         JvmSingletonWrapper<NAME, NAME##QualifiedName>(p_env, p_wrapped) {} \
-    ~NAME();
+    ~NAME() = default;
 
 /**
  * JvmSingletonWrapper CRTP. Inherits from JvmInstanceWrapper CRTP.

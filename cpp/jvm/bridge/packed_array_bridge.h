@@ -104,7 +104,7 @@ public:                                                                         
 protected:                                                                              \
     explicit NAME(jni::Env& p_env, jni::JObject p_wrapped) :                            \
         PackedArrayBridge<NAME, ELEMENT_TYPE, NAME##QualifiedName>(p_env, p_wrapped) {} \
-    ~NAME();
+    ~NAME() = default;
 
 namespace bridges {
 

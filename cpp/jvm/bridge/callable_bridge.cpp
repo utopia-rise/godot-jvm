@@ -94,8 +94,8 @@ uintptr_t CallableBridge::engine_call_copy_constructor(JNIEnv* p_raw_env, jobjec
 void CallableBridge::engine_call_bind(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
 
-    godot::Variant args[MAX_FUNCTION_ARG_COUNT];
-    uint32_t args_size = transfer->read_args(args);
+    godot::Variant args[MAX_ARGUMENT_COUNT];
+    uint32_t args_size = transfer->decode_args(args);
 
     const godot::Callable& callable = native<godot::Callable>(p_handle);
     godot::Variant result;
@@ -106,8 +106,8 @@ void CallableBridge::engine_call_bind(JNIEnv* p_raw_env, jobject p_instance, jlo
 void CallableBridge::engine_call_call(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
 
-    godot::Variant args[MAX_FUNCTION_ARG_COUNT];
-    uint32_t args_size = transfer->read_args(args);
+    godot::Variant args[MAX_ARGUMENT_COUNT];
+    uint32_t args_size = transfer->decode_args(args);
 
     const godot::Callable& callable = native<godot::Callable>(p_handle);
     godot::Variant result;
@@ -118,8 +118,8 @@ void CallableBridge::engine_call_call(JNIEnv* p_raw_env, jobject p_instance, jlo
 void CallableBridge::engine_call_call_deferred(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
 
-    godot::Variant args[MAX_FUNCTION_ARG_COUNT];
-    uint32_t args_size = transfer->read_args(args);
+    godot::Variant args[MAX_ARGUMENT_COUNT];
+    uint32_t args_size = transfer->decode_args(args);
 
     const godot::Callable& callable = native<godot::Callable>(p_handle);
     CALL_VARIADIC(args_size, args, callable.call_deferred);
@@ -198,8 +198,8 @@ void CallableBridge::engine_call_is_valid(JNIEnv* p_raw_env, jobject p_instance,
 void CallableBridge::engine_call_rpc(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
 
-    godot::Variant args[MAX_FUNCTION_ARG_COUNT];
-    uint32_t args_size = transfer->read_args(args);
+    godot::Variant args[MAX_ARGUMENT_COUNT];
+    uint32_t args_size = transfer->decode_args(args);
 
     const godot::Callable& callable = native<godot::Callable>(p_handle);
     CALL_VARIADIC(args_size, args, callable.rpc);
@@ -208,8 +208,8 @@ void CallableBridge::engine_call_rpc(JNIEnv* p_raw_env, jobject p_instance, jlon
 void CallableBridge::engine_call_rpc_id(JNIEnv* p_raw_env, jobject p_instance, jlong p_handle) {
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
 
-    godot::Variant args[MAX_FUNCTION_ARG_COUNT];
-    uint32_t args_size = transfer->read_args(args);
+    godot::Variant args[MAX_ARGUMENT_COUNT];
+    uint32_t args_size = transfer->decode_args(args);
 
     const godot::Callable& callable = native<godot::Callable>(p_handle);
     // args[0] is the peer id (Variant converts to int64_t implicitly); the rest are the RPC arguments.
@@ -223,5 +223,3 @@ void CallableBridge::engine_call_unbind(JNIEnv* p_raw_env, jobject p_instance, j
     godot::Callable unbound = native<godot::Callable>(p_handle).unbind(argcount);
     transfer->write_ret(unbound);
 }
-
-CallableBridge::~CallableBridge() = default;

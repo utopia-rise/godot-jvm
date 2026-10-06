@@ -55,5 +55,3 @@ godot::String GodotPrintBridge::get_jvm_stacktrace(jni::Env& p_env) {
     str.delete_local_ref(p_env);
     return ret;
 }
-
-GodotPrintBridge::~GodotPrintBridge() = default;

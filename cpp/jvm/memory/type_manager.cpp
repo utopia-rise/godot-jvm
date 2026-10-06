@@ -84,5 +84,3 @@ uintptr_t TypeManager::get_method_bind_ptr(
 
     return reinterpret_cast<uintptr_t>(bind);
 }
-
-TypeManager::~TypeManager() = default;

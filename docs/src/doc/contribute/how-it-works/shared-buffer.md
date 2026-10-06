@@ -49,6 +49,28 @@ Because the data only has to survive until it is decoded, this buffer can carry 
 strings. It is sized for a single call: the maximum number of arguments, each at the size of the largest kind of
 value, which is a string at the inline limit.
 
+Unlike the value buffer, this one does keep a native cursor per thread, and that cursor has to stay **trivially
+constructible and trivially destructible**. A `thread_local` of such a type is zero-initialised; one that needs code
+to run before first use, or after last use, makes the compiler guard every access to that storage with a flag check
+and a call to `__dyn_tls_on_demand_init`, on a path taken millions of times a second. Leaving the members without initialisers is
+what keeps the defaulted constructor trivial, and declaring the variable `constinit` with no initialiser is what turns
+a later member initialiser into a build failure rather than a quietly restored guard. MSVC rejects every other form
+there: `= {}`, a `constexpr` constructor, member initialisers, in a header or in a `.cpp`.
+
+Clangd reports that declaration as *"variable does not have a constant initializer"*, because it wants a `constexpr`
+constructor where MSVC wants a trivial one, and a defaulted constructor cannot be both — `constexpr` has to initialise
+every member, trivial has to initialise none. The form every compiler this project builds with accepts is the one that
+wins. `jni::Env` has the same shape and the same diagnostic.
+
+Per-thread state that has to be *freed* cannot meet that bar, because freeing is a destructor. The checked path's
+scratch stack of `Variant`s is that case: too large to give every thread, so a thread allocates it on its first
+checked call and must release it when it ends. `ThreadOwned<T>` in `cpp/jvm/memory/thread_owned.h` keeps the two
+halves in two thread-locals — a `constinit` bare pointer that every access reads with no guard, and an empty object
+touched only by the once-per-thread allocation, which exists solely so that a destructor runs at thread exit. Giving
+the pointer the destructor instead measured at 37 instructions and two tests per access against 8 and one, and a
+pointer with no destructor was the only form that matched, by leaking the stack of every thread that ever made a
+checked call.
+
 ## The value buffer
 
 The mental model is a call stack. Each unchecked engine call in flight on a thread owns a frame, pushed and popped
@@ -177,8 +199,8 @@ reference count that something must eventually release. The bytes are the same e
 way to ask a method binding what it returns, so the declared type from Godot's API description is the only source of
 truth.
 
-The native side therefore treats the ordinal as a return type of its own, with its own row in the wire table rather
-than a flag its callers act on. That row starts the slot zeroed, because assigning a `Ref` releases whatever the slot
+The native side therefore treats the ordinal as a return type of its own, carried as one extra entry in the return
+format table past the last real type rather than as a flag its callers act on. That return starts the slot zeroed, because assigning a `Ref` releases whatever the slot
 held before; binds the returned object to the JVM, which takes the JVM's own reference the first time it sees it; and
 then releases the engine's reference, standing in for the destructor of the `Ref` local that never existed. The two
 references have different owners and different release points — the JVM drops its own when the wrapper is collected —
@@ -187,6 +209,25 @@ count once per call and never free it.
 
 Both sides derive this sentinel from `TYPE_MAX` rather than hardcoding it, so a new `Variant` type in a future Godot
 release moves them together, and the generator fails the build if its own ordinal table and Godot's disagree.
+
+## Where a ptrcall writes its return
+
+The destination of a ptrcall's return is one of the call's parameters, so it has to be chosen before the engine runs,
+and the right choice depends on what the JVM expects to find in the slot afterwards:
+
+| Return | Engine writes | JVM expects in the slot | Destination |
+|---|---|---|---|
+| Inline — `Vector3`, `int`, `Color`… | the value's bytes | the value's bytes | the slot itself |
+| Pointer — `Array`, `Dictionary`, `StringName`… | the native instance | the address of an instance it now owns | an allocation from the native pool, whose address is written into the slot before the call |
+| Object — `Object`, `Ref<T>` | a bare pointer | a 16-byte record of pointer and `ObjectID` | the slot, zeroed first; the record is built from the pointer after the call |
+
+The frame only reserves the slot, at the size the return format gives. Choosing the destination and making the call is
+the entry point's job, in `cpp/jvm/registration/kt_object.cpp`: a force-inlined decision keeps the inline case a
+straight fall-through into the engine and sends the other two to an out-of-line function, and the object case's
+before and after live on the `Object` row of `variant_type.h`, as the one part of it that is knowledge about that
+type. No other file makes a ptrcall. An earlier design had the frame make the call through a small functor so that it
+could pick the destination itself; moving the call out removed the functor and the three stores that built it on
+every unchecked call.
 
 ## Strings
 
@@ -230,11 +271,69 @@ native pointer alone.
 | Dictionary, Array | 27, 28 | 8-byte native pointer; element converters come from the JVM declaration, never from the engine's typed builtin |
 | Packed arrays | 29 to 38 | 8-byte native pointer |
 
-Mathematical values use their native component layout. Integer components are 4 bytes; real-valued components follow
-the build's precision. The JVM and native converters must agree on that layout.
+Mathematical values use their native component layout, with 4-byte components throughout. The JVM side writes real
+components as 32-bit floats unconditionally, so the binding assumes a single-precision engine build; a
+double-precision one would have the two sides disagree on the width of every real-valued type.
 
-One row per type defines this format in `cpp/jvm/memory/buffer_wire.h`, and each buffer builds its dispatch tables
-from those rows, so a type is described in exactly one place for both buffers and both directions.
+One row per type defines this format in `cpp/jvm/memory/variant_type.h`, and that file is the only place a type is
+declared. A row states which C++ type carries the value, its *shape* — written inline in the engine's own layout,
+carried as a pointer to an instance the JVM owns, carried as an engine object, or none of those — and whether the JVM
+owns a native instance of it.
+
+Those last two are separate facts, not one. A shape says whether a value can cross a ptrcall; ownership says whether
+the sweep has to free an instance. `Callable` is the type that separates them: it never crosses a ptrcall, yet the JVM
+allocates one. `Signal` is the opposite case and shows why the distinction is worth stating, since it allocates the
+`StringName` it pairs with the object and never a `Signal`.
+
+Everything else is derived, in `cpp/jvm/memory/variant_table.h`, as five tables indexed by the ordinal the JVM sends:
+the argument formats the value buffer walks and the return formats an unchecked call picks its destination from,
+the decoder and encoder pairs the variant buffer dispatches
+through, and the releasers the sweep calls. Neither buffer knows the other; all five read the same rows. Adding a type
+is one line, and a type whose shape cannot describe it fails to compile until it supplies a codec of its own.
+
+## How a ptrcall reads its arguments
+
+An unchecked call gives the engine an array of `void*`, one per argument, each pointing at that argument in the
+layout the engine expects. Turning the frame's bytes into that array is the only per-argument work the native side
+does, so it is worth following closely.
+
+A frame for `draw_texture(Texture2D, Vector2, Color)` looks like this:
+
+| Offset | Contents |
+|---|---|
+| 0 | Caller pointer |
+| 8 | Caller ObjectID |
+| 16 | Argument count, padded to a 24-byte header |
+| 24 | Tag: Object |
+| 32 | Texture2D pointer |
+| 40 | Tag: Vector2 |
+| 48 | x, y |
+| 56 | Tag: Color |
+| 64 | r, g, b, a |
+
+Each row answers two questions about its type.
+
+**How far does the payload reach?** The *stride*. Reading the tag at 24 puts the payload at 32, and the next tag
+begins at 40, so Object's stride is 8. It is called a stride rather than a size because for a type held natively it
+measures the handle in the frame, not the value behind it: a `Dictionary` argument has a stride of 8 however large
+the dictionary is.
+
+**Is the payload the value, or its address?** A `Vector2` payload is the value, so the engine is handed where it
+lies. A `Dictionary` payload is a pointer to an instance on the native heap, so the engine is handed what the slot
+holds. Those are the only two forms a `void*` argument can have, and a type's shape decides which one it takes.
+
+Which shape a type uses follows from how the JVM holds it. Mathematical values and numbers are plain JVM data and are
+written straight into the frame in the engine's layout. Containers, strings names, node paths and packed arrays are
+JVM wrappers around a native instance, so only the pointer crosses.
+
+`Object` is the exception worth remembering: it is held natively, yet its shape is direct. A ptrcall taking an object
+parameter expects a pointer *to a slot holding* the object pointer, and the frame already holds that pointer, so the
+slot's own address is what the engine wants.
+
+Both answers share one 32-bit word per type, `ArgFormat`: the stride in the low bits, the indirect bit in the top
+one. Reading an argument needs both, so packing them means a single table and a single load, and no call through a
+per-type function. Its indirect test reads the sign bit rather than masking, which is what lets the compiler fold it
+into one compare against the table entry.
 
 ## Value copies
 

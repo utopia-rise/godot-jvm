@@ -48,12 +48,12 @@ void KtFunction::invoke(
     if (instance->is_collected(p_env)) { return; }
 
     VariantBuffer::Transfer* transfer = VariantBuffer::get_transfer();
-    transfer->write_args(p_args, args_count);
+    transfer->encode_args(p_args, args_count);
     jvalue call_args[1] = {jni::to_jni_arg(instance->get_wrapped())};
 
     if (has_return_value) {
         jni::JObject ret = wrapped.call_object_method<false>(p_env, INVOKE_WITH_RETURN, call_args);
-        r_ret = transfer->read_ret();
+        r_ret = transfer->decode_ret();
         ret.delete_local_ref(p_env);
     } else {
         wrapped.call_void_method<false>(p_env, INVOKE, call_args);

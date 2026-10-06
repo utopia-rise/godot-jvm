@@ -32,5 +32,3 @@ void StringNameBridge::engine_call_operator_string(JNIEnv* p_raw_env, jobject, j
     godot::String string = godot::String(native<godot::StringName>(p_handle));
     transfer->write_ret(string);
 }
-
-StringNameBridge::~StringNameBridge() = default;

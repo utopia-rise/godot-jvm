@@ -27,5 +27,3 @@ jdoubleArray PackedFloat64ArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, 
     arr.set_array_elements(env, reinterpret_cast<const jdouble*>(packed.ptr()), size);
     return reinterpret_cast<jdoubleArray>(arr.get_wrapped());
 }
-
-PackedFloat64ArrayBridge::~PackedFloat64ArrayBridge() = default;

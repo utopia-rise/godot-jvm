@@ -4,8 +4,6 @@
 
 using namespace bridges;
 
-PackedVector4ArrayBridge::~PackedVector4ArrayBridge() = default;
-
 uintptr_t PackedVector4ArrayBridge::engine_convert_to_godot(JNIEnv* p_raw_env, jobject, jfloatArray p_array) {
     jni::Env env(p_raw_env);
     jni::JFloatArray arr(p_array);

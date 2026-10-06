@@ -4,8 +4,6 @@
 
 using namespace bridges;
 
-PackedColorArrayBridge::~PackedColorArrayBridge() = default;
-
 uintptr_t PackedColorArrayBridge::engine_convert_to_godot(JNIEnv* p_raw_env, jobject p_instance, jfloatArray p_array) {
     jni::Env env(p_raw_env);
     jni::JFloatArray arr(p_array);

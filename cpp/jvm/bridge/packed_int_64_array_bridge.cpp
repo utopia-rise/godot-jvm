@@ -27,5 +27,3 @@ jlongArray PackedInt64ArrayBridge::engine_convert_to_jvm(JNIEnv* p_raw_env, jobj
     arr.set_array_elements(env, reinterpret_cast<const jlong*>(packed.ptr()), size);
     return reinterpret_cast<jlongArray>(arr.get_wrapped());
 }
-
-PackedInt64ArrayBridge::~PackedInt64ArrayBridge() = default;

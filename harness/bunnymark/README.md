@@ -22,7 +22,7 @@ All numbers are bunnies rendered at a stable 60 fps from a release export of thi
 | BunnymarkSprites      | 47400                    | 33100          | 67100  | 54800        |
 | BunnymarkDrawTexture  | 82400                    | 50300          | 261489 | 198040       |
 | BunnymarkScripts      | 20300                    | 34800          | 52300  | 36600        |
-| BunnymarkComputation  | n/a                      | n/a            | n/a    | n/a          |
+| BunnymarkComputation  | n/a                      | 25496          | n/a    | 108793       |
 
 ### BunnymarkScripts
 
@@ -49,8 +49,8 @@ give an offset, the offset becomes a distance and an angle, a third wave perturb
 position again. That is seven transcendental operations per bunny per frame, against none in the other benchmarks.
 
 Nothing crosses the engine boundary inside the loop, so this one says little about the binding and a lot about the
-language runtime's floating-point throughput. It was added after the table above was measured and has no published
-numbers yet.
+language runtime's floating-point throughput. It was added after the rest of the table was measured, so its row carries only the two figures that have been
+re-run since: the mean of three release runs each for GDScript and Kotlin.
 
 ### Hardware:
 

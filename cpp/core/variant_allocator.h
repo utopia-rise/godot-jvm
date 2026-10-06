@@ -5,6 +5,7 @@
 
 #include <cstring>
 #include <templates/local_vector.hpp>
+#include <utility>
 #include <variant/variant.hpp>
 
 class VariantAllocator {
@@ -55,21 +56,24 @@ public:
         bucket_large.configure(4096);
     }
 
+    static constexpr size_t SMALL_SLOT_SIZE = sizeof(BucketSmall);
+    static constexpr size_t MAX_SLOT_SIZE = sizeof(BucketLarge);
+
     // An empty slot for the engine to assign a returned value into, zeroed rather than constructed: every type held
     // here is a handle on shared data whose assignment releases whatever the slot held first, and reads a null handle
     // as holding nothing, while default construction would allocate that data only for the assignment to drop it.
-    template<typename T>
-    static T* alloc_slot() {
-        static_assert(sizeof(T) <= sizeof(BucketLarge), "Variant doesn't fit inside the VariantAllocator");
+    // One entry point per bucket rather than one taking a size, so that the caller picks the bucket from what it
+    // already knows about the type and neither the choice nor the zeroing costs a runtime test here.
+    static void* alloc_small_slot() {
+        void* ret = bucket_small.alloc();
+        memset(ret, 0, sizeof(BucketSmall));
+        return ret;
+    }
 
-        void* ret;
-        if constexpr (sizeof(T) <= sizeof(BucketSmall)) {
-            ret = bucket_small.alloc();
-        } else {
-            ret = bucket_large.alloc();
-        }
-        memset(ret, 0, sizeof(T));
-        return static_cast<T*>(ret);
+    static void* alloc_large_slot() {
+        void* ret = bucket_large.alloc();
+        memset(ret, 0, sizeof(BucketLarge));
+        return ret;
     }
 
     template<typename T>
@@ -82,7 +86,7 @@ public:
         } else {
             ret = reinterpret_cast<T*>(bucket_large.alloc());
         }
-        memnew_placement(ret, T(variant));
+        memnew_placement(ret, T(std::move(variant)));
         return ret;
     }
 
